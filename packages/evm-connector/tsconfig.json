@@ -2,11 +2,15 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dist",
     "declaration": true
   },
-  "include": ["./scripts", "./test", "./typechain"],
+  "include": ["./src", "./test", "./typechain-types"],
   "files": ["./hardhat.config.ts"]
 }
