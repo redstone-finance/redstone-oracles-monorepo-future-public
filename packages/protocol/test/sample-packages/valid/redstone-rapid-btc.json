@@ -1,0 +1,7 @@
+{
+  "timestampMilliseconds": 1654105216794,
+  "provider": "zYqPZuALSPa_f5Agvf8g2JHv94cqMn9aBtnH7GFHbuA",
+  "signature": "0xa3ec9a8c8faff1e40ab1ecfd8c8cdcc4ee714a509062ed4921da94d45b9aee6e78b1419a2a2d42dfe26fd31a3fe71326739fbea63350c57a6ab44cfe979284b11c",
+  "dataPoints": [{ "symbol": "BTC", "value": 30193.730000000003 }],
+  "signer": "0xf786a909D559F5Dee2dc6706d8e5A81728a39aE9"
+}
