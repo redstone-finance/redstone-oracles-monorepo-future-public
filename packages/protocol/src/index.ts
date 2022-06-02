@@ -68,6 +68,23 @@ export const serializeUnsignedDataPackageToHexString = (
   return data;
 };
 
+export const serializeSignedDataPackageToHexString = (
+  signedDataPackage: SignedDataPackage
+) => {
+  const valuesAndTimestampSerialized = serializeUnsignedDataPackageToHexString(
+    signedDataPackage as DataPackage
+  );
+  const dataPointsCountSerialized = signedDataPackage.dataPoints.length
+    .toString(16)
+    .padStart(2, "0");
+  const signatureSerialized = signedDataPackage.signature.replace("0x", "");
+  return (
+    valuesAndTimestampSerialized +
+    dataPointsCountSerialized +
+    signatureSerialized
+  );
+};
+
 const serializeNumericValue = (value: number) => Math.round(value * 10 ** 8);
 
 const convertStringToBytes32String = (str: string) => {

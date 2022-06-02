@@ -1,6 +1,5 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import get42 from "redstone-sdk";
 
 describe("Greeter", function () {
   it("Should return the new greeting once it's changed", async function () {
@@ -16,7 +15,5 @@ describe("Greeter", function () {
     await setGreetingTx.wait();
 
     expect(await greeter.greet()).to.equal("Hola, mundo!");
-
-    expect(get42()).to.equal(42);
   });
 });
