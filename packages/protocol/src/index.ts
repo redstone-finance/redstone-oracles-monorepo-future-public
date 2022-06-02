@@ -76,7 +76,7 @@ export const serializeSignedDataPackageToHexString = (
   );
   const dataPointsCountSerialized = signedDataPackage.dataPoints.length
     .toString(16)
-    .padStart(2, "0");
+    .padStart(4, "0");
   const signatureSerialized = signedDataPackage.signature.replace("0x", "");
   return (
     valuesAndTimestampSerialized +

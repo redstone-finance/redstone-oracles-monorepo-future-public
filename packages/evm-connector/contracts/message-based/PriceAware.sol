@@ -66,7 +66,7 @@ abstract contract PriceAware {
     // [origina_call_data| ?]{[[symbol | 32][value | 32] | n times][timestamp | 32]}[size | 1][signature | 65]
 
     // 1. First we extract dataSize - the number of data items (symbol,value pairs) in the message
-    uint8 dataSize; //Number of data entries
+    uint16 dataSize; // Number of data points
     assembly {
       // Calldataload loads slots of 32 bytes
       // The last 65 bytes are for signature
@@ -76,7 +76,7 @@ abstract contract PriceAware {
 
     // 2. We calculate the size of signable message expressed in bytes
     // ((symbolLen(32) + valueLen(32)) * dataSize + timeStamp length
-    uint16 messageLength = uint16(dataSize) * 64 + 32; //Length of data message in bytes
+    uint16 messageLength = dataSize * 64 + 32; // Length of data message in bytes
 
     // 3. We extract the signableMessage
 
@@ -87,10 +87,10 @@ abstract contract PriceAware {
     assembly {
       signableMessage := mload(0x40)
       mstore(signableMessage, messageLength)
-      // The starting point is callDataSize minus length of data(messageLength), signature(65) and size(1) = 66
+      // The starting point is callDataSize minus length of data(messageLength), signature(65) and size(2) = 67
       calldatacopy(
         add(signableMessage, 0x20),
-        sub(calldatasize(), add(messageLength, 66)),
+        sub(calldatasize(), add(messageLength, 67)),
         messageLength
       )
       mstore(0x40, add(signableMessage, 0x20))
@@ -149,7 +149,7 @@ abstract contract PriceAware {
 
     // We iterate directly through call data to extract the values for symbols
     assembly {
-      let start := sub(calldatasize(), add(messageLength, 66))
+      let start := sub(calldatasize(), add(messageLength, 67))
 
       values := msize()
       mstore(values, mload(symbols))

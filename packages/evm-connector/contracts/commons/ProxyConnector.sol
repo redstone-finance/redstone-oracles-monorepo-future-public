@@ -50,7 +50,7 @@ library ProxyConnector {
     uint16 redstonePayloadBytesCount = uint16(dataSymbolsCount) *
       64 +
       32 +
-      1 +
+      2 +
       65; // datapoints + timestamp + data size + signature
 
     uint256 encodedFunctionBytesCount = encodedFunction.length;
