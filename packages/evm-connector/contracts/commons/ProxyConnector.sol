@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.2;
+pragma solidity ^0.8.4;
 
 library ProxyConnector {
-
-  function proxyCalldata(address contractAddress, bytes memory encodedFunction, bool forwardValue) internal returns (bytes memory) {
+  function proxyCalldata(
+    address contractAddress,
+    bytes memory encodedFunction,
+    bool forwardValue
+  ) internal returns (bytes memory) {
     bool success;
     bytes memory result;
     bytes memory message = prepareMessage(encodedFunction);
@@ -17,13 +20,20 @@ library ProxyConnector {
     return prepareReturnValue(success, result);
   }
 
-  function proxyCalldataView(address contractAddress, bytes memory encodedFunction) internal view returns (bytes memory) {
+  function proxyCalldataView(
+    address contractAddress,
+    bytes memory encodedFunction
+  ) internal view returns (bytes memory) {
     bytes memory message = prepareMessage(encodedFunction);
     (bool success, bytes memory result) = contractAddress.staticcall(message);
     return prepareReturnValue(success, result);
   }
 
-  function prepareMessage(bytes memory encodedFunction) private pure returns (bytes memory) {
+  function prepareMessage(bytes memory encodedFunction)
+    private
+    pure
+    returns (bytes memory)
+  {
     uint8 dataSymbolsCount;
 
     // calldatasize - whole calldata size
@@ -37,7 +47,11 @@ library ProxyConnector {
       dataSymbolsCount := calldataload(sub(calldatasize(), 97))
     }
 
-    uint16 redstonePayloadBytesCount = uint16(dataSymbolsCount) * 64 + 32 + 1 + 65; // datapoints + timestamp + data size + signature
+    uint16 redstonePayloadBytesCount = uint16(dataSymbolsCount) *
+      64 +
+      32 +
+      1 +
+      65; // datapoints + timestamp + data size + signature
 
     uint256 encodedFunctionBytesCount = encodedFunction.length;
 
@@ -54,7 +68,11 @@ library ProxyConnector {
       )
 
       // Copy function and its arguments byte by byte
-      for { i := 0 } lt(i, encodedFunctionBytesCount) { i := add(i, 1) } {
+      for {
+        i := 0
+      } lt(i, encodedFunctionBytesCount) {
+        i := add(i, 1)
+      } {
         mstore(
           add(add(0x20, message), mul(0x20, i)), // address
           mload(add(add(0x20, encodedFunction), mul(0x20, i))) // byte to copy
@@ -71,13 +89,24 @@ library ProxyConnector {
       // Update first free memory pointer
       mstore(
         0x40,
-        add(add(message, add(redstonePayloadBytesCount, encodedFunctionBytesCount)), 0x20 /* 0x20 == 32 - message length size that is stored in the beginning of the message bytes */))
+        add(
+          add(
+            message,
+            add(redstonePayloadBytesCount, encodedFunctionBytesCount)
+          ),
+          0x20 /* 0x20 == 32 - message length size that is stored in the beginning of the message bytes */
+        )
+      )
     }
 
     return message;
   }
 
-  function prepareReturnValue(bool success, bytes memory result) internal pure returns (bytes memory) {
+  function prepareReturnValue(bool success, bytes memory result)
+    internal
+    pure
+    returns (bytes memory)
+  {
     if (!success) {
       if (result.length > 0) {
         assembly {

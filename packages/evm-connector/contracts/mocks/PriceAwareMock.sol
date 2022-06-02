@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.2;
+pragma solidity ^0.8.4;
 
 import "../message-based/PriceAware.sol";
 
-contract SamplePriceAwareWithMockData is PriceAware {
+contract PriceAwareMock is PriceAware {
   function isSignerAuthorized(address _receviedSigner)
     public
     view
@@ -16,7 +16,14 @@ contract SamplePriceAwareWithMockData is PriceAware {
     return _receviedSigner == 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
   }
 
-  function getEthPriceSecurely() public view returns (uint256) {
-    return getPriceFromMsg(bytes32("ETH"));
+  function isTimestampValid(uint256 _receivedTimestamp)
+    public
+    view
+    virtual
+    override
+    returns (bool)
+  {
+    _receivedTimestamp;
+    return true;
   }
 }

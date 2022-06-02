@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.2;
+pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./PriceAware.sol";
 
 contract PriceAwareUpgradeable is PriceAware, OwnableUpgradeable {
-
   address private trustedSigner;
 
   function __PriceAware_init() internal initializer {}
@@ -18,7 +17,13 @@ contract PriceAwareUpgradeable is PriceAware, OwnableUpgradeable {
     emit TrustedSignerChanged(trustedSigner);
   }
 
-  function isSignerAuthorized(address _receviedSigner) public override virtual view returns (bool) {
+  function isSignerAuthorized(address _receviedSigner)
+    public
+    view
+    virtual
+    override
+    returns (bool)
+  {
     return _receviedSigner == trustedSigner;
   }
 
@@ -29,5 +34,4 @@ contract PriceAwareUpgradeable is PriceAware, OwnableUpgradeable {
    * @param newSigner the address of the new signer
    **/
   event TrustedSignerChanged(address indexed newSigner);
-
 }

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.2;
+pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
@@ -12,17 +12,26 @@ abstract contract PriceAware {
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
-  function getMaxDataTimestampDelay() public virtual view returns (uint256) {
+  function getMaxDataTimestampDelay() public view virtual returns (uint256) {
     return _MAX_DATA_TIMESTAMP_DELAY;
   }
 
-  function getMaxBlockTimestampDelay() public virtual view returns (uint256) {
+  function getMaxBlockTimestampDelay() public view virtual returns (uint256) {
     return _MAX_BLOCK_TIMESTAMP_DELAY;
   }
 
-  function isSignerAuthorized(address _receviedSigner) public virtual view returns (bool);
+  function isSignerAuthorized(address _receviedSigner)
+    public
+    view
+    virtual
+    returns (bool);
 
-  function isTimestampValid(uint256 _receivedTimestamp) public virtual view returns (bool) {
+  function isTimestampValid(uint256 _receivedTimestamp)
+    public
+    view
+    virtual
+    returns (bool)
+  {
     // Getting data timestamp from future seems quite unlikely
     // But we've already spent too much time with different cases
     // Where block.timestamp was less than dataPackage.timestamp.
@@ -31,19 +40,27 @@ abstract contract PriceAware {
     // and allow data "from future" but with a small delay
     require(
       (block.timestamp + getMaxBlockTimestampDelay()) > _receivedTimestamp,
-      "Data with future timestamps is not allowed");
+      "Data with future timestamps is not allowed"
+    );
 
-    return block.timestamp < _receivedTimestamp
-      || block.timestamp - _receivedTimestamp < getMaxDataTimestampDelay();
+    return
+      block.timestamp < _receivedTimestamp ||
+      block.timestamp - _receivedTimestamp < getMaxDataTimestampDelay();
   }
 
   /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
 
-  function getPriceFromMsg(bytes32 symbol) internal view returns (uint256) {bytes32[] memory symbols = new bytes32[](1); symbols[0] = symbol;
+  function getPriceFromMsg(bytes32 symbol) internal view returns (uint256) {
+    bytes32[] memory symbols = new bytes32[](1);
+    symbols[0] = symbol;
     return getPricesFromMsg(symbols)[0];
   }
 
-  function getPricesFromMsg(bytes32[] memory symbols) internal view returns (uint256[] memory) {
+  function getPricesFromMsg(bytes32[] memory symbols)
+    internal
+    view
+    returns (uint256[] memory)
+  {
     // The structure of calldata witn n - data items:
     // The data that is signed (symbols, values, timestamp) are inside the {} brackets
     // [origina_call_data| ?]{[[symbol | 32][value | 32] | n times][timestamp | 32]}[size | 1][signature | 65]
@@ -119,7 +136,11 @@ abstract contract PriceAware {
     return _readFromCallData(symbols, uint256(dataSize), messageLength);
   }
 
-  function _readFromCallData(bytes32[] memory symbols, uint256 dataSize, uint16 messageLength) private pure returns (uint256[] memory) {
+  function _readFromCallData(
+    bytes32[] memory symbols,
+    uint256 dataSize,
+    uint16 messageLength
+  ) private pure returns (uint256[] memory) {
     uint256[] memory values;
     uint256 i;
     uint256 j;
@@ -134,10 +155,18 @@ abstract contract PriceAware {
       mstore(values, mload(symbols))
       mstore(0x40, add(add(values, 0x20), mul(mload(symbols), 0x20)))
 
-      for { i := 0 } lt(i, dataSize) { i := add(i, 1) } {
+      for {
+        i := 0
+      } lt(i, dataSize) {
+        i := add(i, 1)
+      } {
         currentSymbol := calldataload(add(start, mul(i, 64)))
 
-        for { j := 0 } lt(j, mload(symbols)) { j := add(j, 1) } {
+        for {
+          j := 0
+        } lt(j, mload(symbols)) {
+          j := add(j, 1)
+        } {
           if eq(mload(add(add(symbols, 32), mul(j, 32))), currentSymbol) {
             mstore(
               add(add(values, 32), mul(j, 32)),
