@@ -1,46 +1,74 @@
-# Advanced Sample Hardhat Project
+# redstone-evm-connector
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+## Plan for the on-chain aggregation support
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
+### Pseudo code
 
-Try running some of the following tasks:
+```js
+// Bytes structure: <DataPackage[]:?b><DataPackagesCount:2b>
+// DataPackage: <SymbolValueData[]:(n * 64)b><Timestamp:32b><Size(n):2b><Signature:65b> - same as in current version
+// SymbolValueData: <Symbol:32b><Value:32b> - same as in current version
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-npx hardhat help
-REPORT_GAS=true npx hardhat test
-npx hardhat coverage
-npx hardhat run scripts/deploy.ts
-TS_NODE_FILES=true npx ts-node scripts/deploy.ts
-npx eslint '**/*.{js,ts}'
-npx eslint '**/*.{js,ts}' --fix
-npx prettier '**/*.{json,sol,md}' --check
-npx prettier '**/*.{json,sol,md}' --write
-npx solhint 'contracts/**/*.sol'
-npx solhint 'contracts/**/*.sol' --fix
+function getOracleValueFromTxMsg(symbol: string) {
+  return getOracleValuesFromTxMsg([symbol])[0];
+}
+
+function getOracleValuesFromTxMsg(symbols: string[SYM_COUNT]): uin256[] {
+  assertUniqueSymbols(symbols);
+
+  // Initial variables
+  const initialBytesAppendix = extractInitialBytesAppendix();
+  let bytesOffset = 0;
+
+  // Extract dataPackagesCount
+  const dataPackagesCount: uint16 = extractLast2Bytes(initialBytesAppendix);
+  bytesOffset += 2;
+
+  // Extract details for each data package
+  for (
+    let dataPackageIndex = 0;
+    dataPackageIndex < dataPackagesCount;
+    dataPackagesCount++
+  ) {
+    const { signature, dataPackageBytesSize, dataPoints, timestamp } =
+      parseDataPackage(initialBytesAppendix, offset);
+    offset += dataPackageBytesSize;
+    assertValidTimestamp(timestamp);
+    const signer = verifySignatureAndReturnSigner(signature);
+    assertAuthorisedSigner(signer);
+
+    // ? may be replaces with the exact number if we know the number of required signers upfront
+    const countedSignersForSymbols: address[?][SYM_COUNT] = initArray();
+    const resultValuesBeforeAggregation: uint256[?][SYM_COUNT] = initResultArrayOfArrays();
+
+    for (const (symbol, symbolIndex) of symbols) {
+      for (const dataPoint of dataPoints) {
+        if (dataPoint.symbol === symbol) {
+          const currentSignerWasNotCountedForCurrentSymbol = true; // TODO: it can be done in a loop
+
+          if (currentSignerWasNotCountedForCurrentSymbol) {
+            resultValuesBeforeAggregation[symbolIndex].push(dataPoint.value);
+            countedSignersForSymbols[symbolIndex].push(signer);
+          }
+        }
+      }
+    }
+
+
+    // On-chain aggregation
+    const resultValues: uint256[];
+    for (const resultValuesArray of resultValuesBeforeAggregation) {
+      assertEnoughValuesFromUniqueProviders(resultValuesArray);
+      resultValues.push(calculateMedian(resultValuesArray));
+    }
+
+    return resultValues;
+  }
+}
+
+// TODO: implement
+function calculateMedian(values: uint256) {
+  // TODO: sort etc.
+  return value[1];
+}
 ```
-
-# Etherscan verification
-
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
-
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
-
-```shell
-hardhat run --network ropsten scripts/deploy.ts
-```
-
-Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
-
-```shell
-npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
-```
-
-# Performance optimizations
-
-For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
