@@ -10,7 +10,7 @@ const TIMESTAMP_FOR_TESTS = 1654353400000;
 describe("SamplePriceAwareMock", function () {
   let contract: SamplePriceAwareMock;
 
-  it("Should properly deploy contract", async function () {
+  this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
       "SamplePriceAwareMock"
     );
@@ -42,25 +42,25 @@ describe("SamplePriceAwareMock", function () {
   // });
 
   // TODO: fix it for dataPointsCount > 1023
-  // it("Should properly execute transaction with a big dataPackage (2k data points)", async () => {
-  //   // Prepare data points
-  //   const dataPoints = [{ symbol: "ETH", value: 42 }];
-  //   for (let i = 0; i < 2000; i++) {
-  //     dataPoints.push({
-  //       symbol: "SYMBOL_" + i,
-  //       value: i,
-  //     });
-  //   }
+  it("Should properly execute transaction with a big dataPackage (30k data points)", async () => {
+    // Prepare data points
+    const dataPoints = [{ symbol: "ETH", value: 42 }];
+    for (let i = 0; i < 30000; i++) {
+      dataPoints.push({
+        symbol: "SYMBOL" + i,
+        value: i,
+      });
+    }
 
-  //   const wrappedContract = WrapperBuilder.wrap(contract).usingMockData({
-  //     timestampMilliseconds: TIMESTAMP_FOR_TESTS,
-  //     dataPoints,
-  //   });
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData({
+      timestampMilliseconds: TIMESTAMP_FOR_TESTS,
+      dataPoints,
+    });
 
-  //   const tx = await wrappedContract.saveLatestEthPriceInStorage();
-  //   await tx.wait();
+    const tx = await wrappedContract.saveLatestEthPriceInStorage();
+    await tx.wait();
 
-  //   const latestEthPriceFromContract = await contract.latestEthPrice();
-  //   expect(latestEthPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(42);
-  // });
+    const latestEthPriceFromContract = await contract.latestEthPrice();
+    expect(latestEthPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(42);
+  });
 });

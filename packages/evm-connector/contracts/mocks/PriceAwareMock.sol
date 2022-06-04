@@ -30,6 +30,7 @@ contract PriceAwareMock is PriceAware {
     override
     returns (bool)
   {
+    // console.log("Received timestamp", _receivedTimestamp);
     _receivedTimestamp;
     return true;
   }

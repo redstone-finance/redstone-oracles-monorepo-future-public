@@ -20,6 +20,7 @@ abstract contract PriceAware {
   uint256 constant SIGNATURE_BYTES_COUNT = 65;
   uint256 constant DATAPOINTS_NUMBER_BYTES_COUNT = 2;
   uint256 constant DATAPOINTS_NUMBER_AND_SIGNATURE_BYTES_COUNT = 67; // 65 + 2
+  uint256 constant TIMESTAMP_CALLDATA_OFFSET = 99; // 65 (signature) + 2 (datapoints number) + 32 (slot size)
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
@@ -101,7 +102,7 @@ abstract contract PriceAware {
     // 2. Calculating the size of signed message expressed in bytes
     // ((symbolLen(32) + valueLen(32)) * dataSize + timestamp bytes size
     // uint16 signedMessageBytesCount = dataPointsCount * 64 + 32; // <- previous version
-    uint256 signedMessageBytesCount = dataPointsCount * 64 + 32;
+    uint256 signedMessageBytesCount = uint256(dataPointsCount) * 64 + 32;
 
     // 3. We extract the signedMessage
     // High level equivalent below (1.2k gas more expensive)
@@ -218,13 +219,16 @@ abstract contract PriceAware {
     require(isSignerAuthorized(signer), "Signer not authorized");
 
     // 7. We extract timestamp from callData
-
     uint256 dataTimestamp;
     assembly {
-      // Calldataload loads slots of 32 bytes
-      // The last 65 bytes are for signature + 1 for data size
-      // We load the previous 32 bytes
-      dataTimestamp := calldataload(sub(calldatasize(), 98))
+      // V1 (5 gas more expensice)
+      // let timestampStartIndex := sub(calldatasize(), TIMESTAMP_CALLDATA_OFFSET)
+      // dataTimestamp := calldataload(timestampStartIndex)
+
+      // V2 (5 gas cheaper)
+      dataTimestamp := calldataload(
+        sub(calldatasize(), TIMESTAMP_CALLDATA_OFFSET)
+      )
     }
 
     // 8. We validate timestamp
