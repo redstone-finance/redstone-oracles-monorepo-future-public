@@ -10,10 +10,8 @@ abstract contract PriceAware {
 
   // Constants for better readablity of the assembly code
   // BS - Bytes size
-  // CD - Calldata
-  // PTR - pointer (memory location)
+  // PTR - Pointer (memory location)
   // SIG - Signature
-  // TIME - Timestamp
   // DP - Data point
   // DP_NUMBER - Number of data points
   uint256 constant CALLDATA_SLOT_BS = 32;
