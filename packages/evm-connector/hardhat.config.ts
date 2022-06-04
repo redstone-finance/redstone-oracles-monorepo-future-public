@@ -10,11 +10,10 @@ const config: HardhatUserConfig = {
   solidity: {
     version: "0.8.4",
     settings: {
-      // TODO: check these settings
-      // optimizer: {
-      //   enabled: true,
-      //   runs: 200,
-      // },
+      optimizer: {
+        enabled: true,
+        runs: 10000, // it slightly increases gas for contract deployment but decreases for transactions
+      },
     },
   },
   gasReporter: {

@@ -41,7 +41,6 @@ describe("SamplePriceAwareMock", function () {
   //   expect(result.div(10 ** 8).toNumber()).to.be.equal(43);
   // });
 
-  // TODO: fix it for dataPointsCount > 1023
   it("Should properly execute transaction with a big dataPackage (30k data points)", async () => {
     // Prepare data points
     const dataPoints = [{ symbol: "ETH", value: 42 }];

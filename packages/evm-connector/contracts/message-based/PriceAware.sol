@@ -15,12 +15,23 @@ abstract contract PriceAware {
   uint256 constant _MAX_BLOCK_TIMESTAMP_DELAY = 15; // 15 seconds
 
   // Constants for better readablity of the assembly code
-  uint256 constant CALLDATA_SLOT_BYTES_COUNT = 32;
-  uint256 constant NEXT_FREE_MEMORY_POINTER_LOCATION = 0x40;
-  uint256 constant SIGNATURE_BYTES_COUNT = 65;
-  uint256 constant DATAPOINTS_NUMBER_BYTES_COUNT = 2;
-  uint256 constant DATAPOINTS_NUMBER_AND_SIGNATURE_BYTES_COUNT = 67; // 65 + 2
-  uint256 constant TIMESTAMP_CALLDATA_OFFSET = 99; // 65 (signature) + 2 (datapoints number) + 32 (slot size)
+  // BS - Bytes size
+  // CD - Calldata
+  // PTR - pointer (memory location)
+  // SIG - Signature
+  // TIME - Timestamp
+  // DP - Data point
+  // DPS_CNT - Data points count
+  uint256 constant CALLDATA_SLOT_BS = 32;
+  uint256 constant FREE_MEMORY_PTR = 0x40;
+  uint256 constant SIG_BS = 65;
+  uint256 constant DPS_CNT_BS = 2;
+  uint256 constant DPS_CNT_AND_SIG_BS = 67; // 65 + 2
+  uint256 constant TIME_CALLDATA_OFFSET = 99; // 65 (signature) + 2 (datapoints number) + 32 (slot size)
+  uint256 constant DP_SYMBOL_BS = 32;
+  uint256 constant DP_VALUE_BS = 32;
+  uint256 constant BYTES_ARR_SIZE_VAR_BS = 32;
+  uint256 constant DP_SYMBOL_AND_VALUE_BS = 64;
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
@@ -32,18 +43,9 @@ abstract contract PriceAware {
     return _MAX_BLOCK_TIMESTAMP_DELAY;
   }
 
-  function isSignerAuthorized(address _receviedSigner)
-    public
-    view
-    virtual
-    returns (bool);
+  function isSignerAuthorized(address _receviedSigner) public view virtual returns (bool);
 
-  function isTimestampValid(uint256 _receivedTimestamp)
-    public
-    view
-    virtual
-    returns (bool)
-  {
+  function isTimestampValid(uint256 _receivedTimestamp) public view virtual returns (bool) {
     // Getting data timestamp from future seems quite unlikely
     // But we've already spent too much time with different cases
     // Where block.timestamp was less than dataPackage.timestamp.
@@ -68,11 +70,7 @@ abstract contract PriceAware {
     return getPricesFromMsg(symbols)[0];
   }
 
-  function getPricesFromMsg(bytes32[] memory symbols)
-    internal
-    view
-    returns (uint256[] memory)
-  {
+  function getPricesFromMsg(bytes32[] memory symbols) internal view returns (uint256[] memory) {
     // The structure of calldata witn n - data items:
     // The data that is signed (symbols, values, timestamp) are inside the {} brackets
     // [origina_call_data| ?]{[[symbol | 32][value | 32] | n times][timestamp | 32]}[size | 1][signature | 65]
@@ -91,12 +89,7 @@ abstract contract PriceAware {
       // Calldataload loads slots of 32 bytes
       // The last 65 bytes are for signature
       // We load the previous 32 bytes and automatically take the 2 least significant ones (casting to uint16)
-      dataPointsCount := calldataload(
-        sub(
-          calldatasize(),
-          add(SIGNATURE_BYTES_COUNT, CALLDATA_SLOT_BYTES_COUNT)
-        )
-      )
+      dataPointsCount := calldataload(sub(calldatasize(), add(SIG_BS, CALLDATA_SLOT_BS)))
     }
 
     // 2. Calculating the size of signed message expressed in bytes
@@ -109,43 +102,30 @@ abstract contract PriceAware {
     // TODO: verify gas improvement on the final version
     // uint256 startIndex = msg.data.length -
     //   signedMessageBytesCount -
-    //   DATAPOINTS_NUMBER_BYTES_COUNT -
-    //   SIGNATURE_BYTES_COUNT;
+    //   DPS_CNTBER_BS -
+    //   SIG_BS;
     // uint256 endIndex = msg.data.length -
-    //   DATAPOINTS_NUMBER_BYTES_COUNT -
-    //   SIGNATURE_BYTES_COUNT;
+    //   DPS_CNTBER_BS -
+    //   SIG_BS;
     // bytes memory signedMessage = msg.data[startIndex:endIndex];
 
     // Optimised assembly version
     bytes memory signedMessage;
     assembly {
-      signedMessage := mload(NEXT_FREE_MEMORY_POINTER_LOCATION)
+      signedMessage := mload(FREE_MEMORY_PTR)
       // Bytes arrays have the convention of the first 32 bytes storing the length of the bytes array (improve comment)
       mstore(signedMessage, signedMessageBytesCount)
-      // The starting point is callDataSize minus length of data(messageLength), signature(65) and size(2) = 67
-      let signedMessageBytesStartPtr := add(
-        signedMessage,
-        CALLDATA_SLOT_BYTES_COUNT
-      )
+      let signedMessageBytesStartPtr := add(signedMessage, CALLDATA_SLOT_BS)
       calldatacopy(
         signedMessageBytesStartPtr,
-        sub(
-          calldatasize(),
-          add(
-            signedMessageBytesCount,
-            DATAPOINTS_NUMBER_AND_SIGNATURE_BYTES_COUNT
-          )
-        ),
+        sub(calldatasize(), add(signedMessageBytesCount, DPS_CNT_AND_SIG_BS)),
         signedMessageBytesCount
       )
 
-      // mstore(NEXT_FREE_MEMORY_POINTER_LOCATION, signedMessageBytesPtr) // <- old version (has memory leak)
+      // mstore(FREE_MEMORY_PTR, signedMessageBytesPtr) // <- old version (has memory leak)
 
       // new version
-      mstore(
-        NEXT_FREE_MEMORY_POINTER_LOCATION,
-        add(signedMessageBytesStartPtr, signedMessageBytesCount)
-      )
+      mstore(FREE_MEMORY_PTR, add(signedMessageBytesStartPtr, signedMessageBytesCount))
     }
 
     // console.log("\nsigned message part");
@@ -171,25 +151,18 @@ abstract contract PriceAware {
 
     // High level equivalent (0.5k gas more expensive)
     // TODO: verify gas improvement on the final version
-    // uint256 signatureStartIndex = msg.data.length - SIGNATURE_BYTES_COUNT;
+    // uint256 signatureStartIndex = msg.data.length - SIG_BS;
     // uint256 signatureEndIndex = msg.data.length;
     // bytes memory signature = msg.data[signatureStartIndex:signatureEndIndex];
 
     // Optimised assembly version
     bytes memory signature;
     assembly {
-      signature := mload(NEXT_FREE_MEMORY_POINTER_LOCATION)
-      mstore(signature, SIGNATURE_BYTES_COUNT)
+      signature := mload(FREE_MEMORY_PTR)
+      mstore(signature, SIG_BS)
       let signatureBytesStartPtr := add(signature, 32)
-      calldatacopy(
-        signatureBytesStartPtr,
-        sub(calldatasize(), SIGNATURE_BYTES_COUNT),
-        SIGNATURE_BYTES_COUNT
-      )
-      mstore(
-        NEXT_FREE_MEMORY_POINTER_LOCATION,
-        add(signatureBytesStartPtr, SIGNATURE_BYTES_COUNT)
-      )
+      calldatacopy(signatureBytesStartPtr, sub(calldatasize(), SIG_BS), SIG_BS)
+      mstore(FREE_MEMORY_PTR, add(signatureBytesStartPtr, SIG_BS))
     }
 
     // TODO: remove
@@ -203,6 +176,7 @@ abstract contract PriceAware {
 
     // Alternative option for signature verification (without using openzeppelin lbrary)
     // It's 0.5k gas cheaper
+    // TODO: maybe make it more readable
     bytes32 r;
     bytes32 s;
     uint8 v;
@@ -226,76 +200,82 @@ abstract contract PriceAware {
       // dataTimestamp := calldataload(timestampStartIndex)
 
       // V2 (5 gas cheaper)
-      dataTimestamp := calldataload(
-        sub(calldatasize(), TIMESTAMP_CALLDATA_OFFSET)
-      )
+      dataTimestamp := calldataload(sub(calldatasize(), TIME_CALLDATA_OFFSET))
     }
 
     // 8. We validate timestamp
     require(isTimestampValid(dataTimestamp), "Data timestamp is invalid");
 
-    return
-      _readFromCallData(
-        symbols,
-        uint256(dataPointsCount),
-        signedMessageBytesCount
-      );
+    return _readFromCallData(symbols, uint256(dataPointsCount), signedMessageBytesCount);
   }
 
   function _readFromCallData(
     bytes32[] memory symbols,
-    uint256 dataSize,
+    uint256 dataPointsCount,
     uint256 messageLength
   ) private pure returns (uint256[] memory) {
     uint256[] memory values;
-    uint256 i;
-    uint256 j;
-    uint256 readyAssets;
-    bytes32 currentSymbol;
+    uint256 dataPointIndex;
+    uint256 symbolIndex;
+    uint256 readyAssetsCount;
 
-    // TODO: remove
-    // values = new uint256[](1);
-    // values[0] = 42 * (10**8);
-    // return values;
-
-    // We iterate directly through call data to extract the values for symbols
+    // Iterating through calldata to get variables for the requested symbols
     assembly {
-      let start := sub(calldatasize(), add(messageLength, 67))
+      let redstoneAppendixByteSize := add(messageLength, DPS_CNT_AND_SIG_BS)
+      let calldataStartIndex := sub(calldatasize(), redstoneAppendixByteSize) // start index in calldata for RedStone appendix
 
-      values := msize()
-      mstore(values, mload(symbols))
-      mstore(
-        NEXT_FREE_MEMORY_POINTER_LOCATION,
-        add(add(values, 0x20), mul(mload(symbols), 0x20))
-      )
+      // Allocating memory for the result array with values
+      values := mload(FREE_MEMORY_PTR)
+      let symbolsCount := mload(symbols)
+      mstore(values, symbolsCount)
+      let totalValuesArrayByteSize := add(BYTES_ARR_SIZE_VAR_BS, mul(symbolsCount, DP_VALUE_BS))
+      let updatedFreeMemoryPtr := add(values, totalValuesArrayByteSize)
+      mstore(FREE_MEMORY_PTR, updatedFreeMemoryPtr)
 
       for {
-        i := 0
-      } lt(i, dataSize) {
-        i := add(i, 1)
+        dataPointIndex := 0
+      } lt(dataPointIndex, dataPointsCount) {
+        dataPointIndex := add(dataPointIndex, 1)
       } {
-        currentSymbol := calldataload(add(start, mul(i, 64)))
+        let dataPointSymbol := calldataload(
+          add(calldataStartIndex, mul(dataPointIndex, DP_SYMBOL_AND_VALUE_BS))
+        )
 
         for {
-          j := 0
-        } lt(j, mload(symbols)) {
-          j := add(j, 1)
+          symbolIndex := 0
+        } lt(symbolIndex, symbolsCount) {
+          symbolIndex := add(symbolIndex, 1)
         } {
-          if eq(mload(add(add(symbols, 32), mul(j, 32))), currentSymbol) {
-            mstore(
-              add(add(values, 32), mul(j, 32)),
-              calldataload(add(add(start, mul(i, 64)), 32))
+          let currentSymbolOffset := add(BYTES_ARR_SIZE_VAR_BS, mul(symbolIndex, DP_SYMBOL_BS))
+          let currentSymbolPtr := add(symbols, currentSymbolOffset)
+          let currentSymbol := mload(currentSymbolPtr)
+
+          if eq(currentSymbol, dataPointSymbol) {
+            // Extract current value from calldata
+            let currentValue := calldataload(
+              add(
+                add(calldataStartIndex, mul(dataPointIndex, DP_SYMBOL_AND_VALUE_BS)),
+                DP_SYMBOL_BS
+              )
             )
-            readyAssets := add(readyAssets, 1)
+
+            // Save current value to the values array
+            let currentValueOffset := add(BYTES_ARR_SIZE_VAR_BS, mul(symbolIndex, DP_VALUE_BS))
+            let currentValuePtr := add(values, currentValueOffset)
+            mstore(currentValuePtr, currentValue)
+
+            // Increment counter by 1
+            readyAssetsCount := add(readyAssetsCount, 1)
           }
 
-          if eq(readyAssets, mload(symbols)) {
-            i := dataSize
+          // Breaking the loop if extracted enough symbols
+          if eq(readyAssetsCount, symbolsCount) {
+            dataPointIndex := dataPointsCount
           }
         }
       }
     }
 
-    return (values);
+    return values;
   }
 }
