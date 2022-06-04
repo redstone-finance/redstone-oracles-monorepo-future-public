@@ -4,13 +4,7 @@ pragma solidity ^0.8.4;
 
 // import "hardhat/console.sol";
 
-// import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-
-// import "../commons/BytesLib.sol";
-
 abstract contract PriceAware {
-  // using ECDSA for bytes32;
-
   uint256 constant _MAX_DATA_TIMESTAMP_DELAY = 3 * 60; // 3 minutes
   uint256 constant _MAX_BLOCK_TIMESTAMP_DELAY = 15; // 15 seconds
 
@@ -21,17 +15,22 @@ abstract contract PriceAware {
   // SIG - Signature
   // TIME - Timestamp
   // DP - Data point
-  // DPS_CNT - Data points count
+  // DP_NUMBER - Number of data points
   uint256 constant CALLDATA_SLOT_BS = 32;
   uint256 constant FREE_MEMORY_PTR = 0x40;
   uint256 constant SIG_BS = 65;
-  uint256 constant DPS_CNT_BS = 2;
-  uint256 constant DPS_CNT_AND_SIG_BS = 67; // 65 + 2
-  uint256 constant TIME_CALLDATA_OFFSET = 99; // 65 (signature) + 2 (datapoints number) + 32 (slot size)
+  uint256 constant DP_NUMBER_BS = 2;
+  uint256 constant DP_NUMBER_AND_SIG_BS = 67; // CALLDATA_SLOT_BS + DP_NUMBER_BS
+  uint256 constant TIMESTAMP_BS = 32;
+  uint256 constant TIMESTAMP_CALLDATA_OFFSET = 99; // SIG_BS + DP_NUMBER_BS + CALLDATA_SLOT_BS
   uint256 constant DP_SYMBOL_BS = 32;
   uint256 constant DP_VALUE_BS = 32;
-  uint256 constant BYTES_ARR_SIZE_VAR_BS = 32;
+  uint256 constant BYTES_ARR_LEN_VAR_BS = 32;
   uint256 constant DP_SYMBOL_AND_VALUE_BS = 64;
+  uint256 constant ECDSA_SIG_R_BS = 32;
+  uint256 constant ECDSA_SIG_S_BS = 32;
+  uint256 constant ECDSA_SIG_S_OFFSET = 64; // BYTES_ARR_LEN_VAR_BS + ECDSA_SIG_R_BS
+  uint256 constant ECDSA_SIG_V_OFFSET = 96; // BYTES_ARR_LEN_VAR_BS + ECDSA_SIG_R_BS + ECDSA_SIG_S_BS
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
@@ -75,15 +74,8 @@ abstract contract PriceAware {
     // The data that is signed (symbols, values, timestamp) are inside the {} brackets
     // [origina_call_data| ?]{[[symbol | 32][value | 32] | n times][timestamp | 32]}[size | 1][signature | 65]
 
-    // 0. Init helpful variables
-    // uint256 calldataBytesCount = msg.data.length;
-
-    // TODO: remove
-    // bytes memory copiedCalldata = copyBytes(msg.data);
-    // console.log("\nCalldata");
-    // console.logBytes(copiedCalldata);
-
     // 1. Extracting dataPointsCount - the number of data points
+
     uint16 dataPointsCount; // Number of data points
     assembly {
       // Calldataload loads slots of 32 bytes
@@ -93,19 +85,20 @@ abstract contract PriceAware {
     }
 
     // 2. Calculating the size of signed message expressed in bytes
-    // ((symbolLen(32) + valueLen(32)) * dataSize + timestamp bytes size
-    // uint16 signedMessageBytesCount = dataPointsCount * 64 + 32; // <- previous version
-    uint256 signedMessageBytesCount = uint256(dataPointsCount) * 64 + 32;
+
+    uint256 signedMessageBytesCount = uint256(dataPointsCount) *
+      DP_SYMBOL_AND_VALUE_BS +
+      TIMESTAMP_BS;
 
     // 3. We extract the signedMessage
+
     // High level equivalent below (1.2k gas more expensive)
-    // TODO: verify gas improvement on the final version
     // uint256 startIndex = msg.data.length -
     //   signedMessageBytesCount -
-    //   DPS_CNTBER_BS -
+    //   DP_NUMBERBER_BS -
     //   SIG_BS;
     // uint256 endIndex = msg.data.length -
-    //   DPS_CNTBER_BS -
+    //   DP_NUMBERBER_BS -
     //   SIG_BS;
     // bytes memory signedMessage = msg.data[startIndex:endIndex];
 
@@ -113,44 +106,35 @@ abstract contract PriceAware {
     bytes memory signedMessage;
     assembly {
       signedMessage := mload(FREE_MEMORY_PTR)
-      // Bytes arrays have the convention of the first 32 bytes storing the length of the bytes array (improve comment)
       mstore(signedMessage, signedMessageBytesCount)
       let signedMessageBytesStartPtr := add(signedMessage, CALLDATA_SLOT_BS)
       calldatacopy(
         signedMessageBytesStartPtr,
-        sub(calldatasize(), add(signedMessageBytesCount, DPS_CNT_AND_SIG_BS)),
+        sub(calldatasize(), add(signedMessageBytesCount, DP_NUMBER_AND_SIG_BS)),
         signedMessageBytesCount
       )
 
       // mstore(FREE_MEMORY_PTR, signedMessageBytesPtr) // <- old version (has memory leak)
 
-      // new version
+      // New version (without memory leak)
       mstore(FREE_MEMORY_PTR, add(signedMessageBytesStartPtr, signedMessageBytesCount))
     }
 
-    // console.log("\nsigned message part");
-    // console.log("Hehe");
-
-    // // TODO: remove
-    // console.log("\nsigned message");
-    // console.logBytes(signedMessage);
-
     // 4. We first hash the raw message and then hash it again with the prefix
-    // Following the https://github.com/ethereum/eips/issues/191 standard
 
-    // V1 - with ethereum prefix (default signMessage in ethereum)
+    // 4.V1 - with ethereum prefix (default signMessage in ethereum)
+    // More info here: https://github.com/ethereum/eips/issues/191
     // bytes32 signedMessageHash = keccak256(signedMessage);
     // bytes32 signedHash = keccak256(
     //   abi.encodePacked("\x19Ethereum Signed Message:\n32", signedMessageHash)
     // );
 
-    // V2 - without ethereum prefix (0.5k gas cheaper)
+    // 4.V2 - without ethereum prefix (0.5k gas cheaper)
     bytes32 signedHash = keccak256(signedMessage);
 
     // 5. We extract the off-chain signature from calldata
 
     // High level equivalent (0.5k gas more expensive)
-    // TODO: verify gas improvement on the final version
     // uint256 signatureStartIndex = msg.data.length - SIG_BS;
     // uint256 signatureEndIndex = msg.data.length;
     // bytes memory signature = msg.data[signatureStartIndex:signatureEndIndex];
@@ -160,53 +144,49 @@ abstract contract PriceAware {
     assembly {
       signature := mload(FREE_MEMORY_PTR)
       mstore(signature, SIG_BS)
-      let signatureBytesStartPtr := add(signature, 32)
+      let signatureBytesStartPtr := add(signature, BYTES_ARR_LEN_VAR_BS)
       calldatacopy(signatureBytesStartPtr, sub(calldatasize(), SIG_BS), SIG_BS)
       mstore(FREE_MEMORY_PTR, add(signatureBytesStartPtr, SIG_BS))
     }
 
-    // TODO: remove
-    // console.log("\nSignature");
-    // console.logBytes(signature);
-
     // 6. We verify the off-chain signature against on-chain hashed data
 
-    // Signature verification using openzeppelin library
+    // Signature verification using openzeppelin library (0.5k gas more expensive)
     // address signer = hashWithPrefix.recover(signature);
 
     // Alternative option for signature verification (without using openzeppelin lbrary)
-    // It's 0.5k gas cheaper
-    // TODO: maybe make it more readable
-    bytes32 r;
-    bytes32 s;
-    uint8 v;
-    assembly {
-      r := mload(add(signature, 32))
-      s := mload(add(signature, 64))
-      v := and(mload(add(signature, 65)), 255)
-    }
-    address signer = ecrecover(signedHash, v, r, s);
-
-    // console.log("\nSigner");
-    // console.log(signer);
+    address signer = _recoverSignerAddress(signedHash, signature);
 
     require(isSignerAuthorized(signer), "Signer not authorized");
 
     // 7. We extract timestamp from callData
     uint256 dataTimestamp;
     assembly {
-      // V1 (5 gas more expensice)
-      // let timestampStartIndex := sub(calldatasize(), TIMESTAMP_CALLDATA_OFFSET)
-      // dataTimestamp := calldataload(timestampStartIndex)
-
-      // V2 (5 gas cheaper)
-      dataTimestamp := calldataload(sub(calldatasize(), TIME_CALLDATA_OFFSET))
+      let timestampStartIndex := sub(calldatasize(), TIMESTAMP_CALLDATA_OFFSET)
+      dataTimestamp := calldataload(timestampStartIndex)
     }
 
     // 8. We validate timestamp
     require(isTimestampValid(dataTimestamp), "Data timestamp is invalid");
 
+    // 9. We extract values for the requested symbols and return them
     return _readFromCallData(symbols, uint256(dataPointsCount), signedMessageBytesCount);
+  }
+
+  function _recoverSignerAddress(bytes32 signedHash, bytes memory signature)
+    private
+    pure
+    returns (address)
+  {
+    bytes32 r;
+    bytes32 s;
+    uint8 v;
+    assembly {
+      r := mload(add(signature, BYTES_ARR_LEN_VAR_BS))
+      s := mload(add(signature, ECDSA_SIG_S_OFFSET))
+      v := byte(0, mload(add(signature, ECDSA_SIG_V_OFFSET))) // last byte of the signature memoty array
+    }
+    return ecrecover(signedHash, v, r, s);
   }
 
   function _readFromCallData(
@@ -221,21 +201,21 @@ abstract contract PriceAware {
 
     // Iterating through calldata to get variables for the requested symbols
     assembly {
-      let redstoneAppendixByteSize := add(messageLength, DPS_CNT_AND_SIG_BS)
+      let redstoneAppendixByteSize := add(messageLength, DP_NUMBER_AND_SIG_BS)
       let calldataStartIndex := sub(calldatasize(), redstoneAppendixByteSize) // start index in calldata for RedStone appendix
 
       // Allocating memory for the result array with values
       values := mload(FREE_MEMORY_PTR)
       let symbolsCount := mload(symbols)
       mstore(values, symbolsCount)
-      let totalValuesArrayByteSize := add(BYTES_ARR_SIZE_VAR_BS, mul(symbolsCount, DP_VALUE_BS))
+      let totalValuesArrayByteSize := add(BYTES_ARR_LEN_VAR_BS, mul(symbolsCount, DP_VALUE_BS))
       let updatedFreeMemoryPtr := add(values, totalValuesArrayByteSize)
       mstore(FREE_MEMORY_PTR, updatedFreeMemoryPtr)
 
       for {
         dataPointIndex := 0
       } lt(dataPointIndex, dataPointsCount) {
-        dataPointIndex := add(dataPointIndex, 1)
+        dataPointIndex := add(dataPointIndex, 1) // dataPointIndex++
       } {
         let dataPointSymbol := calldataload(
           add(calldataStartIndex, mul(dataPointIndex, DP_SYMBOL_AND_VALUE_BS))
@@ -244,9 +224,9 @@ abstract contract PriceAware {
         for {
           symbolIndex := 0
         } lt(symbolIndex, symbolsCount) {
-          symbolIndex := add(symbolIndex, 1)
+          symbolIndex := add(symbolIndex, 1) // symbolIndex++
         } {
-          let currentSymbolOffset := add(BYTES_ARR_SIZE_VAR_BS, mul(symbolIndex, DP_SYMBOL_BS))
+          let currentSymbolOffset := add(BYTES_ARR_LEN_VAR_BS, mul(symbolIndex, DP_SYMBOL_BS))
           let currentSymbolPtr := add(symbols, currentSymbolOffset)
           let currentSymbol := mload(currentSymbolPtr)
 
@@ -260,7 +240,7 @@ abstract contract PriceAware {
             )
 
             // Save current value to the values array
-            let currentValueOffset := add(BYTES_ARR_SIZE_VAR_BS, mul(symbolIndex, DP_VALUE_BS))
+            let currentValueOffset := add(BYTES_ARR_LEN_VAR_BS, mul(symbolIndex, DP_VALUE_BS))
             let currentValuePtr := add(values, currentValueOffset)
             mstore(currentValuePtr, currentValue)
 

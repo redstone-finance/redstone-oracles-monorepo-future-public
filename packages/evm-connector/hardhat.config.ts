@@ -12,7 +12,7 @@ const config: HardhatUserConfig = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 10000, // it slightly increases gas for contract deployment but decreases for transactions
+        runs: 10000, // it slightly increases gas for contract deployment but decreases for user interactions
       },
     },
   },
