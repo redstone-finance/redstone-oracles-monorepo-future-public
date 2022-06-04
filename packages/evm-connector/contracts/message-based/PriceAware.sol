@@ -268,7 +268,7 @@ abstract contract PriceAware {
             readyAssetsCount := add(readyAssetsCount, 1)
           }
 
-          // Breaking the loop if extracted enough symbols
+          // Breaking the loop after extracting enough symbols
           if eq(readyAssetsCount, symbolsCount) {
             dataPointIndex := dataPointsCount
           }
