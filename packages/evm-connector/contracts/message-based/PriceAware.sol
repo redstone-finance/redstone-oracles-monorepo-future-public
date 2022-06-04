@@ -156,15 +156,15 @@ abstract contract PriceAware {
 
     // 4. We first hash the raw message and then hash it again with the prefix
     // Following the https://github.com/ethereum/eips/issues/191 standard
-    bytes32 signedMessageHash = keccak256(signedMessage);
-    // TODO: experiment
-    bytes32 signedHash = keccak256(
-      abi.encodePacked("\x19Ethereum Signed Message:\n32", signedMessageHash)
-    );
-    // bytes32 hashWithPrefix = signedMessageHash.toEthSignedMessageHash();
-    // bytes32 hashWithPrefix = signedMessageHash;
-    // console.log("\nHash to verify");
-    // console.log(Strings.toHexString(uint256(hashWithPrefix), 32));
+
+    // V1 - with ethereum prefix (default signMessage in ethereum)
+    // bytes32 signedMessageHash = keccak256(signedMessage);
+    // bytes32 signedHash = keccak256(
+    //   abi.encodePacked("\x19Ethereum Signed Message:\n32", signedMessageHash)
+    // );
+
+    // V2 - without ethereum prefix (0.5k gas cheaper)
+    bytes32 signedHash = keccak256(signedMessage);
 
     // 5. We extract the off-chain signature from calldata
 

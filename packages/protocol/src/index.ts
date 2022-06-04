@@ -1,5 +1,17 @@
 import { ethers } from "ethers";
+import {
+  arrayify,
+  concat,
+  formatBytes32String,
+  joinSignature,
+  keccak256,
+  SigningKey,
+  toUtf8Bytes,
+} from "ethers/lib/utils";
 import sortDeepObjectArrays from "sort-deep-object-arrays";
+
+// TODO: swtich to "@noble/secp256k1" instead of ethers for signing
+// and remove Ethereum prefix
 
 export type ConvertableToBytes32 = any;
 
@@ -22,9 +34,26 @@ export const signDataPackage = async (
   privateKey: string
 ): Promise<SignedDataPackage> => {
   const dataToSignHex = getLiteDataToSign(dataPackage);
-  const dataToSignBytes = ethers.utils.arrayify(dataToSignHex);
-  const signer = new ethers.Wallet(privateKey);
-  const signature = await signer.signMessage(dataToSignBytes);
+  const dataToSignBytes = arrayify(dataToSignHex);
+
+  // V1 Old approach (with ethereum prefix) - using `signer.signMessage`
+  // const signer = new ethers.Wallet(privateKey);
+  // const signature = await signer.signMessage(dataToSignBytes);
+
+  // V2 Old approach (with ethereum prefix) - using `SigningKey`
+  // const signingKey = new SigningKey(privateKey);
+  // const prefixBytes = toUtf8Bytes("\x19Ethereum Signed Message:\n32");
+  // const dataToSignWithPrefixBytes = concat([prefixBytes, dataToSignBytes]);
+  // const hashWithPrefixHex = keccak256(dataToSignWithPrefixBytes);
+  // const hashWithPrefixBytes = arrayify(hashWithPrefixHex);
+  // const fullSignature = await signingKey.signDigest(hashWithPrefixBytes);
+  // const signature = joinSignature(fullSignature);
+
+  // V3 New approach (without ethereum prefix) - using `SigningKey`
+  const signingKey = new SigningKey(privateKey);
+  const fullSignature = signingKey.signDigest(dataToSignBytes);
+  const signature = joinSignature(fullSignature);
+
   return {
     ...dataPackage,
     signature,
@@ -44,7 +73,7 @@ export const verifyDataPackageSignature = async (
 const getLiteDataToSign = (dataPackage: DataPackage): string => {
   const serializedHexData =
     serializeUnsignedDataPackageToHexString(dataPackage);
-  return ethers.utils.keccak256("0x" + serializedHexData);
+  return keccak256("0x" + serializedHexData);
 };
 
 export const serializeUnsignedDataPackageToHexString = (
@@ -95,10 +124,10 @@ const convertStringToBytes32String = (str: string) => {
       return str;
     } else {
       // Calculate keccak hash if string is bigger than 32 bytes
-      return ethers.utils.id(str);
+      return keccak256(str);
     }
   } else {
-    return ethers.utils.formatBytes32String(str);
+    return formatBytes32String(str);
   }
 };
 
