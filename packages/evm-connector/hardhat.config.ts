@@ -7,7 +7,16 @@ import "hardhat-gas-reporter";
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.4",
+  solidity: {
+    version: "0.8.4",
+    settings: {
+      // TODO: check these settings
+      // optimizer: {
+      //   enabled: true,
+      //   runs: 200,
+      // },
+    },
+  },
   gasReporter: {
     enabled: true,
     currency: "USD",
