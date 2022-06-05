@@ -3,7 +3,6 @@
 pragma solidity ^0.8.4;
 
 import "./ContractB.sol";
-import "../../message-based/PriceAware.sol";
 import "../../commons/ProxyConnector.sol";
 
 contract ContractA {
@@ -28,11 +27,7 @@ contract ContractA {
   }
 
   // Implementation from: https://stackoverflow.com/a/63258666
-  function toUint256(bytes memory _bytes)
-    internal
-    pure
-    returns (uint256 value)
-  {
+  function toUint256(bytes memory _bytes) internal pure returns (uint256 value) {
     assembly {
       value := mload(add(_bytes, 0x20))
     }

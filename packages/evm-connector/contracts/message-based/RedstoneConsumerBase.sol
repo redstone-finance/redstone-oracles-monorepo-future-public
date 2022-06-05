@@ -4,7 +4,7 @@ pragma solidity ^0.8.4;
 
 // import "hardhat/console.sol";
 
-abstract contract PriceAware {
+abstract contract RedstoneConsumerBase {
   uint256 constant _MAX_DATA_TIMESTAMP_DELAY = 3 * 60; // 3 minutes
   uint256 constant _MAX_BLOCK_TIMESTAMP_DELAY = 15; // 15 seconds
 

@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.4;
 
-import "../mocks/PriceAwareMock.sol";
+import "../mocks/RedstoneConsumerMock.sol";
 
-contract SamplePriceAwareEvents is PriceAwareMock {
+contract SampleRedstoneConsumerEvents is RedstoneConsumerMock {
   event PriceUpdated(uint256 _ethPrice);
 
   function emitEventWithLatestEthPrice() public {

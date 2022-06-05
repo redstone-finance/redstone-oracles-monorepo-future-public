@@ -2,13 +2,11 @@
 
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "./PriceAware.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "./RedstoneConsumerBase.sol";
 
-contract PriceAwareUpgradeable is PriceAware, OwnableUpgradeable {
+contract RedstoneConsumerBaseOwnable is RedstoneConsumerBase, Ownable {
   address private trustedSigner;
-
-  function __PriceAware_init() internal initializer {}
 
   function authorizeSigner(address _trustedSigner) external onlyOwner {
     require(_trustedSigner != address(0));
@@ -17,13 +15,7 @@ contract PriceAwareUpgradeable is PriceAware, OwnableUpgradeable {
     emit TrustedSignerChanged(trustedSigner);
   }
 
-  function isSignerAuthorized(address _receviedSigner)
-    public
-    view
-    virtual
-    override
-    returns (bool)
-  {
+  function isSignerAuthorized(address _receviedSigner) public view virtual override returns (bool) {
     return _receviedSigner == trustedSigner;
   }
 

@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.4;
 
-import "../mocks/PriceAwareMock.sol";
+import "../mocks/RedstoneConsumerMock.sol";
 
-contract SamplePriceAwareMock is PriceAwareMock {
+contract SampleRedstoneConsumerMock is RedstoneConsumerMock {
   uint256 public latestEthPrice;
 
   function getEthPriceSecurely() public view returns (uint256) {

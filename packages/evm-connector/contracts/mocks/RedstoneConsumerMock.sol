@@ -3,16 +3,10 @@
 pragma solidity ^0.8.4;
 
 // import "hardhat/console.sol";
-import "../message-based/PriceAware.sol";
+import "../message-based/RedstoneConsumerBase.sol";
 
-contract PriceAwareMock is PriceAware {
-  function isSignerAuthorized(address _receviedSigner)
-    public
-    view
-    virtual
-    override
-    returns (bool)
-  {
+contract RedstoneConsumerMock is RedstoneConsumerBase {
+  function isSignerAuthorized(address _receviedSigner) public view virtual override returns (bool) {
     // console.log("Received signer: ", _receviedSigner);
     // console.log(
     //   "Expected signer: ",
