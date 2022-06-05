@@ -3,6 +3,9 @@
 pragma solidity ^0.8.4;
 
 library ProxyConnector {
+  uint256 constant FREE_MEMORY_PTR = 0x40;
+  uint256 constant BYTES_ARR_LEN_VAR_BS = 32;
+
   function proxyCalldata(
     address contractAddress,
     bytes memory encodedFunction,
@@ -20,20 +23,17 @@ library ProxyConnector {
     return prepareReturnValue(success, result);
   }
 
-  function proxyCalldataView(
-    address contractAddress,
-    bytes memory encodedFunction
-  ) internal view returns (bytes memory) {
+  function proxyCalldataView(address contractAddress, bytes memory encodedFunction)
+    internal
+    view
+    returns (bytes memory)
+  {
     bytes memory message = prepareMessage(encodedFunction);
     (bool success, bytes memory result) = contractAddress.staticcall(message);
     return prepareReturnValue(success, result);
   }
 
-  function prepareMessage(bytes memory encodedFunction)
-    private
-    pure
-    returns (bytes memory)
-  {
+  function prepareMessage(bytes memory encodedFunction) private pure returns (bytes memory) {
     uint8 dataSymbolsCount;
 
     // calldatasize - whole calldata size
@@ -47,11 +47,7 @@ library ProxyConnector {
       dataSymbolsCount := calldataload(sub(calldatasize(), 97))
     }
 
-    uint16 redstonePayloadBytesCount = uint16(dataSymbolsCount) *
-      64 +
-      32 +
-      2 +
-      65; // datapoints + timestamp + data size + signature
+    uint16 redstonePayloadBytesCount = uint16(dataSymbolsCount) * 64 + 32 + 2 + 65; // datapoints + timestamp + data size + signature
 
     uint256 encodedFunctionBytesCount = encodedFunction.length;
 
@@ -59,7 +55,7 @@ library ProxyConnector {
     bytes memory message;
 
     assembly {
-      message := mload(0x40) // sets message pointer to first free place in memory
+      message := mload(FREE_MEMORY_PTR) // sets message pointer to first free place in memory
 
       // We save length of our message (it's a standard in EVM)
       mstore(
@@ -74,27 +70,24 @@ library ProxyConnector {
         i := add(i, 1)
       } {
         mstore(
-          add(add(0x20, message), mul(0x20, i)), // address
-          mload(add(add(0x20, encodedFunction), mul(0x20, i))) // byte to copy
+          add(add(BYTES_ARR_LEN_VAR_BS, message), mul(0x20, i)), // address
+          mload(add(add(BYTES_ARR_LEN_VAR_BS, encodedFunction), mul(0x20, i))) // byte to copy
         )
       }
 
       // Copy redstone payload to the message bytes
       calldatacopy(
-        add(message, add(0x20, encodedFunctionBytesCount)), // address
+        add(message, add(BYTES_ARR_LEN_VAR_BS, encodedFunctionBytesCount)), // address
         sub(calldatasize(), redstonePayloadBytesCount), // offset
         redstonePayloadBytesCount // bytes length to copy
       )
 
       // Update first free memory pointer
       mstore(
-        0x40,
+        FREE_MEMORY_PTR,
         add(
-          add(
-            message,
-            add(redstonePayloadBytesCount, encodedFunctionBytesCount)
-          ),
-          0x20 /* 0x20 == 32 - message length size that is stored in the beginning of the message bytes */
+          add(message, add(redstonePayloadBytesCount, encodedFunctionBytesCount)),
+          BYTES_ARR_LEN_VAR_BS /* - message length size that is stored in the beginning of the message bytes */
         )
       )
     }
@@ -111,7 +104,7 @@ library ProxyConnector {
       if (result.length > 0) {
         assembly {
           let result_size := mload(result)
-          revert(add(32, result), result_size)
+          revert(add(BYTES_ARR_LEN_VAR_BS, result), result_size)
         }
       } else {
         revert("Proxy connector call failed");

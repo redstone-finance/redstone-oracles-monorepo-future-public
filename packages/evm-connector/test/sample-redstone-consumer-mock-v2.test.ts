@@ -19,7 +19,11 @@ describe("SampleRedstoneConsumerMockV2", function () {
   });
 
   it("Should properly execute transaction on RedstoneConsumerBase contract", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData({
+    // const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2({
+    //   timestampMilliseconds: TIMESTAMP_FOR_TESTS,
+    //   dataPoints: [{ symbol: "ETH", value: 42 }],
+    // });
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2({
       timestampMilliseconds: TIMESTAMP_FOR_TESTS,
       dataPoints: [{ symbol: "ETH", value: 42 }],
     });
