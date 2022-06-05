@@ -88,13 +88,13 @@ function calculateMedian(values: uint256) {
         - SymbolValueData: <Symbol:32b><Value:32b> - same as in current version
 
     - In contracts
-        - getPriceFromMsg and getPricesFromMsg should support more arguments
+        - getOracleValueFromTxMsg and getOracleValuesFromTxMsg should support more arguments
             - minSignersCount: uint16 // this requirement will apply to each requested symbol
             - maxPercentageDiff: uint8
             - new functions will iterate over each data package and count unique signers for each requested symbol. Not each data package should contain all requested symbols - it allows to pass several packages for single symbols and validate subsets of symbols for big data feeds (e.g. ETH and STX from main redstone feed)
         - we will add a new overridable function to handle aggregation logic (by default - median):
             - aggregateDataFromDifferentProviders(dataPoints: uint256[], maxPercentageDiff: uint8): uint256
-            - this function will be used inside getPricesFromMsg and getPriceFromMsg to calculate result values
+            - this function will be used inside getOracleValuesFromTxMsg and getOracleValueFromTxMsg to calculate result values
 
     - In js interface
         - We will update configuration to support fetching multiple packages with flexible data sources config format for each package

@@ -61,13 +61,17 @@ abstract contract PriceAware {
 
   /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
 
-  function getPriceFromMsg(bytes32 symbol) internal view returns (uint256) {
+  function getOracleValueFromTxMsg(bytes32 symbol) internal view returns (uint256) {
     bytes32[] memory symbols = new bytes32[](1);
     symbols[0] = symbol;
-    return getPricesFromMsg(symbols)[0];
+    return getOracleValuesFromTxMsg(symbols)[0];
   }
 
-  function getPricesFromMsg(bytes32[] memory symbols) internal view returns (uint256[] memory) {
+  function getOracleValuesFromTxMsg(bytes32[] memory symbols)
+    internal
+    view
+    returns (uint256[] memory)
+  {
     // The structure of calldata witn n - data items:
     // The data that is signed (symbols, values, timestamp) are inside the {} brackets
     // [origina_call_data| ?]{[[symbol | 32][value | 32] | n times][timestamp | 32]}[size | 1][signature | 65]

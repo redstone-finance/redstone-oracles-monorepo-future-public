@@ -8,10 +8,10 @@ contract SamplePriceAwareMock is PriceAwareMock {
   uint256 public latestEthPrice;
 
   function getEthPriceSecurely() public view returns (uint256) {
-    return getPriceFromMsg(bytes32("ETH"));
+    return getOracleValueFromTxMsg(bytes32("ETH"));
   }
 
   function saveLatestEthPriceInStorage() public {
-    latestEthPrice = getPriceFromMsg(bytes32("ETH"));
+    latestEthPrice = getOracleValueFromTxMsg(bytes32("ETH"));
   }
 }
