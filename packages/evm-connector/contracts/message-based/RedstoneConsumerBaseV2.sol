@@ -604,4 +604,16 @@ abstract contract RedstoneConsumerBaseV2 {
 
     // return values;
   }
+
+  function getNonStandardOracleValues(bytes32[] memory symbols)
+    public
+    pure
+    returns (bytes[] memory)
+  {
+    bytes[] memory result = new bytes[](2);
+    result[0] = abi.encodePacked(symbols);
+    result[1] = abi.encodePacked(symbols);
+    // revert("Not implemented");
+    return result;
+  }
 }
