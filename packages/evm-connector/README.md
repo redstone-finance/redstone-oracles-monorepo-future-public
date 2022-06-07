@@ -2,8 +2,29 @@
 
 ## EVM Asembly (yul) resources
 
-- https://docs.soliditylang.org/en/v0.8.14/assembly.html
-- https://docs.soliditylang.org/en/v0.8.14/yul.html
+- https://dlt-repo.net/storage-vs-memory-vs-stack-in-solidity-ethereum
+- https://docs.soliditylang.org/en/latest/assembly.html
+- https://docs.soliditylang.org/en/latest/yul.html
+- https://docs.soliditylang.org/en/latest/abi-spec.html
+
+## Potential problems
+
+### Stack too deep
+
+The reason is a limitation in how variables can be referenced in the EVM stack. While you can have more than 16 variables in it, once you try to reference a variable in slot 16 or higher, it will fail.
+
+- https://forum.openzeppelin.com/t/stack-too-deep-when-compiling-inline-assembly/11391/7
+- https://soliditydeveloper.com/stacktoodeep
+
+**Different solutions**
+
+1. Use an internal function (most preferred method)
+2. Make use of block scoping
+3. Utilise structs
+
+## Questions
+
+- What happens with the stack and memory when another function is being called?
 
 ## Plan for the on-chain aggregation support
 
