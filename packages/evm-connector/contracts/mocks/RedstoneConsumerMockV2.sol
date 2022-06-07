@@ -36,6 +36,8 @@ contract RedstoneConsumerMockV2 is RedstoneConsumerBaseV2 {
   {
     console.log("Received timestamp", _receivedTimestamp);
     _receivedTimestamp;
+    revert("Hahaha");
+    // require(false, "Hehehe");
     return true;
   }
 }

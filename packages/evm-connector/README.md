@@ -1,5 +1,10 @@
 # redstone-evm-connector
 
+## EVM Asembly (yul) resources
+
+- https://docs.soliditylang.org/en/v0.8.14/assembly.html
+- https://docs.soliditylang.org/en/v0.8.14/yul.html
+
 ## Plan for the on-chain aggregation support
 
 ### Pseudo code

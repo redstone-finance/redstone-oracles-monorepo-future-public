@@ -98,7 +98,7 @@ abstract contract RedstoneConsumerBaseV2 {
     uint256 calldataOffset = 0;
     uint256 symbolsLength = symbols.length;
     // address currentSigner;
-    bytes32 signedHash;
+    // bytes32 signedHash;
     // uint256 dataTimestamp;
     bytes memory signedMessage;
     // bytes memory signature;
@@ -109,9 +109,9 @@ abstract contract RedstoneConsumerBaseV2 {
     // }
 
     bool isTimestampValidResult = false;
-    bool isSignerAuthorisedResult = false;
-    console.log("isTimestampValidResult - before", isTimestampValidResult);
-    console.log("isSignerAuthorisedResult - before", isSignerAuthorisedResult);
+    // bool isSignerAuthorisedResult = false;
+    // console.log("isTimestampValidResult - before", isTimestampValidResult);
+    // console.log("isSignerAuthorisedResult - before", isSignerAuthorisedResult);
 
     // string memory invalidFuncCallInAssembly = "Invalid func call in assembly";
 
@@ -122,8 +122,29 @@ abstract contract RedstoneConsumerBaseV2 {
     //   this.isTimestampValid.selector
     // );
 
-    bytes4 isSignerAuthorizedFunctionSignature = hex"11c89b10"; // first 4 bytes of keccak256("isSignerAuthorized(address)")
+    // bytes memory aggValuesSig = abi.encodeWithSelector(this.aggregateValues.selector);
+
+    // console.logBytes(aggValuesSig);
+
+    // bytes4 isSignerAuthorizedFunctionSignature = hex"11c89b10"; // first 4 bytes of keccak256("isSignerAuthorized(address)")
     bytes4 isTimestampValidFunctionSignature = hex"75058205"; // first 4 bytes of keccak256("isTimestampValid(uint256)")
+    // bytes4 aggregateValuesFunctionsSignature = hex"b24ebfcc"; // first 4 bytes of keccak256("aggregateValues(uint256[])")
+
+    // uint256[] memory values = new uint256[](3);
+    // values[0] = 12;
+    // values[1] = 100;
+    // values[2] = 42;
+
+    // bytes memory encoded = abi.encodeWithSelector(this.aggregateValues.selector, values);
+    // console.logBytes();
+
+    bytes memory valuesPtr;
+    console.logBytes(valuesPtr);
+
+    uint256 aggregateValuesResult;
+
+    // uint256 aggregateValuesResult = aggregateValues(values);
+    // console.log("aggregateValuesResult - before", aggregateValuesResult);
 
     // bytes memory isSignerAuthorizedFunctionSignature = new bytes(4);
     // isSignerAuthorizedFunctionSignature =
@@ -131,22 +152,29 @@ abstract contract RedstoneConsumerBaseV2 {
     // console.logBytes(isSignerAuthorizedFunctionSignature);
     // console.logBytes(isTimestampValidFunctionSignature);
 
+    // Comment below is quite helpful, TODO: describe why
+    /// @solidity memory-safe-assembly
     assembly {
-      isTimestampValidResult := callViewOrPureFunction1(
+      isTimestampValidResult := staticCallWithOneArg(
         isTimestampValidFunctionSignature,
-        1654562445
+        1654562445,
+        32
       )
-      isSignerAuthorisedResult := callViewOrPureFunction1(
-        isSignerAuthorizedFunctionSignature,
-        0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-        // 0xabcFd6e51aad88F6F4ce6aB8827279cffFb92266
-      )
+      // isSignerAuthorisedResult := staticCallWithOneArg(
+      //   isSignerAuthorizedFunctionSignature,
+      //   0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+      //   // 0xabcFd6e51aad88F6F4ce6aB8827279cffFb92266
+      // )
+
+      // aggregateValuesResult := staticCallWithOneArg(aggregateValuesFunctionsSignature, values, 128)
+
+      // aggregateValuesResult := staticCallWithOneArgExpV2(encoded)
 
       // --------------------------------- Functions ---------------------------------
 
       // Inspired by: https://ethereum.stackexchange.com/a/6363
       // TODO: take a look here: https://ethereum.stackexchange.com/questions/124636/set-data-for-call-delegatecall-etc-in-yul-inline-assembly
-      function callViewOrPureFunction1(funcSignature, arg1) -> funcResult {
+      function staticCallWithOneArg(funcSignature, arg1, arg1ByteSize) -> funcResult {
         let workingMemory := mload(FREE_MEMORY_PTR)
         mstore(workingMemory, add(funcSignature, BYTES_ARR_LEN_VAR_BS))
         mstore(add(workingMemory, FUNCTION_SIGNATURE_BS), arg1)
@@ -154,7 +182,7 @@ abstract contract RedstoneConsumerBaseV2 {
         let thisContractAddr := address()
         let inputs := workingMemory
         let output := workingMemory // save func response to the same memory that we used for inputs (saves gas) // TODO: maybe it's not applicable to every function
-        let inputsByteSize := add(FUNCTION_SIGNATURE_BS, 32) // assuming that argument size is 32
+        let inputsByteSize := add(FUNCTION_SIGNATURE_BS, arg1ByteSize) // assuming that argument size is 32
 
         let success := staticcall(
           gasLeft,
@@ -165,17 +193,52 @@ abstract contract RedstoneConsumerBaseV2 {
           32 // assuming that output byte size is 32
         )
 
-        // if not(success) {
-        //   let resultSize := mload(output)
-        //   revert(add(BYTES_ARR_LEN_VAR_BS, output), resultSize)
+        if eq(success, 0) {
+          // revert(0, returndatasize()) // TODO: improve error msg forwarding
+          let errMsgPtr := mload(FREE_MEMORY_PTR)
+          returndatacopy(errMsgPtr, 0, returndatasize())
+          revert(errMsgPtr, returndatasize())
+        }
+
+        funcResult := mload(output)
+        // mstore(FREE_MEMORY_PTR, add(workingMemory, inputByteSize)) // <- looks like it's not needed
+      }
+
+      function staticCallWithOneArgExpV2(encodedWithSelector) -> funcResult {
+        let workingMemory := mload(FREE_MEMORY_PTR)
+        // mstore(workingMemory, add(funcSignature, BYTES_ARR_LEN_VAR_BS))
+        // mstore(add(workingMemory, FUNCTION_SIGNATURE_BS), arg1)
+        let gasLeft := gas()
+        let thisContractAddr := address()
+        let inputs := workingMemory
+        let output := workingMemory // save func response to the same memory that we used for inputs (saves gas) // TODO: maybe it's not applicable to every function
+        // let inputsByteSize := add(FUNCTION_SIGNATURE_BS, arg1ByteSize) // assuming that argument size is 32
+
+        let success := staticcall(
+          gasLeft,
+          thisContractAddr,
+          add(encodedWithSelector, 32),
+          mload(encodedWithSelector), // input bytes size
+          output,
+          32 // assuming that output byte size is 32
+        )
+
+        // if eq(success, 0) {
+        //   revert(0, returndatasize()) // TODO: improve error msg forwarding
         // }
 
         funcResult := mload(output)
         // mstore(FREE_MEMORY_PTR, add(workingMemory, inputByteSize)) // <- looks like it's not needed
       }
+
+      function allocate(length) -> pos {
+        pos := mload(0x40)
+        mstore(0x40, add(pos, length))
+      }
     }
     console.log("isTimestampValidResult - after", isTimestampValidResult);
-    console.log("isSignerAuthorisedResult - after", isSignerAuthorisedResult);
+    // console.log("isSignerAuthorisedResult - after", isSignerAuthorisedResult);
+    // console.log("aggregateValuesResult - after", aggregateValuesResult);
 
     assembly {
       // Allocating reusable memory for signature
@@ -217,7 +280,7 @@ abstract contract RedstoneConsumerBaseV2 {
         dataPointsCount := calldataload(sub(calldatasize(), dataPointsCountOffset))
       }
 
-      console.log("dataPointsCount:", dataPointsCount);
+      // console.log("dataPointsCount:", dataPointsCount);
 
       // 2. Calculating the size of signed message expressed in bytes
       signedMessageBytesCount = uint256(dataPointsCount) * DP_SYMBOL_AND_VALUE_BS + TIMESTAMP_BS;
@@ -260,7 +323,7 @@ abstract contract RedstoneConsumerBaseV2 {
 
       // 4. Hashing the signed message
       // bytes32 signedHash = keccak256(signedMessage);
-      signedHash = keccak256(signedMessage);
+      // signedHash = keccak256(signedMessage);
 
       // 5. Extracting the off-chain signature from calldata
       // assembly {
