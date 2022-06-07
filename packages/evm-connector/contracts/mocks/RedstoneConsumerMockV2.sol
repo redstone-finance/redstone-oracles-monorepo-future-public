@@ -34,7 +34,7 @@ contract RedstoneConsumerMockV2 is RedstoneConsumerBaseV2 {
     override
     returns (bool)
   {
-    // console.log("Received timestamp", _receivedTimestamp);
+    console.log("Received timestamp", _receivedTimestamp);
     _receivedTimestamp;
     return true;
   }

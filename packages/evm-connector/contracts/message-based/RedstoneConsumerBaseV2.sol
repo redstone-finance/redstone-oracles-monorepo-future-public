@@ -37,6 +37,10 @@ abstract contract RedstoneConsumerBaseV2 {
   uint256 constant ECDSA_SIG_S_BS = 32;
   uint256 constant ECDSA_SIG_S_OFFSET = 64; // BYTES_ARR_LEN_VAR_BS + ECDSA_SIG_R_BS
   uint256 constant ECDSA_SIG_V_OFFSET = 96; // BYTES_ARR_LEN_VAR_BS + ECDSA_SIG_R_BS + ECDSA_SIG_S_BS
+  uint256 constant FUNCTION_SIGNATURE_BS = 4;
+
+  // bytes32 constant IS_TIMESTAMP_VALID_FUNC_SIG = bytes32(0x1234);
+  // bytes32 constant IS_SIGNER_AUTHORISED_FUNC_SIG = bytes32(0x1234);
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
@@ -95,9 +99,83 @@ abstract contract RedstoneConsumerBaseV2 {
     uint256 symbolsLength = symbols.length;
     // address currentSigner;
     bytes32 signedHash;
-    uint256 dataTimestamp;
+    // uint256 dataTimestamp;
     bytes memory signedMessage;
-    bytes memory signature;
+    // bytes memory signature;
+
+    // bool isSignerAuthorizedResult;
+    // assembly {
+
+    // }
+
+    bool isTimestampValidResult = false;
+    bool isSignerAuthorisedResult = false;
+    console.log("isTimestampValidResult - before", isTimestampValidResult);
+    console.log("isSignerAuthorisedResult - before", isSignerAuthorisedResult);
+
+    // string memory invalidFuncCallInAssembly = "Invalid func call in assembly";
+
+    // bytes memory isSignerAuthorizedFunctionSignature = abi.encodeWithSelector(
+    //   this.isSignerAuthorized.selector
+    // );
+    // bytes memory isTimestampValidFunctionSignature = abi.encodeWithSelector(
+    //   this.isTimestampValid.selector
+    // );
+
+    bytes4 isSignerAuthorizedFunctionSignature = hex"11c89b10"; // first 4 bytes of keccak256("isSignerAuthorized(address)")
+    bytes4 isTimestampValidFunctionSignature = hex"75058205"; // first 4 bytes of keccak256("isTimestampValid(uint256)")
+
+    // bytes memory isSignerAuthorizedFunctionSignature = new bytes(4);
+    // isSignerAuthorizedFunctionSignature =
+
+    // console.logBytes(isSignerAuthorizedFunctionSignature);
+    // console.logBytes(isTimestampValidFunctionSignature);
+
+    assembly {
+      isTimestampValidResult := callViewOrPureFunction1(
+        isTimestampValidFunctionSignature,
+        1654562445
+      )
+      isSignerAuthorisedResult := callViewOrPureFunction1(
+        isSignerAuthorizedFunctionSignature,
+        0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+        // 0xabcFd6e51aad88F6F4ce6aB8827279cffFb92266
+      )
+
+      // --------------------------------- Functions ---------------------------------
+
+      // Inspired by: https://ethereum.stackexchange.com/a/6363
+      // TODO: take a look here: https://ethereum.stackexchange.com/questions/124636/set-data-for-call-delegatecall-etc-in-yul-inline-assembly
+      function callViewOrPureFunction1(funcSignature, arg1) -> funcResult {
+        let workingMemory := mload(FREE_MEMORY_PTR)
+        mstore(workingMemory, add(funcSignature, BYTES_ARR_LEN_VAR_BS))
+        mstore(add(workingMemory, FUNCTION_SIGNATURE_BS), arg1)
+        let gasLeft := gas()
+        let thisContractAddr := address()
+        let inputs := workingMemory
+        let output := workingMemory // save func response to the same memory that we used for inputs (saves gas) // TODO: maybe it's not applicable to every function
+        let inputsByteSize := add(FUNCTION_SIGNATURE_BS, 32) // assuming that argument size is 32
+
+        let success := staticcall(
+          gasLeft,
+          thisContractAddr,
+          inputs,
+          inputsByteSize,
+          output,
+          32 // assuming that output byte size is 32
+        )
+
+        // if not(success) {
+        //   let resultSize := mload(output)
+        //   revert(add(BYTES_ARR_LEN_VAR_BS, output), resultSize)
+        // }
+
+        funcResult := mload(output)
+        // mstore(FREE_MEMORY_PTR, add(workingMemory, inputByteSize)) // <- looks like it's not needed
+      }
+    }
+    console.log("isTimestampValidResult - after", isTimestampValidResult);
+    console.log("isSignerAuthorisedResult - after", isSignerAuthorisedResult);
 
     assembly {
       // Allocating reusable memory for signature
@@ -185,23 +263,23 @@ abstract contract RedstoneConsumerBaseV2 {
       signedHash = keccak256(signedMessage);
 
       // 5. Extracting the off-chain signature from calldata
-      assembly {
-        let signatureBytesStartPtr := add(signature, BYTES_ARR_LEN_VAR_BS)
-        let signatureOffset := add(calldataOffset, SIG_BS)
-        calldatacopy(signatureBytesStartPtr, sub(calldatasize(), signatureOffset), SIG_BS)
-      }
+      // assembly {
+      //   let signatureBytesStartPtr := add(signature, BYTES_ARR_LEN_VAR_BS)
+      //   let signatureOffset := add(calldataOffset, SIG_BS)
+      //   calldatacopy(signatureBytesStartPtr, sub(calldatasize(), signatureOffset), SIG_BS)
+      // }
 
-      // 6. Verifying the off-chain signature against on-chain hashed data
-      address signer = _recoverSignerAddress(signedHash, signature);
-      require(isSignerAuthorized(signer), "Signer not authorized");
+      // // 6. Verifying the off-chain signature against on-chain hashed data
+      // address signer = _recoverSignerAddress(signedHash, signature);
+      // require(isSignerAuthorized(signer), "Signer not authorized");
 
-      // 7. Extracting and validating timestamp of the data package
-      assembly {
-        let timestampOffset := add(calldataOffset, TIMESTAMP_CALLDATA_OFFSET)
-        let timestampStartIndex := sub(calldatasize(), timestampOffset)
-        dataTimestamp := calldataload(timestampStartIndex)
-      }
-      require(isTimestampValid(dataTimestamp), "Data timestamp is invalid");
+      // // 7. Extracting and validating timestamp of the data package
+      // assembly {
+      //   let timestampOffset := add(calldataOffset, TIMESTAMP_CALLDATA_OFFSET)
+      //   let timestampStartIndex := sub(calldatasize(), timestampOffset)
+      //   dataTimestamp := calldataload(timestampStartIndex)
+      // }
+      // require(isTimestampValid(dataTimestamp), "Data timestamp is invalid");
 
       // 8. Extracting values for the requested symbols
       // TODO: optimise gas by merging steps 8 and 9
