@@ -10,21 +10,18 @@ contract RedstoneConsumerMockV2 is RedstoneConsumerBaseV2 {
     uniqueSignersTreshold = 1;
   }
 
-  function isSignerAuthorized(address _receviedSigner) public view virtual override returns (bool) {
-    // console.log("Received signer: ", _receviedSigner);
-    // console.log(
-    //   "Expected signer: ",
-    //   0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-    // );
-
-    console.log("RedstoneConsumerMockV2 > uniqueSignersTreshold:", uniqueSignersTreshold);
-
-    // Mock signer address
-    // one comparison with address takes ~40 gas
-    return
-      _receviedSigner == 0x123Fd6E51aad88f6F4Ce6aB8827279Cfffb92264 ||
-      _receviedSigner == 0x123fd6e51AaD88F6f4Ce6Ab8827279cFffB92262 ||
-      _receviedSigner == 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266; // Valid mock address
+  function getAuthorisedSignerIndex(address _signerAddress)
+    public
+    view
+    virtual
+    override
+    returns (uint256)
+  {
+    if (_signerAddress == 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) {
+      return 0;
+    } else {
+      revert("Signer is not authorised");
+    }
   }
 
   function isTimestampValid(uint256 _receivedTimestamp)
@@ -34,10 +31,6 @@ contract RedstoneConsumerMockV2 is RedstoneConsumerBaseV2 {
     override
     returns (bool)
   {
-    console.log("Received timestamp", _receivedTimestamp);
-    _receivedTimestamp;
-    revert("Hahaha");
-    // require(false, "Hehehe");
-    return true;
+    return _receivedTimestamp > 0;
   }
 }

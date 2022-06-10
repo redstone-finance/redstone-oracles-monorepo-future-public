@@ -18,7 +18,12 @@ export class MockWrapperV2 extends BaseWrapper {
     );
     const serializedDataPackage =
       serializeSignedDataPackageToHexString(signedDataPackage);
-    const dataPackagesCount = "0002"; // 2 bytes number
-    return serializedDataPackage + serializedDataPackage + dataPackagesCount;
+    const dataPackagesCount = "0003"; // 2 bytes number
+    return (
+      serializedDataPackage +
+      serializedDataPackage +
+      serializedDataPackage +
+      dataPackagesCount
+    );
   }
 }

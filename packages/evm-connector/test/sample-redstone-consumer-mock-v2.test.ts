@@ -16,8 +16,6 @@ describe("SampleRedstoneConsumerMockV2", function () {
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
-
-    console.log(contract.functions);
   });
 
   it("Should properly execute transaction on RedstoneConsumerBase contract", async () => {
