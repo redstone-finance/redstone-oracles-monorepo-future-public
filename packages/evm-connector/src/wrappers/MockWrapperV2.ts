@@ -1,29 +1,36 @@
 import {
   DataPackage,
-  serializeSignedDataPackageToHexString,
+  serializeSignedDataPackagesToHexString,
   signDataPackage,
+  SignedDataPackage,
 } from "redstone-protocol";
-import { MOCK_PRIVATE_KEY } from "../helpers/test-utils";
+import {
+  MockSignerAddress,
+  getMockSignerPrivateKey,
+} from "../helpers/test-utils";
 import { BaseWrapper } from "./BaseWrapper";
 
+export interface MockDataPackageConfigV2 {
+  signer: MockSignerAddress;
+  dataPackage: DataPackage;
+}
+
 export class MockWrapperV2 extends BaseWrapper {
-  constructor(private mockDataPackage: DataPackage) {
+  constructor(private mockDataPackages: MockDataPackageConfigV2[]) {
     super();
   }
 
   async getBytesDataForAppending(): Promise<string> {
-    const signedDataPackage = await signDataPackage(
-      this.mockDataPackage,
-      MOCK_PRIVATE_KEY
-    );
-    const serializedDataPackage =
-      serializeSignedDataPackageToHexString(signedDataPackage);
-    const dataPackagesCount = "0003"; // 2 bytes number
-    return (
-      serializedDataPackage +
-      serializedDataPackage +
-      serializedDataPackage +
-      dataPackagesCount
-    );
+    const signedDataPackages: SignedDataPackage[] = [];
+
+    for (const mockDataPackage of this.mockDataPackages) {
+      const signedDataPackage = await signDataPackage(
+        mockDataPackage.dataPackage,
+        getMockSignerPrivateKey(mockDataPackage.signer)
+      );
+      signedDataPackages.push(signedDataPackage);
+    }
+
+    return serializeSignedDataPackagesToHexString(signedDataPackages);
   }
 }

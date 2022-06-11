@@ -23,10 +23,29 @@ describe("SampleRedstoneConsumerMockV2", function () {
     //   timestampMilliseconds: TIMESTAMP_FOR_TESTS,
     //   dataPoints: [{ symbol: "ETH", value: 42 }],
     // });
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2({
-      timestampMilliseconds: TIMESTAMP_FOR_TESTS,
-      dataPoints: [{ symbol: "ETH", value: 42 }],
-    });
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+      {
+        signer: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        dataPackage: {
+          timestampMilliseconds: TIMESTAMP_FOR_TESTS,
+          dataPoints: [{ symbol: "ETH", value: 41 }],
+        },
+      },
+      {
+        signer: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        dataPackage: {
+          timestampMilliseconds: TIMESTAMP_FOR_TESTS,
+          dataPoints: [{ symbol: "ETH", value: 43 }],
+        },
+      },
+      {
+        signer: "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+        dataPackage: {
+          timestampMilliseconds: TIMESTAMP_FOR_TESTS,
+          dataPoints: [{ symbol: "ETH", value: 42 }],
+        },
+      },
+    ]);
 
     const tx = await wrappedContract.saveLatestEthPriceInStorage();
     await tx.wait();

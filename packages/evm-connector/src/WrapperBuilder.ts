@@ -1,7 +1,10 @@
 import { Contract } from "ethers";
 import { DataPackage } from "redstone-protocol";
 import { MockWrapper } from "./wrappers/MockWrapper";
-import { MockWrapperV2 } from "./wrappers/MockWrapperV2";
+import {
+  MockDataPackageConfigV2,
+  MockWrapperV2,
+} from "./wrappers/MockWrapperV2";
 
 export class WrapperBuilder {
   constructor(private baseContract: Contract) {}
@@ -26,8 +29,8 @@ export class WrapperBuilder {
     );
   }
 
-  usingMockDataV2(mockDataPackage: DataPackage) {
-    return new MockWrapperV2(mockDataPackage).overwriteEthersContract(
+  usingMockDataV2(mockDataPackages: MockDataPackageConfigV2[]) {
+    return new MockWrapperV2(mockDataPackages).overwriteEthersContract(
       this.baseContract
     );
   }

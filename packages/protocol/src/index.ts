@@ -103,9 +103,9 @@ export const serializeSignedDataPackageToHexString = (
   const valuesAndTimestampSerialized = serializeUnsignedDataPackageToHexString(
     signedDataPackage as DataPackage
   );
-  const dataPointsCountSerialized = signedDataPackage.dataPoints.length
-    .toString(16)
-    .padStart(4, "0");
+  const dataPointsCountSerialized = serializeNumberTo2Bytes(
+    signedDataPackage.dataPoints.length
+  );
   const signatureSerialized = signedDataPackage.signature.replace("0x", "");
   return (
     valuesAndTimestampSerialized +
@@ -113,6 +113,22 @@ export const serializeSignedDataPackageToHexString = (
     signatureSerialized
   );
 };
+
+export const serializeSignedDataPackagesToHexString = (
+  signedDataPackages: SignedDataPackage[]
+) => {
+  let serializedResult = "";
+  for (const signedDataPackage of signedDataPackages) {
+    serializedResult +=
+      serializeSignedDataPackageToHexString(signedDataPackage);
+  }
+  serializedResult += serializeNumberTo2Bytes(signedDataPackages.length);
+
+  return serializedResult;
+};
+
+const serializeNumberTo2Bytes = (num: Number) =>
+  num.toString(16).padStart(4, "0");
 
 const serializeNumericValue = (value: number) => Math.round(value * 10 ** 8);
 
