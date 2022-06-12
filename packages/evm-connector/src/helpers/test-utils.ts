@@ -18,6 +18,12 @@ export const MOCK_PRIVATE_KEYS = [
   "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a",
 ];
 
+export const MOCK_SIGNERS = MOCK_PRIVATE_KEYS.map(
+  (privateKey) => new ethers.Wallet(privateKey)
+);
+
+export type MockSignerIndex = 0 | 1 | 2;
+
 export function getMockSignerPrivateKey(mockSignerAddress: MockSignerAddress) {
   for (const privateKey of MOCK_PRIVATE_KEYS) {
     const address = new ethers.Wallet(privateKey).address;

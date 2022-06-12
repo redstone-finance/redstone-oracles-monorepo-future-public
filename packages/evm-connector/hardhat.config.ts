@@ -1,4 +1,5 @@
 import { HardhatUserConfig } from "hardhat/config";
+import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";

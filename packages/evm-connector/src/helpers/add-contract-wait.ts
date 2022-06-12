@@ -2,7 +2,7 @@ import { Contract, BytesLike } from "ethers";
 import { deepCopy } from "ethers/lib/utils";
 import { TransactionResponse } from "@ethersproject/providers";
 
-// Copied from ethers.js implementation
+// Copied from ethers.js source code
 export const addContractWait = (
   contract: Contract,
   tx: TransactionResponse

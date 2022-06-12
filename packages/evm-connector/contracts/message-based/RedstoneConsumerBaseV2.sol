@@ -30,6 +30,7 @@ abstract contract RedstoneConsumerBaseV2 {
   uint256 constant TIMESTAMP_BS = 32;
   uint256 constant TIMESTAMP_CALLDATA_OFFSET = 99; // SIG_BS + DP_NUMBER_BS + STANDARD_SLOT_BS
   uint256 constant DATAPOINTS_CALLDATA_OFFSET = 99; // SIG_BS + DP_NUMBER_BS + TIMESTAMP_BS
+  uint256 constant DP_WITHOUT_DATA_POINTS_BS = 99;
   uint256 constant DP_SYMBOL_BS = 32;
   uint256 constant DP_VALUE_BS = 32;
   uint256 constant BYTES_ARR_LEN_VAR_BS = 32;
@@ -107,7 +108,10 @@ abstract contract RedstoneConsumerBaseV2 {
     view
     returns (uint256[] memory)
   {
-    assertUniqueSymbols(symbols); // TODO: maybe will be removed in future
+    // TODO: maybe we won't assert unique symbols in future
+    // because lack of this considition can only cause
+    // higher gas
+    assertUniqueSymbols(symbols);
 
     // Initializing helpful variables and allocating memory
     uint256[] memory uniqueSignerCountForSymbols = new uint256[](symbols.length);
@@ -154,6 +158,7 @@ abstract contract RedstoneConsumerBaseV2 {
     uint16 dataPointsCount;
     uint256 signerIndex;
 
+    // We use scopes to resolve problem with too deep stack
     {
       uint256 extractedTimestamp;
       bytes memory signature;
@@ -232,7 +237,7 @@ abstract contract RedstoneConsumerBaseV2 {
       signerIndex = getAuthorisedSignerIndex(signerAddress);
     }
 
-    // Updating arrays
+    // Updating helpful arrays
     {
       bytes32 dataPointSymbol;
       uint256 dataPointValue;
@@ -266,22 +271,23 @@ abstract contract RedstoneConsumerBaseV2 {
               signerIndex
             );
 
-            if (currentSignerWasNotCountedForCurrentSymbol) {
-              if (uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersTreshold) {
-                // Increase unique signer counter
-                uniqueSignerCountForSymbols[symbolIndex]++;
+            if (
+              currentSignerWasNotCountedForCurrentSymbol &&
+              uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersTreshold
+            ) {
+              // Increase unique signer counter
+              uniqueSignerCountForSymbols[symbolIndex]++;
 
-                // Add new value
-                valuesForSymbols[symbolIndex][
-                  uniqueSignerCountForSymbols[symbolIndex] - 1
-                ] = dataPointValue;
+              // Add new value
+              valuesForSymbols[symbolIndex][
+                uniqueSignerCountForSymbols[symbolIndex] - 1
+              ] = dataPointValue;
 
-                // Update signers bitmap
-                signersBitmapForSymbols[symbolIndex] = _setBitInBitmap(
-                  bitmapSignersForSymbol,
-                  signerIndex
-                );
-              }
+              // Update signers bitmap
+              signersBitmapForSymbols[symbolIndex] = _setBitInBitmap(
+                bitmapSignersForSymbol,
+                signerIndex
+              );
             }
           }
         }
@@ -289,7 +295,7 @@ abstract contract RedstoneConsumerBaseV2 {
     }
 
     // Return total data package byte size
-    return DP_NUMBER_AND_SIG_BS + TIMESTAMP_BS + DP_SYMBOL_AND_VALUE_BS * dataPointsCount;
+    return DP_WITHOUT_DATA_POINTS_BS + DP_SYMBOL_AND_VALUE_BS * dataPointsCount;
   }
 
   function _setBitInBitmap(uint256 bitmap, uint256 bitIndex)
@@ -337,7 +343,7 @@ abstract contract RedstoneConsumerBaseV2 {
   }
 
   // It is not the most efficient implementation of duplicates checking
-  // Because probably we won't use this function (in future)
+  // Because probably we won't use this function later
   function assertUniqueSymbols(bytes32[] memory symbols) public pure {
     for (uint256 i = 0; i < symbols.length; i++) {
       for (uint256 j = 0; j < i; j++) {

@@ -2,10 +2,8 @@
 
 pragma solidity ^0.8.4;
 
-// TODO:
-// - Implement quick sort with random element selection
-// - Implement quick sort in assembly
-// - Implement linear-time median finding: https://rcoh.me/posts/linear-time-median-finding/
+// TODO: Implement linear-time median finding: https://rcoh.me/posts/linear-time-median-finding/
+// TODO: Implement a function for average value calculation
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
