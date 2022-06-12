@@ -108,11 +108,6 @@ abstract contract RedstoneConsumerBaseV2 {
     view
     returns (uint256[] memory)
   {
-    // TODO: maybe we won't assert unique symbols in future
-    // because lack of this considition can only cause
-    // higher gas
-    assertUniqueSymbols(symbols);
-
     // Initializing helpful variables and allocating memory
     uint256[] memory uniqueSignerCountForSymbols = new uint256[](symbols.length);
     uint256[] memory signersBitmapForSymbols = new uint256[](symbols.length);
@@ -340,16 +335,6 @@ abstract contract RedstoneConsumerBaseV2 {
     }
 
     return aggregatedValues;
-  }
-
-  // It is not the most efficient implementation of duplicates checking
-  // Because probably we won't use this function later
-  function assertUniqueSymbols(bytes32[] memory symbols) public pure {
-    for (uint256 i = 0; i < symbols.length; i++) {
-      for (uint256 j = 0; j < i; j++) {
-        require(symbols[i] != symbols[j], "Found duplicates in symbols array");
-      }
-    }
   }
 
   function _recoverSignerAddress(bytes32 signedHash, bytes memory signature)
