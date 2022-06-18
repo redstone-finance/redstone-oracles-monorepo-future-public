@@ -1,4 +1,4 @@
-import { signDataPackage } from "../src/index";
+import { signDataPackage } from "../src/index-old";
 import goodSampleDataPackageBTC from "../test/sample-data-packages/valid/redstone-rapid-btc.json";
 import badSampleDataPackageBTC from "../test/sample-data-packages/invalid/redstone-rapid-btc-invalid-data.json";
 
