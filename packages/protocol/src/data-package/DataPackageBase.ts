@@ -1,6 +1,6 @@
 import { concat, joinSignature, keccak256, SigningKey } from "ethers/lib/utils";
 import {
-  DATA_POINTS_COUNT_BYTE_SIZE,
+  DATA_POINTS_COUNT_BS,
   DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS,
   TIMESTAMP_BYTE_SIZE,
 } from "../common/redstone-consts";
@@ -58,7 +58,7 @@ export abstract class DataPackageBase extends Serializable {
   protected serializeDataPointsCount(): Uint8Array {
     return convertIntegerNumberToBytes(
       this.dataPoints.length,
-      DATA_POINTS_COUNT_BYTE_SIZE
+      DATA_POINTS_COUNT_BS
     );
   }
 
