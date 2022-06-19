@@ -20,6 +20,9 @@ describe("Utils", () => {
     expect(hexlify(convertStringToBytes32("ETH"))).toBe(
       "0x4554480000000000000000000000000000000000000000000000000000000000"
     );
+    expect(hexlify(convertStringToBytes32("BTC"))).toBe(
+      "0x4254430000000000000000000000000000000000000000000000000000000000"
+    );
     expect(hexlify(convertStringToBytes32("Still short string"))).toBe(
       "0x5374696c6c2073686f727420737472696e670000000000000000000000000000"
     );

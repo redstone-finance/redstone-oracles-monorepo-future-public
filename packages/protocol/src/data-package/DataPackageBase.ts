@@ -1,4 +1,10 @@
-import { concat, joinSignature, keccak256, SigningKey } from "ethers/lib/utils";
+import {
+  arrayify,
+  concat,
+  joinSignature,
+  keccak256,
+  SigningKey,
+} from "ethers/lib/utils";
 import {
   DATA_POINTS_COUNT_BS,
   DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS,
@@ -31,14 +37,19 @@ export abstract class DataPackageBase extends Serializable {
     ]);
   }
 
-  ecdsaSign(privateKey: string): SignedDataPackage {
-    // Prepare hash for signing
+  getSignableHash(): Uint8Array {
     const serializedDataPackage = this.serializeToBytes();
-    const signableHash = keccak256(serializedDataPackage);
+    const signableHashHex = keccak256(serializedDataPackage);
+    return arrayify(signableHashHex);
+  }
+
+  sign(privateKey: string): SignedDataPackage {
+    // Prepare hash for signing
+    const signableHashBytes = this.getSignableHash();
 
     // Generating a signature
     const signingKey = new SigningKey(privateKey);
-    const fullSignature = signingKey.signDigest(signableHash);
+    const fullSignature = signingKey.signDigest(signableHashBytes);
 
     // Return a signed data package
     return new SignedDataPackage(this, fullSignature);
