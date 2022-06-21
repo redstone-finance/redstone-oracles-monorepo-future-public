@@ -1,5 +1,5 @@
 import { Wallet } from "ethers";
-import { computePublicKey, hexlify, splitSignature } from "ethers/lib/utils";
+import { computePublicKey, hexlify } from "ethers/lib/utils";
 import { FixedSizeDataPackage } from "../src/data-package/FixedSizeDataPackage";
 import { SignedDataPackage } from "../src/data-package/SignedDataPackage";
 import { NumericDataPoint } from "../src/data-point/NumericDataPoint";

@@ -1,4 +1,3 @@
-import { hexlify } from "ethers/lib/utils";
 import { DynamicDataPackage } from "../src/data-package/DynamicDataPackage";
 import { StringDataPoint } from "../src/data-point/StringDataPoint";
 
