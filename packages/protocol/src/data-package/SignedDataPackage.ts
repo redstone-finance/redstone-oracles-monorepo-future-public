@@ -25,8 +25,12 @@ export class SignedDataPackage extends Serializable {
     }
   }
 
-  serializeSignature(): Uint8Array {
-    return arrayify(joinSignature(this.signature));
+  serializeSignatureToBytes(): Uint8Array {
+    return arrayify(this.serializeSignatureToHex());
+  }
+
+  serializeSignatureToHex(): string {
+    return joinSignature(this.signature);
   }
 
   recoverSignerPublicKey(): Uint8Array {
@@ -43,7 +47,7 @@ export class SignedDataPackage extends Serializable {
   serializeToBytes(): Uint8Array {
     return concat([
       this.dataPackage.serializeToBytes(),
-      this.serializeSignature(),
+      this.serializeSignatureToBytes(),
     ]);
   }
 }

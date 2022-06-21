@@ -17,7 +17,7 @@ const EXPECTED_SERIALIZED_UNSIGNED_DATA_PACKAGE =
   "00000000" + // default data points byte size (0 - indicates that each data point is dynamic)
   "000002"; // data points count
 const EXPECTED_SIGNATURE =
-  "2c42f521429a43de0e2f30cdb45e9214c1be75f08f9a9c638cf7d0f237e102c71452e54e68e973e695a10db34f1447857b416c4bcf0bf4c7a3d62cd1bb7fa6941c";
+  "65336fed2d033744f466d42e9fd0b3244816ea632668df000a0623ec567c1dbb1d2fa64496742578deaf31a995b36df0ea4828345865378eb235375a9abf1f611b";
 
 describe("Fixed size data package", () => {
   let dataPackage: DynamicDataPackage;
@@ -38,7 +38,7 @@ describe("Fixed size data package", () => {
 
   test("Should sign data package", () => {
     const signedDataPackage = dataPackage.sign(PRIVATE_KEY_FOR_TESTS);
-    expect(hexlify(signedDataPackage.serializeSignature())).toBe(
+    expect(signedDataPackage.serializeSignatureToHex()).toBe(
       "0x" + EXPECTED_SIGNATURE
     );
     expect(signedDataPackage.serializeToBytesHex()).toBe(

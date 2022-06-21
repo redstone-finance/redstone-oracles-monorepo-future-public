@@ -38,7 +38,7 @@ describe("Fixed size data package", () => {
 
   test("Should sign data package", () => {
     const signedDataPackage = dataPackage.sign(PRIVATE_KEY_FOR_TESTS);
-    expect(hexlify(signedDataPackage.serializeSignature())).toBe(
+    expect(signedDataPackage.serializeSignatureToHex()).toBe(
       "0x" + EXPECTED_SIGNATURE
     );
     expect(signedDataPackage.serializeToBytesHex()).toBe(
