@@ -1,5 +1,6 @@
 import { Contract } from "ethers";
 import { DataPackage } from "redstone-protocol";
+import { MockDynamicDataPackageConfigV2 } from "./wrappers/MockDynamicWrapperV2";
 import { MockWrapper } from "./wrappers/MockWrapper";
 import {
   MockDataPackageConfigV2,
@@ -30,6 +31,12 @@ export class WrapperBuilder {
   }
 
   usingMockDataV2(mockDataPackages: MockDataPackageConfigV2[]) {
+    return new MockWrapperV2(mockDataPackages).overwriteEthersContract(
+      this.baseContract
+    );
+  }
+
+  usingMockDynamicDataV2(mockDataPackages: MockDynamicDataPackageConfigV2[]) {
     return new MockWrapperV2(mockDataPackages).overwriteEthersContract(
       this.baseContract
     );
