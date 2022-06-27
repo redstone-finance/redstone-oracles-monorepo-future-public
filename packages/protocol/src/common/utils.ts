@@ -1,11 +1,15 @@
 import {
   arrayify,
+  BytesLike,
   formatBytes32String,
+  hexlify,
   keccak256,
   parseUnits,
   toUtf8Bytes,
   zeroPad,
 } from "ethers/lib/utils";
+
+const ZERO_EX_PREFIX_LENGTH = 2; // length of string "0x"
 
 export type NumberLike = number | string;
 
@@ -50,4 +54,8 @@ export const convertIntegerNumberToBytes = (
 ): Uint8Array => {
   const decimals = 0; // 0 digits after comma
   return convertNumberToBytes(value, decimals, byteSize);
+};
+
+export const hexlifyWithout0xPrefix = (value: BytesLike): string => {
+  return hexlify(value).slice(ZERO_EX_PREFIX_LENGTH);
 };

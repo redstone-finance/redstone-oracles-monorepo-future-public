@@ -5,8 +5,16 @@ import {
   DEFAULT_NUM_VALUE_DECIMALS,
 } from "../common/redstone-consts";
 
+export interface INumericDataPoint {
+  symbol: ConvertableToBytes32;
+  value: number;
+  decimals?: number;
+  byteSize?: number;
+}
+
 // This data point does not store information about data size in its serialized value
 export class NumericDataPoint extends FixedSizeDataPoint {
+  // TODO: refactor this constructor using INumericDataPoint
   constructor(
     symbol: ConvertableToBytes32,
     value: number,

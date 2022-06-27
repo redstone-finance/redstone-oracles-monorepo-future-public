@@ -1,6 +1,10 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { DataPoint } from "redstone-protocol";
+import {
+  FixedSizeDataPackage,
+  INumericDataPoint,
+  NumericDataPoint,
+} from "redstone-protocol";
 import {
   MOCK_SIGNERS,
   MockSignerIndex,
@@ -16,18 +20,19 @@ const DEFAULT_TIMESTAMP_FOR_TESTS = 1654353400000;
 
 interface MockPackageOpts {
   mockSignerIndex: MockSignerIndex;
-  dataPoints: DataPoint[];
+  dataPoints: INumericDataPoint[];
   timestampMilliseconds?: number;
 }
 
 function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
+  const timestampMilliseconds =
+    opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
+  const dataPoints = opts.dataPoints.map(
+    (dp) => new NumericDataPoint(dp.symbol, dp.value, dp.decimals, dp.byteSize)
+  );
   return {
     signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
-    dataPackage: {
-      timestampMilliseconds:
-        opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS,
-      dataPoints: opts.dataPoints,
-    },
+    dataPackage: new FixedSizeDataPackage(dataPoints, timestampMilliseconds),
   };
 }
 

@@ -86,18 +86,17 @@ abstract contract RedstoneConsumerBaseDynamicV2 {
 
   // By default we use median aggregation
   // But you can override this function with any other aggregation logic
-  function aggregateValues(bytes[] memory values)
-    public
-    view
-    virtual
-    returns (uint256)
-  {
+  function aggregateValues(bytes[] memory values) public view virtual returns (uint256) {
     return NumericArrayLib.pickMedian(values);
   }
 
   /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
 
-  function getDynamicOracleValueFromTxMsg(bytes32 symbol) internal view returns (bytes memory) {
+  function getDynamicOracleValueFromTxMsg(bytes32 symbol)
+    internal
+    view
+    returns (bytes memory)
+  {
     bytes32[] memory symbols = new bytes32[](1);
     symbols[0] = symbol;
     return getDynamicOracleValuesFromTxMsg(symbols)[0];
@@ -238,7 +237,7 @@ abstract contract RedstoneConsumerBaseDynamicV2 {
     {
       bytes32 dataPointSymbol;
       bytes4 dataPointValueByteSize;
-      bytes dataPointValue;
+      bytes calldata dataPointValue;
       for (
         uint256 dataPointIndex = 0;
         dataPointIndex < dataPointsCount;
@@ -258,7 +257,9 @@ abstract contract RedstoneConsumerBaseDynamicV2 {
             )
           )
           dataPointSymbol := calldataload(dataPointCalldataOffset)
-          dataPointValueByteSize := calldataload(add(dataPointCalldataOffset, DP_SYMBOL_BS)) // TODO: improve
+          dataPointValueByteSize := calldataload(
+            add(dataPointCalldataOffset, DP_SYMBOL_BS)
+          ) // TODO: improve
         }
 
         // Allocating memory

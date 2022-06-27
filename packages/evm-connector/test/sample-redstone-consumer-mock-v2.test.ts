@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
+import { FixedSizeDataPackage, NumericDataPoint } from "redstone-protocol";
 import {
   MOCK_SIGNERS,
   MockSignerIndex,
@@ -16,21 +17,20 @@ const DEFAULT_SYMBOL = "ETH";
 
 interface MockPackageOpts {
   mockSignerIndex: MockSignerIndex;
-  value: any;
+  value: number;
   symbol?: string;
   timestampMilliseconds?: number;
 }
 
 function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
+  const timestampMilliseconds =
+    opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
+  const dataPoints = [
+    new NumericDataPoint(opts.symbol || DEFAULT_SYMBOL, opts.value),
+  ];
   return {
     signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
-    dataPackage: {
-      timestampMilliseconds:
-        opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS,
-      dataPoints: [
-        { symbol: opts.symbol || DEFAULT_SYMBOL, value: opts.value },
-      ],
-    },
+    dataPackage: new FixedSizeDataPackage(dataPoints, timestampMilliseconds),
   };
 }
 

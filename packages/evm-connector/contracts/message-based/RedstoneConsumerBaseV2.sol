@@ -25,12 +25,14 @@ abstract contract RedstoneConsumerBaseV2 {
   uint256 constant FREE_MEMORY_PTR = 0x40;
   uint256 constant SIG_BS = 65;
   uint256 constant DATA_PACKAGES_NUMBER_BS = 2;
-  uint256 constant DP_NUMBER_BS = 2;
+  uint256 constant DP_NUMBER_BS = 3;
   uint256 constant DP_NUMBER_AND_SIG_BS = 67; // STANDARD_SLOT_BS + DP_NUMBER_BS
-  uint256 constant TIMESTAMP_BS = 32;
-  uint256 constant TIMESTAMP_CALLDATA_OFFSET = 99; // SIG_BS + DP_NUMBER_BS + STANDARD_SLOT_BS
-  uint256 constant DATAPOINTS_CALLDATA_OFFSET = 99; // SIG_BS + DP_NUMBER_BS + TIMESTAMP_BS
-  uint256 constant DP_WITHOUT_DATA_POINTS_BS = 99;
+  uint256 constant TIMESTAMP_BS = 6;
+  uint256 constant DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS = 4;
+  uint256 constant TIMESTAMP_CALLDATA_OFFSET = 72;
+  uint256 constant DATAPOINTS_CALLDATA_OFFSET = 78; // DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS + TIMESTAMP_BS + DP_NUMBER_BS + SIG_BS
+  uint256 constant DP_WITHOUT_DATA_POINTS_BS = 78;
+  uint256 constant DP_WITHOUT_DATA_POINTS_AND_SIG_BS = 13;
   uint256 constant DP_SYMBOL_BS = 32;
   uint256 constant DP_VALUE_BS = 32;
   uint256 constant BYTES_ARR_LEN_VAR_BS = 32;
@@ -155,7 +157,7 @@ abstract contract RedstoneConsumerBaseV2 {
 
     // We use scopes to resolve problem with too deep stack
     {
-      uint256 extractedTimestamp;
+      uint48 extractedTimestamp;
       bytes memory signature;
       address signerAddress;
       bytes32 signedHash;
@@ -168,15 +170,19 @@ abstract contract RedstoneConsumerBaseV2 {
         dataPointsCount := calldataload(sub(calldatasize(), negativeOffset))
       }
 
+      // TODO: replace sum of const values with one constant value
       signedMessageBytesCount =
         uint256(dataPointsCount) *
         DP_SYMBOL_AND_VALUE_BS +
-        TIMESTAMP_BS;
+        DP_WITHOUT_DATA_POINTS_AND_SIG_BS;
+      // DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS +
+      // TIMESTAMP_BS +
+      // DP_NUMBER_BS;
 
       assembly {
         // Extracting the signed message
         signedMessage := extractBytesFromCalldata(
-          add(calldataOffset, DP_NUMBER_AND_SIG_BS),
+          add(calldataOffset, SIG_BS),
           signedMessageBytesCount
         )
 
@@ -223,6 +229,12 @@ abstract contract RedstoneConsumerBaseV2 {
           )
         }
       }
+
+      console.log("signedMessage");
+      console.logBytes(signedMessage);
+
+      console.log("signature");
+      console.logBytes(signature);
 
       // Validating timestamp
       require(isTimestampValid(extractedTimestamp), "Timestamp is not valid");

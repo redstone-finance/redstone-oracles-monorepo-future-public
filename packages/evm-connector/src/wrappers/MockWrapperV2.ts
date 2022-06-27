@@ -1,7 +1,7 @@
+import { hexlify } from "@ethersproject/bytes";
 import {
-  DataPackage,
-  serializeSignedDataPackagesToHexString,
-  signDataPackage,
+  DataPackageBase,
+  serializeSignedDataPackages,
   SignedDataPackage,
 } from "redstone-protocol";
 import {
@@ -12,7 +12,7 @@ import { BaseWrapper } from "./BaseWrapper";
 
 export interface MockDataPackageConfigV2 {
   signer: MockSignerAddress;
-  dataPackage: DataPackage;
+  dataPackage: DataPackageBase;
 }
 
 export class MockWrapperV2 extends BaseWrapper {
@@ -24,13 +24,11 @@ export class MockWrapperV2 extends BaseWrapper {
     const signedDataPackages: SignedDataPackage[] = [];
 
     for (const mockDataPackage of this.mockDataPackages) {
-      const signedDataPackage = await signDataPackage(
-        mockDataPackage.dataPackage,
-        getMockSignerPrivateKey(mockDataPackage.signer)
-      );
+      const privateKey = getMockSignerPrivateKey(mockDataPackage.signer);
+      const signedDataPackage = mockDataPackage.dataPackage.sign(privateKey);
       signedDataPackages.push(signedDataPackage);
     }
 
-    return serializeSignedDataPackagesToHexString(signedDataPackages);
+    return serializeSignedDataPackages(signedDataPackages);
   }
 }

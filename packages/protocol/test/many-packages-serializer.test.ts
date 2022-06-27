@@ -42,12 +42,9 @@ describe("Fixed size data package", () => {
   });
 
   test("Should correctly serialize many signed data packages", () => {
-    const serializedHex = hexlify(
-      serializeSignedDataPackages(signedDataPackages)
-    );
+    const serializedHex = serializeSignedDataPackages(signedDataPackages);
     expect(serializedHex).toBe(
-      "0x" +
-        EXPECTED_SERIALIZED_DATA_PACKAGE +
+      EXPECTED_SERIALIZED_DATA_PACKAGE +
         EXPECTED_SIGNATURES[0] +
         EXPECTED_SERIALIZED_DATA_PACKAGE +
         EXPECTED_SIGNATURES[1] +
@@ -62,14 +59,13 @@ describe("Fixed size data package", () => {
     expect(signatures[0]).toBe("0x" + EXPECTED_SIGNATURES[0]);
     expect(signatures[1]).toBe("0x" + EXPECTED_SIGNATURES[1]);
 
-    const serialzied = serializeUnsignedDataPackageWithManySignatures(
+    const serialziedHex = serializeUnsignedDataPackageWithManySignatures(
       dataPackage,
       signatures
     );
 
-    expect(hexlify(serialzied)).toBe(
-      "0x" +
-        EXPECTED_SERIALIZED_DATA_PACKAGE +
+    expect(serialziedHex).toBe(
+      EXPECTED_SERIALIZED_DATA_PACKAGE +
         EXPECTED_SIGNATURES[0] +
         EXPECTED_SIGNATURES[1] +
         "0002" // signatures count
