@@ -193,7 +193,7 @@ abstract contract RedstoneConsumerBaseV2 {
         )
 
         // Extracting the off-chain signature from calldata
-        signature := extractBytesFromCalldata(calldataOffset, SIG_BS)
+        // signature := extractBytesFromCalldata(calldataOffset, SIG_BS)
 
         // Extracting timestamp
         extractedTimestamp := extractValueFromCalldata(
@@ -230,17 +230,11 @@ abstract contract RedstoneConsumerBaseV2 {
         }
       }
 
-      console.log("signedMessage");
-      console.logBytes(signedMessage);
-
-      console.log("signature");
-      console.logBytes(signature);
-
       // Validating timestamp
       require(isTimestampValid(extractedTimestamp), "Timestamp is not valid");
 
       // Verifying the off-chain signature against on-chain hashed data
-      signerAddress = _recoverSignerAddress(signedHash, signature);
+      signerAddress = _recoverSignerAddress(signedHash, calldataOffset + SIG_BS);
       signerIndex = getAuthorisedSignerIndex(signerAddress);
     }
 
@@ -349,7 +343,7 @@ abstract contract RedstoneConsumerBaseV2 {
     return aggregatedValues;
   }
 
-  function _recoverSignerAddress(bytes32 signedHash, bytes memory signature)
+  function _recoverSignerAddress(bytes32 signedHash, uint256 signatureCalldataOffset)
     private
     pure
     returns (address)
@@ -358,10 +352,29 @@ abstract contract RedstoneConsumerBaseV2 {
     bytes32 s;
     uint8 v;
     assembly {
-      r := mload(add(signature, BYTES_ARR_LEN_VAR_BS))
-      s := mload(add(signature, ECDSA_SIG_S_OFFSET))
-      v := byte(0, mload(add(signature, ECDSA_SIG_V_OFFSET))) // last byte of the signature memoty array
+      let signatureCalldataStartPos := sub(calldatasize(), signatureCalldataOffset)
+      r := calldataload(signatureCalldataStartPos)
+      signatureCalldataStartPos := add(signatureCalldataStartPos, ECDSA_SIG_R_BS)
+      s := calldataload(signatureCalldataStartPos)
+      signatureCalldataStartPos := add(signatureCalldataStartPos, ECDSA_SIG_S_BS)
+      v := byte(0, calldataload(signatureCalldataStartPos)) // last byte of the signature memoty array
     }
     return ecrecover(signedHash, v, r, s);
   }
+
+  // function _recoverSignerAddress(bytes32 signedHash, bytes memory signature)
+  //   private
+  //   pure
+  //   returns (address)
+  // {
+  //   bytes32 r;
+  //   bytes32 s;
+  //   uint8 v;
+  //   assembly {
+  //     r := mload(add(signature, BYTES_ARR_LEN_VAR_BS))
+  //     s := mload(add(signature, ECDSA_SIG_S_OFFSET))
+  //     v := byte(0, mload(add(signature, ECDSA_SIG_V_OFFSET))) // last byte of the signature memoty array
+  //   }
+  //   return ecrecover(signedHash, v, r, s);
+  // }
 }
