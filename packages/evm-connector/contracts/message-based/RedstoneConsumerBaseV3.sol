@@ -8,7 +8,7 @@ import "../commons/NumericArrayLib.sol";
 
 // Implementation with on-chain aggregation
 
-abstract contract RedstoneConsumerBaseV2 {
+abstract contract RedstoneConsumerBaseV3 {
   // This param can be updated in child contracts
   uint256 public uniqueSignersTreshold = 1;
 
@@ -34,9 +34,10 @@ abstract contract RedstoneConsumerBaseV2 {
   uint256 constant DP_WITHOUT_DATA_POINTS_BS = 78;
   uint256 constant DP_WITHOUT_DATA_POINTS_AND_SIG_BS = 13;
   uint256 constant DP_SYMBOL_BS = 32;
-  uint256 constant DP_VALUE_BS = 32;
   uint256 constant BYTES_ARR_LEN_VAR_BS = 32;
-  uint256 constant DP_SYMBOL_AND_VALUE_BS = 64;
+  uint256 constant MAX_INT =
+    0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
+  // uint256 constant DP_SYMBOL_AND_VALUE_BS = 64;
   uint256 constant ECDSA_SIG_R_BS = 32;
   uint256 constant ECDSA_SIG_S_BS = 32;
   uint256 constant ECDSA_SIG_S_OFFSET = 64; // BYTES_ARR_LEN_VAR_BS + ECDSA_SIG_R_BS
@@ -154,6 +155,8 @@ abstract contract RedstoneConsumerBaseV2 {
   ) private view returns (uint256) {
     uint16 dataPointsCount;
     uint256 signerIndex;
+    uint256 defaultDataPointValueByteSize;
+    // uint256 dpSymbolAndValueByteSize = defaultDataPointValueByteSize + DP_SYMBOL_BS;
 
     // We use scopes to resolve problem with too deep stack
     {
@@ -163,15 +166,31 @@ abstract contract RedstoneConsumerBaseV2 {
       bytes memory signedMessage;
       uint256 signedMessageBytesCount;
 
+      uint24 defaultDataPointValueByteSizeTmp;
       assembly {
         // Extracting the number of data points
         let negativeOffset := add(calldataOffset, add(SIG_BS, STANDARD_SLOT_BS))
         dataPointsCount := calldataload(sub(calldatasize(), negativeOffset))
+
+        // Extracting the default data point value byte size
+        defaultDataPointValueByteSizeTmp := calldataload(
+          sub(sub(calldatasize(), negativeOffset), DP_NUMBER_BS)
+        )
       }
+      // TODO: implement it in less hacky way later
+      defaultDataPointValueByteSize = defaultDataPointValueByteSizeTmp;
+
+      // Validate default byte size
+      // TODO: maybe remove
+      require(
+        defaultDataPointValueByteSize <= STANDARD_SLOT_BS,
+        "Default data point value byte size must be less or equal than 32"
+      );
 
       signedMessageBytesCount =
         uint256(dataPointsCount) *
-        DP_SYMBOL_AND_VALUE_BS +
+        // dpSymbolAndValueByteSize +
+        (defaultDataPointValueByteSize + DP_SYMBOL_BS) +
         DP_WITHOUT_DATA_POINTS_AND_SIG_BS;
 
       assembly {
@@ -240,32 +259,56 @@ abstract contract RedstoneConsumerBaseV2 {
         dataPointIndex++
       ) {
         // Extracting symbol and value for current data point
-        assembly {
-          let negativeOffsetToDataPoints := add(
-            calldataOffset,
-            DATAPOINTS_CALLDATA_OFFSET
-          )
-          let dataPointCalldataOffset := sub(
-            calldatasize(),
-            add(
-              negativeOffsetToDataPoints,
-              mul(add(1, dataPointIndex), DP_SYMBOL_AND_VALUE_BS)
+        {
+          uint256 negativeOffsetToDataPoints;
+          uint256 dataPointCalldataOffset;
+          assembly {
+            negativeOffsetToDataPoints := add(calldataOffset, DATAPOINTS_CALLDATA_OFFSET)
+            dataPointCalldataOffset := sub(
+              calldatasize(),
+              add(
+                negativeOffsetToDataPoints,
+                mul(
+                  add(1, dataPointIndex),
+                  add(defaultDataPointValueByteSize, DP_SYMBOL_BS)
+                )
+              )
             )
-          )
-          dataPointSymbol := calldataload(dataPointCalldataOffset)
-          dataPointValue := calldataload(add(dataPointCalldataOffset, DP_SYMBOL_BS))
+            dataPointSymbol := calldataload(dataPointCalldataOffset)
+            dataPointValue := getNumberFromCalldata(
+              add(dataPointCalldataOffset, DP_SYMBOL_BS),
+              defaultDataPointValueByteSize
+            )
+            // dataPointValue := calldataload(add(dataPointCalldataOffset, DP_SYMBOL_BS))
+
+            // TODO: make it more performant and safe
+            function getNumberFromCalldata(numberCalldataOffset, byteSize)
+              -> extractedNumber
+            {
+              let numberStartOffset := sub(
+                numberCalldataOffset,
+                sub(STANDARD_SLOT_BS, byteSize)
+              )
+              extractedNumber := calldataload(numberStartOffset)
+              let bitsCount := mul(
+                8, // BITS_COUNT_IN_ONE_BYTE
+                byteSize
+              )
+              extractedNumber := and(sub(MAX_INT, exp(2, bitsCount)), extractedNumber)
+            }
+          }
         }
 
         for (uint256 symbolIndex = 0; symbolIndex < symbols.length; symbolIndex++) {
           if (dataPointSymbol == symbols[symbolIndex]) {
             uint256 bitmapSignersForSymbol = signersBitmapForSymbols[symbolIndex];
-            bool currentSignerWasNotCountedForCurrentSymbol = !_getBitFromBitmap(
-              bitmapSignersForSymbol,
-              signerIndex
-            );
+            // bool currentSignerWasNotCountedForCurrentSymbol = !_getBitFromBitmap(
+            //   bitmapSignersForSymbol,
+            //   signerIndex
+            // );
 
             if (
-              currentSignerWasNotCountedForCurrentSymbol &&
+              !_getBitFromBitmap(bitmapSignersForSymbol, signerIndex) &&
               uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersTreshold
             ) {
               // Increase unique signer counter
@@ -288,7 +331,10 @@ abstract contract RedstoneConsumerBaseV2 {
     }
 
     // Return total data package byte size
-    return DP_WITHOUT_DATA_POINTS_BS + DP_SYMBOL_AND_VALUE_BS * dataPointsCount;
+    return
+      DP_WITHOUT_DATA_POINTS_BS +
+      (defaultDataPointValueByteSize + DP_SYMBOL_BS) *
+      dataPointsCount;
   }
 
   function _setBitInBitmap(uint256 bitmap, uint256 bitIndex)
@@ -353,20 +399,4 @@ abstract contract RedstoneConsumerBaseV2 {
     }
     return ecrecover(signedHash, v, r, s);
   }
-
-  // function _recoverSignerAddress(bytes32 signedHash, bytes memory signature)
-  //   private
-  //   pure
-  //   returns (address)
-  // {
-  //   bytes32 r;
-  //   bytes32 s;
-  //   uint8 v;
-  //   assembly {
-  //     r := mload(add(signature, BYTES_ARR_LEN_VAR_BS))
-  //     s := mload(add(signature, ECDSA_SIG_S_OFFSET))
-  //     v := byte(0, mload(add(signature, ECDSA_SIG_V_OFFSET))) // last byte of the signature memoty array
-  //   }
-  //   return ecrecover(signedHash, v, r, s);
-  // }
 }
