@@ -10,7 +10,7 @@ import {
 } from "../src/helpers/test-utils";
 import { WrapperBuilder } from "../src/index";
 import { MockDataPackageConfigV2 } from "../src/wrappers/MockWrapperV2";
-import { SampleRedstoneConsumerMockV4 } from "../typechain-types";
+import { SampleRedstoneConsumerMockV4Strings } from "../typechain-types";
 
 // We lock the timestamp to have deterministic gas consumption
 // for being able to compare gas costs of different implementations
@@ -43,12 +43,13 @@ function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
   };
 }
 
-describe("SampleRedstoneConsumerMockV4", function () {
-  let contract: SampleRedstoneConsumerMockV4;
+describe("SampleRedstoneConsumerMockV4Strings", function () {
+  const someValue = "0x" + "f".repeat(1984) + "ee42"; // some dynamic value
+  let contract: SampleRedstoneConsumerMockV4Strings;
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerMockV4"
+      "SampleRedstoneConsumerMockV4Strings"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
@@ -56,18 +57,35 @@ describe("SampleRedstoneConsumerMockV4", function () {
 
   it("Should properly execute transaction on RedstoneConsumerBase contract", async () => {
     const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
-      getMockPackage({ mockSignerIndex: 0, value: "0xf4610900" }), // hex(41 * 10 ** 8)
-      getMockPackage({ mockSignerIndex: 1, value: "0x01004ccb00" }), // hex(43 * 10 ** 8)
-      getMockPackage({ mockSignerIndex: 2, value: "0xfa56ea00" }), // hex(42 * 10 ** 8)
+      getMockPackage({ mockSignerIndex: 0, value: someValue }),
+      getMockPackage({ mockSignerIndex: 1, value: someValue }),
+      getMockPackage({ mockSignerIndex: 2, value: someValue }),
     ]);
 
-    const tx = await wrappedContract.saveLatestPriceInStorage(
+    const tx = await wrappedContract.saveLatestValueInStorage(
       DEFAULT_SYMBOL_BYTES_32
     );
     await tx.wait();
 
-    const latestEthPriceFromContract = await contract.latestPrice();
-    expect(latestEthPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(42);
+    const latestString = await contract.latestString();
+    expect(latestString).to.be.equal(someValue);
+  });
+
+  it("Should revert if values from different signers are different", async () => {
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+      getMockPackage({ mockSignerIndex: 0, value: someValue }),
+      getMockPackage({ mockSignerIndex: 1, value: someValue }),
+      getMockPackage({
+        mockSignerIndex: 2,
+        value: someValue.replace("ee42", "ff42"),
+      }),
+    ]);
+
+    await expect(
+      wrappedContract.saveLatestValueInStorage(DEFAULT_SYMBOL_BYTES_32)
+    ).to.be.revertedWith(
+      "Each authorised signer must provide exactly the same bytes value"
+    );
   });
 
   it("Should revert if there are too few signers", async () => {
@@ -77,7 +95,7 @@ describe("SampleRedstoneConsumerMockV4", function () {
     ]);
 
     await expect(
-      wrappedContract.saveLatestPriceInStorage(DEFAULT_SYMBOL_BYTES_32)
+      wrappedContract.saveLatestValueInStorage(DEFAULT_SYMBOL_BYTES_32)
     ).to.be.revertedWith("Insufficient number of unique signers");
   });
 
@@ -89,7 +107,7 @@ describe("SampleRedstoneConsumerMockV4", function () {
     ]);
 
     await expect(
-      wrappedContract.saveLatestPriceInStorage(DEFAULT_SYMBOL_BYTES_32)
+      wrappedContract.saveLatestValueInStorage(DEFAULT_SYMBOL_BYTES_32)
     ).to.be.revertedWith("Insufficient number of unique signers");
   });
 });

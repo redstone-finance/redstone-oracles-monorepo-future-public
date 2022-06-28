@@ -4,8 +4,6 @@ pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
 
-import "../commons/NumericArrayLib.sol";
-
 // Implementation with on-chain aggregation
 
 abstract contract RedstoneConsumerBaseV4 {
@@ -27,7 +25,6 @@ abstract contract RedstoneConsumerBaseV4 {
   uint256 constant ECDSA_SIG_R_BS = 32;
   uint256 constant ECDSA_SIG_S_BS = 32;
   uint256 constant FUNCTION_SIGNATURE_BS = 4;
-  uint256 constant BITS_COUNT_IN_ONE_BYTE = 8;
 
   // RedStone protocol consts
   uint256 constant SIG_BS = 65;
@@ -81,20 +78,27 @@ abstract contract RedstoneConsumerBaseV4 {
       block.timestamp - _receivedTimestamp < getMaxDataTimestampDelay();
   }
 
-  // By default we use median aggregation
-  // But you can override this function with any other aggregation logic
-  function aggregateValues(uint256[] memory values)
+  function aggregateValues(bytes[] memory values)
     public
-    view
+    pure
     virtual
-    returns (uint256)
+    returns (bytes memory)
   {
-    return NumericArrayLib.pickMedian(values);
+    // Check if all byte arrays are identical
+    bytes32 expectedHash = keccak256(values[0]);
+    for (uint256 i = 1; i < values.length; i++) {
+      require(
+        keccak256(values[i]) == expectedHash,
+        "Each authorised signer must provide exactly the same bytes value"
+      );
+    }
+
+    return values[0];
   }
 
   /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
 
-  function getOracleValueFromTxMsg(bytes32 symbol) internal view returns (uint256) {
+  function getOracleValueFromTxMsg(bytes32 symbol) internal view returns (bytes memory) {
     bytes32[] memory symbols = new bytes32[](1);
     symbols[0] = symbol;
     return getOracleValuesFromTxMsg(symbols)[0];
@@ -103,15 +107,15 @@ abstract contract RedstoneConsumerBaseV4 {
   function getOracleValuesFromTxMsg(bytes32[] memory symbols)
     internal
     view
-    returns (uint256[] memory)
+    returns (bytes[] memory)
   {
     // Initializing helpful variables and allocating memory
     uint256[] memory uniqueSignerCountForSymbols = new uint256[](symbols.length);
     uint256[] memory signersBitmapForSymbols = new uint256[](symbols.length);
-    uint256[][] memory valuesForSymbols = new uint256[][](symbols.length);
+    bytes[][] memory valuesForSymbols = new bytes[][](symbols.length);
     for (uint256 i = 0; i < symbols.length; i++) {
       signersBitmapForSymbols[i] = 0; // empty bitmap
-      valuesForSymbols[i] = new uint256[](uniqueSignersTreshold);
+      valuesForSymbols[i] = new bytes[](uniqueSignersTreshold);
     }
 
     // Extracting the number of data packages from calldata
@@ -144,7 +148,7 @@ abstract contract RedstoneConsumerBaseV4 {
     bytes32[] memory symbols,
     uint256[] memory uniqueSignerCountForSymbols,
     uint256[] memory signersBitmapForSymbols,
-    uint256[][] memory valuesForSymbols,
+    bytes[][] memory valuesForSymbols,
     uint256 calldataOffset
   ) private view returns (uint256) {
     uint16 dataPointsCount;
@@ -231,13 +235,14 @@ abstract contract RedstoneConsumerBaseV4 {
     // Updating helpful arrays
     {
       bytes32 dataPointSymbol;
-      uint256 dataPointValue;
+      bytes memory dataPointValue;
       for (
         uint256 dataPointIndex = 0;
         dataPointIndex < dataPointsCount;
         dataPointIndex++
       ) {
         // Extracting symbol and value for current data point
+        // TODO: optimisation idea - extract value only if needed
         (dataPointSymbol, dataPointValue) = _extractDataPointValueAndSymbol(
           calldataOffset,
           defaultDataPointValueByteSize,
@@ -305,7 +310,7 @@ abstract contract RedstoneConsumerBaseV4 {
     uint256 calldataOffset,
     uint256 defaultDataPointValueByteSize,
     uint256 dataPointIndex
-  ) internal pure returns (bytes32 dataPointSymbol, uint256 dataPointValue) {
+  ) internal pure returns (bytes32 dataPointSymbol, bytes memory dataPointValue) {
     assembly {
       let negativeOffsetToDataPoints := add(
         calldataOffset,
@@ -322,20 +327,26 @@ abstract contract RedstoneConsumerBaseV4 {
         )
       )
       dataPointSymbol := calldataload(dataPointCalldataOffset)
-      dataPointValue := getNumberFromCalldata(
+      dataPointValue := extractBytesFromCalldata(
         add(dataPointCalldataOffset, DATA_POINT_SYMBOL_BS),
         defaultDataPointValueByteSize
       )
 
-      function getNumberFromCalldata(numberCalldataOffset, byteSize) -> castedNumber {
-        let numberStartOffset := sub(
-          numberCalldataOffset,
-          sub(STANDARD_SLOT_BS, byteSize)
-        )
-        castedNumber := and(
-          sub(shl(mul(byteSize, BITS_COUNT_IN_ONE_BYTE), 1), 1),
-          calldataload(numberStartOffset)
-        )
+      function extractBytesFromCalldata(offset, bytesCount) -> extractedBytes {
+        let extractedBytesStartPtr := initByteArray(bytesCount)
+        calldatacopy(extractedBytesStartPtr, offset, bytesCount)
+        extractedBytes := sub(extractedBytesStartPtr, BYTES_ARR_LEN_VAR_BS)
+      }
+
+      function initByteArray(bytesCount) -> ptr {
+        ptr := mload(FREE_MEMORY_PTR)
+        // TODO: check why this condition is added in official yul documentation
+        // if iszero(ptr) {
+        //   ptr := 0x60
+        // }
+        mstore(ptr, bytesCount)
+        ptr := add(ptr, BYTES_ARR_LEN_VAR_BS)
+        mstore(FREE_MEMORY_PTR, add(ptr, add(BYTES_ARR_LEN_VAR_BS, bytesCount)))
       }
     }
   }
@@ -367,17 +378,19 @@ abstract contract RedstoneConsumerBaseV4 {
 
   function _getAggregatedValues(
     uint256 symbolsLength,
-    uint256[][] memory valuesForSymbols,
+    bytes[][] memory valuesForSymbols,
     uint256[] memory uniqueSignerCountForSymbols
-  ) internal view returns (uint256[] memory) {
-    uint256[] memory aggregatedValues = new uint256[](symbolsLength);
+  ) internal view returns (bytes[] memory) {
+    bytes[] memory aggregatedValues = new bytes[](symbolsLength);
 
     for (uint256 symbolIndex = 0; symbolIndex < symbolsLength; symbolIndex++) {
       require(
         uniqueSignerCountForSymbols[symbolIndex] >= uniqueSignersTreshold,
         "Insufficient number of unique signers"
       );
-      uint256 aggregatedValueForSymbol = aggregateValues(valuesForSymbols[symbolIndex]);
+      bytes memory aggregatedValueForSymbol = aggregateValues(
+        valuesForSymbols[symbolIndex]
+      );
       aggregatedValues[symbolIndex] = aggregatedValueForSymbol;
     }
 
