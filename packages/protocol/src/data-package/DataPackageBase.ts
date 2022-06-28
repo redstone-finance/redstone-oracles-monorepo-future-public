@@ -8,7 +8,7 @@ import {
 import {
   DATA_POINTS_COUNT_BS,
   DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS,
-  TIMESTAMP_BYTE_SIZE,
+  TIMESTAMP_BS,
 } from "../common/redstone-consts";
 import { Serializable } from "../common/Serializable";
 import { convertIntegerNumberToBytes } from "../common/utils";
@@ -62,7 +62,7 @@ export abstract class DataPackageBase extends Serializable {
   protected serializeTimestamp(): Uint8Array {
     return convertIntegerNumberToBytes(
       this.timestampMilliseconds,
-      TIMESTAMP_BYTE_SIZE
+      TIMESTAMP_BS
     );
   }
 

@@ -5,13 +5,13 @@ pragma solidity ^0.8.4;
 import "../mocks/RedstoneConsumerMockV3.sol";
 
 contract SampleRedstoneConsumerMockV3 is RedstoneConsumerMockV3 {
-  uint256 public latestEthPrice;
+  uint256 public latestPrice;
 
-  function getEthPriceSecurely() public view returns (uint256) {
-    return getOracleValueFromTxMsg(bytes32("ETH"));
+  function getPriceSecurely(bytes32 symbol) public view returns (uint256) {
+    return getOracleValueFromTxMsg(symbol);
   }
 
-  function saveLatestEthPriceInStorage() public {
-    latestEthPrice = getOracleValueFromTxMsg(bytes32("ETH"));
+  function saveLatestPriceInStorage(bytes32 symbol) public {
+    latestPrice = getOracleValueFromTxMsg(symbol);
   }
 }

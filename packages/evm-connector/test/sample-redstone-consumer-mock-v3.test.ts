@@ -1,6 +1,8 @@
+import { hexlify } from "@ethersproject/bytes";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { FixedSizeDataPackage, NumericDataPoint } from "redstone-protocol";
+import { convertStringToBytes32 } from "redstone-protocol/dist/src/common/utils";
 import {
   MOCK_SIGNERS,
   MockSignerIndex,
@@ -13,8 +15,9 @@ import { SampleRedstoneConsumerMockV3 } from "../typechain-types";
 // We lock the timestamp to have deterministic gas consumption
 // for being able to compare gas costs of different implementations
 const DEFAULT_TIMESTAMP_FOR_TESTS = 1654353400000;
-// const DEFAULT_SYMBOL = "SOME LONG STRING FOR SYMBOL TO TRIGGER SYMBOL HASHING";
-const DEFAULT_SYMBOL = "ETH";
+const DEFAULT_SYMBOL = "SOME LONG STRING FOR SYMBOL TO TRIGGER SYMBOL HASHING";
+// const DEFAULT_SYMBOL = "ETH";
+const DEFAULT_SYMBOL_BYTES_32 = convertStringToBytes32(DEFAULT_SYMBOL);
 
 interface MockPackageOpts {
   mockSignerIndex: MockSignerIndex;
@@ -60,10 +63,12 @@ describe("SampleRedstoneConsumerMockV3", function () {
       getMockPackage({ mockSignerIndex: 2, value: 42 }),
     ]);
 
-    const tx = await wrappedContract.saveLatestEthPriceInStorage();
+    const tx = await wrappedContract.saveLatestPriceInStorage(
+      DEFAULT_SYMBOL_BYTES_32
+    );
     await tx.wait();
 
-    const latestEthPriceFromContract = await contract.latestEthPrice();
+    const latestEthPriceFromContract = await contract.latestPrice();
     expect(latestEthPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(42);
   });
 
@@ -74,7 +79,7 @@ describe("SampleRedstoneConsumerMockV3", function () {
     ]);
 
     await expect(
-      wrappedContract.saveLatestEthPriceInStorage()
+      wrappedContract.saveLatestPriceInStorage(DEFAULT_SYMBOL_BYTES_32)
     ).to.be.revertedWith("Insufficient number of unique signers");
   });
 
@@ -86,7 +91,7 @@ describe("SampleRedstoneConsumerMockV3", function () {
     ]);
 
     await expect(
-      wrappedContract.saveLatestEthPriceInStorage()
+      wrappedContract.saveLatestPriceInStorage(DEFAULT_SYMBOL_BYTES_32)
     ).to.be.revertedWith("Insufficient number of unique signers");
   });
 });

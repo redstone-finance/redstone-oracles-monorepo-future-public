@@ -2,7 +2,7 @@
 // * BS = Byte size
 
 // Number of bytes reserved to store timestamp
-export const TIMESTAMP_BYTE_SIZE = 6;
+export const TIMESTAMP_BS = 6;
 
 // Number of bytes reserved to store the number of data points
 export const DATA_POINTS_COUNT_BS = 3;
@@ -20,7 +20,7 @@ export const DEFAULT_NUM_VALUE_BS = 32;
 export const DEFAULT_NUM_VALUE_DECIMALS = 8;
 
 // Number of bytes reserved for data packages count
-export const NUMBER_OF_DATA_PACKAGES_BS = 2;
+export const DATA_PACKAGES_COUNT_BS = 2;
 
 // Number of bytes reserved for signatures count
 export const NUMBER_OF_SIGNATURES_BS = 2;

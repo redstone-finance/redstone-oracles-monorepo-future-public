@@ -1,6 +1,6 @@
 import { arrayify, concat } from "ethers/lib/utils";
 import {
-  NUMBER_OF_DATA_PACKAGES_BS,
+  DATA_PACKAGES_COUNT_BS,
   NUMBER_OF_SIGNATURES_BS,
 } from "./common/redstone-consts";
 import {
@@ -19,7 +19,7 @@ export const serializeSignedDataPackagesToBytes = (
     ),
     convertIntegerNumberToBytes(
       signedDataPackages.length,
-      NUMBER_OF_DATA_PACKAGES_BS
+      DATA_PACKAGES_COUNT_BS
     ),
   ]);
 };

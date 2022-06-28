@@ -19,35 +19,30 @@ abstract contract RedstoneConsumerBaseV3 {
   // BS - Bytes size
   // PTR - Pointer (memory location)
   // SIG - Signature
-  // DP - Data point
-  // DP_NUMBER - Number of data points
+
+  // Solidity and YUL constants
   uint256 constant STANDARD_SLOT_BS = 32;
   uint256 constant FREE_MEMORY_PTR = 0x40;
-  uint256 constant SIG_BS = 65;
-  uint256 constant DATA_PACKAGES_NUMBER_BS = 2;
-  uint256 constant DP_NUMBER_BS = 3;
-  uint256 constant DP_NUMBER_AND_SIG_BS = 67; // STANDARD_SLOT_BS + DP_NUMBER_BS
-  uint256 constant TIMESTAMP_BS = 6;
-  uint256 constant DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS = 4;
-  uint256 constant TIMESTAMP_CALLDATA_OFFSET = 72;
-  uint256 constant DATAPOINTS_CALLDATA_OFFSET = 78; // DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS + TIMESTAMP_BS + DP_NUMBER_BS + SIG_BS
-  uint256 constant DP_WITHOUT_DATA_POINTS_BS = 78;
-  uint256 constant DP_WITHOUT_DATA_POINTS_AND_SIG_BS = 13;
-  uint256 constant DP_SYMBOL_BS = 32;
   uint256 constant BYTES_ARR_LEN_VAR_BS = 32;
-  uint256 constant MAX_INT =
-    0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
-  // uint256 constant DP_SYMBOL_AND_VALUE_BS = 64;
   uint256 constant ECDSA_SIG_R_BS = 32;
   uint256 constant ECDSA_SIG_S_BS = 32;
-  uint256 constant ECDSA_SIG_S_OFFSET = 64; // BYTES_ARR_LEN_VAR_BS + ECDSA_SIG_R_BS
-  uint256 constant ECDSA_SIG_V_OFFSET = 96; // BYTES_ARR_LEN_VAR_BS + ECDSA_SIG_R_BS + ECDSA_SIG_S_BS
   uint256 constant FUNCTION_SIGNATURE_BS = 4;
-  bytes4 constant GET_AUTHORISED_SIGNER_INDEX_FUN_SIG = hex"3ce142f5";
-  bytes4 constant IS_TIMESTAMP_VALID_FUN_SIG = hex"75058205";
+  uint256 constant BITS_COUNT_IN_ONE_BYTE = 8;
 
-  // bytes32 constant IS_TIMESTAMP_VALID_FUNC_SIG = bytes32(0x1234);
-  // bytes32 constant IS_SIGNER_AUTHORISED_FUNC_SIG = bytes32(0x1234);
+  // RedStone protocol consts
+  uint256 constant SIG_BS = 65;
+  uint256 constant TIMESTAMP_BS = 6;
+  uint256 constant DATA_PACKAGES_COUNT_BS = 2;
+  uint256 constant DATA_POINTS_COUNT_BS = 3;
+  uint256 constant DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS = 4;
+  uint256 constant DATA_POINT_SYMBOL_BS = 32;
+
+  // "Dynamic" values (based on consts)
+  uint256 constant TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE = 72; // SIG_BS + DATA_POINTS_COUNT_BS + DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS
+  uint256 constant DATA_PACKAGE_WITHOUT_DATA_POINTS_BS = 78; // DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS + TIMESTAMP_BS + DATA_POINTS_COUNT_BS + SIG_BS
+  uint256 constant DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS = 13; // DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS + TIMESTAMP_BS + DATA_POINTS_COUNT_BS
+  uint256 constant MAX_INT =
+    0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
@@ -122,7 +117,7 @@ abstract contract RedstoneConsumerBaseV3 {
 
     // Extracting the number of data packages from calldata
     uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata();
-    uint256 calldataOffset = DATA_PACKAGES_NUMBER_BS;
+    uint256 calldataOffset = DATA_PACKAGES_COUNT_BS;
 
     // Data packages extraction in a loop
     for (
@@ -156,7 +151,7 @@ abstract contract RedstoneConsumerBaseV3 {
     uint16 dataPointsCount;
     uint256 signerIndex;
     uint256 defaultDataPointValueByteSize;
-    // uint256 dpSymbolAndValueByteSize = defaultDataPointValueByteSize + DP_SYMBOL_BS;
+    // uint256 dpSymbolAndValueByteSize = defaultDataPointValueByteSize + DATA_POINT_SYMBOL_BS;
 
     // We use scopes to resolve problem with too deep stack
     {
@@ -174,7 +169,7 @@ abstract contract RedstoneConsumerBaseV3 {
 
         // Extracting the default data point value byte size
         defaultDataPointValueByteSizeTmp := calldataload(
-          sub(sub(calldatasize(), negativeOffset), DP_NUMBER_BS)
+          sub(sub(calldatasize(), negativeOffset), DATA_POINTS_COUNT_BS)
         )
       }
       // TODO: implement it in less hacky way later
@@ -190,8 +185,8 @@ abstract contract RedstoneConsumerBaseV3 {
       signedMessageBytesCount =
         uint256(dataPointsCount) *
         // dpSymbolAndValueByteSize +
-        (defaultDataPointValueByteSize + DP_SYMBOL_BS) +
-        DP_WITHOUT_DATA_POINTS_AND_SIG_BS;
+        (defaultDataPointValueByteSize + DATA_POINT_SYMBOL_BS) +
+        DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS;
 
       assembly {
         // Extracting the signed message
@@ -208,7 +203,7 @@ abstract contract RedstoneConsumerBaseV3 {
 
         // Extracting timestamp
         extractedTimestamp := extractValueFromCalldata(
-          add(calldataOffset, TIMESTAMP_CALLDATA_OFFSET)
+          add(calldataOffset, TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE)
         )
 
         ///////////////////////////////// FUNCTIONS /////////////////////////////////
@@ -263,38 +258,37 @@ abstract contract RedstoneConsumerBaseV3 {
           uint256 negativeOffsetToDataPoints;
           uint256 dataPointCalldataOffset;
           assembly {
-            negativeOffsetToDataPoints := add(calldataOffset, DATAPOINTS_CALLDATA_OFFSET)
+            negativeOffsetToDataPoints := add(
+              calldataOffset,
+              DATA_PACKAGE_WITHOUT_DATA_POINTS_BS
+            )
             dataPointCalldataOffset := sub(
               calldatasize(),
               add(
                 negativeOffsetToDataPoints,
                 mul(
                   add(1, dataPointIndex),
-                  add(defaultDataPointValueByteSize, DP_SYMBOL_BS)
+                  add(defaultDataPointValueByteSize, DATA_POINT_SYMBOL_BS)
                 )
               )
             )
             dataPointSymbol := calldataload(dataPointCalldataOffset)
             dataPointValue := getNumberFromCalldata(
-              add(dataPointCalldataOffset, DP_SYMBOL_BS),
+              add(dataPointCalldataOffset, DATA_POINT_SYMBOL_BS),
               defaultDataPointValueByteSize
             )
-            // dataPointValue := calldataload(add(dataPointCalldataOffset, DP_SYMBOL_BS))
 
-            // TODO: make it more performant and safe
             function getNumberFromCalldata(numberCalldataOffset, byteSize)
-              -> extractedNumber
+              -> castedNumber
             {
               let numberStartOffset := sub(
                 numberCalldataOffset,
                 sub(STANDARD_SLOT_BS, byteSize)
               )
-              extractedNumber := calldataload(numberStartOffset)
-              let bitsCount := mul(
-                8, // BITS_COUNT_IN_ONE_BYTE
-                byteSize
+              castedNumber := and(
+                sub(shl(mul(byteSize, BITS_COUNT_IN_ONE_BYTE), 1), 1),
+                calldataload(numberStartOffset)
               )
-              extractedNumber := and(sub(MAX_INT, exp(2, bitsCount)), extractedNumber)
             }
           }
         }
@@ -332,8 +326,8 @@ abstract contract RedstoneConsumerBaseV3 {
 
     // Return total data package byte size
     return
-      DP_WITHOUT_DATA_POINTS_BS +
-      (defaultDataPointValueByteSize + DP_SYMBOL_BS) *
+      DATA_PACKAGE_WITHOUT_DATA_POINTS_BS +
+      (defaultDataPointValueByteSize + DATA_POINT_SYMBOL_BS) *
       dataPointsCount;
   }
 
