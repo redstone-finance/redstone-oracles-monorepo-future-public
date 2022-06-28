@@ -35,13 +35,12 @@ abstract contract RedstoneConsumerBaseV2 {
   uint256 constant DATA_POINTS_COUNT_BS = 3;
   uint256 constant DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS = 4;
   uint256 constant DATA_POINT_SYMBOL_BS = 32;
-  uint256 constant DATA_POINT_VALUE_BS = 32;
+  uint256 constant DEFAULT_DATA_POINT_VALUE_BS = 32;
 
   // "Dynamic" values (based on consts)
   uint256 constant TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE = 72; // SIG_BS + DATA_POINTS_COUNT_BS + DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS
   uint256 constant DATA_PACKAGE_WITHOUT_DATA_POINTS_BS = 78; // DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS + TIMESTAMP_BS + DATA_POINTS_COUNT_BS + SIG_BS
   uint256 constant DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS = 13; // DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS + TIMESTAMP_BS + DATA_POINTS_COUNT_BS
-  uint256 constant DATA_POINT_SYMBOL_AND_VALUE_BS = 64; // DATA_POINT_SYMBOL_BS + DATA_POINT_VALUE_BS
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
@@ -149,6 +148,9 @@ abstract contract RedstoneConsumerBaseV2 {
   ) private view returns (uint256) {
     uint16 dataPointsCount;
     uint256 signerIndex;
+    uint256 defaultDataPointValueByteSize = _getDefaultDataPointValueByteSize(
+      calldataOffset
+    );
 
     // We use scopes to resolve problem with too deep stack
     {
@@ -166,7 +168,7 @@ abstract contract RedstoneConsumerBaseV2 {
 
       signedMessageBytesCount =
         uint256(dataPointsCount) *
-        DATA_POINT_SYMBOL_AND_VALUE_BS +
+        (defaultDataPointValueByteSize + DATA_POINT_SYMBOL_BS) +
         DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS;
 
       assembly {
@@ -235,34 +237,23 @@ abstract contract RedstoneConsumerBaseV2 {
         dataPointIndex++
       ) {
         // Extracting symbol and value for current data point
-        assembly {
-          let negativeOffsetToDataPoints := add(
-            calldataOffset,
-            DATA_PACKAGE_WITHOUT_DATA_POINTS_BS
-          )
-          let dataPointCalldataOffset := sub(
-            calldatasize(),
-            add(
-              negativeOffsetToDataPoints,
-              mul(add(1, dataPointIndex), DATA_POINT_SYMBOL_AND_VALUE_BS)
-            )
-          )
-          dataPointSymbol := calldataload(dataPointCalldataOffset)
-          dataPointValue := calldataload(
-            add(dataPointCalldataOffset, DATA_POINT_SYMBOL_BS)
-          )
-        }
+        (dataPointSymbol, dataPointValue) = _extractDataPointValueAndSymbol(
+          calldataOffset,
+          defaultDataPointValueByteSize,
+          dataPointIndex
+        );
 
         for (uint256 symbolIndex = 0; symbolIndex < symbols.length; symbolIndex++) {
           if (dataPointSymbol == symbols[symbolIndex]) {
             uint256 bitmapSignersForSymbol = signersBitmapForSymbols[symbolIndex];
-            bool currentSignerWasNotCountedForCurrentSymbol = !_getBitFromBitmap(
-              bitmapSignersForSymbol,
-              signerIndex
-            );
+
+            // bool currentSignerWasNotCountedForCurrentSymbol = !_getBitFromBitmap(
+            //   bitmapSignersForSymbol,
+            //   signerIndex
+            // );
 
             if (
-              currentSignerWasNotCountedForCurrentSymbol &&
+              !_getBitFromBitmap(bitmapSignersForSymbol, signerIndex) && /* currentSignerWasNotCountedForCurrentSymbol */
               uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersTreshold
             ) {
               // Increase unique signer counter
@@ -287,8 +278,43 @@ abstract contract RedstoneConsumerBaseV2 {
     // Return total data package byte size
     return
       DATA_PACKAGE_WITHOUT_DATA_POINTS_BS +
-      DATA_POINT_SYMBOL_AND_VALUE_BS *
+      (defaultDataPointValueByteSize + DATA_POINT_SYMBOL_BS) *
       dataPointsCount;
+  }
+
+  function _getDefaultDataPointValueByteSize(uint256 calldataOffset)
+    internal
+    pure
+    virtual
+    returns (uint256)
+  {
+    calldataOffset;
+    return DEFAULT_DATA_POINT_VALUE_BS;
+  }
+
+  function _extractDataPointValueAndSymbol(
+    uint256 calldataOffset,
+    uint256 defaultDataPointValueByteSize,
+    uint256 dataPointIndex
+  ) internal pure virtual returns (bytes32 dataPointSymbol, uint256 dataPointValue) {
+    assembly {
+      let negativeOffsetToDataPoints := add(
+        calldataOffset,
+        DATA_PACKAGE_WITHOUT_DATA_POINTS_BS
+      )
+      let dataPointCalldataOffset := sub(
+        calldatasize(),
+        add(
+          negativeOffsetToDataPoints,
+          mul(
+            add(1, dataPointIndex),
+            add(defaultDataPointValueByteSize, DATA_POINT_SYMBOL_BS)
+          )
+        )
+      )
+      dataPointSymbol := calldataload(dataPointCalldataOffset)
+      dataPointValue := calldataload(add(dataPointCalldataOffset, DATA_POINT_SYMBOL_BS))
+    }
   }
 
   function _setBitInBitmap(uint256 bitmap, uint256 bitIndex)
@@ -353,20 +379,4 @@ abstract contract RedstoneConsumerBaseV2 {
     }
     return ecrecover(signedHash, v, r, s);
   }
-
-  // function _recoverSignerAddress(bytes32 signedHash, bytes memory signature)
-  //   private
-  //   pure
-  //   returns (address)
-  // {
-  //   bytes32 r;
-  //   bytes32 s;
-  //   uint8 v;
-  //   assembly {
-  //     r := mload(add(signature, BYTES_ARR_LEN_VAR_BS))
-  //     s := mload(add(signature, ECDSA_SIG_S_OFFSET))
-  //     v := byte(0, mload(add(signature, ECDSA_SIG_V_OFFSET))) // last byte of the signature memoty array
-  //   }
-  //   return ecrecover(signedHash, v, r, s);
-  // }
 }

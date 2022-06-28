@@ -1,5 +1,13 @@
 # redstone-evm-connector
 
+## Notes for reviewers
+
+- V2: standard version with off-chain aggregation (symbol has 32 bytes, each value has 32 bytes)
+- V3: "More "dynamic" version with off-chain aggregation (symbol has 32 bytes, each value can have up to 32 bytes)
+
+- V4: "Very dynamic" version (symbol has 32 bytes, each value can have any number of bytes, but all values in the same data package should have the same number of bytes)
+- V5: "The most dynamic" version (symbol has 32 bytes, each value can have any number of bytes (up to 16mb)). Each value in data package may have its own size
+
 ## EVM Asembly (yul) resources
 
 - https://dlt-repo.net/storage-vs-memory-vs-stack-in-solidity-ethereum
