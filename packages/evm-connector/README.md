@@ -4,9 +4,11 @@
 
 - V2: standard version with off-chain aggregation (symbol has 32 bytes, each value has 32 bytes)
 - V3: "More "dynamic" version with off-chain aggregation (symbol has 32 bytes, each value can have up to 32 bytes)
-
 - V4: "Very dynamic" version (symbol has 32 bytes, each value can have any number of bytes, but all values in the same data package should have the same number of bytes)
-- V5: "The most dynamic" version (symbol has 32 bytes, each value can have any number of bytes (up to 16mb)). Each value in data package may have its own size
+
+_- V5: "The most dynamic" version (symbol has 32 bytes, each value can have any number of bytes (up to 16mb)). Each value in data package may have its own size_
+
+**I decided not to implement V5 for now, since benefits from its implementation are not high, but it would add a lot of additional code, which we would need to maintain. The only benefit I see in V5 is that for dynamic values with different sizes in the same data package it can save some amount of gas.**
 
 ## EVM Asembly (yul) resources
 
