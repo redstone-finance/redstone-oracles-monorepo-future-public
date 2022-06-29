@@ -14,12 +14,6 @@ const config: HardhatUserConfig = {
       optimizer: {
         enabled: true,
         runs: 10000, // it slightly increases gas for contract deployment but decreases for user interactions
-        details: {
-          yul: true,
-          deduplicate: true,
-          constantOptimizer: true,
-          cse: true,
-        },
       },
     },
   },
