@@ -66,26 +66,26 @@ describe("SampleRedstoneConsumerMockV2", function () {
     expect(latestEthPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(42);
   });
 
-  // it("Should revert if there are too few signers", async () => {
-  //   const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
-  //     getMockPackage({ mockSignerIndex: 0, value: 100 }),
-  //     getMockPackage({ mockSignerIndex: 1, value: 100 }),
-  //   ]);
+  it("Should revert if there are too few signers", async () => {
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+      getMockPackage({ mockSignerIndex: 0, value: 100 }),
+      getMockPackage({ mockSignerIndex: 1, value: 100 }),
+    ]);
 
-  //   await expect(
-  //     wrappedContract.saveLatestEthPriceInStorage()
-  //   ).to.be.revertedWith("Insufficient number of unique signers");
-  // });
+    await expect(
+      wrappedContract.saveLatestEthPriceInStorage()
+    ).to.be.revertedWith("Insufficient number of unique signers");
+  });
 
-  // it("Should revert if there are too few unique signers", async () => {
-  //   const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
-  //     getMockPackage({ mockSignerIndex: 0, value: 100 }),
-  //     getMockPackage({ mockSignerIndex: 1, value: 100 }),
-  //     getMockPackage({ mockSignerIndex: 1, value: 100 }),
-  //   ]);
+  it("Should revert if there are too few unique signers", async () => {
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+      getMockPackage({ mockSignerIndex: 0, value: 100 }),
+      getMockPackage({ mockSignerIndex: 1, value: 100 }),
+      getMockPackage({ mockSignerIndex: 1, value: 100 }),
+    ]);
 
-  //   await expect(
-  //     wrappedContract.saveLatestEthPriceInStorage()
-  //   ).to.be.revertedWith("Insufficient number of unique signers");
-  // });
+    await expect(
+      wrappedContract.saveLatestEthPriceInStorage()
+    ).to.be.revertedWith("Insufficient number of unique signers");
+  });
 });
