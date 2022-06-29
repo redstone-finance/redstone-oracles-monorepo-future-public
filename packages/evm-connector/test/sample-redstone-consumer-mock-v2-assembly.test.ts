@@ -34,12 +34,12 @@ function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
   };
 }
 
-describe("SampleRedstoneConsumerMockV2", function () {
+describe("SampleRedstoneConsumerMockV2Assembly", function () {
   let contract: SampleRedstoneConsumerMockV2Assembly;
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerMockV2"
+      "SampleRedstoneConsumerMockV2Assembly"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();

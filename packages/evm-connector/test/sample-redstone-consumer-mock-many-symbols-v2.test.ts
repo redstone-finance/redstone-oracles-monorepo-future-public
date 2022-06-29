@@ -70,6 +70,55 @@ describe("SampleRedstoneConsumerMockManySymbolsV2", function () {
           { symbol: "ETH", value: 43 },
         ],
       }),
+      getMockPackage({
+        mockSignerIndex: 3,
+        dataPoints: [
+          { symbol: "BTC", value: 400 },
+          { symbol: "ETH", value: 42 },
+        ],
+      }),
+      getMockPackage({
+        mockSignerIndex: 4,
+        dataPoints: [
+          { symbol: "BTC", value: 400 },
+          { symbol: "ETH", value: 42 },
+        ],
+      }),
+      getMockPackage({
+        mockSignerIndex: 5,
+        dataPoints: [
+          { symbol: "BTC", value: 400 },
+          { symbol: "ETH", value: 42 },
+        ],
+      }),
+      getMockPackage({
+        mockSignerIndex: 6,
+        dataPoints: [
+          { symbol: "BTC", value: 400 },
+          { symbol: "ETH", value: 42 },
+        ],
+      }),
+      getMockPackage({
+        mockSignerIndex: 7,
+        dataPoints: [
+          { symbol: "BTC", value: 400 },
+          { symbol: "ETH", value: 42 },
+        ],
+      }),
+      getMockPackage({
+        mockSignerIndex: 8,
+        dataPoints: [
+          { symbol: "BTC", value: 400 },
+          { symbol: "ETH", value: 42 },
+        ],
+      }),
+      getMockPackage({
+        mockSignerIndex: 9,
+        dataPoints: [
+          { symbol: "BTC", value: 400 },
+          { symbol: "ETH", value: 42 },
+        ],
+      }),
     ]);
 
     const tx = await wrappedContract.saveLatestPricesInStorage();
