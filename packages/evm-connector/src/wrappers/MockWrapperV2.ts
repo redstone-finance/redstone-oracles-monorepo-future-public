@@ -1,4 +1,3 @@
-import { hexlify } from "@ethersproject/bytes";
 import {
   DataPackageBase,
   serializeSignedDataPackages,
@@ -29,10 +28,6 @@ export class MockWrapperV2 extends BaseWrapper {
       signedDataPackages.push(signedDataPackage);
     }
 
-    return (
-      serializeSignedDataPackages(signedDataPackages) +
-      // serializeSignedDataPackages(signedDataPackages) +
-      serializeSignedDataPackages(signedDataPackages)
-    );
+    return serializeSignedDataPackages(signedDataPackages);
   }
 }
