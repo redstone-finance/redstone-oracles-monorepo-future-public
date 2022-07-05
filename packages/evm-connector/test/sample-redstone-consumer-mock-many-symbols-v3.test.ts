@@ -18,10 +18,6 @@ import { SampleRedstoneConsumerMockManySymbolsV3 } from "../typechain-types";
 // for being able to compare gas costs of different implementations
 const DEFAULT_TIMESTAMP_FOR_TESTS = 1654353400000;
 
-// const CUSTOM_BYTE_SIZE = 8;
-const CUSTOM_BYTE_SIZE = 32;
-const CUSTOM_DECIMALS = 8;
-
 interface MockPackageOpts {
   mockSignerIndex: MockSignerIndex;
   dataPoints: INumericDataPoint[];

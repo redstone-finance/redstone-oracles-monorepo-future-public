@@ -62,7 +62,9 @@ export const MOCK_SIGNERS = MOCK_PRIVATE_KEYS.map(
 
 export type MockSignerIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
-export function getMockSignerPrivateKey(mockSignerAddress: MockSignerAddress) {
+export const getMockSignerPrivateKey = (
+  mockSignerAddress: MockSignerAddress
+) => {
   for (const privateKey of MOCK_PRIVATE_KEYS) {
     const address = new ethers.Wallet(privateKey).address;
     if (address === mockSignerAddress) {
@@ -70,4 +72,4 @@ export function getMockSignerPrivateKey(mockSignerAddress: MockSignerAddress) {
     }
   }
   throw new Error(`Invalid mock signer address: ${mockSignerAddress}`);
-}
+};

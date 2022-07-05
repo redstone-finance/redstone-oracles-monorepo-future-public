@@ -31,15 +31,15 @@ describe("SampleRedstoneConsumerMock", function () {
     expect(latestEthPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(42);
   });
 
-  // it("Should properly read oracle data using contract view function", async () => {
-  //   const wrappedContract = WrapperBuilder.wrap(contract).usingMockData({
-  //     timestampMilliseconds: TIMESTAMP_FOR_TESTS,
-  //     dataPoints: [{ symbol: "ETH", value: 43 }],
-  //   });
+  it("Should properly read oracle data using contract view function", async () => {
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData({
+      timestampMilliseconds: TIMESTAMP_FOR_TESTS,
+      dataPoints: [{ symbol: "ETH", value: 43 }],
+    });
 
-  //   const result = await wrappedContract.getEthPriceSecurely();
-  //   expect(result.div(10 ** 8).toNumber()).to.be.equal(43);
-  // });
+    const result = await wrappedContract.getEthPriceSecurely();
+    expect(result.div(10 ** 8).toNumber()).to.be.equal(43);
+  });
 
   it("Should properly execute transaction with a big dataPackage (30k data points)", async () => {
     // Prepare data points

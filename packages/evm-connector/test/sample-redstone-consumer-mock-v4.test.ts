@@ -26,7 +26,7 @@ interface MockPackageOpts {
   timestampMilliseconds?: number;
 }
 
-function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
+const getMockPackage = (opts: MockPackageOpts): MockDataPackageConfigV2 => {
   const timestampMilliseconds =
     opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
   const bytesValue = arrayify(opts.value);
@@ -35,7 +35,7 @@ function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
     signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
     dataPackage: new DataPackage(dataPoints, timestampMilliseconds),
   };
-}
+};
 
 describe("SampleRedstoneConsumerMockV4", function () {
   let contract: SampleRedstoneConsumerMockV4;
