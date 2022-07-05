@@ -1,32 +1,39 @@
-import {
-  arrayify,
-  concat,
-  joinSignature,
-  keccak256,
-  SigningKey,
-} from "ethers/lib/utils";
+import { arrayify, concat, keccak256, SigningKey } from "ethers/lib/utils";
 import {
   DATA_POINTS_COUNT_BS,
-  DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS,
+  DATA_POINT_VALUE_BYTE_SIZE_BS,
   TIMESTAMP_BS,
 } from "../common/redstone-consts";
 import { Serializable } from "../common/Serializable";
-import { convertIntegerNumberToBytes } from "../common/utils";
-import { DataPointBase } from "../data-point/DataPointBase";
+import { assert, convertIntegerNumberToBytes } from "../common/utils";
+import { DataPoint } from "../data-point/DataPoint";
 import { SignedDataPackage } from "./SignedDataPackage";
 
-export abstract class DataPackageBase extends Serializable {
+export class DataPackage extends Serializable {
   constructor(
-    public readonly dataPoints: DataPointBase[],
+    public readonly dataPoints: DataPoint[],
     public readonly timestampMilliseconds: number
   ) {
+    super();
+
     if (dataPoints.length === 0) {
       throw new Error("Can not create a data package with no data points");
     }
-    super();
+
+    const expectedDataPointByteSize = dataPoints[0].getValueByteSize();
+    for (const dataPoint of dataPoints) {
+      assert(
+        dataPoint.getValueByteSize() === expectedDataPointByteSize,
+        "Values of all data points in DataPackage must have the same number of bytes"
+      );
+    }
   }
 
-  protected abstract getDefaultDataPointByteSize(): number;
+  // Each data point in this data package can have a different byte size
+  // So we set the default byte size to 0
+  getEachDataPointByteSize() {
+    return this.dataPoints[0].getValueByteSize();
+  }
 
   serializeToBytes(): Uint8Array {
     return concat([
@@ -75,8 +82,8 @@ export abstract class DataPackageBase extends Serializable {
 
   protected serializeDefaultDataPointByteSize(): Uint8Array {
     return convertIntegerNumberToBytes(
-      this.getDefaultDataPointByteSize(),
-      DEFAULT_DATA_POINT_VALUE_BYTE_SIZE_BS
+      this.getEachDataPointByteSize(),
+      DATA_POINT_VALUE_BYTE_SIZE_BS
     );
   }
 }

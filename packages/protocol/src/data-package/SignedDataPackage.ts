@@ -8,13 +8,13 @@ import {
   splitSignature,
 } from "ethers/lib/utils";
 import { Serializable } from "../common/Serializable";
-import { DataPackageBase } from "./DataPackageBase";
+import { DataPackage } from "./DataPackage";
 
 export class SignedDataPackage extends Serializable {
   public readonly signature: Signature;
 
   constructor(
-    public readonly dataPackage: DataPackageBase,
+    public readonly dataPackage: DataPackage,
     signature: Signature | string
   ) {
     super();

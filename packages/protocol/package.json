@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "ethers": "^5.6.8",
-    "lodash": "^4.17.21",
     "sort-deep-object-arrays": "^1.1.2"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
+    "@types/lodash": "^4.14.182",
     "jest": "^28.1.0",
     "ts-jest": "^28.0.3"
   }

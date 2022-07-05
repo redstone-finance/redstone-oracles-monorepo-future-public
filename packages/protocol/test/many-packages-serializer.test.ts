@@ -1,12 +1,9 @@
-import { hexlify } from "ethers/lib/utils";
 import {
-  DataPackageBase,
+  DataPackage,
+  SignedDataPackage,
+  NumericDataPoint,
   serializeSignedDataPackages,
-  serializeUnsignedDataPackageWithManySignatures,
 } from "../src";
-import { FixedSizeDataPackage } from "../src/data-package/FixedSizeDataPackage";
-import { SignedDataPackage } from "../src/data-package/SignedDataPackage";
-import { NumericDataPoint } from "../src/data-point/NumericDataPoint";
 
 const TIMESTAMP_FOR_TESTS = 1654353400000;
 const PRIVATE_KEY_FOR_TESTS_1 =
@@ -21,7 +18,7 @@ const EXPECTED_SIGNATURES = [
 ];
 
 describe("Fixed size data package", () => {
-  let dataPackage: DataPackageBase;
+  let dataPackage: DataPackage;
   let signedDataPackages: SignedDataPackage[];
 
   beforeEach(() => {
@@ -29,10 +26,10 @@ describe("Fixed size data package", () => {
     const dataPoints = [
       { symbol: "ETH", value: 2000 },
       { symbol: "BTC", value: 42000 },
-    ].map(({ symbol, value }) => new NumericDataPoint(symbol, value));
+    ].map(({ symbol, value }) => new NumericDataPoint({ symbol, value }));
 
     // Prepare unsigned data package
-    dataPackage = new FixedSizeDataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
+    dataPackage = new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
 
     // Prepare signed data packages
     signedDataPackages = [
@@ -49,26 +46,6 @@ describe("Fixed size data package", () => {
         EXPECTED_SERIALIZED_DATA_PACKAGE +
         EXPECTED_SIGNATURES[1] +
         "0002" // data packages count
-    );
-  });
-
-  test("Should correctly serialize data package with many signatures", () => {
-    const signatures = signedDataPackages.map((sdp) =>
-      sdp.serializeSignatureToHex()
-    );
-    expect(signatures[0]).toBe("0x" + EXPECTED_SIGNATURES[0]);
-    expect(signatures[1]).toBe("0x" + EXPECTED_SIGNATURES[1]);
-
-    const serialziedHex = serializeUnsignedDataPackageWithManySignatures(
-      dataPackage,
-      signatures
-    );
-
-    expect(serialziedHex).toBe(
-      EXPECTED_SERIALIZED_DATA_PACKAGE +
-        EXPECTED_SIGNATURES[0] +
-        EXPECTED_SIGNATURES[1] +
-        "0002" // signatures count
     );
   });
 });

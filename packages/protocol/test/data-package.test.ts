@@ -1,6 +1,6 @@
 import { Wallet } from "ethers";
 import { computePublicKey, hexlify } from "ethers/lib/utils";
-import { FixedSizeDataPackage } from "../src/data-package/FixedSizeDataPackage";
+import { DataPackage } from "../src/data-package/DataPackage";
 import { SignedDataPackage } from "../src/data-package/SignedDataPackage";
 import { NumericDataPoint } from "../src/data-point/NumericDataPoint";
 
@@ -19,15 +19,15 @@ const EXPECTED_SERIALIZED_UNSIGNED_DATA_PACKAGE =
 const EXPECTED_SIGNATURE =
   "059756659fc7267d152ec9da24fb84b899eb1d5a39371fa8c94b39ce6e55294646468e312698948101d5637b77049f5c2e974a986f2878f021a5c057a3ce739d1c";
 
-describe("Fixed size data package", () => {
-  let dataPackage: FixedSizeDataPackage;
+describe("Data package", () => {
+  let dataPackage: DataPackage;
 
   beforeEach(() => {
     const dataPoints = [
       { symbol: "ETH", value: 2000 },
       { symbol: "BTC", value: 42000 },
-    ].map(({ symbol, value }) => new NumericDataPoint(symbol, value));
-    dataPackage = new FixedSizeDataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
+    ].map((dpArgs) => new NumericDataPoint(dpArgs));
+    dataPackage = new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
   });
 
   test("Should serialize data package", () => {

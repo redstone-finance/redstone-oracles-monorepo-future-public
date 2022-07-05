@@ -8,6 +8,7 @@ import {
   toUtf8Bytes,
   zeroPad,
 } from "ethers/lib/utils";
+import { values } from "lodash";
 
 const ZERO_EX_PREFIX_LENGTH = 2; // length of string "0x"
 
@@ -59,3 +60,10 @@ export const convertIntegerNumberToBytes = (
 export const hexlifyWithout0xPrefix = (value: BytesLike): string => {
   return hexlify(value).slice(ZERO_EX_PREFIX_LENGTH);
 };
+
+export function useDefaultIfUndefined<T>(
+  value: T | undefined,
+  defaultValue: T
+): T {
+  return value === undefined ? defaultValue : value;
+}

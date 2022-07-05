@@ -1,12 +1,11 @@
-import { ethers } from "ethers";
+// This file is deprecated and should be removed soon
+
 import {
   arrayify,
-  concat,
   formatBytes32String,
   joinSignature,
   keccak256,
   SigningKey,
-  toUtf8Bytes,
 } from "ethers/lib/utils";
 import sortDeepObjectArrays from "sort-deep-object-arrays";
 
