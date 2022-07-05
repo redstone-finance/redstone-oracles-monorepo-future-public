@@ -1,7 +1,6 @@
-import { hexlify } from "@ethersproject/bytes";
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { FixedSizeDataPackage, NumericDataPoint } from "redstone-protocol";
+import { DataPackage, NumericDataPoint } from "redstone-protocol";
 import { convertStringToBytes32 } from "redstone-protocol/dist/src/common/utils";
 import {
   MOCK_SIGNERS,
@@ -30,18 +29,18 @@ function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
   const timestampMilliseconds =
     opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
   const decimals = 8;
-  const byteSize = 10;
+  const valueByteSize = 10;
   const dataPoints = [
-    new NumericDataPoint(
-      opts.symbol || DEFAULT_SYMBOL,
-      opts.value,
+    new NumericDataPoint({
+      symbol: opts.symbol || DEFAULT_SYMBOL,
+      value: opts.value,
       decimals,
-      byteSize
-    ),
+      valueByteSize,
+    }),
   ];
   return {
     signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
-    dataPackage: new FixedSizeDataPackage(dataPoints, timestampMilliseconds),
+    dataPackage: new DataPackage(dataPoints, timestampMilliseconds),
   };
 }
 

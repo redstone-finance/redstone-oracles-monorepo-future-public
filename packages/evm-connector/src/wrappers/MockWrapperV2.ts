@@ -1,5 +1,5 @@
 import {
-  DataPackageBase,
+  DataPackage,
   serializeSignedDataPackages,
   SignedDataPackage,
 } from "redstone-protocol";
@@ -11,7 +11,7 @@ import { BaseWrapper } from "./BaseWrapper";
 
 export interface MockDataPackageConfigV2 {
   signer: MockSignerAddress;
-  dataPackage: DataPackageBase;
+  dataPackage: DataPackage;
 }
 
 export class MockWrapperV2 extends BaseWrapper {

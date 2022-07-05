@@ -1,7 +1,7 @@
 import { arrayify, hexlify } from "@ethersproject/bytes";
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { FixedSizeDataPackage, FixedSizeDataPoint } from "redstone-protocol";
+import { DataPackage, DataPoint } from "redstone-protocol";
 import { convertStringToBytes32 } from "redstone-protocol/dist/src/common/utils";
 import {
   MOCK_SIGNERS,
@@ -30,21 +30,15 @@ function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
   const timestampMilliseconds =
     opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
   const bytesValue = arrayify(opts.value);
-  const dataPoints = [
-    new FixedSizeDataPoint(
-      opts.symbol || DEFAULT_SYMBOL,
-      bytesValue,
-      bytesValue.length
-    ),
-  ];
+  const dataPoints = [new DataPoint(opts.symbol || DEFAULT_SYMBOL, bytesValue)];
   return {
     signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
-    dataPackage: new FixedSizeDataPackage(dataPoints, timestampMilliseconds),
+    dataPackage: new DataPackage(dataPoints, timestampMilliseconds),
   };
 }
 
 describe("SampleRedstoneConsumerMockV4Strings", function () {
-  const someValue = "0x" + "f".repeat(1984) + "ee42"; // some dynamic value
+  const someValue = "0x" + "f".repeat(1984) + "ee42"; // some long value
   let contract: SampleRedstoneConsumerMockV4Strings;
 
   this.beforeEach(async () => {

@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import {
-  FixedSizeDataPackage,
+  DataPackage,
   INumericDataPoint,
   NumericDataPoint,
 } from "redstone-protocol";
@@ -31,18 +31,10 @@ interface MockPackageOpts {
 function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
   const timestampMilliseconds =
     opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
-  const dataPoints = opts.dataPoints.map(
-    (dp) =>
-      new NumericDataPoint(
-        dp.symbol,
-        dp.value,
-        dp.decimals || CUSTOM_DECIMALS,
-        dp.byteSize || CUSTOM_BYTE_SIZE
-      )
-  );
+  const dataPoints = opts.dataPoints.map((dp) => new NumericDataPoint(dp));
   return {
     signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
-    dataPackage: new FixedSizeDataPackage(dataPoints, timestampMilliseconds),
+    dataPackage: new DataPackage(dataPoints, timestampMilliseconds),
   };
 }
 
