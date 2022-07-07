@@ -3,9 +3,9 @@
 pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
-import "../message-based/RedstoneConsumerBaseV2Assembly.sol";
+import "../message-based/RedstoneConsumerBaseV5.sol";
 
-contract RedstoneConsumerMockV2Assembly is RedstoneConsumerBaseV2Assembly {
+contract RedstoneConsumerMockV5 is RedstoneConsumerBaseV5 {
   constructor() {
     uniqueSignersTreshold = 3;
   }

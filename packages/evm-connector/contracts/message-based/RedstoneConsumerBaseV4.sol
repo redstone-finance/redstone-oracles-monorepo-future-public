@@ -153,9 +153,7 @@ abstract contract RedstoneConsumerBaseV4 {
   ) private view returns (uint256) {
     uint16 dataPointsCount;
     uint256 signerIndex;
-    uint256 defaultDataPointValueByteSize = _getDefaultDataPointValueByteSize(
-      calldataOffset
-    );
+    uint256 defaultDataPointValueByteSize = _getDataPointValueByteSize(calldataOffset);
 
     // We use scopes to resolve problem with too deep stack
     {
@@ -288,7 +286,7 @@ abstract contract RedstoneConsumerBaseV4 {
       dataPointsCount;
   }
 
-  function _getDefaultDataPointValueByteSize(uint256 calldataOffset)
+  function _getDataPointValueByteSize(uint256 calldataOffset)
     internal
     pure
     returns (uint256)

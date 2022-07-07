@@ -52,34 +52,45 @@ abstract contract RedstoneConsumerBaseV5 is RedstoneConsumerBaseV2 {
     return firstBytesValue;
   }
 
-  function getCalldataBytesOracleValue(bytes32 symbol)
-    internal
-    view
-    returns (bytes memory)
-  {
-    uint256 calldataPtr = getCalldataPointerForOracleValue(symbol);
-    return getCalldataBytesFromCalldataPointer(calldataPtr);
-  }
-
-  function getCalldataPointerForOracleValue(bytes32 symbol)
-    internal
-    view
-    returns (uint256)
-  {
+  function getOracleBytesValue(bytes32 symbol) internal view returns (bytes memory) {
     bytes32[] memory symbols = new bytes32[](1);
     symbols[0] = symbol;
-    return getCalldataPointersForOracleValues(symbols)[0];
+    return getOracleBytesValues(symbols)[0];
   }
 
   // This is the core logic for pointers extraction
-  function getCalldataPointersForOracleValues(bytes32[] memory symbols)
+  function getOracleBytesValues(bytes32[] memory symbols)
     internal
     view
-    returns (uint256[] memory)
+    returns (bytes[] memory arrayOfMemoryPointers)
   {
-    // _securelyExtractOracleValuesFromTxMsg contains the main logic for
-    // data extraction and validation
-    return _securelyExtractOracleValuesFromTxMsg(symbols);
+    // _securelyExtractOracleValuesFromTxMsg contains the main logic
+    // for the data extraction and validation
+    uint256[] memory arrayOfExtractedValues = _securelyExtractOracleValuesFromTxMsg(
+      symbols
+    );
+    assembly {
+      arrayOfMemoryPointers := arrayOfExtractedValues
+    }
+  }
+
+  function _getDataPointValueByteSize(uint256 calldataOffset)
+    internal
+    pure
+    override
+    returns (uint256)
+  {
+    uint24 defaultDataPointValueByteSize;
+    assembly {
+      // Extracting the number of data points
+      let negativeOffset := add(calldataOffset, add(SIG_BS, STANDARD_SLOT_BS))
+
+      // Extracting the default data point value byte size
+      defaultDataPointValueByteSize := calldataload(
+        sub(sub(calldatasize(), negativeOffset), DATA_POINTS_COUNT_BS)
+      )
+    }
+    return uint256(defaultDataPointValueByteSize);
   }
 
   function _extractDataPointValueAndSymbol(

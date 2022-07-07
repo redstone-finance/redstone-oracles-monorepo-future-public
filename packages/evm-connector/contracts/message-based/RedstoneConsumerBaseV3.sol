@@ -9,7 +9,7 @@ import "./RedstoneConsumerBaseV2.sol";
 abstract contract RedstoneConsumerBaseV3 is RedstoneConsumerBaseV2 {
   uint256 constant BITS_COUNT_IN_ONE_BYTE = 8;
 
-  function _getDefaultDataPointValueByteSize(uint256 calldataOffset)
+  function _getDataPointValueByteSize(uint256 calldataOffset)
     internal
     pure
     override
