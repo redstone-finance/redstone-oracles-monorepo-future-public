@@ -92,13 +92,27 @@ abstract contract RedstoneConsumerBaseV2 {
 
   /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
 
-  function getOracleValueFromTxMsg(bytes32 symbol) internal view returns (uint256) {
+  function getOracleValueFromTxMsg(bytes32 symbol)
+    internal
+    view
+    virtual
+    returns (uint256)
+  {
     bytes32[] memory symbols = new bytes32[](1);
     symbols[0] = symbol;
     return getOracleValuesFromTxMsg(symbols)[0];
   }
 
   function getOracleValuesFromTxMsg(bytes32[] memory symbols)
+    internal
+    view
+    virtual
+    returns (uint256[] memory)
+  {
+    return _securelyExtractOracleValuesFromTxMsg(symbols);
+  }
+
+  function _securelyExtractOracleValuesFromTxMsg(bytes32[] memory symbols)
     internal
     view
     returns (uint256[] memory)

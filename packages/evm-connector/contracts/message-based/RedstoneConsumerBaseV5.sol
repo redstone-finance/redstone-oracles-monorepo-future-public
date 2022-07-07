@@ -1,0 +1,150 @@
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.4;
+
+// import "hardhat/console.sol";
+
+import "./RedstoneConsumerBaseV2.sol";
+
+abstract contract RedstoneConsumerBaseV5 is RedstoneConsumerBaseV2 {
+  uint256 constant BITS_COUNT_IN_16_BYTES = 128;
+
+  function getCalldataBytesFromCalldataPointer(uint256 byteValueCalldataPtr)
+    internal
+    pure
+    returns (bytes calldata bytesValueInCalldata)
+  {
+    uint256 calldataOfffset = _getNumberFromFirst16Bytes(byteValueCalldataPtr);
+    uint256 valueByteSize = _getNumberFromLast16Bytes(byteValueCalldataPtr);
+
+    // TODO: test if it works correctly
+    assembly {
+      bytesValueInCalldata.offset := calldataOfffset
+      bytesValueInCalldata.length := valueByteSize
+    }
+  }
+
+  function aggregateValues(uint256[] memory calldataPointersToValues)
+    public
+    view
+    override
+    returns (uint256 pointerToResultBytesInMemory)
+  {
+    bytes memory aggregatedBytes = aggregateByteValues(calldataPointersToValues);
+    assembly {
+      pointerToResultBytesInMemory := aggregatedBytes
+    }
+  }
+
+  // This method can be overriden by client to specify their
+  // custom logic of bytes aggregation
+  // TODO: improve sample implementation
+  // E.g. take xor of all values
+  function aggregateByteValues(uint256[] memory calldataPointersForValues)
+    public
+    view
+    virtual
+    returns (bytes memory)
+  {
+    bytes calldata firstBytesValue = getCalldataBytesFromCalldataPointer(
+      calldataPointersForValues[0]
+    );
+    return firstBytesValue;
+  }
+
+  function getCalldataBytesOracleValue(bytes32 symbol)
+    internal
+    view
+    returns (bytes memory)
+  {
+    uint256 calldataPtr = getCalldataPointerForOracleValue(symbol);
+    return getCalldataBytesFromCalldataPointer(calldataPtr);
+  }
+
+  function getCalldataPointerForOracleValue(bytes32 symbol)
+    internal
+    view
+    returns (uint256)
+  {
+    bytes32[] memory symbols = new bytes32[](1);
+    symbols[0] = symbol;
+    return getCalldataPointersForOracleValues(symbols)[0];
+  }
+
+  // This is the core logic for pointers extraction
+  function getCalldataPointersForOracleValues(bytes32[] memory symbols)
+    internal
+    view
+    returns (uint256[] memory)
+  {
+    // _securelyExtractOracleValuesFromTxMsg contains the main logic for
+    // data extraction and validation
+    return _securelyExtractOracleValuesFromTxMsg(symbols);
+  }
+
+  function _extractDataPointValueAndSymbol(
+    uint256 calldataOffset,
+    uint256 defaultDataPointValueByteSize,
+    uint256 dataPointIndex
+  ) internal pure override returns (bytes32 dataPointSymbol, uint256 dataPointValue) {
+    assembly {
+      let negativeOffsetToDataPoints := add(
+        calldataOffset,
+        DATA_PACKAGE_WITHOUT_DATA_POINTS_BS
+      )
+      let dataPointCalldataOffset := sub(
+        calldatasize(),
+        add(
+          negativeOffsetToDataPoints,
+          mul(
+            add(1, dataPointIndex),
+            add(defaultDataPointValueByteSize, DATA_POINT_SYMBOL_BS)
+          )
+        )
+      )
+      dataPointSymbol := calldataload(dataPointCalldataOffset)
+      dataPointValue := prepareTrickyCalldataPointer(
+        add(dataPointCalldataOffset, DATA_POINT_SYMBOL_BS),
+        defaultDataPointValueByteSize
+      )
+
+      function prepareTrickyCalldataPointer(calldataOffsetArg, valueByteSize)
+        -> calldataPtr
+      {
+        calldataPtr := add(shl(BITS_COUNT_IN_16_BYTES, calldataOffsetArg), valueByteSize)
+      }
+    }
+  }
+
+  function getOracleValueFromTxMsg(bytes32 symbol)
+    internal
+    pure
+    override
+    returns (uint256)
+  {
+    symbol; // To handle compilation warning
+    revert(
+      "function getOracleValueFromTxMsg should not be used in the current contract version"
+    );
+  }
+
+  function getOracleValuesFromTxMsg(bytes32[] memory symbols)
+    internal
+    pure
+    override
+    returns (uint256[] memory)
+  {
+    symbols; // To handle compilation warning
+    revert(
+      "function getOracleValuesFromTxMsg should not be used in the current contract version"
+    );
+  }
+
+  function _getNumberFromFirst16Bytes(uint256 number) internal pure returns (uint256) {
+    return uint256(number >> BITS_COUNT_IN_16_BYTES);
+  }
+
+  function _getNumberFromLast16Bytes(uint256 number) internal pure returns (uint256) {
+    return uint256((number << BITS_COUNT_IN_16_BYTES) >> BITS_COUNT_IN_16_BYTES);
+  }
+}
