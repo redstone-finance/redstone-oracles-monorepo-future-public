@@ -33,12 +33,12 @@ contract SampleRedstoneConsumerMockV5 is RedstoneConsumerMockV5 {
   }
 
   function getPriceSecurely(bytes32 symbol) public view returns (uint256) {
-    bytes memory bytesValueFromOracle = getOracleBytesValue(symbol);
+    bytes memory bytesValueFromOracle = getOracleBytesValueFromTxMsg(symbol);
     return bytesToUint256(bytesValueFromOracle);
   }
 
   function saveLatestPriceInStorage(bytes32 symbol) public {
-    bytes memory bytesValueFromOracle = getOracleBytesValue(symbol);
+    bytes memory bytesValueFromOracle = getOracleBytesValueFromTxMsg(symbol);
     latestPrice = bytesToUint256(bytesValueFromOracle);
   }
 

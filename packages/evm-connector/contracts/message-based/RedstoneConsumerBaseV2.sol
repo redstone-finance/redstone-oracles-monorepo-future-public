@@ -367,7 +367,6 @@ abstract contract RedstoneConsumerBaseV2 {
       );
       uint256 aggregatedValueForSymbol = aggregateValues(valuesForSymbols[symbolIndex]);
       aggregatedValues[symbolIndex] = aggregatedValueForSymbol;
-      console.log("aggregatedValues[symbolIndex]", aggregatedValueForSymbol);
     }
 
     return aggregatedValues;

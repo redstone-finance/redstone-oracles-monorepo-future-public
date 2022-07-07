@@ -38,28 +38,43 @@ abstract contract RedstoneConsumerBaseV5 is RedstoneConsumerBaseV2 {
 
   // This method can be overriden by client to specify their
   // custom logic of bytes aggregation
-  // TODO: improve sample implementation
-  // E.g. take xor of all values
   function aggregateByteValues(uint256[] memory calldataPointersForValues)
     public
     view
     virtual
     returns (bytes memory)
   {
-    bytes calldata firstBytesValue = getCalldataBytesFromCalldataPointer(
+    // Check if all byte arrays are identical
+    bytes calldata firstValue = getCalldataBytesFromCalldataPointer(
       calldataPointersForValues[0]
     );
-    return firstBytesValue;
+    bytes32 expectedHash = keccak256(firstValue);
+
+    for (uint256 i = 1; i < calldataPointersForValues.length; i++) {
+      bytes calldata currentValue = getCalldataBytesFromCalldataPointer(
+        calldataPointersForValues[i]
+      );
+      require(
+        keccak256(currentValue) == expectedHash,
+        "Each authorised signer must provide exactly the same bytes value"
+      );
+    }
+
+    return firstValue;
   }
 
-  function getOracleBytesValue(bytes32 symbol) internal view returns (bytes memory) {
+  function getOracleBytesValueFromTxMsg(bytes32 symbol)
+    internal
+    view
+    returns (bytes memory)
+  {
     bytes32[] memory symbols = new bytes32[](1);
     symbols[0] = symbol;
-    return getOracleBytesValues(symbols)[0];
+    return getOracleBytesValuesFromTxMsg(symbols)[0];
   }
 
   // This is the core logic for pointers extraction
-  function getOracleBytesValues(bytes32[] memory symbols)
+  function getOracleBytesValuesFromTxMsg(bytes32[] memory symbols)
     internal
     view
     returns (bytes[] memory arrayOfMemoryPointers)
