@@ -7,7 +7,7 @@ import "../message-based/RedstoneConsumerBaseV5.sol";
 
 contract RedstoneConsumerMockV5 is RedstoneConsumerBaseV5 {
   constructor() {
-    uniqueSignersTreshold = 3;
+    uniqueSignersThreshold = 3;
   }
 
   function getAuthorisedSignerIndex(address _signerAddress)

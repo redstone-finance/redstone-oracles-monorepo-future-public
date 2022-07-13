@@ -9,7 +9,7 @@ import "../commons/NumericArrayLib.sol";
 
 abstract contract RedstoneConsumerBaseV2 {
   // This param can be updated in child contracts
-  uint256 public uniqueSignersTreshold = 1;
+  uint256 public uniqueSignersThreshold = 1;
 
   uint256 constant _MAX_DATA_TIMESTAMP_DELAY = 3 * 60; // 3 minutes
   uint256 constant _MAX_BLOCK_TIMESTAMP_DELAY = 60; // 60 seconds
@@ -123,7 +123,7 @@ abstract contract RedstoneConsumerBaseV2 {
     uint256[][] memory valuesForSymbols = new uint256[][](symbols.length);
     for (uint256 i = 0; i < symbols.length; i++) {
       signersBitmapForSymbols[i] = 0; // empty bitmap
-      valuesForSymbols[i] = new uint256[](uniqueSignersTreshold);
+      valuesForSymbols[i] = new uint256[](uniqueSignersThreshold);
     }
 
     // Extracting the number of data packages from calldata
@@ -265,7 +265,7 @@ abstract contract RedstoneConsumerBaseV2 {
 
             if (
               !_getBitFromBitmap(bitmapSignersForSymbol, signerIndex) && /* currentSignerWasNotCountedForCurrentSymbol */
-              uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersTreshold
+              uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersThreshold
             ) {
               // Increase unique signer counter
               uniqueSignerCountForSymbols[symbolIndex]++;
@@ -362,7 +362,7 @@ abstract contract RedstoneConsumerBaseV2 {
 
     for (uint256 symbolIndex = 0; symbolIndex < symbolsLength; symbolIndex++) {
       require(
-        uniqueSignerCountForSymbols[symbolIndex] >= uniqueSignersTreshold,
+        uniqueSignerCountForSymbols[symbolIndex] >= uniqueSignersThreshold,
         "Insufficient number of unique signers"
       );
       uint256 aggregatedValueForSymbol = aggregateValues(valuesForSymbols[symbolIndex]);

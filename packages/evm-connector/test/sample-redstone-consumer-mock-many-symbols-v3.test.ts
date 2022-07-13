@@ -9,14 +9,11 @@ import {
   MOCK_SIGNERS,
   MockSignerIndex,
   MockSignerAddress,
+  DEFAULT_TIMESTAMP_FOR_TESTS,
 } from "../src/helpers/test-utils";
 import { WrapperBuilder } from "../src/index";
 import { MockDataPackageConfigV2 } from "../src/wrappers/MockWrapperV2";
 import { SampleRedstoneConsumerMockManySymbolsV3 } from "../typechain-types";
-
-// We lock the timestamp to have deterministic gas consumption
-// for being able to compare gas costs of different implementations
-const DEFAULT_TIMESTAMP_FOR_TESTS = 1654353400000;
 
 interface MockPackageOpts {
   mockSignerIndex: MockSignerIndex;
