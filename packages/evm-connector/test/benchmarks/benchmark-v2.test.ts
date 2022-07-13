@@ -16,21 +16,26 @@ interface BenchmarkTestCaseParams {
   dataPointsCount: number;
 }
 
-// const TEST_CASES = {
-//   requiredSignersCount: [1, 2, 10, 20],
-//   requestedSymbolsCount: [1, 2, 10, 20, 30],
-//   dataPointsCount: [1, 2, 10, 20, 200],
-// };
+interface GasReport {
+  forAttachingDataToCalldata: number;
+  forDataExtractionAndVerification: number;
+}
 
 const TEST_CASES = {
-  requiredSignersCount: [1, 2],
-  requestedSymbolsCount: [1, 2],
-  dataPointsCount: [1, 2, 200],
+  requiredSignersCount: [1, 2, 10, 20],
+  requestedSymbolsCount: [1, 2, 10, 20, 30],
+  dataPointsCount: [1, 2, 10, 20, 200],
 };
+
+// const TEST_CASES = {
+//   requiredSignersCount: [1],
+//   requestedSymbolsCount: [1],
+//   dataPointsCount: [1],
+// };
 
 describe("BenchmarkV2", function () {
   let contract: BenchmarkV2;
-  const fullGasReport = {};
+  const fullGasReport: any = {};
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory("BenchmarkV2");
@@ -39,7 +44,7 @@ describe("BenchmarkV2", function () {
   });
 
   this.afterAll(async () => {
-    console.log("TODO - print final gas report");
+    console.log("=== FINAL GAS REPORT ===");
     console.log(fullGasReport);
   });
 
@@ -64,15 +69,23 @@ describe("BenchmarkV2", function () {
     return mockDataPackages;
   };
 
-  // const updateFullGasReport = (benchmarkParams: BenchmarkTestCaseParams, gasReport)
+  const updateFullGasReport = (
+    benchmarkParams: BenchmarkTestCaseParams,
+    gasReport: GasReport
+  ) => {
+    fullGasReport[JSON.stringify(benchmarkParams)] = gasReport;
+  };
 
   const runBenchmarkTestCase = async (
     benchmarkParams: BenchmarkTestCaseParams
   ) => {
-    console.log(`Benchmark case testing started`);
-    console.log(benchmarkParams);
+    console.log(
+      `Benchmark case testing started: ${JSON.stringify(benchmarkParams)}`
+    );
 
-    const symbols = [...Array(10).keys()].map((i) => `TEST-${i}`);
+    const symbols = [...Array(benchmarkParams.dataPointsCount).keys()].map(
+      (i) => `TEST-${i}`
+    );
     const bytes32Symbols = symbols.map(convertStringToBytes32);
     const mockDataPackagesConfig =
       prepareMockDataPackageConfig(benchmarkParams);
@@ -102,21 +115,20 @@ describe("BenchmarkV2", function () {
     const realOracleTx = await wrappedContract.saveLatestValueInStorage(
       bytes32Symbols
     );
-    await realOracleTx.wait();
+    const realOracleTxReceipt = await realOracleTx.wait();
 
-    const gasCost = {
+    const gasReport: GasReport = {
       forAttachingDataToCalldata: emptyTxWithWrappingReceipt.gasUsed
-        .sub(emptyTxWithoutWrappingReceipt)
+        .sub(emptyTxWithoutWrappingReceipt.gasUsed)
         .toNumber(),
-      forDataExtractionAndVerification: realOracleTx.gasUsed
-        .sub(emptyTxWithWrapping.gasUsed)
+      forDataExtractionAndVerification: realOracleTxReceipt.gasUsed
+        .sub(emptyTxWithWrappingReceipt.gasUsed)
         .toNumber(),
     };
 
-    console.log({ gasCost });
+    console.log({ gasReport });
 
-    // TODO: Save in fullGasReport
-    // updateFull..
+    updateFullGasReport(benchmarkParams, gasReport);
   };
 
   for (const requiredSignersCount of TEST_CASES.requiredSignersCount) {

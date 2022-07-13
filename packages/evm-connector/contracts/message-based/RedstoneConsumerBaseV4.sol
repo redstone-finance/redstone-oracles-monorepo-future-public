@@ -86,7 +86,6 @@ abstract contract RedstoneConsumerBaseV4 {
   {
     // Check if all byte arrays are identical
     bytes32 expectedHash = keccak256(values[0]);
-    console.logBytes32(expectedHash);
     for (uint256 i = 1; i < values.length; i++) {
       require(
         keccak256(values[i]) == expectedHash,
