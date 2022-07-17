@@ -24,14 +24,8 @@ interface GasReport {
 const TEST_CASES = {
   requiredSignersCount: [1, 2, 10, 20],
   requestedSymbolsCount: [1, 2, 10, 20, 30],
-  dataPointsCount: [1, 2, 10, 20, 200],
+  dataPointsCount: [1, 2, 10, 20, 50],
 };
-
-// const TEST_CASES = {
-//   requiredSignersCount: [1],
-//   requestedSymbolsCount: [1],
-//   dataPointsCount: [1],
-// };
 
 describe("BenchmarkV2", function () {
   let contract: BenchmarkV2;
