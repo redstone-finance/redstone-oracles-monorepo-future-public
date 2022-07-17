@@ -1,4 +1,4 @@
-import { arrayify, hexlify } from "@ethersproject/bytes";
+import { arrayify } from "@ethersproject/bytes";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { DataPackage, DataPoint } from "redstone-protocol";
@@ -11,7 +11,7 @@ import {
 } from "../src/helpers/test-utils";
 import { WrapperBuilder } from "../src/index";
 import { MockDataPackageConfigV2 } from "../src/wrappers/MockWrapperV2";
-import { SampleRedstoneConsumerMockV4Strings } from "../typechain-types";
+import { SampleRedstoneConsumerMockV5 } from "../typechain-types";
 
 const DEFAULT_SYMBOL = "SOME LONG STRING FOR SYMBOL TO TRIGGER SYMBOL HASHING";
 // const DEFAULT_SYMBOL = "ETH";
@@ -24,7 +24,7 @@ interface MockPackageOpts {
   timestampMilliseconds?: number;
 }
 
-function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
+const getMockPackage = (opts: MockPackageOpts): MockDataPackageConfigV2 => {
   const timestampMilliseconds =
     opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
   const bytesValue = arrayify(opts.value);
@@ -33,15 +33,14 @@ function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
     signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
     dataPackage: new DataPackage(dataPoints, timestampMilliseconds),
   };
-}
+};
 
-describe("SampleRedstoneConsumerMockV4Strings", function () {
-  const someValue = "0x" + "f".repeat(1984) + "ee42"; // some long value
-  let contract: SampleRedstoneConsumerMockV4Strings;
+describe("SampleRedstoneConsumerMockV5", function () {
+  let contract: SampleRedstoneConsumerMockV5;
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerMockV4Strings"
+      "SampleRedstoneConsumerMockV5"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
@@ -49,35 +48,18 @@ describe("SampleRedstoneConsumerMockV4Strings", function () {
 
   it("Should properly execute transaction on RedstoneConsumerBase contract", async () => {
     const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
-      getMockPackage({ mockSignerIndex: 0, value: someValue }),
-      getMockPackage({ mockSignerIndex: 1, value: someValue }),
-      getMockPackage({ mockSignerIndex: 2, value: someValue }),
+      getMockPackage({ mockSignerIndex: 0, value: "0xf4610900" }), // hex(41 * 10 ** 8)
+      getMockPackage({ mockSignerIndex: 1, value: "0x01004ccb00" }), // hex(43 * 10 ** 8)
+      getMockPackage({ mockSignerIndex: 2, value: "0xfa56ea00" }), // hex(42 * 10 ** 8)
     ]);
 
-    const tx = await wrappedContract.saveLatestValueInStorage(
+    const tx = await wrappedContract.saveLatestPriceInStorage(
       DEFAULT_SYMBOL_BYTES_32
     );
     await tx.wait();
 
-    const latestString = await contract.latestString();
-    expect(latestString).to.be.equal(someValue);
-  });
-
-  it("Should revert if values from different signers are different", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
-      getMockPackage({ mockSignerIndex: 0, value: someValue }),
-      getMockPackage({ mockSignerIndex: 1, value: someValue }),
-      getMockPackage({
-        mockSignerIndex: 2,
-        value: someValue.replace("ee42", "ff42"),
-      }),
-    ]);
-
-    await expect(
-      wrappedContract.saveLatestValueInStorage(DEFAULT_SYMBOL_BYTES_32)
-    ).to.be.revertedWith(
-      "Each authorised signer must provide exactly the same bytes value"
-    );
+    const latestEthPriceFromContract = await contract.latestPrice();
+    expect(latestEthPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(42);
   });
 
   it("Should revert if there are too few signers", async () => {
@@ -87,7 +69,7 @@ describe("SampleRedstoneConsumerMockV4Strings", function () {
     ]);
 
     await expect(
-      wrappedContract.saveLatestValueInStorage(DEFAULT_SYMBOL_BYTES_32)
+      wrappedContract.saveLatestPriceInStorage(DEFAULT_SYMBOL_BYTES_32)
     ).to.be.revertedWith("Insufficient number of unique signers");
   });
 
@@ -99,7 +81,7 @@ describe("SampleRedstoneConsumerMockV4Strings", function () {
     ]);
 
     await expect(
-      wrappedContract.saveLatestValueInStorage(DEFAULT_SYMBOL_BYTES_32)
+      wrappedContract.saveLatestPriceInStorage(DEFAULT_SYMBOL_BYTES_32)
     ).to.be.revertedWith("Insufficient number of unique signers");
   });
 });

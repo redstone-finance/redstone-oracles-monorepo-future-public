@@ -2,14 +2,14 @@
 
 pragma solidity ^0.8.4;
 
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 import "../commons/NumericArrayLib.sol";
 
 // Implementation with on-chain aggregation
 
 abstract contract RedstoneConsumerBaseV2 {
   // This param can be updated in child contracts
-  uint256 public uniqueSignersTreshold = 1;
+  uint256 public uniqueSignersThreshold = 1;
 
   uint256 constant _MAX_DATA_TIMESTAMP_DELAY = 3 * 60; // 3 minutes
   uint256 constant _MAX_BLOCK_TIMESTAMP_DELAY = 60; // 60 seconds
@@ -92,13 +92,27 @@ abstract contract RedstoneConsumerBaseV2 {
 
   /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
 
-  function getOracleValueFromTxMsg(bytes32 symbol) internal view returns (uint256) {
+  function getOracleValueFromTxMsg(bytes32 symbol)
+    internal
+    view
+    virtual
+    returns (uint256)
+  {
     bytes32[] memory symbols = new bytes32[](1);
     symbols[0] = symbol;
     return getOracleValuesFromTxMsg(symbols)[0];
   }
 
   function getOracleValuesFromTxMsg(bytes32[] memory symbols)
+    internal
+    view
+    virtual
+    returns (uint256[] memory)
+  {
+    return _securelyExtractOracleValuesFromTxMsg(symbols);
+  }
+
+  function _securelyExtractOracleValuesFromTxMsg(bytes32[] memory symbols)
     internal
     view
     returns (uint256[] memory)
@@ -109,7 +123,7 @@ abstract contract RedstoneConsumerBaseV2 {
     uint256[][] memory valuesForSymbols = new uint256[][](symbols.length);
     for (uint256 i = 0; i < symbols.length; i++) {
       signersBitmapForSymbols[i] = 0; // empty bitmap
-      valuesForSymbols[i] = new uint256[](uniqueSignersTreshold);
+      valuesForSymbols[i] = new uint256[](uniqueSignersThreshold);
     }
 
     // Extracting the number of data packages from calldata
@@ -147,9 +161,7 @@ abstract contract RedstoneConsumerBaseV2 {
   ) private view returns (uint256) {
     uint16 dataPointsCount;
     uint256 signerIndex;
-    uint256 defaultDataPointValueByteSize = _getDefaultDataPointValueByteSize(
-      calldataOffset
-    );
+    uint256 defaultDataPointValueByteSize = _getDataPointValueByteSize(calldataOffset);
 
     // We use scopes to resolve problem with too deep stack
     {
@@ -253,7 +265,7 @@ abstract contract RedstoneConsumerBaseV2 {
 
             if (
               !_getBitFromBitmap(bitmapSignersForSymbol, signerIndex) && /* currentSignerWasNotCountedForCurrentSymbol */
-              uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersTreshold
+              uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersThreshold
             ) {
               // Increase unique signer counter
               uniqueSignerCountForSymbols[symbolIndex]++;
@@ -281,7 +293,7 @@ abstract contract RedstoneConsumerBaseV2 {
       dataPointsCount;
   }
 
-  function _getDefaultDataPointValueByteSize(uint256 calldataOffset)
+  function _getDataPointValueByteSize(uint256 calldataOffset)
     internal
     pure
     virtual
@@ -350,7 +362,7 @@ abstract contract RedstoneConsumerBaseV2 {
 
     for (uint256 symbolIndex = 0; symbolIndex < symbolsLength; symbolIndex++) {
       require(
-        uniqueSignerCountForSymbols[symbolIndex] >= uniqueSignersTreshold,
+        uniqueSignerCountForSymbols[symbolIndex] >= uniqueSignersThreshold,
         "Insufficient number of unique signers"
       );
       uint256 aggregatedValueForSymbol = aggregateValues(valuesForSymbols[symbolIndex]);

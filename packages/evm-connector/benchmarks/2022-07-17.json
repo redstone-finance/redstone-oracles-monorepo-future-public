@@ -1,0 +1,402 @@
+{
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":1,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 1560,
+    "forDataExtractionAndVerification": 10379
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":1,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 1936,
+    "forDataExtractionAndVerification": 13438
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":1,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 4932,
+    "forDataExtractionAndVerification": 51765
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":1,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 8824,
+    "forDataExtractionAndVerification": 134267
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":1,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 20452,
+    "forDataExtractionAndVerification": 612363
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":2,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 1560,
+    "forDataExtractionAndVerification": 10379
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":2,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 1936,
+    "forDataExtractionAndVerification": 13438
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":2,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 4932,
+    "forDataExtractionAndVerification": 51765
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":2,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 8824,
+    "forDataExtractionAndVerification": 134267
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":2,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 20452,
+    "forDataExtractionAndVerification": 612363
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":10,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 1560,
+    "forDataExtractionAndVerification": 10379
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":10,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 1936,
+    "forDataExtractionAndVerification": 13438
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":10,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 4932,
+    "forDataExtractionAndVerification": 51765
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":10,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 8824,
+    "forDataExtractionAndVerification": 134267
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":10,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 20452,
+    "forDataExtractionAndVerification": 612363
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":20,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 1560,
+    "forDataExtractionAndVerification": 10379
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":20,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 1936,
+    "forDataExtractionAndVerification": 13438
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":20,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 4932,
+    "forDataExtractionAndVerification": 51765
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":20,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 8824,
+    "forDataExtractionAndVerification": 134267
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":20,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 20452,
+    "forDataExtractionAndVerification": 612363
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":30,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 1560,
+    "forDataExtractionAndVerification": 10379
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":30,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 1936,
+    "forDataExtractionAndVerification": 13438
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":30,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 4932,
+    "forDataExtractionAndVerification": 51765
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":30,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 8824,
+    "forDataExtractionAndVerification": 134267
+  },
+  "{\"requiredSignersCount\":1,\"requestedSymbolsCount\":30,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 20452,
+    "forDataExtractionAndVerification": 612363
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":1,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 3112,
+    "forDataExtractionAndVerification": 16822
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":1,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 3852,
+    "forDataExtractionAndVerification": 21959
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":1,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 9856,
+    "forDataExtractionAndVerification": 90741
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":1,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 17628,
+    "forDataExtractionAndVerification": 245893
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":1,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 40884,
+    "forDataExtractionAndVerification": 1172486
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":2,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 3112,
+    "forDataExtractionAndVerification": 16822
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":2,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 3852,
+    "forDataExtractionAndVerification": 21959
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":2,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 9856,
+    "forDataExtractionAndVerification": 90741
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":2,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 17628,
+    "forDataExtractionAndVerification": 245893
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":2,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 40884,
+    "forDataExtractionAndVerification": 1172486
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":10,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 3112,
+    "forDataExtractionAndVerification": 16822
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":10,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 3852,
+    "forDataExtractionAndVerification": 21959
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":10,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 9856,
+    "forDataExtractionAndVerification": 90741
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":10,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 17628,
+    "forDataExtractionAndVerification": 245893
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":10,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 40884,
+    "forDataExtractionAndVerification": 1172486
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":20,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 3112,
+    "forDataExtractionAndVerification": 16822
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":20,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 3852,
+    "forDataExtractionAndVerification": 21959
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":20,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 9856,
+    "forDataExtractionAndVerification": 90741
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":20,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 17628,
+    "forDataExtractionAndVerification": 245893
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":20,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 40884,
+    "forDataExtractionAndVerification": 1172486
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":30,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 3112,
+    "forDataExtractionAndVerification": 16822
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":30,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 3852,
+    "forDataExtractionAndVerification": 21959
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":30,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 9856,
+    "forDataExtractionAndVerification": 90741
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":30,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 17628,
+    "forDataExtractionAndVerification": 245893
+  },
+  "{\"requiredSignersCount\":2,\"requestedSymbolsCount\":30,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 40884,
+    "forDataExtractionAndVerification": 1172486
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":1,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 15516,
+    "forDataExtractionAndVerification": 71930
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":1,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 19144,
+    "forDataExtractionAndVerification": 96082
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":1,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 49200,
+    "forDataExtractionAndVerification": 427747
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":1,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 88036,
+    "forDataExtractionAndVerification": 1188389
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":1,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 204328,
+    "forDataExtractionAndVerification": 5777350
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":2,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 15516,
+    "forDataExtractionAndVerification": 71930
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":2,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 19144,
+    "forDataExtractionAndVerification": 96082
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":2,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 49200,
+    "forDataExtractionAndVerification": 427747
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":2,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 88036,
+    "forDataExtractionAndVerification": 1188389
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":2,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 204328,
+    "forDataExtractionAndVerification": 5777350
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":10,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 15516,
+    "forDataExtractionAndVerification": 71930
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":10,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 19144,
+    "forDataExtractionAndVerification": 96082
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":10,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 49200,
+    "forDataExtractionAndVerification": 427747
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":10,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 88036,
+    "forDataExtractionAndVerification": 1188389
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":10,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 204328,
+    "forDataExtractionAndVerification": 5777350
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":20,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 15516,
+    "forDataExtractionAndVerification": 71930
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":20,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 19144,
+    "forDataExtractionAndVerification": 96082
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":20,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 49200,
+    "forDataExtractionAndVerification": 427747
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":20,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 88036,
+    "forDataExtractionAndVerification": 1188389
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":20,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 204328,
+    "forDataExtractionAndVerification": 5777350
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":30,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 15516,
+    "forDataExtractionAndVerification": 71930
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":30,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 19144,
+    "forDataExtractionAndVerification": 96082
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":30,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 49200,
+    "forDataExtractionAndVerification": 427747
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":30,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 88036,
+    "forDataExtractionAndVerification": 1188389
+  },
+  "{\"requiredSignersCount\":10,\"requestedSymbolsCount\":30,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 204328,
+    "forDataExtractionAndVerification": 5777350
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":1,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 31024,
+    "forDataExtractionAndVerification": 155495
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":1,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 38268,
+    "forDataExtractionAndVerification": 215224
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":1,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 98416,
+    "forDataExtractionAndVerification": 970174
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":1,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 176040,
+    "forDataExtractionAndVerification": 2606598
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":1,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 408588,
+    "forDataExtractionAndVerification": 12134077
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":2,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 31024,
+    "forDataExtractionAndVerification": 155495
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":2,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 38268,
+    "forDataExtractionAndVerification": 215224
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":2,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 98416,
+    "forDataExtractionAndVerification": 970174
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":2,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 176040,
+    "forDataExtractionAndVerification": 2606598
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":2,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 408588,
+    "forDataExtractionAndVerification": 12134077
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":10,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 31024,
+    "forDataExtractionAndVerification": 155495
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":10,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 38268,
+    "forDataExtractionAndVerification": 215224
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":10,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 98416,
+    "forDataExtractionAndVerification": 970174
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":10,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 176040,
+    "forDataExtractionAndVerification": 2606598
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":10,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 408588,
+    "forDataExtractionAndVerification": 12134077
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":20,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 31024,
+    "forDataExtractionAndVerification": 155495
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":20,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 38268,
+    "forDataExtractionAndVerification": 215224
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":20,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 98416,
+    "forDataExtractionAndVerification": 970174
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":20,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 176040,
+    "forDataExtractionAndVerification": 2606598
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":20,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 408588,
+    "forDataExtractionAndVerification": 12134077
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":30,\"dataPointsCount\":1}": {
+    "forAttachingDataToCalldata": 31024,
+    "forDataExtractionAndVerification": 155495
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":30,\"dataPointsCount\":2}": {
+    "forAttachingDataToCalldata": 38268,
+    "forDataExtractionAndVerification": 215224
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":30,\"dataPointsCount\":10}": {
+    "forAttachingDataToCalldata": 98416,
+    "forDataExtractionAndVerification": 970174
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":30,\"dataPointsCount\":20}": {
+    "forAttachingDataToCalldata": 176040,
+    "forDataExtractionAndVerification": 2606598
+  },
+  "{\"requiredSignersCount\":20,\"requestedSymbolsCount\":30,\"dataPointsCount\":50}": {
+    "forAttachingDataToCalldata": 408588,
+    "forDataExtractionAndVerification": 12134077
+  }
+}

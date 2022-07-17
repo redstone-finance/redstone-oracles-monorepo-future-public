@@ -1,0 +1,186 @@
+contract Hehe {
+  function getOracleValuesFromTxMsg(bytes32[] symbols) returns (uint256[]) {
+    // Initializing helpful variables and allocating memory
+    uint256[] uniqueSignerCountForSymbols = new uint256[](symbols.length);
+    uint256[] signersBitmapForSymbols = new uint256[](symbols.length);
+    uint256[][] valuesForSymbols = new uint256[][](symbols.length);
+    for (uint256 i = 0; i < symbols.length; i++) {
+      signersBitmapForSymbols[i] = 0; // empty bitmap
+      valuesForSymbols[i] = new uint256[](uniqueSignersThreshold);
+    }
+
+    // Extracting the number of data packages from calldata
+    uint256 dataPackagesCount = uint256(
+      uint16(msg.data[msg.data.length - 2:msg.data.length])
+    );
+    uint256 calldataOffset = DATA_PACKAGES_COUNT_BYTE_SIZE; // e.g. 3 bytes
+
+    // Data packages extraction in a loop
+    // for (
+    //   uint256 dataPackageIndex = 0;
+    //   dataPackageIndex < dataPackagesCount;
+    //   dataPackageIndex++
+    // ) {
+    //   // Extract data package details and update calldata offset
+    //   uint256 dataPackageByteSize = _extractDataPackage(
+    //     symbols,
+    //     uniqueSignerCountForSymbols,
+    //     signersBitmapForSymbols,
+    //     valuesForSymbols,
+    //     calldataOffset
+    //   );
+    //   calldataOffset += dataPackageByteSize;
+    // }
+
+    // Step 1. Verify evrything (signatures and timestamp for each data package)
+    // and save authorised signer id for each data package
+    uint256[] signerIdsForEachDataPackage = new uint256[](dataPackagesCount);
+    // dataPackagesDetails need to have information about:
+    // - data package start in calldata
+    // - data point value byte size (same for all data points in data package)
+    // - data package byte size
+    // - index of latest indexed data point
+    uint256[] dataPackagesDetails = new uint256[](dataPackagesCount);
+
+    // Easy implementable
+
+    // Step 2. Data extractions
+    uint256[] valuePointersInCalldataForCurrentSymbol = new uint256[](
+      uniqueSignersThreshold
+    );
+    for (uint256 symbolIndex = 0; symbolIndex < symbols.length; symbolIndex++) {
+      uint256 uniqueSignerCountForSymbol = 0;
+      uint256 signersBitmapForSymbol = 0;
+      for (
+        uint256 dataPackageIndex = 0;
+        dataPackageIndex < dataPackagesCount;
+        dataPackageIndex++
+      ) {
+        if (uniqueSignerCountForSymbol >= uniqueSignersThreshold) {
+          break;
+        }
+
+        uint256 signerId = signerIdsForEachDataPackage[dataPackageIndex];
+
+        if (!_getBitFromBitmap(signersBitmapForSymbol, signerId)) {
+          uint256 dataPointValueByteSizeForCurrentDataPackage = _extractUsingMagic(
+            dataPackagesDetails
+          );
+          uint256 dataPackageStartInCalldata = _extractUsingMagic2(dataPackagesDetails);
+          uint256 dataPackageByteSize = _extractUsingMagic2(dataPackagesDetails);
+          uint256 lastIndexedDataPointIndexInDataPackage = _extractUsingMagic3(
+            dataPackagesDetails
+          );
+
+          // If we find the symbol
+          // signersBitmapForSymbol = _setBitInBitmap(signersBitmapForSymbol, signerId);
+        }
+      }
+
+      require(
+        uniqueSignerCountForSymbol >= uniqueSignersThreshold,
+        "Not enough unique signers for symbol: "
+      );
+      uint256 aggregatedValueForSymbol = aggregateValues(
+        valuePointersInCalldataForCurrentSymbol
+      );
+    }
+
+    // Validating numbers of unique signers and calculating aggregated values for each symbol
+    return
+      _getAggregatedValues(symbols.length, valuesForSymbols, uniqueSignerCountForSymbols);
+  }
+
+  function _extractDataPackage(
+    bytes32[] memory symbols,
+    uint256[] memory uniqueSignerCountForSymbols,
+    uint256[] memory signersBitmapForSymbols,
+    uint256[][] memory valuesForSymbols,
+    uint256 calldataOffset
+  ) private view returns (uint256) {
+    // assume that `_extractDataPackageDetails` can be easily implemented
+    (
+      bytes memory signature,
+      uint256 timestamp,
+      bytes message
+    ) = _extractDataPackageDetails(calldataOffset);
+    bytes32 messageHash = keccak256(message);
+
+    // Assume that `recoverSigner` method can be easily implemented
+    address recoveredSigner = recoverSigner(messageHash, signature);
+
+    // Validating signature for current data package
+    // `getAuthorisedSignerIndex` method will be overriden in clients' contracts
+    // and will deterministically return a unique number (from 0 to 255) for each signer
+    uint256 signerIndex = getAuthorisedSignerIndex(recoveredSigner);
+
+    // Validating timestamp for current data package
+    // `isTimestampValid` will be overriden in clients' contracts
+    require(isTimestampValid(timestamp), "Timestamp is invalid");
+
+    // Updating helpful arrays
+    bytes32 dataPointSymbol;
+    uint256 dataPointValue;
+    for (uint256 dataPointIndex = 0; dataPointIndex < dataPointsCount; dataPointIndex++) {
+      // Extracting symbol and value for current data point
+      (dataPointSymbol, dataPointValue) = _extractDataPointValueAndSymbol(
+        calldataOffset,
+        defaultDataPointValueByteSize,
+        dataPointIndex
+      );
+
+      for (uint256 symbolIndex = 0; symbolIndex < symbols.length; symbolIndex++) {
+        if (dataPointSymbol == symbols[symbolIndex]) {
+          uint256 bitmapSignersForSymbol = signersBitmapForSymbols[symbolIndex];
+
+          if (
+            // Assume that `_getBitFromBitmap` and `_setBitInBitmap` can be easily implemented
+            // and can work efficiently as sets for up to 256 elements (indexed from 0 to 255)
+            !_getBitFromBitmap(bitmapSignersForSymbol, signerIndex) && /* currentSignerWasNotCountedForCurrentSymbol */
+            uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersThreshold
+          ) {
+            // Increase unique signer counter
+            uniqueSignerCountForSymbols[symbolIndex]++;
+
+            // Add new value
+            valuesForSymbols[symbolIndex][
+              uniqueSignerCountForSymbols[symbolIndex] - 1
+            ] = dataPointValue;
+
+            // Update signers bitmap
+            signersBitmapForSymbols[symbolIndex] = _setBitInBitmap(
+              bitmapSignersForSymbol,
+              signerIndex
+            );
+          }
+        }
+      }
+    }
+
+    // Return total data package byte size
+    return
+      DATA_PACKAGE_WITHOUT_DATA_POINTS_BS +
+      (defaultDataPointValueByteSize + DATA_POINT_SYMBOL_BS) *
+      dataPointsCount;
+  }
+
+  function _getAggregatedValues(
+    uint256 symbolsLength,
+    uint256[][] memory valuesForSymbols,
+    uint256[] memory uniqueSignerCountForSymbols
+  ) internal view returns (uint256[] memory) {
+    uint256[] memory aggregatedValues = new uint256[](symbolsLength);
+
+    for (uint256 symbolIndex = 0; symbolIndex < symbolsLength; symbolIndex++) {
+      require(
+        uniqueSignerCountForSymbols[symbolIndex] >= uniqueSignersThreshold,
+        "Insufficient number of unique signers"
+      );
+      // `aggregateValues` method will be overriden in clients' contracts
+      uint256 aggregatedValueForSymbol = aggregateValues(valuesForSymbols[symbolIndex]);
+      aggregatedValues[symbolIndex] = aggregatedValueForSymbol;
+    }
+
+    return aggregatedValues;
+  }
+}

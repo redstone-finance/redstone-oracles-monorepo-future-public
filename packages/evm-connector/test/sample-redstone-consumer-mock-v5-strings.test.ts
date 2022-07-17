@@ -5,14 +5,16 @@ import { DataPackage, DataPoint } from "redstone-protocol";
 import { convertStringToBytes32 } from "redstone-protocol/dist/src/common/utils";
 import {
   MOCK_SIGNERS,
-  DEFAULT_TIMESTAMP_FOR_TESTS,
   MockSignerIndex,
   MockSignerAddress,
 } from "../src/helpers/test-utils";
 import { WrapperBuilder } from "../src/index";
 import { MockDataPackageConfigV2 } from "../src/wrappers/MockWrapperV2";
-import { SampleRedstoneConsumerMockV4Strings } from "../typechain-types";
+import { SampleRedstoneConsumerMockV5Strings } from "../typechain-types";
 
+// We lock the timestamp to have deterministic gas consumption
+// for being able to compare gas costs of different implementations
+const DEFAULT_TIMESTAMP_FOR_TESTS = 1654353400000;
 const DEFAULT_SYMBOL = "SOME LONG STRING FOR SYMBOL TO TRIGGER SYMBOL HASHING";
 // const DEFAULT_SYMBOL = "ETH";
 const DEFAULT_SYMBOL_BYTES_32 = convertStringToBytes32(DEFAULT_SYMBOL);
@@ -35,13 +37,13 @@ function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
   };
 }
 
-describe("SampleRedstoneConsumerMockV4Strings", function () {
+describe("SampleRedstoneConsumerMockV5Strings", function () {
   const someValue = "0x" + "f".repeat(1984) + "ee42"; // some long value
-  let contract: SampleRedstoneConsumerMockV4Strings;
+  let contract: SampleRedstoneConsumerMockV5Strings;
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerMockV4Strings"
+      "SampleRedstoneConsumerMockV5Strings"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();

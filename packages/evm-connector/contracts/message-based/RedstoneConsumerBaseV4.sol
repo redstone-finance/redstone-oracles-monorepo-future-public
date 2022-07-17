@@ -8,7 +8,7 @@ import "hardhat/console.sol";
 
 abstract contract RedstoneConsumerBaseV4 {
   // This param can be updated in child contracts
-  uint256 public uniqueSignersTreshold = 1;
+  uint256 public uniqueSignersThreshold = 1;
 
   uint256 constant _MAX_DATA_TIMESTAMP_DELAY = 3 * 60; // 3 minutes
   uint256 constant _MAX_BLOCK_TIMESTAMP_DELAY = 60; // 60 seconds
@@ -80,7 +80,7 @@ abstract contract RedstoneConsumerBaseV4 {
 
   function aggregateValues(bytes[] memory values)
     public
-    pure
+    view
     virtual
     returns (bytes memory)
   {
@@ -115,7 +115,7 @@ abstract contract RedstoneConsumerBaseV4 {
     bytes[][] memory valuesForSymbols = new bytes[][](symbols.length);
     for (uint256 i = 0; i < symbols.length; i++) {
       signersBitmapForSymbols[i] = 0; // empty bitmap
-      valuesForSymbols[i] = new bytes[](uniqueSignersTreshold);
+      valuesForSymbols[i] = new bytes[](uniqueSignersThreshold);
     }
 
     // Extracting the number of data packages from calldata
@@ -153,9 +153,7 @@ abstract contract RedstoneConsumerBaseV4 {
   ) private view returns (uint256) {
     uint16 dataPointsCount;
     uint256 signerIndex;
-    uint256 defaultDataPointValueByteSize = _getDefaultDataPointValueByteSize(
-      calldataOffset
-    );
+    uint256 defaultDataPointValueByteSize = _getDataPointValueByteSize(calldataOffset);
 
     // We use scopes to resolve problem with too deep stack
     {
@@ -260,7 +258,7 @@ abstract contract RedstoneConsumerBaseV4 {
 
             if (
               !_getBitFromBitmap(bitmapSignersForSymbol, signerIndex) && /* currentSignerWasNotCountedForCurrentSymbol */
-              uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersTreshold
+              uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersThreshold
             ) {
               // Increase unique signer counter
               uniqueSignerCountForSymbols[symbolIndex]++;
@@ -288,7 +286,7 @@ abstract contract RedstoneConsumerBaseV4 {
       dataPointsCount;
   }
 
-  function _getDefaultDataPointValueByteSize(uint256 calldataOffset)
+  function _getDataPointValueByteSize(uint256 calldataOffset)
     internal
     pure
     returns (uint256)
@@ -385,7 +383,7 @@ abstract contract RedstoneConsumerBaseV4 {
 
     for (uint256 symbolIndex = 0; symbolIndex < symbolsLength; symbolIndex++) {
       require(
-        uniqueSignerCountForSymbols[symbolIndex] >= uniqueSignersTreshold,
+        uniqueSignerCountForSymbols[symbolIndex] >= uniqueSignersThreshold,
         "Insufficient number of unique signers"
       );
       bytes memory aggregatedValueForSymbol = aggregateValues(

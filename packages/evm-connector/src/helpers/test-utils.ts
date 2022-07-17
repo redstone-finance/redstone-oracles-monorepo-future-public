@@ -10,7 +10,17 @@ export type MockSignerAddress =
   | "0x976EA74026E726554dB657fA54763abd0C3a0aa9"
   | "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"
   | "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f"
-  | "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720";
+  | "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720"
+  | "0xBcd4042DE499D14e55001CcbB24a551F3b954096"
+  | "0x71bE63f3384f5fb98995898A86B02Fb2426c5788"
+  | "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a"
+  | "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec"
+  | "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097"
+  | "0xcd3B766CCDd6AE721141F452C550Ca635964ce71"
+  | "0x2546BcD3c84621e976D8185a91A922aE77ECEc30"
+  | "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E"
+  | "0xdD2FD4581271e230360230F9337D5c0430Bf44C0"
+  | "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199";
 
 // Well-known private keys, which are used by
 // default in hardhat testing environment
@@ -56,11 +66,71 @@ MOCK_PRIVATE_KEYS[8] =
 MOCK_PRIVATE_KEYS[9] =
   "0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6";
 
+// Address: 0xBcd4042DE499D14e55001CcbB24a551F3b954096
+MOCK_PRIVATE_KEYS[10] =
+  "0xf214f2b2cd398c806f84e317254e0f0b801d0643303237d97a22a48e01628897";
+
+// Address: 0x71bE63f3384f5fb98995898A86B02Fb2426c5788
+MOCK_PRIVATE_KEYS[11] =
+  "0x701b615bbdfb9de65240bc28bd21bbc0d996645a3dd57e7b12bc2bdf6f192c82";
+
+// Address: 0xFABB0ac9d68B0B445fB7357272Ff202C5651694a
+MOCK_PRIVATE_KEYS[12] =
+  "0xa267530f49f8280200edf313ee7af6b827f2a8bce2897751d06a843f644967b1";
+
+// Address: 0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec
+MOCK_PRIVATE_KEYS[13] =
+  "0x47c99abed3324a2707c28affff1267e45918ec8c3f20b8aa892e8b065d2942dd";
+
+// Address: 0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097
+MOCK_PRIVATE_KEYS[14] =
+  "0xc526ee95bf44d8fc405a158bb884d9d1238d99f0612e9f33d006bb0789009aaa";
+
+// Address: 0xcd3B766CCDd6AE721141F452C550Ca635964ce71
+MOCK_PRIVATE_KEYS[15] =
+  "0x8166f546bab6da521a8369cab06c5d2b9e46670292d85c875ee9ec20e84ffb61";
+
+// Address: 0x2546BcD3c84621e976D8185a91A922aE77ECEc30
+MOCK_PRIVATE_KEYS[16] =
+  "0xea6c44ac03bff858b476bba40716402b03e41b8e97e276d1baec7c37d42484a0";
+
+// Address: 0xbDA5747bFD65F08deb54cb465eB87D40e51B197E
+MOCK_PRIVATE_KEYS[17] =
+  "0x689af8efa8c651a91ad287602527f3af2fe9f6501a7ac4b061667b5a93e037fd";
+
+// Address: 0xdD2FD4581271e230360230F9337D5c0430Bf44C0
+MOCK_PRIVATE_KEYS[18] =
+  "0xde9be858da4a475276426320d5e9262ecfc3ba460bfac56360bfa6c4c28b4ee0";
+
+// Address: 0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199
+MOCK_PRIVATE_KEYS[19] =
+  "0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e";
+
 export const MOCK_SIGNERS = MOCK_PRIVATE_KEYS.map(
   (privateKey) => new ethers.Wallet(privateKey)
 );
 
-export type MockSignerIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export type MockSignerIndex =
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | 13
+  | 14
+  | 15
+  | 16
+  | 17
+  | 18
+  | 19;
 
 export const getMockSignerPrivateKey = (
   mockSignerAddress: MockSignerAddress
@@ -73,3 +143,7 @@ export const getMockSignerPrivateKey = (
   }
   throw new Error(`Invalid mock signer address: ${mockSignerAddress}`);
 };
+
+// We lock the timestamp to have deterministic gas consumption
+// for being able to compare gas costs of different implementations
+export const DEFAULT_TIMESTAMP_FOR_TESTS = 1654353400000;

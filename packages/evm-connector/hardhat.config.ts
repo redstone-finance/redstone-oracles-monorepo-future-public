@@ -21,6 +21,14 @@ const config: HardhatUserConfig = {
     enabled: true,
     currency: "USD",
   },
+  mocha: {
+    timeout: 300_000, // 300 seconds
+  },
+  networks: {
+    hardhat: {
+      blockGasLimit: 30_000_000,
+    },
+  },
 };
 
 export default config;

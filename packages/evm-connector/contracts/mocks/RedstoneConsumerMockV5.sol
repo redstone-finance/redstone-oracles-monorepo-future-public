@@ -2,13 +2,13 @@
 
 pragma solidity ^0.8.4;
 
-// import "hardhat/console.sol";
-import "../message-based/RedstoneConsumerBaseV2.sol";
+import "hardhat/console.sol";
+import "../message-based/RedstoneConsumerBaseV5.sol";
 import "./AuthorisedMockSignersBase.sol";
 
-contract RedstoneConsumerMockV2 is RedstoneConsumerBaseV2, AuthorisedMockSignersBase {
+contract RedstoneConsumerMockV5 is RedstoneConsumerBaseV5, AuthorisedMockSignersBase {
   constructor() {
-    uniqueSignersThreshold = 10;
+    uniqueSignersThreshold = 3;
   }
 
   function getAuthorisedSignerIndex(address _signerAddress)
