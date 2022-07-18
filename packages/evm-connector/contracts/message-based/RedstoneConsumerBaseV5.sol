@@ -17,7 +17,6 @@ abstract contract RedstoneConsumerBaseV5 is RedstoneConsumerBaseV2 {
     uint256 calldataOfffset = _getNumberFromFirst16Bytes(byteValueCalldataPtr);
     uint256 valueByteSize = _getNumberFromLast16Bytes(byteValueCalldataPtr);
 
-    // TODO: test if it works correctly
     assembly {
       bytesValueInCalldata.offset := calldataOfffset
       bytesValueInCalldata.length := valueByteSize
