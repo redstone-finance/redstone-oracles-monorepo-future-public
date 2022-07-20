@@ -1,0 +1,16 @@
+{
+  "interval": 10000,
+  "priceAggregator": "median",
+  "defaultSource": ["binance", "currencycom", "coingecko"],
+  "sourceTimeout": 8000,
+  "maxPriceDeviationPercent": 25,
+  "httpBroadcasterURLs": ["https://httpbin.org/anything"],
+  "enableStreamrBroadcaster": false,
+  "disableSinglePricesBroadcastingInStreamr": true,
+  "enableArweaveBackup": false,
+  "tokens": {
+    "BTC": {},
+    "ETH": {},
+    "BNB": {}
+  }
+}
