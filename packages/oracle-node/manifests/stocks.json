@@ -1,0 +1,330 @@
+{
+  "interval": 60000,
+  "priceAggregator": "median",
+  "defaultSource": ["coingecko"],
+  "sourceTimeout": 30000,
+  "maxPriceDeviationPercent": 25,
+  "evmChainId": 1,
+  "httpBroadcasterURLs": [
+    "https://api.redstone.finance",
+    "https://vwx3eni8c7.eu-west-1.awsapprunner.com",
+    "https://container-service-1.dv9sai71f4rsq.eu-central-1.cs.amazonlightsail.com"
+  ],
+  "enableStreamrBroadcaster": false,
+  "disableSinglePricesBroadcastingInStreamr": true,
+  "enableArweaveBackup": false,
+  "tokens": {
+    "BTC": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "bw",
+        "cdax",
+        "cex",
+        "coingecko",
+        "currencycom",
+        "ftx",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "liquid",
+        "oceanex",
+        "okcoin",
+        "okex5",
+        "poloniex",
+        "probit",
+        "qtrade",
+        "stex"
+      ],
+      "maxPriceDeviationPercent": 25
+    },
+    "ETH": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "bw",
+        "cdax",
+        "cex",
+        "coingecko",
+        "currencycom",
+        "ftx",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "liquid",
+        "oceanex",
+        "okcoin",
+        "okex5",
+        "poloniex",
+        "probit",
+        "qtrade",
+        "stex"
+      ],
+      "maxPriceDeviationPercent": 25
+    },
+    "CELO": {
+      "source": ["binance", "bittrex", "kucoin", "okcoin", "okex5"],
+      "maxPriceDeviationPercent": 80
+    },
+    "TSLA": {
+      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "AAPL": {
+      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "IBM": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "AMZN": {
+      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "GOOG": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "COST": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "DIS": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "FB": {
+      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "MA": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "MSFT": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "NFLX": {
+      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "NKE": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "PINS": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "SHOP": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "SPOT": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "TDOC": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "SPY": {
+      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "QQQ": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "ONEQ": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "IWM": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "EFA": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "VGK": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "INDA": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "RSX": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "ZC=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "ZS=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "ZM=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "ZW=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "KE=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "ZO=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "ZR=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "CL=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "RB=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "NG=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "QA=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "EH=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "GC=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "SI=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "HG=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "PL=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "PA=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "LE=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "GF=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "HE=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "PRK=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "DC=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "GNF=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "CB=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "CSC=F": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "GBP": {
+      "source": ["binance", "currencycom", "ecb", "ftx", "kraken"],
+      "maxPriceDeviationPercent": 25
+    },
+    "AUD": {
+      "source": ["binance", "currencycom", "ecb", "kraken"],
+      "maxPriceDeviationPercent": 25
+    },
+    "CHF": {
+      "source": ["ecb", "yf-unofficial"],
+      "maxPriceDeviationPercent": 25
+    },
+    "EUR": {
+      "source": ["binance", "currencycom", "ecb", "ftx", "kraken"],
+      "maxPriceDeviationPercent": 25
+    },
+    "JPY": {
+      "source": ["ecb"],
+      "maxPriceDeviationPercent": 25
+    },
+    "MXN": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "ARS": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "PEN": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "BRLUSD=X": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    },
+    "COPUSD=X": {
+      "source": ["yf-unofficial"],
+      "maxPriceDeviationPercent": 80
+    }
+  }
+}
