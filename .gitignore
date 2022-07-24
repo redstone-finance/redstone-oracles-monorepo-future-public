@@ -94,7 +94,7 @@ dist
 # Serverless directories
 .serverless/
 
-# FuseBox cache
+# FuseBox cach
 .fusebox/
 
 # DynamoDB Local files
@@ -104,3 +104,5 @@ dist
 .tern-port
 
 typechain-types
+
+.DS_Store
