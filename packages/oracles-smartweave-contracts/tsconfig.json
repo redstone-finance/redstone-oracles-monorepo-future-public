@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es6",
+    "declaration": true,
+    "outDir": "./dist",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "lib": ["es2021"],
+    "allowJs": true
+  },
+  "ts-node": {
+    "files": true
+  },
+  "include": [
+    "src/**/*",
+    "./package.json",
+    "index.ts"
+  ],
+  "exclude": ["node_modules", "tools", "test"]
+}

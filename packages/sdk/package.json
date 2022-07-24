@@ -1,5 +1,22 @@
 {
   "name": "redstone-sdk",
+  "prettier": "redstone-prettier-config",
   "version": "1.0.0",
-  "license": "MIT"
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "NODE_ENV=test jest",
+    "build": "rm -rf dist && tsc"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "redstone-oracles-smartweave-contracts": "1.0.0",
+    "redstone-protocol": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.2",
+    "jest": "^28.1.0",
+    "ts-jest": "^28.0.3"
+  }
 }

@@ -1,0 +1,412 @@
+{
+  "canEvolve": true,
+  "evolve": null,
+  "contractAdmins": [
+    "I-5rWUehEv-MjdK9gFw09RxfSLQX9DIHxG614Wf8qo0",
+    "zYqPZuALSPa_f5Agvf8g2JHv94cqMn9aBtnH7GFHbuA",
+    "Yba8IVc_01bFxutKNJAZ7CmTD5AVi2GcWXf1NajPAsc",
+    "33F0QHcb22W7LwWR1iRC8Az1ntZG09XQ03YWuw2ABqA",
+    "BitVOfTwSSod-tUSla4nM77sUuHC4XFcT0Zlg-RZ-tI"
+  ],
+  "nodes": {
+    "33F0QHcb22W7LwWR1iRC8Az1ntZG09XQ03YWuw2ABqA": {
+      "url": "https://redstone.finance",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "redstone-dev",
+      "ipAddress": "0.0.0.0",
+      "dataFeedId": "redstone-main-demo",
+      "evmAddress": "0x0C39486f770B26F5527BBBf942726537986Cd7eb",
+      "description": "Test Node",
+      "ecdsaPublicKey": "0x04009dd87eb41d96ce8ad94aa22ea8b0ba4ac20c45e42f71726d6b180f93c3f298e333ae7591fe1c9d88234575639be9e81e35ba2fe5ad2c2260f07db49ccb9d0d",
+      "arweavePublicKey": "omNGUhh5ar4WnqNxSjDDHBfhK5nMshxyRXUW8uObuxxKELKQjUeEsUdtg5UNuGnUh4AYb5rmGsx_KrLmuqbxl4-OLQrDNnj_LYcP78RLCA7wwonzi5HZVi6vXZ765JKQ-f5SJtFR7hhjj8W8f6PFQ_F2AjtNBkC6basAP4RM3GYIKQGUdVfvAJECZYcjtkZBGZtBxTzSm3SsvcdyVZkiEnvFzg1xLgwsGNuq8dHFciUHaa_ItNzM8GZ_Esjx77qgRLUwKNGvpU8nbao07YxcC7vj-opQQTAWNt1spxLLPqRTRJM_JGDgOEhEN_Tr0qWmjz61LhFW15NJiY1D5sBpOUM29IEpqhMUjj2r2TWp8-gjus_1u3g-KCB6ydfWbjsW9W5oZUfXE8lBKpmQFQ7jOzfev94-uVkxvnK4lY-FeP0fOD6hL_3EPAWLR1oWUqwXPs38A_vvys_ySTgQ11VWEtW-F8s3BRdeHFNZ4XalWAF-BM81HoyC2TwcbLJx3pLJS4FjqbQXcjPCzGE-eUztwKH73luqYXyG-S6sfBWRlqwcwsB9vNp7SnIDs2VLNUmxXG5PpwWG7GlO3HHj-WSchVfFqge0jHlDQeukIIy6fYIqnXaR6cSpiAfqHyzazOnOGgjBUBYDky5LlnrO8bctggYDlAyzJAn997AjeLTlmLM"
+    },
+    "I-5rWUehEv-MjdK9gFw09RxfSLQX9DIHxG614Wf8qo0": {
+      "url": "https://redstone.finance",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "redstone",
+      "ipAddress": "0.0.0.0",
+      "dataFeedId": "redstone-main-demo",
+      "description": "Main RedStone Provider with all available tokens.",
+      "arweavePublicKey": "xyTvKiCST8bAT6sxrgkLh8UCX2N1eKvawODuxwq4qOHIdDAZFU_3N2m59rkZ0E7m77GsJuf1I8u0oEJEbxAdT7uD2JTwoYEHauXSxyJYvF0RCcZOhl5P1PJwImd44SJYa_9My7L84D5KXB9SKs8_VThe7ZyOb5HSGLNvMIK6A8IJ4Hr_tg9GYm65CRmtcu18S9mhun8vgw2wi7Gw6oR6mc4vU1I-hrU66Fi7YlXwFieP6YSy01JqoLPhU84EunPQzXPouVSbXjgRU5kFVxtdRy4GK2fzEBFYsQwCQgFrySCrFKHV8AInu9jerfof_DxNKiXkBzlB8nc22CrYnvvio_BWyh-gN0hQHZT0gwMR-A7sbXNCQJfReaIZzX_jP6XoB82PnpzmL_j1mJ2lnv2Rn001flBAx9AYxtGXd9s07pA-FggTbEG3Y2UnlWW6l3EJ93E0IfxL0PqGEUlp217mxUHvmTw9fkGDWa8rT9RPmsTyji-kMFSefclw80cBm_iOsIEutGP4S3LDbP-ZVJWDeJOBQQpSgwbisl8qbjl2sMQLQihoG2TQyNbmLwfyq-XSULkXjUi1_6BH36wnDBLWBKF-bS2bLKcGtn3Vjet72lNHxJJilcj8vpauwJG0078S_lO5uGt6oicdGR6eh_NSn6_8za_tXg0G_fohz4Yb1z8",
+      "evmAddress": "0x0C39486f770B26F5527BBBf942726537986Cd7eb",
+      "ecdsaPublicKey": "0x04009dd87eb41d96ce8ad94aa22ea8b0ba4ac20c45e42f71726d6b180f93c3f298e333ae7591fe1c9d88234575639be9e81e35ba2fe5ad2c2260f07db49ccb9d0d"
+    },
+    "TEHhCDWy-vGmPSZsYJyM0aP_MM4xESgyIZdf5mVODzg": {
+      "url": "https://redstone.finance",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "redstone-avalanche-prod-node-1",
+      "ipAddress": "0.0.0.0",
+      "dataFeedId": "redstone-avalanche-prod",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 1",
+      "arweavePublicKey": "01vc-Uxo9LabpCzQBGLdtlsaoJh9ee5rl-AcOG6dwmXoUDHRUzwexCmIItDOJ7yqus-XMxHeTlks8Re_q7oiKvKAU9KGoYnhoP5hiymeqFMwCIta0Qne92Za9Nm2R2tBW5cUqFHeXJuEutDnU0PUkBF5W7Ut3x3gd0xyVe9j69Sqd-kIQL_E47_ost0-pwHd76z6MZm_u7zmxbnTq0OsZTP4OQrvsnlRLpjyRsNzQomsKjuakM4RcYwfpueLKLwQa4OOJ9uWxsrSmtwdwdHZzQY9F2-l2LOllu5L-dOeDYCw4q9KZ0gmkKM6333pPo8DB-r5qe-gKY4_vNgOLRmBJqCF-G_ifWNptM3fhbkGwokfGw0ELCDqXwZ9Ka2QbqM11xViRhUiVPUJLiYwdhydPv9z0Mu5hPOR13GU-sNCf8Zt6GRyZ3ZMIo40GWrGbowJgTvSxU-mAxXwZ3hs3HRxA8wKkgUwUzTJ9UD6tYhctrG-SLUJfDVdEOGmih3FUbayt6OXN4p_I0WP_8OB8FEMV1Y7Ln-fxhErNonO3HDco4sgRiJvCP-Rcey94fK7fOQXAJ2ZLBh00uEjOWPsf0QjWpDp1qjKFkLAGlMoGDCa_SrTikOZtLAf8QKWap2wye3FeBp5UVwedi2vlF1HJuV8u_C-hoMxI1n0FKoyGJEyLrM",
+      "evmAddress": "0x981bdA8276ae93F567922497153de7A5683708d3",
+      "ecdsaPublicKey": "0x04a86159bd8a1788259955c7cd165356ce79051037e8ef5121deab4d38fe8b982b653be274aa403854056a8e563b326161bc6e5596a158d17fe06fc244ec1d2718"
+    },
+    "Yba8IVc_01bFxutKNJAZ7CmTD5AVi2GcWXf1NajPAsc": {
+      "url": "https://redstone.finance",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "redstone-stocks",
+      "ipAddress": "0.0.0.0",
+      "dataFeedId": "redstone-stocks-demo",
+      "description": "Stocks, ETFs, Livestocks, Metals, Energies...",
+      "arweavePublicKey": "wOoClMPZ_maAoE6OhCC8svn_9gu8rjuWPi3Grf05zpQnCzeFjzUocJUr0ta-muJDqfiTd4t5KR2qNxn3nkN2_kXsn5AcXnlI4UgnRdcEvsDh6yPMoMlAiAD6c0_CIgdiMFku5OTijNMtFYOybPKrd9Xdf_7_lnRZhU9qQXeBclVjmIzftwNaTFYI1sgApWKMxJ6301CY7VN9SOD9KBrFQJ3QjWqLrLwAyAu_Q6aBeQF_L-cZSFCiTfwyDptiMCdLAjzU9s55LNAg65pZ_OfFsvqylwiXEVIEDLUI3nmcM6OUHfyAG2TxoeXeem9nCpA96MiM8MyTWtOApGA3GW__j3fxutD0wt3_uGnVRZoypPqNuPjb5BraF0owTDYJQNML9Ddx1Hy6gMXjvjxn-MbAV7tI4KnDynrbtXPSZYjRpTpxcH9Rlr-bQAZWGpYF7OWpsZlPuE4MdxpQYhqLj6wfGCxTyzIjyt_t4zR28gWIGT5SfM-etcuXyy_chspsIqisSj781AP7YMTIxzyrY_LAAm-u5gz5VwnD8xDKIrYcsxLpC4V30HFWRc5vYtBQ0cAZYnp9AGGFD-6A7PnqQ1EYSSEHzSAqoYHaqxuAvxJEhG5AECdXBS3-FpgbGgVFEeQxIH7v9Js6-Uk85t23MjRUJFNo2JIlvyolmtkd3mf88qc",
+      "evmAddress": "0x926E370fD53c23f8B71ad2B3217b227E41A92b12",
+      "ecdsaPublicKey": "0x04a628e8c2ef7d3b768b75404a48adcd667d0d59ae457bf19552ff670d2c95630480752e90b0c9fe8127feeb9e8f9e694919c730327bd368c985f1a5b26c2d60ba"
+    },
+    "f1Ipos2fVPbxPVO65GBygkMyW0tkAhp2hdprRPPBBN8": {
+      "url": "https://redstone.finance",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "redstone-avalanche-node-1",
+      "ipAddress": "0.0.0.0",
+      "dataFeedId": "redstone-avalanche-demo",
+      "description": "Most popular tokens from the Avalanche ecosystem - demo node 1",
+      "arweavePublicKey": "nehHT9-CMWscteR3COOU455AmDI8VihUPG05kDryVl8wjv4iE_7MttV2rz3MTIicL1BNDQ246EnyIL_4qsqu8a_B3dZT8sVdfOtHqh48pDgA0MJ8ifFVUtyabr3D2ZSc2M4re79wm2SQ_S74ZNHV7zBIBS8pUHB20TfrKhrOWi-W0hfkxrqz4jIngXIPmE1ycYbaj9OHSVRFIB-EZN-1LmLZuy2EAAN0nOqJ-aYoblcGOu4WfZDpTXTfj-6-GRRBgeHen3MYnQuDneEYYrtzoCnimWGYrqRnpM654mJTW7gp_NIqLnXn3yG2aS2pbhn1_I0CavtKuE4PSACoP0UwZaGXEtanIaSuMDkeRdu-zhrr8yXZSW1inWdC0lhWPxAhzTYWQ00_OD6oj2FUtbXbAk_F-aPnT1Teb-LcNn6q-HbHSeZ_VV0ge5nn3zvBCc77z-Qfbgyd_a7dNwfy8sVkQc4-gvDJIftzxVXbUWnc3ipvL-PHfLsajg5Jkhteuvf8bIS0cNFS5u9pu3qnutskQxSymPzhkVmSyMWNe48Xp3ok4mUA9SuWTb6AskyoDVR9APh7JNDgeYINctgduqawzJQFxcVDuoW-1b8Gy79EYXW8yHowpAaDm6eYGTPQjnMpttThZwFiC_81JTXHXmDneKm677F2kO-1f6o4UWTBOEk",
+      "evmAddress": "0x3a7d971De367FE15D164CDD952F64205F2D9f10c",
+      "ecdsaPublicKey": "0x0455e7c699a153e02de0e6d3c3dcdb34d1e57a9456205b0e124e2cac29b58be83c4faa2081d39b38aa3c41fa3350f50dcf87d40ab695c9c86709040d39d5ba9be3"
+    },
+    "ll8DlO4xMwHK7gIMsbnOnN7Jg8Sl674Ls4G0aBfHCyk": {
+      "url": "https://redstone.finance",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "redstone-avalanche-prod-node-2",
+      "ipAddress": "0.0.0.0",
+      "dataFeedId": "redstone-avalanche-prod",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 2",
+      "arweavePublicKey": "s0H0bHuIK0X-FptNPBvZGBHDbTLj0y-P6PV33sE2xW8WLx0DUtYz7jzlqc1brQ76SiO7ER-B9v80uLkaf5RwRQG-NL3Cm79FOxksz1oA0_wvK5oI-uZRWHDH4uTjhsnc3K2rg6N1X5J0GrSmB-puwiVt-1_fYrCyyzv2rE135bG61IA0i_4_cREr9t84WAYIkSbH003vbuI1KssDJtzqwVidC-DtYuzSnp1oqd4WPBDWSRSM_AswYFCk4A0xROhSmRf--140th5soz7FEJ92QRd3UYGgZ7HpPnedz-xCDgRi1-h12eMzCQM-HtipEJDl2DeTjekcTqPk_2BfnclpeDHO8myd49ikqwlHpkv0rerB3kJgDWYXcP499cZfXetEOrAiVlbPsmkJvpT7u1swaWyG5m78AjBAjZ1RrlSMLXuEHEPb1H31w16oPO6W-cqsZLZXjnxom5GXCbBOZ2Sdo7eIoTt7WMW653yzwZ97tjyMTbM5IqJZLyAFJgq6CFFnwAiKZlrtnCNHWFpfCm4uxsAzAyoW2l0FMZ4lgp7cUCHnl7IEWKSpkfsZy5FLQ0kInfeabZXPs12d5ufnL3upRSlL3pbi0OGrRQyojhOwIkasuVe0MiSSJW1QoD7oK07GWQhSke40vg3GrKW8V57IKSd1pU8owj1k7R9lADYAWLk",
+      "evmAddress": "0x3BEFDd935b50F172e696A5187DBaCfEf0D208e48",
+      "ecdsaPublicKey": "0x0484558424d304f414a88c8610f63df48eb60aa424fbac9cfed0e1a103e3a5dc2c6c89f3b2ef4c0e57eaf9bc5bf9954028e8d3c9aebb990d7d968a861c67bbc138"
+    },
+    "zYqPZuALSPa_f5Agvf8g2JHv94cqMn9aBtnH7GFHbuA": {
+      "url": "https://redstone.finance",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "redstone-rapid",
+      "ipAddress": "0.0.0.0",
+      "dataFeedId": "redstone-rapid-demo",
+      "description": "Most popular tokens with frequent updates",
+      "arweavePublicKey": "tfkkt6lHR3lSEBNvjistpdGb8pR9UJoOVO-IuXRXD9PckAqY7TAVuDVhrcQDM56GZ_EUh6Eg_NRYd-EGW8SEQLHXtY_CM4P8563xUpw0XcZJbpOeScFcN5JdN47gq8vllOheO6-v4nRPLVabRVJqkXEqzdEwxQNYDkmPL-gxE0ziZcQRQZdJUzL5mI9DzwpPC86JBVwsBK71iuRlstABciIu8u77qyArkNu0pPig9OFQvT3Vg4OPuWXd83EhqEuN5gqVufyomkmL8X7agiEjDf-UQIfZrSYqgiJsWiVJ2aKHRhLZN17wdX51L21Cg2Sbyb3B1Roy5EgUUTdJ2MY7LnI-CTbBBJLKUHSvN67MDhj1OSBwUULc8bgVCzmfVQryIFmb4tucKvz7TRAWseXNO2MtMlggXa42Hx0sOTopbFTmT_r9glRLYw3QLzyJVH7Ltqr8QldoU-VMWtpo5cmOGh8jwVknSHqWNURbRCoDfAuwh8lpWXBjL_V8haaY0OKFT9Lpi1VW8o4Kfx7ED1VAnLcpVIoV5CkPs_L0Qy_G7XpgA02OAbJH2KvwxZPeSSymdupmr1KMc8iGz5B4a1HEcKggk5ETFfeGz5r0hDha3dwDj-dOv1jbADcdgk7e2xaLgw1CpS1XEHhAnhBJgAzJDJpcHKrxPkD6cUc7FbnsBCE",
+      "evmAddress": "0xf786a909D559F5Dee2dc6706d8e5A81728a39aE9",
+      "ecdsaPublicKey": "0x041d45589c5055c867e857d8437e7d5745027d0a455801bc78cc856840510e76d8ffe578296a11a03e744d7a953e0f1e36c3a93f74268859e480203ab4d2f5718e"
+    },
+    "5ktkAKcy_tou22r4eijcn_Xue3j6Rn9e8JckXRtHe8o": {
+      "name": "redstone-custom-urls-1",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "RedStone custom urls demo - node 1",
+      "dataFeedId": "redstone-custom-urls-demo",
+      "ipAddress": "0.0.0.0",
+      "url": "https://redstone.finance/",
+      "arweavePublicKey": "wgOVFdnHwJVzj7sfoD0F6ndB3Z5HW14LGre-ovDmvAiZtSGcb0y34qbpDZwDMXDV85kxPvTS8xB9gwuJxkkC8e__1wSDZeB63NyMgTYyx4lx4147XSb4dSnMSakgCbFjwD-0SBLFDYBZUusieGGlinx3l-OMAcQOAPiyPgJiVt6ZCBavY7UR4sA8dA4Ghp_m1zrTC7SAYTZlVat_ZLzs9lgTRmJoAlKxjWtGRmtOQz2_ndnxY_5qP59-GdWu_ZOrYBDhv50eeBNbYibiAMZpJ3UiqAt_p77EUJRdLTIHQc6WI5cD5RNzphD3XMRaC9S1iHIUo4fEh5HFbt1V7OLbTMtAtjyXF_gAtCbPIcCMz1bH1Qcw827QO_jOMFgv42m5VzC4YqPf-M0-6KoZ3AM2b9Ifkaeg_rqBCm14jHjPiwGTzdojjNBzG45Jhw8lmybWtp3JdHa37bbKzmazQnD4zTp_hh1aQRvbXYfbaFsVINPdW66uqICKfbRr_krjEyx_Q9FX4nPe4Gg0Or1gn5bgEFgykxCbN9G6ol59pdT_YMyuWPvrR7tH8SqGISLJWI61dSqg4Ook9EdLUmFP1JMOJCWF3o0EqQw61dFcJnawGEkt7ilT3UVmq75uX1cjFQ3nTro6h7ck96PFXQfXMVWV10KVyWpQh9KybZqmY4i6Vxc",
+      "evmAddress": "0x11fFFc9970c41B9bFB9Aa35Be838d39bce918CfF",
+      "ecdsaPublicKey": "0x04c8487327833fd187c99aa2686097f25f97e0e7856e152c8be66a1e13f8fdaac482da9375191ebef1ee5787ee36d8618dc78bdb8504608d1d5cf79aa7e01a33ee"
+    },
+    "0Eu1WDQA61S98CB7XEQ_9SHpy9Ux06rd79u8jFuesjQ": {
+      "name": "redstone-custom-urls-2",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "Redstone custom URLs demo - node 2",
+      "dataFeedId": "redstone-custom-urls-demo",
+      "ipAddress": "0.0.0.0",
+      "url": "https://redstone.finance/",
+      "arweavePublicKey": "9sOhBBp6cfHzKoFWzbErLf1s_7VtNVW3MNcKb_9gAwOdBJKplP1pv0VKyQOQw-e2e1Y8kZSN1rTRvs-4lrINJh8a0MrruHRD1lZBhuleykiz8KeDEJux7WQZ6G-2i8MC3RcGjKtUKeGJgwzZFB8GkT8OkXAhqWc3kRdbQzvLR7R1qp4usn5LSoKBO2pChQs-K_ruqh7wwLCr996XXbYIPkGpQaaVf00IXX2ItAvYd4emKKVnKnYOc18TN6T19ur6-KCz-23w1-QuLzK4MbvBeHJ-Y4FkahPRLeAeZmhjdNjMAXRcWkQMETmex0Tvg5qDELo-8BXYbuZgPQO3ea4TjPixHaAdaYach6fwAfG4pDboxkzoNrQdHjuPUnEhlOGRRGPNcqZPxVZQ2nVVnnoLcYq1pcCL6cPM1-licGeG1P2EV8Uo9P85UALn71wSdvdE2C3bWnmI-BCMiN4xkdX7_kcv80D7ZSWQni4d6_7l7JgXTvXs6GISvjpXqUcoUBohabzMixUFG8I3rqsVxuWJXQtmLko3kuP-CoeRyQOZk4dAovhlJ2MM5L6Yi2FjM5we2ApGSaC8v9dhyVWIrN87s8lQdgeOTycFZL9UoAi2uK57pkVlkgkYkD139ERUlRBtZ0XVenQO6lAXhYjxK7AaW08ZfkfS4PrLWzjNQ8BBIZE",
+      "evmAddress": "0xdBcC2C6c892C8d3e3Fe4D325fEc810B7376A5Ed6",
+      "ecdsaPublicKey": "0x04feeab427d82702f95c9d1727e47c823c5841ea8b0864607ecb637ff4377604b8213dfd06628d01e624c30dfb20cfa0296be7c1481ce994adb6424d1a391493cf"
+    },
+    "aw9F_2R2ogYPnM66TDsW1qtiiRflRcgZQG6OLySOSZE": {
+      "name": "redstone-twaps-1",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "RedStone TWAPs - node 1",
+      "dataFeedId": "redstone-twaps-demo",
+      "ipAddress": "0.0.0.0",
+      "url": "https://redstone.finance",
+      "arweavePublicKey": "sa1_cjxXdrIZgZaxY_L_UkZVf7eL1Q9WTTFrvc9FuRES1ZXwZxXO1QTspji_KboxN54Z8-qFAFXqlun-dgYgGEoLOv57RgWchinlmMHb0QVp2WREe71cSOdioaYfmBhW7eQS8YbvrnFB8cUumdZMOI8UJ6qsBrWOFSDuhPXTdUd2hNZ7mQ9PQR2MMPglZAJnwl36mAb-kaa0cK5s6raeR8_MT0aSSPHQrwyIuM4kOBMvLGEH9XE4LVuNB581Y3h0gXEE_Os7rlhl8BpowkjZM-ZIKK-hUuco9VkjfooQC5CgBHAwivm1--PlIpNa7vtk48cEOkvNoEd0ixN80wfQ2YNgpNFIOV6InnRYyrdPuHBRqE9pCQE48e8VWSxlpgjCiT-bveww42RhRsw_cjVBFHHwMljNQ4bNzjPZLvAaADvSF_ViV4EBpCiqrgj71eyTb0xpUMDSNP7Ae3HcUYPEVC9-n3GjJCCz2akc2zBRxS3zVl13bfApg9JCKzS349Dyaeq9bW9f46CN2U87zLDjUUTJFu3904UumkePlUQjAyMO5YIooChmdoujNla3e_EN6j-SwwjnM3LjDJwNCESETZUrkgZ0Arj6qbENCuEbQLDYqwT7pCJMhXIepolfbloLNnTPTbdCpzyh9pmXwAHokF3hxwSdAzBH11vDSp6ZYvc",
+      "evmAddress": "0xAAb9568f7165E66AcaFF50B705C3f3e964cbD24f",
+      "ecdsaPublicKey": "0x046199ad0bf504566f88ddae9910277a3cd4989284bd0f2e3bd5bb8907faf86c6306773953fed32bc604aaf0cf36df56acaee285c83f242bc149ef5006b5290692"
+    },
+    "MPkZQEzXbX9FajC3fuI4cIT3DQ6PPjp_H8Bf6lsJTHc": {
+      "name": "redstone-avalanche-prod-node-3",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 3",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "x5mR8Qwf6YA9TvRHTHif-3xN5V6tYLsn80N1kkvnSTMBGxTvj_m4tKBPH2MWHZ2epDW7CxXp9246opFUOV1S-E1fULeIN-UZdqsqWEfgG4bL4bYD_DSJREABndsXrNqe0aIXccfRzvLTE5Iv0xIbQt71F5nqsGAc3VlTzkI-XZ3o5_4Src8SMrDzvsJ5mDTHVN4tMKj2vnmP7ut5ouzxt9tfYd0_D83HDWkd_V9ZCglusCIv7GKRd72KrTlsC_JTFP37UppeJ0dJq8XgqJPSe8ymhycXrL0mW4SXsdNXe5PMsXs5SJUdyc_a9Hpc38RVuU5jPFqsofpBjI6Vr0l37VpPlRs9_fUtJWZZwwjj5nJu_uhhD4Htp5UyULyGNxIp0byrym3JdmCHGbSnsC8__i3kWA0XuAVAmDMI-KJ-tF4XIGOFLxccA-RUdq6PoiYtqgb7YdNadjB7Y8hMiNbUgNPfJztRmP4XgN2LlPpzZbw9-AwrWK81DVKibQ5pmZtUBYv8r5GNxAgJRjcKAQ4c_CbjdZCAy-UQ96P8uGJxU6Fl-FRVQsN0bA8FPS9OnTgCwlQrgjdRsG1ZBgKz8--jPIfv7y_C8jH4dKnkoUp7aIlaTDSpA26l8P4X4oQJwzTp-vimOH4YBLVwi-FIMx6caF9l5g06H5faPSoVNHVL608",
+      "evmAddress": "0xc1D5b940659e57b7bDF8870CDfC43f41Ca699460",
+      "ecdsaPublicKey": "0x045397fedb12fa8541458c6f9689b79683df32b9f9e3e3414afa8297fa1e55ee97fc972ef3b03a2f1889b7b33226e2417f4726e71d8fa4cb836649caa9a3d0db1f"
+    },
+    "vgbNNhocuP7LRgogK_4TUobyN6jm0IUifUqgJjihGf4": {
+      "name": "redstone-avalanche-prod-node-4",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 4",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "pvLY4cwljzy5xw-ZeIBkb3kLU4-r2U3WKvopz01STBOcFZjBLqswom_jUXz8KAaB3jeNRXpOVofFArae0exvY6piuW3-JZ_8wIZkJqSoeQF_eWG6eXUSTQ-4l4oDMMjfPkq4ZP406EIR5soDBI66JlgFamew_mLSd3VPY-tOLL8c8GruozykbYTQfC9RhAZaGkd62gZBXT4G4rKkGrBnMXE-vE3EYgrDsR_j-QuevQgUQiz9DrTag0BryrNG98ik7u09IDbxfp3JTHsWADFWFXQuRcuVUfe63KSK77qrjkATydY4QkMyXz9Jr5-H0eP_ZLuLbLkNwyJi7n-08HZvv5JYKuBRmI26nYoNeCFBpcceGxIzrGv9frJZF1Me7pC4idFbEhesgLcIMFv_xy5r-HmXDN1nH5NJiSWGLYSAlmMUuEl-OyCjupcydlPXW4vr5W_H1YxILocGrUNUfv7QYHQTqkIw05Db5eslsodFJT1UYmTqNxLcP6rz6V3-HIdk2mqnt4ieZjDlOwC53Ak_JN0qPbYWqwkvN07GiVDYnhN66XaVlNCaJUaIVQAKj7O1j6DSDZn3CIbKQhlyeVEUB9dwDEr_qIXLpm6Je9eEvcivs9lBJHX2OLbxiUyDkgAp7Kh98-y9zWixSxYR2Z9YcGSQmDQzrIY6MWTNo6Kvgkc",
+      "evmAddress": "0x1Cd8F9627a2838a7DAE6b98CF71c08B9CbF5174a",
+      "ecdsaPublicKey": "0x042bfa7d21ab183b3199876eb2d671e21ac3c7648213a97af70a2b8dad0d1c2802aea0eb22e0104e8a8b5b00c27aca2dcdeab4f8973ffae7933230b3b866346df5"
+    },
+    "6qI40buhziyE2TxRi65YAH2DmCWqJETHpz4qcdSGE9o": {
+      "name": "redstone-avalanche-prod-node-5",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 5",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "reZoh3WR1RfeqtMgKIR-6GEuYdIpDC0Cd3ZXi8cYMXEZUIo6JFww-arJt0HqnPd8D5IpGIXCmJj45LNKccvWcodE6o-rza6Z-BMswDFQb7VMhj6dQ2UkS28kKStABq7dG7XJK5s5l3Z-K-oKiK1EDmC0emxsKwVCzBIFneEME6w0RHLWUJl0VE5hmkvDjsYf9jokHEtXrLW5lQRKzP-wU7ce5w1Uk83B4kg6aJiqZ9lkmErkUXbFw7pFX00K1netHdbtp57gG0t5IV18tcSf7oMhzZPmb2pyEhroVf7huLw1SRZL2K-NRac_FSukSKVDbflEIMAjbphgk7ngX31-5eyl9-IjA3Hh3K9dqbxlyP3_9akRP4t56Rw5fq_0N_o64ph9zVoN2mXnlxMLeWRr4_cXPq5ex0IEa6_BYzHxjtY-YA7qTvL6C0nwxGQsStiwKz40BmpKiZmlGcfjxVWS99VQWkXOFMQn4ns8kXAK34fAhTggKjhJfMIm7ogpQE1Wc9pewy0THGVnARzUK8BPlrUgaCGX5VAgN38zRBKxXC06ma4ul3CIBIrr-ktywsccdnt2KhCEF_6OOWNFePRtt6jIv9e_QmwKJtXi4ejJ7UbzQk8cnFSE7Up3Uzp5D43iWLmdeD-Du0YJ8jX65YgQN-ibz7kqRb_fLyq820G7Auk",
+      "evmAddress": "0xbC5a06815ee80dE7d20071703C1F1B8fC511c7d4",
+      "ecdsaPublicKey": "0x0485d4eade4180d1024ea55c0314984deac9bcdc755abc7cdc37271d19aecad6412837febeaf4609e5800fdbf6d524f561f95bc88ac87a22d8a3153180da20d17e"
+    },
+    "wiXbi2nyzgDdCD8zgaNMt5pjrdkmKWwZfeACT-XfTAE": {
+      "name": "redstone-avalanche-prod-node-6",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 6",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "1MpCHz1qOWsW4tTrJksjVc-wux_w68xP6-Jz_X5YJu_EfK8SCu6oG0YxEVzmcoB-QjvZsqcKwTL3TlIXrJI_Qeao9ZmzU0rqv7EeB0rTNw3Xj_EUUWW__i-NYBWHl6ngYbUQQ8t_I9PNB82io1k_E2Gj7mTX8_ctjT3hinV-a-Kp1lIxV-ZmOhl3P7v-iKqNULs2v3PVE2YnRs0GCnH2D7RZ4OMH3ts6NPovuE3HAP_yaDMWPLkH5RJlzsbsaCZiPnUmwEkaaOhDflPQtvom0iaxtMa7TH6Vk1aFw7ugOZ42YSS8xdNIBTtEqW7fkCkOU3padTEZYFweleqxzYALIq3BCdPBUBdLi91hxoq02r-3KSFcwGzcJsiwE1PRuheOJHlCzeiCxnvikGn03o38p-vMLyhTNlsqNADPSA2zTYyL2rtdels5mvRBE7ZKXnC4ensHU8wcZQuD14zcNMDCI8gvjutnPOBX6_Xia21qMdxtRRIfCDazVfGcLAdiaM2N8fSfKGwJ0lEyy_GEwfO4KJaFHsZ64oAN9AmGj7djYSKcUqPyEBUAIN9h1WOhBVfdBgFthsCvHsgDHzdXQl25lIMJ773zdsNMLE0y16bssCxTurIJnypc_Kwmo76DtYM4_x-ZcF2jeeZJyueW0uql9lw1EO7zxT-MwFLBOreN1Ys",
+      "evmAddress": "0xe9Fa2869C5f6fC3A0933981825564FD90573A86D",
+      "ecdsaPublicKey": "0x047057133c72a37221bb3aa9b69ff5539c69a5ff9a33f8f2af30d80f274d33ca7ae8ed524624dc61551c06fcd51c030514896a145094bd1d958022adf53f14d420"
+    },
+    "vRhC_4qe7n8crD93pPhEL994NSqEOe1OP7GLPJrIVNc": {
+      "name": "redstone-avalanche-prod-node-7",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 7",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "lHlzBF2T_4JnZ1r8BfHdoYTY2-_7cIv0rdXlksIpem7Pyj6I3qFDQwL6XGZBcztBN3PusyAaIB58FSPkK4BF0RxvdySfQccgp1OQYidiNVL57p4r4Nlh2-IFzj3Cp_MNHqk7v0eN7IhgR51IS5bBLl50PVJoOjZ-xLV2tIMAsZMnh00aJoSt9KJXwhwEG8OPLxVDLNpFSwv3PLzY2X-oqT095V3_Vx6w1tKu48Aib6G4d63gI7zpfUQNTniPkyQBquQE452ISZ4lainTA8OcMpQ_K43QVfGxcY3Uez-HAwWdLkiyNXYFAuctdnnT1VtAeGeF_gPTvF-eBAlLOlljyiBs3vBQyjwpjBmzJqD71uxxEIGDPx13Cs6NGQ1Q4DKLntituOZVmC-oVQK1TNvqcv72u_8iqKWelIoFaY8v6hDPM9M8kc9cm3VorrNP3a6Aa4ryfepmgkOwAXGgAmvQoqkny2RWDKBWRQyap5oyRvEx3g9uGVY67lWB264cN6lzzEeDSJVt93LpD-IYaa5j-gvxpE4pGiLNKjel0JXMOhdxH5HtLAplTwuPv17tCWQh1gZhwShUbb1RhmhDBOiBvib-AGBjXSEV5UUktatrl5qUa7taPoLgSYwYZBhqccRllx9jip_t79hLo1qysnxv78Acsu8sZwsOkDyrXhqPpaU",
+      "evmAddress": "0xDf6b1cA313beE470D0142279791Fa760ABF5C537",
+      "ecdsaPublicKey": "0x04a3ab1ab7690be8c8a7738404a5e67705680b8f2ac119feee0388ad002dbf4eb0d3518e0161deb4fbd4e32f1bb232edbc9349a1dc3b09a9780f79c3af2c348eeb"
+    },
+    "_e3vAYq1ui3Ri0IMMYfXBBJpNE5Uh0f9a-kfwUgopBw": {
+      "name": "redstone-avalanche-prod-node-8",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 8",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "9--8Hdl_QzH9dngQRNufl6jVnTSUfSJzYEKiVxubxjde6OoQnlXqbeSvPwAIqCXlonhxio-FjD_xWofn8MkGKg2UeuxqxmjYklSAMU-PlfcK2-wLe5tFGfhRCKPPhUmvOm2iZomU6Rfueb0Sjpr5Q0d8r70fA1Qz9CwU8tQfj8F0J-sWL_FPuZ4In990gO4E6AGnOJiqfZaxhfpk5JiWPmlBuDHtMSqOSC-ZFWgaXCi8IfQl_qSubGjLL33wYaI21W8C6jK3UBB7sKpdXuhqF7Srr6p-OL4GCW9tCwdDqneFKh1rxWOMv3NuQ5zC0s5AaeVlnjKzyIEcDa-CJJk-1r4fKy6jFObkaN-tfAWsRdrPG4sq76AQOg-42z3QmWumPBhk579ruIHUM5IB3ByUST5DoOFNdScdWosewEFX7-JVnMaT4BPEm1gCmxxrgzLgi0LGhPLXFZr1PBL_VCtAi5QdGil0hrIjyfYHb4T8suIxFYgqrxdXvf-pAEjIxPT66Dd8wMFYflr0X29fajQdrSdb8Eu3TmGb0bCylz1CRHfGF348XANQdDkhnB2fxNUpYt_y277Vbwf6lVXvKwAUpN1aRos7NrXZ5hqdcLYidRknVTJYOstwwqDJdOuYTojdDrQKnFas6eVWBmKTd4gts9pwdFuu7_xL_3dued8_gYs",
+      "evmAddress": "0xa50abc5D76dAb99d5fe59FD32f239Bd37d55025f",
+      "ecdsaPublicKey": "0x048fc61d7657e910df9c192047b3b28fbd4e84c825fa2775ab87b0111ab41765734fca0d3128f98af40ced51c681b0d17797501bd8ed8026ead35e2a5c3f135362"
+    },
+    "dV92v1MZjhJiVEuqY86rtedfnVw4xGfimftlo9vqBbw": {
+      "name": "redstone-avalanche-prod-node-9",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 9",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "r6xhngaiIjrx0ug9GEtezfJu1zISLwRhVkLlqe1PehMpMhG9HT0s1rKpXKeGSEZPLFKHKp3HtapRoU492XqhTX32dH9Y92ZCaiIpZkE3llL9NR4TDeDd1f2esELRkCfjaErAwljwJdP4XOLuaLGnK7whLYPfinzljN9jkOYIfgy9xwoY_YdlmpQIqyxLRm4y4nNV2eH3rVLBnm5My5VVS7pyjD1ZeMcXd0Lo6nztxZVtV72evu-UO6JsogolHOYil1mt_S28ofogBGyGcVJdCziwRn3cR6yX4Bty-9IIXKPCfuk0Sn-EP8KDPi19_gw2B_Eo_hFm8ZJmnj4Ew0wEEMhc7XoG_9hKM_ruGSnTEzHmU9berFboSYwOTSvDpga9tmKL195t81FDDem0B2_wAwfJKqfsdHCnU1eSYbnJdXjW72JfWQqJGORPG8DuB6SgEgTpzOfGp9S0ZMxdG9D4I5h4nI30MS7VPtTjNZsTLd_J8ocGNz2Ziv4NmEePnzEPYiKJT0UB2EYVYTqxo50EKaINVcwBjMLufxMV59kWgGsbJSft6IT0GhugPFFcThjltDMAUfEDTOYfEHtOuKOAvchCTNTE1i_UAZx7xn5EIebbezYUaO0N8FmYIN4LG7vgbzozFsxkCwEKNoEK1DZvyTdrj9IuzRc9v54tF599jHU",
+      "evmAddress": "0x496f4E8aC11076350A59b88D2ad62bc20d410EA3",
+      "ecdsaPublicKey": "0x045e46930c07e52f031c5a25773b2c2b7e18123465581ce12e1369bf6aa0e7eaa23cbb6f5540a3fb3315507e2c8aa25495d88831746c298de54587f2dd851ae5d4"
+    },
+    "WcjrFVhNe6s1eFboksinR0OqKe7FOvgmKrq9Thb32io": {
+      "name": "redstone-avalanche-prod-node-10",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 10",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "sesc0MSf9-j9YG0zC4giI9iFIR78cLUys-4gH6ymO51dcPF3ey7SWeg2Q1WhkMuzpl2Y82MLRrVrMAyDagiPHuCVFxdZvcub2mBLmK8ZsElT032jdXUGb0caL4ESeqyT3T7cIupinE3xrSuQkovth14Oy8DX2b4BDZaBEST8ziKf2bx5QtGBSIZgI-qmU9-oq0Z5Xwwal6qp8_DV14LpseO6ba1Hoypf4egI1lWTYi7fKChfmXYVMchjk_992Y7GtxqNP9N8QpdEH6CUaeqbznYm7G37Nqx55h-ScC8Tglg_0ftJRgaPWuEmuC9wEb_ovInI6Lug2g6zXa1pyL5q4HVczxput-Jy_8QyhVAj5xH_PJcUjDZPJwC7sN-NiX3SsqPAT0yk9sVmASDTIjMyUsLgpyGS-h5ArFwXSCZ_pf8Fx7SPTBWA5YoQlTjnw6MEP9SGNyB8dp__gW6CDGihrcx2t6M_zyOa10KV279VD74wtVUjUb4KFYiMZsK9L8hDty2I2a_lx0WD3QxFm2Yf50QTrYCuXIU5R50g3VC5KRWJqJ8OmPgnVxm_-9iGCDCGWGo9-TYTp03zueuK9pT6vdYcDdHYqoN3DnAFOpfbTt0jV4rTGTmc2nNhX8kcBTDddewAJQWOZRd9UqfgMzU6trrMsvhZpWtQN8OIA9Xm9bM",
+      "evmAddress": "0x41FB6b8d0f586E73d575bC57CFD29142B3214A47",
+      "ecdsaPublicKey": "0x04d8582d672cbdf5fbac2a40c64f935fd275535adab40123a9e3ebe7afcf4d53062471cd717bb5b348987d29cf46d654a96498162e8738dc087699b2add631e31f"
+    },
+    "adM0nPtmWHhbhuDFq1xz-b7ZFCQv_J38988HvxtsaYA": {
+      "name": "redstone-avalanche-prod-node-11",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 11",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "yQfrkqc-rIAbgVwdKc2-4mw4PiuhV3ch-CdC68VlujVHKuzuaBM8AvNZRZ1kFyYjhuFygGCMG3pnax0c7HI1Ivz__Y3HQEQSBeMmeYsH5Pg1tBHLWnW466RHXqPBPC9cEQX5LVNZnSl7UcdOcmnSD3_elUycsYbXOm4KfWjMHcatJf4T3iSopakIPt4GRyS8zzti2xVjO_CZ4ki_FY96s5GzhQ8SpRCJsVOIISdJkO1tmTZHqa3gbcGIz_aWJE95fZ_vq_AzIAcEk41kgt4vgnhwY-litM-q44yxfRs6rgE_oztgBSii2fChL2EM6EZJ9QNBfY731UtSCRpSWMqwux3o6b_Bp8q7YMddIfa2siKzPVDZvELTqVZ8su-5a-Umeo6vi1CANZ3H8tt2l_7w-_VfWSuR1mXjxkfoGExqK7q0rnKyutRq44qw9wKE7EGVcZIbxHQZIBKm9YkdoHqltC8KDG3fJsjvcGi8fhrNNQfCzQhblFiJxQJCHxihmz7gkENpb8RY9L-pd6ZwtSwjbICT3p5pI2mSVpiLwMMJWi0IIYXuFftlcAfgdYy2ij0bxNalCBpergEzCzTWLXzcojYH2CzNlwOf_UAprthQ_YUpkQS58iLDhL1id0g8OZy9OoSa970iuoiEaY-KwJL__AIQxTYRjUZpQBaYzer31GM",
+      "evmAddress": "0xC1068312a6333e6601f937c4773065B70D38A5bF",
+      "ecdsaPublicKey": "0x04215064a09a2c95e9178954d32c3e848af13b5b649cb2b3375d48990cd638dd639bbecfbd4782c89608dd01811f56a3265c220cf8f072e00e61c19404aef4f365"
+    },
+    "3NyGT_mhEksAkGUSayKv0PKq7OL51c0RtPAh_dFOu08": {
+      "name": "redstone-avalanche-prod-node-12",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 12",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "wvP_IwXc3uRG5INb-lMcmv91ueBVNIvy_DWN-4-k8v-bHkgPUn3d9vXbMwZK1b4naCCKUgmVwaO0L27I3eHyD7xFpA3Ok6CIiaPNtwXB5J8q2JwcmXkZXF8jIJ4xsA3wR4LkXLvbKZXHRM5B9teqe48coummUDTNX-EbmF06d6jLW4POF7CccsOW02Szk-4H3grY4TUirkW2JHmBJsu91TTAemXxGbEB_M_26300CeOsrkKjDgLYQ4sXhb9MuozKJZqDLM-O2UU8jFBh_kHx-VzjKftvuHoRJpN00Qi1rdICOvgbtgHhgv97-5jPHP68MWr7625ZMqU-VnJQOeZ_MGwRlW8QqpQPDCbFtjgE7NspDl5uzSfpQKOr9dJEN83yBzYb3E__cIj7tvD-zvJ28Csmw6sIZtu_4IpXWnBtKmL5O0b9OTAzotjDIySciJWJalZK9vx4lx_VXpHyF6H00tJlQxYXJkgLBSRGt7Ve6QYmPoBROGPmbWEHNnQBpds44NyFp1i3uIQKFV8hiZXDzHPrAtQVppN1x8FtENiI-Hnnu415GCKw_Ectwki9ThrXu_iA4yYOJ5y0A1oDAAXVyeu74qfD1Bp4ZZNcEhE0E9vD7hMJVXbt8XKfQ0Pcv6e42QwTu4Mn67-HcKK4f98DN9ySj2R8QDTGtKzhx0LYV20",
+      "evmAddress": "0xAE9D49Ea64DF38B9fcbC238bc7004a1421f7eeE8",
+      "ecdsaPublicKey": "0x04a5500f90851767a44be89b52227432ceb9b015ef6f4404621f8158296977427d808af67709171bcb8c09dea4268d9cef8719797de1485e6c1847b520cc5ef76a"
+    },
+    "P_yABErW2FESz-8xppZObp0I6Q4zoCZ3Gsg-FP9J5SE": {
+      "name": "redstone-avalanche-prod-node-13",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 13",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "1iTde23GiA4cJC9IQkUaFfp8av_A0EoJkh4BLMeTHAWaJkWB3k5qgAZoUVXZNvDPnHelowbxf460dkgBTc6w30E3FnSzFkmzLEUxNYheygj5MDN1-ncGYhKSBU98YNt8jeGhP_CNWI-7i7-FsS4lGGYXvhR_9tycVsZKkAcylecLOGB5VOFcodB7wCbWpTW4uibAlHfk6ZmjyiRtybQFU5xGIbATULsWfs9JLh4bhcEkzne_zxQTR0VAEUyvT69G54k3bmmQDo2GDDmua4i3p11BzpIek3rP1NgCsQTZLvwCaRpCbosAYbUYSTVfkuWSONPxwH5Izem0EFcdP-2XbDrHZUCfcsUDdzTkpF7awnuADP4xmZMZkjJHL2tUe6H2YoQQFNHFeAGY5qLRZbG8WCgynjbP2Wxv4lstu6-M-NXF15JSv8SJ0t_IHaQVy5PnvdNf9THBHhOVRoVHxyElOtPqUyz6vnsUviLSlEG3FccafsDF-IGGE4Oz6OI3Ir2L7O9bXdeoxkX3VxuSaFP7SLIPU-thDRvawgRE-qMXJEev8inyD89B16EXOfv5sJ8Y-CNu5q5t2yMEObeZ0QkuWffe9zxCWbfXLWiAMpeumJk64esIlzOfTHKXyUll5HsLkpfaVdhll7twcpsFrOgsGZHdZHFKtKyMX7TSXQElEOc",
+      "evmAddress": "0x2BC37a0368E86cA0d14Bc8788D45c75deabaC064",
+      "ecdsaPublicKey": "0x04c87ffa4f688f8d6fd1d19ca5ec5618af882819060e3cc73c2d05a55e3005458e218d2938006615e2d7e0de4e25600b2b963e5e086cf918d78a467bff9254bbc0"
+    },
+    "UxgH4lurSPJ8Q4x_VeLRHuOYFUPDr6g1cn5oO5w5_DI": {
+      "name": "redstone-avalanche-prod-node-14",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 14",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "q-aVMJ6sOhSrnpqFWb-MR4XsWe8atFJii7Z7o0VMEfAqHCfWMsXUe6yKOr9ZGCaxSNKep8j2oS1KcUN71b76aPzgzSNf2NI-N9NlOtdcyOdRDvUaQJVx1fG_mhJBe16XK25nggSe44EDCA7kozih2EEQYUKD2inwev3pV5nnA5xFawXemTR7KKpC0DWzm0xNaM14gByGFyNX-TX2uZgY3i2tNxhuuRNkljtvxeeR4yAgf1g58Y3M8PI92MDNkqySSmXYdRyhNYnpCSBT15AhI_4Af-kJ1Tw3ZgykUv7Wy2VLblQtjkvbQMMonZtLhqughg9kxdVSNPpOmPRaL3Ycg9uAnCaIbs4Mz2jr3Itc5YqzXm6mLsmTOXdtI6HU5Q8bYMIMF8M95a73e-eY9KxHD4y0jZVKIjfWjFy7F-ogn_c_iWNYTX-VYYgbWjIEzu9hW9sZ7_wq8NO77yo8LsRhtAyhp6gOMCAa6hAZEUpMlp2dG2IJPPMxEHZgMR5rYJ_RYPpBrP3_iyhl5gDwvi_c8ElsBQw0vOstmxNkdWAKV3dovVGidh_JpU1SuUCWiQXX7iOo711ZmmcTuyjjw4Ghzn88OrTCKIbr8EvLCsmYsDvHAMGQXbt-4LwNxacq7G1fSxXPJOyG_smkPPyXWIWLq_rpiuUQhiLcEKZBNghcZys",
+      "evmAddress": "0x9277491f485460575918B43f5d6D5b2BB8c5A62d",
+      "ecdsaPublicKey": "0x04d5cd5fc0406df54e16c03e46f60d9e8f4c1d2eed42bb5dbd0ea3d235f4caa1d2ed5652a9ac3b365c640aeda69c288bfcae111b64951d93308cf4b133f221af28"
+    },
+    "XpWeQ1EVcr3Jn1jlH6Q2pw4GR1M8vYJWx5I-8XmY0OI": {
+      "name": "redstone-avalanche-prod-node-15",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 15",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "lW7yEm-edBZrIvphJ99G9GHy4VL-bff-kmmMVrXV3lL6PP7B40kcC0DRImEngH9n7WYdcE2kreL2UodQK1ruzp-8ojB5NMoPxwNaaLTjxLfPePCHViAtrmIXbZezj87Q3R5y2XrVQlmso744idFm5e0PRVSP972s23-GLEVW9GDqpGqSjO3GPYXn00FN9Igexo7zt6Dcid3or3I9PjBiF6LHX6WyyNYaUF3gEGg-4Q9DAS6yLrUhVpH7S1IDdrdsXHz7PKa7cpM6SEAZW9cqgq0ekr2iHO1gWcdS5C58ngVK4p0u4ZKOYQtSyTbdQz1e84rX01A2c8COvr2y7LllBxyB3M6PoV5B6KPksr4APMhNtANbcKwtlhyFa_hDXOW_lzQub_A7JauqxjB91lX2cLNRLTeQEOVgXhtC67KDOtpnZDbh69-Bp0YTLNtB3yvjS3es0M9fYdPPtjr86Y3gV0IGJBG6uZGutaVnmTF9NGe_VrzPRlI1SfkUdvr3VHtCso-gooJby_hle_Eik4be6V3Bes-GpR-5upEUF98DpNEEhsb9T11F9cnz_gNF4WRl880sPRdKc-Rnd_ascuTkzZctP5aVTdbZQ-EhTo7zy-xn2uNFdSXLxIt_PdWoUBQ8ebdTih0qRb1KPk9nhjZ5l09YK4OlsjmkNmvG1yVXNWE",
+      "evmAddress": "0x91dC1fe6472e18Fd2C9407e438dD022f22891a4f",
+      "ecdsaPublicKey": "0x043d73ad8d5fe14fa7bb57cf07ceb93f60813a9edfc1b8fbad7ed4b0d083c144c130997e0899f1e5577a3aa015e520387cfe26b33aa9e7efd5ef4a45d9fff2731f"
+    },
+    "fqxey4hLgmIvfnuA2_1yQqGdQTW-cTNR_m9gwK5sX_g": {
+      "name": "redstone-avalanche-prod-node-16",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 16",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "sL0wFJHmx1Fs5kv7hmnPEagBy6GDCTBYravw4Ynzs-sBvahzTpHWL5xKwummJTUcm_J-FRO-l_1tmxWYgebtBFCJftWHPzA4keyKRZgDQDqJopqATlBfP_m128JjV_BhAT7NYI2231f7LIukY2_Z7QN3MeGR9JEQHxoOJsNdw5_2PjiEQAMd_Z4fU_NC3SSsEBT7hPbY5HKg-PgnMDyeGNHLpIpkJvsPwXsUYHwISo5CyAiKkJT-qoDgU60ULbSfY5I05Qu2eD8ju48keASxyVjW9egbqOOP-678_xKklUdzQ_wJ0lwSOWBN7HfliKoe-O0UphJuWBucsypziBmhMkPozNfDKZ_GPfCOMm3B7OaXdERqbwPZdkPEIRSFCdcATGuRcThmQr1_DYc4n_D2dvOq8vSSuIyRuO33Se42YNl4W0bVugat22YzX8tGWxCa9i6tY3JXle_6YUQkP-6lPNcPs8xsAC55w9p_loAucEfxnfkF4ouAfxVtbF3Bn5HjYfynjDRhpmbaYMPFMzcIvPK4GCYztaqSdbncTCgKyfVwwrhrQH51un4qBhrXnBdkHRhh_1uhw8lJNXTavS35_78ebupPiLJKxVHUhBp5UP5LK8l14zSYq_PrQV8s6x0kkSl1anjC09KagmHS4hk95Sz-JPb-rIbqMtSfj_ztQH8",
+      "evmAddress": "0x4bbb86992E94AA209c52ecfd38897A18bde8E39D",
+      "ecdsaPublicKey": "0x04765e9bb76ce238cabb3819aa0158b32a38afce7276301d07d3320ed6f3c602107368463e11183460f82859b40b086c1a4e0f93b5fe5e0f325afe06f5e29de4af"
+    },
+    "Ak1iwJBPOol9KUodzVxKEY_tpbwGBmz-T8kNfggXaxQ": {
+      "name": "redstone-avalanche-prod-node-17",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 17",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "vk9iUVxbkHKQ6ZDRPCbSzfPuab8JS3Krx3h9ihdrd25idRC-kuecawRdM6XCdn3T113P3hJkaAb77O1R1Od_WUhafpJW_sHVIchTYCutFTF04cCizm5m5czvL0qCXvprCei3uphKDR2bP_POfnxBnRY96IZ3h5wgDMONzYzKl6J8ZIc07wDgEu-XPcPO-aDC8fF5s0i5CJiLQsQLKOoOKSwTaR-B4n0majBEj8wrxVRGupWmOGIuGM-DZip1KU1ZMeKanEWtssnMBezjabbm5x5C5QYBSZSPw1X5BN4-dkfs7M3fshqIvO59dAyEJOqCYUAu0RbelLnsjmKAG-0O9g_lavzeJuUQ5dnjO1IGUvwX0A_-sDKcUWVKZMb2ULSV4GXfu9J_OCXZDqgnGFDJTE6SZ4xenu7sWG6Cg6_aj5QoQoXT7TE6a--mzq77flUNKaMkIApO0hzZ-LHM3p-Ji39maycZ79mY5SwCThJwL7P9dRxXRQLU404q0mzcEpXDEK03qwdGV3GVRM38tNc4mQjIrlS5xNOiKoTWZLY-PI6RfL5GCFz2xVu1sF1HJ9nv3yb65vH7BrHnuVJIazqvrO6FpZ2zVUoviGakHQE5w_rkOyabzehdTqIVmrXTSM6aFdYMJLWvvd-XjO3lxIdA-m10MqcFAKk7Rir7BKLLEsU",
+      "evmAddress": "0x9456dd79c3608cF463d975F76f7658f87a41Cd6C",
+      "ecdsaPublicKey": "0x040b0f2f1c9a0341655c70bf2cb4cd193b2d3dc03e280b3841b0ccfd2df00819e1680eb71522bd4dabd16d22d945bc6329427e6b65771466984e6f4caa4c226dd8"
+    },
+    "AlDb3yAVG1VtODLAU2Hp9XDY17TMlvNw6oBsKacVCho": {
+      "name": "redstone-avalanche-prod-node-18",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 18",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "oRHK7KRAl3JK2YhwXZ22dNQi66EJidBkeIa46CmnTTM1qXDfLcVJxhFwKLstRb0pR4LA50ccQl3Z7PCzS9GUN35_OrBTKAzerXxvHTTqV3egI_QOIQjjBomXRTGJeE4bfUCwuHlH-djcMcWBUOWD_Wov8rG_90Gp4wYD-kHY-uGlB8RgN2put4jp54i3uD3eKyhNNbFHrOwJNDoRxjoSrVRL-X7fwb7Cj4fbjvXRadX-bepq2aeMULdi8NrTiC0vUG5SbqZIspkhxcBH7TaeRLwMDPXoD5HnkeDKxYQN6sYb2Ah9k9e1VdMjilUbzDa1Ct5fqXlWdzHBHHl4BTllGUWvTmXIsdHsVbAkPHa17jGCanPDTYEOWGrcDb3S-_pIYph1j0X459ktXXd50SXXq11mTi5oWXLqX7jRpIj0LrpmsOyLQi1c8XfELU-JwQtM8Mv6dKrRu_Ty4C0vZzoteOL7FrqnYbok9h7WI5vOTbe_zq13jQUxNU2FJgtuK1zc0geGohbBwVY4oYdHpSIr8WLi_xwvNnkgm1FskRin9Jo0QcH9SazPYnUGUu3ff1szXu4ivFyJq1U-wiZl7H-Jf-EvbDxLHq3F2QxXHeX8pp74BlMMACN1g-yIKPfhMp-azV9KJ4V6SsRtGyRPKoKYTN1O3fJLCCUduuQpIjlJVhk",
+      "evmAddress": "0x4C6f83Faa74106139FcB08d4E49568e0Df222815",
+      "ecdsaPublicKey": "0x04903bc953a15f9afb114e82ea8519cd29700159e6b88f23eb059ec425c7945e36c8cd29fe137cfd06a773436c67ce143d3e179327f731b10a429045e92a5236ee"
+    },
+    "IzNw3cSHZXO2y0ImegrlG2BNP6lwcP__z1GrruenaSg": {
+      "name": "redstone-avalanche-prod-node-19",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 19",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "spYawYZY9mUTGr3MeIXrw3Cc7sWHpJR7oeT_F06u-D1URbMi0J2LFhx6IImkJ8-WoDJwS4mj3SWqfFIw9Uju2PokMDV-Mu2mYgIUdG45ND7LbCiqQCUZRpy4mFB-RARNmo11S90GM2q6m4mPq2OqDw5gnAs2652lo0Yu2RDmAH8lxiI_ySHTUyv7wPhbHLfHyLqXYQ-XZ_gKvsXrOiFq5K0zKR4OmfZvv-dQXSyFVfCtSGHMMLjqHSLR-6nEDkocAONJEP7xw6ZCm3gGNwqSXC4qrI08YVrEEG-8mPRn6j2dkTTe44ByP8Nvb7zuNz7absBV33RUVYYHaiMfKDj1IWguyX7WeGkX3Yz8OqnIClAGN-59TJWcHGApKd4edXLbwb31omr00HVZdfr9uzJYjsAHtiEb2o2AqZlNnpt4VIbrLp96ql8kiLKqQlYQecjyVqa81zntL48EQyusDTQTX-dzb9zT8_FZmksh0mw-_JuXZeV8VYcVbr1wRfLvaYGG8P2nzycl9Yw122dqWayx2fTmkHGP0jLY4c0TPPInn4vU_vzZhut_bcPNJopaCE-a8AGxl6yjSuYJGEHMER9Q-e6OUBQf7MsNoD_afeegrUs7PDORpe7GFbmu7W_pg-kWM-3-xBfofdu0CK-YpgnUPmls4itWCKaQTW0u1ZkwD3c",
+      "evmAddress": "0x4CF8310ABAe9CA2ACD85f460B509eE495F36eFAF",
+      "ecdsaPublicKey": "0x04104c8cf85dedefdd2ff418852b400b6158b1b11f7bd11a035b99b772db0c65d039db9b233a82e17f12eb4db66fd687fa0874f444c6dd1610c903145017e377b4"
+    },
+    "8URhHN_Jfg2YVfdPBde3xycHs9LylOk-9ClGuJNIHwg": {
+      "name": "redstone-avalanche-prod-node-20",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 20",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "o44y-XXTpmY_bFRP0QNldzKwvzQnaqOsvHoD8FNbsdK0GQQ3G-1LGUBA7K16OKD9TWTklLVGoMpPfUD6xUoP5GAurd-G3F4jbLtJvsDuj1MRdikB__VIp4-WOYrkENykxvFCEqgmrCnUQhJhy2f5di-ZgEH_TwXhk6SCU9c7YxjF5rW4jOsXGhMbPO4pbS3xDVhthjMEGFok2sQbdncdonJTwHuDhbJPVYXomSpeSkahuHx6vh2Ky3QvKTOHKjmzzNQ63jUFaM1c1uZmMcrNCUcWnI2Vs8ZxPUpXRJy_tsngiLerYYjO47tEdO4zmCxWD6a_XJhGtA6OjLdl_1D4ypB8WMUdRuQ2OcuucwIZwmotqenvxYaxCi2iKnso5SBA-1p91NupdW2m9JYOldRqR3JiMl2MdjaHGQ3sifHWEBmcPBYX9P7NW6qWqPiVZD3cEIOc0ddK5175CXXrqdqBXGIyCWstGbyVNbpprf6K25MK3SPidyecoEAGTMUa5kt8MfVTQxg2ketG41krR21Ou8vAIRWpTzMu1BG891e4jtmI6RO9LUqqWH9xZzdM0AGAr5qdO9Aw_gEf1LSC4IurZM4rGSoRVjGqPLIv2dPRpAw3KJluxFPJMuS32NB6H1k_lAY8RtvmRuAWOKYJUQbcC2ki_TmQApSzA-80mM6wkZk",
+      "evmAddress": "0x2D0645D863a4eE15664761ea1d99fF2bae8aAe35",
+      "ecdsaPublicKey": "0x043a0c7f52738353c08879baca6bc303b645102ae4533d0416fdabb24c3e0923efe41a1db550f715ce616c99df610771f3ae9601ec544235379744d1eee3b7e429"
+    },
+    "nsqXjp_GngsxwDpQXWHoI7_RXONoPyFF0HvIsvyHhhE": {
+      "name": "redstone-avalanche-prod-node-21",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 21",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "zL2sAHVowndoyTekX0dNEnQGancaxUWoUTKcKCNjak7r3u1Trxj-EPPRG3zDdmEKNfObXUZ1W_XT8bmATq1_OVXNWLTDEXn1iSLJZ5a5_0NT95VBzPwoZOMBXdyfITEoOyB8ViJwreHv8zMqxRnUor2HZxPmbBdzSd3d2tdpOIbbDMW8PMTzcXwVtRL9wXSEIeOIfnzBdapRcMYOOdoxUto-Zd6KKy4dgPAOAtYDJDcJKWOqj68LFvEOlhK7D_Q1i7D8xbxB4CfB9HxMC8L3DDfDvIfGmN55DIIIy-tJGFegZVZ3XYZPPOmiewGLiy8tQgGQpKoun1k2XANIFM3imPLy0ZvvG4c7IcpEmgEQSxAgqyu5AJAkaw8Q63jpryjx7ky4yfFSpOkkc86L_rhmpMkojzS1h-s7-aA9P3hziPjfoCBZHcDvoXJf0Xa0fV6G0oK6YFlSZVvC1ZdgQSPdys_80CumHYh_HwvvZQ67efbLXTBUnS5oKpwbBr7gAeSCC9jsqfa1Nwkj2N7W87NxhVf6yOMCLsSA5A7z6O0JYLK_jTwPzmINfZTcArzQDQ6QMzURZoYrZNgMYhxCRnevt8feJwDSSyKh5l8JUqMBpzc_3Ri_HWIjRy7k3nnZcaRVt1vNmEyr2v6VpK1ulYCKlD_6NeYXhaiMlaqd99PhTIM",
+      "evmAddress": "0xF5c14165fb10Ac4926d52504a9B45550411A3C0F",
+      "ecdsaPublicKey": "0x044aec44dde074fc7b938295cf593a8116e403147545d0b6fd01936b3dc89e7e4019f1971d8c15fa4178d3564b0806b7165b2db367e625514dfb95735dee860042"
+    },
+    "Vk2sEBC5Zbb1MaCQVthnChq-AUqDe1CV8LlnoaP2xAo": {
+      "name": "redstone-avalanche-prod-node-22",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 22",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "qrWINFmYHbYrFNi5wLjToYzOVfv4_eEJlBAYWAbALv86mDwUMg-Q93nS7RNqu-3mTraFwGJqqv9oLeOQMh4bD4SZOIk9LROZLAQcQXq_8_Fuy5lfZEwD9j5uNw8mjTeKlCmxzoNnc7kgsC4wXfR4dD4tZPacHwtnhSxZrgfv4AfoJahCTqhXBH9FS6GmRoY_jcs9chWeoMg81Or8DKegSNcMdbfoJ-KE4lEaNTD3c4FkI-3k9bCcy85FGSwJjVkiDbL_xno_5Vss0TycKauN8dV9BxVIQjvnp6CrBhnODMlYeHTmOmtPMtqd9DHA5pfcejkH2BTEnHn-WcEHB9LVzPQ-Geohxe4f5yEp__8neUJopaRZkN2jaD_jLXrxq-sC8WDGDKXptM0JNlNNYUCSXh9gtLez1rUB0JYkylb43s68pUc7O3BcoBeKyPPeOISJhqU0tIJEQlm2CmgTOJsE79fPaFsvIsuEXD6IWTMqkXKmlANI6MgpF59o2wdVqxYx6IdPrDegY9SHqLtzriyn9edLUHrYFtPKEKWdGufun6X_XRDVhf9bXrnFFnJ_kLXv0cy3d4T6GU0TA0YigdXY7a8Ht0YQVZTaIiVF7cnlkwPVC9S7JaVkM3bm2ibd-HZEAXvXqrCrXRig4px0f4NnxU5YVT8oZ-lmSX9Vh_ucJ30",
+      "evmAddress": "0x11D23F3dbf8B8e1cf61AeF77A2ea0592Bc9860E0",
+      "ecdsaPublicKey": "0x04606a06064d81a542a81d92076ef5766b5fb9abac584f369075e1fec36977d8f5aa188613198b89167b42d89dfbfa893d2d397860174a1abaf3d62c49e72a20b7"
+    },
+    "FZ-_-Od3Z65c16boeV6IdIN-7Tjc6-U4lLRoqcaGLOM": {
+      "name": "redstone-avalanche-prod-node-23",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod node 23",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataFeedId": "redstone-avalanche-prod",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "arweavePublicKey": "xogzdlmK3p5yGMdFPL_MRZ1kUEQCWTUDD3NdRnUqoOvZy93VFnNaULYbF1BlJpetMbeW5U0qI9QIFMTpgE1h5ygnxzvcqFn_ZDYmunIOlH8Djx9eSrrNsp4N8syjE1vHyoM_UKOgAvdOYxhC6VpRA9qcnv4rwPLkbbnQpY7YInKoPQEdLsnWH65Dsqe7y9ttvjBRS5BeO-UZgbUf08YBOW6r4HyJ9n2ZH9rZxfsAKpK3JTik1jRt1BQllWOgD_XZj1dblNCCPxYwQpTFay9cOIIdDB-hroAr5nsWrd-fIh0IU3hvrZLUgj-Ou9_20nF3lm8Xp2Ke926M4oCRX8uN4kc6luj5l6accBmI4iX_MscDoJed053S5krDeFXebA7SYsu1f4ys6ujobZhMbHNt4LWYfh88jRJaJf1AaGPIH95V1UtX_EsuyFTHWA6GO-TYbs_6SAbbFxaaaAWXY5a0zf8goMPnXOXEc81rPh1EU2YszyczYITxtlUTpnNCSNGQ9_PMkLspICBSMK1-m4p2b91OkdK2hKRMZ-4Wdh9YoiZBEGhRyoFbE6W6GPcF8FGoBgxKlrRXZ1VOAfqQcVKEPJ-zMSbl3rMRs-rN_Gs-HkG-PNXdoxRDt4VCDR1JucN584Ygz-Gt5tg6C0hc7XrseFbbMj5XTcav0ZoNxR4bLJk",
+      "evmAddress": "0x60930D9f74811B525356E68D23977baEAb7706d0",
+      "ecdsaPublicKey": "0x04f1870867f8dd2c364df07a1e0e1cc9caf144374a5004a17929d9d653f524111e724c1d59490e5019cb3fec8b74475f90165fbf01153ef19a16a3a38aed22ef2e"
+    }
+  },
+  "dataFeeds": {
+    "redstone-main-demo": {
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "RedStone Main Demo",
+      "admin": "I-5rWUehEv-MjdK9gFw09RxfSLQX9DIHxG614Wf8qo0",
+      "description": "Main RedStone Provider with all available tokens.",
+      "manifestTxId": "kXYM3AezlROPoEDCt_802-k9ZxeceAWzHtrERmR2zEg"
+    },
+    "redstone-rapid-demo": {
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "RedStone Rapid Demo",
+      "admin": "zYqPZuALSPa_f5Agvf8g2JHv94cqMn9aBtnH7GFHbuA",
+      "description": "Most popular tokens with frequent updates",
+      "manifestTxId": "5iQ5tPebRcdB4OjLZvaCMftREpP_P-V-F0J0WAgyLFI"
+    },
+    "redstone-stocks-demo": {
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "RedStone Stocks Demo",
+      "admin": "Yba8IVc_01bFxutKNJAZ7CmTD5AVi2GcWXf1NajPAsc",
+      "description": "Stocks, ETFs, Livestocks, Metals, Energies...",
+      "manifestTxId": "MmWSoOPdKoyRlJ7Qhrvp3odBu0881Ou379e19SxDxKg"
+    },
+    "redstone-avalanche-demo": {
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "RedStone Avalanche Demo",
+      "admin": "f1Ipos2fVPbxPVO65GBygkMyW0tkAhp2hdprRPPBBN8",
+      "description": "Most popular tokens from the Avalanche ecosystem - demo",
+      "manifestTxId": "erTjNqoLYB9Jw9zZXJPYxmijE5ElEhDM_52quvK83ws"
+    },
+    "redstone-avalanche-prod": {
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "RedStone Avalanche Prod",
+      "admin": "TEHhCDWy-vGmPSZsYJyM0aP_MM4xESgyIZdf5mVODzg",
+      "description": "Most popular tokens from the Avalanche ecosystem - prod",
+      "manifestTxId": "y7ppr6m9MuP65Fiivd9CX84qcPLoYBMifUrFK3jXw2k"
+    },
+    "redstone-custom-urls-demo": {
+      "name": "Redstone custom URLs demo",
+      "manifestTxId": "y3N8DC6-iuafCShMdvzfItdE_O1h4pqydX4B_QUQrSM",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "Redstone custom URLs demo",
+      "admin": "BitVOfTwSSod-tUSla4nM77sUuHC4XFcT0Zlg-RZ-tI"
+    },
+    "redstone-twaps": {
+      "name": "RedStone TWAPs demo",
+      "manifestTxId": "ETNFHbaIXCIXSb2mvkY6QWbfcITsFsSDd4h48PhuHYs",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "Time-weighted average prices for most popular tokens",
+      "admin": "aw9F_2R2ogYPnM66TDsW1qtiiRflRcgZQG6OLySOSZE"
+    },
+    "redstone-twaps-demo": {
+      "name": "RedStone TWAPs demo",
+      "manifestTxId": "ETNFHbaIXCIXSb2mvkY6QWbfcITsFsSDd4h48PhuHYs",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "Time-weighted average prices for most popular tokens",
+      "admin": "aw9F_2R2ogYPnM66TDsW1qtiiRflRcgZQG6OLySOSZE"
+    }
+  }
+}
