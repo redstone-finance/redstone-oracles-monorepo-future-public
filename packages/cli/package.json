@@ -1,0 +1,24 @@
+{
+  "name": "redstone-cli",
+  "prettier": "redstone-prettier-config",
+  "version": "1.0.0",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "NODE_ENV=test jest",
+    "cli": "ts-node src/main.ts"
+  },
+  "dependencies": {
+    "arweave": "1.10.23",
+    "axios": "^0.27.2",
+    "redstone-oracles-smartweave-contracts": "1.0.0",
+    "redstone-protocol": "1.0.0",
+    "redstone-smartweave": "0.4.84"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.2",
+    "jest": "^28.1.0",
+    "ts-jest": "^28.0.3"
+  }
+}
