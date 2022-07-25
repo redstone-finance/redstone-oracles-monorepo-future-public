@@ -1,6 +1,6 @@
 import { signDataPackage } from "../src/index-old";
-import goodSampleDataPackageBTC from "../test/sample-data-packages/valid/redstone-rapid-btc.json";
-import badSampleDataPackageBTC from "../test/sample-data-packages/invalid/redstone-rapid-btc-invalid-data.json";
+import goodSampleDataPackageBTC from "./sample-data-packages/valid/redstone-rapid-btc.json";
+import badSampleDataPackageBTC from "./sample-data-packages/invalid/redstone-rapid-btc-invalid-data.json";
 
 const TEST_PRIVATE_KEY =
   "0x1111111111111111111111111111111111111111111111111111111111111111";
