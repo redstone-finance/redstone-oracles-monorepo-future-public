@@ -16,6 +16,23 @@ export interface SignedDataPackagePlainObj extends DataPackagePlainObj {
   signature: string; // base64-encoded joined signature
 }
 
+export interface SignedDataPackageToBroadcast {
+  prices: {
+    symbol: string;
+    value: string | number;
+  }[];
+  signature: string;
+  signerAddress: string;
+  timestamp: number;
+  permawebTx?: string;
+  provider?: string;
+  id?: string;
+  source?: {
+    [sourceName: string]: any;
+  };
+  version?: string;
+}
+
 export class SignedDataPackage extends Serializable {
   public readonly signature: Signature;
 
