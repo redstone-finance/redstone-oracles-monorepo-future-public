@@ -81,7 +81,6 @@ export class DataPackage extends Serializable {
     // Generating a signature
     const signingKey = new SigningKey(privateKey);
     const fullSignature = signingKey.signDigest(signableHashBytes);
-
     // Return a signed data package
     return new SignedDataPackage(this, fullSignature);
   }
