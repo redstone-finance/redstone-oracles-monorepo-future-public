@@ -10,7 +10,7 @@ export interface IStandardDataPoint {
 }
 export type DataPointPlainObj = INumericDataPoint | IStandardDataPoint;
 
-export abstract class DataPoint extends Serializable {
+export class DataPoint extends Serializable {
   constructor(
     public readonly symbol: ConvertableToBytes32,
     public readonly value: Uint8Array
@@ -37,6 +37,4 @@ export abstract class DataPoint extends Serializable {
     const serializedSymbol = this.serializeSymbol();
     return concat([serializedSymbol, this.value]);
   }
-
-  abstract serializeToBroadcast(): { symbol: string; value: string | number };
 }
