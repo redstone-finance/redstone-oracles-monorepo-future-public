@@ -1,10 +1,16 @@
 import { ethers } from "ethers";
 
 export abstract class Serializable {
-  abstract serializeToBytes(): Uint8Array;
+  abstract toBytes(): Uint8Array;
+  abstract toObj(): object;
 
-  serializeToBytesHex() {
-    const serializedBytes = this.serializeToBytes();
+  toBytesHex(): string {
+    const serializedBytes = this.toBytes();
     return ethers.utils.hexlify(serializedBytes);
+  }
+
+  toJSON() {
+    const serializedPlainObj = this.toObj();
+    return JSON.stringify(serializedPlainObj);
   }
 }
