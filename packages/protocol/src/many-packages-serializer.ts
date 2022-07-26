@@ -11,7 +11,7 @@ export const serializeSignedDataPackagesToBytes = (
 ): Uint8Array => {
   return concat([
     ...signedDataPackages.map((signedDataPackage) =>
-      signedDataPackage.serializeToBytes()
+      signedDataPackage.toBytes()
     ),
     convertIntegerNumberToBytes(
       signedDataPackages.length,

@@ -1,4 +1,10 @@
-import { arrayify, concat, keccak256, SigningKey } from "ethers/lib/utils";
+import {
+  arrayify,
+  concat,
+  hexlify,
+  keccak256,
+  SigningKey,
+} from "ethers/lib/utils";
 import {
   DATA_POINTS_COUNT_BS,
   DATA_POINT_VALUE_BYTE_SIZE_BS,
@@ -6,8 +12,14 @@ import {
 } from "../common/redstone-consts";
 import { Serializable } from "../common/Serializable";
 import { assert, convertIntegerNumberToBytes } from "../common/utils";
-import { DataPoint } from "../data-point/DataPoint";
+import { deserializeDataPointFromObj } from "../data-point/data-point-deserializer";
+import { DataPoint, DataPointPlainObj } from "../data-point/DataPoint";
 import { SignedDataPackage } from "./SignedDataPackage";
+
+export interface DataPackagePlainObj {
+  dataPoints: DataPointPlainObj[];
+  timestampMilliseconds: number;
+}
 
 export class DataPackage extends Serializable {
   constructor(
@@ -35,7 +47,7 @@ export class DataPackage extends Serializable {
     return this.dataPoints[0].getValueByteSize();
   }
 
-  serializeToBytes(): Uint8Array {
+  toBytes(): Uint8Array {
     return concat([
       this.serializeDataPoints(),
       this.serializeTimestamp(),
@@ -44,8 +56,20 @@ export class DataPackage extends Serializable {
     ]);
   }
 
+  toObj(): DataPackagePlainObj {
+    return {
+      dataPoints: this.dataPoints.map((dataPoint) => dataPoint.toObj()),
+      timestampMilliseconds: this.timestampMilliseconds,
+    };
+  }
+
+  public static fromObj(plainObject: DataPackagePlainObj): DataPackage {
+    const dataPoints = plainObject.dataPoints.map(deserializeDataPointFromObj);
+    return new DataPackage(dataPoints, plainObject.timestampMilliseconds);
+  }
+
   getSignableHash(): Uint8Array {
-    const serializedDataPackage = this.serializeToBytes();
+    const serializedDataPackage = this.toBytes();
     const signableHashHex = keccak256(serializedDataPackage);
     return arrayify(signableHashHex);
   }
@@ -63,7 +87,17 @@ export class DataPackage extends Serializable {
   }
 
   protected serializeDataPoints(): Uint8Array {
-    return concat(this.dataPoints.map((dp) => dp.serializeToBytes()));
+    // Sorting datapoints by bytes32 representation of symbols lexicographically
+    this.dataPoints.sort((dp1, dp2) => {
+      const bytes32Symbol1Hexlified = hexlify(dp1.serializeSymbol());
+      const bytes32Symbol2Hexlified = hexlify(dp2.serializeSymbol());
+      const comparisonResult = bytes32Symbol1Hexlified.localeCompare(
+        bytes32Symbol2Hexlified
+      );
+      assert(comparisonResult !== 0, `Duplicated symbol found: ${dp1.symbol}`);
+      return comparisonResult;
+    });
+    return concat(this.dataPoints.map((dp) => dp.toBytes()));
   }
 
   protected serializeTimestamp(): Uint8Array {

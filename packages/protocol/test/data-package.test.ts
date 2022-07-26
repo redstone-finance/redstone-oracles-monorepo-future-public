@@ -9,30 +9,47 @@ const PRIVATE_KEY_FOR_TESTS =
   "0x1111111111111111111111111111111111111111111111111111111111111111";
 const EXPECTED_SERIALIZED_UNSIGNED_DATA_PACKAGE =
   "0x" +
-  "4554480000000000000000000000000000000000000000000000000000000000" + // bytes32("ETH")
-  "0000000000000000000000000000000000000000000000000000002e90edd000" + // 2000 * 10^8
   "4254430000000000000000000000000000000000000000000000000000000000" + // bytes32("BTC")
   "000000000000000000000000000000000000000000000000000003d1e3821000" + // 42000 * 10^8
+  "4554480000000000000000000000000000000000000000000000000000000000" + // bytes32("ETH")
+  "0000000000000000000000000000000000000000000000000000002e90edd000" + // 2000 * 10^8
   "01812f2590c0" + // timestamp
   "00000020" + // default data points byte size (32 in hex)
   "000002"; // data points count
 const EXPECTED_SIGNATURE =
-  "059756659fc7267d152ec9da24fb84b899eb1d5a39371fa8c94b39ce6e55294646468e312698948101d5637b77049f5c2e974a986f2878f021a5c057a3ce739d1c";
+  "c1296a449f5d353c8b04eb389f33a583ee79449cca6e366900042f19f2521e722a410929223231905839c00865af68738f1a202478d87dc33675ea5824f343901b";
 
 describe("Data package", () => {
   let dataPackage: DataPackage;
 
   beforeEach(() => {
     const dataPoints = [
-      { symbol: "ETH", value: 2000 },
       { symbol: "BTC", value: 42000 },
+      { symbol: "ETH", value: 2000 },
     ].map((dpArgs) => new NumericDataPoint(dpArgs));
     dataPackage = new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
   });
 
   test("Should serialize data package", () => {
-    expect(dataPackage.serializeToBytesHex()).toBe(
+    expect(dataPackage.toBytesHex()).toBe(
       EXPECTED_SERIALIZED_UNSIGNED_DATA_PACKAGE
+    );
+  });
+
+  test("Changed order of data points should not affect serialized bytes", () => {
+    const tmpDataPoint = dataPackage.dataPoints[0];
+    dataPackage.dataPoints[0] = dataPackage.dataPoints[1];
+    dataPackage.dataPoints[1] = tmpDataPoint;
+
+    expect(dataPackage.toBytesHex()).toBe(
+      EXPECTED_SERIALIZED_UNSIGNED_DATA_PACKAGE
+    );
+  });
+
+  test("Should throw an error for data points with duplicated symbols", () => {
+    dataPackage.dataPoints[0] = dataPackage.dataPoints[1];
+    expect(() => dataPackage.toBytesHex()).toThrow(
+      "Assertion failed: Duplicated symbol found: ETH"
     );
   });
 
@@ -41,7 +58,7 @@ describe("Data package", () => {
     expect(signedDataPackage.serializeSignatureToHex()).toBe(
       "0x" + EXPECTED_SIGNATURE
     );
-    expect(signedDataPackage.serializeToBytesHex()).toBe(
+    expect(signedDataPackage.toBytesHex()).toBe(
       EXPECTED_SERIALIZED_UNSIGNED_DATA_PACKAGE + EXPECTED_SIGNATURE
     );
   });
