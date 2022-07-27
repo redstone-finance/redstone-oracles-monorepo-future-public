@@ -14,16 +14,7 @@ import { DataPackage, DataPackagePlainObj } from "./DataPackage";
 
 export interface SignedDataPackagePlainObj extends DataPackagePlainObj {
   signature: string; // base64-encoded joined signature
-}
-
-export interface SignedDataPackageToBroadcast {
-  prices: {
-    symbol: string;
-    value: string | number;
-  }[];
-  signature: string;
   signerAddress: string;
-  timestamp: number;
   permawebTx?: string;
   provider?: string;
   id?: string;
@@ -76,9 +67,12 @@ export class SignedDataPackage extends Serializable {
 
   toObj(): SignedDataPackagePlainObj {
     const signatureHex = this.serializeSignatureToHex();
+    const signerAddressAsBytes = this.recoverSignerPublicKey();
+
     return {
       ...this.dataPackage.toObj(),
       signature: base64.encode(signatureHex),
+      signerAddress: base64.encode(signerAddressAsBytes),
     };
   }
 
