@@ -1,0 +1,11 @@
+{
+  "interval": 60000,
+  "priceAggregator": "median",
+  "sourceTimeout": 20000,
+  "maxPriceDeviationPercent": 100,
+  "evmChainId": 1,
+  "tokens": {
+    "$YYAV3SA1": {}
+  },
+  "defaultSource": ["avalanche-evm-fetcher"]
+}
