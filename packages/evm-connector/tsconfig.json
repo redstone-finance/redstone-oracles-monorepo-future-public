@@ -9,8 +9,15 @@
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dist",
-    "declaration": true
+    "declaration": true,
+    "declarationMap": true,
+    "incremental": true
   },
   "include": ["./src", "./test", "./typechain-types"],
-  "files": ["./hardhat.config.ts"]
+  "files": ["./hardhat.config.ts"],
+  "references": [
+    {
+      "path": "../protocol"
+    }
+  ]
 }

@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "hardhat test test/**/*.test.ts",
+    "build": "rm -rf dist && tsc -build",
     "benchmark": "hardhat test test/**/*.benchmark.ts",
     "compile": "hardhat compile"
   },

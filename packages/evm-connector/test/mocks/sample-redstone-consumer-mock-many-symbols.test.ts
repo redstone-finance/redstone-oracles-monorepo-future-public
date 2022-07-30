@@ -4,8 +4,8 @@ import {
   DataPackage,
   INumericDataPoint,
   NumericDataPoint,
+  utils,
 } from "redstone-protocol";
-import { convertStringToBytes32 } from "redstone-protocol/dist/src/common/utils";
 import {
   MOCK_SIGNERS,
   MockSignerIndex,
@@ -88,8 +88,8 @@ describe("SampleRedstoneConsumerMockManySymbols", function () {
       WrapperBuilder.wrap(contract).usingMockDataV2(mockDataConfig);
 
     const tx = await wrappedContract.save2ValuesInStorage([
-      convertStringToBytes32("ETH"),
-      convertStringToBytes32("BTC"),
+      utils.convertStringToBytes32("ETH"),
+      utils.convertStringToBytes32("BTC"),
     ]);
     await tx.wait();
 
@@ -104,8 +104,8 @@ describe("SampleRedstoneConsumerMockManySymbols", function () {
       WrapperBuilder.wrap(contract).usingMockDataV2(mockDataConfig);
 
     const tx = await wrappedContract.save2ValuesInStorage([
-      convertStringToBytes32("BTC"),
-      convertStringToBytes32("ETH"),
+      utils.convertStringToBytes32("BTC"),
+      utils.convertStringToBytes32("ETH"),
     ]);
     await tx.wait();
 
