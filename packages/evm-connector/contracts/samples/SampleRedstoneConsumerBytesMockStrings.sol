@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.4;
 
-import "../mocks/RedstoneConsumerMockV5.sol";
+import "../mocks/RedstoneConsumerBytesMock.sol";
 import "../libs/NumericArrayLib.sol";
 import "hardhat/console.sol";
 
-contract SampleRedstoneConsumerMockV5Strings is RedstoneConsumerMockV5 {
+contract SampleRedstoneConsumerBytesMockStrings is RedstoneConsumerBytesMock {
   bytes public latestString;
 
   function saveLatestValueInStorage(bytes32 symbol) public {
