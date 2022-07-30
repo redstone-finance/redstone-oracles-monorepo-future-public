@@ -1,8 +1,7 @@
 import { arrayify, hexlify } from "@ethersproject/bytes";
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { DataPackage, DataPoint } from "redstone-protocol";
-import { convertStringToBytes32 } from "redstone-protocol/dist/src/common/utils";
+import { DataPackage, DataPoint, utils } from "redstone-protocol";
 import {
   MOCK_SIGNERS,
   MockSignerIndex,
@@ -17,7 +16,7 @@ import { SampleRedstoneConsumerBytesMockStrings } from "../../typechain-types";
 const DEFAULT_TIMESTAMP_FOR_TESTS = 1654353400000;
 const DEFAULT_SYMBOL = "SOME LONG STRING FOR SYMBOL TO TRIGGER SYMBOL HASHING";
 // const DEFAULT_SYMBOL = "ETH";
-const DEFAULT_SYMBOL_BYTES_32 = convertStringToBytes32(DEFAULT_SYMBOL);
+const DEFAULT_SYMBOL_BYTES_32 = utils.convertStringToBytes32(DEFAULT_SYMBOL);
 
 interface MockPackageOpts {
   mockSignerIndex: MockSignerIndex;
