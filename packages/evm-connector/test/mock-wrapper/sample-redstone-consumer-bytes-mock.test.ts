@@ -45,7 +45,7 @@ describe("SampleRedstoneConsumerBytesMock", function () {
   });
 
   it("Should properly execute transaction on RedstoneConsumerBase contract", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
       getMockPackage({ mockSignerIndex: 0, value: "0xf4610900" }), // hex(41 * 10 ** 8)
       getMockPackage({ mockSignerIndex: 1, value: "0x01004ccb00" }), // hex(43 * 10 ** 8)
       getMockPackage({ mockSignerIndex: 2, value: "0xfa56ea00" }), // hex(42 * 10 ** 8)
@@ -61,7 +61,7 @@ describe("SampleRedstoneConsumerBytesMock", function () {
   });
 
   it("Should revert if there are too few signers", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
       getMockPackage({ mockSignerIndex: 0, value: "0xf4610900" }),
       getMockPackage({ mockSignerIndex: 1, value: "0xf4610900" }),
     ]);
@@ -72,7 +72,7 @@ describe("SampleRedstoneConsumerBytesMock", function () {
   });
 
   it("Should revert if there are too few unique signers", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
       getMockPackage({ mockSignerIndex: 0, value: "0xf4610900" }),
       getMockPackage({ mockSignerIndex: 1, value: "0xf4610900" }),
       getMockPackage({ mockSignerIndex: 1, value: "0xf4610900" }),

@@ -85,7 +85,7 @@ describe("SampleRedstoneConsumerMockManySymbols", function () {
 
   it("Should properly execute transaction on RedstoneConsumerBase contract (order: ETH, BTC)", async () => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockDataV2(mockDataConfig);
+      WrapperBuilder.wrap(contract).usingMockData(mockDataConfig);
 
     const tx = await wrappedContract.save2ValuesInStorage([
       utils.convertStringToBytes32("ETH"),
@@ -101,7 +101,7 @@ describe("SampleRedstoneConsumerMockManySymbols", function () {
 
   it("Should properly execute transaction on RedstoneConsumerBase contract (order: BTC, ETH)", async () => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockDataV2(mockDataConfig);
+      WrapperBuilder.wrap(contract).usingMockData(mockDataConfig);
 
     const tx = await wrappedContract.save2ValuesInStorage([
       utils.convertStringToBytes32("BTC"),
