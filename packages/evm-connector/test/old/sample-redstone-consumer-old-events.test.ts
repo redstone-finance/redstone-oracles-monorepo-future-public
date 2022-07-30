@@ -13,7 +13,7 @@ describe("SampleRedstoneConsumerOldEvents", function () {
       await ContractFactory.deploy();
     await contract.deployed();
 
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData({
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataOld({
       timestampMilliseconds: Date.now(),
       dataPoints: [{ symbol: "ETH", value: 42 }],
     });

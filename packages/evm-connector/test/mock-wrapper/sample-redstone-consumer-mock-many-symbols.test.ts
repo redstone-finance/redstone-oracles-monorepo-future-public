@@ -13,7 +13,7 @@ import {
   DEFAULT_TIMESTAMP_FOR_TESTS,
 } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
-import { MockDataPackageConfigV2 } from "../../src/wrappers/MockWrapperV2";
+import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
 import { SampleRedstoneConsumerMockManySymbols } from "../../typechain-types";
 
 const NUMBER_OF_MOCK_SIGNERS = 10;
@@ -24,7 +24,7 @@ interface MockPackageOpts {
   timestampMilliseconds?: number;
 }
 
-function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
+function getMockPackage(opts: MockPackageOpts): MockDataPackageConfig {
   const timestampMilliseconds =
     opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
   const dataPoints = opts.dataPoints.map((dp) => new NumericDataPoint(dp));
