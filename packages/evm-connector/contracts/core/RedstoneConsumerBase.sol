@@ -14,14 +14,6 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
-  function getMaxDataTimestampDelay() public view virtual returns (uint256) {
-    return DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS;
-  }
-
-  function getMaxBlockTimestampDelay() public view virtual returns (uint256) {
-    return DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS;
-  }
-
   function getAuthorisedSignerIndex(address _receviedSigner)
     public
     view
@@ -41,13 +33,14 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
     // That's why we add MAX_BLOCK_TIMESTAMP_DELAY
     // and allow data "from future" but with a small delay
     require(
-      (block.timestamp + getMaxBlockTimestampDelay()) > _receivedTimestamp,
+      (block.timestamp + DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS) >
+        _receivedTimestamp,
       "Data with future timestamps is not allowed"
     );
 
     return
       block.timestamp < _receivedTimestamp ||
-      block.timestamp - _receivedTimestamp < getMaxDataTimestampDelay();
+      block.timestamp - _receivedTimestamp < DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS;
   }
 
   // By default we use median aggregation
