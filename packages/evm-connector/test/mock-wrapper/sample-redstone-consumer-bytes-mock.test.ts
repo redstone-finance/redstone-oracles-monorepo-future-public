@@ -9,7 +9,7 @@ import {
   MockSignerAddress,
 } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
-import { MockDataPackageConfigV2 } from "../../src/wrappers/MockWrapperV2";
+import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
 import { SampleRedstoneConsumerBytesMock } from "../../typechain-types";
 
 const DEFAULT_SYMBOL = "SOME LONG STRING FOR SYMBOL TO TRIGGER SYMBOL HASHING";
@@ -22,7 +22,7 @@ interface MockPackageOpts {
   timestampMilliseconds?: number;
 }
 
-const getMockPackage = (opts: MockPackageOpts): MockDataPackageConfigV2 => {
+const getMockPackage = (opts: MockPackageOpts): MockDataPackageConfig => {
   const timestampMilliseconds =
     opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
   const bytesValue = arrayify(opts.value);

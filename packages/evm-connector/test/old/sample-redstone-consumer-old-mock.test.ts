@@ -19,7 +19,7 @@ describe("SampleRedstoneConsumerOldMock", function () {
   });
 
   it("Should properly execute transaction on RedstoneConsumerBase contract", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData({
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataOld({
       timestampMilliseconds: TIMESTAMP_FOR_TESTS,
       dataPoints: [{ symbol: "ETH", value: 42 }],
     });
@@ -32,7 +32,7 @@ describe("SampleRedstoneConsumerOldMock", function () {
   });
 
   it("Should properly read oracle data using contract view function", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData({
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataOld({
       timestampMilliseconds: TIMESTAMP_FOR_TESTS,
       dataPoints: [{ symbol: "ETH", value: 43 }],
     });
@@ -51,7 +51,7 @@ describe("SampleRedstoneConsumerOldMock", function () {
       });
     }
 
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData({
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataOld({
       timestampMilliseconds: TIMESTAMP_FOR_TESTS,
       dataPoints,
     });
