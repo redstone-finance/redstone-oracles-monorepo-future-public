@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.4;
 
-import "../mocks/RedstoneConsumerMock.sol";
+import "../mocks/RedstoneConsumerOldMock.sol";
 
-contract SampleRedstoneConsumerEvents is RedstoneConsumerMock {
+contract SampleRedstoneConsumerOldEvents is RedstoneConsumerOldMock {
   event PriceUpdated(uint256 _ethPrice);
 
   function emitEventWithLatestEthPrice() public {

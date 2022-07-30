@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.4;
 
-import "../../mocks/RedstoneConsumerMock.sol";
+import "../../mocks/RedstoneConsumerOldMock.sol";
 
-contract ContractB is RedstoneConsumerMock {
+contract ContractB is RedstoneConsumerOldMock {
   uint256 private lastValue = 0;
 
   function writeValue() public {

@@ -7,10 +7,10 @@ import {
   MOCK_SIGNERS,
   MockSignerIndex,
   MockSignerAddress,
-} from "../src/helpers/test-utils";
-import { WrapperBuilder } from "../src/index";
-import { MockDataPackageConfigV2 } from "../src/wrappers/MockWrapperV2";
-import { SampleRedstoneConsumerMockV5Strings } from "../typechain-types";
+} from "../../src/helpers/test-utils";
+import { WrapperBuilder } from "../../src/index";
+import { MockDataPackageConfigV2 } from "../../src/wrappers/MockWrapperV2";
+import { SampleRedstoneConsumerMockV5Strings } from "../../typechain-types";
 
 // We lock the timestamp to have deterministic gas consumption
 // for being able to compare gas costs of different implementations

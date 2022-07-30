@@ -1,15 +1,15 @@
 import { expect } from "chai";
 import { Event } from "ethers";
 import { ethers } from "hardhat";
-import { WrapperBuilder } from "../src/index";
-import { SampleRedstoneConsumerEvents } from "../typechain-types";
+import { WrapperBuilder } from "../../src/index";
+import { SampleRedstoneConsumerOldEvents } from "../../typechain-types";
 
-describe("SampleRedstoneConsumerEvents", function () {
+describe("SampleRedstoneConsumerOldEvents", function () {
   it("Should correctly emit events", async function () {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerEvents"
+      "SampleRedstoneConsumerOldEvents"
     );
-    const contract: SampleRedstoneConsumerEvents =
+    const contract: SampleRedstoneConsumerOldEvents =
       await ContractFactory.deploy();
     await contract.deployed();
 

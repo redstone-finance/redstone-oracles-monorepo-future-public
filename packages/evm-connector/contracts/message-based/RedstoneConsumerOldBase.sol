@@ -4,7 +4,7 @@ pragma solidity ^0.8.4;
 
 // import "hardhat/console.sol";
 
-abstract contract RedstoneConsumerBase {
+abstract contract RedstoneConsumerOldBase {
   uint256 constant _MAX_DATA_TIMESTAMP_DELAY = 3 * 60; // 3 minutes
   uint256 constant _MAX_BLOCK_TIMESTAMP_DELAY = 15; // 15 seconds
 
@@ -42,7 +42,12 @@ abstract contract RedstoneConsumerBase {
 
   function isSignerAuthorized(address _receviedSigner) public view virtual returns (bool);
 
-  function isTimestampValid(uint256 _receivedTimestamp) public view virtual returns (bool) {
+  function isTimestampValid(uint256 _receivedTimestamp)
+    public
+    view
+    virtual
+    returns (bool)
+  {
     // Getting data timestamp from future seems quite unlikely
     // But we've already spent too much time with different cases
     // Where block.timestamp was less than dataPackage.timestamp.
@@ -210,7 +215,10 @@ abstract contract RedstoneConsumerBase {
       values := mload(FREE_MEMORY_PTR)
       let symbolsCount := mload(symbols)
       mstore(values, symbolsCount)
-      let totalValuesArrayByteSize := add(BYTES_ARR_LEN_VAR_BS, mul(symbolsCount, DP_VALUE_BS))
+      let totalValuesArrayByteSize := add(
+        BYTES_ARR_LEN_VAR_BS,
+        mul(symbolsCount, DP_VALUE_BS)
+      )
       let updatedFreeMemoryPtr := add(values, totalValuesArrayByteSize)
       mstore(FREE_MEMORY_PTR, updatedFreeMemoryPtr)
 
@@ -228,7 +236,10 @@ abstract contract RedstoneConsumerBase {
         } lt(symbolIndex, symbolsCount) {
           symbolIndex := add(symbolIndex, 1) // symbolIndex++
         } {
-          let currentSymbolOffset := add(BYTES_ARR_LEN_VAR_BS, mul(symbolIndex, DP_SYMBOL_BS))
+          let currentSymbolOffset := add(
+            BYTES_ARR_LEN_VAR_BS,
+            mul(symbolIndex, DP_SYMBOL_BS)
+          )
           let currentSymbolPtr := add(symbols, currentSymbolOffset)
           let currentSymbol := mload(currentSymbolPtr)
 
@@ -242,7 +253,10 @@ abstract contract RedstoneConsumerBase {
             )
 
             // Save current value to the values array
-            let currentValueOffset := add(BYTES_ARR_LEN_VAR_BS, mul(symbolIndex, DP_VALUE_BS))
+            let currentValueOffset := add(
+              BYTES_ARR_LEN_VAR_BS,
+              mul(symbolIndex, DP_VALUE_BS)
+            )
             let currentValuePtr := add(values, currentValueOffset)
             mstore(currentValuePtr, currentValue)
 
