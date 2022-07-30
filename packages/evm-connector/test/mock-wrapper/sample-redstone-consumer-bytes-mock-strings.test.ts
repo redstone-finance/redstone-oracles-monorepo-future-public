@@ -8,7 +8,7 @@ import {
   MockSignerAddress,
 } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
-import { MockDataPackageConfigV2 } from "../../src/wrappers/MockWrapperV2";
+import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
 import { SampleRedstoneConsumerBytesMockStrings } from "../../typechain-types";
 
 // We lock the timestamp to have deterministic gas consumption
@@ -25,7 +25,7 @@ interface MockPackageOpts {
   timestampMilliseconds?: number;
 }
 
-function getMockPackage(opts: MockPackageOpts): MockDataPackageConfigV2 {
+function getMockPackage(opts: MockPackageOpts): MockDataPackageConfig {
   const timestampMilliseconds =
     opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
   const bytesValue = arrayify(opts.value);

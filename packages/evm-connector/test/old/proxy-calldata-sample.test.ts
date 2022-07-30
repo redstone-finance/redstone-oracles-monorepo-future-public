@@ -9,7 +9,7 @@ describe("Proxy calldata sample", function () {
     const contract: ContractA = await ContractFactory.deploy();
     await contract.deployed();
 
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData({
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataOld({
       timestampMilliseconds: Date.now(),
       dataPoints: [{ symbol: "TSLA", value: 42 }],
     });

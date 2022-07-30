@@ -7,7 +7,7 @@ import {
   MockSignerAddress,
 } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
-import { MockDataPackageConfigV2 } from "../../src/wrappers/MockWrapperV2";
+import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
 import { Benchmark } from "../../typechain-types";
 
 interface BenchmarkTestCaseParams {
@@ -44,7 +44,7 @@ describe("Benchmark", function () {
 
   const prepareMockDataPackageConfig = (
     benchmarkParams: BenchmarkTestCaseParams
-  ): MockDataPackageConfigV2[] => {
+  ): MockDataPackageConfig[] => {
     // Prepare data package
     const dataPoints = [...Array(benchmarkParams.dataPointsCount).keys()].map(
       (i) =>
@@ -53,7 +53,7 @@ describe("Benchmark", function () {
           value: 42 + i,
         })
     );
-    const mockDataPackages: MockDataPackageConfigV2[] = [
+    const mockDataPackages: MockDataPackageConfig[] = [
       ...Array(benchmarkParams.requiredSignersCount).keys(),
     ].map((i) => ({
       dataPackage: new DataPackage(dataPoints, DEFAULT_TIMESTAMP_FOR_TESTS),

@@ -1,12 +1,16 @@
-import { DataPackage } from "redstone-protocol";
+import { serializeSignedDataPackages } from "redstone-protocol";
+import { DataPackagesRequestParams, requestDataPackages } from "redstone-sdk";
 import { BaseWrapper } from "./BaseWrapper";
 
 export class DataFeedWrapper extends BaseWrapper {
-  constructor(private mockDataPackage: DataPackage) {
+  constructor(private dataPackagesRequestParams: DataPackagesRequestParams) {
     super();
   }
 
   async getBytesDataForAppending(): Promise<string> {
-    throw 1;
+    const signedDataPackages = await requestDataPackages(
+      this.dataPackagesRequestParams
+    );
+    return serializeSignedDataPackages(signedDataPackages);
   }
 }
