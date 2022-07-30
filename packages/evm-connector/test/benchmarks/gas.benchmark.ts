@@ -1,6 +1,6 @@
 import { ethers } from "hardhat";
 import { DataPackage, NumericDataPoint } from "redstone-protocol";
-import { convertStringToBytes32 } from "redstone-protocol/dist/src/common/utils";
+import { utils } from "redstone-protocol";
 import {
   MOCK_SIGNERS,
   DEFAULT_TIMESTAMP_FOR_TESTS,
@@ -80,7 +80,7 @@ describe("Benchmark", function () {
     const symbols = [...Array(benchmarkParams.dataPointsCount).keys()].map(
       (i) => `TEST-${i}`
     );
-    const bytes32Symbols = symbols.map(convertStringToBytes32);
+    const bytes32Symbols = symbols.map(utils.convertStringToBytes32);
     const mockDataPackagesConfig =
       prepareMockDataPackageConfig(benchmarkParams);
     const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2(
