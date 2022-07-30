@@ -5,8 +5,8 @@ pragma solidity ^0.8.4;
 // import "hardhat/console.sol";
 
 abstract contract RedstoneConsumerOldBase {
-  uint256 constant _MAX_DATA_TIMESTAMP_DELAY = 3 * 60; // 3 minutes
-  uint256 constant _MAX_BLOCK_TIMESTAMP_DELAY = 15; // 15 seconds
+  uint256 constant DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS = 3 * 60; // 3 minutes
+  uint256 constant DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS = 15; // 15 seconds
 
   // Constants for better readablity of the assembly code
   // BS - Bytes size
@@ -33,11 +33,11 @@ abstract contract RedstoneConsumerOldBase {
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
   function getMaxDataTimestampDelay() public view virtual returns (uint256) {
-    return _MAX_DATA_TIMESTAMP_DELAY;
+    return DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS;
   }
 
-  function getMaxBlockTimestampDelay() public view virtual returns (uint256) {
-    return _MAX_BLOCK_TIMESTAMP_DELAY;
+  function getMaxDataTimestampAhead() public view virtual returns (uint256) {
+    return DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS;
   }
 
   function isSignerAuthorized(address _receviedSigner) public view virtual returns (bool);
@@ -55,7 +55,7 @@ abstract contract RedstoneConsumerOldBase {
     // That's why we add MAX_BLOCK_TIMESTAMP_DELAY
     // and allow data "from future" but with a small delay
     require(
-      (block.timestamp + getMaxBlockTimestampDelay()) > _receivedTimestamp,
+      (block.timestamp + getMaxDataTimestampAhead()) > _receivedTimestamp,
       "Data with future timestamps is not allowed"
     );
 
@@ -66,13 +66,17 @@ abstract contract RedstoneConsumerOldBase {
 
   /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
 
-  function getOracleValueFromTxMsg(bytes32 symbol) internal view returns (uint256) {
+  function getOracleNumericValueFromTxMsg(bytes32 symbol)
+    internal
+    view
+    returns (uint256)
+  {
     bytes32[] memory symbols = new bytes32[](1);
     symbols[0] = symbol;
-    return getOracleValuesFromTxMsg(symbols)[0];
+    return getOracleNumericValuesFromTxMsg(symbols)[0];
   }
 
-  function getOracleValuesFromTxMsg(bytes32[] memory symbols)
+  function getOracleNumericValuesFromTxMsg(bytes32[] memory symbols)
     internal
     view
     returns (uint256[] memory)

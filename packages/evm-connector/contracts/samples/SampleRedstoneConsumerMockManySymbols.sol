@@ -10,7 +10,7 @@ contract SampleRedstoneConsumerMockManySymbols is RedstoneConsumerMock {
 
   function save2ValuesInStorage(bytes32[] calldata symbols) public {
     // Get oracle values
-    uint256[] memory values = getOracleValuesFromTxMsg(symbols);
+    uint256[] memory values = getOracleNumericValuesFromTxMsg(symbols);
 
     // Save values in contract state
     firstValue = values[0];

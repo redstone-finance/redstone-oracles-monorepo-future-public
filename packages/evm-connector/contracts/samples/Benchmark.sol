@@ -10,7 +10,7 @@ contract Benchmark is RedstoneConsumerMock {
   }
 
   function saveLatestValueInStorage(bytes32[] calldata symbols) public {
-    uint256[] memory values = getOracleValuesFromTxMsg(symbols);
+    uint256[] memory values = getOracleNumericValuesFromTxMsg(symbols);
     values;
   }
 
