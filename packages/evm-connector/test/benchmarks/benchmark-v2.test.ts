@@ -8,7 +8,7 @@ import {
 } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
 import { MockDataPackageConfigV2 } from "../../src/wrappers/MockWrapperV2";
-import { BenchmarkV2 } from "../../typechain-types";
+import { Benchmark } from "../../typechain-types";
 
 interface BenchmarkTestCaseParams {
   requiredSignersCount: number;
@@ -27,12 +27,12 @@ const TEST_CASES = {
   dataPointsCount: [1, 2, 10, 20, 50],
 };
 
-describe("BenchmarkV2", function () {
-  let contract: BenchmarkV2;
+describe("Benchmark", function () {
+  let contract: Benchmark;
   const fullGasReport: any = {};
 
   this.beforeEach(async () => {
-    const ContractFactory = await ethers.getContractFactory("BenchmarkV2");
+    const ContractFactory = await ethers.getContractFactory("Benchmark");
     contract = await ContractFactory.deploy();
     await contract.deployed();
   });

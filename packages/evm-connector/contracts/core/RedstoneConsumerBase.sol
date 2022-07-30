@@ -3,11 +3,11 @@
 pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
-import "../common/NumericArrayLib.sol";
+import "../libs/NumericArrayLib.sol";
 
 // Implementation with on-chain aggregation
 
-abstract contract RedstoneConsumerBaseV2 {
+abstract contract RedstoneConsumerBase {
   // This param can be updated in child contracts
   uint256 public uniqueSignersThreshold = 1;
 

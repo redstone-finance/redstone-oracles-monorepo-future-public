@@ -4,9 +4,9 @@ pragma solidity ^0.8.4;
 
 // import "hardhat/console.sol";
 
-import "./RedstoneConsumerBaseV2.sol";
+import "./RedstoneConsumerBase.sol";
 
-abstract contract RedstoneConsumerBaseV5 is RedstoneConsumerBaseV2 {
+abstract contract RedstoneConsumerBaseV5 is RedstoneConsumerBase {
   uint256 constant BITS_COUNT_IN_16_BYTES = 128;
 
   function getCalldataBytesFromCalldataPointer(uint256 byteValueCalldataPtr)
