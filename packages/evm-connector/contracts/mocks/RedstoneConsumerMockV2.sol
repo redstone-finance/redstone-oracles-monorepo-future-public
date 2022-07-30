@@ -3,7 +3,7 @@
 pragma solidity ^0.8.4;
 
 // import "hardhat/console.sol";
-import "../message-based/RedstoneConsumerBaseV2.sol";
+import "../core/RedstoneConsumerBaseV2.sol";
 import "./AuthorisedMockSignersBase.sol";
 
 contract RedstoneConsumerMockV2 is RedstoneConsumerBaseV2, AuthorisedMockSignersBase {

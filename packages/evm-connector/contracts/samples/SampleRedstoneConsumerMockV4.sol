@@ -3,7 +3,7 @@
 pragma solidity ^0.8.4;
 
 import "../mocks/RedstoneConsumerMockV4.sol";
-import "../commons/NumericArrayLib.sol";
+import "../common/NumericArrayLib.sol";
 import "hardhat/console.sol";
 
 contract SampleRedstoneConsumerMockV4 is RedstoneConsumerMockV4 {

@@ -3,7 +3,7 @@
 pragma solidity ^0.8.4;
 
 import "./ContractB.sol";
-import "../../commons/ProxyConnector.sol";
+import "../../common/ProxyConnector.sol";
 
 contract ContractA {
   ContractB private contractB;
