@@ -1,4 +1,4 @@
-import { arrayify, hexlify } from "@ethersproject/bytes";
+import { arrayify } from "@ethersproject/bytes";
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { DataPackage, DataPoint } from "redstone-protocol";
@@ -8,10 +8,10 @@ import {
   DEFAULT_TIMESTAMP_FOR_TESTS,
   MockSignerIndex,
   MockSignerAddress,
-} from "../src/helpers/test-utils";
-import { WrapperBuilder } from "../src/index";
-import { MockDataPackageConfigV2 } from "../src/wrappers/MockWrapperV2";
-import { SampleRedstoneConsumerMockV4 } from "../typechain-types";
+} from "../../src/helpers/test-utils";
+import { WrapperBuilder } from "../../src/index";
+import { MockDataPackageConfigV2 } from "../../src/wrappers/MockWrapperV2";
+import { SampleRedstoneConsumerMockV5 } from "../../typechain-types";
 
 const DEFAULT_SYMBOL = "SOME LONG STRING FOR SYMBOL TO TRIGGER SYMBOL HASHING";
 // const DEFAULT_SYMBOL = "ETH";
@@ -35,12 +35,12 @@ const getMockPackage = (opts: MockPackageOpts): MockDataPackageConfigV2 => {
   };
 };
 
-describe("SampleRedstoneConsumerMockV4", function () {
-  let contract: SampleRedstoneConsumerMockV4;
+describe("SampleRedstoneConsumerMockV5", function () {
+  let contract: SampleRedstoneConsumerMockV5;
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerMockV4"
+      "SampleRedstoneConsumerMockV5"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();

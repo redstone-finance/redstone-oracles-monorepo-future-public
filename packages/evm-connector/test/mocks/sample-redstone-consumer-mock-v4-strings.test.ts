@@ -8,10 +8,10 @@ import {
   DEFAULT_TIMESTAMP_FOR_TESTS,
   MockSignerIndex,
   MockSignerAddress,
-} from "../src/helpers/test-utils";
-import { WrapperBuilder } from "../src/index";
-import { MockDataPackageConfigV2 } from "../src/wrappers/MockWrapperV2";
-import { SampleRedstoneConsumerMockV4Strings } from "../typechain-types";
+} from "../../src/helpers/test-utils";
+import { WrapperBuilder } from "../../src/index";
+import { MockDataPackageConfigV2 } from "../../src/wrappers/MockWrapperV2";
+import { SampleRedstoneConsumerMockV4Strings } from "../../typechain-types";
 
 const DEFAULT_SYMBOL = "SOME LONG STRING FOR SYMBOL TO TRIGGER SYMBOL HASHING";
 // const DEFAULT_SYMBOL = "ETH";

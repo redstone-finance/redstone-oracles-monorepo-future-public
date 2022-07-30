@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { SampleNumericArrayLib } from "../typechain-types";
+import { SampleNumericArrayLib } from "../../typechain-types";
 import { expect } from "chai";
 import { BigNumber } from "ethers";
 
