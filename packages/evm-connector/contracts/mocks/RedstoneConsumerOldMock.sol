@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-import "../message-based/RedstoneConsumerOldBase.sol";
+import "../core/RedstoneConsumerOldBase.sol";
 
 contract RedstoneConsumerOldMock is RedstoneConsumerOldBase {
   function isSignerAuthorized(address _receviedSigner)
