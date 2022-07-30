@@ -10,6 +10,3 @@ export * from "./many-packages-serializer";
 
 export * as utils from "./common/utils";
 export * as consts from "./common/redstone-consts";
-
-// TODO: remove later
-export * as old from "./index-old";
