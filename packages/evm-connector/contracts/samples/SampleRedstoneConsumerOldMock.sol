@@ -8,10 +8,10 @@ contract SampleRedstoneConsumerOldMock is RedstoneConsumerOldMock {
   uint256 public latestEthPrice;
 
   function getEthPriceSecurely() public view returns (uint256) {
-    return getOracleValueFromTxMsg(bytes32("ETH"));
+    return getOracleNumericValueFromTxMsg(bytes32("ETH"));
   }
 
   function saveLatestEthPriceInStorage() public {
-    latestEthPrice = getOracleValueFromTxMsg(bytes32("ETH"));
+    latestEthPrice = getOracleNumericValueFromTxMsg(bytes32("ETH"));
   }
 }

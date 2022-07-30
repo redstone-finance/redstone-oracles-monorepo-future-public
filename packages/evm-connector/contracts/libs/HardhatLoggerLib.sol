@@ -2,9 +2,6 @@
 
 pragma solidity ^0.8.4;
 
-// TODO: Implement linear-time median finding: https://rcoh.me/posts/linear-time-median-finding/
-// TODO: Implement a function for average value calculation
-
 import "hardhat/console.sol";
 
 library HardhatLoggerLib {
