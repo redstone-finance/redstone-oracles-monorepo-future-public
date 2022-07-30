@@ -83,7 +83,7 @@ describe("Benchmark", function () {
     const bytes32Symbols = symbols.map(utils.convertStringToBytes32);
     const mockDataPackagesConfig =
       prepareMockDataPackageConfig(benchmarkParams);
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2(
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData(
       mockDataPackagesConfig
     );
 

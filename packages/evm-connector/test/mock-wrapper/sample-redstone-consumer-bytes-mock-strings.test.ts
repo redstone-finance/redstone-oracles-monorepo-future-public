@@ -49,7 +49,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
   });
 
   it("Should properly execute transaction on RedstoneConsumerBase contract", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
       getMockPackage({ mockSignerIndex: 0, value: someValue }),
       getMockPackage({ mockSignerIndex: 1, value: someValue }),
       getMockPackage({ mockSignerIndex: 2, value: someValue }),
@@ -65,7 +65,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
   });
 
   it("Should revert if values from different signers are different", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
       getMockPackage({ mockSignerIndex: 0, value: someValue }),
       getMockPackage({ mockSignerIndex: 1, value: someValue }),
       getMockPackage({
@@ -82,7 +82,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
   });
 
   it("Should revert if there are too few signers", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
       getMockPackage({ mockSignerIndex: 0, value: "0xf4610900" }),
       getMockPackage({ mockSignerIndex: 1, value: "0xf4610900" }),
     ]);
@@ -93,7 +93,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
   });
 
   it("Should revert if there are too few unique signers", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataV2([
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
       getMockPackage({ mockSignerIndex: 0, value: "0xf4610900" }),
       getMockPackage({ mockSignerIndex: 1, value: "0xf4610900" }),
       getMockPackage({ mockSignerIndex: 1, value: "0xf4610900" }),
