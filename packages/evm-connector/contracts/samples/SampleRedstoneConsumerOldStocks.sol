@@ -17,6 +17,6 @@ contract SampleRedstoneConsumerOldStocks is RedstoneConsumerOldBase {
   }
 
   function getTslaPriceSecurely() public view returns (uint256) {
-    return getOracleValueFromTxMsg(bytes32("TSLA"));
+    return getOracleNumericValueFromTxMsg(bytes32("TSLA"));
   }
 }

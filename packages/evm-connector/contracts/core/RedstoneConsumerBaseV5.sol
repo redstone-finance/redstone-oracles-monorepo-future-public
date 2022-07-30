@@ -141,7 +141,7 @@ abstract contract RedstoneConsumerBaseV5 is RedstoneConsumerBase {
     }
   }
 
-  function getOracleValueFromTxMsg(bytes32 symbol)
+  function getOracleNumericValueFromTxMsg(bytes32 symbol)
     internal
     pure
     override
@@ -149,11 +149,11 @@ abstract contract RedstoneConsumerBaseV5 is RedstoneConsumerBase {
   {
     symbol; // To handle compilation warning
     revert(
-      "function getOracleValueFromTxMsg should not be used in the current contract version"
+      "function getOracleNumericValueFromTxMsg should not be used in the current contract version"
     );
   }
 
-  function getOracleValuesFromTxMsg(bytes32[] memory symbols)
+  function getOracleNumericValuesFromTxMsg(bytes32[] memory symbols)
     internal
     pure
     override
@@ -161,7 +161,7 @@ abstract contract RedstoneConsumerBaseV5 is RedstoneConsumerBase {
   {
     symbols; // To handle compilation warning
     revert(
-      "function getOracleValuesFromTxMsg should not be used in the current contract version"
+      "function getOracleNumericValuesFromTxMsg should not be used in the current contract version"
     );
   }
 
