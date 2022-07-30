@@ -14,7 +14,7 @@ import {
 } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
 import { MockDataPackageConfigV2 } from "../../src/wrappers/MockWrapperV2";
-import { SampleRedstoneConsumerMockManySymbolsV2 } from "../../typechain-types";
+import { SampleRedstoneConsumerMockManySymbols } from "../../typechain-types";
 
 const NUMBER_OF_MOCK_SIGNERS = 10;
 
@@ -39,8 +39,8 @@ function getRange(start: number, length: number): number[] {
   return [...Array(length).keys()].map((i) => (i += start));
 }
 
-describe("SampleRedstoneConsumerMockManySymbolsV2", function () {
-  let contract: SampleRedstoneConsumerMockManySymbolsV2;
+describe("SampleRedstoneConsumerMockManySymbols", function () {
+  let contract: SampleRedstoneConsumerMockManySymbols;
 
   const mockDataConfig = [
     getMockPackage({
@@ -77,7 +77,7 @@ describe("SampleRedstoneConsumerMockManySymbolsV2", function () {
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerMockManySymbolsV2"
+      "SampleRedstoneConsumerMockManySymbols"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();

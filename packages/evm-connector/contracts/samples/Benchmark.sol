@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.4;
 
-import "../mocks/RedstoneConsumerMockV2.sol";
+import "../mocks/RedstoneConsumerMock.sol";
 
-contract BenchmarkV2 is RedstoneConsumerMockV2 {
+contract Benchmark is RedstoneConsumerMock {
   function updateUniqueSignersThreshold(uint256 newUniqueSignersThreshold) public {
     uniqueSignersThreshold = newUniqueSignersThreshold;
   }

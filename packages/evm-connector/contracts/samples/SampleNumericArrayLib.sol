@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-import "../common/NumericArrayLib.sol";
+import "../libs/NumericArrayLib.sol";
 
 contract SampleNumericArrayLib {
   uint256[] cachedArray;

@@ -3,10 +3,10 @@
 pragma solidity ^0.8.4;
 
 // import "hardhat/console.sol";
-import "../core/RedstoneConsumerBaseV2.sol";
+import "../core/RedstoneConsumerBase.sol";
 import "./AuthorisedMockSignersBase.sol";
 
-contract RedstoneConsumerMockV2 is RedstoneConsumerBaseV2, AuthorisedMockSignersBase {
+contract RedstoneConsumerMock is RedstoneConsumerBase, AuthorisedMockSignersBase {
   constructor() {
     uniqueSignersThreshold = 10;
   }
