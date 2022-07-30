@@ -1,18 +1,18 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { WrapperBuilder } from "../src/index";
-import { SampleRedstoneConsumerMock } from "../typechain-types";
+import { WrapperBuilder } from "../../src/index";
+import { SampleRedstoneConsumerOldMock } from "../../typechain-types";
 
 // We lock the timestamp to have deterministic gas consumption
 // for being able to compare gas costs of different implementations
 const TIMESTAMP_FOR_TESTS = 1654353400000;
 
-describe("SampleRedstoneConsumerMock", function () {
-  let contract: SampleRedstoneConsumerMock;
+describe("SampleRedstoneConsumerOldMock", function () {
+  let contract: SampleRedstoneConsumerOldMock;
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerMock"
+      "SampleRedstoneConsumerOldMock"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();

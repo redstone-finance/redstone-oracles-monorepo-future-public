@@ -11,10 +11,10 @@ import {
   MockSignerIndex,
   MockSignerAddress,
   DEFAULT_TIMESTAMP_FOR_TESTS,
-} from "../src/helpers/test-utils";
-import { WrapperBuilder } from "../src/index";
-import { MockDataPackageConfigV2 } from "../src/wrappers/MockWrapperV2";
-import { SampleRedstoneConsumerMockManySymbolsV2 } from "../typechain-types";
+} from "../../src/helpers/test-utils";
+import { WrapperBuilder } from "../../src/index";
+import { MockDataPackageConfigV2 } from "../../src/wrappers/MockWrapperV2";
+import { SampleRedstoneConsumerMockManySymbolsV2 } from "../../typechain-types";
 
 const NUMBER_OF_MOCK_SIGNERS = 10;
 

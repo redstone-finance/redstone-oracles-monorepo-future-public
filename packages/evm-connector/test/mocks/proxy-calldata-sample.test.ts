@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { WrapperBuilder } from "../src/index";
-import { ContractA } from "../typechain-types";
+import { WrapperBuilder } from "../../src/index";
+import { ContractA } from "../../typechain-types";
 
 describe("Proxy calldata sample", function () {
   it("Should properly pass data to another contract", async function () {
