@@ -7,11 +7,4 @@ export class StringDataPoint extends DataPoint {
     const valueBytes = toUtf8Bytes(value);
     super(symbol, valueBytes);
   }
-
-  serializeToBroadcast() {
-    return {
-      symbol: this.symbol,
-      value: this.value.toString(),
-    };
-  }
 }
