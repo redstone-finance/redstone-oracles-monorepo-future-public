@@ -8,15 +8,10 @@ contract RedstoneConstants {
   // PTR - Pointer (memory location)
   // SIG - Signature
 
-  uint256 constant DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS = 3 * 60;
-  uint256 constant DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS = 60;
-
   // Solidity and YUL constants
   uint256 constant STANDARD_SLOT_BS = 32;
   uint256 constant FREE_MEMORY_PTR = 0x40;
   uint256 constant BYTES_ARR_LEN_VAR_BS = 32;
-  uint256 constant ECDSA_SIG_R_BS = 32;
-  uint256 constant ECDSA_SIG_S_BS = 32;
   uint256 constant FUNCTION_SIGNATURE_BS = 4;
 
   // RedStone protocol consts
