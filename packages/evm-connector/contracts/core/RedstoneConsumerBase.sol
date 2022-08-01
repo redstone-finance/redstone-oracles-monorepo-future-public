@@ -2,9 +2,10 @@
 
 pragma solidity ^0.8.4;
 
-import "hardhat/console.sol";
 import "./RedstoneConstants.sol";
-import "../libs/NumericArrayLib.sol";
+import "../libs/BitmapLib.sol";
+import "../libs/SignatureLib.sol";
+import "../libs/RedstoneDefaultsLib.sol";
 
 // Implementation with on-chain aggregation
 
@@ -26,32 +27,16 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
     virtual
     returns (bool)
   {
-    // Getting data timestamp from future seems quite unlikely
-    // But we've already spent too much time with different cases
-    // Where block.timestamp was less than dataPackage.timestamp.
-    // Some blockchains may case this problem as well.
-    // That's why we add MAX_BLOCK_TIMESTAMP_DELAY
-    // and allow data "from future" but with a small delay
-    require(
-      (block.timestamp + DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS) >
-        _receivedTimestamp,
-      "Data with future timestamps is not allowed"
-    );
-
-    return
-      block.timestamp < _receivedTimestamp ||
-      block.timestamp - _receivedTimestamp < DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS;
+    return RedstoneDefaultsLib.isTimestampValid(_receivedTimestamp);
   }
 
-  // By default we use median aggregation
-  // But you can override this function with any other aggregation logic
   function aggregateValues(uint256[] memory values)
     public
     view
     virtual
     returns (uint256)
   {
-    return NumericArrayLib.pickMedian(values);
+    return RedstoneDefaultsLib.aggregateValues(values);
   }
 
   /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
@@ -198,7 +183,10 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
       require(isTimestampValid(extractedTimestamp), "Timestamp is not valid");
 
       // Verifying the off-chain signature against on-chain hashed data
-      signerAddress = _recoverSignerAddress(signedHash, calldataOffset + SIG_BS);
+      signerAddress = SignatureLib.recoverSignerAddress(
+        signedHash,
+        calldataOffset + SIG_BS
+      );
       signerIndex = getAuthorisedSignerIndex(signerAddress);
     }
 
@@ -222,13 +210,13 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
           if (dataPointSymbol == symbols[symbolIndex]) {
             uint256 bitmapSignersForSymbol = signersBitmapForSymbols[symbolIndex];
 
-            // bool currentSignerWasNotCountedForCurrentSymbol = !_getBitFromBitmap(
+            // bool currentSignerWasNotCountedForCurrentSymbol = !BitmapLib.getBitFromBitmap(
             //   bitmapSignersForSymbol,
             //   signerIndex
             // );
 
             if (
-              !_getBitFromBitmap(bitmapSignersForSymbol, signerIndex) && /* currentSignerWasNotCountedForCurrentSymbol */
+              !BitmapLib.getBitFromBitmap(bitmapSignersForSymbol, signerIndex) && /* currentSignerWasNotCountedForCurrentSymbol */
               uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersThreshold
             ) {
               // Increase unique signer counter
@@ -240,7 +228,7 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
               ] = dataPointValue;
 
               // Update signers bitmap
-              signersBitmapForSymbols[symbolIndex] = _setBitInBitmap(
+              signersBitmapForSymbols[symbolIndex] = BitmapLib.setBitInBitmap(
                 bitmapSignersForSymbol,
                 signerIndex
               );
@@ -292,23 +280,6 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
     }
   }
 
-  function _setBitInBitmap(uint256 bitmap, uint256 bitIndex)
-    private
-    pure
-    returns (uint256)
-  {
-    return bitmap | (1 << bitIndex);
-  }
-
-  function _getBitFromBitmap(uint256 bitmap, uint256 bitIndex)
-    private
-    pure
-    returns (bool)
-  {
-    uint256 bitAtIndex = bitmap & (1 << bitIndex);
-    return bitAtIndex > 0;
-  }
-
   function _extractDataPackagesCountFromCalldata() private pure returns (uint256) {
     uint16 dataPackagesCount;
     assembly {
@@ -334,24 +305,5 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
     }
 
     return aggregatedValues;
-  }
-
-  function _recoverSignerAddress(bytes32 signedHash, uint256 signatureCalldataOffset)
-    private
-    pure
-    returns (address)
-  {
-    bytes32 r;
-    bytes32 s;
-    uint8 v;
-    assembly {
-      let signatureCalldataStartPos := sub(calldatasize(), signatureCalldataOffset)
-      r := calldataload(signatureCalldataStartPos)
-      signatureCalldataStartPos := add(signatureCalldataStartPos, ECDSA_SIG_R_BS)
-      s := calldataload(signatureCalldataStartPos)
-      signatureCalldataStartPos := add(signatureCalldataStartPos, ECDSA_SIG_S_BS)
-      v := byte(0, calldataload(signatureCalldataStartPos)) // last byte of the signature memoty array
-    }
-    return ecrecover(signedHash, v, r, s);
   }
 }
