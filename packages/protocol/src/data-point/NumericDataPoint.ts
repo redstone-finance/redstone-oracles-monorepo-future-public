@@ -6,7 +6,7 @@ import {
 import {
   DEFAULT_NUM_VALUE_BS,
   DEFAULT_NUM_VALUE_DECIMALS,
-} from "../common/redstone-consts";
+} from "../common/redstone-constants";
 import { DataPoint } from "./DataPoint";
 
 export interface INumericDataPoint {
