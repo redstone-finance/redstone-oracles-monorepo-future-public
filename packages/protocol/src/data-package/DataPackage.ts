@@ -9,7 +9,7 @@ import {
   DATA_POINTS_COUNT_BS,
   DATA_POINT_VALUE_BYTE_SIZE_BS,
   TIMESTAMP_BS,
-} from "../common/redstone-consts";
+} from "../common/redstone-constants";
 import { Serializable } from "../common/Serializable";
 import { assert, convertIntegerNumberToBytes } from "../common/utils";
 import { deserializeDataPointFromObj } from "../data-point/data-point-deserializer";
