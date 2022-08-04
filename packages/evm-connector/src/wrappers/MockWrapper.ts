@@ -1,13 +1,14 @@
 import {
   DataPackage,
-  serializeSignedDataPackages,
   SignedDataPackage,
+  RedstonePayload,
 } from "redstone-protocol";
 import {
   MockSignerAddress,
   getMockSignerPrivateKey,
 } from "../helpers/test-utils";
 import { BaseWrapper } from "./BaseWrapper";
+import { version } from "../../package.json";
 
 export interface MockDataPackageConfig {
   signer: MockSignerAddress;
@@ -19,6 +20,10 @@ export class MockWrapper extends BaseWrapper {
     super();
   }
 
+  getUnsignedMetadata(): string {
+    return `${version}#mock`;
+  }
+
   async getBytesDataForAppending(): Promise<string> {
     const signedDataPackages: SignedDataPackage[] = [];
 
@@ -28,6 +33,8 @@ export class MockWrapper extends BaseWrapper {
       signedDataPackages.push(signedDataPackage);
     }
 
-    return serializeSignedDataPackages(signedDataPackages);
+    const unsignedMetadata = this.getUnsignedMetadata();
+
+    return RedstonePayload.prepare(signedDataPackages, unsignedMetadata);
   }
 }
