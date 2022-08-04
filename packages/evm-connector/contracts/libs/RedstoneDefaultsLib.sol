@@ -26,7 +26,7 @@ library RedstoneDefaultsLib {
       block.timestamp - _receivedTimestamp < DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS;
   }
 
-  function aggregateValues(uint256[] memory values) internal view returns (uint256) {
+  function aggregateValues(uint256[] memory values) internal pure returns (uint256) {
     return NumericArrayLib.pickMedian(values);
   }
 }
