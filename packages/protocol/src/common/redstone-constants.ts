@@ -22,9 +22,5 @@ export const DATA_PACKAGES_COUNT_BS = 2;
 // Number of bytes reserved for unsigned metadata byte size
 export const UNSGINED_METADATA_BYTE_SIZE_BS = 3;
 
-// RedStone marker that will be appended to the end of each transaction
-// Represented as hex string
-export const REDSTONE_MARKER_HEX = "0x0000ff0000";
-
-// Byte size of the RedStone marker
-export const REDSTONE_MARKER_BS = REDSTONE_MARKER_HEX.length / 2;
+// RedStone marker, which will be appended in the end of each transaction
+export const REDSTONE_MARKER_HEX = "0x000002ed57011e0000";
