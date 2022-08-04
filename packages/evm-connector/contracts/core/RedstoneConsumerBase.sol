@@ -7,8 +7,6 @@ import "../libs/BitmapLib.sol";
 import "../libs/SignatureLib.sol";
 import "../libs/RedstoneDefaultsLib.sol";
 
-// Implementation with on-chain aggregation
-
 abstract contract RedstoneConsumerBase is RedstoneConstants {
   // This param can be updated in child contracts
   uint256 public uniqueSignersThreshold = 1;
@@ -76,8 +74,11 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
     }
 
     // Extracting the number of data packages from calldata
-    uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata();
-    uint256 calldataOffset = DATA_PACKAGES_COUNT_BS;
+    uint256 calldataNegativeOffset = _extractByteSizeOfUnsignedMetadata();
+    uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata(
+      calldataNegativeOffset
+    );
+    calldataNegativeOffset += DATA_PACKAGES_COUNT_BS;
 
     // Data packages extraction in a loop
     for (
@@ -91,9 +92,9 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
         uniqueSignerCountForSymbols,
         signersBitmapForSymbols,
         valuesForSymbols,
-        calldataOffset
+        calldataNegativeOffset
       );
-      calldataOffset += dataPackageByteSize;
+      calldataNegativeOffset += dataPackageByteSize;
     }
 
     // Validating numbers of unique signers and calculating aggregated values for each symbol
@@ -280,10 +281,26 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
     }
   }
 
-  function _extractDataPackagesCountFromCalldata() private pure returns (uint256) {
+  function _extractByteSizeOfUnsignedMetadata() private pure returns (uint256) {
+    // Using uint24, because unsigned metadata byte size number has 3 bytes
+    uint24 unsignedMetadataByteSize;
+    assembly {
+      let calldataOffset := sub(calldatasize(), REDSTONE_MARKER_BS)
+      unsignedMetadataByteSize := calldataload(sub(calldataOffset, STANDARD_SLOT_BS))
+    }
+    return unsignedMetadataByteSize + UNSGINED_METADATA_BYTE_SIZE_BS + REDSTONE_MARKER_BS;
+  }
+
+  function _extractDataPackagesCountFromCalldata(uint256 calldataNegativeOffset)
+    private
+    pure
+    returns (uint256)
+  {
+    // Using uint16, because unsigned metadata byte size number has 2 bytes
     uint16 dataPackagesCount;
     assembly {
-      dataPackagesCount := calldataload(sub(calldatasize(), STANDARD_SLOT_BS))
+      let calldataOffset := sub(calldatasize(), calldataNegativeOffset)
+      dataPackagesCount := calldataload(sub(calldataOffset, STANDARD_SLOT_BS))
     }
     return dataPackagesCount;
   }
