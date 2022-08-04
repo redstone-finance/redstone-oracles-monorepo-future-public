@@ -95,18 +95,19 @@ describe("Benchmark", function () {
     await uniqueSignersThresholdUpdateTx.wait();
 
     // Test empty function without wrapping
-    const emptyTxWithoutWrapping = await contract.emptySaveLatestValueInStorage(
+    const emptyTxWithoutWrapping = await contract.emptyExtractOracleValues(
       bytes32Symbols
     );
     const emptyTxWithoutWrappingReceipt = await emptyTxWithoutWrapping.wait();
 
     // Test empty function with wrapping
-    const emptyTxWithWrapping =
-      await wrappedContract.emptySaveLatestValueInStorage(bytes32Symbols);
+    const emptyTxWithWrapping = await wrappedContract.emptyExtractOracleValues(
+      bytes32Symbols
+    );
     const emptyTxWithWrappingReceipt = await emptyTxWithWrapping.wait();
 
     // Test non-empty function with wrapping
-    const realOracleTx = await wrappedContract.saveLatestValueInStorage(
+    const realOracleTx = await wrappedContract.extractOracleValues(
       bytes32Symbols
     );
     const realOracleTxReceipt = await realOracleTx.wait();

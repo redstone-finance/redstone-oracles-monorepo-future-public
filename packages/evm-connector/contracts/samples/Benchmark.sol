@@ -9,15 +9,16 @@ contract Benchmark is RedstoneConsumerMock {
     uniqueSignersThreshold = newUniqueSignersThreshold;
   }
 
-  function saveLatestValueInStorage(bytes32[] calldata symbols) public {
+  function extractOracleValues(bytes32[] calldata symbols) public {
     uint256[] memory values = getOracleNumericValuesFromTxMsg(symbols);
     values;
   }
 
-  // `emptySaveLatestValueInStorage` is used to calculate gas costs for pure
+  // `emptyExtractOracleValues` is used to calculate gas costs for pure
   // calling the function and calculate the exact gas costs for getting
   // the oracle values
-  function emptySaveLatestValueInStorage(bytes32[] calldata symbols) public {
+  function emptyExtractOracleValues(bytes32[] calldata symbols) public {
+    symbols;
     uint256[] memory values;
     values;
   }
