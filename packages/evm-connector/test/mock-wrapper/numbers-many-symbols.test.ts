@@ -114,4 +114,32 @@ describe("SampleRedstoneConsumerMockManySymbols", function () {
     expect(btcPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(400);
     expect(ethPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(42);
   });
+
+  // TODO: maybe move "should revert" tests to a separate module
+  // And include it in almost each test
+
+  // TODO: implement
+  it("Should revert for too old timestamp", async () => {
+    expect(2 + 2).to.eq(4);
+  });
+
+  // TODO: implement
+  it("Should revert for unauthorised signers", async () => {
+    expect(2 + 2).to.eq(4);
+  });
+
+  // TODO: implement
+  it("Should revert for insufficient number of signers", async () => {
+    expect(2 + 2).to.eq(4);
+  });
+
+  // TODO: implement
+  it("Should revert for insufficient number of signers", async () => {
+    expect(2 + 2).to.eq(4);
+  });
+
+  // TODO: implement
+  it("Should revert for duplicated packages (not enough unique signers)", async () => {
+    expect(2 + 2).to.eq(4);
+  });
 });
