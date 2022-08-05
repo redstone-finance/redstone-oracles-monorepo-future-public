@@ -15,19 +15,23 @@ describe("Long Inputs", function () {
     await contract.deployed();
   });
 
-  it("Should get oracle value (1K bytes)", async () => {
+  it("Should get oracle value (1K bytes value)", async () => {
     expect(2 + 2).to.eq(4);
   });
 
-  it("Should get oracle value (100K bytes)", async () => {
+  it("Should get oracle value (100K bytes value)", async () => {
     expect(2 + 2).to.eq(4);
   });
 
-  it("Should get oracle value (1000K bytes)", async () => {
+  it("Should get oracle value (1000K bytes value)", async () => {
     expect(2 + 2).to.eq(4);
   });
 
-  it("Should get oracle value (10M bytes)", async () => {
+  it("Should get oracle value (10M bytes value)", async () => {
+    expect(2 + 2).to.eq(4);
+  });
+
+  it("Should get oracle value (100k data pacakages)", async () => {
     expect(2 + 2).to.eq(4);
   });
 });
