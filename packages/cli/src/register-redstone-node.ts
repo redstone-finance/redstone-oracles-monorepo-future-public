@@ -25,7 +25,7 @@ export const registerRedstoneNode = async () => {
     },
     {
       type: "text",
-      name: "dataFeedId",
+      name: "dataServiceId",
       message: "Provide data feed id of redstone node",
       validate: (value) => (!value ? "Data feed id is required" : true),
     },
@@ -56,13 +56,13 @@ export const registerRedstoneNode = async () => {
 
   const contract = getOracleRegistryContract(response.walletFilePath);
 
-  const { name, logo, description, dataFeedId, evmAddress, ipAddress, url } =
+  const { name, logo, description, dataServiceId, evmAddress, ipAddress, url } =
     response;
   const nodeDetails = {
     name,
     logo,
     description,
-    dataFeedId,
+    dataServiceId,
     evmAddress,
     ipAddress,
     ...(!!url && { url }),

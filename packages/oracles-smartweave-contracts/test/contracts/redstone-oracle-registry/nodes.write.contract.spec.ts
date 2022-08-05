@@ -20,7 +20,7 @@ const testNodeDetails = {
   name: "testName",
   logo: "testLogo",
   description: "testDescription",
-  dataFeedId: "testId",
+  dataServiceId: "testId",
   evmAddress: "testAddress",
   ipAddress: "testIP",
   ecdsaPublicKey: "testECDSAPublicKey",
@@ -118,7 +118,7 @@ describe("Redstone oracle registry contract - nodes - write", () => {
         name: "testName1",
         logo: "testLogo",
         description: "testDescription",
-        dataFeedId: "testId",
+        dataServiceId: "testId",
         evmAddress: "testAddress1",
         ipAddress: "testIP",
         ecdsaPublicKey: "testECDSAPublicKey",
@@ -130,7 +130,7 @@ describe("Redstone oracle registry contract - nodes - write", () => {
         name: "testName2",
         logo: "testLogo",
         description: "testDescription",
-        dataFeedId: "testId",
+        dataServiceId: "testId",
         evmAddress: "testAddress2",
         ipAddress: "testIP",
         ecdsaPublicKey: "testECDSAPublicKey",
@@ -159,7 +159,7 @@ describe("Redstone oracle registry contract - nodes - write", () => {
       const invalidNodeDetails = {
         logo: "testLogo",
         description: "testDescription",
-        dataFeedId: "testId",
+        dataServiceId: "testId",
         ipAddress: "testIP",
         evmAddress: "testAddress",
         url: "testUrl",
@@ -189,10 +189,10 @@ describe("Redstone oracle registry contract - nodes - write", () => {
     test("throw error if invalid data feed id", async () => {
       const { errorMessage } = await contract.dryWrite<RedstoneOraclesInput>({
         function: "registerNode",
-        data: { ...testNodeDetails, dataFeedId: "invalidDataFeedId" },
+        data: { ...testNodeDetails, dataServiceId: "invaliddataServiceId" },
       });
       expect(errorMessage).toBe(
-        "Data feed with id invalidDataFeedId does not exist"
+        "Data feed with id invaliddataServiceId does not exist"
       );
     });
   });
@@ -211,7 +211,7 @@ describe("Redstone oracle registry contract - nodes - write", () => {
         name: "newTestName",
         logo: "newTestLogo",
         description: "newTestDescription",
-        dataFeedId: "newTestId",
+        dataServiceId: "newTestId",
         evmAddress: "testAddress",
         ipAddress: "newTestIP",
         ecdsaPublicKey: "newTestECDSAPublicKey",
@@ -233,7 +233,7 @@ describe("Redstone oracle registry contract - nodes - write", () => {
         name: "newTestName",
         logo: "newTestLogo",
         description: "newTestDescription",
-        dataFeedId: "newTestId",
+        dataServiceId: "newTestId",
         evmAddress: "testAddress",
         ipAddress: "newTestIP",
         url: "newTestUrl",

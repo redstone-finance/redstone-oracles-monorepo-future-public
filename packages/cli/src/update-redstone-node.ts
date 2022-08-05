@@ -22,7 +22,7 @@ export const updateRedstoneNode = async () => {
     },
     {
       type: "text",
-      name: "dataFeedId",
+      name: "dataServiceId",
       message: "Provide data feed id of redstone node",
     },
     {
@@ -64,7 +64,7 @@ export const updateRedstoneNode = async () => {
     name,
     logo,
     description,
-    dataFeedId,
+    dataServiceId,
     evmAddress,
     ipAddress,
     ecdsaPublicKey,
@@ -75,7 +75,7 @@ export const updateRedstoneNode = async () => {
     ...(!!name && { name }),
     ...(!!logo && { logo }),
     ...(!!description && { description }),
-    ...(!!dataFeedId && { dataFeedId }),
+    ...(!!dataServiceId && { dataServiceId }),
     ...(!!evmAddress && { evmAddress }),
     ...(!!ipAddress && { ipAddress }),
     ...(!!ecdsaPublicKey && { ecdsaPublicKey }),

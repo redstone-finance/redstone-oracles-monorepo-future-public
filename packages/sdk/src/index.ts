@@ -11,7 +11,7 @@ export const DEFAULT_CACHE_SERVICE_URLS = [
 ];
 
 export interface DataPackagesRequestParams {
-  dataFeedId: string;
+  dataServiceId: string;
   uniqueSignersCount: number;
   symbols: string[];
 }
