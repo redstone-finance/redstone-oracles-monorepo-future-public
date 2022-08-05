@@ -1,7 +1,7 @@
 import { Contract } from "ethers";
 import { MockDataPackageConfig, MockWrapper } from "./wrappers/MockWrapper";
 import { DataPackagesRequestParams } from "redstone-sdk";
-import { DataFeedWrapper } from "./wrappers/DataFeedWrapper";
+import { DataServiceWrapper } from "./wrappers/DataServiceWrapper";
 
 export class WrapperBuilder {
   constructor(private baseContract: Contract) {}
@@ -10,10 +10,10 @@ export class WrapperBuilder {
     return new WrapperBuilder(contract);
   }
 
-  usingDataFeed(
+  usingDataService(
     dataPackagesRequestParams: DataPackagesRequestParams
   ): Contract {
-    return new DataFeedWrapper(
+    return new DataServiceWrapper(
       dataPackagesRequestParams
     ).overwriteEthersContract(this.baseContract);
   }

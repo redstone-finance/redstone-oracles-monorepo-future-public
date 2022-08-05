@@ -82,4 +82,9 @@ describe("SampleRedstoneConsumerBytesMock", function () {
       wrappedContract.saveLatestPriceInStorage(DEFAULT_SYMBOL_BYTES_32)
     ).to.be.revertedWith("Insufficient number of unique signers");
   });
+
+  // TODO: implement
+  it("Should fail for too old timestamp", async () => {
+    expect(2 + 2).to.eq(4);
+  });
 });
