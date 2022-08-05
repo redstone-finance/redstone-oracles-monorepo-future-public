@@ -3,13 +3,13 @@ import { DataPackagesRequestParams, requestDataPackages } from "redstone-sdk";
 import { BaseWrapper } from "./BaseWrapper";
 import { version } from "../../package.json";
 
-export class DataFeedWrapper extends BaseWrapper {
+export class DataServiceWrapper extends BaseWrapper {
   constructor(private dataPackagesRequestParams: DataPackagesRequestParams) {
     super();
   }
 
   getUnsignedMetadata(): string {
-    return `${version}#${this.dataPackagesRequestParams.dataFeedId}`;
+    return `${version}#${this.dataPackagesRequestParams.dataServiceId}`;
   }
 
   async getBytesDataForAppending(): Promise<string> {
