@@ -6,7 +6,7 @@ export const mockNodes = [...Array(6).keys()].reduce(
         name: `testName${currentIndex + 1}`,
         logo: "logo",
         description: "testDescription",
-        dataFeedId: "testId",
+        dataServiceId: "testId",
         evmAddress: "testAddress",
         ipAddress: "testIpAddress",
         ecdsaPublicKey: "testECDSAPublicKey",
