@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-import "./NumericArrayLib.sol";
+import "../libs/NumericArrayLib.sol";
 
 library RedstoneDefaultsLib {
   uint256 constant DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS = 3 * 60;
