@@ -86,25 +86,6 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
     }
   }
 
-  function _getDataPointValueByteSize(uint256 calldataOffset)
-    internal
-    pure
-    override
-    returns (uint256)
-  {
-    uint24 defaultDataPointValueByteSize;
-    assembly {
-      // Extracting the number of data points
-      let negativeOffset := add(calldataOffset, add(SIG_BS, STANDARD_SLOT_BS))
-
-      // Extracting the default data point value byte size
-      defaultDataPointValueByteSize := calldataload(
-        sub(sub(calldatasize(), negativeOffset), DATA_POINTS_COUNT_BS)
-      )
-    }
-    return uint256(defaultDataPointValueByteSize);
-  }
-
   function _extractDataPointValueAndSymbol(
     uint256 calldataOffset,
     uint256 defaultDataPointValueByteSize,

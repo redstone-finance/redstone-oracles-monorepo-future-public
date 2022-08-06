@@ -5,9 +5,10 @@ pragma solidity ^0.8.4;
 import "./RedstoneConstants.sol";
 import "../libs/BitmapLib.sol";
 import "../libs/SignatureLib.sol";
-import "../libs/RedstoneDefaultsLib.sol";
+import "./RedstoneDefaultsLib.sol";
+import "./CalldataExtractor.sol";
 
-abstract contract RedstoneConsumerBase is RedstoneConstants {
+abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
   // This param can be updated in child contracts
   uint256 public uniqueSignersThreshold = 1;
 
@@ -107,11 +108,14 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
     uint256[] memory uniqueSignerCountForSymbols,
     uint256[] memory signersBitmapForSymbols,
     uint256[][] memory valuesForSymbols,
-    uint256 calldataOffset
+    uint256 calldataNegativeOffset
   ) private view returns (uint256) {
-    uint16 dataPointsCount;
     uint256 signerIndex;
-    uint256 defaultDataPointValueByteSize = _getDataPointValueByteSize(calldataOffset);
+
+    (
+      uint256 dataPointsCount,
+      uint256 eachDataPointValueByteSize
+    ) = _extractDataPointsDetailsForDataPackage(calldataNegativeOffset);
 
     // We use scopes to resolve problem with too deep stack
     {
@@ -121,21 +125,15 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
       bytes memory signedMessage;
       uint256 signedMessageBytesCount;
 
-      assembly {
-        // Extracting the number of data points
-        let negativeOffset := add(calldataOffset, add(SIG_BS, STANDARD_SLOT_BS))
-        dataPointsCount := calldataload(sub(calldatasize(), negativeOffset))
-      }
-
       signedMessageBytesCount =
-        uint256(dataPointsCount) *
-        (defaultDataPointValueByteSize + DATA_POINT_SYMBOL_BS) +
+        dataPointsCount *
+        (eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS) +
         DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS;
 
       assembly {
         // Extracting the signed message
         signedMessage := extractBytesFromCalldata(
-          add(calldataOffset, SIG_BS),
+          add(calldataNegativeOffset, SIG_BS),
           signedMessageBytesCount
         )
 
@@ -147,7 +145,7 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
 
         // Extracting timestamp
         extractedTimestamp := extractValueFromCalldata(
-          add(calldataOffset, TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE)
+          add(calldataNegativeOffset, TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE)
         )
 
         ///////////////////////////////// FUNCTIONS /////////////////////////////////
@@ -186,7 +184,7 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
       // Verifying the off-chain signature against on-chain hashed data
       signerAddress = SignatureLib.recoverSignerAddress(
         signedHash,
-        calldataOffset + SIG_BS
+        calldataNegativeOffset + SIG_BS
       );
       signerIndex = getAuthorisedSignerIndex(signerAddress);
     }
@@ -202,8 +200,8 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
       ) {
         // Extracting symbol and value for current data point
         (dataPointSymbol, dataPointValue) = _extractDataPointValueAndSymbol(
-          calldataOffset,
-          defaultDataPointValueByteSize,
+          calldataNegativeOffset,
+          eachDataPointValueByteSize,
           dataPointIndex
         );
 
@@ -211,13 +209,8 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
           if (dataPointSymbol == symbols[symbolIndex]) {
             uint256 bitmapSignersForSymbol = signersBitmapForSymbols[symbolIndex];
 
-            // bool currentSignerWasNotCountedForCurrentSymbol = !BitmapLib.getBitFromBitmap(
-            //   bitmapSignersForSymbol,
-            //   signerIndex
-            // );
-
             if (
-              !BitmapLib.getBitFromBitmap(bitmapSignersForSymbol, signerIndex) && /* currentSignerWasNotCountedForCurrentSymbol */
+              !BitmapLib.getBitFromBitmap(bitmapSignersForSymbol, signerIndex) && /* current signer was not counted for current symbol */
               uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersThreshold
             ) {
               // Increase unique signer counter
@@ -242,67 +235,8 @@ abstract contract RedstoneConsumerBase is RedstoneConstants {
     // Return total data package byte size
     return
       DATA_PACKAGE_WITHOUT_DATA_POINTS_BS +
-      (defaultDataPointValueByteSize + DATA_POINT_SYMBOL_BS) *
+      (eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS) *
       dataPointsCount;
-  }
-
-  function _getDataPointValueByteSize(uint256 calldataOffset)
-    internal
-    pure
-    virtual
-    returns (uint256)
-  {
-    calldataOffset;
-    return DEFAULT_DATA_POINT_VALUE_BS;
-  }
-
-  function _extractDataPointValueAndSymbol(
-    uint256 calldataOffset,
-    uint256 defaultDataPointValueByteSize,
-    uint256 dataPointIndex
-  ) internal pure virtual returns (bytes32 dataPointSymbol, uint256 dataPointValue) {
-    assembly {
-      let negativeOffsetToDataPoints := add(
-        calldataOffset,
-        DATA_PACKAGE_WITHOUT_DATA_POINTS_BS
-      )
-      let dataPointCalldataOffset := sub(
-        calldatasize(),
-        add(
-          negativeOffsetToDataPoints,
-          mul(
-            add(1, dataPointIndex),
-            add(defaultDataPointValueByteSize, DATA_POINT_SYMBOL_BS)
-          )
-        )
-      )
-      dataPointSymbol := calldataload(dataPointCalldataOffset)
-      dataPointValue := calldataload(add(dataPointCalldataOffset, DATA_POINT_SYMBOL_BS))
-    }
-  }
-
-  function _extractByteSizeOfUnsignedMetadata() private pure returns (uint256) {
-    // Using uint24, because unsigned metadata byte size number has 3 bytes
-    uint24 unsignedMetadataByteSize;
-    assembly {
-      let calldataOffset := sub(calldatasize(), REDSTONE_MARKER_BS)
-      unsignedMetadataByteSize := calldataload(sub(calldataOffset, STANDARD_SLOT_BS))
-    }
-    return unsignedMetadataByteSize + UNSGINED_METADATA_BYTE_SIZE_BS + REDSTONE_MARKER_BS;
-  }
-
-  function _extractDataPackagesCountFromCalldata(uint256 calldataNegativeOffset)
-    private
-    pure
-    returns (uint256)
-  {
-    // Using uint16, because unsigned metadata byte size number has 2 bytes
-    uint16 dataPackagesCount;
-    assembly {
-      let calldataOffset := sub(calldatasize(), calldataNegativeOffset)
-      dataPackagesCount := calldataload(sub(calldataOffset, STANDARD_SLOT_BS))
-    }
-    return dataPackagesCount;
   }
 
   function _getAggregatedValues(
