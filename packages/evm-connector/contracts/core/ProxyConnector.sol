@@ -23,6 +23,15 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
     return _prepareReturnValue(success, result);
   }
 
+  function proxyDelegateCalldata(address contractAddress, bytes memory encodedFunction)
+    internal
+    returns (bytes memory)
+  {
+    bytes memory message = _prepareMessage(encodedFunction);
+    (bool success, bytes memory result) = contractAddress.delegatecall(message);
+    return _prepareReturnValue(success, result);
+  }
+
   function proxyCalldataView(address contractAddress, bytes memory encodedFunction)
     internal
     view
@@ -85,12 +94,11 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
   }
 
   function _getRedstonePayloadByteSize() private pure returns (uint256) {
-    uint256 calldataNegativeOffset = REDSTONE_MARKER_BS;
-    uint256 unsignedMetadataByteSize = _extractByteSizeOfUnsignedMetadata();
-    calldataNegativeOffset += unsignedMetadataByteSize;
+    uint256 calldataNegativeOffset = _extractByteSizeOfUnsignedMetadata();
     uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata(
       calldataNegativeOffset
     );
+    calldataNegativeOffset += DATA_PACKAGES_COUNT_BS;
     for (
       uint256 dataPackageIndex = 0;
       dataPackageIndex < dataPackagesCount;
@@ -116,30 +124,32 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
     return
       dataPointsCount *
       (DATA_POINT_SYMBOL_BS + eachDataPointValueByteSize) +
-      TIMESTAMP_BS +
-      SIG_BS;
+      DATA_PACKAGE_WITHOUT_DATA_POINTS_BS;
   }
 
-  // TODO: test error message forwarding
+  // TODO: test error message forwarding (compare V1 and V2)
   function _prepareReturnValue(bool success, bytes memory result)
     internal
     pure
     returns (bytes memory)
   {
     if (!success) {
-      // TODO: check if this `if` is really needed
+      // V1
       if (result.length > 0) {
         assembly {
           let result_size := mload(result)
           revert(add(32, result), result_size)
         }
       } else {
-        assembly {
-          let errMsgPtr := mload(FREE_MEMORY_PTR)
-          returndatacopy(errMsgPtr, 0, returndatasize())
-          revert(errMsgPtr, returndatasize())
-        }
+        revert("Proxy calldata failed");
       }
+
+      // V2
+      // assembly {
+      //   let errMsgPtr := mload(FREE_MEMORY_PTR)
+      //   returndatacopy(errMsgPtr, 0, returndatasize())
+      //   revert(errMsgPtr, returndatasize())
+      // }
     }
 
     return result;
