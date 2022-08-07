@@ -29,14 +29,14 @@ contract CalldataExtractor is RedstoneConstants {
     return dataPackagesCount;
   }
 
-  function _extractDataPointValueAndSymbol(
-    uint256 calldataOffset,
+  function _extractDataPointValueAndDataFeedId(
+    uint256 calldataNegativeOffset,
     uint256 defaultDataPointValueByteSize,
     uint256 dataPointIndex
-  ) internal pure virtual returns (bytes32 dataPointSymbol, uint256 dataPointValue) {
+  ) internal pure virtual returns (bytes32 dataPointDataFeedId, uint256 dataPointValue) {
     assembly {
       let negativeOffsetToDataPoints := add(
-        calldataOffset,
+        calldataNegativeOffset,
         DATA_PACKAGE_WITHOUT_DATA_POINTS_BS
       )
       let dataPointCalldataOffset := sub(
@@ -49,7 +49,7 @@ contract CalldataExtractor is RedstoneConstants {
           )
         )
       )
-      dataPointSymbol := calldataload(dataPointCalldataOffset)
+      dataPointDataFeedId := calldataload(dataPointCalldataOffset)
       dataPointValue := calldataload(add(dataPointCalldataOffset, DATA_POINT_SYMBOL_BS))
     }
   }

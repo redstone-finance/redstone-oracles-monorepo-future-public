@@ -7,6 +7,10 @@ import "../mocks/RedstoneConsumerMock.sol";
 contract SampleRedstoneConsumerMock is RedstoneConsumerMock {
   uint256 public latestEthPrice;
 
+  function getValueForDataFeedId(bytes32 dataFeedId) public view returns (uint256) {
+    return getOracleNumericValueFromTxMsg(dataFeedId);
+  }
+
   function getEthPriceSecurely() public view returns (uint256) {
     return getOracleNumericValueFromTxMsg(bytes32("ETH"));
   }

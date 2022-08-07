@@ -86,11 +86,11 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
     }
   }
 
-  function _extractDataPointValueAndSymbol(
+  function _extractDataPointValueAndDataFeedId(
     uint256 calldataOffset,
     uint256 defaultDataPointValueByteSize,
     uint256 dataPointIndex
-  ) internal pure override returns (bytes32 dataPointSymbol, uint256 dataPointValue) {
+  ) internal pure override returns (bytes32 dataPointDataFeedId, uint256 dataPointValue) {
     assembly {
       let negativeOffsetToDataPoints := add(
         calldataOffset,
@@ -106,7 +106,7 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
           )
         )
       )
-      dataPointSymbol := calldataload(dataPointCalldataOffset)
+      dataPointDataFeedId := calldataload(dataPointCalldataOffset)
       dataPointValue := prepareTrickyCalldataPointer(
         add(dataPointCalldataOffset, DATA_POINT_SYMBOL_BS),
         defaultDataPointValueByteSize
