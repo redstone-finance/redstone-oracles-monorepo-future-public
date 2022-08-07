@@ -16,7 +16,7 @@ interface Node {
   name: string;
   logo: string;
   description: string;
-  dataFeedId: string;
+  dataServiceId: string;
   evmAddress: string;
   ipAddress: string;
   ecdsaPublicKey: string;

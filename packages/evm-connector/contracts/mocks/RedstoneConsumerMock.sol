@@ -2,19 +2,22 @@
 
 pragma solidity ^0.8.4;
 
-// import "hardhat/console.sol";
-import "../message-based/RedstoneConsumerBase.sol";
+import "../core/RedstoneConsumerNumericBase.sol";
+import "./AuthorisedMockSignersBase.sol";
 
-contract RedstoneConsumerMock is RedstoneConsumerBase {
-  function isSignerAuthorized(address _receviedSigner) public view virtual override returns (bool) {
-    // console.log("Received signer: ", _receviedSigner);
-    // console.log(
-    //   "Expected signer: ",
-    //   0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-    // );
+contract RedstoneConsumerMock is RedstoneConsumerNumericBase, AuthorisedMockSignersBase {
+  constructor() {
+    uniqueSignersThreshold = 10;
+  }
 
-    // Mock signer address
-    return _receviedSigner == 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
+  function getAuthorisedSignerIndex(address _signerAddress)
+    public
+    view
+    virtual
+    override
+    returns (uint256)
+  {
+    return getAuthorisedMockSignerIndex(_signerAddress);
   }
 
   function isTimestampValid(uint256 _receivedTimestamp)
@@ -24,8 +27,6 @@ contract RedstoneConsumerMock is RedstoneConsumerBase {
     override
     returns (bool)
   {
-    // console.log("Received timestamp", _receivedTimestamp);
-    _receivedTimestamp;
-    return true;
+    return _receivedTimestamp > 0;
   }
 }
