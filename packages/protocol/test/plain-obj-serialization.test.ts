@@ -1,3 +1,4 @@
+import { toUtf8Bytes } from "ethers/lib/utils";
 import {
   DataPackage,
   SignedDataPackage,
@@ -65,10 +66,10 @@ describe("Fixed size data package", () => {
   });
 
   test("Should correctly serialize and deserialize a string data point", () => {
-    const dataPoint = new StringDataPoint(
-      "TEST",
-      "Some random string value hehehe"
-    );
+    const dataPoint = new StringDataPoint({
+      dataFeedId: "TEST",
+      value: "Some random string value hehehe",
+    });
     const plainObj = dataPoint.toObj();
     expect(plainObj).toEqual({
       dataFeedId: "TEST",
@@ -112,8 +113,18 @@ describe("Fixed size data package", () => {
       })
     );
     dataPoints.push(
-      new StringDataPoint("SOME-STRING", "qwertyuiopasdfghjklzxcvbnmqwerty")
+      new StringDataPoint({
+        dataFeedId: "SOME-STRING",
+        value: "qwertyuiopasdfghjklzxcvbnmqwerty",
+      })
     );
+    dataPoints.push(
+      new DataPoint(
+        "SOME-BYTES",
+        toUtf8Bytes("qwertyuiopasdfghjklzxcvbnmqwerty")
+      )
+    );
+
     const signedDataPackage = prepareSignedDataPackageForTests(dataPoints);
     const serializedPlainObj = signedDataPackage.toObj();
     expect(serializedPlainObj).toEqual({
@@ -121,13 +132,17 @@ describe("Fixed size data package", () => {
         { dataFeedId: "ETH", value: 1000 },
         { dataFeedId: "PRECISE-BTC", value: 20000, decimals: 18 },
         {
+          dataFeedId: "SOME-BYTES",
+          value: "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm1xd2VydHk=",
+        },
+        {
           dataFeedId: "SOME-STRING",
           value: "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm1xd2VydHk=",
         },
       ],
       timestampMilliseconds: TIMESTAMP_FOR_TESTS,
       signature:
-        "6ZuIcSvCG5iGobb0z5m2fjdOBcagE0zU6kjWdv80eEAHK1AZG/aJrcRo0GLfL1emJYTTrUrd9eGUAOIsQzrcjxw=",
+        "WJ+EFIe6pSwzCRcjKWIYMWyhmtKJP+tN2aI55+Ip5w4osIGH0ngUEjTO4b7sAPBGd5MIv11qbPaFxWReppbGDRs=",
     });
     const deserializedSignedDataPackage = SignedDataPackage.fromObj(
       JSON.parse(JSON.stringify(serializedPlainObj))

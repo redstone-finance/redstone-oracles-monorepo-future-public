@@ -2,9 +2,14 @@ import { ConvertableToBytes32 } from "../common/utils";
 import { toUtf8Bytes } from "ethers/lib/utils";
 import { DataPoint } from "./DataPoint";
 
+export interface IStringDataPoint {
+  dataFeedId: ConvertableToBytes32;
+  value: string;
+}
+
 export class StringDataPoint extends DataPoint {
-  constructor(dataFeedId: ConvertableToBytes32, value: string) {
-    const valueBytes = toUtf8Bytes(value);
-    super(dataFeedId, valueBytes);
+  constructor(stringDataPointArgs: IStringDataPoint) {
+    const valueBytes = toUtf8Bytes(stringDataPointArgs.value);
+    super(stringDataPointArgs.dataFeedId, valueBytes);
   }
 }
