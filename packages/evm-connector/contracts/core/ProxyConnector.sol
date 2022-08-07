@@ -5,6 +5,10 @@ pragma solidity ^0.8.4;
 import "./RedstoneConstants.sol";
 import "./CalldataExtractor.sol";
 
+/**
+ * @title The base contract for forwarding redstone payload to other contracts
+ * @author The Redstone Oracles team
+ */
 contract ProxyConnector is RedstoneConstants, CalldataExtractor {
   function proxyCalldata(
     address contractAddress,
@@ -42,11 +46,7 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
     return _prepareReturnValue(success, result);
   }
 
-  function _prepareMessage(bytes memory encodedFunction)
-    private
-    pure
-    returns (bytes memory)
-  {
+  function _prepareMessage(bytes memory encodedFunction) private pure returns (bytes memory) {
     uint256 encodedFunctionBytesCount = encodedFunction.length;
     uint256 redstonePayloadByteSize = _getRedstonePayloadByteSize();
     uint256 resultMessageByteSize = encodedFunctionBytesCount + redstonePayloadByteSize;
@@ -95,15 +95,9 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
 
   function _getRedstonePayloadByteSize() private pure returns (uint256) {
     uint256 calldataNegativeOffset = _extractByteSizeOfUnsignedMetadata();
-    uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata(
-      calldataNegativeOffset
-    );
+    uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata(calldataNegativeOffset);
     calldataNegativeOffset += DATA_PACKAGES_COUNT_BS;
-    for (
-      uint256 dataPackageIndex = 0;
-      dataPackageIndex < dataPackagesCount;
-      dataPackageIndex++
-    ) {
+    for (uint256 dataPackageIndex = 0; dataPackageIndex < dataPackagesCount; dataPackageIndex++) {
       uint256 dataPackageByteSize = _getDataPackageByteSize(calldataNegativeOffset);
       calldataNegativeOffset += dataPackageByteSize;
     }
@@ -111,11 +105,7 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
     return calldataNegativeOffset;
   }
 
-  function _getDataPackageByteSize(uint256 calldataNegativeOffset)
-    private
-    pure
-    returns (uint256)
-  {
+  function _getDataPackageByteSize(uint256 calldataNegativeOffset) private pure returns (uint256) {
     (
       uint256 dataPointsCount,
       uint256 eachDataPointValueByteSize

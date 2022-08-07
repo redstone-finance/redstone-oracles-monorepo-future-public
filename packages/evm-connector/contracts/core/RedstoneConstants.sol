@@ -2,6 +2,12 @@
 
 pragma solidity ^0.8.4;
 
+/**
+ * @title The base contract with helpful constants
+ * @author The Redstone Oracles team
+ * @dev It mainly contains redstone-related values, which improve readability
+ * of other contracts (e.g. CalldataExtractor and RedstoneConsumerBase)
+ */
 contract RedstoneConstants {
   // === Abbreviations ===
   // BS - Bytes size
