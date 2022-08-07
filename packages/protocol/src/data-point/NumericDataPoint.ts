@@ -10,7 +10,7 @@ import {
 import { DataPoint } from "./DataPoint";
 
 export interface INumericDataPoint {
-  symbol: ConvertableToBytes32;
+  dataFeedId: ConvertableToBytes32;
   value: number;
   decimals?: number;
   valueByteSize?: number;
@@ -32,7 +32,7 @@ export class NumericDataPoint extends DataPoint {
       decimals,
       valueByteSize
     );
-    super(numericDataPointArgs.symbol, valueBytes);
+    super(numericDataPointArgs.dataFeedId, valueBytes);
   }
 
   toObj(): INumericDataPoint {

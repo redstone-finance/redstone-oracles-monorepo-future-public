@@ -24,8 +24,8 @@ describe("Data package", () => {
 
   beforeEach(() => {
     const dataPoints = [
-      { symbol: "BTC", value: 42000 },
-      { symbol: "ETH", value: 2000 },
+      { dataFeedId: "BTC", value: 42000 },
+      { dataFeedId: "ETH", value: 2000 },
     ].map((dpArgs) => new NumericDataPoint(dpArgs));
     dataPackage = new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
   });
@@ -46,10 +46,10 @@ describe("Data package", () => {
     );
   });
 
-  test("Should throw an error for data points with duplicated symbols", () => {
+  test("Should throw an error for data points with duplicated dataFeedIds", () => {
     dataPackage.dataPoints[0] = dataPackage.dataPoints[1];
     expect(() => dataPackage.toBytesHex()).toThrow(
-      "Assertion failed: Duplicated symbol found: ETH"
+      "Assertion failed: Duplicated dataFeedId found: ETH"
     );
   });
 

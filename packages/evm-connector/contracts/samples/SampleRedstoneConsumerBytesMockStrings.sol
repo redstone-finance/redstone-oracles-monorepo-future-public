@@ -9,8 +9,8 @@ import "hardhat/console.sol";
 contract SampleRedstoneConsumerBytesMockStrings is RedstoneConsumerBytesMock {
   bytes public latestString;
 
-  function saveLatestValueInStorage(bytes32 symbol) public {
-    bytes memory bytesValueFromOracle = getOracleBytesValueFromTxMsg(symbol);
+  function saveLatestValueInStorage(bytes32 dataFeedId) public {
+    bytes memory bytesValueFromOracle = getOracleBytesValueFromTxMsg(dataFeedId);
     latestString = bytesValueFromOracle;
   }
 }

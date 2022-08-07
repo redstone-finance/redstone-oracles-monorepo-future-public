@@ -34,14 +34,14 @@ const testSerializationAndDeserializationOfNumericDataPoint = (
 describe("Fixed size data package", () => {
   test("Should correctly serialize and deserialize a standard numeric data point", () => {
     testSerializationAndDeserializationOfNumericDataPoint({
-      symbol: "TEST",
+      dataFeedId: "TEST",
       value: 42,
     });
   });
 
   test("Should correctly serialize and deserialize a numeric data point with a custom value byte size", () => {
     testSerializationAndDeserializationOfNumericDataPoint({
-      symbol: "TEST",
+      dataFeedId: "TEST",
       value: 42,
       valueByteSize: 10,
     });
@@ -49,7 +49,7 @@ describe("Fixed size data package", () => {
 
   test("Should correctly serialize and deserialize a numeric data point with a custom decimals", () => {
     testSerializationAndDeserializationOfNumericDataPoint({
-      symbol: "TEST",
+      dataFeedId: "TEST",
       value: 42,
       decimals: 20,
     });
@@ -57,7 +57,7 @@ describe("Fixed size data package", () => {
 
   test("Should correctly serialize and deserialize a custom numeric data point", () => {
     testSerializationAndDeserializationOfNumericDataPoint({
-      symbol: "TEST",
+      dataFeedId: "TEST",
       value: 42,
       decimals: 10,
       valueByteSize: 28,
@@ -71,7 +71,7 @@ describe("Fixed size data package", () => {
     );
     const plainObj = dataPoint.toObj();
     expect(plainObj).toEqual({
-      symbol: "TEST",
+      dataFeedId: "TEST",
       value: "U29tZSByYW5kb20gc3RyaW5nIHZhbHVlIGhlaGVoZQ==",
     });
     const deserializedDataPoint = deserializeDataPointFromObj(
@@ -82,8 +82,8 @@ describe("Fixed size data package", () => {
 
   test("Should correctly serialize signed standard numeric data package", () => {
     const dataPoints = [
-      { symbol: "BTC", value: 20000 },
-      { symbol: "ETH", value: 1000 },
+      { dataFeedId: "BTC", value: 20000 },
+      { dataFeedId: "ETH", value: 1000 },
     ];
     const signedDataPackage = prepareSignedDataPackageForTests(
       dataPoints.map((dp) => new NumericDataPoint(dp))
@@ -103,10 +103,10 @@ describe("Fixed size data package", () => {
 
   test("Should correctly serialize signed data package with mixed values", () => {
     const dataPoints: DataPoint[] = [];
-    dataPoints.push(new NumericDataPoint({ symbol: "ETH", value: 1000 }));
+    dataPoints.push(new NumericDataPoint({ dataFeedId: "ETH", value: 1000 }));
     dataPoints.push(
       new NumericDataPoint({
-        symbol: "PRECISE-BTC",
+        dataFeedId: "PRECISE-BTC",
         value: 20000,
         decimals: 18,
       })
@@ -118,10 +118,10 @@ describe("Fixed size data package", () => {
     const serializedPlainObj = signedDataPackage.toObj();
     expect(serializedPlainObj).toEqual({
       dataPoints: [
-        { symbol: "ETH", value: 1000 },
-        { symbol: "PRECISE-BTC", value: 20000, decimals: 18 },
+        { dataFeedId: "ETH", value: 1000 },
+        { dataFeedId: "PRECISE-BTC", value: 20000, decimals: 18 },
         {
-          symbol: "SOME-STRING",
+          dataFeedId: "SOME-STRING",
           value: "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm1xd2VydHk=",
         },
       ],
