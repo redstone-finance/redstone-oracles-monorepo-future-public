@@ -3,10 +3,10 @@
 pragma solidity ^0.8.4;
 
 import "./RedstoneConstants.sol";
-import "../libs/BitmapLib.sol";
-import "../libs/SignatureLib.sol";
 import "./RedstoneDefaultsLib.sol";
 import "./CalldataExtractor.sol";
+import "../libs/BitmapLib.sol";
+import "../libs/SignatureLib.sol";
 
 abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
   // This param can be updated in child contracts
@@ -46,32 +46,32 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
     virtual
     returns (uint256)
   {
-    bytes32[] memory symbols = new bytes32[](1);
-    symbols[0] = symbol;
-    return getOracleNumericValuesFromTxMsg(symbols)[0];
+    bytes32[] memory dataFeedIds = new bytes32[](1);
+    dataFeedIds[0] = symbol;
+    return getOracleNumericValuesFromTxMsg(dataFeedIds)[0];
   }
 
-  function getOracleNumericValuesFromTxMsg(bytes32[] memory symbols)
+  function getOracleNumericValuesFromTxMsg(bytes32[] memory dataFeedIds)
     internal
     view
     virtual
     returns (uint256[] memory)
   {
-    return _securelyExtractOracleValuesFromTxMsg(symbols);
+    return _securelyExtractOracleValuesFromTxMsg(dataFeedIds);
   }
 
-  function _securelyExtractOracleValuesFromTxMsg(bytes32[] memory symbols)
+  function _securelyExtractOracleValuesFromTxMsg(bytes32[] memory dataFeedIds)
     internal
     view
     returns (uint256[] memory)
   {
     // Initializing helpful variables and allocating memory
-    uint256[] memory uniqueSignerCountForSymbols = new uint256[](symbols.length);
-    uint256[] memory signersBitmapForSymbols = new uint256[](symbols.length);
-    uint256[][] memory valuesForSymbols = new uint256[][](symbols.length);
-    for (uint256 i = 0; i < symbols.length; i++) {
-      signersBitmapForSymbols[i] = 0; // empty bitmap
-      valuesForSymbols[i] = new uint256[](uniqueSignersThreshold);
+    uint256[] memory uniqueSignerCountForDataFeedIds = new uint256[](dataFeedIds.length);
+    uint256[] memory signersBitmapForDataFeedIds = new uint256[](dataFeedIds.length);
+    uint256[][] memory valuesForDataFeedIds = new uint256[][](dataFeedIds.length);
+    for (uint256 i = 0; i < dataFeedIds.length; i++) {
+      signersBitmapForDataFeedIds[i] = 0; // empty bitmap
+      valuesForDataFeedIds[i] = new uint256[](uniqueSignersThreshold);
     }
 
     // Extracting the number of data packages from calldata
@@ -89,10 +89,10 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
     ) {
       // Extract data package details and update calldata offset
       uint256 dataPackageByteSize = _extractDataPackage(
-        symbols,
-        uniqueSignerCountForSymbols,
-        signersBitmapForSymbols,
-        valuesForSymbols,
+        dataFeedIds,
+        uniqueSignerCountForDataFeedIds,
+        signersBitmapForDataFeedIds,
+        valuesForDataFeedIds,
         calldataNegativeOffset
       );
       calldataNegativeOffset += dataPackageByteSize;
@@ -100,14 +100,18 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
 
     // Validating numbers of unique signers and calculating aggregated values for each symbol
     return
-      _getAggregatedValues(symbols.length, valuesForSymbols, uniqueSignerCountForSymbols);
+      _getAggregatedValues(
+        dataFeedIds.length,
+        valuesForDataFeedIds,
+        uniqueSignerCountForDataFeedIds
+      );
   }
 
   function _extractDataPackage(
-    bytes32[] memory symbols,
-    uint256[] memory uniqueSignerCountForSymbols,
-    uint256[] memory signersBitmapForSymbols,
-    uint256[][] memory valuesForSymbols,
+    bytes32[] memory dataFeedIds,
+    uint256[] memory uniqueSignerCountForDataFeedIds,
+    uint256[] memory signersBitmapForDataFeedIds,
+    uint256[][] memory valuesForDataFeedIds,
     uint256 calldataNegativeOffset
   ) private view returns (uint256) {
     uint256 signerIndex;
@@ -191,7 +195,7 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
 
     // Updating helpful arrays
     {
-      bytes32 dataPointSymbol;
+      bytes32 dataPointDataFeedId;
       uint256 dataPointValue;
       for (
         uint256 dataPointIndex = 0;
@@ -199,31 +203,31 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
         dataPointIndex++
       ) {
         // Extracting symbol and value for current data point
-        (dataPointSymbol, dataPointValue) = _extractDataPointValueAndSymbol(
+        (dataPointDataFeedId, dataPointValue) = _extractDataPointValueAndDataFeedId(
           calldataNegativeOffset,
           eachDataPointValueByteSize,
           dataPointIndex
         );
 
-        for (uint256 symbolIndex = 0; symbolIndex < symbols.length; symbolIndex++) {
-          if (dataPointSymbol == symbols[symbolIndex]) {
-            uint256 bitmapSignersForSymbol = signersBitmapForSymbols[symbolIndex];
+        for (uint256 symbolIndex = 0; symbolIndex < dataFeedIds.length; symbolIndex++) {
+          if (dataPointDataFeedId == dataFeedIds[symbolIndex]) {
+            uint256 bitmapSignersForDataFeedId = signersBitmapForDataFeedIds[symbolIndex];
 
             if (
-              !BitmapLib.getBitFromBitmap(bitmapSignersForSymbol, signerIndex) && /* current signer was not counted for current symbol */
-              uniqueSignerCountForSymbols[symbolIndex] < uniqueSignersThreshold
+              !BitmapLib.getBitFromBitmap(bitmapSignersForDataFeedId, signerIndex) && /* current signer was not counted for current symbol */
+              uniqueSignerCountForDataFeedIds[symbolIndex] < uniqueSignersThreshold
             ) {
               // Increase unique signer counter
-              uniqueSignerCountForSymbols[symbolIndex]++;
+              uniqueSignerCountForDataFeedIds[symbolIndex]++;
 
               // Add new value
-              valuesForSymbols[symbolIndex][
-                uniqueSignerCountForSymbols[symbolIndex] - 1
+              valuesForDataFeedIds[symbolIndex][
+                uniqueSignerCountForDataFeedIds[symbolIndex] - 1
               ] = dataPointValue;
 
               // Update signers bitmap
-              signersBitmapForSymbols[symbolIndex] = BitmapLib.setBitInBitmap(
-                bitmapSignersForSymbol,
+              signersBitmapForDataFeedIds[symbolIndex] = BitmapLib.setBitInBitmap(
+                bitmapSignersForDataFeedId,
                 signerIndex
               );
             }
@@ -240,19 +244,21 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
   }
 
   function _getAggregatedValues(
-    uint256 symbolsLength,
-    uint256[][] memory valuesForSymbols,
-    uint256[] memory uniqueSignerCountForSymbols
+    uint256 dataFeedIdsLength,
+    uint256[][] memory valuesForDataFeedIds,
+    uint256[] memory uniqueSignerCountForDataFeedIds
   ) internal view returns (uint256[] memory) {
-    uint256[] memory aggregatedValues = new uint256[](symbolsLength);
+    uint256[] memory aggregatedValues = new uint256[](dataFeedIdsLength);
 
-    for (uint256 symbolIndex = 0; symbolIndex < symbolsLength; symbolIndex++) {
+    for (uint256 symbolIndex = 0; symbolIndex < dataFeedIdsLength; symbolIndex++) {
       require(
-        uniqueSignerCountForSymbols[symbolIndex] >= uniqueSignersThreshold,
+        uniqueSignerCountForDataFeedIds[symbolIndex] >= uniqueSignersThreshold,
         "Insufficient number of unique signers"
       );
-      uint256 aggregatedValueForSymbol = aggregateValues(valuesForSymbols[symbolIndex]);
-      aggregatedValues[symbolIndex] = aggregatedValueForSymbol;
+      uint256 aggregatedValueForDataFeedId = aggregateValues(
+        valuesForDataFeedIds[symbolIndex]
+      );
+      aggregatedValues[symbolIndex] = aggregatedValueForDataFeedId;
     }
 
     return aggregatedValues;
