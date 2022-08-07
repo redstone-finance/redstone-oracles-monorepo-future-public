@@ -54,30 +54,30 @@ describe("SampleProxyConnector", function () {
       getMockPackage({
         mockSignerIndex: 0,
         dataPoints: [
-          { symbol: "BTC", value: 412 },
-          { symbol: "ETH", value: 41 },
+          { dataFeedId: "BTC", value: 412 },
+          { dataFeedId: "ETH", value: 41 },
         ],
       }),
       getMockPackage({
         mockSignerIndex: 1,
         dataPoints: [
-          { symbol: "BTC", value: 390 },
-          { symbol: "ETH", value: 42 },
+          { dataFeedId: "BTC", value: 390 },
+          { dataFeedId: "ETH", value: 42 },
         ],
       }),
       getMockPackage({
         mockSignerIndex: 2,
         dataPoints: [
-          { symbol: "BTC", value: 400 },
-          { symbol: "ETH", value: 43 },
+          { dataFeedId: "BTC", value: 400 },
+          { dataFeedId: "ETH", value: 43 },
         ],
       }),
       ...getRange(3, NUMBER_OF_MOCK_SIGNERS - 3).map((mockSignerIndex: any) =>
         getMockPackage({
           mockSignerIndex,
           dataPoints: [
-            { symbol: "BTC", value: 400 },
-            { symbol: "ETH", value: 42 },
+            { dataFeedId: "BTC", value: 400 },
+            { dataFeedId: "ETH", value: 42 },
           ],
         })
       ),

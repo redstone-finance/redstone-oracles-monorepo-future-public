@@ -49,7 +49,7 @@ describe("Benchmark", function () {
     const dataPoints = [...Array(benchmarkParams.dataPointsCount).keys()].map(
       (i) =>
         new NumericDataPoint({
-          symbol: `TEST-${i}`,
+          dataFeedId: `TEST-${i}`,
           value: 42 + i,
         })
     );
@@ -77,10 +77,10 @@ describe("Benchmark", function () {
       `Benchmark case testing started: ${JSON.stringify(benchmarkParams)}`
     );
 
-    const symbols = [...Array(benchmarkParams.dataPointsCount).keys()].map(
+    const dataFeedIds = [...Array(benchmarkParams.dataPointsCount).keys()].map(
       (i) => `TEST-${i}`
     );
-    const bytes32Symbols = symbols.map(utils.convertStringToBytes32);
+    const bytes32Symbols = dataFeedIds.map(utils.convertStringToBytes32);
     const mockDataPackagesConfig =
       prepareMockDataPackageConfig(benchmarkParams);
     const wrappedContract = WrapperBuilder.wrap(contract).usingMockData(

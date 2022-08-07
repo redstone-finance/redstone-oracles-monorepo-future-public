@@ -4,7 +4,7 @@ import { WrapperBuilder } from "../../src/index";
 import { SampleRedstoneConsumerMock } from "../../typechain-types";
 
 // TODO: implement the same tests as in
-// numbers-many-symbols, but for one symbol
+// numbers-many-dataFeedIds, but for one dataFeedId
 
 describe("SampleRedstoneConsumerMock", function () {
   // TODO: implement

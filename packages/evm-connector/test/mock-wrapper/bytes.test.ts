@@ -18,7 +18,7 @@ const DEFAULT_SYMBOL_BYTES_32 = utils.convertStringToBytes32(DEFAULT_SYMBOL);
 interface MockPackageOpts {
   mockSignerIndex: MockSignerIndex;
   value: string;
-  symbol?: string;
+  dataFeedId?: string;
   timestampMilliseconds?: number;
 }
 
@@ -26,7 +26,9 @@ const getMockPackage = (opts: MockPackageOpts): MockDataPackageConfig => {
   const timestampMilliseconds =
     opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
   const bytesValue = arrayify(opts.value);
-  const dataPoints = [new DataPoint(opts.symbol || DEFAULT_SYMBOL, bytesValue)];
+  const dataPoints = [
+    new DataPoint(opts.dataFeedId || DEFAULT_SYMBOL, bytesValue),
+  ];
   return {
     signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
     dataPackage: new DataPackage(dataPoints, timestampMilliseconds),

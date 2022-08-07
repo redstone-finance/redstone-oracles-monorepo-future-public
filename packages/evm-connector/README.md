@@ -35,12 +35,12 @@ The reason is a limitation in how variables can be referenced in the EVM stack. 
 // DataPackage: <SymbolValueData[]:(n * 64)b><Timestamp:32b><Size(n):2b><Signature:65b> - same as in current version
 // SymbolValueData: <Symbol:32b><Value:32b> - same as in current version
 
-function getOracleValueFromTxMsg(symbol: string) {
-  return getOracleValuesFromTxMsg([symbol])[0];
+function getOracleValueFromTxMsg(dataFeedId: string) {
+  return getOracleValuesFromTxMsg([dataFeedId])[0];
 }
 
-function getOracleValuesFromTxMsg(symbols: string[SYM_COUNT]): uin256[] {
-  assertUniqueSymbols(symbols);
+function getOracleValuesFromTxMsg(dataFeedIds: string[SYM_COUNT]): uin256[] {
+  assertUniqueSymbols(dataFeedIds);
 
   // Initial variables
   const initialBytesAppendix = extractInitialBytesAppendix();
@@ -67,14 +67,14 @@ function getOracleValuesFromTxMsg(symbols: string[SYM_COUNT]): uin256[] {
     const countedSignersForSymbols: address[?][SYM_COUNT] = initArray();
     const resultValuesBeforeAggregation: uint256[?][SYM_COUNT] = initResultArrayOfArrays();
 
-    for (const (symbol, symbolIndex) of symbols) {
+    for (const (dataFeedId, dataFeedIdIndex) of dataFeedIds) {
       for (const dataPoint of dataPoints) {
-        if (dataPoint.symbol === symbol) {
+        if (dataPoint.dataFeedId === dataFeedId) {
           const currentSignerWasNotCountedForCurrentSymbol = true; // TODO: it can be done in a loop
 
           if (currentSignerWasNotCountedForCurrentSymbol) {
-            resultValuesBeforeAggregation[symbolIndex].push(dataPoint.value);
-            countedSignersForSymbols[symbolIndex].push(signer);
+            resultValuesBeforeAggregation[dataFeedIdIndex].push(dataPoint.value);
+            countedSignersForSymbols[dataFeedIdIndex].push(signer);
           }
         }
       }
@@ -115,9 +115,9 @@ function calculateMedian(values: uint256) {
 
     - In contracts
         - getOracleValueFromTxMsg and getOracleValuesFromTxMsg should support more arguments
-            - minSignersCount: uint16 // this requirement will apply to each requested symbol
+            - minSignersCount: uint16 // this requirement will apply to each requested dataFeedId
             - maxPercentageDiff: uint8
-            - new functions will iterate over each data package and count unique signers for each requested symbol. Not each data package should contain all requested symbols - it allows to pass several packages for single symbols and validate subsets of symbols for big data feeds (e.g. ETH and STX from main redstone feed)
+            - new functions will iterate over each data package and count unique signers for each requested dataFeedId. Not each data package should contain all requested dataFeedIds - it allows to pass several packages for single dataFeedIds and validate subsets of dataFeedIds for big data feeds (e.g. ETH and STX from main redstone feed)
         - we will add a new overridable function to handle aggregation logic (by default - median):
             - aggregateDataFromDifferentProviders(dataPoints: uint256[], maxPercentageDiff: uint8): uint256
             - this function will be used inside getOracleValuesFromTxMsg and getOracleValueFromTxMsg to calculate result values
