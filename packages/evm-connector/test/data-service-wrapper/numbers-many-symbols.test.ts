@@ -6,7 +6,7 @@ import { SampleRedstoneConsumerMockManySymbols } from "../../typechain-types";
 
 // TODO: mock redstone-sdk function here
 
-describe("DataServiceWrapper: numbers with many symbols", function () {
+describe("DataServiceWrapper: numbers with many dataFeedIds", function () {
   let contract: SampleRedstoneConsumerMockManySymbols;
 
   this.beforeEach(async () => {

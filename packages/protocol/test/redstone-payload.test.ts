@@ -1,4 +1,4 @@
-import { hexlify, toUtf8Bytes } from "ethers/lib/utils";
+import { toUtf8Bytes } from "ethers/lib/utils";
 import {
   DataPackage,
   SignedDataPackage,
@@ -29,9 +29,11 @@ describe("Fixed size data package", () => {
   beforeEach(() => {
     // Prepare data points
     const dataPoints = [
-      { symbol: "BTC", value: 42000 },
-      { symbol: "ETH", value: 2000 },
-    ].map(({ symbol, value }) => new NumericDataPoint({ symbol, value }));
+      { dataFeedId: "BTC", value: 42000 },
+      { dataFeedId: "ETH", value: 2000 },
+    ].map(
+      ({ dataFeedId, value }) => new NumericDataPoint({ dataFeedId, value })
+    );
 
     // Prepare unsigned data package
     dataPackage = new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS);

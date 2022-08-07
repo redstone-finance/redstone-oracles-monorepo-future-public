@@ -32,13 +32,13 @@ contract SampleRedstoneConsumerBytesMock is RedstoneConsumerBytesMock {
     return aggregatedResult;
   }
 
-  function getPriceSecurely(bytes32 symbol) public view returns (uint256) {
-    bytes memory bytesValueFromOracle = getOracleBytesValueFromTxMsg(symbol);
+  function getPriceSecurely(bytes32 dataFeedId) public view returns (uint256) {
+    bytes memory bytesValueFromOracle = getOracleBytesValueFromTxMsg(dataFeedId);
     return bytesToUint256(bytesValueFromOracle);
   }
 
-  function saveLatestPriceInStorage(bytes32 symbol) public {
-    bytes memory bytesValueFromOracle = getOracleBytesValueFromTxMsg(symbol);
+  function saveLatestPriceInStorage(bytes32 dataFeedId) public {
+    bytes memory bytesValueFromOracle = getOracleBytesValueFromTxMsg(dataFeedId);
     latestPrice = bytesToUint256(bytesValueFromOracle);
   }
 
@@ -55,11 +55,7 @@ contract SampleRedstoneConsumerBytesMock is RedstoneConsumerBytesMock {
     }
   }
 
-  function bytesToUint256(bytes memory bytesValue)
-    private
-    pure
-    returns (uint256 uintValue)
-  {
+  function bytesToUint256(bytes memory bytesValue) private pure returns (uint256 uintValue) {
     assembly {
       let byteSize := mload(bytesValue)
       let bitSize := mul(byteSize, BITS_COUNT_IN_ONE_BYTE)

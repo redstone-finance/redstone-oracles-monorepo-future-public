@@ -98,7 +98,7 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
       calldataNegativeOffset += dataPackageByteSize;
     }
 
-    // Validating numbers of unique signers and calculating aggregated values for each symbol
+    // Validating numbers of unique signers and calculating aggregated values for each dataFeedId
     return _getAggregatedValues(valuesForDataFeeds, uniqueSignerCountForDataFeedIds);
   }
 
@@ -208,24 +208,28 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
           dataPointIndex
         );
 
-        for (uint256 symbolIndex = 0; symbolIndex < dataFeedIds.length; symbolIndex++) {
-          if (dataPointDataFeedId == dataFeedIds[symbolIndex]) {
-            uint256 bitmapSignersForDataFeedId = signersBitmapForDataFeedIds[symbolIndex];
+        for (
+          uint256 dataFeedIdIndex = 0;
+          dataFeedIdIndex < dataFeedIds.length;
+          dataFeedIdIndex++
+        ) {
+          if (dataPointDataFeedId == dataFeedIds[dataFeedIdIndex]) {
+            uint256 bitmapSignersForDataFeedId = signersBitmapForDataFeedIds[dataFeedIdIndex];
 
             if (
-              !BitmapLib.getBitFromBitmap(bitmapSignersForDataFeedId, signerIndex) && /* current signer was not counted for current symbol */
-              uniqueSignerCountForDataFeedIds[symbolIndex] < uniqueSignersThreshold
+              !BitmapLib.getBitFromBitmap(bitmapSignersForDataFeedId, signerIndex) && /* current signer was not counted for current dataFeedId */
+              uniqueSignerCountForDataFeedIds[dataFeedIdIndex] < uniqueSignersThreshold
             ) {
               // Increase unique signer counter
-              uniqueSignerCountForDataFeedIds[symbolIndex]++;
+              uniqueSignerCountForDataFeedIds[dataFeedIdIndex]++;
 
               // Add new value
-              valuesForDataFeeds[symbolIndex][
-                uniqueSignerCountForDataFeedIds[symbolIndex] - 1
+              valuesForDataFeeds[dataFeedIdIndex][
+                uniqueSignerCountForDataFeedIds[dataFeedIdIndex] - 1
               ] = dataPointValue;
 
               // Update signers bitmap
-              signersBitmapForDataFeedIds[symbolIndex] = BitmapLib.setBitInBitmap(
+              signersBitmapForDataFeedIds[dataFeedIdIndex] = BitmapLib.setBitInBitmap(
                 bitmapSignersForDataFeedId,
                 signerIndex
               );
