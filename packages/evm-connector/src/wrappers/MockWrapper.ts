@@ -1,17 +1,40 @@
-import { old } from "redstone-protocol";
-import { MOCK_PRIVATE_KEYS } from "../helpers/test-utils";
+import {
+  DataPackage,
+  SignedDataPackage,
+  RedstonePayload,
+} from "redstone-protocol";
+import {
+  MockSignerAddress,
+  getMockSignerPrivateKey,
+} from "../helpers/test-utils";
 import { BaseWrapper } from "./BaseWrapper";
+import { version } from "../../package.json";
+
+export interface MockDataPackageConfig {
+  signer: MockSignerAddress;
+  dataPackage: DataPackage;
+}
 
 export class MockWrapper extends BaseWrapper {
-  constructor(private mockDataPackage: old.DataPackage) {
+  constructor(private mockDataPackages: MockDataPackageConfig[]) {
     super();
   }
 
+  getUnsignedMetadata(): string {
+    return `${version}#mock`;
+  }
+
   async getBytesDataForAppending(): Promise<string> {
-    const signedDataPackage = await old.signDataPackage(
-      this.mockDataPackage,
-      MOCK_PRIVATE_KEYS[0]
-    );
-    return old.serializeSignedDataPackageToHexString(signedDataPackage);
+    const signedDataPackages: SignedDataPackage[] = [];
+
+    for (const mockDataPackage of this.mockDataPackages) {
+      const privateKey = getMockSignerPrivateKey(mockDataPackage.signer);
+      const signedDataPackage = mockDataPackage.dataPackage.sign(privateKey);
+      signedDataPackages.push(signedDataPackage);
+    }
+
+    const unsignedMetadata = this.getUnsignedMetadata();
+
+    return RedstonePayload.prepare(signedDataPackages, unsignedMetadata);
   }
 }

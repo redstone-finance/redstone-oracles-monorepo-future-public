@@ -11,7 +11,7 @@ export const DEFAULT_CACHE_SERVICE_URLS = [
 ];
 
 export interface DataPackagesRequestParams {
-  dataFeedId: string;
+  dataServiceId: string;
   uniqueSignersCount: number;
   symbols: string[];
 }
@@ -32,7 +32,7 @@ export const getOracleRegistryState =
 export const requestDataPackages = async (
   reqParams: DataPackagesRequestParams,
   urls: string[] = DEFAULT_CACHE_SERVICE_URLS
-): Promise<SignedDataPackage> => {
+): Promise<SignedDataPackage[]> => {
   const response = await axios.get(urls[0], {
     params: {
       ...reqParams,

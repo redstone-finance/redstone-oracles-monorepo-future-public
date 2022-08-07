@@ -1,10 +1,7 @@
 import { Contract } from "ethers";
-import { old as oldRedStoneProtocol } from "redstone-protocol";
-import { MockWrapper } from "./wrappers/MockWrapper";
-import {
-  MockDataPackageConfigV2,
-  MockWrapperV2,
-} from "./wrappers/MockWrapperV2";
+import { MockDataPackageConfig, MockWrapper } from "./wrappers/MockWrapper";
+import { DataPackagesRequestParams } from "redstone-sdk";
+import { DataServiceWrapper } from "./wrappers/DataServiceWrapper";
 
 export class WrapperBuilder {
   constructor(private baseContract: Contract) {}
@@ -13,24 +10,16 @@ export class WrapperBuilder {
     return new WrapperBuilder(contract);
   }
 
-  // TODO: implement
-  usingDataFeed(dataFeedId: string): Contract {
-    return this.baseContract;
+  usingDataService(
+    dataPackagesRequestParams: DataPackagesRequestParams
+  ): Contract {
+    return new DataServiceWrapper(
+      dataPackagesRequestParams
+    ).overwriteEthersContract(this.baseContract);
   }
 
-  // TODO: implement
-  usingDataSources(dataSourcesConfig: any[]): Contract {
-    return this.baseContract;
-  }
-
-  usingMockData(mockDataPackage: oldRedStoneProtocol.DataPackage) {
-    return new MockWrapper(mockDataPackage).overwriteEthersContract(
-      this.baseContract
-    );
-  }
-
-  usingMockDataV2(mockDataPackages: MockDataPackageConfigV2[]) {
-    return new MockWrapperV2(mockDataPackages).overwriteEthersContract(
+  usingMockData(mockDataPackages: MockDataPackageConfig[]) {
+    return new MockWrapper(mockDataPackages).overwriteEthersContract(
       this.baseContract
     );
   }

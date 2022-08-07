@@ -5,12 +5,15 @@
   "main": "dist/src/index.js",
   "license": "MIT",
   "scripts": {
-    "test": "hardhat test",
+    "test": "hardhat test test/**/*.test.ts",
+    "build": "rm -rf dist && tsc -build",
+    "benchmark": "hardhat test test/**/*.benchmark.ts",
     "compile": "hardhat compile"
   },
   "dependencies": {
     "ethers": "^5.6.8",
-    "redstone-protocol": "1.0.0"
+    "redstone-protocol": "1.0.0",
+    "redstone-sdk": "1.0.0"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.6.3",
