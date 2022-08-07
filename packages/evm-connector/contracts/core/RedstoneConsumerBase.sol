@@ -8,49 +8,83 @@ import "./CalldataExtractor.sol";
 import "../libs/BitmapLib.sol";
 import "../libs/SignatureLib.sol";
 
+/**
+ * @title The base contract for Redstone consumers' contracts
+ * @dev This contract can extend other contracts to allow them
+ * securely fetch Redstone oracle data from transactions calldata
+ */
 abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
-  // This param can be updated in child contracts
+  // This variable should be updated in child contracts
   uint256 public uniqueSignersThreshold = 1;
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
-  function getAuthorisedSignerIndex(address _receviedSigner)
-    public
-    view
-    virtual
-    returns (uint256);
+  /**
+   * @dev This function must be implemented by the child consumer contract.
+   * It should return a unique index for a given signer address if the signer
+   * is authorised, otherwise it should revert
+   * @param receviedSigner The address of a signer, recovered from ECDSA signature
+   * @return Unique index for a signer in the range [0..255]
+   */
+  function getAuthorisedSignerIndex(address receviedSigner) public view virtual returns (uint256);
 
-  function isTimestampValid(uint256 _receivedTimestamp)
-    public
-    view
-    virtual
-    returns (bool)
-  {
-    return RedstoneDefaultsLib.isTimestampValid(_receivedTimestamp);
+  /**
+   * @dev This function may be overriden by the child consumer contract.
+   * It should validate the timestamp against the current time (block.timestamp)
+   * @param receivedTimestamp Timestamp extracted from calldata
+   * @return Boolean value indicating if the received timestamp is valid
+   */
+  function isTimestampValid(uint256 receivedTimestamp) public view virtual returns (bool) {
+    return RedstoneDefaultsLib.isTimestampValid(receivedTimestamp);
   }
 
-  function aggregateValues(uint256[] memory values)
-    public
-    view
-    virtual
-    returns (uint256)
-  {
+  /**
+   * @dev This function may be overriden by the child consumer contract.
+   * It should aggregate values from different signers to a single uint value.
+   * By default, it calculates the median value
+   * @param values An array of uint256 values from different signers
+   * @return Result of the aggregation in the form of a single number
+   */
+  function aggregateValues(uint256[] memory values) public view virtual returns (uint256) {
     return RedstoneDefaultsLib.aggregateValues(values);
   }
 
   /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
 
-  function getOracleNumericValueFromTxMsg(bytes32 symbol)
+  /**
+   * @dev This function can be used in a consumer contract to securely extract an
+   * oracle value for a given data feed id. Security is achieved by
+   * signatures verification, timestamp validation, and aggregating values from
+   * from different authorised signers into a single numeric value. If any of the
+   * required conditions do not match, the function will revert.
+   * Note! This function expects that tx calldata contains redstone payload in the end
+   * Learn more about redstone payload here: https://github.com/redstone-finance/redstone-oracles-monorepo/tree/main/packages/evm-connector#readme
+   * @param dataFeedId bytes32 value that uniquely identifies the data feed
+   * @return Extracted and verified numeric oracle value for the given data feed id
+   */
+  function getOracleNumericValueFromTxMsg(bytes32 dataFeedId)
     internal
     view
     virtual
     returns (uint256)
   {
     bytes32[] memory dataFeedIds = new bytes32[](1);
-    dataFeedIds[0] = symbol;
+    dataFeedIds[0] = dataFeedId;
     return getOracleNumericValuesFromTxMsg(dataFeedIds)[0];
   }
 
+  /**
+   * @dev This function can be used in a consumer contract to securely extract several
+   * numeric oracle values for a given array of data feed ids. Security is achieved by
+   * signatures verification, timestamp validation, and aggregating values from
+   * from different authorised signers into a single numeric value. If any of the
+   * required conditions do not match, the function will revert.
+   * Note! This function expects that tx calldata contains redstone payload in the end
+   * Learn more about redstone payload here: https://github.com/redstone-finance/redstone-oracles-monorepo/tree/main/packages/evm-connector#readme
+   * @param dataFeedIds An array of unique data feed identifiers
+   * @return An array of the extracted and verified oracle values in the same order
+   * as they are requested in dataFeedIds array
+   */
   function getOracleNumericValuesFromTxMsg(bytes32[] memory dataFeedIds)
     internal
     view
@@ -60,6 +94,20 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
     return _securelyExtractOracleValuesFromTxMsg(dataFeedIds);
   }
 
+  /**
+   * @dev This is an internal helpful function for secure extraction oracle values
+   * from the tx calldata. Security is achieved by signatures verification, timestamp
+   * validation, and aggregating values from from different authorised signers into a
+   * single numeric value. If any of the required conditions (e.g. too old timestamp or
+   * insufficient number of autorised signers) do not match, the function will revert.
+   *
+   * Note! You should not call this function in a consumer contract. You can use
+   * `getOracleNumericValuesFromTxMsg` or `getOracleNumericValueFromTxMsg` instead.
+   *
+   * @param dataFeedIds An array of unique data feed identifiers
+   * @return An array of the extracted and verified oracle values in the same order
+   * as they are requested in dataFeedIds array
+   */
   function _securelyExtractOracleValuesFromTxMsg(bytes32[] memory dataFeedIds)
     internal
     view
@@ -68,50 +116,54 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
     // Initializing helpful variables and allocating memory
     uint256[] memory uniqueSignerCountForDataFeedIds = new uint256[](dataFeedIds.length);
     uint256[] memory signersBitmapForDataFeedIds = new uint256[](dataFeedIds.length);
-    uint256[][] memory valuesForDataFeedIds = new uint256[][](dataFeedIds.length);
+    uint256[][] memory valuesForDataFeeds = new uint256[][](dataFeedIds.length);
     for (uint256 i = 0; i < dataFeedIds.length; i++) {
-      signersBitmapForDataFeedIds[i] = 0; // empty bitmap
-      valuesForDataFeedIds[i] = new uint256[](uniqueSignersThreshold);
+      signersBitmapForDataFeedIds[i] = BitmapLib.EMPTY_BITMAP;
+      valuesForDataFeeds[i] = new uint256[](uniqueSignersThreshold);
     }
 
     // Extracting the number of data packages from calldata
     uint256 calldataNegativeOffset = _extractByteSizeOfUnsignedMetadata();
-    uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata(
-      calldataNegativeOffset
-    );
+    uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata(calldataNegativeOffset);
     calldataNegativeOffset += DATA_PACKAGES_COUNT_BS;
 
     // Data packages extraction in a loop
-    for (
-      uint256 dataPackageIndex = 0;
-      dataPackageIndex < dataPackagesCount;
-      dataPackageIndex++
-    ) {
+    for (uint256 dataPackageIndex = 0; dataPackageIndex < dataPackagesCount; dataPackageIndex++) {
       // Extract data package details and update calldata offset
       uint256 dataPackageByteSize = _extractDataPackage(
         dataFeedIds,
         uniqueSignerCountForDataFeedIds,
         signersBitmapForDataFeedIds,
-        valuesForDataFeedIds,
+        valuesForDataFeeds,
         calldataNegativeOffset
       );
       calldataNegativeOffset += dataPackageByteSize;
     }
 
     // Validating numbers of unique signers and calculating aggregated values for each symbol
-    return
-      _getAggregatedValues(
-        dataFeedIds.length,
-        valuesForDataFeedIds,
-        uniqueSignerCountForDataFeedIds
-      );
+    return _getAggregatedValues(valuesForDataFeeds, uniqueSignerCountForDataFeedIds);
   }
 
+  /**
+   * @dev This is a private helpful function, which extracts data for a data package based
+   * on the given negative calldata offset, verifies them, and in the case of successful
+   * verification updates the corresponding data package values in memory
+   *
+   * @param dataFeedIds an array of unique data feed identifiers
+   * @param uniqueSignerCountForDataFeedIds an array with the numbers of unique signers
+   * for each data feed
+   * @param signersBitmapForDataFeedIds an array of sginers bitmaps for data feeds
+   * @param valuesForDataFeeds 2-dimensional array, valuesForDataFeeds[i][j] contains
+   * j-th value for the i-th data feed
+   * @param calldataNegativeOffset negative calldata offset for the given data package
+   *
+   * @return An array of the aggregated values
+   */
   function _extractDataPackage(
     bytes32[] memory dataFeedIds,
     uint256[] memory uniqueSignerCountForDataFeedIds,
     uint256[] memory signersBitmapForDataFeedIds,
-    uint256[][] memory valuesForDataFeedIds,
+    uint256[][] memory valuesForDataFeeds,
     uint256 calldataNegativeOffset
   ) private view returns (uint256) {
     uint256 signerIndex;
@@ -142,21 +194,16 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
         )
 
         // Hashing the signed message
-        signedHash := keccak256(
-          add(signedMessage, BYTES_ARR_LEN_VAR_BS),
-          signedMessageBytesCount
-        )
+        signedHash := keccak256(add(signedMessage, BYTES_ARR_LEN_VAR_BS), signedMessageBytesCount)
 
         // Extracting timestamp
         extractedTimestamp := extractValueFromCalldata(
           add(calldataNegativeOffset, TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE)
         )
 
-        ///////////////////////////////// FUNCTIONS /////////////////////////////////
-
         function initByteArray(bytesCount) -> ptr {
           ptr := mload(FREE_MEMORY_PTR)
-          // TODO: check why this condition is added in official yul documentation
+          // TODO: check why this condition is added in the official yul documentation
           // if iszero(ptr) {
           //   ptr := 0x60
           // }
@@ -176,9 +223,7 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
         }
 
         function extractValueFromCalldata(offset) -> valueFromCalldata {
-          valueFromCalldata := calldataload(
-            sub(calldatasize(), add(offset, STANDARD_SLOT_BS))
-          )
+          valueFromCalldata := calldataload(sub(calldatasize(), add(offset, STANDARD_SLOT_BS)))
         }
       }
 
@@ -197,11 +242,7 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
     {
       bytes32 dataPointDataFeedId;
       uint256 dataPointValue;
-      for (
-        uint256 dataPointIndex = 0;
-        dataPointIndex < dataPointsCount;
-        dataPointIndex++
-      ) {
+      for (uint256 dataPointIndex = 0; dataPointIndex < dataPointsCount; dataPointIndex++) {
         // Extracting symbol and value for current data point
         (dataPointDataFeedId, dataPointValue) = _extractDataPointValueAndDataFeedId(
           calldataNegativeOffset,
@@ -221,7 +262,7 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
               uniqueSignerCountForDataFeedIds[symbolIndex]++;
 
               // Add new value
-              valuesForDataFeedIds[symbolIndex][
+              valuesForDataFeeds[symbolIndex][
                 uniqueSignerCountForDataFeedIds[symbolIndex] - 1
               ] = dataPointValue;
 
@@ -243,22 +284,30 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
       dataPointsCount;
   }
 
+  /**
+   * @dev This is a private helpful function, which aggregates values from different
+   * authorised signers for the given arrays of values for each data feed
+   *
+   * @param valuesForDataFeeds 2-dimensional array, valuesForDataFeeds[i][j] contains
+   * j-th value for the i-th data feed
+   * @param uniqueSignerCountForDataFeedIds an array with the numbers of unique signers
+   * for each data feed
+   *
+   * @return An array of the aggregated values
+   */
   function _getAggregatedValues(
-    uint256 dataFeedIdsLength,
-    uint256[][] memory valuesForDataFeedIds,
+    uint256[][] memory valuesForDataFeeds,
     uint256[] memory uniqueSignerCountForDataFeedIds
-  ) internal view returns (uint256[] memory) {
-    uint256[] memory aggregatedValues = new uint256[](dataFeedIdsLength);
+  ) private view returns (uint256[] memory) {
+    uint256[] memory aggregatedValues = new uint256[](valuesForDataFeeds.length);
 
-    for (uint256 symbolIndex = 0; symbolIndex < dataFeedIdsLength; symbolIndex++) {
+    for (uint256 dataFeedIndex = 0; dataFeedIndex < valuesForDataFeeds.length; dataFeedIndex++) {
       require(
-        uniqueSignerCountForDataFeedIds[symbolIndex] >= uniqueSignersThreshold,
+        uniqueSignerCountForDataFeedIds[dataFeedIndex] >= uniqueSignersThreshold,
         "Insufficient number of unique signers"
       );
-      uint256 aggregatedValueForDataFeedId = aggregateValues(
-        valuesForDataFeedIds[symbolIndex]
-      );
-      aggregatedValues[symbolIndex] = aggregatedValueForDataFeedId;
+      uint256 aggregatedValueForDataFeedId = aggregateValues(valuesForDataFeeds[dataFeedIndex]);
+      aggregatedValues[dataFeedIndex] = aggregatedValueForDataFeedId;
     }
 
     return aggregatedValues;

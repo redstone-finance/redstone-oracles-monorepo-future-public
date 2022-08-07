@@ -8,7 +8,7 @@ library RedstoneDefaultsLib {
   uint256 constant DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS = 3 * 60;
   uint256 constant DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS = 60;
 
-  function isTimestampValid(uint256 _receivedTimestamp) internal view returns (bool) {
+  function isTimestampValid(uint256 receivedTimestamp) internal view returns (bool) {
     // Getting data timestamp from future seems quite unlikely
     // But we've already spent too much time with different cases
     // Where block.timestamp was less than dataPackage.timestamp.
@@ -16,14 +16,13 @@ library RedstoneDefaultsLib {
     // That's why we add MAX_BLOCK_TIMESTAMP_DELAY
     // and allow data "from future" but with a small delay
     require(
-      (block.timestamp + DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS) >
-        _receivedTimestamp,
+      (block.timestamp + DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS) > receivedTimestamp,
       "Data with future timestamps is not allowed"
     );
 
     return
-      block.timestamp < _receivedTimestamp ||
-      block.timestamp - _receivedTimestamp < DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS;
+      block.timestamp < receivedTimestamp ||
+      block.timestamp - receivedTimestamp < DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS;
   }
 
   function aggregateValues(uint256[] memory values) internal pure returns (uint256) {
