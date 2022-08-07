@@ -2,12 +2,16 @@ import { base64, concat } from "ethers/lib/utils";
 import { Serializable } from "../common/Serializable";
 import { convertStringToBytes32, ConvertableToBytes32 } from "../common/utils";
 import { INumericDataPoint } from "./NumericDataPoint";
+import { IStringDataPoint } from "./StringDataPoint";
 
 export interface IStandardDataPoint {
   dataFeedId: ConvertableToBytes32;
   value: string; // base64-encoded bytes
 }
-export type DataPointPlainObj = INumericDataPoint | IStandardDataPoint;
+export type DataPointPlainObj =
+  | INumericDataPoint
+  | IStandardDataPoint
+  | IStringDataPoint;
 
 export class DataPoint extends Serializable {
   constructor(
