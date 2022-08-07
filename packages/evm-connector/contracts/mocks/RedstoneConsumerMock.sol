@@ -2,10 +2,10 @@
 
 pragma solidity ^0.8.4;
 
-import "../core/RedstoneConsumerBase.sol";
+import "../core/RedstoneConsumerNumericBase.sol";
 import "./AuthorisedMockSignersBase.sol";
 
-contract RedstoneConsumerMock is RedstoneConsumerBase, AuthorisedMockSignersBase {
+contract RedstoneConsumerMock is RedstoneConsumerNumericBase, AuthorisedMockSignersBase {
   constructor() {
     uniqueSignersThreshold = 10;
   }

@@ -4,6 +4,12 @@ pragma solidity ^0.8.4;
 
 import "./RedstoneConstants.sol";
 
+/**
+ * @title The base contract with the main logic of data extraction from calldata
+ * @author The Redstone Oracles team
+ * @dev This contract was created to reuse the same logic in the RedstoneConsumerBase
+ * and the ProxyConnector contracts
+ */
 contract CalldataExtractor is RedstoneConstants {
   function _extractByteSizeOfUnsignedMetadata() internal pure returns (uint256) {
     // Using uint24, because unsigned metadata byte size number has 3 bytes
@@ -30,23 +36,20 @@ contract CalldataExtractor is RedstoneConstants {
   }
 
   function _extractDataPointValueAndDataFeedId(
-    uint256 calldataNegativeOffset,
+    uint256 calldataNegativeOffsetForDataPackage,
     uint256 defaultDataPointValueByteSize,
     uint256 dataPointIndex
   ) internal pure virtual returns (bytes32 dataPointDataFeedId, uint256 dataPointValue) {
     assembly {
       let negativeOffsetToDataPoints := add(
-        calldataNegativeOffset,
+        calldataNegativeOffsetForDataPackage,
         DATA_PACKAGE_WITHOUT_DATA_POINTS_BS
       )
       let dataPointCalldataOffset := sub(
         calldatasize(),
         add(
           negativeOffsetToDataPoints,
-          mul(
-            add(1, dataPointIndex),
-            add(defaultDataPointValueByteSize, DATA_POINT_SYMBOL_BS)
-          )
+          mul(add(1, dataPointIndex), add(defaultDataPointValueByteSize, DATA_POINT_SYMBOL_BS))
         )
       )
       dataPointDataFeedId := calldataload(dataPointCalldataOffset)
@@ -54,10 +57,15 @@ contract CalldataExtractor is RedstoneConstants {
     }
   }
 
-  function _extractDataPointsDetailsForDataPackage(
-    uint256 calldataNegativeOffsetForDataPackage
-  ) internal pure returns (uint256 dataPointsCount, uint256 eachDataPointValueByteSize) {
+  function _extractDataPointsDetailsForDataPackage(uint256 calldataNegativeOffsetForDataPackage)
+    internal
+    pure
+    returns (uint256 dataPointsCount, uint256 eachDataPointValueByteSize)
+  {
+    // Using uint24, because data points count byte size number has 3 bytes
     uint24 _dataPointsCount;
+
+    // Using uint32, because data point value byte size has 4 bytes
     uint32 _eachDataPointValueByteSize;
 
     assembly {
@@ -70,9 +78,7 @@ contract CalldataExtractor is RedstoneConstants {
       _eachDataPointValueByteSize := extractFromCalldata(negativeCalldataOffset)
 
       function extractFromCalldata(negativeOffset) -> extractedValue {
-        extractedValue := calldataload(
-          sub(calldatasize(), add(negativeOffset, STANDARD_SLOT_BS))
-        )
+        extractedValue := calldataload(sub(calldatasize(), add(negativeOffset, STANDARD_SLOT_BS)))
       }
     }
 

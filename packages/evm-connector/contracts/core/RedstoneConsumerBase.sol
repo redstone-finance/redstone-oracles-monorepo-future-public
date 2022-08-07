@@ -9,12 +9,13 @@ import "../libs/BitmapLib.sol";
 import "../libs/SignatureLib.sol";
 
 /**
- * @title The base contract for Redstone consumers' contracts
- * @dev This contract can extend other contracts to allow them
- * securely fetch Redstone oracle data from transactions calldata
+ * @title The base contract with the main Redstone logic
+ * @author The Redstone Oracles team
+ * @dev Do not use this contract directly in consumer contracts, take a
+ * look at `RedstoneConsumerNumericBase` and `RedstoneConsumerBytesBase` instead
  */
-abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
-  // This variable should be updated in child contracts
+abstract contract RedstoneConsumerBase is CalldataExtractor {
+  // This variable should be updated in child consumer contracts
   uint256 public uniqueSignersThreshold = 1;
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
@@ -50,49 +51,6 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
   }
 
   /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
-
-  /**
-   * @dev This function can be used in a consumer contract to securely extract an
-   * oracle value for a given data feed id. Security is achieved by
-   * signatures verification, timestamp validation, and aggregating values from
-   * from different authorised signers into a single numeric value. If any of the
-   * required conditions do not match, the function will revert.
-   * Note! This function expects that tx calldata contains redstone payload in the end
-   * Learn more about redstone payload here: https://github.com/redstone-finance/redstone-oracles-monorepo/tree/main/packages/evm-connector#readme
-   * @param dataFeedId bytes32 value that uniquely identifies the data feed
-   * @return Extracted and verified numeric oracle value for the given data feed id
-   */
-  function getOracleNumericValueFromTxMsg(bytes32 dataFeedId)
-    internal
-    view
-    virtual
-    returns (uint256)
-  {
-    bytes32[] memory dataFeedIds = new bytes32[](1);
-    dataFeedIds[0] = dataFeedId;
-    return getOracleNumericValuesFromTxMsg(dataFeedIds)[0];
-  }
-
-  /**
-   * @dev This function can be used in a consumer contract to securely extract several
-   * numeric oracle values for a given array of data feed ids. Security is achieved by
-   * signatures verification, timestamp validation, and aggregating values from
-   * from different authorised signers into a single numeric value. If any of the
-   * required conditions do not match, the function will revert.
-   * Note! This function expects that tx calldata contains redstone payload in the end
-   * Learn more about redstone payload here: https://github.com/redstone-finance/redstone-oracles-monorepo/tree/main/packages/evm-connector#readme
-   * @param dataFeedIds An array of unique data feed identifiers
-   * @return An array of the extracted and verified oracle values in the same order
-   * as they are requested in dataFeedIds array
-   */
-  function getOracleNumericValuesFromTxMsg(bytes32[] memory dataFeedIds)
-    internal
-    view
-    virtual
-    returns (uint256[] memory)
-  {
-    return _securelyExtractOracleValuesFromTxMsg(dataFeedIds);
-  }
 
   /**
    * @dev This is an internal helpful function for secure extraction oracle values
@@ -243,7 +201,7 @@ abstract contract RedstoneConsumerBase is RedstoneConstants, CalldataExtractor {
       bytes32 dataPointDataFeedId;
       uint256 dataPointValue;
       for (uint256 dataPointIndex = 0; dataPointIndex < dataPointsCount; dataPointIndex++) {
-        // Extracting symbol and value for current data point
+        // Extracting data feed id and value for the current data point
         (dataPointDataFeedId, dataPointValue) = _extractDataPointValueAndDataFeedId(
           calldataNegativeOffset,
           eachDataPointValueByteSize,
