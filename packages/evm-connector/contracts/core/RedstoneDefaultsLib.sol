@@ -4,6 +4,10 @@ pragma solidity ^0.8.4;
 
 import "../libs/NumericArrayLib.sol";
 
+/**
+ * @title Default implementations of virtual redstone consumer base functions
+ * @author The Redstone Oracles team
+ */
 library RedstoneDefaultsLib {
   uint256 constant DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS = 3 * 60;
   uint256 constant DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS = 60;
