@@ -6,11 +6,11 @@ import {
 import {
   DEFAULT_NUM_VALUE_BS,
   DEFAULT_NUM_VALUE_DECIMALS,
-} from "../common/redstone-consts";
+} from "../common/redstone-constants";
 import { DataPoint } from "./DataPoint";
 
 export interface INumericDataPoint {
-  symbol: ConvertableToBytes32;
+  dataFeedId: ConvertableToBytes32;
   value: number;
   decimals?: number;
   valueByteSize?: number;
@@ -32,7 +32,7 @@ export class NumericDataPoint extends DataPoint {
       decimals,
       valueByteSize
     );
-    super(numericDataPointArgs.symbol, valueBytes);
+    super(numericDataPointArgs.dataFeedId, valueBytes);
   }
 
   toObj(): INumericDataPoint {

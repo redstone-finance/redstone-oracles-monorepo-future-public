@@ -18,7 +18,7 @@ export const registerNode = (
     data.name &&
     data.logo &&
     data.description &&
-    data.dataFeedId &&
+    data.dataServiceId &&
     data.evmAddress &&
     data.ipAddress &&
     data.ecdsaPublicKey &&
@@ -32,9 +32,9 @@ export const registerNode = (
     throw new ContractError(`Node with owner ${caller} already exists`);
   }
 
-  if (!state.dataFeeds[data.dataFeedId]) {
+  if (!state.dataFeeds[data.dataServiceId]) {
     throw new ContractError(
-      `Data feed with id ${data.dataFeedId} does not exist`
+      `Data feed with id ${data.dataServiceId} does not exist`
     );
   }
 

@@ -10,7 +10,10 @@
     "esModuleInterop": true,
     "outDir": "dist",
     "allowJs": true,
-    "declaration": true
+    "declaration": true,
+    "declarationMap": true,
+    "composite": true,
+    "incremental": true
   },
   "include": ["./src", "./test"]
 }

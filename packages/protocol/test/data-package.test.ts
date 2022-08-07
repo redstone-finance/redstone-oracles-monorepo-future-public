@@ -14,7 +14,7 @@ const EXPECTED_SERIALIZED_UNSIGNED_DATA_PACKAGE =
   "4554480000000000000000000000000000000000000000000000000000000000" + // bytes32("ETH")
   "0000000000000000000000000000000000000000000000000000002e90edd000" + // 2000 * 10^8
   "01812f2590c0" + // timestamp
-  "00000020" + // default data points byte size (32 in hex)
+  "00000020" + // data points value byte size (32 in hex)
   "000002"; // data points count
 const EXPECTED_SIGNATURE =
   "c1296a449f5d353c8b04eb389f33a583ee79449cca6e366900042f19f2521e722a410929223231905839c00865af68738f1a202478d87dc33675ea5824f343901b";
@@ -24,8 +24,8 @@ describe("Data package", () => {
 
   beforeEach(() => {
     const dataPoints = [
-      { symbol: "BTC", value: 42000 },
-      { symbol: "ETH", value: 2000 },
+      { dataFeedId: "BTC", value: 42000 },
+      { dataFeedId: "ETH", value: 2000 },
     ].map((dpArgs) => new NumericDataPoint(dpArgs));
     dataPackage = new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
   });
@@ -46,10 +46,10 @@ describe("Data package", () => {
     );
   });
 
-  test("Should throw an error for data points with duplicated symbols", () => {
+  test("Should throw an error for data points with duplicated dataFeedIds", () => {
     dataPackage.dataPoints[0] = dataPackage.dataPoints[1];
     expect(() => dataPackage.toBytesHex()).toThrow(
-      "Assertion failed: Duplicated symbol found: ETH"
+      "Assertion failed: Duplicated dataFeedId found: ETH"
     );
   });
 

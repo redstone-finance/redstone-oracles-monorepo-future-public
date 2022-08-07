@@ -12,6 +12,9 @@ export const deserializeDataPointFromObj = (
   if (typeof plainObject.value == "number") {
     return new NumericDataPoint(plainObject as INumericDataPoint);
   } else {
-    return new DataPoint(plainObject.symbol, base64.decode(plainObject.value));
+    return new DataPoint(
+      plainObject.dataFeedId,
+      base64.decode(plainObject.value)
+    );
   }
 };

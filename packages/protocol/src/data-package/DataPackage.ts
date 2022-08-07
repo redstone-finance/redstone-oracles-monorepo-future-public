@@ -9,7 +9,7 @@ import {
   DATA_POINTS_COUNT_BS,
   DATA_POINT_VALUE_BYTE_SIZE_BS,
   TIMESTAMP_BS,
-} from "../common/redstone-consts";
+} from "../common/redstone-constants";
 import { Serializable } from "../common/Serializable";
 import { assert, convertIntegerNumberToBytes } from "../common/utils";
 import { deserializeDataPointFromObj } from "../data-point/data-point-deserializer";
@@ -86,14 +86,17 @@ export class DataPackage extends Serializable {
   }
 
   protected serializeDataPoints(): Uint8Array {
-    // Sorting datapoints by bytes32 representation of symbols lexicographically
+    // Sorting datapoints by bytes32 representation of dataFeedIds lexicographically
     this.dataPoints.sort((dp1, dp2) => {
-      const bytes32Symbol1Hexlified = hexlify(dp1.serializeSymbol());
-      const bytes32Symbol2Hexlified = hexlify(dp2.serializeSymbol());
-      const comparisonResult = bytes32Symbol1Hexlified.localeCompare(
-        bytes32Symbol2Hexlified
+      const bytes32dataFeedId1Hexlified = hexlify(dp1.serializedataFeedId());
+      const bytes32dataFeedId2Hexlified = hexlify(dp2.serializedataFeedId());
+      const comparisonResult = bytes32dataFeedId1Hexlified.localeCompare(
+        bytes32dataFeedId2Hexlified
       );
-      assert(comparisonResult !== 0, `Duplicated symbol found: ${dp1.symbol}`);
+      assert(
+        comparisonResult !== 0,
+        `Duplicated dataFeedId found: ${dp1.dataFeedId}`
+      );
       return comparisonResult;
     });
     return concat(this.dataPoints.map((dp) => dp.toBytes()));
