@@ -3,29 +3,30 @@ import { ethers } from "hardhat";
 import { utils } from "redstone-protocol";
 import {
   DEFAULT_TIMESTAMP_FOR_TESTS,
-  getMockNumericPackage,
+  getMockStringPackage,
 } from "../../src/helpers/test-utils";
 
 import { WrapperBuilder } from "../../src/index";
 import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
-import { SampleRedstoneConsumerNumericMockManyDataFeeds } from "../../typechain-types";
+import { SampleRedstoneConsumerBytesMockManyDataFeeds } from "../../typechain-types";
 import {
-  expectedNumericValues,
-  mockNumericPackageConfigs,
-  mockNumericPackages,
-  NUMBER_OF_MOCK_SIGNERS,
+  expectedBytesValues,
+  mockBytesPackageConfigs,
+  mockBytesPackages,
   UNAUTHORISED_SIGNER_INDEX,
 } from "../tests-common";
 
-describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
-  let contract: SampleRedstoneConsumerNumericMockManyDataFeeds;
+const NUMBER_OF_MOCK_SIGNERS = 3;
+
+describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
+  let contract: SampleRedstoneConsumerBytesMockManyDataFeeds;
 
   const testShouldPass = async (
-    mockNumericPackages: MockDataPackageConfig[],
+    mockBytesPackages: MockDataPackageConfig[],
     dataFeedIds: ("ETH" | "BTC")[]
   ) => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockNumericPackages);
+      WrapperBuilder.wrap(contract).usingMockData(mockBytesPackages);
 
     const tx = await wrappedContract.save2ValuesInStorage([
       utils.convertStringToBytes32(dataFeedIds[0]),
@@ -36,21 +37,21 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
     const firstValueFromContract = await contract.firstValue();
     const secondValueFromContract = await contract.secondValue();
 
-    expect(firstValueFromContract.toNumber()).to.be.equal(
-      expectedNumericValues[dataFeedIds[0]]
+    expect(firstValueFromContract).to.be.equal(
+      expectedBytesValues[dataFeedIds[0]]
     );
-    expect(secondValueFromContract.toNumber()).to.be.equal(
-      expectedNumericValues[dataFeedIds[1]]
+    expect(secondValueFromContract).to.be.equal(
+      expectedBytesValues[dataFeedIds[1]]
     );
   };
 
   const testShouldRevertWith = async (
-    mockNumericPackages: MockDataPackageConfig[],
+    mockBytesPackages: MockDataPackageConfig[],
     dataFeedIds: string[],
     revertMsg: string
   ) => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockNumericPackages);
+      WrapperBuilder.wrap(contract).usingMockData(mockBytesPackages);
 
     await expect(
       wrappedContract.save2ValuesInStorage(
@@ -61,26 +62,26 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerNumericMockManyDataFeeds"
+      "SampleRedstoneConsumerBytesMockManyDataFeeds"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
   });
 
   it("Should properly execute transaction on RedstoneConsumerBase contract (order: ETH, BTC)", async () => {
-    await testShouldPass(mockNumericPackages, ["ETH", "BTC"]);
+    await testShouldPass(mockBytesPackages, ["ETH", "BTC"]);
   });
 
   it("Should properly execute transaction on RedstoneConsumerBase contract (order: BTC, ETH)", async () => {
-    await testShouldPass(mockNumericPackages, ["BTC", "ETH"]);
+    await testShouldPass(mockBytesPackages, ["BTC", "ETH"]);
   });
 
   it("Should work properly with the greater number of unique signers than required", async () => {
     const newMockPackages = [
-      ...mockNumericPackages,
-      getMockNumericPackage({
-        ...mockNumericPackageConfigs[0],
-        mockSignerIndex: NUMBER_OF_MOCK_SIGNERS,
+      ...mockBytesPackages,
+      getMockStringPackage({
+        ...mockBytesPackageConfigs[0],
+        mockSignerIndex: 5,
       }),
     ];
     await testShouldPass(newMockPackages, ["BTC", "ETH"]);
@@ -88,16 +89,16 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
 
   it("Should revert if data feed id not found", async () => {
     await testShouldRevertWith(
-      mockNumericPackages,
+      mockBytesPackages,
       ["BTC", "NOT_BTC_AND_NOT_ETH"],
       "Insufficient number of unique signers"
     );
   });
 
   it("Should revert for too old timestamp", async () => {
-    const newMockPackages = [...mockNumericPackages];
-    newMockPackages[1] = getMockNumericPackage({
-      ...mockNumericPackageConfigs[1],
+    const newMockPackages = [...mockBytesPackages];
+    newMockPackages[1] = getMockStringPackage({
+      ...mockBytesPackageConfigs[1],
       timestampMilliseconds: DEFAULT_TIMESTAMP_FOR_TESTS - 1,
     });
     await testShouldRevertWith(
@@ -108,9 +109,9 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
   });
 
   it("Should revert for an unauthorised signer", async () => {
-    const newMockPackages = [...mockNumericPackages];
-    newMockPackages[1] = getMockNumericPackage({
-      ...mockNumericPackageConfigs[1],
+    const newMockPackages = [...mockBytesPackages];
+    newMockPackages[1] = getMockStringPackage({
+      ...mockBytesPackageConfigs[1],
       mockSignerIndex: UNAUTHORISED_SIGNER_INDEX,
     });
     await testShouldRevertWith(
@@ -121,7 +122,7 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
   });
 
   it("Should revert for insufficient number of signers", async () => {
-    const newMockPackages = mockNumericPackages.slice(
+    const newMockPackages = mockBytesPackages.slice(
       0,
       NUMBER_OF_MOCK_SIGNERS - 1
     );
@@ -133,8 +134,8 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
   });
 
   it("Should revert for duplicated packages (not enough unique signers)", async () => {
-    const newMockPackages = [...mockNumericPackages];
-    newMockPackages[1] = mockNumericPackages[0];
+    const newMockPackages = [...mockBytesPackages];
+    newMockPackages[1] = mockBytesPackages[0];
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
