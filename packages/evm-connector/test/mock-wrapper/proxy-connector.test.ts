@@ -7,6 +7,8 @@ import { convertStringToBytes32 } from "redstone-protocol/src/common/utils";
 
 const NUMBER_OF_MOCK_SIGNERS = 10;
 
+// TODO: implement
+
 describe("SampleProxyConnector", function () {
   let contract: SampleProxyConnector;
 

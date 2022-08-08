@@ -9,7 +9,24 @@ contract AuthorisedMockSignersBase {
     virtual
     returns (uint256)
   {
-    // Looks like an array but consumes less gas. TODO: check it
+    return getAllMockExceptLastOneAuthorised(_signerAddress);
+  }
+
+  function getAllMockExceptLastOneAuthorised(address _signerAddress)
+    public
+    view
+    virtual
+    returns (uint256)
+  {
+    if (_signerAddress == 0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199) {
+      revert("Signer is not authorised");
+    } else {
+      return getAllMockAuthorised(_signerAddress);
+    }
+  }
+
+  function getAllMockAuthorised(address _signerAddress) public view virtual returns (uint256) {
+    // Looks like an array but consumes less gas
     if (_signerAddress == 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) {
       return 0;
     } else if (_signerAddress == 0x70997970C51812dc3A010C7d01b50e0d17dc79C8) {

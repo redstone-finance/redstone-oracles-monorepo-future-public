@@ -70,7 +70,12 @@ describe("SampleRedstoneConsumerBytesMock", function () {
   });
 
   // TODO: implement
-  it("Should fail for too old timestamp", async () => {
+  it("Should revert for too old timestamp", async () => {
+    expect(2 + 2).to.eq(4);
+  });
+
+  // TODO: implement
+  it("Should revert is data feed id not found", async () => {
     expect(2 + 2).to.eq(4);
   });
 });

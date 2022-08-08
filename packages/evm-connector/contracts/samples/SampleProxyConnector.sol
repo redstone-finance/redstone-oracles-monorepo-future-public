@@ -3,22 +3,22 @@
 pragma solidity ^0.8.4;
 
 import "../core/ProxyConnector.sol";
-import "./SampleRedstoneConsumerMock.sol";
+import "./SampleRedstoneConsumerNumericMock.sol";
 
 /**
  * @title SampleProxyConnector
  * @dev An example of a contract that makes a call to a SampleRedstoneConsumerMock contract
  */
 contract SampleProxyConnector is ProxyConnector {
-  SampleRedstoneConsumerMock sampleRedstoneConsumer;
+  SampleRedstoneConsumerNumericMock sampleRedstoneConsumer;
 
   constructor() {
-    sampleRedstoneConsumer = new SampleRedstoneConsumerMock();
+    sampleRedstoneConsumer = new SampleRedstoneConsumerNumericMock();
   }
 
   function getOracleValueUsingProxy(bytes32 dataFeedId) external view returns (uint256) {
     bytes memory encodedFunction = abi.encodeWithSelector(
-      SampleRedstoneConsumerMock.getValueForDataFeedId.selector,
+      SampleRedstoneConsumerNumericMock.getValueForDataFeedId.selector,
       dataFeedId
     );
 
