@@ -1,12 +1,15 @@
 import {
   getMockNumericPackage,
+  getMockStringPackage,
   getRange,
   MockNumericPackageArgs,
+  MockSignerIndex,
+  MockStringPackageArgs,
 } from "../src/helpers/test-utils";
 
 export const NUMBER_OF_MOCK_SIGNERS = 10;
 
-export const mockPackageConfigs: MockNumericPackageArgs[] = [
+export const mockNumericPackageConfigs: MockNumericPackageArgs[] = [
   {
     mockSignerIndex: 0,
     dataPoints: [
@@ -44,11 +47,44 @@ export const mockPackageConfigs: MockNumericPackageArgs[] = [
   ),
 ];
 
-export const mockPackages = mockPackageConfigs.map((packageConfig) =>
-  getMockNumericPackage(packageConfig)
+export const mockNumericPackages = mockNumericPackageConfigs.map(
+  getMockNumericPackage
 );
 
-export const expectedValues: any = {
+export const expectedNumericValues: any = {
   ETH: 42 * 10 ** 8,
   BTC: 400 * 10 ** 8,
 };
+
+export const bytesDataPoints = [
+  {
+    dataFeedId: "ETH",
+    value: "Ethereum",
+  },
+  {
+    dataFeedId: "BTC",
+    value: "Bitcoin_",
+  },
+  {
+    dataFeedId: "SOME OTHER ID",
+    value: "Hahahaha",
+  },
+];
+
+export const mockBytesPackageConfigs: MockStringPackageArgs[] = getRange({
+  start: 0,
+  length: 3,
+}).map((i) => ({
+  dataPoints: bytesDataPoints,
+  mockSignerIndex: i as MockSignerIndex,
+}));
+
+export const mockBytesPackages =
+  mockBytesPackageConfigs.map(getMockStringPackage);
+
+export const expectedBytesValues = {
+  ETH: "0x457468657265756d",
+  BTC: "0x426974636f696e5f",
+};
+
+export const UNAUTHORISED_SIGNER_INDEX = 19;

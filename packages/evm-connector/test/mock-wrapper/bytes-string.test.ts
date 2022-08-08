@@ -8,11 +8,12 @@ import {
 import { WrapperBuilder } from "../../src/index";
 import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
 import { SampleRedstoneConsumerBytesMockStrings } from "../../typechain-types";
+import { UNAUTHORISED_SIGNER_INDEX } from "../tests-common";
 
 describe("SampleRedstoneConsumerBytesMockStrings", function () {
   let contract: SampleRedstoneConsumerBytesMockStrings;
   const someLongHexValue = "0x" + "f".repeat(1984) + "ee42"; // some long value
-  const mockPackages: MockDataPackageConfig[] = getRange({
+  const mockBytesPackages: MockDataPackageConfig[] = getRange({
     start: 0,
     length: 3,
   }).map((mockSignerIndex: any) =>
@@ -22,15 +23,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
     })
   );
 
-  this.beforeEach(async () => {
-    const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerBytesMockStrings"
-    );
-    contract = await ContractFactory.deploy();
-    await contract.deployed();
-  });
-
-  it("Should properly execute transaction on RedstoneConsumerBase contract", async () => {
+  const testShouldPass = async (mockPackages: MockDataPackageConfig[]) => {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockData(mockPackages);
 
@@ -41,45 +34,75 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
 
     const latestString = await contract.latestString();
     expect(latestString).to.be.equal(someLongHexValue);
+  };
+
+  const testShouldRevertWith = async (
+    mockPackages: MockDataPackageConfig[],
+    revertMsg: string
+  ) => {
+    const wrappedContract =
+      WrapperBuilder.wrap(contract).usingMockData(mockPackages);
+
+    await expect(
+      wrappedContract.saveLatestValueInStorage(DEFAULT_DATA_FEED_ID_BYTES_32)
+    ).to.be.revertedWith(revertMsg);
+  };
+
+  this.beforeEach(async () => {
+    const ContractFactory = await ethers.getContractFactory(
+      "SampleRedstoneConsumerBytesMockStrings"
+    );
+    contract = await ContractFactory.deploy();
+    await contract.deployed();
+  });
+
+  it("Should properly execute transaction on RedstoneConsumerBase contract", async () => {
+    await testShouldPass(mockBytesPackages);
+  });
+
+  it("Should pass even if there are redundant packages", async () => {
+    await testShouldPass([...mockBytesPackages, mockBytesPackages[0]]);
   });
 
   it("Should revert if values from different signers are different", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
-      mockPackages[0],
-      mockPackages[1],
+    const newPackages = [
+      mockBytesPackages[0],
+      mockBytesPackages[1],
       getMockPackageWithOneBytesDataPoint({
         mockSignerIndex: 2,
         hexValue: someLongHexValue.replace("ee42", "ff42"),
       }),
-    ]);
-
-    await expect(
-      wrappedContract.saveLatestValueInStorage(DEFAULT_DATA_FEED_ID_BYTES_32)
-    ).to.be.revertedWith(
+    ];
+    await testShouldRevertWith(
+      newPackages,
       "Each authorised signer must provide exactly the same bytes value"
     );
   });
 
   it("Should revert if there are too few signers", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
-      mockPackages[0],
-      mockPackages[1],
-    ]);
-
-    await expect(
-      wrappedContract.saveLatestValueInStorage(DEFAULT_DATA_FEED_ID_BYTES_32)
-    ).to.be.revertedWith("Insufficient number of unique signers");
+    await testShouldRevertWith(
+      [mockBytesPackages[0], mockBytesPackages[1]],
+      "Insufficient number of unique signers"
+    );
   });
 
   it("Should revert if there are too few unique signers", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
-      mockPackages[0],
-      mockPackages[1],
-      mockPackages[1],
-    ]);
+    await testShouldRevertWith(
+      [mockBytesPackages[0], mockBytesPackages[1], mockBytesPackages[1]],
+      "Insufficient number of unique signers"
+    );
+  });
 
-    await expect(
-      wrappedContract.saveLatestValueInStorage(DEFAULT_DATA_FEED_ID_BYTES_32)
-    ).to.be.revertedWith("Insufficient number of unique signers");
+  it("Should revert if there is an unauthorised signer", async () => {
+    await testShouldRevertWith(
+      [
+        ...mockBytesPackages,
+        getMockPackageWithOneBytesDataPoint({
+          hexValue: someLongHexValue,
+          mockSignerIndex: UNAUTHORISED_SIGNER_INDEX,
+        }),
+      ],
+      "Signer is not authorised"
+    );
   });
 });

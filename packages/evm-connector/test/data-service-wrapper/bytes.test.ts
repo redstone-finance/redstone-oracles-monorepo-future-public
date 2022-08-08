@@ -6,7 +6,7 @@ import { SampleRedstoneConsumerNumericMockManyDataFeeds } from "../../typechain-
 
 // TODO: mock redstone-sdk function here
 
-describe("DataServiceWrapper: bytes", function () {
+describe("DataServiceWrapper: bytes with many data feeds", function () {
   let contract: SampleRedstoneConsumerNumericMockManyDataFeeds;
 
   this.beforeEach(async () => {
