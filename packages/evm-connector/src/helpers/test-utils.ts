@@ -56,24 +56,24 @@ export type MockSignerAddress =
   | "0xdD2FD4581271e230360230F9337D5c0430Bf44C0"
   | "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199";
 
-interface MockPackageArgs {
+export interface MockPackageArgs {
   mockSignerIndex: MockSignerIndex;
   timestampMilliseconds?: number;
 }
 
-interface MockNumericPackageArgs extends MockPackageArgs {
+export interface MockNumericPackageArgs extends MockPackageArgs {
   dataPoints: INumericDataPoint[];
 }
 
-interface MockStringPackageArgs extends MockPackageArgs {
+export interface MockStringPackageArgs extends MockPackageArgs {
   dataPoints: IStringDataPoint[];
 }
 
-interface MockPackageWithOneNumericDataPointArgs
+export interface MockPackageWithOneNumericDataPointArgs
   extends MockPackageArgs,
     INumericDataPoint {}
 
-interface MockPackageWithOneBytesDataPointArgs extends MockPackageArgs {
+export interface MockPackageWithOneBytesDataPointArgs extends MockPackageArgs {
   dataFeedId?: ConvertableToBytes32;
   hexValue: string;
 }

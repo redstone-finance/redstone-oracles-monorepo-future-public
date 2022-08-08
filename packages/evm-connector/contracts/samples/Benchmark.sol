@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.4;
 
-import "../mocks/RedstoneConsumerMock.sol";
+import "../mocks/RedstoneConsumerNumericMock.sol";
 
-contract Benchmark is RedstoneConsumerMock {
+contract Benchmark is RedstoneConsumerNumericMock {
   function updateUniqueSignersThreshold(uint256 newUniqueSignersThreshold) public {
     uniqueSignersThreshold = newUniqueSignersThreshold;
   }
@@ -21,5 +21,14 @@ contract Benchmark is RedstoneConsumerMock {
     dataFeedIds;
     uint256[] memory values;
     values;
+  }
+
+  function getAuthorisedMockSignerIndex(address _signerAddress)
+    public
+    view
+    override
+    returns (uint256)
+  {
+    return getAllMockAuthorised(_signerAddress);
   }
 }
