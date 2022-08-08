@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.4;
 
-import "../mocks/RedstoneConsumerMock.sol";
+import "../mocks/RedstoneConsumerNumericMock.sol";
 
-contract SampleRedstoneConsumerMockManySymbols is RedstoneConsumerMock {
+contract SampleRedstoneConsumerNumericMockManyDataFeeds is RedstoneConsumerNumericMock {
   uint256 public firstValue;
   uint256 public secondValue;
 

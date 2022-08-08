@@ -4,6 +4,11 @@ import { SampleRedstoneConsumerBytesMock } from "../../typechain-types";
 
 // TODO: implement
 
+// TODO: test cases close to and with overflow for:
+// - data packages count
+// - data points count
+// - unsigned metadata bytes size
+
 describe("Long Inputs", function () {
   let contract: SampleRedstoneConsumerBytesMock;
 

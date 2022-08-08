@@ -1,17 +1,17 @@
 import { ethers } from "hardhat";
 import { expect } from "chai";
-import { SampleRedstoneConsumerMockManySymbols } from "../../typechain-types";
+import { SampleRedstoneConsumerNumericMockManyDataFeeds } from "../../typechain-types";
 
 // TODO: implement
 
 // TODO: mock redstone-sdk function here
 
 describe("DataServiceWrapper: bytes", function () {
-  let contract: SampleRedstoneConsumerMockManySymbols;
+  let contract: SampleRedstoneConsumerNumericMockManyDataFeeds;
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerMockManySymbols"
+      "SampleRedstoneConsumerNumericMockManyDataFeeds"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
