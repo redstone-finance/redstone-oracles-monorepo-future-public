@@ -1,77 +1,46 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import {
-  DataPackage,
-  INumericDataPoint,
-  NumericDataPoint,
-  utils,
-} from "redstone-protocol";
-import {
-  MOCK_SIGNERS,
-  MockSignerIndex,
-  MockSignerAddress,
-  DEFAULT_TIMESTAMP_FOR_TESTS,
-} from "../../src/helpers/test-utils";
+import { utils } from "redstone-protocol";
+import { getMockNumericPackage, getRange } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
-import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
 import { SampleRedstoneConsumerMockManySymbols } from "../../typechain-types";
 
 const NUMBER_OF_MOCK_SIGNERS = 10;
-
-interface MockPackageOpts {
-  mockSignerIndex: MockSignerIndex;
-  dataPoints: INumericDataPoint[];
-  timestampMilliseconds?: number;
-}
-
-function getMockPackage(opts: MockPackageOpts): MockDataPackageConfig {
-  const timestampMilliseconds =
-    opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
-  const dataPoints = opts.dataPoints.map((dp) => new NumericDataPoint(dp));
-  return {
-    signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
-    dataPackage: new DataPackage(dataPoints, timestampMilliseconds),
-  };
-}
-
-// TODO: maybe move `range` function to some utils module
-function getRange(start: number, length: number): number[] {
-  return [...Array(length).keys()].map((i) => (i += start));
-}
 
 describe("SampleRedstoneConsumerMockManySymbols", function () {
   let contract: SampleRedstoneConsumerMockManySymbols;
 
   const mockDataConfig = [
-    getMockPackage({
+    getMockNumericPackage({
       mockSignerIndex: 0,
       dataPoints: [
         { dataFeedId: "BTC", value: 412 },
         { dataFeedId: "ETH", value: 41 },
       ],
     }),
-    getMockPackage({
+    getMockNumericPackage({
       mockSignerIndex: 1,
       dataPoints: [
         { dataFeedId: "BTC", value: 390 },
         { dataFeedId: "ETH", value: 42 },
       ],
     }),
-    getMockPackage({
+    getMockNumericPackage({
       mockSignerIndex: 2,
       dataPoints: [
         { dataFeedId: "BTC", value: 400 },
         { dataFeedId: "ETH", value: 43 },
       ],
     }),
-    ...getRange(3, NUMBER_OF_MOCK_SIGNERS - 3).map((mockSignerIndex: any) =>
-      getMockPackage({
-        mockSignerIndex,
-        dataPoints: [
-          { dataFeedId: "BTC", value: 400 },
-          { dataFeedId: "ETH", value: 42 },
-        ],
-      })
+    ...getRange({ start: 3, length: NUMBER_OF_MOCK_SIGNERS - 3 }).map(
+      (mockSignerIndex: any) =>
+        getMockNumericPackage({
+          mockSignerIndex,
+          dataPoints: [
+            { dataFeedId: "BTC", value: 400 },
+            { dataFeedId: "ETH", value: 42 },
+          ],
+        })
     ),
   ];
 
@@ -95,8 +64,8 @@ describe("SampleRedstoneConsumerMockManySymbols", function () {
 
     const ethPriceFromContract = await contract.firstValue();
     const btcPriceFromContract = await contract.secondValue();
-    expect(ethPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(42);
-    expect(btcPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(400);
+    expect(ethPriceFromContract.toNumber()).to.be.equal(42 * 10 ** 8);
+    expect(btcPriceFromContract.toNumber()).to.be.equal(400 * 10 ** 8);
   });
 
   it("Should properly execute transaction on RedstoneConsumerBase contract (order: BTC, ETH)", async () => {
@@ -111,8 +80,8 @@ describe("SampleRedstoneConsumerMockManySymbols", function () {
 
     const btcPriceFromContract = await contract.firstValue();
     const ethPriceFromContract = await contract.secondValue();
-    expect(btcPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(400);
-    expect(ethPriceFromContract.div(10 ** 8).toNumber()).to.be.equal(42);
+    expect(btcPriceFromContract.toNumber()).to.be.equal(400 * 10 ** 8);
+    expect(ethPriceFromContract.toNumber()).to.be.equal(42 * 10 ** 8);
   });
 
   // TODO: maybe move "should revert" tests to a separate module
@@ -134,7 +103,7 @@ describe("SampleRedstoneConsumerMockManySymbols", function () {
   });
 
   // TODO: implement
-  it("Should revert for insufficient number of signers", async () => {
+  it("[Maybe delete this test] Should revert for too big number of signers", async () => {
     expect(2 + 2).to.eq(4);
   });
 
