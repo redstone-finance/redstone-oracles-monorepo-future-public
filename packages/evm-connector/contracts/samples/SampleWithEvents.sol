@@ -2,10 +2,13 @@
 
 pragma solidity ^0.8.4;
 
-// TODO: implement
+import "../mocks/RedstoneConsumerNumericMock.sol";
 
-contract SampleWithEvents {
-  function test() public pure {
-    revert();
+contract SampleWithEvents is RedstoneConsumerNumericMock {
+  event ValueUpdated(uint256 _updatedValue);
+
+  function emitEventWithLatestOracleValue() public {
+    uint256 valueFromOracle = getOracleNumericValueFromTxMsg(bytes32("ETH"));
+    emit ValueUpdated(valueFromOracle);
   }
 }
