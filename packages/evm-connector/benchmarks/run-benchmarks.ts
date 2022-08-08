@@ -5,10 +5,10 @@ import {
   MOCK_SIGNERS,
   DEFAULT_TIMESTAMP_FOR_TESTS,
   MockSignerAddress,
-} from "../../src/helpers/test-utils";
-import { WrapperBuilder } from "../../src/index";
-import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
-import { Benchmark } from "../../typechain-types";
+} from "../src/helpers/test-utils";
+import { WrapperBuilder } from "../src/index";
+import { MockDataPackageConfig } from "../src/wrappers/MockWrapper";
+import { Benchmark } from "../typechain-types";
 
 interface BenchmarkTestCaseParams {
   requiredSignersCount: number;

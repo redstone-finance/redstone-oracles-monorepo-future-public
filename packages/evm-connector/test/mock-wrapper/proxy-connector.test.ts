@@ -2,41 +2,10 @@ import { ethers } from "hardhat";
 import { expect } from "chai";
 import { SampleProxyConnector } from "../../typechain-types";
 import { WrapperBuilder } from "../../src";
-import {
-  DEFAULT_TIMESTAMP_FOR_TESTS,
-  MockSignerAddress,
-  MockSignerIndex,
-  MOCK_SIGNERS,
-} from "../../src/helpers/test-utils";
-import {
-  DataPackage,
-  INumericDataPoint,
-  NumericDataPoint,
-} from "redstone-protocol";
-import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
+import { getMockNumericPackage, getRange } from "../../src/helpers/test-utils";
 import { convertStringToBytes32 } from "redstone-protocol/src/common/utils";
 
-interface MockPackageOpts {
-  mockSignerIndex: MockSignerIndex;
-  dataPoints: INumericDataPoint[];
-  timestampMilliseconds?: number;
-}
-
 const NUMBER_OF_MOCK_SIGNERS = 10;
-
-function getMockPackage(opts: MockPackageOpts): MockDataPackageConfig {
-  const timestampMilliseconds =
-    opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
-  const dataPoints = opts.dataPoints.map((dp) => new NumericDataPoint(dp));
-  return {
-    signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
-    dataPackage: new DataPackage(dataPoints, timestampMilliseconds),
-  };
-}
-
-function getRange(start: number, length: number): number[] {
-  return [...Array(length).keys()].map((i) => (i += start));
-}
 
 describe("SampleProxyConnector", function () {
   let contract: SampleProxyConnector;
@@ -51,35 +20,15 @@ describe("SampleProxyConnector", function () {
 
   it("Should return correct oracle value for one asset", async () => {
     const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
-      getMockPackage({
-        mockSignerIndex: 0,
-        dataPoints: [
-          { dataFeedId: "BTC", value: 412 },
-          { dataFeedId: "ETH", value: 41 },
-        ],
-      }),
-      getMockPackage({
-        mockSignerIndex: 1,
-        dataPoints: [
-          { dataFeedId: "BTC", value: 390 },
-          { dataFeedId: "ETH", value: 42 },
-        ],
-      }),
-      getMockPackage({
-        mockSignerIndex: 2,
-        dataPoints: [
-          { dataFeedId: "BTC", value: 400 },
-          { dataFeedId: "ETH", value: 43 },
-        ],
-      }),
-      ...getRange(3, NUMBER_OF_MOCK_SIGNERS - 3).map((mockSignerIndex: any) =>
-        getMockPackage({
-          mockSignerIndex,
-          dataPoints: [
-            { dataFeedId: "BTC", value: 400 },
-            { dataFeedId: "ETH", value: 42 },
-          ],
-        })
+      ...getRange({ start: 0, length: NUMBER_OF_MOCK_SIGNERS }).map(
+        (mockSignerIndex: any) =>
+          getMockNumericPackage({
+            mockSignerIndex,
+            dataPoints: [
+              { dataFeedId: "BTC", value: 400 },
+              { dataFeedId: "ETH", value: 42 },
+            ],
+          })
       ),
     ]);
 

@@ -1,4 +1,38 @@
+import { arrayify } from "@ethersproject/bytes";
 import { ethers } from "ethers";
+import {
+  DataPackage,
+  DataPoint,
+  INumericDataPoint,
+  IStringDataPoint,
+  NumericDataPoint,
+  StringDataPoint,
+  utils,
+} from "redstone-protocol";
+import { ConvertableToBytes32 } from "redstone-protocol/src/common/utils";
+import { MockDataPackageConfig } from "../wrappers/MockWrapper";
+
+export type MockSignerIndex =
+  | 0
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | 13
+  | 14
+  | 15
+  | 16
+  | 17
+  | 18
+  | 19;
 
 export type MockSignerAddress =
   | "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
@@ -21,6 +55,39 @@ export type MockSignerAddress =
   | "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E"
   | "0xdD2FD4581271e230360230F9337D5c0430Bf44C0"
   | "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199";
+
+interface MockPackageArgs {
+  mockSignerIndex: MockSignerIndex;
+  timestampMilliseconds?: number;
+}
+
+interface MockNumericPackageArgs extends MockPackageArgs {
+  dataPoints: INumericDataPoint[];
+}
+
+interface MockStringPackageArgs extends MockPackageArgs {
+  dataPoints: IStringDataPoint[];
+}
+
+interface MockPackageWithOneNumericDataPointArgs
+  extends MockPackageArgs,
+    INumericDataPoint {}
+
+interface MockPackageWithOneBytesDataPointArgs extends MockPackageArgs {
+  dataFeedId?: ConvertableToBytes32;
+  hexValue: string;
+}
+
+// We lock the timestamp to have deterministic gas consumption
+// for being able to compare gas costs of different implementations
+export const DEFAULT_TIMESTAMP_FOR_TESTS = 1654353400000;
+
+// Default data feed id
+// Used in mock data packages with one data point
+export const DEFAULT_DATA_FEED_ID =
+  "SOME LONG STRING FOR DATA FEED ID TO TRIGGER SYMBOL HASHING";
+export const DEFAULT_DATA_FEED_ID_BYTES_32 =
+  utils.convertStringToBytes32(DEFAULT_DATA_FEED_ID);
 
 // Well-known private keys, which are used by
 // default in hardhat testing environment
@@ -110,28 +177,6 @@ export const MOCK_SIGNERS = MOCK_PRIVATE_KEYS.map(
   (privateKey) => new ethers.Wallet(privateKey)
 );
 
-export type MockSignerIndex =
-  | 0
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 8
-  | 9
-  | 10
-  | 11
-  | 12
-  | 13
-  | 14
-  | 15
-  | 16
-  | 17
-  | 18
-  | 19;
-
 export const getMockSignerPrivateKey = (
   mockSignerAddress: MockSignerAddress
 ) => {
@@ -144,6 +189,58 @@ export const getMockSignerPrivateKey = (
   throw new Error(`Invalid mock signer address: ${mockSignerAddress}`);
 };
 
-// We lock the timestamp to have deterministic gas consumption
-// for being able to compare gas costs of different implementations
-export const DEFAULT_TIMESTAMP_FOR_TESTS = 1654353400000;
+export const getMockPackage = (
+  opts: MockPackageArgs,
+  dataPoints: DataPoint[]
+): MockDataPackageConfig => {
+  const timestampMilliseconds =
+    opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
+  return {
+    signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
+    dataPackage: new DataPackage(dataPoints, timestampMilliseconds),
+  };
+};
+
+export const getMockNumericPackage = (
+  args: MockNumericPackageArgs
+): MockDataPackageConfig => {
+  const numericDataPoints = args.dataPoints.map(
+    (dp) => new NumericDataPoint(dp)
+  );
+  return getMockPackage(args, numericDataPoints);
+};
+
+export const getMockStringPackage = (
+  args: MockStringPackageArgs
+): MockDataPackageConfig => {
+  const stringDataPoints = args.dataPoints.map((dp) => new StringDataPoint(dp));
+  return getMockPackage(args, stringDataPoints);
+};
+
+export const getMockPackageWithOneNumericDataPoint = (
+  args: MockPackageWithOneNumericDataPointArgs
+): MockDataPackageConfig => {
+  const numericDataPoint = new NumericDataPoint({
+    ...args,
+    dataFeedId: args.dataFeedId || DEFAULT_DATA_FEED_ID,
+  });
+  return getMockPackage(args, [numericDataPoint]);
+};
+
+export const getMockPackageWithOneBytesDataPoint = (
+  args: MockPackageWithOneBytesDataPointArgs
+): MockDataPackageConfig => {
+  const dataPoint = new DataPoint(
+    args.dataFeedId || DEFAULT_DATA_FEED_ID,
+    arrayify(args.hexValue)
+  );
+  return getMockPackage(args, [dataPoint]);
+};
+
+// Prepares an array with sequential numbers
+export const getRange = (rangeArgs: {
+  start: number;
+  length: number;
+}): number[] => {
+  return [...Array(rangeArgs.length).keys()].map((i) => (i += rangeArgs.start));
+};
