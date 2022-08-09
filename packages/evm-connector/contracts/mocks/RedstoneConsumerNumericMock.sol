@@ -5,7 +5,7 @@ pragma solidity ^0.8.4;
 import "../core/RedstoneConsumerNumericBase.sol";
 import "./AuthorisedMockSignersBase.sol";
 
-contract RedstoneConsumerMock is RedstoneConsumerNumericBase, AuthorisedMockSignersBase {
+contract RedstoneConsumerNumericMock is RedstoneConsumerNumericBase, AuthorisedMockSignersBase {
   constructor() {
     uniqueSignersThreshold = 10;
   }
@@ -27,6 +27,6 @@ contract RedstoneConsumerMock is RedstoneConsumerNumericBase, AuthorisedMockSign
     override
     returns (bool)
   {
-    return _receivedTimestamp > 0;
+    return _receivedTimestamp >= 1654353400000;
   }
 }
