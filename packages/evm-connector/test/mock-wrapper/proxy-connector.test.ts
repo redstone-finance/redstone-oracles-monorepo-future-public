@@ -2,13 +2,10 @@ import { ethers } from "hardhat";
 import { expect } from "chai";
 import { SampleProxyConnector } from "../../typechain-types";
 import { WrapperBuilder } from "../../src";
-import { getMockNumericPackage, getRange } from "../../src/helpers/test-utils";
 import { convertStringToBytes32 } from "redstone-protocol/src/common/utils";
 import { expectedNumericValues, mockNumericPackages } from "../tests-common";
 
 // TODO: add more tests
-
-const NUMBER_OF_MOCK_SIGNERS = 10;
 
 describe("SampleProxyConnector", function () {
   let contract: SampleProxyConnector;
