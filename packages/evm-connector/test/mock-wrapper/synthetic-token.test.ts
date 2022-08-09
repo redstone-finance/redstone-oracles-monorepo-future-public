@@ -3,7 +3,7 @@ import { WrapperBuilder } from "../../src/index";
 import { SampleSyntheticToken } from "../../typechain-types";
 import { expect } from "chai";
 import { Signer } from "ethers";
-import { NUMBER_OF_MOCK_SIGNERS } from "../tests-common";
+import { NUMBER_OF_MOCK_NUMERIC_SIGNERS } from "../tests-common";
 import { convertStringToBytes32 } from "redstone-protocol/src/common/utils";
 import {
   getMockNumericPackage,
@@ -30,9 +30,9 @@ describe("SampleSyntheticToken", function () {
     );
     sampleContract = await SampleSyntheticToken.deploy();
     await sampleContract.initialize(
-      convertStringToBytes32("BTC"),
-      "SYNTH-BTC",
-      "SBTC"
+      convertStringToBytes32("REDSTONE"),
+      "SYNTH-REDSTONE",
+      "SREDSTONE"
     );
     await sampleContract.deployed();
     [signer] = await ethers.getSigners();
@@ -40,7 +40,7 @@ describe("SampleSyntheticToken", function () {
 
     const mockDataPackages = getRange({
       start: 0,
-      length: NUMBER_OF_MOCK_SIGNERS,
+      length: NUMBER_OF_MOCK_NUMERIC_SIGNERS,
     }).map((i) =>
       getMockNumericPackage({
         dataPoints: [
@@ -49,7 +49,7 @@ describe("SampleSyntheticToken", function () {
             value: 2000,
           },
           {
-            dataFeedId: "BTC",
+            dataFeedId: "REDSTONE",
             value: 200,
           },
         ],

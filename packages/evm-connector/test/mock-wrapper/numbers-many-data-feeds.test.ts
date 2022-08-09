@@ -13,7 +13,7 @@ import {
   expectedNumericValues,
   mockNumericPackageConfigs,
   mockNumericPackages,
-  NUMBER_OF_MOCK_SIGNERS,
+  NUMBER_OF_MOCK_NUMERIC_SIGNERS,
   UNAUTHORISED_SIGNER_INDEX,
 } from "../tests-common";
 
@@ -80,7 +80,7 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
       ...mockNumericPackages,
       getMockNumericPackage({
         ...mockNumericPackageConfigs[0],
-        mockSignerIndex: NUMBER_OF_MOCK_SIGNERS,
+        mockSignerIndex: NUMBER_OF_MOCK_NUMERIC_SIGNERS,
       }),
     ];
     await testShouldPass(newMockPackages, ["BTC", "ETH"]);
@@ -123,7 +123,7 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
   it("Should revert for insufficient number of signers", async () => {
     const newMockPackages = mockNumericPackages.slice(
       0,
-      NUMBER_OF_MOCK_SIGNERS - 1
+      NUMBER_OF_MOCK_NUMERIC_SIGNERS - 1
     );
     await testShouldRevertWith(
       newMockPackages,
