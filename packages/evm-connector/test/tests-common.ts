@@ -7,7 +7,7 @@ import {
   MockStringPackageArgs,
 } from "../src/helpers/test-utils";
 
-export const NUMBER_OF_MOCK_SIGNERS = 10;
+export const NUMBER_OF_MOCK_NUMERIC_SIGNERS = 10;
 
 export const mockNumericPackageConfigs: MockNumericPackageArgs[] = [
   {
@@ -35,7 +35,7 @@ export const mockNumericPackageConfigs: MockNumericPackageArgs[] = [
       { dataFeedId: "SOME OTHER ID 2", value: 123 },
     ],
   },
-  ...getRange({ start: 3, length: NUMBER_OF_MOCK_SIGNERS - 3 }).map(
+  ...getRange({ start: 3, length: NUMBER_OF_MOCK_NUMERIC_SIGNERS - 3 }).map(
     (mockSignerIndex: any) => ({
       mockSignerIndex,
       dataPoints: [
