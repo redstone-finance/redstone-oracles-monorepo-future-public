@@ -13,7 +13,7 @@ export const DEFAULT_CACHE_SERVICE_URLS = [
 export interface DataPackagesRequestParams {
   dataServiceId: string;
   uniqueSignersCount: number;
-  symbols: string[];
+  dataFeeds: string[];
 }
 
 // TODO: implement:
@@ -36,7 +36,7 @@ export const requestDataPackages = async (
   const response = await axios.get(urls[0], {
     params: {
       ...reqParams,
-      symbols: reqParams.symbols.join(","),
+      "data-feeds": reqParams.dataFeeds.join(","),
     },
   });
   const serializedDataPackages: any[] = response.data;

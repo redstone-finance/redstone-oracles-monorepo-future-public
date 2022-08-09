@@ -9,7 +9,7 @@ import "hardhat/console.sol";
 contract SampleRedstoneConsumerBytesMock is RedstoneConsumerBytesMock {
   uint256 constant BITS_COUNT_IN_ONE_BYTE = 8;
 
-  uint256 public latestPrice;
+  uint256 public latestSavedValue;
 
   function aggregateByteValues(uint256[] memory calldataPointersForValues)
     public
@@ -32,14 +32,14 @@ contract SampleRedstoneConsumerBytesMock is RedstoneConsumerBytesMock {
     return aggregatedResult;
   }
 
-  function getPriceSecurely(bytes32 dataFeedId) public view returns (uint256) {
+  function getValueSecurely(bytes32 dataFeedId) public view returns (uint256) {
     bytes memory bytesValueFromOracle = getOracleBytesValueFromTxMsg(dataFeedId);
     return bytesToUint256(bytesValueFromOracle);
   }
 
-  function saveLatestPriceInStorage(bytes32 dataFeedId) public {
+  function saveOracleValueInContractStorage(bytes32 dataFeedId) public {
     bytes memory bytesValueFromOracle = getOracleBytesValueFromTxMsg(dataFeedId);
-    latestPrice = bytesToUint256(bytesValueFromOracle);
+    latestSavedValue = bytesToUint256(bytesValueFromOracle);
   }
 
   function calldataBytesToUint256(bytes calldata bytesValue)
