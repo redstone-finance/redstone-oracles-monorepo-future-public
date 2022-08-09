@@ -4,10 +4,11 @@ import { SampleProxyConnector } from "../../typechain-types";
 import { WrapperBuilder } from "../../src";
 import { getMockNumericPackage, getRange } from "../../src/helpers/test-utils";
 import { convertStringToBytes32 } from "redstone-protocol/src/common/utils";
+import { expectedNumericValues, mockNumericPackages } from "../tests-common";
+
+// TODO: add more tests
 
 const NUMBER_OF_MOCK_SIGNERS = 10;
-
-// TODO: implement
 
 describe("SampleProxyConnector", function () {
   let contract: SampleProxyConnector;
@@ -21,23 +22,13 @@ describe("SampleProxyConnector", function () {
   });
 
   it("Should return correct oracle value for one asset", async () => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData([
-      ...getRange({ start: 0, length: NUMBER_OF_MOCK_SIGNERS }).map(
-        (mockSignerIndex: any) =>
-          getMockNumericPackage({
-            mockSignerIndex,
-            dataPoints: [
-              { dataFeedId: "BTC", value: 400 },
-              { dataFeedId: "ETH", value: 42 },
-            ],
-          })
-      ),
-    ]);
+    const wrappedContract =
+      WrapperBuilder.wrap(contract).usingMockData(mockNumericPackages);
 
     const fetchedValue = await wrappedContract.getOracleValueUsingProxy(
       convertStringToBytes32("ETH")
     );
-    expect(fetchedValue).to.eq(42 * 10 ** 8);
+    expect(fetchedValue).to.eq(expectedNumericValues.ETH);
   });
 
   it("Should return correct oracle values for 10 assets in correct order", async () => {
