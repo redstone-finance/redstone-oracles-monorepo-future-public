@@ -5,6 +5,10 @@ pragma solidity ^0.8.4;
 import "../mocks/RedstoneConsumerNumericMock.sol";
 
 contract Benchmark is RedstoneConsumerNumericMock {
+  // We use this storage variable to avoid annoying compilation
+  // warnings about function state mutability
+  uint256 someStorageVar = 0;
+
   function updateUniqueSignersThreshold(uint256 newUniqueSignersThreshold) external {
     uniqueSignersThreshold = newUniqueSignersThreshold;
   }
@@ -12,6 +16,7 @@ contract Benchmark is RedstoneConsumerNumericMock {
   function extractOracleValues(bytes32[] calldata dataFeedIds) external {
     uint256[] memory values = getOracleNumericValuesFromTxMsg(dataFeedIds);
     values;
+    someStorageVar = 0;
   }
 
   // `emptyExtractOracleValues` is used to calculate gas costs for pure
@@ -21,6 +26,7 @@ contract Benchmark is RedstoneConsumerNumericMock {
     dataFeedIds;
     uint256[] memory values;
     values;
+    someStorageVar = 0;
   }
 
   function getAuthorisedMockSignerIndex(address _signerAddress)
