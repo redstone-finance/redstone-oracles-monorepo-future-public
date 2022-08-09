@@ -1,42 +1,44 @@
 import { ethers } from "hardhat";
 import { expect } from "chai";
-import { SampleRedstoneConsumerBytesMock } from "../../typechain-types";
-
-// TODO: implement
-
-// TODO: test cases close to and with overflow for:
-// - data packages count
-// - data points count
-// - unsigned metadata bytes size
+import { SampleRedstoneConsumerBytesMockStrings } from "../../typechain-types";
+import {
+  DEFAULT_DATA_FEED_ID_BYTES_32,
+  getMockPackageWithOneBytesDataPoint,
+  getRange,
+} from "../../src/helpers/test-utils";
+import { WrapperBuilder } from "../../src";
 
 describe("Long Inputs", function () {
-  let contract: SampleRedstoneConsumerBytesMock;
+  let contract: SampleRedstoneConsumerBytesMockStrings;
+
+  const prepareMockBytesPackages = (hexValue: string) => {
+    return getRange({
+      start: 0,
+      length: 3,
+    }).map((mockSignerIndex: any) =>
+      getMockPackageWithOneBytesDataPoint({
+        mockSignerIndex,
+        hexValue,
+      })
+    );
+  };
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerBytesMock"
+      "SampleRedstoneConsumerBytesMockStrings"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
   });
 
-  it("Should get oracle value (1K bytes value)", async () => {
-    expect(2 + 2).to.eq(4);
-  });
-
-  it("Should get oracle value (100K bytes value)", async () => {
-    expect(2 + 2).to.eq(4);
-  });
-
-  it("Should get oracle value (1000K bytes value)", async () => {
-    expect(2 + 2).to.eq(4);
-  });
-
-  it("Should get oracle value (10M bytes value)", async () => {
-    expect(2 + 2).to.eq(4);
-  });
-
-  it("Should get oracle value (100k data pacakages)", async () => {
-    expect(2 + 2).to.eq(4);
+  it("Should pass long bytes oracle value", async () => {
+    const hexValue = "0x" + "f".repeat(10_000);
+    const mockPackages = prepareMockBytesPackages(hexValue);
+    const wrappedContract =
+      WrapperBuilder.wrap(contract).usingMockData(mockPackages);
+    await wrappedContract.saveLatestValueInStorage(
+      DEFAULT_DATA_FEED_ID_BYTES_32
+    );
+    expect(await contract.latestString()).to.be.equal(hexValue);
   });
 });
