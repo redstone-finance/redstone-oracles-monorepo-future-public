@@ -5,9 +5,9 @@
   "main": "dist/src/index.js",
   "license": "MIT",
   "scripts": {
-    "test": "hardhat test test/**/*.test.ts",
+    "test": "hardhat test",
     "build": "rm -rf dist && tsc -build",
-    "benchmark": "hardhat test test/**/*.benchmark.ts",
+    "benchmark": "hardhat test benchmarks/run-benchmarks.ts",
     "compile": "hardhat compile"
   },
   "dependencies": {

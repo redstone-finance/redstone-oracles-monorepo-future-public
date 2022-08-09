@@ -36,7 +36,7 @@ export class DataPackage extends Serializable {
     for (const dataPoint of dataPoints) {
       assert(
         dataPoint.getValueByteSize() === expectedDataPointByteSize,
-        "Values of all data points in DataPackage must have the same number of bytes"
+        "Values of all data points in a DataPackage must have the same number of bytes"
       );
     }
   }

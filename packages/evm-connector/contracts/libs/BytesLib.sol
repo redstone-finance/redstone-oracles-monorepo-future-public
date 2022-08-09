@@ -9,7 +9,7 @@
  *      The library lets you concatenate, slice and type cast bytes arrays both in memory and storage.
  */
 
-// TODO: maybe remove it
+// TODO: maybe remove this library
 
 pragma solidity ^0.8.4;
 
