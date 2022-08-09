@@ -15,7 +15,7 @@ import {
   UNAUTHORISED_SIGNER_INDEX,
 } from "../tests-common";
 
-const NUMBER_OF_MOCK_SIGNERS = 10;
+const NUMBER_OF_MOCK_NUMERIC_SIGNERS = 10;
 
 describe("SampleRedstoneConsumerNumericMock", function () {
   let contract: SampleRedstoneConsumerNumericMock;
@@ -75,7 +75,7 @@ describe("SampleRedstoneConsumerNumericMock", function () {
       ...mockNumericPackages,
       getMockNumericPackage({
         ...mockNumericPackageConfigs[0],
-        mockSignerIndex: NUMBER_OF_MOCK_SIGNERS,
+        mockSignerIndex: NUMBER_OF_MOCK_NUMERIC_SIGNERS,
       }),
     ];
     await testShouldPass(newMockPackages, "BTC");
@@ -118,7 +118,7 @@ describe("SampleRedstoneConsumerNumericMock", function () {
   it("Should revert for insufficient number of signers", async () => {
     const newMockPackages = mockNumericPackages.slice(
       0,
-      NUMBER_OF_MOCK_SIGNERS - 1
+      NUMBER_OF_MOCK_NUMERIC_SIGNERS - 1
     );
     await testShouldRevertWith(
       newMockPackages,

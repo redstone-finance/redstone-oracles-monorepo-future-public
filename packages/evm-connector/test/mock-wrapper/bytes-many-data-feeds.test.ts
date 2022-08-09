@@ -16,7 +16,7 @@ import {
   UNAUTHORISED_SIGNER_INDEX,
 } from "../tests-common";
 
-const NUMBER_OF_MOCK_SIGNERS = 3;
+const NUMBER_OF_MOCK_NUMERIC_SIGNERS = 3;
 
 describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
   let contract: SampleRedstoneConsumerBytesMockManyDataFeeds;
@@ -124,7 +124,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
   it("Should revert for insufficient number of signers", async () => {
     const newMockPackages = mockBytesPackages.slice(
       0,
-      NUMBER_OF_MOCK_SIGNERS - 1
+      NUMBER_OF_MOCK_NUMERIC_SIGNERS - 1
     );
     await testShouldRevertWith(
       newMockPackages,

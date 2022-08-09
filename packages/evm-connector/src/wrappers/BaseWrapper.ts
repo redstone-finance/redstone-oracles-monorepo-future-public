@@ -22,7 +22,7 @@ export abstract class BaseWrapper {
         ) {
           const tx = await contract.populateTransaction[functionName](...args);
 
-          // Here we append redstone data to transaction data
+          // Appending redstone data to the transaction calldata
           const dataToAppend = await wrapper.getBytesDataForAppending();
           tx.data = tx.data + dataToAppend;
 
