@@ -39,8 +39,8 @@ export const mockNumericPackageConfigs: MockNumericPackageArgs[] = [
     (mockSignerIndex: any) => ({
       mockSignerIndex,
       dataPoints: [
-        { dataFeedId: "BTC", value: 400 },
         { dataFeedId: "ETH", value: 42 },
+        { dataFeedId: "BTC", value: 400 },
         { dataFeedId: "SOME OTHER ID", value: 123 },
       ],
     })

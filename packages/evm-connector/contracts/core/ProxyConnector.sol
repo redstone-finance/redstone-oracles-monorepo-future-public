@@ -10,11 +10,7 @@ import "./CalldataExtractor.sol";
  * @author The Redstone Oracles team
  */
 contract ProxyConnector is RedstoneConstants, CalldataExtractor {
-  function proxyCalldata(
-    address contractAddress,
-    bytes memory encodedFunction,
-    bool forwardValue
-  ) internal returns (bytes memory) {
+  function proxyCalldata(address contractAddress, bytes memory encodedFunction, bool forwardValue) internal returns (bytes memory) {
     bool success;
     bytes memory result;
     bytes memory message = _prepareMessage(encodedFunction);
@@ -27,20 +23,14 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
     return _prepareReturnValue(success, result);
   }
 
-  function proxyDelegateCalldata(address contractAddress, bytes memory encodedFunction)
-    internal
-    returns (bytes memory)
-  {
+  function proxyDelegateCalldata(address contractAddress, bytes memory encodedFunction) internal returns (bytes memory) {
     bytes memory message = _prepareMessage(encodedFunction);
     (bool success, bytes memory result) = contractAddress.delegatecall(message);
     return _prepareReturnValue(success, result);
   }
 
-  function proxyCalldataView(address contractAddress, bytes memory encodedFunction)
-    internal
-    view
-    returns (bytes memory)
-  {
+  function proxyCalldataView(address contractAddress, bytes memory encodedFunction) internal view returns (bytes memory)
+{
     bytes memory message = _prepareMessage(encodedFunction);
     (bool success, bytes memory result) = contractAddress.staticcall(message);
     return _prepareReturnValue(success, result);
@@ -51,7 +41,7 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
     uint256 redstonePayloadByteSize = _getRedstonePayloadByteSize();
     uint256 resultMessageByteSize = encodedFunctionBytesCount + redstonePayloadByteSize;
 
-    uint256 i;
+    uint256 encodedFunctionOffset;
     bytes memory message;
 
     assembly {
@@ -60,16 +50,14 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
       // Saving the byte size of the result message (it's a standard in EVM)
       mstore(message, resultMessageByteSize)
 
-      // Copying function and its arguments byte by byte
-      // TODO: check if it can be implemented in a more efficient way (e.g. with less iterations in the loop)
-      for {
-        i := 0
-      } lt(i, encodedFunctionBytesCount) {
-        i := add(i, 1)
+      // Copying function and its arguments
+      for { encodedFunctionOffset := 0 } lt(encodedFunctionOffset, encodedFunctionBytesCount) {
+        encodedFunctionOffset := add(encodedFunctionOffset, STANDARD_SLOT_BS) // going with 32 bytes steps
       } {
+        // Copying data from encodedFunction to message 32 bytes at a time
         mstore(
-          add(add(BYTES_ARR_LEN_VAR_BS, message), mul(STANDARD_SLOT_BS, i)), // address
-          mload(add(add(BYTES_ARR_LEN_VAR_BS, encodedFunction), mul(STANDARD_SLOT_BS, i))) // byte to copy
+          add(add(BYTES_ARR_LEN_VAR_BS, message), encodedFunctionOffset), // address in memory
+          mload(add(add(BYTES_ARR_LEN_VAR_BS, encodedFunction), encodedFunctionOffset)) // 32 bytes to copy
         )
       }
 
@@ -82,8 +70,7 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
 
       // Updating free memory pointer
       mstore(
-        FREE_MEMORY_PTR,
-        add(
+        FREE_MEMORY_PTR, add(
           add(message, add(redstonePayloadByteSize, encodedFunctionBytesCount)),
           BYTES_ARR_LEN_VAR_BS
         )
@@ -117,14 +104,12 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
       DATA_PACKAGE_WITHOUT_DATA_POINTS_BS;
   }
 
-  // TODO: test error message forwarding (compare V1 and V2)
   function _prepareReturnValue(bool success, bytes memory result)
     internal
     pure
     returns (bytes memory)
   {
     if (!success) {
-      // V1
       if (result.length > 0) {
         assembly {
           let result_size := mload(result)
@@ -133,13 +118,6 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
       } else {
         revert("Proxy calldata failed");
       }
-
-      // V2
-      // assembly {
-      //   let errMsgPtr := mload(FREE_MEMORY_PTR)
-      //   returndatacopy(errMsgPtr, 0, returndatasize())
-      //   revert(errMsgPtr, returndatasize())
-      // }
     }
 
     return result;
