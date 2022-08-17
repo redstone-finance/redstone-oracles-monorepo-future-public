@@ -17,14 +17,15 @@ interface BenchmarkTestCaseParams {
 }
 
 interface GasReport {
-  forAttachingDataToCalldata: number;
-  forDataExtractionAndVerification: number;
+  forAttachingDataToCalldata: number | string;
+  forDataExtractionAndVerification: number | string;
 }
 
+// Change this array to configure your custom benchmark test cases
 const TEST_CASES = {
-  requiredSignersCount: [1, 2, 10, 20],
-  requestedSymbolsCount: [1, 2, 10, 20, 30],
-  dataPointsCount: [1, 2, 10, 20, 50],
+  requiredSignersCount: [1, 2, 10, 20, 30],
+  requestedSymbolsCount: [1, 2, 10, 20, 30, 50],
+  dataPointsCount: [1, 2, 10, 20, 50, 100],
 };
 
 describe("Benchmark", function () {
@@ -45,7 +46,54 @@ describe("Benchmark", function () {
   const prepareMockDataPackageConfig = (
     benchmarkParams: BenchmarkTestCaseParams
   ): MockDataPackageConfig[] => {
-    // Prepare data package
+    if (
+      benchmarkParams.dataPointsCount < benchmarkParams.requestedSymbolsCount
+    ) {
+      return prepareMockDataPackageConfigWithSingleDataPointPackages(
+        benchmarkParams
+      );
+    } else {
+      return prepareMockDataPackageConfigWithManyDataPointPackages(
+        benchmarkParams
+      );
+    }
+  };
+
+  const prepareMockDataPackageConfigWithSingleDataPointPackages = (
+    benchmarkParams: BenchmarkTestCaseParams
+  ) => {
+    // Prepare many data packages (for each requested symbol there are many data packages with each signer)
+    const mockDataPackages: MockDataPackageConfig[] = [];
+    for (
+      let requestedSymbolIndex = 0;
+      requestedSymbolIndex < benchmarkParams.requestedSymbolsCount;
+      requestedSymbolIndex++
+    ) {
+      for (
+        let signerIndex = 0;
+        signerIndex < benchmarkParams.requiredSignersCount;
+        signerIndex++
+      ) {
+        const dataPoints = [
+          new NumericDataPoint({
+            dataFeedId: `TEST-${requestedSymbolIndex}`,
+            value: 42 + requestedSymbolIndex,
+          }),
+        ];
+        mockDataPackages.push({
+          dataPackage: new DataPackage(dataPoints, DEFAULT_TIMESTAMP_FOR_TESTS),
+          signer: MOCK_SIGNERS[signerIndex].address as MockSignerAddress,
+        });
+      }
+    }
+
+    return mockDataPackages;
+  };
+
+  const prepareMockDataPackageConfigWithManyDataPointPackages = (
+    benchmarkParams: BenchmarkTestCaseParams
+  ) => {
+    // Prepare data package for each signer (each data paackage has benchmarkParams.dataPointsCount data points)
     const dataPoints = [...Array(benchmarkParams.dataPointsCount).keys()].map(
       (i) =>
         new NumericDataPoint({
@@ -67,19 +115,35 @@ describe("Benchmark", function () {
     benchmarkParams: BenchmarkTestCaseParams,
     gasReport: GasReport
   ) => {
-    fullGasReport[JSON.stringify(benchmarkParams)] = gasReport;
+    const becnhmarkCaseKey = getBenchmarkCaseShortTitle(benchmarkParams);
+    fullGasReport[becnhmarkCaseKey] = gasReport;
+  };
+
+  const getBenchmarkCaseShortTitle = (
+    benchmarkParams: BenchmarkTestCaseParams
+  ): string => {
+    return (
+      benchmarkParams.requiredSignersCount +
+      " signers, " +
+      benchmarkParams.requestedSymbolsCount +
+      " symbols, " +
+      benchmarkParams.dataPointsCount +
+      " points"
+    );
   };
 
   const runBenchmarkTestCase = async (
     benchmarkParams: BenchmarkTestCaseParams
   ) => {
     console.log(
-      `Benchmark case testing started: ${JSON.stringify(benchmarkParams)}`
+      `Benchmark case testing started: ${getBenchmarkCaseShortTitle(
+        benchmarkParams
+      )}`
     );
 
-    const dataFeedIds = [...Array(benchmarkParams.dataPointsCount).keys()].map(
-      (i) => `TEST-${i}`
-    );
+    const dataFeedIds = [
+      ...Array(benchmarkParams.requestedSymbolsCount).keys(),
+    ].map((i) => `TEST-${i}`);
     const bytes32Symbols = dataFeedIds.map(utils.convertStringToBytes32);
     const mockDataPackagesConfig =
       prepareMockDataPackageConfig(benchmarkParams);
@@ -106,24 +170,33 @@ describe("Benchmark", function () {
     );
     const emptyTxWithWrappingReceipt = await emptyTxWithWrapping.wait();
 
-    // Test non-empty function with wrapping
-    const realOracleTx = await wrappedContract.extractOracleValues(
-      bytes32Symbols
-    );
-    const realOracleTxReceipt = await realOracleTx.wait();
+    try {
+      // Test non-empty function with wrapping
+      const realOracleTx = await wrappedContract.extractOracleValues(
+        bytes32Symbols
+      );
+      const realOracleTxReceipt = await realOracleTx.wait();
 
-    const gasReport: GasReport = {
-      forAttachingDataToCalldata: emptyTxWithWrappingReceipt.gasUsed
-        .sub(emptyTxWithoutWrappingReceipt.gasUsed)
-        .toNumber(),
-      forDataExtractionAndVerification: realOracleTxReceipt.gasUsed
-        .sub(emptyTxWithWrappingReceipt.gasUsed)
-        .toNumber(),
-    };
+      const gasReport: GasReport = {
+        forAttachingDataToCalldata: emptyTxWithWrappingReceipt.gasUsed
+          .sub(emptyTxWithoutWrappingReceipt.gasUsed)
+          .toNumber(),
+        forDataExtractionAndVerification: realOracleTxReceipt.gasUsed
+          .sub(emptyTxWithWrappingReceipt.gasUsed)
+          .toNumber(),
+      };
 
-    console.log({ gasReport });
+      console.log({ gasReport });
 
-    updateFullGasReport(benchmarkParams, gasReport);
+      updateFullGasReport(benchmarkParams, gasReport);
+    } catch (e) {
+      console.log("Most probably gas ran out of gas");
+      console.error(e);
+      updateFullGasReport(benchmarkParams, {
+        forAttachingDataToCalldata: "error-too-much-gas",
+        forDataExtractionAndVerification: "error-too-much-gas",
+      });
+    }
   };
 
   for (const requiredSignersCount of TEST_CASES.requiredSignersCount) {
@@ -134,7 +207,9 @@ describe("Benchmark", function () {
           requestedSymbolsCount,
           dataPointsCount,
         };
-        it(`Benchmark: ${JSON.stringify(benchmarkParams)}`, async () => {
+        it(`Benchmark: ${getBenchmarkCaseShortTitle(
+          benchmarkParams
+        )}`, async () => {
           await runBenchmarkTestCase(benchmarkParams);
         });
       }

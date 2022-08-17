@@ -11,6 +11,8 @@ import {
   MockSignerIndex,
 } from "../../src/helpers/test-utils";
 
+// TODO audit: measure how many bytes do we add to the consumer contracts
+
 describe("SampleSyntheticToken", function () {
   let sampleContract: SampleSyntheticToken,
     wrappedContract: any,
