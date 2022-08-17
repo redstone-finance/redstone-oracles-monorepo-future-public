@@ -12,10 +12,9 @@ import {
   expectedNumericValues,
   mockNumericPackageConfigs,
   mockNumericPackages,
+  NUMBER_OF_MOCK_NUMERIC_SIGNERS,
   UNAUTHORISED_SIGNER_INDEX,
 } from "../tests-common";
-
-const NUMBER_OF_MOCK_NUMERIC_SIGNERS = 10;
 
 describe("SampleRedstoneConsumerNumericMock", function () {
   let contract: SampleRedstoneConsumerNumericMock;

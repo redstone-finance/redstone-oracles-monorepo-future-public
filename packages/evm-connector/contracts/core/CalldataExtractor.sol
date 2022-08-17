@@ -21,11 +21,7 @@ contract CalldataExtractor is RedstoneConstants {
     return unsignedMetadataByteSize + UNSGINED_METADATA_BYTE_SIZE_BS + REDSTONE_MARKER_BS;
   }
 
-  function _extractDataPackagesCountFromCalldata(uint256 calldataNegativeOffset)
-    internal
-    pure
-    returns (uint256)
-  {
+  function _extractDataPackagesCountFromCalldata(uint256 calldataNegativeOffset) internal pure returns (uint256) {
     // Using uint16, because unsigned metadata byte size number has 2 bytes
     uint16 dataPackagesCount;
     assembly {

@@ -47,12 +47,7 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
    *
    * @return Result of the aggregation in the form of a bytes array
    */
-  function aggregateByteValues(uint256[] memory calldataPointersForValues)
-    public
-    view
-    virtual
-    returns (bytes memory)
-  {
+  function aggregateByteValues(uint256[] memory calldataPointersForValues) public view virtual returns (bytes memory) {
     // Check if all byte arrays are identical
     bytes calldata firstValue = getCalldataBytesFromCalldataPointer(calldataPointersForValues[0]);
     bytes32 expectedHash = keccak256(firstValue);
@@ -122,11 +117,7 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
    * @param dataFeedIds An array of unique data feed identifiers
    * @return arrayOfMemoryPointers TODO
    */
-  function getOracleBytesValuesFromTxMsg(bytes32[] memory dataFeedIds)
-    internal
-    view
-    returns (bytes[] memory arrayOfMemoryPointers)
-  {
+  function getOracleBytesValuesFromTxMsg(bytes32[] memory dataFeedIds) internal view returns (bytes[] memory arrayOfMemoryPointers) {
     // The `_securelyExtractOracleValuesFromTxMsg` function contains the main logic
     // for the data extraction and validation
     uint256[] memory arrayOfExtractedValues = _securelyExtractOracleValuesFromTxMsg(dataFeedIds);
@@ -151,12 +142,7 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
    *
    * @return pointerToResultBytesInMemory A memory pointer to the aggregated bytes array
    */
-  function aggregateValues(uint256[] memory calldataPointersToValues)
-    public
-    view
-    override
-    returns (uint256 pointerToResultBytesInMemory)
-  {
+  function aggregateValues(uint256[] memory calldataPointersToValues) public view override returns (uint256 pointerToResultBytesInMemory) {
     bytes memory aggregatedBytes = aggregateByteValues(calldataPointersToValues);
     assembly {
       pointerToResultBytesInMemory := aggregatedBytes

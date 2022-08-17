@@ -4,6 +4,8 @@ import { utils } from "redstone-protocol";
 import {
   DEFAULT_TIMESTAMP_FOR_TESTS,
   getMockNumericPackage,
+  getRange,
+  MockNumericPackageArgs,
 } from "../../src/helpers/test-utils";
 
 import { WrapperBuilder } from "../../src/index";
@@ -75,6 +77,33 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
     await testShouldPass(mockNumericPackages, ["BTC", "ETH"]);
   });
 
+  it("Should properly execute transaction with 20 single pacakages (10 for ETH and 10 for BTC)", async () => {
+    const mockSinglePackageConfigs: MockNumericPackageArgs[] = [
+      ...getRange({ start: 0, length: NUMBER_OF_MOCK_NUMERIC_SIGNERS }).map(
+        (mockSignerIndex: any) => ({
+          mockSignerIndex,
+          dataPoints: [
+            { dataFeedId: "BTC", value: 400 },
+            { dataFeedId: "SOME OTHER ID", value: 123 },
+          ],
+        })
+      ),
+      ...getRange({ start: 0, length: NUMBER_OF_MOCK_NUMERIC_SIGNERS }).map(
+        (mockSignerIndex: any) => ({
+          mockSignerIndex,
+          dataPoints: [
+            { dataFeedId: "ETH", value: 42 },
+            { dataFeedId: "SOME OTHER ID", value: 345 },
+          ],
+        })
+      ),
+    ];
+    const mockSinglePackages = mockSinglePackageConfigs.map(
+      getMockNumericPackage
+    );
+    await testShouldPass(mockSinglePackages, ["BTC", "ETH"]);
+  });
+
   it("Should work properly with the greater number of unique signers than required", async () => {
     const newMockPackages = [
       ...mockNumericPackages,
@@ -90,6 +119,19 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
     await testShouldRevertWith(
       mockNumericPackages,
       ["BTC", "NOT_BTC_AND_NOT_ETH"],
+      "Insufficient number of unique signers"
+    );
+  });
+
+  it("Should revert for enough data packages but insufficient number of one data feed id", async () => {
+    const newMockPackages = [...mockNumericPackages];
+    newMockPackages[1] = getMockNumericPackage({
+      ...mockNumericPackageConfigs[1],
+      dataPoints: [mockNumericPackageConfigs[1].dataPoints[0]],
+    });
+    await testShouldRevertWith(
+      newMockPackages,
+      ["BTC", "ETH"],
       "Insufficient number of unique signers"
     );
   });
