@@ -14,6 +14,7 @@
   "disableSinglePricesBroadcastingInStreamr": true,
   "enableArweaveBackup": false,
   "tokens": {
-    "UFT": {}
+    "UFT": {},
+    "EVMOS": {}
   }
 }

@@ -3,6 +3,7 @@
   "priceAggregator": "median",
   "sourceTimeout": 20000,
   "maxPriceDeviationPercent": 25,
+  "evmChainId": 1,
   "httpBroadcasterURLs": [
     "https://api.redstone.finance",
     "https://vwx3eni8c7.eu-west-1.awsapprunner.com",
@@ -10,8 +11,7 @@
   ],
   "enableStreamrBroadcaster": false,
   "disableSinglePricesBroadcastingInStreamr": true,
-  "enableArweaveBackup": true,
-  "evmChainId": 1,
+  "enableArweaveBackup": false,
   "tokens": {
     "BTC": {
       "source": [
@@ -3698,6 +3698,10 @@
       "source": ["coingecko", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
+    "EVMOS": {
+      "source": ["coingecko", "huobipro", "mexc"],
+      "maxPriceDeviationPercent": 80
+    },
     "CHF": {
       "source": ["ecb", "twelve-data", "yf-unofficial"],
       "maxPriceDeviationPercent": 25
@@ -4644,6 +4648,10 @@
     },
     "PHX": {
       "source": ["ascendex"],
+      "maxPriceDeviationPercent": 80
+    },
+    "$YYAV3SA1": {
+      "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
     "TFUEL": {
