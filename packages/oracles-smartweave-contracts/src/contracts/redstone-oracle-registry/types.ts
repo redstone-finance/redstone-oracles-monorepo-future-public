@@ -6,11 +6,11 @@ export interface EvolveState {
 export interface RedstoneOraclesState extends EvolveState {
   contractAdmins: string[];
   nodes: Nodes;
-  dataFeeds: DataFeeds;
+  dataServices: DataServices;
 }
 
 export type Nodes = { [key in string]: Node };
-export type DataFeeds = { [key in string]: DataFeed };
+export type DataServices = { [key in string]: DataService };
 
 interface Node {
   name: string;
@@ -24,7 +24,7 @@ interface Node {
   url?: string;
 }
 
-interface DataFeed {
+interface DataService {
   name: string;
   manifestTxId: string;
   logo: string;
@@ -44,19 +44,19 @@ export interface RedstoneOraclesInput {
     | "registerNode"
     | "updateNodeDetails"
     | "removeNode"
-    | "listDataFeeds"
-    | "getDataFeedDetailsById"
-    | "createDataFeed"
-    | "updateDataFeed"
+    | "listDataServices"
+    | "getDataServiceDetailsById"
+    | "createDataService"
+    | "updateDataService"
     | "evolve";
   data:
     | ListInputData
     | GetNodeDetailsInputData
     | RegisterNodeInputData
     | UpdateNodeDetailInputData
-    | GetDataFeedDetailsByIdInputData
-    | CreateDataFeedInputData
-    | UpdateDataFeedInputData
+    | GetDataServiceDetailsByIdInputData
+    | CreateDataServiceInputData
+    | UpdateDataServiceInputData
     | EvolveInputData;
 }
 
@@ -88,26 +88,26 @@ export interface NodeWithAddress extends Node {
 export type RedstoneOraclesContractResult =
   | ListResult
   | GetNodesDetailsResult
-  | GetDataFeedDetailsByIdResult;
+  | GetDataServiceDetailsByIdResult;
 
-export interface GetDataFeedDetailsByIdInputData {
+export interface GetDataServiceDetailsByIdInputData {
   id: string;
 }
 
-export interface CreateDataFeedInputData extends Omit<DataFeed, "admin"> {
+export interface CreateDataServiceInputData extends Omit<DataService, "admin"> {
   id: string;
 }
 
-export interface UpdateDataFeedInputData {
+export interface UpdateDataServiceInputData {
   id: string;
-  update: Partial<DataFeed>;
+  update: Partial<DataService>;
 }
 
-export interface GetDataFeedDetailsByIdResult {
-  result: DataFeedWithId;
+export interface GetDataServiceDetailsByIdResult {
+  result: DataServiceWithId;
 }
 
-export interface DataFeedWithId extends DataFeed {
+export interface DataServiceWithId extends DataService {
   id: string;
 }
 
@@ -124,5 +124,5 @@ export type ContractErrorType = new (message: string) => any;
 export interface GetDetailsByIdInput {
   identifier: string;
   state: RedstoneOraclesState;
-  oraclesType: "nodes" | "dataFeeds";
+  oraclesType: "nodes" | "dataServices";
 }

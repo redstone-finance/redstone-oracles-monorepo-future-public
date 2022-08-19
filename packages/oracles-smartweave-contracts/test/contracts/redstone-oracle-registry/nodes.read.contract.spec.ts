@@ -57,7 +57,7 @@ describe("Redstone oracle registry contract - nodes - read", () => {
       evolve: null,
       contractAdmins: [walletAddress],
       nodes: mockNodes,
-      dataFeeds: {},
+      dataServices: {},
     };
 
     const contractTxId = await smartweave.createContract.deploy({

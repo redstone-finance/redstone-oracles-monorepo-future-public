@@ -9,15 +9,14 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "lib": ["es2021"],
-    "allowJs": true
+    "allowJs": true,
+    "composite": true,
+    "declarationMap": true,
+    "incremental": true
   },
   "ts-node": {
     "files": true
   },
-  "include": [
-    "src/**/*",
-    "./package.json",
-    "index.ts"
-  ],
+  "include": ["src/**/*", "./package.json", "index.ts"],
   "exclude": ["node_modules", "tools", "test"]
 }

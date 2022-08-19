@@ -1,17 +1,17 @@
 import {
   RedstoneOraclesState,
   RedstoneOraclesAction,
-  CreateDataFeedInputData,
+  CreateDataServiceInputData,
   ContractErrorType,
 } from "../../types";
 
 declare const ContractError: ContractErrorType;
 
-export const createDataFeed = (
+export const createDataService = (
   state: RedstoneOraclesState,
   action: RedstoneOraclesAction
 ): { state: RedstoneOraclesState } => {
-  const data = action.input.data as CreateDataFeedInputData;
+  const data = action.input.data as CreateDataServiceInputData;
 
   const isValidData =
     data.id && data.name && data.logo && data.description && data.manifestTxId;
@@ -21,11 +21,11 @@ export const createDataFeed = (
   }
 
   const { id, ...restData } = data;
-  if (state.dataFeeds[id]) {
+  if (state.dataServices[id]) {
     throw new ContractError(`Data feed with id ${id} already exists`);
   }
 
-  state.dataFeeds[id] = {
+  state.dataServices[id] = {
     ...restData,
     admin: action.caller,
   };

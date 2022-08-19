@@ -351,7 +351,7 @@
       "ecdsaPublicKey": "0x04f1870867f8dd2c364df07a1e0e1cc9caf144374a5004a17929d9d653f524111e724c1d59490e5019cb3fec8b74475f90165fbf01153ef19a16a3a38aed22ef2e"
     }
   },
-  "dataFeeds": {
+  "dataServices": {
     "redstone-main-demo": {
       "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
       "name": "RedStone Main Demo",

@@ -32,7 +32,7 @@ export const registerNode = (
     throw new ContractError(`Node with owner ${caller} already exists`);
   }
 
-  if (!state.dataFeeds[data.dataServiceId]) {
+  if (!state.dataServices[data.dataServiceId]) {
     throw new ContractError(
       `Data feed with id ${data.dataServiceId} does not exist`
     );

@@ -1,4 +1,4 @@
-export const mockDataFeeds = [...Array(6).keys()].reduce(
+export const mockDataServices = [...Array(6).keys()].reduce(
   (mockNodes, currentIndex) => ({
     ...mockNodes,
     ...{

@@ -60,8 +60,8 @@
     });
   };
 
-  // src/contracts/redstone-oracle-registry/data-feeds/write/createDataFeed.ts
-  var createDataFeed = (state, action) => {
+  // src/contracts/redstone-oracle-registry/data-services/write/createDataService.ts
+  var createDataService = (state, action) => {
     const data = action.input.data;
     const isValidData =
       data.id &&
@@ -75,14 +75,14 @@
     const _a = data,
       { id } = _a,
       restData = __objRest(_a, ["id"]);
-    if (state.dataFeeds[id]) {
+    if (state.dataServices[id]) {
       throw new ContractError(`Data feed with id ${id} already exists`);
     }
     restData.name = "evolveName";
     restData.manifestTxId = "evolveManifestTxId";
     restData.logo = "evolveLogo";
     restData.description = "evolveDescription";
-    state.dataFeeds[id] = __spreadProps(__spreadValues({}, restData), {
+    state.dataServices[id] = __spreadProps(__spreadValues({}, restData), {
       admin: action.caller,
     });
     return { state };
@@ -106,8 +106,8 @@
     __async(void 0, null, function* () {
       const { input } = action;
       switch (input.function) {
-        case "createDataFeed":
-          return createDataFeed(state, action);
+        case "createDataService":
+          return createDataService(state, action);
         case "evolve":
           return handleEvolve(state, action);
         default:

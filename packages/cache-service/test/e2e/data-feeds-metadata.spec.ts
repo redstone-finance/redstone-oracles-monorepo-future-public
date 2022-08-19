@@ -4,7 +4,7 @@ import { INestApplication } from "@nestjs/common";
 import * as request from "supertest";
 import { AppModule } from "../../src/app.module";
 
-describe("Root (e2e)", () => {
+describe("Data feeds metadata (e2e)", () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -16,14 +16,13 @@ describe("Root (e2e)", () => {
     await app.init();
   });
 
-  it("/ (GET)", () => {
-    return request(app.getHttpServer())
-      .get("/")
-      .expect(200)
+  it("/data-feeds-metadata (GET)", async () => {
+    await request(app.getHttpServer())
+      .get("/data-feeds-metadata")
+      .expect(302)
       .expect(
-        "Hello! This is an instance of redstone-cache-service. " +
-          "You can find more information at: " +
-          "https://github.com/redstone-finance/redstone-oracles-monorepo/tree/main/packages/cache-service"
+        "Location",
+        "https://raw.githubusercontent.com/redstone-finance/redstone-node/main/src/config/tokens.json"
       );
   });
 });
