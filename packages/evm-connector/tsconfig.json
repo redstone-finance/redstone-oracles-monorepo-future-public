@@ -11,9 +11,10 @@
     "outDir": "dist",
     "declaration": true,
     "declarationMap": true,
-    "incremental": true
+    "incremental": true,
+    "composite": true
   },
-  "include": ["./src", "./test", "./typechain-types"],
+  "include": ["./src", "./test", "./typechain-types", "package.json"],
   "files": ["./hardhat.config.ts"],
   "references": [
     {
@@ -21,6 +22,6 @@
     },
     {
       "path": "../sdk"
-    },
+    }
   ]
 }

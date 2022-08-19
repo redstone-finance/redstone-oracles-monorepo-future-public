@@ -57,7 +57,7 @@ describe("Redstone oracle registry contract - evolve", () => {
       evolve: null,
       contractAdmins: [walletAddress],
       nodes: {},
-      dataFeeds: {},
+      dataServices: {},
     };
 
     const contractTxId = await smartweave.createContract.deploy({
@@ -106,7 +106,7 @@ describe("Redstone oracle registry contract - evolve", () => {
     await mineBlock(arweave);
 
     const testId = "testId";
-    const testDataFeedDetails = {
+    const testDataServiceDetails = {
       id: testId,
       name: "testName",
       logo: "testLogo",
@@ -114,14 +114,14 @@ describe("Redstone oracle registry contract - evolve", () => {
       manifestTxId: "testManifestId",
     };
     await contract.writeInteraction<RedstoneOraclesInput>({
-      function: "createDataFeed",
-      data: testDataFeedDetails,
+      function: "createDataService",
+      data: testDataServiceDetails,
     });
     await mineBlock(arweave);
     const state = (await contract.readState()).state;
-    const dataFeed = state.dataFeeds[testId];
+    const dataService = state.dataServices[testId];
     expect(state.evolve).toEqual(evolveContractTx.id);
-    expect(dataFeed).toEqual({
+    expect(dataService).toEqual({
       ...{
         name: "evolveName",
         manifestTxId: "evolveManifestTxId",
@@ -152,7 +152,7 @@ describe("Redstone oracle registry contract - evolve", () => {
       evolve: null,
       contractAdmins: [walletAddress],
       nodes: {},
-      dataFeeds: {},
+      dataServices: {},
     };
 
     const contractTxId = await smartweave.createContract.deploy({

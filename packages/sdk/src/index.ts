@@ -22,8 +22,27 @@ export interface DataPackagesRequestParams {
 // - state comparison in diffrent sources
 export const getOracleRegistryState =
   async (): Promise<RedstoneOraclesState> => {
-    throw "TODO: implement";
+    return {
+      dataServices: {},
+      nodes: {},
+      contractAdmins: ["hahah2"],
+      canEvolve: true,
+      evolve: null,
+    };
   };
+
+// TODO: maybe implement lowerification of addresses
+export const getDataServiceIdForSigner = (
+  oracleState: RedstoneOraclesState,
+  signerAddress: string
+) => {
+  for (const nodeDetails of Object.values(oracleState.nodes)) {
+    if (nodeDetails.evmAddress.toLowerCase() === signerAddress.toLowerCase()) {
+      return nodeDetails.dataServiceId;
+    }
+  }
+  throw new Error(`Data service not found for ${signerAddress}`);
+};
 
 // TODO: implement
 // This function will simply proxy requests to
@@ -47,4 +66,5 @@ export const requestDataPackages = async (
 export default {
   getOracleRegistryState,
   requestDataPackages,
+  getDataServiceIdForSigner,
 };

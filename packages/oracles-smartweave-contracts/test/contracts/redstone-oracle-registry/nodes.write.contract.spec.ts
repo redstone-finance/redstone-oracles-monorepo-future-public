@@ -70,7 +70,7 @@ describe("Redstone oracle registry contract - nodes - write", () => {
       evolve: null,
       contractAdmins: [walletAddress],
       nodes: {},
-      dataFeeds: {
+      dataServices: {
         testId: {
           name: "testName",
           logo: "testLogo",

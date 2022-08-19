@@ -9,10 +9,10 @@ import {
 import { registerNode } from "./nodes/write/registerNode";
 import { updateNodeDetails } from "./nodes/write/updateNodeDetails";
 import { removeNode } from "./nodes/write/removeNode";
-import { listDataFeeds } from "./data-feeds/read/listDataFeeds";
-import { getDataFeedDetailsById } from "./data-feeds/read/getDataFeedDetailsById";
-import { createDataFeed } from "./data-feeds/write/createDataFeed";
-import { updateDataFeed } from "./data-feeds/write/updateDataFeed";
+import { listDataServices } from "./data-services/read/listDataServices";
+import { getDataServiceDetailsById } from "./data-services/read/getDataServiceDetailsById";
+import { createDataService } from "./data-services/write/createDataService";
+import { updateDataService } from "./data-services/write/updateDataService";
 import { evolve } from "./evolve";
 
 declare const ContractError: ContractErrorType;
@@ -34,14 +34,14 @@ export const handle = async (
       return updateNodeDetails(state, action);
     case "removeNode":
       return removeNode(state, action.caller);
-    case "listDataFeeds":
-      return listDataFeeds(state, input);
-    case "getDataFeedDetailsById":
-      return getDataFeedDetailsById(state, input);
-    case "createDataFeed":
-      return createDataFeed(state, action);
-    case "updateDataFeed":
-      return updateDataFeed(state, action);
+    case "listDataServices":
+      return listDataServices(state, input);
+    case "getDataServiceDetailsById":
+      return getDataServiceDetailsById(state, input);
+    case "createDataService":
+      return createDataService(state, action);
+    case "updateDataService":
+      return updateDataService(state, action);
     case "evolve":
       return evolve(state, action);
     default:

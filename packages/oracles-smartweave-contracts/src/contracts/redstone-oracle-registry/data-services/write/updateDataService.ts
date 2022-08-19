@@ -1,30 +1,30 @@
 import {
   RedstoneOraclesState,
   RedstoneOraclesAction,
-  UpdateDataFeedInputData,
+  UpdateDataServiceInputData,
   ContractErrorType,
 } from "../../types";
 
 declare const ContractError: ContractErrorType;
 
-export const updateDataFeed = (
+export const updateDataService = (
   state: RedstoneOraclesState,
   action: RedstoneOraclesAction
 ): { state: RedstoneOraclesState } => {
-  const data = action.input.data as UpdateDataFeedInputData;
+  const data = action.input.data as UpdateDataServiceInputData;
   const { id, update } = data;
 
-  const currentDataFeedState = state.dataFeeds[id];
-  if (!currentDataFeedState) {
+  const currentDataServiceState = state.dataServices[id];
+  if (!currentDataServiceState) {
     throw new ContractError(`Data feed with id ${id} not found`);
   }
 
-  if (action.caller !== currentDataFeedState.admin) {
+  if (action.caller !== currentDataServiceState.admin) {
     throw new ContractError("Only admin can update data feed");
   }
 
-  state.dataFeeds[id] = {
-    ...currentDataFeedState,
+  state.dataServices[id] = {
+    ...currentDataServiceState,
     ...update,
   };
 
