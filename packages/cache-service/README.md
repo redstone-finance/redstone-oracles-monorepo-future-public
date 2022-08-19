@@ -15,8 +15,8 @@ This is a NestJS web app, which serves as a gateway to the data in the RedStone 
 
   - data-packages (main)
     - [MAYBE] the first 2 endpoints will be replaced with graphql
-    - GET /data-packages/latest (query params: nodeId, limit, dataServiceId)
-    - GET /data-packages (query params: toTimestamp, nodeId, limit, dataServiceId)
+    - GET /data-packages/latest (query params: signerAddress, limit, dataServiceId)
+    - GET /data-packages (query params: toTimestamp, signerAddress, limit, dataServiceId)
     - POST /data-packages (body = a single package)
     - POST /data-packages/bulk (body = array of data packages)
   - other (helpful endpoints)

@@ -1,8 +1,8 @@
-import { DataFeeds, ListInputData, Nodes } from "../types";
+import { DataServices, ListInputData, Nodes } from "../types";
 
 export const listWithPagination = (
   paginationData: ListInputData,
-  oracles: DataFeeds | Nodes
+  oracles: DataServices | Nodes
 ) => {
   let oraclesArray = Object.keys(oracles);
 

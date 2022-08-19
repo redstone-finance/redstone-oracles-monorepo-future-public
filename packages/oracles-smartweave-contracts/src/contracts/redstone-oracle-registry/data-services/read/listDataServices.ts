@@ -6,11 +6,14 @@ import {
   ListResult,
 } from "../../types";
 
-export const listDataFeeds = (
+export const listDataServices = (
   state: RedstoneOraclesState,
   input: RedstoneOraclesInput
 ): ListResult => {
   const paginationData = input.data as ListInputData;
-  const dataFeedsArray = listWithPagination(paginationData, state.dataFeeds);
-  return { result: dataFeedsArray };
+  const dataServicesArray = listWithPagination(
+    paginationData,
+    state.dataServices
+  );
+  return { result: dataServicesArray };
 };

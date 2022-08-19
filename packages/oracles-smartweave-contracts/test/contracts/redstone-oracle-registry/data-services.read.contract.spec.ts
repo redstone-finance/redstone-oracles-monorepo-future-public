@@ -14,7 +14,7 @@ import {
   RedstoneOraclesInput,
   RedstoneOraclesState,
 } from "../../../src/contracts/redstone-oracle-registry/types";
-import { mockDataFeeds } from "./mocks/dataFeeds.mock";
+import { mockDataServices } from "./mocks/dataServices.mock";
 
 describe("Redstone oracle registry contract - data feeds - read", () => {
   let contractSrc: string;
@@ -57,7 +57,7 @@ describe("Redstone oracle registry contract - data feeds - read", () => {
       evolve: null,
       contractAdmins: [walletAddress],
       nodes: {},
-      dataFeeds: mockDataFeeds,
+      dataServices: mockDataServices,
     };
 
     const contractTxId = await smartweave.createContract.deploy({
@@ -75,13 +75,13 @@ describe("Redstone oracle registry contract - data feeds - read", () => {
     await arlocal.stop();
   });
 
-  describe("listDataFeeds", () => {
+  describe("listDataServices", () => {
     test("list all data feeds", async () => {
       const { result } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "listDataFeeds",
+        function: "listDataServices",
         data: {},
       });
-      const expectedDataFeeds = [
+      const expectedDataServices = [
         "testId1",
         "testId2",
         "testId3",
@@ -89,53 +89,53 @@ describe("Redstone oracle registry contract - data feeds - read", () => {
         "testId5",
         "testId6",
       ];
-      expect(result).toEqual(expectedDataFeeds);
+      expect(result).toEqual(expectedDataServices);
     });
 
     test("list data feeds limited to 2", async () => {
       const { result } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "listDataFeeds",
+        function: "listDataServices",
         data: {
           limit: 2,
         },
       });
-      const expectedDataFeeds = ["testId1", "testId2"];
-      expect(result).toEqual(expectedDataFeeds);
+      const expectedDataServices = ["testId1", "testId2"];
+      expect(result).toEqual(expectedDataServices);
     });
 
     test("list data feeds after third", async () => {
       const { result } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "listDataFeeds",
+        function: "listDataServices",
         data: {
           startAfter: 3,
         },
       });
-      const expectedDataFeeds = ["testId4", "testId5", "testId6"];
-      expect(result).toEqual(expectedDataFeeds);
+      const expectedDataServices = ["testId4", "testId5", "testId6"];
+      expect(result).toEqual(expectedDataServices);
     });
 
     test("list data feeds limited to 3 after second", async () => {
       const { result } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "listDataFeeds",
+        function: "listDataServices",
         data: {
           limit: 3,
           startAfter: 2,
         },
       });
-      const expectedDataFeeds = ["testId3", "testId4", "testId5"];
-      expect(result).toEqual(expectedDataFeeds);
+      const expectedDataServices = ["testId3", "testId4", "testId5"];
+      expect(result).toEqual(expectedDataServices);
     });
   });
 
-  describe("getDataFeedDetailsById", () => {
+  describe("getDataServiceDetailsById", () => {
     test("get details of first data feed", async () => {
       const { result } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "getDataFeedDetailsById",
+        function: "getDataServiceDetailsById",
         data: {
           id: "testId1",
         },
       });
-      const expectedDataFeedDetails = {
+      const expectedDataServiceDetails = {
         id: "testId1",
         name: "testName1",
         logo: "logo",
@@ -143,17 +143,17 @@ describe("Redstone oracle registry contract - data feeds - read", () => {
         manifestTxId: "testManifestId",
         admin: "testAddress",
       };
-      expect(result).toEqual(expectedDataFeedDetails);
+      expect(result).toEqual(expectedDataServiceDetails);
     });
 
     test("get details of middle data feed", async () => {
       const { result } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "getDataFeedDetailsById",
+        function: "getDataServiceDetailsById",
         data: {
           id: "testId4",
         },
       });
-      const expectedDataFeedDetails = {
+      const expectedDataServiceDetails = {
         id: "testId4",
         name: "testName4",
         logo: "logo",
@@ -161,12 +161,12 @@ describe("Redstone oracle registry contract - data feeds - read", () => {
         manifestTxId: "testManifestId",
         admin: "testAddress",
       };
-      expect(result).toEqual(expectedDataFeedDetails);
+      expect(result).toEqual(expectedDataServiceDetails);
     });
 
     test("throw error if no id in input", async () => {
       const { errorMessage } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "getDataFeedDetailsById",
+        function: "getDataServiceDetailsById",
         data: {},
       });
       expect(errorMessage).toBe("Missing oracle identifier");
@@ -174,7 +174,7 @@ describe("Redstone oracle registry contract - data feeds - read", () => {
 
     test("throw error if invalid id in input", async () => {
       const { errorMessage } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "getDataFeedDetailsById",
+        function: "getDataServiceDetailsById",
         data: {
           id: "invalidId",
         },

@@ -11,13 +11,13 @@ import fs from "fs";
 import path from "path";
 import { addFunds, mineBlock } from "../utils/smartweave-test-utils";
 import {
-  CreateDataFeedInputData,
+  CreateDataServiceInputData,
   RedstoneOraclesInput,
   RedstoneOraclesState,
 } from "../../../src/contracts/redstone-oracle-registry/types";
 
 const testId = "testId";
-const testDataFeedDetails = {
+const testDataServiceDetails = {
   id: testId,
   name: "testName",
   logo: "testLogo",
@@ -68,7 +68,7 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
       evolve: null,
       contractAdmins: [walletAddress],
       nodes: {},
-      dataFeeds: {},
+      dataServices: {},
     };
 
     const contractTxId = await smartweave.createContract.deploy({
@@ -86,24 +86,24 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
     await arlocal.stop();
   });
 
-  describe("createDataFeed", () => {
+  describe("createDataService", () => {
     test("should add new data feed", async () => {
       await contract.writeInteraction<RedstoneOraclesInput>({
-        function: "createDataFeed",
-        data: testDataFeedDetails,
+        function: "createDataService",
+        data: testDataServiceDetails,
       });
       await mineBlock(arweave);
       const state = (await contract.readState()).state;
-      const dataFeed = state.dataFeeds[testId];
-      const { id, ...restTestDataFeed } = testDataFeedDetails;
-      expect(dataFeed).toEqual({
-        ...restTestDataFeed,
+      const dataService = state.dataServices[testId];
+      const { id, ...restTestDataService } = testDataServiceDetails;
+      expect(dataService).toEqual({
+        ...restTestDataService,
         admin: walletAddress,
       });
     });
 
     test("should add two new data feeds", async () => {
-      const testFirsDataFeedDetails = {
+      const testFirsDataServiceDetails = {
         id: "firstTestId",
         name: "firstTestName",
         logo: "firstTestLogo",
@@ -119,125 +119,125 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
         manifestTxId: "secondTestManifestId",
       };
       await contract.writeInteraction<RedstoneOraclesInput>({
-        function: "createDataFeed",
-        data: testFirsDataFeedDetails,
+        function: "createDataService",
+        data: testFirsDataServiceDetails,
       });
       await mineBlock(arweave);
       await contract.writeInteraction<RedstoneOraclesInput>({
-        function: "createDataFeed",
+        function: "createDataService",
         data: testSecondDatafeedDetails,
       });
       await mineBlock(arweave);
       const state = (await contract.readState()).state;
-      const firstDataFeed = state.dataFeeds["firstTestId"];
-      const secondDataFeed = state.dataFeeds["secondTestId"];
-      const { ["id"]: firstId, ...restFirstTestDataFeed } =
-        testFirsDataFeedDetails;
-      expect(firstDataFeed).toEqual({
-        ...restFirstTestDataFeed,
+      const firstDataService = state.dataServices["firstTestId"];
+      const secondDataService = state.dataServices["secondTestId"];
+      const { ["id"]: firstId, ...restFirstTestDataService } =
+        testFirsDataServiceDetails;
+      expect(firstDataService).toEqual({
+        ...restFirstTestDataService,
         admin: walletAddress,
       });
-      const { ["id"]: secondId, ...restSecondTestDataFeed } =
+      const { ["id"]: secondId, ...restSecondTestDataService } =
         testSecondDatafeedDetails;
-      expect(secondDataFeed).toEqual({
-        ...restSecondTestDataFeed,
+      expect(secondDataService).toEqual({
+        ...restSecondTestDataService,
         admin: walletAddress,
       });
     });
 
     test("throw error if missing data feed id in input", async () => {
-      const invalidDataFeedDetails = {
+      const invalidDataServiceDetails = {
         name: "testName",
         logo: "testLogo",
         description: "testDescription",
         manifestTxId: "testManifestId",
       };
       const { errorMessage } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "createDataFeed",
-        data: invalidDataFeedDetails as CreateDataFeedInputData,
+        function: "createDataService",
+        data: invalidDataServiceDetails as CreateDataServiceInputData,
       });
       expect(errorMessage).toBe("Invalid data feed data");
     });
 
     test("throw error if missing data feed name in input", async () => {
-      const invalidDataFeedDetails = {
+      const invalidDataServiceDetails = {
         id: testId,
         logo: "testLogo",
         description: "testDescription",
         manifestTxId: "testManifestId",
       };
       const { errorMessage } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "createDataFeed",
-        data: invalidDataFeedDetails as CreateDataFeedInputData,
+        function: "createDataService",
+        data: invalidDataServiceDetails as CreateDataServiceInputData,
       });
       expect(errorMessage).toBe("Invalid data feed data");
     });
 
     test("throw error if data feed with the same id already exists", async () => {
       await contract.writeInteraction<RedstoneOraclesInput>({
-        function: "createDataFeed",
-        data: testDataFeedDetails,
+        function: "createDataService",
+        data: testDataServiceDetails,
       });
       await mineBlock(arweave);
       const { errorMessage } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "createDataFeed",
-        data: testDataFeedDetails,
+        function: "createDataService",
+        data: testDataServiceDetails,
       });
       expect(errorMessage).toBe(`Data feed with id ${testId} already exists`);
     });
   });
 
-  describe("updateDataFeed", () => {
+  describe("updateDataService", () => {
     beforeEach(async () => {
       await contract.writeInteraction<RedstoneOraclesInput>({
-        function: "createDataFeed",
-        data: testDataFeedDetails,
+        function: "createDataService",
+        data: testDataServiceDetails,
       });
       await mineBlock(arweave);
     });
 
     test("should update data feed details", async () => {
-      const newDataFeedDetails = {
+      const newDataServiceDetails = {
         name: "newTestName",
         logo: "newTestLogo",
         description: "newTestDescription",
         manifestTxId: "newTestManifestId",
       };
       await contract.writeInteraction<RedstoneOraclesInput>({
-        function: "updateDataFeed",
+        function: "updateDataService",
         data: {
           id: testId,
-          update: newDataFeedDetails,
+          update: newDataServiceDetails,
         },
       });
       await mineBlock(arweave);
       const state = (await contract.readState()).state;
-      const dataFeed = state.dataFeeds[testId];
-      expect(dataFeed).toEqual({
-        ...newDataFeedDetails,
+      const dataService = state.dataServices[testId];
+      expect(dataService).toEqual({
+        ...newDataServiceDetails,
         admin: walletAddress,
       });
     });
 
     test("throw error if invalid data feed id", async () => {
-      const newDataFeedDetails = {
+      const newDataServiceDetails = {
         name: "newTestName",
         logo: "newTestLogo",
         description: "newTestDescription",
         manifestTxId: "newTestManifestId",
       };
       const { errorMessage } = await contract.dryWrite<RedstoneOraclesInput>({
-        function: "updateDataFeed",
+        function: "updateDataService",
         data: {
           id: "invalidId",
-          update: newDataFeedDetails,
+          update: newDataServiceDetails,
         },
       });
       expect(errorMessage).toBe("Data feed with id invalidId not found");
     });
 
     test("throw error if update by not admin", async () => {
-      const newDataFeedDetails = {
+      const newDataServiceDetails = {
         name: "newTestName",
         logo: "newTestLogo",
         description: "newTestDescription",
@@ -245,10 +245,10 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
       };
       const { errorMessage } = await contract.dryWrite<RedstoneOraclesInput>(
         {
-          function: "updateDataFeed",
+          function: "updateDataService",
           data: {
             id: testId,
-            update: newDataFeedDetails,
+            update: newDataServiceDetails,
           },
         },
         "0x00"
