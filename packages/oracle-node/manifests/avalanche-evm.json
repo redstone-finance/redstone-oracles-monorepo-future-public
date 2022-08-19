@@ -5,7 +5,7 @@
   "maxPriceDeviationPercent": 100,
   "evmChainId": 1,
   "tokens": {
-    "$YYAV3SA1": {}
+    "YYAV3SA1": {}
   },
   "defaultSource": ["avalanche-evm-fetcher"]
 }
