@@ -1,10 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import {
-  computeAddress,
-  keccak256,
-  recoverPublicKey,
-  toUtf8Bytes,
-} from "ethers/lib/utils";
+import { UniversalSigner } from "redstone-protocol";
 import {
   DataPackagesRequestParams,
   getDataServiceIdForSigner,
@@ -74,21 +69,11 @@ export class DataPackagesService {
     return fetchedPackagesPerDataFeed;
   }
 
-  async verifyRequester(body: BulkPostRequestBody) {
-    const signerAddress = this.recoverSigner(
-      JSON.stringify(body.dataPackages),
+  verifyRequester(body: BulkPostRequestBody) {
+    return UniversalSigner.recoverSigner(
+      body.dataPackages,
       body.requestSignature
     );
-
-    return signerAddress;
-  }
-
-  // TODO: maybe move this logic to a shared module (e.g. redstone-sdk)
-  // Maybe use personal sign instead
-  recoverSigner(message: string, signature: string): string {
-    const digest = keccak256(toUtf8Bytes(message));
-    const publicKey = recoverPublicKey(digest, signature);
-    return computeAddress(publicKey);
   }
 
   async prepareReceivedDataPackagesForBulkSaving(

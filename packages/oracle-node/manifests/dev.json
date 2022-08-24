@@ -8,6 +8,7 @@
   "enableStreamrBroadcaster": false,
   "disableSinglePricesBroadcastingInStreamr": true,
   "enableArweaveBackup": false,
+  "evmChainId": 1,
   "tokens": {
     "BTC": {},
     "ETH": {},

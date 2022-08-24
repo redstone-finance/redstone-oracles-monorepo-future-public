@@ -59,6 +59,7 @@ export class DataPackagesController {
     }
 
     // TODO: implement request validation
+    // TODO: implement request size limit
 
     const signerAddress = await this.dataPackagesService.verifyRequester(body);
 
