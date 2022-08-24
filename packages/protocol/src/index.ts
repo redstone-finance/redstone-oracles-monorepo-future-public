@@ -8,5 +8,7 @@ export * from "./data-point/StringDataPoint";
 
 export * from "./RedstonePayload";
 
+export * from "./UniversalSigner";
+
 export * as utils from "./common/utils";
 export * as consts from "./common/redstone-constants";
