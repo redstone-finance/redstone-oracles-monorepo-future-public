@@ -1,7 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["pangolin-wavax"],
+  "defaultSource": ["platypus"],
   "sourceTimeout": 50000,
   "maxPriceDeviationPercent": 25,
   "evmChainId": 1,
@@ -14,12 +14,6 @@
   "disableSinglePricesBroadcastingInStreamr": true,
   "enableArweaveBackup": false,
   "tokens": {
-    "PNG": {},
-    "SPORE": {},
-    "XAVA": {},
-    "AVME": {},
-    "QI": {},
-    "YAK": {},
     "sAVAX": {}
   }
 }
