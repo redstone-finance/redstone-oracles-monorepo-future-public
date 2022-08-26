@@ -3282,6 +3282,10 @@
       "source": ["coinbaseprime", "coinbasepro", "hitbtc", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
+    "sAVAX": {
+      "source": ["coingecko", "pangolin-wavax", "platypus", "trader-joe"],
+      "maxPriceDeviationPercent": 80
+    },
     "CQT": {
       "source": ["ftx", "kraken", "kucoin", "okex5"],
       "maxPriceDeviationPercent": 80

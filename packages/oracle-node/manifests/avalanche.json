@@ -30,6 +30,8 @@
         "bw",
         "cdax",
         "cex",
+        "coinbaseprime",
+        "coinbasepro",
         "coingecko",
         "currencycom",
         "ftx",
@@ -57,12 +59,13 @@
         "bitfinex2",
         "bittrex",
         "cex",
+        "coinbaseprime",
+        "coinbasepro",
         "coingecko",
         "currencycom",
         "ftx",
         "kraken",
         "okcoin",
-        "sushiswap",
         "uniswap"
       ],
       "maxPriceDeviationPercent": 25
@@ -79,6 +82,8 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
+        "coinbaseprime",
+        "coinbasepro",
         "coingecko",
         "huobipro",
         "kucoin",
@@ -107,6 +112,8 @@
         "btcturk",
         "cdax",
         "cex",
+        "coinbaseprime",
+        "coinbasepro",
         "coingecko",
         "currencycom",
         "ftx",
@@ -142,6 +149,8 @@
         "bw",
         "cdax",
         "cex",
+        "coinbaseprime",
+        "coinbasepro",
         "coingecko",
         "currencycom",
         "ftx",
@@ -163,7 +172,7 @@
       "maxPriceDeviationPercent": 25
     },
     "FRAX": {
-      "source": ["coingecko", "pangolin-wavax", "sushiswap", "uniswap"],
+      "source": ["coingecko", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "YAK": {
@@ -176,7 +185,6 @@
     },
     "USDC": {
       "source": [
-        "ascendex",
         "binance",
         "binanceus",
         "bitfinex",
@@ -201,7 +209,8 @@
       "maxPriceDeviationPercent": 25
     },
     "YYAV3SA1": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
     }
   }
 }
