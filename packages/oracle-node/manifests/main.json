@@ -3638,6 +3638,10 @@
       "source": ["cex", "huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
+    "XSGD": {
+      "source": ["cex", "coingecko", "uniswap"],
+      "maxPriceDeviationPercent": 80
+    },
     "LOOM": {
       "source": ["coinbaseprime", "coinbasepro", "huobipro"],
       "maxPriceDeviationPercent": 80
@@ -4650,7 +4654,7 @@
       "source": ["ascendex"],
       "maxPriceDeviationPercent": 80
     },
-    "$YYAV3SA1": {
+    "YYAV3SA1": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
