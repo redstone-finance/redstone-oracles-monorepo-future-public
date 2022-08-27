@@ -13,7 +13,8 @@
     "declaration": true,
     "declarationMap": true,
     "composite": true,
-    "incremental": true
+    "incremental": true,
+    "types": ["jest"]
   },
   "include": ["src", "test", "test/**/*.json"]
 }
