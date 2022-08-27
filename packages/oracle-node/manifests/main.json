@@ -4662,6 +4662,10 @@
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
+    "SAV2": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
     "TFUEL": {
       "source": ["binance"],
       "maxPriceDeviationPercent": 80
