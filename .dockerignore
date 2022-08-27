@@ -1,0 +1,9 @@
+node_modules
+.git
+**/.next
+**/build
+**/dist
+**/.DS_Store
+Dockerfile
+docs
+*.log
