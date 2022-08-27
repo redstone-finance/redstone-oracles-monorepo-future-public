@@ -10,8 +10,7 @@
     "build": "rm -rf dist && tsc"
   },
   "dependencies": {
-    "ethers": "^5.6.8",
-    "sort-deep-object-arrays": "^1.1.2"
+    "ethers": "^5.6.8"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
