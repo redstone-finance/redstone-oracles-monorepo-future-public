@@ -211,6 +211,14 @@
     "YYAV3SA1": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
+    },
+    "sAVAX": {
+      "source": ["coingecko", "pangolin-wavax", "platypus", "trader-joe"],
+      "maxPriceDeviationPercent": 80
+    },
+    "SAV2": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
     }
   }
 }

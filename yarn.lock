@@ -2165,6 +2165,11 @@
   dependencies:
     "@types/cli-color" "*"
 
+"@types/coingecko-api@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@types/coingecko-api/-/coingecko-api-1.0.10.tgz#e841f75c1dc5c6ab8f251011b28a9aec0576ec19"
+  integrity sha512-ENJO5JzV7qTj8GfrRWAy8lom4RPQv03stvw2z9riz0z7WOXcaorc8OPov8JEekoGQ397O1BbvgPjZj7bWgqdgg==
+
 "@types/compression@^1.7.2":
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/@types/compression/-/compression-1.7.2.tgz#7cc1cdb01b4730eea284615a68fc70a2cdfd5e71"
@@ -5020,10 +5025,10 @@ caseless@^0.12.0, caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==
 
-ccxt@^1.85.3:
-  version "1.91.92"
-  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-1.91.92.tgz#de2077437e99e1822dc26429ba67d1e0f53aa8e7"
-  integrity sha512-M7VnPC00FjAQzFajvEpjvdSdp3tX8k0q04JyHwLQaD9YraqjUGiE3uyy2nU6ZKRTBL6TbQuTXGC94LZoKhc/vQ==
+ccxt@1.92.65:
+  version "1.92.65"
+  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-1.92.65.tgz#13f61382d71a03b466dca970603354fa6da23993"
+  integrity sha512-HJZ7lGUCigZn8QJ5H34qB3O3E3Kmu1RBvdi7k3aGPDCKil70hdrprHsz2U7ukaEwirgI2NS0PLV/X4O1CBVcoA==
 
 chai@^4.3.6:
   version "4.3.6"
@@ -16156,7 +16161,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
 
-typescript@4.7.4, typescript@^4.3.2, typescript@^4.3.5, typescript@^4.7.2, typescript@^4.7.4:
+typescript@4.7.4, typescript@^4.3.5, typescript@^4.7.4:
   version "4.7.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
   integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==
