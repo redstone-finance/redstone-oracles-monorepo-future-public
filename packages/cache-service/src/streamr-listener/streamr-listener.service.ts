@@ -1,9 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { getOracleRegistryState } from "redstone-sdk";
+import config from "../config";
 import { StreamrClient, Subscription } from "streamr-client";
 import { DataPackage } from "../data-packages/data-packages.model";
 import { DataPackagesService } from "../data-packages/data-packages.service";
+import { BundlrService } from "../bundlr/bundlr.service";
 
 interface StreamrSubscriptions {
   [nodeEvmAddress: string]: Subscription;
@@ -16,7 +18,10 @@ export class StreamrListenerService {
   private subscriptionsState: StreamrSubscriptions = {};
   private streamrClient: StreamrClient = new StreamrClient();
 
-  constructor(private dataPackageService: DataPackagesService) {}
+  constructor(
+    private dataPackageService: DataPackagesService,
+    private bundlrService: BundlrService
+  ) {}
 
   @Cron(CRON_EXPRESSION_EVERY_1_MINUTE)
   handleCron() {
@@ -65,12 +70,17 @@ export class StreamrListenerService {
               nodeEvmAddress
             );
           console.log(`Data packages parsed for node: ${nodeEvmAddress}`);
+
           await DataPackage.insertMany(dataPackagesToSave);
           console.log(
             `Saved ${dataPackagesToSave.length} data packages for node: ${nodeEvmAddress}`
           );
+
+          if (config.enableArchivingOnArweave) {
+            await this.bundlrService.safelySaveDataPackages(dataPackagesToSave);
+          }
         } catch (e) {
-          console.error(e);
+          console.error("Error occured ", e.stack);
         }
       }
     );

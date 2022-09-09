@@ -11,11 +11,19 @@ import {
 } from "../common/mock-values";
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
 import { DataPackage } from "../../src/data-packages/data-packages.model";
+import { BundlrService } from "../../src/bundlr/bundlr.service";
 
 jest.mock("redstone-sdk", () => ({
   __esModule: true,
   ...jest.requireActual("redstone-sdk"),
   getOracleRegistryState: jest.fn(() => mockOracleRegistryState),
+}));
+jest.mock("../../src/bundlr/bundlr.service");
+
+const expectedDataPackages = mockDataPackages.map((dataPackage) => ({
+  ...dataPackage,
+  signerAddress: mockSigner.address,
+  dataServiceId: "mock-data-service-1",
 }));
 
 describe("Data packages (e2e)", () => {
@@ -29,6 +37,8 @@ describe("Data packages (e2e)", () => {
     app = moduleFixture.createNestApplication();
     await app.init();
     httpServer = app.getHttpServer();
+
+    (BundlrService.prototype.safelySaveDataPackages as any).mockClear();
 
     // Connect to mongoDB in memory
     await connectToTestDB();
@@ -53,12 +63,25 @@ describe("Data packages (e2e)", () => {
       const { _id, __v, ...rest } = dp.toJSON() as any;
       return rest;
     });
-    expect(dataPackagesInDBCleaned).toEqual(
-      mockDataPackages.map((dataPackage) => ({
-        ...dataPackage,
-        signerAddress: mockSigner.address,
-        dataServiceId: "mock-data-service-1",
-      }))
+    expect(dataPackagesInDBCleaned).toEqual(expectedDataPackages);
+  });
+
+  it("/data-packages/bulk (POST) - should post data using Bundlr", async () => {
+    const requestSignature = signByMockSigner(mockDataPackages);
+    await request(httpServer)
+      .post("/data-packages/bulk")
+      .send({
+        requestSignature,
+        dataPackages: mockDataPackages,
+      })
+      .expect(201);
+
+    // Should have been saved in Arweave
+    expect(
+      BundlrService.prototype.safelySaveDataPackages
+    ).toHaveBeenCalledTimes(1);
+    expect(BundlrService.prototype.safelySaveDataPackages).toHaveBeenCalledWith(
+      expectedDataPackages
     );
   });
 
