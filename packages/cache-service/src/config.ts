@@ -1,13 +1,21 @@
 import { JWKInterface } from "arweave/node/lib/wallet";
 import "dotenv/config";
 
-interface CacheServiceConfig {
+interface CacheServiceConfigRequiredFields {
   mongoDbUrl: string;
   enableStreamrListening: boolean;
   enableDirectPostingRoutes: boolean;
-  enableArchivingOnArweave: boolean;
-  arweaveJwkKey?: JWKInterface;
 }
+
+type CacheServiceConfig =
+  | (CacheServiceConfigRequiredFields & {
+      enableArchivingOnArweave: true;
+      arweaveJwkKey: JWKInterface;
+      bundlrNodeUrl: string;
+    })
+  | (CacheServiceConfigRequiredFields & { enableArchivingOnArweave: false });
+
+const DEFAULT_BUNDLR_NODE_URL = "https://node2.bundlr.network";
 
 const getEnv = (envName: string, required: boolean = true): string => {
   if (!process.env[envName] && required) {
@@ -21,12 +29,13 @@ const arweaveJwkKeyForArchiving = getEnv(
   false
 );
 
-const config: CacheServiceConfig = {
+const config = {
   mongoDbUrl: getEnv("MONGO_DB_URL", false),
   enableStreamrListening: getEnv("ENABLE_STREAMR_LISTENING") === "true",
   enableDirectPostingRoutes: getEnv("ENABLE_DIRECT_POSTING_ROUTES") === "true",
   enableArchivingOnArweave: !!arweaveJwkKeyForArchiving,
-};
+  bundlrNodeUrl: getEnv("BUNDLR_NODE_URL", false) || DEFAULT_BUNDLR_NODE_URL,
+} as CacheServiceConfig;
 
 if (config.enableArchivingOnArweave) {
   config.arweaveJwkKey = JSON.parse(arweaveJwkKeyForArchiving);

@@ -12,6 +12,7 @@ import config from "../config";
 import { ReceivedDataPackage } from "./data-packages.interface";
 import { DataPackagesService } from "./data-packages.service";
 import { CachedDataPackage } from "./data-packages.model";
+import { BundlrService } from "../bundlr/bundlr.service";
 
 export interface BulkPostRequestBody {
   requestSignature: string;
@@ -30,6 +31,8 @@ export interface DataPackagesResponse {
 
 @Controller("data-packages")
 export class DataPackagesController {
+  private bundlrService = new BundlrService();
+
   constructor(private dataPackagesService: DataPackagesService) {}
 
   @Get("latest")
@@ -70,5 +73,9 @@ export class DataPackagesController {
       );
 
     await this.dataPackagesService.saveManyDataPackagesInDB(dataPackagesToSave);
+
+    if (config.enableArchivingOnArweave) {
+      await this.bundlrService.safelySaveDataPackages(dataPackagesToSave);
+    }
   }
 }
