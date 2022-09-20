@@ -13,22 +13,22 @@ Here are the recommended steps to get into the context of redstone oracles archi
 2. Go through the [redstone-protocol](../protocol/) tests. Esp. [data-package.test.ts](../protocol/test/data-package.test.ts) and [redstone-payload.test.ts](../protocol/test/redstone-payload.test.ts) to understand signed data packages serialization into bytes. It will be extremely helpful for understanding the evm-connector smart contracts
 3. Read the [BaseWrapper.ts in evm-connector](./src/wrappers/BaseWrapper.ts) to understand how we attach the signed data packages to the transasctions calldata (the main line of code is: `tx.data = tx.data + dataToAppend;`)
 4. Read sample contracts and tests for [redstone-evm-connector](./test/) to understand how the contracts will be used by redstone-based dapps. Recommended reading order is below:
-  - 1. Use case with numeric data (single asset at once)
-    - [contracts/samples/SampleRedstoneConsumerNumericMock.sol](contracts/samples/SampleRedstoneConsumerNumericMock.sol)
-    - [test/mock-wrapper/numbers.test.ts](test/mock-wrapper/numbers.test.ts)
-  - 2. Use case with numeric data (several assets at once)
-    - [contracts/samples/SampleRedstoneConsumerNumericMockManyDataFeeds.sol](contracts/samples/SampleRedstoneConsumerNumericMockManyDataFeeds.sol)
-    - [test/mock-wrapper/numbers-many-data-feeds.test.ts](test/mock-wrapper/numbers-many-data-feeds.test.ts)
-  - 3. Use case with bytes data (single asset at once)
-    - [contracts/samples/SampleRedstoneConsumerBytesMock.sol](contracts/samples/SampleRedstoneConsumerBytesMock.sol)
-    - [test/mock-wrapper/bytes.test.ts](test/mock-wrapper/bytes.test.ts)
-  - 4. Use case with bytes data (several asset at once)
-    - [contracts/samples/SampleRedstoneConsumerBytesMockManyDataFeeds.sol](contracts/samples/SampleRedstoneConsumerBytesMockManyDataFeeds.sol)
-    - [test/mock-wrapper/bytes-many-data-feeds.test.ts](test/mock-wrapper/bytes-many-data-feeds.test.ts)
-  - 5. Use case with calldata proxying
-    - [contracts/samples/SampleProxyConnector.sol](contracts/samples/SampleProxyConnector.sol)
-    - [test/mock-wrapper/proxy-connector.test.ts](test/mock-wrapper/proxy-connector.test.ts)
-  - 6. Rest os tests (you can safely skip SampleSyntheticToken.sol and synthetic-token.test.ts, as it was added just to test a bigger use case)
+    1. Use case with numeric data (single asset at once)
+        - [contracts/samples/SampleRedstoneConsumerNumericMock.sol](contracts/samples/SampleRedstoneConsumerNumericMock.sol)
+        - [test/mock-wrapper/numbers.test.ts](test/mock-wrapper/numbers.test.ts)
+    2. Use case with numeric data (several assets at once)
+        - [contracts/samples/SampleRedstoneConsumerNumericMockManyDataFeeds.sol](contracts/samples/SampleRedstoneConsumerNumericMockManyDataFeeds.sol)
+        - [test/mock-wrapper/numbers-many-data-feeds.test.ts](test/mock-wrapper/numbers-many-data-feeds.test.ts)
+    3. Use case with bytes data (single asset at once)
+        - [contracts/samples/SampleRedstoneConsumerBytesMock.sol](contracts/samples/SampleRedstoneConsumerBytesMock.sol)
+        - [test/mock-wrapper/bytes.test.ts](test/mock-wrapper/bytes.test.ts)
+    4. Use case with bytes data (several asset at once)
+        - [contracts/samples/SampleRedstoneConsumerBytesMockManyDataFeeds.sol](contracts/samples/SampleRedstoneConsumerBytesMockManyDataFeeds.sol)
+        - [test/mock-wrapper/bytes-many-data-feeds.test.ts](test/mock-wrapper/bytes-many-data-feeds.test.ts)
+    5. Use case with calldata proxying
+        - [contracts/samples/SampleProxyConnector.sol](contracts/samples/SampleProxyConnector.sol)
+        - [test/mock-wrapper/proxy-connector.test.ts](test/mock-wrapper/proxy-connector.test.ts)
+    6. Rest of tests (you can safely skip SampleSyntheticToken.sol and synthetic-token.test.ts, as it was added just to test a bigger use case)
 5. Read and audit smart contracts in the [evm-connector/contracts/core](./contracts/core/). There are some bytes-based magic tricks (esp. in RedstoneConsumerBytesBase.sol), but we've tried to add as many comments as possible to make it more readable :)
 
 ## Potential risks / Audit goals
