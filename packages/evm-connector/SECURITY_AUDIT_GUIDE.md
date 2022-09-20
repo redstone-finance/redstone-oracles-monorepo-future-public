@@ -49,3 +49,29 @@ However, this is quite unlikely that this kind of a publicly available message w
 
 ### 2. Blocking data service by one corrupted participant
 If at least one signed data package attached to a transaction will be corrupted, then the transaction will fail. That's why we will implement an off-chain validation mechanism and will not attach incorrectly signed data packages to the transactions.
+
+### 3. Arbitrage opportunities
+Assume that data providers update data every 10 seconds, but smart contracts accept data not older than 3 minutes (180 seconds) from current `block.timestamp`. Then for some use cases (e.g. synthetic exchange) it creates obvious arbitrage opportunities for attackers, as they can select any of ~18 available signed data packages with different values and try to use them to gain profits. To solve this problem, protocols that rely on redstone oracles can create a kind of data caching based on the smart contract storage with the following logic described in the pseudo-code below:
+
+```js
+uint256 constant CACHE_TTL_SECONDS = 60;
+
+uint256 lastCachedEthPrice;
+uint256 lastEthPriceUpdateTimestamp;
+
+function getEthPriceUsingCache() private view returns(uint256) {
+    if (lastEthPriceUpdateTimestamp + CACHE_TTL_SECONDS < block.timestamp) {
+        // Cache expired, updating the cache...
+        lastCachedEthPrice = getOracleNumericValueFromTxMsg(bytes32("ETH"));
+        lastEthPriceUpdateTimestamp = block.timestamp;
+    }
+    return lastCachedEthPrice;
+}
+
+function doSomeAction() {
+    uint256 ethPrice = getEthPriceUsingCache();
+    // ... any logic based on the price
+    // Thanks to the caching it's not possible to pass different
+    // signed data packages in order to gain profits from arbitrage actions
+}
+```
