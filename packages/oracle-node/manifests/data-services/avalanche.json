@@ -219,6 +219,14 @@
     "SAV2": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
+    },
+    "TJ_AVAX_USDC_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "PNG_AVAX_USDC_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
     }
   }
 }
