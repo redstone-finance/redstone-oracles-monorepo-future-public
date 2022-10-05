@@ -6295,12 +6295,6 @@
       ],
       "maxPriceDeviationPercent": 80
     },
-    "YY_TJ_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ],
-      "maxPriceDeviationPercent": 80
-    },
     "TFUEL": {
       "source": [
         "binance"
