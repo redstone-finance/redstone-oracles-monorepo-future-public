@@ -5,6 +5,7 @@ import {
   getDataServiceIdForSigner,
   getOracleRegistryState,
 } from "redstone-sdk";
+import config from "../config";
 import {
   BulkPostRequestBody,
   DataPackagesResponse,
@@ -81,10 +82,10 @@ export class DataPackagesService {
     signerAddress: string
   ) {
     const oracleRegistryState = await getOracleRegistryState();
-    const dataServiceId = getDataServiceIdForSigner(
-      oracleRegistryState,
-      signerAddress
-    );
+
+    const dataServiceId = config.mockDataServiceIdForPackages
+      ? "mock-data-service-id"
+      : getDataServiceIdForSigner(oracleRegistryState, signerAddress);
 
     const dataPackagesForSaving = receivedDataPackages.map(
       (receivedDataPackage) => {

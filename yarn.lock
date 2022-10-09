@@ -2553,6 +2553,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.45.tgz#2c0fafd78705e7a18b7906b5201a522719dc5190"
   integrity sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==
 
+"@types/node@^18.7.16":
+  version "18.7.16"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.16.tgz#0eb3cce1e37c79619943d2fd903919fc30850601"
+  integrity sha512-EQHhixfu+mkqHMZl1R2Ovuvn47PUw18azMJOTwSZr9/fhzHNGXAJ0ma0dayRVchprpCj0Kc1K1xKoWaATWF1qg==
+
 "@types/node@^8.0.0":
   version "8.10.66"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.66.tgz#dd035d409df322acc83dff62a602f12a5783bbb3"
@@ -5072,10 +5077,10 @@ caseless@^0.12.0, caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==
 
-ccxt@1.92.65:
-  version "1.92.65"
-  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-1.92.65.tgz#13f61382d71a03b466dca970603354fa6da23993"
-  integrity sha512-HJZ7lGUCigZn8QJ5H34qB3O3E3Kmu1RBvdi7k3aGPDCKil70hdrprHsz2U7ukaEwirgI2NS0PLV/X4O1CBVcoA==
+ccxt@^1.94.12:
+  version "1.94.12"
+  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-1.94.12.tgz#cf6222757285632e51caeeb7f6756fd7dae743fe"
+  integrity sha512-fAdkm6c0J6lu152LmyKcNoCFYsTAAor80hhcCqwVTB0Aro4kMMdRnzIBIBaH5AqYrPWccLkAkZJKWqagNwozMg==
 
 chai@^4.3.6:
   version "4.3.6"

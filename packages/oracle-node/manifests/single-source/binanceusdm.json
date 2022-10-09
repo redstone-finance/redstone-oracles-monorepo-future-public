@@ -1,18 +1,12 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["binanceusdm"],
+  "defaultSource": [
+    "binanceusdm"
+  ],
   "sourceTimeout": 50000,
   "maxPriceDeviationPercent": 25,
   "evmChainId": 1,
-  "httpBroadcasterURLs": [
-    "https://api.redstone.finance",
-    "https://vwx3eni8c7.eu-west-1.awsapprunner.com",
-    "https://container-service-1.dv9sai71f4rsq.eu-central-1.cs.amazonlightsail.com"
-  ],
-  "enableStreamrBroadcaster": false,
-  "disableSinglePricesBroadcastingInStreamr": true,
-  "enableArweaveBackup": false,
   "tokens": {
     "DOGE": {},
     "BTC": {},
@@ -21,6 +15,7 @@
     "XRP": {},
     "KAVA": {},
     "BCH": {},
+    "TRX": {},
     "AAVE": {},
     "AXS": {},
     "COMP": {},
@@ -45,6 +40,7 @@
     "1INCH": {},
     "QTUM": {},
     "XLM": {},
+    "ADA": {},
     "NEAR": {},
     "ENJ": {},
     "MATIC": {},
@@ -56,10 +52,8 @@
     "ETC": {},
     "ONT": {},
     "DOT": {},
-    "TRX": {},
     "SNX": {},
     "EGLD": {},
-    "ADA": {},
     "FTM": {},
     "COTI": {},
     "XTZ": {},
@@ -76,6 +70,7 @@
     "ANKR": {},
     "SOL": {},
     "GRT": {},
+    "SAND": {},
     "MKR": {},
     "HBAR": {},
     "YFI": {},
@@ -101,7 +96,6 @@
     "STORJ": {},
     "BAL": {},
     "BLZ": {},
-    "SAND": {},
     "OCEAN": {},
     "RSR": {},
     "TRB": {},
@@ -117,7 +111,6 @@
     "LIT": {},
     "SFP": {},
     "ALICE": {},
-    "TLM": {},
     "BAKE": {},
     "ICP": {},
     "GTC": {}
