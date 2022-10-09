@@ -7,6 +7,7 @@ const GITHUB_REPO_LINK =
 export class AppController {
   @Get()
   getRootRouteResponse(): string {
+    console.log("Received a request to the root route");
     return (
       `Hello! This is an instance of redstone-cache-service. ` +
       `You can find more information at: ${GITHUB_REPO_LINK}`
