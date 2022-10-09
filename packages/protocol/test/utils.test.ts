@@ -69,4 +69,14 @@ describe("Utils", () => {
       "Overflow: value: 42.1234567, decimals: 10, byteSize: 4"
     );
   });
+
+  test("Should round fractional component if it exceeds decimal", () => {
+    expect(() => convertNumberToBytes(42.123456789, 8, 32, false)).toThrow(
+      "fractional component exceeds decimals"
+    );
+
+    expect(hexlify(convertNumberToBytes(42.123456789, 8, 32))).toBe(
+      "0x00000000000000000000000000000000000000000000000000000000fb134b4f"
+    );
+  });
 });

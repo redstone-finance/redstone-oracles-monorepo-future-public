@@ -1,22 +1,17 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["bequant"],
+  "defaultSource": [
+    "bequant"
+  ],
   "sourceTimeout": 50000,
   "maxPriceDeviationPercent": 25,
   "evmChainId": 1,
-  "httpBroadcasterURLs": [
-    "https://api.redstone.finance",
-    "https://vwx3eni8c7.eu-west-1.awsapprunner.com",
-    "https://container-service-1.dv9sai71f4rsq.eu-central-1.cs.amazonlightsail.com"
-  ],
-  "enableStreamrBroadcaster": false,
-  "disableSinglePricesBroadcastingInStreamr": true,
-  "enableArweaveBackup": false,
   "tokens": {
     "BTC": {},
     "XRP": {},
     "BCH": {},
+    "TRX": {},
     "LTC": {},
     "UNI": {},
     "ETH": {},
@@ -26,9 +21,8 @@
     "ALGO": {},
     "LINK": {},
     "XLM": {},
-    "NEO": {},
-    "TRX": {},
     "ADA": {},
+    "NEO": {},
     "XTZ": {},
     "ZRX": {},
     "ZEC": {},
@@ -39,7 +33,6 @@
     "HBAR": {},
     "NEXO": {},
     "BTG": {},
-    "YFI": {},
-    "MFT": {}
+    "YFI": {}
   }
 }

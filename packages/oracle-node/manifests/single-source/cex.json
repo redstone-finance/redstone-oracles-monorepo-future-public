@@ -1,18 +1,12 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["cex"],
+  "defaultSource": [
+    "cex"
+  ],
   "sourceTimeout": 50000,
   "maxPriceDeviationPercent": 25,
   "evmChainId": 1,
-  "httpBroadcasterURLs": [
-    "https://api.redstone.finance",
-    "https://vwx3eni8c7.eu-west-1.awsapprunner.com",
-    "https://container-service-1.dv9sai71f4rsq.eu-central-1.cs.amazonlightsail.com"
-  ],
-  "enableStreamrBroadcaster": false,
-  "disableSinglePricesBroadcastingInStreamr": true,
-  "enableArweaveBackup": false,
   "tokens": {
     "DOGE": {},
     "BTC": {},
@@ -20,6 +14,7 @@
     "XRP": {},
     "KAVA": {},
     "BCH": {},
+    "TRX": {},
     "AAVE": {},
     "COMP": {},
     "LTC": {},
@@ -35,16 +30,15 @@
     "LINK": {},
     "1INCH": {},
     "XLM": {},
+    "ADA": {},
     "MATIC": {},
     "LRC": {},
     "NEO": {},
     "ZIL": {},
     "ONT": {},
     "DOT": {},
-    "TRX": {},
     "SNX": {},
     "ONG": {},
-    "ADA": {},
     "AKRO": {},
     "COTI": {},
     "XTZ": {},
@@ -52,12 +46,13 @@
     "ZRX": {},
     "BAND": {},
     "CRV": {},
-    "USDC": {},
+    "USDT": {},
     "BAT": {},
     "HOT": {},
     "MKR": {},
     "YFI": {},
     "TUSD": {},
+    "USDC": {},
     "FUN": {},
     "CVC": {},
     "BUSD": {},
@@ -75,7 +70,6 @@
     "UMA": {},
     "UTK": {},
     "DNT": {},
-    "USDT": {},
     "GLM": {},
     "RENBTC": {},
     "MHC": {},
@@ -83,7 +77,6 @@
     "GUSD": {},
     "LAMB": {},
     "AWG": {},
-    "AWX": {},
-    "XSGD": {}
+    "AWX": {}
   }
 }

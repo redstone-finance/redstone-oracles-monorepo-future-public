@@ -5,6 +5,7 @@ interface CacheServiceConfigRequiredFields {
   mongoDbUrl: string;
   enableStreamrListening: boolean;
   enableDirectPostingRoutes: boolean;
+  mockDataServiceIdForPackages: boolean;
 }
 
 type CacheServiceConfig =
@@ -35,6 +36,8 @@ const config = {
   enableDirectPostingRoutes: getEnv("ENABLE_DIRECT_POSTING_ROUTES") === "true",
   enableArchivingOnArweave: !!arweaveJwkKeyForArchiving,
   bundlrNodeUrl: getEnv("BUNDLR_NODE_URL", false) || DEFAULT_BUNDLR_NODE_URL,
+  mockDataServiceIdForPackages:
+    getEnv("MOCK_DATA_SERVICE_ID_FOR_PACKAGES", false) === "true",
 } as CacheServiceConfig;
 
 if (config.enableArchivingOnArweave) {

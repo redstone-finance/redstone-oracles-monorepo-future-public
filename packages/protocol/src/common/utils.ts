@@ -31,9 +31,13 @@ export const convertStringToBytes32 = (str: string): Uint8Array => {
 export const convertNumberToBytes = (
   value: NumberLike,
   decimals: number,
-  byteSize: number
+  byteSize: number,
+  roundFractionalComponentIfExceedsDecimals: boolean = true
 ): Uint8Array => {
-  const bigNumberValue = parseUnits(String(value), decimals);
+  const stringifiedNumber = roundFractionalComponentIfExceedsDecimals
+    ? Number(value).toFixed(decimals)
+    : String(value);
+  const bigNumberValue = parseUnits(stringifiedNumber, decimals);
   const bytesValue = arrayify(bigNumberValue.toHexString());
 
   if (byteSize < bytesValue.length) {
