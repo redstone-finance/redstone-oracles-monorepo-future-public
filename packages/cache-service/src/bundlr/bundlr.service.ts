@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { CachedDataPackage } from "../data-packages/data-packages.model";
 import Bundlr from "@bundlr-network/client";
 import config from "../config";
@@ -7,6 +7,7 @@ const REDSTONE_TYPE_TAG_VALUE = "redstone-oracles";
 
 @Injectable()
 export class BundlrService {
+  private readonly logger = new Logger(BundlrService.name);
   private bundlrClient: Bundlr;
 
   constructor() {
@@ -23,7 +24,7 @@ export class BundlrService {
     try {
       await this.saveDataPackages(dataPackages);
     } catch (e) {
-      console.error("Error occured while saving to Bundlr", e.stack);
+      this.logger.error("Error occured while saving to Bundlr", e.stack);
     }
   }
 
@@ -56,10 +57,10 @@ export class BundlrService {
     });
 
     await tx.sign();
-    console.log(`Tx signed: ${tx.id}`);
+    this.logger.log(`Tx signed: ${tx.id}`);
 
     await tx.upload();
-    console.log(`Tx uploaded: ${tx.id}`);
+    this.logger.log(`Tx uploaded: ${tx.id}`);
   }
 
   // TOOD: maybe use gzip compression in future
