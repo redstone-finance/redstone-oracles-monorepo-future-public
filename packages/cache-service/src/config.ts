@@ -18,7 +18,7 @@ type CacheServiceConfig =
 
 const DEFAULT_BUNDLR_NODE_URL = "https://node2.bundlr.network";
 
-const getEnv = (envName: string, required: boolean = true): string => {
+const getEnv = (envName: string, required = true): string => {
   if (!process.env[envName] && required) {
     throw new Error(`Required env variable not found: ${envName}`);
   }
