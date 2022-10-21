@@ -3253,6 +3253,15 @@
       ],
       "maxPriceDeviationPercent": 80
     },
+    "APT": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "coingecko",
+        "huobipro"
+      ],
+      "maxPriceDeviationPercent": 80
+    },
     "REQ": {
       "source": [
         "bitfinex",
