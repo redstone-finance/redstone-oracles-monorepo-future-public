@@ -381,7 +381,8 @@
     "VRO": {},
     "SWISE": {},
     "ZB": {},
-    "SYLO": {}
+    "SYLO": {},
+    "APT": {}
   },
   "defaultSource": ["coingecko"]
 }
