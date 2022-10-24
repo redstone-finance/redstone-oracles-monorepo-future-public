@@ -6,7 +6,6 @@
   "maxPriceDeviationPercent": 25,
   "httpBroadcasterURLs": ["https://httpbin.org/anything"],
   "enableStreamrBroadcaster": false,
-  "disableSinglePricesBroadcastingInStreamr": true,
   "enableArweaveBackup": false,
   "evmChainId": 1,
   "tokens": {

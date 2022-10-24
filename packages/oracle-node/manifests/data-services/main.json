@@ -10,7 +10,6 @@
     "https://container-service-1.dv9sai71f4rsq.eu-central-1.cs.amazonlightsail.com"
   ],
   "enableStreamrBroadcaster": false,
-  "disableSinglePricesBroadcastingInStreamr": true,
   "tokens": {
     "BTC": {
       "source": [
@@ -2616,14 +2615,7 @@
       "maxPriceDeviationPercent": 80
     },
     "PAXG": {
-      "source": [
-        "binance",
-        "binanceus",
-        "cex",
-        "ftx",
-        "hitbtc",
-        "kraken"
-      ],
+      "source": ["binance", "binanceus", "cex", "ftx", "hitbtc", "kraken"],
       "maxPriceDeviationPercent": 80
     },
     "CELO": {
@@ -2638,14 +2630,7 @@
       "maxPriceDeviationPercent": 80
     },
     "DODO": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "ftx",
-        "hitbtc",
-        "kucoin",
-        "lbank"
-      ],
+      "source": ["binance", "bitcoincom", "ftx", "hitbtc", "kucoin", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "ALICE": {
@@ -2748,104 +2733,43 @@
       "maxPriceDeviationPercent": 80
     },
     "OKB": {
-      "source": [
-        "coingecko",
-        "ftx",
-        "lbank",
-        "okex5",
-        "poloniex",
-        "probit"
-      ],
+      "source": ["coingecko", "ftx", "lbank", "okex5", "poloniex", "probit"],
       "maxPriceDeviationPercent": 25
     },
     "UFT": {
-      "source": [
-        "ascendex",
-        "coingecko",
-        "latoken",
-        "mexc",
-        "wazirx"
-      ],
+      "source": ["ascendex", "coingecko", "latoken", "mexc", "wazirx"],
       "maxPriceDeviationPercent": 80
     },
     "VRA": {
-      "source": [
-        "ascendex",
-        "bittrex",
-        "kucoin",
-        "okex5",
-        "probit"
-      ],
+      "source": ["ascendex", "bittrex", "kucoin", "okex5", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "WIN": {
-      "source": [
-        "binance",
-        "hitbtc",
-        "kucoin",
-        "lbank",
-        "poloniex"
-      ],
+      "source": ["binance", "hitbtc", "kucoin", "lbank", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "STX": {
-      "source": [
-        "binance",
-        "coinbaseprime",
-        "coinbasepro",
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["binance", "coinbaseprime", "coinbasepro", "kucoin", "okex5"],
       "maxPriceDeviationPercent": 25
     },
     "EUR": {
-      "source": [
-        "binance",
-        "currencycom",
-        "ecb",
-        "ftx",
-        "kraken"
-      ],
+      "source": ["binance", "currencycom", "ecb", "ftx", "kraken"],
       "maxPriceDeviationPercent": 25
     },
     "WRX": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "ftx",
-        "hitbtc",
-        "poloniex"
-      ],
+      "source": ["binance", "bitcoincom", "ftx", "hitbtc", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "STMX": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bittrex",
-        "ftx",
-        "kucoin"
-      ],
+      "source": ["binance", "binanceusdm", "bittrex", "ftx", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "GBP": {
-      "source": [
-        "binance",
-        "currencycom",
-        "ecb",
-        "ftx",
-        "kraken"
-      ],
+      "source": ["binance", "currencycom", "ecb", "ftx", "kraken"],
       "maxPriceDeviationPercent": 25
     },
     "DCR": {
-      "source": [
-        "binance",
-        "bittrex",
-        "coingecko",
-        "hitbtc",
-        "okex5"
-      ],
+      "source": ["binance", "bittrex", "coingecko", "hitbtc", "okex5"],
       "maxPriceDeviationPercent": 25
     },
     "BLZ": {
@@ -2859,13 +2783,7 @@
       "maxPriceDeviationPercent": 80
     },
     "XVS": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "coingecko",
-        "hitbtc",
-        "poloniex"
-      ],
+      "source": ["binance", "bitcoincom", "coingecko", "hitbtc", "poloniex"],
       "maxPriceDeviationPercent": 25
     },
     "UNFI": {
@@ -2879,33 +2797,15 @@
       "maxPriceDeviationPercent": 80
     },
     "ROSE": {
-      "source": [
-        "binance",
-        "coinbaseprime",
-        "coinbasepro",
-        "kucoin",
-        "lbank"
-      ],
+      "source": ["binance", "coinbaseprime", "coinbasepro", "kucoin", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "AVA": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "hitbtc",
-        "kucoin",
-        "poloniex"
-      ],
+      "source": ["binance", "bitcoincom", "hitbtc", "kucoin", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "SFP": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "hitbtc",
-        "lbank"
-      ],
+      "source": ["binance", "binanceusdm", "bitcoincom", "hitbtc", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "SUPER": {
@@ -2919,63 +2819,27 @@
       "maxPriceDeviationPercent": 80
     },
     "PUNDIX": {
-      "source": [
-        "binance",
-        "bittrex",
-        "ftx",
-        "kucoin",
-        "probit"
-      ],
+      "source": ["binance", "bittrex", "ftx", "kucoin", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "TORN": {
-      "source": [
-        "binance",
-        "lbank",
-        "poloniex",
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["binance", "lbank", "poloniex", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "KLAY": {
-      "source": [
-        "binance",
-        "bittrex",
-        "lbank",
-        "okex5",
-        "probit"
-      ],
+      "source": ["binance", "bittrex", "lbank", "okex5", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "GHST": {
-      "source": [
-        "bitcoincom",
-        "hitbtc",
-        "kraken",
-        "lbank",
-        "okex5"
-      ],
+      "source": ["bitcoincom", "hitbtc", "kraken", "lbank", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "CLO": {
-      "source": [
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "hitbtc",
-        "stex"
-      ],
+      "source": ["bitcoincom", "bitfinex", "bitfinex2", "hitbtc", "stex"],
       "maxPriceDeviationPercent": 80
     },
     "KLV": {
-      "source": [
-        "bitcoincom",
-        "bittrex",
-        "hitbtc",
-        "kucoin",
-        "poloniex"
-      ],
+      "source": ["bitcoincom", "bittrex", "hitbtc", "kucoin", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "PAX": {
@@ -2989,13 +2853,7 @@
       "maxPriceDeviationPercent": 25
     },
     "GAS": {
-      "source": [
-        "cex",
-        "hitbtc",
-        "kucoin",
-        "okex5",
-        "probit"
-      ],
+      "source": ["cex", "hitbtc", "kucoin", "okex5", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "WAVAX": {
@@ -3009,248 +2867,111 @@
       "maxPriceDeviationPercent": 80
     },
     "ZKS": {
-      "source": [
-        "huobipro",
-        "lbank",
-        "okex5",
-        "poloniex",
-        "probit"
-      ],
+      "source": ["huobipro", "lbank", "okex5", "poloniex", "probit"],
       "maxPriceDeviationPercent": 25
     },
     "KP3R": {
-      "source": [
-        "lbank",
-        "okex5",
-        "poloniex",
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["lbank", "okex5", "poloniex", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "FIDA": {
-      "source": [
-        "ascendex",
-        "coinbaseprime",
-        "coinbasepro",
-        "ftx"
-      ],
+      "source": ["ascendex", "coinbaseprime", "coinbasepro", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "UOS": {
-      "source": [
-        "ascendex",
-        "bitfinex",
-        "bitfinex2",
-        "kucoin"
-      ],
+      "source": ["ascendex", "bitfinex", "bitfinex2", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "OXY": {
-      "source": [
-        "ascendex",
-        "bitfinex",
-        "bitfinex2",
-        "ftx"
-      ],
+      "source": ["ascendex", "bitfinex", "bitfinex2", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "ONG": {
-      "source": [
-        "ascendex",
-        "binance",
-        "cex",
-        "probit"
-      ],
+      "source": ["ascendex", "binance", "cex", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "OM": {
-      "source": [
-        "ascendex",
-        "binance",
-        "okex5",
-        "poloniex"
-      ],
+      "source": ["ascendex", "binance", "okex5", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "KCS": {
-      "source": [
-        "ascendex",
-        "kucoin",
-        "poloniex",
-        "probit"
-      ],
+      "source": ["ascendex", "kucoin", "poloniex", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "CELR": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "lbank",
-        "okex5"
-      ],
+      "source": ["binance", "binanceusdm", "lbank", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "DENT": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "ftx",
-        "hitbtc"
-      ],
+      "source": ["binance", "binanceusdm", "ftx", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "FUN": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "cex"
-      ],
+      "source": ["binance", "bitfinex", "bitfinex2", "cex"],
       "maxPriceDeviationPercent": 80
     },
     "BTS": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "huobipro",
-        "probit"
-      ],
+      "source": ["binance", "binanceusdm", "huobipro", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "HIVE": {
-      "source": [
-        "binance",
-        "bittrex",
-        "huobipro",
-        "probit"
-      ],
+      "source": ["binance", "bittrex", "huobipro", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "VTHO": {
-      "source": [
-        "binance",
-        "binanceus",
-        "hitbtc",
-        "oceanex"
-      ],
+      "source": ["binance", "binanceus", "hitbtc", "oceanex"],
       "maxPriceDeviationPercent": 80
     },
     "AUD": {
-      "source": [
-        "binance",
-        "currencycom",
-        "ecb",
-        "kraken"
-      ],
+      "source": ["binance", "currencycom", "ecb", "kraken"],
       "maxPriceDeviationPercent": 25
     },
     "WNXM": {
-      "source": [
-        "binance",
-        "huobipro",
-        "okex5",
-        "poloniex"
-      ],
+      "source": ["binance", "huobipro", "okex5", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "HNT": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "ftx"
-      ],
+      "source": ["binance", "binanceus", "binanceusdm", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "FLM": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "lbank",
-        "okex5"
-      ],
+      "source": ["binance", "binanceusdm", "lbank", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "INJ": {
-      "source": [
-        "binance",
-        "hitbtc",
-        "huobipro",
-        "poloniex"
-      ],
+      "source": ["binance", "hitbtc", "huobipro", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "AUDIO": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "ftx",
-        "hitbtc"
-      ],
+      "source": ["binance", "bitcoincom", "ftx", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "DNT": {
-      "source": [
-        "binance",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["binance", "cex", "coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "BAKE": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["binance", "binanceusdm", "bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "SLP": {
-      "source": [
-        "binance",
-        "ftx",
-        "hitbtc",
-        "lbank"
-      ],
+      "source": ["binance", "ftx", "hitbtc", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "AR": {
-      "source": [
-        "binance",
-        "coingecko",
-        "hitbtc",
-        "huobipro"
-      ],
+      "source": ["binance", "coingecko", "hitbtc", "huobipro"],
       "maxPriceDeviationPercent": 25
     },
     "MDX": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "hitbtc",
-        "huobipro"
-      ],
+      "source": ["binance", "bitcoincom", "hitbtc", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "PHA": {
-      "source": [
-        "binance",
-        "huobipro",
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["binance", "huobipro", "kucoin", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "BOND": {
-      "source": [
-        "binance",
-        "coinbaseprime",
-        "coinbasepro",
-        "kucoin"
-      ],
+      "source": ["binance", "coinbaseprime", "coinbasepro", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "APT": {
@@ -3263,5599 +2984,3435 @@
       "maxPriceDeviationPercent": 80
     },
     "REQ": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["bitfinex", "bitfinex2", "coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "BOSON": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "kucoin",
-        "lbank"
-      ],
+      "source": ["bitfinex", "bitfinex2", "kucoin", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "KAN": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["bitfinex", "bitfinex2", "huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "AMPL": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "ftx",
-        "kucoin"
-      ],
+      "source": ["bitfinex", "bitfinex2", "ftx", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "VELO": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["bitfinex", "bitfinex2", "kucoin", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "AMP": {
-      "source": [
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "poloniex"
-      ],
+      "source": ["bittrex", "coinbaseprime", "coinbasepro", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "STEEM": {
-      "source": [
-        "bittrex",
-        "huobipro",
-        "poloniex",
-        "probit"
-      ],
+      "source": ["bittrex", "huobipro", "poloniex", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "AAPL": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx",
-        "yf-unofficial"
-      ],
+      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "CUSD": {
-      "source": [
-        "bittrex",
-        "coingecko",
-        "huobipro",
-        "kucoin"
-      ],
+      "source": ["bittrex", "coingecko", "huobipro", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "ELA": {
-      "source": [
-        "bittrex",
-        "huobipro",
-        "kucoin",
-        "probit"
-      ],
+      "source": ["bittrex", "huobipro", "kucoin", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "GME": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx",
-        "yf-unofficial"
-      ],
+      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "NFLX": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx",
-        "yf-unofficial"
-      ],
+      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "TSLA": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx",
-        "yf-unofficial"
-      ],
+      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "QUICK": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "lbank",
-        "poloniex"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "lbank", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "QNT": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "kucoin",
-        "uniswap"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "kucoin", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "APE": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "yf-unofficial"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "coingecko", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "TRU": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "CLV": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "ftx",
-        "kucoin"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "ftx", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "FARM": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "CRPT": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "kucoin"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "hitbtc", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "sAVAX": {
-      "source": [
-        "coingecko",
-        "pangolin-wavax",
-        "platypus",
-        "trader-joe"
-      ],
+      "source": ["coingecko", "pangolin-wavax", "platypus", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
     "CQT": {
-      "source": [
-        "ftx",
-        "kraken",
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["ftx", "kraken", "kucoin", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "MTA": {
-      "source": [
-        "ftx",
-        "huobipro",
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["ftx", "huobipro", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "ORBS": {
-      "source": [
-        "ftx",
-        "kucoin",
-        "okex5",
-        "probit"
-      ],
+      "source": ["ftx", "kucoin", "okex5", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "NFT": {
-      "source": [
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "poloniex"
-      ],
+      "source": ["hitbtc", "huobipro", "kucoin", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "SWFTC": {
-      "source": [
-        "hitbtc",
-        "huobipro",
-        "okex5",
-        "poloniex"
-      ],
+      "source": ["hitbtc", "huobipro", "okex5", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "XCH": {
-      "source": [
-        "hitbtc",
-        "huobipro",
-        "lbank",
-        "okex5"
-      ],
+      "source": ["hitbtc", "huobipro", "lbank", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "DAO": {
-      "source": [
-        "kucoin",
-        "okex5",
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["kucoin", "okex5", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "SWINGBY": {
-      "source": [
-        "ascendex",
-        "kucoin",
-        "poloniex"
-      ],
+      "source": ["ascendex", "kucoin", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "CSPR": {
-      "source": [
-        "ascendex",
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["ascendex", "huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "BVOL": {
-      "source": [
-        "ascendex",
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ascendex", "ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "ELF": {
-      "source": [
-        "ascendex",
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["ascendex", "huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "CUDOS": {
-      "source": [
-        "ascendex",
-        "kucoin",
-        "poloniex"
-      ],
+      "source": ["ascendex", "kucoin", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "RFUEL": {
-      "source": [
-        "ascendex",
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["ascendex", "kucoin", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "JULD": {
-      "source": [
-        "ascendex",
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["ascendex", "bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "ASD": {
-      "source": [
-        "ascendex",
-        "ftx",
-        "kucoin"
-      ],
+      "source": ["ascendex", "ftx", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "HGET": {
-      "source": [
-        "ascendex",
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ascendex", "ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "WOO": {
-      "source": [
-        "ascendex",
-        "huobipro",
-        "lbank"
-      ],
+      "source": ["ascendex", "huobipro", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "HAPI": {
-      "source": [
-        "ascendex",
-        "cex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "cex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "FIO": {
-      "source": [
-        "ascendex",
-        "binance",
-        "liquid"
-      ],
+      "source": ["ascendex", "binance", "liquid"],
       "maxPriceDeviationPercent": 80
     },
     "FIS": {
-      "source": [
-        "ascendex",
-        "binance",
-        "huobipro"
-      ],
+      "source": ["ascendex", "binance", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "PROM": {
-      "source": [
-        "ascendex",
-        "ftx",
-        "kucoin"
-      ],
+      "source": ["ascendex", "ftx", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "NULS": {
-      "source": [
-        "binance",
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["binance", "huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "MITH": {
-      "source": [
-        "binance",
-        "hitbtc",
-        "okex5"
-      ],
+      "source": ["binance", "hitbtc", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "DUSK": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["binance", "bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "MTL": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "ftx"
-      ],
+      "source": ["binance", "binanceusdm", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "IOTX": {
-      "source": [
-        "binance",
-        "bittrex",
-        "huobipro"
-      ],
+      "source": ["binance", "bittrex", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "CTXC": {
-      "source": [
-        "binance",
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["binance", "huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "STPT": {
-      "source": [
-        "binance",
-        "huobipro",
-        "poloniex"
-      ],
+      "source": ["binance", "huobipro", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "ARDR": {
-      "source": [
-        "binance",
-        "hitbtc",
-        "probit"
-      ],
+      "source": ["binance", "hitbtc", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "PNT": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["binance", "bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "KMD": {
-      "source": [
-        "binance",
-        "hitbtc",
-        "kucoin"
-      ],
+      "source": ["binance", "hitbtc", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "FIRO": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["binance", "bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "LIT": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "lbank"
-      ],
+      "source": ["binance", "binanceusdm", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "TLM": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["binance", "bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "ERN": {
-      "source": [
-        "binance",
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["binance", "coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "SATT": {
-      "source": [
-        "bitcoincom",
-        "hitbtc",
-        "probit"
-      ],
+      "source": ["bitcoincom", "hitbtc", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "HYDRA": {
-      "source": [
-        "bitcoincom",
-        "hitbtc",
-        "kucoin"
-      ],
+      "source": ["bitcoincom", "hitbtc", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "RSV": {
-      "source": [
-        "bitcoincom",
-        "bittrex",
-        "liquid"
-      ],
+      "source": ["bitcoincom", "bittrex", "liquid"],
       "maxPriceDeviationPercent": 80
     },
     "GNO": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "kraken"
-      ],
+      "source": ["bitfinex", "bitfinex2", "kraken"],
       "maxPriceDeviationPercent": 80
     },
     "MOB": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "ftx"
-      ],
+      "source": ["bitfinex", "bitfinex2", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "ETP": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "hitbtc"
-      ],
+      "source": ["bitfinex", "bitfinex2", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "LYM": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "kucoin"
-      ],
+      "source": ["bitfinex", "bitfinex2", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "IQ": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "okex5"
-      ],
+      "source": ["bitfinex", "bitfinex2", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "PNK": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "okex5"
-      ],
+      "source": ["bitfinex", "bitfinex2", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "EURS": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "hitbtc"
-      ],
+      "source": ["bitfinex", "bitfinex2", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "XAUT": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "ftx"
-      ],
+      "source": ["bitfinex", "bitfinex2", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "BEST": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "bittrex"
-      ],
+      "source": ["bitfinex", "bitfinex2", "bittrex"],
       "maxPriceDeviationPercent": 80
     },
     "ALBT": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "kucoin"
-      ],
+      "source": ["bitfinex", "bitfinex2", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "FCL": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "kucoin"
-      ],
+      "source": ["bitfinex", "bitfinex2", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "BEAR": {
-      "source": [
-        "bittrex",
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["bittrex", "ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "ETHBULL": {
-      "source": [
-        "bittrex",
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["bittrex", "ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "ABNB": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "AMD": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "ARKK": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "BABA": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "BNTX": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "CRON": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "DEXA": {
-      "source": [
-        "bittrex",
-        "liquid",
-        "probit"
-      ],
+      "source": ["bittrex", "liquid", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "FB": {
-      "source": [
-        "bittrex",
-        "ftx",
-        "yf-unofficial"
-      ],
+      "source": ["bittrex", "ftx", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "MRNA": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "NOK": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "PFE": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "PYPL": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "REV": {
-      "source": [
-        "bittrex",
-        "hitbtc",
-        "probit"
-      ],
+      "source": ["bittrex", "hitbtc", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "RFOX": {
-      "source": [
-        "bittrex",
-        "kucoin",
-        "liquid"
-      ],
+      "source": ["bittrex", "kucoin", "liquid"],
       "maxPriceDeviationPercent": 80
     },
     "TSM": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "TWTR": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "UBER": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "ZM": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["bittrex", "currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "LAMB": {
-      "source": [
-        "cex",
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["cex", "huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "ACH": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "KEEP": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "kraken"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "kraken"],
       "maxPriceDeviationPercent": 80
     },
     "RAD": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "lbank"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "VGX": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "coingecko"],
       "maxPriceDeviationPercent": 25
     },
     "ALCX": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "ftx"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "RLY": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "kucoin"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "AERGO": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "okex5"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "AIOZ": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "LOOM": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "huobipro"
-      ],
+      "source": ["coinbaseprime", "coinbasepro", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "PNG": {
-      "source": [
-        "coingecko",
-        "pangolin-wavax",
-        "trader-joe"
-      ],
+      "source": ["coingecko", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
     "SPORE": {
-      "source": [
-        "coingecko",
-        "pangolin-wavax",
-        "trader-joe"
-      ],
+      "source": ["coingecko", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
     "FRAX": {
-      "source": [
-        "coingecko",
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["coingecko", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "QI": {
-      "source": [
-        "coingecko",
-        "pangolin-wavax",
-        "trader-joe"
-      ],
+      "source": ["coingecko", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
     "YAK": {
-      "source": [
-        "coingecko",
-        "pangolin-wavax",
-        "trader-joe"
-      ],
+      "source": ["coingecko", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
     "AMZN": {
-      "source": [
-        "currencycom",
-        "ftx",
-        "yf-unofficial"
-      ],
+      "source": ["currencycom", "ftx", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "BYND": {
-      "source": [
-        "currencycom",
-        "ftx",
-        "yf-unofficial"
-      ],
+      "source": ["currencycom", "ftx", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "GT": {
-      "source": [
-        "ftx",
-        "huobipro",
-        "lbank"
-      ],
+      "source": ["ftx", "huobipro", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "BAO": {
-      "source": [
-        "ftx",
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["ftx", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "SENSO": {
-      "source": [
-        "hitbtc",
-        "kucoin",
-        "poloniex"
-      ],
+      "source": ["hitbtc", "kucoin", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "NWC": {
-      "source": [
-        "hitbtc",
-        "kucoin",
-        "stex"
-      ],
+      "source": ["hitbtc", "kucoin", "stex"],
       "maxPriceDeviationPercent": 80
     },
     "TT": {
-      "source": [
-        "hitbtc",
-        "huobipro",
-        "lbank"
-      ],
+      "source": ["hitbtc", "huobipro", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "BCD": {
-      "source": [
-        "hitbtc",
-        "okex5",
-        "probit"
-      ],
+      "source": ["hitbtc", "okex5", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "SWRV": {
-      "source": [
-        "hitbtc",
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["hitbtc", "huobipro", "okex5"],
       "maxPriceDeviationPercent": 25
     },
     "MXC": {
-      "source": [
-        "huobipro",
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["huobipro", "kucoin", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "LAT": {
-      "source": [
-        "huobipro",
-        "lbank",
-        "okex5"
-      ],
+      "source": ["huobipro", "lbank", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "WXT": {
-      "source": [
-        "huobipro",
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["huobipro", "kucoin", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "KAR": {
-      "source": [
-        "kraken",
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["kraken", "kucoin", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "PRQ": {
-      "source": [
-        "kucoin",
-        "okex5",
-        "poloniex"
-      ],
+      "source": ["kucoin", "okex5", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "ELON": {
-      "source": [
-        "kucoin",
-        "lbank",
-        "poloniex"
-      ],
+      "source": ["kucoin", "lbank", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "LON": {
-      "source": [
-        "kucoin",
-        "lbank",
-        "okex5"
-      ],
+      "source": ["kucoin", "lbank", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "XAVA": {
-      "source": [
-        "kucoin",
-        "pangolin-wavax",
-        "trader-joe"
-      ],
+      "source": ["kucoin", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
     "PICKLE": {
-      "source": [
-        "okex5",
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["okex5", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "MAPS": {
-      "source": [
-        "ascendex",
-        "ftx"
-      ],
+      "source": ["ascendex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "ZEE": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "GEEQ": {
-      "source": [
-        "ascendex",
-        "poloniex"
-      ],
+      "source": ["ascendex", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "CWS": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "XCAD": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "ROUTE": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "NIM": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "DIVI": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "TARA": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "BOLT": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "HARD": {
-      "source": [
-        "ascendex",
-        "binance"
-      ],
+      "source": ["ascendex", "binance"],
       "maxPriceDeviationPercent": 80
     },
     "MAHA": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "FRM": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "SWAP": {
-      "source": [
-        "ascendex",
-        "poloniex"
-      ],
+      "source": ["ascendex", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "MARSH": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "BEPRO": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "AKT": {
-      "source": [
-        "ascendex",
-        "bittrex"
-      ],
+      "source": ["ascendex", "bittrex"],
       "maxPriceDeviationPercent": 80
     },
     "NGM": {
-      "source": [
-        "ascendex",
-        "kucoin"
-      ],
+      "source": ["ascendex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "NSURE": {
-      "source": [
-        "ascendex",
-        "huobipro"
-      ],
+      "source": ["ascendex", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "C98": {
-      "source": [
-        "binance",
-        "ftx"
-      ],
+      "source": ["binance", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "GTO": {
-      "source": [
-        "binance",
-        "okex5"
-      ],
+      "source": ["binance", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "PERL": {
-      "source": [
-        "binance",
-        "hitbtc"
-      ],
+      "source": ["binance", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "DOCK": {
-      "source": [
-        "binance",
-        "huobipro"
-      ],
+      "source": ["binance", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "TCT": {
-      "source": [
-        "binance",
-        "okex5"
-      ],
+      "source": ["binance", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "MBL": {
-      "source": [
-        "binance",
-        "hitbtc"
-      ],
+      "source": ["binance", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "WTC": {
-      "source": [
-        "binance",
-        "huobipro"
-      ],
+      "source": ["binance", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "DATA": {
-      "source": [
-        "binance",
-        "hitbtc"
-      ],
+      "source": ["binance", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "IRIS": {
-      "source": [
-        "binance",
-        "huobipro"
-      ],
+      "source": ["binance", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "BEL": {
-      "source": [
-        "binance",
-        "binanceusdm"
-      ],
+      "source": ["binance", "binanceusdm"],
       "maxPriceDeviationPercent": 80
     },
     "WING": {
-      "source": [
-        "binance",
-        "okex5"
-      ],
+      "source": ["binance", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "NBS": {
-      "source": [
-        "binance",
-        "huobipro"
-      ],
+      "source": ["binance", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "CTK": {
-      "source": [
-        "binance",
-        "binanceusdm"
-      ],
+      "source": ["binance", "binanceusdm"],
       "maxPriceDeviationPercent": 80
     },
     "RIF": {
-      "source": [
-        "binance",
-        "hitbtc"
-      ],
+      "source": ["binance", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "DEGO": {
-      "source": [
-        "binance",
-        "kucoin"
-      ],
+      "source": ["binance", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "CFX": {
-      "source": [
-        "binance",
-        "okex5"
-      ],
+      "source": ["binance", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "ATA": {
-      "source": [
-        "binance",
-        "hitbtc"
-      ],
+      "source": ["binance", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "ACM": {
-      "source": [
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "SUPERBID": {
-      "source": [
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "NUT": {
-      "source": [
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "Cube": {
-      "source": [
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "ASP": {
-      "source": [
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "CCE": {
-      "source": [
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "INSUR": {
-      "source": [
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "LOC": {
-      "source": [
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "GASP": {
-      "source": [
-        "bitcoincom",
-        "hitbtc"
-      ],
+      "source": ["bitcoincom", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "RRT": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "ZCN": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "XRA": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "OMN": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "RBTC": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "EURT": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "PASS": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "BTSE": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "ETH2X": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "BMI": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "CHEX": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "QTF": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "PLANETS": {
-      "source": [
-        "bitfinex",
-        "bitfinex2"
-      ],
+      "source": ["bitfinex", "bitfinex2"],
       "maxPriceDeviationPercent": 80
     },
     "REVV": {
-      "source": [
-        "bittrex",
-        "kucoin"
-      ],
+      "source": ["bittrex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "PYR": {
-      "source": [
-        "bittrex",
-        "kucoin"
-      ],
+      "source": ["bittrex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "KDA": {
-      "source": [
-        "bittrex",
-        "kucoin"
-      ],
+      "source": ["bittrex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "ACB": {
-      "source": [
-        "bittrex",
-        "ftx"
-      ],
+      "source": ["bittrex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "BITW": {
-      "source": [
-        "bittrex",
-        "ftx"
-      ],
+      "source": ["bittrex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "BRZ": {
-      "source": [
-        "bittrex",
-        "ftx"
-      ],
+      "source": ["bittrex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "CBC": {
-      "source": [
-        "bittrex",
-        "kucoin"
-      ],
+      "source": ["bittrex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "CNTM": {
-      "source": [
-        "bittrex",
-        "okex5"
-      ],
+      "source": ["bittrex", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "DEP": {
-      "source": [
-        "bittrex",
-        "okex5"
-      ],
+      "source": ["bittrex", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "DFI": {
-      "source": [
-        "bittrex",
-        "kucoin"
-      ],
+      "source": ["bittrex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "DOGEBULL": {
-      "source": [
-        "bittrex",
-        "ftx"
-      ],
+      "source": ["bittrex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "GDXJ": {
-      "source": [
-        "bittrex",
-        "ftx"
-      ],
+      "source": ["bittrex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "GLD": {
-      "source": [
-        "bittrex",
-        "ftx"
-      ],
+      "source": ["bittrex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "HXRO": {
-      "source": [
-        "bittrex",
-        "ftx"
-      ],
+      "source": ["bittrex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "INX": {
-      "source": [
-        "bittrex",
-        "okex5"
-      ],
+      "source": ["bittrex", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "KOK": {
-      "source": [
-        "bittrex",
-        "kucoin"
-      ],
+      "source": ["bittrex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "PANDO": {
-      "source": [
-        "bittrex",
-        "probit"
-      ],
+      "source": ["bittrex", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "PENN": {
-      "source": [
-        "bittrex",
-        "ftx"
-      ],
+      "source": ["bittrex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "PHNX": {
-      "source": [
-        "bittrex",
-        "kucoin"
-      ],
+      "source": ["bittrex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "RENBTC": {
-      "source": [
-        "bittrex",
-        "cex"
-      ],
+      "source": ["bittrex", "cex"],
       "maxPriceDeviationPercent": 80
     },
     "SLV": {
-      "source": [
-        "bittrex",
-        "ftx"
-      ],
+      "source": ["bittrex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "STRK": {
-      "source": [
-        "bittrex",
-        "okex5"
-      ],
+      "source": ["bittrex", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "USDN": {
-      "source": [
-        "bittrex",
-        "kucoin"
-      ],
+      "source": ["bittrex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "USO": {
-      "source": [
-        "bittrex",
-        "ftx"
-      ],
+      "source": ["bittrex", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "WICC": {
-      "source": [
-        "bittrex",
-        "huobipro"
-      ],
+      "source": ["bittrex", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "XDB": {
-      "source": [
-        "bittrex",
-        "kucoin"
-      ],
+      "source": ["bittrex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "MHC": {
-      "source": [
-        "cex",
-        "kucoin"
-      ],
+      "source": ["cex", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "IMX": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "GMT": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "AVT": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "PRO": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "MUSD": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "LQTY": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "SYN": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "DDX": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro"
-      ],
+      "source": ["coinbaseprime", "coinbasepro"],
       "maxPriceDeviationPercent": 80
     },
     "CHSB": {
-      "source": [
-        "coingecko",
-        "hitbtc"
-      ],
+      "source": ["coingecko", "hitbtc"],
       "maxPriceDeviationPercent": 25
     },
     "UST": {
-      "source": [
-        "coingecko",
-        "sushiswap"
-      ],
+      "source": ["coingecko", "sushiswap"],
       "maxPriceDeviationPercent": 25
     },
     "SNOB": {
-      "source": [
-        "coingecko",
-        "trader-joe"
-      ],
+      "source": ["coingecko", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
     "DYP": {
-      "source": [
-        "coingecko",
-        "uniswap"
-      ],
+      "source": ["coingecko", "uniswap"],
       "maxPriceDeviationPercent": 80
     },
     "JOE": {
-      "source": [
-        "coingecko",
-        "trader-joe"
-      ],
+      "source": ["coingecko", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
     "CEUR": {
-      "source": [
-        "coingecko",
-        "kucoin"
-      ],
+      "source": ["coingecko", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "XSGD": {
-      "source": [
-        "coingecko",
-        "uniswap"
-      ],
+      "source": ["coingecko", "uniswap"],
       "maxPriceDeviationPercent": 80
     },
     "BILI": {
-      "source": [
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "COIN": {
-      "source": [
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "GOOGL": {
-      "source": [
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "NIO": {
-      "source": [
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "NVDA": {
-      "source": [
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "SQ": {
-      "source": [
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "DKNG": {
-      "source": [
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "TLRY": {
-      "source": [
-        "currencycom",
-        "ftx"
-      ],
+      "source": ["currencycom", "ftx"],
       "maxPriceDeviationPercent": 80
     },
     "CHF": {
-      "source": [
-        "ecb",
-        "yf-unofficial"
-      ],
+      "source": ["ecb", "yf-unofficial"],
       "maxPriceDeviationPercent": 25
     },
     "KIN": {
-      "source": [
-        "ftx",
-        "hitbtc"
-      ],
+      "source": ["ftx", "hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "CONV": {
-      "source": [
-        "ftx",
-        "okex5"
-      ],
+      "source": ["ftx", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "EOSBEAR": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "RAY": {
-      "source": [
-        "ftx",
-        "lbank"
-      ],
+      "source": ["ftx", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "ADABULL": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "BCHBULL": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "LINKBULL": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "ROOK": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "CUSDT": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "UBXT": {
-      "source": [
-        "ftx",
-        "kucoin"
-      ],
+      "source": ["ftx", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "BCHBEAR": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "BSVBEAR": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "BSVBULL": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "IBVOL": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "LTCBEAR": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "LTCBULL": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "TRXBULL": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "XLMBEAR": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "XLMBULL": {
-      "source": [
-        "ftx",
-        "poloniex"
-      ],
+      "source": ["ftx", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "SMT": {
-      "source": [
-        "hitbtc",
-        "huobipro"
-      ],
+      "source": ["hitbtc", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "XPR": {
-      "source": [
-        "hitbtc",
-        "okex5"
-      ],
+      "source": ["hitbtc", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "SEELE": {
-      "source": [
-        "hitbtc",
-        "huobipro"
-      ],
+      "source": ["hitbtc", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "PEARL": {
-      "source": [
-        "hitbtc",
-        "huobipro"
-      ],
+      "source": ["hitbtc", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "GOF": {
-      "source": [
-        "hitbtc",
-        "lbank"
-      ],
+      "source": ["hitbtc", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "SOLO": {
-      "source": [
-        "hitbtc",
-        "probit"
-      ],
+      "source": ["hitbtc", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "ETN": {
-      "source": [
-        "hitbtc",
-        "kucoin"
-      ],
+      "source": ["hitbtc", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "XHT": {
-      "source": [
-        "hollaex",
-        "stex"
-      ],
+      "source": ["hollaex", "stex"],
       "maxPriceDeviationPercent": 80
     },
     "XEC": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "HC": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "NEST": {
-      "source": [
-        "huobipro",
-        "lbank"
-      ],
+      "source": ["huobipro", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "AST": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "ABT": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "BTM": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "BETH": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "KCASH": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "DHT": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "NAS": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "CMT": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "RING": {
-      "source": [
-        "huobipro",
-        "poloniex"
-      ],
+      "source": ["huobipro", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "FSN": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "YAM": {
-      "source": [
-        "huobipro",
-        "sushiswap"
-      ],
+      "source": ["huobipro", "sushiswap"],
       "maxPriceDeviationPercent": 25
     },
     "EGT": {
-      "source": [
-        "huobipro",
-        "okex5"
-      ],
+      "source": ["huobipro", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "EWT": {
-      "source": [
-        "kraken",
-        "kucoin"
-      ],
+      "source": ["kraken", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "ALPACA": {
-      "source": [
-        "kucoin",
-        "lbank"
-      ],
+      "source": ["kucoin", "lbank"],
       "maxPriceDeviationPercent": 80
     },
     "DORA": {
-      "source": [
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["kucoin", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "TLOS": {
-      "source": [
-        "kucoin",
-        "probit"
-      ],
+      "source": ["kucoin", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "CFG": {
-      "source": [
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["kucoin", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "PRE": {
-      "source": [
-        "kucoin",
-        "probit"
-      ],
+      "source": ["kucoin", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "UBX": {
-      "source": [
-        "kucoin",
-        "probit"
-      ],
+      "source": ["kucoin", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "SKEY": {
-      "source": [
-        "kucoin",
-        "probit"
-      ],
+      "source": ["kucoin", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "KONO": {
-      "source": [
-        "kucoin",
-        "okex5"
-      ],
+      "source": ["kucoin", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "LTX": {
-      "source": [
-        "kucoin",
-        "liquid"
-      ],
+      "source": ["kucoin", "liquid"],
       "maxPriceDeviationPercent": 80
     },
     "POL": {
-      "source": [
-        "kucoin",
-        "poloniex"
-      ],
+      "source": ["kucoin", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "USDJ": {
-      "source": [
-        "kucoin",
-        "poloniex"
-      ],
+      "source": ["kucoin", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "ENQ": {
-      "source": [
-        "kucoin",
-        "probit"
-      ],
+      "source": ["kucoin", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "KISHU": {
-      "source": [
-        "lbank",
-        "okex5"
-      ],
+      "source": ["lbank", "okex5"],
       "maxPriceDeviationPercent": 80
     },
     "ARK": {
-      "source": [
-        "okex5",
-        "probit"
-      ],
+      "source": ["okex5", "probit"],
       "maxPriceDeviationPercent": 80
     },
     "AKITA": {
-      "source": [
-        "okex5",
-        "poloniex"
-      ],
+      "source": ["okex5", "poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "TRR": {
-      "source": [
-        "probit",
-        "stex"
-      ],
+      "source": ["probit", "stex"],
       "maxPriceDeviationPercent": 80
     },
     "STAKE": {
-      "source": [
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "DPI": {
-      "source": [
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "CREAM": {
-      "source": [
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "sUSD": {
-      "source": [
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "MPH": {
-      "source": [
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "SFI": {
-      "source": [
-        "sushiswap",
-        "uniswap"
-      ],
+      "source": ["sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "TVK": {
-      "source": [
-        "ascendex"
-      ],
+      "source": ["ascendex"],
       "maxPriceDeviationPercent": 80
     },
     "UMB": {
-      "source": [
-        "ascendex"
-      ],
+      "source": ["ascendex"],
       "maxPriceDeviationPercent": 80
     },
     "SMTY": {
-      "source": [
-        "ascendex"
-      ],
+      "source": ["ascendex"],
       "maxPriceDeviationPercent": 80
     },
     "SHOPX": {
-      "source": [
-        "ascendex"
-      ],
+      "source": ["ascendex"],
       "maxPriceDeviationPercent": 80
     },
     "HOPR": {
-      "source": [
-        "ascendex"
-      ],
+      "source": ["ascendex"],
       "maxPriceDeviationPercent": 80
     },
     "YYAV3SA1": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ],
+      "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
     "SAV2": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ],
+      "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
     "TJ_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ],
+      "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
     "PNG_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ],
+      "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
     "YY_TJ_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ],
+      "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
     "MFT": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "TFUEL": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "BEAM": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "TROY": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "VITE": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "BTCUP": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "BTCDOWN": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "ETHUP": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "ETHDOWN": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "DOTUP": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "AUTO": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "TKO": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "BAR": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "BURGER": {
-      "source": [
-        "binance"
-      ],
+      "source": ["binance"],
       "maxPriceDeviationPercent": 80
     },
     "HNS": {
-      "source": [
-        "bittrex"
-      ],
+      "source": ["bittrex"],
       "maxPriceDeviationPercent": 80
     },
     "LBC": {
-      "source": [
-        "bittrex"
-      ],
+      "source": ["bittrex"],
       "maxPriceDeviationPercent": 80
     },
     "SG": {
-      "source": [
-        "bittrex"
-      ],
+      "source": ["bittrex"],
       "maxPriceDeviationPercent": 80
     },
     "XELS": {
-      "source": [
-        "bittrex"
-      ],
+      "source": ["bittrex"],
       "maxPriceDeviationPercent": 80
     },
     "GUSD": {
-      "source": [
-        "cex"
-      ],
+      "source": ["cex"],
       "maxPriceDeviationPercent": 80
     },
     "AWG": {
-      "source": [
-        "cex"
-      ],
+      "source": ["cex"],
       "maxPriceDeviationPercent": 80
     },
     "AWX": {
-      "source": [
-        "cex"
-      ],
+      "source": ["cex"],
       "maxPriceDeviationPercent": 80
     },
     "MIOTA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 25
     },
     "LUNA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 25
     },
     "NANO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 25
     },
     "AGA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AGVC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AGVE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AGET": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AGU": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AGN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AAT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AGLT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AHT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AIAS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AIT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AICO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AID": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AIDOC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ADK": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AIDUS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AIM": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AIN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AION": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AIPE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ABL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AIRX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AWT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AGT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AITRA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AKC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AKN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AKA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ABAO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALB": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SDS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALUSD": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALCH": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALEPH": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALEX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AGOL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AVS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALIS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALLBI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AXA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AFO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ACD": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AXT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "GATOR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ME": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "XAO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ASAFE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALY": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALMX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALOHA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALPA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALP": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "A5T": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ACAT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "APC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "DEX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "A": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALPHR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "XLQ": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ABET": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALTOM": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALTM": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALD": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ALN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AMA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AMB": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AME": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AHF": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AMIO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AMIS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AMIX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AMR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AMI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AMN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AMON": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "VEO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AAPX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AMS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ANCT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ANDES": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ANTY": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ANJ": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ANON": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "$ANRX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ANS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AGOV": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "XAMP": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "MATTER": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ZOMB": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ANTR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ABLOCK": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AOS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AP3": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "APE$": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "NANA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SOS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "UBE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "MOO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "PACT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "GNT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "EVMOS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "STETH": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "CUSDC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "USDP": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "CETH": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "HBTC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "USDD": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "CDAI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "10SET": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "TWT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "GALA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "OMI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "RPL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "NXM": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SAFEMOON": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ELG": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "LN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SFM": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SCRT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "NU": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "DAG": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "XCM": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "CEEK": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ASTR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "FX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "KUB": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "KIRO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "MED": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "PLTC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "TRIBE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "XYO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "DKA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "TEL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "MBOX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "POWR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SYS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "BDX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "MLK": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "STRAX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "TRAC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "BTCST": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "HUSD": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "XPRT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "FLEXUSD": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "LYXE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SURE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "XMON": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "XSUSHI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ADS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SFUND": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "QKC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "PCX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "DAWN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "HEZ": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "VERI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AUCTION": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "DOLA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "RGT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "CBAT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "GXC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "MTRG": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "NXS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "MNGO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "WOZX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "LCX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "COCOS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "HUNT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "IDEX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "KNCL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "TKX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "CET": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "MVL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "UQC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "EXRD": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ARRR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "BITCI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "BCN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "BOR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "NEBL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "DERO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AXN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "LOOMOLD": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ZIG": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "POND": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SOFI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "WAN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ZPAY": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SERO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ROOT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "FINE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "CXO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ANC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "KAI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "JASMY": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "CUNI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "LTO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "NOIA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AQT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "RFR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "KOGE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ONIT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SBD": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "LEND": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "PSG": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "RAMP": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "HOO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "NSBT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ADX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "GYEN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "TNB": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "COVAL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SAITO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "QASH": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "MINTME": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "UPP": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "FUSE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "VRSC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "COS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "PIVX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "OVR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "METH": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SNL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "CZRX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "DXD": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "FLEX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "AXEL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "HTR": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "OAX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "BOA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SOLVE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "YVE-CRVDAO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "FRA": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "MCB": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "DEXE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ADCO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "PROS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "VXV": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SNM": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "KRL": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SIX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "JUV": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "LBT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "VTC": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "NMX": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "XAI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "INST": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "NPXS": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "INV": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "XFUND": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ZMT": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "TKP": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ETH2X-FLI": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "GBYTE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "OXEN": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "DETO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SWTH": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "VRO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SWISE": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ZB": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "SYLO": {
-      "source": [
-        "coingecko"
-      ],
+      "source": ["coingecko"],
       "maxPriceDeviationPercent": 80
     },
     "ENTROPY": {
-      "source": [
-        "drand"
-      ],
+      "source": ["drand"],
       "maxPriceDeviationPercent": 80
     },
     "JPY": {
-      "source": [
-        "ecb"
-      ],
+      "source": ["ecb"],
       "maxPriceDeviationPercent": 25
     },
     "MATH": {
-      "source": [
-        "ftx"
-      ],
+      "source": ["ftx"],
       "maxPriceDeviationPercent": 80
     },
     "DMG": {
-      "source": [
-        "ftx"
-      ],
+      "source": ["ftx"],
       "maxPriceDeviationPercent": 80
     },
     "GDX": {
-      "source": [
-        "ftx"
-      ],
+      "source": ["ftx"],
       "maxPriceDeviationPercent": 80
     },
     "STEP": {
-      "source": [
-        "ftx"
-      ],
+      "source": ["ftx"],
       "maxPriceDeviationPercent": 80
     },
     "TRYB": {
-      "source": [
-        "ftx"
-      ],
+      "source": ["ftx"],
       "maxPriceDeviationPercent": 80
     },
     "ALTBEAR": {
-      "source": [
-        "ftx"
-      ],
+      "source": ["ftx"],
       "maxPriceDeviationPercent": 80
     },
     "ALTBULL": {
-      "source": [
-        "ftx"
-      ],
+      "source": ["ftx"],
       "maxPriceDeviationPercent": 80
     },
     "EXCHBEAR": {
-      "source": [
-        "ftx"
-      ],
+      "source": ["ftx"],
       "maxPriceDeviationPercent": 80
     },
     "EXCHBULL": {
-      "source": [
-        "ftx"
-      ],
+      "source": ["ftx"],
       "maxPriceDeviationPercent": 80
     },
     "NCT": {
-      "source": [
-        "hitbtc"
-      ],
+      "source": ["hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "DCN": {
-      "source": [
-        "hitbtc"
-      ],
+      "source": ["hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "CENNZ": {
-      "source": [
-        "hitbtc"
-      ],
+      "source": ["hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "OCC": {
-      "source": [
-        "hitbtc"
-      ],
+      "source": ["hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "VIB": {
-      "source": [
-        "hitbtc"
-      ],
+      "source": ["hitbtc"],
       "maxPriceDeviationPercent": 80
     },
     "FOR": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "DF": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "O3": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "OGO": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "PAI": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "GNX": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "HPT": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "ACT": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "BIX": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "MX": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "RUFF": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "LHB": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "NEW": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "PVT": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "MDS": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "OCN": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "DTA": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "ITC": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "CNNS": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "SKM": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "TOP": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "BHD": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "CRE": {
-      "source": [
-        "huobipro"
-      ],
+      "source": ["huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "FLUX": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "SHFT": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "ABBC": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "GMEE": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "LABS": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "FEAR": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "SRK": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "IDEA": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "WEST": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "NORD": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "SUTER": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "LAYER": {
-      "source": [
-        "kucoin"
-      ],
+      "source": ["kucoin"],
       "maxPriceDeviationPercent": 80
     },
     "ILV": {
-      "source": [
-        "lbank"
-      ],
+      "source": ["lbank"],
       "maxPriceDeviationPercent": 80
     },
     "BABYDOGE": {
-      "source": [
-        "lbank"
-      ],
+      "source": ["lbank"],
       "maxPriceDeviationPercent": 80
     },
     "HERO": {
-      "source": [
-        "lbank"
-      ],
+      "source": ["lbank"],
       "maxPriceDeviationPercent": 80
     },
     "DUKE": {
-      "source": [
-        "lbank"
-      ],
+      "source": ["lbank"],
       "maxPriceDeviationPercent": 80
     },
     "EFK": {
-      "source": [
-        "lbank"
-      ],
+      "source": ["lbank"],
       "maxPriceDeviationPercent": 80
     },
     "SKILL": {
-      "source": [
-        "lbank"
-      ],
+      "source": ["lbank"],
       "maxPriceDeviationPercent": 80
     },
     "lensprotocol": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "aaveaave.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "aavegrants.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "letsraave.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "stani.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "wagmi.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "wassim.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "donosonaumczuk.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "nicolo.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "jouni.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "zer0dot.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "lenster.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "yoginth.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "peter.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "franky.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "damarnez.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "absis.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "zannis.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "nikita.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "devops.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "magikarp.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "davidev.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "lasavess.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "xone_hd.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "satsgas.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "hazbobo1.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "lorisxiv.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "jcha63641346.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "capitalisttofu.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "maticpolygon.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "kalimerosky.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "brocketh.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "tomhamalainen.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "wh41th.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "ivovtw.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "bradorbradley.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "annisazikra94.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "iamprasadkumkar.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "0xjim.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "tabish.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "visualfire.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "saskasandholm.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "gareth.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "jessica.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "sasicodes.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "julprd.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "mikeb.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "alexis_3290.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "mariariivari.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "modene.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "wenyuan.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "98775.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "sdogboy.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "xiaom666.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "At_a_time.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "sunvo.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "xiaom.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "intro711.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "1xbtc.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "hulei121.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "zhuangzhu.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "egwuatue.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "spzooky.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "lina1314121.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "willyampangestu.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "jianai.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "justawhile.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "rahulkr.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "shuishui21.lens": {
-      "source": [
-        "lens"
-      ],
+      "source": ["lens"],
       "maxPriceDeviationPercent": 80
     },
     "CTC": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "HEGIC": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "TAI": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "SFG": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "LBA": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "OKT": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "ZYRO": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "WGRT": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "BZZ": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "COVER": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "KINE": {
-      "source": [
-        "okex5"
-      ],
+      "source": ["okex5"],
       "maxPriceDeviationPercent": 80
     },
     "AVME": {
-      "source": [
-        "pangolin-wavax"
-      ],
+      "source": ["pangolin-wavax"],
       "maxPriceDeviationPercent": 80
     },
     "ZAP": {
-      "source": [
-        "poloniex"
-      ],
+      "source": ["poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "CVT": {
-      "source": [
-        "poloniex"
-      ],
+      "source": ["poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "KTON": {
-      "source": [
-        "poloniex"
-      ],
+      "source": ["poloniex"],
       "maxPriceDeviationPercent": 80
     },
     "CNS": {
-      "source": [
-        "probit"
-      ],
+      "source": ["probit"],
       "maxPriceDeviationPercent": 80
     },
     "ERG": {
-      "source": [
-        "probit"
-      ],
+      "source": ["probit"],
       "maxPriceDeviationPercent": 80
     },
     "VLX": {
-      "source": [
-        "probit"
-      ],
+      "source": ["probit"],
       "maxPriceDeviationPercent": 80
     },
     "RWN": {
-      "source": [
-        "probit"
-      ],
+      "source": ["probit"],
       "maxPriceDeviationPercent": 80
     },
     "ELCASH": {
-      "source": [
-        "probit"
-      ],
+      "source": ["probit"],
       "maxPriceDeviationPercent": 80
     },
     "TNC": {
-      "source": [
-        "stex"
-      ],
+      "source": ["stex"],
       "maxPriceDeviationPercent": 80
     },
     "PLEX": {
-      "source": [
-        "stex"
-      ],
+      "source": ["stex"],
       "maxPriceDeviationPercent": 80
     },
     "SHERPA": {
-      "source": [
-        "trader-joe"
-      ],
+      "source": ["trader-joe"],
       "maxPriceDeviationPercent": 80
     },
     "BASE": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "wNXM": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "FXS": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "BAC": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "XOR": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "BZRX": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "WHITE": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "CORE": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "UBT": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "APY": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "SPI": {
-      "source": [
-        "uniswap"
-      ],
+      "source": ["uniswap"],
       "maxPriceDeviationPercent": 25
     },
     "ALC": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "ARDRIVE": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "ARGO": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "ARVERIFY": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "DLT": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "EDST": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "EMD_PST_TOKEN": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "OPENBITS": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "PBT": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "QUAD": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "SAM": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "SUNNY": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "VRT": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "XYZ": {
-      "source": [
-        "verto"
-      ],
+      "source": ["verto"],
       "maxPriceDeviationPercent": 80
     },
     "IBM": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "GOOG": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "COST": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "DIS": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "MA": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "MSFT": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "NKE": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "PINS": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "SHOP": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "SPOT": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "TDOC": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "SPY": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "QQQ": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "ONEQ": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "IWM": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "EFA": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "VGK": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "INDA": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "RSX": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "ZC=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "ZS=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "ZM=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "ZW=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "KE=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "ZO=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "ZR=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "CL=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "RB=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "NG=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "QA=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "EH=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "GC=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "SI=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "HG=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "PL=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "PA=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "LE=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "GF=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "HE=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "PRK=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "DC=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "GNF=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "CB=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "CSC=F": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "PEN": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "MXN": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "ARS": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "BRLUSD=X": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "COPUSD=X": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "BBBY": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "UPST": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "BIG": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "MSTR": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "HRTX": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "EVGO": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "BGFV": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "FUBO": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "CVNA": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "NKLA": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "W": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "BLNK": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "SRG": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "HYZN": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "MVIS": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "PETS": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "IBRX": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "VUZI": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "SPCE": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "RIDE": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "FUV": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "WKHS": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "SWTX": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "ICPT": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "LCID": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "JWN": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "FFIE": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "SFT": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "OCGN": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "REI": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "BKKT": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "KPTI": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "SDC": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "DNMR": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "GDRX": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "IGMS": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "AMC": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "META": {
-      "source": [
-        "yf-unofficial"
-      ],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     }
   }
