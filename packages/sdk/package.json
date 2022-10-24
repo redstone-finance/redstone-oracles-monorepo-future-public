@@ -15,10 +15,9 @@
     "redstone-protocol": "1.0.0"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.37",
     "@types/jest": "^27.5.2",
     "jest": "^28.1.0",
-    "mws": "^2.0.8",
+    "msw": "^0.47.4",
     "ts-jest": "^28.0.3"
   }
 }

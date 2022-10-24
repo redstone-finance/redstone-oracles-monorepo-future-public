@@ -18,7 +18,9 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "packages/oracle-monitoring/frontend",
+      "packages/oracle-monitoring/backend"
     ],
     "nohoist": [
       "ts-node"
