@@ -108,3 +108,6 @@ typechain-types
 .DS_Store
 
 .parcel-cache
+
+# IDE
+.idea
