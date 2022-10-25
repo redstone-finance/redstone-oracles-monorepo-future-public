@@ -11,9 +11,7 @@
     "compile": "hardhat compile"
   },
   "dependencies": {
-    "ethers": "^5.6.8",
-    "redstone-protocol": "1.0.0",
-    "redstone-sdk": "1.0.0"
+    "ethers": "^5.6.8"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.6.3",

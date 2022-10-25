@@ -10,9 +10,7 @@
     "build": "rm -rf dist && tsc --build"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "redstone-oracles-smartweave-contracts": "1.0.0",
-    "redstone-protocol": "1.0.0"
+    "axios": "^0.27.2"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
