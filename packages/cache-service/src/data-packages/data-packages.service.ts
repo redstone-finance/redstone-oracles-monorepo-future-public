@@ -30,13 +30,13 @@ export class DataPackagesService {
     const getDataPackagesForDataFeed = async (dataFeedId: string) => {
       const groupedDataPackages = await DataPackage.aggregate([
         {
+          $sort: { signerAddress: 1, timestampMilliseconds: -1 },
+        },
+        {
           $match: {
             dataServiceId: requestConfig.dataServiceId,
             dataFeedId,
           },
-        },
-        {
-          $sort: { signerAddress: 1, timestampMilliseconds: -1 },
         },
         {
           $group: {
