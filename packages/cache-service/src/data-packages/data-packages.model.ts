@@ -6,7 +6,7 @@ const { Types } = mongoose.Schema;
 
 export type DataPackageDocument = CachedDataPackage & Document;
 
-@Schema()
+@Schema({ autoIndex: true })
 export class CachedDataPackage {
   @Prop({ required: true })
   timestampMilliseconds: number;
@@ -32,5 +32,13 @@ export class CachedDataPackage {
 
 export const DataPackageSchema =
   SchemaFactory.createForClass(CachedDataPackage);
+
+// Creating a compound mongoDB index to improve performance of the queries
+DataPackageSchema.index({
+  dataServiceId: 1,
+  dataFeedId: 1,
+  signerAddress: 1,
+  timestampMilliseconds: -1,
+});
 
 export const DataPackage = mongoose.model("DataPackage", DataPackageSchema);
