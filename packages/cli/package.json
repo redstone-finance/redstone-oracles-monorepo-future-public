@@ -12,8 +12,6 @@
   "dependencies": {
     "arweave": "1.10.23",
     "axios": "^0.27.2",
-    "redstone-oracles-smartweave-contracts": "1.0.0",
-    "redstone-protocol": "1.0.0",
     "redstone-smartweave": "0.4.84"
   },
   "devDependencies": {
