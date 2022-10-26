@@ -1,3 +1,4 @@
+import * as pako from "pako";
 import "../common/set-test-envs";
 import {
   mockDataPackages,
@@ -20,8 +21,8 @@ jest.mock("streamr-client", () => ({
   __esModule: true,
   ...jest.requireActual("streamr-client"),
   StreamrClient: jest.fn().mockImplementation(() => ({
-    subscribe(_streamId: string, callback: (msg: string) => void) {
-      callback(JSON.stringify(mockDataPackages));
+    subscribe(_streamId: string, callback: (msg: Uint8Array) => void) {
+      callback(pako.deflate(JSON.stringify(mockDataPackages)));
     },
   })),
 }));

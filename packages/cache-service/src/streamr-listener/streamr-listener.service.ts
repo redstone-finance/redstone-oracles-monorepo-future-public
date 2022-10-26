@@ -1,6 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { getOracleRegistryState } from "redstone-sdk";
+import * as pako from "pako";
 import config from "../config";
 import { StreamrClient, Subscription } from "streamr-client";
 import { DataPackage } from "../data-packages/data-packages.model";
@@ -63,11 +64,14 @@ export class StreamrListenerService {
 
     const subscription = await this.streamrClient.subscribe(
       streamId,
-      async (message: string) => {
+      async (message: Uint8Array) => {
         try {
+          const dataPackagesAsString = pako.inflate(message, {
+            to: "string",
+          });
           const dataPackagesToSave =
             await this.dataPackageService.prepareReceivedDataPackagesForBulkSaving(
-              JSON.parse(message),
+              JSON.parse(dataPackagesAsString),
               nodeEvmAddress
             );
           this.logger.log(`Data packages parsed for node: ${nodeEvmAddress}`);
