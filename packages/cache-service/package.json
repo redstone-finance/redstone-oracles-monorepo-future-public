@@ -1,5 +1,5 @@
 {
-  "name": "redstone-cache-service",
+  "name": "@redstone-finance/cache-service",
   "version": "0.0.1",
   "prettier": "redstone-prettier-config",
   "description": "",

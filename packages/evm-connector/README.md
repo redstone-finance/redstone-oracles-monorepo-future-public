@@ -1,11 +1,11 @@
-# 🔗 redstone-evm-connector
+# 🔗 @redstone-finance/evm-connector
 
 [![License](https://img.shields.io/badge/license-MIT-green)](https://choosealicense.com/licenses/mit/)
 [![Discord](https://img.shields.io/discord/786251205008949258?logo=discord)](https://discord.gg/2CT6hN6C)
-[![NPM](https://img.shields.io/npm/v/redstone-evm-connector)](https://www.npmjs.com/package/redstone-evm-connector)
+[![NPM](https://img.shields.io/npm/v/@redstone-finance/evm-connector)](https://www.npmjs.com/package/@redstone-finance/evm-connector)
 [![Twitter](https://img.shields.io/twitter/follow/redstone_defi?style=flat&logo=twitter)](https://twitter.com/intent/follow?screen_name=limestone_defi)
 
-The redstone-evm-connector module implements an alternative design of providing oracle data to smart contracts. Instead of constantly persisting data on EVM storage (by data providers), the information is brought on-chain only when needed (by end users). Until that moment data remains in the decentralised cache layer, which is powered by RedStone light cache gateways and streamr data broadcasting protocol. Data is transferred to the EVM by end users, who should attach signed data packages to their transaction calldata. The information integrity is verified on-chain through signature checking.
+The @redstone-finance/evm-connector module implements an alternative design of providing oracle data to smart contracts. Instead of constantly persisting data on EVM storage (by data providers), the information is brought on-chain only when needed (by end users). Until that moment data remains in the decentralised cache layer, which is powered by RedStone light cache gateways and streamr data broadcasting protocol. Data is transferred to the EVM by end users, who should attach signed data packages to their transaction calldata. The information integrity is verified on-chain through signature checking.
 
 - [🚀 Working demo](#---working-demo)
 - [📦 Installation](#---installation)
@@ -36,18 +36,18 @@ The redstone-evm-connector module implements an alternative design of providing 
 
 - Try it directly in CodeSandbox: [demo link](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
-- See a bunch of smart contract examples that use `redstone-evm-connector` in our [dedicated repo with examples](https://github.com/redstone-finance/redstone-evm-connector-examples)
+- See a bunch of smart contract examples that use the evm-connector in our [dedicated repo with examples](https://github.com/redstone-finance/redstone-evm-examples)
 
 ## 📦 Installation
 
-Install [redstone-evm-connector](https://www.npmjs.com/package/redstone-evm-connector) from NPM registry
+Install [@redstone-finance/evm-connector](https://www.npmjs.com/package/@redstone-finance/evm-connector) from NPM registry
 
 ```bash
 # Using yarn
-yarn add redstone-evm-connector
+yarn add @redstone-finance/evm-connector
 
 # Using NPM
-npm install redstone-evm-connector
+npm install @redstone-finance/evm-connector
 ```
 
 ## 🔥 Getting started
@@ -59,7 +59,7 @@ You need to apply a minium change to the source code to enable smart contract to
 We strongly recommend you to have some upgradability mechanism for your contracts (it can be based on multisig, DAO, or anything else). This way, you can quickly swtich to the latest trusted data providers in case of changes or problems with the current providers.
 
 ```js
-import "redstone-evm-connector/lib/contracts/data-services/AvalancheDataServiceConsumerBase.sol";
+import "@redstone-finance/evm-connector/dist/contracts/data-services/AvalancheDataServiceConsumerBase.sol";
 
 contract YourContractName is AvalancheDataServiceConsumerBase {
   ...
@@ -99,10 +99,10 @@ First, you need to import the wrapper code to your project
 
 ```ts
 // Typescript
-import { WrapperBuilder } from "redstone-evm-connector";
+import { WrapperBuilder } from "@redstone-finance/evm-connector";
 
 // Javascript
-const { WrapperBuilder } = require("redstone-evm-connector");
+const { WrapperBuilder } = require("@redstone-finance/evm-connector");
 ```
 
 Then you can wrap your ethers contract pointing to the selected [redstone data service](https://app.redstone.finance) and requested data feeds.
@@ -146,14 +146,16 @@ At a top level, transferring data to an EVM environment requires packing an extr
 1. Relevant data needs to be fetched from the decentralized cache layer, powered by the [streamr network](https://streamr.network/) and the RedStone light cache nodes
 2. Data is packed into a message according to the following structure
 
-TODO: replace the text below with image
+![redstone-tx-payload-improved-2](https://user-images.githubusercontent.com/48165439/196044365-8cb3e020-56f4-46cd-b058-105772aca3a5.png)
 
+<!---
 - `TX_PAYLOAD` = `[DATA_PACKAGES][UNSIGNED_METADATA]`
   - `UNSIGNED_METADATA` = `[ANY_MESSAGE][MESSAGE_BYTE_SIZE:3b][REDSTONE_MARKER:9b]`
     - `REDSTONE_MARKER` = `0x000002ed57011e0000`
   - `DATA_PACKAGES` = `[DATA_PACKAGE[0]]..[DATA_PACKAGE[N]][NUMBER_OF_DATA_PACKAGES:2b]`
     - `DATA_PACKAGE` = `[DATA_POINTS][TIMESTAMP:6b][DATA_POINT_VALUE_BYTE_SIZE:4b][DATA_POINTS_COUNT:3b][SIGNATURE:65b]`
       - `DATA_POINT` = `[DATA_POINT_VALUE][DATA_FEED_ID:32b]`
+-->
 
 3. The package is appended to the original transaction message, signed and submitted to the network
 
