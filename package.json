@@ -1,6 +1,6 @@
 {
   "name": "redstone-oracles-monorepo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "prettier": "redstone-prettier-config",
   "description": "",
   "main": "index.js",

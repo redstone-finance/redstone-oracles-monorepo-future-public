@@ -19,14 +19,18 @@ library RedstoneDefaultsLib {
     // Some blockchains may case this problem as well.
     // That's why we add MAX_BLOCK_TIMESTAMP_DELAY
     // and allow data "from future" but with a small delay
+    uint256 blockTimestampMilliseconds = block.timestamp * 1000;
+
     require(
-      (block.timestamp + DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS) > receivedTimestamp,
+      (blockTimestampMilliseconds + DEFAULT_MAX_DATA_TIMESTAMP_AHEAD_IN_SECONDS * 1000) >
+        receivedTimestamp,
       "Data with future timestamps is not allowed"
     );
 
     return
-      block.timestamp < receivedTimestamp ||
-      block.timestamp - receivedTimestamp < DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS;
+      blockTimestampMilliseconds < receivedTimestamp ||
+      blockTimestampMilliseconds - receivedTimestamp <
+      DEFAULT_MAX_DATA_TIMESTAMP_DELAY_IN_SECONDS * 1000;
   }
 
   function aggregateValues(uint256[] memory values) internal pure returns (uint256) {

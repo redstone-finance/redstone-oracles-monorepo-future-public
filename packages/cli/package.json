@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=test jest",
