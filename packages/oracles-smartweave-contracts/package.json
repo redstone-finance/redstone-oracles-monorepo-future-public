@@ -1,12 +1,13 @@
 {
   "name": "redstone-oracles-smartweave-contracts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && node ./scripts/build.js && yarn cp",
     "cp": "copyfiles -u 1 ./src/contracts/**/*.json dist",
     "test": "yarn build && NODE_ENV=test jest",
-    "cli": "ts-node scripts/redstone-oracle-registry/redstone-oracle-registry-cli.ts"
+    "preversion": "yarn build",
+    "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push"
   },
   "devDependencies": {
     "@types/jest": "^28.1.6",
