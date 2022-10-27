@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: BUSL-1.1
 
 pragma solidity ^0.8.4;
 
@@ -126,8 +126,10 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
   ) private view returns (uint256) {
     uint256 signerIndex;
 
-    (uint256 dataPointsCount, uint256 eachDataPointValueByteSize) =
-      _extractDataPointsDetailsForDataPackage(calldataNegativeOffset);
+    (
+      uint256 dataPointsCount,
+      uint256 eachDataPointValueByteSize
+    ) = _extractDataPointsDetailsForDataPackage(calldataNegativeOffset);
 
     // We use scopes to resolve problem with too deep stack
     {
@@ -137,20 +139,25 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
       bytes memory signedMessage;
       uint256 signedMessageBytesCount;
 
-      signedMessageBytesCount = dataPointsCount * (eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS)
-        + DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS;
+      signedMessageBytesCount =
+        dataPointsCount *
+        (eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS) +
+        DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS;
 
       assembly {
         // Extracting the signed message
         signedMessage := extractBytesFromCalldata(
-          add(calldataNegativeOffset, SIG_BS), signedMessageBytesCount)
+          add(calldataNegativeOffset, SIG_BS),
+          signedMessageBytesCount
+        )
 
         // Hashing the signed message
         signedHash := keccak256(add(signedMessage, BYTES_ARR_LEN_VAR_BS), signedMessageBytesCount)
 
         // Extracting timestamp
         extractedTimestamp := extractValueFromCalldata(
-          add(calldataNegativeOffset, TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE))
+          add(calldataNegativeOffset, TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE)
+        )
 
         function initByteArray(bytesCount) -> ptr {
           ptr := mload(FREE_MEMORY_PTR)
@@ -182,7 +189,10 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
       require(isTimestampValid(extractedTimestamp), "Timestamp is not valid");
 
       // Verifying the off-chain signature against on-chain hashed data
-      signerAddress = SignatureLib.recoverSignerAddress(signedHash, calldataNegativeOffset + SIG_BS);
+      signerAddress = SignatureLib.recoverSignerAddress(
+        signedHash,
+        calldataNegativeOffset + SIG_BS
+      );
       signerIndex = getAuthorisedSignerIndex(signerAddress);
     }
 
@@ -193,9 +203,16 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
       for (uint256 dataPointIndex = 0; dataPointIndex < dataPointsCount; dataPointIndex++) {
         // Extracting data feed id and value for the current data point
         (dataPointDataFeedId, dataPointValue) = _extractDataPointValueAndDataFeedId(
-          calldataNegativeOffset, eachDataPointValueByteSize, dataPointIndex);
+          calldataNegativeOffset,
+          eachDataPointValueByteSize,
+          dataPointIndex
+        );
 
-        for (uint256 dataFeedIdIndex = 0; dataFeedIdIndex < dataFeedIds.length; dataFeedIdIndex++) {
+        for (
+          uint256 dataFeedIdIndex = 0;
+          dataFeedIdIndex < dataFeedIds.length;
+          dataFeedIdIndex++
+        ) {
           if (dataPointDataFeedId == dataFeedIds[dataFeedIdIndex]) {
             uint256 bitmapSignersForDataFeedId = signersBitmapForDataFeedIds[dataFeedIdIndex];
 
@@ -213,7 +230,9 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
 
               // Update signers bitmap
               signersBitmapForDataFeedIds[dataFeedIdIndex] = BitmapLib.setBitInBitmap(
-                bitmapSignersForDataFeedId, signerIndex);
+                bitmapSignersForDataFeedId,
+                signerIndex
+              );
             }
           }
         }
@@ -221,8 +240,10 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
     }
 
     // Return total data package byte size
-    return DATA_PACKAGE_WITHOUT_DATA_POINTS_BS
-      + (eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS) * dataPointsCount;
+    return
+      DATA_PACKAGE_WITHOUT_DATA_POINTS_BS +
+      (eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS) *
+      dataPointsCount;
   }
 
   /**

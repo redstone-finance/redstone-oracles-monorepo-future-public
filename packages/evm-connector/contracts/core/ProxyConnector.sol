@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: BUSL-1.1
 
 pragma solidity ^0.8.4;
 
@@ -10,7 +10,11 @@ import "./CalldataExtractor.sol";
  * @author The Redstone Oracles team
  */
 contract ProxyConnector is RedstoneConstants, CalldataExtractor {
-  function proxyCalldata(address contractAddress, bytes memory encodedFunction, bool forwardValue) internal returns (bytes memory) {
+  function proxyCalldata(
+    address contractAddress,
+    bytes memory encodedFunction,
+    bool forwardValue
+  ) internal returns (bytes memory) {
     bool success;
     bytes memory result;
     bytes memory message = _prepareMessage(encodedFunction);
@@ -23,14 +27,20 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
     return _prepareReturnValue(success, result);
   }
 
-  function proxyDelegateCalldata(address contractAddress, bytes memory encodedFunction) internal returns (bytes memory) {
+  function proxyDelegateCalldata(address contractAddress, bytes memory encodedFunction)
+    internal
+    returns (bytes memory)
+  {
     bytes memory message = _prepareMessage(encodedFunction);
     (bool success, bytes memory result) = contractAddress.delegatecall(message);
     return _prepareReturnValue(success, result);
   }
 
-  function proxyCalldataView(address contractAddress, bytes memory encodedFunction) internal view returns (bytes memory)
-{
+  function proxyCalldataView(address contractAddress, bytes memory encodedFunction)
+    internal
+    view
+    returns (bytes memory)
+  {
     bytes memory message = _prepareMessage(encodedFunction);
     (bool success, bytes memory result) = contractAddress.staticcall(message);
     return _prepareReturnValue(success, result);
@@ -51,7 +61,9 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
       mstore(message, resultMessageByteSize)
 
       // Copying function and its arguments
-      for { encodedFunctionOffset := 0 } lt(encodedFunctionOffset, encodedFunctionBytesCount) {
+      for {
+        encodedFunctionOffset := 0
+      } lt(encodedFunctionOffset, encodedFunctionBytesCount) {
         encodedFunctionOffset := add(encodedFunctionOffset, STANDARD_SLOT_BS) // going with 32 bytes steps
       } {
         // Copying data from encodedFunction to message 32 bytes at a time
@@ -70,7 +82,8 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
 
       // Updating free memory pointer
       mstore(
-        FREE_MEMORY_PTR, add(
+        FREE_MEMORY_PTR,
+        add(
           add(message, add(redstonePayloadByteSize, encodedFunctionBytesCount)),
           BYTES_ARR_LEN_VAR_BS
         )

@@ -268,4 +268,4 @@ yarn test
 
 ## 📄 License
 
-Redstone EVM connector is an open-source and free software released under the MIT License.
+Redstone EVM connector is an open-source and free software released under the BUSL-1.1 License.
