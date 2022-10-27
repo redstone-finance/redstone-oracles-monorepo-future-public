@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: BUSL-1.1
 
 pragma solidity ^0.8.4;
 
@@ -23,7 +23,12 @@ abstract contract RedstoneConsumerNumericBase is RedstoneConsumerBase {
    * @param dataFeedId bytes32 value that uniquely identifies the data feed
    * @return Extracted and verified numeric oracle value for the given data feed id
    */
-  function getOracleNumericValueFromTxMsg(bytes32 dataFeedId) internal view virtual returns (uint256) {
+  function getOracleNumericValueFromTxMsg(bytes32 dataFeedId)
+    internal
+    view
+    virtual
+    returns (uint256)
+  {
     bytes32[] memory dataFeedIds = new bytes32[](1);
     dataFeedIds[0] = dataFeedId;
     return getOracleNumericValuesFromTxMsg(dataFeedIds)[0];
@@ -41,7 +46,12 @@ abstract contract RedstoneConsumerNumericBase is RedstoneConsumerBase {
    * @return An array of the extracted and verified oracle values in the same order
    * as they are requested in the dataFeedIds array
    */
-  function getOracleNumericValuesFromTxMsg(bytes32[] memory dataFeedIds) internal view virtual returns (uint256[] memory) {
+  function getOracleNumericValuesFromTxMsg(bytes32[] memory dataFeedIds)
+    internal
+    view
+    virtual
+    returns (uint256[] memory)
+  {
     return _securelyExtractOracleValuesFromTxMsg(dataFeedIds);
   }
 }
