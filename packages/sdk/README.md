@@ -1,6 +1,9 @@
 # RedStone JS SDK
 
-This module can be used to:
+Typescript/Javascript SDK for interacting with the RedStone ecosystem. It currently supports the following functions:
 
-- Fetch data from RedStone pricing api
-- Fetch data from RedStone decentralised cache layer
+- getOracleRegistryState
+- requestDataPackages
+- getDataServiceIdForSigner
+
+This is shared code used by other packages in this monorepo.

@@ -1,3 +1,3 @@
 # redstone-oracles-smartweave-contracts
 
-TODO: add description
+Warp contracts implementation for the RedStone oracle registry
