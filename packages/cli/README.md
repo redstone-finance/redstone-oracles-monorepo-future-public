@@ -1,6 +1,6 @@
 # redstone-cli
 
-The RedStone CLI will be responsbile for
+The RedStone CLI is responsbile for
 
 - Interacting with smartweave contracts
 - Interacting with other contracts
