@@ -2975,12 +2975,7 @@
       "maxPriceDeviationPercent": 80
     },
     "APT": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "coingecko",
-        "huobipro"
-      ],
+      "source": ["binance", "binanceusdm", "coingecko", "huobipro"],
       "maxPriceDeviationPercent": 80
     },
     "REQ": {
@@ -4208,6 +4203,10 @@
       "maxPriceDeviationPercent": 80
     },
     "YY_TJ_AVAX_USDC_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "MOO_TJ_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },

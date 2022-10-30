@@ -230,6 +230,10 @@
     "YY_TJ_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
+    },
+    "MOO_TJ_AVAX_USDC_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
     }
   }
 }
