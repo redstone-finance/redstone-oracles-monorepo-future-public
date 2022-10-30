@@ -16,7 +16,8 @@
     "SAV2": {},
     "TJ_AVAX_USDC_LP": {},
     "PNG_AVAX_USDC_LP": {},
-    "YY_TJ_AVAX_USDC_LP": {}
+    "YY_TJ_AVAX_USDC_LP": {},
+    "MOO_TJ_AVAX_USDC_LP": {}
   },
   "defaultSource": ["avalanche-evm-fetcher"]
 }
