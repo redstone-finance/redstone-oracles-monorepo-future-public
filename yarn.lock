@@ -16963,15 +16963,6 @@ redstone-sdk@1.0.0:
     redstone-oracles-smartweave-contracts "1.0.0"
     redstone-protocol "1.0.0"
 
-redstone-sdk@latest:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/redstone-sdk/-/redstone-sdk-1.0.3.tgz#d01acf01507a00c9030804e801a61466b3ac3532"
-  integrity sha512-+faBP3SjDbpbrxQvL4AObQ8rQztO2cnFc9+srSYZUwCJTbPMnvlsHIU0TUw00j0kM0fQKMqhZgEvD+kOa6Xqeg==
-  dependencies:
-    axios "^0.27.2"
-    redstone-oracles-smartweave-contracts latest
-    redstone-protocol latest
-
 redstone-smartweave@0.4.84, redstone-smartweave@^0.4.40:
   version "0.4.84"
   resolved "https://registry.yarnpkg.com/redstone-smartweave/-/redstone-smartweave-0.4.84.tgz#2bd380cfbb8224d313cea8f3a6d167b181947607"
