@@ -34,6 +34,13 @@ describe("Utils", () => {
     ).toBe(
       "0x521e07e3034088704b35350d34ac32d1512f3d119f60761ba2597337f2124e51"
     );
+    expect(
+      hexlify(
+        convertStringToBytes32("0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65")
+      )
+    ).toBe(
+      "0xf4ca8532861558e29f9858a3804245bb30f0303cc71e4192e41546237b6ce58b"
+    );
   });
 
   test("Should correctly convert integer numbers to bytes", () => {

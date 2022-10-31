@@ -14,8 +14,9 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.3",
+    "axios": "^1.1.3",
     "ethers": "^5.6.8",
-    "redstone-protocol": "1.0.1",
+    "redstone-protocol": "1.0.2",
     "redstone-sdk": "1.0.3"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "ethereum-waffle": "^3.4.4",
     "hardhat": "^2.9.7",
     "hardhat-gas-reporter": "^1.0.8",
+    "msw": "^0.47.4",
     "prettier-plugin-solidity": "^1.0.0-beta.19",
     "ts-node": "^10.8.0",
     "typechain": "^8.0.0"

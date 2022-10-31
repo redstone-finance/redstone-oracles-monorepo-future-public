@@ -12,3 +12,6 @@ export * from "./UniversalSigner";
 
 export * as utils from "./common/utils";
 export * as consts from "./common/redstone-constants";
+export * from "./common/types";
+
+export * from "./on-demand";
