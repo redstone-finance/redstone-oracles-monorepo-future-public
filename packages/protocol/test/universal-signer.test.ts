@@ -46,4 +46,30 @@ describe("UniversalSigner", () => {
       new ethers.Wallet(PRIVATE_KEY_FOR_TESTS).address
     );
   });
+
+  test("Should sign with Ethereum Hash Message", async () => {
+    const wallet = new ethers.Wallet(PRIVATE_KEY_FOR_TESTS);
+    const testMessage = "test-message";
+    const signature = await UniversalSigner.signWithEthereumHashMessage(
+      wallet,
+      testMessage
+    );
+    const expectedSignature =
+      "0x13a3b3930428252cd84869dda483619bf2167011afbf3a32d0dc69b559848f0c007c55e25cb7a3f0a17f59986b106dca0ebf44f14dcb55f94fe035c40dabba731b";
+    expect(signature).toBe(expectedSignature);
+  });
+
+  test("Should verify Ethereum Hash Message", () => {
+    const testMessage = "test-message";
+    const signature =
+      "0x13a3b3930428252cd84869dda483619bf2167011afbf3a32d0dc69b559848f0c007c55e25cb7a3f0a17f59986b106dca0ebf44f14dcb55f94fe035c40dabba731b";
+    const recoveredAddress =
+      UniversalSigner.recoverAddressFromEthereumHashMessage(
+        testMessage,
+        signature
+      );
+    expect(recoveredAddress).toBe(
+      new ethers.Wallet(PRIVATE_KEY_FOR_TESTS).address
+    );
+  });
 });

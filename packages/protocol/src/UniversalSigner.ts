@@ -1,3 +1,4 @@
+import { Signer, Wallet } from "ethers";
 import {
   computeAddress,
   joinSignature,
@@ -5,6 +6,7 @@ import {
   recoverPublicKey,
   SigningKey,
   toUtf8Bytes,
+  verifyMessage,
 } from "ethers/lib/utils";
 
 export class UniversalSigner {
@@ -25,5 +27,19 @@ export class UniversalSigner {
     const digest = UniversalSigner.getDigestForData(data);
     const publicKey = recoverPublicKey(digest, signature);
     return computeAddress(publicKey);
+  }
+
+  static signWithEthereumHashMessage(
+    signerOrWallet: Signer | Wallet,
+    message: string
+  ): Promise<string> {
+    return signerOrWallet.signMessage(message);
+  }
+
+  static recoverAddressFromEthereumHashMessage(
+    message: string,
+    signature: string
+  ): string {
+    return verifyMessage(message, signature);
   }
 }

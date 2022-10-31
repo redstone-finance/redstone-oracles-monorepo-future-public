@@ -7,6 +7,7 @@ import {
   parseUnits,
   toUtf8Bytes,
   zeroPad,
+  isHexString,
 } from "ethers/lib/utils";
 
 const ZERO_EX_PREFIX_LENGTH = 2; // length of string "0x"
@@ -23,8 +24,12 @@ export const assert = (condition: boolean, errMsg?: string) => {
 };
 
 export const convertStringToBytes32 = (str: string): Uint8Array => {
-  const bytes32Str: string =
-    str.length > 31 ? keccak256(toUtf8Bytes(str)) : formatBytes32String(str);
+  let bytes32Str: string;
+  if (str.length > 31) {
+    bytes32Str = keccak256(isHexString(str) ? str : toUtf8Bytes(str));
+  } else {
+    bytes32Str = formatBytes32String(str);
+  }
   return arrayify(bytes32Str);
 };
 

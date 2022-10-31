@@ -21,7 +21,7 @@ export class DataPoint extends Serializable {
     super();
   }
 
-  serializedataFeedId(): Uint8Array {
+  serializeDataFeedId(): Uint8Array {
     return convertStringToBytes32(this.dataFeedId);
   }
 
@@ -37,7 +37,7 @@ export class DataPoint extends Serializable {
   }
 
   toBytes(): Uint8Array {
-    const serializeddataFeedId = this.serializedataFeedId();
+    const serializeddataFeedId = this.serializeDataFeedId();
     return concat([serializeddataFeedId, this.value]);
   }
 }
