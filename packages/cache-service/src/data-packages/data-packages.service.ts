@@ -13,6 +13,8 @@ import {
 import { ReceivedDataPackage } from "./data-packages.interface";
 import { CachedDataPackage, DataPackage } from "./data-packages.model";
 
+export const ALL_FEEDS_KEY = "___ALL_FEEDS___";
+
 @Injectable()
 export class DataPackagesService {
   async saveManyDataPackagesInDB(dataPackages: CachedDataPackage[]) {
@@ -27,7 +29,7 @@ export class DataPackagesService {
       [dataFeedId: string]: CachedDataPackage[];
     } = {};
 
-    const getDataPackagesForDataFeed = async (dataFeedId: string) => {
+    const getDataPackagesForDataFeed = async (dataFeedId?: string) => {
       const groupedDataPackages = await DataPackage.aggregate([
         {
           $sort: { signerAddress: 1, timestampMilliseconds: -1 },
@@ -35,7 +37,7 @@ export class DataPackagesService {
         {
           $match: {
             dataServiceId: requestConfig.dataServiceId,
-            dataFeedId,
+            dataFeedId: dataFeedId || { $exists: false },
           },
         },
         {
@@ -54,18 +56,24 @@ export class DataPackagesService {
         },
       ]);
 
-      fetchedPackagesPerDataFeed[dataFeedId] = groupedDataPackages.map((dp) => {
+      const dataPackages = groupedDataPackages.map((dp) => {
         const { _id, __v, ...rest } = dp;
         return {
           ...rest,
           signerAddress: _id,
         };
       });
+
+      fetchedPackagesPerDataFeed[dataFeedId || ALL_FEEDS_KEY] = dataPackages;
     };
 
     // Fetching data packages for each data feed
-    const promises = requestConfig.dataFeeds.map(getDataPackagesForDataFeed);
-    await Promise.all(promises);
+    if (requestConfig.dataFeeds?.length) {
+      const promises = requestConfig.dataFeeds.map(getDataPackagesForDataFeed);
+      await Promise.all(promises);
+    } else {
+      await getDataPackagesForDataFeed();
+    }
 
     return fetchedPackagesPerDataFeed;
   }
