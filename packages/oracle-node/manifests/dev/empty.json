@@ -1,0 +1,12 @@
+{
+  "interval": 60000,
+  "priceAggregator": "median",
+  "sourceTimeout": 20000,
+  "maxPriceDeviationPercent": 100,
+  "evmChainId": 1,
+  "httpBroadcasterURLs": [],
+  "enableStreamrBroadcaster": false,
+  "enableArweaveBackup": false,
+  "tokens": {},
+  "defaultSource": []
+}
