@@ -12,6 +12,7 @@ import {
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
 import { DataPackage } from "../../src/data-packages/data-packages.model";
 import { BundlrService } from "../../src/bundlr/bundlr.service";
+import { ALL_FEEDS_KEY } from "../../src/data-packages/data-packages.service";
 
 jest.mock("redstone-sdk", () => ({
   __esModule: true,
@@ -137,5 +138,17 @@ describe("Data packages (e2e)", () => {
       expect(signers.length).toBe(4);
       expect(new Set(signers).size).toBe(4);
     }
+
+    // Testing response for the case when there is no data feeds specified
+    const testResponse2 = await request(httpServer)
+      .get("/data-packages/latest")
+      .query({
+        "data-service-id": "service-2",
+        "unique-signers-count": 4,
+      })
+      .expect(200);
+
+    expect(testResponse2.body[ALL_FEEDS_KEY].length).toBe(4);
+    expect(testResponse2.body[ALL_FEEDS_KEY][0].dataPoints.length).toBe(2);
   });
 });

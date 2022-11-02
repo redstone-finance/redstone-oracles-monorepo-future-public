@@ -17,7 +17,7 @@ export const DEFAULT_CACHE_SERVICE_URLS = [
 export interface DataPackagesRequestParams {
   dataServiceId: string;
   uniqueSignersCount: number;
-  dataFeeds: string[];
+  dataFeeds?: string[];
 }
 
 export interface DataPackagesResponse {
@@ -85,7 +85,7 @@ export const requestDataPackages = async (
       params: {
         "data-service-id": reqParams.dataServiceId,
         "unique-signers-count": reqParams.uniqueSignersCount,
-        "data-feeds": reqParams.dataFeeds.join(","),
+        "data-feeds": reqParams.dataFeeds?.join(","),
       },
     })
   );
