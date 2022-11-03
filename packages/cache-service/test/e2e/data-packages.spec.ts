@@ -25,6 +25,7 @@ const expectedDataPackages = mockDataPackages.map((dataPackage) => ({
   ...dataPackage,
   signerAddress: mockSigner.address,
   dataServiceId: "mock-data-service-1",
+  dataFeedId: "___ALL_FEEDS___",
 }));
 
 describe("Data packages (e2e)", () => {
