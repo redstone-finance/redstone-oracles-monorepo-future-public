@@ -34,6 +34,7 @@ const expectedSavedDataPackages = [
     ...mockDataPackages[0],
     signerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
     dataServiceId: "mock-data-service-1",
+    dataFeedId: "___ALL_FEEDS___",
   },
 ];
 

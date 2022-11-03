@@ -72,7 +72,7 @@ export class DataPackagesService {
       const promises = requestConfig.dataFeeds.map(getDataPackagesForDataFeed);
       await Promise.all(promises);
     } else {
-      await getDataPackagesForDataFeed();
+      await getDataPackagesForDataFeed(ALL_FEEDS_KEY);
     }
 
     return fetchedPackagesPerDataFeed;
@@ -105,6 +105,8 @@ export class DataPackagesService {
         if (receivedDataPackage.dataPoints.length === 1) {
           cachedDataPackage.dataFeedId =
             receivedDataPackage.dataPoints[0].dataFeedId;
+        } else {
+          cachedDataPackage.dataFeedId = ALL_FEEDS_KEY;
         }
         return cachedDataPackage;
       }
