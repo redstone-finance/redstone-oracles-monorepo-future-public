@@ -8,8 +8,8 @@ contract SampleKycServiceConsumer is KycServiceConsumerBase {
   bool passedKYC;
 
   function executeActionPassingKYC() public {
-    bytes32 dataFeedIdCalc = keccak256(abi.encodePacked(msg.sender));
-    uint256 isVerified = getOracleNumericValueFromTxMsg(dataFeedIdCalc);
+    bytes32 dataFeedId = keccak256(abi.encodePacked(msg.sender));
+    uint256 isVerified = getOracleNumericValueFromTxMsg(dataFeedId);
     require(isVerified == 1, "User didn't pass KYC");
     passedKYC = true;
   }
