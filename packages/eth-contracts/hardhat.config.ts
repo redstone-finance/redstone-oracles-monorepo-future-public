@@ -1,3 +1,5 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import { HardhatUserConfig } from "hardhat/config";
 import "@openzeppelin/hardhat-upgrades";
 import "@nomiclabs/hardhat-waffle";
@@ -28,6 +30,10 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       blockGasLimit: 30_000_000,
+    },
+    goerli: {
+      url: process.env.GOERLI_URL,
+      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : undefined,
     },
   },
 };

@@ -4429,7 +4429,7 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-dom@^18.0.0", "@types/react-dom@^18.0.6":
+"@types/react-dom@^18.0.0":
   version "18.0.7"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.7.tgz#ee7cf8ec4e6977e3f0a7b1d38bd89c75aa2aec28"
   integrity sha512-HaXc+BbqAZE1RdsK3tC8SbkFy6UL2xF76lT9rQs5JkPrJg3rWA3Ou/Lhw3YJQzEDkBpmJ79nBsfnd05WrBd2QQ==
@@ -4443,7 +4443,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^18.0.0", "@types/react@^18.0.21":
+"@types/react@*", "@types/react@^18.0.0":
   version "18.0.23"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.23.tgz#4190ecd58b99fa79fe2e67832bdcb287e5f893e4"
   integrity sha512-R1wTULtCiJkudAN2DJGoYYySbGtOdzZyUWAACYinKdiQC8auxso4kLDUhQ7AJ2kh3F6A6z4v69U6tNY39hihVQ==
@@ -8563,7 +8563,7 @@ dotenv@16.0.1:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.1.tgz#8f8f9d94876c35dac989876a5d3a82a267fdce1d"
   integrity sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==
 
-dotenv@^16.0.1:
+dotenv@^16.0.1, dotenv@^16.0.3:
   version "16.0.3"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
   integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
@@ -16632,7 +16632,7 @@ react-base16-styling@^0.6.0:
     lodash.flow "^3.3.0"
     pure-color "^1.2.0"
 
-react-dom@^18.1.0, react-dom@^18.2.0:
+react-dom@^18.1.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
   integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
@@ -16763,7 +16763,7 @@ react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^18.1.0, react@^18.2.0:
+react@^18.1.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
