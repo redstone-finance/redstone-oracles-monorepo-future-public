@@ -43,8 +43,11 @@ export class DataPackagesController {
     const requestParams: DataPackagesRequestParams = {
       dataServiceId: query["data-service-id"],
       uniqueSignersCount: query["unique-signers-count"],
-      dataFeeds: (query["data-feeds"] ?? "").split(","),
     };
+
+    if (query["data-feeds"]) {
+      requestParams.dataFeeds = query["data-feeds"].split(",");
+    }
 
     return await this.dataPackagesService.getDataPackages(requestParams);
   }
