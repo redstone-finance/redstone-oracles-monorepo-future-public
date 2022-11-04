@@ -1,0 +1,331 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x557338EfE605F9C05Dbb080d1354C915Afb33940",
+    "txHash": "0x5b72263a8e34e3751d1d96ad8040c31a81edd960e9f69b7419e24db01289a437"
+  },
+  "proxies": [
+    {
+      "address": "0x7F398f54ffB90B2ac5f62Ee6f3Ba2009D415FEFc",
+      "txHash": "0x1e96479e307a7be62aa3ccc45e8733ac63cf2ba217162efc243fc9ed95ab5a4a",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x8e18233197E72E5eBB8192dFe784c8B109579fb3",
+      "txHash": "0x65962969d032581a03b437b8cc37d14184c6dad39c5f0a79fc6987320c8d1342",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x4f06877ddA11F097Eca5BA2d62D08Ff01ac666e3",
+      "txHash": "0x77be523cbb539f6fcf53d7a1f818a9daef534bc50feb6e6a3af18c80ed0e314e",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6C832E9a662593A511C46eBBA3c4b3b1a4F6B3Fc",
+      "txHash": "0xf31d9600d363c6bd4a9333f984f318408c53d2034c817bec5a47b6faa672ec6b",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xD2c21411B576eDfBb07B09AF8B1629d6C543e463",
+      "txHash": "0xf024b6fbd8ae2465868e42b8433b2f0847a8e37075a90d7a10469605a49bd143",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x5a5eDeb40677E948aF5afa63C8d4EE1DF19F05Be",
+      "txHash": "0xa9ef9cbcafb73ad956e2cd9e1db009f74f4674176c40d8e09bfbf21f8053988f",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x1b1bB146fe98Fe9Bc7dC68CE8C0E48176fF081d7",
+      "txHash": "0x04cb7b7fa4f9753da853b4c972f8eadc313c139b7e385049e66f95b6d699535f",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xC2EB047fA9538817144Ad4996A4D8Efb0C733e8c",
+      "txHash": "0xe1a3de88692ba8af7d6ffc8166a2b5473018c4c547cf25aeef680fa3cef6dbcd",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6F7a9486Bef476f3305bd3537E82a415041f1DcE",
+      "txHash": "0x6cdf1b6331031ac35ab91dd00d107d6ca5af0cd97960fbb9d4a76a21cd2432bc",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xa6F9182F2F122ba1144DFBD0588cC93CD5CF6535",
+      "txHash": "0x32a31035a15c03416508d3cd3c59f79eec664a3e8c99b68753019bb4e48f187e",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x89695c565f570fe74e83663e8f916Ec708739814",
+      "txHash": "0x6a429abe9d62565d696952084f0d2e02ef72eeae38cc22ae751bba10867b2c7d",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x1ff60e935D1ee02e3A8962e445a83e4Ce98F8540",
+      "txHash": "0xcce7ce01805224167a3207a9ec7901ad695db074bba867ef5cee5f0eea3fefe3",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x056Dd3BC49BB96b2075dAf94f88261cF6CB43eC8",
+      "txHash": "0xa40474f22de0ed2628abae8d1056ec7d2c151b223fe0caad4f7e6f1510280e87",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xe5d4f84EDD79BF57C30e81aCb707825F56017152",
+      "txHash": "0x7ecd1b649d9e4def9f99bd6b745e6ff38749633e2bf84d9d1ab1a647b46e3f3c",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xc5095371b753046Fe1289E2e4cD97804c8C9631B",
+      "txHash": "0x50f8f5dddc6a1eb2beb573e560247be9b5f295443276c7c52479159ca5c8f342",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xc7893899bAa18c83162e65B54756f2A92a009ee5",
+      "txHash": "0xcca60e21440128e9d09170652350f39efd8c3e9bd7ab0208b7a6d808e3d760e4",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xb6845f45B38DF4F556E7fF0e060cFbBD59ADD554",
+      "txHash": "0x7fc4d109b44c8ad04ea44614448b03c9e257184bbe180162427e958188aec32e",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x8A6360885a4ec758B030B5Aa9B37ee4CEDfBC6Ce",
+      "txHash": "0x24f00d75e84e8fb72d4cf6409bcbfda06352ea330bf0b760ece48f03acbec2ab",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xDc8E5AF4D98cf51f2269fB0130accfA85379478b",
+      "txHash": "0x0b9f1d3c11b0d580896344a5bda1a4b7d92094026811665d2f8c87b8663e0bdc",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xAc8bDe0CF3b94c06BaA8b397Ef8b205bd10738d6",
+      "txHash": "0x7cfee5aaff46cac4e42997cce5d6440a4b9b3bc6587cb6a562ec1271067d010d",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "97e9ba794a6964b3fcc4df3097c90df4cea1f55d474fb828c47bfa753a8f3f32": {
+      "address": "0xA4b467c1Be05DDF504b69a5d25d7997126165919",
+      "txHash": "0xfd7256508249a08b2acf8d1e65b0ac7faa9054b3af4853eda4da3df2e07f9f83",
+      "layout": {
+        "solcVersion": "0.8.4",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "_delayForUnlockingInSeconds",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "LockingRegistry",
+            "src": "contracts/LockingRegistry.sol:22"
+          },
+          {
+            "label": "_lockedToken",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_contract(IERC20)1057",
+            "contract": "LockingRegistry",
+            "src": "contracts/LockingRegistry.sol:23"
+          },
+          {
+            "label": "_authorisedSlasher",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address",
+            "contract": "LockingRegistry",
+            "src": "contracts/LockingRegistry.sol:24"
+          },
+          {
+            "label": "_lockingDetailsForUsers",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_address,t_struct(UserLockingDetails)2336_storage)",
+            "contract": "LockingRegistry",
+            "src": "contracts/LockingRegistry.sol:25"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(IERC20)1057": {
+            "label": "contract IERC20",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_struct(UserLockingDetails)2336_storage)": {
+            "label": "mapping(address => struct LockingRegistry.UserLockingDetails)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(UserLockingDetails)2336_storage": {
+            "label": "struct LockingRegistry.UserLockingDetails",
+            "members": [
+              {
+                "label": "lockedAmount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "pendingAmountToUnlock",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "unlockOpeningTimestampSeconds",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "301f12dc8fbfb5338f51e13f98e9b7e1aea547e5a262283d335ed6c4231d6a83": {
+      "address": "0xBFeF495a5C4Ee922B0c82A04d399Fc0E36314644",
+      "txHash": "0x80eba84c03a5f7bb24cebd3b11b1824790e7e1cfb4e89b7924a6b1b98c8ac84e",
+      "layout": {
+        "solcVersion": "0.8.4",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "token",
+            "offset": 2,
+            "slot": "0",
+            "type": "t_contract(ERC20)979",
+            "contract": "VestingWallet",
+            "src": "contracts/VestingWallet.sol:18"
+          },
+          {
+            "label": "beneficiary",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address",
+            "contract": "VestingWallet",
+            "src": "contracts/VestingWallet.sol:19"
+          },
+          {
+            "label": "lockingRegistry",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_contract(LockingRegistry)2615",
+            "contract": "VestingWallet",
+            "src": "contracts/VestingWallet.sol:20"
+          },
+          {
+            "label": "allocation",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256",
+            "contract": "VestingWallet",
+            "src": "contracts/VestingWallet.sol:21"
+          },
+          {
+            "label": "start",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint64",
+            "contract": "VestingWallet",
+            "src": "contracts/VestingWallet.sol:22"
+          },
+          {
+            "label": "cliffDuration",
+            "offset": 8,
+            "slot": "4",
+            "type": "t_uint64",
+            "contract": "VestingWallet",
+            "src": "contracts/VestingWallet.sol:23"
+          },
+          {
+            "label": "vestingDuration",
+            "offset": 16,
+            "slot": "4",
+            "type": "t_uint64",
+            "contract": "VestingWallet",
+            "src": "contracts/VestingWallet.sol:24"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_contract(ERC20)979": {
+            "label": "contract ERC20",
+            "numberOfBytes": "20"
+          },
+          "t_contract(LockingRegistry)2615": {
+            "label": "contract LockingRegistry",
+            "numberOfBytes": "20"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    }
+  }
+}
