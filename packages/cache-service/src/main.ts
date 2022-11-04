@@ -10,6 +10,7 @@ async function bootstrap() {
   app.use(json({ limit: REQEUST_SIZE_LIMIT }));
   app.use(urlencoded({ extended: true, limit: REQEUST_SIZE_LIMIT }));
   app.useLogger(app.get(Logger));
+  app.enableCors();
   await app.listen(3000);
 }
 

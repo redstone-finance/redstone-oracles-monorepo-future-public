@@ -29,7 +29,7 @@ export class DataPackagesService {
       [dataFeedId: string]: CachedDataPackage[];
     } = {};
 
-    const getDataPackagesForDataFeed = async (dataFeedId?: string) => {
+    const getDataPackagesForDataFeed = async (dataFeedId: string) => {
       const groupedDataPackages = await DataPackage.aggregate([
         {
           $sort: { signerAddress: 1, timestampMilliseconds: -1 },
@@ -37,7 +37,7 @@ export class DataPackagesService {
         {
           $match: {
             dataServiceId: requestConfig.dataServiceId,
-            dataFeedId: dataFeedId || { $exists: false },
+            dataFeedId,
           },
         },
         {
@@ -64,11 +64,11 @@ export class DataPackagesService {
         };
       });
 
-      fetchedPackagesPerDataFeed[dataFeedId || ALL_FEEDS_KEY] = dataPackages;
+      fetchedPackagesPerDataFeed[dataFeedId] = dataPackages;
     };
 
     // Fetching data packages for each data feed
-    if (requestConfig.dataFeeds?.length) {
+    if (!!requestConfig.dataFeeds) {
       const promises = requestConfig.dataFeeds.map(getDataPackagesForDataFeed);
       await Promise.all(promises);
     } else {

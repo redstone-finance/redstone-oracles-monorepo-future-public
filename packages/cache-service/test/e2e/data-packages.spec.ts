@@ -105,7 +105,7 @@ describe("Data packages (e2e)", () => {
   it("/data-packages/latest (GET)", async () => {
     const dataPackagesToInsert = [];
     for (const dataServiceId of ["service-1", "service-2", "service-3"]) {
-      for (const dataFeedId of [undefined, "ETH", "AAVE", "BTC"]) {
+      for (const dataFeedId of [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"]) {
         for (const signerAddress of ["0x1", "0x2", "0x3", "0x4", "0x5"]) {
           dataPackagesToInsert.push({
             ...mockDataPackages[0],
