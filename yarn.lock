@@ -16944,11 +16944,6 @@ redstone-isomorphic@^1.1.0:
     safe-buffer "^5.1.2"
     undici "^5.8.0"
 
-redstone-oracles-smartweave-contracts@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/redstone-oracles-smartweave-contracts/-/redstone-oracles-smartweave-contracts-1.0.0.tgz#bcb89ca2bfe5c9ca6ab2ffb59b949962e2a97bab"
-  integrity sha512-bcGL9UAhnE9xzydWn6I2z267h3z7xD96CZp8wdJRCK7wlYAkp16jOAd23QGoyi/Fcvr0To7C6QBE5FJBcxrxOg==
-
 redstone-oracles-smartweave-contracts@latest:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/redstone-oracles-smartweave-contracts/-/redstone-oracles-smartweave-contracts-1.0.1.tgz#51c802139edf2f46b5f50b9e04995ebbf0e8b3b7"
@@ -16958,22 +16953,6 @@ redstone-prettier-config@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redstone-prettier-config/-/redstone-prettier-config-1.0.0.tgz#154b28bf79f41826a4b47421db653d867aa3c241"
   integrity sha512-39BBmwrw+5L4MgV1TLGAlIwmRFvAzZ4iq8xshHdBhiiAgl0J6PeIYrkUkU5l6nMIilua4zkWoEz+58enT0pbhw==
-
-redstone-protocol@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/redstone-protocol/-/redstone-protocol-1.0.0.tgz#00e443a4a5f097109ea0df84b142df5228041b2d"
-  integrity sha512-5sP9z6v1SKunQRwNp8CDjf10J4CPlBARrofn2SyTZ7MykwKhYwwe2XLGTFz7dN9gFdEadtqTInMzrf+8PeIdnA==
-  dependencies:
-    ethers "^5.6.8"
-
-redstone-sdk@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/redstone-sdk/-/redstone-sdk-1.0.0.tgz#a2173d7c72a13fc662f4adc8da55eca7e325bbfb"
-  integrity sha512-nGtOYnqrOilc70c4LKTgLPMYWDVkff+8J3XG8T8vN7kmOunqXgIkm7GA0fUdqMmWP1rDuNlohP+i4aFZ0qmzRQ==
-  dependencies:
-    axios "^0.27.2"
-    redstone-oracles-smartweave-contracts "1.0.0"
-    redstone-protocol "1.0.0"
 
 redstone-smartweave@0.4.84, redstone-smartweave@^0.4.40:
   version "0.4.84"
