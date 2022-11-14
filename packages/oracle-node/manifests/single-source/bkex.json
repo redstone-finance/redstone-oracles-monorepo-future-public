@@ -1,0 +1,11 @@
+{
+  "interval": 60000,
+  "priceAggregator": "median",
+  "defaultSource": ["bkex"],
+  "sourceTimeout": 50000,
+  "maxPriceDeviationPercent": 25,
+  "evmChainId": 1,
+  "tokens": {
+    "PTP": {}
+  }
+}
