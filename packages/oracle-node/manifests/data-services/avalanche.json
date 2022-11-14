@@ -277,6 +277,22 @@
     "TJ_BTC_WAVAX_LP": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
+    },
+    "YY_PNG_WAVAX_USDC_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "YY_PNG_WETH_WAVAX_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "YY_TJ_sAVAX_WAVAX_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "YY_TJ_WETH_WAVAX_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
     }
   }
 }
