@@ -2274,6 +2274,18 @@
       ],
       "maxPriceDeviationPercent": 25
     },
+    "PNG": {
+      "source": [
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "gate",
+        "lbank",
+        "pangolin-wavax",
+        "trader-joe"
+      ],
+      "maxPriceDeviationPercent": 80
+    },
     "LINA": {
       "source": [
         "ascendex",
@@ -2487,18 +2499,6 @@
         "huobipro",
         "okx",
         "poloniex"
-      ],
-      "maxPriceDeviationPercent": 80
-    },
-    "PNG": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "gate",
-        "lbank",
-        "pangolin-wavax",
-        "trader-joe"
       ],
       "maxPriceDeviationPercent": 80
     },
@@ -2857,6 +2857,10 @@
         "coingecko"
       ],
       "maxPriceDeviationPercent": 25
+    },
+    "PTP": {
+      "source": ["bkex", "coinex", "coingecko", "pangolin-wavax", "trader-joe"],
+      "maxPriceDeviationPercent": 80
     },
     "GAS": {
       "source": ["cex", "hitbtc", "kucoin", "okx", "probit"],

@@ -239,6 +239,10 @@
     "MOO_TJ_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
+    },
+    "PTP": {
+      "source": ["bkex", "coinex", "coingecko", "pangolin-wavax", "trader-joe"],
+      "maxPriceDeviationPercent": 80
     }
   }
 }
