@@ -18,7 +18,12 @@
     "PNG_WAVAX_USDC_LP": {},
     "YY_TJ_WAVAX_USDC_LP": {},
     "MOO_TJ_WAVAX_USDC_LP": {},
-    "PNG_USDT_WAVAX_LP": {}
+    "PNG_USDT_WAVAX_LP": {},
+    "TJ_USDT_WAVAX_LP": {},
+    "TJ_sAVAX_WAVAX_LP": {},
+    "PNG_WETH_WAVAX_LP": {},
+    "TJ_WETH_WAVAX_LP": {},
+    "TJ_BTC_WAVAX_LP": {}
   },
   "defaultSource": ["avalanche-evm-fetcher"]
 }
