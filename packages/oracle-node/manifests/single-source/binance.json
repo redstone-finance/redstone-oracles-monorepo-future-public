@@ -1,9 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": [
-    "binance"
-  ],
+  "defaultSource": ["binance"],
   "sourceTimeout": 50000,
   "maxPriceDeviationPercent": 25,
   "evmChainId": 1,
@@ -225,6 +223,7 @@
     "BOND": {},
     "MLN": {},
     "GLMR": {},
-    "APT": {}
+    "APT": {},
+    "QI": {}
   }
 }

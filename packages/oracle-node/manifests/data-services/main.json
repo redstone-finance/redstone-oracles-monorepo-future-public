@@ -2645,6 +2645,17 @@
       "source": ["binance", "coingecko", "huobipro", "kucoin", "lbank", "okx"],
       "maxPriceDeviationPercent": 80
     },
+    "QI": {
+      "source": [
+        "binance",
+        "coingecko",
+        "kucoin",
+        "pangolin-wavax",
+        "trader-joe",
+        "xt"
+      ],
+      "maxPriceDeviationPercent": 80
+    },
     "WAXP": {
       "source": [
         "bitfinex",
@@ -3372,10 +3383,6 @@
     "FRAX": {
       "source": ["coingecko", "sushiswap", "uniswap"],
       "maxPriceDeviationPercent": 25
-    },
-    "QI": {
-      "source": ["coingecko", "pangolin-wavax", "trader-joe"],
-      "maxPriceDeviationPercent": 80
     },
     "YAK": {
       "source": ["coingecko", "pangolin-wavax", "trader-joe"],
