@@ -14,10 +14,11 @@
   "tokens": {
     "YYAV3SA1": {},
     "SAV2": {},
-    "TJ_AVAX_USDC_LP": {},
-    "PNG_AVAX_USDC_LP": {},
-    "YY_TJ_AVAX_USDC_LP": {},
-    "MOO_TJ_AVAX_USDC_LP": {}
+    "TJ_WAVAX_USDC_LP": {},
+    "PNG_WAVAX_USDC_LP": {},
+    "YY_TJ_WAVAX_USDC_LP": {},
+    "MOO_TJ_WAVAX_USDC_LP": {},
+    "PNG_USDT_WAVAX_LP": {}
   },
   "defaultSource": ["avalanche-evm-fetcher"]
 }
