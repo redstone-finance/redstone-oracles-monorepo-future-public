@@ -1,9 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": [
-    "lbank"
-  ],
+  "defaultSource": ["lbank"],
   "sourceTimeout": 50000,
   "maxPriceDeviationPercent": 25,
   "evmChainId": 1,
@@ -99,6 +97,7 @@
     "DUKE": {},
     "KISHU": {},
     "EFK": {},
-    "SKILL": {}
+    "SKILL": {},
+    "PNG": {}
   }
 }
