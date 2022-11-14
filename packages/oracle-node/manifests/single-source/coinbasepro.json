@@ -1,9 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": [
-    "coinbasepro"
-  ],
+  "defaultSource": ["coinbasepro"],
   "sourceTimeout": 50000,
   "maxPriceDeviationPercent": 25,
   "evmChainId": 1,
@@ -136,6 +134,7 @@
     "AIOZ": {},
     "SYN": {},
     "DDX": {},
-    "LOOM": {}
+    "LOOM": {},
+    "PNG": {}
   }
 }
