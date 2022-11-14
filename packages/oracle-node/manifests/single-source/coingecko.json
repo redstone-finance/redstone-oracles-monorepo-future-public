@@ -381,7 +381,8 @@
     "SWISE": {},
     "ZB": {},
     "SYLO": {},
-    "APT": {}
+    "APT": {},
+    "PTP": {}
   },
   "defaultSource": ["coingecko"]
 }
