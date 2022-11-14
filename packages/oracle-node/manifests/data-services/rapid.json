@@ -41,7 +41,7 @@
         "liquid",
         "oceanex",
         "okcoin",
-        "okex5",
+        "okx",
         "poloniex",
         "probit",
         "qtrade",
@@ -77,7 +77,7 @@
         "liquid",
         "oceanex",
         "okcoin",
-        "okex5",
+        "okx",
         "poloniex",
         "probit",
         "qtrade",
@@ -148,7 +148,7 @@
         "liquid",
         "oceanex",
         "okcoin",
-        "okex5",
+        "okx",
         "poloniex",
         "probit"
       ],
@@ -180,7 +180,7 @@
         "lbank",
         "liquid",
         "oceanex",
-        "okex5",
+        "okx",
         "poloniex",
         "probit",
         "stex"
@@ -211,7 +211,7 @@
         "kucoin",
         "oceanex",
         "okcoin",
-        "okex5"
+        "okx"
       ],
       "maxPriceDeviationPercent": 25
     },
@@ -238,7 +238,7 @@
         "liquid",
         "oceanex",
         "okcoin",
-        "okex5",
+        "okx",
         "poloniex",
         "probit"
       ],
@@ -267,7 +267,7 @@
         "kucoin",
         "liquid",
         "oceanex",
-        "okex5",
+        "okx",
         "poloniex",
         "probit"
       ],
@@ -278,7 +278,7 @@
       "maxPriceDeviationPercent": 25
     },
     "CELO": {
-      "source": ["binance", "bittrex", "kucoin", "okcoin", "okex5"],
+      "source": ["binance", "bittrex", "kucoin", "okcoin", "okx"],
       "maxPriceDeviationPercent": 80
     },
     "AVAX": {
@@ -294,7 +294,7 @@
         "kucoin",
         "lbank",
         "okcoin",
-        "okex5"
+        "okx"
       ],
       "maxPriceDeviationPercent": 25
     }
