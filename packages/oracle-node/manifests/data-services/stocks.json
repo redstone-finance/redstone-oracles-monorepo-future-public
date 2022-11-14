@@ -43,7 +43,7 @@
         "liquid",
         "oceanex",
         "okcoin",
-        "okex5",
+        "okx",
         "poloniex",
         "probit",
         "qtrade",
@@ -81,7 +81,7 @@
         "liquid",
         "oceanex",
         "okcoin",
-        "okex5",
+        "okx",
         "poloniex",
         "probit",
         "qtrade",
@@ -97,7 +97,7 @@
         "coinbasepro",
         "kucoin",
         "okcoin",
-        "okex5"
+        "okx"
       ],
       "maxPriceDeviationPercent": 80
     },
