@@ -12,8 +12,8 @@
   "enableStreamrBroadcaster": false,
   "enableArweaveBackup": false,
   "tokens": {
-    "YYAV3SA1": {},
-    "YY_PTP_sAVAX_FT": {},
+    "YY_AAVE_AVAX": {},
+    "YY_PTP_sAVAX": {},
     "PNG_AVAX_USDC_LP": {},
     "PNG_AVAX_USDT_LP": {},
     "PNG_AVAX_ETH_LP": {},
