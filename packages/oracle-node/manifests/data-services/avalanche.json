@@ -230,10 +230,6 @@
       "source": ["coingecko", "pangolin-wavax", "platypus", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
-    "SAV2": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
-    },
     "PTP": {
       "source": ["bkex", "coinex", "coingecko", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
@@ -291,6 +287,10 @@
       "maxPriceDeviationPercent": 80
     },
     "YY_TJ_WETH_WAVAX_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "YY_PTP_SAVAX_FT": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     }
