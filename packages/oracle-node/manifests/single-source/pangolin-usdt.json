@@ -12,7 +12,5 @@
   ],
   "enableStreamrBroadcaster": false,
   "enableArweaveBackup": false,
-  "tokens": {
-    "WAVAX": {}
-  }
+  "tokens": {}
 }
