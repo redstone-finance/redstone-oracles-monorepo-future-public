@@ -200,10 +200,6 @@
       ],
       "maxPriceDeviationPercent": 25
     },
-    "YYAV3SA1": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
-    },
     "sAVAX": {
       "source": ["coingecko", "pangolin-wavax", "platypus", "trader-joe"],
       "maxPriceDeviationPercent": 80
@@ -212,11 +208,11 @@
       "source": ["bkex", "coinex", "coingecko", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
-    "YY_PTP_sAVAX_FT": {
+    "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
-    "TJ_AVAX_USDC_LP": {
+    "YY_PTP_sAVAX": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
@@ -224,27 +220,19 @@
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
-    "YY_TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
-    },
-    "MOO_TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
-    },
     "PNG_AVAX_USDT_LP": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
-    "TJ_AVAX_USDT_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
-    },
-    "TJ_AVAX_sAVAX_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
-    },
     "PNG_AVAX_ETH_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "TJ_AVAX_USDC_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "TJ_AVAX_USDT_LP": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
@@ -253,6 +241,14 @@
       "maxPriceDeviationPercent": 80
     },
     "TJ_AVAX_BTC_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "TJ_AVAX_sAVAX_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "MOO_TJ_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
@@ -265,6 +261,10 @@
       "maxPriceDeviationPercent": 80
     },
     "YY_TJ_AVAX_sAVAX_LP": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "YY_TJ_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
