@@ -2866,16 +2866,6 @@
       "source": ["cex", "hitbtc", "kucoin", "okx", "probit"],
       "maxPriceDeviationPercent": 80
     },
-    "WAVAX": {
-      "source": [
-        "coingecko",
-        "pangolin-png",
-        "pangolin-qi",
-        "pangolin-usdt",
-        "trader-joe"
-      ],
-      "maxPriceDeviationPercent": 80
-    },
     "ZKS": {
       "source": ["huobipro", "lbank", "okx", "poloniex", "probit"],
       "maxPriceDeviationPercent": 25
@@ -3392,14 +3382,6 @@
       "source": ["coingecko", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
-    "FRAX": {
-      "source": ["coingecko", "sushiswap", "uniswap"],
-      "maxPriceDeviationPercent": 25
-    },
-    "YAK": {
-      "source": ["coingecko", "pangolin-wavax", "trader-joe"],
-      "maxPriceDeviationPercent": 80
-    },
     "AMZN": {
       "source": ["currencycom", "ftx", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
@@ -3462,10 +3444,6 @@
     },
     "LON": {
       "source": ["kucoin", "lbank", "okx"],
-      "maxPriceDeviationPercent": 80
-    },
-    "XAVA": {
-      "source": ["kucoin", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
     },
     "PICKLE": {
