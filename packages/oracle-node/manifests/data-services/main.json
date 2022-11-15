@@ -4166,11 +4166,11 @@
       "source": ["ascendex"],
       "maxPriceDeviationPercent": 80
     },
-    "YYAV3SA1": {
+    "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
-    "YY_PTP_sAVAX_FT": {
+    "YY_PTP_sAVAX": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
