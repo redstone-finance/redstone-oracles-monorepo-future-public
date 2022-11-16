@@ -25,7 +25,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
 
   const testShouldPass = async (mockPackages: MockDataPackageConfig[]) => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockPackages);
 
     const tx = await wrappedContract.saveLatestValueInStorage(
       DEFAULT_DATA_FEED_ID_BYTES_32
@@ -41,7 +41,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
     revertMsg: string
   ) => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockPackages);
 
     await expect(
       wrappedContract.saveLatestValueInStorage(DEFAULT_DATA_FEED_ID_BYTES_32)
@@ -75,21 +75,21 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
     ];
     await testShouldRevertWith(
       newPackages,
-      "Each authorised signer must provide exactly the same bytes value"
+      "EachSignerMustProvideTheSameValue()"
     );
   });
 
   it("Should revert if there are too few signers", async () => {
     await testShouldRevertWith(
       [mockBytesPackages[0], mockBytesPackages[1]],
-      "Insufficient number of unique signers"
+      "InsufficientNumberOfUniqueSigners(2, 3)"
     );
   });
 
   it("Should revert if there are too few unique signers", async () => {
     await testShouldRevertWith(
       [mockBytesPackages[0], mockBytesPackages[1], mockBytesPackages[1]],
-      "Insufficient number of unique signers"
+      "InsufficientNumberOfUniqueSigners(2, 3)"
     );
   });
 
@@ -102,7 +102,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
           mockSignerIndex: UNAUTHORISED_SIGNER_INDEX,
         }),
       ],
-      "Signer is not authorised"
+      `SignerNotAuthorised("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199")`
     );
   });
 });

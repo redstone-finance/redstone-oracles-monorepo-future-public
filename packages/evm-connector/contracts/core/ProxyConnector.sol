@@ -10,20 +10,20 @@ import "./CalldataExtractor.sol";
  * @author The Redstone Oracles team
  */
 contract ProxyConnector is RedstoneConstants, CalldataExtractor {
+  error ProxyCalldataFailedWithoutErrMsg();
+  error ProxyCalldataFailedWithStringMessage(string message);
+  error ProxyCalldataFailedWithCustomError(bytes result);
+
   function proxyCalldata(
     address contractAddress,
     bytes memory encodedFunction,
     bool forwardValue
   ) internal returns (bytes memory) {
-    bool success;
-    bytes memory result;
     bytes memory message = _prepareMessage(encodedFunction);
 
-    if (forwardValue == true) {
-      (success, result) = contractAddress.call{value: msg.value}(message);
-    } else {
-      (success, result) = contractAddress.call(message);
-    }
+    (bool success, bytes memory result) =
+      contractAddress.call{value: forwardValue ? msg.value : 0}(message);
+
     return _prepareReturnValue(success, result);
   }
 
@@ -51,7 +51,10 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
     uint256 redstonePayloadByteSize = _getRedstonePayloadByteSize();
     uint256 resultMessageByteSize = encodedFunctionBytesCount + redstonePayloadByteSize;
 
-    uint256 encodedFunctionOffset;
+    if (redstonePayloadByteSize > msg.data.length) {
+      revert CalldataOverOrUnderFlow();
+    }
+
     bytes memory message;
 
     assembly {
@@ -62,15 +65,15 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
 
       // Copying function and its arguments
       for {
-        encodedFunctionOffset := 0
-      } lt(encodedFunctionOffset, encodedFunctionBytesCount) {
-        encodedFunctionOffset := add(encodedFunctionOffset, STANDARD_SLOT_BS) // going with 32 bytes steps
+        let from := add(BYTES_ARR_LEN_VAR_BS, encodedFunction)
+        let fromEnd := add(from, encodedFunctionBytesCount)
+        let to := add(BYTES_ARR_LEN_VAR_BS, message)
+      } lt (from, fromEnd) {
+        from := add(from, STANDARD_SLOT_BS)
+        to := add(to, STANDARD_SLOT_BS)
       } {
-        // Copying data from encodedFunction to message 32 bytes at a time
-        mstore(
-          add(add(BYTES_ARR_LEN_VAR_BS, message), encodedFunctionOffset), // address in memory
-          mload(add(add(BYTES_ARR_LEN_VAR_BS, encodedFunction), encodedFunctionOffset)) // 32 bytes to copy
-        )
+        // Copying data from encodedFunction to message (32 bytes at a time)
+        mstore(to, mload(from))
       }
 
       // Copying redstone payload to the message bytes
@@ -117,19 +120,32 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
       DATA_PACKAGE_WITHOUT_DATA_POINTS_BS;
   }
 
+
   function _prepareReturnValue(bool success, bytes memory result)
     internal
     pure
     returns (bytes memory)
   {
     if (!success) {
-      if (result.length > 0) {
-        assembly {
-          let result_size := mload(result)
-          revert(add(32, result), result_size)
-        }
+
+      if (result.length == 0) {
+        revert ProxyCalldataFailedWithoutErrMsg();
       } else {
-        revert("Proxy calldata failed");
+        bool isStringErrorMessage;
+        assembly {
+          let first32BytesOfResult := mload(add(result, BYTES_ARR_LEN_VAR_BS))
+          isStringErrorMessage := eq(first32BytesOfResult, STRING_ERR_MESSAGE_MASK)
+        }
+
+        if (isStringErrorMessage) {
+          string memory receivedErrMsg;
+          assembly {
+            receivedErrMsg := add(result, REVERT_MSG_OFFSET)
+          }
+          revert ProxyCalldataFailedWithStringMessage(receivedErrMsg);
+        } else {
+          revert ProxyCalldataFailedWithCustomError(result);
+        }
       }
     }
 

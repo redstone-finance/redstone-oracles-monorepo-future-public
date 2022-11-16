@@ -6,27 +6,27 @@ import "../core/RedstoneConsumerBytesBase.sol";
 import "./AuthorisedMockSignersBase.sol";
 
 contract RedstoneConsumerBytesMock is RedstoneConsumerBytesBase, AuthorisedMockSignersBase {
-  constructor() {
-    uniqueSignersThreshold = 3;
+  uint256 internal constant MIN_TIMESTAMP_MILLISECONDS = 1654353400000;
+
+  error TimestampIsNotValid();
+
+  function getUniqueSignersThreshold() public view virtual override returns (uint8) {
+    return 3;
   }
 
-  function getAuthorisedSignerIndex(address _signerAddress)
+  function getAuthorisedSignerIndex(address signerAddress)
     public
     view
     virtual
     override
-    returns (uint256)
+    returns (uint8)
   {
-    return getAuthorisedMockSignerIndex(_signerAddress);
+    return getAuthorisedMockSignerIndex(signerAddress);
   }
 
-  function isTimestampValid(uint256 _receivedTimestamp)
-    public
-    view
-    virtual
-    override
-    returns (bool)
-  {
-    return _receivedTimestamp >= 1654353400000;
+  function validateTimestamp(uint256 receivedTimestampMilliseconds) public view virtual override {
+    if (receivedTimestampMilliseconds < MIN_TIMESTAMP_MILLISECONDS) {
+      revert TimestampIsNotValid();
+    }
   }
 }

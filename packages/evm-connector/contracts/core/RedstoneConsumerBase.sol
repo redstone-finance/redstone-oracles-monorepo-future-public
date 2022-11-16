@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.4;
 
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+
 import "./RedstoneConstants.sol";
 import "./RedstoneDefaultsLib.sol";
 import "./CalldataExtractor.sol";
@@ -15,8 +17,7 @@ import "../libs/SignatureLib.sol";
  * look at `RedstoneConsumerNumericBase` and `RedstoneConsumerBytesBase` instead
  */
 abstract contract RedstoneConsumerBase is CalldataExtractor {
-  // This variable should be updated in child consumer contracts
-  uint256 public uniqueSignersThreshold = 1;
+  using SafeMath for uint256;
 
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
 
@@ -27,16 +28,24 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
    * @param receviedSigner The address of a signer, recovered from ECDSA signature
    * @return Unique index for a signer in the range [0..255]
    */
-  function getAuthorisedSignerIndex(address receviedSigner) public view virtual returns (uint256);
+  function getAuthorisedSignerIndex(address receviedSigner) public view virtual returns (uint8);
 
   /**
    * @dev This function may be overriden by the child consumer contract.
    * It should validate the timestamp against the current time (block.timestamp)
-   * @param receivedTimestamp Timestamp extracted from calldata
-   * @return Boolean value indicating if the received timestamp is valid
+   * It should revert with a helpful message if the timestamp is not valid
+   * @param receivedTimestampMilliseconds Timestamp extracted from calldata
    */
-  function isTimestampValid(uint256 receivedTimestamp) public view virtual returns (bool) {
-    return RedstoneDefaultsLib.isTimestampValid(receivedTimestamp);
+  function validateTimestamp(uint256 receivedTimestampMilliseconds) public view virtual {
+    RedstoneDefaultsLib.validateTimestamp(receivedTimestampMilliseconds);
+  }
+
+  /**
+   * @dev This function should be overriden by the child consumer contract.
+   * @return The minimum required value of unique authorised signers
+   */
+  function getUniqueSignersThreshold() public view virtual returns (uint8) {
+    return 1;
   }
 
   /**
@@ -55,7 +64,7 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
   /**
    * @dev This is an internal helpful function for secure extraction oracle values
    * from the tx calldata. Security is achieved by signatures verification, timestamp
-   * validation, and aggregating values from from different authorised signers into a
+   * validation, and aggregating values from different authorised signers into a
    * single numeric value. If any of the required conditions (e.g. too old timestamp or
    * insufficient number of autorised signers) do not match, the function will revert.
    *
@@ -76,14 +85,22 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
     uint256[] memory signersBitmapForDataFeedIds = new uint256[](dataFeedIds.length);
     uint256[][] memory valuesForDataFeeds = new uint256[][](dataFeedIds.length);
     for (uint256 i = 0; i < dataFeedIds.length; i++) {
-      signersBitmapForDataFeedIds[i] = BitmapLib.EMPTY_BITMAP;
-      valuesForDataFeeds[i] = new uint256[](uniqueSignersThreshold);
+      // The line below is commented because newly allocated arrays are filled with zeros
+      // But we left it for better readability
+      // signersBitmapForDataFeedIds[i] = 0; // <- setting to an empty bitmap
+      valuesForDataFeeds[i] = new uint256[](getUniqueSignersThreshold());
     }
 
     // Extracting the number of data packages from calldata
     uint256 calldataNegativeOffset = _extractByteSizeOfUnsignedMetadata();
     uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata(calldataNegativeOffset);
     calldataNegativeOffset += DATA_PACKAGES_COUNT_BS;
+
+    // Saving current free memory pointer
+    uint256 freeMemPtr;
+    assembly {
+      freeMemPtr := mload(FREE_MEMORY_PTR)
+    }
 
     // Data packages extraction in a loop
     for (uint256 dataPackageIndex = 0; dataPackageIndex < dataPackagesCount; dataPackageIndex++) {
@@ -96,6 +113,11 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
         calldataNegativeOffset
       );
       calldataNegativeOffset += dataPackageByteSize;
+
+      // Shifting memory pointer back to the "safe" value
+      assembly {
+        mstore(FREE_MEMORY_PTR, freeMemPtr)
+      }
     }
 
     // Validating numbers of unique signers and calculating aggregated values for each dataFeedId
@@ -139,15 +161,19 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
       bytes memory signedMessage;
       uint256 signedMessageBytesCount;
 
-      signedMessageBytesCount =
-        dataPointsCount *
-        (eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS) +
-        DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS;
+      signedMessageBytesCount = dataPointsCount.mul(eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS)
+        + DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS;
+
+      uint256 timestampCalldataOffset = msg.data.length.sub(
+        calldataNegativeOffset + TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE_WITH_STANDARD_SLOT_BS);
+
+      uint256 signedMessageCalldataOffset = msg.data.length.sub(
+        calldataNegativeOffset + SIG_BS + signedMessageBytesCount);
 
       assembly {
         // Extracting the signed message
         signedMessage := extractBytesFromCalldata(
-          add(calldataNegativeOffset, SIG_BS),
+          signedMessageCalldataOffset,
           signedMessageBytesCount
         )
 
@@ -155,38 +181,28 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
         signedHash := keccak256(add(signedMessage, BYTES_ARR_LEN_VAR_BS), signedMessageBytesCount)
 
         // Extracting timestamp
-        extractedTimestamp := extractValueFromCalldata(
-          add(calldataNegativeOffset, TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE)
-        )
+        extractedTimestamp := calldataload(timestampCalldataOffset)
 
         function initByteArray(bytesCount) -> ptr {
           ptr := mload(FREE_MEMORY_PTR)
-          // TODO: check why this condition is added in the official yul documentation
-          // if iszero(ptr) {
-          //   ptr := 0x60
-          // }
           mstore(ptr, bytesCount)
           ptr := add(ptr, BYTES_ARR_LEN_VAR_BS)
-          mstore(FREE_MEMORY_PTR, add(ptr, add(BYTES_ARR_LEN_VAR_BS, bytesCount)))
+          mstore(FREE_MEMORY_PTR, add(ptr, bytesCount))
         }
 
         function extractBytesFromCalldata(offset, bytesCount) -> extractedBytes {
           let extractedBytesStartPtr := initByteArray(bytesCount)
           calldatacopy(
             extractedBytesStartPtr,
-            sub(calldatasize(), add(offset, bytesCount)),
+            offset,
             bytesCount
           )
           extractedBytes := sub(extractedBytesStartPtr, BYTES_ARR_LEN_VAR_BS)
         }
-
-        function extractValueFromCalldata(offset) -> valueFromCalldata {
-          valueFromCalldata := calldataload(sub(calldatasize(), add(offset, STANDARD_SLOT_BS)))
-        }
       }
 
       // Validating timestamp
-      require(isTimestampValid(extractedTimestamp), "Timestamp is not valid");
+      validateTimestamp(extractedTimestamp);
 
       // Verifying the off-chain signature against on-chain hashed data
       signerAddress = SignatureLib.recoverSignerAddress(
@@ -218,7 +234,7 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
 
             if (
               !BitmapLib.getBitFromBitmap(bitmapSignersForDataFeedId, signerIndex) && /* current signer was not counted for current dataFeedId */
-              uniqueSignerCountForDataFeedIds[dataFeedIdIndex] < uniqueSignersThreshold
+              uniqueSignerCountForDataFeedIds[dataFeedIdIndex] < getUniqueSignersThreshold()
             ) {
               // Increase unique signer counter
               uniqueSignerCountForDataFeedIds[dataFeedIdIndex]++;
@@ -234,6 +250,9 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
                 signerIndex
               );
             }
+
+            // Breaking, as there couldn't be several indexes for the same feed ID
+            break;
           }
         }
       }
@@ -262,12 +281,14 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
     uint256[] memory uniqueSignerCountForDataFeedIds
   ) private view returns (uint256[] memory) {
     uint256[] memory aggregatedValues = new uint256[](valuesForDataFeeds.length);
+    uint256 uniqueSignersThreshold = getUniqueSignersThreshold();
 
     for (uint256 dataFeedIndex = 0; dataFeedIndex < valuesForDataFeeds.length; dataFeedIndex++) {
-      require(
-        uniqueSignerCountForDataFeedIds[dataFeedIndex] >= uniqueSignersThreshold,
-        "Insufficient number of unique signers"
-      );
+      if (uniqueSignerCountForDataFeedIds[dataFeedIndex] < uniqueSignersThreshold) {
+        revert InsufficientNumberOfUniqueSigners(
+          uniqueSignerCountForDataFeedIds[dataFeedIndex],
+          uniqueSignersThreshold);
+      }
       uint256 aggregatedValueForDataFeedId = aggregateValues(valuesForDataFeeds[dataFeedIndex]);
       aggregatedValues[dataFeedIndex] = aggregatedValueForDataFeedId;
     }

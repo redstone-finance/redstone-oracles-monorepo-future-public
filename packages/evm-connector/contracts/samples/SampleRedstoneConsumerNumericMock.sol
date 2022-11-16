@@ -37,4 +37,12 @@ contract SampleRedstoneConsumerNumericMock is RedstoneConsumerNumericMock {
   function returnMsgValue() external payable returns (uint256) {
     return msg.value;
   }
+
+  function revertWithoutMessage() public pure {
+    revert();
+  }
+
+  function revertWithTestMessage() public pure {
+    revert("Test message");
+  }
 }

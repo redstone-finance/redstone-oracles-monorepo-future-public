@@ -27,7 +27,7 @@ describe("SampleProxyConnector", function () {
     revertMsg: string
   ) => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockPackages);
     await expect(
       wrappedContract.getOracleValueUsingProxy(ethDataFeedId)
     ).to.be.revertedWith(revertMsg);
@@ -43,7 +43,7 @@ describe("SampleProxyConnector", function () {
 
   it("Should return correct oracle value for one asset", async () => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockNumericPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
 
     const fetchedValue = await wrappedContract.getOracleValueUsingProxy(
       ethDataFeedId
@@ -76,7 +76,7 @@ describe("SampleProxyConnector", function () {
     );
 
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockNumericPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
 
     for (const dataPoint of dataPoints) {
       await expect(
@@ -90,7 +90,7 @@ describe("SampleProxyConnector", function () {
 
   it("Should forward msg.value", async () => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockNumericPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
     await expect(
       wrappedContract.requireValueForward({
         value: ethers.utils.parseUnits("2137"),
@@ -100,7 +100,7 @@ describe("SampleProxyConnector", function () {
 
   it("Should work properly with long encoded functions", async () => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockNumericPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
     await expect(
       wrappedContract.checkOracleValueLongEncodedFunction(
         ethDataFeedId,
@@ -109,7 +109,7 @@ describe("SampleProxyConnector", function () {
     ).not.to.be.reverted;
     await expect(
       wrappedContract.checkOracleValueLongEncodedFunction(ethDataFeedId, 9999)
-    ).to.be.revertedWith("Wrong value!");
+    ).to.be.revertedWith("WrongValue()");
   });
 
   it("Should fail with correct message (timestamp invalid)", async () => {
@@ -118,7 +118,10 @@ describe("SampleProxyConnector", function () {
       ...mockNumericPackageConfigs[1],
       timestampMilliseconds: DEFAULT_TIMESTAMP_FOR_TESTS - 1,
     });
-    await testShouldRevertWith(newMockPackages, "Timestamp is not valid");
+    await testShouldRevertWith(
+      newMockPackages,
+      `errorArgs=["0x355b8743"], errorName="ProxyCalldataFailedWithCustomError"`
+    );
   });
 
   it("Should fail with correct message (insufficient number of unique signers)", async () => {
@@ -128,7 +131,7 @@ describe("SampleProxyConnector", function () {
     );
     await testShouldRevertWith(
       newMockPackages,
-      "Insufficient number of unique signers"
+      `errorArgs=["0x2b13aef50000000000000000000000000000000000000000000000000000000000000009000000000000000000000000000000000000000000000000000000000000000a"], errorName="ProxyCalldataFailedWithCustomError"`
     );
   });
 
@@ -138,6 +141,25 @@ describe("SampleProxyConnector", function () {
       ...mockNumericPackageConfigs[1],
       mockSignerIndex: UNAUTHORISED_SIGNER_INDEX,
     });
-    await testShouldRevertWith(newMockPackages, "Signer is not authorised");
+    await testShouldRevertWith(
+      newMockPackages,
+      `errorArgs=["0xec459bc00000000000000000000000008626f6940e2eb28930efb4cef49b2d1f2c9c1199"], errorName="ProxyCalldataFailedWithCustomError"`
+    );
+  });
+
+  it("Should fail with correct message (no error message)", async () => {
+    const wrappedContract =
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
+    await expect(wrappedContract.proxyEmptyError()).to.be.revertedWith(
+      `errorName="ProxyCalldataFailedWithoutErrMsg"`
+    );
+  });
+
+  it("Should fail with correct message (string test message)", async () => {
+    const wrappedContract =
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
+    await expect(wrappedContract.proxyTestStringError()).to.be.revertedWith(
+      `errorArgs=["Test message"], errorName="ProxyCalldataFailedWithStringMessage"`
+    );
   });
 });

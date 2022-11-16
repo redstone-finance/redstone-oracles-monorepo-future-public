@@ -8,8 +8,13 @@ contract Benchmark is RedstoneConsumerNumericMock {
   // We use this storage variable to avoid annoying compilation
   // warnings about function state mutability
   uint256 someStorageVar = 0;
+  uint8 uniqueSignersThreshold = 1;
 
-  function updateUniqueSignersThreshold(uint256 newUniqueSignersThreshold) external {
+  function getUniqueSignersThreshold() public view override returns (uint8) {
+    return uniqueSignersThreshold;
+  }
+
+  function updateUniqueSignersThreshold(uint8 newUniqueSignersThreshold) external {
     uniqueSignersThreshold = newUniqueSignersThreshold;
   }
 
@@ -33,7 +38,7 @@ contract Benchmark is RedstoneConsumerNumericMock {
     public
     view
     override
-    returns (uint256)
+    returns (uint8)
   {
     return getAllMockAuthorised(_signerAddress);
   }

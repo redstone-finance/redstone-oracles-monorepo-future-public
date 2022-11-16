@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.4;
 
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+
 import "./RedstoneConstants.sol";
 
 /**
@@ -11,26 +13,55 @@ import "./RedstoneConstants.sol";
  * and the ProxyConnector contracts
  */
 contract CalldataExtractor is RedstoneConstants {
+  using SafeMath for uint256;
+
   function _extractByteSizeOfUnsignedMetadata() internal pure returns (uint256) {
+    // Checking if the calldata ends with the RedStone marker
+    bool hasValidRedstoneMarker;
+    assembly {
+      let calldataLast32Bytes := calldataload(sub(calldatasize(), STANDARD_SLOT_BS))
+      hasValidRedstoneMarker := eq(
+        REDSTONE_MARKER_MASK,
+        and(calldataLast32Bytes, REDSTONE_MARKER_MASK)
+      )
+    }
+    if (!hasValidRedstoneMarker) {
+      revert CalldataMustHaveValidPayload();
+    }
+
     // Using uint24, because unsigned metadata byte size number has 3 bytes
     uint24 unsignedMetadataByteSize;
-    assembly {
-      let calldataOffset := sub(calldatasize(), REDSTONE_MARKER_BS)
-      unsignedMetadataByteSize := calldataload(sub(calldataOffset, STANDARD_SLOT_BS))
+    if (REDSTONE_MARKER_BS_PLUS_STANDARD_SLOT_BS > msg.data.length) {
+      revert CalldataOverOrUnderFlow();
     }
-    return unsignedMetadataByteSize + UNSGINED_METADATA_BYTE_SIZE_BS + REDSTONE_MARKER_BS;
+    assembly {
+      unsignedMetadataByteSize := calldataload(
+        sub(calldatasize(), REDSTONE_MARKER_BS_PLUS_STANDARD_SLOT_BS)
+      )
+    }
+    uint256 calldataNegativeOffset = unsignedMetadataByteSize
+      + UNSGINED_METADATA_BYTE_SIZE_BS
+      + REDSTONE_MARKER_BS;
+    if (calldataNegativeOffset + DATA_PACKAGES_COUNT_BS > msg.data.length) {
+      revert IncorrectUnsignedMetadataSize();
+    }
+    return calldataNegativeOffset;
   }
 
+  // We return uint16, because unsigned metadata byte size number has 2 bytes
   function _extractDataPackagesCountFromCalldata(uint256 calldataNegativeOffset)
     internal
     pure
-    returns (uint256)
+    returns (uint16 dataPackagesCount)
   {
-    // Using uint16, because unsigned metadata byte size number has 2 bytes
-    uint16 dataPackagesCount;
+    uint256 calldataNegativeOffsetWithStandardSlot = calldataNegativeOffset + STANDARD_SLOT_BS;
+    if (calldataNegativeOffsetWithStandardSlot > msg.data.length) {
+      revert CalldataOverOrUnderFlow();
+    }
     assembly {
-      let calldataOffset := sub(calldatasize(), calldataNegativeOffset)
-      dataPackagesCount := calldataload(sub(calldataOffset, STANDARD_SLOT_BS))
+      dataPackagesCount := calldataload(
+        sub(calldatasize(), calldataNegativeOffsetWithStandardSlot)
+      )
     }
     return dataPackagesCount;
   }
@@ -40,18 +71,12 @@ contract CalldataExtractor is RedstoneConstants {
     uint256 defaultDataPointValueByteSize,
     uint256 dataPointIndex
   ) internal pure virtual returns (bytes32 dataPointDataFeedId, uint256 dataPointValue) {
+    uint256 negativeOffsetToDataPoints = calldataNegativeOffsetForDataPackage + DATA_PACKAGE_WITHOUT_DATA_POINTS_BS;
+    uint256 dataPointNegativeOffset = negativeOffsetToDataPoints.add(
+      (1 + dataPointIndex).mul((defaultDataPointValueByteSize + DATA_POINT_SYMBOL_BS))
+    );
+    uint256 dataPointCalldataOffset = msg.data.length.sub(dataPointNegativeOffset);
     assembly {
-      let negativeOffsetToDataPoints := add(
-        calldataNegativeOffsetForDataPackage,
-        DATA_PACKAGE_WITHOUT_DATA_POINTS_BS
-      )
-      let dataPointCalldataOffset := sub(
-        calldatasize(),
-        add(
-          negativeOffsetToDataPoints,
-          mul(add(1, dataPointIndex), add(defaultDataPointValueByteSize, DATA_POINT_SYMBOL_BS))
-        )
-      )
       dataPointDataFeedId := calldataload(dataPointCalldataOffset)
       dataPointValue := calldataload(add(dataPointCalldataOffset, DATA_POINT_SYMBOL_BS))
     }
@@ -63,27 +88,26 @@ contract CalldataExtractor is RedstoneConstants {
     returns (uint256 dataPointsCount, uint256 eachDataPointValueByteSize)
   {
     // Using uint24, because data points count byte size number has 3 bytes
-    uint24 _dataPointsCount;
+    uint24 dataPointsCount_;
 
     // Using uint32, because data point value byte size has 4 bytes
-    uint32 _eachDataPointValueByteSize;
+    uint32 eachDataPointValueByteSize_;
 
+    // Extract data points count
+    uint256 negativeCalldataOffset = calldataNegativeOffsetForDataPackage + SIG_BS;
+    uint256 calldataOffset = msg.data.length.sub(negativeCalldataOffset + STANDARD_SLOT_BS);
     assembly {
-      // Extract data points count
-      let negativeCalldataOffset := add(calldataNegativeOffsetForDataPackage, SIG_BS)
-      _dataPointsCount := extractFromCalldata(negativeCalldataOffset)
+      dataPointsCount_ := calldataload(calldataOffset)
+    }
 
-      // Extract each data point value size
-      negativeCalldataOffset := add(negativeCalldataOffset, DATA_POINTS_COUNT_BS)
-      _eachDataPointValueByteSize := extractFromCalldata(negativeCalldataOffset)
-
-      function extractFromCalldata(negativeOffset) -> extractedValue {
-        extractedValue := calldataload(sub(calldatasize(), add(negativeOffset, STANDARD_SLOT_BS)))
-      }
+    // Extract each data point value size
+    calldataOffset = calldataOffset.sub(DATA_POINTS_COUNT_BS);
+    assembly {
+      eachDataPointValueByteSize_ := calldataload(calldataOffset)
     }
 
     // Prepare returned values
-    dataPointsCount = uint256(_dataPointsCount);
-    eachDataPointValueByteSize = uint256(_eachDataPointValueByteSize);
+    dataPointsCount = dataPointsCount_;
+    eachDataPointValueByteSize = eachDataPointValueByteSize_;
   }
 }

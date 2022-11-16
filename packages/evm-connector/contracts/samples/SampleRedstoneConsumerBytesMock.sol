@@ -4,7 +4,6 @@ pragma solidity ^0.8.4;
 
 import "../mocks/RedstoneConsumerBytesMock.sol";
 import "../libs/NumericArrayLib.sol";
-import "hardhat/console.sol";
 
 contract SampleRedstoneConsumerBytesMock is RedstoneConsumerBytesMock {
   uint256 constant BITS_COUNT_IN_ONE_BYTE = 8;
