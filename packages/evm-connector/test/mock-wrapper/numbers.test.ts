@@ -24,7 +24,7 @@ describe("SampleRedstoneConsumerNumericMock", function () {
     dataFeedId: "ETH" | "BTC"
   ) => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockNumericPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
 
     const tx = await wrappedContract.saveOracleValueInContractStorage(
       utils.convertStringToBytes32(dataFeedId)
@@ -44,7 +44,7 @@ describe("SampleRedstoneConsumerNumericMock", function () {
     revertMsg: string
   ) => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockNumericPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
 
     await expect(
       wrappedContract.saveOracleValueInContractStorage(
@@ -84,7 +84,7 @@ describe("SampleRedstoneConsumerNumericMock", function () {
     await testShouldRevertWith(
       mockNumericPackages,
       "NOT_BTC_AND_NOT_ETH",
-      "Insufficient number of unique signers"
+      "InsufficientNumberOfUniqueSigners(0, 10)"
     );
   });
 
@@ -94,11 +94,7 @@ describe("SampleRedstoneConsumerNumericMock", function () {
       ...mockNumericPackageConfigs[1],
       timestampMilliseconds: DEFAULT_TIMESTAMP_FOR_TESTS - 1,
     });
-    await testShouldRevertWith(
-      newMockPackages,
-      "BTC",
-      "Timestamp is not valid"
-    );
+    await testShouldRevertWith(newMockPackages, "BTC", "TimestampIsNotValid()");
   });
 
   it("Should revert for an unauthorised signer", async () => {
@@ -110,7 +106,7 @@ describe("SampleRedstoneConsumerNumericMock", function () {
     await testShouldRevertWith(
       newMockPackages,
       "BTC",
-      "Signer is not authorised"
+      `SignerNotAuthorised("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199")`
     );
   });
 
@@ -122,7 +118,7 @@ describe("SampleRedstoneConsumerNumericMock", function () {
     await testShouldRevertWith(
       newMockPackages,
       "BTC",
-      "Insufficient number of unique signers"
+      "InsufficientNumberOfUniqueSigners(9, 10)"
     );
   });
 
@@ -132,7 +128,7 @@ describe("SampleRedstoneConsumerNumericMock", function () {
     await testShouldRevertWith(
       newMockPackages,
       "BTC",
-      "Insufficient number of unique signers"
+      "InsufficientNumberOfUniqueSigners(9, 10)"
     );
   });
 });

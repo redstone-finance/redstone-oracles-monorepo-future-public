@@ -1,0 +1,106 @@
+{
+  "1 signers, 1 symbols, 1 points": {
+    "forAttachingDataToCalldata": 1840,
+    "forDataExtractionAndVerification": 12514
+  },
+  "1 signers, 1 symbols, 2 points": {
+    "forAttachingDataToCalldata": 2216,
+    "forDataExtractionAndVerification": 13563
+  },
+  "1 signers, 1 symbols, 10 points": {
+    "forAttachingDataToCalldata": 5212,
+    "forDataExtractionAndVerification": 21957
+  },
+  "1 signers, 1 symbols, 20 points": {
+    "forAttachingDataToCalldata": 9104,
+    "forDataExtractionAndVerification": 32451
+  },
+  "1 signers, 2 symbols, 1 points": {
+    "forAttachingDataToCalldata": 3380,
+    "forDataExtractionAndVerification": 21496
+  },
+  "1 signers, 2 symbols, 2 points": {
+    "forAttachingDataToCalldata": 2216,
+    "forDataExtractionAndVerification": 15778
+  },
+  "1 signers, 2 symbols, 10 points": {
+    "forAttachingDataToCalldata": 5212,
+    "forDataExtractionAndVerification": 25709
+  },
+  "1 signers, 2 symbols, 20 points": {
+    "forAttachingDataToCalldata": 9104,
+    "forDataExtractionAndVerification": 38123
+  },
+  "1 signers, 10 symbols, 1 points": {
+    "forAttachingDataToCalldata": 15832,
+    "forDataExtractionAndVerification": 100317
+  },
+  "1 signers, 10 symbols, 10 points": {
+    "forAttachingDataToCalldata": 5212,
+    "forDataExtractionAndVerification": 48842
+  },
+  "1 signers, 10 symbols, 20 points": {
+    "forAttachingDataToCalldata": 9104,
+    "forDataExtractionAndVerification": 76621
+  },
+  "1 signers, 20 symbols, 1 points": {
+    "forAttachingDataToCalldata": 31556,
+    "forDataExtractionAndVerification": 216169
+  },
+  "1 signers, 20 symbols, 20 points": {
+    "forAttachingDataToCalldata": 9104,
+    "forDataExtractionAndVerification": 107484
+  },
+  "3 signers, 1 symbols, 1 points": {
+    "forAttachingDataToCalldata": 4944,
+    "forDataExtractionAndVerification": 27881
+  },
+  "3 signers, 1 symbols, 2 points": {
+    "forAttachingDataToCalldata": 6048,
+    "forDataExtractionAndVerification": 31029
+  },
+  "3 signers, 1 symbols, 10 points": {
+    "forAttachingDataToCalldata": 15048,
+    "forDataExtractionAndVerification": 56217
+  },
+  "3 signers, 1 symbols, 20 points": {
+    "forAttachingDataToCalldata": 26712,
+    "forDataExtractionAndVerification": 87714
+  },
+  "3 signers, 2 symbols, 1 points": {
+    "forAttachingDataToCalldata": 9588,
+    "forDataExtractionAndVerification": 52615
+  },
+  "3 signers, 2 symbols, 2 points": {
+    "forAttachingDataToCalldata": 6048,
+    "forDataExtractionAndVerification": 35364
+  },
+  "3 signers, 2 symbols, 10 points": {
+    "forAttachingDataToCalldata": 15048,
+    "forDataExtractionAndVerification": 65162
+  },
+  "3 signers, 2 symbols, 20 points": {
+    "forAttachingDataToCalldata": 26712,
+    "forDataExtractionAndVerification": 102421
+  },
+  "3 signers, 10 symbols, 1 points": {
+    "forAttachingDataToCalldata": 47028,
+    "forDataExtractionAndVerification": 271326
+  },
+  "3 signers, 10 symbols, 10 points": {
+    "forAttachingDataToCalldata": 15048,
+    "forDataExtractionAndVerification": 116019
+  },
+  "3 signers, 10 symbols, 20 points": {
+    "forAttachingDataToCalldata": 26712,
+    "forDataExtractionAndVerification": 199375
+  },
+  "3 signers, 20 symbols, 1 points": {
+    "forAttachingDataToCalldata": 94176,
+    "forDataExtractionAndVerification": 596729
+  },
+  "3 signers, 20 symbols, 20 points": {
+    "forAttachingDataToCalldata": 26712,
+    "forDataExtractionAndVerification": 268761
+  }
+}

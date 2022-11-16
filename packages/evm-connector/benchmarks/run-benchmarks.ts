@@ -23,9 +23,9 @@ interface GasReport {
 
 // Change this array to configure your custom benchmark test cases
 const TEST_CASES = {
-  requiredSignersCount: [1, 2, 10, 20, 30],
-  requestedSymbolsCount: [1, 2, 10, 20, 30, 50],
-  dataPointsCount: [1, 2, 10, 20, 50, 100],
+  requiredSignersCount: [1, 3, 10],
+  requestedSymbolsCount: [1, 2, 10, 20],
+  dataPointsCount: [1, 2, 10, 20],
 };
 
 describe("Benchmark", function () {
@@ -40,7 +40,7 @@ describe("Benchmark", function () {
 
   this.afterAll(async () => {
     console.log("=== FINAL GAS REPORT ===");
-    console.log(fullGasReport);
+    console.log(JSON.stringify(fullGasReport, null, 2));
   });
 
   const prepareMockDataPackageConfig = (
@@ -135,11 +135,9 @@ describe("Benchmark", function () {
   const runBenchmarkTestCase = async (
     benchmarkParams: BenchmarkTestCaseParams
   ) => {
-    console.log(
-      `Benchmark case testing started: ${getBenchmarkCaseShortTitle(
-        benchmarkParams
-      )}`
-    );
+    const shortTitle = getBenchmarkCaseShortTitle(benchmarkParams);
+
+    console.log(`Benchmark case testing started: ${shortTitle}`);
 
     const dataFeedIds = [
       ...Array(benchmarkParams.requestedSymbolsCount).keys(),
@@ -147,7 +145,7 @@ describe("Benchmark", function () {
     const bytes32Symbols = dataFeedIds.map(utils.convertStringToBytes32);
     const mockDataPackagesConfig =
       prepareMockDataPackageConfig(benchmarkParams);
-    const wrappedContract = WrapperBuilder.wrap(contract).usingMockData(
+    const wrappedContract = WrapperBuilder.wrap(contract).usingMockDataPackages(
       mockDataPackagesConfig
     );
 
@@ -202,16 +200,18 @@ describe("Benchmark", function () {
   for (const requiredSignersCount of TEST_CASES.requiredSignersCount) {
     for (const requestedSymbolsCount of TEST_CASES.requestedSymbolsCount) {
       for (const dataPointsCount of TEST_CASES.dataPointsCount) {
-        const benchmarkParams: BenchmarkTestCaseParams = {
-          requiredSignersCount,
-          requestedSymbolsCount,
-          dataPointsCount,
-        };
-        it(`Benchmark: ${getBenchmarkCaseShortTitle(
-          benchmarkParams
-        )}`, async () => {
-          await runBenchmarkTestCase(benchmarkParams);
-        });
+        if (dataPointsCount >= requestedSymbolsCount || dataPointsCount == 1) {
+          const benchmarkParams: BenchmarkTestCaseParams = {
+            requiredSignersCount,
+            requestedSymbolsCount,
+            dataPointsCount,
+          };
+          it(`Benchmark: ${getBenchmarkCaseShortTitle(
+            benchmarkParams
+          )}`, async () => {
+            await runBenchmarkTestCase(benchmarkParams);
+          });
+        }
       }
     }
   }

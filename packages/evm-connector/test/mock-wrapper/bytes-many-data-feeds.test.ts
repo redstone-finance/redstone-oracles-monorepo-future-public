@@ -26,7 +26,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     dataFeedIds: ("ETH" | "BTC")[]
   ) => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockBytesPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockBytesPackages);
 
     const tx = await wrappedContract.save2ValuesInStorage([
       utils.convertStringToBytes32(dataFeedIds[0]),
@@ -51,7 +51,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     revertMsg: string
   ) => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockBytesPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockBytesPackages);
 
     await expect(
       wrappedContract.save2ValuesInStorage(
@@ -91,7 +91,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     await testShouldRevertWith(
       mockBytesPackages,
       ["BTC", "NOT_BTC_AND_NOT_ETH"],
-      "Insufficient number of unique signers"
+      "InsufficientNumberOfUniqueSigners(0, 3)"
     );
   });
 
@@ -104,7 +104,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "Timestamp is not valid"
+      "TimestampIsNotValid()"
     );
   });
 
@@ -117,7 +117,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "Signer is not authorised"
+      `SignerNotAuthorised("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199")`
     );
   });
 
@@ -129,7 +129,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "Insufficient number of unique signers"
+      "InsufficientNumberOfUniqueSigners(2, 3)"
     );
   });
 
@@ -139,7 +139,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "Insufficient number of unique signers"
+      "InsufficientNumberOfUniqueSigners(2, 3)"
     );
   });
 });

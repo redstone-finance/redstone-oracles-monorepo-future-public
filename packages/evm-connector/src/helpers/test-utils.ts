@@ -12,6 +12,8 @@ import {
 import { ConvertableToBytes32 } from "redstone-protocol/src/common/utils";
 import { MockDataPackageConfig } from "../wrappers/MockWrapper";
 
+export const MAX_MOCK_SIGNERS_COUNT = 19;
+
 export type MockSignerIndex =
   | 0
   | 1
@@ -187,6 +189,13 @@ export const getMockSignerPrivateKey = (
     }
   }
   throw new Error(`Invalid mock signer address: ${mockSignerAddress}`);
+};
+
+export const getMockSignerAddress = (
+  signerIndex: MockSignerIndex
+): MockSignerAddress => {
+  const address = new ethers.Wallet(MOCK_PRIVATE_KEYS[signerIndex]).address;
+  return address as MockSignerAddress;
 };
 
 export const getMockPackage = (

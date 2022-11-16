@@ -78,7 +78,7 @@ describe("SampleNumericArrayLib", function () {
 
   it("Should revert trying to pick a median value from an empty array", async () => {
     await expect(contract.testMedianSelection([])).to.be.revertedWith(
-      "Can't pick a median of an empty array"
+      "CanNotPickMedianOfEmptyArray()"
     );
   });
 

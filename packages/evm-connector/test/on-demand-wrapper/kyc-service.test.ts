@@ -35,7 +35,7 @@ describe("SampleKycServiceConsumer", () => {
       ScoreType.coinbaseKYC
     );
     await expect(wrappedContract.executeActionPassingKYC()).to.be.revertedWith(
-      "User didn't pass KYC"
+      `UserDidNotPassKYC("0x70997970C51812dc3A010C7d01b50e0d17dc79C8")`
     );
   });
 
@@ -49,7 +49,7 @@ describe("SampleKycServiceConsumer", () => {
       ScoreType.coinbaseKYC
     );
     await expect(wrappedContract.executeActionPassingKYC()).to.be.revertedWith(
-      "Insufficient number of unique signers"
+      "InsufficientNumberOfUniqueSigners(1, 2)"
     );
   });
 
@@ -63,7 +63,7 @@ describe("SampleKycServiceConsumer", () => {
       ScoreType.coinbaseKYC
     );
     await expect(wrappedContract.executeActionPassingKYC()).to.be.revertedWith(
-      "All values must be equal"
+      "AllValuesMustBeEqual()"
     );
   });
 
@@ -77,7 +77,7 @@ describe("SampleKycServiceConsumer", () => {
       ScoreType.coinbaseKYC
     );
     await expect(wrappedContract.executeActionPassingKYC()).to.be.revertedWith(
-      "Insufficient number of unique signers"
+      "InsufficientNumberOfUniqueSigners(1, 2)"
     );
   });
 

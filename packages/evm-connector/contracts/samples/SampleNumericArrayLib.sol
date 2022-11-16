@@ -8,11 +8,6 @@ contract SampleNumericArrayLib {
   uint256[] cachedArray;
   uint256 public cachedMedian;
 
-  // function testSortCall(uint256[] memory arr) public view returns (uint256[] memory) {
-  //   NumericArrayLib.sort(arr);
-  //   return arr;
-  // }
-
   function testSortTx(uint256[] memory arr) public {
     NumericArrayLib.sort(arr);
     cachedArray = arr;

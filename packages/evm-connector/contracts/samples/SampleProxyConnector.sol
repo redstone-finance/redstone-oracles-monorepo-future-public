@@ -10,6 +10,11 @@ import "./SampleRedstoneConsumerNumericMock.sol";
  * @dev An example of a contract that makes a call to a SampleRedstoneConsumerMock contract
  */
 contract SampleProxyConnector is ProxyConnector {
+  error UnexpectedOracleValue();
+  error WrongValue();
+  error ExpectedMsgValueToBePassed();
+  error ExpectedMsgValueNotToBePassed();
+
   SampleRedstoneConsumerNumericMock sampleRedstoneConsumer;
 
   constructor() {
@@ -30,9 +35,25 @@ contract SampleProxyConnector is ProxyConnector {
     return abi.decode(encodedResult, (uint256));
   }
 
+  function proxyEmptyError() public view {
+    bytes memory encodedFunction = abi.encodeWithSelector(
+      SampleRedstoneConsumerNumericMock.revertWithoutMessage.selector
+    );
+    proxyCalldataView(address(sampleRedstoneConsumer), encodedFunction);
+  }
+
+  function proxyTestStringError() public view {
+    bytes memory encodedFunction = abi.encodeWithSelector(
+      SampleRedstoneConsumerNumericMock.revertWithTestMessage.selector
+    );
+    proxyCalldataView(address(sampleRedstoneConsumer), encodedFunction);
+  }
+
   function checkOracleValue(bytes32 dataFeedId, uint256 expectedValue) external view {
     uint256 oracleValue = getOracleValueUsingProxy(dataFeedId);
-    require(oracleValue == expectedValue, "Received an unexpected oracle value");
+    if (oracleValue != expectedValue) {
+      revert UnexpectedOracleValue();
+    }
   }
 
   function checkOracleValueLongEncodedFunction(bytes32 asset, uint256 price) external {
@@ -55,7 +76,9 @@ contract SampleProxyConnector is ProxyConnector {
 
     uint256 oraclePrice = abi.decode(encodedResult, (uint256));
 
-    require(oraclePrice == price, "Wrong value!");
+    if (oraclePrice != price) {
+      revert WrongValue();
+    }
   }
 
   function requireValueForward() external payable {
@@ -69,7 +92,9 @@ contract SampleProxyConnector is ProxyConnector {
     );
     uint256 msgValue = abi.decode(encodedResult, (uint256));
 
-    require(msgValue == 0, "Expected msg.value not to be passed");
+    if (msgValue != 0) {
+      revert ExpectedMsgValueNotToBePassed();
+    }
 
     encodedResult = ProxyConnector.proxyCalldata(
       address(sampleRedstoneConsumer),
@@ -78,6 +103,8 @@ contract SampleProxyConnector is ProxyConnector {
     );
     msgValue = abi.decode(encodedResult, (uint256));
 
-    require(msgValue == msg.value, "Expected msg.value to be passed");
+    if (msgValue != msg.value) {
+      revert ExpectedMsgValueToBePassed();
+    }
   }
 }
