@@ -60,7 +60,9 @@ describe("SampleSyntheticToken", function () {
     );
 
     wrappedContract =
-      WrapperBuilder.wrap(sampleContract).usingMockData(mockDataPackages);
+      WrapperBuilder.wrap(sampleContract).usingMockDataPackages(
+        mockDataPackages
+      );
   });
 
   it("Maker balance should be 0", async () => {

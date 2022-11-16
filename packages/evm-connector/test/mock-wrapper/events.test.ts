@@ -18,7 +18,9 @@ describe("SampleWithEvents", function () {
   it("Test events with contract wrapping", async function () {
     // Wrapping the contract instnace
     const wrappedContract =
-      WrapperBuilder.wrap(sampleContract).usingMockData(mockNumericPackages);
+      WrapperBuilder.wrap(sampleContract).usingMockDataPackages(
+        mockNumericPackages
+      );
 
     // Sending tx
     const tx = await wrappedContract.emitEventWithLatestOracleValue();

@@ -4,7 +4,6 @@ pragma solidity ^0.8.4;
 
 import "../mocks/RedstoneConsumerBytesMock.sol";
 import "../libs/NumericArrayLib.sol";
-import "hardhat/console.sol";
 
 contract SampleRedstoneConsumerBytesMockStrings is RedstoneConsumerBytesMock {
   bytes public latestString;

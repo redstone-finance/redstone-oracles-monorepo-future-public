@@ -35,7 +35,7 @@ describe("Long Inputs", function () {
     const hexValue = "0x" + "f".repeat(30_000);
     const mockPackages = prepareMockBytesPackages(hexValue);
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockPackages);
     await wrappedContract.saveLatestValueInStorage(
       DEFAULT_DATA_FEED_ID_BYTES_32
     );

@@ -54,4 +54,59 @@ abstract contract RedstoneConsumerNumericBase is RedstoneConsumerBase {
   {
     return _securelyExtractOracleValuesFromTxMsg(dataFeedIds);
   }
+
+  /**
+   * @dev This function works similarly to the `getOracleNumericValuesFromTxMsg` with the
+   * only difference that it allows to request oracle data for an array of data feeds
+   * that may contain duplicates
+   * 
+   * @param dataFeedIdsWithDuplicates An array of data feed identifiers (duplicates are allowed)
+   * @return An array of the extracted and verified oracle values in the same order
+   * as they are requested in the dataFeedIdsWithDuplicates array
+   */
+  function getOracleNumericValuesWithDuplicatesFromTxMsg(bytes32[] memory dataFeedIdsWithDuplicates) internal view returns (uint256[] memory) {
+    // Building an array without duplicates
+    bytes32[] memory dataFeedIdsWithoutDuplicates = new bytes32[](dataFeedIdsWithDuplicates.length);
+    bool alreadyIncluded;
+    uint256 uniqueDataFeedIdsCount = 0;
+
+    for (uint256 indexWithDup = 0; indexWithDup < dataFeedIdsWithDuplicates.length; indexWithDup++) {
+      // Checking if current element is already included in `dataFeedIdsWithoutDuplicates`
+      alreadyIncluded = false;
+      for (uint256 indexWithoutDup = 0; indexWithoutDup < uniqueDataFeedIdsCount; indexWithoutDup++) {
+        if (dataFeedIdsWithoutDuplicates[indexWithoutDup] == dataFeedIdsWithDuplicates[indexWithDup]) {
+          alreadyIncluded = true;
+          break;
+        }
+      }
+
+      // Adding if not included
+      if (!alreadyIncluded) {
+        dataFeedIdsWithoutDuplicates[uniqueDataFeedIdsCount] = dataFeedIdsWithDuplicates[indexWithDup];
+        uniqueDataFeedIdsCount++;
+      }
+    }
+
+    // Overriding dataFeedIdsWithoutDuplicates.length
+    // Equivalent to: dataFeedIdsWithoutDuplicates.length = uniqueDataFeedIdsCount;
+    assembly {
+      mstore(dataFeedIdsWithoutDuplicates, uniqueDataFeedIdsCount)
+    }
+
+    // Requesting oracle values (without duplicates)
+    uint256[] memory valuesWithoutDuplicates = getOracleNumericValuesFromTxMsg(dataFeedIdsWithoutDuplicates);
+
+    // Preparing result values array
+    uint256[] memory valuesWithDuplicates = new uint256[](dataFeedIdsWithDuplicates.length);
+    for (uint256 indexWithDup = 0; indexWithDup < dataFeedIdsWithDuplicates.length; indexWithDup++) {
+      for (uint256 indexWithoutDup = 0; indexWithoutDup < dataFeedIdsWithoutDuplicates.length; indexWithoutDup++) {
+        if (dataFeedIdsWithDuplicates[indexWithDup] == dataFeedIdsWithoutDuplicates[indexWithoutDup]) {
+          valuesWithDuplicates[indexWithDup] = valuesWithoutDuplicates[indexWithoutDup];
+          break;
+        }
+      }
+    }
+
+    return valuesWithDuplicates;
+  }
 }

@@ -44,7 +44,7 @@ describe("Corrupted payload", function () {
 
   it("Should work properly with the correct redstone payload", async () => {
     const wrappedContract =
-      WrapperBuilder.wrap(contract).usingMockData(mockNumericPackages);
+      WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
 
     const tx = await wrappedContract.save2ValuesInStorage([
       utils.convertStringToBytes32("BTC"),

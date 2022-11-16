@@ -68,9 +68,9 @@ contract YourContractName is AvalancheDataServiceConsumerBase {
 
 💡 Note: You can also override the following functions (do it on your own risk):
 
-- `isTimestampValid(uint256 receivedTimestamp) returns (bool)` - to enable custom logic of timestamp validation
+- `validateTimestamp(uint256 receivedTimestampMilliseconds)` - to enable custom logic of timestamp validation
 - `aggregateValues(uint256[] memory values) returns (uint256)` - to enable custom logic of aggregating values from different providers (by default this function takes the median value)
-- `getAuthorisedSignerIndex(address _signerAddress) returns (uint256)` function and `uniqueSignersThreshold` contract variable - to enable custom logic of signers authorisation
+- `getAuthorisedSignerIndex(address _signerAddress) returns (uint8)` function and `getUniqueSignersThreshold() returns (uint8)` function - to enable custom logic of signers authorisation
 
 After applying the mentioned change you will be able to access the data calling the local `getOracleNumericValueFromTxMsg` function. You should pass the data feed id converted to `bytes32`.
 
@@ -180,7 +180,7 @@ To increase the security of the Redstone oracle system, we've created the on-cha
 
 There are the following on-chain aggregation params in Redstone consumer base contract:
 
-- `uniqueSignersThreshold` value
+- `getUniqueSignersThreshold` function
 - `getAuthorisedSignerIndex` function
 - `aggregateValues` function (for numeric values)
 - `aggregateByteValues` function (for bytes arrays)
@@ -194,7 +194,7 @@ We support 2 types of data to be received in contract:
 
 ### Security considerations
 
-- Do not modify the `uniqueSignersThreshold` variable, unless you 100% sure about it
+- Do not modify the `getUniqueSignersThreshold` function, unless you 100% sure about it
 - Pay attention to the timestamp validation logic. For some use-cases (e.g. synthetic DEX), you would need to cache the latest values in your contract storage to avoid arbitrage attacks
 - Enable secure upgradability mechanism for your contract (ideally based on multi-sig or DAO)
 - Monitor the Redstone data services registry and quickly modify signer authorisation logic in your contracts in case of changes (we will also notify you if you are a paying client)

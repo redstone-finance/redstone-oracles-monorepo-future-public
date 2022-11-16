@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.4;
 
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+
 import "./RedstoneConsumerBase.sol";
 
 /**
@@ -33,6 +35,8 @@ import "./RedstoneConsumerBase.sol";
  * integration with the Redstone protocol
  */
 abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
+  using SafeMath for uint256;
+
   uint256 constant BITS_COUNT_IN_16_BYTES = 128;
 
   /**
@@ -54,6 +58,9 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
     returns (bytes memory)
   {
     // Check if all byte arrays are identical
+    if (calldataPointersForValues.length <= 0) {
+      revert EmptyCalldataPointersArr();
+    }
     bytes calldata firstValue = getCalldataBytesFromCalldataPointer(calldataPointersForValues[0]);
     bytes32 expectedHash = keccak256(firstValue);
 
@@ -61,10 +68,9 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
       bytes calldata currentValue = getCalldataBytesFromCalldataPointer(
         calldataPointersForValues[i]
       );
-      require(
-        keccak256(currentValue) == expectedHash,
-        "Each authorised signer must provide exactly the same bytes value"
-      );
+      if (keccak256(currentValue) != expectedHash) {
+        revert EachSignerMustProvideTheSameValue();
+      }
     }
 
     return firstValue;
@@ -75,18 +81,21 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
    * calldata bytes array. You may find it useful while overriding the
    * `aggregateByteValues` function
    *
-   * @param byteValueCalldataPtr A "tricky" calldata pointer, 128 first bits of which
+   * @param trickyCalldataPtr A "tricky" calldata pointer, 128 first bits of which
    * represent the offset, and the last 128 bits - the byte length of the value
    *
    * @return bytesValueInCalldata The corresponding calldata bytes array
    */
-  function getCalldataBytesFromCalldataPointer(uint256 byteValueCalldataPtr)
+  function getCalldataBytesFromCalldataPointer(uint256 trickyCalldataPtr)
     internal
     pure
     returns (bytes calldata bytesValueInCalldata)
   {
-    uint256 calldataOfffset = _getNumberFromFirst128Bits(byteValueCalldataPtr);
-    uint256 valueByteSize = _getNumberFromLast128Bits(byteValueCalldataPtr);
+    uint256 calldataOfffset = _getNumberFromFirst128Bits(trickyCalldataPtr);
+    uint256 valueByteSize = _getNumberFromLast128Bits(trickyCalldataPtr);
+    if (calldataOfffset + valueByteSize > msg.data.length) {
+      revert InvalidCalldataPointer();
+    }
 
     assembly {
       bytesValueInCalldata.offset := calldataOfffset
@@ -179,18 +188,11 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
     uint256 dataPointValueByteSize,
     uint256 dataPointIndex
   ) internal pure override returns (bytes32 dataPointDataFeedId, uint256 dataPointValue) {
+    uint256 negativeOffsetToDataPoints = calldataNegativeOffsetForDataPackage + DATA_PACKAGE_WITHOUT_DATA_POINTS_BS;
+    uint256 dataPointNegativeOffset = negativeOffsetToDataPoints
+      + (1 + dataPointIndex).mul(dataPointValueByteSize + DATA_POINT_SYMBOL_BS);
+    uint256 dataPointCalldataOffset = msg.data.length.sub(dataPointNegativeOffset);
     assembly {
-      let negativeOffsetToDataPoints := add(
-        calldataNegativeOffsetForDataPackage,
-        DATA_PACKAGE_WITHOUT_DATA_POINTS_BS
-      )
-      let dataPointCalldataOffset := sub(
-        calldatasize(),
-        add(
-          negativeOffsetToDataPoints,
-          mul(add(1, dataPointIndex), add(dataPointValueByteSize, DATA_POINT_SYMBOL_BS))
-        )
-      )
       dataPointDataFeedId := calldataload(dataPointCalldataOffset)
       dataPointValue := prepareTrickyCalldataPointer(
         add(dataPointCalldataOffset, DATA_POINT_SYMBOL_BS),
@@ -198,18 +200,18 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
       )
 
       function prepareTrickyCalldataPointer(calldataOffsetArg, valueByteSize) -> calldataPtr {
-        calldataPtr := add(shl(BITS_COUNT_IN_16_BYTES, calldataOffsetArg), valueByteSize)
+        calldataPtr := or(shl(BITS_COUNT_IN_16_BYTES, calldataOffsetArg), valueByteSize)
       }
     }
   }
 
   /// @dev This is a helpful function for "tricky" calldata pointers
   function _getNumberFromFirst128Bits(uint256 number) internal pure returns (uint256) {
-    return uint256(number >> 128);
+    return number >> 128;
   }
 
   /// @dev This is a helpful function for "tricky" calldata pointers
   function _getNumberFromLast128Bits(uint256 number) internal pure returns (uint256) {
-    return uint256((number << 128) >> 128);
+    return uint128(number);
   }
 }
