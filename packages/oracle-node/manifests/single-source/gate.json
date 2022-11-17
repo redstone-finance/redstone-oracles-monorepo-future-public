@@ -6,6 +6,7 @@
   "maxPriceDeviationPercent": 25,
   "evmChainId": 1,
   "tokens": {
-    "PNG": {}
+    "PNG": {},
+    "XAVA": {}
   }
 }
