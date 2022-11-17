@@ -379,7 +379,9 @@
     "ZB": {},
     "SYLO": {},
     "APT": {},
-    "PTP": {}
+    "PTP": {},
+    "XAVA": {},
+    "YAK": {}
   },
   "defaultSource": ["coingecko"]
 }
