@@ -26,14 +26,11 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "bw",
-        "cdax",
         "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "currencycom",
-        "ftx",
         "hitbtc",
         "hollaex",
         "huobipro",
@@ -42,7 +39,6 @@
         "lbank",
         "liquid",
         "oceanex",
-        "okcoin",
         "okx",
         "poloniex",
         "probit",
@@ -64,14 +60,11 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "bw",
-        "cdax",
         "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "currencycom",
-        "ftx",
         "hitbtc",
         "hollaex",
         "huobipro",
@@ -80,7 +73,6 @@
         "lbank",
         "liquid",
         "oceanex",
-        "okcoin",
         "okx",
         "poloniex",
         "probit",
@@ -96,17 +88,16 @@
         "coinbaseprime",
         "coinbasepro",
         "kucoin",
-        "okcoin",
         "okx"
       ],
       "maxPriceDeviationPercent": 80
     },
     "TSLA": {
-      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "source": ["bittrex", "currencycom", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "AAPL": {
-      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "source": ["bittrex", "currencycom", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "IBM": {
@@ -114,7 +105,7 @@
       "maxPriceDeviationPercent": 80
     },
     "AMZN": {
-      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "source": ["currencycom", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "GOOG": {
@@ -130,7 +121,7 @@
       "maxPriceDeviationPercent": 80
     },
     "FB": {
-      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "source": ["bittrex", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "MA": {
@@ -142,7 +133,7 @@
       "maxPriceDeviationPercent": 80
     },
     "NFLX": {
-      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "source": ["bittrex", "currencycom", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "NKE": {
@@ -166,7 +157,7 @@
       "maxPriceDeviationPercent": 80
     },
     "SPY": {
-      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "QQQ": {
@@ -298,37 +289,23 @@
       "maxPriceDeviationPercent": 80
     },
     "GBP": {
-      "source": [
-        "binance",
-        "currencycom",
-        "ecb",
-        "ftx",
-        "kraken",
-        "twelve-data"
-      ],
+      "source": ["binance", "currencycom", "ecb", "kraken"],
       "maxPriceDeviationPercent": 25
     },
     "AUD": {
-      "source": ["binance", "currencycom", "ecb", "kraken", "twelve-data"],
+      "source": ["binance", "currencycom", "ecb", "kraken"],
       "maxPriceDeviationPercent": 25
     },
     "CHF": {
-      "source": ["ecb", "twelve-data", "yf-unofficial"],
+      "source": ["ecb", "yf-unofficial"],
       "maxPriceDeviationPercent": 25
     },
     "EUR": {
-      "source": [
-        "binance",
-        "currencycom",
-        "ecb",
-        "ftx",
-        "kraken",
-        "twelve-data"
-      ],
+      "source": ["binance", "currencycom", "ecb", "kraken"],
       "maxPriceDeviationPercent": 25
     },
     "JPY": {
-      "source": ["ecb", "twelve-data"],
+      "source": ["ecb"],
       "maxPriceDeviationPercent": 25
     },
     "MXN": {
@@ -368,7 +345,7 @@
       "maxPriceDeviationPercent": 80
     },
     "BYND": {
-      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "source": ["currencycom", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "HRTX": {
@@ -500,11 +477,11 @@
       "maxPriceDeviationPercent": 80
     },
     "GME": {
-      "source": ["bittrex", "currencycom", "ftx", "yf-unofficial"],
+      "source": ["bittrex", "currencycom", "yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "AMC": {
-      "source": ["bittrex", "yf-unofficial"],
+      "source": ["yf-unofficial"],
       "maxPriceDeviationPercent": 80
     },
     "APE": {
