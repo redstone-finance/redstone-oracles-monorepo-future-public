@@ -1,7 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["pangolin-wavax"],
+  "defaultSource": ["pangolin-usdc"],
   "sourceTimeout": 50000,
   "maxPriceDeviationPercent": 25,
   "evmChainId": 1,
@@ -13,13 +13,6 @@
   "enableStreamrBroadcaster": false,
   "enableArweaveBackup": false,
   "tokens": {
-    "PNG": {},
-    "SPORE": {},
-    "AVME": {},
-    "QI": {},
-    "sAVAX": {},
-    "PTP": {},
-    "XAVA": {},
     "YAK": {}
   }
 }
