@@ -1,4 +1,3 @@
-import { assert } from "console";
 import { Signature } from "ethers";
 import {
   arrayify,
@@ -70,7 +69,9 @@ export class SignedDataPackage extends Serializable {
     plainObject: SignedDataPackagePlainObj
   ): SignedDataPackage {
     const signatureBase64 = plainObject.signature;
-    assert(!!signatureBase64, "Signature can not be empty");
+    if (!signatureBase64) {
+      throw new Error("Signature can not be empty");
+    }
     const signatureBytes: Uint8Array = base64.decode(signatureBase64);
     const parsedSignature = splitSignature(signatureBytes);
 
