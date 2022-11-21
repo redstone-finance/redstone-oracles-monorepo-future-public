@@ -1,21 +1,9 @@
-import { RedstonePayload, SignedDataPackage } from "redstone-protocol";
 import {
   DataPackagesRequestParams,
-  DataPackagesResponse,
-  requestDataPackages,
+  requestRedstonePayload,
 } from "redstone-sdk";
 import { BaseWrapper } from "./BaseWrapper";
 import { version } from "../../package.json";
-
-const parseDataPackagesResponse = (
-  dataPackagesResponse: DataPackagesResponse
-): SignedDataPackage[] => {
-  const signedDataPackages: SignedDataPackage[] = [];
-  for (const dpForDataFeed of Object.values(dataPackagesResponse)) {
-    signedDataPackages.push(...dpForDataFeed);
-  }
-  return signedDataPackages;
-};
 
 export class DataServiceWrapper extends BaseWrapper {
   constructor(
@@ -30,12 +18,12 @@ export class DataServiceWrapper extends BaseWrapper {
   }
 
   async getBytesDataForAppending(): Promise<string> {
-    const unsignedMetadata = this.getUnsignedMetadata();
-    const dataPackagesResponse = await requestDataPackages(
+    const unsignedMetadataMsg = this.getUnsignedMetadata();
+    const redstonePayload = await requestRedstonePayload(
       this.dataPackagesRequestParams,
-      this.urls
+      this.urls,
+      unsignedMetadataMsg
     );
-    const signedDataPackages = parseDataPackagesResponse(dataPackagesResponse);
-    return RedstonePayload.prepare(signedDataPackages, unsignedMetadata);
+    return redstonePayload;
   }
 }
