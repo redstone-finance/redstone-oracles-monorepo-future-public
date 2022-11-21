@@ -2,6 +2,7 @@ import axios from "axios";
 import { RedstoneOraclesState } from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/types";
 import redstoneOraclesInitialState from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/initial-state.json";
 import {
+  RedstonePayload,
   SignedDataPackage,
   SignedDataPackagePlainObj,
 } from "redstone-protocol";
@@ -102,8 +103,22 @@ export const requestDataPackages = async (
   }
 };
 
+export const requestRedstonePayload = async (
+  reqParams: DataPackagesRequestParams,
+  urls: string[] = DEFAULT_CACHE_SERVICE_URLS,
+  unsignedMetadataMsg?: string
+): Promise<string> => {
+  const signedDataPackagesResponse = await requestDataPackages(reqParams, urls);
+  const signedDataPackages = [];
+  for (const packages of Object.values(signedDataPackagesResponse)) {
+    signedDataPackages.push(...packages);
+  }
+  return RedstonePayload.prepare(signedDataPackages, unsignedMetadataMsg || "");
+};
+
 export default {
   getOracleRegistryState,
   requestDataPackages,
   getDataServiceIdForSigner,
+  requestRedstonePayload,
 };
