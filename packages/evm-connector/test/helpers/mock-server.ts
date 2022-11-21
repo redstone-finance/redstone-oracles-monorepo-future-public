@@ -1,6 +1,10 @@
 import { setupServer } from "msw/node";
 import { rest, RestRequest } from "msw";
-import { signOnDemandDataPackage, UniversalSigner } from "redstone-protocol";
+import {
+  signOnDemandDataPackage,
+  UniversalSigner,
+  prepareMessageToSign,
+} from "redstone-protocol";
 import { MOCK_PRIVATE_KEYS } from "../../src/helpers/test-utils";
 
 interface ScoreByAddressResponse {
@@ -85,8 +89,9 @@ const getSignedDataPackage = ({
 }) => {
   const timestamp = request.url.searchParams.get("timestamp") ?? "";
   const signature = request.url.searchParams.get("signature") ?? "";
+  const message = prepareMessageToSign(Number(timestamp));
   const address = UniversalSigner.recoverAddressFromEthereumHashMessage(
-    timestamp,
+    message,
     signature
   );
   let valueToResponse = value;

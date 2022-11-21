@@ -6,6 +6,7 @@ import {
   SignedDataPackagePlainObj,
   ScoreType,
   UniversalSigner,
+  prepareMessageToSign,
 } from "redstone-protocol";
 import { BaseWrapper } from "./BaseWrapper";
 import { version } from "../../package.json";
@@ -29,7 +30,7 @@ export class OnDemandRequestWrapper extends BaseWrapper {
 
   async getBytesDataForAppending(): Promise<string> {
     const timestamp = Date.now();
-    const message = timestamp.toString();
+    const message = prepareMessageToSign(timestamp);
     const { signer, scoreType } = this.requestParams;
     const signature = await UniversalSigner.signWithEthereumHashMessage(
       signer,
