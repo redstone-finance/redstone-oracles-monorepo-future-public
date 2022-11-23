@@ -197,7 +197,7 @@
       "maxPriceDeviationPercent": 25
     },
     "sAVAX": {
-      "source": ["coingecko", "pangolin-wavax", "platypus", "trader-joe"],
+      "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
     "PTP": {
