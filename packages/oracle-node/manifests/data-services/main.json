@@ -2954,10 +2954,6 @@
       "source": ["coinbaseprime", "coinbasepro", "hitbtc", "kucoin"],
       "maxPriceDeviationPercent": 80
     },
-    "sAVAX": {
-      "source": ["coingecko", "pangolin-wavax", "platypus", "trader-joe"],
-      "maxPriceDeviationPercent": 80
-    },
     "YAK": {
       "source": ["coingecko", "pangolin-usdc", "pangolin-wavax", "trader-joe"],
       "maxPriceDeviationPercent": 80
@@ -4027,6 +4023,10 @@
       "maxPriceDeviationPercent": 80
     },
     "YYAV3SA1": {
+      "source": ["avalanche-evm-fetcher"],
+      "maxPriceDeviationPercent": 80
+    },
+    "sAVAX": {
       "source": ["avalanche-evm-fetcher"],
       "maxPriceDeviationPercent": 80
     },
