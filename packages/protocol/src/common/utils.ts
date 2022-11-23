@@ -1,3 +1,4 @@
+import { BigNumber } from "ethers";
 import {
   arrayify,
   BytesLike,
@@ -8,6 +9,7 @@ import {
   toUtf8Bytes,
   zeroPad,
   isHexString,
+  formatUnits,
 } from "ethers/lib/utils";
 
 const ZERO_EX_PREFIX_LENGTH = 2; // length of string "0x"
@@ -64,6 +66,9 @@ export const convertIntegerNumberToBytes = (
   const decimals = 0; // 0 digits after comma
   return convertNumberToBytes(value, decimals, byteSize);
 };
+
+export const convertBytesToNumber = (bytes: Uint8Array): number =>
+  BigNumber.from(bytes).toNumber();
 
 export const hexlifyWithout0xPrefix = (value: BytesLike): string => {
   return hexlify(value).slice(ZERO_EX_PREFIX_LENGTH);

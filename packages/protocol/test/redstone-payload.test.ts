@@ -1,4 +1,4 @@
-import { toUtf8Bytes } from "ethers/lib/utils";
+import { arrayify, hexlify, toUtf8Bytes, toUtf8String } from "ethers/lib/utils";
 import {
   DataPackage,
   SignedDataPackage,
@@ -61,5 +61,28 @@ describe("Fixed size data package", () => {
         EXPECTED_UNSIGNED_METADATA_BYTE_SIZE +
         REDSTONE_MARKER
     );
+  });
+
+  test("Should correctly parse redstone payload", () => {
+    const remainderPrefixHex = "0x1234";
+    const redstonePayloadHex = RedstonePayload.prepare(
+      signedDataPackages,
+      UNSIGNED_METADATA
+    );
+
+    const parsingResult = RedstonePayload.parse(
+      arrayify(remainderPrefixHex + redstonePayloadHex)
+    );
+
+    expect(toUtf8String(parsingResult.unsignedMetadata)).toBe(
+      UNSIGNED_METADATA
+    );
+    expect(hexlify(parsingResult.remainderPrefix)).toBe(remainderPrefixHex);
+
+    const newRedstonePayloadHex = RedstonePayload.prepare(
+      parsingResult.signedDataPackages,
+      UNSIGNED_METADATA
+    );
+    expect(newRedstonePayloadHex).toBe(redstonePayloadHex);
   });
 });

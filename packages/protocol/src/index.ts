@@ -6,7 +6,7 @@ export * from "./data-point/DataPoint";
 export * from "./data-point/NumericDataPoint";
 export * from "./data-point/StringDataPoint";
 
-export * from "./RedstonePayload";
+export * from "./redstone-payload/RedstonePayload";
 
 export * from "./UniversalSigner";
 

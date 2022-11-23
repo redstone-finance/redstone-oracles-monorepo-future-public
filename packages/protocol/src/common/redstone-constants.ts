@@ -24,3 +24,13 @@ export const UNSGINED_METADATA_BYTE_SIZE_BS = 3;
 
 // RedStone marker, which will be appended in the end of each transaction
 export const REDSTONE_MARKER_HEX = "0x000002ed57011e0000";
+
+// Byte size of RedStone marker
+// we subtract 1 because of the 0x prefix
+export const REDSTONE_MARKER_BS = REDSTONE_MARKER_HEX.length / 2 - 1;
+
+// Byte size of signatures
+export const SIGNATURE_BS = 65;
+
+// Byte size of data feed id
+export const DATA_FEED_ID_BS = 32;
