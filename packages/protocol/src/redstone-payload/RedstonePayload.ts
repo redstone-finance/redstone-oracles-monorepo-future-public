@@ -3,10 +3,14 @@ import {
   DATA_PACKAGES_COUNT_BS,
   REDSTONE_MARKER_HEX,
   UNSGINED_METADATA_BYTE_SIZE_BS,
-} from "./common/redstone-constants";
-import { Serializable } from "./common/Serializable";
-import { convertIntegerNumberToBytes } from "./common/utils";
-import { SignedDataPackage } from "./data-package/SignedDataPackage";
+} from "../common/redstone-constants";
+import { Serializable } from "../common/Serializable";
+import { convertIntegerNumberToBytes } from "../common/utils";
+import { SignedDataPackage } from "../data-package/SignedDataPackage";
+import {
+  RedstonePayloadParser,
+  RedstonePayloadParsingResult,
+} from "./RedstonePayloadParser";
 
 export class RedstonePayload extends Serializable {
   constructor(
@@ -62,5 +66,11 @@ export class RedstonePayload extends Serializable {
         DATA_PACKAGES_COUNT_BS
       ),
     ]);
+  }
+
+  public static parse(
+    bytesWithRedstonePayloadInTheEnd: Uint8Array
+  ): RedstonePayloadParsingResult {
+    return new RedstonePayloadParser(bytesWithRedstonePayloadInTheEnd).parse();
   }
 }
