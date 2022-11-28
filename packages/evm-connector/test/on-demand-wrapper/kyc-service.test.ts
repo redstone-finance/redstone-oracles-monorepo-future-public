@@ -2,40 +2,40 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { ScoreType } from "redstone-protocol";
 import { WrapperBuilder } from "../../src/index";
-import { SampleKycServiceConsumer } from "../../typechain-types";
+import { SampleKydServiceConsumer } from "../../typechain-types";
 import { server } from "../helpers/mock-server";
 
-describe("SampleKycServiceConsumer", () => {
+describe("SampleKydServiceConsumer", () => {
   before(() => server.listen());
 
   afterEach(() => server.resetHandlers());
 
-  it("Address should pass KYC", async () => {
+  it("Address should pass KYD", async () => {
     const contract = await getContract();
     const wrappedContract = WrapperBuilder.wrap(contract).usingOnDemandRequest(
       [
         "http://first-node.com/score-by-address",
         "http://second-node.com/score-by-address",
       ],
-      ScoreType.coinbaseKYC
+      ScoreType.coinbaseKYD
     );
-    const transaction = await wrappedContract.executeActionPassingKYC();
+    const transaction = await wrappedContract.executeActionPassingKYD();
     await transaction.wait();
-    const passedKycValue = await contract.getPassedKYCValue();
-    expect(passedKycValue).to.be.equal(true);
+    const passedKydValue = await contract.getPassedKYDValue();
+    expect(passedKydValue).to.be.equal(true);
   });
 
-  it("Address shouldn't pass KYC", async () => {
+  it("Address shouldn't pass KYD", async () => {
     const contract = await getContract(false);
     const wrappedContract = WrapperBuilder.wrap(contract).usingOnDemandRequest(
       [
         "http://first-node.com/score-by-address",
         "http://second-node.com/score-by-address",
       ],
-      ScoreType.coinbaseKYC
+      ScoreType.coinbaseKYD
     );
-    await expect(wrappedContract.executeActionPassingKYC()).to.be.revertedWith(
-      `UserDidNotPassKYC("0x70997970C51812dc3A010C7d01b50e0d17dc79C8")`
+    await expect(wrappedContract.executeActionPassingKYD()).to.be.revertedWith(
+      `UserDidNotPassKYD("0x70997970C51812dc3A010C7d01b50e0d17dc79C8")`
     );
   });
 
@@ -46,9 +46,9 @@ describe("SampleKycServiceConsumer", () => {
         "http://first-node.com/score-by-address",
         "http://invalid-address-node.com/score-by-address",
       ],
-      ScoreType.coinbaseKYC
+      ScoreType.coinbaseKYD
     );
-    await expect(wrappedContract.executeActionPassingKYC()).to.be.revertedWith(
+    await expect(wrappedContract.executeActionPassingKYD()).to.be.revertedWith(
       "InsufficientNumberOfUniqueSigners(1, 2)"
     );
   });
@@ -60,9 +60,9 @@ describe("SampleKycServiceConsumer", () => {
         "http://first-node.com/score-by-address",
         "http://invalid-value-node.com/score-by-address",
       ],
-      ScoreType.coinbaseKYC
+      ScoreType.coinbaseKYD
     );
-    await expect(wrappedContract.executeActionPassingKYC()).to.be.revertedWith(
+    await expect(wrappedContract.executeActionPassingKYD()).to.be.revertedWith(
       "AllValuesMustBeEqual()"
     );
   });
@@ -74,9 +74,9 @@ describe("SampleKycServiceConsumer", () => {
         "http://first-node.com/score-by-address",
         "http://first-node.com/score-by-address",
       ],
-      ScoreType.coinbaseKYC
+      ScoreType.coinbaseKYD
     );
-    await expect(wrappedContract.executeActionPassingKYC()).to.be.revertedWith(
+    await expect(wrappedContract.executeActionPassingKYD()).to.be.revertedWith(
       "InsufficientNumberOfUniqueSigners(1, 2)"
     );
   });
@@ -86,10 +86,10 @@ describe("SampleKycServiceConsumer", () => {
 
 const getContract = async (
   isValidSigner: boolean = true
-): Promise<SampleKycServiceConsumer> => {
+): Promise<SampleKydServiceConsumer> => {
   const signers = await ethers.getSigners();
   const ContractFactory = await ethers.getContractFactory(
-    "SampleKycServiceConsumer",
+    "SampleKydServiceConsumer",
     isValidSigner ? signers[0] : signers[1]
   );
   const contract = await ContractFactory.deploy();
