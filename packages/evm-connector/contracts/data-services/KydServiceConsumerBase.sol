@@ -4,7 +4,7 @@ pragma solidity ^0.8.4;
 
 import "../core/RedstoneConsumerNumericBase.sol";
 
-contract KycServiceConsumerBase is RedstoneConsumerNumericBase {
+contract KydServiceConsumerBase is RedstoneConsumerNumericBase {
   error ValuesArrayCanNotBeEmpty();
   error AllValuesMustBeEqual();
 

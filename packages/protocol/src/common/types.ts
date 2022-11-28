@@ -1,3 +1,3 @@
 export enum ScoreType {
-  "coinbaseKYC" = "coinbase-kyc",
+  "coinbaseKYD" = "coinbase-kyd",
 }
