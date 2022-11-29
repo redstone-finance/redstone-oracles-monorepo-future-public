@@ -2,6 +2,7 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { urlencoded, json } from "express";
 import { Logger } from "nestjs-pino";
+import config from "./config";
 
 const REQEUST_SIZE_LIMIT = "50mb";
 
@@ -11,7 +12,7 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: REQEUST_SIZE_LIMIT }));
   app.useLogger(app.get(Logger));
   app.enableCors();
-  await app.listen(3000);
+  await app.listen(config.appPort);
 }
 
 bootstrap();
