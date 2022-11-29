@@ -2,6 +2,7 @@ import { JWKInterface } from "arweave/node/lib/wallet";
 import "dotenv/config";
 
 interface CacheServiceConfigRequiredFields {
+  appPort: number;
   mongoDbUrl: string;
   enableStreamrListening: boolean;
   enableDirectPostingRoutes: boolean;
@@ -17,6 +18,7 @@ type CacheServiceConfig =
   | (CacheServiceConfigRequiredFields & { enableArchivingOnArweave: false });
 
 const DEFAULT_BUNDLR_NODE_URL = "https://node2.bundlr.network";
+const DEFAULT_APP_PORT = 3000;
 
 const getEnv = (envName: string, required = true): string => {
   if (!process.env[envName] && required) {
@@ -31,6 +33,7 @@ const arweaveJwkKeyForArchiving = getEnv(
 );
 
 const config = {
+  appPort: Number(getEnv("APP_PORT", false) || DEFAULT_APP_PORT),
   mongoDbUrl: getEnv("MONGO_DB_URL", false),
   enableStreamrListening: getEnv("ENABLE_STREAMR_LISTENING") === "true",
   enableDirectPostingRoutes: getEnv("ENABLE_DIRECT_POSTING_ROUTES") === "true",
