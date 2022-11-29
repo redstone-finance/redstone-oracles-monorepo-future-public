@@ -32,10 +32,6 @@ The @redstone-finance/evm-connector module implements an alternative design of p
 
 ## 🚀 Working demo
 
-<!-- TODO: replace youtube meme song with the real code sandbox demo -->
-
-- Try it directly in CodeSandbox: [demo link](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-
 - See a bunch of smart contract examples that use the evm-connector in our [dedicated repo with examples](https://github.com/redstone-finance/redstone-evm-examples)
 
 ## 📦 Installation
