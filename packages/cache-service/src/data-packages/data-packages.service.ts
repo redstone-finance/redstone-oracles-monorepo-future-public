@@ -9,11 +9,17 @@ import config from "../config";
 import {
   BulkPostRequestBody,
   DataPackagesResponse,
+  DataPackagesStatsResponse,
 } from "./data-packages.controller";
 import { ReceivedDataPackage } from "./data-packages.interface";
 import { CachedDataPackage, DataPackage } from "./data-packages.model";
 
 export const ALL_FEEDS_KEY = "___ALL_FEEDS___";
+
+export interface StatsRequestParams {
+  fromTimestamp: number;
+  toTimestamp: number;
+}
 
 @Injectable()
 export class DataPackagesService {
@@ -76,6 +82,47 @@ export class DataPackagesService {
     }
 
     return fetchedPackagesPerDataFeed;
+  }
+
+  async getDataPackagesStats(
+    statsRequestParams: StatsRequestParams
+  ): Promise<DataPackagesStatsResponse> {
+    const { fromTimestamp, toTimestamp } = statsRequestParams;
+
+    // Fetching stats form DB
+    const signersStats = await DataPackage.aggregate([
+      {
+        $match: {
+          $and: [
+            { timestampMilliseconds: { $gte: fromTimestamp } },
+            { timestampMilliseconds: { $lte: toTimestamp } },
+          ],
+        },
+      },
+      {
+        $group: {
+          _id: "$signerAddress",
+          dataPackagesCount: { $sum: 1 },
+        },
+      },
+    ]);
+
+    // Prepare stats response
+    const state = await getOracleRegistryState();
+    const stats: DataPackagesStatsResponse = {};
+    for (const { dataPackagesCount, _id: signerAddress } of signersStats) {
+      const nodeDetails = Object.values(state.nodes).find(
+        ({ evmAddress }) => evmAddress === signerAddress
+      );
+
+      stats[signerAddress] = {
+        dataPackagesCount,
+        nodeName: nodeDetails?.name || "unknown",
+        dataServiceId: nodeDetails?.dataServiceId || "unknown",
+      };
+    }
+
+    return stats;
   }
 
   verifyRequester(body: BulkPostRequestBody) {
