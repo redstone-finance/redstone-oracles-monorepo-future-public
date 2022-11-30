@@ -44,6 +44,28 @@ describe("Data packages (e2e)", () => {
 
     // Connect to mongoDB in memory
     await connectToTestDB();
+
+    // Adding test data to DB
+    const dataPackagesToInsert = [];
+    for (const dataServiceId of ["service-1", "service-2", "service-3"]) {
+      for (const dataFeedId of [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"]) {
+        for (const signerAddress of [
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", // address of mock-signer
+          "0x2",
+          "0x3",
+          "0x4",
+          "0x5",
+        ]) {
+          dataPackagesToInsert.push({
+            ...mockDataPackages[0],
+            dataFeedId,
+            dataServiceId,
+            signerAddress,
+          });
+        }
+      }
+    }
+    await DataPackage.insertMany(dataPackagesToInsert);
   });
 
   afterEach(async () => await dropTestDatabase());
@@ -65,7 +87,9 @@ describe("Data packages (e2e)", () => {
       const { _id, __v, ...rest } = dp.toJSON() as any;
       return rest;
     });
-    expect(dataPackagesInDBCleaned).toEqual(expectedDataPackages);
+    expect(dataPackagesInDBCleaned).toEqual(
+      expect.arrayContaining(expectedDataPackages)
+    );
   });
 
   it("/data-packages/bulk (POST) - should post data using Bundlr", async () => {
@@ -88,6 +112,7 @@ describe("Data packages (e2e)", () => {
   });
 
   it("/data-packages/bulk (POST) - should fail for invalid signature", async () => {
+    const initialDpCount = await DataPackage.countDocuments();
     const requestSignature = signByMockSigner(mockDataPackages);
     const newDataPackages = [...mockDataPackages];
     newDataPackages[0].dataPoints[0].value = 43;
@@ -99,25 +124,10 @@ describe("Data packages (e2e)", () => {
       })
       .expect(500);
 
-    expect(await DataPackage.find()).toEqual([]);
+    expect(await DataPackage.countDocuments()).toEqual(initialDpCount);
   });
 
   it("/data-packages/latest (GET)", async () => {
-    const dataPackagesToInsert = [];
-    for (const dataServiceId of ["service-1", "service-2", "service-3"]) {
-      for (const dataFeedId of [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"]) {
-        for (const signerAddress of ["0x1", "0x2", "0x3", "0x4", "0x5"]) {
-          dataPackagesToInsert.push({
-            ...mockDataPackages[0],
-            dataFeedId,
-            dataServiceId,
-            signerAddress,
-          });
-        }
-      }
-    }
-    await DataPackage.insertMany(dataPackagesToInsert);
-
     const testResponse = await request(httpServer)
       .get("/data-packages/latest")
       .query({
@@ -151,5 +161,44 @@ describe("Data packages (e2e)", () => {
 
     expect(testResponse2.body[ALL_FEEDS_KEY].length).toBe(4);
     expect(testResponse2.body[ALL_FEEDS_KEY][0].dataPoints.length).toBe(2);
+  });
+
+  it("/data-packages/stats (GET) - should work properly with a valid api key", async () => {
+    // Sending request for stats
+    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    const response = await request(httpServer)
+      .get("/data-packages/stats")
+      .query({
+        "api-key": "test-api-key",
+        "from-timestamp": dpTimestamp - 3600 * 1000,
+        "to-timestamp": dpTimestamp + 1,
+      })
+      .expect(200);
+
+    // Response validation
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
+          dataPackagesCount: 12,
+          nodeName: "Mock node 1",
+          dataServiceId: "mock-data-service-1",
+        },
+        "0x2": {
+          dataPackagesCount: 12,
+          nodeName: "unknown",
+          dataServiceId: "unknown",
+        },
+      })
+    );
+  });
+
+  it("/data-packages/stats (GET) - should fail for an invalid api key", async () => {
+    await request(httpServer).get("/data-packages/stats").expect(401);
+    await request(httpServer)
+      .get("/data-packages/stats")
+      .query({
+        "api-key": "invalid-api-key",
+      })
+      .expect(401);
   });
 });
