@@ -2,7 +2,12 @@
   "interval": 60000,
   "priceAggregator": "median",
   "sourceTimeout": 20000,
-  "maxPriceDeviationPercent": 100,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 100,
+      "maxDelayMilliseconds": 300000
+    }
+  },
   "evmChainId": 1,
   "httpBroadcasterURLs": [
     "https://api.redstone.finance",
@@ -17,24 +22,21 @@
         "url": "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH&tsyms=USD",
         "jsonpath": "$.RAW.ETH.USD.PRICE"
       },
-      "comment": "ETH Price in USD",
-      "maxPriceDeviationPercent": 80
+      "comment": "ETH Price in USD"
     },
     "0xffe45ffaf671f563": {
       "customUrlDetails": {
         "url": "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH&tsyms=USD",
         "jsonpath": "$.RAW.ETH.USD.MEDIAN"
       },
-      "comment": "ETH median price in USD",
-      "maxPriceDeviationPercent": 80
+      "comment": "ETH median price in USD"
     },
     "0xd8e28697d41536a1": {
       "customUrlDetails": {
         "url": "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=ETH&tsyms=USD",
         "jsonpath": "$.RAW.ETH.USD.VOLUMEDAY"
       },
-      "comment": "ETH daily volume in USD",
-      "maxPriceDeviationPercent": 80
+      "comment": "ETH daily volume in USD"
     }
   },
   "defaultSource": ["custom-urls"]

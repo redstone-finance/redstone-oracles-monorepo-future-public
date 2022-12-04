@@ -3,7 +3,12 @@
   "priceAggregator": "median",
   "defaultSource": ["binance", "currencycom", "coingecko"],
   "sourceTimeout": 8000,
-  "maxPriceDeviationPercent": 25,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
   "httpBroadcasterURLs": ["https://httpbin.org/anything"],
   "enableStreamrBroadcaster": false,
   "enableArweaveBackup": false,
