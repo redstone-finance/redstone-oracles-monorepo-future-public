@@ -2,7 +2,12 @@
   "interval": 60000,
   "priceAggregator": "median",
   "sourceTimeout": 50000,
-  "maxPriceDeviationPercent": 80,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
   "evmChainId": 1,
   "httpBroadcasterURLs": [
     "https://api.redstone.finance",

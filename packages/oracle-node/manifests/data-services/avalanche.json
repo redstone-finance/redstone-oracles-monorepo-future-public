@@ -1,9 +1,16 @@
 {
   "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": ["coingecko"],
+  "defaultSource": [
+    "coingecko"
+  ],
   "sourceTimeout": 50000,
-  "maxPriceDeviationPercent": 25,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
   "evmChainId": 1,
   "httpBroadcasterURLs": [
     "https://api.redstone.finance",
@@ -27,6 +34,7 @@
         "bittrex",
         "btcturk",
         "cex",
+        "chainlink",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -44,8 +52,7 @@
         "probit",
         "qtrade",
         "stex"
-      ],
-      "maxPriceDeviationPercent": 25
+      ]
     },
     "USDT": {
       "source": [
@@ -60,8 +67,7 @@
         "currencycom",
         "kraken",
         "uniswap"
-      ],
-      "maxPriceDeviationPercent": 25
+      ]
     },
     "PNG": {
       "source": [
@@ -72,8 +78,7 @@
         "lbank",
         "pangolin-wavax",
         "trader-joe"
-      ],
-      "maxPriceDeviationPercent": 80
+      ]
     },
     "AVAX": {
       "source": [
@@ -92,8 +97,7 @@
         "kucoin",
         "lbank",
         "okx"
-      ],
-      "maxPriceDeviationPercent": 25
+      ]
     },
     "LINK": {
       "source": [
@@ -124,8 +128,7 @@
         "probit",
         "sushiswap",
         "uniswap"
-      ],
-      "maxPriceDeviationPercent": 25
+      ]
     },
     "BTC": {
       "source": [
@@ -158,8 +161,7 @@
         "probit",
         "qtrade",
         "stex"
-      ],
-      "maxPriceDeviationPercent": 25
+      ]
     },
     "QI": {
       "source": [
@@ -169,8 +171,7 @@
         "pangolin-wavax",
         "trader-joe",
         "xt"
-      ],
-      "maxPriceDeviationPercent": 80
+      ]
     },
     "USDC": {
       "source": [
@@ -193,80 +194,101 @@
         "probit",
         "sushiswap",
         "uniswap"
-      ],
-      "maxPriceDeviationPercent": 25
+      ]
     },
     "sAVAX": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "PTP": {
-      "source": ["bkex", "coinex", "coingecko", "pangolin-wavax", "trader-joe"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "bkex",
+        "coinex",
+        "coingecko",
+        "pangolin-wavax",
+        "trader-joe"
+      ]
     },
     "YY_AAVE_AVAX": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "YY_PTP_sAVAX": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "PNG_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "PNG_AVAX_USDT_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "PNG_AVAX_ETH_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "TJ_AVAX_USDT_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "TJ_AVAX_ETH_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "TJ_AVAX_BTC_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "TJ_AVAX_sAVAX_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "MOO_TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "YY_PNG_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "YY_PNG_AVAX_ETH_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "YY_TJ_AVAX_sAVAX_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "YY_TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "YY_TJ_AVAX_ETH_LP": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     },
     "XAVA": {
       "source": [
@@ -277,16 +299,20 @@
         "mexc",
         "pangolin-wavax",
         "trader-joe"
-      ],
-      "maxPriceDeviationPercent": 80
+      ]
     },
     "YAK": {
-      "source": ["coingecko", "pangolin-usdc", "pangolin-wavax", "trader-joe"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "coingecko",
+        "pangolin-usdc",
+        "pangolin-wavax",
+        "trader-joe"
+      ]
     },
     "YYAV3SA1": {
-      "source": ["avalanche-evm-fetcher"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "avalanche-evm-fetcher"
+      ]
     }
   }
 }

@@ -1,9 +1,16 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["coingecko"],
+  "defaultSource": [
+    "coingecko"
+  ],
   "sourceTimeout": 30000,
-  "maxPriceDeviationPercent": 25,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
   "evmChainId": 1,
   "httpBroadcasterURLs": [
     "https://api.redstone.finance",
@@ -44,8 +51,7 @@
         "probit",
         "qtrade",
         "stex"
-      ],
-      "maxPriceDeviationPercent": 25
+      ]
     },
     "ETH": {
       "source": [
@@ -61,6 +67,7 @@
         "bittrex",
         "btcturk",
         "cex",
+        "chainlink",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -78,8 +85,7 @@
         "probit",
         "qtrade",
         "stex"
-      ],
-      "maxPriceDeviationPercent": 25
+      ]
     },
     "CELO": {
       "source": [
@@ -89,408 +95,531 @@
         "coinbasepro",
         "kucoin",
         "okx"
-      ],
-      "maxPriceDeviationPercent": 80
+      ]
     },
     "TSLA": {
-      "source": ["bittrex", "currencycom", "yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "bittrex",
+        "currencycom",
+        "yf-unofficial"
+      ]
     },
     "AAPL": {
-      "source": ["bittrex", "currencycom", "yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "bittrex",
+        "currencycom",
+        "yf-unofficial"
+      ]
     },
     "IBM": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "AMZN": {
-      "source": ["currencycom", "yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "currencycom",
+        "yf-unofficial"
+      ]
     },
     "GOOG": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "COST": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "DIS": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "FB": {
-      "source": ["bittrex", "yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "bittrex",
+        "yf-unofficial"
+      ]
     },
     "MA": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "MSFT": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "NFLX": {
-      "source": ["bittrex", "currencycom", "yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "bittrex",
+        "currencycom",
+        "yf-unofficial"
+      ]
     },
     "NKE": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "PINS": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "SHOP": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "SPOT": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "TDOC": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "SPY": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "QQQ": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "ONEQ": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "IWM": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "EFA": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "VGK": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "INDA": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "RSX": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "ZC=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "ZS=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "ZM=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "ZW=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "KE=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "ZO=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "ZR=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "CL=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "RB=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "NG=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "QA=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "EH=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "GC=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "SI=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "HG=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "PL=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "PA=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "LE=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "GF=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "HE=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "PRK=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "DC=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "GNF=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "CB=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "CSC=F": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "GBP": {
-      "source": ["binance", "currencycom", "ecb", "kraken"],
-      "maxPriceDeviationPercent": 25
+      "source": [
+        "binance",
+        "currencycom",
+        "ecb",
+        "kraken"
+      ]
     },
     "AUD": {
-      "source": ["binance", "currencycom", "ecb", "kraken"],
-      "maxPriceDeviationPercent": 25
+      "source": [
+        "binance",
+        "currencycom",
+        "ecb",
+        "kraken"
+      ]
     },
     "CHF": {
-      "source": ["ecb", "yf-unofficial"],
-      "maxPriceDeviationPercent": 25
+      "source": [
+        "ecb",
+        "yf-unofficial"
+      ]
     },
     "EUR": {
-      "source": ["binance", "currencycom", "ecb", "kraken"],
-      "maxPriceDeviationPercent": 25
+      "source": [
+        "binance",
+        "currencycom",
+        "ecb",
+        "kraken"
+      ]
     },
     "JPY": {
-      "source": ["ecb"],
-      "maxPriceDeviationPercent": 25
+      "source": [
+        "ecb"
+      ]
     },
     "MXN": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "ARS": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "PEN": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "BRLUSD=X": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "COPUSD=X": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "BBBY": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "UPST": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "BIG": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "MSTR": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "BYND": {
-      "source": ["currencycom", "yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "currencycom",
+        "yf-unofficial"
+      ]
     },
     "HRTX": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "EVGO": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "BGFV": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "FUBO": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "CVNA": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "NKLA": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "W": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "BLNK": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "SRG": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "HYZN": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "MVIS": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "PETS": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "IBRX": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "VUZI": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "SPCE": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "RIDE": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "FUV": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "WKHS": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "SWTX": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "ICPT": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "LCID": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "JWN": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "FFIE": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "SFT": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "OCGN": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "REI": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "BKKT": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "KPTI": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "SDC": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "DNMR": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "GDRX": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "IGMS": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "GME": {
-      "source": ["bittrex", "currencycom", "yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "bittrex",
+        "currencycom",
+        "yf-unofficial"
+      ]
     },
     "AMC": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     },
     "APE": {
-      "source": ["coinbaseprime", "coinbasepro", "coingecko", "yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "yf-unofficial"
+      ]
     },
     "META": {
-      "source": ["yf-unofficial"],
-      "maxPriceDeviationPercent": 80
+      "source": [
+        "yf-unofficial"
+      ]
     }
   }
 }
