@@ -1,11 +1,14 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": [
-    "bitfinex2"
-  ],
+  "defaultSource": ["bitfinex2"],
   "sourceTimeout": 50000,
-  "maxPriceDeviationPercent": 25,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
   "evmChainId": 1,
   "tokens": {
     "DOGE": {},
