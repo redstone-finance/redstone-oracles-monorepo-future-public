@@ -1,9 +1,7 @@
 {
   "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": [
-    "coingecko"
-  ],
+  "defaultSource": ["coingecko"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -17,7 +15,7 @@
     "https://vwx3eni8c7.eu-west-1.awsapprunner.com",
     "https://container-service-1.dv9sai71f4rsq.eu-central-1.cs.amazonlightsail.com"
   ],
-  "enableStreamrBroadcaster": false,
+  "enableStreamrBroadcaster": true,
   "enableArweaveBackup": false,
   "tokens": {
     "ETH": {
@@ -197,98 +195,58 @@
       ]
     },
     "sAVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "PTP": {
-      "source": [
-        "bkex",
-        "coinex",
-        "coingecko",
-        "pangolin-wavax",
-        "trader-joe"
-      ]
+      "source": ["bkex", "coinex", "coingecko", "pangolin-wavax", "trader-joe"]
     },
     "YY_AAVE_AVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "YY_PTP_sAVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "PNG_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "PNG_AVAX_USDT_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "PNG_AVAX_ETH_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "TJ_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "TJ_AVAX_USDT_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "TJ_AVAX_ETH_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "TJ_AVAX_BTC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "TJ_AVAX_sAVAX_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "MOO_TJ_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "YY_PNG_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "YY_PNG_AVAX_ETH_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "YY_TJ_AVAX_sAVAX_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "YY_TJ_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "YY_TJ_AVAX_ETH_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "XAVA": {
       "source": [
@@ -302,17 +260,10 @@
       ]
     },
     "YAK": {
-      "source": [
-        "coingecko",
-        "pangolin-usdc",
-        "pangolin-wavax",
-        "trader-joe"
-      ]
+      "source": ["coingecko", "pangolin-usdc", "pangolin-wavax", "trader-joe"]
     },
     "YYAV3SA1": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     }
   }
 }
