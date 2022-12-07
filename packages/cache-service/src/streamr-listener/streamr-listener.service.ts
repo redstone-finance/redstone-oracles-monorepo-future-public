@@ -1,9 +1,14 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
 import { getOracleRegistryState } from "redstone-sdk";
-import * as pako from "pako";
 import config from "../config";
-import { StreamrClient, Subscription } from "streamr-client";
+import {
+  decompressMsg,
+  doesStreamExist,
+  getStreamIdForNodeByEvmAddress,
+  StreamrClient,
+  Subscription,
+} from "redstone-streamr-proxy";
 import { DataPackage } from "../data-packages/data-packages.model";
 import { DataPackagesService } from "../data-packages/data-packages.service";
 import { BundlrService } from "../bundlr/bundlr.service";
@@ -59,19 +64,24 @@ export class StreamrListenerService {
   }
 
   async listenToNodeStream(nodeEvmAddress: string) {
-    // TODO: move the logic of stream id creation to redstone-sdk
-    const streamId = `${nodeEvmAddress}/redstone-oracles`;
+    const streamId = getStreamIdForNodeByEvmAddress(nodeEvmAddress);
+    const streamExists = await doesStreamExist(this.streamrClient, streamId);
 
+    if (!streamExists) {
+      this.logger.log(`Stream does not exist. Skipping: ${streamId}`);
+      return;
+    }
+
+    this.logger.log(`Stream exists. Connecting to: ${streamId}`);
     const subscription = await this.streamrClient.subscribe(
       streamId,
       async (message: Uint8Array) => {
         try {
-          const dataPackagesAsString = pako.inflate(message, {
-            to: "string",
-          });
+          this.logger.log(`Received a message from stream: ${streamId}`);
+          const dataPackagesReceived = decompressMsg(message);
           const dataPackagesToSave =
             await this.dataPackageService.prepareReceivedDataPackagesForBulkSaving(
-              JSON.parse(dataPackagesAsString),
+              dataPackagesReceived,
               nodeEvmAddress
             );
           this.logger.log(`Data packages parsed for node: ${nodeEvmAddress}`);
