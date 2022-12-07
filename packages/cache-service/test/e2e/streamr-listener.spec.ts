@@ -1,4 +1,3 @@
-import * as pako from "pako";
 import "../common/set-test-envs";
 import {
   mockDataPackages,
@@ -10,6 +9,7 @@ import { sleep } from "../common/test-utils";
 import { StreamrListenerService } from "../../src/streamr-listener/streamr-listener.service";
 import { DataPackagesService } from "../../src/data-packages/data-packages.service";
 import { BundlrService } from "../../src/bundlr/bundlr.service";
+import { compressMsg } from "redstone-streamr-proxy";
 
 jest.mock("redstone-sdk", () => ({
   __esModule: true,
@@ -17,12 +17,15 @@ jest.mock("redstone-sdk", () => ({
   getOracleRegistryState: jest.fn(() => mockOracleRegistryState),
 }));
 
-jest.mock("streamr-client", () => ({
+jest.mock("redstone-streamr-proxy", () => ({
   __esModule: true,
-  ...jest.requireActual("streamr-client"),
+  ...jest.requireActual("redstone-streamr-proxy"),
   StreamrClient: jest.fn().mockImplementation(() => ({
     subscribe(_streamId: string, callback: (msg: Uint8Array) => void) {
-      callback(pako.deflate(JSON.stringify(mockDataPackages)));
+      callback(compressMsg(mockDataPackages));
+    },
+    getStream(_streamId: string) {
+      return Promise.resolve({ streamId: _streamId });
     },
   })),
 }));
@@ -62,6 +65,8 @@ describe("Streamr Listener (e2e)", () => {
     const dataPackagesInDB = await DataPackage.find();
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
       const { _id, __v, ...rest } = dp.toJSON() as any;
+      _id;
+      __v;
       return rest;
     });
 

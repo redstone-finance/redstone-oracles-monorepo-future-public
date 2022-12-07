@@ -101,7 +101,7 @@ export class DataPackagesController {
     // TODO: implement request validation
     // TODO: implement request size limit
 
-    const signerAddress = await this.dataPackagesService.verifyRequester(body);
+    const signerAddress = this.dataPackagesService.verifyRequester(body);
 
     const dataPackagesToSave =
       await this.dataPackagesService.prepareReceivedDataPackagesForBulkSaving(
