@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["es2021"],
+    "target": "es2018",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "allowJs": true,
+    "declaration": true,
+    "declarationMap": true,
+    "composite": true,
+    "incremental": true
+  },
+  "include": ["./src", "./test"]
+}
