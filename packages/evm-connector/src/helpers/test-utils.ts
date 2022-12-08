@@ -6,6 +6,7 @@ import {
   INumericDataPoint,
   IStringDataPoint,
   NumericDataPoint,
+  SignedDataPackagePlainObj,
   StringDataPoint,
   utils,
 } from "redstone-protocol";
@@ -207,6 +208,20 @@ export const getMockPackage = (
   return {
     signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
     dataPackage: new DataPackage(dataPoints, timestampMilliseconds),
+  };
+};
+
+export const getMockSignedDataPackageObj = (
+  args: MockNumericPackageArgs
+): SignedDataPackagePlainObj => {
+  const numericDataPoints = args.dataPoints.map(
+    (dp) => new NumericDataPoint(dp)
+  );
+  const mockPackage = getMockPackage(args, numericDataPoints);
+  return {
+    ...mockPackage.dataPackage
+      .sign(MOCK_SIGNERS[args.mockSignerIndex].privateKey)
+      .toObj(),
   };
 };
 

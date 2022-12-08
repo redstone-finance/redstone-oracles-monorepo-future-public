@@ -18,7 +18,7 @@ export class WrapperBuilder {
 
   usingDataService(
     dataPackagesRequestParams: DataPackagesRequestParams,
-    urls?: string[]
+    urls: string[]
   ): Contract {
     return new DataServiceWrapper(
       dataPackagesRequestParams,

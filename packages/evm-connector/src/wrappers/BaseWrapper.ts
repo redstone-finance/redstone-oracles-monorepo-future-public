@@ -1,8 +1,16 @@
-import { Contract } from "ethers";
+import { Contract, PopulatedTransaction } from "ethers";
 import { addContractWait } from "../helpers/add-contract-wait";
 
+export interface ParamsForDryRunVerification {
+  functionName: string;
+  contract: Contract;
+  transaction: PopulatedTransaction;
+}
+
 export abstract class BaseWrapper {
-  abstract getBytesDataForAppending(): Promise<string>;
+  abstract getBytesDataForAppending(
+    params?: ParamsForDryRunVerification
+  ): Promise<string>;
 
   overwriteEthersContract(contract: Contract): Contract {
     const wrapper = this;
@@ -23,7 +31,11 @@ export abstract class BaseWrapper {
           const tx = await contract.populateTransaction[functionName](...args);
 
           // Appending redstone data to the transaction calldata
-          const dataToAppend = await wrapper.getBytesDataForAppending();
+          const dataToAppend = await wrapper.getBytesDataForAppending({
+            functionName,
+            contract,
+            transaction: tx,
+          });
           tx.data = tx.data + dataToAppend;
 
           if (isCall) {
