@@ -24,6 +24,10 @@ export class MockWrapper extends BaseWrapper {
     return `${version}#mock`;
   }
 
+  async dryRunToVerifyPayload(payloads: string[]): Promise<string> {
+    return payloads[0];
+  }
+
   async getBytesDataForAppending(): Promise<string> {
     const signedDataPackages: SignedDataPackage[] = [];
 

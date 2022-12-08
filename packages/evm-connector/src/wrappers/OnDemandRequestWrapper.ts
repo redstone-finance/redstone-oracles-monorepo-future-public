@@ -28,6 +28,10 @@ export class OnDemandRequestWrapper extends BaseWrapper {
     return `${version}#on-demand-request`;
   }
 
+  async dryRunToVerifyPayload(payloads: string[]): Promise<string> {
+    return payloads[0];
+  }
+
   async getBytesDataForAppending(): Promise<string> {
     const timestamp = Date.now();
     const message = prepareMessageToSign(timestamp);
