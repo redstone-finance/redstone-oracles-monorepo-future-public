@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["es2021"],
     "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -14,7 +15,13 @@
     "incremental": true,
     "composite": true
   },
-  "include": ["./src", "./test", "./typechain-types", "package.json", "./contracts"],
+  "include": [
+    "./src",
+    "./test",
+    "./typechain-types",
+    "package.json",
+    "./contracts"
+  ],
   "files": ["./hardhat.config.ts"],
   "references": [
     {
