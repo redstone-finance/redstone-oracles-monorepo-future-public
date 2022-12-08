@@ -38,9 +38,6 @@ export class DataPackagesService {
     const getDataPackagesForDataFeed = async (dataFeedId: string) => {
       const groupedDataPackages = await DataPackage.aggregate([
         {
-          $sort: { signerAddress: 1, timestampMilliseconds: -1 },
-        },
-        {
           $match: {
             dataServiceId: requestConfig.dataServiceId,
             dataFeedId,
@@ -58,12 +55,17 @@ export class DataPackagesService {
           },
         },
         {
+          $sort: { timestampMilliseconds: -1 },
+        },
+        {
           $limit: Number(requestConfig.uniqueSignersCount),
         },
       ]);
 
       const dataPackages = groupedDataPackages.map((dp) => {
         const { _id, __v, ...rest } = dp;
+        _id;
+        __v;
         return {
           ...rest,
           signerAddress: _id,
