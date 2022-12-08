@@ -19,6 +19,7 @@ export interface DataPackagesRequestParams {
   dataServiceId: string;
   uniqueSignersCount: number;
   dataFeeds?: string[];
+  disablePayloadsDryRun?: boolean;
 }
 
 export interface DataPackagesResponse {
@@ -81,16 +82,7 @@ export const requestDataPackages = async (
   reqParams: DataPackagesRequestParams,
   urls: string[] = DEFAULT_CACHE_SERVICE_URLS
 ): Promise<DataPackagesResponse> => {
-  const promises = urls.map((url) =>
-    axios.get(url + "/data-packages/latest", {
-      params: {
-        "data-service-id": reqParams.dataServiceId,
-        "unique-signers-count": reqParams.uniqueSignersCount,
-        "data-feeds": reqParams.dataFeeds?.join(","),
-      },
-    })
-  );
-
+  const promises = prepareDataPackagePromises(reqParams, urls);
   try {
     const response = await Promise.any(promises);
     return parseDataPackagesResponse(response.data);
@@ -101,6 +93,21 @@ export const requestDataPackages = async (
     })}, Original error: ${errToString(e)}`;
     throw new Error(errMessage);
   }
+};
+
+const prepareDataPackagePromises = (
+  reqParams: DataPackagesRequestParams,
+  urls: string[]
+) => {
+  return urls.map((url) =>
+    axios.get(url + "/data-packages/latest", {
+      params: {
+        "data-service-id": reqParams.dataServiceId,
+        "unique-signers-count": reqParams.uniqueSignersCount,
+        "data-feeds": reqParams.dataFeeds?.join(","),
+      },
+    })
+  );
 };
 
 export const requestRedstonePayload = async (

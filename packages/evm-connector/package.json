@@ -33,6 +33,7 @@
     "@types/mocha": "^9.1.1",
     "@types/node": "^17.0.37",
     "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
     "ethereum-waffle": "^3.4.4",
     "hardhat": "^2.9.7",
     "hardhat-gas-reporter": "^1.0.8",

@@ -1,5 +1,7 @@
+import { ethers } from "hardhat";
 import {
   getMockNumericPackage,
+  getMockSignedDataPackageObj,
   getMockStringPackage,
   getRange,
   MockNumericPackageArgs,
@@ -51,6 +53,10 @@ export const mockNumericPackages = mockNumericPackageConfigs.map(
   getMockNumericPackage
 );
 
+export const mockSignedDataPackageObjects = mockNumericPackageConfigs.map(
+  getMockSignedDataPackageObj
+);
+
 export const expectedNumericValues: any = {
   ETH: 42 * 10 ** 8,
   BTC: 400 * 10 ** 8,
@@ -88,3 +94,9 @@ export const expectedBytesValues = {
 };
 
 export const UNAUTHORISED_SIGNER_INDEX = 19;
+
+export const getBlockTimestampMilliseconds = async () => {
+  const blockNum = await ethers.provider.getBlockNumber();
+  const block = await ethers.provider.getBlock(blockNum);
+  return block.timestamp * 1000;
+};

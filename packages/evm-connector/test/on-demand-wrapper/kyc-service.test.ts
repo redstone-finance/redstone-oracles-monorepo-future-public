@@ -3,12 +3,13 @@ import { ethers } from "hardhat";
 import { ScoreType } from "redstone-protocol";
 import { WrapperBuilder } from "../../src/index";
 import { SampleKydServiceConsumer } from "../../typechain-types";
-import { server } from "../helpers/mock-server";
+import { server } from "./mock-server";
 
 describe("SampleKydServiceConsumer", () => {
   before(() => server.listen());
 
   afterEach(() => server.resetHandlers());
+  after(() => server.close());
 
   it("Address should pass KYD", async () => {
     const contract = await getContract();
@@ -80,8 +81,6 @@ describe("SampleKydServiceConsumer", () => {
       "InsufficientNumberOfUniqueSigners(1, 2)"
     );
   });
-
-  after(() => server.close());
 });
 
 const getContract = async (
