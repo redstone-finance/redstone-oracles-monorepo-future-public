@@ -1,0 +1,70 @@
+{
+  "interval": 10000,
+  "priceAggregator": "median",
+  "defaultSource": [
+    "mock"
+  ],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 30,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "evmChainId": 1,
+  "httpBroadcasterURLs": [],
+  "enableStreamrBroadcaster": true,
+  "enableArweaveBackup": false,
+  "tokens": {
+    "ETH": {
+      "source": [
+        "binance",
+        "kraken",
+        "coingecko",
+        "mock"
+      ]
+    },
+    "USDT": {
+      "source": [
+        "coingecko",
+        "mock"
+      ],
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      }
+    },
+    "PNG": {},
+    "AVAX": {},
+    "LINK": {},
+    "BTC": {},
+    "QI": {},
+    "USDC": {
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      }
+    },
+    "sAVAX": {},
+    "PTP": {},
+    "YY_AAVE_AVAX": {},
+    "YY_PTP_sAVAX": {},
+    "PNG_AVAX_USDC_LP": {},
+    "PNG_AVAX_USDT_LP": {},
+    "PNG_AVAX_ETH_LP": {},
+    "TJ_AVAX_USDC_LP": {},
+    "TJ_AVAX_USDT_LP": {},
+    "TJ_AVAX_ETH_LP": {},
+    "TJ_AVAX_BTC_LP": {},
+    "TJ_AVAX_sAVAX_LP": {},
+    "MOO_TJ_AVAX_USDC_LP": {},
+    "YY_PNG_AVAX_USDC_LP": {},
+    "YY_PNG_AVAX_ETH_LP": {},
+    "YY_TJ_AVAX_sAVAX_LP": {},
+    "YY_TJ_AVAX_USDC_LP": {},
+    "YY_TJ_AVAX_ETH_LP": {},
+    "XAVA": {},
+    "YAK": {},
+    "YYAV3SA1": {}
+  }
+}
