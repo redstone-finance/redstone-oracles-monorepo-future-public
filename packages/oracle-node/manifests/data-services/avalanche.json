@@ -5,7 +5,7 @@
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
-      "maxPercent": 25,
+      "maxPercent": 30,
       "maxDelayMilliseconds": 300000
     }
   },
@@ -65,7 +65,11 @@
         "currencycom",
         "kraken",
         "uniswap"
-      ]
+      ],
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      }
     },
     "PNG": {
       "source": [
@@ -192,7 +196,11 @@
         "probit",
         "sushiswap",
         "uniswap"
-      ]
+      ],
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      }
     },
     "sAVAX": {
       "source": ["avalanche-evm-fetcher"]
