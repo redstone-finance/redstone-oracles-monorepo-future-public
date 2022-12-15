@@ -1,0 +1,51 @@
+{
+  "interval": 60000,
+  "priceAggregator": "median",
+  "sourceTimeout": 20000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "evmChainId": 1,
+  "httpBroadcasterURLs": [],
+  "enableStreamrBroadcaster": false,
+  "enableArweaveBackup": false,
+  "tokens": {
+    "ETH": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "chainlink",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "currencycom",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "liquid",
+        "oceanex",
+        "okx",
+        "poloniex",
+        "probit",
+        "qtrade",
+        "stex"
+      ]
+    }
+  }
+}
