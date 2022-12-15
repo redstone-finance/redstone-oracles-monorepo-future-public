@@ -8,6 +8,7 @@ interface CacheServiceConfigRequiredFields {
   enableDirectPostingRoutes: boolean;
   mockDataServiceIdForPackages: boolean;
   apiKeyForAccessToAdminRoutes: string;
+  allowedStreamrDataServiceIds: string[];
 }
 
 type CacheServiceConfig =
@@ -43,6 +44,9 @@ const config = {
   bundlrNodeUrl: getEnv("BUNDLR_NODE_URL", false) || DEFAULT_BUNDLR_NODE_URL,
   mockDataServiceIdForPackages:
     getEnv("MOCK_DATA_SERVICE_ID_FOR_PACKAGES", false) === "true",
+  allowedStreamrDataServiceIds: JSON.parse(
+    getEnv("ALLOWED_STREAMR_DATA_SERVICE_IDS", false) || "[]"
+  ),
 } as CacheServiceConfig;
 
 if (config.enableArchivingOnArweave) {

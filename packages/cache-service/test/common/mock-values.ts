@@ -5,6 +5,7 @@ export const MOCK_PRIVATE_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 
 export const mockSigner = new ethers.Wallet(MOCK_PRIVATE_KEY);
+export const MOCK_DATA_SERVICE_ID = "mock-data-service-1";
 
 export const mockOracleRegistryState: RedstoneOraclesState = {
   dataServices: {
@@ -21,7 +22,7 @@ export const mockOracleRegistryState: RedstoneOraclesState = {
       name: "Mock node 1",
       logo: "mock-logo-url",
       description: "mock-description",
-      dataServiceId: "mock-data-service-1",
+      dataServiceId: MOCK_DATA_SERVICE_ID,
       evmAddress: mockSigner.address,
       ipAddress: "0.0.0.0",
       ecdsaPublicKey: "mock-ecdsa-key",
