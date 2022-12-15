@@ -9,7 +9,7 @@ import {
   REDSTONE_MARKER_HEX,
   SIGNATURE_BS,
   TIMESTAMP_BS,
-  UNSGINED_METADATA_BYTE_SIZE_BS,
+  UNSIGNED_METADATA_BYTE_SIZE_BS,
 } from "../common/redstone-constants";
 import { convertBytesToNumber } from "../common/utils";
 import { DataPackage } from "../data-package/DataPackage";
@@ -36,7 +36,7 @@ export class RedstonePayloadParser {
 
     let negativeOffset =
       unsignedMetadata.length +
-      UNSGINED_METADATA_BYTE_SIZE_BS +
+      UNSIGNED_METADATA_BYTE_SIZE_BS +
       REDSTONE_MARKER_BS;
 
     const numberOfDataPackages = this.extractNumber({
@@ -70,11 +70,11 @@ export class RedstonePayloadParser {
   extractUnsignedMetadata(): Uint8Array {
     const unsignedMetadataSize = this.extractNumber({
       negativeOffset: REDSTONE_MARKER_BS,
-      length: UNSGINED_METADATA_BYTE_SIZE_BS,
+      length: UNSIGNED_METADATA_BYTE_SIZE_BS,
     });
 
     return this.slice({
-      negativeOffset: REDSTONE_MARKER_BS + UNSGINED_METADATA_BYTE_SIZE_BS,
+      negativeOffset: REDSTONE_MARKER_BS + UNSIGNED_METADATA_BYTE_SIZE_BS,
       length: unsignedMetadataSize,
     });
   }

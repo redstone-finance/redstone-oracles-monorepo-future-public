@@ -1,6 +1,6 @@
 import {
   convertNumberToBytes,
-  ConvertableToBytes32,
+  ConvertibleToBytes32,
   useDefaultIfUndefined,
 } from "../common/utils";
 import {
@@ -10,7 +10,7 @@ import {
 import { DataPoint } from "./DataPoint";
 
 export interface INumericDataPoint {
-  dataFeedId: ConvertableToBytes32;
+  dataFeedId: ConvertibleToBytes32;
   value: number;
   decimals?: number;
   valueByteSize?: number;
