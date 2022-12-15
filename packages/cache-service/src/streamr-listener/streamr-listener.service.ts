@@ -17,6 +17,11 @@ interface StreamrSubscriptions {
   [nodeEvmAddress: string]: Subscription;
 }
 
+interface NodeLike {
+  evmAddress: string;
+  dataServiceId: string;
+}
+
 const CRON_EXPRESSION_EVERY_1_MINUTE = "*/1 * * * *";
 
 @Injectable()
@@ -38,9 +43,8 @@ export class StreamrListenerService {
   async syncStreamrListening() {
     this.logger.log(`Syncing streamr listening`);
     const oracleRegistryState = await getOracleRegistryState();
-    const nodeEvmAddresses = Object.values(oracleRegistryState.nodes).map(
-      ({ evmAddress }) => evmAddress
-    );
+    const nodeEvmAddresses =
+      this.prepareActiveNodeEvmAddresses(oracleRegistryState);
 
     // Start listening to new nodes' streams
     for (const nodeEvmAddress of nodeEvmAddresses) {
@@ -108,5 +112,37 @@ export class StreamrListenerService {
       delete this.subscriptionsState[nodeEvmAddress];
       this.streamrClient.unsubscribe(subscription);
     }
+  }
+
+  // The function is left here to have it mockable in tests.
+  getAllowedDataServiceIds(): string[] {
+    return config.allowedStreamrDataServiceIds;
+  }
+
+  private prepareActiveNodeEvmAddresses(oracleRegistryState: any): string[] {
+    const nodes: NodeLike[] = Object.values(oracleRegistryState.nodes);
+    this.logger.log(`Found ${nodes.length} node evm addresses`);
+
+    const allowedDataServiceIds = this.getAllowedDataServiceIds();
+    if (allowedDataServiceIds.length === 0) {
+      this.logger.log(
+        `Filter is empty - allowing all of the node evm addresses`
+      );
+      return nodes.map(({ evmAddress }) => evmAddress);
+    }
+
+    const result: string[] = [];
+
+    for (const node of nodes) {
+      if (allowedDataServiceIds.includes(node.dataServiceId)) {
+        result.push(node.evmAddress);
+      }
+    }
+
+    this.logger.log(
+      `${result.length} of the node evm addresses remained after filtering them out`
+    );
+
+    return result;
   }
 }

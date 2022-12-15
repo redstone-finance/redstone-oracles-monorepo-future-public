@@ -5,6 +5,7 @@ import { INestApplication } from "@nestjs/common";
 import * as request from "supertest";
 import { AppModule } from "../../src/app.module";
 import {
+  MOCK_DATA_SERVICE_ID,
   MOCK_SIGNATURE,
   mockDataPackages,
   mockOracleRegistryState,
@@ -29,7 +30,7 @@ jest.mock("../../src/bundlr/bundlr.service");
 const expectedDataPackages = mockDataPackages.map((dataPackage) => ({
   ...dataPackage,
   signerAddress: mockSigner.address,
-  dataServiceId: "mock-data-service-1",
+  dataServiceId: MOCK_DATA_SERVICE_ID,
   dataFeedId: "___ALL_FEEDS___",
 }));
 
@@ -277,7 +278,7 @@ describe("Data packages (e2e)", () => {
         "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
           dataPackagesCount: 12,
           nodeName: "Mock node 1",
-          dataServiceId: "mock-data-service-1",
+          dataServiceId: MOCK_DATA_SERVICE_ID,
         },
         "0x2": {
           dataPackagesCount: 12,
