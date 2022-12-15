@@ -10,7 +10,7 @@ import {
   StringDataPoint,
   utils,
 } from "redstone-protocol";
-import { ConvertableToBytes32 } from "redstone-protocol/src/common/utils";
+import { ConvertibleToBytes32 } from "redstone-protocol/src/common/utils";
 import { MockDataPackageConfig } from "../wrappers/MockWrapper";
 
 export const MAX_MOCK_SIGNERS_COUNT = 19;
@@ -77,7 +77,7 @@ export interface MockPackageWithOneNumericDataPointArgs
     INumericDataPoint {}
 
 export interface MockPackageWithOneBytesDataPointArgs extends MockPackageArgs {
-  dataFeedId?: ConvertableToBytes32;
+  dataFeedId?: ConvertibleToBytes32;
   hexValue: string;
 }
 
