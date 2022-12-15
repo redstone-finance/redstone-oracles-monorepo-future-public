@@ -2,7 +2,12 @@
   "interval": 60000,
   "priceAggregator": "median",
   "sourceTimeout": 50000,
-  "maxPriceDeviationPercent": 80,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
   "evmChainId": 1,
   "httpBroadcasterURLs": [
     "https://api.redstone.finance",
@@ -10,6 +15,18 @@
     "https://container-service-1.dv9sai71f4rsq.eu-central-1.cs.amazonlightsail.com"
   ],
   "enableStreamrBroadcaster": false,
-  "tokens": {},
+  "tokens": {
+    "ETH": {},
+    "USDT": {},
+    "PNG": {},
+    "AVAX": {},
+    "LINK": {},
+    "BTC": {},
+    "QI": {},
+    "USDC": {},
+    "PTP": {},
+    "XAVA": {},
+    "YAK": {}
+  },
   "defaultSource": ["coinmarketcap"]
 }
