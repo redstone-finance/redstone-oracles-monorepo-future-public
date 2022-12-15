@@ -116,10 +116,8 @@ export const requestRedstonePayload = async (
   unsignedMetadataMsg?: string
 ): Promise<string> => {
   const signedDataPackagesResponse = await requestDataPackages(reqParams, urls);
-  const signedDataPackages = [];
-  for (const packages of Object.values(signedDataPackagesResponse)) {
-    signedDataPackages.push(...packages);
-  }
+  const signedDataPackages = Object.values(signedDataPackagesResponse).flat();
+
   return RedstonePayload.prepare(signedDataPackages, unsignedMetadataMsg || "");
 };
 

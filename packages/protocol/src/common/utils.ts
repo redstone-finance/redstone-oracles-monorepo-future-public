@@ -9,14 +9,13 @@ import {
   toUtf8Bytes,
   zeroPad,
   isHexString,
-  formatUnits,
 } from "ethers/lib/utils";
 
 const ZERO_EX_PREFIX_LENGTH = 2; // length of string "0x"
 
 export type NumberLike = number | string;
 
-export type ConvertableToBytes32 = string;
+export type ConvertibleToBytes32 = string;
 
 export const assert = (condition: boolean, errMsg?: string) => {
   if (!condition) {

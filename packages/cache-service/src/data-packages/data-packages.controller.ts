@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Post,
   Query,
+  Res,
 } from "@nestjs/common";
 import { DataPackagesRequestParams } from "redstone-sdk";
 import config from "../config";
@@ -13,16 +14,22 @@ import { ReceivedDataPackage } from "./data-packages.interface";
 import { DataPackagesService } from "./data-packages.service";
 import { CachedDataPackage } from "./data-packages.model";
 import { BundlrService } from "../bundlr/bundlr.service";
+import type { Response } from "express";
+import { duplexStream } from "../utils/streams";
+import { Serializable } from "redstone-protocol";
 
 export interface BulkPostRequestBody {
   requestSignature: string;
   dataPackages: ReceivedDataPackage[];
 }
 
+export type ResponseFormat = "raw" | "hex";
+
 export interface GetLatestDataPackagesQuery {
   "data-service-id": string;
   "unique-signers-count": number;
   "data-feeds": string;
+  format?: ResponseFormat;
 }
 
 export interface GetDataPackagesStatsQuery {
@@ -43,17 +50,20 @@ export interface DataPackagesStatsResponse {
   };
 }
 
+const CONTENT_TYPE_OCTET_STREAM = "application/octet-stream";
+const CONTENT_TYPE_TEXT = "text/html";
+
 @Controller("data-packages")
 export class DataPackagesController {
   private bundlrService = new BundlrService();
 
   constructor(private dataPackagesService: DataPackagesService) {}
 
-  @Get("latest")
-  async getLatest(
-    @Query() query: GetLatestDataPackagesQuery
-  ): Promise<DataPackagesResponse> {
+  private prepareDataPackagesRequestParams(
+    query: GetLatestDataPackagesQuery
+  ): DataPackagesRequestParams {
     // TODO: implement request validation
+
     const requestParams: DataPackagesRequestParams = {
       dataServiceId: query["data-service-id"],
       uniqueSignersCount: query["unique-signers-count"],
@@ -62,8 +72,27 @@ export class DataPackagesController {
     if (query["data-feeds"]) {
       requestParams.dataFeeds = query["data-feeds"].split(",");
     }
+    return requestParams;
+  }
 
-    return await this.dataPackagesService.getDataPackages(requestParams);
+  @Get("latest")
+  async getLatest(
+    @Query() query: GetLatestDataPackagesQuery
+  ): Promise<DataPackagesResponse> {
+    return await this.dataPackagesService.getDataPackages(
+      this.prepareDataPackagesRequestParams(query)
+    );
+  }
+
+  @Get("payload")
+  async getPayload(
+    @Query() query: GetLatestDataPackagesQuery,
+    @Res() res: Response
+  ) {
+    const payload = await this.dataPackagesService.getPayload(
+      this.prepareDataPackagesRequestParams(query)
+    );
+    this.sendSerializableResponse(res, payload, query.format);
   }
 
   @Get("stats")
@@ -113,6 +142,27 @@ export class DataPackagesController {
 
     if (config.enableArchivingOnArweave) {
       await this.bundlrService.safelySaveDataPackages(dataPackagesToSave);
+    }
+  }
+
+  private sendSerializableResponse(
+    res: Response,
+    data: Serializable,
+    format?: ResponseFormat
+  ) {
+    switch (format || "raw") {
+      case "hex":
+        res.contentType(CONTENT_TYPE_TEXT);
+        res.send(data.toBytesHex());
+        return;
+
+      case "raw":
+        res.contentType(CONTENT_TYPE_OCTET_STREAM);
+        duplexStream(data.toBytes()).pipe(res);
+
+        return;
+      default:
+        throw new Error(`Unsupported format: '${format}'`);
     }
   }
 }
