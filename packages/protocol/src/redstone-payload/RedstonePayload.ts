@@ -2,7 +2,7 @@ import { concat, toUtf8Bytes } from "ethers/lib/utils";
 import {
   DATA_PACKAGES_COUNT_BS,
   REDSTONE_MARKER_HEX,
-  UNSGINED_METADATA_BYTE_SIZE_BS,
+  UNSIGNED_METADATA_BYTE_SIZE_BS,
 } from "../common/redstone-constants";
 import { Serializable } from "../common/Serializable";
 import { convertIntegerNumberToBytes } from "../common/utils";
@@ -51,7 +51,7 @@ export class RedstonePayload extends Serializable {
     const unsignedMetadataBytes = toUtf8Bytes(this.unsignedMetadata);
     const unsignedMetadataByteSizeBytes = convertIntegerNumberToBytes(
       unsignedMetadataBytes.length,
-      UNSGINED_METADATA_BYTE_SIZE_BS
+      UNSIGNED_METADATA_BYTE_SIZE_BS
     );
     return concat([unsignedMetadataBytes, unsignedMetadataByteSizeBytes]);
   }

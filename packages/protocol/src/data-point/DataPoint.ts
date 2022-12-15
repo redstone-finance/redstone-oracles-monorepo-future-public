@@ -1,11 +1,11 @@
 import { base64, concat } from "ethers/lib/utils";
 import { Serializable } from "../common/Serializable";
-import { convertStringToBytes32, ConvertableToBytes32 } from "../common/utils";
+import { convertStringToBytes32, ConvertibleToBytes32 } from "../common/utils";
 import { INumericDataPoint } from "./NumericDataPoint";
 import { IStringDataPoint } from "./StringDataPoint";
 
 export interface IStandardDataPoint {
-  dataFeedId: ConvertableToBytes32;
+  dataFeedId: ConvertibleToBytes32;
   value: string; // base64-encoded bytes
 }
 export type DataPointPlainObj =
@@ -15,7 +15,7 @@ export type DataPointPlainObj =
 
 export class DataPoint extends Serializable {
   constructor(
-    public readonly dataFeedId: ConvertableToBytes32,
+    public readonly dataFeedId: ConvertibleToBytes32,
     public readonly value: Uint8Array
   ) {
     super();
@@ -37,7 +37,7 @@ export class DataPoint extends Serializable {
   }
 
   toBytes(): Uint8Array {
-    const serializeddataFeedId = this.serializeDataFeedId();
-    return concat([serializeddataFeedId, this.value]);
+    const serializedDataFeedId = this.serializeDataFeedId();
+    return concat([serializedDataFeedId, this.value]);
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { UniversalSigner } from "redstone-protocol";
+import { RedstonePayload, UniversalSigner } from "redstone-protocol";
 import {
   DataPackagesRequestParams,
   getDataServiceIdForSigner,
@@ -13,6 +13,7 @@ import {
 } from "./data-packages.controller";
 import { ReceivedDataPackage } from "./data-packages.interface";
 import { CachedDataPackage, DataPackage } from "./data-packages.model";
+import { makePayload } from "../utils/make-redstone-payload";
 
 export const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 
@@ -84,6 +85,16 @@ export class DataPackagesService {
     }
 
     return fetchedPackagesPerDataFeed;
+  }
+
+  async getPayload(
+    requestParams: DataPackagesRequestParams
+  ): Promise<RedstonePayload> {
+    const cachedDataPackagesResponse = await this.getDataPackages(
+      requestParams
+    );
+
+    return makePayload(cachedDataPackagesResponse);
   }
 
   async getDataPackagesStats(
