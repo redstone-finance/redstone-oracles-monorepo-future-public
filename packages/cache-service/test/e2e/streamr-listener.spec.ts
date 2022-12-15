@@ -1,5 +1,6 @@
 import "../common/set-test-envs";
 import {
+  MOCK_DATA_SERVICE_ID,
   mockDataPackages,
   mockOracleRegistryState,
 } from "../common/mock-values";
@@ -36,7 +37,7 @@ const expectedSavedDataPackages = [
   {
     ...mockDataPackages[0],
     signerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-    dataServiceId: "mock-data-service-1",
+    dataServiceId: MOCK_DATA_SERVICE_ID,
     dataFeedId: "___ALL_FEEDS___",
   },
 ];
@@ -83,5 +84,41 @@ describe("Streamr Listener (e2e)", () => {
     expect(BundlrService.prototype.safelySaveDataPackages).toHaveBeenCalledWith(
       expectedSavedDataPackages
     );
+  });
+
+  it("Should listen to streamr streams and save data on Bundlr when allowed data service ids are set", async () => {
+    const spy = jest
+      .spyOn(streamrListenerService, "getAllowedDataServiceIds")
+      .mockReturnValue([
+        MOCK_DATA_SERVICE_ID.toLowerCase(),
+        "other-data-service",
+      ]);
+
+    await streamrListenerService.syncStreamrListening();
+    await sleep(1000);
+
+    expect(
+      BundlrService.prototype.safelySaveDataPackages
+    ).toHaveBeenCalledTimes(1);
+    expect(BundlrService.prototype.safelySaveDataPackages).toHaveBeenCalledWith(
+      expectedSavedDataPackages
+    );
+
+    spy.mockRestore();
+  });
+
+  it("Should not listen to streamr streams or save data on Bundlr when no matching allowed data service id is set", async () => {
+    const spy = jest
+      .spyOn(streamrListenerService, "getAllowedDataServiceIds")
+      .mockReturnValue(["other-data-service"]);
+
+    await streamrListenerService.syncStreamrListening();
+    await sleep(1000);
+
+    expect(
+      BundlrService.prototype.safelySaveDataPackages
+    ).toHaveBeenCalledTimes(0);
+
+    spy.mockRestore();
   });
 });
