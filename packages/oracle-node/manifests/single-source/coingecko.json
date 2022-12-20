@@ -385,7 +385,8 @@
     "APT": {},
     "PTP": {},
     "XAVA": {},
-    "YAK": {}
+    "YAK": {},
+    "GMX": {}
   },
   "defaultSource": ["coingecko"]
 }
