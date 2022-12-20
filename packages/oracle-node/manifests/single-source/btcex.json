@@ -1,7 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["mexc"],
+  "defaultSource": ["bkex"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -11,8 +11,6 @@
   },
   "evmChainId": 1,
   "tokens": {
-    "UFT": {},
-    "XAVA": {},
     "GMX": {}
   }
 }

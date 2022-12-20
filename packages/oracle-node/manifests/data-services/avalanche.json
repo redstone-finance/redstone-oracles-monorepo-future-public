@@ -36,6 +36,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "currencycom",
         "hitbtc",
         "hollaex",
@@ -62,6 +63,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "currencycom",
         "kraken",
         "uniswap"
@@ -76,6 +78,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "lbank",
         "pangolin-wavax",
@@ -95,6 +98,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "huobipro",
         "kucoin",
         "lbank",
@@ -118,6 +122,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "currencycom",
         "hitbtc",
         "huobipro",
@@ -149,6 +154,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "currencycom",
         "hitbtc",
         "hollaex",
@@ -169,6 +175,7 @@
       "source": [
         "binance",
         "coingecko",
+        "coinmarketcap",
         "kucoin",
         "pangolin-wavax",
         "trader-joe",
@@ -185,6 +192,7 @@
         "btcturk",
         "cex",
         "coingecko",
+        "coinmarketcap",
         "currencycom",
         "huobipro",
         "kraken",
@@ -206,7 +214,14 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "PTP": {
-      "source": ["bkex", "coinex", "coingecko", "pangolin-wavax", "trader-joe"]
+      "source": [
+        "bkex",
+        "coinex",
+        "coingecko",
+        "coinmarketcap",
+        "pangolin-wavax",
+        "trader-joe"
+      ]
     },
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"]
@@ -259,6 +274,7 @@
     "XAVA": {
       "source": [
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kucoin",
         "latoken",
@@ -268,10 +284,31 @@
       ]
     },
     "YAK": {
-      "source": ["coingecko", "pangolin-usdc", "pangolin-wavax", "trader-joe"]
+      "source": [
+        "coingecko",
+        "coinmarketcap",
+        "pangolin-usdc",
+        "pangolin-wavax",
+        "trader-joe"
+      ]
     },
     "YYAV3SA1": {
       "source": ["avalanche-evm-fetcher"]
+    },
+    "GMX": {
+      "source": [
+        "binance",
+        "bkex",
+        "bkex",
+        "bybit",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "huobipro",
+        "kucoin",
+        "mexc",
+        "trader-joe"
+      ]
     }
   }
 }
