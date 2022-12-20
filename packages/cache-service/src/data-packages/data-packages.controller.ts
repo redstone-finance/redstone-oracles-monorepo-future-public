@@ -159,8 +159,8 @@ export class DataPackagesController {
       case "raw":
         res.contentType(CONTENT_TYPE_OCTET_STREAM);
         duplexStream(data.toBytes()).pipe(res);
-
         return;
+
       default:
         throw new Error(`Unsupported format: '${format}'`);
     }
