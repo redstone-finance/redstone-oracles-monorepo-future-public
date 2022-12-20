@@ -3553,6 +3553,9 @@
     "sAVAX": {
       "source": ["avalanche-evm-fetcher"]
     },
+    "GLP": {
+      "source": ["avalanche-evm-fetcher"]
+    },
     "C98": {
       "source": ["binance"]
     },
