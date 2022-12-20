@@ -309,6 +309,9 @@
         "mexc",
         "trader-joe"
       ]
+    },
+    "GLP": {
+      "source": ["avalanche-evm-fetcher"]
     }
   }
 }
