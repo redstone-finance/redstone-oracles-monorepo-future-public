@@ -1,9 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": [
-    "coingecko"
-  ],
+  "defaultSource": ["coingecko"],
   "sourceTimeout": 30000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -37,6 +35,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "currencycom",
         "hitbtc",
         "hollaex",
@@ -71,6 +70,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "currencycom",
         "hitbtc",
         "hollaex",
@@ -98,528 +98,301 @@
       ]
     },
     "TSLA": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "yf-unofficial"
-      ]
+      "source": ["currencycom", "yf-unofficial"]
     },
     "AAPL": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "yf-unofficial"
-      ]
+      "source": ["currencycom", "yf-unofficial"]
     },
     "IBM": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "AMZN": {
-      "source": [
-        "currencycom",
-        "yf-unofficial"
-      ]
+      "source": ["currencycom", "yf-unofficial"]
     },
     "GOOG": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "COST": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "DIS": {
-      "source": [
-        "yf-unofficial"
-      ]
-    },
-    "FB": {
-      "source": [
-        "bittrex",
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "MA": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "MSFT": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "NFLX": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "yf-unofficial"
-      ]
+      "source": ["currencycom", "yf-unofficial"]
     },
     "NKE": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "PINS": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "SHOP": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "SPOT": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "TDOC": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "SPY": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "QQQ": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "ONEQ": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "IWM": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "EFA": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "VGK": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "INDA": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "RSX": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "ZC=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "ZS=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "ZM=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "ZW=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "KE=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "ZO=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "ZR=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "CL=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "RB=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "NG=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "QA=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "EH=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "GC=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "SI=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "HG=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "PL=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "PA=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "LE=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "GF=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "HE=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "PRK=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "DC=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "GNF=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "CB=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "CSC=F": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "GBP": {
-      "source": [
-        "binance",
-        "currencycom",
-        "ecb",
-        "kraken"
-      ]
+      "source": ["binance", "currencycom", "ecb", "kraken"]
     },
     "AUD": {
-      "source": [
-        "binance",
-        "currencycom",
-        "ecb",
-        "kraken"
-      ]
+      "source": ["binance", "currencycom", "ecb", "kraken"]
     },
     "CHF": {
-      "source": [
-        "ecb",
-        "yf-unofficial"
-      ]
+      "source": ["ecb", "yf-unofficial"]
     },
     "EUR": {
-      "source": [
-        "binance",
-        "currencycom",
-        "ecb",
-        "kraken"
-      ]
+      "source": ["binance", "currencycom", "ecb", "kraken"]
     },
     "JPY": {
-      "source": [
-        "ecb"
-      ]
+      "source": ["ecb"]
     },
     "MXN": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "ARS": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "PEN": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "BRLUSD=X": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "COPUSD=X": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "BBBY": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "UPST": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "BIG": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "MSTR": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "BYND": {
-      "source": [
-        "currencycom",
-        "yf-unofficial"
-      ]
+      "source": ["currencycom", "yf-unofficial"]
     },
     "HRTX": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "EVGO": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "BGFV": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "FUBO": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "CVNA": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "NKLA": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "W": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "BLNK": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "SRG": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "HYZN": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "MVIS": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "PETS": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "IBRX": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "VUZI": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "SPCE": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "RIDE": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "FUV": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "WKHS": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "SWTX": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "ICPT": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "LCID": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "JWN": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "FFIE": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "SFT": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "OCGN": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "REI": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "BKKT": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "KPTI": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "SDC": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "DNMR": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "GDRX": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "IGMS": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "GME": {
-      "source": [
-        "bittrex",
-        "currencycom",
-        "yf-unofficial"
-      ]
+      "source": ["currencycom", "yf-unofficial"]
     },
     "AMC": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["yf-unofficial"]
     },
     "APE": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "yf-unofficial"
-      ]
+      "source": ["coinbaseprime", "coinbasepro", "coingecko", "yf-unofficial"]
     },
     "META": {
-      "source": [
-        "yf-unofficial"
-      ]
+      "source": ["currencycom", "yf-unofficial"]
     }
   }
 }
