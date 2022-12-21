@@ -1,6 +1,7 @@
 import "../common/set-test-envs";
 import {
   MOCK_DATA_SERVICE_ID,
+  MOCK_SIGNER_ADDRESS,
   mockDataPackages,
   mockOracleRegistryState,
 } from "../common/mock-values";
@@ -36,8 +37,9 @@ jest.mock("../../src/bundlr/bundlr.service");
 const expectedSavedDataPackages = [
   {
     ...mockDataPackages[0],
-    signerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    signerAddress: MOCK_SIGNER_ADDRESS,
     dataServiceId: MOCK_DATA_SERVICE_ID,
+    isSignatureValid: true,
     dataFeedId: "___ALL_FEEDS___",
   },
 ];
