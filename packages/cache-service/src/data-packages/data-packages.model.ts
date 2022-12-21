@@ -14,6 +14,9 @@ export class CachedDataPackage {
   @Prop({ required: true })
   signature: string;
 
+  @Prop({ required: true })
+  isSignatureValid: boolean;
+
   @Prop({ type: Types.Mixed, required: true })
   dataPoints: DataPointPlainObj[];
 
