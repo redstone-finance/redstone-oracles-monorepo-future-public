@@ -2,20 +2,27 @@ import { Signature } from "ethers";
 import {
   arrayify,
   base64,
-  computeAddress,
   concat,
   joinSignature,
-  recoverPublicKey,
   splitSignature,
 } from "ethers/lib/utils";
 import { Serializable } from "../common/Serializable";
 import { DataPackage, DataPackagePlainObj } from "./DataPackage";
+import {
+  deserializeSignedPackage,
+  recoverSignerAddress,
+  recoverSignerPublicKey,
+  SignedDataPackageLike,
+} from "./signed-package-deserializing";
 
 export interface SignedDataPackagePlainObj extends DataPackagePlainObj {
   signature: string; // base64-encoded joined signature
 }
 
-export class SignedDataPackage extends Serializable {
+export class SignedDataPackage
+  extends Serializable
+  implements SignedDataPackageLike
+{
   public readonly signature: Signature;
 
   constructor(
@@ -39,14 +46,11 @@ export class SignedDataPackage extends Serializable {
   }
 
   recoverSignerPublicKey(): Uint8Array {
-    const digest = this.dataPackage.getSignableHash();
-    const publicKeyHex = recoverPublicKey(digest, this.signature);
-    return arrayify(publicKeyHex);
+    return recoverSignerPublicKey(this);
   }
 
   recoverSignerAddress(): string {
-    const signerPublicKeyBytes = this.recoverSignerPublicKey();
-    return computeAddress(signerPublicKeyBytes);
+    return recoverSignerAddress(this);
   }
 
   toBytes(): Uint8Array {
@@ -68,18 +72,12 @@ export class SignedDataPackage extends Serializable {
   public static fromObj(
     plainObject: SignedDataPackagePlainObj
   ): SignedDataPackage {
-    const signatureBase64 = plainObject.signature;
-    if (!signatureBase64) {
-      throw new Error("Signature can not be empty");
-    }
-    const signatureBytes: Uint8Array = base64.decode(signatureBase64);
-    const parsedSignature = splitSignature(signatureBytes);
-
-    const { signature, ...unsignedDataPackagePlainObj } = plainObject;
-    const unsignedDataPackage = DataPackage.fromObj(
-      unsignedDataPackagePlainObj
+    return SignedDataPackage.fromObjLikeThis(
+      deserializeSignedPackage(plainObject)
     );
+  }
 
-    return new SignedDataPackage(unsignedDataPackage, parsedSignature);
+  private static fromObjLikeThis(object: SignedDataPackageLike) {
+    return new SignedDataPackage(object.dataPackage, object.signature);
   }
 }

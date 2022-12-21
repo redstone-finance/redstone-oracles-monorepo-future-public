@@ -1,5 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { RedstonePayload, UniversalSigner } from "redstone-protocol";
+
+import {
+  RedstonePayload,
+  UniversalSigner,
+  recoverDeserializedSignerAddress,
+} from "redstone-protocol";
 import {
   DataPackagesRequestParams,
   getDataServiceIdForSigner,
@@ -42,6 +47,7 @@ export class DataPackagesService {
           $match: {
             dataServiceId: requestConfig.dataServiceId,
             dataFeedId,
+            isSignatureValid: true,
           },
         },
         {
@@ -116,6 +122,9 @@ export class DataPackagesService {
         $group: {
           _id: "$signerAddress",
           dataPackagesCount: { $sum: 1 },
+          verifiedDataPackagesCount: {
+            $sum: { $cond: ["$isSignatureValid", 1, 0] },
+          },
         },
       },
     ]);
@@ -123,13 +132,22 @@ export class DataPackagesService {
     // Prepare stats response
     const state = await getOracleRegistryState();
     const stats: DataPackagesStatsResponse = {};
-    for (const { dataPackagesCount, _id: signerAddress } of signersStats) {
+    for (const {
+      dataPackagesCount,
+      verifiedDataPackagesCount,
+      _id: signerAddress,
+    } of signersStats) {
       const nodeDetails = Object.values(state.nodes).find(
         ({ evmAddress }) => evmAddress === signerAddress
       );
 
+      const verifiedDataPackagesPercentage =
+        (100 * verifiedDataPackagesCount) / Math.max(dataPackagesCount, 1);
+
       stats[signerAddress] = {
         dataPackagesCount,
+        verifiedDataPackagesCount,
+        verifiedDataPackagesPercentage,
         nodeName: nodeDetails?.name || "unknown",
         dataServiceId: nodeDetails?.dataServiceId || "unknown",
       };
@@ -157,10 +175,16 @@ export class DataPackagesService {
 
     const dataPackagesForSaving = receivedDataPackages.map(
       (receivedDataPackage) => {
+        const isSignatureValid = this.isSignatureValid(
+          receivedDataPackage,
+          signerAddress
+        );
+
         const cachedDataPackage: CachedDataPackage = {
           ...receivedDataPackage,
           dataServiceId,
           signerAddress,
+          isSignatureValid: isSignatureValid,
         };
         if (receivedDataPackage.dataPoints.length === 1) {
           cachedDataPackage.dataFeedId =
@@ -173,5 +197,18 @@ export class DataPackagesService {
     );
 
     return dataPackagesForSaving;
+  }
+
+  private isSignatureValid(
+    receivedDataPackage: ReceivedDataPackage,
+    signerAddress: string
+  ): boolean {
+    try {
+      const address = recoverDeserializedSignerAddress(receivedDataPackage);
+
+      return address === signerAddress;
+    } catch {
+      return false;
+    }
   }
 }

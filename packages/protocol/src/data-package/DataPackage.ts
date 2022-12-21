@@ -86,7 +86,7 @@ export class DataPackage extends Serializable {
   }
 
   protected serializeDataPoints(): Uint8Array {
-    // Sorting datapoints by bytes32 representation of dataFeedIds lexicographically
+    // Sorting dataPoints by bytes32 representation of dataFeedIds lexicographically
     this.dataPoints.sort((dp1, dp2) => {
       const bytes32dataFeedId1Hexlified = hexlify(dp1.serializeDataFeedId());
       const bytes32dataFeedId2Hexlified = hexlify(dp2.serializeDataFeedId());
