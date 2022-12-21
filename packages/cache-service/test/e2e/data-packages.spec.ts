@@ -7,6 +7,7 @@ import { AppModule } from "../../src/app.module";
 import {
   MOCK_DATA_SERVICE_ID,
   MOCK_SIGNATURE,
+  MOCK_SIGNER_ADDRESS,
   mockDataPackages,
   mockOracleRegistryState,
   mockSigner,
@@ -31,6 +32,7 @@ const expectedDataPackages = mockDataPackages.map((dataPackage) => ({
   ...dataPackage,
   signerAddress: mockSigner.address,
   dataServiceId: MOCK_DATA_SERVICE_ID,
+  isSignatureValid: true,
   dataFeedId: "___ALL_FEEDS___",
 }));
 
@@ -56,7 +58,7 @@ describe("Data packages (e2e)", () => {
     for (const dataServiceId of ["service-1", "service-2", "service-3"]) {
       for (const dataFeedId of [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"]) {
         for (const signerAddress of [
-          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", // address of mock-signer
+          MOCK_SIGNER_ADDRESS, // address of mock-signer
           "0x2",
           "0x3",
           "0x4",
@@ -64,6 +66,7 @@ describe("Data packages (e2e)", () => {
         ]) {
           dataPackagesToInsert.push({
             ...mockDataPackages[0],
+            isSignatureValid: true,
             dataFeedId,
             dataServiceId,
             signerAddress,
@@ -277,11 +280,15 @@ describe("Data packages (e2e)", () => {
       expect.objectContaining({
         "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
           dataPackagesCount: 12,
+          verifiedDataPackagesCount: 12,
+          verifiedDataPackagesPercentage: 100,
           nodeName: "Mock node 1",
           dataServiceId: MOCK_DATA_SERVICE_ID,
         },
         "0x2": {
           dataPackagesCount: 12,
+          verifiedDataPackagesCount: 12,
+          verifiedDataPackagesPercentage: 100,
           nodeName: "unknown",
           dataServiceId: "unknown",
         },
