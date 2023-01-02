@@ -17,13 +17,13 @@ const getValidDataPackagesResponse = () => ({
 
 const handlers = [
   rest.get(
-    "http://valid-cache.com/data-packages/latest",
+    "http://valid-cache.com/data-packages/latest/*",
     async (req, res, ctx) => {
       return res(ctx.json(getValidDataPackagesResponse()));
     }
   ),
   rest.get(
-    "http://invalid-cache.com/data-packages/latest",
+    "http://invalid-cache.com/data-packages/latest/*",
     async (req, res, ctx) => {
       return res(
         ctx.json({
@@ -40,7 +40,7 @@ const handlers = [
     }
   ),
   rest.get(
-    "http://slower-cache.com/data-packages/latest",
+    "http://slower-cache.com/data-packages/latest/*",
     async (req, res, ctx) => {
       return res(ctx.delay(200), ctx.json(getValidDataPackagesResponse()));
     }

@@ -7,7 +7,7 @@ export const handlers = [
   "https://bad-url-1.com",
   "https://bad-url-2.com",
 ].map((url) =>
-  rest.get(url + "/data-packages/latest", (req, res, ctx) => {
+  rest.get(url + "/data-packages/latest/*", (req, res, ctx) => {
     if (req.url.origin.includes("bad-url")) {
       return res(ctx.status(400), ctx.json(null));
     } else {

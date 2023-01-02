@@ -1,3 +1,4 @@
+import { Cache } from "cache-manager";
 import "../common/set-test-envs";
 import {
   MOCK_DATA_SERVICE_ID,
