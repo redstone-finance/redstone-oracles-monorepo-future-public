@@ -1,0 +1,26 @@
+spec:
+  name: cache-service
+  services:
+  - dockerfile_path: packages/cache-service/DO.Dockerfile
+    git:
+      branch: main
+      repo_clone_url: https://github.com/redstone-finance/redstone-oracles-monorepo.git
+    envs:
+    - key: MONGO_DB_URL
+      scope: RUN_AND_BUILD_TIME
+      value: mongodb-srv://you-should-configure-your-own-connection-string
+    - key: API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES
+      scope: RUN_AND_BUILD_TIME
+      value: you-should-configure-your-own-key
+    - key: ENABLE_STREAMR_LISTENING
+      scope: RUN_AND_BUILD_TIME
+      value: "true"
+    - key: ENABLE_DIRECT_POSTING_ROUTES
+      scope: RUN_AND_BUILD_TIME
+      value: "false"
+    - key: ALLOWED_STREAMR_DATA_SERVICE_IDS
+      scope: RUN_AND_BUILD_TIME
+      value: ""
+    http_port: 3000
+    instance_count: 1
+    name: cache-service
