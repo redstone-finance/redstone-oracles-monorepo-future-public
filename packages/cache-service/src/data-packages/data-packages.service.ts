@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-
+import { Cache } from "cache-manager";
 import {
   RedstonePayload,
   UniversalSigner,
@@ -20,6 +20,12 @@ import { ReceivedDataPackage } from "./data-packages.interface";
 import { CachedDataPackage, DataPackage } from "./data-packages.model";
 import { makePayload } from "../utils/make-redstone-payload";
 
+// Cache TTL can slightly increase the data delay, but having efficient
+// caching is crucial for the app performance. Assuming, that we have 10s
+// update frequency in nodes, 5s cache TTL on the app level, and 5s cache TTL
+// on the CDN level - then the max data delay is ~20s, which is still good enough :)
+const CACHE_TTL = 5000;
+const MAX_ALLOWED_TIMESTAMP_DELAY = 180 * 1000; // 3 minutes in milliseconds
 export const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 
 export interface StatsRequestParams {
@@ -31,6 +37,88 @@ export interface StatsRequestParams {
 export class DataPackagesService {
   async saveManyDataPackagesInDB(dataPackages: CachedDataPackage[]) {
     await DataPackage.insertMany(dataPackages);
+  }
+
+  async getAllLatestDataWithCache(
+    dataServiceId: string,
+    cacheManager: Cache
+  ): Promise<DataPackagesResponse> {
+    // Checking if data packages for this data service are
+    // presented in the application memory cache
+    const cacheKey = `data-packages/latest/${dataServiceId}`;
+    const dataPackagesFromCache = await cacheManager.get<DataPackagesResponse>(
+      cacheKey
+    );
+
+    if (!dataPackagesFromCache) {
+      const dataPackages = await this.getAllLatestDataPackagesFromDB(
+        dataServiceId
+      );
+      await cacheManager.set(cacheKey, dataPackages, CACHE_TTL);
+      return dataPackages;
+    } else {
+      return dataPackagesFromCache;
+    }
+  }
+
+  async isDataServiceIdValid(dataServiceId: string): Promise<boolean> {
+    const oracleRegistryState = await getOracleRegistryState();
+    return !!oracleRegistryState.dataServices[dataServiceId];
+  }
+
+  async getAllLatestDataPackagesFromDB(
+    dataServiceId: string
+  ): Promise<DataPackagesResponse> {
+    dataServiceId;
+    const fetchedPackagesPerDataFeed: {
+      [dataFeedId: string]: CachedDataPackage[];
+    } = {};
+
+    const groupedDataPackages = await DataPackage.aggregate([
+      {
+        $match: {
+          dataServiceId,
+          timestampMilliseconds: {
+            $gte: Date.now() - MAX_ALLOWED_TIMESTAMP_DELAY,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            signerAddress: "$signerAddress",
+            dataFeedId: "$dataFeedId",
+          },
+          timestampMilliseconds: { $first: "$timestampMilliseconds" },
+          signature: { $first: "$signature" },
+          dataPoints: { $first: "$dataPoints" },
+          dataServiceId: { $first: "$dataServiceId" },
+          dataFeedId: { $first: "$dataFeedId" },
+          sources: { $first: "$sources" },
+        },
+      },
+      {
+        $sort: { timestampMilliseconds: -1 },
+      },
+    ]);
+
+    // Parse DB response
+    for (const dataPackage of groupedDataPackages) {
+      const { _id, __v, ...rest } = dataPackage;
+      __v;
+      const dataFeedId = _id.dataFeedId;
+      if (!fetchedPackagesPerDataFeed[dataFeedId]) {
+        fetchedPackagesPerDataFeed[dataFeedId] = [];
+      }
+
+      fetchedPackagesPerDataFeed[dataFeedId].push({
+        ...rest,
+        dataFeedId,
+        signerAddress: _id.signerAddress,
+      });
+    }
+
+    return fetchedPackagesPerDataFeed;
   }
 
   // TODO: try to replace current implementation using only one aggregation call

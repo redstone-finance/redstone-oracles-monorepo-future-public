@@ -16,7 +16,7 @@ describe("DataServiceWrapper", () => {
     const wrappedContract = WrapperBuilder.wrap(contract).usingDataService(
       {
         dataServiceId: "mock-data-service",
-        uniqueSignersCount: 1,
+        uniqueSignersCount: 10,
         dataFeeds: ["ETH", "BTC"],
       },
       urls

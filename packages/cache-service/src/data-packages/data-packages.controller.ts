@@ -7,6 +7,9 @@ import {
   Post,
   Query,
   Res,
+  Param,
+  CACHE_MANAGER,
+  Inject,
 } from "@nestjs/common";
 import { DataPackagesRequestParams } from "redstone-sdk";
 import config from "../config";
@@ -17,6 +20,7 @@ import { BundlrService } from "../bundlr/bundlr.service";
 import type { Response } from "express";
 import { duplexStream } from "../utils/streams";
 import { Serializable } from "redstone-protocol";
+import { Cache } from "cache-manager";
 
 export interface BulkPostRequestBody {
   requestSignature: string;
@@ -59,7 +63,10 @@ const CONTENT_TYPE_TEXT = "text/html";
 export class DataPackagesController {
   private bundlrService = new BundlrService();
 
-  constructor(private dataPackagesService: DataPackagesService) {}
+  constructor(
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+    private dataPackagesService: DataPackagesService
+  ) {}
 
   private prepareDataPackagesRequestParams(
     query: GetLatestDataPackagesQuery
@@ -75,6 +82,29 @@ export class DataPackagesController {
       requestParams.dataFeeds = query["data-feeds"].split(",");
     }
     return requestParams;
+  }
+
+  @Get("latest/:DATA_SERVICE_ID")
+  async getAllLatest(
+    @Param("DATA_SERVICE_ID") dataServiceId: string
+  ): Promise<DataPackagesResponse> {
+    // Validate dataServiceId param
+    const isDataServiceIdValid =
+      await this.dataPackagesService.isDataServiceIdValid(dataServiceId);
+    if (!isDataServiceIdValid) {
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: "Data service id is invalid",
+        },
+        HttpStatus.BAD_REQUEST
+      );
+    }
+
+    return this.dataPackagesService.getAllLatestDataWithCache(
+      dataServiceId,
+      this.cacheManager
+    );
   }
 
   @Get("latest")
