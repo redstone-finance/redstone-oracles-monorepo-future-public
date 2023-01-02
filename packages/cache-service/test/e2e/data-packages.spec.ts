@@ -28,12 +28,14 @@ jest.mock("redstone-sdk", () => ({
 }));
 jest.mock("../../src/bundlr/bundlr.service");
 
+const dataFeedIds = [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"];
+
 const expectedDataPackages = mockDataPackages.map((dataPackage) => ({
   ...dataPackage,
   signerAddress: mockSigner.address,
   dataServiceId: MOCK_DATA_SERVICE_ID,
   isSignatureValid: true,
-  dataFeedId: "___ALL_FEEDS___",
+  dataFeedId: ALL_FEEDS_KEY,
 }));
 
 describe("Data packages (e2e)", () => {
@@ -55,8 +57,13 @@ describe("Data packages (e2e)", () => {
 
     // Adding test data to DB
     const dataPackagesToInsert = [];
-    for (const dataServiceId of ["service-1", "service-2", "service-3"]) {
-      for (const dataFeedId of [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"]) {
+    for (const dataServiceId of [
+      "service-1",
+      "service-2",
+      "service-3",
+      "mock-data-service-1",
+    ]) {
+      for (const dataFeedId of dataFeedIds) {
         for (const signerAddress of [
           MOCK_SIGNER_ADDRESS, // address of mock-signer
           "0x2",
@@ -173,6 +180,27 @@ describe("Data packages (e2e)", () => {
     expect(testResponse2.body[ALL_FEEDS_KEY][0].dataPoints.length).toBe(2);
   });
 
+  it("/data-packages/latest/mock-data-service-1 (GET)", async () => {
+    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    Date.now = jest.fn(() => dpTimestamp);
+    const testResponse = await request(httpServer)
+      .get("/data-packages/latest/mock-data-service-1")
+      .expect(200);
+
+    for (const dataFeedId of dataFeedIds) {
+      expect(testResponse.body[dataFeedId].length).toBe(5);
+      const signers = [];
+      for (const dataPackage of testResponse.body[dataFeedId]) {
+        expect(dataPackage).toHaveProperty("dataFeedId", dataFeedId);
+        expect(dataPackage).toHaveProperty("sources", null);
+        expect(dataPackage).toHaveProperty("signature", MOCK_SIGNATURE);
+        signers.push(dataPackage.signerAddress);
+      }
+      expect(signers.length).toBe(5);
+      expect(new Set(signers).size).toBe(5);
+    }
+  });
+
   async function performPayloadTests(
     bytesProvider: (response: request.Response) => Uint8Array,
     format?: ResponseFormat
@@ -279,15 +307,15 @@ describe("Data packages (e2e)", () => {
     expect(response.body).toEqual(
       expect.objectContaining({
         "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
-          dataPackagesCount: 12,
-          verifiedDataPackagesCount: 12,
+          dataPackagesCount: 16,
+          verifiedDataPackagesCount: 16,
           verifiedDataPackagesPercentage: 100,
           nodeName: "Mock node 1",
           dataServiceId: MOCK_DATA_SERVICE_ID,
         },
         "0x2": {
-          dataPackagesCount: 12,
-          verifiedDataPackagesCount: 12,
+          dataPackagesCount: 16,
+          verifiedDataPackagesCount: 16,
           verifiedDataPackagesPercentage: 100,
           nodeName: "unknown",
           dataServiceId: "unknown",

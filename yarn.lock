@@ -6988,6 +6988,14 @@ cache-content-type@^1.0.0:
     mime-types "^2.1.18"
     ylru "^1.2.0"
 
+cache-manager@^5.1.4:
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/cache-manager/-/cache-manager-5.1.4.tgz#b3024f2127353f9f725f43ecbd184872101b6bb2"
+  integrity sha512-beXzzuboV6I0AkU25udrd8tRxFbU6c5m7+3eOdmznSVNkyKe0+uTK8EtcuhTwqc/wAYrAGl62w3s58rjKnrO6g==
+  dependencies:
+    lodash.clonedeep "^4.5.0"
+    lru-cache "^7.14.0"
+
 cacheable-lookup@^5.0.3:
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/cacheable-lookup/-/cacheable-lookup-5.0.4.tgz#5a6b865b2c44357be3d5ebc2a467b032719a7005"
@@ -13851,6 +13859,11 @@ lodash.camelcase@^4.3.0:
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
   integrity sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==
 
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==
+
 lodash.curry@^4.0.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.curry/-/lodash.curry-4.1.1.tgz#248e36072ede906501d75966200a86dab8b23170"
@@ -14005,6 +14018,11 @@ lru-cache@^7.10.1:
   version "7.14.0"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.14.0.tgz#21be64954a4680e303a09e9468f880b98a0b3c7f"
   integrity sha512-EIRtP1GrSJny0dqb50QXRUNBxHJhcpxHC++M5tD7RYbvLLn5KVWKsbyswSSqDuU15UFi3bgTQIY8nhDMeF6aDQ==
+
+lru-cache@^7.14.0:
+  version "7.14.1"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.14.1.tgz#8da8d2f5f59827edb388e63e459ac23d6d408fea"
+  integrity sha512-ysxwsnTKdAx96aTRdhDOCQfDgbHnt8SK0KY8SEjO0wHinhWOFTESbjVCMPbU1uGXg/ch4lifqx0wfjOawU2+WA==
 
 lru-queue@0.1:
   version "0.1.0"
@@ -16808,10 +16826,24 @@ redstone-isomorphic@^1.1.0:
     safe-buffer "^5.1.2"
     undici "^5.8.0"
 
+redstone-oracles-smartweave-contracts@latest:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/redstone-oracles-smartweave-contracts/-/redstone-oracles-smartweave-contracts-1.0.1.tgz#51c802139edf2f46b5f50b9e04995ebbf0e8b3b7"
+  integrity sha512-W+h3KB2gdxmK+WnfDT+iZHVQ25LkdTuV5a4cem5pgzgjo6vf2nqFPlkXcWpYI791mdeobwC4yoSybrTrIXSKfQ==
+
 redstone-prettier-config@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redstone-prettier-config/-/redstone-prettier-config-1.0.0.tgz#154b28bf79f41826a4b47421db653d867aa3c241"
   integrity sha512-39BBmwrw+5L4MgV1TLGAlIwmRFvAzZ4iq8xshHdBhiiAgl0J6PeIYrkUkU5l6nMIilua4zkWoEz+58enT0pbhw==
+
+redstone-sdk@*:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/redstone-sdk/-/redstone-sdk-1.0.5.tgz#3e71d021e22a366a50c500bee15b1c02a5fc7066"
+  integrity sha512-1C8VhnZ6EOemhVtBB5VHP8wgk+QzhozCrC0M4Zw0eHUvFWnIvdEgX1UKqBbg8uRFz8gbFFrvQiQ+OivcQVluSQ==
+  dependencies:
+    axios "^0.27.2"
+    redstone-oracles-smartweave-contracts latest
+    redstone-protocol "*"
 
 redstone-smartweave@0.4.84, redstone-smartweave@^0.4.40:
   version "0.4.84"

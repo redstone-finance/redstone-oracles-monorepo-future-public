@@ -1,6 +1,6 @@
 import config from "./config";
 import mongoose from "mongoose";
-import { Module, Provider } from "@nestjs/common";
+import { Module, Provider, CacheModule } from "@nestjs/common";
 import { ScheduleModule } from "@nestjs/schedule";
 import { MongooseModule } from "@nestjs/mongoose";
 import { LoggerModule } from "nestjs-pino";
@@ -13,7 +13,7 @@ import { StreamrListenerService } from "./streamr-listener/streamr-listener.serv
 import { BundlrService } from "./bundlr/bundlr.service";
 
 const providers: Provider[] = [DataPackagesService, BundlrService];
-const imports = [LoggerModule.forRoot()];
+const imports = [LoggerModule.forRoot(), CacheModule.register()];
 
 if (config.enableStreamrListening) {
   providers.push(StreamrListenerService);
