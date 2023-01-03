@@ -12,6 +12,7 @@
   "evmChainId": 1,
   "tokens": {
     "PTP": {},
-    "GMX": {}
+    "GMX": {},
+    "JOE": {}
   }
 }
