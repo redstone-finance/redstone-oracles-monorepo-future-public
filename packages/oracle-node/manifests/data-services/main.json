@@ -996,26 +996,6 @@
         "uniswap"
       ]
     },
-    "AVAX": {
-      "source": [
-        "aax",
-        "binance",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "bybit",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "coinmarketcap",
-        "huobipro",
-        "kucoin",
-        "lbank",
-        "okx"
-      ]
-    },
     "CHZ": {
       "source": [
         "ascendex",
@@ -1171,6 +1151,25 @@
         "lbank",
         "okx",
         "probit"
+      ]
+    },
+    "AVAX": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "bybit",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "huobipro",
+        "kucoin",
+        "lbank",
+        "okx"
       ]
     },
     "SAND": {
@@ -1883,6 +1882,19 @@
         "kucoin",
         "okx",
         "poloniex"
+      ]
+    },
+    "JOE": {
+      "source": [
+        "binance",
+        "bitget",
+        "bitrue",
+        "bkex",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "mexc",
+        "trader-joe"
       ]
     },
     "BTT": {
@@ -3219,9 +3231,6 @@
     },
     "DYP": {
       "source": ["coingecko", "uniswap"]
-    },
-    "JOE": {
-      "source": ["coingecko", "trader-joe"]
     },
     "XSGD": {
       "source": ["coingecko", "uniswap"]
