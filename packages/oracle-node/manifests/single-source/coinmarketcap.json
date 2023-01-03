@@ -27,7 +27,8 @@
     "PTP": {},
     "XAVA": {},
     "YAK": {},
-    "GMX": {}
+    "GMX": {},
+    "JOE": {}
   },
   "defaultSource": ["coinmarketcap"]
 }
