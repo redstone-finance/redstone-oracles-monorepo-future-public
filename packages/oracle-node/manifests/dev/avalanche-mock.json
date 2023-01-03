@@ -1,9 +1,7 @@
 {
   "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": [
-    "mock"
-  ],
+  "defaultSource": ["mock"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -17,18 +15,10 @@
   "enableArweaveBackup": false,
   "tokens": {
     "ETH": {
-      "source": [
-        "binance",
-        "kraken",
-        "coingecko",
-        "mock"
-      ]
+      "source": ["binance", "kraken", "coingecko", "mock"]
     },
     "USDT": {
-      "source": [
-        "coingecko",
-        "mock"
-      ],
+      "source": ["coingecko", "mock"],
       "deviationWithRecentValues": {
         "maxPercent": 5,
         "maxDelayMilliseconds": 300000
