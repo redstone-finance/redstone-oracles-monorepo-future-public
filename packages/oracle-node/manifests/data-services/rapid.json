@@ -1,9 +1,7 @@
 {
   "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": [
-    "coingecko"
-  ],
+  "defaultSource": ["coingecko"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -259,12 +257,7 @@
       ]
     },
     "AR": {
-      "source": [
-        "binance",
-        "coingecko",
-        "hitbtc",
-        "huobipro"
-      ]
+      "source": ["binance", "coingecko", "hitbtc", "huobipro"]
     },
     "CELO": {
       "source": [
@@ -278,7 +271,6 @@
     },
     "AVAX": {
       "source": [
-        "aax",
         "binance",
         "binanceusdm",
         "bitfinex",

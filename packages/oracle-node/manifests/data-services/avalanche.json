@@ -87,7 +87,6 @@
     },
     "AVAX": {
       "source": [
-        "aax",
         "binance",
         "binanceusdm",
         "bitfinex",
@@ -312,6 +311,19 @@
     },
     "GLP": {
       "source": ["avalanche-evm-fetcher"]
+    },
+    "JOE": {
+      "source": [
+        "binance",
+        "bitget",
+        "bitrue",
+        "bkex",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "mexc",
+        "trader-joe"
+      ]
     }
   }
 }
