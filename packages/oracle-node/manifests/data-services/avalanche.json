@@ -49,7 +49,6 @@
         "okx",
         "poloniex",
         "probit",
-        "qtrade",
         "stex"
       ]
     },
@@ -80,7 +79,6 @@
         "coingecko",
         "coinmarketcap",
         "gate",
-        "lbank",
         "pangolin-wavax",
         "trader-joe"
       ]
@@ -166,7 +164,6 @@
         "okx",
         "poloniex",
         "probit",
-        "qtrade",
         "stex"
       ]
     },
@@ -183,7 +180,6 @@
     },
     "USDC": {
       "source": [
-        "binance",
         "binanceus",
         "bitfinex",
         "bitfinex2",
@@ -218,6 +214,7 @@
         "coinex",
         "coingecko",
         "coinmarketcap",
+        "mexc",
         "pangolin-wavax",
         "trader-joe"
       ]
@@ -323,6 +320,21 @@
         "gate",
         "mexc",
         "trader-joe"
+      ]
+    },
+    "BUSD": {
+      "source": [
+        "binance",
+        "binanceus",
+        "bitcoincom",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "hitbtc",
+        "lbank",
+        "oceanex",
+        "poloniex"
       ]
     }
   }
