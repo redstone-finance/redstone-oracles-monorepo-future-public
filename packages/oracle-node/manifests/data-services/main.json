@@ -47,7 +47,6 @@
         "okx",
         "poloniex",
         "probit",
-        "qtrade",
         "stex"
       ]
     },
@@ -81,7 +80,6 @@
         "okx",
         "poloniex",
         "probit",
-        "qtrade",
         "stex"
       ]
     },
@@ -755,30 +753,6 @@
         "probit"
       ]
     },
-    "USDC": {
-      "source": [
-        "binance",
-        "binanceus",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coingecko",
-        "coinmarketcap",
-        "currencycom",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "liquid",
-        "oceanex",
-        "okx",
-        "probit",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
     "ALGO": {
       "source": [
         "ascendex",
@@ -823,6 +797,29 @@
         "okx",
         "poloniex",
         "probit"
+      ]
+    },
+    "USDC": {
+      "source": [
+        "binanceus",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coingecko",
+        "coinmarketcap",
+        "currencycom",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "liquid",
+        "oceanex",
+        "okx",
+        "probit",
+        "sushiswap",
+        "uniswap"
       ]
     },
     "ZRX": {
@@ -2125,18 +2122,6 @@
         "uniswap"
       ]
     },
-    "PNG": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "coinmarketcap",
-        "gate",
-        "lbank",
-        "pangolin-wavax",
-        "trader-joe"
-      ]
-    },
     "XAVA": {
       "source": [
         "coingecko",
@@ -2292,6 +2277,17 @@
         "probit"
       ]
     },
+    "PTP": {
+      "source": [
+        "bkex",
+        "coinex",
+        "coingecko",
+        "coinmarketcap",
+        "mexc",
+        "pangolin-wavax",
+        "trader-joe"
+      ]
+    },
     "GLM": {
       "source": [
         "cex",
@@ -2301,6 +2297,17 @@
         "huobipro",
         "okx",
         "poloniex"
+      ]
+    },
+    "PNG": {
+      "source": [
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "pangolin-wavax",
+        "trader-joe"
       ]
     },
     "KAVA": {
@@ -2505,16 +2512,6 @@
         "kucoin"
       ]
     },
-    "PTP": {
-      "source": [
-        "bkex",
-        "coinex",
-        "coingecko",
-        "coinmarketcap",
-        "pangolin-wavax",
-        "trader-joe"
-      ]
-    },
     "FLOW": {
       "source": [
         "coinbaseprime",
@@ -2533,16 +2530,6 @@
         "kraken",
         "lbank",
         "okx"
-      ]
-    },
-    "RARI": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "kraken",
-        "lbank",
-        "poloniex"
       ]
     },
     "UFT": {
@@ -2596,9 +2583,6 @@
     "SFP": {
       "source": ["binance", "binanceusdm", "bitcoincom", "hitbtc", "lbank"]
     },
-    "DODO": {
-      "source": ["binance", "bitcoincom", "hitbtc", "kucoin", "lbank"]
-    },
     "SUPER": {
       "source": [
         "binance",
@@ -2637,6 +2621,9 @@
     },
     "GAS": {
       "source": ["cex", "hitbtc", "kucoin", "okx", "probit"]
+    },
+    "RARI": {
+      "source": ["coinbaseprime", "coinbasepro", "hitbtc", "kraken", "poloniex"]
     },
     "OKB": {
       "source": ["coingecko", "lbank", "okx", "poloniex", "probit"]
@@ -2701,14 +2688,14 @@
     "WNXM": {
       "source": ["binance", "huobipro", "okx", "poloniex"]
     },
-    "FLM": {
-      "source": ["binance", "binanceusdm", "lbank", "okx"]
-    },
     "INJ": {
       "source": ["binance", "hitbtc", "huobipro", "poloniex"]
     },
     "DNT": {
       "source": ["binance", "cex", "coinbaseprime", "coinbasepro"]
+    },
+    "DODO": {
+      "source": ["binance", "bitcoincom", "hitbtc", "kucoin"]
     },
     "PUNDIX": {
       "source": ["binance", "bittrex", "kucoin", "probit"]
@@ -2848,6 +2835,9 @@
     "HNT": {
       "source": ["binance", "binanceus", "binanceusdm"]
     },
+    "FLM": {
+      "source": ["binance", "binanceusdm", "okx"]
+    },
     "AUDIO": {
       "source": ["binance", "bitcoincom", "hitbtc"]
     },
@@ -2982,9 +2972,6 @@
     },
     "ORBS": {
       "source": ["kucoin", "okx", "probit"]
-    },
-    "ELON": {
-      "source": ["kucoin", "lbank", "poloniex"]
     },
     "LON": {
       "source": ["kucoin", "lbank", "okx"]
@@ -3274,9 +3261,6 @@
     "PEARL": {
       "source": ["hitbtc", "huobipro"]
     },
-    "GOF": {
-      "source": ["hitbtc", "lbank"]
-    },
     "SOLO": {
       "source": ["hitbtc", "probit"]
     },
@@ -3345,6 +3329,9 @@
     },
     "RFOX": {
       "source": ["kucoin", "liquid"]
+    },
+    "ELON": {
+      "source": ["kucoin", "poloniex"]
     },
     "CFG": {
       "source": ["kucoin", "okx"]
@@ -4429,6 +4416,9 @@
     "DCN": {
       "source": ["hitbtc"]
     },
+    "GOF": {
+      "source": ["hitbtc"]
+    },
     "CENNZ": {
       "source": ["hitbtc"]
     },
@@ -4570,13 +4560,7 @@
     "HERO": {
       "source": ["lbank"]
     },
-    "DUKE": {
-      "source": ["lbank"]
-    },
     "EFK": {
-      "source": ["lbank"]
-    },
-    "SKILL": {
       "source": ["lbank"]
     },
     "lensprotocol": {
