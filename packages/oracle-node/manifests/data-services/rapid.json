@@ -39,6 +39,7 @@
         "hitbtc",
         "hollaex",
         "huobipro",
+        "kaiko",
         "kraken",
         "kucoin",
         "lbank",
@@ -72,6 +73,7 @@
         "hitbtc",
         "hollaex",
         "huobipro",
+        "kaiko",
         "kraken",
         "kucoin",
         "lbank",
@@ -94,6 +96,7 @@
         "coinbasepro",
         "coingecko",
         "currencycom",
+        "kaiko",
         "kraken",
         "uniswap"
       ]
@@ -162,6 +165,7 @@
         "hitbtc",
         "hollaex",
         "huobipro",
+        "kaiko",
         "kraken",
         "kucoin",
         "lbank",
@@ -280,6 +284,7 @@
         "coinbasepro",
         "coingecko",
         "huobipro",
+        "kaiko",
         "kucoin",
         "lbank",
         "okx"
