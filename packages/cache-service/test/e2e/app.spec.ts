@@ -20,10 +20,6 @@ describe("Root (e2e)", () => {
     return request(app.getHttpServer())
       .get("/")
       .expect(200)
-      .expect(
-        "Hello! This is an instance of redstone-cache-service. " +
-          "You can find more information at: " +
-          "https://github.com/redstone-finance/redstone-oracles-monorepo/tree/main/packages/cache-service"
-      );
+      .expect("Hello! I am working correctly");
   });
 });
