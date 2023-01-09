@@ -16,9 +16,7 @@ describe("AppController", () => {
   describe("root", () => {
     it('should return "Hello World!"', () => {
       expect(appController.getRootRouteResponse()).toBe(
-        "Hello! This is an instance of redstone-cache-service. " +
-          "You can find more information at: " +
-          "https://github.com/redstone-finance/redstone-oracles-monorepo/tree/main/packages/cache-service"
+        "Hello! I am working correctly"
       );
     });
   });
