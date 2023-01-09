@@ -4,6 +4,7 @@ import {
 } from "redstone-sdk";
 import { BaseWrapper, ParamsForDryRunVerification } from "./BaseWrapper";
 import { version } from "../../package.json";
+import { parseAggregatedErrors } from "../helpers/parse-aggregated-errors";
 
 interface RequestPayloadWithDryRunParams extends ParamsForDryRunVerification {
   unsignedMetadataMsg: string;
@@ -57,12 +58,9 @@ export class DataServiceWrapper extends BaseWrapper {
       return redstonePayload;
     });
     return Promise.any(promises).catch((error: any) => {
+      const parsedErrors = parseAggregatedErrors(error);
       throw new Error(
-        `All redstone payloads do not pass dry run verification, aggregated errors: ${JSON.stringify(
-          error.errors,
-          null,
-          2
-        )}`
+        `All redstone payloads do not pass dry run verification, aggregated errors: ${parsedErrors}`
       );
     });
   }

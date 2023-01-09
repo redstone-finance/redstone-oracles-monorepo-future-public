@@ -11,7 +11,7 @@ describe("SDK tests", () => {
   const reqParams: DataPackagesRequestParams = {
     dataFeeds: ["BTC", "ETH"],
     dataServiceId: "mock-data-service-id",
-    uniqueSignersCount: 4,
+    uniqueSignersCount: 2,
   };
 
   beforeAll(() => server.listen());
@@ -40,11 +40,24 @@ describe("SDK tests", () => {
     const dataPackages = await requestDataPackages(reqParams, [
       "https://bad-url-1.com",
       "https://bad-url-2.com",
-      "https://cache-2.redstone.finance",
+      "https://good-url-1.com",
     ]);
     expect(mockSignedDataPackages.ETH[0]).toMatchObject(
       dataPackages["ETH"][0].toObj()
     );
+  });
+
+  test("Should select the newest data packages", async () => {
+    const dataPackages = await requestDataPackages(
+      {
+        ...reqParams,
+        dataFeeds: ["ETH"],
+        uniqueSignersCount: 1,
+      },
+      ["https://good-url-sorted-asc-only-eth.com"]
+    );
+    const dataPackage = dataPackages.ETH[0].dataPackage;
+    expect(dataPackage.timestampMilliseconds).toBe(11);
   });
 
   test("Should fail if all urls fail", async () => {
@@ -53,10 +66,29 @@ describe("SDK tests", () => {
         "https://bad-url-1.com",
         "https://bad-url-2.com",
       ])
-    ).rejects.toEqual(
-      new Error(
-        `Request failed {"reqParams":{"dataFeeds":["BTC","ETH"],"dataServiceId":"mock-data-service-id","uniqueSignersCount":4},"urls":["https://bad-url-1.com","https://bad-url-2.com"]}, Original error: All promises were rejected: 0: Request failed with status code 400, 1: Request failed with status code 400, `
-      )
+    ).rejects.toThrow(
+      `Request failed {\"reqParams\":{\"dataFeeds\":[\"BTC\",\"ETH\"],\"dataServiceId\":\"mock-data-service-id\",\"uniqueSignersCount\":2},\"urls\":[\"https://bad-url-1.com\",\"https://bad-url-2.com\"]}, Original error: All promises were rejected: 0: Request failed with status code 400, 1: Request failed with status code 400, `
+    );
+  });
+
+  test("Should fail for missing data feed id", async () => {
+    await expect(() =>
+      requestDataPackages(reqParams, [
+        "https://good-url-sorted-asc-only-eth.com",
+      ])
+    ).rejects.toThrow(
+      "Requested data feed id is not included in response: BTC"
+    );
+  });
+
+  test("Should fail for too few unique signers", async () => {
+    await expect(() =>
+      requestDataPackages({
+        ...reqParams,
+        uniqueSignersCount: 3,
+      })
+    ).rejects.toThrow(
+      "Too few unique signers for the data feed: BTC. Expected: 3. Received: 2"
     );
   });
 });
