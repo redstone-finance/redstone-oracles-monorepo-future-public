@@ -8,9 +8,10 @@ import config from "../src/config";
 
 // USAGE: yarn run-ts scripts/analyze-data-packages.ts
 
-const START_TIMESTAMP = new Date("2023-01-10T05:23:00Z").getTime();
-const END_TIMESTAMP = new Date("2023-01-10T05:25:00Z").getTime();
+const START_TIMESTAMP = Date.now() - 3 * 60 * 1000;
+const END_TIMESTAMP = Date.now();
 const DATA_SERVICE_ID = "redstone-avalanche-prod";
+const MIN_DEVIATION_PERCENTAGE_TO_LOG = 0.1;
 
 interface DataPackagesGroupedBySigner {
   [signer: string]: CachedDataPackage[];
@@ -31,6 +32,7 @@ async function main() {
     );
 
     let lastTimestamp = 0;
+    const prevValues: { [id: string]: string | number } = {};
     for (const dataPackage of sortedDataPackages) {
       const timestamp = dataPackage.timestampMilliseconds;
       const diff = lastTimestamp ? lastTimestamp - timestamp : undefined;
@@ -52,6 +54,19 @@ async function main() {
 
       if (timestampFromIdDiff > 10000) {
         console.log(`Timestamp from id diff: ${timestampFromIdDiff}`);
+      }
+
+      for (const dataPoint of dataPackage.dataPoints) {
+        if (prevValues[dataPoint.dataFeedId]) {
+          const deviation = getDeviationPercentage(
+            Number(dataPoint.value),
+            Number(prevValues[dataPoint.dataFeedId])
+          );
+          if (deviation > MIN_DEVIATION_PERCENTAGE_TO_LOG) {
+            console.log(`Deviation for ${dataPoint.dataFeedId}: ${deviation}`);
+          }
+        }
+        prevValues[dataPoint.dataFeedId] = dataPoint.value;
       }
     }
   }
@@ -84,4 +99,8 @@ async function queryDataPackagesGroupedBySigner(): Promise<DataPackagesGroupedBy
   }
 
   return groupedBySigner;
+}
+
+function getDeviationPercentage(a: number, b: number) {
+  return Math.abs((a - b) / Math.min(a, b)) * 100;
 }
