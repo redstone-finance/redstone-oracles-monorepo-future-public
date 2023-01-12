@@ -12,6 +12,7 @@
   "evmChainId": 1,
   "tokens": {
     "AVAX": {},
-    "GMX": {}
+    "GMX": {},
+    "BIT": {}
   }
 }
