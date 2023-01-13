@@ -10,6 +10,7 @@ import {
   Param,
   CACHE_MANAGER,
   Inject,
+  Header,
 } from "@nestjs/common";
 import { DataPackagesRequestParams } from "redstone-sdk";
 import config from "../config";
@@ -85,6 +86,7 @@ export class DataPackagesController {
   }
 
   @Get("latest/:DATA_SERVICE_ID")
+  @Header("Cache-Control", "max-age=5")
   async getAllLatest(
     @Param("DATA_SERVICE_ID") dataServiceId: string
   ): Promise<DataPackagesResponse> {
@@ -108,6 +110,7 @@ export class DataPackagesController {
   }
 
   @Get("latest")
+  @Header("Cache-Control", "max-age=5")
   async getLatest(
     @Query() query: GetLatestDataPackagesQuery
   ): Promise<DataPackagesResponse> {
