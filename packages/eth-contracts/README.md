@@ -9,7 +9,7 @@ This package contains an implementation of the main RedStone contracts with the 
 
 ### RedstoneToken.sol
 
-A standard implementation of ERC20 token with an ability to mint more tokens by the authorised minter. Minter role can be passed to another address only by the existing minter. There is no limit for max token supply.
+A standard implementation of ERC20 token with an ability to mint more tokens by the authorised minter. Minter role can be passed to another address only by the existing minter. Total token supply is limited by the MAX_SUPPLY parameter.
 
 This contract is not upgradable.
 
