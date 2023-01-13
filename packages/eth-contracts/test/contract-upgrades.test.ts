@@ -97,7 +97,9 @@ describe("Contract upgrades tests", () => {
       );
 
       expect(vestingWalletV2.address).to.eql(vestingWallet.address);
-      expect((await vestingWalletV2.getLockedAmount(0)).toNumber()).to.eql(42);
+      expect((await vestingWalletV2.getUnvestedAmount(0)).toNumber()).to.eql(
+        42
+      );
     });
   });
 });
