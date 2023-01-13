@@ -26,7 +26,7 @@ contract VestingWalletV2 is Initializable {
   /**
    * @dev This returns the amount still locked in tohe contract, as a function of time
    */
-  function getLockedAmount(uint256 timestamp) public view virtual returns (uint256) {
+  function getUnvestedAmount(uint256 timestamp) public view virtual returns (uint256) {
     timestamp;
     return 42;
   }
