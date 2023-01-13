@@ -46,9 +46,9 @@ contract VestingWallet is Initializable {
   }
 
   /**
-   * @dev This returns the amount still locked in tohe contract, as a function of time
+   * @dev This returns the amount still unvested in the contract, as a function of time
    */
-  function getLockedAmount(uint256 timestamp) public view virtual returns (uint256) {
+  function getUnvestedAmount(uint256 timestamp) public view virtual returns (uint256) {
     if (timestamp < start + cliffDuration) {
       return allocation;
     } else if (timestamp > start + cliffDuration + vestingDuration) {
@@ -64,9 +64,9 @@ contract VestingWallet is Initializable {
    */
   function getReleasable() public view virtual returns (uint256) {
     return
-      token.balanceOf(address(this)) < getLockedAmount(block.timestamp)
+      token.balanceOf(address(this)) < getUnvestedAmount(block.timestamp)
         ? 0
-        : token.balanceOf(address(this)) - getLockedAmount(block.timestamp);
+        : token.balanceOf(address(this)) - getUnvestedAmount(block.timestamp);
   }
 
   /**

@@ -136,4 +136,39 @@ describe("Locking registry", () => {
       locking.connect(signers[1]).slash(signers[0].address, 99)
     ).to.be.revertedWith("Tx sender is not authorised to slash locks");
   });
+
+  it("Should not unlock after slashing", async () => {
+    const delayForUnlockingInSeconds = 0;
+    await deployContracts(delayForUnlockingInSeconds);
+    await lockTokens(100);
+
+    // Request unlock
+    const reqTx = await locking.requestUnlock(100);
+    await reqTx.wait();
+    const lockingDetails = await locking.getUserLockingDetails(
+      signers[0].address
+    );
+    expect(lockingDetails.pendingAmountToUnlock.toNumber()).to.eql(100);
+
+    // Slash
+    const tx = await locking
+      .connect(authorisedSlasher)
+      .slash(signers[0].address, 10);
+    await tx.wait();
+
+    const userLockedBalance = await locking.getMaxSlashableAmount(
+      signers[0].address
+    );
+    const slasherBalance = await token.balanceOf(authorisedSlasher.address);
+    expect(userLockedBalance.toNumber()).to.eql(90);
+    expect(slasherBalance.toNumber()).to.eql(10);
+
+    // Complete unlock
+    await expect(locking.completeUnlock()).to.be.revertedWith(
+      "Can not unlock more than locked"
+    );
+  });
+
+  // TODO: Test unlocks with simulating passed time
+  // Could we skip this test on Goerli?
 });

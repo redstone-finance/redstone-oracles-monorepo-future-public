@@ -66,6 +66,7 @@ contract LockingRegistry is Initializable {
       "Unlocking is not opened yet"
     );
     require(amountToUnlock > 0, "User hasn't requested unlock before");
+    // If there is not enough tokens because of slashing user must request unlock again
     require(amountToUnlock <= userLockingDetails.lockedAmount, "Can not unlock more than locked");
 
     userLockingDetails.lockedAmount -= amountToUnlock;
