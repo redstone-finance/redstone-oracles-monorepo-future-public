@@ -3755,13 +3755,13 @@
   dependencies:
     antlr4ts "^0.5.0-alpha.4"
 
-"@streamr/network-node@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@streamr/network-node/-/network-node-7.1.0.tgz#c3c88fd0d5c084d3ffc586777441ba51de2fc832"
-  integrity sha512-5gXsgp9k3DQcYxdcL/oGBz7VArXMLxMOYVgD4xXcBbTzNtdDYyqCEdL6tqAelNTYbAsSUarhrcKQY4C0Z5//dg==
+"@streamr/network-node@7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@streamr/network-node/-/network-node-7.2.1.tgz#362316e5dd3526bcf517777fc2509e321d77be32"
+  integrity sha512-1tBm+R/LerMOkUWk0dacdTZN5GLkIGXcPWrMJKgHAXY+i1AVV3tuGVJ1a3stHR/wz9XUkF8Oq9pswTvk5+PR3Q==
   dependencies:
-    "@streamr/protocol" "7.1.0"
-    "@streamr/utils" "7.1.0"
+    "@streamr/protocol" "7.2.1"
+    "@streamr/utils" "7.2.1"
     cancelable-promise "^3.2.3"
     commander "^8.3.0"
     heap "^0.2.6"
@@ -3778,17 +3778,17 @@
     bufferutil "^4.0.5"
     utf-8-validate "^5.0.7"
 
-"@streamr/protocol@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@streamr/protocol/-/protocol-7.1.0.tgz#2bcea8739069629d8d244ea0cebf4782d05174e3"
-  integrity sha512-Iwqs1sGnxJ6/2lYdYPcx6SH3GTRessGZeK5dByOl2jY/V2PkRaD6o0QGwhUBGvHwodScTJMsr6nWqUrrL2kCzQ==
+"@streamr/protocol@7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@streamr/protocol/-/protocol-7.2.1.tgz#eae83bfce071f53821082b0f8ef442b5772a613c"
+  integrity sha512-vzveBMrcgos9ESEhhZ4vqvlwbGNtdLy/daGplgACMAp3q2gINgRnUgVm2dKSQnOXZqRikvDNY6C0iepOYJiZGA==
   dependencies:
-    "@streamr/utils" "7.1.0"
+    "@streamr/utils" "7.2.1"
 
-"@streamr/utils@7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@streamr/utils/-/utils-7.1.0.tgz#8dac9daa5db088f5b1ff91bf5aab8370a69b9026"
-  integrity sha512-OhZl4oIfayynCENoQ6+F3Eohq7d8lkYWFYQiyB3ws2NW/z2Z5QwEGvPEmDteQWTNUgYJ4EsRrlTGOWzmgHdtAA==
+"@streamr/utils@7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@streamr/utils/-/utils-7.2.1.tgz#26204894afb40b8f00635d302bfe759f5dcc6367"
+  integrity sha512-ClP++8MqNPYKOuGA0K+NP4x/DqdKuanQ2a8WDtajXlz57JApOLNUUp7Yo+TRfKAcWCsOEY0PC6kuZdwCoXqCYg==
   dependencies:
     eventemitter3 "^4.0.7"
     lodash "^4.17.21"
@@ -18109,10 +18109,10 @@ streaming-json-stringify@3:
     json-stringify-safe "5"
     readable-stream "2"
 
-streamr-client@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/streamr-client/-/streamr-client-7.1.0.tgz#ca57858d7e1063b953c223e0373c99f35858d780"
-  integrity sha512-f9OoZ/rHfuBsaWDBetvP83Yui8E1RSPRt71eLF6uY121Ai580aQQa7r+Y9oZ5gOzMXBN8mQQ/FgHqYQwoOJwMA==
+streamr-client@^7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/streamr-client/-/streamr-client-7.2.1.tgz#8aeebb79f95d5f77dafc6b675e770e64a12870e9"
+  integrity sha512-fD7MOK0hcQNGgyCLbl5ooXocaJsQ4S3KWCwsklmFLZrOmgj3u2VM7hf/+uSaAh8rcN8VLzvPDO8jpyw49wfoVw==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@babel/runtime-corejs3" "^7.16.3"
@@ -18127,9 +18127,9 @@ streamr-client@^7.1.0:
     "@ethersproject/transactions" "^5.5.0"
     "@ethersproject/wallet" "^5.5.0"
     "@ethersproject/web" "^5.5.0"
-    "@streamr/network-node" "7.1.0"
-    "@streamr/protocol" "7.1.0"
-    "@streamr/utils" "7.1.0"
+    "@streamr/network-node" "7.2.1"
+    "@streamr/protocol" "7.2.1"
+    "@streamr/utils" "7.2.1"
     ajv "^8.8.2"
     ajv-formats "^2.1.1"
     core-js "^3.19.1"
