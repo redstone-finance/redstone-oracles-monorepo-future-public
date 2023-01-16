@@ -27,7 +27,11 @@ const CRON_EXPRESSION_EVERY_1_MINUTE = "*/1 * * * *";
 @Injectable()
 export class StreamrListenerService {
   private readonly logger = new Logger(StreamrListenerService.name);
-  private readonly streamrClient: StreamrClient = new StreamrClient();
+  private readonly streamrClient: StreamrClient = new StreamrClient({
+    network: {
+      webrtcDisallowPrivateAddresses: false,
+    },
+  });
   private subscriptionsState: StreamrSubscriptions = {};
 
   constructor(
