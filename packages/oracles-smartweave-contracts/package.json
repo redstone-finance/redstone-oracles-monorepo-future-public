@@ -1,6 +1,6 @@
 {
   "name": "redstone-oracles-smartweave-contracts",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && node ./scripts/build.js && yarn cp",
