@@ -21,6 +21,7 @@
     "BTC": {
       "source": [
         "ascendex",
+        "band",
         "bequant",
         "binance",
         "binancecoinm",
@@ -54,6 +55,7 @@
     "ETH": {
       "source": [
         "ascendex",
+        "band",
         "bequant",
         "binance",
         "binancecoinm",
@@ -70,6 +72,7 @@
         "coinbasepro",
         "coingecko",
         "currencycom",
+        "dia",
         "hitbtc",
         "hollaex",
         "huobipro",
