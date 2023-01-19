@@ -1,8 +1,8 @@
 import prompts from "prompts";
 import { printRedstoneOracleRegistryState } from "./print-redstone-oracle-registry-state";
-import { registerDataFeed } from "./register-data-feed";
+import { registerDataService } from "./register-data-service";
 import { registerRedstoneNode } from "./register-redstone-node";
-import { updateDataFeedManifest } from "./update-data-feed-manifest";
+import { updateDataServiceManifest } from "./update-data-service-manifest";
 import { updateRedstoneNode } from "./update-redstone-node";
 import { uploadManifest } from "./upload-manifest";
 
@@ -14,8 +14,11 @@ import { uploadManifest } from "./upload-manifest";
     choices: [
       { title: "Print redstone oracle registry state", value: "printState" },
       { title: "Upload manifest", value: "uploadManifest" },
-      { title: "Register data feed", value: "registerDataFeed" },
-      { title: "Update data feed manifest", value: "updateDataFeedManifest" },
+      { title: "Register data feed", value: "registerDataService" },
+      {
+        title: "Update data feed manifest",
+        value: "updateDataServiceManifest",
+      },
       { title: "Register redstone node", value: "registerNode" },
       { title: "Update redstone node", value: "updateNode" },
     ],
@@ -27,10 +30,10 @@ import { uploadManifest } from "./upload-manifest";
       return printRedstoneOracleRegistryState();
     case "uploadManifest":
       return uploadManifest();
-    case "registerDataFeed":
-      return registerDataFeed();
-    case "updateDataFeedManifest":
-      return updateDataFeedManifest();
+    case "registerDataService":
+      return registerDataService();
+    case "updateDataServiceManifest":
+      return updateDataServiceManifest();
     case "registerNode":
       return registerRedstoneNode();
     case "updateNode":

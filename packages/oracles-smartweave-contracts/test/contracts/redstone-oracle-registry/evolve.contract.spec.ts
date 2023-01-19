@@ -1,16 +1,8 @@
 import ArLocal from "arlocal";
-import Arweave from "arweave";
-import { JWKInterface } from "arweave/node/lib/wallet";
-import {
-  Contract,
-  LoggerFactory,
-  SmartWeave,
-  SmartWeaveNodeFactory,
-  SmartWeaveTags,
-} from "redstone-smartweave";
+import { Warp, Contract, WarpFactory } from "warp-contracts";
+import { Wallet } from "warp-contracts/lib/types/contract/testing/Testing";
 import fs from "fs";
 import path from "path";
-import { addFunds, mineBlock } from "../utils/smartweave-test-utils";
 import {
   RedstoneOraclesInput,
   RedstoneOraclesState,
@@ -18,11 +10,9 @@ import {
 
 describe("Redstone oracle registry contract - evolve", () => {
   let contractSrc: string;
-  let wallet: JWKInterface;
-  let walletAddress: string;
-  let arweave: Arweave;
   let arlocal: ArLocal;
-  let smartweave: SmartWeave;
+  let warp: Warp;
+  let wallet: Wallet;
   let initialState: RedstoneOraclesState;
   let contract: Contract<RedstoneOraclesState>;
 
@@ -30,19 +20,9 @@ describe("Redstone oracle registry contract - evolve", () => {
     arlocal = new ArLocal(1824, false);
     await arlocal.start();
 
-    arweave = Arweave.init({
-      host: "localhost",
-      port: 1824,
-      protocol: "http",
-      logging: false,
-    });
-
-    LoggerFactory.INST.logLevel("error");
-
-    smartweave = SmartWeaveNodeFactory.memCached(arweave);
-    wallet = await arweave.wallets.generate();
-    await addFunds(arweave, wallet);
-    walletAddress = await arweave.wallets.jwkToAddress(wallet);
+    warp = WarpFactory.forLocal(1824);
+    wallet = await warp.generateWallet();
+    await warp.testing.addFunds(wallet.jwk);
 
     contractSrc = fs.readFileSync(
       path.join(
@@ -55,20 +35,19 @@ describe("Redstone oracle registry contract - evolve", () => {
     initialState = {
       canEvolve: true,
       evolve: null,
-      contractAdmins: [walletAddress],
+      contractAdmins: [wallet.address],
       nodes: {},
       dataServices: {},
     };
 
-    const contractTxId = await smartweave.createContract.deploy({
-      wallet,
+    const contractTx = await warp.deploy({
+      wallet: wallet.jwk,
       initState: JSON.stringify(initialState),
       src: contractSrc,
     });
 
-    contract = smartweave.contract(contractTxId);
-    contract.connect(wallet);
-    await mineBlock(arweave);
+    contract = warp.contract(contractTx.contractTxId);
+    contract.connect(wallet.jwk);
   });
 
   afterAll(async () => {
@@ -83,19 +62,15 @@ describe("Redstone oracle registry contract - evolve", () => {
       ),
       "utf8"
     );
-    const evolveContractTx = await arweave.createTransaction(
+    const evolveContractTx = await warp.arweave.createTransaction(
       { data: newSource },
-      wallet
+      wallet.jwk
     );
-    evolveContractTx.addTag(
-      SmartWeaveTags.APP_NAME,
-      "SmartWeaveContractSource"
-    );
-    evolveContractTx.addTag(SmartWeaveTags.APP_VERSION, "0.3.0");
+    evolveContractTx.addTag("App-Name", "SmartWeaveContractSource");
+    evolveContractTx.addTag("App-Version", "0.3.0");
     evolveContractTx.addTag("Content-Type", "application/javascript");
-    await arweave.transactions.sign(evolveContractTx, wallet);
-    await arweave.transactions.post(evolveContractTx);
-    await mineBlock(arweave);
+    await warp.arweave.transactions.sign(evolveContractTx, wallet.jwk);
+    await warp.arweave.transactions.post(evolveContractTx);
 
     await contract.writeInteraction<RedstoneOraclesInput>({
       function: "evolve",
@@ -103,7 +78,6 @@ describe("Redstone oracle registry contract - evolve", () => {
         evolveTransactionId: evolveContractTx.id,
       },
     });
-    await mineBlock(arweave);
 
     const testId = "testId";
     const testDataServiceDetails = {
@@ -117,8 +91,7 @@ describe("Redstone oracle registry contract - evolve", () => {
       function: "createDataService",
       data: testDataServiceDetails,
     });
-    await mineBlock(arweave);
-    const state = (await contract.readState()).state;
+    const state = (await contract.readState()).cachedValue.state;
     const dataService = state.dataServices[testId];
     expect(state.evolve).toEqual(evolveContractTx.id);
     expect(dataService).toEqual({
@@ -128,7 +101,7 @@ describe("Redstone oracle registry contract - evolve", () => {
         logo: "evolveLogo",
         description: "evolveDescription",
       },
-      admin: walletAddress,
+      admin: wallet.address,
     });
   });
 
@@ -150,20 +123,19 @@ describe("Redstone oracle registry contract - evolve", () => {
     initialState = {
       canEvolve: false,
       evolve: null,
-      contractAdmins: [walletAddress],
+      contractAdmins: [wallet.address],
       nodes: {},
       dataServices: {},
     };
 
-    const contractTxId = await smartweave.createContract.deploy({
-      wallet,
+    const contractTx = await warp.deploy({
+      wallet: wallet.jwk,
       initState: JSON.stringify(initialState),
       src: contractSrc,
     });
 
-    contract = smartweave.contract(contractTxId);
-    contract.connect(wallet);
-    await mineBlock(arweave);
+    contract = warp.contract(contractTx.contractTxId);
+    contract.connect(wallet.jwk);
 
     const { errorMessage } = await contract.dryWrite<RedstoneOraclesInput>({
       function: "evolve",
