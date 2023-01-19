@@ -1,17 +1,9 @@
 import Arweave from "arweave";
 import fs from "fs";
-import { ArWallet, SmartWeaveNodeFactory } from "redstone-smartweave";
+import { ArWallet, WarpFactory } from "warp-contracts";
 import deployedContracts from "redstone-oracles-smartweave-contracts/deployed-contracts.json";
 
 const oracleRegistryContractId = deployedContracts["oracle-registry"];
-
-export const initArweave = () => {
-  return Arweave.init({
-    host: "arweave.net",
-    port: 443,
-    protocol: "https",
-  });
-};
 
 export const getWallet = (walletPath: string) => {
   const rawWallet = fs.readFileSync(walletPath, "utf-8");
@@ -19,8 +11,7 @@ export const getWallet = (walletPath: string) => {
 };
 
 export const getContract = (contractId: string) => {
-  const arweave = initArweave();
-  return SmartWeaveNodeFactory.memCached(arweave, 1).contract(contractId);
+  return WarpFactory.forMainnet().contract(contractId);
 };
 
 export const connectWalletToContract = (wallet: ArWallet) => {

@@ -1,15 +1,8 @@
 import ArLocal from "arlocal";
-import Arweave from "arweave";
-import { JWKInterface } from "arweave/node/lib/wallet";
-import {
-  Contract,
-  LoggerFactory,
-  SmartWeave,
-  SmartWeaveNodeFactory,
-} from "redstone-smartweave";
+import { Warp, Contract, WarpFactory } from "warp-contracts";
+import { Wallet } from "warp-contracts/lib/types/contract/testing/Testing";
 import fs from "fs";
 import path from "path";
-import { addFunds, mineBlock } from "../utils/smartweave-test-utils";
 import {
   RedstoneOraclesInput,
   RedstoneOraclesState,
@@ -18,11 +11,9 @@ import { mockDataServices } from "./mocks/dataServices.mock";
 
 describe("Redstone oracle registry contract - data feeds - read", () => {
   let contractSrc: string;
-  let wallet: JWKInterface;
-  let walletAddress: string;
-  let arweave: Arweave;
   let arlocal: ArLocal;
-  let smartweave: SmartWeave;
+  let warp: Warp;
+  let wallet: Wallet;
   let initialState: RedstoneOraclesState;
   let contract: Contract<RedstoneOraclesState>;
 
@@ -30,19 +21,9 @@ describe("Redstone oracle registry contract - data feeds - read", () => {
     arlocal = new ArLocal(1822, false);
     await arlocal.start();
 
-    arweave = Arweave.init({
-      host: "localhost",
-      port: 1822,
-      protocol: "http",
-      logging: false,
-    });
-
-    LoggerFactory.INST.logLevel("error");
-
-    smartweave = SmartWeaveNodeFactory.memCached(arweave);
-    wallet = await arweave.wallets.generate();
-    await addFunds(arweave, wallet);
-    walletAddress = await arweave.wallets.jwkToAddress(wallet);
+    warp = WarpFactory.forLocal(1822);
+    wallet = await warp.generateWallet();
+    await warp.testing.addFunds(wallet.jwk);
 
     contractSrc = fs.readFileSync(
       path.join(
@@ -52,23 +33,23 @@ describe("Redstone oracle registry contract - data feeds - read", () => {
       "utf8"
     );
 
+    console.log(contractSrc);
     initialState = {
       canEvolve: true,
       evolve: null,
-      contractAdmins: [walletAddress],
+      contractAdmins: [wallet.address],
       nodes: {},
       dataServices: mockDataServices,
     };
 
-    const contractTxId = await smartweave.createContract.deploy({
-      wallet,
+    const contractTx = await warp.deploy({
+      wallet: wallet.jwk,
       initState: JSON.stringify(initialState),
       src: contractSrc,
     });
 
-    contract = smartweave.contract(contractTxId);
-    contract.connect(wallet);
-    await mineBlock(arweave);
+    contract = warp.contract(contractTx.contractTxId);
+    contract.connect(wallet.jwk);
   });
 
   afterAll(async () => {
