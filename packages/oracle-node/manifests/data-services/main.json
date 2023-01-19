@@ -19,6 +19,7 @@
     "ETH": {
       "source": [
         "ascendex",
+        "band",
         "bequant",
         "binance",
         "binancecoinm",
@@ -34,8 +35,8 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "coinmarketcap",
         "currencycom",
+        "dia",
         "hitbtc",
         "hollaex",
         "huobipro",
@@ -54,6 +55,7 @@
     "BTC": {
       "source": [
         "ascendex",
+        "band",
         "bequant",
         "binance",
         "binancecoinm",
@@ -68,7 +70,6 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "coinmarketcap",
         "currencycom",
         "hitbtc",
         "hollaex",
@@ -88,6 +89,7 @@
     "UNI": {
       "source": [
         "ascendex",
+        "band",
         "bequant",
         "binance",
         "binancecoinm",
@@ -103,6 +105,7 @@
         "coinbasepro",
         "coingecko",
         "currencycom",
+        "dia",
         "hitbtc",
         "hollaex",
         "huobipro",
@@ -135,7 +138,6 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "coinmarketcap",
         "currencycom",
         "hitbtc",
         "huobipro",
@@ -214,6 +216,7 @@
     },
     "AAVE": {
       "source": [
+        "band",
         "binance",
         "binanceus",
         "binanceusdm",
@@ -226,6 +229,7 @@
         "coinbasepro",
         "coingecko",
         "currencycom",
+        "dia",
         "hitbtc",
         "huobipro",
         "kaiko",
@@ -768,7 +772,6 @@
         "btcturk",
         "cex",
         "coingecko",
-        "coinmarketcap",
         "currencycom",
         "huobipro",
         "kaiko",
@@ -1092,7 +1095,6 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "coinmarketcap",
         "huobipro",
         "kaiko",
         "kucoin",
@@ -1401,7 +1403,6 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "coinmarketcap",
         "currencycom",
         "kaiko",
         "kraken",
@@ -1421,22 +1422,6 @@
         "huobipro",
         "kucoin",
         "okx",
-        "probit"
-      ]
-    },
-    "BSV": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -1600,7 +1585,6 @@
         "bkex",
         "bybit",
         "coingecko",
-        "coinmarketcap",
         "gate",
         "huobipro",
         "kucoin",
@@ -1634,6 +1618,20 @@
         "hitbtc",
         "kucoin",
         "okx",
+        "probit"
+      ]
+    },
+    "BSV": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "bittrex",
+        "coingecko",
+        "hitbtc",
+        "huobipro",
+        "kucoin",
+        "okx",
+        "poloniex",
         "probit"
       ]
     },
@@ -1773,19 +1771,6 @@
         "probit"
       ]
     },
-    "FTT": {
-      "source": [
-        "ascendex",
-        "binance",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "hitbtc",
-        "huobipro",
-        "poloniex",
-        "probit"
-      ]
-    },
     "ONE": {
       "source": [
         "ascendex",
@@ -1897,7 +1882,6 @@
         "bitrue",
         "bkex",
         "coingecko",
-        "coinmarketcap",
         "gate",
         "mexc",
         "trader-joe"
@@ -1906,7 +1890,6 @@
     "XAVA": {
       "source": [
         "coingecko",
-        "coinmarketcap",
         "gate",
         "kaiko",
         "kucoin",
@@ -2112,7 +2095,6 @@
       "source": [
         "binance",
         "coingecko",
-        "coinmarketcap",
         "kaiko",
         "kucoin",
         "pangolin-wavax",
@@ -2154,6 +2136,17 @@
         "poloniex",
         "sushiswap",
         "uniswap"
+      ]
+    },
+    "FTT": {
+      "source": [
+        "ascendex",
+        "binance",
+        "bitcoincom",
+        "hitbtc",
+        "huobipro",
+        "poloniex",
+        "probit"
       ]
     },
     "CAKE": {
@@ -2293,7 +2286,6 @@
         "bkex",
         "coinex",
         "coingecko",
-        "coinmarketcap",
         "mexc",
         "pangolin-wavax",
         "trader-joe"
@@ -2326,7 +2318,6 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "coinmarketcap",
         "gate",
         "pangolin-wavax",
         "trader-joe"
@@ -2638,9 +2629,6 @@
         "coingecko"
       ]
     },
-    "CEL": {
-      "source": ["bitfinex", "bitfinex2", "bittrex", "coingecko", "okx"]
-    },
     "GAS": {
       "source": ["cex", "hitbtc", "kucoin", "okx", "probit"]
     },
@@ -2651,13 +2639,7 @@
       "source": ["coingecko", "lbank", "okx", "poloniex", "probit"]
     },
     "YAK": {
-      "source": [
-        "coingecko",
-        "coinmarketcap",
-        "pangolin-usdc",
-        "pangolin-wavax",
-        "trader-joe"
-      ]
+      "source": ["coingecko", "pangolin-usdc", "pangolin-wavax", "trader-joe"]
     },
     "ZKS": {
       "source": ["huobipro", "lbank", "okx", "poloniex", "probit"]
@@ -2916,6 +2898,9 @@
     },
     "FCL": {
       "source": ["bitfinex", "bitfinex2", "kucoin"]
+    },
+    "CEL": {
+      "source": ["bittrex", "coingecko", "okx"]
     },
     "LAMB": {
       "source": ["cex", "huobipro", "okx"]
@@ -3176,9 +3161,6 @@
       "source": ["bitfinex", "bitfinex2"]
     },
     "ETH2X": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "BMI": {
       "source": ["bitfinex", "bitfinex2"]
     },
     "CHEX": {
