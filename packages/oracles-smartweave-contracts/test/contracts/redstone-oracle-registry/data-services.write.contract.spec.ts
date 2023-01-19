@@ -1,15 +1,8 @@
 import ArLocal from "arlocal";
-import Arweave from "arweave";
-import { JWKInterface } from "arweave/node/lib/wallet";
-import {
-  Contract,
-  LoggerFactory,
-  SmartWeave,
-  SmartWeaveNodeFactory,
-} from "redstone-smartweave";
+import { Warp, Contract, WarpFactory } from "warp-contracts";
+import { Wallet } from "warp-contracts/lib/types/contract/testing/Testing";
 import fs from "fs";
 import path from "path";
-import { addFunds, mineBlock } from "../utils/smartweave-test-utils";
 import {
   CreateDataServiceInputData,
   RedstoneOraclesInput,
@@ -27,11 +20,9 @@ const testDataServiceDetails = {
 
 describe("Redstone oracle registry contract - data feeds - write", () => {
   let contractSrc: string;
-  let wallet: JWKInterface;
-  let walletAddress: string;
-  let arweave: Arweave;
   let arlocal: ArLocal;
-  let smartweave: SmartWeave;
+  let warp: Warp;
+  let wallet: Wallet;
   let initialState: RedstoneOraclesState;
   let contract: Contract<RedstoneOraclesState>;
 
@@ -39,19 +30,9 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
     arlocal = new ArLocal(1823, false);
     await arlocal.start();
 
-    arweave = Arweave.init({
-      host: "localhost",
-      port: 1823,
-      protocol: "http",
-      logging: false,
-    });
-
-    LoggerFactory.INST.logLevel("error");
-
-    smartweave = SmartWeaveNodeFactory.memCached(arweave);
-    wallet = await arweave.wallets.generate();
-    await addFunds(arweave, wallet);
-    walletAddress = await arweave.wallets.jwkToAddress(wallet);
+    warp = WarpFactory.forLocal(1823);
+    wallet = await warp.generateWallet();
+    await warp.testing.addFunds(wallet.jwk);
 
     contractSrc = fs.readFileSync(
       path.join(
@@ -60,26 +41,23 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
       ),
       "utf8"
     );
-  });
 
-  beforeEach(async () => {
     initialState = {
       canEvolve: true,
       evolve: null,
-      contractAdmins: [walletAddress],
+      contractAdmins: [wallet.address],
       nodes: {},
       dataServices: {},
     };
 
-    const contractTxId = await smartweave.createContract.deploy({
-      wallet,
+    const contractTx = await warp.deploy({
+      wallet: wallet.jwk,
       initState: JSON.stringify(initialState),
       src: contractSrc,
     });
 
-    contract = smartweave.contract(contractTxId);
-    contract.connect(wallet);
-    await mineBlock(arweave);
+    contract = warp.contract(contractTx.contractTxId);
+    contract.connect(wallet.jwk);
   });
 
   afterAll(async () => {
@@ -92,13 +70,12 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
         function: "createDataService",
         data: testDataServiceDetails,
       });
-      await mineBlock(arweave);
-      const state = (await contract.readState()).state;
+      const state = (await contract.readState()).cachedValue.state;
       const dataService = state.dataServices[testId];
       const { id, ...restTestDataService } = testDataServiceDetails;
       expect(dataService).toEqual({
         ...restTestDataService,
-        admin: walletAddress,
+        admin: wallet.address,
       });
     });
 
@@ -111,7 +88,7 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
         manifestTxId: "firstTestManifestId",
       };
 
-      const testSecondDatafeedDetails = {
+      const testSecondDataServiceDetails = {
         id: "secondTestId",
         name: "secondTestName",
         logo: "secondTestLogo",
@@ -122,26 +99,24 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
         function: "createDataService",
         data: testFirsDataServiceDetails,
       });
-      await mineBlock(arweave);
       await contract.writeInteraction<RedstoneOraclesInput>({
         function: "createDataService",
-        data: testSecondDatafeedDetails,
+        data: testSecondDataServiceDetails,
       });
-      await mineBlock(arweave);
-      const state = (await contract.readState()).state;
+      const state = (await contract.readState()).cachedValue.state;
       const firstDataService = state.dataServices["firstTestId"];
       const secondDataService = state.dataServices["secondTestId"];
       const { ["id"]: firstId, ...restFirstTestDataService } =
         testFirsDataServiceDetails;
       expect(firstDataService).toEqual({
         ...restFirstTestDataService,
-        admin: walletAddress,
+        admin: wallet.address,
       });
       const { ["id"]: secondId, ...restSecondTestDataService } =
-        testSecondDatafeedDetails;
+        testSecondDataServiceDetails;
       expect(secondDataService).toEqual({
         ...restSecondTestDataService,
-        admin: walletAddress,
+        admin: wallet.address,
       });
     });
 
@@ -178,7 +153,6 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
         function: "createDataService",
         data: testDataServiceDetails,
       });
-      await mineBlock(arweave);
       const { errorMessage } = await contract.dryWrite<RedstoneOraclesInput>({
         function: "createDataService",
         data: testDataServiceDetails,
@@ -193,7 +167,6 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
         function: "createDataService",
         data: testDataServiceDetails,
       });
-      await mineBlock(arweave);
     });
 
     test("should update data feed details", async () => {
@@ -210,12 +183,11 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
           update: newDataServiceDetails,
         },
       });
-      await mineBlock(arweave);
-      const state = (await contract.readState()).state;
+      const state = (await contract.readState()).cachedValue.state;
       const dataService = state.dataServices[testId];
       expect(dataService).toEqual({
         ...newDataServiceDetails,
-        admin: walletAddress,
+        admin: wallet.address,
       });
     });
 

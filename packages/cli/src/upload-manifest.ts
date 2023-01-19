@@ -1,7 +1,7 @@
+import { WarpFactory } from "warp-contracts";
 import prompts from "prompts";
 import fs from "fs";
-import { SmartWeaveTags } from "redstone-smartweave";
-import { getWallet, initArweave } from "./utils/arweave-utils";
+import { getWallet } from "./utils/arweave-utils";
 
 export const uploadManifest = async () => {
   const response = await prompts([
@@ -26,20 +26,14 @@ export const uploadManifest = async () => {
   );
 
   const wallet = getWallet(response.walletFilePath);
-  const arweave = initArweave();
+  const warp = WarpFactory.forMainnet();
 
-  const uploadManifestTransaction = await arweave.createTransaction(
+  const uploadManifestTransaction = await warp.arweave.createTransaction(
     { data: newManifestSource },
     wallet
   );
-  uploadManifestTransaction.addTag(
-    SmartWeaveTags.APP_NAME,
-    "SmartweaveManifestSource"
-  );
-  uploadManifestTransaction.addTag(SmartWeaveTags.APP_VERSION, "0.3.0");
-  uploadManifestTransaction.addTag("Content-Type", "application/javascript");
-  await arweave.transactions.sign(uploadManifestTransaction, wallet);
-  await arweave.transactions.post(uploadManifestTransaction);
+  await warp.arweave.transactions.sign(uploadManifestTransaction, wallet);
+  await warp.arweave.transactions.post(uploadManifestTransaction);
   console.log(
     `Upload manifest transaction id: ${uploadManifestTransaction.id}`
   );

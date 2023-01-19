@@ -11,9 +11,8 @@
     "cli": "ts-node src/main.ts"
   },
   "dependencies": {
-    "arweave": "1.10.23",
     "axios": "^0.27.2",
-    "redstone-smartweave": "0.4.84"
+    "warp-contracts": "^1.2.47"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
