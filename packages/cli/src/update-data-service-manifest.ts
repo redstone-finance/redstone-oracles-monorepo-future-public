@@ -3,7 +3,7 @@ import { getOracleRegistryContract } from "./utils/arweave-utils";
 import { RedstoneOraclesInput } from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/types";
 import niceLogger from "./utils/nice-logger";
 
-export const registerDataFeed = async () => {
+export const updateDataServiceManifest = async () => {
   const response = await prompts([
     {
       type: "text",
@@ -13,28 +13,10 @@ export const registerDataFeed = async () => {
     },
     {
       type: "text",
-      name: "name",
-      message: "Provide name of data feed",
-      validate: (value) => (!value ? "Name is required" : true),
-    },
-    {
-      type: "text",
       name: "manifestTransactionId",
       message: "Provide the manifest transaction id",
       validate: (value) =>
         !value ? "Manifest transaction id is required" : true,
-    },
-    {
-      type: "text",
-      name: "logo",
-      message: "Provide logo URL",
-      validate: (value) => (!value ? "Logo URL is required" : true),
-    },
-    {
-      type: "text",
-      name: "description",
-      message: "Provide description of data feed",
-      validate: (value) => (!value ? "Description is required" : true),
     },
     {
       type: "text",
@@ -48,16 +30,15 @@ export const registerDataFeed = async () => {
 
   const dataFeedData = {
     id: response.id,
-    name: response.name,
-    manifestTxId: response.manifestTransactionId,
-    logo: response.logo,
-    description: response.description,
+    update: {
+      manifestTxId: response.manifestTransactionId,
+    },
   };
-  const createDataFeedTransaction =
+  const updateDataServiceTransaction =
     await contract.bundleInteraction<RedstoneOraclesInput>({
-      function: "createDataFeed",
+      function: "updateDataService",
       data: dataFeedData,
     });
-  console.log(`Create data feed transaction sent`);
-  niceLogger.log(createDataFeedTransaction);
+  console.log(`Update data feed manifest transaction sent`);
+  niceLogger.log(updateDataServiceTransaction);
 };
