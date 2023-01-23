@@ -19,19 +19,19 @@ import "../libs/SignatureLib.sol";
 abstract contract RedstoneConsumerBase is CalldataExtractor {
   using SafeMath for uint256;
 
-  /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDEN IN CHILD CONTRACTS) ========== */
+  /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDDEN IN CHILD CONTRACTS) ========== */
 
   /**
    * @dev This function must be implemented by the child consumer contract.
    * It should return a unique index for a given signer address if the signer
    * is authorised, otherwise it should revert
-   * @param receviedSigner The address of a signer, recovered from ECDSA signature
+   * @param receivedSigner The address of a signer, recovered from ECDSA signature
    * @return Unique index for a signer in the range [0..255]
    */
-  function getAuthorisedSignerIndex(address receviedSigner) public view virtual returns (uint8);
+  function getAuthorisedSignerIndex(address receivedSigner) public view virtual returns (uint8);
 
   /**
-   * @dev This function may be overriden by the child consumer contract.
+   * @dev This function may be overridden by the child consumer contract.
    * It should validate the timestamp against the current time (block.timestamp)
    * It should revert with a helpful message if the timestamp is not valid
    * @param receivedTimestampMilliseconds Timestamp extracted from calldata
@@ -41,7 +41,7 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
   }
 
   /**
-   * @dev This function should be overriden by the child consumer contract.
+   * @dev This function should be overridden by the child consumer contract.
    * @return The minimum required value of unique authorised signers
    */
   function getUniqueSignersThreshold() public view virtual returns (uint8) {
@@ -49,7 +49,7 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
   }
 
   /**
-   * @dev This function may be overriden by the child consumer contract.
+   * @dev This function may be overridden by the child consumer contract.
    * It should aggregate values from different signers to a single uint value.
    * By default, it calculates the median value
    * @param values An array of uint256 values from different signers
@@ -59,14 +59,14 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
     return RedstoneDefaultsLib.aggregateValues(values);
   }
 
-  /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDEN) ========== */
+  /* ========== FUNCTIONS WITH IMPLEMENTATION (CAN NOT BE OVERRIDDEN) ========== */
 
   /**
    * @dev This is an internal helpful function for secure extraction oracle values
    * from the tx calldata. Security is achieved by signatures verification, timestamp
    * validation, and aggregating values from different authorised signers into a
    * single numeric value. If any of the required conditions (e.g. too old timestamp or
-   * insufficient number of autorised signers) do not match, the function will revert.
+   * insufficient number of authorised signers) do not match, the function will revert.
    *
    * Note! You should not call this function in a consumer contract. You can use
    * `getOracleNumericValuesFromTxMsg` or `getOracleNumericValueFromTxMsg` instead.
@@ -132,7 +132,7 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
    * @param dataFeedIds an array of unique data feed identifiers
    * @param uniqueSignerCountForDataFeedIds an array with the numbers of unique signers
    * for each data feed
-   * @param signersBitmapForDataFeedIds an array of sginers bitmaps for data feeds
+   * @param signersBitmapForDataFeedIds an array of signer bitmaps for data feeds
    * @param valuesForDataFeeds 2-dimensional array, valuesForDataFeeds[i][j] contains
    * j-th value for the i-th data feed
    * @param calldataNegativeOffset negative calldata offset for the given data package
@@ -162,7 +162,7 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
       uint256 signedMessageBytesCount;
 
       signedMessageBytesCount = dataPointsCount.mul(eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS)
-        + DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS;
+        + DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS; //DATA_POINT_VALUE_BYTE_SIZE_BS + TIMESTAMP_BS + DATA_POINTS_COUNT_BS
 
       uint256 timestampCalldataOffset = msg.data.length.sub(
         calldataNegativeOffset + TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE_WITH_STANDARD_SLOT_BS);
