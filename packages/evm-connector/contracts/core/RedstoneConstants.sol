@@ -30,7 +30,7 @@ contract RedstoneConstants {
   uint256 internal constant DATA_POINT_VALUE_BYTE_SIZE_BS = 4;
   uint256 internal constant DATA_POINT_SYMBOL_BS = 32;
   uint256 internal constant DEFAULT_DATA_POINT_VALUE_BS = 32;
-  uint256 internal constant UNSGINED_METADATA_BYTE_SIZE_BS = 3;
+  uint256 internal constant UNSIGNED_METADATA_BYTE_SIZE_BS = 3;
   uint256 internal constant REDSTONE_MARKER_BS = 9; // byte size of 0x000002ed57011e0000
   uint256 internal constant REDSTONE_MARKER_MASK = 0x0000000000000000000000000000000000000000000000000002ed57011e0000;
 
@@ -43,7 +43,7 @@ contract RedstoneConstants {
   // Error messages
   error CalldataOverOrUnderFlow();
   error IncorrectUnsignedMetadataSize();
-  error InsufficientNumberOfUniqueSigners(uint256 receviedSignersCount, uint256 requiredSignersCount);
+  error InsufficientNumberOfUniqueSigners(uint256 receivedSignersCount, uint256 requiredSignersCount);
   error EachSignerMustProvideTheSameValue();
   error EmptyCalldataPointersArr();
   error InvalidCalldataPointer();
