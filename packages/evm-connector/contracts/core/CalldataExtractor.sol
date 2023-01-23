@@ -40,7 +40,7 @@ contract CalldataExtractor is RedstoneConstants {
       )
     }
     uint256 calldataNegativeOffset = unsignedMetadataByteSize
-      + UNSGINED_METADATA_BYTE_SIZE_BS
+      + UNSIGNED_METADATA_BYTE_SIZE_BS
       + REDSTONE_MARKER_BS;
     if (calldataNegativeOffset + DATA_PACKAGES_COUNT_BS > msg.data.length) {
       revert IncorrectUnsignedMetadataSize();

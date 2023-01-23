@@ -40,7 +40,7 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
   uint256 constant BITS_COUNT_IN_16_BYTES = 128;
 
   /**
-   * @dev This function may be overriden by the child consumer contract.
+   * @dev This function may be overridden by the child consumer contract.
    * It should aggregate values from different signers into a bytes array
    * By default, it checks if all the values are identical and returns the first one
    *
@@ -91,14 +91,14 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
     pure
     returns (bytes calldata bytesValueInCalldata)
   {
-    uint256 calldataOfffset = _getNumberFromFirst128Bits(trickyCalldataPtr);
+    uint256 calldataOffset = _getNumberFromFirst128Bits(trickyCalldataPtr);
     uint256 valueByteSize = _getNumberFromLast128Bits(trickyCalldataPtr);
-    if (calldataOfffset + valueByteSize > msg.data.length) {
+    if (calldataOffset + valueByteSize > msg.data.length) {
       revert InvalidCalldataPointer();
     }
 
     assembly {
-      bytesValueInCalldata.offset := calldataOfffset
+      bytesValueInCalldata.offset := calldataOffset
       bytesValueInCalldata.length := valueByteSize
     }
   }
