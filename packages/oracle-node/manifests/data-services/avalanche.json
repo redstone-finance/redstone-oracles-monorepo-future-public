@@ -335,6 +335,9 @@
         "oceanex",
         "poloniex"
       ]
+    },
+    "YY_GLP": {
+      "source": ["avalanche-evm-fetcher"]
     }
   }
 }
