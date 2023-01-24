@@ -35,7 +35,8 @@
     "YY_TJ_AVAX_ETH_LP": {},
     "YYAV3SA1": {},
     "sAVAX": {},
-    "GLP": {}
+    "GLP": {},
+    "YY_GLP": {}
   },
   "defaultSource": ["avalanche-evm-fetcher"]
 }
