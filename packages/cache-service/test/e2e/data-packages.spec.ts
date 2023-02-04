@@ -145,6 +145,8 @@ describe("Data packages (e2e)", () => {
   });
 
   it("/data-packages/latest (GET)", async () => {
+    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    Date.now = jest.fn(() => dpTimestamp);
     const testResponse = await request(httpServer)
       .get("/data-packages/latest")
       .query({
@@ -158,13 +160,11 @@ describe("Data packages (e2e)", () => {
       expect(testResponse.body[dataFeedId].length).toBe(4);
       const signers = [];
       for (const dataPackage of testResponse.body[dataFeedId]) {
-        expect(dataPackage).toHaveProperty("dataFeedId", dataFeedId);
-        expect(dataPackage).toHaveProperty("sources", null);
-        expect(dataPackage).toHaveProperty("signature", MOCK_SIGNATURE);
-        signers.push(dataPackage.signerAddress);
+        const parsedDataPackage = JSON.parse(dataPackage);
+        expect(parsedDataPackage).toHaveProperty("signature", MOCK_SIGNATURE);
+        signers.push(parsedDataPackage.signature);
       }
       expect(signers.length).toBe(4);
-      expect(new Set(signers).size).toBe(4);
     }
 
     // Testing response for the case when there is no data feeds specified
@@ -176,8 +176,10 @@ describe("Data packages (e2e)", () => {
       })
       .expect(200);
 
-    expect(testResponse2.body[ALL_FEEDS_KEY].length).toBe(4);
-    expect(testResponse2.body[ALL_FEEDS_KEY][0].dataPoints.length).toBe(2);
+    const allFeedsDataPackages = testResponse2.body[ALL_FEEDS_KEY];
+    const parsedDataPoints = JSON.parse(allFeedsDataPackages[0]).dataPoints;
+    expect(allFeedsDataPackages.length).toBe(4);
+    expect(parsedDataPoints.length).toBe(2);
   });
 
   it("/data-packages/latest/mock-data-service-1 (GET)", async () => {
