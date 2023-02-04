@@ -9,6 +9,7 @@ import {
   DataPackagesRequestParams,
   getDataServiceIdForSigner,
   getOracleRegistryState,
+  parseDataPackagesResponse,
 } from "redstone-sdk";
 import config from "../config";
 import {
@@ -69,7 +70,6 @@ export class DataPackagesService {
   async getAllLatestDataPackagesFromDB(
     dataServiceId: string
   ): Promise<DataPackagesResponse> {
-    dataServiceId;
     const fetchedPackagesPerDataFeed: {
       [dataFeedId: string]: CachedDataPackage[];
     } = {};
@@ -121,74 +121,27 @@ export class DataPackagesService {
     return fetchedPackagesPerDataFeed;
   }
 
-  // TODO: try to replace current implementation using only one aggregation call
   async getDataPackages(
-    requestConfig: DataPackagesRequestParams
-  ): Promise<DataPackagesResponse> {
-    const fetchedPackagesPerDataFeed: {
-      [dataFeedId: string]: CachedDataPackage[];
-    } = {};
+    requestParams: DataPackagesRequestParams,
+    cacheManager: Cache
+  ) {
+    const cachedDataPackagesResponse = await this.getAllLatestDataWithCache(
+      requestParams.dataServiceId,
+      cacheManager
+    );
 
-    const getDataPackagesForDataFeed = async (dataFeedId: string) => {
-      const groupedDataPackages = await DataPackage.aggregate([
-        {
-          $match: {
-            dataServiceId: requestConfig.dataServiceId,
-            dataFeedId,
-            isSignatureValid: true,
-          },
-        },
-        {
-          $group: {
-            _id: "$signerAddress",
-            timestampMilliseconds: { $first: "$timestampMilliseconds" },
-            signature: { $first: "$signature" },
-            dataPoints: { $first: "$dataPoints" },
-            dataServiceId: { $first: "$dataServiceId" },
-            dataFeedId: { $first: "$dataFeedId" },
-            sources: { $first: "$sources" },
-          },
-        },
-        {
-          $sort: { timestampMilliseconds: -1 },
-        },
-        {
-          $limit: Number(requestConfig.uniqueSignersCount),
-        },
-      ]);
-
-      const dataPackages = groupedDataPackages.map((dp) => {
-        const { _id, __v, ...rest } = dp;
-        _id;
-        __v;
-        return {
-          ...rest,
-          signerAddress: _id,
-        };
-      });
-
-      fetchedPackagesPerDataFeed[dataFeedId] = dataPackages;
-    };
-
-    // Fetching data packages for each data feed
-    if (!!requestConfig.dataFeeds) {
-      const promises = requestConfig.dataFeeds.map(getDataPackagesForDataFeed);
-      await Promise.all(promises);
-    } else {
-      await getDataPackagesForDataFeed(ALL_FEEDS_KEY);
-    }
-
-    return fetchedPackagesPerDataFeed;
+    return parseDataPackagesResponse(cachedDataPackagesResponse, requestParams);
   }
 
   async getPayload(
-    requestParams: DataPackagesRequestParams
+    requestParams: DataPackagesRequestParams,
+    cacheManager: Cache
   ): Promise<RedstonePayload> {
-    const cachedDataPackagesResponse = await this.getDataPackages(
-      requestParams
+    const dataPackages = await this.getDataPackages(
+      requestParams,
+      cacheManager
     );
-
-    return makePayload(cachedDataPackagesResponse);
+    return makePayload(dataPackages);
   }
 
   async getDataPackagesStats(

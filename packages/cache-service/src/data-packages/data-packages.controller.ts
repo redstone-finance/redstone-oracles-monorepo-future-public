@@ -111,11 +111,10 @@ export class DataPackagesController {
 
   @Get("latest")
   @Header("Cache-Control", "max-age=5")
-  async getLatest(
-    @Query() query: GetLatestDataPackagesQuery
-  ): Promise<DataPackagesResponse> {
+  async getLatest(@Query() query: GetLatestDataPackagesQuery) {
     return await this.dataPackagesService.getDataPackages(
-      this.prepareDataPackagesRequestParams(query)
+      this.prepareDataPackagesRequestParams(query),
+      this.cacheManager
     );
   }
 
@@ -125,7 +124,8 @@ export class DataPackagesController {
     @Res() res: Response
   ) {
     const payload = await this.dataPackagesService.getPayload(
-      this.prepareDataPackagesRequestParams(query)
+      this.prepareDataPackagesRequestParams(query),
+      this.cacheManager
     );
     this.sendSerializableResponse(res, payload, query.format);
   }
