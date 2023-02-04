@@ -42,7 +42,7 @@ export const getDataServiceIdForSigner = (
   throw new Error(`Data service not found for ${signerAddress}`);
 };
 
-const parseDataPackagesResponse = (
+export const parseDataPackagesResponse = (
   dpResponse: {
     [dataFeedId: string]: SignedDataPackagePlainObj[];
   },
@@ -136,4 +136,5 @@ export default {
   requestDataPackages,
   getDataServiceIdForSigner,
   requestRedstonePayload,
+  parseDataPackagesResponse,
 };
