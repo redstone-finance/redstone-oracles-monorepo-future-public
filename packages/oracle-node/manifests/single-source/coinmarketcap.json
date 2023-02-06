@@ -15,6 +15,7 @@
     "https://container-service-1.dv9sai71f4rsq.eu-central-1.cs.amazonlightsail.com"
   ],
   "enableStreamrBroadcaster": false,
+  "defaultSource": ["coinmarketcap"],
   "tokens": {
     "ETH": {},
     "USDT": {},
@@ -29,6 +30,5 @@
     "YAK": {},
     "GMX": {},
     "JOE": {}
-  },
-  "defaultSource": ["coinmarketcap"]
+  }
 }

@@ -16,6 +16,7 @@
   ],
   "enableStreamrBroadcaster": false,
   "enableArweaveBackup": false,
+  "defaultSource": ["avalanche-evm-fetcher"],
   "tokens": {
     "YY_AAVE_AVAX": {},
     "YY_PTP_sAVAX": {},
@@ -37,6 +38,5 @@
     "sAVAX": {},
     "GLP": {},
     "YY_GLP": {}
-  },
-  "defaultSource": ["avalanche-evm-fetcher"]
+  }
 }
