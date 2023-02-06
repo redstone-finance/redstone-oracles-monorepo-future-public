@@ -16,6 +16,7 @@
   ],
   "enableStreamrBroadcaster": false,
   "enableArweaveBackup": false,
+  "defaultSource": ["custom-urls"],
   "tokens": {
     "0x031f7bcd73d9f5ed": {
       "customUrlDetails": {
@@ -38,6 +39,5 @@
       },
       "comment": "ETH daily volume in USD"
     }
-  },
-  "defaultSource": ["custom-urls"]
+  }
 }
