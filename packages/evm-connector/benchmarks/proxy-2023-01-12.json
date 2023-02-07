@@ -1,0 +1,258 @@
+{
+  "3 signers, 1 symbols, 1 points, 2 proxy chain length": {
+    "proxyConnectorOneAsset": 89953,
+    "storageProxyOneAsset": 107649,
+    "storageProxyOneAssetSecondWrite": 70649,
+    "proxyConnectorManyAssets": 91639,
+    "storageProxyManyAssets": 111264,
+    "storageProxyManyAssetsSecondWrite": 74264
+  },
+  "3 signers, 2 symbols, 1 points, 2 proxy chain length": {
+    "proxyConnectorOneAsset": 119126,
+    "storageProxyOneAsset": 132894,
+    "storageProxyOneAssetSecondWrite": 95894,
+    "proxyConnectorManyAssets": 126296,
+    "storageProxyManyAssets": 165063,
+    "storageProxyManyAssetsSecondWrite": 108163
+  },
+  "3 signers, 10 symbols, 1 points, 2 proxy chain length": {
+    "proxyConnectorOneAsset": 353092,
+    "storageProxyOneAsset": 335142,
+    "storageProxyOneAssetSecondWrite": 298142,
+    "proxyConnectorManyAssets": 424925,
+    "storageProxyManyAssets": 616542,
+    "storageProxyManyAssetsSecondWrite": 400442
+  },
+  "3 signers, 20 symbols, 1 points, 2 proxy chain length": {
+    "proxyConnectorOneAsset": 646099,
+    "storageProxyOneAsset": 588300,
+    "storageProxyOneAssetSecondWrite": 551300,
+    "proxyConnectorManyAssets": 850853,
+    "storageProxyManyAssets": 1233247,
+    "storageProxyManyAssetsSecondWrite": 818147
+  },
+  "10 signers, 1 symbols, 1 points, 2 proxy chain length": {
+    "proxyConnectorOneAsset": 168248,
+    "storageProxyOneAsset": 176809,
+    "storageProxyOneAssetSecondWrite": 139809,
+    "proxyConnectorManyAssets": 169936,
+    "storageProxyManyAssets": 180424,
+    "storageProxyManyAssetsSecondWrite": 143424
+  },
+  "10 signers, 2 symbols, 1 points, 2 proxy chain length": {
+    "proxyConnectorOneAsset": 266666,
+    "storageProxyOneAsset": 262059,
+    "storageProxyOneAssetSecondWrite": 225059,
+    "proxyConnectorManyAssets": 284228,
+    "storageProxyManyAssets": 304691,
+    "storageProxyManyAssetsSecondWrite": 247791
+  },
+  "10 signers, 10 symbols, 1 points, 2 proxy chain length": {
+    "proxyConnectorOneAsset": 1056530,
+    "storageProxyOneAsset": 945271,
+    "storageProxyOneAssetSecondWrite": 908271,
+    "proxyConnectorManyAssets": 1270354,
+    "storageProxyManyAssets": 1369252,
+    "storageProxyManyAssetsSecondWrite": 1153152
+  },
+  "10 signers, 20 symbols, 1 points, 2 proxy chain length": {
+    "proxyConnectorOneAsset": 2047718,
+    "storageProxyOneAsset": 1800363,
+    "storageProxyOneAssetSecondWrite": 1763363,
+    "proxyConnectorManyAssets": 2680160,
+    "storageProxyManyAssets": 2874066,
+    "storageProxyManyAssetsSecondWrite": 2458966
+  },
+  "3 signers, 1 symbols, 1 points, 3 proxy chain length": {
+    "proxyConnectorOneAsset": 100888,
+    "storageProxyOneAsset": 112980,
+    "storageProxyOneAssetSecondWrite": 75980,
+    "proxyConnectorManyAssets": 103521,
+    "storageProxyManyAssets": 117304,
+    "storageProxyManyAssetsSecondWrite": 80304
+  },
+  "3 signers, 2 symbols, 1 points, 3 proxy chain length": {
+    "proxyConnectorOneAsset": 133989,
+    "storageProxyOneAsset": 138225,
+    "storageProxyOneAssetSecondWrite": 101225,
+    "proxyConnectorManyAssets": 142417,
+    "storageProxyManyAssets": 171273,
+    "storageProxyManyAssetsSecondWrite": 114373
+  },
+  "3 signers, 10 symbols, 1 points, 3 proxy chain length": {
+    "proxyConnectorOneAsset": 399673,
+    "storageProxyOneAsset": 340473,
+    "storageProxyOneAssetSecondWrite": 303473,
+    "proxyConnectorManyAssets": 475292,
+    "storageProxyManyAssets": 624113,
+    "storageProxyManyAssetsSecondWrite": 408013
+  },
+  "3 signers, 20 symbols, 1 points, 3 proxy chain length": {
+    "proxyConnectorOneAsset": 732529,
+    "storageProxyOneAsset": 593631,
+    "storageProxyOneAssetSecondWrite": 556631,
+    "proxyConnectorManyAssets": 944310,
+    "storageProxyManyAssets": 1242521,
+    "storageProxyManyAssetsSecondWrite": 827421
+  },
+  "10 signers, 1 symbols, 1 points, 3 proxy chain length": {
+    "proxyConnectorOneAsset": 188395,
+    "storageProxyOneAsset": 182140,
+    "storageProxyOneAssetSecondWrite": 145140,
+    "proxyConnectorManyAssets": 191032,
+    "storageProxyManyAssets": 186464,
+    "storageProxyManyAssetsSecondWrite": 149464
+  },
+  "10 signers, 2 symbols, 1 points, 3 proxy chain length": {
+    "proxyConnectorOneAsset": 299981,
+    "storageProxyOneAsset": 267390,
+    "storageProxyOneAssetSecondWrite": 230390,
+    "proxyConnectorManyAssets": 318807,
+    "storageProxyManyAssets": 310901,
+    "storageProxyManyAssetsSecondWrite": 254001
+  },
+  "10 signers, 10 symbols, 1 points, 3 proxy chain length": {
+    "proxyConnectorOneAsset": 1196497,
+    "storageProxyOneAsset": 950602,
+    "storageProxyOneAssetSecondWrite": 913602,
+    "proxyConnectorManyAssets": 1414214,
+    "storageProxyManyAssets": 1376823,
+    "storageProxyManyAssetsSecondWrite": 1160723
+  },
+  "10 signers, 20 symbols, 1 points, 3 proxy chain length": {
+    "proxyConnectorOneAsset": 2323781,
+    "storageProxyOneAsset": 1805694,
+    "storageProxyOneAssetSecondWrite": 1768694,
+    "proxyConnectorManyAssets": 2963658,
+    "storageProxyManyAssets": 2883340,
+    "storageProxyManyAssetsSecondWrite": 2468240
+  },
+  "3 signers, 1 symbols, 1 points, 4 proxy chain length": {
+    "proxyConnectorOneAsset": 111823,
+    "storageProxyOneAsset": 118311,
+    "storageProxyOneAssetSecondWrite": 81311,
+    "proxyConnectorManyAssets": 115403,
+    "storageProxyManyAssets": 123344,
+    "storageProxyManyAssetsSecondWrite": 86344
+  },
+  "3 signers, 2 symbols, 1 points, 4 proxy chain length": {
+    "proxyConnectorOneAsset": 148852,
+    "storageProxyOneAsset": 143556,
+    "storageProxyOneAssetSecondWrite": 106556,
+    "proxyConnectorManyAssets": 158538,
+    "storageProxyManyAssets": 177483,
+    "storageProxyManyAssetsSecondWrite": 120583
+  },
+  "3 signers, 10 symbols, 1 points, 4 proxy chain length": {
+    "proxyConnectorOneAsset": 446254,
+    "storageProxyOneAsset": 345804,
+    "storageProxyOneAssetSecondWrite": 308804,
+    "proxyConnectorManyAssets": 525659,
+    "storageProxyManyAssets": 631684,
+    "storageProxyManyAssetsSecondWrite": 415584
+  },
+  "3 signers, 20 symbols, 1 points, 4 proxy chain length": {
+    "proxyConnectorOneAsset": 818959,
+    "storageProxyOneAsset": 598962,
+    "storageProxyOneAssetSecondWrite": 561962,
+    "proxyConnectorManyAssets": 1037767,
+    "storageProxyManyAssets": 1251795,
+    "storageProxyManyAssetsSecondWrite": 836695
+  },
+  "10 signers, 1 symbols, 1 points, 4 proxy chain length": {
+    "proxyConnectorOneAsset": 208542,
+    "storageProxyOneAsset": 187471,
+    "storageProxyOneAssetSecondWrite": 150471,
+    "proxyConnectorManyAssets": 212128,
+    "storageProxyManyAssets": 192504,
+    "storageProxyManyAssetsSecondWrite": 155504
+  },
+  "10 signers, 2 symbols, 1 points, 4 proxy chain length": {
+    "proxyConnectorOneAsset": 333296,
+    "storageProxyOneAsset": 272721,
+    "storageProxyOneAssetSecondWrite": 235721,
+    "proxyConnectorManyAssets": 353386,
+    "storageProxyManyAssets": 317111,
+    "storageProxyManyAssetsSecondWrite": 260211
+  },
+  "10 signers, 10 symbols, 1 points, 4 proxy chain length": {
+    "proxyConnectorOneAsset": 1336464,
+    "storageProxyOneAsset": 955933,
+    "storageProxyOneAssetSecondWrite": 918933,
+    "proxyConnectorManyAssets": 1558074,
+    "storageProxyManyAssets": 1384394,
+    "storageProxyManyAssetsSecondWrite": 1168294
+  },
+  "10 signers, 20 symbols, 1 points, 4 proxy chain length": {
+    "proxyConnectorOneAsset": 2599844,
+    "storageProxyOneAsset": 1811025,
+    "storageProxyOneAssetSecondWrite": 1774025,
+    "proxyConnectorManyAssets": 3247156,
+    "storageProxyManyAssets": 2892614,
+    "storageProxyManyAssetsSecondWrite": 2477514
+  },
+  "3 signers, 1 symbols, 1 points, 5 proxy chain length": {
+    "proxyConnectorOneAsset": 122758,
+    "storageProxyOneAsset": 123642,
+    "storageProxyOneAssetSecondWrite": 86642,
+    "proxyConnectorManyAssets": 127285,
+    "storageProxyManyAssets": 129384,
+    "storageProxyManyAssetsSecondWrite": 92384
+  },
+  "3 signers, 2 symbols, 1 points, 5 proxy chain length": {
+    "proxyConnectorOneAsset": 163715,
+    "storageProxyOneAsset": 148887,
+    "storageProxyOneAssetSecondWrite": 111887,
+    "proxyConnectorManyAssets": 174659,
+    "storageProxyManyAssets": 183693,
+    "storageProxyManyAssetsSecondWrite": 126793
+  },
+  "3 signers, 10 symbols, 1 points, 5 proxy chain length": {
+    "proxyConnectorOneAsset": 492835,
+    "storageProxyOneAsset": 351135,
+    "storageProxyOneAssetSecondWrite": 314135,
+    "proxyConnectorManyAssets": 576026,
+    "storageProxyManyAssets": 639255,
+    "storageProxyManyAssetsSecondWrite": 423155
+  },
+  "3 signers, 20 symbols, 1 points, 5 proxy chain length": {
+    "proxyConnectorOneAsset": 905389,
+    "storageProxyOneAsset": 604293,
+    "storageProxyOneAssetSecondWrite": 567293,
+    "proxyConnectorManyAssets": 1131224,
+    "storageProxyManyAssets": 1261069,
+    "storageProxyManyAssetsSecondWrite": 845969
+  },
+  "10 signers, 1 symbols, 1 points, 5 proxy chain length": {
+    "proxyConnectorOneAsset": 228689,
+    "storageProxyOneAsset": 192802,
+    "storageProxyOneAssetSecondWrite": 155802,
+    "proxyConnectorManyAssets": 233224,
+    "storageProxyManyAssets": 198544,
+    "storageProxyManyAssetsSecondWrite": 161544
+  },
+  "10 signers, 2 symbols, 1 points, 5 proxy chain length": {
+    "proxyConnectorOneAsset": 366611,
+    "storageProxyOneAsset": 278052,
+    "storageProxyOneAssetSecondWrite": 241052,
+    "proxyConnectorManyAssets": 387965,
+    "storageProxyManyAssets": 323321,
+    "storageProxyManyAssetsSecondWrite": 266421
+  },
+  "10 signers, 10 symbols, 1 points, 5 proxy chain length": {
+    "proxyConnectorOneAsset": 1476431,
+    "storageProxyOneAsset": 961264,
+    "storageProxyOneAssetSecondWrite": 924264,
+    "proxyConnectorManyAssets": 1701934,
+    "storageProxyManyAssets": 1391965,
+    "storageProxyManyAssetsSecondWrite": 1175865
+  },
+  "10 signers, 20 symbols, 1 points, 5 proxy chain length": {
+    "proxyConnectorOneAsset": 2875907,
+    "storageProxyOneAsset": 1816356,
+    "storageProxyOneAssetSecondWrite": 1779356,
+    "proxyConnectorManyAssets": 3530654,
+    "storageProxyManyAssets": 2901888,
+    "storageProxyManyAssetsSecondWrite": 2486788
+  }
+}
