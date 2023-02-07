@@ -1,18 +1,25 @@
 import { expect } from "chai";
-import { ethers } from "hardhat";
+import { ethers, network } from "hardhat";
 import { ScoreType } from "redstone-protocol";
 import { WrapperBuilder } from "../../src/index";
 import { SampleKydServiceConsumer } from "../../typechain-types";
 import { server } from "./mock-server";
 
 describe("SampleKydServiceConsumer", () => {
-  before(() => server.listen());
+  let contract: SampleKydServiceConsumer;
+
+  before(async () => {
+    server.listen();
+    await network.provider.send("hardhat_reset");
+  });
+  beforeEach(async () => {
+    contract = await getContract();
+  });
 
   afterEach(() => server.resetHandlers());
   after(() => server.close());
 
   it("Address should pass KYD", async () => {
-    const contract = await getContract();
     const wrappedContract = WrapperBuilder.wrap(contract).usingOnDemandRequest(
       [
         "http://first-node.com/score-by-address",
@@ -27,7 +34,7 @@ describe("SampleKydServiceConsumer", () => {
   });
 
   it("Address shouldn't pass KYD", async () => {
-    const contract = await getContract(false);
+    contract = await getContract(false);
     const wrappedContract = WrapperBuilder.wrap(contract).usingOnDemandRequest(
       [
         "http://first-node.com/score-by-address",
@@ -41,7 +48,6 @@ describe("SampleKydServiceConsumer", () => {
   });
 
   it("Should revert if invalid response from one node", async () => {
-    const contract = await getContract();
     const wrappedContract = WrapperBuilder.wrap(contract).usingOnDemandRequest(
       [
         "http://first-node.com/score-by-address",
@@ -55,7 +61,6 @@ describe("SampleKydServiceConsumer", () => {
   });
 
   it("Should revert if one value from node is not equal", async () => {
-    const contract = await getContract();
     const wrappedContract = WrapperBuilder.wrap(contract).usingOnDemandRequest(
       [
         "http://first-node.com/score-by-address",
@@ -69,7 +74,6 @@ describe("SampleKydServiceConsumer", () => {
   });
 
   it("Should revert if two calls to the same node", async () => {
-    const contract = await getContract();
     const wrappedContract = WrapperBuilder.wrap(contract).usingOnDemandRequest(
       [
         "http://first-node.com/score-by-address",

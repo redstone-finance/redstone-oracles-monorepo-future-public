@@ -24,6 +24,7 @@ export abstract class BaseWrapper {
     functionNames.forEach((functionName) => {
       if (functionName.indexOf("(") == -1) {
         const isCall = contract.interface.getFunction(functionName).constant;
+        const isDryRun = functionName.endsWith("DryRun");
 
         (wrappedContract[functionName] as any) = async function (
           ...args: any[]
@@ -38,7 +39,7 @@ export abstract class BaseWrapper {
           });
           tx.data = tx.data + dataToAppend;
 
-          if (isCall) {
+          if (isCall || isDryRun) {
             const result = await contract.signer.call(tx);
             const decoded = contract.interface.decodeFunctionResult(
               functionName,
