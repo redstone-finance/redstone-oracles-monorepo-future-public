@@ -3,10 +3,11 @@ import {
   requestRedstonePayload,
 } from "redstone-sdk";
 import { BaseWrapper, ParamsForDryRunVerification } from "./BaseWrapper";
-import { version } from "../../package.json";
 import { parseAggregatedErrors } from "../helpers/parse-aggregated-errors";
+import { runDryRun } from "../helpers/run-dry-run";
+import { version } from "../../package.json";
 
-interface RequestPayloadWithDryRunParams extends ParamsForDryRunVerification {
+interface DryRunParamsWithUnsignedMetadata extends ParamsForDryRunVerification {
   unsignedMetadataMsg: string;
 }
 
@@ -41,20 +42,15 @@ export class DataServiceWrapper extends BaseWrapper {
     this function will throw an error if the call was reverted.
   */
   async requestPayloadWithDryRun({
-    functionName,
-    contract,
-    transaction,
     unsignedMetadataMsg,
-  }: RequestPayloadWithDryRunParams) {
+    ...params
+  }: DryRunParamsWithUnsignedMetadata) {
     const promises = this.urls.map(async (url) => {
-      const transactionToTest = Object.assign({}, transaction);
       const redstonePayload = await this.requestPayloadWithoutDryRun(
         [url],
         unsignedMetadataMsg
       );
-      transactionToTest.data = transactionToTest.data + redstonePayload;
-      const result = await contract.provider.call(transactionToTest);
-      contract.interface.decodeFunctionResult(functionName, result);
+      await runDryRun({ ...params, redstonePayload });
       return redstonePayload;
     });
     return Promise.any(promises).catch((error: any) => {

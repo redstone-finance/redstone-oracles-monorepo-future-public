@@ -102,7 +102,7 @@ const getSignedDataPackage = ({
   return signOnDemandDataPackage(
     !!dataFeedId ? dataFeedId : address,
     valueToResponse,
-    Number(timestamp),
+    Number(timestamp) + 2000,
     privateKey
   );
 };

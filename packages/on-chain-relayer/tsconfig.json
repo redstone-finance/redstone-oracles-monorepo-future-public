@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2018",
+    "declaration": true,
+    "outDir": "./dist",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "lib": ["es2021"],
+    "allowJs": true,
+    "declarationMap": true,
+    "incremental": true,
+    "composite": true
+  },
+  "ts-node": {
+    "files": true
+  },
+  "include": ["src/**/*", "src/**/*.json", "./package.json"],
+  "exclude": ["node_modules"]
+}

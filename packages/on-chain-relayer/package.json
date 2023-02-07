@@ -1,0 +1,19 @@
+{
+  "name": "contract-prices-updater",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@redstone-finance/evm-connector": "^0.0.18",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.2",
+    "redstone-sdk": "^1.0.7"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  }
+}
