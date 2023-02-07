@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-import "../mocks/RedstoneConsumerNumericMock.sol";
+import "../../mocks/RedstoneConsumerNumericMock.sol";
 
 contract Benchmark is RedstoneConsumerNumericMock {
   // We use this storage variable to avoid annoying compilation

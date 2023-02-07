@@ -7,6 +7,14 @@ import "../mocks/RedstoneConsumerNumericMock.sol";
 contract SampleRedstoneConsumerNumericMock is RedstoneConsumerNumericMock {
   uint256 public latestSavedValue;
 
+  function getValuesForDataFeedIds(bytes32[] memory dataFeedIds)
+    public
+    view
+    returns (uint256[] memory)
+  {
+    return getOracleNumericValuesFromTxMsg(dataFeedIds);
+  }
+
   function getValueForDataFeedId(bytes32 dataFeedId) public view returns (uint256) {
     return getOracleNumericValueFromTxMsg(dataFeedId);
   }
