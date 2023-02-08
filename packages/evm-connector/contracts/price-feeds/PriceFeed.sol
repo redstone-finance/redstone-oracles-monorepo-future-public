@@ -20,7 +20,7 @@ contract PriceFeed is AggregatorV3Interface {
   }
 
   modifier _onlyOwner() {
-    require(msg.sender == owner);
+    require(msg.sender == owner, "Caller is not the owner");
     _;
   }
 
