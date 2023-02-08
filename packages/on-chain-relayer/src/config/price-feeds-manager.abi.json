@@ -1,11 +1,6 @@
 [
   {
     "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "inputs": [],
     "name": "CalldataMustHaveValidPayload",
     "type": "error"
   },
@@ -68,7 +63,7 @@
         "type": "uint256"
       }
     ],
-    "name": "ProposedTimestampDoesNotMatchProposedTimestamp",
+    "name": "ProposedTimestampDoesNotMatchReceivedTimestamp",
     "type": "error"
   },
   {
@@ -129,6 +124,19 @@
     ],
     "name": "TimestampIsTooOld",
     "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
   },
   {
     "inputs": [
@@ -213,25 +221,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "dataFeedId",
-        "type": "bytes32"
-      }
-    ],
-    "name": "getPriceFeedContractAddress",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "getUniqueSignersThreshold",
     "outputs": [
@@ -245,6 +234,19 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "priceFeedsRegistryAddress",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "lastRound",
     "outputs": [
@@ -252,6 +254,32 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "lastUpdateTimestampMilliseconds",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "priceFeedRegistry",
+    "outputs": [
+      {
+        "internalType": "contract PriceFeedsRegistry",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
