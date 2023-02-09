@@ -1,10 +1,10 @@
 import { Contract, Wallet } from "ethers";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { requestDataPackages } from "redstone-sdk";
-import { getProvider, parseBigNumberParam } from "./utils";
+import { getLastRoundParamsFromContract, getProvider } from "./utils";
 import { config } from "./config";
 
-export const startRelayer = () => {
+(() => {
   const { privateKey, managerContractAddress, abi } = config;
   const relayerIterationInterval = Number(config.relayerIterationInterval);
   const updatePriceInterval = Number(config.updatePriceInterval);
@@ -55,13 +55,4 @@ export const startRelayer = () => {
       console.log(error.stack);
     }
   }, relayerIterationInterval);
-};
-
-const getLastRoundParamsFromContract = async (managerContract: Contract) => {
-  const [lastRound, lastUpdateTimestamp] =
-    await managerContract.getLastRoundParams();
-  return {
-    lastRound: parseBigNumberParam(lastRound),
-    lastUpdateTimestamp: parseBigNumberParam(lastUpdateTimestamp),
-  };
-};
+})();
