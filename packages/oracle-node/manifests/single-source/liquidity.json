@@ -1,0 +1,23 @@
+{
+  "interval": 60000,
+  "priceAggregator": "median",
+  "defaultSource": ["liquidity"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "httpBroadcasterURLs": [],
+  "enableStreamrBroadcaster": false,
+  "enableArweaveBackup": false,
+  "tokens": {
+    "AAVE_uniswap_liquidity": {
+      "skipSigning": true
+    },
+    "AAVE_sushiswap_liquidity": {
+      "skipSigning": true
+    }
+  }
+}
