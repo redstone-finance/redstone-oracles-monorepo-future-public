@@ -1,0 +1,215 @@
+import { ethers } from "hardhat";
+import { DataPackage, NumericDataPoint } from "redstone-protocol";
+import { utils } from "redstone-protocol";
+import {
+  MOCK_SIGNERS,
+  DEFAULT_TIMESTAMP_FOR_TESTS,
+  MockSignerAddress,
+} from "../src/helpers/test-utils";
+import { WrapperBuilder } from "../src/index";
+import { MockDataPackageConfig } from "../src/wrappers/MockWrapper";
+import { StorageStructureModel, HashCalldataModel } from "../typechain-types";
+
+interface BenchmarkTestCaseParams {
+  passedArgumentsCount: number;
+}
+
+interface GasReport {
+  forSavingRequestAsStruct: number | string;
+  forSavingRequestAsHash: number | string;
+  forExecutingRequestAsStruct: number | string;
+  forExecutingRequestAsHash: number | string;
+}
+
+const TEST_CASES = {
+  passedArgumentsCount: [3, 5, 10],
+};
+
+const requiredSignersCount = 3;
+
+describe("Benchmark", function () {
+  let storageStructureModel: StorageStructureModel;
+  let hashCalldataModel: HashCalldataModel;
+  const fullGasReport: any = {};
+
+  this.beforeEach(async () => {
+    const StorageStructureFactory = await ethers.getContractFactory(
+      "StorageStructureModel"
+    );
+
+    const HashCalldataFactory = await ethers.getContractFactory(
+      "HashCalldataModel"
+    );
+
+    storageStructureModel = await StorageStructureFactory.deploy();
+    await storageStructureModel.deployed();
+
+    hashCalldataModel = await HashCalldataFactory.deploy();
+    await hashCalldataModel.deployed();
+  });
+
+  this.afterAll(async () => {
+    console.log("=== FINAL GAS REPORT ===");
+    console.log(JSON.stringify(fullGasReport, null, 2));
+  });
+
+  const prepareMockDataPackageConfig = (
+    benchmarkParams: BenchmarkTestCaseParams
+  ) => {
+    // Prepare many data packages (for each requested symbol there are many data packages with each signer)
+    const mockDataPackages: MockDataPackageConfig[] = [];
+    for (
+      let requestedSymbolIndex = 0;
+      requestedSymbolIndex < benchmarkParams.passedArgumentsCount;
+      requestedSymbolIndex++
+    ) {
+      for (
+        let signerIndex = 0;
+        signerIndex < requiredSignersCount;
+        signerIndex++
+      ) {
+        const dataPoints = [
+          new NumericDataPoint({
+            dataFeedId: `TEST-${requestedSymbolIndex}`,
+            value: 42 + requestedSymbolIndex,
+          }),
+        ];
+        mockDataPackages.push({
+          dataPackage: new DataPackage(dataPoints, DEFAULT_TIMESTAMP_FOR_TESTS),
+          signer: MOCK_SIGNERS[signerIndex].address as MockSignerAddress,
+        });
+      }
+    }
+
+    return mockDataPackages;
+  };
+
+  const updateFullGasReport = (
+    benchmarkParams: BenchmarkTestCaseParams,
+    gasReport: GasReport
+  ) => {
+    const benchmarkCaseKey = getBenchmarkCaseShortTitle(benchmarkParams);
+    fullGasReport[benchmarkCaseKey] = gasReport;
+  };
+
+  const getBenchmarkCaseShortTitle = (
+    benchmarkParams: BenchmarkTestCaseParams
+  ): string => {
+    return benchmarkParams.passedArgumentsCount + " arguments";
+  };
+
+  const runBenchmarkTestCase = async (
+    benchmarkParams: BenchmarkTestCaseParams
+  ) => {
+    const shortTitle = getBenchmarkCaseShortTitle(benchmarkParams);
+
+    console.log(`Benchmark case testing started: ${shortTitle}`);
+
+    const dataFeedIds = [
+      ...Array(benchmarkParams.passedArgumentsCount).keys(),
+    ].map((i) => `TEST-${i}`);
+
+    const bytes32Symbols = dataFeedIds.map(utils.convertStringToBytes32);
+    const mockDataPackagesConfig =
+      prepareMockDataPackageConfig(benchmarkParams);
+
+    const wrappedStorageStructureModel = WrapperBuilder.wrap(
+      storageStructureModel
+    ).usingMockDataPackages(mockDataPackagesConfig);
+    const wrappedHashCalldataModel = WrapperBuilder.wrap(
+      hashCalldataModel
+    ).usingMockDataPackages(mockDataPackagesConfig);
+
+    try {
+      let sendStructRequestFunction: (...args: Uint8Array[]) => any;
+      let executeStructRequestFunction: (requestId: number) => any;
+      let sendHashRequestFunction: (...args: Uint8Array[]) => any;
+      let executeHashRequestFunction: (blockNumber: number, address: string, ...args: Uint8Array[]) => any;
+
+      switch (benchmarkParams.passedArgumentsCount) {
+        case 3:
+          sendStructRequestFunction =
+            wrappedStorageStructureModel.sendRequestWith3Args;
+          executeStructRequestFunction =
+            wrappedStorageStructureModel.executeRequestWith3ArgsWithPrices;
+          sendHashRequestFunction =
+            wrappedHashCalldataModel.sendRequestWith3Args;
+          executeHashRequestFunction =
+            wrappedHashCalldataModel.executeRequestWith3ArgsWithPrices;
+          break;
+        case 5:
+          sendStructRequestFunction =
+            wrappedStorageStructureModel.sendRequestWith5Args;
+          executeStructRequestFunction =
+            wrappedStorageStructureModel.executeRequestWith5ArgsWithPrices;
+          sendHashRequestFunction =
+            wrappedHashCalldataModel.sendRequestWith5Args;
+          executeHashRequestFunction =
+            wrappedHashCalldataModel.executeRequestWith5ArgsWithPrices;
+          break;
+        case 10:
+          sendStructRequestFunction =
+            wrappedStorageStructureModel.sendRequestWith10Args;
+          executeStructRequestFunction =
+            wrappedStorageStructureModel.executeRequestWith10ArgsWithPrices;
+          sendHashRequestFunction =
+            wrappedHashCalldataModel.sendRequestWith10Args;
+          executeHashRequestFunction =
+            wrappedHashCalldataModel.executeRequestWith10ArgsWithPrices;
+          break;
+        default:
+          throw new Error("Unsupported passed arguments count");
+      }
+      const requestStructTx = await sendStructRequestFunction(
+        ...bytes32Symbols
+      );
+      const requestStructTxReceipt = await requestStructTx.wait();
+
+      const executeRequestStructTx = await executeStructRequestFunction(1);
+      const executeRequestStructTxReceipt = await executeRequestStructTx.wait();
+
+      const requestHashTx = await sendHashRequestFunction(...bytes32Symbols);
+      const requestHashTxReceipt = await requestHashTx.wait();
+      
+      const blockNumber = await ethers.provider.getBlockNumber();
+      const sender = await ethers.provider.getSigner(0).getAddress();
+      const executeRequestHashTx = await executeHashRequestFunction(blockNumber, sender,
+        ...bytes32Symbols
+      );
+      const executeRequestHashTxReceipt = await executeRequestHashTx.wait();
+
+      const gasReport: GasReport = {
+        forSavingRequestAsStruct: requestStructTxReceipt.gasUsed.toNumber(),
+        forSavingRequestAsHash: requestHashTxReceipt.gasUsed.toNumber(),
+        forExecutingRequestAsStruct:
+          executeRequestStructTxReceipt.gasUsed.toNumber(),
+        forExecutingRequestAsHash:
+          executeRequestHashTxReceipt.gasUsed.toNumber(),
+      };
+
+      console.log({ gasReport });
+
+      updateFullGasReport(benchmarkParams, gasReport);
+    } catch (e) {
+      console.log("Most probably gas ran out of gas");
+      console.error(e);
+      updateFullGasReport(benchmarkParams, {
+        forSavingRequestAsStruct: "error-too-much-gas",
+        forSavingRequestAsHash: "error-too-much-gas",
+        forExecutingRequestAsStruct: "error-too-much-gas",
+        forExecutingRequestAsHash: "error-too-much-gas",
+      });
+    }
+  };
+
+  for (const passedArgumentsCount of TEST_CASES.passedArgumentsCount) {
+    const benchmarkParams: BenchmarkTestCaseParams = {
+      passedArgumentsCount,
+    };
+    it(`Benchmark: ${getBenchmarkCaseShortTitle(
+      benchmarkParams
+    )}`, async () => {
+      await runBenchmarkTestCase(benchmarkParams);
+    });
+  }
+});
