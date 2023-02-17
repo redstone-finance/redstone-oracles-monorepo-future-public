@@ -4345,6 +4345,9 @@
     "SYLO": {
       "source": ["coingecko"]
     },
+    "CANTO": {
+      "source": ["coingecko"]
+    },
     "ABNB": {
       "source": ["currencycom"]
     },
