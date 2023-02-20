@@ -2551,6 +2551,15 @@
     "VRA": {
       "source": ["ascendex", "bittrex", "kucoin", "okx", "probit"]
     },
+    "OHM": {
+      "source": [
+        "balancer-dai",
+        "balancer-weth",
+        "coingecko",
+        "coinmarketcap",
+        "uniswap-v3"
+      ]
+    },
     "WIN": {
       "source": ["binance", "hitbtc", "kucoin", "lbank", "poloniex"]
     },

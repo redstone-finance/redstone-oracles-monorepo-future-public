@@ -1149,9 +1149,9 @@
     to-fast-properties "^2.0.0"
 
 "@balancer-labs/sdk@^0.1.47":
-  version "0.1.47"
-  resolved "https://registry.yarnpkg.com/@balancer-labs/sdk/-/sdk-0.1.47.tgz#9446e56624ec82fa06a82da433168d4d483d6ee7"
-  integrity sha512-DeDtqARX2t8e44ZqnhXJqoY6wyvr9WxQiNgVQ7GMCHXLsyj3eWlcdKFuHcKreVVWLMIfEZm93Ukc8UU428DJPQ==
+  version "0.1.48"
+  resolved "https://registry.yarnpkg.com/@balancer-labs/sdk/-/sdk-0.1.48.tgz#dbf681fd0ebc0fb0c67b6c358053b97732b5415c"
+  integrity sha512-QnoPOqY78zGlWKbz5bYcCbGbz6H996GtTrM42fWFRsLplj0jni+oE4nFQSgOs8wFLrEfQv9QHVD6N+CpOvSNWQ==
   dependencies:
     "@balancer-labs/sor" "^4.1.0-beta.0"
     "@balancer-labs/typechain" "^1.0.0"
@@ -3950,18 +3950,6 @@
   dependencies:
     "@randlabs/communication-bridge" "1.0.1"
 
-"@redstone-finance/evm-connector@^0.0.19":
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@redstone-finance/evm-connector/-/evm-connector-0.0.19.tgz#8fb4c9fe27348b26eb70aac8282e3587ecb1ab8d"
-  integrity sha512-wkwOT0rfvVEkLL5Y58EyPZBT0GBl7Kqt1s/b2609sOzQLohobFc9bU8wWhTbq6KMo3L03pqoYLwR4g0+uhUzSg==
-  dependencies:
-    "@chainlink/contracts" "^0.6.0"
-    "@openzeppelin/contracts" "^4.7.3"
-    axios "^1.1.3"
-    ethers "^5.6.8"
-    redstone-protocol "1.0.5"
-    redstone-sdk "1.0.7"
-
 "@resolver-engine/core@^0.3.3":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@resolver-engine/core/-/core-0.3.3.tgz#590f77d85d45bc7ecc4e06c654f41345db6ca967"
@@ -6085,9 +6073,9 @@ arweave@^1.10.13, arweave@^1.10.23, arweave@^1.10.5, arweave@^1.11.4:
     util "^0.12.4"
 
 arweave@^1.10.15, arweave@^1.10.16:
-  version "1.12.4"
-  resolved "https://registry.yarnpkg.com/arweave/-/arweave-1.12.4.tgz#08a4fcbda250c490150cb094ce57119eb1e46b3b"
-  integrity sha512-W5z7hb9/ZP2vy6BiYC+2obfGMhlhz/DaCkEXpkj/4hjaecWYUnvlUX5aCI2i0+lCrzbBUFbz+maDihUpBrdZpg==
+  version "1.12.6"
+  resolved "https://registry.yarnpkg.com/arweave/-/arweave-1.12.6.tgz#de2314618afa040e7f6fc99ab1a178d17042339c"
+  integrity sha512-OglStwi/79e69XO42DbaqoOBNC9CZS+EupusYawRLMj0V2/zRlhrJi0WDuy4IaqY9LQYv8dHD9iyThvRUl9mqw==
   dependencies:
     arconnect "^0.4.2"
     asn1.js "^5.4.1"
