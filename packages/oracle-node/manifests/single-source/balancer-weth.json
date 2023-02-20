@@ -15,21 +15,8 @@
     "https://container-service-1.dv9sai71f4rsq.eu-central-1.cs.amazonlightsail.com"
   ],
   "enableStreamrBroadcaster": false,
-  "defaultSource": ["coinmarketcap"],
+  "defaultSource": ["balancer-weth"],
   "tokens": {
-    "ETH": {},
-    "USDT": {},
-    "PNG": {},
-    "AVAX": {},
-    "LINK": {},
-    "BTC": {},
-    "QI": {},
-    "USDC": {},
-    "PTP": {},
-    "XAVA": {},
-    "YAK": {},
-    "GMX": {},
-    "JOE": {},
     "OHM": {}
   }
 }
