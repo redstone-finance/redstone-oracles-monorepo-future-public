@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers";
-import { hexlify, toUtf8String } from "ethers/lib/utils";
+import { formatUnits, hexlify, toUtf8String } from "ethers/lib/utils";
 import {
   DATA_FEED_ID_BS,
   DATA_PACKAGES_COUNT_BS,
@@ -161,7 +161,7 @@ export class RedstonePayloadParser {
   ): DataPoint {
     return new NumericDataPoint({
       dataFeedId: toUtf8String(dataFeedId).replaceAll("\x00", ""),
-      value: BigNumber.from(dataPointValue).toNumber() / 10 ** 8,
+      value: Number(formatUnits(BigNumber.from(dataPointValue), 8)),
     });
   }
 
