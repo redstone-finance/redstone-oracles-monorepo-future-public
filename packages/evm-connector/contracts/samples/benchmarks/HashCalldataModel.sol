@@ -7,6 +7,7 @@ import "../SampleRedstoneConsumerNumericMock.sol";
 contract HashCalldataModel is RedstoneConsumerNumericMock {
   mapping(bytes32 => bool) public requests;
   uint256 price = 0;
+  bool deleteFromStorage = false;
 
   function sendRequestWith3Args(
     bytes32 arg1,
@@ -65,7 +66,7 @@ contract HashCalldataModel is RedstoneConsumerNumericMock {
   }
 
   function executeRequestWith3ArgsWithPrices(
-    uint blockNumber,
+    uint256 blockNumber,
     address sender,
     bytes32 arg1,
     bytes32 arg2,
@@ -75,14 +76,17 @@ contract HashCalldataModel is RedstoneConsumerNumericMock {
 
     bool isIn = requests[requestHash];
     if (isIn == true) {
-      price = getOracleNumericValueFromTxMsg(arg2);
+      price = getOracleNumericValueFromTxMsg(arg1);
+      if (deleteFromStorage) {
+        delete requests[requestHash];
+      }
     } else {
       revert("Request not found");
     }
   }
 
   function executeRequestWith5ArgsWithPrices(
-    uint blockNumber,
+    uint256 blockNumber,
     address sender,
     bytes32 arg1,
     bytes32 arg2,
@@ -90,18 +94,23 @@ contract HashCalldataModel is RedstoneConsumerNumericMock {
     bytes32 arg4,
     bytes32 arg5
   ) public {
-    bytes32 requestHash = keccak256(abi.encodePacked(blockNumber, sender, arg1, arg2, arg3, arg4, arg5));
+    bytes32 requestHash = keccak256(
+      abi.encodePacked(blockNumber, sender, arg1, arg2, arg3, arg4, arg5)
+    );
 
     bool isIn = requests[requestHash];
     if (isIn == true) {
       price = getOracleNumericValueFromTxMsg(arg2);
+      if (deleteFromStorage) {
+        delete requests[requestHash];
+      }
     } else {
       revert("Request not found");
     }
   }
 
   function executeRequestWith10ArgsWithPrices(
-    uint blockNumber,
+    uint256 blockNumber,
     address sender,
     bytes32 arg1,
     bytes32 arg2,
@@ -133,7 +142,10 @@ contract HashCalldataModel is RedstoneConsumerNumericMock {
 
     bool isIn = requests[requestHash];
     if (isIn == true) {
-      price = getOracleNumericValueFromTxMsg(arg1);
+      price = getOracleNumericValueFromTxMsg(arg3);
+      if (deleteFromStorage) {
+        delete requests[requestHash];
+      }
     } else {
       revert("Request not found");
     }
@@ -141,5 +153,9 @@ contract HashCalldataModel is RedstoneConsumerNumericMock {
 
   function getUniqueSignersThreshold() public pure override returns (uint8) {
     return 3;
+  }
+
+  function setDeleteFromStorage(bool _deleteFromStorage) public {
+    deleteFromStorage = _deleteFromStorage;
   }
 }
