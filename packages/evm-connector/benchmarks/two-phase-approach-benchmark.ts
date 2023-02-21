@@ -12,6 +12,10 @@ import { StorageStructureModel, HashCalldataModel } from "../typechain-types";
 
 interface BenchmarkTestCaseParams {
   passedArgumentsCount: number;
+  deleteFromStorage: {
+    struct: boolean;
+    hash: boolean;
+  };
 }
 
 interface GasReport {
@@ -23,6 +27,11 @@ interface GasReport {
 
 const TEST_CASES = {
   passedArgumentsCount: [3, 5, 10],
+  deleteFromStorage: [
+    { struct: false, hash: false },
+    { struct: false, hash: true },
+    { struct: true, hash: true },
+  ],
 };
 
 const requiredSignersCount = 3;
@@ -95,7 +104,14 @@ describe("Benchmark", function () {
   const getBenchmarkCaseShortTitle = (
     benchmarkParams: BenchmarkTestCaseParams
   ): string => {
-    return benchmarkParams.passedArgumentsCount + " arguments";
+    return (
+      benchmarkParams.passedArgumentsCount +
+      " arguments, " +
+      benchmarkParams.deleteFromStorage.struct +
+      " delete struct, " +
+      benchmarkParams.deleteFromStorage.hash +
+      " delete hash"
+    );
   };
 
   const runBenchmarkTestCase = async (
@@ -120,11 +136,27 @@ describe("Benchmark", function () {
       hashCalldataModel
     ).usingMockDataPackages(mockDataPackagesConfig);
 
+    const setDeleteFromStorageStructTx =
+      await wrappedStorageStructureModel.setDeleteFromStorage(
+        benchmarkParams.deleteFromStorage.struct
+      );
+    await setDeleteFromStorageStructTx.wait();
+
+    const setDeleteFromStorageHashTx =
+      await wrappedHashCalldataModel.setDeleteFromStorage(
+        benchmarkParams.deleteFromStorage.hash
+      );
+    await setDeleteFromStorageHashTx.wait();
+
     try {
       let sendStructRequestFunction: (...args: Uint8Array[]) => any;
       let executeStructRequestFunction: (requestId: number) => any;
       let sendHashRequestFunction: (...args: Uint8Array[]) => any;
-      let executeHashRequestFunction: (blockNumber: number, address: string, ...args: Uint8Array[]) => any;
+      let executeHashRequestFunction: (
+        blockNumber: number,
+        address: string,
+        ...args: Uint8Array[]
+      ) => any;
 
       switch (benchmarkParams.passedArgumentsCount) {
         case 3:
@@ -170,10 +202,12 @@ describe("Benchmark", function () {
 
       const requestHashTx = await sendHashRequestFunction(...bytes32Symbols);
       const requestHashTxReceipt = await requestHashTx.wait();
-      
+
       const blockNumber = await ethers.provider.getBlockNumber();
       const sender = await ethers.provider.getSigner(0).getAddress();
-      const executeRequestHashTx = await executeHashRequestFunction(blockNumber, sender,
+      const executeRequestHashTx = await executeHashRequestFunction(
+        blockNumber,
+        sender,
         ...bytes32Symbols
       );
       const executeRequestHashTxReceipt = await executeRequestHashTx.wait();
@@ -202,14 +236,17 @@ describe("Benchmark", function () {
     }
   };
 
-  for (const passedArgumentsCount of TEST_CASES.passedArgumentsCount) {
-    const benchmarkParams: BenchmarkTestCaseParams = {
-      passedArgumentsCount,
-    };
-    it(`Benchmark: ${getBenchmarkCaseShortTitle(
-      benchmarkParams
-    )}`, async () => {
-      await runBenchmarkTestCase(benchmarkParams);
-    });
+  for (const deleteFromStorage of TEST_CASES.deleteFromStorage) {
+    for (const passedArgumentsCount of TEST_CASES.passedArgumentsCount) {
+      const benchmarkParams: BenchmarkTestCaseParams = {
+        passedArgumentsCount,
+        deleteFromStorage,
+      };
+      it(`Benchmark: ${getBenchmarkCaseShortTitle(
+        benchmarkParams
+      )}`, async () => {
+        await runBenchmarkTestCase(benchmarkParams);
+      });
+    }
   }
 });
