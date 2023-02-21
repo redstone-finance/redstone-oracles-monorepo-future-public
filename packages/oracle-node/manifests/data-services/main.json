@@ -2525,6 +2525,9 @@
         "kucoin"
       ]
     },
+    "CANTO": {
+      "source": ["bitmart", "bkex", "bkex", "coingecko", "gate", "mexc"]
+    },
     "FLOW": {
       "source": [
         "coinbaseprime",
@@ -4352,9 +4355,6 @@
       "source": ["coingecko"]
     },
     "SYLO": {
-      "source": ["coingecko"]
-    },
-    "CANTO": {
       "source": ["coingecko"]
     },
     "ABNB": {
