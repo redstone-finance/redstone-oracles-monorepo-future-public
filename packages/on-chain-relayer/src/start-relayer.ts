@@ -5,7 +5,15 @@ import { getLastRoundParamsFromContract, getProvider } from "./utils";
 import { config } from "./config";
 
 (() => {
-  const { privateKey, managerContractAddress, abi } = config;
+  const {
+    privateKey,
+    managerContractAddress,
+    abi,
+    dataServiceId,
+    uniqueSignersCount,
+    dataFeeds,
+    cacheServiceUrls,
+  } = config;
   const relayerIterationInterval = Number(config.relayerIterationInterval);
   const updatePriceInterval = Number(config.updatePriceInterval);
 
@@ -26,29 +34,33 @@ import { config } from "./config";
 
       const { lastRound, lastUpdateTimestamp } =
         await getLastRoundParamsFromContract(priceFeedsManagerContract);
-
       const currentTimestamp = Date.now();
       const isTwoMinutesSinceLastUpdate =
         currentTimestamp - lastUpdateTimestamp >= updatePriceInterval;
       if (!isTwoMinutesSinceLastUpdate) {
         console.log("Not enough time has passed to update prices");
       } else {
-        const dataPackages = await requestDataPackages({
-          dataServiceId: "redstone-avalanche-prod",
-          uniqueSignersCount: 3,
-        });
+        const dataPackages = await requestDataPackages(
+          {
+            dataServiceId,
+            uniqueSignersCount,
+            dataFeeds,
+          },
+          cacheServiceUrls
+        );
 
         const wrappedContract = WrapperBuilder.wrap(
           priceFeedsManagerContract
         ).usingDataPackages(dataPackages);
 
         const dataPackageTimestamp =
-          dataPackages.___ALL_FEEDS___[0].dataPackage.timestampMilliseconds;
+          dataPackages[dataFeeds[0]][0].dataPackage.timestampMilliseconds;
 
-        await wrappedContract.updateDataFeedValues(
+        const updateTransaction = await wrappedContract.updateDataFeedValues(
           lastRound + 1,
           dataPackageTimestamp
         );
+        await updateTransaction.wait();
         console.log("Successfully updated prices");
       }
     } catch (error: any) {
