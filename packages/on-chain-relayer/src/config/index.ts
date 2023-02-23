@@ -20,4 +20,8 @@ export const config = Object.freeze({
   privateKey: getFromEnv("PRIVATE_KEY"),
   managerContractAddress: getFromEnv("MANGER_CONTRACT_ADDRESS"),
   abi,
+  dataServiceId: getFromEnv("DATA_SERVICE_ID"),
+  uniqueSignersCount: Number(getFromEnv("UNIQUE_SIGNERS_COUNT")),
+  dataFeeds: JSON.parse(getFromEnv("DATA_FEEDS")),
+  cacheServiceUrls: JSON.parse(getFromEnv("CACHE_SERVICE_URLS")),
 });

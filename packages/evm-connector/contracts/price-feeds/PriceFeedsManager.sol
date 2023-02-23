@@ -2,12 +2,12 @@
 
 pragma solidity ^0.8.4;
 
-import "../data-services/AvalancheDataServiceConsumerBase.sol";
+import "../data-services/MainDemoConsumerBase.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "./PriceFeedsRegistry.sol";
 import "./PriceFeed.sol";
 
-contract PriceFeedsManager is AvalancheDataServiceConsumerBase, Initializable {
+contract PriceFeedsManager is MainDemoConsumerBase, Initializable {
   uint256 public lastRound = 0;
   uint256 public lastUpdateTimestampMilliseconds = 0;
   PriceFeedsRegistry public priceFeedRegistry;
