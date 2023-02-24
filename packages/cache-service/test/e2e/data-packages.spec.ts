@@ -287,6 +287,12 @@ describe("Data packages (e2e)", () => {
     }, "raw");
   });
 
+  it("/data-packages/payload (GET) - should return payload in bytes format", async () => {
+    await performPayloadTests((response) => {
+      return response.body;
+    }, "bytes");
+  });
+
   it("/data-packages/payload (GET) - should return payload in raw format when no format is specified", async () => {
     await performPayloadTests((response) => {
       return response.body;
