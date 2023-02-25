@@ -1,0 +1,28 @@
+{
+  "interval": 10000,
+  "priceAggregator": "median",
+  "defaultSource": ["kaiko"],
+  "sourceTimeout": 5000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "evmChainId": 1,
+  "enableStreamrBroadcaster": false,
+  "enableArweaveBackup": false,
+  "tokens": {
+    "ETH": {},
+    "AAVE": {},
+    "UNI": {},
+    "XRP": {},
+    "USDT": {},
+    "AVAX": {},
+    "LINK": {},
+    "BTC": {},
+    "QI": {},
+    "USDC": {},
+    "XAVA": {}
+  }
+}
