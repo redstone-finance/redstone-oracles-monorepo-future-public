@@ -898,27 +898,6 @@
         "probit"
       ]
     },
-    "BAND": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "currencycom",
-        "huobipro",
-        "okx",
-        "poloniex",
-        "probit",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
     "ENJ": {
       "source": [
         "binance",
@@ -959,27 +938,6 @@
         "lbank",
         "okx",
         "poloniex"
-      ]
-    },
-    "REN": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit",
-        "sushiswap",
-        "uniswap"
       ]
     },
     "DAI": {
@@ -1043,6 +1001,26 @@
         "probit"
       ]
     },
+    "BAND": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceus",
+        "binanceusdm",
+        "bitfinex",
+        "bitfinex2",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "currencycom",
+        "huobipro",
+        "okx",
+        "poloniex",
+        "probit",
+        "sushiswap",
+        "uniswap"
+      ]
+    },
     "CRV": {
       "source": [
         "ascendex",
@@ -1100,6 +1078,26 @@
         "kucoin",
         "lbank",
         "okx"
+      ]
+    },
+    "REN": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bittrex",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "okx",
+        "poloniex",
+        "probit",
+        "sushiswap",
+        "uniswap"
       ]
     },
     "KSM": {
@@ -1548,21 +1546,6 @@
         "poloniex"
       ]
     },
-    "REP": {
-      "source": [
-        "binance",
-        "binanceus",
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "kraken",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
     "RSR": {
       "source": [
         "binance",
@@ -1660,6 +1643,20 @@
         "huobipro",
         "kraken",
         "kucoin",
+        "probit"
+      ]
+    },
+    "REP": {
+      "source": [
+        "binance",
+        "bitfinex",
+        "bitfinex2",
+        "coinbaseprime",
+        "coinbasepro",
+        "hitbtc",
+        "kraken",
+        "okx",
+        "poloniex",
         "probit"
       ]
     },
@@ -3539,12 +3536,6 @@
       "source": ["cex"]
     },
     "GUSD": {
-      "source": ["cex"]
-    },
-    "AWG": {
-      "source": ["cex"]
-    },
-    "AWX": {
       "source": ["cex"]
     },
     "MIOTA": {
