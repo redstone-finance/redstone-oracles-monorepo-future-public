@@ -20,7 +20,8 @@ export class DataServiceWrapper extends BaseWrapper {
   }
 
   getUnsignedMetadata(): string {
-    return `${version}#${this.dataPackagesRequestParams.dataServiceId}`;
+    const currentTimestamp = Date.now();
+    return `${currentTimestamp}#${version}#${this.dataPackagesRequestParams.dataServiceId}`;
   }
 
   async getBytesDataForAppending(

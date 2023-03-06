@@ -9,7 +9,8 @@ export class DataPackagesWrapper extends BaseWrapper {
   }
 
   getUnsignedMetadata(): string {
-    return `${version}#data-packages-wrapper`;
+    const currentTimestamp = Date.now();
+    return `${currentTimestamp}#${version}#data-packages-wrapper`;
   }
 
   async getBytesDataForAppending(): Promise<string> {
