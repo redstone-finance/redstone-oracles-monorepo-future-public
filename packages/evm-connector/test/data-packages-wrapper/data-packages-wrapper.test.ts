@@ -42,12 +42,7 @@ describe("DataPackagesWrapper", () => {
     await contract.deployed();
   });
 
-  it("Should properly execute with dry run", async () => {
-    const dataPackagesResponse = getValidDataPackagesResponse();
-    await runTest(dataPackagesResponse);
-  });
-
-  it("Should properly execute without dry run", async () => {
+  it("Should properly execute", async () => {
     const dataPackagesResponse = getValidDataPackagesResponse();
     await runTest(dataPackagesResponse);
   });
