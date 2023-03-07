@@ -1,4 +1,4 @@
-import { Contract, PopulatedTransaction } from "ethers";
+import { Contract, PopulatedTransaction, Signer } from "ethers";
 import { addContractWait } from "../helpers/add-contract-wait";
 
 export interface ParamsForDryRunVerification {
@@ -40,7 +40,12 @@ export abstract class BaseWrapper {
           tx.data = tx.data + dataToAppend;
 
           if (isCall || isDryRun) {
-            const result = await contract.signer.call(tx);
+            const shouldUseSigner = Signer.isSigner(contract.signer);
+
+            const result = await contract[
+              shouldUseSigner ? "signer" : "provider"
+            ].call(tx);
+
             const decoded = contract.interface.decodeFunctionResult(
               functionName,
               result
