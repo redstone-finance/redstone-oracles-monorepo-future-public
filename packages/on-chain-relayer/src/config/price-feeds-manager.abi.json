@@ -236,6 +236,30 @@
   {
     "inputs": [
       {
+        "internalType": "bytes32[]",
+        "name": "dataFeedsIds",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "getValuesForDataFeeds",
+    "outputs": [
+      {
+        "internalType": "bytes32[]",
+        "name": "",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "int256[]",
+        "name": "",
+        "type": "int256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "priceFeedsRegistryAddress",
         "type": "address"

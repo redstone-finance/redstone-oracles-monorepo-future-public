@@ -292,6 +292,35 @@
         "lbank",
         "okx"
       ]
+    },
+    "USDC": {
+      "source": [
+        "binanceus",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coingecko",
+        "currencycom",
+        "huobipro",
+        "kaiko",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "liquid",
+        "oceanex",
+        "okx",
+        "probit",
+        "sushiswap",
+        "uniswap"
+      ]
+    },
+    "FRAX": {
+      "source": ["coingecko", "curve-usdc", "uniswap-v3"]
+    },
+    "VST": {
+      "source": ["coingecko", "curve-frax"]
     }
   }
 }

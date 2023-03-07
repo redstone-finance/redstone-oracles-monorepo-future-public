@@ -2,6 +2,7 @@
 pragma solidity ^0.8.4;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "./PriceFeedsManager.sol";
 
 contract PriceFeed is AggregatorV3Interface {
   address private owner;
@@ -67,7 +68,15 @@ contract PriceFeed is AggregatorV3Interface {
       uint80 answeredInRound
     )
   {
-    return (uint80(0), int256(dataFeedValue), uint256(0), uint256(0), uint80(0));
+    (uint256 round, uint256 lastUpdateTimestampMilliseconds) = PriceFeedsManager(owner)
+      .getLastRoundParams();
+    return (
+      uint80(round),
+      int256(dataFeedValue),
+      uint256(lastUpdateTimestampMilliseconds),
+      uint256(block.timestamp),
+      uint80(round)
+    );
   }
 
   function storeDataFeedValue(uint256 value) external _onlyOwner {

@@ -2556,7 +2556,7 @@
         "balancer-dai",
         "balancer-weth",
         "coingecko",
-        "coinmarketcap",
+        "sushiswap-on-chain-dai",
         "uniswap-v3"
       ]
     },
@@ -2947,6 +2947,9 @@
     "CUSD": {
       "source": ["coingecko", "huobipro", "kucoin"]
     },
+    "FRAX": {
+      "source": ["coingecko", "curve-usdc", "uniswap-v3"]
+    },
     "SENSO": {
       "source": ["hitbtc", "kucoin", "poloniex"]
     },
@@ -3234,6 +3237,9 @@
     },
     "XSGD": {
       "source": ["coingecko", "uniswap"]
+    },
+    "VST": {
+      "source": ["coingecko", "curve-frax"]
     },
     "AAPL": {
       "source": ["currencycom", "yf-unofficial"]
