@@ -19,6 +19,7 @@ export interface DataPackagesRequestParams {
   uniqueSignersCount: number;
   dataFeeds?: string[];
   disablePayloadsDryRun?: boolean;
+  maxTimestampDelay?: number;
 }
 
 export interface DataPackagesResponse {
@@ -69,8 +70,10 @@ export const parseDataPackagesResponse = (
       );
     }
 
+    validateTimestampDelay(reqParams, dataFeedPackages);
+
     parsedResponse[dataFeedId] = dataFeedPackages
-      .sort((a, b) => b.timestampMilliseconds - a.timestampMilliseconds) // we prefer newer data packages in the first order
+      .sort((a, b) => b.timestampMilliseconds - a.timestampMilliseconds)
       .slice(0, reqParams.uniqueSignersCount)
       .map((dataPackage: SignedDataPackagePlainObj) =>
         SignedDataPackage.fromObj(dataPackage)
@@ -78,6 +81,32 @@ export const parseDataPackagesResponse = (
   }
 
   return parsedResponse;
+};
+
+const validateTimestampDelay = (
+  reqParams: DataPackagesRequestParams,
+  dataFeedPackages: SignedDataPackagePlainObj[]
+) => {
+  const currentTimestamp = Date.now();
+
+  const maxTimestampDelay = reqParams?.maxTimestampDelay ?? currentTimestamp;
+  const outdatedDataPackages = dataFeedPackages.filter(
+    (dataFeedPackage) =>
+      currentTimestamp - maxTimestampDelay >=
+      dataFeedPackage.timestampMilliseconds
+  );
+  const isAnyPackageOutdated = outdatedDataPackages.length > 0;
+  if (isAnyPackageOutdated) {
+    const outdatedDataPackagesTimestamps = outdatedDataPackages.map(
+      ({ timestampMilliseconds }) => timestampMilliseconds
+    );
+    throw new Error(
+      `At least one datapackage is outdated. Current timestamp: ${currentTimestamp}. ` +
+        `Outdated datapackages timestamps: ${JSON.stringify(
+          outdatedDataPackagesTimestamps
+        )}`
+    );
+  }
 };
 
 const errToString = (e: any): string => {
