@@ -3,26 +3,21 @@ pragma solidity ^0.8.4;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./PriceFeedsManager.sol";
+import "./CustomErrors.sol";
 
 contract PriceFeed is AggregatorV3Interface {
-  address private owner;
+  address private priceFeedsManagerAddress;
   bytes32 public dataFeedId;
-  uint256 public dataFeedValue;
   string public descriptionText;
 
   constructor(
-    address owner_,
+    address priceFeedsManagerAddress_,
     bytes32 dataFeedId_,
-    string memory _description
+    string memory description_
   ) {
+    priceFeedsManagerAddress = priceFeedsManagerAddress_;
     dataFeedId = dataFeedId_;
-    owner = owner_;
-    descriptionText = _description;
-  }
-
-  modifier _onlyOwner() {
-    require(msg.sender == owner, "Caller is not the owner");
-    _;
+    descriptionText = description_;
   }
 
   function getDataFeedId() external view returns (bytes32) {
@@ -41,19 +36,21 @@ contract PriceFeed is AggregatorV3Interface {
     return 1;
   }
 
-  function getRoundData(uint80 _roundId)
+  function getRoundData(
+    uint80 /* _roundId */
+  )
     external
     pure
     override
     returns (
-      uint80 roundId,
-      int256 answer,
-      uint256 startedAt,
-      uint256 updatedAt,
-      uint80 answeredInRound
+      uint80, /* roundId */
+      int256, /* answer */
+      uint256, /* startedAt */
+      uint256, /* updatedAt */
+      uint80 /* answeredInRound */
     )
   {
-    revert("Use latestRoundData to get data feed price");
+    revert CustomErrors.UseLatestRoundToGetDataFeedPrice();
   }
 
   function latestRoundData()
@@ -68,18 +65,19 @@ contract PriceFeed is AggregatorV3Interface {
       uint80 answeredInRound
     )
   {
-    (uint256 round, uint256 lastUpdateTimestampMilliseconds) = PriceFeedsManager(owner)
-      .getLastRoundParams();
+    (
+      uint256 dataFeedValue,
+      uint256 roundId_,
+      uint256 lastUpdateTimestampMilliseconds
+    ) = PriceFeedsManager(priceFeedsManagerAddress).getValueForDataFeedAndLastRoundParams(
+        dataFeedId
+      );
     return (
-      uint80(round),
+      uint80(roundId_),
       int256(dataFeedValue),
       uint256(lastUpdateTimestampMilliseconds),
       uint256(block.timestamp),
-      uint80(round)
+      uint80(roundId_)
     );
-  }
-
-  function storeDataFeedValue(uint256 value) external _onlyOwner {
-    dataFeedValue = value;
   }
 }
