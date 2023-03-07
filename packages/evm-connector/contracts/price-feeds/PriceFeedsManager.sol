@@ -2,28 +2,23 @@
 
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "../data-services/MainDemoConsumerBase.sol";
-import "./PriceFeedsRegistry.sol";
-import "./PriceFeed.sol";
+import "./CustomErrors.sol";
 
-contract PriceFeedsManager is MainDemoConsumerBase, Initializable {
+contract PriceFeedsManager is MainDemoConsumerBase, Ownable {
+  using EnumerableSet for EnumerableSet.Bytes32Set;
+
   uint256 public lastRound = 0;
   uint256 public lastUpdateTimestampMilliseconds = 0;
-  PriceFeedsRegistry public priceFeedRegistry;
+  EnumerableSet.Bytes32Set private dataFeedsIds;
+  mapping(bytes32 => uint256) dataFeedsValues;
 
-  error ProposedTimestampSmallerOrEqualToLastTimestamp(
-    uint256 lastUpdateTimestampMilliseconds,
-    uint256 blockTimestamp
-  );
-
-  error ProposedTimestampDoesNotMatchReceivedTimestamp(
-    uint256 proposedTimestamp,
-    uint256 receivedTimestampMilliseconds
-  );
-
-  function initialize(address priceFeedsRegistryAddress) public initializer {
-    priceFeedRegistry = PriceFeedsRegistry(priceFeedsRegistryAddress);
+  constructor(bytes32[] memory dataFeedsIds_) {
+    for (uint256 i = 0; i < dataFeedsIds_.length; i++) {
+      EnumerableSet.add(dataFeedsIds, dataFeedsIds_[i]);
+    }
   }
 
   function validateTimestamp(uint256 receivedTimestampMilliseconds) public view override {
@@ -33,7 +28,7 @@ contract PriceFeedsManager is MainDemoConsumerBase, Initializable {
       after validation in valivalidateTimestampFromUser and equal to proposedTimestamp
     */
     if (receivedTimestampMilliseconds != lastUpdateTimestampMilliseconds) {
-      revert ProposedTimestampDoesNotMatchReceivedTimestamp(
+      revert CustomErrors.ProposedTimestampDoesNotMatchReceivedTimestamp(
         lastUpdateTimestampMilliseconds,
         receivedTimestampMilliseconds
       );
@@ -42,11 +37,24 @@ contract PriceFeedsManager is MainDemoConsumerBase, Initializable {
 
   function validateProposedTimestamp(uint256 proposedTimestamp) private view {
     if (proposedTimestamp <= lastUpdateTimestampMilliseconds) {
-      revert ProposedTimestampSmallerOrEqualToLastTimestamp(
+      revert CustomErrors.ProposedTimestampSmallerOrEqualToLastTimestamp(
         proposedTimestamp,
         lastUpdateTimestampMilliseconds
       );
     }
+  }
+
+  /*
+    We want to update data feeds values right after adding a new one.
+    This is because without it someone could get the value of the newly
+    added data feed before updating the value when it is still zero.
+  */
+  function addDataFeedIdAndUpdateValues(bytes32 newDataFeedId, uint256 proposedTimestamp)
+    public
+    onlyOwner
+  {
+    EnumerableSet.add(dataFeedsIds, newDataFeedId);
+    updateDataFeedValues(lastRound + 1, proposedTimestamp);
   }
 
   function isProposedRoundValid(uint256 proposedRound) private view returns (bool) {
@@ -65,6 +73,10 @@ contract PriceFeedsManager is MainDemoConsumerBase, Initializable {
     return (lastRound, lastUpdateTimestampMilliseconds);
   }
 
+  function getDataFeedsIds() public view returns (bytes32[] memory) {
+    return dataFeedsIds._inner._values;
+  }
+
   function updateDataFeedValues(uint256 proposedRound, uint256 proposedTimestamp) public {
     if (!isProposedRoundValid(proposedRound)) return;
     lastRound = proposedRound;
@@ -75,27 +87,44 @@ contract PriceFeedsManager is MainDemoConsumerBase, Initializable {
       getOracleNumericValuesFromTxMsg will call validateTimestamp
       for each data package from the redstone payload 
     */
-    bytes32[] memory dataFeedsIds = priceFeedRegistry.getDataFeeds();
-    uint256[] memory values = getOracleNumericValuesFromTxMsg(dataFeedsIds);
-    for (uint256 i = 0; i < dataFeedsIds.length; i++) {
-      PriceFeed(priceFeedRegistry.getPriceFeedContractAddress(dataFeedsIds[i])).storeDataFeedValue(
-          values[i]
-        );
+    bytes32[] memory dataFeedsIdsArray = dataFeedsIds._inner._values;
+    uint256[] memory values = getOracleNumericValuesFromTxMsg(dataFeedsIdsArray);
+    for (uint256 i = 0; i < dataFeedsIdsArray.length; i++) {
+      dataFeedsValues[dataFeedsIdsArray[i]] = values[i];
     }
   }
 
-  function getValuesForDataFeeds(bytes32[] memory dataFeedsIds)
+  function getValueForDataFeed(bytes32 dataFeedId) public view returns (uint256) {
+    uint256 dataFeedValue = dataFeedsValues[dataFeedId];
+    if (dataFeedValue == 0) {
+      revert CustomErrors.DataFeedValueCannotBeZero(dataFeedId);
+    }
+    return dataFeedValue;
+  }
+
+  function getValueForDataFeedAndLastRoundParams(bytes32 dataFeedId)
     public
     view
-    returns (bytes32[] memory, int256[] memory)
+    returns (
+      uint256 dataFeedValue,
+      uint256 lastRoundNumber,
+      uint256 lastUpdateTimestampInMilliseconds
+    )
   {
-    int256[] memory values = new int256[](dataFeedsIds.length);
-    for (uint256 i = 0; i < dataFeedsIds.length; i++) {
-      (, int256 dataFeedIdValue, , , ) = PriceFeed(
-        priceFeedRegistry.getPriceFeedContractAddress(dataFeedsIds[i])
-      ).latestRoundData();
-      values[i] = dataFeedIdValue;
+    dataFeedValue = getValueForDataFeed(dataFeedId);
+    lastRoundNumber = lastRound;
+    lastUpdateTimestampInMilliseconds = lastUpdateTimestampMilliseconds;
+  }
+
+  function getValuesForDataFeeds(bytes32[] memory requestedDataFeedsIds)
+    public
+    view
+    returns (uint256[] memory)
+  {
+    uint256[] memory values = new uint256[](requestedDataFeedsIds.length);
+    for (uint256 i = 0; i < requestedDataFeedsIds.length; i++) {
+      values[i] = getValueForDataFeed(requestedDataFeedsIds[i]);
     }
-    return (dataFeedsIds, values);
+    return (values);
   }
 }

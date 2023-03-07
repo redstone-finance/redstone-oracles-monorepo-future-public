@@ -1,5 +1,16 @@
 [
   {
+    "inputs": [
+      {
+        "internalType": "bytes32[]",
+        "name": "dataFeedsIds_",
+        "type": "bytes32[]"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
     "inputs": [],
     "name": "CalldataMustHaveValidPayload",
     "type": "error"
@@ -12,6 +23,17 @@
   {
     "inputs": [],
     "name": "CanNotPickMedianOfEmptyArray",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "dataFeedId",
+        "type": "bytes32"
+      }
+    ],
+    "name": "DataFeedValueCannotBeZero",
     "type": "error"
   },
   {
@@ -70,7 +92,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "lastUpdateTimestampMilliseconds",
+        "name": "lastUpdateTimestampInMilliseconds",
         "type": "uint256"
       },
       {
@@ -129,14 +151,38 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
-        "internalType": "uint8",
-        "name": "version",
-        "type": "uint8"
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
       }
     ],
-    "name": "Initialized",
+    "name": "OwnershipTransferred",
     "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "newDataFeedId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "proposedTimestamp",
+        "type": "uint256"
+      }
+    ],
+    "name": "addDataFeedIdAndUpdateValues",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "inputs": [
@@ -171,6 +217,19 @@
         "internalType": "uint8",
         "name": "",
         "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getDataFeedsIds",
+    "outputs": [
+      {
+        "internalType": "bytes32[]",
+        "name": "",
+        "type": "bytes32[]"
       }
     ],
     "stateMutability": "view",
@@ -236,22 +295,17 @@
   {
     "inputs": [
       {
-        "internalType": "bytes32[]",
-        "name": "dataFeedsIds",
-        "type": "bytes32[]"
+        "internalType": "bytes32",
+        "name": "dataFeedId",
+        "type": "bytes32"
       }
     ],
-    "name": "getValuesForDataFeeds",
+    "name": "getValueForDataFeed",
     "outputs": [
       {
-        "internalType": "bytes32[]",
+        "internalType": "uint256",
         "name": "",
-        "type": "bytes32[]"
-      },
-      {
-        "internalType": "int256[]",
-        "name": "",
-        "type": "int256[]"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -260,14 +314,49 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "priceFeedsRegistryAddress",
-        "type": "address"
+        "internalType": "bytes32",
+        "name": "dataFeedId",
+        "type": "bytes32"
       }
     ],
-    "name": "initialize",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "name": "getValueForDataFeedAndLastRoundParams",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "dataFeedValue",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lastRoundNumber",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lastUpdateTimestampInMilliseconds",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32[]",
+        "name": "requestedDataFeedsIds",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "getValuesForDataFeeds",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -298,15 +387,35 @@
   },
   {
     "inputs": [],
-    "name": "priceFeedRegistry",
+    "name": "owner",
     "outputs": [
       {
-        "internalType": "contract PriceFeedsRegistry",
+        "internalType": "address",
         "name": "",
         "type": "address"
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
