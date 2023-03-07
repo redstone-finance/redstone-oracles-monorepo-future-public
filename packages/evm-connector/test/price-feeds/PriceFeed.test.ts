@@ -45,14 +45,14 @@ describe("PriceFeed", () => {
 
   it("should store data feed value and fetch latest value", async () => {
     await contract.storeDataFeedValue(123);
-    const latestValue = await contract.latestRoundData();
-    expect(latestValue.answer).to.be.equal(123);
+    const latestValue = await contract.dataFeedValue();
+    expect(latestValue).to.be.equal(123);
   });
 
   it("should store data feed value twice and fetch latest value", async () => {
     await contract.storeDataFeedValue(125);
     await contract.storeDataFeedValue(128);
-    const latestValue = await contract.latestRoundData();
-    expect(latestValue.answer).to.be.equal(128);
+    const latestValue = await contract.dataFeedValue();
+    expect(latestValue).to.be.equal(128);
   });
 });

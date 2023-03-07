@@ -5,6 +5,8 @@ import managerAbi from "../config/price-feeds-manager.abi.json";
 import registryAbi from "../config/price-feeds-registry.abi.json";
 import { bytesCodes } from "../config/bytes-codes";
 
+const dataFeed = "";
+
 (async () => {
   const provider = getProvider();
   const signer = new Wallet(config.privateKey, provider);
@@ -40,11 +42,11 @@ import { bytesCodes } from "../config/bytes-codes";
   await initializeTransaction.wait();
   console.log("Manager contract initialized");
 
-  console.log("Adding OHM data feed to registry...");
-  const ohmDataFeedId = utils.formatBytes32String("OHM");
+  console.log(`Adding ${dataFeed} data feed to registry...`);
+  const ohmDataFeedId = utils.formatBytes32String(dataFeed);
   const addDataFeedTransaction = await registryContract.addDataFeed(
     ohmDataFeedId
   );
   await addDataFeedTransaction.wait();
-  console.log("OHM data feed to registry added");
+  console.log(`${dataFeed} data feed to registry added`);
 })();
