@@ -2,14 +2,13 @@ import { ContractFactory, Wallet, utils } from "ethers";
 import { getProvider } from "../utils";
 import { config } from "../config";
 import managerAbi from "../config/price-feeds-manager.abi.json";
-import registryAbi from "../config/price-feeds-registry.abi.json";
+import priceFeedAbi from "../config/price-feed.abi.json";
 import { bytesCodes } from "../config/bytes-codes";
-
-const dataFeed = "";
 
 (async () => {
   const provider = getProvider();
   const signer = new Wallet(config.privateKey, provider);
+  const dataFeeds = config.dataFeeds as string[];
 
   console.log("Deploying manager contract...");
   const managerFactory = new ContractFactory(
@@ -17,36 +16,26 @@ const dataFeed = "";
     bytesCodes.manager,
     signer
   );
-  const managerContract = await managerFactory.deploy();
+  const dataFeedsAsBytes32 = dataFeeds.map(utils.formatBytes32String);
+  const managerContract = await managerFactory.deploy(dataFeedsAsBytes32);
   await managerContract.deployed();
-  console.log(`Manager contract deployed: ${managerContract.address}`);
+  console.log(`Manager contract deployed - ${managerContract.address}`);
 
-  console.log("Deploying registry contract...");
-  const registryFactory = new ContractFactory(
-    registryAbi,
-    bytesCodes.registry,
-    signer
-  );
-  const registryContract = await registryFactory.deploy(
-    managerContract.address
-  );
-  await registryContract.deployed();
-  console.log(`Registry contract deployed: ${registryContract.address}`);
-
-  console.log(
-    "Initializing manager contract with registry contract address..."
-  );
-  const initializeTransaction = await managerContract.initialize(
-    registryContract.address
-  );
-  await initializeTransaction.wait();
-  console.log("Manager contract initialized");
-
-  console.log(`Adding ${dataFeed} data feed to registry...`);
-  const ohmDataFeedId = utils.formatBytes32String(dataFeed);
-  const addDataFeedTransaction = await registryContract.addDataFeed(
-    ohmDataFeedId
-  );
-  await addDataFeedTransaction.wait();
-  console.log(`${dataFeed} data feed to registry added`);
+  console.log("Deploying price feeds contracts...");
+  for (const dataFeed of dataFeeds) {
+    const priceFeedFactory = new ContractFactory(
+      priceFeedAbi,
+      bytesCodes.priceFeed,
+      signer
+    );
+    const priceFeedContract = await priceFeedFactory.deploy(
+      managerContract.address,
+      dataFeed,
+      `RedStone price feed for ${dataFeed}`
+    );
+    await priceFeedContract.deployed();
+    console.log(
+      `Price feed contract for ${dataFeed} deployed - ${priceFeedContract.address}`
+    );
+  }
 })();

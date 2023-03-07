@@ -6,7 +6,7 @@ import "./AuthorisedMockSignersBase.sol";
 import "../price-feeds/PriceFeedsManager.sol";
 
 contract PriceFeedsManagerMock is PriceFeedsManager, AuthorisedMockSignersBase {
-  constructor() PriceFeedsManager() {}
+  constructor(bytes32[] memory dataFeedsIds) PriceFeedsManager(dataFeedsIds) {}
 
   function getUniqueSignersThreshold() public view virtual override returns (uint8) {
     return 10;
