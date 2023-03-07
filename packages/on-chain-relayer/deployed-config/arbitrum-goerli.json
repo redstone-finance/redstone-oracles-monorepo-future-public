@@ -1,0 +1,8 @@
+{
+  "registry": "0x0ed6b13775777318145b93589a34e9b2f5a6b0d4",
+  "manager": "0xCa8b247304767619fCcF5b0829D0a5AAf414BA7D",
+  "vst-price-feed": "0xe6cf4c9a892b53363f23256cc5cd31563f9a549a",
+  "RPC_URL": "https://goerli-rollup.arbitrum.io/rpc/",
+  "CHAIN_NAME": "Arbitrum Goerli Testnet",
+  "CHAIN_ID": "421613"
+}

@@ -1,0 +1,8 @@
+{
+  "registry": "0x13391746cC100e3b89f65aD6171a201a1724c98B",
+  "manager": "0x52a9Fed1EE387276052F0fC49A1A11463eE18bA0",
+  "ohm-price-feed": "0x6d95d190a8db4c8740de7b636a93bdc1ec53dcd1",
+  "RPC_URL": "https://goerli.infura.io/v3/",
+  "CHAIN_NAME": "Goerli test network",
+  "CHAIN_ID": "5"
+}
