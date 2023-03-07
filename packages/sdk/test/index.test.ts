@@ -7,6 +7,9 @@ import {
 import { mockSignedDataPackages } from "./mocks/mock-packages";
 import { server } from "./mocks/server";
 
+const BASE_TIMESTAMP = 1654353405000;
+const MAX_ALLOWED_TIMESTAMP_DELAY = 10000;
+
 describe("SDK tests", () => {
   const reqParams: DataPackagesRequestParams = {
     dataFeeds: ["BTC", "ETH"],
@@ -89,6 +92,33 @@ describe("SDK tests", () => {
       })
     ).rejects.toThrow(
       "Too few unique signers for the data feed: BTC. Expected: 3. Received: 2"
+    );
+  });
+
+  test("Should fail for outdated data package", async () => {
+    jest
+      .useFakeTimers()
+      .setSystemTime(BASE_TIMESTAMP + MAX_ALLOWED_TIMESTAMP_DELAY + 1);
+
+    await expect(() =>
+      requestDataPackages({
+        ...reqParams,
+        maxTimestampDelay: MAX_ALLOWED_TIMESTAMP_DELAY,
+      })
+    ).rejects.toThrow(
+      "At least one datapackage is outdated. Current timestamp: 1654353415001. Outdated datapackages timestamps: [1654353400000,1654353400000]"
+    );
+  });
+
+  test("Should fetch data packages with valid timestamp", async () => {
+    jest.useFakeTimers().setSystemTime(BASE_TIMESTAMP);
+
+    const dataPackages = await requestDataPackages({
+      ...reqParams,
+      maxTimestampDelay: MAX_ALLOWED_TIMESTAMP_DELAY,
+    });
+    expect(mockSignedDataPackages.ETH[0]).toMatchObject(
+      dataPackages["ETH"][0].toObj()
     );
   });
 });
