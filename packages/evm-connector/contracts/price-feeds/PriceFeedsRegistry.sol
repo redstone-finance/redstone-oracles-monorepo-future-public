@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.4;
 
-import "./PriceFeed.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableMap.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "./PriceFeed.sol";
 
 contract PriceFeedsRegistry is Ownable {
   using EnumerableMap for EnumerableMap.UintToAddressMap;

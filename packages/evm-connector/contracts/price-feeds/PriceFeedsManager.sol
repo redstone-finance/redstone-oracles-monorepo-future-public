@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.4;
 
-import "../data-services/MainDemoConsumerBase.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "../data-services/MainDemoConsumerBase.sol";
 import "./PriceFeedsRegistry.sol";
 import "./PriceFeed.sol";
 
@@ -82,5 +82,20 @@ contract PriceFeedsManager is MainDemoConsumerBase, Initializable {
           values[i]
         );
     }
+  }
+
+  function getValuesForDataFeeds(bytes32[] memory dataFeedsIds)
+    public
+    view
+    returns (bytes32[] memory, int256[] memory)
+  {
+    int256[] memory values = new int256[](dataFeedsIds.length);
+    for (uint256 i = 0; i < dataFeedsIds.length; i++) {
+      (, int256 dataFeedIdValue, , , ) = PriceFeed(
+        priceFeedRegistry.getPriceFeedContractAddress(dataFeedsIds[i])
+      ).latestRoundData();
+      values[i] = dataFeedIdValue;
+    }
+    return (dataFeedsIds, values);
   }
 }
