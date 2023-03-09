@@ -24,7 +24,7 @@ contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable {
   function validateTimestamp(uint256 receivedTimestampMilliseconds) public view override {
     RedstoneDefaultsLib.validateTimestamp(receivedTimestampMilliseconds);
     /* 
-      Here lastUpdateTimestampMilliseconds is already updated inside updateDataFeedValues
+      Here lastUpdateTimestampMilliseconds is already updated inside updateDataFeedsValues
       after validation in valivalidateTimestampFromUser and equal to proposedTimestamp
     */
     if (receivedTimestampMilliseconds < lastUpdateTimestampMilliseconds) {
@@ -54,7 +54,7 @@ contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable {
     onlyOwner
   {
     EnumerableSet.add(dataFeedsIds, newDataFeedId);
-    updateDataFeedValues(lastRound + 1, proposedTimestamp);
+    updateDataFeedsValues(lastRound + 1, proposedTimestamp);
   }
 
   function isProposedRoundValid(uint256 proposedRound) private view returns (bool) {
@@ -77,7 +77,7 @@ contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable {
     return dataFeedsIds._inner._values;
   }
 
-  function updateDataFeedValues(uint256 proposedRound, uint256 proposedTimestamp) public {
+  function updateDataFeedsValues(uint256 proposedRound, uint256 proposedTimestamp) public {
     if (!isProposedRoundValid(proposedRound)) return;
     lastRound = proposedRound;
     validateProposedTimestamp(proposedTimestamp);

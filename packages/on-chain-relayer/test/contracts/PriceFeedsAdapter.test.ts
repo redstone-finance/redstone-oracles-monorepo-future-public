@@ -35,7 +35,7 @@ describe("PriceFeedsAdapter", () => {
       contract,
       timestamp
     );
-    await wrappedContract.updateDataFeedValues(1, timestamp);
+    await wrappedContract.updateDataFeedsValues(1, timestamp);
   });
 
   it("should properly initialize", async () => {
@@ -45,7 +45,7 @@ describe("PriceFeedsAdapter", () => {
   });
 
   it("should return if invalid proposed round", async () => {
-    await wrappedContract.updateDataFeedValues(0, timestamp);
+    await wrappedContract.updateDataFeedsValues(0, timestamp);
     const [round, lastUpdateTimestamp] = await contract.getLastRoundParams();
     expect(round).to.be.equal(1);
     expect(lastUpdateTimestamp).to.be.equal(timestamp);
@@ -54,7 +54,7 @@ describe("PriceFeedsAdapter", () => {
   it("should revert if proposed timestamp smaller than last update", async () => {
     const smallerTimestamp = timestamp - 1000;
     await expect(
-      wrappedContract.updateDataFeedValues(2, smallerTimestamp)
+      wrappedContract.updateDataFeedsValues(2, smallerTimestamp)
     ).to.be.rejectedWith(
       `ProposedTimestampSmallerOrEqualToLastTimestamp(${smallerTimestamp}, ${timestamp})`
     );
@@ -68,7 +68,7 @@ describe("PriceFeedsAdapter", () => {
       newTimestamp
     );
     await expect(
-      wrappedContract.updateDataFeedValues(2, biggerTimestamp)
+      wrappedContract.updateDataFeedsValues(2, biggerTimestamp)
     ).to.be.rejectedWith(
       `ProposedTimestampDoesNotMatchReceivedTimestamp(${biggerTimestamp}, ${newTimestamp})`
     );
@@ -92,7 +92,7 @@ describe("PriceFeedsAdapter", () => {
       contract,
       newTimestamp
     );
-    await wrappedContract.updateDataFeedValues(2, newTimestamp);
+    await wrappedContract.updateDataFeedsValues(2, newTimestamp);
     const [round, lastUpdateTimestamp] = await contract.getLastRoundParams();
     expect(round).to.be.equal(2);
     expect(lastUpdateTimestamp).to.be.equal(newTimestamp);

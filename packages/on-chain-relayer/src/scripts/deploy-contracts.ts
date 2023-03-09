@@ -1,7 +1,8 @@
-import { Wallet, utils } from "ethers";
-import { ethers } from "hardhat";
+import { Wallet, utils, ContractFactory } from "ethers";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { requestDataPackages } from "redstone-sdk";
+import PriceFeedsAdapter from "../../artifacts/contracts/price-feeds/PriceFeedsAdapter.sol/PriceFeedsAdapter.json";
+import PriceFeed from "../../artifacts/contracts/price-feeds/PriceFeed.sol/PriceFeed.json";
 import { getProvider } from "../core/contract-interactions/get-provider";
 import { config } from "../config";
 
@@ -10,25 +11,26 @@ import { config } from "../config";
   const signer = new Wallet(config.privateKey, provider);
   const dataFeeds = config.dataFeeds as string[];
 
-  console.log("Deploying manager contract...");
-  const managerFactory = await ethers.getContractFactory(
-    "PriceFeedsAdapter",
+  console.log("Deploying adapter contract...");
+  const adapterFactory = new ContractFactory(
+    PriceFeedsAdapter.abi,
+    PriceFeedsAdapter.bytecode,
     signer
   );
   const dataFeedsAsBytes32 = dataFeeds.map(utils.formatBytes32String);
-  const managerContract = await managerFactory.deploy(dataFeedsAsBytes32);
-  await managerContract.deployed();
-  console.log(`Manager contract deployed - ${managerContract.address}`);
+  const adapterContract = await adapterFactory.deploy(dataFeedsAsBytes32);
+  await adapterContract.deployed();
+  console.log(`Adapter contract deployed - ${adapterContract.address}`);
 
-  let priceFeedContract;
   console.log("Deploying price feeds contracts...");
   for (const dataFeed of dataFeeds) {
-    const priceFeedFactory = await ethers.getContractFactory(
-      "PriceFeed",
+    const priceFeedFactory = new ContractFactory(
+      PriceFeed.abi,
+      PriceFeed.bytecode,
       signer
     );
-    priceFeedContract = await priceFeedFactory.deploy(
-      managerContract.address,
+    const priceFeedContract = await priceFeedFactory.deploy(
+      adapterContract.address,
       utils.formatBytes32String(dataFeed),
       `RedStone price feed for ${dataFeed}`
     );
@@ -50,20 +52,18 @@ import { config } from "../config";
     cacheServiceUrls
   );
 
-  if (priceFeedContract) {
+  if (adapterContract) {
     const wrappedContract =
-      WrapperBuilder.wrap(priceFeedContract).usingDataPackages(dataPackages);
+      WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
 
     const dataPackageTimestamp =
       dataPackages[dataFeeds[0]][0].dataPackage.timestampMilliseconds;
 
     const firstRound = 1;
-    const updateTransaction = await wrappedContract.updateDataFeedValues(
+    const updateTransaction = await wrappedContract.updateDataFeedsValues(
       firstRound,
       dataPackageTimestamp,
-      {
-        gasLimit,
-      }
+      { gasLimit }
     );
     await updateTransaction.wait();
     console.log("Successfully updated prices");
