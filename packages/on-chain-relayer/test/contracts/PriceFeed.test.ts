@@ -40,7 +40,7 @@ describe("PriceFeed", () => {
       managerContract,
       timestamp
     );
-    await wrappedContract.updateDataFeedValues(1, timestamp);
+    await wrappedContract.updateDataFeedsValues(1, timestamp);
   });
 
   it("should properly initialize", async () => {

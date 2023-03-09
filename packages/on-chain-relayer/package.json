@@ -14,8 +14,6 @@
     "@redstone-finance/evm-connector": "^0.0.19",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
-    "redstone-protocol": "^1.0.5",
-    "redstone-sdk": "^1.0.7",
     "toad-scheduler": "^2.2.0"
   },
   "devDependencies": {

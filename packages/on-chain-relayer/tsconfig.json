@@ -21,7 +21,8 @@
     "./typechain-types",
     "package.json",
     "./contracts",
-    "src/**/*.json"
+    "src/**/*.json",
+    "./artifacts/**/*.json"
   ],
   "files": ["./hardhat.config.ts"],
   "references": [
