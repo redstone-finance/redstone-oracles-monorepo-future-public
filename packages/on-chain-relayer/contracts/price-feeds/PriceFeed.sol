@@ -6,16 +6,16 @@ import "./PriceFeedsAdapter.sol";
 import "./CustomErrors.sol";
 
 contract PriceFeed is AggregatorV3Interface {
-  address private priceFeedsManagerAddress;
+  address private priceFeedsAdapterAddress;
   bytes32 public dataFeedId;
   string public descriptionText;
 
   constructor(
-    address priceFeedsManagerAddress_,
+    address priceFeedsAdapterAddress_,
     bytes32 dataFeedId_,
     string memory description_
   ) {
-    priceFeedsManagerAddress = priceFeedsManagerAddress_;
+    priceFeedsAdapterAddress = priceFeedsAdapterAddress_;
     dataFeedId = dataFeedId_;
     descriptionText = description_;
   }
@@ -69,7 +69,7 @@ contract PriceFeed is AggregatorV3Interface {
       uint256 dataFeedValue,
       uint256 roundId_,
       uint256 lastUpdateTimestampMilliseconds
-    ) = PriceFeedsAdapter(priceFeedsManagerAddress).getValueForDataFeedAndLastRoundParams(
+    ) = PriceFeedsAdapter(priceFeedsAdapterAddress).getValueForDataFeedAndLastRoundParams(
         dataFeedId
       );
     return (
