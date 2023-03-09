@@ -4,10 +4,10 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
-import "../data-services/MainDemoConsumerBase.sol";
+import "@redstone-finance/evm-connector/contracts/data-services/MainDemoConsumerBase.sol";
 import "./CustomErrors.sol";
 
-contract PriceFeedsManager is MainDemoConsumerBase, Ownable {
+contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable {
   using EnumerableSet for EnumerableSet.Bytes32Set;
 
   uint256 public lastRound = 0;
@@ -27,7 +27,7 @@ contract PriceFeedsManager is MainDemoConsumerBase, Ownable {
       Here lastUpdateTimestampMilliseconds is already updated inside updateDataFeedValues
       after validation in valivalidateTimestampFromUser and equal to proposedTimestamp
     */
-    if (receivedTimestampMilliseconds != lastUpdateTimestampMilliseconds) {
+    if (receivedTimestampMilliseconds < lastUpdateTimestampMilliseconds) {
       revert CustomErrors.ProposedTimestampDoesNotMatchReceivedTimestamp(
         lastUpdateTimestampMilliseconds,
         receivedTimestampMilliseconds
