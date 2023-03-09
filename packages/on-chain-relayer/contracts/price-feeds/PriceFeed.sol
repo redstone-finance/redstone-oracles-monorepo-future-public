@@ -2,7 +2,7 @@
 pragma solidity ^0.8.4;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
-import "./PriceFeedsManager.sol";
+import "./PriceFeedsAdapter.sol";
 import "./CustomErrors.sol";
 
 contract PriceFeed is AggregatorV3Interface {
@@ -69,7 +69,7 @@ contract PriceFeed is AggregatorV3Interface {
       uint256 dataFeedValue,
       uint256 roundId_,
       uint256 lastUpdateTimestampMilliseconds
-    ) = PriceFeedsManager(priceFeedsManagerAddress).getValueForDataFeedAndLastRoundParams(
+    ) = PriceFeedsAdapter(priceFeedsManagerAddress).getValueForDataFeedAndLastRoundParams(
         dataFeedId
       );
     return (
