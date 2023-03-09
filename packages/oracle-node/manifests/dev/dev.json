@@ -1,7 +1,7 @@
 {
   "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": ["binance", "currencycom", "coingecko"],
+  "defaultSource": ["currencycom", "coingecko"],
   "sourceTimeout": 8000,
   "deviationCheck": {
     "deviationWithRecentValues": {
