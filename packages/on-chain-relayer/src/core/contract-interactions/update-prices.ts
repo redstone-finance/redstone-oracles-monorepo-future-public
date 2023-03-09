@@ -40,7 +40,7 @@ export const updatePrices = async (
       priceFeedsManagerContract
     ).usingDataPackages(dataPackages);
 
-    const updateTransaction = await wrappedContract.updateDataFeedValues(
+    const updateTransaction = await wrappedContract.updateDataFeedsValues(
       lastRound + 1,
       minimalTimestamp,
       {
