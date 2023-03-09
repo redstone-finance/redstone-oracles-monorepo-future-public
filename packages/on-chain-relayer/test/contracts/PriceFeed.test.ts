@@ -1,18 +1,27 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { ethers } from "hardhat";
-import { PriceFeed, PriceFeedsManager } from "../../typechain-types";
-import { dataFeedsIds, ethDataFeed, getWrappedContract } from "./helpers";
+import { PriceFeed, PriceFeedsAdapter } from "../../typechain-types";
+import {
+  dataFeedsIds,
+  ethDataFeed,
+  getWrappedContractAndUpdateBlockTimestamp,
+  mockEnvVariables,
+} from "../helpers";
 
 chai.use(chaiAsPromised);
 
 describe("PriceFeed", () => {
   let contract: PriceFeed;
-  let managerContract: PriceFeedsManager;
+  let managerContract: PriceFeedsAdapter;
+
+  before(() => {
+    mockEnvVariables();
+  });
 
   beforeEach(async () => {
     const MangerContractFactory = await ethers.getContractFactory(
-      "PriceFeedsManagerMock"
+      "PriceFeedsAdapterMock"
     );
     managerContract = await MangerContractFactory.deploy(dataFeedsIds);
     await managerContract.deployed();
@@ -27,7 +36,10 @@ describe("PriceFeed", () => {
     await contract.deployed();
 
     const timestamp = Date.now();
-    const wrappedContract = getWrappedContract(managerContract, timestamp);
+    const wrappedContract = await getWrappedContractAndUpdateBlockTimestamp(
+      managerContract,
+      timestamp
+    );
     await wrappedContract.updateDataFeedValues(1, timestamp);
   });
 

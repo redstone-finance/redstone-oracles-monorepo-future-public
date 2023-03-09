@@ -2,14 +2,14 @@
 
 pragma solidity ^0.8.4;
 
-import "./AuthorisedMockSignersBase.sol";
-import "../price-feeds/PriceFeedsManager.sol";
+import "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";
+import "../price-feeds/PriceFeedsAdapter.sol";
 
-contract PriceFeedsManagerMock is PriceFeedsManager, AuthorisedMockSignersBase {
-  constructor(bytes32[] memory dataFeedsIds) PriceFeedsManager(dataFeedsIds) {}
+contract PriceFeedsAdapterMock is PriceFeedsAdapter, AuthorisedMockSignersBase {
+  constructor(bytes32[] memory dataFeedsIds) PriceFeedsAdapter(dataFeedsIds) {}
 
   function getUniqueSignersThreshold() public view virtual override returns (uint8) {
-    return 10;
+    return 2;
   }
 
   function getAuthorisedSignerIndex(address signerAddress)

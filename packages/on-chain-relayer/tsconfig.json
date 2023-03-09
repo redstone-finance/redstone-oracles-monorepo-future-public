@@ -1,22 +1,35 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "target": "es2018",
-    "declaration": true,
-    "outDir": "./dist",
-    "module": "commonjs",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
     "lib": ["es2021"],
-    "allowJs": true,
+    "target": "es2018",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "declaration": true,
     "declarationMap": true,
     "incremental": true,
     "composite": true
   },
-  "ts-node": {
-    "files": true
-  },
-  "include": ["src/**/*", "src/**/*.json", "./package.json"],
-  "exclude": ["node_modules"]
+  "include": [
+    "./src",
+    "./test",
+    "./typechain-types",
+    "package.json",
+    "./contracts",
+    "src/**/*.json"
+  ],
+  "files": ["./hardhat.config.ts"],
+  "references": [
+    {
+      "path": "../protocol"
+    },
+    {
+      "path": "../sdk"
+    }
+  ]
 }

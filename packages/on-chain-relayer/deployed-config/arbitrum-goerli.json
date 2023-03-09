@@ -1,8 +1,15 @@
 {
-  "registry": "0x0ed6b13775777318145b93589a34e9b2f5a6b0d4",
-  "manager": "0xCa8b247304767619fCcF5b0829D0a5AAf414BA7D",
-  "vst-price-feed": "0xe6cf4c9a892b53363f23256cc5cd31563f9a549a",
+  "RELAYER_ITERATION_INTERVAL": 10000,
+  "UPDATE_PRICE_INTERVAL": 110000,
   "RPC_URL": "https://goerli-rollup.arbitrum.io/rpc/",
   "CHAIN_NAME": "Arbitrum Goerli Testnet",
-  "CHAIN_ID": "421613"
+  "CHAIN_ID": 421613,
+  "MANGER_CONTRACT_ADDRESS": "0xeDEC7a47CFAd3845eEF7a5D86fE9472e9EFF93Aa",
+  "PRIVATE_KEY": "",
+  "DATA_SERVICE_ID": "redstone-main-demo",
+  "UNIQUE_SIGNERS_COUNT": 1,
+  "DATA_FEEDS": ["VST"],
+  "CACHE_SERVICE_URLS": ["https://d1zm8lxy9v2ddd.cloudfront.net"],
+
+  "VST_PRICE_FEED": "0x90b1728c74951eb35f812DF218989bb1E100664B"
 }
