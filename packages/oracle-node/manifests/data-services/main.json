@@ -2656,7 +2656,7 @@
       "source": ["binance", "bitfinex", "bitfinex2", "cex"]
     },
     "EUR": {
-      "source": ["binance", "currencycom", "ecb", "kraken"]
+      "source": ["binance", "currencycom", "kaiko", "kraken"]
     },
     "WRX": {
       "source": ["binance", "bitcoincom", "hitbtc", "poloniex"]
