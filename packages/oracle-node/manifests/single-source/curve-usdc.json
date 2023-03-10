@@ -14,6 +14,7 @@
   "enableStreamrBroadcaster": false,
   "enableArweaveBackup": false,
   "tokens": {
-    "FRAX": {}
+    "FRAX": {},
+    "DAI": {}
   }
 }

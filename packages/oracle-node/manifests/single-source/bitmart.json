@@ -11,6 +11,7 @@
   },
   "evmChainId": 1,
   "tokens": {
-    "CANTO": {}
+    "CANTO": {},
+    "DAI": {}
   }
 }
