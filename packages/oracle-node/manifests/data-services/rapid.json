@@ -325,22 +325,23 @@
     "DAI": {
       "source": [
         "binanceus",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
+        "bitget",
+        "bitmart",
+        "bkex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
+        "curve-usdc",
+        "curve-usdt",
         "huobipro",
+        "idex",
         "kraken",
-        "lbank",
         "okx",
-        "poloniex",
-        "probit",
+        "sushiswap-on-chain-weth",
         "sushiswap",
-        "uniswap"
+        "uniswap-v2-on-chain-weth",
+        "uniswap",
+        "xt"
       ]
     },
     "OHM": {
