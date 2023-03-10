@@ -1,7 +1,7 @@
 {
-  "interval": 60000,
+  "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["xt"],
+  "defaultSource": ["uniswap-v2-on-chain-weth"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,8 +10,10 @@
     }
   },
   "evmChainId": 1,
+  "httpBroadcasterURLs": [],
+  "enableStreamrBroadcaster": false,
+  "enableArweaveBackup": false,
   "tokens": {
-    "QI": {},
     "DAI": {}
   }
 }
