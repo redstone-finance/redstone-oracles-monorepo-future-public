@@ -2,7 +2,7 @@ import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
 import { shouldUpdate } from "./core/update-conditions/should-update";
 import { updatePrices } from "./core/contract-interactions/update-prices";
 import { getLastRoundParamsFromContract } from "./core/contract-interactions/get-last-round-params";
-import { getManagerContract } from "./core/contract-interactions/get-manager-contract";
+import { getManagerContract } from "./core/contract-interactions/get-adapter-contract";
 import { config } from "./config";
 
 const { relayerIterationInterval } = config;
