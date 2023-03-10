@@ -338,6 +338,29 @@
     },
     "YY_GLP": {
       "source": ["avalanche-evm-fetcher"]
+    },
+    "DAI": {
+      "source": [
+        "binanceus",
+        "bitmart",
+        "bkex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "curve-usdc",
+        "curve-usdt",
+        "huobipro",
+        "idex",
+        "kraken",
+        "okx",
+        "sushiswap-on-chain-weth",
+        "uniswap-v2-on-chain-weth",
+        "xt"
+      ],
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      }
     }
   }
 }
