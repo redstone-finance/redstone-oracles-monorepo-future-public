@@ -901,8 +901,6 @@
     "DAI": {
       "source": [
         "binanceus",
-        "bitget",
-        "bitmart",
         "bkex",
         "coinbaseprime",
         "coinbasepro",
@@ -914,9 +912,7 @@
         "kraken",
         "okx",
         "sushiswap-on-chain-weth",
-        "sushiswap",
         "uniswap-v2-on-chain-weth",
-        "uniswap",
         "xt"
       ]
     },
@@ -2529,7 +2525,7 @@
       ]
     },
     "CANTO": {
-      "source": ["bitmart", "bkex", "bkex", "coingecko", "gate", "mexc"]
+      "source": ["bkex", "coingecko", "gate", "mexc"]
     },
     "FLOW": {
       "source": [
