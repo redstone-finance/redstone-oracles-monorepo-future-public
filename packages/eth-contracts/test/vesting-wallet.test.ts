@@ -3,7 +3,7 @@ import { expect } from "chai";
 import { ethers, upgrades } from "hardhat";
 import { RedstoneToken } from "../typechain-types";
 import { time } from "../src/utils";
-import { Contract } from "ethers";
+import { Contract, Transaction } from "ethers";
 
 describe("Vesting Wallet", () => {
   let token: RedstoneToken,
@@ -12,6 +12,7 @@ describe("Vesting Wallet", () => {
     signers: SignerWithAddress[],
     authorisedSlasher: SignerWithAddress,
     beneficiary: SignerWithAddress,
+    notBeneficiary: SignerWithAddress,
     now: number = Math.floor(new Date().getTime() / 1000) + 100000000;
 
   const deployContracts = async (
@@ -22,6 +23,7 @@ describe("Vesting Wallet", () => {
     vestingDuration: number = 100
   ) => {
     signers = await ethers.getSigners();
+    notBeneficiary = signers[0];
     beneficiary = signers[1];
     authorisedSlasher = signers[2];
 
@@ -55,6 +57,7 @@ describe("Vesting Wallet", () => {
       cliffDuration,
       vestingDuration,
     ]);
+    wallet = wallet.connect(beneficiary);
 
     await token.transfer(wallet.address, allocation);
   };
@@ -62,11 +65,19 @@ describe("Vesting Wallet", () => {
   beforeEach(async () => {
     now += 1000;
     await time.setTimeAndMine(now);
+    await deployContracts(100, 100, now + 10, 100, 100);
   });
 
   describe("No external funding", () => {
+    it("Only beneficiary can try to release", async () => {
+      await expect(
+        wallet.connect(notBeneficiary).release(1)
+      ).to.be.revertedWith(
+        "VestingWallet: only beneficiary can call this function"
+      );
+    });
+
     it("Should not release before start", async () => {
-      await deployContracts(100, 100, now + 10, 100, 100);
       expect(await wallet.getReleasable()).to.eq(0);
 
       await expect(wallet.release(1)).to.be.revertedWith(
@@ -75,7 +86,6 @@ describe("Vesting Wallet", () => {
     });
 
     it("Should not release before end of the cliff", async () => {
-      await deployContracts(100, 100, now + 10, 100, 100);
       expect(await wallet.getReleasable()).to.eq(0);
 
       await expect(wallet.release(1)).to.be.revertedWith(
@@ -84,8 +94,6 @@ describe("Vesting Wallet", () => {
     });
 
     it("Should release in the 1/4 of vesting", async () => {
-      await deployContracts(100, 100, now + 10, 100, 100);
-
       expect(await token.balanceOf(beneficiary.address)).to.eq(0);
 
       await time.setTime(now + 10 + 100 + 25);
@@ -96,8 +104,6 @@ describe("Vesting Wallet", () => {
     });
 
     it("Should release in the 1/2 of vesting", async () => {
-      await deployContracts(100, 100, now + 10, 100, 100);
-
       expect(await token.balanceOf(beneficiary.address)).to.eq(0);
 
       await time.setTime(now + 10 + 100 + 50);
@@ -108,8 +114,6 @@ describe("Vesting Wallet", () => {
     });
 
     it("Should release in the 3/4 of vesting", async () => {
-      await deployContracts(100, 100, now + 10, 100, 100);
-
       expect(await token.balanceOf(beneficiary.address)).to.eq(0);
 
       await time.setTime(now + 10 + 100 + 75);
@@ -121,8 +125,6 @@ describe("Vesting Wallet", () => {
     });
 
     it("Should release in the all of vesting at the end of vesting period", async () => {
-      await deployContracts(100, 100, now + 10, 100, 100);
-
       expect(await token.balanceOf(beneficiary.address)).to.eq(0);
 
       await time.setTime(now + 10 + 100 + 100);
@@ -134,8 +136,6 @@ describe("Vesting Wallet", () => {
     });
 
     it("Should release in the all of vesting after the vesting period", async () => {
-      await deployContracts(100, 100, now + 10, 100, 100);
-
       expect(await token.balanceOf(beneficiary.address)).to.eq(0);
 
       await time.setTime(now + 10 + 100 + 200);
@@ -149,8 +149,6 @@ describe("Vesting Wallet", () => {
 
   describe("With external funding", () => {
     it("Should release additional tokens before start", async () => {
-      await deployContracts(100, 100, now + 10, 100, 100);
-
       await token.transfer(wallet.address, 10);
       expect(await wallet.getReleasable()).to.eq(10);
 
@@ -161,7 +159,6 @@ describe("Vesting Wallet", () => {
     });
 
     it("Should allow moving funds to approved contracts", async () => {
-      await deployContracts(100, 100, now + 10, 100, 100);
       expect(await wallet.getReleasable()).to.eq(0);
 
       await wallet.lock(20);
@@ -170,10 +167,7 @@ describe("Vesting Wallet", () => {
     });
 
     it("Should allow moving funds to approved contracts", async () => {
-      await deployContracts(100, 100, now + 10, 100, 100);
-
       await wallet.lock(20);
-      //expect(await locking.getMaxSlashableAmount(wallet.address)).to.eq(20);
 
       expect(await token.balanceOf(beneficiary.address)).to.eq(0);
 
@@ -185,7 +179,10 @@ describe("Vesting Wallet", () => {
     });
 
     it("Should allow locking and unlocking", async () => {
+      now += 1000;
+      await time.setTimeAndMine(now);
       await deployContracts(10, 100, now + 10, 100, 100);
+
       expect(await wallet.getReleasable()).to.eq(0);
 
       await wallet.lock(20);
@@ -196,8 +193,19 @@ describe("Vesting Wallet", () => {
       await time.setTime(now + 20);
       await wallet.completeUnlock();
       expect(await locking.getMaxSlashableAmount(wallet.address)).to.eq(10);
+    });
 
-      await time.setTime(now + 10 + 100 + 50);
+    it("Should fail for another signer (not beneficiary) trying to lock or unlock", async () => {
+      const walletWithAnotherSigner = wallet.connect(notBeneficiary);
+
+      const expectFailure = (txPromise: Promise<Transaction>) =>
+        expect(txPromise).to.be.revertedWith(
+          "VestingWallet: only beneficiary can call this function"
+        );
+
+      await expectFailure(walletWithAnotherSigner.lock(1));
+      await expectFailure(walletWithAnotherSigner.requestUnlock(1));
+      await expectFailure(walletWithAnotherSigner.completeUnlock());
     });
   });
 });
