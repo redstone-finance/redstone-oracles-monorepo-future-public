@@ -26,11 +26,9 @@ export const time = {
     await network.provider.send("evm_mine");
   },
   setTime: async (timestamp: number) => {
-    //const now = Math.ceil(new Date().getTime() / 1000);
     await provider.send("evm_setNextBlockTimestamp", [timestamp]);
   },
   setTimeAndMine: async (timestamp: number) => {
-    //const now = Math.ceil(new Date().getTime() / 1000);
     await provider.send("evm_setNextBlockTimestamp", [timestamp]);
     await network.provider.send("evm_mine");
   },

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/math/Math.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -52,7 +52,7 @@ contract DisputeResolutionEngine {
   mapping(uint256 => mapping(address => Vote)) private _votes; // disputeId => (address => Vote)
   LockingRegistry private _lockingRegistry;
 
-  constructor(address redstoneTokenAddress) {
+  constructor(IERC20 redstoneTokenAddress) {
     _lockingRegistry = new LockingRegistry();
     _lockingRegistry.initialize(redstoneTokenAddress, address(this), UNLOCK_DELAY_SECONDS);
     _redstoneToken = IERC20(redstoneTokenAddress);
@@ -88,11 +88,7 @@ contract DisputeResolutionEngine {
     _lockTokensAndCreateVote(createdDisputeId, bytes32(0), lockedTokensAmount);
   }
 
-  function commitVote(
-    uint256 disputeId,
-    uint256 lockedTokensAmount,
-    bytes32 commitHash
-  ) external {
+  function commitVote(uint256 disputeId, uint256 lockedTokensAmount, bytes32 commitHash) external {
     Dispute storage dispute = _disputes[disputeId];
 
     require(
@@ -107,11 +103,7 @@ contract DisputeResolutionEngine {
     _lockTokensAndCreateVote(disputeId, commitHash, lockedTokensAmount);
   }
 
-  function revealVote(
-    uint256 disputeId,
-    bytes32 salt,
-    bool votedForGuilty
-  ) external {
+  function revealVote(uint256 disputeId, bytes32 salt, bool votedForGuilty) external {
     Dispute storage dispute = _disputes[disputeId];
     Vote storage vote = _votes[disputeId][msg.sender];
 
@@ -181,11 +173,10 @@ contract DisputeResolutionEngine {
     _redstoneToken.transfer(msg.sender, rewardForUser);
   }
 
-  function calculatePendingRewardForUser(uint256 disputeId, address userAddress)
-    public
-    view
-    returns (uint256)
-  {
+  function calculatePendingRewardForUser(
+    uint256 disputeId,
+    address userAddress
+  ) public view returns (uint256) {
     Dispute storage dispute = _disputes[disputeId];
     Vote storage userVote = _votes[disputeId][userAddress];
 

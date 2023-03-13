@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
@@ -16,8 +16,8 @@ contract LockingRegistry is Initializable {
     uint256 unlockOpeningTimestampSeconds;
   }
 
-  event UnlockRequested(address user, UserLockingDetails lockingDetails);
-  event UnlockCompleted(address user, UserLockingDetails lockingDetails);
+  event UnlockRequest(address indexed user, UserLockingDetails lockingDetails);
+  event Unlock(address indexed user, UserLockingDetails lockingDetails);
 
   uint256 private _delayForUnlockingInSeconds;
   IERC20 private _lockedToken;
@@ -25,7 +25,7 @@ contract LockingRegistry is Initializable {
   mapping(address => UserLockingDetails) private _lockingDetailsForUsers;
 
   function initialize(
-    address lockedTokenAddress,
+    IERC20 lockedTokenAddress,
     address authorisedSlasher,
     uint256 delayForUnlockingInSeconds
   ) public initializer {
@@ -42,8 +42,8 @@ contract LockingRegistry is Initializable {
   }
 
   function requestUnlock(uint256 amountToUnlock) external {
-    UserLockingDetails storage userLockingDetails = _lockingDetailsForUsers[msg.sender];
     require(amountToUnlock > 0, "Amount to unlock must be a positive number");
+    UserLockingDetails storage userLockingDetails = _lockingDetailsForUsers[msg.sender];
     require(
       userLockingDetails.lockedAmount >= amountToUnlock,
       "Can not request to unlock more than locked"
@@ -54,17 +54,16 @@ contract LockingRegistry is Initializable {
       block.timestamp +
       _delayForUnlockingInSeconds;
 
-    emit UnlockRequested(msg.sender, userLockingDetails);
+    emit UnlockRequest(msg.sender, userLockingDetails);
   }
 
   function completeUnlock() external {
     UserLockingDetails storage userLockingDetails = _lockingDetailsForUsers[msg.sender];
-    uint256 amountToUnlock = userLockingDetails.pendingAmountToUnlock;
-
     require(
       block.timestamp > userLockingDetails.unlockOpeningTimestampSeconds,
       "Unlocking is not opened yet"
     );
+    uint256 amountToUnlock = userLockingDetails.pendingAmountToUnlock;
     require(amountToUnlock > 0, "User hasn't requested unlock before");
     // If there is not enough tokens because of slashing user must request unlock again
     require(amountToUnlock <= userLockingDetails.lockedAmount, "Can not unlock more than locked");
@@ -73,7 +72,7 @@ contract LockingRegistry is Initializable {
     userLockingDetails.pendingAmountToUnlock = 0;
     require(_lockedToken.transfer(msg.sender, amountToUnlock), "Transfer failed");
 
-    emit UnlockCompleted(msg.sender, userLockingDetails);
+    emit Unlock(msg.sender, userLockingDetails);
   }
 
   function getUserLockingDetails(address addr) public view returns (UserLockingDetails memory) {

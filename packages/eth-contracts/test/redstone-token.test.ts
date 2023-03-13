@@ -33,7 +33,7 @@ describe("Redstone token", () => {
     contract = contract.connect(other);
 
     await expect(contract.mint(otherAddr, 100)).to.be.revertedWith(
-      "RedstoneToken: minting by an unatuthorized address"
+      "RedstoneToken: minting by an unauthorized address"
     );
   });
 
@@ -59,7 +59,7 @@ describe("Redstone token", () => {
     let max = ethers.utils.parseEther("50000000");
 
     const tx = await contract.mint(minterAddr, max.sub(1000));
-    await tx.wait();    
+    await tx.wait();
 
     await expect(contract.mint(minterAddr, 1)).to.be.revertedWith(
       "RedstoneToken: cannot mint more than MAX SUPPLY"
@@ -70,7 +70,7 @@ describe("Redstone token", () => {
     contract = contract.connect(other);
 
     await expect(contract.updateMinter(otherAddr)).to.be.revertedWith(
-      "RedstoneToken: minter update by an unatuthorized address"
+      "RedstoneToken: minter update by an unauthorized address"
     );
   });
 
@@ -80,5 +80,4 @@ describe("Redstone token", () => {
 
     expect(await contract.minter()).to.equal(otherAddr);
   });
-
 });
