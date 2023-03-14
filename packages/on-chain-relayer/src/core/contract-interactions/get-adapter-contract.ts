@@ -4,8 +4,8 @@ import { config } from "../../config";
 import { getProvider } from "./get-provider";
 
 export const getManagerContract = async () => {
-  const { privateKey, managerContractAddress } = config;
+  const { privateKey, adapterContractAddress } = config;
   const provider = getProvider();
   const signer = new Wallet(privateKey, provider);
-  return new Contract(managerContractAddress, abi, signer);
+  return new Contract(adapterContractAddress, abi, signer);
 };

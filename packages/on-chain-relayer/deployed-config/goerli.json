@@ -4,7 +4,7 @@
   "RPC_URL": "https://rpc.ankr.com/eth_goerli/",
   "CHAIN_NAME": "Goerli test network",
   "CHAIN_ID": 5,
-  "MANGER_CONTRACT_ADDRESS": "0x2C31d00C1AE878F28c58B3aC0672007aECb4A124",
+  "ADAPTER_CONTRACT_ADDRESS": "0x2C31d00C1AE878F28c58B3aC0672007aECb4A124",
   "PRIVATE_KEY": "",
   "DATA_SERVICE_ID": "redstone-main-demo",
   "UNIQUE_SIGNERS_COUNT": 1,
