@@ -5,7 +5,11 @@ import { PriceFeedsAdapterMock } from "../../typechain-types";
 import { updatePrices } from "../../src/core/contract-interactions/update-prices";
 import { getLastRoundParamsFromContract } from "../../src/core/contract-interactions/get-last-round-params";
 import { server } from "./mock-server";
-import { dataFeedsIds, mockEnvVariables } from "../helpers";
+import {
+  dataFeedsIds,
+  getDataPackagesResponse,
+  mockEnvVariables,
+} from "../helpers";
 
 chai.use(chaiAsPromised);
 
@@ -31,7 +35,13 @@ describe("#updatePrices", () => {
   it("should update price", async () => {
     const { lastRound, lastUpdateTimestamp } =
       await getLastRoundParamsFromContract(managerContract);
-    await updatePrices(managerContract, lastRound, lastUpdateTimestamp);
+    const dataPackages = getDataPackagesResponse();
+    await updatePrices(
+      dataPackages,
+      managerContract,
+      lastRound,
+      lastUpdateTimestamp
+    );
     const [round] = await managerContract.getLastRoundParams();
     expect(round).to.be.equal(1);
     const dataFeedsValues = await managerContract.getValuesForDataFeeds(
