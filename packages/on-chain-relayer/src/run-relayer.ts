@@ -1,8 +1,10 @@
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
+import { requestDataPackages } from "redstone-sdk";
 import { shouldUpdate } from "./core/update-conditions/should-update";
 import { updatePrices } from "./core/contract-interactions/update-prices";
 import { getLastRoundParamsFromContract } from "./core/contract-interactions/get-last-round-params";
 import { getManagerContract } from "./core/contract-interactions/get-adapter-contract";
+import { getValuesForDataFeeds } from "./core/contract-interactions/get-values-for-data-feeds";
 import { config } from "./config";
 
 const { relayerIterationInterval } = config;
@@ -12,16 +14,39 @@ console.log(
 );
 
 const runRelayer = async () => {
-  const priceFeedsManagerContract = await getManagerContract();
+  const { dataServiceId, uniqueSignersCount, dataFeeds, cacheServiceUrls } =
+    config;
+  const priceFeedsAdapterContract = await getManagerContract();
+  const dataPackages = await requestDataPackages(
+    {
+      dataServiceId,
+      uniqueSignersCount,
+      dataFeeds,
+    },
+    cacheServiceUrls
+  );
 
   const { lastRound, lastUpdateTimestamp } =
-    await getLastRoundParamsFromContract(priceFeedsManagerContract);
-  const shouldUpdatePrices = shouldUpdate(lastUpdateTimestamp);
+    await getLastRoundParamsFromContract(priceFeedsAdapterContract);
+  const valuesFromContract = await getValuesForDataFeeds(
+    priceFeedsAdapterContract,
+    dataFeeds
+  );
+  const { shouldUpdatePrices, warningMessage } = shouldUpdate({
+    dataPackages,
+    valuesFromContract,
+    lastUpdateTimestamp,
+  });
 
   if (!shouldUpdatePrices) {
-    console.log("Not enough time has passed to update prices");
+    console.log(`All conditions are not fulfilled: ${warningMessage}`);
   } else {
-    updatePrices(priceFeedsManagerContract, lastUpdateTimestamp, lastRound);
+    await updatePrices(
+      dataPackages,
+      priceFeedsAdapterContract,
+      lastUpdateTimestamp,
+      lastRound
+    );
   }
 };
 

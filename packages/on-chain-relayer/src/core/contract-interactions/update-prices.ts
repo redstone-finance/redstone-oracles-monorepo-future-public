@@ -1,30 +1,14 @@
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { Contract } from "ethers";
-import { requestDataPackages } from "redstone-sdk";
+import { DataPackagesResponse } from "redstone-sdk";
 import { config } from "../../config";
 
 export const updatePrices = async (
-  priceFeedsManagerContract: Contract,
+  dataPackages: DataPackagesResponse,
+  priceFeedsAdapterContract: Contract,
   lastUpdateTimestamp: number,
   lastRound: number
 ) => {
-  const {
-    dataServiceId,
-    uniqueSignersCount,
-    dataFeeds,
-    cacheServiceUrls,
-    gasLimit,
-  } = config;
-
-  const dataPackages = await requestDataPackages(
-    {
-      dataServiceId,
-      uniqueSignersCount,
-      dataFeeds,
-    },
-    cacheServiceUrls
-  );
-
   const dataPackagesTimestamps = Object.values(dataPackages).flatMap(
     (dataPackages) =>
       dataPackages.map(
@@ -37,9 +21,10 @@ export const updatePrices = async (
     console.log("Cannot update prices, proposed prices are not newer");
   } else {
     const wrappedContract = WrapperBuilder.wrap(
-      priceFeedsManagerContract
+      priceFeedsAdapterContract
     ).usingDataPackages(dataPackages);
 
+    const { gasLimit } = config;
     const updateTransaction = await wrappedContract.updateDataFeedsValues(
       lastRound + 1,
       minimalTimestamp,
