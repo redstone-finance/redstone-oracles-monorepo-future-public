@@ -2652,7 +2652,7 @@
       "source": ["binance", "bitfinex", "bitfinex2", "cex"]
     },
     "EUR": {
-      "source": ["binance", "currencycom", "kaiko", "kraken"]
+      "source": ["binance", "currencycom", "kaiko", "kraken", "twelve-data"]
     },
     "WRX": {
       "source": ["binance", "bitcoincom", "hitbtc", "poloniex"]
@@ -5112,19 +5112,19 @@
       "source": ["yf-unofficial"]
     },
     "PEN": {
-      "source": ["yf-unofficial"]
+      "source": ["yf-unofficial", "twelve-data"]
     },
     "MXN": {
-      "source": ["yf-unofficial"]
+      "source": ["yf-unofficial", "twelve-data"]
     },
     "ARS": {
-      "source": ["yf-unofficial"]
+      "source": ["yf-unofficial", "twelve-data"]
     },
     "BRLUSD=X": {
-      "source": ["yf-unofficial"]
+      "source": ["yf-unofficial", "twelve-data"]
     },
     "COPUSD=X": {
-      "source": ["yf-unofficial"]
+      "source": ["yf-unofficial", "twelve-data"]
     },
     "BBBY": {
       "source": ["yf-unofficial"]
