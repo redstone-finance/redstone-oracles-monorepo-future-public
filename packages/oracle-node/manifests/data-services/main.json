@@ -4388,6 +4388,12 @@
     "ENTROPY": {
       "source": ["drand"]
     },
+    "BTCDVOL": {
+      "source": ["deribit"]
+    },
+    "ETHDVOL": {
+      "source": ["deribit"]
+    },
     "JPY": {
       "source": ["ecb"]
     },
