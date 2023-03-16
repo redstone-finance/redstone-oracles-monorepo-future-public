@@ -9,7 +9,6 @@
       "maxDelayMilliseconds": 300000
     }
   },
-  "evmChainId": 1,
   "tokens": {
     "FIDA": {},
     "DOGE": {},
