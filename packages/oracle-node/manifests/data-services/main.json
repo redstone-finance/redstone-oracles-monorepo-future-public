@@ -8,13 +8,6 @@
       "maxDelayMilliseconds": 300000
     }
   },
-  "evmChainId": 1,
-  "httpBroadcasterURLs": [
-    "https://api.redstone.finance",
-    "https://vwx3eni8c7.eu-west-1.awsapprunner.com",
-    "https://container-service-1.dv9sai71f4rsq.eu-central-1.cs.amazonlightsail.com"
-  ],
-  "enableStreamrBroadcaster": false,
   "tokens": {
     "ETH": {
       "source": [
@@ -86,6 +79,341 @@
         "stex"
       ]
     },
+    "USDT": {
+      "source": [
+        "binanceus",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "currencycom",
+        "kaiko",
+        "kraken",
+        "uniswap"
+      ]
+    },
+    "BNB": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binancecoinm",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "cex",
+        "coingecko",
+        "hitbtc",
+        "kucoin",
+        "lbank",
+        "oceanex",
+        "poloniex",
+        "probit"
+      ]
+    },
+    "USDC": {
+      "source": [
+        "binanceus",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coingecko",
+        "currencycom",
+        "huobipro",
+        "kaiko",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "liquid",
+        "oceanex",
+        "okx",
+        "probit",
+        "sushiswap",
+        "uniswap"
+      ]
+    },
+    "XRP": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coingecko",
+        "currencycom",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "kaiko",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "liquid",
+        "oceanex",
+        "okx",
+        "poloniex",
+        "probit",
+        "stex"
+      ]
+    },
+    "ADA": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "oceanex",
+        "okx"
+      ]
+    },
+    "MATIC": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "currencycom",
+        "hitbtc",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "okx",
+        "poloniex",
+        "probit",
+        "uniswap"
+      ]
+    },
+    "DOGE": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binancecoinm",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "currencycom",
+        "hollaex",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "oceanex",
+        "okx",
+        "poloniex",
+        "probit"
+      ]
+    },
+    "BUSD": {
+      "source": [
+        "binance",
+        "binanceus",
+        "bitcoincom",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "hitbtc",
+        "lbank",
+        "oceanex",
+        "poloniex"
+      ]
+    },
+    "SOL": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceus",
+        "binanceusdm",
+        "bitfinex",
+        "bitfinex2",
+        "btcturk",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "hitbtc",
+        "huobipro",
+        "kraken",
+        "lbank",
+        "okx"
+      ]
+    },
+    "DOT": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "oceanex",
+        "okx",
+        "poloniex",
+        "probit"
+      ]
+    },
+    "SHIB": {
+      "source": [
+        "binance",
+        "bitcoincom",
+        "coinbaseprime",
+        "coinbasepro",
+        "hitbtc",
+        "huobipro",
+        "kucoin",
+        "lbank",
+        "okx",
+        "poloniex",
+        "probit"
+      ]
+    },
+    "TRX": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coingecko",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "okx",
+        "poloniex",
+        "probit"
+      ]
+    },
+    "DAI": {
+      "source": [
+        "binanceus",
+        "bkex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "curve-usdc",
+        "curve-usdt",
+        "huobipro",
+        "idex",
+        "kraken",
+        "okx",
+        "sushiswap-on-chain-weth",
+        "uniswap-v2-on-chain-weth",
+        "xt"
+      ]
+    },
+    "LTC": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "currencycom",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "oceanex",
+        "okx",
+        "poloniex",
+        "probit",
+        "stex"
+      ]
+    },
+    "AVAX": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "bybit",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "huobipro",
+        "kaiko",
+        "kucoin",
+        "lbank",
+        "okx"
+      ]
+    },
     "UNI": {
       "source": [
         "ascendex",
@@ -121,6 +449,47 @@
         "uniswap"
       ]
     },
+    "WBTC": {
+      "source": [
+        "bittrex",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "hitbtc",
+        "huobipro",
+        "okx",
+        "poloniex",
+        "sushiswap",
+        "uniswap"
+      ]
+    },
+    "ATOM": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "hitbtc",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "oceanex",
+        "okx",
+        "poloniex",
+        "probit"
+      ]
+    },
     "LINK": {
       "source": [
         "ascendex",
@@ -153,7 +522,116 @@
         "uniswap"
       ]
     },
-    "LTC": {
+    "LEO": {
+      "source": [
+        "bitfinex",
+        "bitfinex2",
+        "coingecko",
+        "hitbtc",
+        "okx",
+        "probit"
+      ]
+    },
+    "OKB": {
+      "source": ["coingecko", "lbank", "okx", "poloniex", "probit"]
+    },
+    "ETC": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binancecoinm",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "oceanex",
+        "okx",
+        "poloniex",
+        "probit"
+      ]
+    },
+    "XMR": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "coingecko",
+        "hitbtc",
+        "hollaex",
+        "kraken",
+        "kucoin",
+        "okx",
+        "poloniex"
+      ]
+    },
+    "FIL": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binancecoinm",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "hitbtc",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "oceanex",
+        "okx",
+        "poloniex"
+      ]
+    },
+    "BCH": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceus",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "currencycom",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "oceanex",
+        "okx",
+        "poloniex",
+        "probit"
+      ]
+    },
+    "APT": {
+      "source": ["binance", "binanceusdm", "coingecko", "huobipro"]
+    },
+    "XLM": {
       "source": [
         "ascendex",
         "bequant",
@@ -170,48 +648,72 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
         "hitbtc",
         "hollaex",
         "huobipro",
         "kraken",
         "kucoin",
-        "lbank",
         "oceanex",
         "okx",
         "poloniex",
-        "probit",
-        "stex"
+        "probit"
       ]
     },
-    "XRP": {
+    "NEAR": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bitfinex",
+        "bitfinex2",
+        "coingecko",
+        "hitbtc",
+        "huobipro",
+        "kucoin",
+        "okx"
+      ]
+    },
+    "STX": {
+      "source": ["binance", "coinbaseprime", "coinbasepro", "kucoin", "okx"]
+    },
+    "FTM": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceusdm",
+        "bitfinex",
+        "bitfinex2",
+        "coingecko",
+        "hitbtc",
+        "kucoin",
+        "okx",
+        "probit"
+      ]
+    },
+    "EOS": {
       "source": [
         "ascendex",
         "bequant",
         "binance",
         "binancecoinm",
+        "binanceus",
         "binanceusdm",
         "bitcoincom",
         "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
+        "coinbaseprime",
+        "coinbasepro",
         "coingecko",
-        "currencycom",
         "hitbtc",
-        "hollaex",
         "huobipro",
-        "kaiko",
         "kraken",
         "kucoin",
         "lbank",
-        "liquid",
         "oceanex",
         "okx",
         "poloniex",
-        "probit",
-        "stex"
+        "probit"
       ]
     },
     "AAVE": {
@@ -243,1320 +745,36 @@
         "uniswap"
       ]
     },
-    "DOGE": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binancecoinm",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hollaex",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
+    "AR": {
+      "source": ["binance", "coingecko", "hitbtc", "huobipro"]
     },
-    "BCH": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binancecoinm",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "XLM": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binancecoinm",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "EOS": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binancecoinm",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "DOT": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binancecoinm",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "BAT": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "okx",
-        "poloniex",
-        "probit",
-        "uniswap"
-      ]
-    },
-    "MKR": {
-      "source": [
-        "bequant",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "COMP": {
+    "CELO": {
       "source": [
         "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
         "bittrex",
-        "btcturk",
-        "cex",
         "coinbaseprime",
         "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
-        "kraken",
         "kucoin",
-        "liquid",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "ATOM": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "ADA": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binancecoinm",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "oceanex",
         "okx"
       ]
     },
-    "XTZ": {
+    "FRAX": {
+      "source": ["coingecko", "curve-usdc", "uniswap-v3"]
+    },
+    "VST": {
+      "source": ["coingecko", "curve-frax"]
+    },
+    "OHM": {
       "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
+        "balancer-dai",
+        "balancer-weth",
         "coingecko",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit"
+        "sushiswap-on-chain-dai",
+        "uniswap-v3"
       ]
     },
-    "TRX": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binancecoinm",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coingecko",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "MATIC": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit",
-        "uniswap"
-      ]
-    },
-    "FIL": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binancecoinm",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "OMG": {
-      "source": [
-        "bequant",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "oceanex",
-        "okx",
-        "probit"
-      ]
-    },
-    "YFI": {
-      "source": [
-        "bequant",
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "SUSHI": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "SNX": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "DASH": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "stex"
-      ]
-    },
-    "ETC": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binancecoinm",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "USDC": {
-      "source": [
-        "binanceus",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coingecko",
-        "currencycom",
-        "huobipro",
-        "kaiko",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "liquid",
-        "oceanex",
-        "okx",
-        "probit",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "ALGO": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "okx",
-        "probit"
-      ]
-    },
-    "NEO": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "ZRX": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "ZEC": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "MANA": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "DAI": {
-      "source": [
-        "binanceus",
-        "bkex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "curve-usdc",
-        "curve-usdt",
-        "huobipro",
-        "idex",
-        "kraken",
-        "okx",
-        "sushiswap-on-chain-weth",
-        "uniswap-v2-on-chain-weth",
-        "xt"
-      ]
-    },
-    "ENJ": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "okx",
-        "probit"
-      ]
-    },
-    "GRT": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "CHZ": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "btcturk",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "okx",
-        "probit"
-      ]
-    },
-    "QTUM": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "BAND": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "currencycom",
-        "huobipro",
-        "okx",
-        "poloniex",
-        "probit",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "CRV": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "LRC": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "huobipro",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit",
-        "uniswap"
-      ]
-    },
-    "AVAX": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "btcturk",
-        "bybit",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "huobipro",
-        "kaiko",
-        "kucoin",
-        "lbank",
-        "okx"
-      ]
-    },
-    "REN": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "KSM": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "okx"
-      ]
-    },
-    "1INCH": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "lbank",
-        "okx",
-        "uniswap"
-      ]
-    },
-    "SOL": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "btcturk",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "lbank",
-        "okx"
-      ]
-    },
-    "WAVES": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "okx",
-        "probit"
-      ]
-    },
-    "SAND": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "liquid",
-        "okx",
-        "poloniex",
-        "probit",
-        "uniswap"
-      ]
-    },
-    "KNC": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "okx",
-        "probit"
-      ]
-    },
-    "BNB": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binancecoinm",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "cex",
-        "coingecko",
-        "hitbtc",
-        "kucoin",
-        "lbank",
-        "oceanex",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "ZIL": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx",
-        "probit"
-      ]
-    },
-    "VET": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "lbank",
-        "oceanex"
-      ]
-    },
-    "BNT": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "lbank",
-        "okx",
-        "probit"
-      ]
-    },
-    "BAL": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "huobipro",
-        "kraken",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "UMA": {
-      "source": [
-        "binance",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx",
-        "poloniex",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "ONT": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bittrex",
-        "cex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx",
-        "probit"
-      ]
-    },
-    "AXS": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "STORJ": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "okx"
-      ]
-    },
-    "OCEAN": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "currencycom",
-        "hitbtc",
-        "kraken",
-        "poloniex",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "USDT": {
-      "source": [
-        "binanceus",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "currencycom",
-        "kaiko",
-        "kraken",
-        "uniswap"
-      ]
-    },
-    "XEM": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "bittrex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx",
-        "probit"
-      ]
-    },
-    "XMR": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "coingecko",
-        "hitbtc",
-        "hollaex",
-        "kraken",
-        "kucoin",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "ZEN": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "kucoin",
-        "lbank",
-        "okx"
-      ]
-    },
-    "DGB": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "coingecko",
-        "hitbtc",
-        "kucoin",
-        "lbank",
-        "okx",
-        "probit"
-      ]
-    },
-    "EGLD": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binancecoinm",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "coingecko",
-        "hitbtc",
-        "liquid",
-        "okx"
-      ]
-    },
-    "ANKR": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "btcturk",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin"
-      ]
-    },
-    "HBAR": {
-      "source": [
-        "bequant",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "bittrex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "liquid",
-        "okx"
-      ]
-    },
-    "SHIB": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "BUSD": {
-      "source": [
-        "binance",
-        "binanceus",
-        "bitcoincom",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "lbank",
-        "oceanex",
-        "poloniex"
-      ]
-    },
-    "RSR": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "bittrex",
-        "cex",
-        "hitbtc",
-        "huobipro",
-        "liquid",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
+    "CANTO": {
+      "source": ["bkex", "coingecko", "gate", "mexc"]
     },
     "GMX": {
       "source": [
@@ -1572,705 +790,6 @@
         "trader-joe"
       ]
     },
-    "WBTC": {
-      "source": [
-        "bittrex",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "okx",
-        "poloniex",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "FTM": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "coingecko",
-        "hitbtc",
-        "kucoin",
-        "okx",
-        "probit"
-      ]
-    },
-    "BSV": {
-      "source": [
-        "ascendex",
-        "bequant",
-        "bittrex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "ICX": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitcoincom",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "okx",
-        "probit"
-      ]
-    },
-    "OGN": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "kucoin",
-        "probit"
-      ]
-    },
-    "REP": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "kraken",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "YFII": {
-      "source": [
-        "binance",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "lbank",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "OXT": {
-      "source": [
-        "binance",
-        "binanceus",
-        "bitcoincom",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "okx"
-      ]
-    },
-    "ICP": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx"
-      ]
-    },
-    "RVN": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bittrex",
-        "coingecko",
-        "huobipro",
-        "okx",
-        "probit"
-      ]
-    },
-    "DIA": {
-      "source": [
-        "ascendex",
-        "binance",
-        "coinbaseprime",
-        "coinbasepro",
-        "kucoin",
-        "okx",
-        "poloniex",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "SRM": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "cex",
-        "hitbtc",
-        "kraken",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "CRO": {
-      "source": [
-        "ascendex",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "huobipro",
-        "kucoin",
-        "okx",
-        "probit"
-      ]
-    },
-    "ONE": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "probit"
-      ]
-    },
-    "NEAR": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx"
-      ]
-    },
-    "IOTA": {
-      "source": [
-        "binance",
-        "binanceus",
-        "binanceusdm",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "hitbtc",
-        "huobipro",
-        "okx"
-      ]
-    },
-    "THETA": {
-      "source": [
-        "binance",
-        "binancecoinm",
-        "binanceusdm",
-        "bitcoincom",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx"
-      ]
-    },
-    "JST": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "REEF": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "hitbtc",
-        "huobipro",
-        "lbank",
-        "poloniex"
-      ]
-    },
-    "POLS": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "LPT": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "kraken",
-        "kucoin",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "JOE": {
-      "source": [
-        "binance",
-        "bitget",
-        "bitrue",
-        "bkex",
-        "coingecko",
-        "gate",
-        "mexc",
-        "trader-joe"
-      ]
-    },
-    "XAVA": {
-      "source": [
-        "coingecko",
-        "gate",
-        "kaiko",
-        "kucoin",
-        "latoken",
-        "mexc",
-        "pangolin-wavax",
-        "trader-joe"
-      ]
-    },
-    "BTT": {
-      "source": [
-        "ascendex",
-        "bitfinex",
-        "bitfinex2",
-        "huobipro",
-        "kucoin",
-        "lbank",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "CHR": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "poloniex"
-      ]
-    },
-    "IOST": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx"
-      ]
-    },
-    "AKRO": {
-      "source": [
-        "ascendex",
-        "binance",
-        "bitcoincom",
-        "cex",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "poloniex"
-      ]
-    },
-    "COTI": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "kucoin"
-      ]
-    },
-    "HT": {
-      "source": [
-        "ascendex",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "lbank",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "BTG": {
-      "source": [
-        "bequant",
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "coingecko",
-        "hitbtc",
-        "okx",
-        "probit"
-      ]
-    },
-    "CVC": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "okx"
-      ]
-    },
-    "ARPA": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "lbank"
-      ]
-    },
-    "SC": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bittrex",
-        "coingecko",
-        "huobipro",
-        "kraken",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "ANT": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "currencycom",
-        "huobipro",
-        "kraken",
-        "okx"
-      ]
-    },
-    "UTK": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "cex",
-        "hitbtc",
-        "huobipro",
-        "okx",
-        "probit"
-      ]
-    },
-    "PERP": {
-      "source": [
-        "binance",
-        "coinbaseprime",
-        "coinbasepro",
-        "kraken",
-        "lbank",
-        "okx",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "MIR": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx"
-      ]
-    },
-    "FORTH": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro",
-        "huobipro",
-        "kucoin",
-        "okx"
-      ]
-    },
-    "MLN": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro",
-        "huobipro",
-        "kraken",
-        "okx"
-      ]
-    },
-    "QI": {
-      "source": [
-        "binance",
-        "coingecko",
-        "kaiko",
-        "kucoin",
-        "pangolin-wavax",
-        "trader-joe",
-        "xt"
-      ]
-    },
-    "XDC": {
-      "source": [
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "hitbtc",
-        "kucoin",
-        "liquid",
-        "probit"
-      ]
-    },
-    "SNT": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "okx",
-        "probit"
-      ]
-    },
-    "API3": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "huobipro",
-        "kucoin",
-        "okx",
-        "poloniex",
-        "sushiswap",
-        "uniswap"
-      ]
-    },
-    "NEXO": {
-      "source": [
-        "bequant",
-        "bitfinex",
-        "bitfinex2",
-        "coingecko",
-        "hitbtc",
-        "huobipro",
-        "probit"
-      ]
-    },
-    "CAKE": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "coingecko",
-        "hitbtc",
-        "kucoin",
-        "lbank",
-        "poloniex"
-      ]
-    },
-    "HOT": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "cex",
-        "coingecko",
-        "hitbtc",
-        "oceanex",
-        "probit"
-      ]
-    },
-    "TUSD": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "cex",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "NKN": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro"
-      ]
-    },
-    "LSK": {
-      "source": [
-        "binance",
-        "bittrex",
-        "hitbtc",
-        "kraken",
-        "okx",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "NMR": {
-      "source": [
-        "binance",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "okx",
-        "probit"
-      ]
-    },
-    "TRB": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "coinbaseprime",
-        "coinbasepro",
-        "huobipro",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "SUN": {
-      "source": [
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "okx"
-      ]
-    },
-    "SKL": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "okx"
-      ]
-    },
-    "MASK": {
-      "source": [
-        "binance",
-        "coinbaseprime",
-        "coinbasepro",
-        "huobipro",
-        "kucoin",
-        "lbank",
-        "okx"
-      ]
-    },
-    "GTC": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "lbank",
-        "poloniex"
-      ]
-    },
-    "RNDR": {
-      "source": [
-        "bitcoincom",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kucoin",
-        "probit"
-      ]
-    },
-    "PTP": {
-      "source": [
-        "bkex",
-        "coinex",
-        "coingecko",
-        "mexc",
-        "pangolin-wavax",
-        "trader-joe"
-      ]
-    },
     "BIT": {
       "source": [
         "bybit",
@@ -2280,27 +799,6 @@
         "gate",
         "lbank",
         "mexc"
-      ]
-    },
-    "GLM": {
-      "source": [
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "PNG": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "gate",
-        "pangolin-wavax",
-        "trader-joe"
       ]
     },
     "KAVA": {
@@ -2313,1084 +811,521 @@
         "kraken"
       ]
     },
-    "RUNE": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "coingecko",
-        "hitbtc",
-        "probit"
-      ]
-    },
-    "LINA": {
-      "source": [
-        "ascendex",
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "hitbtc",
-        "huobipro"
-      ]
-    },
-    "CKB": {
-      "source": [
-        "ascendex",
-        "binance",
-        "bitcoincom",
-        "hitbtc",
-        "huobipro",
-        "kucoin"
-      ]
-    },
-    "FRONT": {
-      "source": ["ascendex", "huobipro", "kucoin", "okx", "poloniex", "probit"]
-    },
-    "ORN": {
-      "source": [
-        "ascendex",
-        "binance",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "kucoin"
-      ]
-    },
-    "FTT": {
-      "source": [
-        "ascendex",
-        "binance",
-        "hitbtc",
-        "huobipro",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "PLU": {
-      "source": [
-        "ascendex",
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro",
-        "kucoin"
-      ]
-    },
-    "FET": {
-      "source": [
-        "ascendex",
-        "binance",
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro"
-      ]
-    },
-    "OHM": {
-      "source": [
-        "balancer-dai",
-        "balancer-weth",
-        "coingecko",
-        "sushiswap-on-chain-dai",
-        "uniswap-v3"
-      ]
-    },
-    "XYM": {
-      "source": ["bequant", "bittrex", "hitbtc", "kucoin", "poloniex", "probit"]
-    },
-    "RLC": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "coinbaseprime",
-        "coinbasepro",
-        "huobipro",
-        "poloniex"
-      ]
-    },
-    "CTSI": {
-      "source": [
-        "binance",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "poloniex"
-      ]
-    },
-    "MDT": {
-      "source": [
-        "binance",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "SXP": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "hitbtc",
-        "kucoin",
-        "poloniex",
-        "probit"
-      ]
-    },
-    "ALPHA": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "hitbtc",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "CELO": {
-      "source": [
-        "binance",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "kucoin",
-        "okx"
-      ]
-    },
-    "BADGER": {
-      "source": [
-        "binance",
-        "coinbaseprime",
-        "coinbasepro",
-        "huobipro",
-        "okx",
-        "poloniex"
-      ]
-    },
-    "ALICE": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bitcoincom",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc"
-      ]
-    },
-    "XVG": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "hitbtc"
-      ]
-    },
-    "GLMR": {
-      "source": ["binance", "coingecko", "huobipro", "kucoin", "lbank", "okx"]
-    },
-    "LEO": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "coingecko",
-        "hitbtc",
-        "okx",
-        "probit"
-      ]
-    },
-    "WAXP": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "hitbtc",
-        "huobipro",
-        "kucoin"
-      ]
-    },
-    "VSYS": {
-      "source": ["bitfinex", "bitfinex2", "hitbtc", "huobipro", "kucoin", "okx"]
-    },
-    "SUKU": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "bittrex",
-        "coinbaseprime",
-        "coinbasepro",
-        "kucoin"
-      ]
-    },
-    "CANTO": {
-      "source": ["bkex", "coingecko", "gate", "mexc"]
-    },
-    "FLOW": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc",
-        "huobipro",
-        "kraken",
-        "okx"
-      ]
-    },
     "UFT": {
       "source": ["ascendex", "coingecko", "latoken", "mexc", "wazirx"]
     },
-    "VRA": {
-      "source": ["ascendex", "bittrex", "kucoin", "okx", "probit"]
+    "SONIA": {
+      "source": ["stlouisfed"]
     },
-    "WIN": {
-      "source": ["binance", "hitbtc", "kucoin", "lbank", "poloniex"]
+    "SOFR": {
+      "source": ["newyorkfed"]
     },
-    "TOMO": {
-      "source": ["binance", "binanceusdm", "hitbtc", "lbank", "probit"]
+    "ALC": {
+      "source": ["verto"]
     },
-    "STX": {
-      "source": ["binance", "coinbaseprime", "coinbasepro", "kucoin", "okx"]
+    "ARDRIVE": {
+      "source": ["verto"]
     },
-    "DCR": {
-      "source": ["binance", "bittrex", "coingecko", "hitbtc", "okx"]
+    "ARGO": {
+      "source": ["verto"]
     },
-    "BLZ": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "coinbaseprime",
-        "coinbasepro",
-        "huobipro"
-      ]
+    "ARVERIFY": {
+      "source": ["verto"]
     },
-    "PAXG": {
-      "source": ["binance", "binanceus", "cex", "hitbtc", "kraken"]
+    "DLT": {
+      "source": ["verto"]
     },
-    "XVS": {
-      "source": ["binance", "bitcoincom", "coingecko", "hitbtc", "poloniex"]
+    "EDST": {
+      "source": ["verto"]
     },
-    "UNFI": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "coinbaseprime",
-        "coinbasepro",
-        "kucoin"
-      ]
+    "EMD_PST_TOKEN": {
+      "source": ["verto"]
     },
-    "ROSE": {
-      "source": ["binance", "coinbaseprime", "coinbasepro", "kucoin", "lbank"]
+    "OPENBITS": {
+      "source": ["verto"]
     },
-    "AVA": {
-      "source": ["binance", "bitcoincom", "hitbtc", "kucoin", "poloniex"]
+    "PBT": {
+      "source": ["verto"]
     },
-    "SFP": {
-      "source": ["binance", "binanceusdm", "bitcoincom", "hitbtc", "lbank"]
+    "QUAD": {
+      "source": ["verto"]
     },
-    "SUPER": {
-      "source": [
-        "binance",
-        "bitcoincom",
-        "coinbaseprime",
-        "coinbasepro",
-        "hitbtc"
-      ]
+    "SAM": {
+      "source": ["verto"]
     },
-    "KLAY": {
-      "source": ["binance", "bittrex", "lbank", "okx", "probit"]
+    "SUNNY": {
+      "source": ["verto"]
     },
-    "CLO": {
-      "source": ["bitcoincom", "bitfinex", "bitfinex2", "hitbtc", "stex"]
+    "VRT": {
+      "source": ["verto"]
     },
-    "KLV": {
-      "source": ["bitcoincom", "bittrex", "hitbtc", "kucoin", "poloniex"]
+    "XYZ": {
+      "source": ["verto"]
     },
-    "PAX": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko"
-      ]
+    "IBM": {
+      "source": ["yf-unofficial"]
     },
-    "GAS": {
-      "source": ["cex", "hitbtc", "kucoin", "okx", "probit"]
+    "GOOG": {
+      "source": ["yf-unofficial"]
     },
-    "MINA": {
-      "source": ["coinbaseprime", "coinbasepro", "hitbtc", "kraken", "okx"]
+    "COST": {
+      "source": ["yf-unofficial"]
     },
-    "RARI": {
-      "source": ["coinbaseprime", "coinbasepro", "hitbtc", "kraken", "poloniex"]
+    "DIS": {
+      "source": ["yf-unofficial"]
     },
-    "OKB": {
-      "source": ["coingecko", "lbank", "okx", "poloniex", "probit"]
+    "MA": {
+      "source": ["yf-unofficial"]
     },
-    "YAK": {
-      "source": ["coingecko", "pangolin-usdc", "pangolin-wavax", "trader-joe"]
+    "MSFT": {
+      "source": ["yf-unofficial"]
     },
-    "KP3R": {
-      "source": ["lbank", "okx", "poloniex", "sushiswap", "uniswap"]
+    "NKE": {
+      "source": ["yf-unofficial"]
     },
-    "UOS": {
-      "source": ["ascendex", "bitfinex", "bitfinex2", "kucoin"]
+    "PINS": {
+      "source": ["yf-unofficial"]
     },
-    "ONG": {
-      "source": ["ascendex", "binance", "cex", "probit"]
+    "SHOP": {
+      "source": ["yf-unofficial"]
     },
-    "OM": {
-      "source": ["ascendex", "binance", "okx", "poloniex"]
+    "SPOT": {
+      "source": ["yf-unofficial"]
     },
-    "KCS": {
-      "source": ["ascendex", "kucoin", "poloniex", "probit"]
+    "TDOC": {
+      "source": ["yf-unofficial"]
     },
-    "CELR": {
-      "source": ["binance", "binanceusdm", "lbank", "okx"]
+    "SPY": {
+      "source": ["yf-unofficial"]
     },
-    "FUN": {
-      "source": ["binance", "bitfinex", "bitfinex2", "cex"]
+    "QQQ": {
+      "source": ["yf-unofficial"]
     },
-    "EUR": {
-      "source": ["binance", "currencycom", "kaiko", "kraken", "twelve-data"]
+    "ONEQ": {
+      "source": ["yf-unofficial"]
     },
-    "WRX": {
-      "source": ["binance", "bitcoincom", "hitbtc", "poloniex"]
+    "IWM": {
+      "source": ["yf-unofficial"]
     },
-    "BTS": {
-      "source": ["binance", "binanceusdm", "huobipro", "probit"]
+    "EFA": {
+      "source": ["yf-unofficial"]
     },
-    "HIVE": {
-      "source": ["binance", "bittrex", "huobipro", "probit"]
+    "VGK": {
+      "source": ["yf-unofficial"]
     },
-    "VTHO": {
-      "source": ["binance", "binanceus", "hitbtc", "oceanex"]
+    "INDA": {
+      "source": ["yf-unofficial"]
     },
-    "GBP": {
-      "source": ["binance", "currencycom", "ecb", "kraken"]
+    "RSX": {
+      "source": ["yf-unofficial"]
     },
-    "AUD": {
-      "source": ["binance", "currencycom", "ecb", "kraken"]
+    "ZC=F": {
+      "source": ["yf-unofficial"]
     },
-    "WNXM": {
-      "source": ["binance", "huobipro", "okx", "poloniex"]
+    "ZS=F": {
+      "source": ["yf-unofficial"]
     },
-    "INJ": {
-      "source": ["binance", "hitbtc", "huobipro", "poloniex"]
+    "ZM=F": {
+      "source": ["yf-unofficial"]
     },
-    "DNT": {
-      "source": ["binance", "cex", "coinbaseprime", "coinbasepro"]
+    "ZW=F": {
+      "source": ["yf-unofficial"]
     },
-    "DODO": {
-      "source": ["binance", "bitcoincom", "hitbtc", "kucoin"]
+    "KE=F": {
+      "source": ["yf-unofficial"]
     },
-    "PUNDIX": {
-      "source": ["binance", "bittrex", "kucoin", "probit"]
+    "ZO=F": {
+      "source": ["yf-unofficial"]
     },
-    "BAKE": {
-      "source": ["binance", "binanceusdm", "bitcoincom", "hitbtc"]
+    "ZR=F": {
+      "source": ["yf-unofficial"]
     },
-    "AR": {
-      "source": ["binance", "coingecko", "hitbtc", "huobipro"]
+    "CL=F": {
+      "source": ["yf-unofficial"]
     },
-    "MDX": {
-      "source": ["binance", "bitcoincom", "hitbtc", "huobipro"]
+    "RB=F": {
+      "source": ["yf-unofficial"]
     },
-    "TORN": {
-      "source": ["binance", "poloniex", "sushiswap", "uniswap"]
+    "NG=F": {
+      "source": ["yf-unofficial"]
     },
-    "PHA": {
-      "source": ["binance", "huobipro", "kucoin", "okx"]
+    "QA=F": {
+      "source": ["yf-unofficial"]
     },
-    "BOND": {
-      "source": ["binance", "coinbaseprime", "coinbasepro", "kucoin"]
+    "EH=F": {
+      "source": ["yf-unofficial"]
     },
-    "APT": {
-      "source": ["binance", "binanceusdm", "coingecko", "huobipro"]
+    "GC=F": {
+      "source": ["yf-unofficial"]
     },
-    "GHST": {
-      "source": ["bitcoincom", "hitbtc", "kraken", "okx"]
+    "SI=F": {
+      "source": ["yf-unofficial"]
     },
-    "REQ": {
-      "source": ["bitfinex", "bitfinex2", "coinbaseprime", "coinbasepro"]
+    "HG=F": {
+      "source": ["yf-unofficial"]
     },
-    "KAN": {
-      "source": ["bitfinex", "bitfinex2", "huobipro", "okx"]
+    "PL=F": {
+      "source": ["yf-unofficial"]
     },
-    "VELO": {
-      "source": ["bitfinex", "bitfinex2", "kucoin", "okx"]
+    "PA=F": {
+      "source": ["yf-unofficial"]
     },
-    "AMP": {
-      "source": ["bittrex", "coinbaseprime", "coinbasepro", "poloniex"]
+    "LE=F": {
+      "source": ["yf-unofficial"]
     },
-    "STEEM": {
-      "source": ["bittrex", "huobipro", "poloniex", "probit"]
+    "GF=F": {
+      "source": ["yf-unofficial"]
     },
-    "QUICK": {
-      "source": ["coinbaseprime", "coinbasepro", "lbank", "poloniex"]
+    "HE=F": {
+      "source": ["yf-unofficial"]
     },
-    "QNT": {
-      "source": ["coinbaseprime", "coinbasepro", "kucoin", "uniswap"]
+    "PRK=F": {
+      "source": ["yf-unofficial"]
     },
-    "APE": {
-      "source": ["coinbaseprime", "coinbasepro", "coingecko", "yf-unofficial"]
+    "DC=F": {
+      "source": ["yf-unofficial"]
     },
-    "TRU": {
-      "source": ["coinbaseprime", "coinbasepro", "sushiswap", "uniswap"]
+    "GNF=F": {
+      "source": ["yf-unofficial"]
     },
-    "FARM": {
-      "source": ["coinbaseprime", "coinbasepro", "sushiswap", "uniswap"]
+    "CB=F": {
+      "source": ["yf-unofficial"]
     },
-    "CRPT": {
-      "source": ["coinbaseprime", "coinbasepro", "hitbtc", "kucoin"]
+    "CSC=F": {
+      "source": ["yf-unofficial"]
     },
-    "NFT": {
-      "source": ["hitbtc", "huobipro", "kucoin", "poloniex"]
+    "PEN": {
+      "source": ["yf-unofficial", "twelve-data"]
     },
-    "SWFTC": {
-      "source": ["hitbtc", "huobipro", "okx", "poloniex"]
+    "MXN": {
+      "source": ["yf-unofficial", "twelve-data"]
     },
-    "XCH": {
-      "source": ["hitbtc", "huobipro", "lbank", "okx"]
+    "ARS": {
+      "source": ["yf-unofficial", "twelve-data"]
     },
-    "ZKS": {
-      "source": ["huobipro", "okx", "poloniex", "probit"]
+    "BRLUSD=X": {
+      "source": ["yf-unofficial", "twelve-data"]
     },
-    "DAO": {
-      "source": ["kucoin", "okx", "sushiswap", "uniswap"]
+    "COPUSD=X": {
+      "source": ["yf-unofficial", "twelve-data"]
     },
-    "FIDA": {
-      "source": ["ascendex", "coinbaseprime", "coinbasepro"]
+    "BBBY": {
+      "source": ["yf-unofficial"]
     },
-    "SWINGBY": {
-      "source": ["ascendex", "kucoin", "poloniex"]
+    "UPST": {
+      "source": ["yf-unofficial"]
     },
-    "CSPR": {
-      "source": ["ascendex", "huobipro", "okx"]
+    "BIG": {
+      "source": ["yf-unofficial"]
     },
-    "ELF": {
-      "source": ["ascendex", "huobipro", "okx"]
+    "MSTR": {
+      "source": ["yf-unofficial"]
     },
-    "CUDOS": {
-      "source": ["ascendex", "kucoin", "poloniex"]
+    "HRTX": {
+      "source": ["yf-unofficial"]
     },
-    "RFUEL": {
-      "source": ["ascendex", "kucoin", "okx"]
+    "EVGO": {
+      "source": ["yf-unofficial"]
     },
-    "JULD": {
-      "source": ["ascendex", "bitcoincom", "hitbtc"]
+    "BGFV": {
+      "source": ["yf-unofficial"]
     },
-    "WOO": {
-      "source": ["ascendex", "huobipro", "lbank"]
+    "FUBO": {
+      "source": ["yf-unofficial"]
     },
-    "HAPI": {
-      "source": ["ascendex", "cex", "kucoin"]
+    "CVNA": {
+      "source": ["yf-unofficial"]
     },
-    "FIO": {
-      "source": ["ascendex", "binance", "liquid"]
+    "NKLA": {
+      "source": ["yf-unofficial"]
     },
-    "FIS": {
-      "source": ["ascendex", "binance", "huobipro"]
+    "W": {
+      "source": ["yf-unofficial"]
     },
-    "NULS": {
-      "source": ["binance", "huobipro", "okx"]
+    "BLNK": {
+      "source": ["yf-unofficial"]
     },
-    "MITH": {
-      "source": ["binance", "hitbtc", "okx"]
+    "SRG": {
+      "source": ["yf-unofficial"]
     },
-    "DUSK": {
-      "source": ["binance", "bitfinex", "bitfinex2"]
+    "HYZN": {
+      "source": ["yf-unofficial"]
     },
-    "DENT": {
-      "source": ["binance", "binanceusdm", "hitbtc"]
+    "MVIS": {
+      "source": ["yf-unofficial"]
     },
-    "IOTX": {
-      "source": ["binance", "bittrex", "huobipro"]
+    "PETS": {
+      "source": ["yf-unofficial"]
     },
-    "CTXC": {
-      "source": ["binance", "huobipro", "okx"]
+    "IBRX": {
+      "source": ["yf-unofficial"]
     },
-    "STPT": {
-      "source": ["binance", "huobipro", "poloniex"]
+    "VUZI": {
+      "source": ["yf-unofficial"]
     },
-    "ARDR": {
-      "source": ["binance", "hitbtc", "probit"]
+    "SPCE": {
+      "source": ["yf-unofficial"]
     },
-    "STMX": {
-      "source": ["binance", "binanceusdm", "bittrex"]
+    "RIDE": {
+      "source": ["yf-unofficial"]
     },
-    "PNT": {
-      "source": ["binance", "bitfinex", "bitfinex2"]
+    "FUV": {
+      "source": ["yf-unofficial"]
     },
-    "KMD": {
-      "source": ["binance", "hitbtc", "kucoin"]
+    "WKHS": {
+      "source": ["yf-unofficial"]
     },
-    "HNT": {
-      "source": ["binance", "binanceus", "binanceusdm"]
+    "SWTX": {
+      "source": ["yf-unofficial"]
     },
-    "FLM": {
-      "source": ["binance", "binanceusdm", "okx"]
+    "ICPT": {
+      "source": ["yf-unofficial"]
     },
-    "AUDIO": {
-      "source": ["binance", "bitcoincom", "hitbtc"]
+    "LCID": {
+      "source": ["yf-unofficial"]
     },
-    "FIRO": {
-      "source": ["binance", "bitcoincom", "hitbtc"]
+    "JWN": {
+      "source": ["yf-unofficial"]
     },
-    "LIT": {
-      "source": ["binance", "binanceusdm", "lbank"]
+    "FFIE": {
+      "source": ["yf-unofficial"]
     },
-    "TLM": {
-      "source": ["binance", "bitcoincom", "hitbtc"]
+    "SFT": {
+      "source": ["yf-unofficial"]
     },
-    "ERN": {
-      "source": ["binance", "coinbaseprime", "coinbasepro"]
+    "OCGN": {
+      "source": ["yf-unofficial"]
     },
-    "SATT": {
-      "source": ["bitcoincom", "hitbtc", "probit"]
+    "REI": {
+      "source": ["yf-unofficial"]
     },
-    "HYDRA": {
-      "source": ["bitcoincom", "hitbtc", "kucoin"]
+    "BKKT": {
+      "source": ["yf-unofficial"]
     },
-    "RSV": {
-      "source": ["bitcoincom", "bittrex", "liquid"]
+    "KPTI": {
+      "source": ["yf-unofficial"]
     },
-    "GNO": {
-      "source": ["bitfinex", "bitfinex2", "kraken"]
+    "SDC": {
+      "source": ["yf-unofficial"]
     },
-    "BOSON": {
-      "source": ["bitfinex", "bitfinex2", "kucoin"]
+    "DNMR": {
+      "source": ["yf-unofficial"]
     },
-    "ETP": {
-      "source": ["bitfinex", "bitfinex2", "hitbtc"]
+    "GDRX": {
+      "source": ["yf-unofficial"]
     },
-    "LYM": {
-      "source": ["bitfinex", "bitfinex2", "kucoin"]
+    "IGMS": {
+      "source": ["yf-unofficial"]
     },
-    "PNK": {
-      "source": ["bitfinex", "bitfinex2", "okx"]
+    "AMC": {
+      "source": ["yf-unofficial"]
     },
-    "EURS": {
-      "source": ["bitfinex", "bitfinex2", "hitbtc"]
+    "lensprotocol": {
+      "source": ["lens"]
     },
-    "AMPL": {
-      "source": ["bitfinex", "bitfinex2", "kucoin"]
+    "aaveaave.lens": {
+      "source": ["lens"]
     },
-    "BEST": {
-      "source": ["bitfinex", "bitfinex2", "bittrex"]
+    "aavegrants.lens": {
+      "source": ["lens"]
     },
-    "CEL": {
-      "source": ["bittrex", "coingecko", "okx"]
+    "letsraave.lens": {
+      "source": ["lens"]
     },
-    "LAMB": {
-      "source": ["cex", "huobipro", "okx"]
+    "stani.lens": {
+      "source": ["lens"]
     },
-    "ACH": {
-      "source": ["coinbaseprime", "coinbasepro", "coingecko"]
+    "wagmi.lens": {
+      "source": ["lens"]
     },
-    "KEEP": {
-      "source": ["coinbaseprime", "coinbasepro", "kraken"]
+    "wassim.lens": {
+      "source": ["lens"]
     },
-    "CLV": {
-      "source": ["coinbaseprime", "coinbasepro", "kucoin"]
+    "donosonaumczuk.lens": {
+      "source": ["lens"]
     },
-    "RAD": {
-      "source": ["coinbaseprime", "coinbasepro", "lbank"]
+    "nicolo.lens": {
+      "source": ["lens"]
     },
-    "VGX": {
-      "source": ["coinbaseprime", "coinbasepro", "coingecko"]
+    "jouni.lens": {
+      "source": ["lens"]
     },
-    "RLY": {
-      "source": ["coinbaseprime", "coinbasepro", "kucoin"]
+    "zer0dot.lens": {
+      "source": ["lens"]
     },
-    "AERGO": {
-      "source": ["coinbaseprime", "coinbasepro", "okx"]
+    "lenster.lens": {
+      "source": ["lens"]
     },
-    "AIOZ": {
-      "source": ["coinbaseprime", "coinbasepro", "coingecko"]
+    "yoginth.lens": {
+      "source": ["lens"]
     },
-    "LOOM": {
-      "source": ["coinbaseprime", "coinbasepro", "huobipro"]
+    "peter.lens": {
+      "source": ["lens"]
     },
-    "SPORE": {
-      "source": ["coingecko", "pangolin-wavax", "trader-joe"]
+    "franky.lens": {
+      "source": ["lens"]
     },
-    "CUSD": {
-      "source": ["coingecko", "huobipro", "kucoin"]
+    "damarnez.lens": {
+      "source": ["lens"]
     },
-    "FRAX": {
-      "source": ["coingecko", "curve-usdc", "uniswap-v3"]
+    "absis.lens": {
+      "source": ["lens"]
     },
-    "SENSO": {
-      "source": ["hitbtc", "kucoin", "poloniex"]
+    "zannis.lens": {
+      "source": ["lens"]
     },
-    "BCD": {
-      "source": ["hitbtc", "okx", "probit"]
+    "nikita.lens": {
+      "source": ["lens"]
     },
-    "SWRV": {
-      "source": ["hitbtc", "huobipro", "okx"]
+    "devops.lens": {
+      "source": ["lens"]
     },
-    "ELA": {
-      "source": ["huobipro", "kucoin", "probit"]
+    "magikarp.lens": {
+      "source": ["lens"]
     },
-    "MTA": {
-      "source": ["huobipro", "sushiswap", "uniswap"]
+    "davidev.lens": {
+      "source": ["lens"]
     },
-    "MXC": {
-      "source": ["huobipro", "kucoin", "okx"]
+    "lasavess.lens": {
+      "source": ["lens"]
     },
-    "LAT": {
-      "source": ["huobipro", "lbank", "okx"]
+    "xone_hd.lens": {
+      "source": ["lens"]
     },
-    "WXT": {
-      "source": ["huobipro", "kucoin", "okx"]
+    "satsgas.lens": {
+      "source": ["lens"]
     },
-    "CQT": {
-      "source": ["kraken", "kucoin", "okx"]
+    "hazbobo1.lens": {
+      "source": ["lens"]
     },
-    "KAR": {
-      "source": ["kraken", "kucoin", "okx"]
+    "lorisxiv.lens": {
+      "source": ["lens"]
     },
-    "PRQ": {
-      "source": ["kucoin", "okx", "poloniex"]
+    "jcha63641346.lens": {
+      "source": ["lens"]
     },
-    "ORBS": {
-      "source": ["kucoin", "okx", "probit"]
+    "capitalisttofu.lens": {
+      "source": ["lens"]
     },
-    "PICKLE": {
-      "source": ["okx", "sushiswap", "uniswap"]
+    "maticpolygon.lens": {
+      "source": ["lens"]
     },
-    "ZEE": {
-      "source": ["ascendex", "kucoin"]
+    "kalimerosky.lens": {
+      "source": ["lens"]
     },
-    "GEEQ": {
-      "source": ["ascendex", "poloniex"]
+    "brocketh.lens": {
+      "source": ["lens"]
     },
-    "CWS": {
-      "source": ["ascendex", "kucoin"]
+    "tomhamalainen.lens": {
+      "source": ["lens"]
     },
-    "XCAD": {
-      "source": ["ascendex", "kucoin"]
+    "wh41th.lens": {
+      "source": ["lens"]
     },
-    "BVOL": {
-      "source": ["ascendex", "poloniex"]
+    "ivovtw.lens": {
+      "source": ["lens"]
     },
-    "ROUTE": {
-      "source": ["ascendex", "kucoin"]
+    "bradorbradley.lens": {
+      "source": ["lens"]
     },
-    "NIM": {
-      "source": ["ascendex", "kucoin"]
+    "annisazikra94.lens": {
+      "source": ["lens"]
     },
-    "DIVI": {
-      "source": ["ascendex", "kucoin"]
+    "iamprasadkumkar.lens": {
+      "source": ["lens"]
     },
-    "TARA": {
-      "source": ["ascendex", "kucoin"]
+    "0xjim.lens": {
+      "source": ["lens"]
     },
-    "BOLT": {
-      "source": ["ascendex", "kucoin"]
+    "tabish.lens": {
+      "source": ["lens"]
     },
-    "HARD": {
-      "source": ["ascendex", "binance"]
+    "visualfire.lens": {
+      "source": ["lens"]
     },
-    "MAHA": {
-      "source": ["ascendex", "kucoin"]
+    "saskasandholm.lens": {
+      "source": ["lens"]
     },
-    "ASD": {
-      "source": ["ascendex", "kucoin"]
+    "gareth.lens": {
+      "source": ["lens"]
     },
-    "FRM": {
-      "source": ["ascendex", "kucoin"]
+    "jessica.lens": {
+      "source": ["lens"]
     },
-    "HGET": {
-      "source": ["ascendex", "poloniex"]
+    "sasicodes.lens": {
+      "source": ["lens"]
     },
-    "SWAP": {
-      "source": ["ascendex", "poloniex"]
+    "julprd.lens": {
+      "source": ["lens"]
     },
-    "MARSH": {
-      "source": ["ascendex", "kucoin"]
+    "mikeb.lens": {
+      "source": ["lens"]
     },
-    "BEPRO": {
-      "source": ["ascendex", "kucoin"]
+    "alexis_3290.lens": {
+      "source": ["lens"]
     },
-    "AKT": {
-      "source": ["ascendex", "bittrex"]
+    "mariariivari.lens": {
+      "source": ["lens"]
     },
-    "NGM": {
-      "source": ["ascendex", "kucoin"]
+    "modene.lens": {
+      "source": ["lens"]
     },
-    "NSURE": {
-      "source": ["ascendex", "huobipro"]
+    "wenyuan.lens": {
+      "source": ["lens"]
     },
-    "PROM": {
-      "source": ["ascendex", "kucoin"]
+    "98775.lens": {
+      "source": ["lens"]
     },
-    "MTL": {
-      "source": ["binance", "binanceusdm"]
+    "sdogboy.lens": {
+      "source": ["lens"]
     },
-    "PERL": {
-      "source": ["binance", "hitbtc"]
+    "xiaom666.lens": {
+      "source": ["lens"]
     },
-    "DOCK": {
-      "source": ["binance", "huobipro"]
+    "At_a_time.lens": {
+      "source": ["lens"]
     },
-    "TCT": {
-      "source": ["binance", "okx"]
+    "sunvo.lens": {
+      "source": ["lens"]
     },
-    "MBL": {
-      "source": ["binance", "hitbtc"]
+    "xiaom.lens": {
+      "source": ["lens"]
     },
-    "WTC": {
-      "source": ["binance", "huobipro"]
+    "intro711.lens": {
+      "source": ["lens"]
     },
-    "DATA": {
-      "source": ["binance", "hitbtc"]
+    "1xbtc.lens": {
+      "source": ["lens"]
     },
-    "IRIS": {
-      "source": ["binance", "huobipro"]
+    "hulei121.lens": {
+      "source": ["lens"]
     },
-    "BEL": {
-      "source": ["binance", "binanceusdm"]
+    "zhuangzhu.lens": {
+      "source": ["lens"]
     },
-    "WING": {
-      "source": ["binance", "okx"]
+    "egwuatue.lens": {
+      "source": ["lens"]
     },
-    "NBS": {
-      "source": ["binance", "huobipro"]
+    "spzooky.lens": {
+      "source": ["lens"]
     },
-    "CTK": {
-      "source": ["binance", "binanceusdm"]
+    "lina1314121.lens": {
+      "source": ["lens"]
     },
-    "RIF": {
-      "source": ["binance", "hitbtc"]
+    "willyampangestu.lens": {
+      "source": ["lens"]
     },
-    "DEGO": {
-      "source": ["binance", "kucoin"]
+    "jianai.lens": {
+      "source": ["lens"]
     },
-    "CFX": {
-      "source": ["binance", "okx"]
+    "justawhile.lens": {
+      "source": ["lens"]
     },
-    "SLP": {
-      "source": ["binance", "hitbtc"]
+    "rahulkr.lens": {
+      "source": ["lens"]
     },
-    "ATA": {
-      "source": ["binance", "hitbtc"]
-    },
-    "ACM": {
-      "source": ["bitcoincom", "hitbtc"]
-    },
-    "SUPERBID": {
-      "source": ["bitcoincom", "hitbtc"]
-    },
-    "NUT": {
-      "source": ["bitcoincom", "hitbtc"]
-    },
-    "Cube": {
-      "source": ["bitcoincom", "hitbtc"]
-    },
-    "ASP": {
-      "source": ["bitcoincom", "hitbtc"]
-    },
-    "INSUR": {
-      "source": ["bitcoincom", "hitbtc"]
-    },
-    "LOC": {
-      "source": ["bitcoincom", "hitbtc"]
-    },
-    "GASP": {
-      "source": ["bitcoincom", "hitbtc"]
-    },
-    "MOB": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "RRT": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "OMN": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "RBTC": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "EURT": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "PASS": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "XAUT": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "BTSE": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "ETH2X": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "CHEX": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "QTF": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "PLANETS": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "FCL": {
-      "source": ["bitfinex", "bitfinex2"]
-    },
-    "REVV": {
-      "source": ["bittrex", "kucoin"]
-    },
-    "PYR": {
-      "source": ["bittrex", "kucoin"]
-    },
-    "KDA": {
-      "source": ["bittrex", "kucoin"]
-    },
-    "IMX": {
-      "source": ["coinbaseprime", "coinbasepro"]
-    },
-    "ALCX": {
-      "source": ["coinbaseprime", "coinbasepro"]
-    },
-    "GMT": {
-      "source": ["coinbaseprime", "coinbasepro"]
-    },
-    "AVT": {
-      "source": ["coinbaseprime", "coinbasepro"]
-    },
-    "PRO": {
-      "source": ["coinbaseprime", "coinbasepro"]
-    },
-    "MUSD": {
-      "source": ["coinbaseprime", "coinbasepro"]
-    },
-    "LQTY": {
-      "source": ["coinbaseprime", "coinbasepro"]
-    },
-    "SYN": {
-      "source": ["coinbaseprime", "coinbasepro"]
-    },
-    "DDX": {
-      "source": ["coinbaseprime", "coinbasepro"]
-    },
-    "CHSB": {
-      "source": ["coingecko", "hitbtc"]
-    },
-    "UST": {
-      "source": ["coingecko", "sushiswap"]
-    },
-    "SNOB": {
-      "source": ["coingecko", "trader-joe"]
-    },
-    "DYP": {
-      "source": ["coingecko", "uniswap"]
-    },
-    "XSGD": {
-      "source": ["coingecko", "uniswap"]
-    },
-    "VST": {
-      "source": ["coingecko", "curve-frax"]
-    },
-    "AAPL": {
-      "source": ["currencycom", "yf-unofficial"]
-    },
-    "AMZN": {
-      "source": ["currencycom", "yf-unofficial"]
-    },
-    "BYND": {
-      "source": ["currencycom", "yf-unofficial"]
-    },
-    "GME": {
-      "source": ["currencycom", "yf-unofficial"]
-    },
-    "NFLX": {
-      "source": ["currencycom", "yf-unofficial"]
-    },
-    "TSLA": {
-      "source": ["currencycom", "yf-unofficial"]
-    },
-    "META": {
-      "source": ["currencycom", "yf-unofficial"]
-    },
-    "CHF": {
-      "source": ["ecb", "yf-unofficial"]
-    },
-    "REV": {
-      "source": ["hitbtc", "probit"]
-    },
-    "SMT": {
-      "source": ["hitbtc", "huobipro"]
-    },
-    "NWC": {
-      "source": ["hitbtc", "kucoin"]
-    },
-    "XPR": {
-      "source": ["hitbtc", "okx"]
-    },
-    "SEELE": {
-      "source": ["hitbtc", "huobipro"]
-    },
-    "TT": {
-      "source": ["hitbtc", "huobipro"]
-    },
-    "PEARL": {
-      "source": ["hitbtc", "huobipro"]
-    },
-    "SOLO": {
-      "source": ["hitbtc", "probit"]
-    },
-    "ETN": {
-      "source": ["hitbtc", "kucoin"]
-    },
-    "XHT": {
-      "source": ["hollaex", "stex"]
-    },
-    "XEC": {
-      "source": ["huobipro", "okx"]
-    },
-    "HC": {
-      "source": ["huobipro", "okx"]
-    },
-    "NEST": {
-      "source": ["huobipro", "lbank"]
-    },
-    "AST": {
-      "source": ["huobipro", "okx"]
-    },
-    "ABT": {
-      "source": ["huobipro", "okx"]
-    },
-    "GT": {
-      "source": ["huobipro", "lbank"]
-    },
-    "BTM": {
-      "source": ["huobipro", "okx"]
-    },
-    "BETH": {
-      "source": ["huobipro", "okx"]
-    },
-    "KCASH": {
-      "source": ["huobipro", "okx"]
-    },
-    "DHT": {
-      "source": ["huobipro", "okx"]
-    },
-    "NAS": {
-      "source": ["huobipro", "okx"]
-    },
-    "CMT": {
-      "source": ["huobipro", "okx"]
-    },
-    "RING": {
-      "source": ["huobipro", "poloniex"]
-    },
-    "FSN": {
-      "source": ["huobipro", "okx"]
-    },
-    "YAM": {
-      "source": ["huobipro", "sushiswap"]
-    },
-    "EGT": {
-      "source": ["huobipro", "okx"]
-    },
-    "EWT": {
-      "source": ["kraken", "kucoin"]
-    },
-    "TLOS": {
-      "source": ["kucoin", "probit"]
-    },
-    "RFOX": {
-      "source": ["kucoin", "liquid"]
-    },
-    "ELON": {
-      "source": ["kucoin", "poloniex"]
-    },
-    "CFG": {
-      "source": ["kucoin", "okx"]
-    },
-    "PRE": {
-      "source": ["kucoin", "probit"]
-    },
-    "UBX": {
-      "source": ["kucoin", "probit"]
-    },
-    "SKEY": {
-      "source": ["kucoin", "probit"]
-    },
-    "KONO": {
-      "source": ["kucoin", "okx"]
-    },
-    "LTX": {
-      "source": ["kucoin", "liquid"]
-    },
-    "POL": {
-      "source": ["kucoin", "poloniex"]
-    },
-    "USDJ": {
-      "source": ["kucoin", "poloniex"]
-    },
-    "ENQ": {
-      "source": ["kucoin", "probit"]
-    },
-    "LON": {
-      "source": ["lbank", "okx"]
-    },
-    "KISHU": {
-      "source": ["lbank", "okx"]
-    },
-    "DEXA": {
-      "source": ["liquid", "probit"]
-    },
-    "ARK": {
-      "source": ["okx", "probit"]
-    },
-    "AKITA": {
-      "source": ["okx", "poloniex"]
-    },
-    "STAKE": {
-      "source": ["sushiswap", "uniswap"]
-    },
-    "DPI": {
-      "source": ["sushiswap", "uniswap"]
-    },
-    "CREAM": {
-      "source": ["sushiswap", "uniswap"]
-    },
-    "BAO": {
-      "source": ["sushiswap", "uniswap"]
-    },
-    "sUSD": {
-      "source": ["sushiswap", "uniswap"]
-    },
-    "MPH": {
-      "source": ["sushiswap", "uniswap"]
-    },
-    "SFI": {
-      "source": ["sushiswap", "uniswap"]
-    },
-    "MAPS": {
-      "source": ["ascendex"]
-    },
-    "TVK": {
-      "source": ["ascendex"]
-    },
-    "UMB": {
-      "source": ["ascendex"]
-    },
-    "OXY": {
-      "source": ["ascendex"]
-    },
-    "SMTY": {
-      "source": ["ascendex"]
-    },
-    "SHOPX": {
-      "source": ["ascendex"]
-    },
-    "HOPR": {
-      "source": ["ascendex"]
+    "shuishui21.lens": {
+      "source": ["lens"]
     },
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"]
@@ -3452,65 +1387,1238 @@
     "YY_GLP": {
       "source": ["avalanche-evm-fetcher"]
     },
+    "BAT": {
+      "source": ["coingecko"]
+    },
+    "MKR": {
+      "source": ["coingecko"]
+    },
+    "COMP": {
+      "source": ["coingecko"]
+    },
+    "XTZ": {
+      "source": ["coingecko"]
+    },
+    "OMG": {
+      "source": ["coingecko"]
+    },
+    "YFI": {
+      "source": ["coingecko"]
+    },
+    "SUSHI": {
+      "source": ["coingecko"]
+    },
+    "SNX": {
+      "source": ["coingecko"]
+    },
+    "DASH": {
+      "source": ["coingecko"]
+    },
+    "ALGO": {
+      "source": ["coingecko"]
+    },
+    "NEO": {
+      "source": ["coingecko"]
+    },
+    "ZRX": {
+      "source": ["coingecko"]
+    },
+    "ZEC": {
+      "source": ["coingecko"]
+    },
+    "MANA": {
+      "source": ["coingecko"]
+    },
+    "ENJ": {
+      "source": ["coingecko"]
+    },
+    "GRT": {
+      "source": ["coingecko"]
+    },
+    "CHZ": {
+      "source": ["coingecko"]
+    },
+    "QTUM": {
+      "source": ["coingecko"]
+    },
+    "BAND": {
+      "source": ["coingecko"]
+    },
+    "CRV": {
+      "source": ["coingecko"]
+    },
+    "LRC": {
+      "source": ["coingecko"]
+    },
+    "REN": {
+      "source": ["coingecko"]
+    },
+    "KSM": {
+      "source": ["coingecko"]
+    },
+    "1INCH": {
+      "source": ["coingecko"]
+    },
+    "WAVES": {
+      "source": ["coingecko"]
+    },
+    "SAND": {
+      "source": ["coingecko"]
+    },
+    "KNC": {
+      "source": ["coingecko"]
+    },
+    "ZIL": {
+      "source": ["coingecko"]
+    },
+    "VET": {
+      "source": ["coingecko"]
+    },
+    "BNT": {
+      "source": ["coingecko"]
+    },
+    "BAL": {
+      "source": ["coingecko"]
+    },
+    "UMA": {
+      "source": ["coingecko"]
+    },
+    "ONT": {
+      "source": ["coingecko"]
+    },
+    "AXS": {
+      "source": ["coingecko"]
+    },
+    "STORJ": {
+      "source": ["coingecko"]
+    },
+    "OCEAN": {
+      "source": ["coingecko"]
+    },
+    "XEM": {
+      "source": ["coingecko"]
+    },
+    "ZEN": {
+      "source": ["coingecko"]
+    },
+    "DGB": {
+      "source": ["coingecko"]
+    },
+    "EGLD": {
+      "source": ["coingecko"]
+    },
+    "ANKR": {
+      "source": ["coingecko"]
+    },
+    "HBAR": {
+      "source": ["coingecko"]
+    },
+    "RSR": {
+      "source": ["coingecko"]
+    },
+    "BSV": {
+      "source": ["coingecko"]
+    },
+    "ICX": {
+      "source": ["coingecko"]
+    },
+    "OGN": {
+      "source": ["coingecko"]
+    },
+    "REP": {
+      "source": ["coingecko"]
+    },
+    "YFII": {
+      "source": ["coingecko"]
+    },
+    "OXT": {
+      "source": ["coingecko"]
+    },
+    "ICP": {
+      "source": ["coingecko"]
+    },
+    "RVN": {
+      "source": ["coingecko"]
+    },
+    "DIA": {
+      "source": ["coingecko"]
+    },
+    "SRM": {
+      "source": ["coingecko"]
+    },
+    "CRO": {
+      "source": ["coingecko"]
+    },
+    "ONE": {
+      "source": ["coingecko"]
+    },
+    "IOTA": {
+      "source": ["coingecko"]
+    },
+    "THETA": {
+      "source": ["coingecko"]
+    },
+    "JST": {
+      "source": ["coingecko"]
+    },
+    "REEF": {
+      "source": ["coingecko"]
+    },
+    "POLS": {
+      "source": ["coingecko"]
+    },
+    "LPT": {
+      "source": ["coingecko"]
+    },
+    "JOE": {
+      "source": ["coingecko"]
+    },
+    "XAVA": {
+      "source": ["coingecko"]
+    },
+    "BTT": {
+      "source": ["coingecko"]
+    },
+    "CHR": {
+      "source": ["coingecko"]
+    },
+    "IOST": {
+      "source": ["coingecko"]
+    },
+    "AKRO": {
+      "source": ["coingecko"]
+    },
+    "COTI": {
+      "source": ["coingecko"]
+    },
+    "HT": {
+      "source": ["coingecko"]
+    },
+    "BTG": {
+      "source": ["coingecko"]
+    },
+    "CVC": {
+      "source": ["coingecko"]
+    },
+    "ARPA": {
+      "source": ["coingecko"]
+    },
+    "SC": {
+      "source": ["coingecko"]
+    },
+    "ANT": {
+      "source": ["coingecko"]
+    },
+    "UTK": {
+      "source": ["coingecko"]
+    },
+    "PERP": {
+      "source": ["coingecko"]
+    },
+    "MIR": {
+      "source": ["coingecko"]
+    },
+    "FORTH": {
+      "source": ["coingecko"]
+    },
+    "MLN": {
+      "source": ["coingecko"]
+    },
+    "QI": {
+      "source": ["coingecko"]
+    },
+    "XDC": {
+      "source": ["coingecko"]
+    },
+    "SNT": {
+      "source": ["coingecko"]
+    },
+    "API3": {
+      "source": ["coingecko"]
+    },
+    "NEXO": {
+      "source": ["coingecko"]
+    },
+    "CAKE": {
+      "source": ["coingecko"]
+    },
+    "HOT": {
+      "source": ["coingecko"]
+    },
+    "TUSD": {
+      "source": ["coingecko"]
+    },
+    "NKN": {
+      "source": ["coingecko"]
+    },
+    "LSK": {
+      "source": ["coingecko"]
+    },
+    "NMR": {
+      "source": ["coingecko"]
+    },
+    "TRB": {
+      "source": ["coingecko"]
+    },
+    "SUN": {
+      "source": ["coingecko"]
+    },
+    "SKL": {
+      "source": ["coingecko"]
+    },
+    "MASK": {
+      "source": ["coingecko"]
+    },
+    "GTC": {
+      "source": ["coingecko"]
+    },
+    "RNDR": {
+      "source": ["coingecko"]
+    },
+    "PTP": {
+      "source": ["coingecko"]
+    },
+    "GLM": {
+      "source": ["coingecko"]
+    },
+    "PNG": {
+      "source": ["coingecko"]
+    },
+    "RUNE": {
+      "source": ["coingecko"]
+    },
+    "LINA": {
+      "source": ["coingecko"]
+    },
+    "CKB": {
+      "source": ["coingecko"]
+    },
+    "FRONT": {
+      "source": ["coingecko"]
+    },
+    "ORN": {
+      "source": ["coingecko"]
+    },
+    "FTT": {
+      "source": ["coingecko"]
+    },
+    "PLU": {
+      "source": ["coingecko"]
+    },
+    "FET": {
+      "source": ["coingecko"]
+    },
+    "XYM": {
+      "source": ["coingecko"]
+    },
+    "RLC": {
+      "source": ["coingecko"]
+    },
+    "CTSI": {
+      "source": ["coingecko"]
+    },
+    "MDT": {
+      "source": ["coingecko"]
+    },
+    "SXP": {
+      "source": ["coingecko"]
+    },
+    "ALPHA": {
+      "source": ["coingecko"]
+    },
+    "BADGER": {
+      "source": ["coingecko"]
+    },
+    "ALICE": {
+      "source": ["coingecko"]
+    },
+    "XVG": {
+      "source": ["coingecko"]
+    },
+    "GLMR": {
+      "source": ["coingecko"]
+    },
+    "WAXP": {
+      "source": ["coingecko"]
+    },
+    "VSYS": {
+      "source": ["coingecko"]
+    },
+    "SUKU": {
+      "source": ["coingecko"]
+    },
+    "FLOW": {
+      "source": ["coingecko"]
+    },
+    "VRA": {
+      "source": ["coingecko"]
+    },
+    "WIN": {
+      "source": ["coingecko"]
+    },
+    "TOMO": {
+      "source": ["coingecko"]
+    },
+    "DCR": {
+      "source": ["coingecko"]
+    },
+    "BLZ": {
+      "source": ["coingecko"]
+    },
+    "PAXG": {
+      "source": ["coingecko"]
+    },
+    "XVS": {
+      "source": ["coingecko"]
+    },
+    "UNFI": {
+      "source": ["coingecko"]
+    },
+    "ROSE": {
+      "source": ["coingecko"]
+    },
+    "AVA": {
+      "source": ["coingecko"]
+    },
+    "SFP": {
+      "source": ["coingecko"]
+    },
+    "SUPER": {
+      "source": ["coingecko"]
+    },
+    "KLAY": {
+      "source": ["coingecko"]
+    },
+    "CLO": {
+      "source": ["coingecko"]
+    },
+    "KLV": {
+      "source": ["coingecko"]
+    },
+    "PAX": {
+      "source": ["coingecko"]
+    },
+    "GAS": {
+      "source": ["coingecko"]
+    },
+    "MINA": {
+      "source": ["coingecko"]
+    },
+    "RARI": {
+      "source": ["coingecko"]
+    },
+    "YAK": {
+      "source": ["coingecko"]
+    },
+    "KP3R": {
+      "source": ["coingecko"]
+    },
+    "UOS": {
+      "source": ["coingecko"]
+    },
+    "ONG": {
+      "source": ["coingecko"]
+    },
+    "OM": {
+      "source": ["coingecko"]
+    },
+    "KCS": {
+      "source": ["coingecko"]
+    },
+    "CELR": {
+      "source": ["coingecko"]
+    },
+    "FUN": {
+      "source": ["coingecko"]
+    },
+    "EUR": {
+      "source": ["coingecko"]
+    },
+    "WRX": {
+      "source": ["coingecko"]
+    },
+    "BTS": {
+      "source": ["coingecko"]
+    },
+    "HIVE": {
+      "source": ["coingecko"]
+    },
+    "VTHO": {
+      "source": ["coingecko"]
+    },
+    "GBP": {
+      "source": ["coingecko"]
+    },
+    "AUD": {
+      "source": ["coingecko"]
+    },
+    "WNXM": {
+      "source": ["coingecko"]
+    },
+    "INJ": {
+      "source": ["coingecko"]
+    },
+    "DNT": {
+      "source": ["coingecko"]
+    },
+    "DODO": {
+      "source": ["coingecko"]
+    },
+    "PUNDIX": {
+      "source": ["coingecko"]
+    },
+    "BAKE": {
+      "source": ["coingecko"]
+    },
+    "MDX": {
+      "source": ["coingecko"]
+    },
+    "TORN": {
+      "source": ["coingecko"]
+    },
+    "PHA": {
+      "source": ["coingecko"]
+    },
+    "BOND": {
+      "source": ["coingecko"]
+    },
+    "GHST": {
+      "source": ["coingecko"]
+    },
+    "REQ": {
+      "source": ["coingecko"]
+    },
+    "KAN": {
+      "source": ["coingecko"]
+    },
+    "VELO": {
+      "source": ["coingecko"]
+    },
+    "AMP": {
+      "source": ["coingecko"]
+    },
+    "STEEM": {
+      "source": ["coingecko"]
+    },
+    "QUICK": {
+      "source": ["coingecko"]
+    },
+    "QNT": {
+      "source": ["coingecko"]
+    },
+    "APE": {
+      "source": ["coingecko"]
+    },
+    "TRU": {
+      "source": ["coingecko"]
+    },
+    "FARM": {
+      "source": ["coingecko"]
+    },
+    "CRPT": {
+      "source": ["coingecko"]
+    },
+    "NFT": {
+      "source": ["coingecko"]
+    },
+    "SWFTC": {
+      "source": ["coingecko"]
+    },
+    "XCH": {
+      "source": ["coingecko"]
+    },
+    "ZKS": {
+      "source": ["coingecko"]
+    },
+    "DAO": {
+      "source": ["coingecko"]
+    },
+    "FIDA": {
+      "source": ["coingecko"]
+    },
+    "SWINGBY": {
+      "source": ["coingecko"]
+    },
+    "CSPR": {
+      "source": ["coingecko"]
+    },
+    "ELF": {
+      "source": ["coingecko"]
+    },
+    "CUDOS": {
+      "source": ["coingecko"]
+    },
+    "RFUEL": {
+      "source": ["coingecko"]
+    },
+    "JULD": {
+      "source": ["coingecko"]
+    },
+    "WOO": {
+      "source": ["coingecko"]
+    },
+    "HAPI": {
+      "source": ["coingecko"]
+    },
+    "FIO": {
+      "source": ["coingecko"]
+    },
+    "FIS": {
+      "source": ["coingecko"]
+    },
+    "NULS": {
+      "source": ["coingecko"]
+    },
+    "MITH": {
+      "source": ["coingecko"]
+    },
+    "DUSK": {
+      "source": ["coingecko"]
+    },
+    "DENT": {
+      "source": ["coingecko"]
+    },
+    "IOTX": {
+      "source": ["coingecko"]
+    },
+    "CTXC": {
+      "source": ["coingecko"]
+    },
+    "STPT": {
+      "source": ["coingecko"]
+    },
+    "ARDR": {
+      "source": ["coingecko"]
+    },
+    "STMX": {
+      "source": ["coingecko"]
+    },
+    "PNT": {
+      "source": ["coingecko"]
+    },
+    "KMD": {
+      "source": ["coingecko"]
+    },
+    "HNT": {
+      "source": ["coingecko"]
+    },
+    "FLM": {
+      "source": ["coingecko"]
+    },
+    "AUDIO": {
+      "source": ["coingecko"]
+    },
+    "FIRO": {
+      "source": ["coingecko"]
+    },
+    "LIT": {
+      "source": ["coingecko"]
+    },
+    "TLM": {
+      "source": ["coingecko"]
+    },
+    "ERN": {
+      "source": ["coingecko"]
+    },
+    "SATT": {
+      "source": ["coingecko"]
+    },
+    "HYDRA": {
+      "source": ["coingecko"]
+    },
+    "RSV": {
+      "source": ["coingecko"]
+    },
+    "GNO": {
+      "source": ["coingecko"]
+    },
+    "BOSON": {
+      "source": ["coingecko"]
+    },
+    "ETP": {
+      "source": ["coingecko"]
+    },
+    "LYM": {
+      "source": ["coingecko"]
+    },
+    "PNK": {
+      "source": ["coingecko"]
+    },
+    "EURS": {
+      "source": ["coingecko"]
+    },
+    "AMPL": {
+      "source": ["coingecko"]
+    },
+    "BEST": {
+      "source": ["coingecko"]
+    },
+    "CEL": {
+      "source": ["coingecko"]
+    },
+    "LAMB": {
+      "source": ["coingecko"]
+    },
+    "ACH": {
+      "source": ["coingecko"]
+    },
+    "KEEP": {
+      "source": ["coingecko"]
+    },
+    "CLV": {
+      "source": ["coingecko"]
+    },
+    "RAD": {
+      "source": ["coingecko"]
+    },
+    "VGX": {
+      "source": ["coingecko"]
+    },
+    "RLY": {
+      "source": ["coingecko"]
+    },
+    "AERGO": {
+      "source": ["coingecko"]
+    },
+    "AIOZ": {
+      "source": ["coingecko"]
+    },
+    "LOOM": {
+      "source": ["coingecko"]
+    },
+    "SPORE": {
+      "source": ["coingecko"]
+    },
+    "CUSD": {
+      "source": ["coingecko"]
+    },
+    "SENSO": {
+      "source": ["coingecko"]
+    },
+    "BCD": {
+      "source": ["coingecko"]
+    },
+    "SWRV": {
+      "source": ["coingecko"]
+    },
+    "ELA": {
+      "source": ["coingecko"]
+    },
+    "MTA": {
+      "source": ["coingecko"]
+    },
+    "MXC": {
+      "source": ["coingecko"]
+    },
+    "LAT": {
+      "source": ["coingecko"]
+    },
+    "WXT": {
+      "source": ["coingecko"]
+    },
+    "CQT": {
+      "source": ["coingecko"]
+    },
+    "KAR": {
+      "source": ["coingecko"]
+    },
+    "PRQ": {
+      "source": ["coingecko"]
+    },
+    "ORBS": {
+      "source": ["coingecko"]
+    },
+    "PICKLE": {
+      "source": ["coingecko"]
+    },
+    "ZEE": {
+      "source": ["coingecko"]
+    },
+    "GEEQ": {
+      "source": ["coingecko"]
+    },
+    "CWS": {
+      "source": ["coingecko"]
+    },
+    "XCAD": {
+      "source": ["coingecko"]
+    },
+    "BVOL": {
+      "source": ["coingecko"]
+    },
+    "ROUTE": {
+      "source": ["coingecko"]
+    },
+    "NIM": {
+      "source": ["coingecko"]
+    },
+    "DIVI": {
+      "source": ["coingecko"]
+    },
+    "TARA": {
+      "source": ["coingecko"]
+    },
+    "BOLT": {
+      "source": ["coingecko"]
+    },
+    "HARD": {
+      "source": ["coingecko"]
+    },
+    "MAHA": {
+      "source": ["coingecko"]
+    },
+    "ASD": {
+      "source": ["coingecko"]
+    },
+    "FRM": {
+      "source": ["coingecko"]
+    },
+    "HGET": {
+      "source": ["coingecko"]
+    },
+    "SWAP": {
+      "source": ["coingecko"]
+    },
+    "MARSH": {
+      "source": ["coingecko"]
+    },
+    "BEPRO": {
+      "source": ["coingecko"]
+    },
+    "AKT": {
+      "source": ["coingecko"]
+    },
+    "NGM": {
+      "source": ["coingecko"]
+    },
+    "NSURE": {
+      "source": ["coingecko"]
+    },
+    "PROM": {
+      "source": ["coingecko"]
+    },
+    "MTL": {
+      "source": ["coingecko"]
+    },
+    "PERL": {
+      "source": ["coingecko"]
+    },
+    "DOCK": {
+      "source": ["coingecko"]
+    },
+    "TCT": {
+      "source": ["coingecko"]
+    },
+    "MBL": {
+      "source": ["coingecko"]
+    },
+    "WTC": {
+      "source": ["coingecko"]
+    },
+    "DATA": {
+      "source": ["coingecko"]
+    },
+    "IRIS": {
+      "source": ["coingecko"]
+    },
+    "BEL": {
+      "source": ["coingecko"]
+    },
+    "WING": {
+      "source": ["coingecko"]
+    },
+    "NBS": {
+      "source": ["coingecko"]
+    },
+    "CTK": {
+      "source": ["coingecko"]
+    },
+    "RIF": {
+      "source": ["coingecko"]
+    },
+    "DEGO": {
+      "source": ["coingecko"]
+    },
+    "CFX": {
+      "source": ["coingecko"]
+    },
+    "SLP": {
+      "source": ["coingecko"]
+    },
+    "ATA": {
+      "source": ["coingecko"]
+    },
+    "ACM": {
+      "source": ["coingecko"]
+    },
+    "SUPERBID": {
+      "source": ["coingecko"]
+    },
+    "NUT": {
+      "source": ["coingecko"]
+    },
+    "Cube": {
+      "source": ["coingecko"]
+    },
+    "ASP": {
+      "source": ["coingecko"]
+    },
+    "INSUR": {
+      "source": ["coingecko"]
+    },
+    "LOC": {
+      "source": ["coingecko"]
+    },
+    "GASP": {
+      "source": ["coingecko"]
+    },
+    "MOB": {
+      "source": ["coingecko"]
+    },
+    "RRT": {
+      "source": ["coingecko"]
+    },
+    "OMN": {
+      "source": ["coingecko"]
+    },
+    "RBTC": {
+      "source": ["coingecko"]
+    },
+    "EURT": {
+      "source": ["coingecko"]
+    },
+    "PASS": {
+      "source": ["coingecko"]
+    },
+    "XAUT": {
+      "source": ["coingecko"]
+    },
+    "BTSE": {
+      "source": ["coingecko"]
+    },
+    "ETH2X": {
+      "source": ["coingecko"]
+    },
+    "CHEX": {
+      "source": ["coingecko"]
+    },
+    "QTF": {
+      "source": ["coingecko"]
+    },
+    "PLANETS": {
+      "source": ["coingecko"]
+    },
+    "FCL": {
+      "source": ["coingecko"]
+    },
+    "REVV": {
+      "source": ["coingecko"]
+    },
+    "PYR": {
+      "source": ["coingecko"]
+    },
+    "KDA": {
+      "source": ["coingecko"]
+    },
+    "IMX": {
+      "source": ["coingecko"]
+    },
+    "ALCX": {
+      "source": ["coingecko"]
+    },
+    "GMT": {
+      "source": ["coingecko"]
+    },
+    "AVT": {
+      "source": ["coingecko"]
+    },
+    "PRO": {
+      "source": ["coingecko"]
+    },
+    "MUSD": {
+      "source": ["coingecko"]
+    },
+    "LQTY": {
+      "source": ["coingecko"]
+    },
+    "SYN": {
+      "source": ["coingecko"]
+    },
+    "DDX": {
+      "source": ["coingecko"]
+    },
+    "CHSB": {
+      "source": ["coingecko"]
+    },
+    "UST": {
+      "source": ["coingecko"]
+    },
+    "SNOB": {
+      "source": ["coingecko"]
+    },
+    "DYP": {
+      "source": ["coingecko"]
+    },
+    "XSGD": {
+      "source": ["coingecko"]
+    },
+    "AAPL": {
+      "source": ["coingecko"]
+    },
+    "AMZN": {
+      "source": ["coingecko"]
+    },
+    "BYND": {
+      "source": ["coingecko"]
+    },
+    "GME": {
+      "source": ["coingecko"]
+    },
+    "NFLX": {
+      "source": ["coingecko"]
+    },
+    "TSLA": {
+      "source": ["coingecko"]
+    },
+    "META": {
+      "source": ["coingecko"]
+    },
+    "CHF": {
+      "source": ["coingecko"]
+    },
+    "REV": {
+      "source": ["coingecko"]
+    },
+    "SMT": {
+      "source": ["coingecko"]
+    },
+    "NWC": {
+      "source": ["coingecko"]
+    },
+    "XPR": {
+      "source": ["coingecko"]
+    },
+    "SEELE": {
+      "source": ["coingecko"]
+    },
+    "TT": {
+      "source": ["coingecko"]
+    },
+    "PEARL": {
+      "source": ["coingecko"]
+    },
+    "SOLO": {
+      "source": ["coingecko"]
+    },
+    "ETN": {
+      "source": ["coingecko"]
+    },
+    "XHT": {
+      "source": ["coingecko"]
+    },
+    "XEC": {
+      "source": ["coingecko"]
+    },
+    "HC": {
+      "source": ["coingecko"]
+    },
+    "NEST": {
+      "source": ["coingecko"]
+    },
+    "AST": {
+      "source": ["coingecko"]
+    },
+    "ABT": {
+      "source": ["coingecko"]
+    },
+    "GT": {
+      "source": ["coingecko"]
+    },
+    "BTM": {
+      "source": ["coingecko"]
+    },
+    "BETH": {
+      "source": ["coingecko"]
+    },
+    "KCASH": {
+      "source": ["coingecko"]
+    },
+    "DHT": {
+      "source": ["coingecko"]
+    },
+    "NAS": {
+      "source": ["coingecko"]
+    },
+    "CMT": {
+      "source": ["coingecko"]
+    },
+    "RING": {
+      "source": ["coingecko"]
+    },
+    "FSN": {
+      "source": ["coingecko"]
+    },
+    "YAM": {
+      "source": ["coingecko"]
+    },
+    "EGT": {
+      "source": ["coingecko"]
+    },
+    "EWT": {
+      "source": ["coingecko"]
+    },
+    "TLOS": {
+      "source": ["coingecko"]
+    },
+    "RFOX": {
+      "source": ["coingecko"]
+    },
+    "ELON": {
+      "source": ["coingecko"]
+    },
+    "CFG": {
+      "source": ["coingecko"]
+    },
+    "PRE": {
+      "source": ["coingecko"]
+    },
+    "UBX": {
+      "source": ["coingecko"]
+    },
+    "SKEY": {
+      "source": ["coingecko"]
+    },
+    "KONO": {
+      "source": ["coingecko"]
+    },
+    "LTX": {
+      "source": ["coingecko"]
+    },
+    "POL": {
+      "source": ["coingecko"]
+    },
+    "USDJ": {
+      "source": ["coingecko"]
+    },
+    "ENQ": {
+      "source": ["coingecko"]
+    },
+    "LON": {
+      "source": ["coingecko"]
+    },
+    "KISHU": {
+      "source": ["coingecko"]
+    },
+    "DEXA": {
+      "source": ["coingecko"]
+    },
+    "ARK": {
+      "source": ["coingecko"]
+    },
+    "AKITA": {
+      "source": ["coingecko"]
+    },
+    "STAKE": {
+      "source": ["coingecko"]
+    },
+    "DPI": {
+      "source": ["coingecko"]
+    },
+    "CREAM": {
+      "source": ["coingecko"]
+    },
+    "BAO": {
+      "source": ["coingecko"]
+    },
+    "sUSD": {
+      "source": ["coingecko"]
+    },
+    "MPH": {
+      "source": ["coingecko"]
+    },
+    "SFI": {
+      "source": ["coingecko"]
+    },
+    "MAPS": {
+      "source": ["coingecko"]
+    },
+    "TVK": {
+      "source": ["coingecko"]
+    },
+    "UMB": {
+      "source": ["coingecko"]
+    },
+    "OXY": {
+      "source": ["coingecko"]
+    },
+    "SMTY": {
+      "source": ["coingecko"]
+    },
+    "SHOPX": {
+      "source": ["coingecko"]
+    },
+    "HOPR": {
+      "source": ["coingecko"]
+    },
     "C98": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "MFT": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "TFUEL": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "GTO": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "BEAM": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "TROY": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "VITE": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "BTCUP": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "BTCDOWN": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "ETHUP": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "ETHDOWN": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "DOTUP": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "AUTO": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "TKO": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "BAR": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "BURGER": {
-      "source": ["binance"]
+      "source": ["coingecko"]
     },
     "CCE": {
-      "source": ["bitcoincom"]
+      "source": ["coingecko"]
     },
     "RENBTC": {
-      "source": ["cex"]
+      "source": ["coingecko"]
     },
     "MHC": {
-      "source": ["cex"]
+      "source": ["coingecko"]
     },
     "GUSD": {
-      "source": ["cex"]
+      "source": ["coingecko"]
     },
     "MIOTA": {
       "source": ["coingecko"]
@@ -4323,925 +3431,412 @@
       "source": ["coingecko"]
     },
     "ABNB": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "AMD": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "ARKK": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "BABA": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "BILI": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "BNTX": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "COIN": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "CRON": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "GOOGL": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "MRNA": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "NIO": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "NOK": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "NVDA": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "PFE": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "PYPL": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "SQ": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "TSM": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "UBER": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "ZM": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "DKNG": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "TLRY": {
-      "source": ["currencycom"]
+      "source": ["coingecko"]
     },
     "ENTROPY": {
-      "source": ["drand"]
+      "source": ["coingecko"]
     },
     "BTCDVOL": {
-      "source": ["deribit"]
+      "source": ["coingecko"]
     },
     "ETHDVOL": {
-      "source": ["deribit"]
+      "source": ["coingecko"]
     },
     "JPY": {
-      "source": ["ecb"]
+      "source": ["coingecko"]
     },
     "KIN": {
-      "source": ["hitbtc"]
+      "source": ["coingecko"]
     },
     "NCT": {
-      "source": ["hitbtc"]
+      "source": ["coingecko"]
     },
     "DCN": {
-      "source": ["hitbtc"]
+      "source": ["coingecko"]
     },
     "GOF": {
-      "source": ["hitbtc"]
+      "source": ["coingecko"]
     },
     "CENNZ": {
-      "source": ["hitbtc"]
+      "source": ["coingecko"]
     },
     "OCC": {
-      "source": ["hitbtc"]
+      "source": ["coingecko"]
     },
     "VIB": {
-      "source": ["hitbtc"]
+      "source": ["coingecko"]
     },
     "FOR": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "DF": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "O3": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "WICC": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "OGO": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "PAI": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "GNX": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "HPT": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "ACT": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "BIX": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "MX": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "RUFF": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "LHB": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "NEW": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "PVT": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "MDS": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "OCN": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "DTA": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "ITC": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "CNNS": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "SKM": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "TOP": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "BHD": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "CRE": {
-      "source": ["huobipro"]
+      "source": ["coingecko"]
     },
     "FLUX": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "SHFT": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "DFI": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "KOK": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "PHNX": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "XDB": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "ABBC": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "GMEE": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "LABS": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "FEAR": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "SRK": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "IDEA": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "WEST": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "NORD": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "SUTER": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "LAYER": {
-      "source": ["kucoin"]
+      "source": ["coingecko"]
     },
     "ALPACA": {
-      "source": ["lbank"]
+      "source": ["coingecko"]
     },
     "ILV": {
-      "source": ["lbank"]
+      "source": ["coingecko"]
     },
     "BABYDOGE": {
-      "source": ["lbank"]
+      "source": ["coingecko"]
     },
     "HERO": {
-      "source": ["lbank"]
+      "source": ["coingecko"]
     },
     "EFK": {
-      "source": ["lbank"]
-    },
-    "lensprotocol": {
-      "source": ["lens"]
-    },
-    "aaveaave.lens": {
-      "source": ["lens"]
-    },
-    "aavegrants.lens": {
-      "source": ["lens"]
-    },
-    "letsraave.lens": {
-      "source": ["lens"]
-    },
-    "stani.lens": {
-      "source": ["lens"]
-    },
-    "wagmi.lens": {
-      "source": ["lens"]
-    },
-    "wassim.lens": {
-      "source": ["lens"]
-    },
-    "donosonaumczuk.lens": {
-      "source": ["lens"]
-    },
-    "nicolo.lens": {
-      "source": ["lens"]
-    },
-    "jouni.lens": {
-      "source": ["lens"]
-    },
-    "zer0dot.lens": {
-      "source": ["lens"]
-    },
-    "lenster.lens": {
-      "source": ["lens"]
-    },
-    "yoginth.lens": {
-      "source": ["lens"]
-    },
-    "peter.lens": {
-      "source": ["lens"]
-    },
-    "franky.lens": {
-      "source": ["lens"]
-    },
-    "damarnez.lens": {
-      "source": ["lens"]
-    },
-    "absis.lens": {
-      "source": ["lens"]
-    },
-    "zannis.lens": {
-      "source": ["lens"]
-    },
-    "nikita.lens": {
-      "source": ["lens"]
-    },
-    "devops.lens": {
-      "source": ["lens"]
-    },
-    "magikarp.lens": {
-      "source": ["lens"]
-    },
-    "davidev.lens": {
-      "source": ["lens"]
-    },
-    "lasavess.lens": {
-      "source": ["lens"]
-    },
-    "xone_hd.lens": {
-      "source": ["lens"]
-    },
-    "satsgas.lens": {
-      "source": ["lens"]
-    },
-    "hazbobo1.lens": {
-      "source": ["lens"]
-    },
-    "lorisxiv.lens": {
-      "source": ["lens"]
-    },
-    "jcha63641346.lens": {
-      "source": ["lens"]
-    },
-    "capitalisttofu.lens": {
-      "source": ["lens"]
-    },
-    "maticpolygon.lens": {
-      "source": ["lens"]
-    },
-    "kalimerosky.lens": {
-      "source": ["lens"]
-    },
-    "brocketh.lens": {
-      "source": ["lens"]
-    },
-    "tomhamalainen.lens": {
-      "source": ["lens"]
-    },
-    "wh41th.lens": {
-      "source": ["lens"]
-    },
-    "ivovtw.lens": {
-      "source": ["lens"]
-    },
-    "bradorbradley.lens": {
-      "source": ["lens"]
-    },
-    "annisazikra94.lens": {
-      "source": ["lens"]
-    },
-    "iamprasadkumkar.lens": {
-      "source": ["lens"]
-    },
-    "0xjim.lens": {
-      "source": ["lens"]
-    },
-    "tabish.lens": {
-      "source": ["lens"]
-    },
-    "visualfire.lens": {
-      "source": ["lens"]
-    },
-    "saskasandholm.lens": {
-      "source": ["lens"]
-    },
-    "gareth.lens": {
-      "source": ["lens"]
-    },
-    "jessica.lens": {
-      "source": ["lens"]
-    },
-    "sasicodes.lens": {
-      "source": ["lens"]
-    },
-    "julprd.lens": {
-      "source": ["lens"]
-    },
-    "mikeb.lens": {
-      "source": ["lens"]
-    },
-    "alexis_3290.lens": {
-      "source": ["lens"]
-    },
-    "mariariivari.lens": {
-      "source": ["lens"]
-    },
-    "modene.lens": {
-      "source": ["lens"]
-    },
-    "wenyuan.lens": {
-      "source": ["lens"]
-    },
-    "98775.lens": {
-      "source": ["lens"]
-    },
-    "sdogboy.lens": {
-      "source": ["lens"]
-    },
-    "xiaom666.lens": {
-      "source": ["lens"]
-    },
-    "At_a_time.lens": {
-      "source": ["lens"]
-    },
-    "sunvo.lens": {
-      "source": ["lens"]
-    },
-    "xiaom.lens": {
-      "source": ["lens"]
-    },
-    "intro711.lens": {
-      "source": ["lens"]
-    },
-    "1xbtc.lens": {
-      "source": ["lens"]
-    },
-    "hulei121.lens": {
-      "source": ["lens"]
-    },
-    "zhuangzhu.lens": {
-      "source": ["lens"]
-    },
-    "egwuatue.lens": {
-      "source": ["lens"]
-    },
-    "spzooky.lens": {
-      "source": ["lens"]
-    },
-    "lina1314121.lens": {
-      "source": ["lens"]
-    },
-    "willyampangestu.lens": {
-      "source": ["lens"]
-    },
-    "jianai.lens": {
-      "source": ["lens"]
-    },
-    "justawhile.lens": {
-      "source": ["lens"]
-    },
-    "rahulkr.lens": {
-      "source": ["lens"]
-    },
-    "shuishui21.lens": {
-      "source": ["lens"]
-    },
-    "SOFR": {
-      "source": ["newyorkfed"]
+      "source": ["coingecko"]
     },
     "CONV": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "IQ": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "DORA": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "CNTM": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "DEP": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "INX": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "STRK": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "CTC": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "HEGIC": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "TAI": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "SFG": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "LBA": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "OKT": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "ZYRO": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "WGRT": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "BZZ": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "COVER": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "KINE": {
-      "source": ["okx"]
+      "source": ["coingecko"]
     },
     "AVME": {
-      "source": ["pangolin-wavax"]
+      "source": ["coingecko"]
     },
     "BEAR": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "ETHBULL": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "EOSBEAR": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "ADABULL": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "BCHBULL": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "LINKBULL": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "ROOK": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "ZAP": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "CUSDT": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "BCHBEAR": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "BSVBEAR": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "BSVBULL": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "IBVOL": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "LTCBEAR": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "LTCBULL": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "TRXBULL": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "XLMBEAR": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "XLMBULL": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "CVT": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "KTON": {
-      "source": ["poloniex"]
+      "source": ["coingecko"]
     },
     "CNS": {
-      "source": ["probit"]
+      "source": ["coingecko"]
     },
     "ERG": {
-      "source": ["probit"]
+      "source": ["coingecko"]
     },
     "VLX": {
-      "source": ["probit"]
+      "source": ["coingecko"]
     },
     "PANDO": {
-      "source": ["probit"]
+      "source": ["coingecko"]
     },
     "TRR": {
-      "source": ["probit"]
+      "source": ["coingecko"]
     },
     "RWN": {
-      "source": ["probit"]
+      "source": ["coingecko"]
     },
     "ELCASH": {
-      "source": ["probit"]
+      "source": ["coingecko"]
     },
     "PLEX": {
-      "source": ["stex"]
-    },
-    "SONIA": {
-      "source": ["stlouisfed"]
+      "source": ["coingecko"]
     },
     "SHERPA": {
-      "source": ["trader-joe"]
+      "source": ["coingecko"]
     },
     "BASE": {
-      "source": ["uniswap"]
+      "source": ["coingecko"]
     },
     "wNXM": {
-      "source": ["uniswap"]
+      "source": ["coingecko"]
     },
     "FXS": {
-      "source": ["uniswap"]
+      "source": ["coingecko"]
     },
     "BAC": {
-      "source": ["uniswap"]
+      "source": ["coingecko"]
     },
     "XOR": {
-      "source": ["uniswap"]
+      "source": ["coingecko"]
     },
     "BZRX": {
-      "source": ["uniswap"]
+      "source": ["coingecko"]
     },
     "WHITE": {
-      "source": ["uniswap"]
+      "source": ["coingecko"]
     },
     "CORE": {
-      "source": ["uniswap"]
+      "source": ["coingecko"]
     },
     "UBT": {
-      "source": ["uniswap"]
+      "source": ["coingecko"]
     },
     "APY": {
-      "source": ["uniswap"]
+      "source": ["coingecko"]
     },
     "SPI": {
-      "source": ["uniswap"]
-    },
-    "ALC": {
-      "source": ["verto"]
-    },
-    "ARDRIVE": {
-      "source": ["verto"]
-    },
-    "ARGO": {
-      "source": ["verto"]
-    },
-    "ARVERIFY": {
-      "source": ["verto"]
-    },
-    "DLT": {
-      "source": ["verto"]
-    },
-    "EDST": {
-      "source": ["verto"]
-    },
-    "EMD_PST_TOKEN": {
-      "source": ["verto"]
-    },
-    "OPENBITS": {
-      "source": ["verto"]
-    },
-    "PBT": {
-      "source": ["verto"]
-    },
-    "QUAD": {
-      "source": ["verto"]
-    },
-    "SAM": {
-      "source": ["verto"]
-    },
-    "SUNNY": {
-      "source": ["verto"]
-    },
-    "VRT": {
-      "source": ["verto"]
-    },
-    "XYZ": {
-      "source": ["verto"]
-    },
-    "IBM": {
-      "source": ["yf-unofficial"]
-    },
-    "GOOG": {
-      "source": ["yf-unofficial"]
-    },
-    "COST": {
-      "source": ["yf-unofficial"]
-    },
-    "DIS": {
-      "source": ["yf-unofficial"]
-    },
-    "MA": {
-      "source": ["yf-unofficial"]
-    },
-    "MSFT": {
-      "source": ["yf-unofficial"]
-    },
-    "NKE": {
-      "source": ["yf-unofficial"]
-    },
-    "PINS": {
-      "source": ["yf-unofficial"]
-    },
-    "SHOP": {
-      "source": ["yf-unofficial"]
-    },
-    "SPOT": {
-      "source": ["yf-unofficial"]
-    },
-    "TDOC": {
-      "source": ["yf-unofficial"]
-    },
-    "SPY": {
-      "source": ["yf-unofficial"]
-    },
-    "QQQ": {
-      "source": ["yf-unofficial"]
-    },
-    "ONEQ": {
-      "source": ["yf-unofficial"]
-    },
-    "IWM": {
-      "source": ["yf-unofficial"]
-    },
-    "EFA": {
-      "source": ["yf-unofficial"]
-    },
-    "VGK": {
-      "source": ["yf-unofficial"]
-    },
-    "INDA": {
-      "source": ["yf-unofficial"]
-    },
-    "RSX": {
-      "source": ["yf-unofficial"]
-    },
-    "ZC=F": {
-      "source": ["yf-unofficial"]
-    },
-    "ZS=F": {
-      "source": ["yf-unofficial"]
-    },
-    "ZM=F": {
-      "source": ["yf-unofficial"]
-    },
-    "ZW=F": {
-      "source": ["yf-unofficial"]
-    },
-    "KE=F": {
-      "source": ["yf-unofficial"]
-    },
-    "ZO=F": {
-      "source": ["yf-unofficial"]
-    },
-    "ZR=F": {
-      "source": ["yf-unofficial"]
-    },
-    "CL=F": {
-      "source": ["yf-unofficial"]
-    },
-    "RB=F": {
-      "source": ["yf-unofficial"]
-    },
-    "NG=F": {
-      "source": ["yf-unofficial"]
-    },
-    "QA=F": {
-      "source": ["yf-unofficial"]
-    },
-    "EH=F": {
-      "source": ["yf-unofficial"]
-    },
-    "GC=F": {
-      "source": ["yf-unofficial"]
-    },
-    "SI=F": {
-      "source": ["yf-unofficial"]
-    },
-    "HG=F": {
-      "source": ["yf-unofficial"]
-    },
-    "PL=F": {
-      "source": ["yf-unofficial"]
-    },
-    "PA=F": {
-      "source": ["yf-unofficial"]
-    },
-    "LE=F": {
-      "source": ["yf-unofficial"]
-    },
-    "GF=F": {
-      "source": ["yf-unofficial"]
-    },
-    "HE=F": {
-      "source": ["yf-unofficial"]
-    },
-    "PRK=F": {
-      "source": ["yf-unofficial"]
-    },
-    "DC=F": {
-      "source": ["yf-unofficial"]
-    },
-    "GNF=F": {
-      "source": ["yf-unofficial"]
-    },
-    "CB=F": {
-      "source": ["yf-unofficial"]
-    },
-    "CSC=F": {
-      "source": ["yf-unofficial"]
-    },
-    "PEN": {
-      "source": ["yf-unofficial", "twelve-data"]
-    },
-    "MXN": {
-      "source": ["yf-unofficial", "twelve-data"]
-    },
-    "ARS": {
-      "source": ["yf-unofficial", "twelve-data"]
-    },
-    "BRLUSD=X": {
-      "source": ["yf-unofficial", "twelve-data"]
-    },
-    "COPUSD=X": {
-      "source": ["yf-unofficial", "twelve-data"]
-    },
-    "BBBY": {
-      "source": ["yf-unofficial"]
-    },
-    "UPST": {
-      "source": ["yf-unofficial"]
-    },
-    "BIG": {
-      "source": ["yf-unofficial"]
-    },
-    "MSTR": {
-      "source": ["yf-unofficial"]
-    },
-    "HRTX": {
-      "source": ["yf-unofficial"]
-    },
-    "EVGO": {
-      "source": ["yf-unofficial"]
-    },
-    "BGFV": {
-      "source": ["yf-unofficial"]
-    },
-    "FUBO": {
-      "source": ["yf-unofficial"]
-    },
-    "CVNA": {
-      "source": ["yf-unofficial"]
-    },
-    "NKLA": {
-      "source": ["yf-unofficial"]
-    },
-    "W": {
-      "source": ["yf-unofficial"]
-    },
-    "BLNK": {
-      "source": ["yf-unofficial"]
-    },
-    "SRG": {
-      "source": ["yf-unofficial"]
-    },
-    "HYZN": {
-      "source": ["yf-unofficial"]
-    },
-    "MVIS": {
-      "source": ["yf-unofficial"]
-    },
-    "PETS": {
-      "source": ["yf-unofficial"]
-    },
-    "IBRX": {
-      "source": ["yf-unofficial"]
-    },
-    "VUZI": {
-      "source": ["yf-unofficial"]
-    },
-    "SPCE": {
-      "source": ["yf-unofficial"]
-    },
-    "RIDE": {
-      "source": ["yf-unofficial"]
-    },
-    "FUV": {
-      "source": ["yf-unofficial"]
-    },
-    "WKHS": {
-      "source": ["yf-unofficial"]
-    },
-    "SWTX": {
-      "source": ["yf-unofficial"]
-    },
-    "ICPT": {
-      "source": ["yf-unofficial"]
-    },
-    "LCID": {
-      "source": ["yf-unofficial"]
-    },
-    "JWN": {
-      "source": ["yf-unofficial"]
-    },
-    "FFIE": {
-      "source": ["yf-unofficial"]
-    },
-    "SFT": {
-      "source": ["yf-unofficial"]
-    },
-    "OCGN": {
-      "source": ["yf-unofficial"]
-    },
-    "REI": {
-      "source": ["yf-unofficial"]
-    },
-    "BKKT": {
-      "source": ["yf-unofficial"]
-    },
-    "KPTI": {
-      "source": ["yf-unofficial"]
-    },
-    "SDC": {
-      "source": ["yf-unofficial"]
-    },
-    "DNMR": {
-      "source": ["yf-unofficial"]
-    },
-    "GDRX": {
-      "source": ["yf-unofficial"]
-    },
-    "IGMS": {
-      "source": ["yf-unofficial"]
-    },
-    "AMC": {
-      "source": ["yf-unofficial"]
+      "source": ["coingecko"]
     }
   }
 }
