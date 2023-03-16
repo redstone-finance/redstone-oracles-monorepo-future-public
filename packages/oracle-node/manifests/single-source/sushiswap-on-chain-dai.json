@@ -9,10 +9,6 @@
       "maxDelayMilliseconds": 300000
     }
   },
-  "evmChainId": 1,
-  "httpBroadcasterURLs": [],
-  "enableStreamrBroadcaster": false,
-  "enableArweaveBackup": false,
   "tokens": {
     "OHM": {},
     "OHM_sushiswap-on-chain-dai_liquidity": {
