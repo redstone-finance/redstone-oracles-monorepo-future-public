@@ -9,10 +9,6 @@
       "maxDelayMilliseconds": 300000
     }
   },
-  "evmChainId": 1,
-  "httpBroadcasterURLs": [],
-  "enableStreamrBroadcaster": false,
-  "enableArweaveBackup": false,
   "tokens": {
     "DAI": {}
   }
