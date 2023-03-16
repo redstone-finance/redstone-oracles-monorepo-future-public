@@ -9,10 +9,6 @@
       "maxDelayMilliseconds": 300000
     }
   },
-  "httpBroadcasterURLs": ["https://httpbin.org/anything"],
-  "enableStreamrBroadcaster": false,
-  "enableArweaveBackup": false,
-  "evmChainId": 1,
   "tokens": {
     "BTC": {},
     "ETH": {},
