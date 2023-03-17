@@ -1,7 +1,7 @@
 {
   "RELAYER_ITERATION_INTERVAL": 10000,
   "UPDATE_PRICE_INTERVAL": 110000,
-  "RPC_URL": "https://api-insti-1-testnet-us-west-2.avax-test.network/ext/bc/Ue98aQ3AoP1EqH8LwX496W6h1d8hUHNHG7AFGvRe4PSJVkQw1/rpc",
+  "RPC_URL": "",
   "CHAIN_NAME": "Insti 1",
   "CHAIN_ID": 424242,
   "ADAPTER_CONTRACT_ADDRESS": "0xea102d73b2D3b789F65ce6Dba6fDC5538BF3C7bb",
