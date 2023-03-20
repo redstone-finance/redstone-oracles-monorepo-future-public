@@ -167,3 +167,5 @@ export default {
   requestRedstonePayload,
   parseDataPackagesResponse,
 };
+
+export * from "./contracts/ContractDataProvider";
