@@ -1,0 +1,93 @@
+[
+    {
+        "inputs": [
+            {
+                "name": "owner_address",
+                "type": "felt"
+            },
+            {
+                "name": "signer_count_threshold",
+                "type": "felt"
+            },
+            {
+                "name": "addresses_len",
+                "type": "felt"
+            },
+            {
+                "name": "addresses",
+                "type": "felt*"
+            }
+        ],
+        "name": "constructor",
+        "outputs": [],
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "name": "feed_id",
+                "type": "felt"
+            }
+        ],
+        "name": "read_price",
+        "outputs": [
+            {
+                "name": "value",
+                "type": "felt"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "read_round_data",
+        "outputs": [
+            {
+                "name": "payload_timestamp",
+                "type": "felt"
+            },
+            {
+                "name": "round",
+                "type": "felt"
+            },
+            {
+                "name": "block_number",
+                "type": "felt"
+            },
+            {
+                "name": "block_timestamp",
+                "type": "felt"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "rndNumber",
+                "type": "felt"
+            },
+            {
+                "name": "feed_ids_len",
+                "type": "felt"
+            },
+            {
+                "name": "feed_ids",
+                "type": "felt*"
+            },
+            {
+                "name": "payload_data_len",
+                "type": "felt"
+            },
+            {
+                "name": "payload_data",
+                "type": "felt*"
+            }
+        ],
+        "name": "write_prices",
+        "outputs": [],
+        "type": "function"
+    }
+]
