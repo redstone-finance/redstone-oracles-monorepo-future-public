@@ -1,0 +1,24 @@
+FROM node:18
+
+WORKDIR /app
+
+COPY package.json package.json
+
+RUN yarn
+
+COPY . .
+
+ENV RELAYER_ITERATION_INTERVAL=10000
+ENV UPDATE_PRICE_INTERVAL=3600000
+ENV NETWORK=goerli-alpha
+#ENV MANAGER_ADDRESS=
+
+#ENV OWNER_ADDRESS=
+#ENV PRIVATE_KEY=
+
+ENV MAX_ETH_FEE=0.007
+
+
+RUN yarn build
+
+CMD [ "yarn", "start" ]
