@@ -812,7 +812,7 @@
       ]
     },
     "UFT": {
-      "source": ["ascendex", "coingecko", "latoken", "mexc", "wazirx"]
+      "source": ["binance", "bitrue", "coingecko", "gate", "huobipro", "mexc"]
     },
     "SONIA": {
       "source": ["stlouisfed"]
