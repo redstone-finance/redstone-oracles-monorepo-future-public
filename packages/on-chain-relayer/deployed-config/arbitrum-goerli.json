@@ -1,6 +1,7 @@
 {
-  "RELAYER_ITERATION_INTERVAL": 10000,
-  "UPDATE_PRICE_INTERVAL": 110000,
+  "RELAYER_ITERATION_INTERVAL": 60000,
+  "UPDATE_CONDITIONS": ["time"],
+  "UPDATE_PRICE_INTERVAL": 3600000,
   "RPC_URL": "https://goerli-rollup.arbitrum.io/rpc/",
   "CHAIN_NAME": "Arbitrum Goerli Testnet",
   "CHAIN_ID": 421613,
@@ -10,7 +11,6 @@
   "UNIQUE_SIGNERS_COUNT": 1,
   "DATA_FEEDS": ["VST"],
   "CACHE_SERVICE_URLS": ["https://d1zm8lxy9v2ddd.cloudfront.net"],
-  "UPDATE_CONDITION": "time",
   "GAS_LIMIT": 10000000,
 
   "VST_PRICE_FEED": "0x449F0bC26B7Ad7b48DA2674Fb4030F0e9323b466"
