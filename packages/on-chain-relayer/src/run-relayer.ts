@@ -5,6 +5,7 @@ import { updatePrices } from "./core/contract-interactions/update-prices";
 import { getLastRoundParamsFromContract } from "./core/contract-interactions/get-last-round-params";
 import { getManagerContract } from "./core/contract-interactions/get-adapter-contract";
 import { getValuesForDataFeeds } from "./core/contract-interactions/get-values-for-data-feeds";
+import { sendHealthcheckPing } from "./core/monitoring/send-healthcheck-ping";
 import { config } from "./config";
 
 const { relayerIterationInterval } = config;
@@ -48,6 +49,8 @@ const runRelayer = async () => {
       lastRound
     );
   }
+
+  await sendHealthcheckPing();
 };
 
 const task = new AsyncTask(
