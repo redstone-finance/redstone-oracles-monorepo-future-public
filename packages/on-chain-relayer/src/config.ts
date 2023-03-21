@@ -40,4 +40,5 @@ export const config = Object.freeze({
       ).includes("value-deviation")
     )
   ) as number,
+  healthcheckPingUrl: getFromEnv("HEALTHCHECK_PING_URL", true),
 });
