@@ -1,6 +1,7 @@
 {
-  "RELAYER_ITERATION_INTERVAL": 10000,
-  "UPDATE_PRICE_INTERVAL": 110000,
+  "RELAYER_ITERATION_INTERVAL": 60000,
+  "UPDATE_CONDITIONS": ["time"],
+  "UPDATE_PRICE_INTERVAL": 3600000,
   "RPC_URL": "https://rpc.ankr.com/eth_goerli/",
   "CHAIN_NAME": "Goerli test network",
   "CHAIN_ID": 5,
