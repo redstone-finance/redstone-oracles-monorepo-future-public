@@ -57,27 +57,34 @@ describe("Data packages (e2e)", () => {
 
     // Adding test data to DB
     const dataPackagesToInsert = [];
+    const mockDataPackage = mockDataPackages[0];
     for (const dataServiceId of [
       "service-1",
       "service-2",
       "service-3",
       "mock-data-service-1",
     ]) {
-      for (const dataFeedId of dataFeedIds) {
-        for (const signerAddress of [
-          MOCK_SIGNER_ADDRESS, // address of mock-signer
-          "0x2",
-          "0x3",
-          "0x4",
-          "0x5",
-        ]) {
-          dataPackagesToInsert.push({
-            ...mockDataPackages[0],
-            isSignatureValid: true,
-            dataFeedId,
-            dataServiceId,
-            signerAddress,
-          });
+      for (const timestampMilliseconds of [
+        mockDataPackage.timestampMilliseconds - 1,
+        mockDataPackage.timestampMilliseconds,
+      ]) {
+        for (const dataFeedId of dataFeedIds) {
+          for (const signerAddress of [
+            MOCK_SIGNER_ADDRESS, // address of mock-signer
+            "0x2",
+            "0x3",
+            "0x4",
+            "0x5",
+          ]) {
+            dataPackagesToInsert.push({
+              ...mockDataPackage,
+              timestampMilliseconds,
+              isSignatureValid: true,
+              dataFeedId,
+              dataServiceId,
+              signerAddress,
+            });
+          }
         }
       }
     }
@@ -203,6 +210,21 @@ describe("Data packages (e2e)", () => {
     }
   });
 
+  it("/data-packages/historical/mock-data-service-1 (GET)", async () => {
+    const historicalTimestamp = mockDataPackages[0].timestampMilliseconds - 1;
+    const testResponse = await request(httpServer)
+      .get(
+        `/data-packages/historical/mock-data-service-1/${historicalTimestamp}`
+      )
+      .expect(200);
+
+    for (const dataFeedId of dataFeedIds) {
+      expect(testResponse.body[dataFeedId][0].timestampMilliseconds).toBe(
+        historicalTimestamp
+      );
+    }
+  });
+
   async function performPayloadTests(
     bytesProvider: (response: request.Response) => Uint8Array,
     format?: ResponseFormat
@@ -315,15 +337,15 @@ describe("Data packages (e2e)", () => {
     expect(response.body).toEqual(
       expect.objectContaining({
         "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
-          dataPackagesCount: 16,
-          verifiedDataPackagesCount: 16,
+          dataPackagesCount: 32,
+          verifiedDataPackagesCount: 32,
           verifiedDataPackagesPercentage: 100,
           nodeName: "Mock node 1",
           dataServiceId: MOCK_DATA_SERVICE_ID,
         },
         "0x2": {
-          dataPackagesCount: 16,
-          verifiedDataPackagesCount: 16,
+          dataPackagesCount: 32,
+          verifiedDataPackagesCount: 32,
           verifiedDataPackagesPercentage: 100,
           nodeName: "unknown",
           dataServiceId: "unknown",

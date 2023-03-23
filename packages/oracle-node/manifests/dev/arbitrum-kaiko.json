@@ -1,0 +1,29 @@
+{
+  "interval": 10000,
+  "useCustomScheduler": "on-each-arbitrum-block",
+  "signBlockNumbersInsteadOfTimestamps": true,
+  "priceAggregator": "median",
+  "defaultSource": ["kaiko"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "evmChainId": 1,
+  "enableStreamrBroadcaster": false,
+  "enableArweaveBackup": false,
+  "tokens": {
+    "BTC": {},
+    "ETH": {},
+    "USDT": {},
+    "BNB": {},
+    "ADA": {},
+    "DOT": {},
+    "CELO": {},
+    "AVAX": {},
+    "GMX": {},
+    "UNI": {}
+  }
+}
