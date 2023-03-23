@@ -52,9 +52,7 @@ export class DataPackagesService {
     );
 
     if (!dataPackagesFromCache) {
-      const dataPackages = await this.getAllLatestDataPackagesFromDB(
-        dataServiceId
-      );
+      const dataPackages = await this.getDataPackagesFromDB(dataServiceId);
       await cacheManager.set(cacheKey, dataPackages, CACHE_TTL);
       return dataPackages;
     } else {
@@ -62,13 +60,21 @@ export class DataPackagesService {
     }
   }
 
+  async getByTimestamp(
+    dataServiceId: string,
+    timestamp: number
+  ): Promise<DataPackagesResponse> {
+    return await this.getDataPackagesFromDB(dataServiceId, timestamp);
+  }
+
   async isDataServiceIdValid(dataServiceId: string): Promise<boolean> {
     const oracleRegistryState = await getOracleRegistryState();
     return !!oracleRegistryState.dataServices[dataServiceId];
   }
 
-  async getAllLatestDataPackagesFromDB(
-    dataServiceId: string
+  async getDataPackagesFromDB(
+    dataServiceId: string,
+    timestamp?: number
   ): Promise<DataPackagesResponse> {
     const fetchedPackagesPerDataFeed: {
       [dataFeedId: string]: CachedDataPackage[];
@@ -78,7 +84,7 @@ export class DataPackagesService {
       {
         $match: {
           dataServiceId,
-          timestampMilliseconds: {
+          timestampMilliseconds: timestamp ?? {
             $gte: Date.now() - MAX_ALLOWED_TIMESTAMP_DELAY,
           },
         },

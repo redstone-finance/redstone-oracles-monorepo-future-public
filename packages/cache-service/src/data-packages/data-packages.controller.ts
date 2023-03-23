@@ -86,12 +86,7 @@ export class DataPackagesController {
     return requestParams;
   }
 
-  @Get("latest/:DATA_SERVICE_ID")
-  @Header("Cache-Control", "max-age=5")
-  async getAllLatest(
-    @Param("DATA_SERVICE_ID") dataServiceId: string
-  ): Promise<DataPackagesResponse> {
-    // Validate dataServiceId param
+  private async validateDataServiceId(dataServiceId: string) {
     const isDataServiceIdValid =
       await this.dataPackagesService.isDataServiceIdValid(dataServiceId);
     if (!isDataServiceIdValid) {
@@ -103,10 +98,30 @@ export class DataPackagesController {
         HttpStatus.BAD_REQUEST
       );
     }
+  }
 
+  @Get("latest/:DATA_SERVICE_ID")
+  @Header("Cache-Control", "max-age=5")
+  async getAllLatest(
+    @Param("DATA_SERVICE_ID") dataServiceId: string
+  ): Promise<DataPackagesResponse> {
+    await this.validateDataServiceId(dataServiceId);
     return this.dataPackagesService.getAllLatestDataWithCache(
       dataServiceId,
       this.cacheManager
+    );
+  }
+
+  @Get("historical/:DATA_SERVICE_ID/:TIMESTAMP")
+  @Header("Cache-Control", "max-age=5")
+  async getByTimestamp(
+    @Param("DATA_SERVICE_ID") dataServiceId: string,
+    @Param("TIMESTAMP") timestamp: string
+  ): Promise<DataPackagesResponse> {
+    await this.validateDataServiceId(dataServiceId);
+    return this.dataPackagesService.getByTimestamp(
+      dataServiceId,
+      Number(timestamp)
     );
   }
 
