@@ -3,6 +3,7 @@
   "priceAggregator": "median",
   "defaultSource": ["coingecko"],
   "sourceTimeout": 7000,
+  "minValidSourcesPercentage": 10,
   "deviationCheck": {
     "deviationWithRecentValues": {
       "maxPercent": 30,
