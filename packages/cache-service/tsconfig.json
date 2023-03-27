@@ -21,7 +21,7 @@
     "declarationMap": true,
     "composite": true
   },
-  "include": ["./src", "./test"],
+  "include": ["./src", "./test", "./scripts"],
   "references": [
     {
       "path": "../protocol"
