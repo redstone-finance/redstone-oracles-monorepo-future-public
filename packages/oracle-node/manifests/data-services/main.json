@@ -820,6 +820,9 @@
     "SOFR": {
       "source": ["newyorkfed"]
     },
+    "WSTETH": {
+      "source": ["coingecko", "coinmarketcap"]
+    },
     "AUD": {
       "source": ["binance", "currencycom", "ecb", "kraken"]
     },
