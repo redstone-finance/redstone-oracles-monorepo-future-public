@@ -13,6 +13,44 @@ const END_TIMESTAMP = Date.now();
 const DATA_SERVICE_ID = "redstone-avalanche-prod";
 const MIN_DEVIATION_PERCENTAGE_TO_LOG = 0.1;
 
+const EXPECTED_DATA_FEEDS = [
+  "AVAX",
+  "BTC",
+  "BUSD",
+  "DAI",
+  "ETH",
+  "GLP",
+  "GMX",
+  "JOE",
+  "LINK",
+  "MOO_TJ_AVAX_USDC_LP",
+  "PNG",
+  "PNG_AVAX_ETH_LP",
+  "PNG_AVAX_USDC_LP",
+  "PNG_AVAX_USDT_LP",
+  "PTP",
+  "QI",
+  "TJ_AVAX_BTC_LP",
+  "TJ_AVAX_ETH_LP",
+  "TJ_AVAX_USDC_LP",
+  "TJ_AVAX_USDT_LP",
+  "TJ_AVAX_sAVAX_LP",
+  "USDC",
+  "USDT",
+  "XAVA",
+  "YAK",
+  "YYAV3SA1",
+  "YY_AAVE_AVAX",
+  "YY_GLP",
+  "YY_PNG_AVAX_ETH_LP",
+  "YY_PNG_AVAX_USDC_LP",
+  "YY_PTP_sAVAX",
+  "YY_TJ_AVAX_ETH_LP",
+  "YY_TJ_AVAX_USDC_LP",
+  "YY_TJ_AVAX_sAVAX_LP",
+  "sAVAX",
+];
+
 interface DataPackagesGroupedBySigner {
   [signer: string]: CachedDataPackage[];
 }
@@ -48,8 +86,12 @@ async function main() {
 
       console.log(`Data points count: ${dataPackage.dataPoints.length}`);
 
-      if (dataPackage.dataPoints.length < 32) {
-        console.log(dataPackage.dataPoints);
+      if (dataPackage.dataPoints.length < EXPECTED_DATA_FEEDS.length) {
+        const missingDataFeeds = EXPECTED_DATA_FEEDS.filter(
+          (dataFeedId) =>
+            !dataPackage.dataPoints.some((dp) => dp.dataFeedId === dataFeedId)
+        );
+        console.log("Missing data feeds: " + missingDataFeeds);
       }
 
       if (timestampFromIdDiff > 10000) {
