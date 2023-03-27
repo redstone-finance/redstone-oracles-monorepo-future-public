@@ -752,7 +752,6 @@
     "CANTO": {},
     "BIT": {},
     "KAVA": {},
-
     "TON": {},
     "LDO": {},
     "ARB": {},
@@ -937,6 +936,7 @@
     "SOUL": {},
     "APX": {},
     "GMM": {},
-    "LAZIO": {}
+    "LAZIO": {},
+    "WSTETH": {}
   }
 }
