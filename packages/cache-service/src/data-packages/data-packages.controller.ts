@@ -1,27 +1,27 @@
 import {
   Body,
+  CACHE_MANAGER,
   Controller,
   Get,
+  Header,
   HttpException,
   HttpStatus,
+  Inject,
+  Param,
   Post,
   Query,
   Res,
-  Param,
-  CACHE_MANAGER,
-  Inject,
-  Header,
 } from "@nestjs/common";
-import { DataPackagesRequestParams } from "redstone-sdk";
-import config from "../config";
-import { ReceivedDataPackage } from "./data-packages.interface";
-import { DataPackagesService } from "./data-packages.service";
-import { CachedDataPackage } from "./data-packages.model";
-import { BundlrService } from "../bundlr/bundlr.service";
-import type { Response } from "express";
-import { duplexStream } from "../utils/streams";
-import { Serializable } from "redstone-protocol";
 import { Cache } from "cache-manager";
+import type { Response } from "express";
+import { Serializable } from "redstone-protocol";
+import { DataPackagesRequestParams } from "redstone-sdk";
+import { BundlrService } from "../bundlr/bundlr.service";
+import config from "../config";
+import { duplexStream } from "../utils/streams";
+import { ReceivedDataPackage } from "./data-packages.interface";
+import { CachedDataPackage } from "./data-packages.model";
+import { DataPackagesService } from "./data-packages.service";
 
 export interface BulkPostRequestBody {
   requestSignature: string;
@@ -63,8 +63,6 @@ const CONTENT_TYPE_JSON = "application/json";
 
 @Controller("data-packages")
 export class DataPackagesController {
-  private bundlrService = new BundlrService();
-
   constructor(
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private dataPackagesService: DataPackagesService
@@ -189,11 +187,7 @@ export class DataPackagesController {
         signerAddress
       );
 
-    await this.dataPackagesService.saveManyDataPackagesInDB(dataPackagesToSave);
-
-    if (config.enableArchivingOnArweave) {
-      await this.bundlrService.safelySaveDataPackages(dataPackagesToSave);
-    }
+    await this.dataPackagesService.saveMany(dataPackagesToSave, signerAddress);
   }
 
   private sendSerializableResponse(
