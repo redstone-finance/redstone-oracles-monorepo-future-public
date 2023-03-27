@@ -33,7 +33,13 @@ jest.mock("redstone-streamr-proxy", () => ({
   })),
 }));
 
-jest.mock("../../src/bundlr/bundlr.service");
+const bundlrService = new BundlrService();
+const bundlrSaveDataPackagesSpy = jest.spyOn(bundlrService, "saveDataPackages");
+const dataPackageService = new DataPackagesService(bundlrService);
+const dataPackageServiceSaveManySpy = jest.spyOn(
+  dataPackageService,
+  "saveManyDataPackagesInDB"
+);
 
 const expectedSavedDataPackages = [
   {
@@ -52,12 +58,9 @@ describe("Streamr Listener (e2e)", () => {
     // Connect to mongoDB in memory
     await connectToTestDB();
 
-    streamrListenerService = new StreamrListenerService(
-      new DataPackagesService(),
-      new BundlrService()
-    );
-
-    (BundlrService.prototype.safelySaveDataPackages as any).mockClear();
+    streamrListenerService = new StreamrListenerService(dataPackageService);
+    bundlrSaveDataPackagesSpy.mockClear();
+    dataPackageServiceSaveManySpy.mockClear();
   });
 
   afterEach(async () => await dropTestDatabase());
@@ -79,14 +82,12 @@ describe("Streamr Listener (e2e)", () => {
 
   it("Should listen to streamr streams and save data on Bundlr", async () => {
     await streamrListenerService.syncStreamrListening();
+    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => Promise.resolve());
+
     await sleep(1000);
 
-    expect(
-      BundlrService.prototype.safelySaveDataPackages
-    ).toHaveBeenCalledTimes(1);
-    expect(BundlrService.prototype.safelySaveDataPackages).toHaveBeenCalledWith(
-      expectedSavedDataPackages
-    );
+    expect(bundlrSaveDataPackagesSpy).toBeCalledTimes(1);
+    expect(bundlrSaveDataPackagesSpy).toBeCalledWith(expectedSavedDataPackages);
   });
 
   it("Should listen to streamr streams and save data on Bundlr when allowed data service ids are set", async () => {
@@ -96,17 +97,13 @@ describe("Streamr Listener (e2e)", () => {
         MOCK_DATA_SERVICE_ID.toLowerCase(),
         "other-data-service",
       ]);
+    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => Promise.resolve());
 
     await streamrListenerService.syncStreamrListening();
     await sleep(1000);
 
-    expect(
-      BundlrService.prototype.safelySaveDataPackages
-    ).toHaveBeenCalledTimes(1);
-    expect(BundlrService.prototype.safelySaveDataPackages).toHaveBeenCalledWith(
-      expectedSavedDataPackages
-    );
-
+    expect(bundlrSaveDataPackagesSpy).toBeCalledTimes(1);
+    expect(bundlrSaveDataPackagesSpy).toBeCalledWith(expectedSavedDataPackages);
     spy.mockRestore();
   });
 
@@ -114,14 +111,49 @@ describe("Streamr Listener (e2e)", () => {
     const spy = jest
       .spyOn(streamrListenerService, "getAllowedDataServiceIds")
       .mockReturnValue(["other-data-service"]);
+    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => Promise.resolve());
 
     await streamrListenerService.syncStreamrListening();
     await sleep(1000);
 
-    expect(
-      BundlrService.prototype.safelySaveDataPackages
-    ).toHaveBeenCalledTimes(0);
-
+    expect(bundlrSaveDataPackagesSpy).toBeCalledTimes(0);
     spy.mockRestore();
+  });
+
+  it("Should save dataPackages to DB, even if bundlr fails", async () => {
+    await streamrListenerService.syncStreamrListening();
+    // mocking race first bundlr fails then DB try to save
+    dataPackageServiceSaveManySpy.mockImplementationOnce(
+      () => sleep(20) as any
+    );
+    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => Promise.reject());
+
+    await sleep(1000);
+
+    expect(bundlrSaveDataPackagesSpy).toBeCalledTimes(1);
+    expect(bundlrSaveDataPackagesSpy).toBeCalledWith(expectedSavedDataPackages);
+
+    expect(dataPackageServiceSaveManySpy).toBeCalledTimes(1);
+    expect(dataPackageServiceSaveManySpy).toReturn();
+  });
+
+  it("Should save dataPackages to bundlr, even if DB fails", async () => {
+    await streamrListenerService.syncStreamrListening();
+
+    // mocking race first data fails then bundlr try to save
+    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => sleep(20) as any);
+    dataPackageServiceSaveManySpy.mockImplementationOnce(() =>
+      Promise.reject()
+    );
+
+    await sleep(1000);
+
+    expect(dataPackageServiceSaveManySpy).toBeCalledTimes(1);
+    expect(dataPackageServiceSaveManySpy).toBeCalledWith(
+      expectedSavedDataPackages
+    );
+
+    expect(bundlrSaveDataPackagesSpy).toBeCalledTimes(1);
+    expect(bundlrSaveDataPackagesSpy).toReturn();
   });
 });
