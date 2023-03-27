@@ -9,9 +9,7 @@ import {
   StreamrClient,
   Subscription,
 } from "redstone-streamr-proxy";
-import { DataPackage } from "../data-packages/data-packages.model";
 import { DataPackagesService } from "../data-packages/data-packages.service";
-import { BundlrService } from "../bundlr/bundlr.service";
 
 interface StreamrSubscriptions {
   [nodeEvmAddress: string]: Subscription;
@@ -34,10 +32,7 @@ export class StreamrListenerService {
   });
   private subscriptionsState: StreamrSubscriptions = {};
 
-  constructor(
-    private dataPackageService: DataPackagesService,
-    private bundlrService: BundlrService
-  ) {}
+  constructor(private dataPackageService: DataPackagesService) {}
 
   @Cron(CRON_EXPRESSION_EVERY_1_MINUTE)
   handleCron() {
@@ -94,14 +89,10 @@ export class StreamrListenerService {
             );
           this.logger.log(`Data packages parsed for node: ${nodeEvmAddress}`);
 
-          await DataPackage.insertMany(dataPackagesToSave);
-          this.logger.log(
-            `Saved ${dataPackagesToSave.length} data packages for node: ${nodeEvmAddress}`
+          await this.dataPackageService.saveMany(
+            dataPackagesToSave,
+            nodeEvmAddress
           );
-
-          if (config.enableArchivingOnArweave) {
-            await this.bundlrService.safelySaveDataPackages(dataPackagesToSave);
-          }
         } catch (e) {
           this.logger.error("Error occured ", e.stack);
         }
