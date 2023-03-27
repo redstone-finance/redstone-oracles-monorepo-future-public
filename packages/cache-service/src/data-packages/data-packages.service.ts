@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { Cache } from "cache-manager";
 import {
   RedstonePayload,
@@ -20,6 +20,8 @@ import {
 import { ReceivedDataPackage } from "./data-packages.interface";
 import { CachedDataPackage, DataPackage } from "./data-packages.model";
 import { makePayload } from "../utils/make-redstone-payload";
+import { BundlrService } from "../bundlr/bundlr.service";
+import { runPromiseWithLogging } from "../utils/utils";
 
 // Cache TTL can slightly increase the data delay, but having efficient
 // caching is crucial for the app performance. Assuming, that we have 10s
@@ -36,6 +38,35 @@ export interface StatsRequestParams {
 
 @Injectable()
 export class DataPackagesService {
+  private readonly logger = new Logger(DataPackagesService.name);
+
+  constructor(private readonly bundlrService: BundlrService) {}
+
+  /**  Save dataPackages to DB and bundlr if enabled */
+  async saveMany(
+    dataPackagesToSave: CachedDataPackage[],
+    nodeEvmAddress: string
+  ): Promise<void> {
+    const savePromises: Promise<any>[] = [];
+    const saveToDbPromise = runPromiseWithLogging(
+      this.saveManyDataPackagesInDB(dataPackagesToSave),
+      `Save ${dataPackagesToSave.length} data packages for node ${nodeEvmAddress} to Database`,
+      this.logger
+    );
+    savePromises.push(saveToDbPromise);
+
+    if (config.enableArchivingOnArweave) {
+      const saveToBundlrPromise = runPromiseWithLogging(
+        this.bundlrService.saveDataPackages(dataPackagesToSave),
+        `Save ${dataPackagesToSave.length} data packages for node ${nodeEvmAddress} to Bundlr`,
+        this.logger
+      );
+      savePromises.push(saveToBundlrPromise);
+    }
+
+    await Promise.allSettled(savePromises);
+  }
+
   async saveManyDataPackagesInDB(dataPackages: CachedDataPackage[]) {
     await DataPackage.insertMany(dataPackages);
   }

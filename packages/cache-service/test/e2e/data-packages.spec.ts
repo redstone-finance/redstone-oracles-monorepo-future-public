@@ -13,7 +13,10 @@ import {
   mockSigner,
 } from "../common/mock-values";
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
-import { DataPackage } from "../../src/data-packages/data-packages.model";
+import {
+  CachedDataPackage,
+  DataPackage,
+} from "../../src/data-packages/data-packages.model";
 import { BundlrService } from "../../src/bundlr/bundlr.service";
 import { ALL_FEEDS_KEY } from "../../src/data-packages/data-packages.service";
 import { RedstonePayloadParser } from "redstone-protocol/dist/src/redstone-payload/RedstonePayloadParser";
@@ -26,7 +29,6 @@ jest.mock("redstone-sdk", () => ({
   ...jest.requireActual("redstone-sdk"),
   getOracleRegistryState: jest.fn(() => mockOracleRegistryState),
 }));
-jest.mock("../../src/bundlr/bundlr.service");
 
 const dataFeedIds = [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"];
 
@@ -40,6 +42,10 @@ const expectedDataPackages = mockDataPackages.map((dataPackage) => ({
 
 describe("Data packages (e2e)", () => {
   let app: INestApplication, httpServer: any;
+  let bundlrSaveDataPackagesSpy: jest.SpyInstance<
+    Promise<void>,
+    [dataPackages: CachedDataPackage[]]
+  >;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -50,7 +56,10 @@ describe("Data packages (e2e)", () => {
     await app.init();
     httpServer = app.getHttpServer();
 
-    (BundlrService.prototype.safelySaveDataPackages as any).mockClear();
+    const bundlrService = app.get(BundlrService);
+    bundlrSaveDataPackagesSpy = jest.spyOn(bundlrService, "saveDataPackages");
+    bundlrSaveDataPackagesSpy.mockImplementation(() => Promise.resolve());
+    bundlrSaveDataPackagesSpy.mockClear();
 
     // Connect to mongoDB in memory
     await connectToTestDB();
@@ -93,7 +102,7 @@ describe("Data packages (e2e)", () => {
 
   afterEach(async () => await dropTestDatabase());
 
-  it("/data-packages/bulk (POST)", async () => {
+  it("/data-packages/bulk (POST) - should save data to DB", async () => {
     const requestSignature = signByMockSigner(mockDataPackages);
     await request(httpServer)
       .post("/data-packages/bulk")
@@ -127,10 +136,54 @@ describe("Data packages (e2e)", () => {
       .expect(201);
 
     // Should have been saved in Arweave
-    expect(
-      BundlrService.prototype.safelySaveDataPackages
-    ).toHaveBeenCalledTimes(1);
-    expect(BundlrService.prototype.safelySaveDataPackages).toHaveBeenCalledWith(
+    expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledTimes(1);
+    expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledWith(
+      expectedDataPackages
+    );
+  });
+
+  it("/data-packages/bulk (POST) - should post data using DB, even if bundlr fails", async () => {
+    const requestSignature = signByMockSigner(mockDataPackages);
+    // mock bundlr failure
+    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => Promise.reject());
+
+    await request(httpServer)
+      .post("/data-packages/bulk")
+      .send({
+        requestSignature,
+        dataPackages: mockDataPackages,
+      })
+      .expect(201);
+
+    const dataPackagesInDB = await DataPackage.find().sort({
+      dataFeedId: 1,
+    });
+    const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { _id, __v, ...rest } = dp.toJSON() as any;
+      return rest;
+    });
+    expect(dataPackagesInDBCleaned).toEqual(
+      expect.arrayContaining(expectedDataPackages)
+    );
+  });
+
+  it("/data-packages/bulk (POST) - should post data using bundlr, even if DB fails", async () => {
+    const requestSignature = signByMockSigner(mockDataPackages);
+    // mock bundlr DB failure
+    const dataPackageSaveManySpy = jest.spyOn(DataPackage, "insertMany");
+    dataPackageSaveManySpy.mockImplementationOnce(() => Promise.reject());
+
+    await request(httpServer)
+      .post("/data-packages/bulk")
+      .send({
+        requestSignature,
+        dataPackages: mockDataPackages,
+      })
+      .expect(201);
+
+    expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledTimes(1);
+    expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledWith(
       expectedDataPackages
     );
   });
