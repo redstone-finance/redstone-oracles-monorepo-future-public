@@ -247,9 +247,10 @@ export class DataPackagesService {
   ) {
     const oracleRegistryState = await getOracleRegistryState();
 
-    const dataServiceId = config.mockDataServiceIdForPackages
-      ? "mock-data-service-1"
-      : getDataServiceIdForSigner(oracleRegistryState, signerAddress);
+    const dataServiceId = getDataServiceIdForSigner(
+      oracleRegistryState,
+      signerAddress
+    );
 
     const dataPackagesForSaving = receivedDataPackages.map(
       (receivedDataPackage) => {
