@@ -8,7 +8,6 @@ import {
 import {
   DataPackagesRequestParams,
   getDataServiceIdForSigner,
-  getOracleRegistryState,
   parseDataPackagesResponse,
 } from "redstone-sdk";
 import config from "../config";
@@ -20,6 +19,7 @@ import {
 import { ReceivedDataPackage } from "./data-packages.interface";
 import { CachedDataPackage, DataPackage } from "./data-packages.model";
 import { makePayload } from "../utils/make-redstone-payload";
+import { getOracleState } from "../utils/get-oracle-state";
 import { BundlrService } from "../bundlr/bundlr.service";
 import { runPromiseWithLogging } from "../utils/utils";
 
@@ -99,7 +99,7 @@ export class DataPackagesService {
   }
 
   async isDataServiceIdValid(dataServiceId: string): Promise<boolean> {
-    const oracleRegistryState = await getOracleRegistryState();
+    const oracleRegistryState = await getOracleState();
     return !!oracleRegistryState.dataServices[dataServiceId];
   }
 
@@ -208,7 +208,7 @@ export class DataPackagesService {
     ]);
 
     // Prepare stats response
-    const state = await getOracleRegistryState();
+    const state = await getOracleState();
     const stats: DataPackagesStatsResponse = {};
     for (const {
       dataPackagesCount,
@@ -245,7 +245,7 @@ export class DataPackagesService {
     receivedDataPackages: ReceivedDataPackage[],
     signerAddress: string
   ) {
-    const oracleRegistryState = await getOracleRegistryState();
+    const oracleRegistryState = await getOracleState();
 
     const dataServiceId = getDataServiceIdForSigner(
       oracleRegistryState,
