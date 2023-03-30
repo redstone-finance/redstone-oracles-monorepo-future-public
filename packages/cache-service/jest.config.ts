@@ -14,6 +14,7 @@ const config: Config.InitialOptions = {
   moduleNameMapper: {
     "streamr-client": "<rootDir>/../.jest/streamr-client-stub.js",
   },
+  setupFiles: ["<rootDir>/../.jest/set-env-vars.js"],
 };
 
 export default config;

@@ -4,19 +4,20 @@ This is a NestJS web app, which serves as a gateway to the data in the RedStone 
 
 ## Deploy
 
-Click the button below to deploy the app to the DigitalOcean App Platform. 
-* [Here](../../.do/app/README.md) you can find a small tutorial on how to do it.
-* If you are not logged in, you will be prompted to log in with your DigitalOcean account. 
-* The deployment may take up to 20 minutes and will be performed for the **main** branch. 
-* If you need to have the deployment performed for your custom branch, you need to modify [.do/deploy.template.yaml](../../.do/deploy.template.yaml) file and the link in the button below by replacing *main* with the name of your branch.
+Click the button below to deploy the app to the DigitalOcean App Platform.
 
-#### Prerequisites 
+- [Here](../../.do/app/README.md) you can find a small tutorial on how to do it.
+- If you are not logged in, you will be prompted to log in with your DigitalOcean account.
+- The deployment may take up to 20 minutes and will be performed for the **main** branch.
+- If you need to have the deployment performed for your custom branch, you need to modify [.do/deploy.template.yaml](../../.do/deploy.template.yaml) file and the link in the button below by replacing _main_ with the name of your branch.
+
+#### Prerequisites
 
 You need to have the MongoDB setup performed as a cluster or as an external service. [Check here](../../.do/mongodb/README.md) to see how to set up the MongoDB cluster on the DigitalOcean platform.
 
 [![Deploy to DigitalOcean](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/redstone-finance/redstone-oracles-monorepo/tree/main)
 
-### or 
+### or
 
 Use [the following link](https://github.com/redstone-finance/redstone-cache-service-lightsail) to deploy redstone-cache-service on AWS lightsail in 2 minutes.
 
@@ -29,7 +30,6 @@ Use [the following link](https://github.com/redstone-finance/redstone-cache-serv
   - POST /data-packages (body = a single package)
   - POST /data-packages/bulk (body = array of data packages)
 - other (helpful endpoints)
-
   - GET /oracle-registry-state
   - GET /symbols-metadata
 
