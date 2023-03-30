@@ -63,6 +63,7 @@ describe("Utils", () => {
 
   test("Should correctly convert float numbers to bytes", () => {
     expect(hexlify(convertIntegerNumberToBytes(910, 4))).toBe("0x0000038e");
+    expect(hexlify(convertIntegerNumberToBytes("910", 4))).toBe("0x0000038e");
     expect(hexlify(convertNumberToBytes(9.1, 2, 4))).toBe("0x0000038e");
 
     expect(hexlify(convertIntegerNumberToBytes(421234567000, 32))).toBe(
@@ -84,6 +85,46 @@ describe("Utils", () => {
 
     expect(hexlify(convertNumberToBytes(42.123456789, 8, 32))).toBe(
       "0x00000000000000000000000000000000000000000000000000000000fb134b4f"
+    );
+  });
+
+  test("Should works for big numbers (>1e21)", () => {
+    expect(hexlify(convertIntegerNumberToBytes(1e21, 20))).toBe(
+      "0x00000000000000000000003635c9adc5dea00000"
+    );
+
+    expect(hexlify(convertNumberToBytes(1e50, 2, 50))).toBe(
+      "0x000000000000000000000000000000000000000000000000000000001aba4714957d300d0e549208b31adb10000000000000"
+    );
+  });
+
+  test("Should throw on NaN", () => {
+    expect(() => convertIntegerNumberToBytes(NaN, 20)).toThrow(
+      "Assertion failed: convertIntegerNumberToBytes expects integer as input"
+    );
+
+    expect(() => convertNumberToBytes(NaN, 2, 20)).toThrow(
+      /invalid decimal value/
+    );
+  });
+
+  test("Should throw on Infinity", () => {
+    expect(() => convertIntegerNumberToBytes(Infinity, 20)).toThrow(
+      "Assertion failed: convertIntegerNumberToBytes expects integer as input"
+    );
+
+    expect(() => convertNumberToBytes(-Infinity, 2, 20)).toThrow(
+      /invalid decimal value/
+    );
+  });
+
+  test("Should fail on float passed to convertIntegerNumberToBytes", () => {
+    expect(() => convertIntegerNumberToBytes(12.12, 4)).toThrow(
+      "Assertion failed: convertIntegerNumberToBytes expects integer as input"
+    );
+
+    expect(() => convertIntegerNumberToBytes("12.12", 4)).toThrow(
+      "Assertion failed: convertIntegerNumberToBytes expects integer as input"
     );
   });
 });

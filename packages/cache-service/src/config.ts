@@ -6,7 +6,6 @@ interface CacheServiceConfigRequiredFields {
   mongoDbUrl: string;
   enableStreamrListening: boolean;
   enableDirectPostingRoutes: boolean;
-  mockDataServiceIdForPackages: boolean;
   apiKeyForAccessToAdminRoutes: string;
   allowedStreamrDataServiceIds: string[];
 }
@@ -42,8 +41,6 @@ const config = {
   apiKeyForAccessToAdminRoutes: getEnv("API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES"),
   enableArchivingOnArweave: !!arweaveJwkKeyForArchiving,
   bundlrNodeUrl: getEnv("BUNDLR_NODE_URL", false) || DEFAULT_BUNDLR_NODE_URL,
-  mockDataServiceIdForPackages:
-    getEnv("MOCK_DATA_SERVICE_ID_FOR_PACKAGES", false) === "true",
   allowedStreamrDataServiceIds: JSON.parse(
     getEnv("ALLOWED_STREAMR_DATA_SERVICE_IDS", false) || "[]"
   ),
