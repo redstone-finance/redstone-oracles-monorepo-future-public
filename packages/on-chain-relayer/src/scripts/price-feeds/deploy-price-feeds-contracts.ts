@@ -1,21 +1,20 @@
-import { Wallet, utils, ContractFactory } from "ethers";
+import { utils } from "ethers";
+import { ethers } from "hardhat";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { requestDataPackages } from "redstone-sdk";
-import PriceFeedsAdapter from "../../artifacts/contracts/price-feeds/PriceFeedsAdapter.sol/PriceFeedsAdapter.json";
-import PriceFeed from "../../artifacts/contracts/price-feeds/PriceFeed.sol/PriceFeed.json";
-import { getProvider } from "../core/contract-interactions/get-provider";
-import { config } from "../config";
+import { getSigner } from "../../core/contract-interactions/get-provider-or-signer";
+import { config } from "../../config";
+
+// Usage: yarn run-script src/scripts/price-feeds/deploy-price-feeds-contracts.ts
+// Note! You should configure the .env file properly before running this script
 
 (async () => {
-  const provider = getProvider();
-  const signer = new Wallet(config.privateKey, provider);
   const dataFeeds = config.dataFeeds as string[];
 
   console.log("Deploying adapter contract...");
-  const adapterFactory = new ContractFactory(
-    PriceFeedsAdapter.abi,
-    PriceFeedsAdapter.bytecode,
-    signer
+  const adapterFactory = await ethers.getContractFactory(
+    "PriceFeedsAdapter",
+    getSigner()
   );
   const dataFeedsAsBytes32 = dataFeeds.map(utils.formatBytes32String);
   const adapterContract = await adapterFactory.deploy(dataFeedsAsBytes32);
@@ -24,10 +23,9 @@ import { config } from "../config";
 
   console.log("Deploying price feeds contracts...");
   for (const dataFeed of dataFeeds) {
-    const priceFeedFactory = new ContractFactory(
-      PriceFeed.abi,
-      PriceFeed.bytecode,
-      signer
+    const priceFeedFactory = await ethers.getContractFactory(
+      "PriceFeed",
+      getSigner()
     );
     const priceFeedContract = await priceFeedFactory.deploy(
       adapterContract.address,

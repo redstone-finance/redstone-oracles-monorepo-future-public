@@ -3,7 +3,7 @@ import { requestDataPackages } from "redstone-sdk";
 import { shouldUpdate } from "./core/update-conditions/should-update";
 import { updatePrices } from "./core/contract-interactions/update-prices";
 import { getLastRoundParamsFromContract } from "./core/contract-interactions/get-last-round-params";
-import { getManagerContract } from "./core/contract-interactions/get-adapter-contract";
+import { getAdapterContract } from "./core/contract-interactions/get-contract";
 import { getValuesForDataFeeds } from "./core/contract-interactions/get-values-for-data-feeds";
 import { sendHealthcheckPing } from "./core/monitoring/send-healthcheck-ping";
 import { config } from "./config";
@@ -14,10 +14,10 @@ console.log(
   `Starting contract prices updater with interval ${relayerIterationInterval}`
 );
 
-const runRelayer = async () => {
+const runIteration = async () => {
   const { dataServiceId, uniqueSignersCount, dataFeeds, cacheServiceUrls } =
     config;
-  const priceFeedsAdapterContract = await getManagerContract();
+  const adapterContract = getAdapterContract();
   const dataPackages = await requestDataPackages(
     {
       dataServiceId,
@@ -28,9 +28,9 @@ const runRelayer = async () => {
   );
 
   const { lastRound, lastUpdateTimestamp } =
-    await getLastRoundParamsFromContract(priceFeedsAdapterContract);
+    await getLastRoundParamsFromContract(adapterContract);
   const valuesFromContract = await getValuesForDataFeeds(
-    priceFeedsAdapterContract,
+    adapterContract,
     dataFeeds
   );
   const { shouldUpdatePrices, warningMessage } = shouldUpdate({
@@ -44,7 +44,7 @@ const runRelayer = async () => {
   } else {
     await updatePrices(
       dataPackages,
-      priceFeedsAdapterContract,
+      adapterContract,
       lastUpdateTimestamp,
       lastRound
     );
@@ -55,7 +55,7 @@ const runRelayer = async () => {
 
 const task = new AsyncTask(
   "Relayer task",
-  () => runRelayer(),
+  () => runIteration(),
   (error) => console.log(error.stack)
 );
 

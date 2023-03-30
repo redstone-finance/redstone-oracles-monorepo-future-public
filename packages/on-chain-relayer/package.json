@@ -8,6 +8,7 @@
     "start": "node dist/src/run-relayer.js",
     "start:dev": "ts-node src/run-relayer.ts",
     "compile": "hardhat compile",
+    "run-script": "hardhat run",
     "test": " NODE_ENV=test hardhat test"
   },
   "dependencies": {

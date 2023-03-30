@@ -5,13 +5,13 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "@redstone-finance/evm-connector/contracts/data-services/MainDemoConsumerBase.sol";
-import "./CustomErrors.sol";
+import "../core/PermissionlessPriceUpdater.sol";
 
-contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable {
+contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable, PermissionlessPriceUpdater {
   using EnumerableSet for EnumerableSet.Bytes32Set;
 
-  uint256 public lastRound = 0;
-  uint256 public lastUpdateTimestampMilliseconds = 0;
+  error DataFeedValueCannotBeZero(bytes32 dataFeedId);
+
   EnumerableSet.Bytes32Set private dataFeedsIds;
   mapping(bytes32 => uint256) dataFeedsValues;
 
@@ -23,25 +23,7 @@ contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable {
 
   function validateTimestamp(uint256 receivedTimestampMilliseconds) public view override {
     RedstoneDefaultsLib.validateTimestamp(receivedTimestampMilliseconds);
-    /* 
-      Here lastUpdateTimestampMilliseconds is already updated inside updateDataFeedsValues
-      after validation in valivalidateTimestampFromUser and equal to proposedTimestamp
-    */
-    if (receivedTimestampMilliseconds < lastUpdateTimestampMilliseconds) {
-      revert CustomErrors.ProposedTimestampDoesNotMatchReceivedTimestamp(
-        lastUpdateTimestampMilliseconds,
-        receivedTimestampMilliseconds
-      );
-    }
-  }
-
-  function validateProposedTimestamp(uint256 proposedTimestamp) private view {
-    if (proposedTimestamp <= lastUpdateTimestampMilliseconds) {
-      revert CustomErrors.ProposedTimestampSmallerOrEqualToLastTimestamp(
-        proposedTimestamp,
-        lastUpdateTimestampMilliseconds
-      );
-    }
+    validateDataPackageTimestampAgainstProposedTimestamp(receivedTimestampMilliseconds);
   }
 
   /*
@@ -49,28 +31,12 @@ contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable {
     This is because without it someone could get the value of the newly
     added data feed before updating the value when it is still zero.
   */
-  function addDataFeedIdAndUpdateValues(bytes32 newDataFeedId, uint256 proposedTimestamp)
-    public
-    onlyOwner
-  {
+  function addDataFeedIdAndUpdateValues(
+    bytes32 newDataFeedId,
+    uint256 proposedTimestamp
+  ) public onlyOwner {
     EnumerableSet.add(dataFeedsIds, newDataFeedId);
-    updateDataFeedsValues(lastRound + 1, proposedTimestamp);
-  }
-
-  function isProposedRoundValid(uint256 proposedRound) private view returns (bool) {
-    return proposedRound == lastRound + 1;
-  }
-
-  function getLastRound() public view returns (uint256) {
-    return lastRound;
-  }
-
-  function getLastUpdateTimestamp() public view returns (uint256) {
-    return lastUpdateTimestampMilliseconds;
-  }
-
-  function getLastRoundParams() public view returns (uint256, uint256) {
-    return (lastRound, lastUpdateTimestampMilliseconds);
+    updateDataFeedsValues(getLastRound() + 1, proposedTimestamp);
   }
 
   function getDataFeedsIds() public view returns (bytes32[] memory) {
@@ -78,16 +44,13 @@ contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable {
   }
 
   function updateDataFeedsValues(uint256 proposedRound, uint256 proposedTimestamp) public {
-    if (!isProposedRoundValid(proposedRound)) return;
-    lastRound = proposedRound;
-    validateProposedTimestamp(proposedTimestamp);
-    lastUpdateTimestampMilliseconds = proposedTimestamp;
+    validateAndUpdateProposedRoundAndTimestamp(proposedRound, proposedTimestamp);
 
     /* 
       getOracleNumericValuesFromTxMsg will call validateTimestamp
       for each data package from the redstone payload 
     */
-    bytes32[] memory dataFeedsIdsArray = dataFeedsIds._inner._values;
+    bytes32[] memory dataFeedsIdsArray = getDataFeedsIds();
     uint256[] memory values = getOracleNumericValuesFromTxMsg(dataFeedsIdsArray);
     for (uint256 i = 0; i < dataFeedsIdsArray.length; i++) {
       dataFeedsValues[dataFeedsIdsArray[i]] = values[i];
@@ -97,12 +60,14 @@ contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable {
   function getValueForDataFeed(bytes32 dataFeedId) public view returns (uint256) {
     uint256 dataFeedValue = dataFeedsValues[dataFeedId];
     if (dataFeedValue == 0) {
-      revert CustomErrors.DataFeedValueCannotBeZero(dataFeedId);
+      revert DataFeedValueCannotBeZero(dataFeedId);
     }
     return dataFeedValue;
   }
 
-  function getValueForDataFeedAndLastRoundParams(bytes32 dataFeedId)
+  function getValueForDataFeedAndLastRoundParams(
+    bytes32 dataFeedId
+  )
     public
     view
     returns (
@@ -112,15 +77,13 @@ contract PriceFeedsAdapter is MainDemoConsumerBase, Ownable {
     )
   {
     dataFeedValue = getValueForDataFeed(dataFeedId);
-    lastRoundNumber = lastRound;
-    lastUpdateTimestampInMilliseconds = lastUpdateTimestampMilliseconds;
+    lastRoundNumber = getLastRound();
+    lastUpdateTimestampInMilliseconds = getLastUpdateTimestamp();
   }
 
-  function getValuesForDataFeeds(bytes32[] memory requestedDataFeedsIds)
-    public
-    view
-    returns (uint256[] memory)
-  {
+  function getValuesForDataFeeds(
+    bytes32[] memory requestedDataFeedsIds
+  ) public view returns (uint256[] memory) {
     uint256[] memory values = new uint256[](requestedDataFeedsIds.length);
     for (uint256 i = 0; i < requestedDataFeedsIds.length; i++) {
       values[i] = getValueForDataFeed(requestedDataFeedsIds[i]);
