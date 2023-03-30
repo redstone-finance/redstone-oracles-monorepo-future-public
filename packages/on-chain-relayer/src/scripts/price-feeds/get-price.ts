@@ -1,6 +1,9 @@
 import { Contract, utils } from "ethers";
-import { getProvider } from "../core/contract-interactions/get-provider";
-import { abi } from "../../artifacts/contracts/price-feeds/PriceFeed.sol/PriceFeed.json";
+import { getProvider } from "../../core/contract-interactions/get-provider-or-signer";
+import { abi } from "../../../artifacts/contracts/price-feeds/PriceFeed.sol/PriceFeed.json";
+
+// Usage: yarn run-script src/scripts/price-feeds/get-price.ts
+// Note! You should configure the .env file properly before running this script
 
 const PRICE_FEED_ADDRESS = "";
 
