@@ -3,14 +3,14 @@ import chaiAsPromised from "chai-as-promised";
 import { Contract } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
 import { ethers, network } from "hardhat";
-import { PriceFeedsAdapterMock } from "../../typechain-types";
+import { PriceFeedsAdapterMock } from "../../../typechain-types";
 import {
   dataFeedsIds,
   getWrappedContractAndUpdateBlockTimestamp,
   btcDataFeed,
   ethDataFeed,
   mockEnvVariables,
-} from "../helpers";
+} from "../../helpers";
 
 chai.use(chaiAsPromised);
 
@@ -56,7 +56,7 @@ describe("PriceFeedsAdapter", () => {
     await expect(
       wrappedContract.updateDataFeedsValues(2, smallerTimestamp)
     ).to.be.rejectedWith(
-      `ProposedTimestampSmallerOrEqualToLastTimestamp(${smallerTimestamp}, ${timestamp})`
+      `ProposedTimestampMustBeNewerThanLastTimestamp(${smallerTimestamp}, ${timestamp})`
     );
   });
 
@@ -70,7 +70,7 @@ describe("PriceFeedsAdapter", () => {
     await expect(
       wrappedContract.updateDataFeedsValues(2, biggerTimestamp)
     ).to.be.rejectedWith(
-      `ProposedTimestampDoesNotMatchReceivedTimestamp(${biggerTimestamp}, ${newTimestamp})`
+      `DataPackageTimestampIsOlderThanProposedTimestamp(${biggerTimestamp}, ${newTimestamp})`
     );
   });
 

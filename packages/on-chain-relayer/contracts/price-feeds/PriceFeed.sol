@@ -3,18 +3,15 @@ pragma solidity ^0.8.4;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./PriceFeedsAdapter.sol";
-import "./CustomErrors.sol";
 
 contract PriceFeed is AggregatorV3Interface {
   address private priceFeedsAdapterAddress;
   bytes32 public dataFeedId;
   string public descriptionText;
 
-  constructor(
-    address priceFeedsAdapterAddress_,
-    bytes32 dataFeedId_,
-    string memory description_
-  ) {
+  error UseLatestRoundToGetDataFeedPrice();
+
+  constructor(address priceFeedsAdapterAddress_, bytes32 dataFeedId_, string memory description_) {
     priceFeedsAdapterAddress = priceFeedsAdapterAddress_;
     dataFeedId = dataFeedId_;
     descriptionText = description_;
@@ -43,14 +40,14 @@ contract PriceFeed is AggregatorV3Interface {
     pure
     override
     returns (
-      uint80, /* roundId */
-      int256, /* answer */
-      uint256, /* startedAt */
-      uint256, /* updatedAt */
+      uint80 /* roundId */,
+      int256 /* answer */,
+      uint256 /* startedAt */,
+      uint256 /* updatedAt */,
       uint80 /* answeredInRound */
     )
   {
-    revert CustomErrors.UseLatestRoundToGetDataFeedPrice();
+    revert UseLatestRoundToGetDataFeedPrice();
   }
 
   function latestRoundData()
