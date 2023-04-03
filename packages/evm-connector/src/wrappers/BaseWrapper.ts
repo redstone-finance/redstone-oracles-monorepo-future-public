@@ -34,7 +34,7 @@ export abstract class BaseWrapper {
         // because the updated implementation of the contract function
         // expects that the `populateTransaction` will return tx with
         // an attached redstone payload
-        this.overwritePopulateTranasction({
+        this.overwritePopulateTransaction({
           wrappedContract,
           contract,
           functionName,
@@ -47,7 +47,7 @@ export abstract class BaseWrapper {
     return wrappedContract;
   }
 
-  private overwritePopulateTranasction({
+  private overwritePopulateTransaction({
     wrappedContract,
     contract,
     functionName,

@@ -168,4 +168,6 @@ export default {
   parseDataPackagesResponse,
 };
 
-export * from "./contracts/ContractDataProvider";
+export * from "./contracts/ContractParamsProvider";
+export * from "./contracts/IContractConnector";
+export * from "./contracts/prices/IPricesContractAdapter";

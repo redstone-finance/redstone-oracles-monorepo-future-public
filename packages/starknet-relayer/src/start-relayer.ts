@@ -1,11 +1,11 @@
 import { config } from "./config";
-import { Starknet } from "./starknet/Starknet";
-import { FEE_MULTIPLIER } from "./starknet/StarknetCommand";
+import { StarknetPriceManagerContractConnector } from "./starknet/StarknetPriceManagerContractConnector";
 
-(() => {
+(async () => {
   const relayerIterationInterval = Number(config.relayerIterationInterval);
   const updatePriceInterval = Number(config.updatePriceInterval);
-  const starknet = new Starknet(config);
+  const starknet = new StarknetPriceManagerContractConnector(config);
+  const adapter = await starknet.getAdapter();
 
   let pendingTransactionHash: string | undefined;
 
@@ -24,12 +24,11 @@ import { FEE_MULTIPLIER } from "./starknet/StarknetCommand";
           `Skipping, because there exists a pending transaction: ${pendingTransactionHash}`
         );
       }
-      const timestampAndRound = await starknet
-        .readTimestampAndRoundCommand()
-        .execute();
+      const timestampAndRound = await adapter.readTimestampAndRound();
 
       const currentTimestamp = Date.now();
-      let timestampDelta = currentTimestamp - timestampAndRound.payload_timestamp;
+      let timestampDelta =
+        currentTimestamp - timestampAndRound.payload_timestamp;
       const isEnoughTimeElapsedSinceLastUpdate =
         timestampDelta >= updatePriceInterval;
       if (!isEnoughTimeElapsedSinceLastUpdate) {
@@ -40,23 +39,14 @@ import { FEE_MULTIPLIER } from "./starknet/StarknetCommand";
         );
       }
 
-      txHash = await starknet
-        .writePricesCommand(timestampAndRound.round + 1)
-        .execute();
+      pendingTransactionHash = "...";
+      txHash = await adapter.writePrices(timestampAndRound.round + 1);
       console.log(`Started updating prices with transaction: ${txHash}`);
       pendingTransactionHash = txHash;
       console.log(`Waiting for the transaction's status changes...`);
-
-      const result = await starknet.waitForTransaction(txHash!);
-      console.log(
-        `Transaction ${txHash} finished with status: ${result.status}, fee: ${
-          result.actual_fee != undefined
-            ? parseInt(result.actual_fee) / FEE_MULTIPLIER
-            : result.actual_fee
-        } ETH, data: ${result.status_data}`
-      );
+      await starknet.waitForTransaction(txHash!);
     } catch (error: any) {
-      console.log(error.stack);
+      console.log(error.stack || error);
     } finally {
       if (pendingTransactionHash === txHash) {
         pendingTransactionHash = undefined;
