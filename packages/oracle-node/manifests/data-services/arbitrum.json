@@ -10,8 +10,58 @@
     }
   },
   "tokens": {
-    "GLP": {
-      "source": ["arbitrum-evm-fetcher"]
+    "USDC": {
+      "source": [
+        "binanceus",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coingecko",
+        "coinmarketcap",
+        "currencycom",
+        "huobipro",
+        "kaiko",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "liquid",
+        "oceanex",
+        "okx",
+        "probit",
+        "sushiswap",
+        "uniswap"
+      ]
+    },
+    "USDT": {
+      "source": [
+        "binanceus",
+        "bitfinex",
+        "bitfinex2",
+        "bittrex",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "currencycom",
+        "kaiko",
+        "kraken",
+        "uniswap"
+      ]
+    },
+    "FRAX": {
+      "source": [
+        "coingecko",
+        "coinmarketcap",
+        "curve-usdc",
+        "kaiko",
+        "uniswap-v3"
+      ]
+    },
+    "VST": {
+      "source": ["coingecko", "curve-frax"]
     }
   }
 }
