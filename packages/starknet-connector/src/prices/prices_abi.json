@@ -1,0 +1,156 @@
+[
+    {
+        "inputs": [
+            {
+                "name": "signer_count_treshold",
+                "type": "felt"
+            },
+            {
+                "name": "addresses_len",
+                "type": "felt"
+            },
+            {
+                "name": "addresses",
+                "type": "felt*"
+            }
+        ],
+        "name": "constructor",
+        "outputs": [],
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "name": "feed_ids_len",
+                "type": "felt"
+            },
+            {
+                "name": "feed_ids",
+                "type": "felt*"
+            },
+            {
+                "name": "payload_data_len",
+                "type": "felt"
+            },
+            {
+                "name": "payload_data",
+                "type": "felt*"
+            }
+        ],
+        "name": "get_prices",
+        "outputs": [
+            {
+                "name": "values_len",
+                "type": "felt"
+            },
+            {
+                "name": "values",
+                "type": "felt*"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "feed_id",
+                "type": "felt"
+            },
+            {
+                "name": "payload_data_len",
+                "type": "felt"
+            },
+            {
+                "name": "payload_data",
+                "type": "felt*"
+            }
+        ],
+        "name": "get_price",
+        "outputs": [
+            {
+                "name": "value",
+                "type": "felt"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "feed_id",
+                "type": "felt"
+            }
+        ],
+        "name": "get_saved_price",
+        "outputs": [
+            {
+                "name": "value",
+                "type": "felt"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "feed_ids_len",
+                "type": "felt"
+            },
+            {
+                "name": "feed_ids",
+                "type": "felt*"
+            }
+        ],
+        "name": "get_saved_prices",
+        "outputs": [
+            {
+                "name": "res_len",
+                "type": "felt"
+            },
+            {
+                "name": "res",
+                "type": "felt*"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "get_saved_timestamp",
+        "outputs": [
+            {
+                "name": "res",
+                "type": "felt"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "feed_ids_len",
+                "type": "felt"
+            },
+            {
+                "name": "feed_ids",
+                "type": "felt*"
+            },
+            {
+                "name": "payload_data_len",
+                "type": "felt"
+            },
+            {
+                "name": "payload_data",
+                "type": "felt*"
+            }
+        ],
+        "name": "save_prices",
+        "outputs": [],
+        "type": "function"
+    }
+]
