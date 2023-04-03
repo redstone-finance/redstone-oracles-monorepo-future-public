@@ -5,14 +5,16 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./PriceFeedsAdapter.sol";
 
 contract PriceFeed is AggregatorV3Interface {
-  address private priceFeedsAdapterAddress;
+  PriceFeedsAdapter private priceFeedsAdapter;
   bytes32 public dataFeedId;
   string public descriptionText;
 
-  error UseLatestRoundToGetDataFeedPrice();
-
-  constructor(address priceFeedsAdapterAddress_, bytes32 dataFeedId_, string memory description_) {
-    priceFeedsAdapterAddress = priceFeedsAdapterAddress_;
+  constructor(
+    PriceFeedsAdapter priceFeedsAdapter_,
+    bytes32 dataFeedId_,
+    string memory description_
+  ) {
+    priceFeedsAdapter = priceFeedsAdapter_;
     dataFeedId = dataFeedId_;
     descriptionText = description_;
   }
@@ -34,20 +36,28 @@ contract PriceFeed is AggregatorV3Interface {
   }
 
   function getRoundData(
-    uint80 /* _roundId */
+    uint80 requestedRoundId
   )
     external
-    pure
+    view
     override
     returns (
-      uint80 /* roundId */,
-      int256 /* answer */,
-      uint256 /* startedAt */,
-      uint256 /* updatedAt */,
-      uint80 /* answeredInRound */
+      uint80 roundId,
+      int256 answer,
+      uint256 startedAt,
+      uint256 updatedAt,
+      uint80 answeredInRound
     )
   {
-    revert UseLatestRoundToGetDataFeedPrice();
+    (uint256 dataFeedValue, uint256 roundTimestampInMilliseconds) = priceFeedsAdapter.getRoundData(
+      dataFeedId,
+      requestedRoundId
+    );
+    roundId = requestedRoundId;
+    answer = int256(dataFeedValue);
+    startedAt = roundTimestampInMilliseconds / 1000;
+    updatedAt = startedAt;
+    answeredInRound = requestedRoundId;
   }
 
   function latestRoundData()
@@ -66,9 +76,7 @@ contract PriceFeed is AggregatorV3Interface {
       uint256 dataFeedValue,
       uint256 roundId_,
       uint256 lastUpdateTimestampMilliseconds
-    ) = PriceFeedsAdapter(priceFeedsAdapterAddress).getValueForDataFeedAndLastRoundParams(
-        dataFeedId
-      );
+    ) = priceFeedsAdapter.getValueForDataFeedAndLastRoundParams(dataFeedId);
     return (
       uint80(roundId_),
       int256(dataFeedValue),
@@ -76,5 +84,16 @@ contract PriceFeed is AggregatorV3Interface {
       uint256(block.timestamp),
       uint80(roundId_)
     );
+  }
+
+  // Below are methods that are not part of the AggregatorV3Interface,
+  // but are still used by some projects integrated with Chainlink (e.g. GMX)
+
+  function latestRound() external view returns (uint80) {
+    return uint80(priceFeedsAdapter.getLastRound());
+  }
+
+  function latestAnswer() external view returns (int256) {
+    return int256(priceFeedsAdapter.getValueForDataFeed(dataFeedId));
   }
 }
