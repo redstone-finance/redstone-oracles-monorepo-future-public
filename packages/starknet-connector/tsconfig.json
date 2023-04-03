@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "lib": ["es2021"],
+    "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -9,25 +10,19 @@
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dist",
+    "allowJs": true,
     "declaration": true,
     "declarationMap": true,
-    "incremental": true,
-    "composite": true
+    "composite": true,
+    "incremental": true
   },
-  "ts-node": {
-    "files": true
-  },
-  "include": ["src/**/*", "src/**/*.json", "./package.json", "index.ts"],
-  "exclude": ["node_modules"],
+  "include": ["./src", "./test", "./src/prices/prices_abi.json"],
   "references": [
     {
-      "path": "../starknet-connector"
+      "path": "../protocol"
     },
     {
       "path": "../sdk"
     },
-    {
-      "path": "../protocol"
-    }
   ]
 }

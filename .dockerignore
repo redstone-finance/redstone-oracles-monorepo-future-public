@@ -1,7 +1,7 @@
 node_modules
 .git
 **/.next
-**/build
+packages/starknet-connector/build
 **/dist
 **/.DS_Store
 Dockerfile

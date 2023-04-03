@@ -1,16 +1,18 @@
-import { Starknet } from "../starknet/Starknet";
 import { config } from "../config";
 import { utils } from "ethers";
 import { priceFeedAddresses } from "../config/price-feed-addresses";
-
-const starknet = new Starknet(config);
+import { StarknetPriceFeedContractConnector } from "../starknet/StarknetPriceFeedContractConnector";
 
 (async () => {
   for (const feedAddress of [priceFeedAddresses.BTC, priceFeedAddresses.ETH]) {
     try {
-      const latestRoundData = await starknet
-          .latestRoundCommand(feedAddress)
-          .execute();
+      const latestRoundData = await (
+        await new StarknetPriceFeedContractConnector(
+          config,
+          feedAddress
+        ).getAdapter()
+      ).readLatestRoundData();
+
       const price = utils.formatUnits(latestRoundData.answer.toNumber(), 8);
 
       console.log(price);
