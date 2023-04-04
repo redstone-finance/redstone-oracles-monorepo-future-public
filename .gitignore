@@ -112,3 +112,6 @@ typechain-types
 
 # IDE
 .idea
+.vscode
+
+worktree-*
