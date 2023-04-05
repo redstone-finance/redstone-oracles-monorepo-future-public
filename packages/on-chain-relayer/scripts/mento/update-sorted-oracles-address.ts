@@ -1,4 +1,4 @@
-import { getAdapterContract } from "../../core/contract-interactions/get-contract";
+import { getAdapterContract } from "../../src/core/contract-interactions/get-contract";
 
 // Usage: yarn run-script src/scripts/mento/update-sorted-oracles-address.ts
 // Note! You should configure the .env file properly before running this script
