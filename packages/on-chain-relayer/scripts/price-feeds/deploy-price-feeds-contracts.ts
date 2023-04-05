@@ -2,8 +2,8 @@ import { utils } from "ethers";
 import { ethers } from "hardhat";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { requestDataPackages } from "redstone-sdk";
-import { getSigner } from "../../core/contract-interactions/get-provider-or-signer";
-import { config } from "../../config";
+import { getSigner } from "../../src/core/contract-interactions/get-provider-or-signer";
+import { config } from "../../src/config";
 
 // Usage: yarn run-script src/scripts/price-feeds/deploy-price-feeds-contracts.ts
 // Note! You should configure the .env file properly before running this script

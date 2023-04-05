@@ -7,10 +7,10 @@ import { formatBytes32String, parseUnits } from "ethers/lib/utils";
 import { ethers } from "hardhat";
 import {
   calculateLinkedListPosition,
-  deployMockSortedOracles,
   prepareLinkedListLocationsForMentoAdapterReport,
 } from "../../../../src/custom-integrations/mento/mento-utils";
 import { MentoAdapter, MockSortedOracles } from "../../../../typechain-types";
+import { deployMockSortedOracles } from "../../../helpers";
 
 chai.use(chaiAsPromised);
 
