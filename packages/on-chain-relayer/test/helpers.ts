@@ -1,10 +1,11 @@
-import { Contract } from "ethers";
+import { Contract, Signer } from "ethers";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { NumericDataPoint, DataPackage } from "redstone-protocol";
 import { DataPackagesResponse } from "redstone-sdk";
 import { formatBytes32String } from "ethers/lib/utils";
 import { config } from "../src/config";
+import { ethers } from "hardhat";
 
 export const ethDataFeed = formatBytes32String("ETH");
 export const btcDataFeed = formatBytes32String("BTC");
@@ -102,4 +103,30 @@ export const getDataPackagesResponse = () => {
     }
   }
   return signedDataPackages;
+};
+
+export const deployMockSortedOracles = async (signer?: Signer) => {
+  // Deploying AddressSortedLinkedListWithMedian library
+  const AddressSortedLinkedListWithMedianFactory =
+    await ethers.getContractFactory(
+      "AddressSortedLinkedListWithMedian",
+      signer
+    );
+  const sortedLinkedListContract =
+    await AddressSortedLinkedListWithMedianFactory.deploy();
+  await sortedLinkedListContract.deployed();
+
+  // Deploying MockSortedOracles contract
+  const MockSortedOraclesFactory = await ethers.getContractFactory(
+    "MockSortedOracles",
+    {
+      libraries: {
+        AddressSortedLinkedListWithMedian: sortedLinkedListContract.address,
+      },
+      signer,
+    }
+  );
+  const contract = await MockSortedOraclesFactory.deploy();
+  await contract.deployed();
+  return contract;
 };

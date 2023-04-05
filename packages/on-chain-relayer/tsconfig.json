@@ -21,7 +21,8 @@
     "package.json",
     "./contracts",
     "src/**/*.json",
-    "./artifacts/**/*.json"
+    "./artifacts/**/*.json",
+    "scripts"
   ],
   "files": ["./hardhat.config.ts"],
   "references": [

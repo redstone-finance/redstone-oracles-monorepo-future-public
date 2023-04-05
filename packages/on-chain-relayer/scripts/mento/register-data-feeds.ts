@@ -1,5 +1,5 @@
 import { formatBytes32String } from "ethers/lib/utils";
-import { getAdapterContract } from "../../core/contract-interactions/get-contract";
+import { getAdapterContract } from "../../src/core/contract-interactions/get-contract";
 
 // Usage: yarn run-script src/scripts/mento/register-data-feeds.ts
 // Note! You should configure the .env file properly before running this script
