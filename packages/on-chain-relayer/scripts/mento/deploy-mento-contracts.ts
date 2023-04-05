@@ -1,6 +1,6 @@
-import { deployMockSortedOracles } from "../../custom-integrations/mento/mento-utils";
 import { ethers } from "hardhat";
-import { getSigner } from "../../core/contract-interactions/get-provider-or-signer";
+import { getSigner } from "../../src/core/contract-interactions/get-provider-or-signer";
+import { deployMockSortedOracles } from "../../test/helpers";
 
 // Usage: yarn run-script src/scripts/mento/deploy-mento-contracts.ts
 // Note! You should configure the .env file properly before running this script
