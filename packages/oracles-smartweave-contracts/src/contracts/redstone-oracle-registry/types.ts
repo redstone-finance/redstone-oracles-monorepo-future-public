@@ -20,16 +20,16 @@ interface Node {
   evmAddress: string;
   ipAddress: string;
   ecdsaPublicKey: string;
-  arweavePublicKey: string;
+  arweavePublicKey?: string;
   url?: string;
 }
 
 interface DataService {
   name: string;
-  manifestTxId: string;
+  manifestTxId?: string;
   logo: string;
   description: string;
-  admin: string;
+  admin?: string;
 }
 
 export interface RedstoneOraclesAction {
