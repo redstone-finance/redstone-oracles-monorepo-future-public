@@ -142,6 +142,36 @@
       "ipAddress": "0.0.0.0",
       "ecdsaPublicKey": "0x04a66e3eb25f4110aa9f9cae8864b39b249568c094123737541e897d924253c84279bfd0f500e85f75a0943c41ca03c95fe0c3c7339e0499b5d6993a3f580aef85",
       "arweavePublicKey": "7RqQRi3ft2uHow196B23oBCy8og5BEe_I-VEJ3vb21hTHy_ayICIrc3FOcrjJ32i9ExWlLy9EuqsqWCczk2G34OS-N6mn9U7TlxE9BiqNydGCC7nEZ_fYj8DHPCwr6IEEWe-47uY5wHQZPstzIoAN4_zEKQT5douEctfZCaT_SN5-I9soj5Qe7iirpijQmSMfRVLvFQtVNqM_GxJWE48uYzZ9owUrYwUUvxgGFB9EfQi1dVjxThpuImughyB7KWc_Qv226TSMCLPLD3nbtAmWBxIM5SCF2nWSScB_-rGNiugXil3QZKa2CJ6zgXgdigGlufdJkOfN7DT9DocfutUtjN4Z3Z_FeliiWs-6klhYUP5RdEAZrF7Kf7E2fvpijEfsDbeFK2ZjpNrNND1F6gLIzfC7kT-bBpRqpkRQuP2Bu7O3fgnsYG5EF94KwCBeCwB3MYVW5v0S26SGRtvN_qU6knkIxiOBMsTDJaFeEKfRtW7tnLdMCyM5xIJ3Lzk566TeiOq4ivmtMRs6PT_8cN6B1crqYstuRhoYPTggIiO0WJdIKfbOMHRXbfSwgyXsvADfoEu7SywQtWnKAG7K8tOwIdEl4GJb-6yZD__Z_jpO-oLFLSszDxz_Fbba_gU7U93MwEbtMfq9Sekfqq9Syl98D4KR8ZtJdgkQTatUCc4Oj0"
+    },
+    "redstone-arbitrum-prod-node-1": {
+      "name": "redstone-arbitrum-prod-node-1",
+      "description": "VST token for Vesta finance - prod node 1",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataServiceId": "redstone-arbitrum-prod",
+      "evmAddress": "0xf7a873ff07E1d021ae808a28e6862f821148c789",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "ecdsaPublicKey": "0x04a959308d421ba449416f8473d39de8f04e7e84e00cab1147ef2ef0b668f4c8cd7ada39c93546dcc3e4c98d69d10aa264a07f836176e8df59f8884c4f45cc96e9"
+    },
+    "redstone-arbitrum-prod-node-2": {
+      "name": "redstone-arbitrum-prod-node-2",
+      "description": "VST token for Vesta finance - prod node 2",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataServiceId": "redstone-arbitrum-prod",
+      "evmAddress": "0x827Cc644d3f33d55075354875A961aC8B9EB7Cc8",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "ecdsaPublicKey": "0x043f5928b7bddf327bd0182678ae71a4dc72b48600d2df1a9309ccb78664203b776a60f637f1dc70e170645b2ec25eb42bcdc6a243f2a94cfa9d72819cbcba1968"
+    },
+    "redstone-arbitrum-prod-node-3": {
+      "name": "redstone-arbitrum-prod-node-3",
+      "description": "VST token for Vesta finance - prod node 3",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataServiceId": "redstone-arbitrum-prod",
+      "evmAddress": "0x1C31b3eA83F48A6E550938d295893514A9e99Eca",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "ecdsaPublicKey": "0x04849c44d662c79c2372825253172f1a04a511e9c7f9e5bd442b2aaa7f0734fec0331be8b1cdaad118a72b47002d4d866e0b1db0ff978a98aece3f2f1f77999778"
     }
   },
   "evolve": null,
@@ -195,6 +225,11 @@
       "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
       "description": "Time-weighted average prices for most popular tokens",
       "admin": "aw9F_2R2ogYPnM66TDsW1qtiiRflRcgZQG6OLySOSZE"
+    },
+    "redstone-arbitrum-prod": {
+      "name": "RedStone Arbitrum Prod",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "VST token for Vesta finance"
     }
   },
   "contractAdmins": [

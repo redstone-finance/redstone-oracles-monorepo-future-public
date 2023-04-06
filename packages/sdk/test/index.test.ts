@@ -21,7 +21,7 @@ describe("SDK tests", () => {
 
   test("Should properly get oracle registry state", async () => {
     const state = await getOracleRegistryState();
-    expect(Object.keys(state.dataServices).length).toBe(7);
+    expect(Object.keys(state.dataServices).length).toBe(8);
     expect(state.dataServices).toHaveProperty("redstone-stocks-demo");
   });
 
