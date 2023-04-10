@@ -57,7 +57,7 @@
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "graphql-request": "^5.1.0",
+    "graphql-request": "^5.2.0",
     "mongodb-memory-server": "^8.9.0",
     "prettier": "^2.3.2",
     "prompts": "^2.4.2",
