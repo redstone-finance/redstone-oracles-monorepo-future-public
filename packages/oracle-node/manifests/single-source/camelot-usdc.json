@@ -1,0 +1,15 @@
+{
+  "interval": 15000,
+  "priceAggregator": "median",
+  "defaultSource": ["camelot-usdc"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "JGLP": {}
+  }
+}
