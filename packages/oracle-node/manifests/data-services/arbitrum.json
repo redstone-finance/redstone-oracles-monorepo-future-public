@@ -61,7 +61,7 @@
       ]
     },
     "VST": {
-      "source": ["coingecko", "curve-frax"]
+      "source": ["curve-frax"]
     }
   }
 }
