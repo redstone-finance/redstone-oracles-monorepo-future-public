@@ -820,6 +820,12 @@
     "SOFR": {
       "source": ["newyorkfed"]
     },
+    "JUSDC": {
+      "source": ["camelot-weth"]
+    },
+    "JGLP": {
+      "source": ["camelot-usdc"]
+    },
     "ALC": {
       "source": ["verto"]
     },

@@ -823,6 +823,12 @@
     "WSTETH": {
       "source": ["coingecko", "coinmarketcap"]
     },
+    "JUSDC": {
+      "source": ["camelot-weth"]
+    },
+    "JGLP": {
+      "source": ["camelot-usdc"]
+    },
     "AUD": {
       "source": ["binance", "currencycom", "ecb", "kraken"]
     },
