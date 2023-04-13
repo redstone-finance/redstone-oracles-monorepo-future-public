@@ -38,7 +38,6 @@ const EXPECTED_DATA_FEEDS = [
   "USDC",
   "USDT",
   "XAVA",
-  "YAK",
   "YYAV3SA1",
   "YY_AAVE_AVAX",
   "YY_GLP",

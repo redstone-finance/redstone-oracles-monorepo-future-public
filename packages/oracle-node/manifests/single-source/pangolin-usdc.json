@@ -9,7 +9,5 @@
       "maxDelayMilliseconds": 300000
     }
   },
-  "tokens": {
-    "YAK": {}
-  }
+  "tokens": {}
 }

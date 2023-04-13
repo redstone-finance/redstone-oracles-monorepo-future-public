@@ -271,15 +271,6 @@
         "trader-joe"
       ]
     },
-    "YAK": {
-      "source": [
-        "coingecko",
-        "coinmarketcap",
-        "pangolin-usdc",
-        "pangolin-wavax",
-        "trader-joe"
-      ]
-    },
     "YYAV3SA1": {
       "source": ["avalanche-evm-fetcher"]
     },
