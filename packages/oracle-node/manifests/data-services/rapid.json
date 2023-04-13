@@ -312,7 +312,7 @@
       "source": ["coingecko", "curve-usdc", "uniswap-v3"]
     },
     "VST": {
-      "source": ["coingecko", "curve-frax"]
+      "source": ["curve-frax"]
     },
     "DAI": {
       "source": [
