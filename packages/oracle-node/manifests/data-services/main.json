@@ -829,6 +829,9 @@
     "JGLP": {
       "source": ["camelot-usdc"]
     },
+    "STETH": {
+      "source": ["coingecko", "coinmarketcap", "curve-eth", "curve-weth"]
+    },
     "AUD": {
       "source": ["binance", "currencycom", "ecb", "kraken"]
     },
@@ -2911,9 +2914,6 @@
     "EVMOS": {
       "source": ["coingecko"]
     },
-    "STETH": {
-      "source": ["coingecko"]
-    },
     "CUSDC": {
       "source": ["coingecko"]
     },
@@ -3742,9 +3742,7 @@
     "HEX": {
       "source": ["coingecko"]
     },
-    "stETH": {
-      "source": ["coingecko"]
-    },
+
     "WTRX": {
       "source": ["coingecko"]
     },
