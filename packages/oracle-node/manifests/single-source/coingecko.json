@@ -462,7 +462,6 @@
     "PACT": {},
     "GNT": {},
     "EVMOS": {},
-    "STETH": {},
     "CUSDC": {},
     "USDP": {},
     "CETH": {},
@@ -781,7 +780,6 @@
     "BTRST": {},
     "AXL": {},
     "HEX": {},
-    "stETH": {},
     "WTRX": {},
     "TMG": {},
     "WBNB": {},
@@ -936,6 +934,7 @@
     "APX": {},
     "GMM": {},
     "LAZIO": {},
-    "WSTETH": {}
+    "WSTETH": {},
+    "STETH": {}
   }
 }
