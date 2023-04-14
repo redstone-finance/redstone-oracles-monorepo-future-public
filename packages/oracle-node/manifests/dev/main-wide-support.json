@@ -826,6 +826,12 @@
     "JGLP": {
       "source": ["camelot-usdc"]
     },
+    "WSTETH": {
+      "source": ["coingecko", "coinmarketcap"]
+    },
+    "STETH": {
+      "source": ["coingecko", "coinmarketcap", "curve-eth", "curve-weth"]
+    },
     "ALC": {
       "source": ["verto"]
     },
