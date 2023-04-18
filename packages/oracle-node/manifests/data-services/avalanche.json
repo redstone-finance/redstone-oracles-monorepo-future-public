@@ -326,7 +326,6 @@
     "DAI": {
       "source": [
         "binanceus",
-        "bkex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
