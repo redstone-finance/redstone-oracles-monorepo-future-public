@@ -349,7 +349,6 @@
     "DAI": {
       "source": [
         "binanceus",
-        "bkex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -831,6 +830,9 @@
     },
     "STETH": {
       "source": ["coingecko", "coinmarketcap", "curve-eth", "curve-weth"]
+    },
+    "PLS": {
+      "source": ["bitget", "bkex", "coingecko", "coinmarketcap", "curve-weth"]
     },
     "AUD": {
       "source": ["binance", "currencycom", "ecb", "kraken"]
