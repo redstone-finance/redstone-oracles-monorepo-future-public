@@ -37,7 +37,6 @@
         "kraken",
         "kucoin",
         "lbank",
-        "liquid",
         "oceanex",
         "okx",
         "poloniex",
@@ -71,7 +70,6 @@
         "kraken",
         "kucoin",
         "lbank",
-        "liquid",
         "oceanex",
         "okx",
         "poloniex",
@@ -128,8 +126,6 @@
         "kraken",
         "kucoin",
         "lbank",
-        "liquid",
-        "oceanex",
         "okx",
         "probit",
         "sushiswap",
@@ -158,7 +154,6 @@
         "kraken",
         "kucoin",
         "lbank",
-        "liquid",
         "oceanex",
         "okx",
         "poloniex",
@@ -796,7 +791,6 @@
         "coinbasepro",
         "coingecko",
         "gate",
-        "lbank",
         "mexc"
       ]
     },
@@ -833,6 +827,9 @@
     },
     "PLS": {
       "source": ["bitget", "bkex", "coingecko", "coinmarketcap", "curve-weth"]
+    },
+    "CMP": {
+      "source": ["bybit", "coingecko", "xt"]
     },
     "AUD": {
       "source": ["binance", "currencycom", "ecb", "kraken"]
@@ -3744,7 +3741,6 @@
     "HEX": {
       "source": ["coingecko"]
     },
-
     "WTRX": {
       "source": ["coingecko"]
     },

@@ -7688,12 +7688,11 @@ cbor@^8.0.0, cbor@^8.1.0:
   dependencies:
     nofilter "^3.1.0"
 
-ccxt@^1.94.12:
-  version "1.95.43"
-  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-1.95.43.tgz#fb151dac3c71d6772047afc5736de8641b9fb55f"
-  integrity sha512-LKu1ECf56mmCGY8vlpoZrgQ1DQ8A+uc01mza/1vvgZ+q4Azrp2XXYjKXsGSDvbR47xziEGY6S1QxFoQwAE4k/w==
+ccxt@^3.0.60:
+  version "3.0.60"
+  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-3.0.60.tgz#0f29b58a04a9233dcd8a8699674cf240ffe0e8aa"
+  integrity sha512-vxr9gkGWx+HcgJ6MHZVJ8fh5aW3jCJjrkwHPbgJDvVlRK6PwFTJqxceKEI+4yS6q0mjAW/1GuLyG93+0oAy7jA==
   dependencies:
-    replace-in-file "^6.3.5"
     ws "^8.8.1"
 
 chai-as-promised@^7.1.1:
