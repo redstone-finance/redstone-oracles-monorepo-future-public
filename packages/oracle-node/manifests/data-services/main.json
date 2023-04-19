@@ -831,6 +831,9 @@
     "CMP": {
       "source": ["bybit", "coingecko", "xt"]
     },
+    "VST/ETH": {
+      "source": ["non-usd-based"]
+    },
     "AUD": {
       "source": ["binance", "currencycom", "ecb", "kraken"]
     },

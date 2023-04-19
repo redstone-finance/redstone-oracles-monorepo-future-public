@@ -832,6 +832,9 @@
     "CMP": {
       "source": ["bybit", "coingecko", "xt"]
     },
+    "VST/ETH": {
+      "source": ["non-usd-based"]
+    },
     "ALC": {
       "source": ["verto"]
     },
