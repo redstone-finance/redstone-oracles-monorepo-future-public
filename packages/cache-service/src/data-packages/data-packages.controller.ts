@@ -16,7 +16,6 @@ import { Cache } from "cache-manager";
 import type { Response } from "express";
 import { Serializable } from "redstone-protocol";
 import { DataPackagesRequestParams } from "redstone-sdk";
-import { BundlrService } from "../bundlr/bundlr.service";
 import config from "../config";
 import { duplexStream } from "../utils/streams";
 import { ReceivedDataPackage } from "./data-packages.interface";
@@ -104,7 +103,19 @@ export class DataPackagesController {
     @Param("DATA_SERVICE_ID") dataServiceId: string
   ): Promise<DataPackagesResponse> {
     await this.validateDataServiceId(dataServiceId);
-    return this.dataPackagesService.getAllLatestDataWithCache(
+    return this.dataPackagesService.getLatestDataPackagesWithSameTimestampWithCache(
+      dataServiceId,
+      this.cacheManager
+    );
+  }
+
+  @Get("latest-not-aligned-by-time/:DATA_SERVICE_ID")
+  @Header("Cache-Control", "max-age=5")
+  async getMostRecent(
+    @Param("DATA_SERVICE_ID") dataServiceId: string
+  ): Promise<DataPackagesResponse> {
+    await this.validateDataServiceId(dataServiceId);
+    return this.dataPackagesService.getMostRecentDataPackagesWithCache(
       dataServiceId,
       this.cacheManager
     );
@@ -126,7 +137,7 @@ export class DataPackagesController {
   @Get("latest")
   @Header("Cache-Control", "max-age=5")
   async getLatest(@Query() query: GetLatestDataPackagesQuery) {
-    return await this.dataPackagesService.getDataPackages(
+    return await this.dataPackagesService.queryLatestDataPackages(
       this.prepareDataPackagesRequestParams(query),
       this.cacheManager
     );
