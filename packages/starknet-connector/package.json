@@ -1,15 +1,18 @@
 {
   "name": "@redstone-finance/starknet-connector",
   "description": "A tool to inject RedStone data into Starknet compatible smart contracts",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "prettier": "redstone-prettier-config",
   "license": "MIT",
   "main": "dist/src/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc -build",
+    "preversion": "yarn build",
+    "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push",
     "pack-package": "yarn build && cd dist && npm pack"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "starknet": "^4.22.0",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
