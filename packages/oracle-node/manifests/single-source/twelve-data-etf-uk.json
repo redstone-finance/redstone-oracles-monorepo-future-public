@@ -1,7 +1,7 @@
 {
-  "interval": 15000,
+  "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["deribit"],
+  "defaultSource": ["twelve-data-etf-uk"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,7 +10,8 @@
     }
   },
   "tokens": {
-    "ETHDVOL": {},
-    "BTCDVOL": {}
+    "CSPX.L": {},
+    "IB01.L": {},
+    "IBTA.L": {}
   }
 }
