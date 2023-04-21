@@ -8,6 +8,7 @@
       "maxDelayMilliseconds": 300000
     }
   },
+  "defaultSource": ["coingecko"],
   "tokens": {
     "ETH": {
       "source": [
@@ -1563,2651 +1564,887 @@
     "XLMBULL": {
       "source": ["poloniex"]
     },
-    "BAT": {
-      "source": ["coingecko"]
-    },
-    "MKR": {
-      "source": ["coingecko"]
-    },
-    "COMP": {
-      "source": ["coingecko"]
-    },
-    "XTZ": {
-      "source": ["coingecko"]
-    },
-    "OMG": {
-      "source": ["coingecko"]
-    },
-    "YFI": {
-      "source": ["coingecko"]
-    },
-    "SUSHI": {
-      "source": ["coingecko"]
-    },
-    "SNX": {
-      "source": ["coingecko"]
-    },
-    "DASH": {
-      "source": ["coingecko"]
-    },
-    "ALGO": {
-      "source": ["coingecko"]
-    },
-    "NEO": {
-      "source": ["coingecko"]
-    },
-    "ZRX": {
-      "source": ["coingecko"]
-    },
-    "ZEC": {
-      "source": ["coingecko"]
-    },
-    "MANA": {
-      "source": ["coingecko"]
-    },
-    "ENJ": {
-      "source": ["coingecko"]
-    },
-    "GRT": {
-      "source": ["coingecko"]
-    },
-    "CHZ": {
-      "source": ["coingecko"]
-    },
-    "QTUM": {
-      "source": ["coingecko"]
-    },
-    "BAND": {
-      "source": ["coingecko"]
-    },
-    "CRV": {
-      "source": ["coingecko"]
-    },
-    "LRC": {
-      "source": ["coingecko"]
-    },
-    "REN": {
-      "source": ["coingecko"]
-    },
-    "KSM": {
-      "source": ["coingecko"]
-    },
-    "1INCH": {
-      "source": ["coingecko"]
-    },
-    "WAVES": {
-      "source": ["coingecko"]
-    },
-    "SAND": {
-      "source": ["coingecko"]
-    },
-    "KNC": {
-      "source": ["coingecko"]
-    },
-    "ZIL": {
-      "source": ["coingecko"]
-    },
-    "VET": {
-      "source": ["coingecko"]
-    },
-    "BNT": {
-      "source": ["coingecko"]
-    },
-    "BAL": {
-      "source": ["coingecko"]
-    },
-    "UMA": {
-      "source": ["coingecko"]
-    },
-    "ONT": {
-      "source": ["coingecko"]
-    },
-    "AXS": {
-      "source": ["coingecko"]
-    },
-    "STORJ": {
-      "source": ["coingecko"]
-    },
-    "OCEAN": {
-      "source": ["coingecko"]
-    },
-    "XEM": {
-      "source": ["coingecko"]
-    },
-    "ZEN": {
-      "source": ["coingecko"]
-    },
-    "DGB": {
-      "source": ["coingecko"]
-    },
-    "EGLD": {
-      "source": ["coingecko"]
-    },
-    "ANKR": {
-      "source": ["coingecko"]
-    },
-    "HBAR": {
-      "source": ["coingecko"]
-    },
-    "RSR": {
-      "source": ["coingecko"]
-    },
-    "BSV": {
-      "source": ["coingecko"]
-    },
-    "ICX": {
-      "source": ["coingecko"]
-    },
-    "OGN": {
-      "source": ["coingecko"]
-    },
-    "REP": {
-      "source": ["coingecko"]
-    },
-    "YFII": {
-      "source": ["coingecko"]
-    },
-    "OXT": {
-      "source": ["coingecko"]
-    },
-    "ICP": {
-      "source": ["coingecko"]
-    },
-    "RVN": {
-      "source": ["coingecko"]
-    },
-    "DIA": {
-      "source": ["coingecko"]
-    },
-    "SRM": {
-      "source": ["coingecko"]
-    },
-    "CRO": {
-      "source": ["coingecko"]
-    },
-    "ONE": {
-      "source": ["coingecko"]
-    },
-    "IOTA": {
-      "source": ["coingecko"]
-    },
-    "THETA": {
-      "source": ["coingecko"]
-    },
-    "JST": {
-      "source": ["coingecko"]
-    },
-    "REEF": {
-      "source": ["coingecko"]
-    },
-    "POLS": {
-      "source": ["coingecko"]
-    },
-    "LPT": {
-      "source": ["coingecko"]
-    },
-    "JOE": {
-      "source": ["coingecko"]
-    },
-    "XAVA": {
-      "source": ["coingecko"]
-    },
-    "BTT": {
-      "source": ["coingecko"]
-    },
-    "CHR": {
-      "source": ["coingecko"]
-    },
-    "IOST": {
-      "source": ["coingecko"]
-    },
-    "AKRO": {
-      "source": ["coingecko"]
-    },
-    "COTI": {
-      "source": ["coingecko"]
-    },
-    "HT": {
-      "source": ["coingecko"]
-    },
-    "BTG": {
-      "source": ["coingecko"]
-    },
-    "CVC": {
-      "source": ["coingecko"]
-    },
-    "ARPA": {
-      "source": ["coingecko"]
-    },
-    "SC": {
-      "source": ["coingecko"]
-    },
-    "ANT": {
-      "source": ["coingecko"]
-    },
-    "UTK": {
-      "source": ["coingecko"]
-    },
-    "PERP": {
-      "source": ["coingecko"]
-    },
-    "MIR": {
-      "source": ["coingecko"]
-    },
-    "FORTH": {
-      "source": ["coingecko"]
-    },
-    "MLN": {
-      "source": ["coingecko"]
-    },
-    "QI": {
-      "source": ["coingecko"]
-    },
-    "XDC": {
-      "source": ["coingecko"]
-    },
-    "SNT": {
-      "source": ["coingecko"]
-    },
-    "API3": {
-      "source": ["coingecko"]
-    },
-    "NEXO": {
-      "source": ["coingecko"]
-    },
-    "CAKE": {
-      "source": ["coingecko"]
-    },
-    "HOT": {
-      "source": ["coingecko"]
-    },
-    "TUSD": {
-      "source": ["coingecko"]
-    },
-    "NKN": {
-      "source": ["coingecko"]
-    },
-    "LSK": {
-      "source": ["coingecko"]
-    },
-    "NMR": {
-      "source": ["coingecko"]
-    },
-    "TRB": {
-      "source": ["coingecko"]
-    },
-    "SUN": {
-      "source": ["coingecko"]
-    },
-    "SKL": {
-      "source": ["coingecko"]
-    },
-    "MASK": {
-      "source": ["coingecko"]
-    },
-    "GTC": {
-      "source": ["coingecko"]
-    },
-    "RNDR": {
-      "source": ["coingecko"]
-    },
-    "PTP": {
-      "source": ["coingecko"]
-    },
-    "GLM": {
-      "source": ["coingecko"]
-    },
-    "PNG": {
-      "source": ["coingecko"]
-    },
-    "RUNE": {
-      "source": ["coingecko"]
-    },
-    "LINA": {
-      "source": ["coingecko"]
-    },
-    "CKB": {
-      "source": ["coingecko"]
-    },
-    "FRONT": {
-      "source": ["coingecko"]
-    },
-    "ORN": {
-      "source": ["coingecko"]
-    },
-    "FTT": {
-      "source": ["coingecko"]
-    },
-    "PLU": {
-      "source": ["coingecko"]
-    },
-    "FET": {
-      "source": ["coingecko"]
-    },
-    "XYM": {
-      "source": ["coingecko"]
-    },
-    "RLC": {
-      "source": ["coingecko"]
-    },
-    "CTSI": {
-      "source": ["coingecko"]
-    },
-    "MDT": {
-      "source": ["coingecko"]
-    },
-    "SXP": {
-      "source": ["coingecko"]
-    },
-    "ALPHA": {
-      "source": ["coingecko"]
-    },
-    "BADGER": {
-      "source": ["coingecko"]
-    },
-    "ALICE": {
-      "source": ["coingecko"]
-    },
-    "XVG": {
-      "source": ["coingecko"]
-    },
-    "GLMR": {
-      "source": ["coingecko"]
-    },
-    "WAXP": {
-      "source": ["coingecko"]
-    },
-    "VSYS": {
-      "source": ["coingecko"]
-    },
-    "SUKU": {
-      "source": ["coingecko"]
-    },
-    "FLOW": {
-      "source": ["coingecko"]
-    },
-    "VRA": {
-      "source": ["coingecko"]
-    },
-    "WIN": {
-      "source": ["coingecko"]
-    },
-    "TOMO": {
-      "source": ["coingecko"]
-    },
-    "DCR": {
-      "source": ["coingecko"]
-    },
-    "BLZ": {
-      "source": ["coingecko"]
-    },
-    "PAXG": {
-      "source": ["coingecko"]
-    },
-    "XVS": {
-      "source": ["coingecko"]
-    },
-    "UNFI": {
-      "source": ["coingecko"]
-    },
-    "ROSE": {
-      "source": ["coingecko"]
-    },
-    "AVA": {
-      "source": ["coingecko"]
-    },
-    "SFP": {
-      "source": ["coingecko"]
-    },
-    "SUPER": {
-      "source": ["coingecko"]
-    },
-    "KLAY": {
-      "source": ["coingecko"]
-    },
-    "CLO": {
-      "source": ["coingecko"]
-    },
-    "KLV": {
-      "source": ["coingecko"]
-    },
-    "GAS": {
-      "source": ["coingecko"]
-    },
-    "MINA": {
-      "source": ["coingecko"]
-    },
-    "RARI": {
-      "source": ["coingecko"]
-    },
-    "YAK": {
-      "source": ["coingecko"]
-    },
-    "KP3R": {
-      "source": ["coingecko"]
-    },
-    "UOS": {
-      "source": ["coingecko"]
-    },
-    "ONG": {
-      "source": ["coingecko"]
-    },
-    "OM": {
-      "source": ["coingecko"]
-    },
-    "KCS": {
-      "source": ["coingecko"]
-    },
-    "CELR": {
-      "source": ["coingecko"]
-    },
-    "FUN": {
-      "source": ["coingecko"]
-    },
-    "WRX": {
-      "source": ["coingecko"]
-    },
-    "BTS": {
-      "source": ["coingecko"]
-    },
-    "HIVE": {
-      "source": ["coingecko"]
-    },
-    "VTHO": {
-      "source": ["coingecko"]
-    },
-    "WNXM": {
-      "source": ["coingecko"]
-    },
-    "INJ": {
-      "source": ["coingecko"]
-    },
-    "DNT": {
-      "source": ["coingecko"]
-    },
-    "DODO": {
-      "source": ["coingecko"]
-    },
-    "PUNDIX": {
-      "source": ["coingecko"]
-    },
-    "BAKE": {
-      "source": ["coingecko"]
-    },
-    "MDX": {
-      "source": ["coingecko"]
-    },
-    "TORN": {
-      "source": ["coingecko"]
-    },
-    "PHA": {
-      "source": ["coingecko"]
-    },
-    "BOND": {
-      "source": ["coingecko"]
-    },
-    "GHST": {
-      "source": ["coingecko"]
-    },
-    "REQ": {
-      "source": ["coingecko"]
-    },
-    "KAN": {
-      "source": ["coingecko"]
-    },
-    "VELO": {
-      "source": ["coingecko"]
-    },
-    "AMP": {
-      "source": ["coingecko"]
-    },
-    "STEEM": {
-      "source": ["coingecko"]
-    },
-    "QUICK": {
-      "source": ["coingecko"]
-    },
-    "QNT": {
-      "source": ["coingecko"]
-    },
-    "APE": {
-      "source": ["coingecko"]
-    },
-    "TRU": {
-      "source": ["coingecko"]
-    },
-    "FARM": {
-      "source": ["coingecko"]
-    },
-    "CRPT": {
-      "source": ["coingecko"]
-    },
-    "NFT": {
-      "source": ["coingecko"]
-    },
-    "SWFTC": {
-      "source": ["coingecko"]
-    },
-    "XCH": {
-      "source": ["coingecko"]
-    },
-    "ZKS": {
-      "source": ["coingecko"]
-    },
-    "DAO": {
-      "source": ["coingecko"]
-    },
-    "FIDA": {
-      "source": ["coingecko"]
-    },
-    "SWINGBY": {
-      "source": ["coingecko"]
-    },
-    "CSPR": {
-      "source": ["coingecko"]
-    },
-    "ELF": {
-      "source": ["coingecko"]
-    },
-    "CUDOS": {
-      "source": ["coingecko"]
-    },
-    "RFUEL": {
-      "source": ["coingecko"]
-    },
-    "JULD": {
-      "source": ["coingecko"]
-    },
-    "WOO": {
-      "source": ["coingecko"]
-    },
-    "HAPI": {
-      "source": ["coingecko"]
-    },
-    "FIO": {
-      "source": ["coingecko"]
-    },
-    "FIS": {
-      "source": ["coingecko"]
-    },
-    "NULS": {
-      "source": ["coingecko"]
-    },
-    "MITH": {
-      "source": ["coingecko"]
-    },
-    "DUSK": {
-      "source": ["coingecko"]
-    },
-    "DENT": {
-      "source": ["coingecko"]
-    },
-    "IOTX": {
-      "source": ["coingecko"]
-    },
-    "CTXC": {
-      "source": ["coingecko"]
-    },
-    "STPT": {
-      "source": ["coingecko"]
-    },
-    "ARDR": {
-      "source": ["coingecko"]
-    },
-    "STMX": {
-      "source": ["coingecko"]
-    },
-    "PNT": {
-      "source": ["coingecko"]
-    },
-    "KMD": {
-      "source": ["coingecko"]
-    },
-    "HNT": {
-      "source": ["coingecko"]
-    },
-    "FLM": {
-      "source": ["coingecko"]
-    },
-    "AUDIO": {
-      "source": ["coingecko"]
-    },
-    "FIRO": {
-      "source": ["coingecko"]
-    },
-    "LIT": {
-      "source": ["coingecko"]
-    },
-    "TLM": {
-      "source": ["coingecko"]
-    },
-    "ERN": {
-      "source": ["coingecko"]
-    },
-    "SATT": {
-      "source": ["coingecko"]
-    },
-    "HYDRA": {
-      "source": ["coingecko"]
-    },
-    "RSV": {
-      "source": ["coingecko"]
-    },
-    "GNO": {
-      "source": ["coingecko"]
-    },
-    "BOSON": {
-      "source": ["coingecko"]
-    },
-    "ETP": {
-      "source": ["coingecko"]
-    },
-    "LYM": {
-      "source": ["coingecko"]
-    },
-    "PNK": {
-      "source": ["coingecko"]
-    },
-    "EURS": {
-      "source": ["coingecko"]
-    },
-    "AMPL": {
-      "source": ["coingecko"]
-    },
-    "BEST": {
-      "source": ["coingecko"]
-    },
-    "CEL": {
-      "source": ["coingecko"]
-    },
-    "LAMB": {
-      "source": ["coingecko"]
-    },
-    "ACH": {
-      "source": ["coingecko"]
-    },
-    "KEEP": {
-      "source": ["coingecko"]
-    },
-    "CLV": {
-      "source": ["coingecko"]
-    },
-    "RAD": {
-      "source": ["coingecko"]
-    },
-    "VGX": {
-      "source": ["coingecko"]
-    },
-    "RLY": {
-      "source": ["coingecko"]
-    },
-    "AERGO": {
-      "source": ["coingecko"]
-    },
-    "AIOZ": {
-      "source": ["coingecko"]
-    },
-    "LOOM": {
-      "source": ["coingecko"]
-    },
-    "SPORE": {
-      "source": ["coingecko"]
-    },
-    "CUSD": {
-      "source": ["coingecko"]
-    },
-    "SENSO": {
-      "source": ["coingecko"]
-    },
-    "BCD": {
-      "source": ["coingecko"]
-    },
-    "SWRV": {
-      "source": ["coingecko"]
-    },
-    "ELA": {
-      "source": ["coingecko"]
-    },
-    "MTA": {
-      "source": ["coingecko"]
-    },
-    "MXC": {
-      "source": ["coingecko"]
-    },
-    "LAT": {
-      "source": ["coingecko"]
-    },
-    "WXT": {
-      "source": ["coingecko"]
-    },
-    "CQT": {
-      "source": ["coingecko"]
-    },
-    "KAR": {
-      "source": ["coingecko"]
-    },
-    "PRQ": {
-      "source": ["coingecko"]
-    },
-    "ORBS": {
-      "source": ["coingecko"]
-    },
-    "PICKLE": {
-      "source": ["coingecko"]
-    },
-    "ZEE": {
-      "source": ["coingecko"]
-    },
-    "GEEQ": {
-      "source": ["coingecko"]
-    },
-    "CWS": {
-      "source": ["coingecko"]
-    },
-    "XCAD": {
-      "source": ["coingecko"]
-    },
-    "ROUTE": {
-      "source": ["coingecko"]
-    },
-    "NIM": {
-      "source": ["coingecko"]
-    },
-    "DIVI": {
-      "source": ["coingecko"]
-    },
-    "TARA": {
-      "source": ["coingecko"]
-    },
-    "BOLT": {
-      "source": ["coingecko"]
-    },
-    "HARD": {
-      "source": ["coingecko"]
-    },
-    "MAHA": {
-      "source": ["coingecko"]
-    },
-    "ASD": {
-      "source": ["coingecko"]
-    },
-    "FRM": {
-      "source": ["coingecko"]
-    },
-    "HGET": {
-      "source": ["coingecko"]
-    },
-    "SWAP": {
-      "source": ["coingecko"]
-    },
-    "MARSH": {
-      "source": ["coingecko"]
-    },
-    "BEPRO": {
-      "source": ["coingecko"]
-    },
-    "AKT": {
-      "source": ["coingecko"]
-    },
-    "NGM": {
-      "source": ["coingecko"]
-    },
-    "NSURE": {
-      "source": ["coingecko"]
-    },
-    "PROM": {
-      "source": ["coingecko"]
-    },
-    "MTL": {
-      "source": ["coingecko"]
-    },
-    "PERL": {
-      "source": ["coingecko"]
-    },
-    "DOCK": {
-      "source": ["coingecko"]
-    },
-    "TCT": {
-      "source": ["coingecko"]
-    },
-    "MBL": {
-      "source": ["coingecko"]
-    },
-    "WTC": {
-      "source": ["coingecko"]
-    },
-    "DATA": {
-      "source": ["coingecko"]
-    },
-    "IRIS": {
-      "source": ["coingecko"]
-    },
-    "BEL": {
-      "source": ["coingecko"]
-    },
-    "WING": {
-      "source": ["coingecko"]
-    },
-    "NBS": {
-      "source": ["coingecko"]
-    },
-    "CTK": {
-      "source": ["coingecko"]
-    },
-    "RIF": {
-      "source": ["coingecko"]
-    },
-    "DEGO": {
-      "source": ["coingecko"]
-    },
-    "CFX": {
-      "source": ["coingecko"]
-    },
-    "SLP": {
-      "source": ["coingecko"]
-    },
-    "ATA": {
-      "source": ["coingecko"]
-    },
-    "ACM": {
-      "source": ["coingecko"]
-    },
-    "SUPERBID": {
-      "source": ["coingecko"]
-    },
-    "NUT": {
-      "source": ["coingecko"]
-    },
-    "ASP": {
-      "source": ["coingecko"]
-    },
-    "INSUR": {
-      "source": ["coingecko"]
-    },
-    "LOC": {
-      "source": ["coingecko"]
-    },
-    "GASP": {
-      "source": ["coingecko"]
-    },
-    "MOB": {
-      "source": ["coingecko"]
-    },
-    "RRT": {
-      "source": ["coingecko"]
-    },
-    "RBTC": {
-      "source": ["coingecko"]
-    },
-    "EURT": {
-      "source": ["coingecko"]
-    },
-    "PASS": {
-      "source": ["coingecko"]
-    },
-    "XAUT": {
-      "source": ["coingecko"]
-    },
-    "BTSE": {
-      "source": ["coingecko"]
-    },
-    "CHEX": {
-      "source": ["coingecko"]
-    },
-    "QTF": {
-      "source": ["coingecko"]
-    },
-    "PLANETS": {
-      "source": ["coingecko"]
-    },
-    "FCL": {
-      "source": ["coingecko"]
-    },
-    "REVV": {
-      "source": ["coingecko"]
-    },
-    "PYR": {
-      "source": ["coingecko"]
-    },
-    "KDA": {
-      "source": ["coingecko"]
-    },
-    "IMX": {
-      "source": ["coingecko"]
-    },
-    "ALCX": {
-      "source": ["coingecko"]
-    },
-    "GMT": {
-      "source": ["coingecko"]
-    },
-    "AVT": {
-      "source": ["coingecko"]
-    },
-    "PRO": {
-      "source": ["coingecko"]
-    },
-    "MUSD": {
-      "source": ["coingecko"]
-    },
-    "LQTY": {
-      "source": ["coingecko"]
-    },
-    "SYN": {
-      "source": ["coingecko"]
-    },
-    "DDX": {
-      "source": ["coingecko"]
-    },
-    "CHSB": {
-      "source": ["coingecko"]
-    },
-    "UST": {
-      "source": ["coingecko"]
-    },
-    "SNOB": {
-      "source": ["coingecko"]
-    },
-    "DYP": {
-      "source": ["coingecko"]
-    },
-    "XSGD": {
-      "source": ["coingecko"]
-    },
-    "REV": {
-      "source": ["coingecko"]
-    },
-    "SMT": {
-      "source": ["coingecko"]
-    },
-    "NWC": {
-      "source": ["coingecko"]
-    },
-    "XPR": {
-      "source": ["coingecko"]
-    },
-    "SEELE": {
-      "source": ["coingecko"]
-    },
-    "TT": {
-      "source": ["coingecko"]
-    },
-    "PEARL": {
-      "source": ["coingecko"]
-    },
-    "SOLO": {
-      "source": ["coingecko"]
-    },
-    "ETN": {
-      "source": ["coingecko"]
-    },
-    "XHT": {
-      "source": ["coingecko"]
-    },
-    "XEC": {
-      "source": ["coingecko"]
-    },
-    "HC": {
-      "source": ["coingecko"]
-    },
-    "NEST": {
-      "source": ["coingecko"]
-    },
-    "AST": {
-      "source": ["coingecko"]
-    },
-    "ABT": {
-      "source": ["coingecko"]
-    },
-    "GT": {
-      "source": ["coingecko"]
-    },
-    "BTM": {
-      "source": ["coingecko"]
-    },
-    "BETH": {
-      "source": ["coingecko"]
-    },
-    "KCASH": {
-      "source": ["coingecko"]
-    },
-    "DHT": {
-      "source": ["coingecko"]
-    },
-    "NAS": {
-      "source": ["coingecko"]
-    },
-    "CMT": {
-      "source": ["coingecko"]
-    },
-    "RING": {
-      "source": ["coingecko"]
-    },
-    "FSN": {
-      "source": ["coingecko"]
-    },
-    "YAM": {
-      "source": ["coingecko"]
-    },
-    "EGT": {
-      "source": ["coingecko"]
-    },
-    "EWT": {
-      "source": ["coingecko"]
-    },
-    "TLOS": {
-      "source": ["coingecko"]
-    },
-    "RFOX": {
-      "source": ["coingecko"]
-    },
-    "ELON": {
-      "source": ["coingecko"]
-    },
-    "CFG": {
-      "source": ["coingecko"]
-    },
-    "PRE": {
-      "source": ["coingecko"]
-    },
-    "UBX": {
-      "source": ["coingecko"]
-    },
-    "SKEY": {
-      "source": ["coingecko"]
-    },
-    "KONO": {
-      "source": ["coingecko"]
-    },
-    "LTX": {
-      "source": ["coingecko"]
-    },
-    "POL": {
-      "source": ["coingecko"]
-    },
-    "USDJ": {
-      "source": ["coingecko"]
-    },
-    "ENQ": {
-      "source": ["coingecko"]
-    },
-    "LON": {
-      "source": ["coingecko"]
-    },
-    "KISHU": {
-      "source": ["coingecko"]
-    },
-    "DEXA": {
-      "source": ["coingecko"]
-    },
-    "ARK": {
-      "source": ["coingecko"]
-    },
-    "AKITA": {
-      "source": ["coingecko"]
-    },
-    "STAKE": {
-      "source": ["coingecko"]
-    },
-    "DPI": {
-      "source": ["coingecko"]
-    },
-    "CREAM": {
-      "source": ["coingecko"]
-    },
-    "BAO": {
-      "source": ["coingecko"]
-    },
-    "sUSD": {
-      "source": ["coingecko"]
-    },
-    "MPH": {
-      "source": ["coingecko"]
-    },
-    "SFI": {
-      "source": ["coingecko"]
-    },
-    "MAPS": {
-      "source": ["coingecko"]
-    },
-    "TVK": {
-      "source": ["coingecko"]
-    },
-    "UMB": {
-      "source": ["coingecko"]
-    },
-    "OXY": {
-      "source": ["coingecko"]
-    },
-    "SMTY": {
-      "source": ["coingecko"]
-    },
-    "SHOPX": {
-      "source": ["coingecko"]
-    },
-    "HOPR": {
-      "source": ["coingecko"]
-    },
-    "C98": {
-      "source": ["coingecko"]
-    },
-    "MFT": {
-      "source": ["coingecko"]
-    },
-    "TFUEL": {
-      "source": ["coingecko"]
-    },
-    "BEAM": {
-      "source": ["coingecko"]
-    },
-    "TROY": {
-      "source": ["coingecko"]
-    },
-    "VITE": {
-      "source": ["coingecko"]
-    },
-    "AUTO": {
-      "source": ["coingecko"]
-    },
-    "TKO": {
-      "source": ["coingecko"]
-    },
-    "BAR": {
-      "source": ["coingecko"]
-    },
-    "BURGER": {
-      "source": ["coingecko"]
-    },
-    "RENBTC": {
-      "source": ["coingecko"]
-    },
-    "MHC": {
-      "source": ["coingecko"]
-    },
-    "GUSD": {
-      "source": ["coingecko"]
-    },
-    "MIOTA": {
-      "source": ["coingecko"]
-    },
-    "LUNA": {
-      "source": ["coingecko"]
-    },
-    "XNO": {
-      "source": ["coingecko"]
-    },
-    "AGA": {
-      "source": ["coingecko"]
-    },
-    "AGVC": {
-      "source": ["coingecko"]
-    },
-    "AGVE": {
-      "source": ["coingecko"]
-    },
-    "AGN": {
-      "source": ["coingecko"]
-    },
-    "AHT": {
-      "source": ["coingecko"]
-    },
-    "AIT": {
-      "source": ["coingecko"]
-    },
-    "AICO": {
-      "source": ["coingecko"]
-    },
-    "AID": {
-      "source": ["coingecko"]
-    },
-    "AIDOC": {
-      "source": ["coingecko"]
-    },
-    "ADK": {
-      "source": ["coingecko"]
-    },
-    "ALI": {
-      "source": ["coingecko"]
-    },
-    "AIN": {
-      "source": ["coingecko"]
-    },
-    "AION": {
-      "source": ["coingecko"]
-    },
-    "ABL": {
-      "source": ["coingecko"]
-    },
-    "AIRX": {
-      "source": ["coingecko"]
-    },
-    "AKN": {
-      "source": ["coingecko"]
-    },
-    "AKA": {
-      "source": ["coingecko"]
-    },
-    "ALA": {
-      "source": ["coingecko"]
-    },
-    "ALUSD": {
-      "source": ["coingecko"]
-    },
-    "ALEPH": {
-      "source": ["coingecko"]
-    },
-    "ALEX": {
-      "source": ["coingecko"]
-    },
-    "ALLBI": {
-      "source": ["coingecko"]
-    },
-    "ALL": {
-      "source": ["coingecko"]
-    },
-    "AXT": {
-      "source": ["coingecko"]
-    },
-    "GATOR": {
-      "source": ["coingecko"]
-    },
-    "ME": {
-      "source": ["coingecko"]
-    },
-    "ASAFE": {
-      "source": ["coingecko"]
-    },
-    "ALY": {
-      "source": ["coingecko"]
-    },
-    "ALOHA": {
-      "source": ["coingecko"]
-    },
-    "ALPA": {
-      "source": ["coingecko"]
-    },
-    "ALP": {
-      "source": ["coingecko"]
-    },
-    "A5T": {
-      "source": ["coingecko"]
-    },
-    "APC": {
-      "source": ["coingecko"]
-    },
-    "DEX": {
-      "source": ["coingecko"]
-    },
-    "ALPHR": {
-      "source": ["coingecko"]
-    },
-    "ALTOM": {
-      "source": ["coingecko"]
-    },
-    "ALT": {
-      "source": ["coingecko"]
-    },
-    "ALD": {
-      "source": ["coingecko"]
-    },
-    "ALN": {
-      "source": ["coingecko"]
-    },
-    "AMA": {
-      "source": ["coingecko"]
-    },
-    "AMB": {
-      "source": ["coingecko"]
-    },
-    "AME": {
-      "source": ["coingecko"]
-    },
-    "AMI": {
-      "source": ["coingecko"]
-    },
-    "AMN": {
-      "source": ["coingecko"]
-    },
-    "AMON": {
-      "source": ["coingecko"]
-    },
-    "VEO": {
-      "source": ["coingecko"]
-    },
-    "AAPX": {
-      "source": ["coingecko"]
-    },
-    "ANON": {
-      "source": ["coingecko"]
-    },
-    "$ANRX": {
-      "source": ["coingecko"]
-    },
-    "AGOV": {
-      "source": ["coingecko"]
-    },
-    "XAMP": {
-      "source": ["coingecko"]
-    },
-    "MATTER": {
-      "source": ["coingecko"]
-    },
-    "ABLOCK": {
-      "source": ["coingecko"]
-    },
-    "NANA": {
-      "source": ["coingecko"]
-    },
-    "SOS": {
-      "source": ["coingecko"]
-    },
-    "CEUR": {
-      "source": ["coingecko"]
-    },
-    "UBE": {
-      "source": ["coingecko"]
-    },
-    "MOO": {
-      "source": ["coingecko"]
-    },
-    "PACT": {
-      "source": ["coingecko"]
-    },
-    "GNT": {
-      "source": ["coingecko"]
-    },
-    "EVMOS": {
-      "source": ["coingecko"]
-    },
-    "CUSDC": {
-      "source": ["coingecko"]
-    },
-    "USDP": {
-      "source": ["coingecko"]
-    },
-    "CETH": {
-      "source": ["coingecko"]
-    },
-    "HBTC": {
-      "source": ["coingecko"]
-    },
-    "USDD": {
-      "source": ["coingecko"]
-    },
-    "CDAI": {
-      "source": ["coingecko"]
-    },
-    "10SET": {
-      "source": ["coingecko"]
-    },
-    "TWT": {
-      "source": ["coingecko"]
-    },
-    "GALA": {
-      "source": ["coingecko"]
-    },
-    "OMI": {
-      "source": ["coingecko"]
-    },
-    "RPL": {
-      "source": ["coingecko"]
-    },
-    "NXM": {
-      "source": ["coingecko"]
-    },
-    "SAFEMOON": {
-      "source": ["coingecko"]
-    },
-    "ELG": {
-      "source": ["coingecko"]
-    },
-    "LN": {
-      "source": ["coingecko"]
-    },
-    "SFM": {
-      "source": ["coingecko"]
-    },
-    "SCRT": {
-      "source": ["coingecko"]
-    },
-    "NU": {
-      "source": ["coingecko"]
-    },
-    "DAG": {
-      "source": ["coingecko"]
-    },
-    "XCM": {
-      "source": ["coingecko"]
-    },
-    "CEEK": {
-      "source": ["coingecko"]
-    },
-    "ASTR": {
-      "source": ["coingecko"]
-    },
-    "FX": {
-      "source": ["coingecko"]
-    },
-    "KUB": {
-      "source": ["coingecko"]
-    },
-    "KIRO": {
-      "source": ["coingecko"]
-    },
-    "MED": {
-      "source": ["coingecko"]
-    },
-    "TRIBE": {
-      "source": ["coingecko"]
-    },
-    "XYO": {
-      "source": ["coingecko"]
-    },
-    "DKA": {
-      "source": ["coingecko"]
-    },
-    "TEL": {
-      "source": ["coingecko"]
-    },
-    "MBOX": {
-      "source": ["coingecko"]
-    },
-    "POWR": {
-      "source": ["coingecko"]
-    },
-    "SYS": {
-      "source": ["coingecko"]
-    },
-    "BDX": {
-      "source": ["coingecko"]
-    },
-    "MLK": {
-      "source": ["coingecko"]
-    },
-    "STRAX": {
-      "source": ["coingecko"]
-    },
-    "TRAC": {
-      "source": ["coingecko"]
-    },
-    "BTCST": {
-      "source": ["coingecko"]
-    },
-    "HUSD": {
-      "source": ["coingecko"]
-    },
-    "XPRT": {
-      "source": ["coingecko"]
-    },
-    "FLEXUSD": {
-      "source": ["coingecko"]
-    },
-    "LYXE": {
-      "source": ["coingecko"]
-    },
-    "SURE": {
-      "source": ["coingecko"]
-    },
-    "XMON": {
-      "source": ["coingecko"]
-    },
-    "XSUSHI": {
-      "source": ["coingecko"]
-    },
-    "ADS": {
-      "source": ["coingecko"]
-    },
-    "SFUND": {
-      "source": ["coingecko"]
-    },
-    "QKC": {
-      "source": ["coingecko"]
-    },
-    "PCX": {
-      "source": ["coingecko"]
-    },
-    "DAWN": {
-      "source": ["coingecko"]
-    },
-    "HEZ": {
-      "source": ["coingecko"]
-    },
-    "VERI": {
-      "source": ["coingecko"]
-    },
-    "AUCTION": {
-      "source": ["coingecko"]
-    },
-    "DOLA": {
-      "source": ["coingecko"]
-    },
-    "RGT": {
-      "source": ["coingecko"]
-    },
-    "CBAT": {
-      "source": ["coingecko"]
-    },
-    "GXC": {
-      "source": ["coingecko"]
-    },
-    "MTRG": {
-      "source": ["coingecko"]
-    },
-    "NXS": {
-      "source": ["coingecko"]
-    },
-    "MNGO": {
-      "source": ["coingecko"]
-    },
-    "WOZX": {
-      "source": ["coingecko"]
-    },
-    "LCX": {
-      "source": ["coingecko"]
-    },
-    "COCOS": {
-      "source": ["coingecko"]
-    },
-    "HUNT": {
-      "source": ["coingecko"]
-    },
-    "IDEX": {
-      "source": ["coingecko"]
-    },
-    "KNCL": {
-      "source": ["coingecko"]
-    },
-    "TKX": {
-      "source": ["coingecko"]
-    },
-    "CET": {
-      "source": ["coingecko"]
-    },
-    "MVL": {
-      "source": ["coingecko"]
-    },
-    "UQC": {
-      "source": ["coingecko"]
-    },
-    "EXRD": {
-      "source": ["coingecko"]
-    },
-    "ARRR": {
-      "source": ["coingecko"]
-    },
-    "BITCI": {
-      "source": ["coingecko"]
-    },
-    "BCN": {
-      "source": ["coingecko"]
-    },
-    "BOR": {
-      "source": ["coingecko"]
-    },
-    "NEBL": {
-      "source": ["coingecko"]
-    },
-    "DERO": {
-      "source": ["coingecko"]
-    },
-    "AXN": {
-      "source": ["coingecko"]
-    },
-    "LOOMOLD": {
-      "source": ["coingecko"]
-    },
-    "ZIG": {
-      "source": ["coingecko"]
-    },
-    "POND": {
-      "source": ["coingecko"]
-    },
-    "SOFI": {
-      "source": ["coingecko"]
-    },
-    "WAN": {
-      "source": ["coingecko"]
-    },
-    "ZPAY": {
-      "source": ["coingecko"]
-    },
-    "SERO": {
-      "source": ["coingecko"]
-    },
-    "ROOT": {
-      "source": ["coingecko"]
-    },
-    "FINE": {
-      "source": ["coingecko"]
-    },
-    "CXO": {
-      "source": ["coingecko"]
-    },
-    "ANC": {
-      "source": ["coingecko"]
-    },
-    "KAI": {
-      "source": ["coingecko"]
-    },
-    "JASMY": {
-      "source": ["coingecko"]
-    },
-    "CUNI": {
-      "source": ["coingecko"]
-    },
-    "LTO": {
-      "source": ["coingecko"]
-    },
-    "NOIA": {
-      "source": ["coingecko"]
-    },
-    "AE": {
-      "source": ["coingecko"]
-    },
-    "AQT": {
-      "source": ["coingecko"]
-    },
-    "RFR": {
-      "source": ["coingecko"]
-    },
-    "KOGE": {
-      "source": ["coingecko"]
-    },
-    "ONIT": {
-      "source": ["coingecko"]
-    },
-    "SBD": {
-      "source": ["coingecko"]
-    },
-    "LEND": {
-      "source": ["coingecko"]
-    },
-    "PSG": {
-      "source": ["coingecko"]
-    },
-    "RAMP": {
-      "source": ["coingecko"]
-    },
-    "NSBT": {
-      "source": ["coingecko"]
-    },
-    "ADX": {
-      "source": ["coingecko"]
-    },
-    "GYEN": {
-      "source": ["coingecko"]
-    },
-    "TNB": {
-      "source": ["coingecko"]
-    },
-    "COVAL": {
-      "source": ["coingecko"]
-    },
-    "SAITO": {
-      "source": ["coingecko"]
-    },
-    "QASH": {
-      "source": ["coingecko"]
-    },
-    "MINTME": {
-      "source": ["coingecko"]
-    },
-    "UPP": {
-      "source": ["coingecko"]
-    },
-    "FUSE": {
-      "source": ["coingecko"]
-    },
-    "VRSC": {
-      "source": ["coingecko"]
-    },
-    "COS": {
-      "source": ["coingecko"]
-    },
-    "PIVX": {
-      "source": ["coingecko"]
-    },
-    "OVR": {
-      "source": ["coingecko"]
-    },
-    "METH": {
-      "source": ["coingecko"]
-    },
-    "CZRX": {
-      "source": ["coingecko"]
-    },
-    "DXD": {
-      "source": ["coingecko"]
-    },
-    "FLEX": {
-      "source": ["coingecko"]
-    },
-    "AXEL": {
-      "source": ["coingecko"]
-    },
-    "HTR": {
-      "source": ["coingecko"]
-    },
-    "OAX": {
-      "source": ["coingecko"]
-    },
-    "BOA": {
-      "source": ["coingecko"]
-    },
-    "SOLVE": {
-      "source": ["coingecko"]
-    },
-    "YVE-CRVDAO": {
-      "source": ["coingecko"]
-    },
-    "FRA": {
-      "source": ["coingecko"]
-    },
-    "MCB": {
-      "source": ["coingecko"]
-    },
-    "DEXE": {
-      "source": ["coingecko"]
-    },
-    "ADCO": {
-      "source": ["coingecko"]
-    },
-    "PROS": {
-      "source": ["coingecko"]
-    },
-    "VXV": {
-      "source": ["coingecko"]
-    },
-    "SNM": {
-      "source": ["coingecko"]
-    },
-    "KRL": {
-      "source": ["coingecko"]
-    },
-    "SIX": {
-      "source": ["coingecko"]
-    },
-    "JUV": {
-      "source": ["coingecko"]
-    },
-    "LBT": {
-      "source": ["coingecko"]
-    },
-    "VTC": {
-      "source": ["coingecko"]
-    },
-    "NMX": {
-      "source": ["coingecko"]
-    },
-    "XAI": {
-      "source": ["coingecko"]
-    },
-    "INST": {
-      "source": ["coingecko"]
-    },
-    "NPXS": {
-      "source": ["coingecko"]
-    },
-    "INV": {
-      "source": ["coingecko"]
-    },
-    "XFUND": {
-      "source": ["coingecko"]
-    },
-    "ZMT": {
-      "source": ["coingecko"]
-    },
-    "TKP": {
-      "source": ["coingecko"]
-    },
-    "ETH2X-FLI": {
-      "source": ["coingecko"]
-    },
-    "GBYTE": {
-      "source": ["coingecko"]
-    },
-    "OXEN": {
-      "source": ["coingecko"]
-    },
-    "DETO": {
-      "source": ["coingecko"]
-    },
-    "SWTH": {
-      "source": ["coingecko"]
-    },
-    "VRO": {
-      "source": ["coingecko"]
-    },
-    "SWISE": {
-      "source": ["coingecko"]
-    },
-    "ZB": {
-      "source": ["coingecko"]
-    },
-    "SYLO": {
-      "source": ["coingecko"]
-    },
-    "KIN": {
-      "source": ["coingecko"]
-    },
-    "NCT": {
-      "source": ["coingecko"]
-    },
-    "DCN": {
-      "source": ["coingecko"]
-    },
-    "GOF": {
-      "source": ["coingecko"]
-    },
-    "CENNZ": {
-      "source": ["coingecko"]
-    },
-    "OCC": {
-      "source": ["coingecko"]
-    },
-    "VIB": {
-      "source": ["coingecko"]
-    },
-    "FOR": {
-      "source": ["coingecko"]
-    },
-    "DF": {
-      "source": ["coingecko"]
-    },
-    "O3": {
-      "source": ["coingecko"]
-    },
-    "WICC": {
-      "source": ["coingecko"]
-    },
-    "OGO": {
-      "source": ["coingecko"]
-    },
-    "PAI": {
-      "source": ["coingecko"]
-    },
-    "GNX": {
-      "source": ["coingecko"]
-    },
-    "HPT": {
-      "source": ["coingecko"]
-    },
-    "ACT": {
-      "source": ["coingecko"]
-    },
-    "BIX": {
-      "source": ["coingecko"]
-    },
-    "MX": {
-      "source": ["coingecko"]
-    },
-    "RUFF": {
-      "source": ["coingecko"]
-    },
-    "LHB": {
-      "source": ["coingecko"]
-    },
-    "NEW": {
-      "source": ["coingecko"]
-    },
-    "PVT": {
-      "source": ["coingecko"]
-    },
-    "MDS": {
-      "source": ["coingecko"]
-    },
-    "OCN": {
-      "source": ["coingecko"]
-    },
-    "DTA": {
-      "source": ["coingecko"]
-    },
-    "ITC": {
-      "source": ["coingecko"]
-    },
-    "CNNS": {
-      "source": ["coingecko"]
-    },
-    "SKM": {
-      "source": ["coingecko"]
-    },
-    "TOP": {
-      "source": ["coingecko"]
-    },
-    "BHD": {
-      "source": ["coingecko"]
-    },
-    "CRE": {
-      "source": ["coingecko"]
-    },
-    "FLUX": {
-      "source": ["coingecko"]
-    },
-    "SHFT": {
-      "source": ["coingecko"]
-    },
-    "DFI": {
-      "source": ["coingecko"]
-    },
-    "KOK": {
-      "source": ["coingecko"]
-    },
-    "PHNX": {
-      "source": ["coingecko"]
-    },
-    "XDB": {
-      "source": ["coingecko"]
-    },
-    "ABBC": {
-      "source": ["coingecko"]
-    },
-    "GMEE": {
-      "source": ["coingecko"]
-    },
-    "LABS": {
-      "source": ["coingecko"]
-    },
-    "FEAR": {
-      "source": ["coingecko"]
-    },
-    "SRK": {
-      "source": ["coingecko"]
-    },
-    "IDEA": {
-      "source": ["coingecko"]
-    },
-    "WEST": {
-      "source": ["coingecko"]
-    },
-    "NORD": {
-      "source": ["coingecko"]
-    },
-    "SUTER": {
-      "source": ["coingecko"]
-    },
-    "LAYER": {
-      "source": ["coingecko"]
-    },
-    "ALPACA": {
-      "source": ["coingecko"]
-    },
-    "ILV": {
-      "source": ["coingecko"]
-    },
-    "BABYDOGE": {
-      "source": ["coingecko"]
-    },
-    "HERO": {
-      "source": ["coingecko"]
-    },
-    "EFK": {
-      "source": ["coingecko"]
-    },
-    "CONV": {
-      "source": ["coingecko"]
-    },
-    "IQ": {
-      "source": ["coingecko"]
-    },
-    "DORA": {
-      "source": ["coingecko"]
-    },
-    "CNTM": {
-      "source": ["coingecko"]
-    },
-    "DEP": {
-      "source": ["coingecko"]
-    },
-    "INX": {
-      "source": ["coingecko"]
-    },
-    "STRK": {
-      "source": ["coingecko"]
-    },
-    "CTC": {
-      "source": ["coingecko"]
-    },
-    "HEGIC": {
-      "source": ["coingecko"]
-    },
-    "TAI": {
-      "source": ["coingecko"]
-    },
-    "SFG": {
-      "source": ["coingecko"]
-    },
-    "LBA": {
-      "source": ["coingecko"]
-    },
-    "OKT": {
-      "source": ["coingecko"]
-    },
-    "ZYRO": {
-      "source": ["coingecko"]
-    },
-    "WGRT": {
-      "source": ["coingecko"]
-    },
-    "BZZ": {
-      "source": ["coingecko"]
-    },
-    "COVER": {
-      "source": ["coingecko"]
-    },
-    "KINE": {
-      "source": ["coingecko"]
-    },
-    "AVME": {
-      "source": ["coingecko"]
-    },
-    "CVT": {
-      "source": ["coingecko"]
-    },
-    "KTON": {
-      "source": ["coingecko"]
-    },
-    "CNS": {
-      "source": ["coingecko"]
-    },
-    "ERG": {
-      "source": ["coingecko"]
-    },
-    "VLX": {
-      "source": ["coingecko"]
-    },
-    "PANDO": {
-      "source": ["coingecko"]
-    },
-    "TRR": {
-      "source": ["coingecko"]
-    },
-    "RWN": {
-      "source": ["coingecko"]
-    },
-    "ELCASH": {
-      "source": ["coingecko"]
-    },
-    "PLEX": {
-      "source": ["coingecko"]
-    },
-    "BASE": {
-      "source": ["coingecko"]
-    },
-    "FXS": {
-      "source": ["coingecko"]
-    },
-    "BAC": {
-      "source": ["coingecko"]
-    },
-    "XOR": {
-      "source": ["coingecko"]
-    },
-    "BZRX": {
-      "source": ["coingecko"]
-    },
-    "WHITE": {
-      "source": ["coingecko"]
-    },
-    "CORE": {
-      "source": ["coingecko"]
-    },
-    "UBT": {
-      "source": ["coingecko"]
-    },
-    "APY": {
-      "source": ["coingecko"]
-    },
-    "TON": {
-      "source": ["coingecko"]
-    },
-    "LDO": {
-      "source": ["coingecko"]
-    },
-    "ARB": {
-      "source": ["coingecko"]
-    },
-    "OP": {
-      "source": ["coingecko"]
-    },
-    "LUNC": {
-      "source": ["coingecko"]
-    },
-    "AGIX": {
-      "source": ["coingecko"]
-    },
-    "FEI": {
-      "source": ["coingecko"]
-    },
-    "CVX": {
-      "source": ["coingecko"]
-    },
-    "OSMO": {
-      "source": ["coingecko"]
-    },
-    "DYDX": {
-      "source": ["coingecko"]
-    },
-    "FLR": {
-      "source": ["coingecko"]
-    },
-    "ETHW": {
-      "source": ["coingecko"]
-    },
-    "SSV": {
-      "source": ["coingecko"]
-    },
-    "MAGIC": {
-      "source": ["coingecko"]
-    },
-    "FLOKI": {
-      "source": ["coingecko"]
-    },
-    "ENS": {
-      "source": ["coingecko"]
-    },
-    "BONE": {
-      "source": ["coingecko"]
-    },
-    "BLUR": {
-      "source": ["coingecko"]
-    },
-    "USTC": {
-      "source": ["coingecko"]
-    },
-    "BICO": {
-      "source": ["coingecko"]
-    },
-    "BRISE": {
-      "source": ["coingecko"]
-    },
-    "BORA": {
-      "source": ["coingecko"]
-    },
-    "BNX": {
-      "source": ["coingecko"]
-    },
-    "POLY": {
-      "source": ["coingecko"]
-    },
-    "EVER": {
-      "source": ["coingecko"]
-    },
-    "MULTI": {
-      "source": ["coingecko"]
-    },
-    "ID": {
-      "source": ["coingecko"]
-    },
-    "BTRST": {
-      "source": ["coingecko"]
-    },
-    "AXL": {
-      "source": ["coingecko"]
-    },
-    "HEX": {
-      "source": ["coingecko"]
-    },
-    "WTRX": {
-      "source": ["coingecko"]
-    },
-    "TMG": {
-      "source": ["coingecko"]
-    },
-    "WBNB": {
-      "source": ["coingecko"]
-    },
-    "BTTOLD": {
-      "source": ["coingecko"]
-    },
-    "BGB": {
-      "source": ["coingecko"]
-    },
-    "XRD": {
-      "source": ["coingecko"]
-    },
-    "WEMIX": {
-      "source": ["coingecko"]
-    },
-    "KAS": {
-      "source": ["coingecko"]
-    },
-    "LUSD": {
-      "source": ["coingecko"]
-    },
-    "GNS": {
-      "source": ["coingecko"]
-    },
-    "ASTRAFER": {
-      "source": ["coingecko"]
-    },
-    "EDGT": {
-      "source": ["coingecko"]
-    },
-    "RON": {
-      "source": ["coingecko"]
-    },
-    "MV": {
-      "source": ["coingecko"]
-    },
-    "WEVER": {
-      "source": ["coingecko"]
-    },
-    "METIS": {
-      "source": ["coingecko"]
-    },
-    "HFT": {
-      "source": ["coingecko"]
-    },
-    "RBN": {
-      "source": ["coingecko"]
-    },
-    "PLA": {
-      "source": ["coingecko"]
-    },
-    "VVS": {
-      "source": ["coingecko"]
-    },
-    "PEOPLE": {
-      "source": ["coingecko"]
-    },
-    "STG": {
-      "source": ["coingecko"]
-    },
-    "MC": {
-      "source": ["coingecko"]
-    },
-    "POLYX": {
-      "source": ["coingecko"]
-    },
-    "HOOK": {
-      "source": ["coingecko"]
-    },
-    "MBX": {
-      "source": ["coingecko"]
-    },
-    "GAL": {
-      "source": ["coingecko"]
-    },
-    "LOCUS": {
-      "source": ["coingecko"]
-    },
-    "NYM": {
-      "source": ["coingecko"]
-    },
-    "USDX": {
-      "source": ["coingecko"]
-    },
-    "MNW": {
-      "source": ["coingecko"]
-    },
-    "HUM": {
-      "source": ["coingecko"]
-    },
-    "XCN": {
-      "source": ["coingecko"]
-    },
-    "VBG": {
-      "source": ["coingecko"]
-    },
-    "DESO": {
-      "source": ["coingecko"]
-    },
-    "AVINOC": {
-      "source": ["coingecko"]
-    },
-    "VOLT": {
-      "source": ["coingecko"]
-    },
-    "XPLA": {
-      "source": ["coingecko"]
-    },
-    "TOMI": {
-      "source": ["coingecko"]
-    },
-    "MRS": {
-      "source": ["coingecko"]
-    },
-    "HIGH": {
-      "source": ["coingecko"]
-    },
-    "SPELL": {
-      "source": ["coingecko"]
-    },
-    "SAITAMA": {
-      "source": ["coingecko"]
-    },
-    "PENDLE": {
-      "source": ["coingecko"]
-    },
-    "BFC": {
-      "source": ["coingecko"]
-    },
-    "LOOKS": {
-      "source": ["coingecko"]
-    },
-    "AURA": {
-      "source": ["coingecko"]
-    },
-    "WMT": {
-      "source": ["coingecko"]
-    },
-    "TSUKA": {
-      "source": ["coingecko"]
-    },
-    "BSW": {
-      "source": ["coingecko"]
-    },
-    "GRV": {
-      "source": ["coingecko"]
-    },
-    "CCD": {
-      "source": ["coingecko"]
-    },
-    "DEL": {
-      "source": ["coingecko"]
-    },
-    "ACA": {
-      "source": ["coingecko"]
-    },
-    "RACA": {
-      "source": ["coingecko"]
-    },
-    "YGG": {
-      "source": ["coingecko"]
-    },
-    "BETA": {
-      "source": ["coingecko"]
-    },
-    "FNCY": {
-      "source": ["coingecko"]
-    },
-    "VEGA": {
-      "source": ["coingecko"]
-    },
-    "ANKRETH": {
-      "source": ["coingecko"]
-    },
-    "MOVR": {
-      "source": ["coingecko"]
-    },
-    "QUACK": {
-      "source": ["coingecko"]
-    },
-    "DAR": {
-      "source": ["coingecko"]
-    },
-    "VAI": {
-      "source": ["coingecko"]
-    },
-    "RSS3": {
-      "source": ["coingecko"]
-    },
-    "SSX": {
-      "source": ["coingecko"]
-    },
-    "CBK": {
-      "source": ["coingecko"]
-    },
-    "GODS": {
-      "source": ["coingecko"]
-    },
-    "NVIR": {
-      "source": ["coingecko"]
-    },
-    "COL": {
-      "source": ["coingecko"]
-    },
-    "GFT": {
-      "source": ["coingecko"]
-    },
-    "CBG": {
-      "source": ["coingecko"]
-    },
-    "KEY": {
-      "source": ["coingecko"]
-    },
-    "XWC": {
-      "source": ["coingecko"]
-    },
-    "WVLX": {
-      "source": ["coingecko"]
-    },
-    "EFI": {
-      "source": ["coingecko"]
-    },
-    "LYRA": {
-      "source": ["coingecko"]
-    },
-    "BLOK": {
-      "source": ["coingecko"]
-    },
-    "RAY": {
-      "source": ["coingecko"]
-    },
-    "KSP": {
-      "source": ["coingecko"]
-    },
-    "QLC": {
-      "source": ["coingecko"]
-    },
-    "QOM": {
-      "source": ["coingecko"]
-    },
-    "PHB": {
-      "source": ["coingecko"]
-    },
-    "FCT": {
-      "source": ["coingecko"]
-    },
-    "SUSD": {
-      "source": ["coingecko"]
-    },
-    "ZEON": {
-      "source": ["coingecko"]
-    },
-    "RARE": {
-      "source": ["coingecko"]
-    },
-    "ONUS": {
-      "source": ["coingecko"]
-    },
-    "UFO": {
-      "source": ["coingecko"]
-    },
-    "POLIS": {
-      "source": ["coingecko"]
-    },
-    "HIFI": {
-      "source": ["coingecko"]
-    },
-    "BOBA": {
-      "source": ["coingecko"]
-    },
-    "SDAO": {
-      "source": ["coingecko"]
-    },
-    "MOC": {
-      "source": ["coingecko"]
-    },
-    "GEL": {
-      "source": ["coingecko"]
-    },
-    "BIFI": {
-      "source": ["coingecko"]
-    },
-    "LOKA": {
-      "source": ["coingecko"]
-    },
-    "BAX": {
-      "source": ["coingecko"]
-    },
-    "OPUL": {
-      "source": ["coingecko"]
-    },
-    "DFG": {
-      "source": ["coingecko"]
-    },
-    "SWEAT": {
-      "source": ["coingecko"]
-    },
-    "NPT": {
-      "source": ["coingecko"]
-    },
-    "WNCG": {
-      "source": ["coingecko"]
-    },
-    "WILD": {
-      "source": ["coingecko"]
-    },
-    "ZBC": {
-      "source": ["coingecko"]
-    },
-    "GRS": {
-      "source": ["coingecko"]
-    },
-    "WAIT": {
-      "source": ["coingecko"]
-    },
-    "NTX": {
-      "source": ["coingecko"]
-    },
-    "ATLAS": {
-      "source": ["coingecko"]
-    },
-    "FORT": {
-      "source": ["coingecko"]
-    },
-    "YOOSHI": {
-      "source": ["coingecko"]
-    },
-    "HI": {
-      "source": ["coingecko"]
-    },
-    "YLD": {
-      "source": ["coingecko"]
-    },
-    "GZONE": {
-      "source": ["coingecko"]
-    },
-    "AURORA": {
-      "source": ["coingecko"]
-    },
-    "EUROC": {
-      "source": ["coingecko"]
-    },
-    "OUSD": {
-      "source": ["coingecko"]
-    },
-    "CHNG": {
-      "source": ["coingecko"]
-    },
-    "CPH": {
-      "source": ["coingecko"]
-    },
-    "LEVER": {
-      "source": ["coingecko"]
-    },
-    "CHESS": {
-      "source": ["coingecko"]
-    },
-    "CULT": {
-      "source": ["coingecko"]
-    },
-    "QRDO": {
-      "source": ["coingecko"]
-    },
-    "AGLD": {
-      "source": ["coingecko"]
-    },
-    "FWT": {
-      "source": ["coingecko"]
-    },
-    "TPT": {
-      "source": ["coingecko"]
-    },
-    "TIME": {
-      "source": ["coingecko"]
-    },
-    "USDK": {
-      "source": ["coingecko"]
-    },
-    "GAFI": {
-      "source": ["coingecko"]
-    },
-    "VIDT": {
-      "source": ["coingecko"]
-    },
-    "SPS": {
-      "source": ["coingecko"]
-    },
-    "CAPS": {
-      "source": ["coingecko"]
-    },
-    "FER": {
-      "source": ["coingecko"]
-    },
-    "NOM": {
-      "source": ["coingecko"]
-    },
-    "EPS": {
-      "source": ["coingecko"]
-    },
-    "EPIC": {
-      "source": ["coingecko"]
-    },
-    "H2O": {
-      "source": ["coingecko"]
-    },
-    "MAP": {
-      "source": ["coingecko"]
-    },
-    "GOG": {
-      "source": ["coingecko"]
-    },
-    "DEXT": {
-      "source": ["coingecko"]
-    },
-    "VOXEL": {
-      "source": ["coingecko"]
-    },
-    "CITY": {
-      "source": ["coingecko"]
-    },
-    "NEXA": {
-      "source": ["coingecko"]
-    },
-    "DOME": {
-      "source": ["coingecko"]
-    },
-    "BNANA": {
-      "source": ["coingecko"]
-    },
-    "ALPINE": {
-      "source": ["coingecko"]
-    },
-    "ICHI": {
-      "source": ["coingecko"]
-    },
-    "SOV": {
-      "source": ["coingecko"]
-    },
-    "STARL": {
-      "source": ["coingecko"]
-    },
-    "DG": {
-      "source": ["coingecko"]
-    },
-    "SOUL": {
-      "source": ["coingecko"]
-    },
-    "APX": {
-      "source": ["coingecko"]
-    },
-    "GMM": {
-      "source": ["coingecko"]
-    },
-    "LAZIO": {
-      "source": ["coingecko"]
-    }
+    "BAT": {},
+    "MKR": {},
+    "COMP": {},
+    "XTZ": {},
+    "OMG": {},
+    "YFI": {},
+    "SUSHI": {},
+    "SNX": {},
+    "DASH": {},
+    "ALGO": {},
+    "NEO": {},
+    "ZRX": {},
+    "ZEC": {},
+    "MANA": {},
+    "ENJ": {},
+    "GRT": {},
+    "CHZ": {},
+    "QTUM": {},
+    "BAND": {},
+    "CRV": {},
+    "LRC": {},
+    "REN": {},
+    "KSM": {},
+    "1INCH": {},
+    "WAVES": {},
+    "SAND": {},
+    "KNC": {},
+    "ZIL": {},
+    "VET": {},
+    "BNT": {},
+    "BAL": {},
+    "UMA": {},
+    "ONT": {},
+    "AXS": {},
+    "STORJ": {},
+    "OCEAN": {},
+    "XEM": {},
+    "ZEN": {},
+    "DGB": {},
+    "EGLD": {},
+    "ANKR": {},
+    "HBAR": {},
+    "RSR": {},
+    "BSV": {},
+    "ICX": {},
+    "OGN": {},
+    "REP": {},
+    "YFII": {},
+    "OXT": {},
+    "ICP": {},
+    "RVN": {},
+    "DIA": {},
+    "SRM": {},
+    "CRO": {},
+    "ONE": {},
+    "IOTA": {},
+    "THETA": {},
+    "JST": {},
+    "REEF": {},
+    "POLS": {},
+    "LPT": {},
+    "JOE": {},
+    "XAVA": {},
+    "BTT": {},
+    "CHR": {},
+    "IOST": {},
+    "AKRO": {},
+    "COTI": {},
+    "HT": {},
+    "BTG": {},
+    "CVC": {},
+    "ARPA": {},
+    "SC": {},
+    "ANT": {},
+    "UTK": {},
+    "PERP": {},
+    "MIR": {},
+    "FORTH": {},
+    "MLN": {},
+    "QI": {},
+    "XDC": {},
+    "SNT": {},
+    "API3": {},
+    "NEXO": {},
+    "CAKE": {},
+    "HOT": {},
+    "TUSD": {},
+    "NKN": {},
+    "LSK": {},
+    "NMR": {},
+    "TRB": {},
+    "SUN": {},
+    "SKL": {},
+    "MASK": {},
+    "GTC": {},
+    "RNDR": {},
+    "PTP": {},
+    "GLM": {},
+    "PNG": {},
+    "RUNE": {},
+    "LINA": {},
+    "CKB": {},
+    "FRONT": {},
+    "ORN": {},
+    "FTT": {},
+    "PLU": {},
+    "FET": {},
+    "XYM": {},
+    "RLC": {},
+    "CTSI": {},
+    "MDT": {},
+    "SXP": {},
+    "ALPHA": {},
+    "BADGER": {},
+    "ALICE": {},
+    "XVG": {},
+    "GLMR": {},
+    "WAXP": {},
+    "VSYS": {},
+    "SUKU": {},
+    "FLOW": {},
+    "VRA": {},
+    "WIN": {},
+    "TOMO": {},
+    "DCR": {},
+    "BLZ": {},
+    "PAXG": {},
+    "XVS": {},
+    "UNFI": {},
+    "ROSE": {},
+    "AVA": {},
+    "SFP": {},
+    "SUPER": {},
+    "KLAY": {},
+    "CLO": {},
+    "KLV": {},
+    "GAS": {},
+    "MINA": {},
+    "RARI": {},
+    "YAK": {},
+    "KP3R": {},
+    "UOS": {},
+    "ONG": {},
+    "OM": {},
+    "KCS": {},
+    "CELR": {},
+    "FUN": {},
+    "WRX": {},
+    "BTS": {},
+    "HIVE": {},
+    "VTHO": {},
+    "WNXM": {},
+    "INJ": {},
+    "DNT": {},
+    "DODO": {},
+    "PUNDIX": {},
+    "BAKE": {},
+    "MDX": {},
+    "TORN": {},
+    "PHA": {},
+    "BOND": {},
+    "GHST": {},
+    "REQ": {},
+    "KAN": {},
+    "VELO": {},
+    "AMP": {},
+    "STEEM": {},
+    "QUICK": {},
+    "QNT": {},
+    "APE": {},
+    "TRU": {},
+    "FARM": {},
+    "CRPT": {},
+    "NFT": {},
+    "SWFTC": {},
+    "XCH": {},
+    "ZKS": {},
+    "DAO": {},
+    "FIDA": {},
+    "SWINGBY": {},
+    "CSPR": {},
+    "ELF": {},
+    "CUDOS": {},
+    "RFUEL": {},
+    "JULD": {},
+    "WOO": {},
+    "HAPI": {},
+    "FIO": {},
+    "FIS": {},
+    "NULS": {},
+    "MITH": {},
+    "DUSK": {},
+    "DENT": {},
+    "IOTX": {},
+    "CTXC": {},
+    "STPT": {},
+    "ARDR": {},
+    "STMX": {},
+    "PNT": {},
+    "KMD": {},
+    "HNT": {},
+    "FLM": {},
+    "AUDIO": {},
+    "FIRO": {},
+    "LIT": {},
+    "TLM": {},
+    "ERN": {},
+    "SATT": {},
+    "HYDRA": {},
+    "RSV": {},
+    "GNO": {},
+    "BOSON": {},
+    "ETP": {},
+    "LYM": {},
+    "PNK": {},
+    "EURS": {},
+    "AMPL": {},
+    "BEST": {},
+    "CEL": {},
+    "LAMB": {},
+    "ACH": {},
+    "KEEP": {},
+    "CLV": {},
+    "RAD": {},
+    "VGX": {},
+    "RLY": {},
+    "AERGO": {},
+    "AIOZ": {},
+    "LOOM": {},
+    "SPORE": {},
+    "CUSD": {},
+    "SENSO": {},
+    "BCD": {},
+    "SWRV": {},
+    "ELA": {},
+    "MTA": {},
+    "MXC": {},
+    "LAT": {},
+    "WXT": {},
+    "CQT": {},
+    "KAR": {},
+    "PRQ": {},
+    "ORBS": {},
+    "PICKLE": {},
+    "ZEE": {},
+    "GEEQ": {},
+    "CWS": {},
+    "XCAD": {},
+    "ROUTE": {},
+    "NIM": {},
+    "DIVI": {},
+    "TARA": {},
+    "BOLT": {},
+    "HARD": {},
+    "MAHA": {},
+    "ASD": {},
+    "FRM": {},
+    "HGET": {},
+    "SWAP": {},
+    "MARSH": {},
+    "BEPRO": {},
+    "AKT": {},
+    "NGM": {},
+    "NSURE": {},
+    "PROM": {},
+    "MTL": {},
+    "PERL": {},
+    "DOCK": {},
+    "TCT": {},
+    "MBL": {},
+    "WTC": {},
+    "DATA": {},
+    "IRIS": {},
+    "BEL": {},
+    "WING": {},
+    "NBS": {},
+    "CTK": {},
+    "RIF": {},
+    "DEGO": {},
+    "CFX": {},
+    "SLP": {},
+    "ATA": {},
+    "ACM": {},
+    "SUPERBID": {},
+    "NUT": {},
+    "ASP": {},
+    "INSUR": {},
+    "LOC": {},
+    "GASP": {},
+    "MOB": {},
+    "RRT": {},
+    "RBTC": {},
+    "EURT": {},
+    "PASS": {},
+    "XAUT": {},
+    "BTSE": {},
+    "CHEX": {},
+    "QTF": {},
+    "PLANETS": {},
+    "FCL": {},
+    "REVV": {},
+    "PYR": {},
+    "KDA": {},
+    "IMX": {},
+    "ALCX": {},
+    "GMT": {},
+    "AVT": {},
+    "PRO": {},
+    "MUSD": {},
+    "LQTY": {},
+    "SYN": {},
+    "DDX": {},
+    "CHSB": {},
+    "UST": {},
+    "SNOB": {},
+    "DYP": {},
+    "XSGD": {},
+    "REV": {},
+    "SMT": {},
+    "NWC": {},
+    "XPR": {},
+    "SEELE": {},
+    "TT": {},
+    "PEARL": {},
+    "SOLO": {},
+    "ETN": {},
+    "XHT": {},
+    "XEC": {},
+    "HC": {},
+    "NEST": {},
+    "AST": {},
+    "ABT": {},
+    "GT": {},
+    "BTM": {},
+    "BETH": {},
+    "KCASH": {},
+    "DHT": {},
+    "NAS": {},
+    "CMT": {},
+    "RING": {},
+    "FSN": {},
+    "YAM": {},
+    "EGT": {},
+    "EWT": {},
+    "TLOS": {},
+    "RFOX": {},
+    "ELON": {},
+    "CFG": {},
+    "PRE": {},
+    "UBX": {},
+    "SKEY": {},
+    "KONO": {},
+    "LTX": {},
+    "POL": {},
+    "USDJ": {},
+    "ENQ": {},
+    "LON": {},
+    "KISHU": {},
+    "DEXA": {},
+    "ARK": {},
+    "AKITA": {},
+    "STAKE": {},
+    "DPI": {},
+    "CREAM": {},
+    "BAO": {},
+    "sUSD": {},
+    "MPH": {},
+    "SFI": {},
+    "MAPS": {},
+    "TVK": {},
+    "UMB": {},
+    "OXY": {},
+    "SMTY": {},
+    "SHOPX": {},
+    "HOPR": {},
+    "C98": {},
+    "MFT": {},
+    "TFUEL": {},
+    "BEAM": {},
+    "TROY": {},
+    "VITE": {},
+    "AUTO": {},
+    "TKO": {},
+    "BAR": {},
+    "BURGER": {},
+    "RENBTC": {},
+    "MHC": {},
+    "GUSD": {},
+    "MIOTA": {},
+    "LUNA": {},
+    "XNO": {},
+    "AGA": {},
+    "AGVC": {},
+    "AGVE": {},
+    "AGN": {},
+    "AHT": {},
+    "AIT": {},
+    "AICO": {},
+    "AID": {},
+    "AIDOC": {},
+    "ADK": {},
+    "ALI": {},
+    "AIN": {},
+    "AION": {},
+    "ABL": {},
+    "AIRX": {},
+    "AKN": {},
+    "AKA": {},
+    "ALA": {},
+    "ALUSD": {},
+    "ALEPH": {},
+    "ALEX": {},
+    "ALLBI": {},
+    "ALL": {},
+    "AXT": {},
+    "GATOR": {},
+    "ME": {},
+    "ASAFE": {},
+    "ALY": {},
+    "ALOHA": {},
+    "ALPA": {},
+    "ALP": {},
+    "A5T": {},
+    "APC": {},
+    "DEX": {},
+    "ALPHR": {},
+    "ALTOM": {},
+    "ALT": {},
+    "ALD": {},
+    "ALN": {},
+    "AMA": {},
+    "AMB": {},
+    "AME": {},
+    "AMI": {},
+    "AMN": {},
+    "AMON": {},
+    "VEO": {},
+    "AAPX": {},
+    "ANON": {},
+    "$ANRX": {},
+    "AGOV": {},
+    "XAMP": {},
+    "MATTER": {},
+    "ABLOCK": {},
+    "NANA": {},
+    "SOS": {},
+    "CEUR": {},
+    "UBE": {},
+    "MOO": {},
+    "PACT": {},
+    "GNT": {},
+    "EVMOS": {},
+    "CUSDC": {},
+    "USDP": {},
+    "CETH": {},
+    "HBTC": {},
+    "USDD": {},
+    "CDAI": {},
+    "10SET": {},
+    "TWT": {},
+    "GALA": {},
+    "OMI": {},
+    "RPL": {},
+    "NXM": {},
+    "SAFEMOON": {},
+    "ELG": {},
+    "LN": {},
+    "SFM": {},
+    "SCRT": {},
+    "NU": {},
+    "DAG": {},
+    "XCM": {},
+    "CEEK": {},
+    "ASTR": {},
+    "FX": {},
+    "KUB": {},
+    "KIRO": {},
+    "MED": {},
+    "TRIBE": {},
+    "XYO": {},
+    "DKA": {},
+    "TEL": {},
+    "MBOX": {},
+    "POWR": {},
+    "SYS": {},
+    "BDX": {},
+    "MLK": {},
+    "STRAX": {},
+    "TRAC": {},
+    "BTCST": {},
+    "HUSD": {},
+    "XPRT": {},
+    "FLEXUSD": {},
+    "LYXE": {},
+    "SURE": {},
+    "XMON": {},
+    "XSUSHI": {},
+    "ADS": {},
+    "SFUND": {},
+    "QKC": {},
+    "PCX": {},
+    "DAWN": {},
+    "HEZ": {},
+    "VERI": {},
+    "AUCTION": {},
+    "DOLA": {},
+    "RGT": {},
+    "CBAT": {},
+    "GXC": {},
+    "MTRG": {},
+    "NXS": {},
+    "MNGO": {},
+    "WOZX": {},
+    "LCX": {},
+    "COCOS": {},
+    "HUNT": {},
+    "IDEX": {},
+    "KNCL": {},
+    "TKX": {},
+    "CET": {},
+    "MVL": {},
+    "UQC": {},
+    "EXRD": {},
+    "ARRR": {},
+    "BITCI": {},
+    "BCN": {},
+    "BOR": {},
+    "NEBL": {},
+    "DERO": {},
+    "AXN": {},
+    "LOOMOLD": {},
+    "ZIG": {},
+    "POND": {},
+    "SOFI": {},
+    "WAN": {},
+    "ZPAY": {},
+    "SERO": {},
+    "ROOT": {},
+    "FINE": {},
+    "CXO": {},
+    "ANC": {},
+    "KAI": {},
+    "JASMY": {},
+    "CUNI": {},
+    "LTO": {},
+    "NOIA": {},
+    "AE": {},
+    "AQT": {},
+    "RFR": {},
+    "KOGE": {},
+    "ONIT": {},
+    "SBD": {},
+    "LEND": {},
+    "PSG": {},
+    "RAMP": {},
+    "NSBT": {},
+    "ADX": {},
+    "GYEN": {},
+    "TNB": {},
+    "COVAL": {},
+    "SAITO": {},
+    "QASH": {},
+    "MINTME": {},
+    "UPP": {},
+    "FUSE": {},
+    "VRSC": {},
+    "COS": {},
+    "PIVX": {},
+    "OVR": {},
+    "METH": {},
+    "CZRX": {},
+    "DXD": {},
+    "FLEX": {},
+    "AXEL": {},
+    "HTR": {},
+    "OAX": {},
+    "BOA": {},
+    "SOLVE": {},
+    "YVE-CRVDAO": {},
+    "FRA": {},
+    "MCB": {},
+    "DEXE": {},
+    "ADCO": {},
+    "PROS": {},
+    "VXV": {},
+    "SNM": {},
+    "KRL": {},
+    "SIX": {},
+    "JUV": {},
+    "LBT": {},
+    "VTC": {},
+    "NMX": {},
+    "XAI": {},
+    "INST": {},
+    "NPXS": {},
+    "INV": {},
+    "XFUND": {},
+    "ZMT": {},
+    "TKP": {},
+    "ETH2X-FLI": {},
+    "GBYTE": {},
+    "OXEN": {},
+    "DETO": {},
+    "SWTH": {},
+    "VRO": {},
+    "SWISE": {},
+    "ZB": {},
+    "SYLO": {},
+    "KIN": {},
+    "NCT": {},
+    "DCN": {},
+    "GOF": {},
+    "CENNZ": {},
+    "OCC": {},
+    "VIB": {},
+    "FOR": {},
+    "DF": {},
+    "O3": {},
+    "WICC": {},
+    "OGO": {},
+    "PAI": {},
+    "GNX": {},
+    "HPT": {},
+    "ACT": {},
+    "BIX": {},
+    "MX": {},
+    "RUFF": {},
+    "LHB": {},
+    "NEW": {},
+    "PVT": {},
+    "MDS": {},
+    "OCN": {},
+    "DTA": {},
+    "ITC": {},
+    "CNNS": {},
+    "SKM": {},
+    "TOP": {},
+    "BHD": {},
+    "CRE": {},
+    "FLUX": {},
+    "SHFT": {},
+    "DFI": {},
+    "KOK": {},
+    "PHNX": {},
+    "XDB": {},
+    "ABBC": {},
+    "GMEE": {},
+    "LABS": {},
+    "FEAR": {},
+    "SRK": {},
+    "IDEA": {},
+    "WEST": {},
+    "NORD": {},
+    "SUTER": {},
+    "LAYER": {},
+    "ALPACA": {},
+    "ILV": {},
+    "BABYDOGE": {},
+    "HERO": {},
+    "EFK": {},
+    "CONV": {},
+    "IQ": {},
+    "DORA": {},
+    "CNTM": {},
+    "DEP": {},
+    "INX": {},
+    "STRK": {},
+    "CTC": {},
+    "HEGIC": {},
+    "TAI": {},
+    "SFG": {},
+    "LBA": {},
+    "OKT": {},
+    "ZYRO": {},
+    "WGRT": {},
+    "BZZ": {},
+    "COVER": {},
+    "KINE": {},
+    "AVME": {},
+    "CVT": {},
+    "KTON": {},
+    "CNS": {},
+    "ERG": {},
+    "VLX": {},
+    "PANDO": {},
+    "TRR": {},
+    "RWN": {},
+    "ELCASH": {},
+    "PLEX": {},
+    "BASE": {},
+    "FXS": {},
+    "BAC": {},
+    "XOR": {},
+    "BZRX": {},
+    "WHITE": {},
+    "CORE": {},
+    "UBT": {},
+    "APY": {},
+    "TON": {},
+    "LDO": {},
+    "ARB": {},
+    "OP": {},
+    "LUNC": {},
+    "AGIX": {},
+    "FEI": {},
+    "CVX": {},
+    "OSMO": {},
+    "DYDX": {},
+    "FLR": {},
+    "ETHW": {},
+    "SSV": {},
+    "MAGIC": {},
+    "FLOKI": {},
+    "ENS": {},
+    "BONE": {},
+    "BLUR": {},
+    "USTC": {},
+    "BICO": {},
+    "BRISE": {},
+    "BORA": {},
+    "BNX": {},
+    "POLY": {},
+    "EVER": {},
+    "MULTI": {},
+    "ID": {},
+    "BTRST": {},
+    "AXL": {},
+    "HEX": {},
+    "WTRX": {},
+    "TMG": {},
+    "WBNB": {},
+    "BTTOLD": {},
+    "BGB": {},
+    "XRD": {},
+    "WEMIX": {},
+    "KAS": {},
+    "LUSD": {},
+    "GNS": {},
+    "ASTRAFER": {},
+    "EDGT": {},
+    "RON": {},
+    "MV": {},
+    "WEVER": {},
+    "METIS": {},
+    "HFT": {},
+    "RBN": {},
+    "PLA": {},
+    "VVS": {},
+    "PEOPLE": {},
+    "STG": {},
+    "MC": {},
+    "POLYX": {},
+    "HOOK": {},
+    "MBX": {},
+    "GAL": {},
+    "LOCUS": {},
+    "NYM": {},
+    "USDX": {},
+    "MNW": {},
+    "HUM": {},
+    "XCN": {},
+    "VBG": {},
+    "DESO": {},
+    "AVINOC": {},
+    "VOLT": {},
+    "XPLA": {},
+    "TOMI": {},
+    "MRS": {},
+    "HIGH": {},
+    "SPELL": {},
+    "SAITAMA": {},
+    "PENDLE": {},
+    "BFC": {},
+    "LOOKS": {},
+    "AURA": {},
+    "WMT": {},
+    "TSUKA": {},
+    "BSW": {},
+    "GRV": {},
+    "CCD": {},
+    "DEL": {},
+    "ACA": {},
+    "RACA": {},
+    "YGG": {},
+    "BETA": {},
+    "FNCY": {},
+    "VEGA": {},
+    "ANKRETH": {},
+    "MOVR": {},
+    "QUACK": {},
+    "DAR": {},
+    "VAI": {},
+    "RSS3": {},
+    "SSX": {},
+    "CBK": {},
+    "GODS": {},
+    "NVIR": {},
+    "COL": {},
+    "GFT": {},
+    "CBG": {},
+    "KEY": {},
+    "XWC": {},
+    "WVLX": {},
+    "EFI": {},
+    "LYRA": {},
+    "BLOK": {},
+    "RAY": {},
+    "KSP": {},
+    "QLC": {},
+    "QOM": {},
+    "PHB": {},
+    "FCT": {},
+    "SUSD": {},
+    "ZEON": {},
+    "RARE": {},
+    "ONUS": {},
+    "UFO": {},
+    "POLIS": {},
+    "HIFI": {},
+    "BOBA": {},
+    "SDAO": {},
+    "MOC": {},
+    "GEL": {},
+    "BIFI": {},
+    "LOKA": {},
+    "BAX": {},
+    "OPUL": {},
+    "DFG": {},
+    "SWEAT": {},
+    "NPT": {},
+    "WNCG": {},
+    "WILD": {},
+    "ZBC": {},
+    "GRS": {},
+    "WAIT": {},
+    "NTX": {},
+    "ATLAS": {},
+    "FORT": {},
+    "YOOSHI": {},
+    "HI": {},
+    "YLD": {},
+    "GZONE": {},
+    "AURORA": {},
+    "EUROC": {},
+    "OUSD": {},
+    "CHNG": {},
+    "CPH": {},
+    "LEVER": {},
+    "CHESS": {},
+    "CULT": {},
+    "QRDO": {},
+    "AGLD": {},
+    "FWT": {},
+    "TPT": {},
+    "TIME": {},
+    "USDK": {},
+    "GAFI": {},
+    "VIDT": {},
+    "SPS": {},
+    "CAPS": {},
+    "FER": {},
+    "NOM": {},
+    "EPS": {},
+    "EPIC": {},
+    "H2O": {},
+    "MAP": {},
+    "GOG": {},
+    "DEXT": {},
+    "VOXEL": {},
+    "CITY": {},
+    "NEXA": {},
+    "DOME": {},
+    "BNANA": {},
+    "ALPINE": {},
+    "ICHI": {},
+    "SOV": {},
+    "STARL": {},
+    "DG": {},
+    "SOUL": {},
+    "APX": {},
+    "GMM": {},
+    "LAZIO": {}
   }
 }
