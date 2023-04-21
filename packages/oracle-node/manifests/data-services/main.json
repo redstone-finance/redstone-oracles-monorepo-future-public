@@ -1143,6 +1143,15 @@
     "AMC": {
       "source": ["twelve-data"]
     },
+    "CSPX.L": {
+      "source": ["twelve-data-etf-uk"]
+    },
+    "IB01.L": {
+      "source": ["twelve-data-etf-uk"]
+    },
+    "IBTA.L": {
+      "source": ["twelve-data-etf-uk"]
+    },
     "lensprotocol": {
       "source": ["lens"]
     },
