@@ -11,9 +11,6 @@
       "maxDelayMilliseconds": 300000
     }
   },
-  "evmChainId": 1,
-  "enableStreamrBroadcaster": false,
-  "enableArweaveBackup": false,
   "tokens": {
     "BTC": {},
     "ETH": {},
