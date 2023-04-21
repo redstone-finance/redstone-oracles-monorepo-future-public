@@ -245,9 +245,6 @@
         "binance",
         "binanceus",
         "bitcoincom",
-        "cex",
-        "coinbaseprime",
-        "coinbasepro",
         "coingecko",
         "hitbtc",
         "lbank",
@@ -826,7 +823,7 @@
       "source": ["coingecko", "coinmarketcap", "curve-eth", "curve-weth"]
     },
     "PLS": {
-      "source": ["bitget", "bkex", "coingecko", "coinmarketcap", "curve-weth"]
+      "source": ["bitget", "bkex", "coingecko", "coinmarketcap", "camelot-weth"]
     },
     "CMP": {
       "source": ["bybit", "coingecko", "xt"]
@@ -1306,9 +1303,6 @@
       "source": ["lens"]
     },
     "xiaom666.lens": {
-      "source": ["lens"]
-    },
-    "At_a_time.lens": {
       "source": ["lens"]
     },
     "sunvo.lens": {
