@@ -512,8 +512,8 @@
         "okx",
         "poloniex",
         "probit",
-        "sushiswap",
-        "uniswap"
+        "sushiswap-on-chain-weth",
+        "uniswap-v2-on-chain-weth"
       ]
     },
     "LEO": {
@@ -781,7 +781,7 @@
         "huobipro",
         "kucoin",
         "mexc",
-        "trader-joe"
+        "trader-joe-on-chain-wavax"
       ]
     },
     "BIT": {
