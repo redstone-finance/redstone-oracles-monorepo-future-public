@@ -88,301 +88,301 @@
       ]
     },
     "TSLA": {
-      "source": ["currencycom", "yf-unofficial"]
+      "source": ["currencycom", "twelve-data"]
     },
     "AAPL": {
-      "source": ["currencycom", "yf-unofficial"]
+      "source": ["currencycom", "twelve-data"]
     },
     "IBM": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "AMZN": {
-      "source": ["currencycom", "yf-unofficial"]
+      "source": ["currencycom", "twelve-data"]
     },
     "GOOG": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "COST": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "DIS": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "MA": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "MSFT": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "NFLX": {
-      "source": ["currencycom", "yf-unofficial"]
+      "source": ["currencycom", "twelve-data"]
     },
     "NKE": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "PINS": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "SHOP": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "SPOT": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "TDOC": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "SPY": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "QQQ": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "ONEQ": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "IWM": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "EFA": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "VGK": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "INDA": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "RSX": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "ZC=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "ZS=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "ZM=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "ZW=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "KE=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "ZO=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "ZR=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "CL=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "RB=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "NG=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "QA=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "EH=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "GC=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "SI=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "HG=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "PL=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "PA=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "LE=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "GF=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "HE=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "PRK=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "DC=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "GNF=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "CB=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "CSC=F": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "GBP": {
-      "source": ["binance", "currencycom", "ecb", "kraken"]
+      "source": ["binance", "currencycom", "twelve-data", "kraken"]
     },
     "AUD": {
-      "source": ["binance", "currencycom", "ecb", "kraken"]
+      "source": ["binance", "currencycom", "twelve-data", "kraken"]
     },
     "CHF": {
-      "source": ["ecb", "yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "EUR": {
-      "source": ["binance", "currencycom", "ecb", "kraken"]
+      "source": ["binance", "currencycom", "twelve-data", "kraken"]
     },
     "JPY": {
-      "source": ["ecb"]
+      "source": ["twelve-data"]
     },
     "MXN": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "ARS": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "PEN": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "BRLUSD=X": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "COPUSD=X": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "BBBY": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "UPST": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "BIG": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "MSTR": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "BYND": {
-      "source": ["currencycom", "yf-unofficial"]
+      "source": ["currencycom", "twelve-data"]
     },
     "HRTX": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "EVGO": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "BGFV": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "FUBO": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "CVNA": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "NKLA": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "W": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "BLNK": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "SRG": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "HYZN": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "MVIS": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "PETS": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "IBRX": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "VUZI": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "SPCE": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "RIDE": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "FUV": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "WKHS": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "SWTX": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "ICPT": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "LCID": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "JWN": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "FFIE": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "SFT": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "OCGN": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "REI": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "BKKT": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "KPTI": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "SDC": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "DNMR": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "GDRX": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "IGMS": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "GME": {
-      "source": ["currencycom", "yf-unofficial"]
+      "source": ["currencycom", "twelve-data"]
     },
     "AMC": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "APE": {
-      "source": ["coinbaseprime", "coinbasepro", "coingecko", "yf-unofficial"]
+      "source": ["coinbaseprime", "coinbasepro", "coingecko", "twelve-data"]
     },
     "META": {
-      "source": ["currencycom", "yf-unofficial"]
+      "source": ["currencycom", "twelve-data"]
     }
   }
 }
