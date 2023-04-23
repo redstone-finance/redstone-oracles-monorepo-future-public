@@ -1,4 +1,4 @@
-import { Contract, BytesLike } from "ethers";
+import { Contract, BytesLike, Event } from "ethers";
 import { deepCopy } from "ethers/lib/utils";
 import { TransactionResponse } from "@ethersproject/providers";
 
