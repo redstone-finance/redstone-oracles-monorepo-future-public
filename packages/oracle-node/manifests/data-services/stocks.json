@@ -157,79 +157,79 @@
       "source": ["twelve-data"]
     },
     "ZC=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "ZS=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "ZM=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "ZW=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "KE=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "ZO=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "ZR=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "CL=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "RB=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "NG=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "QA=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "EH=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "GC=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "SI=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "HG=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "PL=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "PA=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "LE=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "GF=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "HE=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "PRK=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "DC=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "GNF=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "CB=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "CSC=F": {
-      "source": ["twelve-data"]
+      "source": ["yf-unofficial"]
     },
     "GBP": {
       "source": ["binance", "currencycom", "twelve-data", "kraken"]
