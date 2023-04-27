@@ -1,7 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["bkex"],
+  "defaultSource": ["phemex"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,11 +10,6 @@
     }
   },
   "tokens": {
-    "PTP": {},
-    "GMX": {},
-    "JOE": {},
-    "CANTO": {},
-    "PLS": {},
     "FXS": {}
   }
 }
