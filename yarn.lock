@@ -7781,10 +7781,10 @@ cbor@^8.0.0, cbor@^8.1.0:
   dependencies:
     nofilter "^3.1.0"
 
-ccxt@^3.0.60:
-  version "3.0.60"
-  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-3.0.60.tgz#0f29b58a04a9233dcd8a8699674cf240ffe0e8aa"
-  integrity sha512-vxr9gkGWx+HcgJ6MHZVJ8fh5aW3jCJjrkwHPbgJDvVlRK6PwFTJqxceKEI+4yS6q0mjAW/1GuLyG93+0oAy7jA==
+ccxt@^3.0.79:
+  version "3.0.79"
+  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-3.0.79.tgz#df9335a2432e7636c2be399e1356033327fc24d7"
+  integrity sha512-CxYKAf+++jvOJesSyiPDFV+I+9muQrN/1Kbhof6NrVV/DtaWBYE5MfiybCittk4CXUz/uzI2v4Y/9tqoBkVgmw==
   dependencies:
     ws "^8.8.1"
 
