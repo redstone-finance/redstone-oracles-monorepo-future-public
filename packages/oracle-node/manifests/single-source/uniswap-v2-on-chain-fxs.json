@@ -1,7 +1,7 @@
 {
-  "interval": 60000,
+  "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["bkex"],
+  "defaultSource": ["uniswap-v2-on-chain-fxs"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,11 +10,6 @@
     }
   },
   "tokens": {
-    "PTP": {},
-    "GMX": {},
-    "JOE": {},
-    "CANTO": {},
-    "PLS": {},
-    "FXS": {}
+    "FRAX": {}
   }
 }
