@@ -49,12 +49,29 @@
         "uniswap"
       ]
     },
+    "FXS": {
+      "source": [
+        "binance",
+        "bitrue",
+        "bkex",
+        "btcex",
+        "coingecko",
+        "coinmarketcap",
+        "lbank",
+        "kaiko",
+        "kucoin",
+        "phemex"
+      ]
+    },
     "FRAX": {
       "source": [
         "coingecko",
         "coinmarketcap",
         "curve-usdc",
+        "fraxswap-on-chain-fxs",
+        "fraxswap-on-chain-weth",
         "kaiko",
+        "uniswap-v2-on-chain-fxs",
         "uniswap-v3"
       ]
     },
