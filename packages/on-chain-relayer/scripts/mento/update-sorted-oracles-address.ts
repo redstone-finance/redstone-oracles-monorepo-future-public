@@ -1,4 +1,5 @@
 import { getAdapterContract } from "../../src/core/contract-interactions/get-contract";
+import { MentoAdapterBase } from "../../typechain-types";
 
 // Usage: yarn run-script src/scripts/mento/update-sorted-oracles-address.ts
 // Note! You should configure the .env file properly before running this script
@@ -6,7 +7,7 @@ import { getAdapterContract } from "../../src/core/contract-interactions/get-con
 const NEW_SORTED_ORACLES_ADDRESS = "0xFdd8bD58115FfBf04e47411c1d228eCC45E93075";
 
 (async () => {
-  const mentoAdapterContract = getAdapterContract();
+  const mentoAdapterContract = getAdapterContract() as MentoAdapterBase;
 
   console.log(
     `Updating sorted oracle address to: ${NEW_SORTED_ORACLES_ADDRESS}`

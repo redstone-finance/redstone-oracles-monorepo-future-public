@@ -8,8 +8,8 @@ describe("should-update", () => {
     mockEnvVariables();
   });
 
-  it("should return false if all checks fail", () => {
-    const dataPackages = getDataPackagesResponse();
+  it("should return false if all checks fail", async () => {
+    const dataPackages = await getDataPackagesResponse();
     const smallerValueDiff: ValuesForDataFeeds = {
       ETH: 1630.99,
       BTC: 23011.68,
@@ -29,8 +29,8 @@ describe("should-update", () => {
     );
   });
 
-  it("should return true if value-deviation check succeed", () => {
-    const dataPackages = getDataPackagesResponse();
+  it("should return true if value-deviation check succeed", async () => {
+    const dataPackages = await getDataPackagesResponse();
     const biggerValueDiff: ValuesForDataFeeds = { ETH: 1230.99, BTC: 13011.68 };
     const lastUpdateTimestamp = Date.now() - 1;
     const { shouldUpdatePrices, warningMessage } = shouldUpdate({
@@ -44,8 +44,8 @@ describe("should-update", () => {
     );
   });
 
-  it("should return true if time check succeed", () => {
-    const dataPackages = getDataPackagesResponse();
+  it("should return true if time check succeed", async () => {
+    const dataPackages = await getDataPackagesResponse();
     const smallerValueDiff: ValuesForDataFeeds = {
       ETH: 1630.99,
       BTC: 23011.68,

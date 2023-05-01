@@ -1,0 +1,63 @@
+zkSync:
+=== Benchmarking contract: PriceFeedsAdapterWithoutRoundsMock ===
+Deploying contract: PriceFeedsAdapterWithoutRoundsMock
+Contract deployed to: 0x8d8Ce2F980fe241669506EAFE31A583AF6cfeEDa
+Running test iteration nr: 1...
+Transaction hash: 0x35f9cf5a84794ce61223b9441b1d000c5b0e75fd5690fb37271224732552394d
+Gas used: 1002909
+
+Running test iteration nr: 2...
+Transaction hash: 0x41b1f0756b46ad50774fc4d56bbbbc4b473b75424d4bcdefa1fffc48687c6582
+Gas used: 916394
+
+Running test iteration nr: 3...
+Transaction hash: 0x3ef28f3f5e7c6f16703ae725da3cdccbd13bd8ecd138d534cb6ed35f0775b054
+Gas used: 988933
+Sleeping for 900000 ms...
+
+=== Benchmarking contract: SinglePriceFeedAdapterMock ===
+Deploying contract: SinglePriceFeedAdapterMock
+Contract deployed to: 0xB173595d4a03368BC8805d50D640aC0205CDB728
+Running test iteration nr: 1...
+Transaction hash: 0xb48081bb808e34a4b4557b70eac91d698968c51d6d5ce1a426a60950d8cfc3f8
+Gas used: 530744
+
+Running test iteration nr: 2...
+Transaction hash: 0x8bcbce7f013c8cf7cc076812e532ca01ba3063db8ab2b59f53399f89d4f9ff8d
+Gas used: 650043
+
+Running test iteration nr: 3...
+Transaction hash: 0x2d0a9d8d15b29304cf80b958e0087d9d8ce21039bb5e3a48a331764d06aee2ca
+Gas used: 651437
+
+
+zkSync testnet:
+=== Benchmarking contract: PriceFeedsAdapterWithoutRoundsMock ===
+Deploying contract: PriceFeedsAdapterWithoutRoundsMock
+Contract deployed to: 0x08c358c8D7d934CA114BbB7eDd8Aad2fB3D2E11f
+Running test iteration nr: 1...
+Transaction hash: 0x73d6c557148a31c4ecc6040885a7d48f80deb75cb8ebc96917c3e263179d287f
+Gas used: 9587662
+
+Running test iteration nr: 2...
+Transaction hash: 0xd7ae97e565853fd238e0b5f233dffd24885ea799adb37ee5fc88acc52585d02b
+Gas used: 5913539
+
+Running test iteration nr: 3...
+Transaction hash: 0x1d709567ea75bb93a80fe3435f4955c7ea2a2661fae4413697c6b5b8ca44af55
+Gas used: 3490507
+
+=== Benchmarking contract: SinglePriceFeedAdapterMock ===
+Deploying contract: SinglePriceFeedAdapterMock
+Contract deployed to: 0x5AAFE75552f8Aa47ed0c47b297CDA328786c40A5
+Running test iteration nr: 1...
+Transaction hash: 0x18ac3381336a48e9a682bf31d39ff509781d18adb2d391c4e97aa4d59a517a3b
+Gas used: 1643465
+
+Running test iteration nr: 2...
+Transaction hash: 0xa9c5625dc64bf31ed681d71dbf6ac15aaa6f2c4e739db0cc90f477bff06687eb
+Gas used: 1667466
+
+Running test iteration nr: 3...
+Transaction hash: 0x7add13954cd0e61b1b63cfeeb886a9bb67b6eea6cb3b3ac6456884f255563b79
+Gas used: 1567658

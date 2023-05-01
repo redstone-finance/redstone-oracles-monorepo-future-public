@@ -1,5 +1,6 @@
 import { formatBytes32String } from "ethers/lib/utils";
 import { getAdapterContract } from "../../src/core/contract-interactions/get-contract";
+import { MentoAdapterBase } from "../../typechain-types";
 
 // Usage: yarn run-script src/scripts/mento/register-data-feeds.ts
 // Note! You should configure the .env file properly before running this script
@@ -14,7 +15,7 @@ const DATA_FEEDS = {
 };
 
 (async () => {
-  const mentoAdapterContract = getAdapterContract();
+  const mentoAdapterContract = getAdapterContract() as MentoAdapterBase;
   for (const [symbol, tokenAddress] of Object.entries(DATA_FEEDS)) {
     console.log(`Registering data feed: `, { symbol, tokenAddress });
     const dataFeedIdBytes32 = formatBytes32String(symbol);
