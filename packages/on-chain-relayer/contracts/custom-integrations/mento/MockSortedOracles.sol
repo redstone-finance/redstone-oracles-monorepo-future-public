@@ -122,6 +122,25 @@ contract MockSortedOracles is ISortedOracles {
   }
 
   /**
+   * @notice Returns the number of rates that are currently stored for a specifed rateFeedId.
+   * @param token The rateFeedId for which to retrieve the number of rates.
+   * @return uint256 The number of reported oracle rates stored for the given rateFeedId.
+   */
+  function numRates(address token) public view returns (uint256) {
+    return rates[token].getNumElements();
+  }
+
+  /**
+   * @notice Returns the median of the currently stored rates for a specified rateFeedId.
+   * @param token The rateFeedId of the rates for which the median value is being retrieved.
+   * @return uint256 The median exchange rate for rateFeedId.
+   * @return fixidity
+   */
+  function medianRate(address token) external view returns (uint256, uint256) {
+    return (rates[token].getMedianValue(), numRates(token) == 0 ? 0 : FIXED1_UINT);
+  }
+
+  /**
    * @notice Returns the number of timestamps.
    * @param token The rateFeedId for which the collateral asset exchange rate is being reported.
    * @return uint256 The number of oracle report timestamps for the specified rateFeedId.

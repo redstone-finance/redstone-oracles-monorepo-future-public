@@ -2,6 +2,7 @@ import { Contract, utils } from "ethers";
 import { config } from "../../config";
 import { ValuesForDataFeeds } from "../../types";
 
+// TODO: rewrite this file, as now we even support getting values from smart contract for MentoAdapter
 export const getValuesForDataFeeds = async (
   priceFeedsAdapterContract: Contract,
   dataFeeds: string[]

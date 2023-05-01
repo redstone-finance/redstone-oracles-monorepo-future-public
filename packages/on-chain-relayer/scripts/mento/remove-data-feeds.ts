@@ -1,5 +1,6 @@
 import { formatBytes32String } from "ethers/lib/utils";
 import { getAdapterContract } from "../../src/core/contract-interactions/get-contract";
+import { MentoAdapterBase } from "../../typechain-types";
 
 // Usage: yarn run-script src/scripts/mento/remove-data-feeds.ts
 // Note! You should configure the .env file properly before running this script
@@ -7,7 +8,7 @@ import { getAdapterContract } from "../../src/core/contract-interactions/get-con
 const DATA_FEEDS = ["CUSD", "EUR"];
 
 (async () => {
-  const mentoAdapterContract = getAdapterContract();
+  const mentoAdapterContract = getAdapterContract() as MentoAdapterBase;
   for (const dataFeedId of DATA_FEEDS) {
     console.log(`Removing data feed: ${dataFeedId}`);
     const dataFeedIdBytes32 = formatBytes32String(dataFeedId);
