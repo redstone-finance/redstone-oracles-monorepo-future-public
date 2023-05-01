@@ -1,15 +1,10 @@
-import { BigNumber, Contract, utils } from "ethers";
-
-const parseBigNumberParam = (valueInBigNumber: BigNumber) =>
-  Number(utils.formatUnits(valueInBigNumber, 0));
+import { IRedstoneAdapter } from "../../../typechain-types";
 
 export const getLastRoundParamsFromContract = async (
-  managerContract: Contract
+  adapterContract: IRedstoneAdapter
 ) => {
-  const [lastRound, lastUpdateTimestamp] =
-    await managerContract.getLastRoundParams();
+  const timestamps = await adapterContract.getTimestampsFromLatestUpdate();
   return {
-    lastRound: parseBigNumberParam(lastRound),
-    lastUpdateTimestamp: parseBigNumberParam(lastUpdateTimestamp),
+    lastUpdateTimestamp: timestamps.blockTimestamp.toNumber() * 1000,
   };
 };

@@ -12,8 +12,7 @@ import { getSortedOraclesContractAtAddress } from "./get-contract";
 
 interface UpdatePricesArgs {
   adapterContract: Contract;
-  wrappedAdapterContract: Contract;
-  proposedRound: number;
+  wrapContract(adapterContract: Contract): Contract;
   proposedTimestamp: number;
 }
 
@@ -22,8 +21,7 @@ const TX_CONFIG = { gasLimit: config.gasLimit };
 export const updatePrices = async (
   dataPackages: DataPackagesResponse,
   adapterContract: Contract,
-  lastUpdateTimestamp: number,
-  lastRound: number
+  lastUpdateTimestamp: number
 ): Promise<void> => {
   const dataPackagesTimestamps = Object.values(dataPackages).flatMap(
     (dataPackages) =>
@@ -36,13 +34,11 @@ export const updatePrices = async (
   if (lastUpdateTimestamp >= minimalTimestamp) {
     console.log("Cannot update prices, proposed prices are not newer");
   } else {
-    const wrappedAdapterContract =
-      WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
+    const wrapContract = (adapterContract: Contract) => WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
     const updateTx = await updatePriceInAdapterContract({
       adapterContract,
-      wrappedAdapterContract,
+      wrapContract,
       proposedTimestamp: minimalTimestamp,
-      proposedRound: lastRound + 1,
     });
     console.log(`Update prices tx sent: ${updateTx.hash}`);
     await updateTx.wait();
@@ -66,21 +62,19 @@ const updatePriceInAdapterContract = async (
 };
 
 const updatePricesInPriceFeedsAdapter = async ({
-  wrappedAdapterContract,
-  proposedRound,
+  adapterContract,
+  wrapContract,
   proposedTimestamp,
 }: UpdatePricesArgs): Promise<TransactionResponse> => {
-  return await wrappedAdapterContract.updateDataFeedsValues(
-    proposedRound,
+  return await wrapContract(adapterContract).updateDataFeedsValues(
     proposedTimestamp,
-    TX_CONFIG
+    // TX_CONFIG
   );
 };
 
 const updatePricesInMentoAdapter = async ({
   adapterContract,
-  wrappedAdapterContract,
-  proposedRound,
+  wrapContract,
   proposedTimestamp,
 }: UpdatePricesArgs): Promise<TransactionResponse> => {
   const sortedOraclesAddress = await adapterContract.sortedOracles();
@@ -88,11 +82,10 @@ const updatePricesInMentoAdapter = async ({
   const linkedListPositions =
     await prepareLinkedListLocationsForMentoAdapterReport({
       mentoAdapter: adapterContract,
-      wrappedMentoAdapter: wrappedAdapterContract,
+      wrapContract,
       sortedOracles,
     } as MentoContracts);
-  return await wrappedAdapterContract.updatePriceValuesAndCleanOldReports(
-    proposedRound,
+  return await wrapContract(adapterContract).updatePriceValuesAndCleanOldReports(
     proposedTimestamp,
     linkedListPositions
   );

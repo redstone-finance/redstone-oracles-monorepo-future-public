@@ -8,8 +8,8 @@ describe("value-deviation-condition", () => {
     mockEnvVariables();
   });
 
-  it("should return false if value diff smaller than expected", () => {
-    const dataPackages = getDataPackagesResponse();
+  it("should return false if value diff smaller than expected", async () => {
+    const dataPackages = await getDataPackagesResponse();
     const smallerValueDiff: ValuesForDataFeeds = {
       ETH: 1630.99,
       BTC: 23011.68,
@@ -24,8 +24,8 @@ describe("value-deviation-condition", () => {
     );
   });
 
-  it("should return true if value diff bigger than expected", () => {
-    const dataPackages = getDataPackagesResponse();
+  it("should return true if value diff bigger than expected", async () => {
+    const dataPackages = await getDataPackagesResponse();
     const biggerValueDiff: ValuesForDataFeeds = { ETH: 1230.99, BTC: 13011.68 };
     const { shouldUpdatePrices, warningMessage } = valueDeviationCondition(
       dataPackages,

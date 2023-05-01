@@ -32,7 +32,7 @@ export const getWrappedContractAndUpdateBlockTimestamp = async (
   const blockTimestamp = await time.latest();
   await time.setNextBlockTimestamp(blockTimestamp + 10);
   return WrapperBuilder.wrap(contract).usingSimpleNumericMock({
-    mockSignersCount: 10,
+    mockSignersCount: 2,
     dataPoints,
     timestampMilliseconds: timestamp,
   });
@@ -75,8 +75,8 @@ const mockWallets = [
   },
 ];
 
-export const getDataPackagesResponse = () => {
-  const timestampMilliseconds = Date.now();
+export const getDataPackagesResponse = async () => {
+  const timestampMilliseconds = (await time.latest()) * 1000;
 
   const dataPoints = [
     { dataFeedId: "ETH", value: 1670.99 },

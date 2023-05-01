@@ -9,14 +9,17 @@ import {
   calculateLinkedListPosition,
   prepareLinkedListLocationsForMentoAdapterReport,
 } from "../../../../src/custom-integrations/mento/mento-utils";
-import { MentoAdapter, MockSortedOracles } from "../../../../typechain-types";
+import {
+  MentoAdapterBase,
+  MockSortedOracles,
+} from "../../../../typechain-types";
 import { deployMockSortedOracles } from "../../../helpers";
 
 chai.use(chaiAsPromised);
 
 describe("MentoAdapter", () => {
   let sortedOracles: MockSortedOracles;
-  let mentoAdapter: MentoAdapter;
+  let mentoAdapter: MentoAdapterBase;
   let signers: SignerWithAddress[];
 
   const mockToken1Address = "0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9"; // CELO token address
@@ -59,27 +62,24 @@ describe("MentoAdapter", () => {
     const blockTimestamp = await time.latest();
     const timestampMilliseconds = blockTimestamp * 1000;
     await time.setNextBlockTimestamp(blockTimestamp + 10);
-    const wrappedMentoAdapter = WrapperBuilder.wrap(
-      mentoAdapter
-    ).usingSimpleNumericMock({
-      mockSignersCount: 10,
-      dataPoints,
-      timestampMilliseconds,
-    });
+    const wrapContract = (contract: MentoAdapterBase) =>
+      WrapperBuilder.wrap(contract).usingSimpleNumericMock({
+        mockSignersCount: 10,
+        dataPoints,
+        timestampMilliseconds,
+      }) as MentoAdapterBase;
 
     // Prepare arguments
-    const proposedRound = (await mentoAdapter.getLastRound()).add(1);
     const proposedTimestamp = timestampMilliseconds;
     const locationsInSortedLinkedLists =
       await prepareLinkedListLocationsForMentoAdapterReport({
         mentoAdapter,
-        wrappedMentoAdapter: wrappedMentoAdapter as MentoAdapter,
+        wrapContract,
         sortedOracles,
       });
 
     // Updating oracle values
-    await wrappedMentoAdapter.updatePriceValues(
-      proposedRound,
+    await wrapContract(mentoAdapter).updatePriceValues(
       proposedTimestamp,
       locationsInSortedLinkedLists
     );
