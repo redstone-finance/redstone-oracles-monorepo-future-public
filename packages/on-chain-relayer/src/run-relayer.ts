@@ -27,12 +27,18 @@ const runIteration = async () => {
     cacheServiceUrls
   );
 
-  const { lastRound, lastUpdateTimestamp } =
+  const { lastUpdateTimestamp } =
     await getLastRoundParamsFromContract(adapterContract);
-  const valuesFromContract = await getValuesForDataFeeds(
-    adapterContract,
-    dataFeeds
-  );
+  
+  // We fetch latest values from contract only if we want to check value deviation
+  let valuesFromContract = {};
+  if (config.updateConditions.includes("value-deviation")) {
+    valuesFromContract = await getValuesForDataFeeds(
+      adapterContract,
+      dataFeeds
+    );
+  }
+
   const { shouldUpdatePrices, warningMessage } = shouldUpdate({
     dataPackages,
     valuesFromContract,
@@ -45,8 +51,7 @@ const runIteration = async () => {
     await updatePrices(
       dataPackages,
       adapterContract,
-      lastUpdateTimestamp,
-      lastRound
+      lastUpdateTimestamp
     );
   }
 

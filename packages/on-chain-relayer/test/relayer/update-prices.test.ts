@@ -1,11 +1,12 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { ethers } from "hardhat";
-import { PriceFeedsAdapterMock } from "../../typechain-types";
+import { PriceFeedsAdapterWithoutRoundsMock } from "../../typechain-types";
 import { updatePrices } from "../../src/core/contract-interactions/update-prices";
 import { getLastRoundParamsFromContract } from "../../src/core/contract-interactions/get-last-round-params";
 import { server } from "./mock-server";
 import {
+  btcDataFeed,
   dataFeedsIds,
   deployMockSortedOracles,
   getDataPackagesResponse,
@@ -19,7 +20,7 @@ chai.use(chaiAsPromised);
 const mockToken1Address = "0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9"; // CELO token address
 const mockToken2Address = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"; // cUSD token address
 
-describe("#updatePrices", () => {
+describe("update-prices", () => {
   before(() => {
     mockEnvVariables();
     server.listen();
@@ -31,31 +32,27 @@ describe("#updatePrices", () => {
   it("should update price in price-feeds adapter", async () => {
     // Deploy contract
     const PriceFeedsAdapterFactory = await ethers.getContractFactory(
-      "PriceFeedsAdapterMock"
+      "PriceFeedsAdapterWithoutRoundsMock"
     );
-    const priceFeedsAdapter: PriceFeedsAdapterMock =
-      await PriceFeedsAdapterFactory.deploy(dataFeedsIds);
+    const priceFeedsAdapter: PriceFeedsAdapterWithoutRoundsMock =
+      await PriceFeedsAdapterFactory.deploy();
     await priceFeedsAdapter.deployed();
 
     // Update prices
-    const { lastRound, lastUpdateTimestamp } =
+    const { lastUpdateTimestamp } =
       await getLastRoundParamsFromContract(priceFeedsAdapter);
-    const dataPackages = getDataPackagesResponse();
+    const dataPackages = await getDataPackagesResponse();
     await updatePrices(
       dataPackages,
       priceFeedsAdapter,
-      lastRound,
       lastUpdateTimestamp
     );
 
     // Check updated values
-    const [round] = await priceFeedsAdapter.getLastRoundParams();
-    expect(round).to.be.equal(1);
     const dataFeedsValues = await priceFeedsAdapter.getValuesForDataFeeds(
-      dataFeedsIds
+      [btcDataFeed]
     );
-    expect(dataFeedsValues[0]).to.be.equal(167099000000);
-    expect(dataFeedsValues[1]).to.be.equal(2307768000000);
+    expect(dataFeedsValues[0]).to.be.equal(2307768000000);
   });
 
   it("should update prices in mento adapter", async () => {
@@ -82,13 +79,12 @@ describe("#updatePrices", () => {
     mockEnvVariables(overrideMockConfig);
 
     // Update prices
-    const { lastRound, lastUpdateTimestamp } =
+    const { lastUpdateTimestamp } =
       await getLastRoundParamsFromContract(mentoAdapter);
-    const dataPackages = getDataPackagesResponse();
+    const dataPackages = await getDataPackagesResponse();
     await updatePrices(
       dataPackages,
       mentoAdapter,
-      lastRound,
       lastUpdateTimestamp
     );
 

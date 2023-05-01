@@ -3,14 +3,14 @@ import chaiAsPromised from "chai-as-promised";
 import { Contract } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
 import { ethers, network } from "hardhat";
-import { PriceFeedsAdapterMock } from "../../../typechain-types";
+import { PriceFeedsAdapterMock } from "../../../../typechain-types";
 import {
   dataFeedsIds,
   getWrappedContractAndUpdateBlockTimestamp,
   btcDataFeed,
   ethDataFeed,
   mockEnvVariables,
-} from "../../helpers";
+} from "../../../helpers";
 
 chai.use(chaiAsPromised);
 
@@ -18,6 +18,7 @@ describe("PriceFeedsAdapter", () => {
   let contract: PriceFeedsAdapterMock;
   let wrappedContract: Contract;
   let timestamp: number;
+  let timestampSeconds: number;
 
   before(() => {
     mockEnvVariables();
@@ -28,54 +29,57 @@ describe("PriceFeedsAdapter", () => {
     const MangerContractFactory = await ethers.getContractFactory(
       "PriceFeedsAdapterMock"
     );
-    contract = await MangerContractFactory.deploy(dataFeedsIds);
+    contract = await MangerContractFactory.deploy();
     await contract.deployed();
     timestamp = Date.now();
+    timestampSeconds = Math.floor(timestamp / 1000);
     wrappedContract = await getWrappedContractAndUpdateBlockTimestamp(
       contract,
       timestamp
     );
-    await wrappedContract.updateDataFeedsValues(1, timestamp);
+    await wrappedContract.updateDataFeedsValues(timestamp);
   });
 
   it("should properly initialize", async () => {
-    const [round, lastUpdateTimestamp] = await contract.getLastRoundParams();
+    const [round, lastUpdateTimestamp] = await contract.getLatestRoundParams();
     expect(round).to.be.equal(1);
-    expect(lastUpdateTimestamp).to.be.equal(timestamp);
+    expect(lastUpdateTimestamp).to.be.equal(timestampSeconds);
   });
 
-  it("should return if invalid proposed round", async () => {
-    await wrappedContract.updateDataFeedsValues(0, timestamp);
-    const [round, lastUpdateTimestamp] = await contract.getLastRoundParams();
-    expect(round).to.be.equal(1);
-    expect(lastUpdateTimestamp).to.be.equal(timestamp);
+  it("should revert if not enough time passed", async () => {
+    const proposedTimestamp = timestamp + 1;
+    await expect(
+      wrappedContract.updateDataFeedsValues(proposedTimestamp)
+    ).to.be.rejectedWith(
+      `MinIntervalBetweenUpdatesHasNotPassedYet(10000, ${timestamp}, ${proposedTimestamp})`
+    );
   });
 
   it("should revert if proposed timestamp smaller than last update", async () => {
     const smallerTimestamp = timestamp - 1000;
     await expect(
-      wrappedContract.updateDataFeedsValues(2, smallerTimestamp)
+      wrappedContract.updateDataFeedsValues(smallerTimestamp)
     ).to.be.rejectedWith(
-      `ProposedTimestampMustBeNewerThanLastTimestamp(${smallerTimestamp}, ${timestamp})`
+      `DataTimestampMustBeNewerThanLastDataTimestamp(${smallerTimestamp}, ${timestamp})`
     );
   });
 
-  it("should revert if proposed timestamp is newer than received", async () => {
-    const newTimestamp = timestamp + 1000;
-    const biggerTimestamp = timestamp + 1050;
+  it("should revert if proposed timestamp is newer than in a data package", async () => {
+    const newTimestamp = timestamp + 20_000;
+    const biggerTimestamp = newTimestamp + 1;
     wrappedContract = await getWrappedContractAndUpdateBlockTimestamp(
       contract,
       newTimestamp
     );
     await expect(
-      wrappedContract.updateDataFeedsValues(2, biggerTimestamp)
+      wrappedContract.updateDataFeedsValues(biggerTimestamp)
     ).to.be.rejectedWith(
       `DataPackageTimestampIsOlderThanProposedTimestamp(${biggerTimestamp}, ${newTimestamp})`
     );
   });
 
   it("should revert if invalid data feeds to update", async () => {
-    const newTimestamp = timestamp + 1000;
+    const newTimestamp = timestamp + 20_000;
     wrappedContract = await getWrappedContractAndUpdateBlockTimestamp(
       contract,
       newTimestamp
@@ -87,31 +91,30 @@ describe("PriceFeedsAdapter", () => {
   });
 
   it("should update price feeds and get value for data feeds", async () => {
-    const newTimestamp = timestamp + 1000;
+    const newTimestamp = timestamp + 20_000;
     wrappedContract = await getWrappedContractAndUpdateBlockTimestamp(
       contract,
       newTimestamp
     );
-    await wrappedContract.updateDataFeedsValues(2, newTimestamp);
-    const [round, lastUpdateTimestamp] = await contract.getLastRoundParams();
+    await wrappedContract.updateDataFeedsValues(newTimestamp);
+    const [round, lastUpdateTimestamp] = await contract.getLatestRoundParams();
     expect(round).to.be.equal(2);
-    expect(lastUpdateTimestamp).to.be.equal(newTimestamp);
+    expect(lastUpdateTimestamp).to.be.equal(Math.floor(newTimestamp / 1000));
     const dataFeedsValues = await contract.getValuesForDataFeeds(dataFeedsIds);
     expect(dataFeedsValues[0]).to.be.equal(167099000000);
     expect(dataFeedsValues[1]).to.be.equal(2307768000000);
     const dataFeedValueAndRoundParams =
-      await contract.getValueForDataFeedAndLastRoundParams(btcDataFeed);
+      await contract.getRoundData(btcDataFeed, round);
     expect(dataFeedValueAndRoundParams.dataFeedValue).to.be.equal(
       2307768000000
     );
-    expect(dataFeedValueAndRoundParams.lastRoundNumber).to.be.equal(2);
     expect(
-      dataFeedValueAndRoundParams.lastUpdateTimestampInMilliseconds
-    ).to.be.equal(newTimestamp);
+      dataFeedValueAndRoundParams.roundDataTimestamp
+    ).to.be.equal(Math.floor(newTimestamp / 1000));
   });
 
   it("should add new data feed", async () => {
-    const newTimestamp = timestamp + 1000;
+    const newTimestamp = timestamp + 20_000;
     wrappedContract = await getWrappedContractAndUpdateBlockTimestamp(
       contract,
       newTimestamp,
@@ -125,13 +128,13 @@ describe("PriceFeedsAdapter", () => {
       newDataFeedId,
       newTimestamp
     );
-    const dataFeeds = await contract.getDataFeedsIds();
+    const dataFeeds = await contract.getDataFeedIds();
     expect(dataFeeds.length).to.be.equal(3);
     expect(dataFeeds[2]).to.be.equal(newDataFeedId);
   });
 
   it("should not add new data feed if already exists", async () => {
-    const newTimestamp = timestamp + 1000;
+    const newTimestamp = timestamp + 20_000;
     wrappedContract = await getWrappedContractAndUpdateBlockTimestamp(
       contract,
       newTimestamp
@@ -140,7 +143,7 @@ describe("PriceFeedsAdapter", () => {
       ethDataFeed,
       newTimestamp
     );
-    const dataFeeds = await contract.getDataFeedsIds();
+    const dataFeeds = await contract.getDataFeedIds();
     expect(dataFeeds.length).to.be.equal(2);
   });
 });

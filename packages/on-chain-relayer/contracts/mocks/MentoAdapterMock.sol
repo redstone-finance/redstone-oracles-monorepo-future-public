@@ -1,12 +1,12 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: BUSL-1.1
 
 pragma solidity ^0.8.4;
 
 import "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";
-import "../custom-integrations/mento/MentoAdapter.sol";
+import "../custom-integrations/mento/MentoAdapterBase.sol";
 
-contract MentoAdapterMock is MentoAdapter, AuthorisedMockSignersBase {
-  constructor(ISortedOracles sortedOracles_) MentoAdapter(sortedOracles_) {}
+contract MentoAdapterMock is MentoAdapterBase, AuthorisedMockSignersBase {
+  constructor(ISortedOracles sortedOracles_) MentoAdapterBase(sortedOracles_) {}
 
   function getUniqueSignersThreshold() public view virtual override returns (uint8) {
     return 2;
