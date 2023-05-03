@@ -839,7 +839,13 @@
       "source": ["camelot-usdc"]
     },
     "STETH": {
-      "source": ["coingecko", "coinmarketcap", "curve-eth", "curve-weth"]
+      "source": [
+        "kaiko",
+        "coinmarketcap",
+        "curve-eth",
+        "curve-weth",
+        "uniswap-v2-on-chain-weth"
+      ]
     },
     "PLS": {
       "source": ["bitget", "bkex", "coingecko", "coinmarketcap", "camelot-weth"]
