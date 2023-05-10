@@ -5,7 +5,7 @@ import {
   SampleChainableStorageProxy,
 } from "../../typechain-types";
 import { WrapperBuilder } from "../../src";
-import { convertStringToBytes32 } from "redstone-protocol/src/common/utils";
+import { utils } from "redstone-protocol";
 import {
   expectedNumericValues,
   mockNumericPackages,
@@ -33,7 +33,7 @@ const dataPoints = [
 describe("SampleChainableStorageProxy", function () {
   let contract: SampleChainableStorageProxy;
   let consumerContract: SampleChainableStorageProxyConsumer;
-  const ethDataFeedId = convertStringToBytes32("ETH");
+  const ethDataFeedId = utils.convertStringToBytes32("ETH");
 
   this.beforeEach(async () => {
     const SampleChainableStorageFactory = await ethers.getContractFactory(
@@ -90,7 +90,7 @@ describe("SampleChainableStorageProxy", function () {
 
     for (const dataPoint of dataPoints) {
       await wrappedContract.processOracleValue(
-        convertStringToBytes32(dataPoint.dataFeedId)
+        utils.convertStringToBytes32(dataPoint.dataFeedId)
       );
     }
 
@@ -114,7 +114,7 @@ describe("SampleChainableStorageProxy", function () {
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
 
     const dataFeedIds = dataPoints.map((dataPoint) => dataPoint.dataFeedId);
-    const dataFeedIdsBytes = dataFeedIds.map(convertStringToBytes32);
+    const dataFeedIdsBytes = dataFeedIds.map(utils.convertStringToBytes32);
     const dataValues = dataPoints.map((dataPoint) =>
       Math.round(dataPoint.value * 10 ** 8)
     );
