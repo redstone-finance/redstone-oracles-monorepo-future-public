@@ -4,7 +4,7 @@ import { SampleSyntheticToken } from "../../typechain-types";
 import { expect } from "chai";
 import { Signer } from "ethers";
 import { NUMBER_OF_MOCK_NUMERIC_SIGNERS } from "../tests-common";
-import { convertStringToBytes32 } from "redstone-protocol/src/common/utils";
+import { utils } from "redstone-protocol";
 import {
   getMockNumericPackage,
   getRange,
@@ -32,7 +32,7 @@ describe("SampleSyntheticToken", function () {
     );
     sampleContract = await SampleSyntheticToken.deploy();
     await sampleContract.initialize(
-      convertStringToBytes32("REDSTONE"),
+      utils.convertStringToBytes32("REDSTONE"),
       "SYNTH-REDSTONE",
       "SREDSTONE"
     );

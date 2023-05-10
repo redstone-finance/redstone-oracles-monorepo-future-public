@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { convertStringToBytes32 } from "redstone-protocol/src/common/utils";
+import { utils } from "redstone-protocol";
 import {
   DEFAULT_DATA_FEED_ID_BYTES_32,
   DEFAULT_TIMESTAMP_FOR_TESTS,
@@ -136,7 +136,7 @@ describe("SampleRedstoneConsumerBytesMock", function () {
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockBytesPackages);
     await expect(
       wrappedContract.saveOracleValueInContractStorage(
-        convertStringToBytes32("ANOTHER_DATA_FEED_ID")
+        utils.convertStringToBytes32("ANOTHER_DATA_FEED_ID")
       )
     ).to.be.revertedWith("InsufficientNumberOfUniqueSigners(0, 3)");
   });
