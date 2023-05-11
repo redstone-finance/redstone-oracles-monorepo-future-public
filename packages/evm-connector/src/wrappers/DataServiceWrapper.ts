@@ -6,15 +6,20 @@ import { BaseWrapper, ParamsForDryRunVerification } from "./BaseWrapper";
 import { parseAggregatedErrors } from "../helpers/parse-aggregated-errors";
 import { runDryRun } from "../helpers/run-dry-run";
 import { version } from "../../package.json";
+import { resolveDataServiceUrls } from "redstone-sdk";
+import { Contract } from "ethers";
 
-interface DryRunParamsWithUnsignedMetadata extends ParamsForDryRunVerification {
+export interface DryRunParamsWithUnsignedMetadata
+  extends ParamsForDryRunVerification {
   unsignedMetadataMsg: string;
+  dataPackagesRequestParams: Required<DataPackagesRequestInput>;
 }
+
+export type DataPackagesRequestInput = Partial<DataPackagesRequestParams>;
 
 export class DataServiceWrapper extends BaseWrapper {
   constructor(
-    private dataPackagesRequestParams: DataPackagesRequestParams,
-    private urls: string[]
+    private readonly dataPackagesRequestParams: DataPackagesRequestInput
   ) {
     super();
   }
@@ -25,16 +30,54 @@ export class DataServiceWrapper extends BaseWrapper {
   }
 
   async getBytesDataForAppending(
-    params: ParamsForDryRunVerification
+    dryRunParams: ParamsForDryRunVerification
   ): Promise<string> {
     const unsignedMetadataMsg = this.getUnsignedMetadata();
     const disablePayloadsDryRun = Boolean(
       this.dataPackagesRequestParams.disablePayloadsDryRun
     );
+
+    const dataPackagesRequestParams =
+      await this.resolveDataPackagesRequestParams();
+
     if (disablePayloadsDryRun) {
-      return this.requestPayloadWithoutDryRun(this.urls, unsignedMetadataMsg);
+      return this.requestPayloadWithoutDryRun(
+        dataPackagesRequestParams,
+        unsignedMetadataMsg
+      );
     }
-    return this.requestPayloadWithDryRun({ ...params, unsignedMetadataMsg });
+
+    return this.requestPayloadWithDryRun({
+      unsignedMetadataMsg,
+      dataPackagesRequestParams,
+      ...dryRunParams,
+    });
+  }
+
+  private async resolveDataPackagesRequestParams(): Promise<
+    Required<DataPackagesRequestInput>
+  > {
+    const fetchedParams = {
+      ...this.dataPackagesRequestParams,
+    } as Required<DataPackagesRequestInput>;
+
+    if (!this.dataPackagesRequestParams.uniqueSignersCount) {
+      fetchedParams.uniqueSignersCount =
+        await this.getUniqueSignersThresholdFromContract();
+    }
+
+    if (!this.dataPackagesRequestParams.dataServiceId) {
+      fetchedParams.dataServiceId = await this.getDataServiceIdFromContract();
+    }
+
+    if (!this.dataPackagesRequestParams.urls) {
+      fetchedParams.urls = resolveDataServiceUrls(
+        fetchedParams.dataServiceId ??
+          this.dataPackagesRequestParams.dataServiceId
+      );
+    }
+
+    return fetchedParams;
   }
 
   /* 
@@ -44,14 +87,18 @@ export class DataServiceWrapper extends BaseWrapper {
   */
   async requestPayloadWithDryRun({
     unsignedMetadataMsg,
-    ...params
+    dataPackagesRequestParams: input,
+    ...dryRunParams
   }: DryRunParamsWithUnsignedMetadata) {
-    const promises = this.urls.map(async (url) => {
+    const promises = input.urls.map(async (url) => {
       const redstonePayload = await this.requestPayloadWithoutDryRun(
-        [url],
+        {
+          ...input,
+          urls: [url],
+        },
         unsignedMetadataMsg
       );
-      await runDryRun({ ...params, redstonePayload });
+      await runDryRun({ ...dryRunParams, redstonePayload });
       return redstonePayload;
     });
     return Promise.any(promises).catch((error: any) => {
@@ -63,13 +110,35 @@ export class DataServiceWrapper extends BaseWrapper {
   }
 
   async requestPayloadWithoutDryRun(
-    urls: string[],
+    dataPackagesRequestParams: Required<DataPackagesRequestInput>,
     unsignedMetadataMsg: string
   ) {
     return requestRedstonePayload(
-      this.dataPackagesRequestParams,
-      urls,
+      dataPackagesRequestParams,
       unsignedMetadataMsg
     );
+  }
+
+  private async getDataServiceIdFromContract(): Promise<string> {
+    try {
+      const dataServiceId = await this.contract.getDataServiceId();
+      return dataServiceId;
+    } catch (e: any) {
+      throw new Error(
+        `DataServiceId not provided and failed to get it from underlying contract. Error: ` +
+          e?.message
+      );
+    }
+  }
+
+  private async getUniqueSignersThresholdFromContract(): Promise<number> {
+    try {
+      return await this.contract.getUniqueSignersThreshold();
+    } catch (e: any) {
+      throw new Error(
+        `UniqueSignersCount not provided and failed to get it from underlying contract. Error: ` +
+          e?.message
+      );
+    }
   }
 }

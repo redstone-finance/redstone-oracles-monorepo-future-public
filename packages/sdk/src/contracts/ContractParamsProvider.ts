@@ -5,15 +5,19 @@ import { arrayify } from "ethers/lib/utils";
 
 import {
   DataPackagesRequestParams,
-  DEFAULT_CACHE_SERVICE_URLS,
+  getUrlsForDataServiceId,
   requestRedstonePayload,
 } from "../index";
 
 export class ContractParamsProvider {
   constructor(
     public readonly requestParams: DataPackagesRequestParams,
-    public readonly urls: string[] = DEFAULT_CACHE_SERVICE_URLS
-  ) {}
+    urls: string[]
+  ) {
+    if (!urls) {
+      requestParams.urls = getUrlsForDataServiceId(requestParams);
+    }
+  }
 
   async getPayloadData(): Promise<number[]> {
     const payloadHex = await this.requestPayload(this.requestParams);
@@ -36,6 +40,6 @@ export class ContractParamsProvider {
   protected async requestPayload(
     requestParams: DataPackagesRequestParams
   ): Promise<string> {
-    return "0x" + (await requestRedstonePayload(requestParams, this.urls));
+    return "0x" + (await requestRedstonePayload(requestParams));
   }
 }

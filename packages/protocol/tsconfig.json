@@ -17,5 +17,5 @@
     "incremental": true,
     "types": ["jest", "node"]
   },
-  "include": ["src", "test", "test/**/*.json"]
+  "include": ["src/**/*.ts", "test", "test/**/*.json"]
 }
