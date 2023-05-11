@@ -1,5 +1,4 @@
 import { rest } from "msw";
-import { DEFAULT_CACHE_SERVICE_URLS } from "../../src";
 import { mockSignedDataPackages } from "./mock-packages";
 
 const getMockResponseObject = (url: string) => {
@@ -24,11 +23,13 @@ const getMockResponseObject = (url: string) => {
 };
 
 export const handlers = [
-  ...DEFAULT_CACHE_SERVICE_URLS,
+  "https://oracle-gateway-1.a.redstone.finance",
+  "https://oracle-gateway-2.a.redstone.finance",
   "https://good-url-1.com",
   "https://good-url-sorted-asc-only-eth.com",
   "https://bad-url-1.com",
   "https://bad-url-2.com",
+  "http://valid-cache.com",
 ].map((url) =>
   rest.get(url + "/data-packages/latest/*", (req, res, ctx) => {
     if (req.url.origin.includes("bad-url")) {

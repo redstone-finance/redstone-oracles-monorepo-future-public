@@ -14,11 +14,14 @@ interface OverwriteFunctionArgs {
 }
 
 export abstract class BaseWrapper {
+  protected contract!: Contract;
+
   abstract getBytesDataForAppending(
     params?: ParamsForDryRunVerification
   ): Promise<string>;
 
   overwriteEthersContract(contract: Contract): Contract {
+    this.contract = contract;
     const contractPrototype = Object.getPrototypeOf(contract);
     const wrappedContract = Object.assign(
       Object.create(contractPrototype),
