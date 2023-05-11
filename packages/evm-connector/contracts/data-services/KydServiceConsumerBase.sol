@@ -8,6 +8,10 @@ contract KydServiceConsumerBase is RedstoneConsumerNumericBase {
   error ValuesArrayCanNotBeEmpty();
   error AllValuesMustBeEqual();
 
+  function getDataServiceId() public view virtual override returns (string memory) {
+    return "redstone-custom-urls-demo";
+  }
+
   function getUniqueSignersThreshold() public view virtual override returns (uint8) {
     return 2;
   }

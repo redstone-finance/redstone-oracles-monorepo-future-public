@@ -6,11 +6,7 @@ import {
   SignedDataPackage,
   SignedDataPackagePlainObj,
 } from "redstone-protocol";
-
-export const DEFAULT_CACHE_SERVICE_URLS = [
-  "https://oracle-gateway-1.a.redstone.finance",
-  "https://oracle-gateway-2.a.redstone.finance",
-];
+import { resolveDataServiceUrls } from "./data-services-urls";
 
 const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 
@@ -19,7 +15,7 @@ export interface DataPackagesRequestParams {
   uniqueSignersCount: number;
   dataFeeds?: string[];
   disablePayloadsDryRun?: boolean;
-  maxTimestampDelay?: number;
+  urls?: string[];
 }
 
 export interface DataPackagesResponse {
@@ -70,10 +66,8 @@ export const parseDataPackagesResponse = (
       );
     }
 
-    validateTimestampDelay(reqParams, dataFeedPackages);
-
     parsedResponse[dataFeedId] = dataFeedPackages
-      .sort((a, b) => b.timestampMilliseconds - a.timestampMilliseconds)
+      .sort((a, b) => b.timestampMilliseconds - a.timestampMilliseconds) // we prefer newer data packages in the first order
       .slice(0, reqParams.uniqueSignersCount)
       .map((dataPackage: SignedDataPackagePlainObj) =>
         SignedDataPackage.fromObj(dataPackage)
@@ -81,32 +75,6 @@ export const parseDataPackagesResponse = (
   }
 
   return parsedResponse;
-};
-
-const validateTimestampDelay = (
-  reqParams: DataPackagesRequestParams,
-  dataFeedPackages: SignedDataPackagePlainObj[]
-) => {
-  const currentTimestamp = Date.now();
-
-  const maxTimestampDelay = reqParams?.maxTimestampDelay ?? currentTimestamp;
-  const outdatedDataPackages = dataFeedPackages.filter(
-    (dataFeedPackage) =>
-      currentTimestamp - maxTimestampDelay >=
-      dataFeedPackage.timestampMilliseconds
-  );
-  const isAnyPackageOutdated = outdatedDataPackages.length > 0;
-  if (isAnyPackageOutdated) {
-    const outdatedDataPackagesTimestamps = outdatedDataPackages.map(
-      ({ timestampMilliseconds }) => timestampMilliseconds
-    );
-    throw new Error(
-      `At least one datapackage is outdated. Current timestamp: ${currentTimestamp}. ` +
-        `Outdated datapackages timestamps: ${JSON.stringify(
-          outdatedDataPackagesTimestamps
-        )}`
-    );
-  }
 };
 
 const errToString = (e: any): string => {
@@ -123,25 +91,21 @@ const errToString = (e: any): string => {
 };
 
 export const requestDataPackages = async (
-  reqParams: DataPackagesRequestParams,
-  urls: string[] = DEFAULT_CACHE_SERVICE_URLS
+  reqParams: DataPackagesRequestParams
 ): Promise<DataPackagesResponse> => {
-  const promises = prepareDataPackagePromises(reqParams, urls);
+  const promises = prepareDataPackagePromises(reqParams);
   try {
     return await Promise.any(promises);
   } catch (e: any) {
     const errMessage = `Request failed ${JSON.stringify({
       reqParams,
-      urls,
     })}, Original error: ${errToString(e)}`;
     throw new Error(errMessage);
   }
 };
 
-const prepareDataPackagePromises = (
-  reqParams: DataPackagesRequestParams,
-  urls: string[]
-) => {
+const prepareDataPackagePromises = (reqParams: DataPackagesRequestParams) => {
+  const urls = getUrlsForDataServiceId(reqParams);
   return urls.map((url) =>
     axios
       .get(`${url}/data-packages/latest/${reqParams.dataServiceId}`)
@@ -151,13 +115,21 @@ const prepareDataPackagePromises = (
 
 export const requestRedstonePayload = async (
   reqParams: DataPackagesRequestParams,
-  urls: string[] = DEFAULT_CACHE_SERVICE_URLS,
   unsignedMetadataMsg?: string
 ): Promise<string> => {
-  const signedDataPackagesResponse = await requestDataPackages(reqParams, urls);
+  const signedDataPackagesResponse = await requestDataPackages(reqParams);
   const signedDataPackages = Object.values(signedDataPackagesResponse).flat();
 
   return RedstonePayload.prepare(signedDataPackages, unsignedMetadataMsg || "");
+};
+
+export const getUrlsForDataServiceId = (
+  reqParams: DataPackagesRequestParams
+): string[] => {
+  if (reqParams.urls) {
+    return reqParams.urls;
+  }
+  return resolveDataServiceUrls(reqParams.dataServiceId);
 };
 
 export default {
@@ -165,9 +137,5 @@ export default {
   requestDataPackages,
   getDataServiceIdForSigner,
   requestRedstonePayload,
-  parseDataPackagesResponse,
 };
-
-export * from "./contracts/ContractParamsProvider";
-export * from "./contracts/IContractConnector";
-export * from "./contracts/prices/IPricesContractAdapter";
+export * from "./data-services-urls";

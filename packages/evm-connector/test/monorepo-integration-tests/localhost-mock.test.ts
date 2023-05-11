@@ -14,14 +14,12 @@ dynamicDescribe("Localhost mock test", function () {
   const bytes32Symbols = ["ETH", "BTC", "AAVE"].map(formatBytes32String);
 
   const testShouldPass = async (dataFeedIds?: string[]) => {
-    const wrappedContract = WrapperBuilder.wrap(contract).usingDataService(
-      {
-        dataServiceId: "mock-data-service",
-        uniqueSignersCount: 1,
-        dataFeeds: dataFeedIds,
-      },
-      ["http://localhost:3000"]
-    );
+    const wrappedContract = WrapperBuilder.wrap(contract).usingDataService({
+      dataServiceId: "mock-data-service",
+      uniqueSignersCount: 1,
+      dataFeeds: dataFeedIds,
+      urls: ["http://localhost:3000"],
+    });
     const oracleValues = await wrappedContract.extractOracleValuesView(
       bytes32Symbols
     );
