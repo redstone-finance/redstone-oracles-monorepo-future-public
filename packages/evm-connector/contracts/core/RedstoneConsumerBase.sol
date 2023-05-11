@@ -19,7 +19,19 @@ import "../libs/SignatureLib.sol";
 abstract contract RedstoneConsumerBase is CalldataExtractor {
   using SafeMath for uint256;
 
+  error GetDataServiceIdNotImplemented();
+
   /* ========== VIRTUAL FUNCTIONS (MAY BE OVERRIDDEN IN CHILD CONTRACTS) ========== */
+
+  /**
+   * @dev This function must be implemented by the child consumer contract.
+   * It should return dataServiceId which DataServiceWrapper will use if not provided explicitly .
+   * If not overridden, value will always have to be provided explicitly in DataServiceWrapper.
+   * @return dataServiceId being consumed by contract
+   */
+  function getDataServiceId() public view virtual returns (string memory) {
+    revert GetDataServiceIdNotImplemented();
+  }
 
   /**
    * @dev This function must be implemented by the child consumer contract.
