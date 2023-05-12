@@ -1,0 +1,20 @@
+{
+  "interval": 60000,
+  "priceAggregator": "median",
+  "defaultSource": ["pangolin-on-chain-wavax"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "PNG": {},
+    "QI": {},
+    "PTP": {},
+    "XAVA": {},
+    "YAK": {},
+    "USDT.e": {}
+  }
+}
