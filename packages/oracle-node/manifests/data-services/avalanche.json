@@ -20,7 +20,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -46,7 +45,6 @@
     "USDT": {
       "source": [
         "binanceus",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "cex",
@@ -78,7 +76,6 @@
       "source": [
         "binance",
         "binanceusdm",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -102,7 +99,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -134,7 +130,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -171,7 +166,6 @@
     "USDC": {
       "source": [
         "binanceus",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -324,7 +318,6 @@
         "curve-usdc",
         "curve-usdt",
         "huobipro",
-        "idex",
         "kraken",
         "okx",
         "sushiswap-on-chain-weth",
