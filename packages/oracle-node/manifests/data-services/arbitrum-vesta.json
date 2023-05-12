@@ -68,6 +68,7 @@
         "coingecko",
         "coinmarketcap",
         "curve-usdc",
+        "curve-usdc-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
         "kaiko",
@@ -76,7 +77,7 @@
       ]
     },
     "VST": {
-      "source": ["curve-frax"]
+      "source": ["curve-frax", "curve-frax-multi-block"]
     }
   }
 }
