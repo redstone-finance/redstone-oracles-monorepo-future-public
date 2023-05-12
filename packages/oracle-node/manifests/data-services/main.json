@@ -829,6 +829,9 @@
     "SOFR": {
       "source": ["newyorkfed"]
     },
+    "SOFRAI": {
+      "source": ["newyorkfed"]
+    },
     "WSTETH": {
       "source": ["coingecko", "coinmarketcap"]
     },

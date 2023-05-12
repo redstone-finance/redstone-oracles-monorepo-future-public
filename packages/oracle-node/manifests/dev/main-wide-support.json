@@ -829,6 +829,9 @@
     "SOFR": {
       "source": ["newyorkfed"]
     },
+    "SOFRAI": {
+      "source": ["newyorkfed"]
+    },
     "JUSDC": {
       "source": ["camelot-weth"]
     },
