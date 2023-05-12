@@ -23,6 +23,10 @@ contract SampleRedstoneConsumerNumericMock is RedstoneConsumerNumericMock {
     latestSavedValue = getOracleNumericValueFromTxMsg(dataFeedId);
   }
 
+  function extractTimestampFromRedstonePayload() public pure returns(uint256) {
+    return extractTimestampsAndAssertAllAreEqual();
+  }
+
   function getValueManyParams(
     bytes32 dataFeedId,
     uint256 mockArg1,

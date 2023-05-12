@@ -13,7 +13,15 @@ const accounts = process.env.PRIVATE_KEY
   : undefined;
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.17",
+  solidity: {
+    version: "0.8.17",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 10000, // it slightly increases gas for contract deployment but decreases for user interactions
+      },
+    },
+  },
   gasReporter: {
     enabled: true,
     currency: "USD",
