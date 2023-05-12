@@ -18,7 +18,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -44,7 +43,6 @@
     "USDT": {
       "source": [
         "binanceus",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "cex",
@@ -60,7 +58,6 @@
     "USDC": {
       "source": [
         "binanceus",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
