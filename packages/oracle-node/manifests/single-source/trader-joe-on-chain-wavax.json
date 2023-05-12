@@ -1,0 +1,22 @@
+{
+  "interval": 60000,
+  "priceAggregator": "median",
+  "defaultSource": ["trader-joe-on-chain-wavax"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "PNG": {},
+    "QI": {},
+    "PTP": {},
+    "XAVA": {},
+    "YAK": {},
+    "GMX": {},
+    "JOE": {},
+    "USDT.e": {}
+  }
+}
