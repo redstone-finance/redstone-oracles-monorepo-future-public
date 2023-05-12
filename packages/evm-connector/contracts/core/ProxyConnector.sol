@@ -108,19 +108,6 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
     return calldataNegativeOffset;
   }
 
-  function _getDataPackageByteSize(uint256 calldataNegativeOffset) private pure returns (uint256) {
-    (
-      uint256 dataPointsCount,
-      uint256 eachDataPointValueByteSize
-    ) = _extractDataPointsDetailsForDataPackage(calldataNegativeOffset);
-
-    return
-      dataPointsCount *
-      (DATA_POINT_SYMBOL_BS + eachDataPointValueByteSize) +
-      DATA_PACKAGE_WITHOUT_DATA_POINTS_BS;
-  }
-
-
   function _prepareReturnValue(bool success, bytes memory result)
     internal
     pure
