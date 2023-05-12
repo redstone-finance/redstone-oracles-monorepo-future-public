@@ -100,7 +100,7 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
   function validateAndUpdateDataFeedsValues(bytes32[] memory dataFeedIdsArray, uint256[] memory values) internal virtual;
 
   function _assertMinIntervalBetweenUpdatesPassed() private view {
-    uint256 currentBlockTimestamp = block.timestamp;
+    uint256 currentBlockTimestamp = getBlockTimestamp();
     uint256 blockTimestampFromLatestUpdate = getBlockTimestampFromLatestUpdate();
     uint256 minIntervalBetweenUpdates = getMinIntervalBetweenUpdates();
     if (currentBlockTimestamp < blockTimestampFromLatestUpdate + minIntervalBetweenUpdates) {
@@ -128,13 +128,19 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
 
     (uint256 maxDataAheadSeconds, uint256 maxDataDelaySeconds) = getAllowedTimestampDiffsInSeconds();
 
-    if (block.timestamp < receivedTimestampSeconds) {
-      if ((receivedTimestampSeconds - block.timestamp) > maxDataAheadSeconds) {
-        revert RedstoneDefaultsLib.TimestampFromTooLongFuture(receivedTimestampSeconds, block.timestamp);
+    if (getBlockTimestamp() < receivedTimestampSeconds) {
+      if ((receivedTimestampSeconds - getBlockTimestamp()) > maxDataAheadSeconds) {
+        revert RedstoneDefaultsLib.TimestampFromTooLongFuture(receivedTimestampSeconds, getBlockTimestamp());
       }
-    } else if ((block.timestamp - receivedTimestampSeconds) > maxDataDelaySeconds) {
-      revert RedstoneDefaultsLib.TimestampIsTooOld(receivedTimestampSeconds, block.timestamp);
+    } else if ((getBlockTimestamp() - receivedTimestampSeconds) > maxDataDelaySeconds) {
+      revert RedstoneDefaultsLib.TimestampIsTooOld(receivedTimestampSeconds, getBlockTimestamp());
     }
+  }
+
+  // This function can be overriden, e.g. to use block.number instead of block.timestamp
+  // It can be useful in some L2 chains, as sometimes their different blocks can have the same timestamp
+  function getBlockTimestamp() public view virtual returns (uint256) {
+    return block.timestamp;
   }
 
   function getAllowedTimestampDiffsInSeconds() public view virtual returns (uint256 maxDataAheadSeconds, uint256 maxDataDelaySeconds) {
@@ -177,14 +183,10 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
   }
 
   function _saveTimestampsOfCurrentUpdate(uint256 dataPackagesTimestamp) internal virtual {
-    uint256 blockTimestamp = block.timestamp;
+    uint256 blockTimestamp = getBlockTimestamp();
     assembly {
-      let timestamps := packTwoNumbers(dataPackagesTimestamp, blockTimestamp)
+      let timestamps := or(shl(BITS_COUNT_IN_16_BYTES, dataPackagesTimestamp), blockTimestamp)
       sstore(LATEST_UPDATE_TIMESTAMPS_STORAGE_LOCATION, timestamps)
-
-      function packTwoNumbers(num1, num2) -> resultNumber {
-        resultNumber := or(shl(BITS_COUNT_IN_16_BYTES, num1), num2)
-      }
     }
   }
 
