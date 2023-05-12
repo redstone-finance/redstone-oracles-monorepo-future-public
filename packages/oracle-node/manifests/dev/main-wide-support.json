@@ -19,7 +19,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -54,7 +53,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -80,7 +78,6 @@
     "USDT": {
       "source": [
         "binanceus",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "cex",
@@ -114,7 +111,6 @@
     "USDC": {
       "source": [
         "binanceus",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -140,7 +136,6 @@
         "binancecoinm",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -170,7 +165,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -220,7 +214,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -257,7 +250,6 @@
         "binance",
         "binanceus",
         "binanceusdm",
-        "bitfinex",
         "bitfinex2",
         "btcturk",
         "coinbaseprime",
@@ -277,7 +269,6 @@
         "binancecoinm",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -320,7 +311,6 @@
         "binancecoinm",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -346,7 +336,6 @@
         "curve-usdc",
         "curve-usdt",
         "huobipro",
-        "idex",
         "kraken",
         "okx",
         "sushiswap-on-chain-weth",
@@ -363,7 +352,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -389,7 +377,6 @@
       "source": [
         "binance",
         "binanceusdm",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -413,7 +400,6 @@
         "binancecoinm",
         "binanceus",
         "binanceusdm",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -461,7 +447,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -489,7 +474,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -513,14 +497,7 @@
       ]
     },
     "LEO": {
-      "source": [
-        "bitfinex",
-        "bitfinex2",
-        "coingecko",
-        "hitbtc",
-        "okx",
-        "probit"
-      ]
+      "source": ["bitfinex2", "coingecko", "hitbtc", "okx", "probit"]
     },
     "OKB": {
       "source": ["coingecko", "lbank", "okx", "poloniex", "probit"]
@@ -533,7 +510,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "coinbaseprime",
@@ -554,7 +530,6 @@
         "binance",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "coingecko",
         "hitbtc",
@@ -573,7 +548,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -599,7 +573,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "cex",
@@ -630,7 +603,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -653,7 +625,6 @@
       "source": [
         "binance",
         "binanceusdm",
-        "bitfinex",
         "bitfinex2",
         "coingecko",
         "hitbtc",
@@ -670,7 +641,6 @@
         "ascendex",
         "binance",
         "binanceusdm",
-        "bitfinex",
         "bitfinex2",
         "coingecko",
         "hitbtc",
@@ -688,7 +658,6 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -712,7 +681,6 @@
         "binance",
         "binanceus",
         "binanceusdm",
-        "bitfinex",
         "bitfinex2",
         "bittrex",
         "cex",
@@ -854,7 +822,7 @@
       "source": ["bitget", "bkex", "coingecko", "coinmarketcap", "camelot-weth"]
     },
     "CMP": {
-      "source": ["bybit", "coingecko", "xt"]
+      "source": ["coingecko", "xt"]
     },
     "VST/ETH": {
       "source": ["non-usd-based"]
