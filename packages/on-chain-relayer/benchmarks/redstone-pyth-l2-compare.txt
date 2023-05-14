@@ -1,0 +1,37 @@
+zkSync Era Goerli:
+Pyth example transactions:
+  - https://goerli.explorer.zksync.io/tx/0x568a30f46ab3e404581d86e0f408faecf26db1d2d1f0231ebd26c68f550141ef
+  - https://goerli.explorer.zksync.io/tx/0x7ac192f3925c61b89080c187128fce37771e81daa9a64468d9206e0f3519af0a
+  - https://goerli.explorer.zksync.io/tx/0xcbe82c4b1081f7ae264422d92ad9279075bd9707b1f6abadba8990c206abc101
+  - https://goerli.explorer.zksync.io/tx/0xbbb2b7fc0256911325477b0e3f844f3d8f08736e8da04e39cbf551b7d779d349
+
+Pyth Fee: $14 - $37
+
+RedStone example transactions:
+  - https://goerli.explorer.zksync.io/tx/0x73d6c557148a31c4ecc6040885a7d48f80deb75cb8ebc96917c3e263179d287f
+  - https://goerli.explorer.zksync.io/tx/0x1d709567ea75bb93a80fe3435f4955c7ea2a2661fae4413697c6b5b8ca44af55
+  - https://goerli.explorer.zksync.io/tx/0xa9c5625dc64bf31ed681d71dbf6ac15aaa6f2c4e739db0cc90f477bff06687eb
+  - https://goerli.explorer.zksync.io/tx/0x7add13954cd0e61b1b63cfeeb886a9bb67b6eea6cb3b3ac6456884f255563b79
+
+RedStone fee, depending on solution: $3.6 - $1.31 or $0.63 - $0.59
+
+
+zkEVM Testnet:
+Pyth example transactions:
+  - https://testnet-zkevm.polygonscan.com/tx/0x5abb784876ea3b010f1351b2b51965913fdaf985a2576cee435affcc957ac072
+  - https://testnet-zkevm.polygonscan.com/tx/0x4455e7d6ac441ea7074238ebfcdada40ded90077cf2a48f0322063747e9439de
+  - https://testnet-zkevm.polygonscan.com/tx/0x5b9762b92c53b46dfab007ffd681fc20df561cf6ab5da219fd0a6d4c7a048389
+  - https://testnet-zkevm.polygonscan.com/tx/0x84f85832b5d7cb9ba237698be11103fbf25bd564ba7a80bcf87321fa321fbb7a
+
+Pyth Fee: $24 - $62
+
+RedStone example transactions:
+  - https://testnet-zkevm.polygonscan.com/tx/0xa1ebc9d9133c7d6bc8ed752dd3ec39faa56ce5d67bacf71c9b46d6a1f0eaa532
+  - https://testnet-zkevm.polygonscan.com/tx/0x510a2c69eadf9e20c116c176cd6e337692af31d432daa3936074c4f5b2065b6b
+  - https://testnet-zkevm.polygonscan.com/tx/0xa5cce831a76d529f63cff7cd9ed71c0d96b29ddbf01f45ac90dbfadef6390464
+  - https://testnet-zkevm.polygonscan.com/tx/0x1b0230b3f6e2d020d274784113e9e67e5a9b21ed0e566b403b88562cecbc82dc
+
+RedStone fee, depending on solution: $6.45 - $3.1 or $16.74 - $3.97
+
+Benchmarks on both mainnets show that our price feed updates transactions don't go above 1 dollar in both solutions.
+This means that testnet transactions tend to be around order of magnitude higher.
