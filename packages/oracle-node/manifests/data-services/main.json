@@ -733,6 +733,7 @@
       "source": [
         "coingecko",
         "curve-usdc",
+        "curve-usdc-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
         "uniswap-v2-on-chain-fxs",
@@ -740,7 +741,7 @@
       ]
     },
     "VST": {
-      "source": ["curve-frax"]
+      "source": ["curve-frax", "curve-frax-multi-block"]
     },
     "OHM": {
       "source": [
