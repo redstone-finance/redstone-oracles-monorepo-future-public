@@ -1,0 +1,16 @@
+{
+  "interval": 60000,
+  "priceAggregator": "median",
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "defaultSource": ["permaswap"],
+  "tokens": {
+    "ARDRIVE": {},
+    "ACNH": {}
+  }
+}
