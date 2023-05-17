@@ -11,6 +11,8 @@
   },
   "tokens": {
     "SOFR": {},
-    "SOFRAI": {}
+    "SOFR_EFFECTIVE_DATE": {},
+    "SOFRAI": {},
+    "SOFRAI_EFFECTIVE_DATE": {}
   }
 }
