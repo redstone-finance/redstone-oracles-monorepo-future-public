@@ -349,6 +349,18 @@
     },
     "USDT.e": {
       "source": ["trader-joe-on-chain-wavax", "pangolin-on-chain-wavax"]
+    },
+    "SOFR": {
+      "source": ["newyorkfed"]
+    },
+    "SOFR_EFFECTIVE_DATE": {
+      "source": ["newyorkfed"]
+    },
+    "SOFRAI": {
+      "source": ["newyorkfed"]
+    },
+    "SOFRAI_EFFECTIVE_DATE": {
+      "source": ["newyorkfed"]
     }
   }
 }
