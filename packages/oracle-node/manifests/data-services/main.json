@@ -798,7 +798,13 @@
     "SOFR": {
       "source": ["newyorkfed"]
     },
+    "SOFR_EFFECTIVE_DATE": {
+      "source": ["newyorkfed"]
+    },
     "SOFRAI": {
+      "source": ["newyorkfed"]
+    },
+    "SOFRAI_EFFECTIVE_DATE": {
       "source": ["newyorkfed"]
     },
     "WSTETH": {
