@@ -846,50 +846,11 @@
     "BVOL": {
       "source": ["ascendex", "poloniex"]
     },
-    "ALC": {
-      "source": ["verto"]
-    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
     "ACNH": {
       "source": ["permaswap"]
-    },
-    "ARGO": {
-      "source": ["verto"]
-    },
-    "ARVERIFY": {
-      "source": ["verto"]
-    },
-    "DLT": {
-      "source": ["verto"]
-    },
-    "EDST": {
-      "source": ["verto"]
-    },
-    "EMD_PST_TOKEN": {
-      "source": ["verto"]
-    },
-    "OPENBITS": {
-      "source": ["verto"]
-    },
-    "PBT": {
-      "source": ["verto"]
-    },
-    "QUAD": {
-      "source": ["verto"]
-    },
-    "SAM": {
-      "source": ["verto"]
-    },
-    "SUNNY": {
-      "source": ["verto"]
-    },
-    "VRT": {
-      "source": ["verto"]
-    },
-    "XYZ": {
-      "source": ["verto"]
     },
     "IBM": {
       "source": ["twelve-data"]
