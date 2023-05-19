@@ -29,7 +29,7 @@
    * for `price` contract there are `set_prices`, `get_eth_price` and `get_btc_price` calls available
    * you can modify the invocation directly in the [Makefile](Makefile)
 
-#### see [here](src/contracts/README.md) how the contracts work 
+#### see [here](src/contracts/README.md) how the contracts work
 
 ### Verifying the contract(s)
 1. Use starkscan verifier as follows: <https://github.com/starkscan/starkscan-verifier>

@@ -105,22 +105,21 @@ func _array_trunc{range_check_ptr}(ptr: felt*, len: felt, last_is_zero: felt, re
 func array_join{range_check_ptr}(arr: Array, join: Array) -> Array {
     alloc_locals;
 
-    let (ptr) = alloc();
     local res: Array = Array(ptr=arr.ptr, len=arr.len + join.len);
 
-    array_join_rec(offset=arr.len, join=join, index=0, res=res);
+    _array_join(offset=arr.len, join=join, index=0, res=res);
 
     return res;
 }
 
-func array_join_rec(offset: felt, join: Array, index: felt, res: Array) {
+func _array_join(offset: felt, join: Array, index: felt, res: Array) {
     if (offset + index == res.len) {
         return ();
     }
 
     assert res.ptr[offset + index] = join.ptr[index];
 
-    return array_join_rec(offset=offset, join=join, index=index + 1, res=res);
+    return _array_join(offset=offset, join=join, index=index + 1, res=res);
 }
 
 func array_index{range_check_ptr}(arr: Array, key: felt) -> felt {
@@ -143,9 +142,7 @@ func array_sort{range_check_ptr}(arr: Array) -> Array {
     alloc_locals;
 
     let (output_len, output, multiplicities) = usort(input_len=arr.len, input=arr.ptr);
-
-    let (ptr) = alloc();
-    let res = Array(ptr=ptr, len=arr.len);
+    let res = array_new(len=arr.len);
 
     _array_sort(
         arr=output,

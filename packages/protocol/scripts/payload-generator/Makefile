@@ -6,6 +6,7 @@ SHELL := /bin/bash
 clean:
 	rm -rf $(DATA_DIR)
 
+# make DATA_NAME=test prepare_data
 prepare_data:
 	mkdir -p $(DATA_DIR)
 	curl "$(PAYLOAD_URL)hex" > $(DATA_DIR)/${DATA_NAME}.hex &
