@@ -34,7 +34,8 @@ export const updatePrices = async (
   if (lastUpdateTimestamp >= minimalTimestamp) {
     console.log("Cannot update prices, proposed prices are not newer");
   } else {
-    const wrapContract = (adapterContract: Contract) => WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
+    const wrapContract = (adapterContract: Contract) =>
+      WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
     const updateTx = await updatePriceInAdapterContract({
       adapterContract,
       wrapContract,
@@ -68,7 +69,7 @@ const updatePricesInPriceFeedsAdapter = async ({
 }: UpdatePricesArgs): Promise<TransactionResponse> => {
   return await wrapContract(adapterContract).updateDataFeedsValues(
     proposedTimestamp,
-    // TX_CONFIG
+    TX_CONFIG
   );
 };
 
@@ -85,8 +86,7 @@ const updatePricesInMentoAdapter = async ({
       wrapContract,
       sortedOracles,
     } as MentoContracts);
-  return await wrapContract(adapterContract).updatePriceValuesAndCleanOldReports(
-    proposedTimestamp,
-    linkedListPositions
-  );
+  return await wrapContract(
+    adapterContract
+  ).updatePriceValuesAndCleanOldReports(proposedTimestamp, linkedListPositions);
 };
