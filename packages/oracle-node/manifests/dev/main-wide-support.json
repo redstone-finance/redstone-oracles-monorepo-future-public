@@ -798,13 +798,15 @@
       "source": ["newyorkfed"]
     },
     "SOFR_EFFECTIVE_DATE": {
-      "source": ["newyorkfed"]
+      "source": ["newyorkfed"],
+      "decimals": 0
     },
     "SOFRAI": {
       "source": ["newyorkfed"]
     },
     "SOFRAI_EFFECTIVE_DATE": {
-      "source": ["newyorkfed"]
+      "source": ["newyorkfed"],
+      "decimals": 0
     },
     "JUSDC": {
       "source": ["camelot-weth"]

@@ -11,8 +11,12 @@
   },
   "tokens": {
     "SOFR": {},
-    "SOFR_EFFECTIVE_DATE": {},
+    "SOFR_EFFECTIVE_DATE": {
+      "decimals": 0
+    },
     "SOFRAI": {},
-    "SOFRAI_EFFECTIVE_DATE": {}
+    "SOFRAI_EFFECTIVE_DATE": {
+      "decimals": 0
+    }
   }
 }
