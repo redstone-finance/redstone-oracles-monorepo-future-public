@@ -1,7 +1,11 @@
-import { Contract, Signer } from "ethers";
+import { BigNumber, Contract, Signer } from "ethers";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
-import { NumericDataPoint, DataPackage } from "redstone-protocol";
+import {
+  NumericDataPoint,
+  DataPackage,
+  INumericDataPoint,
+} from "redstone-protocol";
 import { DataPackagesResponse } from "redstone-sdk";
 import { formatBytes32String } from "ethers/lib/utils";
 import { config } from "../src/config";
@@ -14,6 +18,9 @@ interface DataPoint {
   dataFeedId: string;
   value: number;
 }
+
+export const createNumberFromContract = (number: number, decimals = 8) =>
+  BigNumber.from(number * 10 ** decimals);
 
 export const dataFeedsIds = [ethDataFeed, btcDataFeed];
 
@@ -75,18 +82,17 @@ const mockWallets = [
   },
 ];
 
-export const getDataPackagesResponse = async () => {
+const DEFAULT_DATA_POINTS = [
+  { dataFeedId: "ETH", value: 1670.99 },
+  { dataFeedId: "BTC", value: 23077.68 },
+];
+
+export const getDataPackagesResponse = async (
+  dataPoints: INumericDataPoint[] = DEFAULT_DATA_POINTS
+) => {
   const timestampMilliseconds = (await time.latest()) * 1000;
 
-  const dataPoints = [
-    { dataFeedId: "ETH", value: 1670.99 },
-    { dataFeedId: "BTC", value: 23077.68 },
-  ];
-
-  const signedDataPackages: DataPackagesResponse = {
-    ETH: [],
-    BTC: [],
-  };
+  const signedDataPackages: DataPackagesResponse = {};
 
   for (const mockWallet of mockWallets) {
     for (const dataPointObj of dataPoints) {
@@ -97,6 +103,9 @@ export const getDataPackagesResponse = async () => {
       };
       const privateKey = mockWallet.privateKey;
       const signedDataPackage = mockDataPackage.dataPackage.sign(privateKey);
+      if (!signedDataPackages[dataPointObj.dataFeedId as DataPointsKeys]) {
+        signedDataPackages[dataPointObj.dataFeedId as DataPointsKeys] = [];
+      }
       signedDataPackages[dataPointObj.dataFeedId as DataPointsKeys].push(
         signedDataPackage
       );

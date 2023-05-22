@@ -2,6 +2,9 @@ import { INumericDataPoint } from "redstone-protocol";
 import { DataPackagesResponse } from "redstone-sdk";
 import { config } from "../../config";
 import { ValuesForDataFeeds } from "../../types";
+import { formatUnits } from "ethers/lib/utils";
+
+const DEFAULT_DECIMALS = 8;
 
 export const valueDeviationCondition = (
   dataPackages: DataPackagesResponse,
@@ -14,12 +17,17 @@ export const valueDeviationCondition = (
     for (const { dataPackage } of dataPackages[dataFeedId]) {
       for (const dataPoint of dataPackage.dataPoints) {
         const valueFromContract = valuesFromContract[dataFeedId];
-        const valueFromFetchedDataPackage = (
-          dataPoint.toObj() as INumericDataPoint
-        ).value;
+        const dataPointObj = dataPoint.toObj() as INumericDataPoint;
+        const valueFromContractAsDecimal = Number(
+          formatUnits(
+            valueFromContract.toString(),
+            dataPointObj.decimals ?? DEFAULT_DECIMALS
+          )
+        );
+
         const currentDeviation = calculateDeviation(
-          valueFromFetchedDataPackage,
-          valueFromContract
+          dataPointObj.value,
+          valueFromContractAsDecimal
         );
         maxDeviation = Math.max(currentDeviation, maxDeviation);
       }
@@ -42,9 +50,10 @@ const calculateDeviation = (
   valueFromContract: number
 ) => {
   const pricesDiff = Math.abs(valueFromContract - valueFromFetchedDataPackage);
-  const minDividerValue = Math.min(
-    valueFromContract,
-    valueFromFetchedDataPackage
-  );
-  return (pricesDiff * 100) / minDividerValue;
+
+  if (valueFromContract === 0) {
+    return Number.MAX_SAFE_INTEGER;
+  }
+
+  return (pricesDiff * 100) / valueFromContract;
 };
