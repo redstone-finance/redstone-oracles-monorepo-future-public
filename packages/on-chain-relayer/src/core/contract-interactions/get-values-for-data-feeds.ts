@@ -18,7 +18,8 @@ export const getValuesForDataFeeds = async (
   const dataFeedsValues: ValuesForDataFeeds = {};
   for (const [index, dataFeedId] of dataFeeds.entries()) {
     const currentValue = valuesFromContractAsBigNumber[index];
-    dataFeedsValues[dataFeedId] = Number(utils.formatUnits(currentValue, 8));
+
+    dataFeedsValues[dataFeedId] = currentValue;
   }
   return dataFeedsValues;
 };
