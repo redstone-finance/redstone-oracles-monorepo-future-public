@@ -40,7 +40,7 @@ const runTest = async (
   );
 };
 
-describe.only("DataServiceWrapper", () => {
+describe("DataServiceWrapper", () => {
   before(() => server.listen());
   afterEach(() => server.resetHandlers());
   after(() => server.close());
