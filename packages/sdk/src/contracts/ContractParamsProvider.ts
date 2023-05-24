@@ -11,7 +11,7 @@ import {
 export class ContractParamsProvider {
   constructor(
     public readonly requestParams: DataPackagesRequestParams,
-    urls: string[]
+    urls?: string[]
   ) {
     if (!urls) {
       requestParams.urls = getUrlsForDataServiceId(requestParams);
