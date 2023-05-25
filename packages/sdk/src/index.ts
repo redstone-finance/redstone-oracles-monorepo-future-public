@@ -137,6 +137,7 @@ export default {
   requestDataPackages,
   getDataServiceIdForSigner,
   requestRedstonePayload,
+  resolveDataServiceUrls,
 };
 export * from "./data-services-urls";
 export * from "./contracts/ContractParamsProvider";
