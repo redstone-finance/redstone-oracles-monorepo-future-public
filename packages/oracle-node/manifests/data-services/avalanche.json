@@ -268,7 +268,6 @@
       "source": [
         "binance",
         "bkex",
-        "bkex",
         "bybit",
         "coingecko",
         "coinmarketcap",
@@ -290,9 +289,13 @@
         "bkex",
         "coingecko",
         "coinmarketcap",
+        "huobipro",
         "gate",
         "mexc",
-        "trader-joe-on-chain-wavax"
+        "okx",
+        "phemex",
+        "trader-joe-on-chain-wavax",
+        "xt"
       ]
     },
     "BUSD": {
