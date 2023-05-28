@@ -76,9 +76,7 @@ export class DataPackagesService {
     cacheManager: Cache
   ): Promise<DataPackagesResponse> {
     const cacheKey = `data-packages/latest/${dataServiceId}`;
-    const dataPackagesFromCache = await cacheManager.get<DataPackagesResponse>(
-      cacheKey
-    );
+    const dataPackagesFromCache = undefined;
 
     if (!dataPackagesFromCache) {
       const dataPackages = await this.getLatestDataPackagesWithSameTimestamp(
@@ -224,11 +222,19 @@ export class DataPackagesService {
     const dataPackagesWithSameTimestamp = groupedDataPackages[0];
     for (let i = 0; i < dataPackagesWithSameTimestamp.count; i++) {
       const dataFeedId = dataPackagesWithSameTimestamp.dataFeedIds[i];
+      const signerAddress = dataPackagesWithSameTimestamp.signerAddress[i];
+      if (
+        DataPackagesService.isSignerAddressAlreadyInDbResponseForDataFeed(
+          signerAddress,
+          fetchedPackagesPerDataFeed[dataFeedId]
+        )
+      ) {
+        continue;
+      }
       const dataPoints = dataPackagesWithSameTimestamp.dataPoints[i];
       const signature = dataPackagesWithSameTimestamp.signatures[i];
       const timestampMilliseconds =
         dataPackagesWithSameTimestamp._id.timestampMilliseconds;
-      const signerAddress = dataPackagesWithSameTimestamp.signerAddress[i];
       const isSignatureValid =
         dataPackagesWithSameTimestamp.isSignatureValid[i];
 
@@ -248,6 +254,16 @@ export class DataPackagesService {
     }
 
     return fetchedPackagesPerDataFeed;
+  }
+
+  // Filtering unique signers addresses
+  static isSignerAddressAlreadyInDbResponseForDataFeed(
+    signerAddress: string,
+    fetchedPackagesForDataFeed: CachedDataPackage[]
+  ) {
+    return fetchedPackagesForDataFeed?.some((dataPackage) =>
+      Object.values(dataPackage).includes(signerAddress)
+    );
   }
 
   async queryLatestDataPackages(
