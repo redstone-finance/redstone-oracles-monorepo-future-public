@@ -836,6 +836,23 @@
     "VST/ETH": {
       "source": ["non-usd-based"]
     },
+    "JOE": {
+      "source": [
+        "binance",
+        "bitget",
+        "bitrue",
+        "bkex",
+        "coingecko",
+        "coinmarketcap",
+        "huobipro",
+        "gate",
+        "mexc",
+        "okx",
+        "phemex",
+        "trader-joe-on-chain-wavax",
+        "xt"
+      ]
+    },
     "AUD": {
       "source": ["binance", "currencycom", "ecb", "kraken"]
     },
@@ -1608,7 +1625,6 @@
     "REEF": {},
     "POLS": {},
     "LPT": {},
-    "JOE": {},
     "XAVA": {},
     "BTT": {},
     "CHR": {},
