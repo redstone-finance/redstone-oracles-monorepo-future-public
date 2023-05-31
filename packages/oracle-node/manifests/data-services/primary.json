@@ -1,0 +1,90 @@
+{
+  "interval": 10000,
+  "priceAggregator": "median",
+  "defaultSource": ["coingecko"],
+  "sourceTimeout": 7000,
+  "minValidSourcesPercentage": 40,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 30,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "SWETH": {
+      "source": ["coingecko", "coinmarketcap"]
+    },
+    "VST": {
+      "source": ["curve-frax-multi-block"]
+    },
+
+    "USDC": {
+      "source": [
+        "binanceus",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "cex",
+        "coingecko",
+        "coinmarketcap",
+        "currencycom",
+        "huobipro",
+        "kaiko",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "okx",
+        "probit",
+        "sushiswap",
+        "uniswap"
+      ],
+      "skipSigning": true
+    },
+    "USDT": {
+      "source": [
+        "binanceus",
+        "bitfinex2",
+        "bittrex",
+        "cex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "currencycom",
+        "kaiko",
+        "kraken",
+        "uniswap"
+      ],
+      "skipSigning": true
+    },
+    "FXS": {
+      "source": [
+        "binance",
+        "bitrue",
+        "bkex",
+        "btcex",
+        "coingecko",
+        "coinmarketcap",
+        "lbank",
+        "kaiko",
+        "kucoin",
+        "phemex"
+      ],
+      "skipSigning": true
+    },
+    "FRAX": {
+      "source": [
+        "coingecko",
+        "coinmarketcap",
+        "curve-usdc",
+        "curve-usdc-multi-block",
+        "fraxswap-on-chain-fxs",
+        "fraxswap-on-chain-weth",
+        "kaiko",
+        "uniswap-v2-on-chain-fxs",
+        "uniswap-v3"
+      ],
+      "skipSigning": true
+    }
+  }
+}
