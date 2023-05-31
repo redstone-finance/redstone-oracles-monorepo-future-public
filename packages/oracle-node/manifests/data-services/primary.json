@@ -76,7 +76,6 @@
       "source": [
         "coingecko",
         "coinmarketcap",
-        "curve-usdc",
         "curve-usdc-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
