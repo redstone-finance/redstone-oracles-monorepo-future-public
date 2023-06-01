@@ -1,6 +1,6 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { ethers } from "hardhat";
+import { ethers, upgrades } from "hardhat";
 import { IRedstoneAdapter, PriceFeedBase } from "../../../../typechain-types";
 import { formatBytes32String } from "ethers/lib/utils";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
@@ -109,7 +109,9 @@ export const describeCommonPriceFeedTests = ({
 
     it("should properly get latest round data", async () => {
       const latestRoundData = await contracts.priceFeed.latestRoundData();
-      expect(latestRoundData.roundId.toNumber()).to.eq(expectedRoundIdAfterOneUpdate);
+      expect(latestRoundData.roundId.toNumber()).to.eq(
+        expectedRoundIdAfterOneUpdate
+      );
       expect(latestRoundData.startedAt.toNumber()).to.eq(prevBlockTime);
       expect(latestRoundData.updatedAt.toNumber()).to.eq(curBlockTime);
       expect(latestRoundData.answer.toNumber()).to.eq(42 * 10 ** 8);
@@ -127,12 +129,63 @@ export const describeCommonPriceFeedTests = ({
   });
 
   describe("Tests for contract upgrades", () => {
-    it("should properly upgrade the contract (change data feed adapter)", async () => {
-      expect(1).to.be.equal(1);
+    let contractV1: PriceFeedBase;
+
+    beforeEach(async () => {
+      const contractFactory = await ethers.getContractFactory(
+        priceFeedContractName
+      );
+      contractV1 = (await upgrades.deployProxy(
+        contractFactory
+      )) as PriceFeedBase;
     });
 
-    it("should properly upgrade the contract (change data feed id)", async () => {
-      expect(1).to.be.equal(1);
+    it("should initialize properly", async () => {
+      expect(contractV1).to.not.be.undefined;
+      await expect((contractV1 as any).initialize()).to.rejectedWith(
+        "Initializable: contract is already initialized"
+      );
+      const dataFeed = await contractV1.getDataFeedId();
+      expect(dataFeed).to.eq(
+        "0x4254430000000000000000000000000000000000000000000000000000000000"
+      );
+
+      const adapterAddress = await contractV1.getPriceFeedAdapter();
+
+      expect(adapterAddress).to.eq(
+        "0x0000000000000000000000000000000000000000"
+      );
+    });
+
+    describe("should properly upgrade the contract", () => {
+      let updatedContract: PriceFeedBase;
+
+      before(async () => {
+        const updateContractFactory = await ethers.getContractFactory(
+          "PriceFeedUpdatedMock"
+        );
+
+        updatedContract = (await upgrades.upgradeProxy(
+          contractV1,
+          updateContractFactory
+        )) as PriceFeedBase;
+      });
+
+      it("should change data feed adapter", async () => {
+        const dataFeed = await updatedContract.getDataFeedId();
+
+        expect(dataFeed).to.eq(
+          "0x4554480000000000000000000000000000000000000000000000000000000000"
+        );
+      });
+
+      it("should change data feed id", async () => {
+        const adapterAddress = await updatedContract.getPriceFeedAdapter();
+
+        expect(adapterAddress).to.eq(
+          "0x2C31d00C1AE878F28c58B3aC0672007aECb4A124"
+        );
+      });
     });
   });
 };
