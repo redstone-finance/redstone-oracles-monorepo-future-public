@@ -1,0 +1,32 @@
+{
+  "name": "redstone-rpc-providers",
+  "prettier": "redstone-prettier-config",
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "NODE_ENV=test hardhat test",
+    "build": "hardhat compile && rm -rf dist && tsc --build",
+    "preversion": "yarn build",
+    "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^1.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.0.0",
+    "@nomiclabs/hardhat-etherscan": "^3.0.0",
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/sinon": "^10.0.15",
+    "chai": "^4.3.7",
+    "ethers": "5.7.2",
+    "hardhat": "^2.13.0",
+    "sinon": "^15.0.3"
+  },
+  "peerDependencies": {
+    "ethers": "5.x.x"
+  }
+}
