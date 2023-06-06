@@ -332,15 +332,6 @@
         "maxDelayMilliseconds": 300000
       }
     },
-    "STETH": {
-      "source": [
-        "kaiko",
-        "coinmarketcap",
-        "curve-eth",
-        "curve-weth",
-        "uniswap-v2-on-chain-weth"
-      ]
-    },
     "SHLB_AVAX-USDC_B": {
       "source": ["avalanche-evm-fetcher"]
     },
