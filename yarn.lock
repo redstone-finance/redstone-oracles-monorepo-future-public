@@ -1362,13 +1362,12 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@balancer-labs/sdk@^0.1.47":
-  version "0.1.49"
-  resolved "https://registry.npmjs.org/@balancer-labs/sdk/-/sdk-0.1.49.tgz"
-  integrity sha512-q1YYQF5hjMWXhBW8w1K5zuar4ar0amQLBsfE4qp1fBOHuEHwVpZsOlkGm0aAMtoQ5Ab7fFxBZgifewDDamVeWw==
+"@balancer-labs/sdk@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@balancer-labs/sdk/-/sdk-1.1.0.tgz#9ec317f1d06135d0b9db2bfc354eebe1e68c8fb9"
+  integrity sha512-2EqCgue6LsCZN4sze1GuMvEDOiIGcCIhIL7Z4ED98/7MbgAi4G+YqJj1JCfzI7D3aQfcpgC64/TobzEK5oTmkA==
   dependencies:
-    "@balancer-labs/sor" "^4.1.1-beta.1"
-    "@balancer-labs/typechain" "^1.0.0"
+    "@balancer-labs/sor" "^4.1.1-beta.9"
     "@ethersproject/abi" "^5.4.0"
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"
@@ -1384,17 +1383,12 @@
     json-to-graphql-query "^2.2.4"
     lodash "^4.17.21"
 
-"@balancer-labs/sor@^4.1.1-beta.1":
-  version "4.1.1-beta.8"
-  resolved "https://registry.npmjs.org/@balancer-labs/sor/-/sor-4.1.1-beta.8.tgz"
-  integrity sha512-By0k3apw/8MLu7UJAsV1xj3kxp9WON8cZI3REFKfOl4xvJq+yB1qR7BHbtR0p7bYZSwUucdiPMevSAlcAXNAsA==
+"@balancer-labs/sor@^4.1.1-beta.9":
+  version "4.1.1-beta.11"
+  resolved "https://registry.yarnpkg.com/@balancer-labs/sor/-/sor-4.1.1-beta.11.tgz#7810e7c17750b39a35bf086db51de8b35223eb2e"
+  integrity sha512-Hi+lw+iy0enyrJJlOLIw0Us/xJp6zNvwVQ+zNhFzP5/hYziKpkWERkwpDVkMISfJTB1VzwPCFyVVolKbnVJMBQ==
   dependencies:
     isomorphic-fetch "^2.2.1"
-
-"@balancer-labs/typechain@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@balancer-labs/typechain/-/typechain-1.0.0.tgz"
-  integrity sha512-/fWxh4UgmHxtRt5e1anVeF8COo6FBNF28X8bd0/55SIdRDyaW7TMC7K4Jbuy58IcaERmEqi089lABlEgoeiWTQ==
 
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
