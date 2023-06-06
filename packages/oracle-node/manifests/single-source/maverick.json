@@ -1,0 +1,16 @@
+{
+  "interval": 10000,
+  "priceAggregator": "median",
+  "defaultSource": ["maverick"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "SWETH": {},
+    "ETH": { "source": ["coingecko"] }
+  }
+}
