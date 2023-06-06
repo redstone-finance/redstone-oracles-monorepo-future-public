@@ -1,6 +1,11 @@
 const DEMO_URL = "https://d33trozg86ya9x.cloudfront.net";
 
 export const REDSTONE_DATA_SERVICES_URLS: Record<string, string[]> = {
+  "redstone-primary-prod": [
+    "https://oracle-gateway-1.a.redstone.finance",
+    "https://oracle-gateway-2.a.redstone.finance",
+  ],
+  // TODO: NOT DEPLOYED YET "redstone-primary-demo": [],
   "redstone-avalanche-prod": [
     "https://oracle-gateway-1.a.redstone.finance",
     "https://oracle-gateway-2.a.redstone.finance",
