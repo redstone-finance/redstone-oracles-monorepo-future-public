@@ -2091,7 +2091,7 @@
   dependencies:
     "@ethersproject/logger" "^5.7.0"
 
-"@ethersproject/providers@5.7.2", "@ethersproject/providers@^5.4.5", "@ethersproject/providers@^5.4.7", "@ethersproject/providers@^5.5.0", "@ethersproject/providers@^5.6.8", "@ethersproject/providers@^5.7.0", "@ethersproject/providers@^5.7.1", "@ethersproject/providers@^5.7.2":
+"@ethersproject/providers@5.7.2", "@ethersproject/providers@^5.0.10", "@ethersproject/providers@^5.4.5", "@ethersproject/providers@^5.4.7", "@ethersproject/providers@^5.5.0", "@ethersproject/providers@^5.6.8", "@ethersproject/providers@^5.7.0", "@ethersproject/providers@^5.7.1", "@ethersproject/providers@^5.7.2":
   version "5.7.2"
   resolved "https://registry.npmjs.org/@ethersproject/providers/-/providers-5.7.2.tgz"
   integrity sha512-g34EWZ1WWAVgr4aptGlVBF8mhl3VWjv+8hoAnzStu8Ah22VHBsuGzP17eb6xDVRzw895G4W7vvx60lFFur/1Rg==
@@ -10264,6 +10264,14 @@ ethereum-cryptography@^1.0.3:
     "@noble/secp256k1" "1.7.1"
     "@scure/bip32" "1.1.5"
     "@scure/bip39" "1.1.1"
+
+ethereum-multicall@^2.16.1:
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/ethereum-multicall/-/ethereum-multicall-2.17.0.tgz#c56a8884f2d895a87bc90b1257653e2f131ad8a5"
+  integrity sha512-9me2vHVjzLbb9Y5xWHCSu0PDtm13SVTZyvV3y2/VAtbuMykoET5g8h/ktL4ECZ8k76cn9jnZythoQki3nJqhSA==
+  dependencies:
+    "@ethersproject/providers" "^5.0.10"
+    ethers "^5.0.15"
 
 ethereum-waffle@^3.4.4:
   version "3.4.4"
