@@ -99,14 +99,23 @@
         "binanceus",
         "binanceusdm",
         "bitcoincom",
-        "cex",
+        "bitget",
+        "bitmart",
+        "bybit",
         "coingecko",
+        "gate",
         "hitbtc",
+        "huobipro",
+        "kaiko",
         "kucoin",
+        "mexc",
         "lbank",
         "oceanex",
+        "okx",
+        "phemex",
         "poloniex",
-        "probit"
+        "probit",
+        "xt"
       ]
     },
     "DOGE": {
