@@ -1,14 +1,14 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "sourceTimeout": 50000,
+  "sourceTimeout": 20000,
   "deviationCheck": {
     "deviationWithRecentValues": {
       "maxPercent": 25,
       "maxDelayMilliseconds": 300000
     }
   },
-  "defaultSource": ["balancer-wsteth"],
+  "defaultSource": ["ethereum-evm-fetcher"],
   "tokens": {
     "BB-A-WETH": {}
   }
