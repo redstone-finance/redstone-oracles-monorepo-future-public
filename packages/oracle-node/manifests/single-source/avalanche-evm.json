@@ -32,6 +32,10 @@
     "YY_GLP": {},
     "SHLB_AVAX-USDC_B": {},
     "SHLB_BTC.b-AVAX_B": {},
-    "SHLB_USDT.e-USDt_C": {}
+    "SHLB_USDT.e-USDt_C": {},
+    "gmdUSDC": {},
+    "gmdAVAX": {},
+    "gmdBTC": {},
+    "gmdETH": {}
   }
 }
