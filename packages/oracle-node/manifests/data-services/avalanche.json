@@ -357,6 +357,18 @@
     "SOFRAI_EFFECTIVE_DATE": {
       "source": ["newyorkfed"],
       "decimals": 0
+    },
+    "gmdUSDC": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "gmdAVAX": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "gmdBTC": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "gmdETH": {
+      "source": ["avalanche-evm-fetcher"]
     }
   }
 }
