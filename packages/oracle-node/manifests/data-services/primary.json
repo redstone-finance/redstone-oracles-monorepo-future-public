@@ -80,9 +80,6 @@
       ],
       "skipSigning": true
     },
-    "WSTETH": {
-      "source": ["coingecko", "coinmarketcap"]
-    },
     "ETH": {
       "source": [
         "ascendex",
@@ -115,7 +112,7 @@
       ]
     },
     "BB-A-WETH": {
-      "source": ["coinmarketcap", "coingecko", "balancer-wsteth"]
+      "source": ["ethereum-evm-fetcher"]
     },
     "SWETH": {
       "source": [

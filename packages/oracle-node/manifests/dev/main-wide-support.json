@@ -1207,7 +1207,7 @@
       "source": ["trader-joe-on-chain-wavax", "pangolin-on-chain-wavax"]
     },
     "BB-A-WETH": {
-      "source": ["coinmarketcap", "coingecko", "balancer-wsteth"]
+      "source": ["ethereum-evm-fetcher"]
     },
     "SWETH": {
       "source": [
