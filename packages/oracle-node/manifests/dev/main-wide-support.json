@@ -1200,6 +1200,9 @@
     "SHLB_USDT.e-USDt_C": {
       "source": ["avalanche-evm-fetcher"]
     },
+    "SHLB_JOE-AVAX_B": {
+      "source": ["avalanche-evm-fetcher"]
+    },
     "USDT.e": {
       "source": ["trader-joe-on-chain-wavax", "pangolin-on-chain-wavax"]
     },
