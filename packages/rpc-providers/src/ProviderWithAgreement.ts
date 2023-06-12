@@ -8,8 +8,6 @@ import {
   ProviderWithFallbackConfig,
 } from "./ProviderWithFallback";
 
-const ERROR_GET_BLOCK_NUMBER_VALUE = -1;
-
 export interface ProviderWithAgreementConfig {
   numberOfProvidersThatHaveToAgree: number;
   getBlockNumberTimeoutMS: number;
@@ -17,6 +15,8 @@ export interface ProviderWithAgreementConfig {
   blockNumberCacheTTLInMS: number;
   electBlockFn: (blocks: number[], numberOfAgreeingNodes: number) => number;
 }
+
+const convertMsToNanoseconds = (ms: number) => BigInt(ms * 1e6);
 
 const DEFAULT_ELECT_BLOCK_FN = (blockNumbers: number[]): number => {
   const mid = Math.floor(blockNumbers.length / 2);
@@ -32,7 +32,7 @@ const defaultConfig: Omit<
   keyof ProviderWithFallbackConfig
 > = {
   numberOfProvidersThatHaveToAgree: 2,
-  getBlockNumberTimeoutMS: 1_000,
+  getBlockNumberTimeoutMS: 2_000,
   sleepBetweenBlockSync: 100,
   blockNumberCacheTTLInMS: 50,
   electBlockFn: DEFAULT_ELECT_BLOCK_FN,
@@ -40,6 +40,7 @@ const defaultConfig: Omit<
 
 export class ProviderWithAgreement extends ProviderWithFallback {
   private readonly agreementConfig: ProviderWithAgreementConfig;
+  private blockNumberCache = { value: 0, lastUpdate: 0n };
 
   constructor(
     providers: JsonRpcProvider[],
@@ -64,12 +65,16 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     }
   }
 
+  override getBlockNumber(): Promise<number> {
+    return this.electBlockNumber();
+  }
+
   override async call(
     transaction: Deferrable<TransactionRequest>,
     blockTag?: BlockTag
   ): Promise<string> {
     const electedBlockTag = utils.hexlify(
-      blockTag ?? (await this.getBlockNumber())
+      blockTag ?? (await this.electBlockNumber())
     );
     const callResult = this.executeCallWithAgreement(
       transaction,
@@ -77,6 +82,47 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     );
 
     return callResult;
+  }
+
+  private async electBlockNumber(): Promise<number> {
+    if (
+      process.hrtime.bigint() - this.blockNumberCache.lastUpdate <
+      convertMsToNanoseconds(this.agreementConfig.blockNumberCacheTTLInMS)
+    ) {
+      return this.blockNumberCache.value;
+    }
+
+    // collect block numbers
+    const blockNumbersResults = await Promise.allSettled(
+      this.providers.map((provider) =>
+        timeout(
+          provider.getBlockNumber(),
+          this.agreementConfig.getBlockNumberTimeoutMS
+        )
+      )
+    );
+
+    const blockNumbers = blockNumbersResults
+      .filter((result) => result.status === "fulfilled")
+      .map((result) => (result as PromiseFulfilledResult<number>).value);
+
+    if (blockNumbers.length === 0) {
+      throw new AggregateError(
+        "Failed to getBlockNumber from at least one provider"
+      );
+    }
+
+    const electedBlockNumber = this.agreementConfig.electBlockFn(
+      blockNumbers,
+      this.providers.length
+    );
+
+    this.blockNumberCache = {
+      value: electedBlockNumber,
+      lastUpdate: process.hrtime.bigint(),
+    };
+
+    return electedBlockNumber;
   }
 
   private executeCallWithAgreement(
@@ -89,53 +135,42 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       const results = new Map<string, number>();
       const blockPerProvider: Record<number, number> = {};
       let stop = false;
-      let handledResults = 0;
+      let finishedProvidersCount = 0;
 
       const syncProvider = async (providerIndex: number) => {
-        while (
-          blockPerProvider[providerIndex] !== ERROR_GET_BLOCK_NUMBER_VALUE &&
-          !stop &&
-          blockPerProvider[providerIndex] < electedBlockNumber
-        ) {
-          blockPerProvider[providerIndex] = await this.providers[providerIndex]
-            .getBlockNumber()
-            // if providers fails at least once we don't want to use it
-            .catch(() => ERROR_GET_BLOCK_NUMBER_VALUE);
+        while (!stop && blockPerProvider[providerIndex] < electedBlockNumber) {
+          blockPerProvider[providerIndex] = await this.providers[
+            providerIndex
+          ].getBlockNumber();
           await sleepMS(this.agreementConfig.sleepBetweenBlockSync);
         }
       };
 
       const call = async (providerIndex: number) => {
-        try {
-          const currentResult = await this.providers[providerIndex].call(
-            transaction,
-            electedBlockTag
-          );
-          const currentResultCount = results.get(currentResult);
+        const currentResult = await this.providers[providerIndex].call(
+          transaction,
+          electedBlockTag
+        );
+        const currentResultCount = results.get(currentResult);
 
-          if (currentResultCount) {
-            results.set(currentResult, currentResultCount + 1);
-            // we have found satisfying number of same responses
-            if (
-              currentResultCount + 1 >=
-              this.agreementConfig.numberOfProvidersThatHaveToAgree
-            ) {
-              stop = true;
-              resolve(currentResult);
-            }
-          } else {
-            results.set(currentResult, 1);
+        if (currentResultCount) {
+          results.set(currentResult, currentResultCount + 1);
+          // we have found satisfying number of same responses
+          if (
+            currentResultCount + 1 >=
+            this.agreementConfig.numberOfProvidersThatHaveToAgree
+          ) {
+            stop = true;
+            resolve(currentResult);
           }
-        } catch (e: any) {
-          errors.push(e);
+        } else {
+          results.set(currentResult, 1);
         }
       };
 
-      const syncThenCall = async (providerIndex: number) => {
-        await syncProvider(providerIndex);
-        await call(providerIndex);
-        handledResults++;
-        if (handledResults === this.providers.length) {
+      const handleProviderResult = () => {
+        finishedProvidersCount++;
+        if (finishedProvidersCount === this.providers.length) {
           stop = true;
           reject(
             new AggregateError(
@@ -143,6 +178,17 @@ export class ProviderWithAgreement extends ProviderWithFallback {
               `Failed to find at least ${this.agreementConfig.numberOfProvidersThatHaveToAgree} agreeing providers.`
             )
           );
+        }
+      };
+
+      const syncThenCall = async (providerIndex: number) => {
+        try {
+          await syncProvider(providerIndex);
+          await call(providerIndex);
+        } catch (e: any) {
+          errors.push(e);
+        } finally {
+          handleProviderResult();
         }
       };
 
