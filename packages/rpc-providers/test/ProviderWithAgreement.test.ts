@@ -48,6 +48,33 @@ describe("ProviderWithAgreement", () => {
     });
   });
 
+  describe("elected block number cache", () => {
+    it("should omit cache when TTL passed", async () => {
+      const providerWithAgreement = new ProviderWithAgreement(
+        [hardhat.ethers.provider, hardhat.ethers.provider],
+        { blockNumberCacheTTLInMS: 0 }
+      );
+
+      const first = await providerWithAgreement.getBlockNumber();
+      await hardhat.ethers.provider.send("evm_mine", []);
+      const second = await providerWithAgreement.getBlockNumber();
+
+      expect(first + 1).to.eq(second);
+    });
+    it("should NOT omit cache when TTL NOT passed", async () => {
+      const providerWithAgreement = new ProviderWithAgreement(
+        [hardhat.ethers.provider, hardhat.ethers.provider],
+        { blockNumberCacheTTLInMS: 5000 }
+      );
+
+      const first = await providerWithAgreement.getBlockNumber();
+      await hardhat.ethers.provider.send("evm_mine", []);
+      const second = await providerWithAgreement.getBlockNumber();
+
+      expect(first).to.eq(second);
+    });
+  });
+
   describe("with 2 same providers and 1 always failing", () => {
     let providerWithAgreement: ProviderWithAgreement;
     let counter: Counter;
@@ -169,6 +196,24 @@ describe("ProviderWithAgreement", () => {
           testCallResolutionAlgo(["2", "2", "1"], "2", 3)
         ).rejectedWith("Failed to find at least 3 agreeing providers.");
       });
+    });
+
+    it("should respect getBlockNumber timeout", async () => {
+      const firstProvider = new providers.StaticJsonRpcProvider(
+        "http://blabla.xd"
+      );
+
+      firstProvider.getBlockNumber = () =>
+        new Promise((resolve) => setTimeout(() => resolve(0), 22));
+
+      const providerWithAgreement = new ProviderWithAgreement(
+        [firstProvider, hardhat.ethers.provider],
+        { getBlockNumberTimeoutMS: 20 }
+      );
+
+      expect(await providerWithAgreement.getBlockNumber()).to.eq(
+        await hardhat.ethers.provider.getBlockNumber()
+      );
     });
 
     it("should should return 2 when results from providers are [2,2,1]", async () => {
