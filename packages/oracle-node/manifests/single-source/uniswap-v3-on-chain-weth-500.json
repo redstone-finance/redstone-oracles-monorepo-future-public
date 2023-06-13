@@ -10,8 +10,18 @@
     }
   },
   "tokens": {
-    "DAI": {},
-    "USDC": {},
-    "SWETH": {}
+    "SWETH": {},
+    "SWETH_uniswap-v3-on-chain-weth-500_BUY_10K_slippage": {
+      "skipSigning": true
+    },
+    "SWETH_uniswap-v3-on-chain-weth-500_SELL_10K_slippage": {
+      "skipSigning": true
+    },
+    "SWETH_uniswap-v3-on-chain-weth-500_BUY_100K_slippage": {
+      "skipSigning": true
+    },
+    "SWETH_uniswap-v3-on-chain-weth-500_SELL_100K_slippage": {
+      "skipSigning": true
+    }
   }
 }
