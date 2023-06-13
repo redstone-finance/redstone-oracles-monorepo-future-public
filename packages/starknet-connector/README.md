@@ -47,7 +47,7 @@ import { StarknetPricesContractConnector, StarknetContractParamsProvider } from 
 const { StarknetPricesContractConnector, StarknetContractParamsProvider } = require("@redstone-finance/starknet-connector");
 ```
 
-Then you can the contract methods described above pointing to the selected [redstone data service](https://app.redstone.finance) and requested data feeds.
+Then you can invoke the contract methods described above pointing to the selected [redstone data service](https://app.redstone.finance) and requested data feeds.
 
 ```ts
 const prices = new StarknetPricesContractConnector(account, yourContractAddress, "goerli-alpha");
