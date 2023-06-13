@@ -13,3 +13,6 @@ artifacts
 .openzeppelin/unknown-*.json
 
 hardhat-deployed-contracts.json
+
+# integration tests temporary files
+adapter-contract-address.txt

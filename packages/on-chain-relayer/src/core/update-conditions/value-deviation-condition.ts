@@ -3,6 +3,7 @@ import { DataPackagesResponse } from "redstone-sdk";
 import { config } from "../../config";
 import { ValuesForDataFeeds } from "../../types";
 import { formatUnits } from "ethers/lib/utils";
+import { BigNumber } from "ethers";
 
 const DEFAULT_DECIMALS = 8;
 
@@ -16,7 +17,7 @@ export const valueDeviationCondition = (
   for (const dataFeedId of dataFeedsIds) {
     for (const { dataPackage } of dataPackages[dataFeedId]) {
       for (const dataPoint of dataPackage.dataPoints) {
-        const valueFromContract = valuesFromContract[dataFeedId];
+        const valueFromContract = valuesFromContract[dataFeedId] ?? BigNumber.from(0);
         const dataPointObj = dataPoint.toObj() as INumericDataPoint;
         const valueFromContractAsDecimal = Number(
           formatUnits(

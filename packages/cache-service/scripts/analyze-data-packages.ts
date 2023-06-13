@@ -57,6 +57,7 @@ interface DataPackagesGroupedBySigner {
 main();
 
 async function main() {
+  mongoose.set('strictQuery', true);
   await mongoose.connect(config.mongoDbUrl);
   console.log("MongoDB connected");
   const dataPackagesBySigner = await queryDataPackagesGroupedBySigner();
