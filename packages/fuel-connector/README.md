@@ -57,7 +57,7 @@ const {FuelPricesContractConnector} = require("@redstone-finance/fuel-connector"
 const {ContractParamsProvider} = require("redstone-sdk");
 ```
 
-Then you can the contract methods described above pointing to the
+Then you can invoke the contract methods described above pointing to the
 selected [RedStone data service](https://app.redstone.finance) and requested data feeds.
 
 ```ts
