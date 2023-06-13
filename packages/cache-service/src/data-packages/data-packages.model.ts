@@ -44,4 +44,6 @@ DataPackageSchema.index({
   timestampMilliseconds: -1,
 });
 
+mongoose.set('strictQuery', true);
+
 export const DataPackage = mongoose.model("DataPackage", DataPackageSchema);
