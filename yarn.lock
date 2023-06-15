@@ -1362,12 +1362,12 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@balancer-labs/sdk@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@balancer-labs/sdk/-/sdk-1.1.0.tgz#9ec317f1d06135d0b9db2bfc354eebe1e68c8fb9"
-  integrity sha512-2EqCgue6LsCZN4sze1GuMvEDOiIGcCIhIL7Z4ED98/7MbgAi4G+YqJj1JCfzI7D3aQfcpgC64/TobzEK5oTmkA==
+"@balancer-labs/sdk@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@balancer-labs/sdk/-/sdk-1.1.1.tgz#20925ad09034041ce8d82f19c15c0a978338c3ca"
+  integrity sha512-hHuyNF2oPavl6w7AuubGdj12w5SiPyEEvi+myK/UrZG8YRjIKqf6o5cLmpCqicihuR9JEzUgx7x/d4uXtxZlWg==
   dependencies:
-    "@balancer-labs/sor" "^4.1.1-beta.9"
+    "@balancer-labs/sor" "4.1.1-beta.9"
     "@ethersproject/abi" "^5.4.0"
     "@ethersproject/abstract-signer" "^5.4.0"
     "@ethersproject/address" "^5.4.0"
@@ -1383,10 +1383,10 @@
     json-to-graphql-query "^2.2.4"
     lodash "^4.17.21"
 
-"@balancer-labs/sor@^4.1.1-beta.9":
-  version "4.1.1-beta.11"
-  resolved "https://registry.yarnpkg.com/@balancer-labs/sor/-/sor-4.1.1-beta.11.tgz#7810e7c17750b39a35bf086db51de8b35223eb2e"
-  integrity sha512-Hi+lw+iy0enyrJJlOLIw0Us/xJp6zNvwVQ+zNhFzP5/hYziKpkWERkwpDVkMISfJTB1VzwPCFyVVolKbnVJMBQ==
+"@balancer-labs/sor@4.1.1-beta.9":
+  version "4.1.1-beta.9"
+  resolved "https://registry.yarnpkg.com/@balancer-labs/sor/-/sor-4.1.1-beta.9.tgz#68ea312f57d43595a0156642b56e7713f87cf4bb"
+  integrity sha512-jwqEkjOgc9qTnuQGne/ZnG+ynx4ca4qEIgRClJVH2tCCf+pXL7jVPWv/v3I+7dJs2aCyet4uIsXwU/vi2jK+/Q==
   dependencies:
     isomorphic-fetch "^2.2.1"
 
@@ -17970,15 +17970,6 @@ redstone-sdk@1.0.7:
   version "1.0.7"
   resolved "https://registry.npmjs.org/redstone-sdk/-/redstone-sdk-1.0.7.tgz"
   integrity sha512-pjSNWLoWvaol73kJO58YHqy3VUfDN2hMTeQW4wccQAPWY2OhnM7Ody9TL8l2DxXgXMAUscuqVRHBmUNjT3Q2rw==
-  dependencies:
-    axios "^0.27.2"
-    redstone-oracles-smartweave-contracts "*"
-    redstone-protocol "*"
-
-redstone-sdk@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/redstone-sdk/-/redstone-sdk-1.3.0.tgz#4e46ad0e770e3e5e8b64d94145d8cf5e0041520a"
-  integrity sha512-e/kn5xZPL58/0i/ZEnrBylBnfnVztnlvGeeWaU47zYbAjpSc8P3mbj69h3P1OH84Ob9u3LOfB33vBlgRxYKQng==
   dependencies:
     axios "^0.27.2"
     redstone-oracles-smartweave-contracts "*"
