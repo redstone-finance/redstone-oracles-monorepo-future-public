@@ -1207,12 +1207,13 @@
       "source": ["trader-joe-on-chain-wavax", "pangolin-on-chain-wavax"]
     },
     "BB-A-WETH": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["balancer-weth"]
     },
     "SWETH": {
       "source": [
         "balancer-bb-a-weth",
         "balancer-bb-a-weth-using-eth",
+        "balancer-multi-sweth",
         "coingecko",
         "coinmarketcap",
         "maverick",
