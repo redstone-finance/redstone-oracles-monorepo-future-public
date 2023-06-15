@@ -22,7 +22,6 @@
         "btcturk",
         "cex",
         "coingecko",
-        "coinmarketcap",
         "currencycom",
         "huobipro",
         "kaiko",
@@ -45,7 +44,6 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "coinmarketcap",
         "currencycom",
         "kaiko",
         "kraken",
@@ -59,7 +57,6 @@
         "bitrue",
         "bkex",
         "coingecko",
-        "coinmarketcap",
         "lbank",
         "kaiko",
         "kucoin",
@@ -70,7 +67,6 @@
     "FRAX": {
       "source": [
         "coingecko",
-        "coinmarketcap",
         "curve-usdc-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
@@ -96,7 +92,6 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "coinmarketcap",
         "currencycom",
         "hitbtc",
         "hollaex",
@@ -111,16 +106,9 @@
         "stex"
       ]
     },
-    "BB-A-WETH": {
-      "source": ["balancer-weth"]
-    },
     "SWETH": {
       "source": [
-        "balancer-bb-a-weth",
-        "balancer-bb-a-weth-using-eth",
         "balancer-multi-sweth",
-        "coingecko",
-        "coinmarketcap",
         "maverick",
         "uniswap-v3-on-chain-weth-500"
       ]
