@@ -21,6 +21,9 @@ export const FALLBACK_DEFAULT_CONFIG: ProviderWithFallbackConfig = {
     ErrorCode.CALL_EXCEPTION,
     ErrorCode.MISSING_ARGUMENT,
     ErrorCode.MISSING_NEW,
+    ErrorCode.NONCE_EXPIRED,
+    ErrorCode.TRANSACTION_REPLACED,
+    ErrorCode.REPLACEMENT_UNDERPRICED,
   ],
 };
 
