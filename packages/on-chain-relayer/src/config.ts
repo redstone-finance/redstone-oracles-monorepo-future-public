@@ -45,6 +45,9 @@ export const config = Object.freeze({
   healthcheckPingUrl: getFromEnv("HEALTHCHECK_PING_URL", true),
   adapterContractType:
     getFromEnv("ADAPTER_CONTRACT_TYPE", true) ?? DEFAULT_ADAPTER_CONTRACT_TYPE,
+  expectedTxDeliveryTimeInMS: Number(
+    getFromEnv("EXPECTED_TX_DELIVERY_TIME_IN_MS", false)
+  ),
 });
 
 /// Config validation ///
