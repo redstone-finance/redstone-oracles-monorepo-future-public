@@ -1,0 +1,13 @@
+{
+  "network": "avalanche",
+  "minDeviationPercentage": 0.000001,
+  "maxTimeIntervalMilliseconds": 259800000,
+  "adapterContract": "0x6f2fe8F948cDf3d7e252FF6183E1cb84Cc1c0F3E",
+  "dataServiceId": "redstone-avalanche-prod",
+  "priceFeeds": {
+    "SOFR": "0xdEF67A0c85A8613D13C69F233FFc76C55dEa5603",
+    "SOFR_EFFECTIVE_DATE": "0xB543b874d365C1736983535f4Bf6d56989751fdE",
+    "SOFRAI": "0x558Da9D3550e6676f5512269B3fAB352D4Dea9D3",
+    "SOFRAI_EFFECTIVE_DATE": "0x6da16a19824Bc16831150787624AE82ac0B277Fd"
+  }
+}

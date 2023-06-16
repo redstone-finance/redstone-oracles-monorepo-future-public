@@ -1,0 +1,10 @@
+{
+  "network": "ethereum",
+  "minDeviationPercentage": 0.5,
+  "maxTimeIntervalMilliseconds": 86400000,
+  "adapterContract": "0x68ba9602B2AeE30847412109D2eE89063bf08Ec2",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "SWETH": "0x0704eEc81ea7CF98Aa4A400c65DC4ED5933bddf7"
+  }
+}
