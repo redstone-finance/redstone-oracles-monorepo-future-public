@@ -5,6 +5,7 @@ WORKDIR /app/packages/on-chain-relayer
 
 RUN yarn
 RUN yarn compile
+RUN cd ../evm-connector && yarn compile
 RUN yarn build
 
 ENV RELAYER_ITERATION_INTERVAL=600000
