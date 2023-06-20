@@ -57,14 +57,18 @@ describe("DataServiceWrapper", () => {
     });
 
     it("Should properly execute with one valid cache", async () => {
-      await runTest(contract, ["http://valid-cache.com"], "mock-data-service");
+      await runTest(
+        contract,
+        ["http://valid-cache.com"],
+        "mock-data-service-tests"
+      );
     });
 
     it("Should properly execute with one valid and one invalid cache", async () => {
       await runTest(
         contract,
         ["http://valid-cache.com", "http://invalid-cache.com"],
-        "mock-data-service"
+        "mock-data-service-tests"
       );
     });
 
@@ -72,7 +76,7 @@ describe("DataServiceWrapper", () => {
       await runTest(
         contract,
         ["http://slower-cache.com", "http://valid-cache.com"],
-        "mock-data-service"
+        "mock-data-service-tests"
       );
     });
 
@@ -80,12 +84,12 @@ describe("DataServiceWrapper", () => {
       await runTest(
         contract,
         ["http://invalid-cache.com", "http://slower-cache.com"],
-        "mock-data-service"
+        "mock-data-service-tests"
       );
     });
 
     it("Should get urls from redstone-protocol if not provided", async () => {
-      await runTest(contract, undefined, "mock-data-service");
+      await runTest(contract, undefined, "mock-data-service-tests");
     });
 
     it("Should fail if contract doesn't expose getDataServiceId and dataServiceId is not passed", async () => {
@@ -118,7 +122,7 @@ describe("DataServiceWrapper", () => {
         runTest(
           contract,
           ["http://invalid-cache.com", "http://invalid-cache.com"],
-          "mock-data-service"
+          "mock-data-service-tests"
         )
       ).to.be.rejectedWith(expectedErrorMessage);
     });
@@ -152,11 +156,15 @@ describe("DataServiceWrapper", () => {
     });
 
     it("Should work with dataServiceId passed explicit", async () => {
-      await runTest(contract, undefined, "mock-data-service");
+      await runTest(contract, undefined, "mock-data-service-tests");
     });
 
     it("Should work with dataServiceId  and urls passed explicit", async () => {
-      await runTest(contract, ["http://valid-cache.com"], "mock-data-service");
+      await runTest(
+        contract,
+        ["http://valid-cache.com"],
+        "mock-data-service-tests"
+      );
     });
   });
 });

@@ -39,16 +39,12 @@ import { config } from "../../src/config";
   }
 
   console.log("Updating data feeds values...");
-  const { dataServiceId, uniqueSignersCount, cacheServiceUrls, gasLimit } =
-    config;
-  const dataPackages = await requestDataPackages(
-    {
-      dataServiceId,
-      uniqueSignersCount,
-      dataFeeds,
-    },
-    cacheServiceUrls
-  );
+  const { dataServiceId, uniqueSignersCount, gasLimit } = config;
+  const dataPackages = await requestDataPackages({
+    dataServiceId,
+    uniqueSignersCount,
+    dataFeeds,
+  });
 
   if (adapterContract) {
     const wrappedContract =

@@ -31,6 +31,11 @@ trap 'stopAll' EXIT
 
 
 main() {
+  cd ../evm-connector
+  lazilyInstallNPMDeps
+  yarn compile
+  lazilyBuildTypescript
+
   cd ../cache-service
   installAndBuild
 
