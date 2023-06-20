@@ -25,11 +25,12 @@ describe("should-update", () => {
       lastUpdateTimestamp,
     });
     expect(shouldUpdatePrices).to.be.false;
-    expect(warningMessage).to.be.equal(
-      JSON.stringify([
-        "Not enough time has passed to update prices",
-        "Value has not deviated enough to be updated",
-      ])
+    expect(JSON.parse(warningMessage)[0]).to.match(
+      /Not enough time has passed to update prices/
+    );
+
+    expect(JSON.parse(warningMessage)[1]).to.match(
+      /Value has not deviated enough to/
     );
   });
 
@@ -46,8 +47,8 @@ describe("should-update", () => {
       lastUpdateTimestamp,
     });
     expect(shouldUpdatePrices).to.be.true;
-    expect(warningMessage).to.be.equal(
-      `["Not enough time has passed to update prices"]`
+    expect(JSON.parse(warningMessage)).to.match(
+      /Not enough time has passed to update prices/
     );
   });
 
@@ -64,8 +65,8 @@ describe("should-update", () => {
       lastUpdateTimestamp,
     });
     expect(shouldUpdatePrices).to.be.true;
-    expect(warningMessage).to.be.equal(
-      `["Value has not deviated enough to be updated"]`
+    expect(JSON.parse(warningMessage)).to.match(
+      /Value has not deviated enough to be updated/
     );
   });
 
@@ -86,8 +87,8 @@ describe("should-update", () => {
       valuesFromContract: sameValue,
       lastUpdateTimestamp,
     });
-    expect(warningMessage).to.be.equal(
-      `["Value has not deviated enough to be updated"]`
+    expect(warningMessage).to.match(
+      /Value has not deviated enough to be updated/
     );
   });
 
@@ -106,6 +107,6 @@ describe("should-update", () => {
       valuesFromContract: sameValue,
       lastUpdateTimestamp,
     });
-    expect(warningMessage).to.be.equal(`[]`);
+    expect(warningMessage).to.match(/Enough time passed to updated price/);
   });
 });
