@@ -15,7 +15,8 @@ export const REDSTONE_DATA_SERVICES_URLS: Record<string, string[]> = {
   "redstone-rapid-demo": [DEMO_URL],
   "redstone-stocks-demo": [DEMO_URL],
   "redstone-twaps-demo": [DEMO_URL],
-  "mock-data-service": ["http://valid-cache.com"],
+  "mock-data-service": ["http://localhost:3000"],
+  "mock-data-service-tests": ["http://valid-cache.com"],
 };
 
 export const resolveDataServiceUrls = (dataServiceId: string): string[] => {
