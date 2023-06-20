@@ -15,6 +15,13 @@ export const shouldUpdate = (context: Context): ConditionCheckResponse => {
       warningMessages.push(conditionCheck.warningMessage);
     }
   }
+
+  console.log(
+    `Update condition ${
+      shouldUpdatePrices ? "" : "NOT"
+    } satisfied: ${warningMessages.join("; ")}`
+  );
+
   return {
     shouldUpdatePrices,
     warningMessage: JSON.stringify(warningMessages),

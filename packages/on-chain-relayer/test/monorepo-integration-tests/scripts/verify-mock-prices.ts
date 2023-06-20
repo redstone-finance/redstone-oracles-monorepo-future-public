@@ -10,7 +10,7 @@ import { PriceFeedsAdapterWithoutRounds } from "../../../typechain-types";
   );
   const contract: PriceFeedsAdapterWithoutRounds = ContractFactory.attach(
     process.env.ADAPTER_CONTRACT_ADDRESS ?? ""
-  );
+  ) as PriceFeedsAdapterWithoutRounds;
 
   console.log("adapter contract address", process.env.ADAPTER_CONTRACT_ADDRESS);
 

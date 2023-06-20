@@ -38,14 +38,13 @@ const runIteration = async () => {
     valuesToCompare: valuesFromContract,
   });
 
-  const { shouldUpdatePrices, warningMessage } = shouldUpdate({
+  const { shouldUpdatePrices } = shouldUpdate({
     dataPackages,
     valuesFromContract,
     lastUpdateTimestamp,
   });
 
   if (!shouldUpdatePrices) {
-    console.log(`All conditions are not fulfilled: ${warningMessage}`);
   } else {
     await updatePrices(dataPackages, adapterContract, lastUpdateTimestamp);
   }
@@ -61,7 +60,8 @@ const task = new AsyncTask(
 
 const job = new SimpleIntervalJob(
   { milliseconds: relayerIterationInterval, runImmediately: true },
-  task
+  task,
+  { preventOverrun: true }
 );
 
 const scheduler = new ToadScheduler();
