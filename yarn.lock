@@ -1445,7 +1445,7 @@
     near-api-js "^0.44.2"
     near-seed-phrase "^0.2.0"
 
-"@chainlink/contracts@^0.6.0", "@chainlink/contracts@^0.6.1":
+"@chainlink/contracts@^0.6.1":
   version "0.6.1"
   resolved "https://registry.npmjs.org/@chainlink/contracts/-/contracts-0.6.1.tgz"
   integrity sha512-EuwijGexttw0UjfrW+HygwhQIrGAbqpf1ue28R55HhWMHBzphEH0PhWm8DQmFfj5OZNy8Io66N4L0nStkZ3QKQ==
@@ -4562,18 +4562,6 @@
   dependencies:
     "@randlabs/communication-bridge" "1.0.1"
 
-"@redstone-finance/evm-connector@^0.0.19":
-  version "0.0.19"
-  resolved "https://registry.npmjs.org/@redstone-finance/evm-connector/-/evm-connector-0.0.19.tgz"
-  integrity sha512-wkwOT0rfvVEkLL5Y58EyPZBT0GBl7Kqt1s/b2609sOzQLohobFc9bU8wWhTbq6KMo3L03pqoYLwR4g0+uhUzSg==
-  dependencies:
-    "@chainlink/contracts" "^0.6.0"
-    "@openzeppelin/contracts" "^4.7.3"
-    axios "^1.1.3"
-    ethers "^5.6.8"
-    redstone-protocol "1.0.5"
-    redstone-sdk "1.0.7"
-
 "@resolver-engine/core@^0.3.3":
   version "0.3.3"
   resolved "https://registry.npmjs.org/@resolver-engine/core/-/core-0.3.3.tgz"
@@ -6782,18 +6770,9 @@ axios@^0.27.2:
     follow-redirects "^1.14.9"
     form-data "^4.0.0"
 
-axios@^1.1.3:
+axios@^1.1.3, axios@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/axios/-/axios-1.4.0.tgz"
-  integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
-  dependencies:
-    follow-redirects "^1.15.0"
-    form-data "^4.0.0"
-    proxy-from-env "^1.1.0"
-
-axios@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
   integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
   dependencies:
     follow-redirects "^1.15.0"
@@ -17974,15 +17953,6 @@ redstone-prettier-config@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/redstone-prettier-config/-/redstone-prettier-config-1.0.0.tgz"
   integrity sha512-39BBmwrw+5L4MgV1TLGAlIwmRFvAzZ4iq8xshHdBhiiAgl0J6PeIYrkUkU5l6nMIilua4zkWoEz+58enT0pbhw==
-
-redstone-sdk@1.0.7:
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/redstone-sdk/-/redstone-sdk-1.0.7.tgz"
-  integrity sha512-pjSNWLoWvaol73kJO58YHqy3VUfDN2hMTeQW4wccQAPWY2OhnM7Ody9TL8l2DxXgXMAUscuqVRHBmUNjT3Q2rw==
-  dependencies:
-    axios "^0.27.2"
-    redstone-oracles-smartweave-contracts "*"
-    redstone-protocol "*"
 
 reduce-flatten@^2.0.0:
   version "2.0.0"

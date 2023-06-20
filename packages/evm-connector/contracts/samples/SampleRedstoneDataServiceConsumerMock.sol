@@ -6,6 +6,6 @@ import "./SampleRedstoneConsumerNumericMockManyDataFeeds.sol";
 
 contract SampleRedstoneDataServiceConsumerMock is SampleRedstoneConsumerNumericMockManyDataFeeds {
   function getDataServiceId() public view virtual override returns (string memory) {
-    return "mock-data-service";
+    return "mock-data-service-tests";
   }
 }
