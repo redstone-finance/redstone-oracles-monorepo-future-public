@@ -1,9 +1,4 @@
-import { BigNumber } from "ethers";
-import { DataPackagesResponse } from "redstone-sdk";
-
-export interface ValuesForDataFeeds {
-  [dataFeedId: string]: BigNumber;
-}
+import { DataPackagesResponse, ValuesForDataFeeds } from "redstone-sdk";
 
 export interface Context {
   dataPackages: DataPackagesResponse;

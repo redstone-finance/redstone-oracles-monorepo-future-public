@@ -1,7 +1,9 @@
 import axios from "axios";
+import { BigNumber, utils } from "ethers";
 import { RedstoneOraclesState } from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/types";
 import redstoneOraclesInitialState from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/initial-state.json";
 import {
+  INumericDataPoint,
   RedstonePayload,
   SignedDataPackage,
   SignedDataPackagePlainObj,
@@ -9,6 +11,7 @@ import {
 import { resolveDataServiceUrls } from "./data-services-urls";
 
 const ALL_FEEDS_KEY = "___ALL_FEEDS___";
+const DEFAULT_DECIMALS = 8;
 
 export interface DataPackagesRequestParams {
   dataServiceId: string;
@@ -16,10 +19,15 @@ export interface DataPackagesRequestParams {
   dataFeeds?: string[];
   disablePayloadsDryRun?: boolean;
   urls?: string[];
+  valuesToCompare?: ValuesForDataFeeds;
 }
 
 export interface DataPackagesResponse {
   [dataFeedId: string]: SignedDataPackage[];
+}
+
+export interface ValuesForDataFeeds {
+  [dataFeedId: string]: BigNumber;
 }
 
 export const getOracleRegistryState =
@@ -66,8 +74,13 @@ export const parseDataPackagesResponse = (
       );
     }
 
-    parsedResponse[dataFeedId] = dataFeedPackages
-      .sort((a, b) => b.timestampMilliseconds - a.timestampMilliseconds) // we prefer newer data packages in the first order
+    const dataFeedPackagesSorted = getDataPackagesSortedByDeviation(
+      dataFeedPackages,
+      reqParams.valuesToCompare,
+      dataFeedId
+    );
+
+    parsedResponse[dataFeedId] = dataFeedPackagesSorted
       .slice(0, reqParams.uniqueSignersCount)
       .map((dataPackage: SignedDataPackagePlainObj) =>
         SignedDataPackage.fromObj(dataPackage)
@@ -75,6 +88,51 @@ export const parseDataPackagesResponse = (
   }
 
   return parsedResponse;
+};
+
+const getDataPackagesSortedByDeviation = (
+  dataFeedPackages: SignedDataPackagePlainObj[],
+  valuesToCompare: ValuesForDataFeeds | undefined,
+  dataFeedId: string
+) => {
+  if (!valuesToCompare) {
+    return dataFeedPackages;
+  }
+
+  if (dataFeedId === ALL_FEEDS_KEY) {
+    throw new Error(
+      `Cannot sort data packages by deviation for ${ALL_FEEDS_KEY}`
+    );
+  }
+
+  if (!valuesToCompare[dataFeedId]) {
+    return dataFeedPackages;
+  }
+
+  const decimals =
+    getDecimalsForDataFeedId(dataFeedPackages) ?? DEFAULT_DECIMALS;
+  const valueToCompare = Number(
+    utils.formatUnits(valuesToCompare[dataFeedId], decimals)
+  );
+
+  return sortDataPackagesByDeviationDesc(dataFeedPackages, valueToCompare);
+};
+
+export const getDecimalsForDataFeedId = (
+  dataPackages: SignedDataPackagePlainObj[]
+) => {
+  const firstDecimal = (dataPackages[0].dataPoints[0] as INumericDataPoint)
+    .decimals;
+  const areAllDecimalsEqual = dataPackages.every((dataPackage) =>
+    dataPackage.dataPoints.every(
+      (dataPoint) => (dataPoint as INumericDataPoint).decimals === firstDecimal
+    )
+  );
+
+  if (!areAllDecimalsEqual) {
+    throw new Error("Decimals from data points in data packages are not equal");
+  }
+  return firstDecimal;
 };
 
 const errToString = (e: any): string => {
@@ -132,12 +190,33 @@ export const getUrlsForDataServiceId = (
   return resolveDataServiceUrls(reqParams.dataServiceId);
 };
 
+const sortDataPackagesByDeviationDesc = (
+  dataPackages: SignedDataPackagePlainObj[],
+  valueToCompare: number
+) =>
+  dataPackages.sort((leftDataPackage, rightDataPackage) => {
+    const leftValue = Number(leftDataPackage.dataPoints[0].value);
+    const leftValueDeviation = calculateDeviation(leftValue, valueToCompare);
+    const rightValue = Number(rightDataPackage.dataPoints[0].value);
+    const rightValueDeviation = calculateDeviation(rightValue, valueToCompare);
+    return rightValueDeviation - leftValueDeviation;
+  });
+
+const calculateDeviation = (value: number, valueToCompare: number) => {
+  if (valueToCompare === 0) {
+    return Number.MAX_SAFE_INTEGER;
+  }
+  const pricesDiff = Math.abs(valueToCompare - value);
+  return (pricesDiff * 100) / valueToCompare;
+};
+
 export default {
   getOracleRegistryState,
   requestDataPackages,
   getDataServiceIdForSigner,
   requestRedstonePayload,
   resolveDataServiceUrls,
+  getDecimalsForDataFeedId,
 };
 export * from "./data-services-urls";
 export * from "./contracts/ContractParamsProvider";

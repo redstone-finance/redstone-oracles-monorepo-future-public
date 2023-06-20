@@ -1,11 +1,11 @@
 import { expect } from "chai";
+import { ValuesForDataFeeds } from "redstone-sdk";
 import { valueDeviationCondition } from "../../src/core/update-conditions/value-deviation-condition";
 import {
   createNumberFromContract,
   getDataPackagesResponse,
   mockEnvVariables,
 } from "../helpers";
-import { ValuesForDataFeeds } from "../../src/types";
 
 describe("value-deviation-condition", () => {
   before(() => {

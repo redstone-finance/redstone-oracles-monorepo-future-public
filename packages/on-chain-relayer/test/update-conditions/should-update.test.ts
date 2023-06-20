@@ -1,11 +1,11 @@
 import { expect } from "chai";
+import { ValuesForDataFeeds } from "redstone-sdk";
 import { shouldUpdate } from "../../src/core/update-conditions/should-update";
 import {
   createNumberFromContract,
   getDataPackagesResponse,
   mockEnvVariables,
 } from "../helpers";
-import { ValuesForDataFeeds } from "../../src/types";
 
 describe("should-update", () => {
   before(() => {

@@ -4,16 +4,15 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && tsc -build",
+    "build": "rm -rf dist && tsc --build",
     "start": "node dist/src/run-relayer.js",
     "start:dev": "ts-node src/run-relayer.ts",
     "compile": "hardhat compile",
     "run-script": "hardhat run",
     "start-node": "hardhat node",
-    "test": " NODE_ENV=test hardhat test"
+    "test": "NODE_ENV=test hardhat test"
   },
   "dependencies": {
-    "@redstone-finance/evm-connector": "^0.0.19",
     "dotenv": "^16.0.3",
     "ethers": "^5.6.8",
     "toad-scheduler": "^2.2.0"

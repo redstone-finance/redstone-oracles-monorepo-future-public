@@ -27,6 +27,9 @@
   "files": ["./hardhat.config.ts"],
   "references": [
     {
+      "path": "../evm-connector"
+    },
+    {
       "path": "../protocol"
     },
     {
