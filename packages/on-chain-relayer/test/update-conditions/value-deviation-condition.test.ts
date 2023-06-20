@@ -23,8 +23,8 @@ describe("value-deviation-condition", () => {
       smallerValueDiff
     );
     expect(shouldUpdatePrices).to.be.false;
-    expect(warningMessage).to.be.equal(
-      "Value has not deviated enough to be updated"
+    expect(warningMessage).to.match(
+      /Value has not deviated enough to be updated/
     );
   });
 
@@ -39,6 +39,6 @@ describe("value-deviation-condition", () => {
       biggerValueDiff
     );
     expect(shouldUpdatePrices).to.be.true;
-    expect(warningMessage).to.be.equal("");
+    expect(warningMessage).to.match(/Value has deviated enough to be/);
   });
 });

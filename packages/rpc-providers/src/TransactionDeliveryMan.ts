@@ -195,7 +195,7 @@ export class TransactionDeliveryMan {
 
     const fee = await gasOracle();
 
-    this.opts.logger(`getFees result ${JSON.stringify(fee, null, 2)}`);
+    this.opts.logger(`getFees result ${JSON.stringify(fee)}`);
 
     return fee;
   }
@@ -215,7 +215,7 @@ export class TransactionDeliveryMan {
 
     const fee = { maxFeePerGas, maxPriorityFeePerGas };
 
-    this.opts.logger(`getFees result ${JSON.stringify(fee, null, 2)}`);
+    this.opts.logger(`getFees result ${JSON.stringify(fee)}`);
 
     return fee;
   }
