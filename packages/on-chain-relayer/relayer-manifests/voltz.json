@@ -1,7 +1,7 @@
 {
   "network": "avalanche",
   "minDeviationPercentage": 0.000001,
-  "maxTimeIntervalMilliseconds": 259800000,
+  "maxTimeIntervalMilliseconds": 475200000,
   "adapterContract": "0x6f2fe8F948cDf3d7e252FF6183E1cb84Cc1c0F3E",
   "dataServiceId": "redstone-avalanche-prod",
   "priceFeeds": {
