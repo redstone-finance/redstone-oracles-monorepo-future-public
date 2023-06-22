@@ -372,6 +372,21 @@
     },
     "gmdETH": {
       "source": ["avalanche-evm-fetcher"]
+    },
+    "EUROC": {
+      "source": [
+        "bitmart",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "huobipro",
+        "trader-joe-v2-on-chain-usdc",
+        "uniswap-v3-on-chain-usdc-500"
+      ]
+    },
+    "SHLB_EUROC-USDC_V2_1_B": {
+      "source": ["avalanche-evm-fetcher"]
     }
   }
 }

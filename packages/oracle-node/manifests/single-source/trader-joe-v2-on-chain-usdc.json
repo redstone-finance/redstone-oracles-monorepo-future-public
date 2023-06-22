@@ -1,7 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["bitmart"],
+  "defaultSource": ["trader-joe-v2-on-chain-usdc"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,7 +10,6 @@
     }
   },
   "tokens": {
-    "BNB": {},
     "EUROC": {}
   }
 }
