@@ -15,8 +15,8 @@ import {
   BulkPostRequestBody,
   DataPackagesResponse,
   DataPackagesStatsResponse,
-} from "./data-packages.controller";
-import { ReceivedDataPackage } from "./data-packages.interface";
+  ReceivedDataPackage,
+} from "./data-packages.interface";
 import { CachedDataPackage, DataPackage } from "./data-packages.model";
 import { makePayload } from "../utils/make-redstone-payload";
 import { getOracleState } from "../utils/get-oracle-state";
