@@ -1,5 +1,13 @@
 import { ethers } from "ethers";
+import { joinSignature } from "ethers/lib/utils";
 import { RedstoneOraclesState } from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/types";
+import {
+  DataPackage,
+  DataPoint,
+  INumericDataPoint,
+  NumericDataPoint,
+} from "redstone-protocol";
+import { NumberLike } from "redstone-protocol/src/common/utils";
 
 export const MOCK_PRIVATE_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
@@ -39,13 +47,19 @@ export const mockOracleRegistryState: RedstoneOraclesState = {
 export const MOCK_SIGNATURE =
   "I3VOkm58RvyLIxSNqBDiAaGrRiCKCgF4kTHooTlCg18yR74gJJRsFbn2Ws4CrdUMDb/on141amtAg0X5SzTggBs=";
 
+export const produceMockDataPackage = (
+  dataPoints: DataPoint[],
+  timestamp = 1654353400000,
+  privateKey = MOCK_PRIVATE_KEY
+) => {
+  const dataPackage = new DataPackage(dataPoints, timestamp).sign(privateKey);
+
+  return dataPackage.toObj();
+};
+
 export const mockDataPackages = [
-  {
-    timestampMilliseconds: 1654353400000,
-    signature: MOCK_SIGNATURE,
-    dataPoints: [
-      { dataFeedId: "mock-data-feed-id-1", value: 42 },
-      { dataFeedId: "mock-data-feed-id-2", value: 123 },
-    ],
-  },
+  produceMockDataPackage([
+    new NumericDataPoint({ dataFeedId: "mock-data-feed-id-1", value: 42 }),
+    new NumericDataPoint({ dataFeedId: "mock-data-feed-id-2", value: 123 }),
+  ]),
 ];

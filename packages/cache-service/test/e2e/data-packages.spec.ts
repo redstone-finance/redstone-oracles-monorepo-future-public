@@ -1,9 +1,19 @@
 import "../common/set-test-envs";
-import { signByMockSigner } from "../common/test-utils";
-import { Test, TestingModule } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
+import { ethers } from "ethers";
+import { base64 } from "ethers/lib/utils";
+import { DataPoint } from "redstone-protocol";
+import { RedstonePayloadParser } from "redstone-protocol/dist/src/redstone-payload/RedstonePayloadParser";
 import * as request from "supertest";
 import { AppModule } from "../../src/app.module";
+import { BundlrService } from "../../src/bundlr/bundlr.service";
+import { ResponseFormat } from "../../src/data-packages/data-packages.controller";
+import {
+  CachedDataPackage,
+  DataPackage,
+} from "../../src/data-packages/data-packages.model";
+import { ALL_FEEDS_KEY } from "../../src/data-packages/data-packages.service";
 import {
   MOCK_DATA_SERVICE_ID,
   MOCK_SIGNATURE,
@@ -11,18 +21,10 @@ import {
   mockDataPackages,
   mockOracleRegistryState,
   mockSigner,
+  produceMockDataPackage,
 } from "../common/mock-values";
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
-import {
-  CachedDataPackage,
-  DataPackage,
-} from "../../src/data-packages/data-packages.model";
-import { BundlrService } from "../../src/bundlr/bundlr.service";
-import { ALL_FEEDS_KEY } from "../../src/data-packages/data-packages.service";
-import { RedstonePayloadParser } from "redstone-protocol/dist/src/redstone-payload/RedstonePayloadParser";
-import { ethers } from "ethers";
-import { ResponseFormat } from "../../src/data-packages/data-packages.controller";
-import { base64 } from "ethers/lib/utils";
+import { signByMockSigner } from "../common/test-utils";
 
 jest.mock("redstone-sdk", () => ({
   __esModule: true,
@@ -32,13 +34,14 @@ jest.mock("redstone-sdk", () => ({
 
 const dataFeedIds = [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"];
 
-const expectedDataPackages = mockDataPackages.map((dataPackage) => ({
-  ...dataPackage,
-  signerAddress: mockSigner.address,
-  dataServiceId: MOCK_DATA_SERVICE_ID,
-  isSignatureValid: true,
-  dataFeedId: ALL_FEEDS_KEY,
-}));
+const getExpectedDataPackagesInDB = (dataPackages = mockDataPackages) =>
+  dataPackages.map((dataPackage) => ({
+    ...dataPackage,
+    signerAddress: mockSigner.address,
+    dataServiceId: MOCK_DATA_SERVICE_ID,
+    isSignatureValid: true,
+    dataFeedId: ALL_FEEDS_KEY,
+  }));
 
 const mockSigners = [MOCK_SIGNER_ADDRESS, "0x2", "0x3", "0x4", "0x5"];
 
@@ -48,7 +51,6 @@ describe("Data packages (e2e)", () => {
     Promise<void>,
     [dataPackages: CachedDataPackage[]]
   >;
-
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -98,6 +100,33 @@ describe("Data packages (e2e)", () => {
 
   afterEach(async () => await dropTestDatabase());
 
+  it("/data-packages/bulk (POST) - should accept data packages where prices are strings", async () => {
+    const dataPackagesToSent = [
+      produceMockDataPackage([
+        new DataPoint("BTC", Buffer.from("3000", "utf-8")),
+        new DataPoint("ETH", Buffer.from("1000", "utf-8")),
+      ]),
+    ];
+    const requestSignature = signByMockSigner(dataPackagesToSent);
+
+    await request(httpServer)
+      .post("/data-packages/bulk")
+      .send({ requestSignature, dataPackages: dataPackagesToSent })
+      .expect(201);
+
+    const dataPackagesInDB = await DataPackage.find().sort({
+      dataFeedId: 1,
+    });
+    const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { _id, __v, ...rest } = dp.toJSON() as any;
+      return rest;
+    });
+    expect(dataPackagesInDBCleaned).toEqual(
+      expect.arrayContaining(getExpectedDataPackagesInDB(dataPackagesToSent))
+    );
+  });
+
   it("/data-packages/bulk (POST) - should save data to DB", async () => {
     const requestSignature = signByMockSigner(mockDataPackages);
     await request(httpServer)
@@ -117,7 +146,7 @@ describe("Data packages (e2e)", () => {
       return rest;
     });
     expect(dataPackagesInDBCleaned).toEqual(
-      expect.arrayContaining(expectedDataPackages)
+      expect.arrayContaining(getExpectedDataPackagesInDB())
     );
   });
 
@@ -134,7 +163,7 @@ describe("Data packages (e2e)", () => {
     // Should have been saved in Arweave
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledTimes(1);
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledWith(
-      expectedDataPackages
+      getExpectedDataPackagesInDB()
     );
   });
 
@@ -160,7 +189,7 @@ describe("Data packages (e2e)", () => {
       return rest;
     });
     expect(dataPackagesInDBCleaned).toEqual(
-      expect.arrayContaining(expectedDataPackages)
+      expect.arrayContaining(getExpectedDataPackagesInDB())
     );
   });
 
@@ -180,7 +209,7 @@ describe("Data packages (e2e)", () => {
 
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledTimes(1);
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledWith(
-      expectedDataPackages
+      getExpectedDataPackagesInDB()
     );
   });
 
