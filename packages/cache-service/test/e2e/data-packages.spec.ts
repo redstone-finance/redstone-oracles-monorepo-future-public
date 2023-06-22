@@ -8,7 +8,6 @@ import { RedstonePayloadParser } from "redstone-protocol/dist/src/redstone-paylo
 import * as request from "supertest";
 import { AppModule } from "../../src/app.module";
 import { BundlrService } from "../../src/bundlr/bundlr.service";
-import { ResponseFormat } from "../../src/data-packages/data-packages.controller";
 import {
   CachedDataPackage,
   DataPackage,
@@ -25,6 +24,7 @@ import {
 } from "../common/mock-values";
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
 import { signByMockSigner } from "../common/test-utils";
+import { ResponseFormat } from "../../src/data-packages/data-packages.interface";
 
 jest.mock("redstone-sdk", () => ({
   __esModule: true,
@@ -485,11 +485,16 @@ describe("Data packages (e2e)", () => {
   });
 
   it("/data-packages/stats (GET) - should fail for an invalid api key", async () => {
-    await request(httpServer).get("/data-packages/stats").expect(401);
     await request(httpServer)
+      .get("/data-packages/stats")
+      .send({ "from-timestamp": "1", "api-key": "2" })
+      .expect(400);
+
+    const response = await request(httpServer)
       .get("/data-packages/stats")
       .query({
         "api-key": "invalid-api-key",
+        "from-timestamp": "10",
       })
       .expect(401);
   });
