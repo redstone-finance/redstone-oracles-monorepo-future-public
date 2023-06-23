@@ -388,6 +388,24 @@
     },
     "TJ_AVAX_USDC_AUTO": {
       "source": ["avalanche-evm-fetcher"]
+    },
+    "CRV": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bitget",
+        "bybit",
+        "coinbaseprime",
+        "coinbasepro",
+        "okx",
+        "xt",
+        "huobipro",
+        "kucoin",
+        "gate"
+      ]
+    },
+    "crvUSDBTCETH": {
+      "source": ["avalanche-evm-fetcher"]
     }
   }
 }
