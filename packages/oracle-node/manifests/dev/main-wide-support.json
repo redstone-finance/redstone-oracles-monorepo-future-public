@@ -39,8 +39,7 @@
         "oceanex",
         "okx",
         "poloniex",
-        "probit",
-        "stex"
+        "probit"
       ]
     },
     "BTC": {
@@ -71,8 +70,7 @@
         "oceanex",
         "okx",
         "poloniex",
-        "probit",
-        "stex"
+        "probit"
       ]
     },
     "USDT": {
@@ -162,8 +160,7 @@
         "oceanex",
         "okx",
         "poloniex",
-        "probit",
-        "stex"
+        "probit"
       ]
     },
     "ADA": {
@@ -379,8 +376,7 @@
         "oceanex",
         "okx",
         "poloniex",
-        "probit",
-        "stex"
+        "probit"
       ]
     },
     "AVAX": {

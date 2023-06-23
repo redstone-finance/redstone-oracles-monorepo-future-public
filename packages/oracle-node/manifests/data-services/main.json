@@ -40,8 +40,7 @@
         "oceanex",
         "okx",
         "poloniex",
-        "probit",
-        "stex"
+        "probit"
       ]
     },
     "BTC": {
@@ -72,8 +71,7 @@
         "oceanex",
         "okx",
         "poloniex",
-        "probit",
-        "stex"
+        "probit"
       ]
     },
     "USDT": {
@@ -162,8 +160,7 @@
         "oceanex",
         "okx",
         "poloniex",
-        "probit",
-        "stex"
+        "probit"
       ]
     },
     "ADA": {
@@ -379,8 +376,7 @@
         "oceanex",
         "okx",
         "poloniex",
-        "probit",
-        "stex"
+        "probit"
       ]
     },
     "AVAX": {
@@ -883,9 +879,6 @@
     },
     "EUR": {
       "source": ["binance", "currencycom", "kaiko", "kraken"]
-    },
-    "BVOL": {
-      "source": ["ascendex", "poloniex"]
     },
     "ARDRIVE": {
       "source": ["permaswap"]
@@ -1554,9 +1547,6 @@
     "ETHBULL": {
       "source": ["poloniex"]
     },
-    "EOSBEAR": {
-      "source": ["poloniex"]
-    },
     "ADABULL": {
       "source": ["poloniex"]
     },
@@ -1581,16 +1571,7 @@
     "BSVBEAR": {
       "source": ["poloniex"]
     },
-    "BSVBULL": {
-      "source": ["poloniex"]
-    },
     "IBVOL": {
-      "source": ["poloniex"]
-    },
-    "LTCBEAR": {
-      "source": ["poloniex"]
-    },
-    "LTCBULL": {
       "source": ["poloniex"]
     },
     "TRXBULL": {
