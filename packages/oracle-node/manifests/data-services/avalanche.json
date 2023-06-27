@@ -406,6 +406,9 @@
     },
     "crvUSDBTCETH": {
       "source": ["avalanche-evm-fetcher"]
+    },
+    "IB01.L": {
+      "source": ["twelve-data-etf-uk"]
     }
   }
 }
