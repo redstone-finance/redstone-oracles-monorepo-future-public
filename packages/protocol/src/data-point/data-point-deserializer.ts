@@ -14,7 +14,8 @@ export const deserializeDataPointFromObj = (
   } else {
     return new DataPoint(
       plainObject.dataFeedId,
-      base64.decode(plainObject.value)
+      base64.decode(plainObject.value),
+      plainObject.metadata
     );
   }
 };
