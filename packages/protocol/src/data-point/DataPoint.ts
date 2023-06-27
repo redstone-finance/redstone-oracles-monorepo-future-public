@@ -7,16 +7,17 @@ import { IStringDataPoint } from "./StringDataPoint";
 export interface IStandardDataPoint {
   dataFeedId: ConvertibleToBytes32;
   value: string; // base64-encoded bytes
+  metadata?: Metadata;
 }
-export type DataPointPlainObj =
-  | INumericDataPoint
-  | IStandardDataPoint
-  | IStringDataPoint;
+export type DataPointPlainObj = IStandardDataPoint | INumericDataPoint;
+
+export type Metadata = Record<string, any>;
 
 export class DataPoint extends Serializable {
   constructor(
     public readonly dataFeedId: ConvertibleToBytes32,
-    public readonly value: Uint8Array
+    public readonly value: Uint8Array,
+    protected readonly metadata?: Metadata
   ) {
     super();
   }
@@ -29,6 +30,7 @@ export class DataPoint extends Serializable {
     return {
       dataFeedId: this.dataFeedId,
       value: base64.encode(this.value),
+      metadata: this.metadata,
     };
   }
 
