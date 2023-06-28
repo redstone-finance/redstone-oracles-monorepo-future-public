@@ -63,3 +63,76 @@ export const mockDataPackages = [
     new NumericDataPoint({ dataFeedId: "mock-data-feed-id-2", value: 123 }),
   ]),
 ];
+
+export const mockDataPackagesForUniqueSigners = [
+  {
+    ...mockDataPackages[0],
+    isSignatureValid: true,
+    dataFeedId: "BTC",
+    dataServiceId: "mock-data-service-1",
+    signerAddress: "0x2",
+  },
+  {
+    ...mockDataPackages[0],
+    isSignatureValid: true,
+    dataFeedId: "BTC",
+    dataServiceId: "mock-data-service-1",
+    signerAddress: "0x3",
+  },
+  {
+    ...mockDataPackages[0],
+    isSignatureValid: true,
+    dataFeedId: "BTC",
+    dataServiceId: "mock-data-service-1",
+    signerAddress: "0x3",
+  },
+  {
+    ...mockDataPackages[0],
+    isSignatureValid: true,
+    dataFeedId: "BTC",
+    dataServiceId: "mock-data-service-1",
+    signerAddress: "0x3",
+  },
+  {
+    ...mockDataPackages[0],
+    isSignatureValid: true,
+    dataFeedId: "ETH",
+    dataServiceId: "mock-data-service-1",
+    signerAddress: "0x2",
+  },
+  {
+    ...mockDataPackages[0],
+    isSignatureValid: true,
+    dataFeedId: "ETH",
+    dataServiceId: "mock-data-service-1",
+    signerAddress: "0x2",
+  },
+  {
+    ...mockDataPackages[0],
+    isSignatureValid: true,
+    dataFeedId: "ETH",
+    dataServiceId: "mock-data-service-1",
+    signerAddress: "0x5",
+  },
+  {
+    ...mockDataPackages[0],
+    isSignatureValid: true,
+    dataFeedId: "___ALL_FEEDS___",
+    dataServiceId: "mock-data-service-1",
+    signerAddress: "0x4",
+  },
+  {
+    ...mockDataPackages[0],
+    isSignatureValid: true,
+    dataFeedId: "___ALL_FEEDS___",
+    dataServiceId: "mock-data-service-1",
+    signerAddress: "0x4",
+  },
+  {
+    ...mockDataPackages[0],
+    isSignatureValid: true,
+    dataFeedId: "___ALL_FEEDS___",
+    dataServiceId: "mock-data-service-1",
+    signerAddress: "0x5",
+  },
+];

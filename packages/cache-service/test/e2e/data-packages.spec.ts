@@ -11,6 +11,7 @@ import { BundlrService } from "../../src/bundlr/bundlr.service";
 import {
   CachedDataPackage,
   DataPackage,
+  DataPackageDocument,
 } from "../../src/data-packages/data-packages.model";
 import { ALL_FEEDS_KEY } from "../../src/data-packages/data-packages.service";
 import {
@@ -18,6 +19,7 @@ import {
   MOCK_SIGNATURE,
   MOCK_SIGNER_ADDRESS,
   mockDataPackages,
+  mockDataPackagesForUniqueSigners,
   mockOracleRegistryState,
   mockSigner,
   produceMockDataPackage,
@@ -98,7 +100,10 @@ describe("Data packages (e2e)", () => {
     await DataPackage.insertMany(dataPackagesToInsert);
   });
 
-  afterEach(async () => await dropTestDatabase());
+  afterEach(async () => {
+    jest.restoreAllMocks();
+    await dropTestDatabase();
+  });
 
   it("/data-packages/bulk (POST) - should accept data packages where prices are strings", async () => {
     const dataPackagesToSent = [
@@ -215,7 +220,7 @@ describe("Data packages (e2e)", () => {
 
   it("/data-packages/latest (GET) return same result as /data-packages/latest (GET), when same number of dataPackages", async () => {
     const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
-    Date.now = jest.fn(() => dpTimestamp);
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
     const responseLatest = await request(httpServer)
       .get("/data-packages/latest/mock-data-service-1")
       .expect(200);
@@ -248,7 +253,7 @@ describe("Data packages (e2e)", () => {
       },
     ]);
     const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
-    Date.now = jest.fn(() => dpTimestamp);
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
     const responseLatest = await request(httpServer)
       .get("/data-packages/latest/mock-data-service-1")
       .expect(200);
@@ -256,6 +261,28 @@ describe("Data packages (e2e)", () => {
     expect(responseLatest.body[ALL_FEEDS_KEY][0].timestampMilliseconds).toBe(
       dpTimestamp - 1000
     );
+  });
+
+  it("/data-packages/latest (GET) return packages with unique signers if multiple packages with repeated singers", async () => {
+    await DataPackage.insertMany(mockDataPackagesForUniqueSigners);
+
+    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
+    const responseLatest = await request(httpServer)
+      .get("/data-packages/latest/mock-data-service-1")
+      .expect(200);
+
+    expect(responseLatest.body[ALL_FEEDS_KEY].length).toBe(5);
+    expect(responseLatest.body.AAVE.length).toBe(5);
+    expect(responseLatest.body.ETH.length).toBe(5);
+    expect(responseLatest.body.BTC.length).toBe(5);
+
+    const uniqueSignersFromETH = new Set(
+      responseLatest.body.ETH.map(
+        (dataPackage: DataPackageDocument) => dataPackage.signerAddress
+      )
+    );
+    expect(uniqueSignersFromETH.size).toBe(5);
   });
 
   it("/data-packages/bulk (POST) - should fail for invalid signature", async () => {
@@ -276,7 +303,7 @@ describe("Data packages (e2e)", () => {
 
   it("/data-packages/latest (GET)", async () => {
     const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
-    Date.now = jest.fn(() => dpTimestamp);
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
     const testResponse = await request(httpServer)
       .get("/data-packages/latest")
       .query({
@@ -321,7 +348,7 @@ describe("Data packages (e2e)", () => {
 
   it("/data-packages/latest/mock-data-service-1 (GET)", async () => {
     const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
-    Date.now = jest.fn(() => dpTimestamp);
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
     const testResponse = await request(httpServer)
       .get("/data-packages/latest/mock-data-service-1")
       .expect(200);
@@ -428,24 +455,32 @@ describe("Data packages (e2e)", () => {
   }
 
   it("/data-packages/payload (GET) - should return payload in hex format", async () => {
+    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
     await performPayloadTests((response) => {
       return ethers.utils.arrayify(response.text);
     }, "hex");
   });
 
   it("/data-packages/payload (GET) - should return payload in raw format", async () => {
+    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
     await performPayloadTests((response) => {
       return response.body;
     }, "raw");
   });
 
   it("/data-packages/payload (GET) - should return payload in bytes format", async () => {
+    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
     await performPayloadTests((response) => {
       return response.body;
     }, "bytes");
   });
 
   it("/data-packages/payload (GET) - should return payload in raw format when no format is specified", async () => {
+    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
     await performPayloadTests((response) => {
       return response.body;
     });
