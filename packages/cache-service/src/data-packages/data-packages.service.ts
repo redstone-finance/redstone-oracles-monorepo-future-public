@@ -76,7 +76,9 @@ export class DataPackagesService {
     cacheManager: Cache
   ): Promise<DataPackagesResponse> {
     const cacheKey = `data-packages/latest/${dataServiceId}`;
-    const dataPackagesFromCache = undefined;
+    const dataPackagesFromCache = await cacheManager.get<DataPackagesResponse>(
+      cacheKey
+    );
 
     if (!dataPackagesFromCache) {
       const dataPackages = await this.getLatestDataPackagesWithSameTimestamp(
