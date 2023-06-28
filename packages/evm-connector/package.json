@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "hardhat test",
-    "build": "rm -rf dist && tsc --build",
+    "build": "rm -rf dist && yarn compile && tsc --build",
     "benchmark": "hardhat test benchmarks/run-benchmarks.ts",
     "compile": "hardhat compile",
     "postversion": "yarn build && git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push"
