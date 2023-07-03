@@ -878,6 +878,15 @@
     "ALETH": {
       "source": ["curve-eth", "curve-frxeth"]
     },
+    "crvFRAX": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "3Crv": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "ALUSD": {
+      "source": ["curve-crvfrax", "curve-3crv"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
