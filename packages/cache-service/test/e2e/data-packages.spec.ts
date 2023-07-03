@@ -4,7 +4,10 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { ethers } from "ethers";
 import { base64 } from "ethers/lib/utils";
 import { DataPoint } from "redstone-protocol";
-import { RedstonePayloadParser } from "redstone-protocol/dist/src/redstone-payload/RedstonePayloadParser";
+import {
+  RedstonePayloadParser,
+  convertDataPointToNumericDataPoint,
+} from "redstone-protocol/dist/src/redstone-payload/RedstonePayloadParser";
 import * as request from "supertest";
 import { AppModule } from "../../src/app.module";
 import { BundlrService } from "../../src/bundlr/bundlr.service";
@@ -447,10 +450,12 @@ describe("Data packages (e2e)", () => {
       mockDataPackage.timestampMilliseconds
     );
 
-    const dataPoints: any[] = signedDataPackage.dataPackage.dataPoints;
+    const dataPoints: DataPoint[] = signedDataPackage.dataPackage.dataPoints;
     expect(dataPoints.length).toBe(2);
     expect(
-      dataPoints.map((dataPoint) => dataPoint.numericDataPointArgs)
+      dataPoints.map((dataPoint) =>
+        convertDataPointToNumericDataPoint(dataPoint).toObj()
+      )
     ).toEqual(mockDataPackage.dataPoints);
   }
 
