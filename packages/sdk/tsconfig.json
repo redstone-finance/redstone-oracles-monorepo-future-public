@@ -23,6 +23,9 @@
     },
     {
       "path": "../oracles-smartweave-contracts"
+    },
+    {
+      "path": "../utils"
     }
   ]
 }
