@@ -1,7 +1,7 @@
 {
-  "interval": 10000,
+  "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["maverick"],
+  "defaultSource": ["uniswap-v3-optimism-on-chain-usdc-500"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,8 +10,6 @@
     }
   },
   "tokens": {
-    "SWETH": {},
-    "ETH": { "source": ["coingecko"] },
     "LUSD": {}
   }
 }
