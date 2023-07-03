@@ -3,6 +3,7 @@ import { INumericDataPoint } from "redstone-protocol";
 import { DataPackagesResponse, ValuesForDataFeeds } from "redstone-sdk";
 import { config } from "../../config";
 import { formatUnits } from "ethers/lib/utils";
+import { MathUtils } from "redstone-utils";
 
 const DEFAULT_DECIMALS = 8;
 
@@ -62,13 +63,10 @@ const calculateDeviation = (
   valueFromFetchedDataPackage: number,
   valueFromContract: number
 ) => {
-  const pricesDiff = Math.abs(valueFromContract - valueFromFetchedDataPackage);
-
-  if (valueFromContract === 0) {
-    return Number.MAX_SAFE_INTEGER;
-  }
-
-  return (pricesDiff * 100) / valueFromContract;
+  return MathUtils.calculateDeviationPercent({
+    newValue: valueFromFetchedDataPackage,
+    prevValue: valueFromContract,
+  });
 };
 
 class ValueDeviationLogTrace {
