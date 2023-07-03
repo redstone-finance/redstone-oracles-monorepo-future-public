@@ -112,7 +112,7 @@ export const describeCommonPriceFeedTests = ({
       expect(latestRoundData.roundId.toNumber()).to.eq(
         expectedRoundIdAfterOneUpdate
       );
-      expect(latestRoundData.startedAt.toNumber()).to.eq(prevBlockTime);
+      expect(latestRoundData.startedAt.toNumber()).to.eq(curBlockTime);
       expect(latestRoundData.updatedAt.toNumber()).to.eq(curBlockTime);
       expect(latestRoundData.answer.toNumber()).to.eq(42 * 10 ** 8);
     });
