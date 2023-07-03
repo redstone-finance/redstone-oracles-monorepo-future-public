@@ -5,6 +5,7 @@ import {
   DATA_PACKAGES_COUNT_BS,
   DATA_POINTS_COUNT_BS,
   DATA_POINT_VALUE_BYTE_SIZE_BS,
+  DEFAULT_NUM_VALUE_DECIMALS,
   REDSTONE_MARKER_BS,
   REDSTONE_MARKER_HEX,
   SIGNATURE_BS,
@@ -154,15 +155,14 @@ export class RedstonePayloadParser {
     );
   }
 
-  // This is a bit hacky, but should be enough for us at this point
   private createDataPoint(
     dataFeedId: Uint8Array,
     dataPointValue: Uint8Array
   ): DataPoint {
-    return new NumericDataPoint({
-      dataFeedId: toUtf8String(dataFeedId).replaceAll("\x00", ""),
-      value: Number(formatUnits(BigNumber.from(dataPointValue), 8)),
-    });
+    return new DataPoint(
+      toUtf8String(dataFeedId).replaceAll("\x00", ""),
+      dataPointValue
+    );
   }
 
   private extractNumber(sliceConfig: SliceConfig): number {
@@ -177,3 +177,18 @@ export class RedstonePayloadParser {
     return this.bytesData.slice(start, end);
   }
 }
+
+export const convertDataPointToNumericDataPoint = (
+  dataPoint: DataPoint,
+  decimals?: number
+) =>
+  new NumericDataPoint({
+    value: Number(
+      formatUnits(
+        BigNumber.from(dataPoint.value),
+        decimals ?? DEFAULT_NUM_VALUE_DECIMALS
+      )
+    ),
+    dataFeedId: dataPoint.dataFeedId,
+    decimals,
+  });
