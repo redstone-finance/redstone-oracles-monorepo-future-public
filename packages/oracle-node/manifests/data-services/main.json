@@ -962,6 +962,9 @@
     "RSX": {
       "source": ["twelve-data"]
     },
+    "C3M": {
+      "source": ["twelve-data"]
+    },
     "ZC=F": {
       "source": ["yf-unofficial"]
     },
