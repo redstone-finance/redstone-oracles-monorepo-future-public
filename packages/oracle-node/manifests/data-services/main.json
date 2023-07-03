@@ -893,6 +893,17 @@
     "ALETH": {
       "source": ["curve-eth", "curve-frxeth"]
     },
+    "ALUSD": {
+      "source": ["curve-crvfrax", "curve-3crv"]
+    },
+    "LUSD": {
+      "source": [
+        "curve-3crv",
+        "maverick",
+        "uniswap-v3-on-chain-usdc-500",
+        "uniswap-v3-optimism-on-chain-usdc-500"
+      ]
+    },
     "AUD": {
       "source": ["binance", "currencycom", "ecb", "kraken"]
     },
@@ -1484,9 +1495,6 @@
     },
     "3Crv": {
       "source": ["ethereum-evm-fetcher"]
-    },
-    "ALUSD": {
-      "source": ["curve-crvfrax", "curve-3crv"]
     },
     "ABNB": {
       "source": ["currencycom"]
@@ -2355,7 +2363,6 @@
     "XRD": {},
     "WEMIX": {},
     "KAS": {},
-    "LUSD": {},
     "GNS": {},
     "ASTRAFER": {},
     "EDGT": {},
