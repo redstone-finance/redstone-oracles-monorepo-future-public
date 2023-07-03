@@ -1,0 +1,18 @@
+{
+  "name": "redstone-utils",
+  "prettier": "redstone-prettier-config",
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "build": "rm -rf dist && tsc --build",
+    "preversion": "yarn build",
+    "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push"
+  },
+  "dependencies": {
+    "decimal.js": "^10.4.3"
+  },
+  "devDependencies": {}
+}
