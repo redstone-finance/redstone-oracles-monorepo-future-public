@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.14;
 
-import "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";
-import "../custom-integrations/mento/MentoAdapterBase.sol";
+import {AuthorisedMockSignersBase} from "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";
+import {MentoAdapterBase} from "../custom-integrations/mento/MentoAdapterBase.sol";
+import {ISortedOracles} from "../custom-integrations/mento/ISortedOracles.sol";
 
 contract MentoAdapterMock is MentoAdapterBase, AuthorisedMockSignersBase {
   constructor(ISortedOracles sortedOracles_) MentoAdapterBase(sortedOracles_) {}
