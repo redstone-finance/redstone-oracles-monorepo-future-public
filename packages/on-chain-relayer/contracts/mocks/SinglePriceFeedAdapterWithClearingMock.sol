@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.14;
 
-import "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";
-import "../price-feeds/without-rounds/SinglePriceFeedAdapterWithClearing.sol";
+import {AuthorisedMockSignersBase} from "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";
+import {SinglePriceFeedAdapterWithClearing} from "../price-feeds/without-rounds/SinglePriceFeedAdapterWithClearing.sol";
 
-contract SinglePriceFeedAdapterWithClearingMock is SinglePriceFeedAdapterWithClearing, AuthorisedMockSignersBase {
+contract SinglePriceFeedAdapterWithClearingMock is
+  SinglePriceFeedAdapterWithClearing,
+  AuthorisedMockSignersBase
+{
   function getSingleDataFeedId() public pure override returns (bytes32) {
     return bytes32("BTC");
   }
@@ -14,13 +17,9 @@ contract SinglePriceFeedAdapterWithClearingMock is SinglePriceFeedAdapterWithCle
     return 2;
   }
 
-  function getAuthorisedSignerIndex(address signerAddress)
-    public
-    view
-    virtual
-    override
-    returns (uint8)
-  {
+  function getAuthorisedSignerIndex(
+    address signerAddress
+  ) public view virtual override returns (uint8) {
     return getAuthorisedMockSignerIndex(signerAddress);
   }
 }

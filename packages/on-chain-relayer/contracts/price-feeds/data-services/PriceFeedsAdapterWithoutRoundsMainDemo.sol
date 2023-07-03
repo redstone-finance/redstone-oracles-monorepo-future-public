@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.14;
 
-import "../without-rounds/PriceFeedsAdapterWithoutRounds.sol";
+import {PriceFeedsAdapterWithoutRounds} from "../without-rounds/PriceFeedsAdapterWithoutRounds.sol";
 
-contract PriceFeedsAdapterWithoutRoundsMainDemo is PriceFeedsAdapterWithoutRounds {
+abstract contract PriceFeedsAdapterWithoutRoundsMainDemo is PriceFeedsAdapterWithoutRounds {
   function getUniqueSignersThreshold() public view virtual override returns (uint8) {
     return 1;
   }

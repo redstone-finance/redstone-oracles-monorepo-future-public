@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.4;
 
-import "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";
-import "../price-feeds/with-rounds/PriceFeedsAdapterWithRounds.sol";
+import {AuthorisedMockSignersBase} from "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";
+import {PriceFeedsAdapterWithRounds} from "../price-feeds/with-rounds/PriceFeedsAdapterWithRounds.sol";
 
 contract PriceFeedsAdapterUpdatedMock is PriceFeedsAdapterWithRounds, AuthorisedMockSignersBase {
   function getDataFeedIds() public pure virtual override returns (bytes32[] memory dataFeedIds) {
@@ -16,9 +16,8 @@ contract PriceFeedsAdapterUpdatedMock is PriceFeedsAdapterWithRounds, Authorised
     return 2;
   }
 
-  function getAuthorisedSignerIndex(
-    address signerAddress
-  ) public view virtual override returns (uint8) {
+  function getAuthorisedSignerIndex(address signerAddress) public view virtual override returns (uint8) {
+    signerAddress; // to avoid warnings during compilation
     return 0;
   }
 }

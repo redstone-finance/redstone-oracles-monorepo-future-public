@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.14;
 
-import "../mocks/SinglePriceFeedAdapterWithClearingMock.sol";
+import {SinglePriceFeedAdapterWithClearingMock} from "../mocks/SinglePriceFeedAdapterWithClearingMock.sol";
 
 contract SinglePriceFeedAdapterWithClearingBenchmark is SinglePriceFeedAdapterWithClearingMock {
   function getAllowedTimestampDiffsInSeconds() public pure override returns (uint256 maxDataAheadSeconds, uint256 maxDataDelaySeconds) {

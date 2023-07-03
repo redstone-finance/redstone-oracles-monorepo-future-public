@@ -1,13 +1,18 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.14;
 
-import "./SinglePriceFeedAdapter.sol";
+import {SinglePriceFeedAdapter} from "./SinglePriceFeedAdapter.sol";
 
-// IMPORTANT!!! This contract has a significant security risk, as it allows to 
-// update oracle data with older timestamps then the previous one. It can
-// open many opportunities for attackers to manipulate the values and use it
-// for arbitrage. Use it only if you know what you are doing very well.
+/**
+ * @title [HIGH RISK] Price feed adapter for one specific data feed without
+ * rounds support, with storage clearing feature
+ * @author The Redstone Oracles team
+ * @dev This contract has a significant security risk, as it allows to
+ * update oracle data with older timestamps then the previous one. It can
+ * open many opportunities for attackers to manipulate the values and use it
+ * for arbitrage. Use it only if you know what you are doing very well
+ */
 abstract contract SinglePriceFeedAdapterWithClearing is SinglePriceFeedAdapter {
 
   bytes32 internal constant TEMP_DATA_TIMESTAMP_STORAGE_LOCATION = 0x9ba2e81f7980c774323961547312ae2319fc1970bb8ec60c86c869e9a1c1c0d2; // keccak256("RedStone.tempDataTimestampStorageLocation");
@@ -23,7 +28,7 @@ abstract contract SinglePriceFeedAdapterWithClearing is SinglePriceFeedAdapter {
     }
   }
 
-  function getValueForDataFeedUnsafe(bytes32) public view override returns (uint256 dataFeedValue) {
+  function getValueForDataFeedUnsafe(bytes32) public view override virtual returns (uint256 dataFeedValue) {
     uint208 dataFeedValueCompressed;
     assembly {
       dataFeedValueCompressed := sload(DATA_FROM_LATEST_UPDATE_STORAGE_LOCATION)
@@ -31,7 +36,7 @@ abstract contract SinglePriceFeedAdapterWithClearing is SinglePriceFeedAdapter {
     return uint256(dataFeedValueCompressed);
   }
 
-  function getTimestampsFromLatestUpdate() public view override returns (uint128 dataTimestamp, uint128 blockTimestamp) {
+  function getTimestampsFromLatestUpdate() public view override virtual returns (uint128 dataTimestamp, uint128 blockTimestamp) {
     uint256 latestUpdateDetails;
     assembly {
       latestUpdateDetails := sload(DATA_FROM_LATEST_UPDATE_STORAGE_LOCATION)
@@ -40,15 +45,15 @@ abstract contract SinglePriceFeedAdapterWithClearing is SinglePriceFeedAdapter {
     dataTimestamp = blockTimestamp * 1000; // It's a hack, because we don't store dataTimestamp in storage in this version of adapter
   }
 
-  function getDataTimestampFromLatestUpdate() public view override returns (uint256 lastDataTimestamp) {
+  function getDataTimestampFromLatestUpdate() public view virtual override returns (uint256 lastDataTimestamp) {
     assembly {
       lastDataTimestamp := sload(TEMP_DATA_TIMESTAMP_STORAGE_LOCATION)
     }
   }
 
-  function _updateDataFeedValue(bytes32 dataFeedId, uint256 dataFeedValue) internal override {
+  function _validateAndUpdateDataFeedValue(bytes32 dataFeedId, uint256 dataFeedValue) virtual internal override {
     validateDataFeedValue(dataFeedId, dataFeedValue);
-    uint256 blockTimestampCompressedAndShifted = block.timestamp << 208; // Move value to the first 48 bits
+    uint256 blockTimestampCompressedAndShifted = getBlockTimestamp() << 208; // Move value to the first 48 bits
     assembly {
       // Save timestamp and data feed value
       let timestampAndValue := or(blockTimestampCompressedAndShifted, dataFeedValue)
@@ -59,7 +64,7 @@ abstract contract SinglePriceFeedAdapterWithClearing is SinglePriceFeedAdapter {
     }
   }
 
-  function _saveTimestampsOfCurrentUpdate(uint256 dataPackagesTimestamp) internal override {
+  function _saveTimestampsOfCurrentUpdate(uint256 dataPackagesTimestamp)  virtual internal override {
     assembly {
       sstore(TEMP_DATA_TIMESTAMP_STORAGE_LOCATION, dataPackagesTimestamp)
     }

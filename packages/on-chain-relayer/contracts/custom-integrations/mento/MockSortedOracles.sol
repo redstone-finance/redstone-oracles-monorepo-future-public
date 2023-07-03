@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.14;
 
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "./ISortedOracles.sol";
-import "./linkedlists/AddressSortedLinkedListWithMedian.sol";
-import "./linkedlists/SortedLinkedListWithMedian.sol";
+import {SafeMath} from "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import {ISortedOracles} from "./ISortedOracles.sol";
+import {AddressSortedLinkedListWithMedian} from "./linkedlists/AddressSortedLinkedListWithMedian.sol";
+import {SortedLinkedListWithMedian} from "./linkedlists/SortedLinkedListWithMedian.sol";
 
 /**
  * @title Simplified mock version of the SortedOracles contract
