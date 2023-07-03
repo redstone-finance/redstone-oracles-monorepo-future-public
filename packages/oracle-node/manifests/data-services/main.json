@@ -1479,6 +1479,15 @@
     "crvUSDBTCETH": {
       "source": ["avalanche-evm-fetcher"]
     },
+    "crvFRAX": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "3Crv": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "ALUSD": {
+      "source": ["curve-crvfrax", "curve-3crv"]
+    },
     "ABNB": {
       "source": ["currencycom"]
     },
@@ -2021,7 +2030,6 @@
     "AKN": {},
     "AKA": {},
     "ALA": {},
-    "ALUSD": {},
     "ALEPH": {},
     "ALEX": {},
     "ALLBI": {},

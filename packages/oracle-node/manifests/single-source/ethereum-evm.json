@@ -10,6 +10,8 @@
   },
   "defaultSource": ["ethereum-evm-fetcher"],
   "tokens": {
-    "BB-A-WETH": {}
+    "BB-A-WETH": {},
+    "crvFRAX": {},
+    "3Crv": {}
   }
 }
