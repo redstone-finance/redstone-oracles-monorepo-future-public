@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-import "./PriceFeedsAdapterWithoutRoundsMock.sol";
+import {PriceFeedsAdapterWithoutRoundsMock} from "./PriceFeedsAdapterWithoutRoundsMock.sol";
 
 contract PriceFeedsAdapterWithoutRoundsOneSignerMock is PriceFeedsAdapterWithoutRoundsMock {
   function getDataFeedIds() public pure override returns (bytes32[] memory dataFeedIds) {

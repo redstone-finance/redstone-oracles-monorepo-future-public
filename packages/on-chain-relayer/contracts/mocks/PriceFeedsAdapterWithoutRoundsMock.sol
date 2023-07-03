@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.14;
 
-import "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";
-import "../price-feeds/without-rounds/PriceFeedsAdapterWithoutRounds.sol";
+import {AuthorisedMockSignersBase} from "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";
+import {PriceFeedsAdapterWithoutRounds} from "../price-feeds/without-rounds/PriceFeedsAdapterWithoutRounds.sol";
 
 contract PriceFeedsAdapterWithoutRoundsMock is PriceFeedsAdapterWithoutRounds, AuthorisedMockSignersBase {
   function getDataFeedIds() public pure virtual override returns (bytes32[] memory dataFeedIds) {

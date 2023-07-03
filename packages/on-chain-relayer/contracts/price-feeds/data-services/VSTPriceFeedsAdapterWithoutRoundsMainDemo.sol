@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.14;
 
-import "../without-rounds/SinglePriceFeedAdapter.sol";
+import {SinglePriceFeedAdapter} from "../without-rounds/SinglePriceFeedAdapter.sol";
 
 contract VSTPriceFeedsAdapterWithoutRoundsMainDemo is SinglePriceFeedAdapter {
   function getSingleDataFeedId() public pure override returns (bytes32) {

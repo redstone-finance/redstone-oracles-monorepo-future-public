@@ -2,7 +2,8 @@
 
 pragma solidity ^0.8.4;
 
-import "../price-feeds/with-rounds/PriceFeedWithRounds.sol";
+import {PriceFeedWithRounds} from "../price-feeds/with-rounds/PriceFeedWithRounds.sol";
+import {IRedstoneAdapter} from "../core/IRedstoneAdapter.sol";
 
 contract PriceFeedUpdatedMock is PriceFeedWithRounds {
   IRedstoneAdapter private adapterAddress;
