@@ -22,6 +22,7 @@
     },
     "SWETH_uniswap-v3-on-chain-weth-500_SELL_100K_slippage": {
       "skipSigning": true
-    }
+    },
+    "FRXETH": {}
   }
 }

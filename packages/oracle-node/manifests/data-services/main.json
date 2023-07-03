@@ -887,6 +887,12 @@
       "source": ["fixed-value"],
       "fixedValue": 1
     },
+    "FRXETH": {
+      "source": ["curve-eth", "uniswap-v3-on-chain-weth-500"]
+    },
+    "ALETH": {
+      "source": ["curve-eth", "curve-frxeth"]
+    },
     "AUD": {
       "source": ["binance", "currencycom", "ecb", "kraken"]
     },
