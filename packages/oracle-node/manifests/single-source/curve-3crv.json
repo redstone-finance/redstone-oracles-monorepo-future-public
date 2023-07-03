@@ -1,0 +1,27 @@
+{
+  "interval": 15000,
+  "priceAggregator": "median",
+  "defaultSource": ["curve-3crv"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "ALUSD": {},
+    "3Crv": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "DAI": {
+      "source": ["coingecko"]
+    },
+    "USDC": {
+      "source": ["coingecko"]
+    },
+    "USDT": {
+      "source": ["coingecko"]
+    }
+  }
+}

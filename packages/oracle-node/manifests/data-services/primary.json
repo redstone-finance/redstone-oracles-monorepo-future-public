@@ -51,6 +51,23 @@
       ],
       "skipSigning": true
     },
+    "DAI": {
+      "source": [
+        "binanceus",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "curve-usdc",
+        "curve-usdt",
+        "huobipro",
+        "kraken",
+        "okx",
+        "sushiswap-on-chain-weth",
+        "uniswap-v2-on-chain-weth",
+        "xt"
+      ],
+      "skipSigning": true
+    },
     "FXS": {
       "source": [
         "binance",
@@ -117,6 +134,15 @@
     },
     "ALETH": {
       "source": ["curve-eth", "curve-frxeth"]
+    },
+    "crvFRAX": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "3Crv": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "ALUSD": {
+      "source": ["curve-crvfrax", "curve-3crv"]
     }
   }
 }

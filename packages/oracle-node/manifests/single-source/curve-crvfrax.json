@@ -1,0 +1,24 @@
+{
+  "interval": 15000,
+  "priceAggregator": "median",
+  "defaultSource": ["curve-crvfrax"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "ALUSD": {},
+    "crvFRAX": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "FRAX": {
+      "source": ["coingecko"]
+    },
+    "USDC": {
+      "source": ["coingecko"]
+    }
+  }
+}
