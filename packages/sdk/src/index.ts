@@ -9,6 +9,7 @@ import {
   SignedDataPackagePlainObj,
 } from "redstone-protocol";
 import { resolveDataServiceUrls } from "./data-services-urls";
+import { SafeNumber, MathUtils } from "redstone-utils";
 
 const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 const DEFAULT_DECIMALS = 8;
@@ -195,20 +196,23 @@ const sortDataPackagesByDeviationDesc = (
   valueToCompare: number
 ) =>
   dataPackages.sort((leftDataPackage, rightDataPackage) => {
-    const leftValue = Number(leftDataPackage.dataPoints[0].value);
-    const leftValueDeviation = calculateDeviation(leftValue, valueToCompare);
-    const rightValue = Number(rightDataPackage.dataPoints[0].value);
-    const rightValueDeviation = calculateDeviation(rightValue, valueToCompare);
-    return rightValueDeviation - leftValueDeviation;
-  });
+    const leftValue = SafeNumber.createSafeNumber(
+      leftDataPackage.dataPoints[0].value
+    );
+    const leftValueDeviation = SafeNumber.calculateDeviationPercent({
+      currValue: leftValue,
+      prevValue: SafeNumber.createSafeNumber(valueToCompare),
+    });
+    const rightValue = SafeNumber.createSafeNumber(
+      rightDataPackage.dataPoints[0].value
+    );
+    const rightValueDeviation = SafeNumber.calculateDeviationPercent({
+      currValue: rightValue,
+      prevValue: SafeNumber.createSafeNumber(valueToCompare),
+    });
 
-const calculateDeviation = (value: number, valueToCompare: number) => {
-  if (valueToCompare === 0) {
-    return Number.MAX_SAFE_INTEGER;
-  }
-  const pricesDiff = Math.abs(valueToCompare - value);
-  return (pricesDiff * 100) / valueToCompare;
-};
+    return rightValueDeviation.sub(leftValueDeviation).unsafeToNumber();
+  });
 
 export default {
   getOracleRegistryState,

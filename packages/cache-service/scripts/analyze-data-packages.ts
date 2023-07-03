@@ -5,6 +5,7 @@ import {
 import { ALL_FEEDS_KEY } from "../src/data-packages/data-packages.service";
 import mongoose from "mongoose";
 import config from "../src/config";
+import { MathUtils } from "redstone-utils";
 
 // USAGE: yarn run-ts scripts/analyze-data-packages.ts
 
@@ -57,7 +58,7 @@ interface DataPackagesGroupedBySigner {
 main();
 
 async function main() {
-  mongoose.set('strictQuery', true);
+  mongoose.set("strictQuery", true);
   await mongoose.connect(config.mongoDbUrl);
   console.log("MongoDB connected");
   const dataPackagesBySigner = await queryDataPackagesGroupedBySigner();
@@ -100,10 +101,10 @@ async function main() {
 
       for (const dataPoint of dataPackage.dataPoints) {
         if (prevValues[dataPoint.dataFeedId]) {
-          const deviation = getDeviationPercentage(
-            Number(dataPoint.value),
-            Number(prevValues[dataPoint.dataFeedId])
-          );
+          const deviation = MathUtils.calculateDeviationPercent({
+            newValue: Number(prevValues[dataPoint.dataFeedId]),
+            prevValue: Number(dataPoint.value),
+          });
           if (deviation > MIN_DEVIATION_PERCENTAGE_TO_LOG) {
             console.log(`Deviation for ${dataPoint.dataFeedId}: ${deviation}`);
           }
@@ -141,8 +142,4 @@ async function queryDataPackagesGroupedBySigner(): Promise<DataPackagesGroupedBy
   }
 
   return groupedBySigner;
-}
-
-function getDeviationPercentage(a: number, b: number) {
-  return Math.abs((a - b) / Math.min(a, b)) * 100;
 }
