@@ -120,7 +120,8 @@
         "okx",
         "poloniex",
         "probit"
-      ]
+      ],
+      "skipSigning": true
     },
     "SWETH": {
       "source": [
@@ -150,6 +151,34 @@
         "maverick",
         "uniswap-v3-on-chain-usdc-500",
         "uniswap-v3-optimism-on-chain-usdc-500"
+      ]
+    },
+    "AAVE": {
+      "source": [
+        "binance",
+        "binanceus",
+        "binanceusdm",
+        "bitget",
+        "bitmart",
+        "bitfinex2",
+        "bittrex",
+        "bybit",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "currencycom",
+        "hitbtc",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "oceanex",
+        "okx",
+        "phemex",
+        "poloniex",
+        "uniswap-v3-on-chain-weth-3000",
+        "xt"
       ]
     }
   }

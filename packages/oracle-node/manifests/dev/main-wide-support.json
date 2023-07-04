@@ -683,30 +683,31 @@
     },
     "AAVE": {
       "source": [
-        "band",
         "binance",
         "binanceus",
         "binanceusdm",
+        "bitget",
+        "bitmart",
         "bitfinex2",
         "bittrex",
-        "cex",
-        "chainlink",
+        "bybit",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "currencycom",
-        "dia",
         "hitbtc",
         "huobipro",
         "kaiko",
         "kraken",
         "kucoin",
         "lbank",
+        "mexc",
         "oceanex",
         "okx",
+        "phemex",
         "poloniex",
-        "sushiswap",
-        "uniswap"
+        "uniswap-v3-on-chain-weth-3000",
+        "xt"
       ]
     },
     "AR": {
@@ -774,7 +775,6 @@
     },
     "BIT": {
       "source": [
-        "bybit",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
