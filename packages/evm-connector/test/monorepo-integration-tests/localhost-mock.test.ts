@@ -8,7 +8,7 @@ import { SampleForLocalhostMockTest } from "../../typechain-types";
 const dynamicDescribe =
   process.env.MONOREPO_INTEGRATION_TEST === "true" ? describe : describe.skip;
 
-// This test is used in monorepo intergration tests
+// This test is used in monorepo integration tests
 dynamicDescribe("Localhost mock test", function () {
   let contract: SampleForLocalhostMockTest;
   const bytes32Symbols = ["ETH", "BTC", "AAVE"].map(formatBytes32String);
