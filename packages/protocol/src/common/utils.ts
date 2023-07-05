@@ -9,9 +9,7 @@ import {
   toUtf8Bytes,
   zeroPad,
   isHexString,
-  formatUnits,
 } from "ethers/lib/utils";
-import { DEFAULT_NUM_VALUE_DECIMALS } from "./redstone-constants";
 
 const ZERO_EX_PREFIX_LENGTH = 2; // length of string "0x"
 
@@ -83,13 +81,6 @@ export const convertIntegerNumberToBytes = (
 
 export const convertBytesToNumber = (bytes: Uint8Array): number =>
   BigNumber.from(bytes).toNumber();
-
-export const convertAndSerializeBytesToNumber = (
-  bytes: Uint8Array,
-  decimals: number = DEFAULT_NUM_VALUE_DECIMALS
-): number => {
-  return Number(formatUnits(BigNumber.from(bytes), decimals));
-};
 
 export const hexlifyWithout0xPrefix = (value: BytesLike): string => {
   return hexlify(value).slice(ZERO_EX_PREFIX_LENGTH);
