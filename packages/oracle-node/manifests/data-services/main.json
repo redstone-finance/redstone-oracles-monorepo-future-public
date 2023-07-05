@@ -817,13 +817,22 @@
       "source": ["camelot-usdc"]
     },
     "STETH": {
-      "source": ["kaiko", "curve-eth", "curve-weth", "uniswap-v2-on-chain-weth"]
+      "source": [
+        "bitget",
+        "bybit",
+        "curve-eth",
+        "curve-weth",
+        "huobipro",
+        "kaiko",
+        "mexc",
+        "uniswap-v2-on-chain-weth"
+      ]
     },
     "PLS": {
       "source": ["bitget", "bkex", "coingecko", "camelot-weth"]
     },
     "CMP": {
-      "source": ["coingecko", "xt"]
+      "source": ["bybit", "coingecko", "xt"]
     },
     "VST/ETH": {
       "source": ["non-usd-based"]
