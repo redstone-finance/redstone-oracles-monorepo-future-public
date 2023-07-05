@@ -1592,46 +1592,10 @@
     "CHF": {
       "source": ["ecb", "twelve-data"]
     },
-    "BEAR": {
-      "source": ["poloniex"]
-    },
-    "ETHBULL": {
-      "source": ["poloniex"]
-    },
-    "ADABULL": {
-      "source": ["poloniex"]
-    },
-    "BCHBULL": {
-      "source": ["poloniex"]
-    },
-    "LINKBULL": {
-      "source": ["poloniex"]
-    },
     "ROOK": {
       "source": ["poloniex"]
     },
-    "ZAP": {
-      "source": ["poloniex"]
-    },
     "CUSDT": {
-      "source": ["poloniex"]
-    },
-    "BCHBEAR": {
-      "source": ["poloniex"]
-    },
-    "BSVBEAR": {
-      "source": ["poloniex"]
-    },
-    "IBVOL": {
-      "source": ["poloniex"]
-    },
-    "TRXBULL": {
-      "source": ["poloniex"]
-    },
-    "XLMBEAR": {
-      "source": ["poloniex"]
-    },
-    "XLMBULL": {
       "source": ["poloniex"]
     },
     "BAT": {},
