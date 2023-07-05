@@ -824,10 +824,13 @@
     },
     "STETH": {
       "source": [
-        "kaiko",
-        "coinmarketcap",
+        "bitget",
+        "bybit",
         "curve-eth",
         "curve-weth",
+        "huobipro",
+        "kaiko",
+        "mexc",
         "uniswap-v2-on-chain-weth"
       ]
     },
@@ -835,7 +838,7 @@
       "source": ["bitget", "bkex", "coingecko", "coinmarketcap", "camelot-weth"]
     },
     "CMP": {
-      "source": ["coingecko", "xt"]
+      "source": ["bybit", "coingecko", "xt"]
     },
     "VST/ETH": {
       "source": ["non-usd-based"]
