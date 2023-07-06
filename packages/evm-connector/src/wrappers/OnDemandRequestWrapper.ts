@@ -2,7 +2,6 @@ import axios from "axios";
 import { Signer } from "ethers";
 import {
   SignedDataPackage,
-  RedstonePayload,
   SignedDataPackagePlainObj,
   ScoreType,
   UniversalSigner,
@@ -32,7 +31,7 @@ export class OnDemandRequestWrapper extends BaseWrapper {
     return payloads[0];
   }
 
-  async getBytesDataForAppending(): Promise<string> {
+  async getDataPackagesForPayload(): Promise<SignedDataPackage[]> {
     const timestamp = Date.now();
     const message = prepareMessageToSign(timestamp);
     const { signer, scoreType } = this.requestParams;
@@ -49,7 +48,7 @@ export class OnDemandRequestWrapper extends BaseWrapper {
     const signedDataPackages = responses.map((response) =>
       SignedDataPackage.fromObj(response.data as SignedDataPackagePlainObj)
     );
-    const unsignedMetadata = this.getUnsignedMetadata();
-    return RedstonePayload.prepare(signedDataPackages, unsignedMetadata);
+
+    return signedDataPackages;
   }
 }

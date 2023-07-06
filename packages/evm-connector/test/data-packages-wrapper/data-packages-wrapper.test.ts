@@ -2,27 +2,22 @@ import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { ethers } from "hardhat";
 import { utils } from "redstone-protocol";
-import { DataPackagesResponse } from "redstone-sdk";
 import { WrapperBuilder } from "../../src/index";
 import { SampleRedstoneConsumerNumericMockManyDataFeeds } from "../../typechain-types";
 import { expectedNumericValues } from "../tests-common";
 import { getValidDataPackagesResponse } from "./helpers";
+import { DataPackagesWrapper } from "../../src/wrappers/DataPackagesWrapper";
 
 chai.use(chaiAsPromised);
 
 describe("DataPackagesWrapper", () => {
   let contract: SampleRedstoneConsumerNumericMockManyDataFeeds;
+  const dataFeedIds = [
+    utils.convertStringToBytes32("ETH"),
+    utils.convertStringToBytes32("BTC"),
+  ];
 
-  const runTest = async (dataPackagesResponse: DataPackagesResponse) => {
-    const wrappedContract =
-      WrapperBuilder.wrap(contract).usingDataPackages(dataPackagesResponse);
-
-    const tx = await wrappedContract.save2ValuesInStorage([
-      utils.convertStringToBytes32("ETH"),
-      utils.convertStringToBytes32("BTC"),
-    ]);
-    await tx.wait();
-
+  const checkExpectedValues = async () => {
     const firstValueFromContract = await contract.firstValue();
     const secondValueFromContract = await contract.secondValue();
 
@@ -44,6 +39,23 @@ describe("DataPackagesWrapper", () => {
 
   it("Should properly execute", async () => {
     const dataPackagesResponse = getValidDataPackagesResponse();
-    await runTest(dataPackagesResponse);
+    const wrappedContract =
+      WrapperBuilder.wrap(contract).usingDataPackages(dataPackagesResponse);
+
+    const tx = await wrappedContract.save2ValuesInStorage(dataFeedIds);
+    await tx.wait();
+    await checkExpectedValues();
+  });
+
+  it("Should work properly with manual payload", async () => {
+    const dataPackagesResponse = getValidDataPackagesResponse();
+    const dpWrapper = new DataPackagesWrapper(dataPackagesResponse);
+    const redstonePayload = await dpWrapper.getRedstonePayloadForManualUsage();
+    const tx = await contract.save2ValuesInStorageWithManualPayload(
+      dataFeedIds,
+      redstonePayload
+    );
+    await tx.wait();
+    await checkExpectedValues();
   });
 });

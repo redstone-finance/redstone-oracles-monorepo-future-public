@@ -11,6 +11,14 @@ class CustomPayloadWrapper extends BaseWrapper {
     super();
   }
 
+  async getDataPackagesForPayload() {
+    return [];
+  };
+
+  getUnsignedMetadata() {
+    return "";
+  }
+
   async getBytesDataForAppending(): Promise<string> {
     return this.customRedstonePayload;
   }

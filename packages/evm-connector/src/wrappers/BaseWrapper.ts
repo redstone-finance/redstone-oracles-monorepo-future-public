@@ -1,5 +1,6 @@
 import { Contract, PopulatedTransaction, Signer } from "ethers";
 import { addContractWait } from "../helpers/add-contract-wait";
+import { RedstonePayload, SignedDataPackage } from "redstone-protocol";
 
 export interface ParamsForDryRunVerification {
   functionName: string;
@@ -16,9 +17,52 @@ interface OverwriteFunctionArgs {
 export abstract class BaseWrapper {
   protected contract!: Contract;
 
-  abstract getBytesDataForAppending(
+  abstract getDataPackagesForPayload(
     params?: ParamsForDryRunVerification
-  ): Promise<string>;
+  ): Promise<SignedDataPackage[]>;
+
+  abstract getUnsignedMetadata(): string;
+
+  async getRedstonePayloadForManualUsage(
+    params?: ParamsForDryRunVerification
+  ): Promise<string> {
+    const shouldBePreparedForManualUsage = true;
+    const payloadWithoutZeroExPrefix = await this.getBytesDataForAppending(
+      params,
+      shouldBePreparedForManualUsage
+    );
+    return "0x" + payloadWithoutZeroExPrefix;
+  }
+
+  async getBytesDataForAppending(
+    params?: ParamsForDryRunVerification,
+    shouldBePreparedForManualUsage = false
+  ): Promise<string> {
+    const signedDataPackages = await this.getDataPackagesForPayload(params);
+    let unsignedMetadata = this.getUnsignedMetadata();
+
+    // Redstone payload can be passed as the last argument of the contract function
+    // But it needs to have a length that is a multiplicity of 32, otherwise zeros
+    // will be padded right and contract will revert with `CalldataMustHaveValidPayload`
+    if (shouldBePreparedForManualUsage) {
+      const originalPayload = RedstonePayload.prepare(
+        signedDataPackages,
+        unsignedMetadata
+      );
+      // Calculating the number of bytes in the hex representation of payload
+      const originalPayloadLength = originalPayload.length / 2;
+
+      // Number of bytes that we want to add to unsigned metadata so that
+      // payload byte size becomes a multiplicity of 32
+      const bytesToAdd = 32 - (originalPayloadLength % 32);
+
+      // Adding underscores to the end of the metadata string, each underscore
+      // uses one byte in UTF-8
+      unsignedMetadata += "_".repeat(bytesToAdd);
+    }
+
+    return RedstonePayload.prepare(signedDataPackages, unsignedMetadata);
+  }
 
   overwriteEthersContract(contract: Contract): Contract {
     this.contract = contract;
