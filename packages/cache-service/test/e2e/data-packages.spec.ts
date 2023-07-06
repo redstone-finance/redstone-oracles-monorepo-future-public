@@ -3,7 +3,7 @@ import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { ethers } from "ethers";
 import { base64 } from "ethers/lib/utils";
-import { DataPoint } from "redstone-protocol";
+import { DataPoint, SignedDataPackagePlainObj } from "redstone-protocol";
 import {
   RedstonePayloadParser,
   convertDataPointToNumericDataPoint,
@@ -11,6 +11,7 @@ import {
 import * as request from "supertest";
 import { AppModule } from "../../src/app.module";
 import { BundlrService } from "../../src/bundlr/bundlr.service";
+import { ResponseFormat } from "../../src/data-packages/data-packages.interface";
 import {
   CachedDataPackage,
   DataPackage,
@@ -21,7 +22,7 @@ import {
   MOCK_DATA_SERVICE_ID,
   MOCK_SIGNATURE,
   MOCK_SIGNER_ADDRESS,
-  mockDataPackages,
+  getMockDataPackages,
   mockDataPackagesForUniqueSigners,
   mockOracleRegistryState,
   mockSigner,
@@ -29,7 +30,13 @@ import {
 } from "../common/mock-values";
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
 import { signByMockSigner } from "../common/test-utils";
-import { ResponseFormat } from "../../src/data-packages/data-packages.interface";
+import {
+  NumberLike,
+  convertBytesToNumber,
+} from "redstone-protocol/src/common/utils";
+import { DEFAULT_NUM_VALUE_DECIMALS } from "redstone-protocol/src/common/redstone-constants";
+
+type WithSigner = { signerAddress: string };
 
 jest.mock("redstone-sdk", () => ({
   __esModule: true,
@@ -39,7 +46,18 @@ jest.mock("redstone-sdk", () => ({
 
 const dataFeedIds = [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"];
 
-const getExpectedDataPackagesInDB = (dataPackages = mockDataPackages) =>
+const parseDataPointValueToNumber = (
+  dataPointValue: NumberLike,
+  decimals = DEFAULT_NUM_VALUE_DECIMALS
+) =>
+  typeof dataPointValue === "string"
+    ? convertBytesToNumber(base64.decode(dataPointValue as string)) /
+      10 ** decimals
+    : dataPointValue;
+
+const getExpectedDataPackagesInDB = (
+  dataPackages: SignedDataPackagePlainObj[]
+) =>
   dataPackages.map((dataPackage) => ({
     ...dataPackage,
     signerAddress: mockSigner.address,
@@ -56,11 +74,14 @@ describe("Data packages (e2e)", () => {
     Promise<void>,
     [dataPackages: CachedDataPackage[]]
   >;
+  let mockDataPackages: SignedDataPackagePlainObj[];
+
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
+    mockDataPackages = getMockDataPackages();
     app = moduleFixture.createNestApplication();
     await app.init();
     httpServer = app.getHttpServer();
@@ -100,6 +121,7 @@ describe("Data packages (e2e)", () => {
         }
       }
     }
+
     await DataPackage.insertMany(dataPackagesToInsert);
   });
 
@@ -154,7 +176,7 @@ describe("Data packages (e2e)", () => {
       return rest;
     });
     expect(dataPackagesInDBCleaned).toEqual(
-      expect.arrayContaining(getExpectedDataPackagesInDB())
+      expect.arrayContaining(getExpectedDataPackagesInDB(mockDataPackages))
     );
   });
 
@@ -171,7 +193,7 @@ describe("Data packages (e2e)", () => {
     // Should have been saved in Arweave
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledTimes(1);
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledWith(
-      getExpectedDataPackagesInDB()
+      getExpectedDataPackagesInDB(mockDataPackages)
     );
   });
 
@@ -197,7 +219,7 @@ describe("Data packages (e2e)", () => {
       return rest;
     });
     expect(dataPackagesInDBCleaned).toEqual(
-      expect.arrayContaining(getExpectedDataPackagesInDB())
+      expect.arrayContaining(getExpectedDataPackagesInDB(mockDataPackages))
     );
   });
 
@@ -217,7 +239,7 @@ describe("Data packages (e2e)", () => {
 
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledTimes(1);
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledWith(
-      getExpectedDataPackagesInDB()
+      getExpectedDataPackagesInDB(mockDataPackages)
     );
   });
 
@@ -233,12 +255,13 @@ describe("Data packages (e2e)", () => {
       .expect(200);
 
     expect(
-      responseLatest.body[ALL_FEEDS_KEY].sort(
-        (a: any, b: any) => a.signerAddress - b.signerAddress
+      responseLatest.body[ALL_FEEDS_KEY].sort((a: WithSigner, b: WithSigner) =>
+        a.signerAddress.localeCompare(b.signerAddress)
       )
     ).toEqual(
       responseMostRecent.body[ALL_FEEDS_KEY].sort(
-        (a: any, b: any) => a.signerAddress - b.signerAddress
+        (a: WithSigner, b: WithSigner) =>
+          a.signerAddress.localeCompare(b.signerAddress)
       )
     );
   });
@@ -291,7 +314,7 @@ describe("Data packages (e2e)", () => {
   it("/data-packages/bulk (POST) - should fail for invalid signature", async () => {
     const initialDpCount = await DataPackage.countDocuments();
     const requestSignature = signByMockSigner(mockDataPackages);
-    const newDataPackages = [...mockDataPackages];
+    const newDataPackages = getMockDataPackages();
     newDataPackages[0].dataPoints[0].value = 43;
     await request(httpServer)
       .post("/data-packages/bulk")
@@ -339,7 +362,7 @@ describe("Data packages (e2e)", () => {
     const allFeedsDataPackages = testResponse2.body[ALL_FEEDS_KEY];
     const parsedDataPoints = JSON.parse(allFeedsDataPackages[0]).dataPoints;
     expect(allFeedsDataPackages.length).toBe(4);
-    expect(parsedDataPoints.length).toBe(2);
+    expect(parsedDataPoints.length).toBe(3);
     for (const [_, dataPackages] of Object.entries<any>(testResponse2.body)) {
       for (let i = 0; i++; i < dataPackages.length) {
         const dataPackage = JSON.parse(dataPackages[i]);
@@ -383,6 +406,12 @@ describe("Data packages (e2e)", () => {
         historicalTimestamp
       );
     }
+    expect(
+      testResponse.body[ALL_FEEDS_KEY].sort(
+        (a: { signerAddress: string }, b: { signerAddress: string }) =>
+          a.signerAddress.localeCompare(b.signerAddress)
+      )
+    ).toMatchSnapshot("historical-data");
   });
 
   async function performPayloadTests(
@@ -399,7 +428,7 @@ describe("Data packages (e2e)", () => {
       })
       .expect(200);
 
-    const expectedStreamLengthWithFeedsSpecified = 1662;
+    const expectedStreamLengthWithFeedsSpecified = 2174;
     const expectedDataPackagesCountWithFeedSpecified = 8; // 4 * 2
     verifyPayloadResponse(
       testResponse,
@@ -418,7 +447,7 @@ describe("Data packages (e2e)", () => {
       })
       .expect(200);
 
-    const expectedStreamLengthForAllFeeds = 838;
+    const expectedStreamLengthForAllFeeds = 1094;
     const expectedDataPackagesCountForAllFeeds = 4;
     verifyPayloadResponse(
       testResponse2,
@@ -451,12 +480,17 @@ describe("Data packages (e2e)", () => {
     );
 
     const dataPoints: DataPoint[] = signedDataPackage.dataPackage.dataPoints;
-    expect(dataPoints.length).toBe(2);
+    expect(dataPoints.length).toBe(3);
     expect(
       dataPoints.map((dataPoint) =>
         convertDataPointToNumericDataPoint(dataPoint).toObj()
       )
-    ).toEqual(mockDataPackage.dataPoints);
+    ).toEqual(
+      mockDataPackage.dataPoints.map((dp) => ({
+        dataFeedId: dp.dataFeedId,
+        value: parseDataPointValueToNumber(dp.value),
+      }))
+    );
   }
 
   it("/data-packages/payload (GET) - should return payload in hex format", async () => {

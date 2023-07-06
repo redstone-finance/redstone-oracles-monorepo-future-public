@@ -11,6 +11,7 @@ import {
   Post,
   Query,
   Res,
+  ServiceUnavailableException,
   UsePipes,
   ValidationPipe,
 } from "@nestjs/common";
@@ -102,7 +103,13 @@ export class DataPackagesController {
     @Param("DATA_SERVICE_ID") dataServiceId: string,
     @Param("TIMESTAMP") timestamp: string
   ): Promise<DataPackagesResponse> {
+    if (!config.enableHistoricalDataServing) {
+      throw new ServiceUnavailableException(
+        `historical/* routes are not enabled in this cache-service configuration`
+      );
+    }
     await this.validateDataServiceId(dataServiceId);
+
     return this.dataPackagesService.getByTimestamp(
       dataServiceId,
       Number(timestamp)
