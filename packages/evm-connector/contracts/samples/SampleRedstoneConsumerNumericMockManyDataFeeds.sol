@@ -16,4 +16,11 @@ contract SampleRedstoneConsumerNumericMockManyDataFeeds is RedstoneConsumerNumer
     firstValue = values[0];
     secondValue = values[1];
   }
+
+  function save2ValuesInStorageWithManualPayload(
+    bytes32[] calldata dataFeedIds,
+    bytes calldata
+  ) public {
+    save2ValuesInStorage(dataFeedIds);
+  }
 }
