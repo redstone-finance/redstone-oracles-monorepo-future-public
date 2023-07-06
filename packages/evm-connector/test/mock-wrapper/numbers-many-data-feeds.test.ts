@@ -9,7 +9,10 @@ import {
 } from "../../src/helpers/test-utils";
 
 import { WrapperBuilder } from "../../src/index";
-import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
+import {
+  MockDataPackageConfig,
+  MockWrapper,
+} from "../../src/wrappers/MockWrapper";
 import { SampleRedstoneConsumerNumericMockManyDataFeeds } from "../../typechain-types";
 import {
   expectedNumericValues,
@@ -35,6 +38,10 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
     ]);
     await tx.wait();
 
+    await checkExpectedValues(dataFeedIds);
+  };
+
+  const checkExpectedValues = async (dataFeedIds: ("ETH" | "BTC")[]) => {
     const firstValueFromContract = await contract.firstValue();
     const secondValueFromContract = await contract.secondValue();
 
@@ -75,6 +82,18 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
 
   it("Should properly execute transaction on RedstoneConsumerBase contract (order: BTC, ETH)", async () => {
     await testShouldPass(mockNumericPackages, ["BTC", "ETH"]);
+  });
+
+  it("Should work properly with manual payload", async () => {
+    const mockWrapper = new MockWrapper(mockNumericPackages);
+    const payload = await mockWrapper.getRedstonePayloadForManualUsage();
+    const dataFeedIds: ("ETH" | "BTC")[] = ["ETH", "BTC"];
+    const tx = await contract.save2ValuesInStorageWithManualPayload(
+      dataFeedIds.map(utils.convertStringToBytes32),
+      payload
+    );
+    await tx.wait();
+    await checkExpectedValues(dataFeedIds);
   });
 
   it("Should properly execute transaction with 20 single pacakages (10 for ETH and 10 for BTC)", async () => {
