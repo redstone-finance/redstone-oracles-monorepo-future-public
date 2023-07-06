@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers";
-import { formatUnits, hexlify, toUtf8String } from "ethers/lib/utils";
+import { base64, formatUnits, hexlify, toUtf8String } from "ethers/lib/utils";
 import {
   DATA_FEED_ID_BS,
   DATA_PACKAGES_COUNT_BS,
@@ -12,7 +12,7 @@ import {
   TIMESTAMP_BS,
   UNSIGNED_METADATA_BYTE_SIZE_BS,
 } from "../common/redstone-constants";
-import { convertBytesToNumber } from "../common/utils";
+import { convertBytesToNumber, convertNumberToBytes } from "../common/utils";
 import { DataPackage } from "../data-package/DataPackage";
 import { SignedDataPackage } from "../data-package/SignedDataPackage";
 import { DataPoint } from "../data-point/DataPoint";
