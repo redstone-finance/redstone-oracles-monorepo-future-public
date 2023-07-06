@@ -1,13 +1,7 @@
 import { ethers } from "ethers";
-import { joinSignature } from "ethers/lib/utils";
 import { RedstoneOraclesState } from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/types";
-import {
-  DataPackage,
-  DataPoint,
-  INumericDataPoint,
-  NumericDataPoint,
-} from "redstone-protocol";
-import { NumberLike } from "redstone-protocol/src/common/utils";
+import { DataPackage, DataPoint, NumericDataPoint } from "redstone-protocol";
+import { convertNumberToBytes } from "redstone-protocol/src/common/utils";
 
 export const MOCK_PRIVATE_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
@@ -45,7 +39,7 @@ export const mockOracleRegistryState: RedstoneOraclesState = {
 };
 
 export const MOCK_SIGNATURE =
-  "I3VOkm58RvyLIxSNqBDiAaGrRiCKCgF4kTHooTlCg18yR74gJJRsFbn2Ws4CrdUMDb/on141amtAg0X5SzTggBs=";
+  "PJkkAPFdAh24XW5IyiFbdL2Sjhsl7S7kLSGoiCACZZtGNjkeHXiFed7Zq4KP1pMVAanBp5B+qmtKb9Wht5RANxw=";
 
 export const produceMockDataPackage = (
   dataPoints: DataPoint[],
@@ -57,79 +51,83 @@ export const produceMockDataPackage = (
   return dataPackage.toObj();
 };
 
-export const mockDataPackages = [
+export const getMockDataPackages = () => [
   produceMockDataPackage([
     new NumericDataPoint({ dataFeedId: "mock-data-feed-id-1", value: 42 }),
     new NumericDataPoint({ dataFeedId: "mock-data-feed-id-2", value: 123 }),
+    new DataPoint("XD", convertNumberToBytes(1.2, 8, 32), {
+      type: "HEX_BIG_INT",
+      sources: { exchange_1: "1.19", exchange_2: "1.20", exchange_3: "1.21" },
+    }),
   ]),
 ];
 
 export const mockDataPackagesForUniqueSigners = [
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     isSignatureValid: true,
     dataFeedId: "BTC",
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x2",
   },
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     isSignatureValid: true,
     dataFeedId: "BTC",
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x3",
   },
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     isSignatureValid: true,
     dataFeedId: "BTC",
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x3",
   },
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     isSignatureValid: true,
     dataFeedId: "BTC",
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x3",
   },
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     isSignatureValid: true,
     dataFeedId: "ETH",
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x2",
   },
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     isSignatureValid: true,
     dataFeedId: "ETH",
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x2",
   },
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     isSignatureValid: true,
     dataFeedId: "ETH",
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x5",
   },
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     isSignatureValid: true,
     dataFeedId: "___ALL_FEEDS___",
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x4",
   },
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     isSignatureValid: true,
     dataFeedId: "___ALL_FEEDS___",
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x4",
   },
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     isSignatureValid: true,
     dataFeedId: "___ALL_FEEDS___",
     dataServiceId: "mock-data-service-1",
