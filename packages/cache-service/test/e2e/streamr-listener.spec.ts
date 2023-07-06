@@ -3,7 +3,7 @@ import "../common/set-test-envs";
 import {
   MOCK_DATA_SERVICE_ID,
   MOCK_SIGNER_ADDRESS,
-  mockDataPackages,
+  getMockDataPackages,
   mockOracleRegistryState,
 } from "../common/mock-values";
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
@@ -25,7 +25,7 @@ jest.mock("redstone-streamr-proxy", () => ({
   ...jest.requireActual("redstone-streamr-proxy"),
   StreamrClient: jest.fn().mockImplementation(() => ({
     subscribe(_streamId: string, callback: (msg: Uint8Array) => void) {
-      callback(compressMsg(mockDataPackages));
+      callback(compressMsg(getMockDataPackages()));
     },
     getStream(_streamId: string) {
       return Promise.resolve({ streamId: _streamId });
@@ -43,7 +43,7 @@ const dataPackageServiceSaveManySpy = jest.spyOn(
 
 const expectedSavedDataPackages = [
   {
-    ...mockDataPackages[0],
+    ...getMockDataPackages()[0],
     signerAddress: MOCK_SIGNER_ADDRESS,
     dataServiceId: MOCK_DATA_SERVICE_ID,
     isSignatureValid: true,
