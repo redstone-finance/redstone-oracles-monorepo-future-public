@@ -10,6 +10,7 @@ interface CacheServiceConfigRequiredFields {
   allowedStreamrDataServiceIds: string[];
   useMockOracleRegistryState: boolean;
   enableHistoricalDataServing: boolean;
+  secondMongoDbUrl?: string;
 }
 
 type CacheServiceConfig =
@@ -49,6 +50,7 @@ const config = {
   useMockOracleRegistryState: getEnv("USE_MOCK_ORACLE_STATE", false) === "true",
   enableHistoricalDataServing:
     getEnv("ENABLE_HISTORICAL_DATA_SERVING", false) === "true",
+  secondMongoDbUrl: getEnv("SECOND_MONGO_DB_URL", false),
 } as CacheServiceConfig;
 
 if (config.enableArchivingOnArweave) {
