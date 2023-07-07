@@ -684,12 +684,10 @@
     "AAVE": {
       "source": [
         "binance",
-        "binanceus",
         "binanceusdm",
         "bitget",
         "bitmart",
         "bitfinex2",
-        "bittrex",
         "bybit",
         "coinbaseprime",
         "coinbasepro",
