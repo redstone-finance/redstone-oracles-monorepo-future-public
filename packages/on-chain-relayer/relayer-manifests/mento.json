@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "Celo Alfajores Testnet",
+    "id": 44787
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0x9268744b117629f7937C0bec4CfcFFf980500388",
+  "dataServiceId": "redstone-main-demo",
+  "priceFeeds": {
+    "EUR": "",
+    "CUSD": ""
+  }
+}

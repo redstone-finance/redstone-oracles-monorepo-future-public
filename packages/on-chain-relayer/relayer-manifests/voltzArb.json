@@ -1,7 +1,11 @@
 {
-  "network": "arbitrum",
-  "minDeviationPercentage": 0.000001,
-  "maxTimeIntervalMilliseconds": 475200000,
+  "chain": {
+    "name": "Arbitrum One",
+    "id": 42161
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.000001
+  },
   "adapterContract": "0x58EBEc7C7BB905E998860942EECF93a4fC90EeA2",
   "dataServiceId": "redstone-avalanche-prod",
   "priceFeeds": {

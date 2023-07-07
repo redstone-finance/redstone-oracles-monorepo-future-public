@@ -3,13 +3,15 @@ import { ethers } from "hardhat";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { requestDataPackages } from "redstone-sdk";
 import { getSigner } from "../../src/core/contract-interactions/get-provider-or-signer";
-import { config } from "../../src/config";
+import { config, setConfigProvider } from "../../src/config";
+import { fileSystemConfigProvider } from "../../src/FilesystemConfigProvider";
 
 // Usage: yarn run-script src/scripts/price-feeds/deploy-price-feeds-contracts.ts
 // Note! You should configure the .env file properly before running this script
 
 (async () => {
-  const dataFeeds = config.dataFeeds as string[];
+  setConfigProvider(fileSystemConfigProvider);
+  const dataFeeds = config().dataFeeds as string[];
 
   console.log("Deploying adapter contract...");
   const adapterFactory = await ethers.getContractFactory(
@@ -39,7 +41,7 @@ import { config } from "../../src/config";
   }
 
   console.log("Updating data feeds values...");
-  const { dataServiceId, uniqueSignersCount, gasLimit } = config;
+  const { dataServiceId, uniqueSignersCount, gasLimit } = config();
   const dataPackages = await requestDataPackages({
     dataServiceId,
     uniqueSignersCount,

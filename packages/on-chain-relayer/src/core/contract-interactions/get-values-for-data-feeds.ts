@@ -8,7 +8,7 @@ export const getValuesForDataFeeds = async (
   dataFeeds: string[]
 ): Promise<ValuesForDataFeeds> => {
   // We do not support getting latest values from smart contract for MentoAdapter
-  if (config.adapterContractType === "mento") {
+  if (config().adapterContractType === "mento") {
     return {};
   }
 
