@@ -6,16 +6,18 @@ import { getLastRoundParamsFromContract } from "./core/contract-interactions/get
 import { getAdapterContract } from "./core/contract-interactions/get-contract";
 import { getValuesForDataFeeds } from "./core/contract-interactions/get-values-for-data-feeds";
 import { sendHealthcheckPing } from "./core/monitoring/send-healthcheck-ping";
-import { config } from "./config";
+import { config, setConfigProvider } from "./config";
+import { fileSystemConfigProvider } from "./FilesystemConfigProvider";
 
-const { relayerIterationInterval } = config;
+setConfigProvider(fileSystemConfigProvider);
+const relayerConfig = config();
 
 console.log(
-  `Starting contract prices updater with interval ${relayerIterationInterval}`
+  `Starting contract prices updater with interval ${relayerConfig.relayerIterationInterval}`
 );
 
 const runIteration = async () => {
-  const { dataServiceId, uniqueSignersCount, dataFeeds } = config;
+  const { dataServiceId, uniqueSignersCount, dataFeeds, updateConditions } = relayerConfig;
   const adapterContract = getAdapterContract();
 
   await sendHealthcheckPing();
@@ -26,7 +28,7 @@ const runIteration = async () => {
 
   // We fetch latest values from contract only if we want to check value deviation
   let valuesFromContract: ValuesForDataFeeds = {};
-  if (config.updateConditions.includes("value-deviation")) {
+  if (updateConditions.includes("value-deviation")) {
     valuesFromContract = await getValuesForDataFeeds(
       adapterContract,
       dataFeeds
@@ -44,7 +46,7 @@ const runIteration = async () => {
     dataPackages,
     valuesFromContract,
     lastUpdateTimestamp,
-  });
+  }, relayerConfig);
 
   if (!shouldUpdatePrices) {
   } else {
@@ -59,7 +61,7 @@ const task = new AsyncTask(
 );
 
 const job = new SimpleIntervalJob(
-  { milliseconds: relayerIterationInterval, runImmediately: true },
+  { milliseconds: relayerConfig.relayerIterationInterval, runImmediately: true },
   task,
   { preventOverrun: true }
 );

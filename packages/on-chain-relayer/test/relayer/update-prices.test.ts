@@ -72,7 +72,10 @@ describe("update-prices", () => {
     await mentoAdapter.setDataFeed(dataFeedsIds[1], mockToken2Address);
 
     // Mocking config
-    const overrideMockConfig = { adapterContractType: "mento" };
+    const overrideMockConfig = {
+      adapterContractType: "mento",
+      updateConditions: ["time"],
+    };
     mockEnvVariables(overrideMockConfig);
 
     // Update prices

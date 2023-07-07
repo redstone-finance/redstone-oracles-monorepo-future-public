@@ -1,0 +1,17 @@
+{
+  "chain": {
+    "name": "Insti 1",
+    "id": 424242
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0x4DB403ebC655C9B209B1A9226Af7Dd523128Ec86",
+  "dataServiceId": "redstone-avalanche-prod",
+  "priceFeeds": {
+    "BTC": "0x1A6E1D73d82b85419899C441A26dBEf314Cf01A6",
+    "ETH": "0xAFad421c8421a03D7b471Baf2E1da07a6E705a20",
+    "AVAX": "0x765D5ebBf6A025d361f0a2fa061E7F7803f004AD"
+  }
+}

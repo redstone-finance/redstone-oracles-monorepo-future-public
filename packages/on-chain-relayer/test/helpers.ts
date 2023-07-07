@@ -8,7 +8,7 @@ import {
 } from "redstone-protocol";
 import { DataPackagesResponse } from "redstone-sdk";
 import { formatBytes32String } from "ethers/lib/utils";
-import { config } from "../src/config";
+import { setConfigProvider } from "../src/config";
 import { ethers } from "hardhat";
 
 export const ethDataFeed = formatBytes32String("ETH");
@@ -46,7 +46,7 @@ export const getWrappedContractAndUpdateBlockTimestamp = async (
 };
 
 export const mockEnvVariables = (overrideMockConfig: any = {}) => {
-  (config as any) = {
+  setConfigProvider(() => { return {
     relayerIterationInterval: "10",
     updatePriceInterval: "1000",
     rpcUrl: "http://127.0.0.1:8545",
@@ -64,7 +64,7 @@ export const mockEnvVariables = (overrideMockConfig: any = {}) => {
     minDeviationPercentage: 10,
     adapterContractType: "price-feeds",
     ...overrideMockConfig,
-  };
+  }});
 };
 
 type DataPointsKeys = "ETH" | "BTC";

@@ -1,7 +1,12 @@
 {
-  "network": "ethereum",
-  "minDeviationPercentage": 0.5,
-  "maxTimeIntervalMilliseconds": 86400000,
+  "chain": {
+    "name": "Ethereum Mainnet",
+    "id": 1
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
   "adapterContract": "0x68ba9602B2AeE30847412109D2eE89063bf08Ec2",
   "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {

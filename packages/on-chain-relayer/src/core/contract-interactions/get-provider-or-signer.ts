@@ -2,15 +2,15 @@ import { providers, Wallet } from "ethers";
 import { config } from "../../config";
 
 export const getProvider = () => {
-  const { rpcUrl, chainName, chainId } = config;
+  const { rpcUrl, chainName, chainId } = config();
   return new providers.StaticJsonRpcProvider(rpcUrl, {
     name: chainName,
-    chainId: Number(chainId),
+    chainId: chainId,
   });
 };
 
 export const getSigner = () => {
   const provider = getProvider();
-  const signer = new Wallet(config.privateKey, provider);
+  const signer = new Wallet(config().privateKey, provider);
   return signer;
 };

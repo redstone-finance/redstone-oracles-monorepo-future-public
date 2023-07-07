@@ -1,7 +1,7 @@
-import { config } from "../../config";
+import { RelayerConfig } from "../../types";
 
-export const timeUpdateCondition = (lastUpdateTimestamp: number) => {
-  const updatePriceInterval = config.updatePriceInterval;
+export const timeUpdateCondition = (lastUpdateTimestamp: number, config: RelayerConfig) => {
+  const updatePriceInterval = config.updatePriceInterval!;
   const currentTimestamp = Date.now();
   const timeDiff = currentTimestamp - lastUpdateTimestamp;
   const shouldUpdatePrices = timeDiff >= updatePriceInterval;
