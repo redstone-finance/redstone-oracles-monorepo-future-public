@@ -7,7 +7,7 @@ import { getProvider } from "./get-provider-or-signer";
 import { IRedstoneAdapter } from "../../../typechain-types";
 
 export const getAdapterContract = () => {
-  const { privateKey, adapterContractAddress } = config;
+  const { privateKey, adapterContractAddress } = config();
   const provider = getProvider();
   const signer = new Wallet(privateKey, provider);
   const abi = getAbiForAdapter();
@@ -25,14 +25,14 @@ export const getSortedOraclesContractAtAddress = (
 };
 
 const getAbiForAdapter = () => {
-  switch (config.adapterContractType) {
+  switch (config().adapterContractType) {
     case "price-feeds":
       return redstoneAdapterABI;
     case "mento":
       return mentoAdapterABI;
     default:
       throw new Error(
-        `Unsupported adapter contract type: ${config.adapterContractType}`
+        `Unsupported adapter contract type: ${config().adapterContractType}`
       );
   }
 };

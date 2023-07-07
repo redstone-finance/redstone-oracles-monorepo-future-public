@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "hubble-testnet",
+    "id": 321123
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.1
+  },
+  "adapterContract": "0x91661D7757C0ec1bdBb04D51b7a1039e30D6dcc9",
+  "dataServiceId": "redstone-avalanche-prod",
+  "priceFeeds": {
+    "AVAX": "0xDe26f7cC0b4d48913e01679575754031c36ca473",
+    "ETH": "0x57908F2908a05cB7E28ff139e9a38bD840A6a536"
+  }
+}

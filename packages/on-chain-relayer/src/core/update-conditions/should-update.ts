@@ -1,14 +1,13 @@
 import { timeUpdateCondition } from "./time-condition";
 import { valueDeviationCondition } from "./value-deviation-condition";
-import { config } from "../../config";
+import { RelayerConfig } from "../../types";
 import { ConditionCheckResponse, Context } from "../../types";
 
-export const shouldUpdate = (context: Context): ConditionCheckResponse => {
-  const { updateConditions } = config;
+export const shouldUpdate = (context: Context, config: RelayerConfig): ConditionCheckResponse => {
   const warningMessages: string[] = [];
   let shouldUpdatePrices = false;
-  for (const conditionName of updateConditions) {
-    const conditionCheck = checkConditionByName(context)[conditionName];
+  for (const conditionName of config.updateConditions) {
+    const conditionCheck = checkConditionByName(context, config)[conditionName];
     shouldUpdatePrices =
       shouldUpdatePrices || conditionCheck.shouldUpdatePrices;
     if (conditionCheck.warningMessage.length > 0) {
@@ -28,10 +27,11 @@ export const shouldUpdate = (context: Context): ConditionCheckResponse => {
   };
 };
 
-const checkConditionByName = (context: Context) => ({
-  time: timeUpdateCondition(context.lastUpdateTimestamp),
+const checkConditionByName = (context: Context, config: RelayerConfig) => ({
+  time: timeUpdateCondition(context.lastUpdateTimestamp, config),
   "value-deviation": valueDeviationCondition(
     context.dataPackages,
-    context.valuesFromContract
+    context.valuesFromContract,
+    config
   ),
 });

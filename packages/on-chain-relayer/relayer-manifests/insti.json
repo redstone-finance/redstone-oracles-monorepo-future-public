@@ -1,0 +1,16 @@
+{
+  "chain": {
+    "name": "Insti 1",
+    "id": 424242
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.000001,
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0xea102d73b2D3b789F65ce6Dba6fDC5538BF3C7bb",
+  "dataServiceId": "redstone-main-demo",
+  "priceFeeds": {
+    "SONIA": "",
+    "SOFR": ""
+  }
+}

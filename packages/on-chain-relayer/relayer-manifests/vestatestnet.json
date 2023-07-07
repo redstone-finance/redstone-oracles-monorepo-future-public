@@ -1,0 +1,14 @@
+{
+  "chain": {
+    "name": "Arbitrum Goerli Testnet",
+    "id": 421613
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0x86392aF1fB288f49b8b8fA2495ba201084C70A13",
+  "dataServiceId": "redstone-main-demo",
+  "priceFeeds": {
+    "VST": ""
+  }
+}

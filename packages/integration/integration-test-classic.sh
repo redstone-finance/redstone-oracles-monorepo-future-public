@@ -98,13 +98,11 @@ main() {
   # Launch on-chain-relayer
   cp .env.example .env
   updateDotEnvFile "RPC_URL" "http://127.0.0.1:8545"
-  updateDotEnvFile "CHAIN_ID" "31337"
   updateDotEnvFile "PRIVATE_KEY" "$HARDHAT_MOCK_PRIVATE_KEY"
-  updateDotEnvFile "ADAPTER_CONTRACT_ADDRESS" "$ADAPTER_CONTRACT_ADDRESS"
-  updateDotEnvFile "DATA_FEEDS" '["BTC", "ETH", "AAVE"]'
-  updateDotEnvFile "DATA_SERVICE_ID" "mock-data-service"
   updateDotEnvFile "CACHE_SERVICE_URLS" '["http://localhost:3000"]'
   updateDotEnvFile "HEALTHCHECK_PING_URL" ""
+  updateDotEnvFile "MANIFEST_FILE" "../integration/relayerManifest.json"
+  sed "s/__ADAPTER_CONTRACT_ADDRESS__/${ADAPTER_CONTRACT_ADDRESS}/" "../integration/relayerManifestSample.json" > ../integration/relayerManifest.json
   cat .env
   runWithLogPrefixInBackground "yarn start" "on-chain-relayer"
   onChainRelayerPid=$!
