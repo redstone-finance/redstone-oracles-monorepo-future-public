@@ -1,11 +1,12 @@
-import {
-  CachedDataPackage,
-  DataPackage,
-} from "../src/data-packages/data-packages.model";
-import { ALL_FEEDS_KEY } from "../src/data-packages/data-packages.service";
 import mongoose from "mongoose";
+import { ALL_FEEDS_KEY } from "../src/data-packages/data-packages.service";
 import config from "../src/config";
 import { MathUtils } from "redstone-utils";
+import {
+  queryDataPackages,
+  groupDataPackagesByField,
+  formatTime,
+} from "./common";
 
 // USAGE: yarn run-ts scripts/analyze-data-packages.ts
 
@@ -51,17 +52,22 @@ const EXPECTED_DATA_FEEDS = [
   "sAVAX",
 ];
 
-interface DataPackagesGroupedBySigner {
-  [signer: string]: CachedDataPackage[];
-}
-
 main();
 
 async function main() {
   mongoose.set("strictQuery", true);
   await mongoose.connect(config.mongoDbUrl);
   console.log("MongoDB connected");
-  const dataPackagesBySigner = await queryDataPackagesGroupedBySigner();
+  const dataPackages = await queryDataPackages({
+    startTimestamp: START_TIMESTAMP,
+    endTimestamp: END_TIMESTAMP,
+    dataFeedId: ALL_FEEDS_KEY,
+    dataServiceId: DATA_SERVICE_ID,
+  });
+  const dataPackagesBySigner = groupDataPackagesByField(
+    dataPackages,
+    "signerAddress"
+  );
   for (const [signerAddress, dataPackages] of Object.entries(
     dataPackagesBySigner
   )) {
@@ -113,33 +119,4 @@ async function main() {
       }
     }
   }
-}
-
-function formatTime(timestamp: number) {
-  return new Date(timestamp).toISOString();
-}
-
-async function queryDataPackagesGroupedBySigner(): Promise<DataPackagesGroupedBySigner> {
-  const dataPackages = await DataPackage.find(
-    {
-      timestampMilliseconds: {
-        $gte: START_TIMESTAMP,
-        $lte: END_TIMESTAMP,
-      },
-      dataFeedId: ALL_FEEDS_KEY,
-      dataServiceId: DATA_SERVICE_ID,
-    },
-    { timestampMilliseconds: 1, signerAddress: 1, dataPoints: 1 }
-  );
-
-  const groupedBySigner: DataPackagesGroupedBySigner = {};
-
-  for (const dataPackage of dataPackages) {
-    if (!groupedBySigner[dataPackage.signerAddress]) {
-      groupedBySigner[dataPackage.signerAddress] = [];
-    }
-    groupedBySigner[dataPackage.signerAddress].push(dataPackage);
-  }
-
-  return groupedBySigner;
 }
