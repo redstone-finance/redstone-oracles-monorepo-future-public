@@ -7,7 +7,6 @@ const ONE_GWEI = 1e9;
 
 type ContractOverrides = {
   nonce: number;
-  gasLimit?: number;
 } & FeeStructure;
 
 type LastDeliveryAttempt = {
@@ -16,7 +15,7 @@ type LastDeliveryAttempt = {
   result?: TransactionResponse;
 };
 
-type GasOracleFn = () => Promise<FeeStructure>;
+type GasOracleFn = (opts: TransactionDeliveryManOpts) => Promise<FeeStructure>;
 
 type TransactionDeliveryManOpts = {
   /**
@@ -26,14 +25,30 @@ type TransactionDeliveryManOpts = {
   expectedDeliveryTimeMs: number;
 
   /**
+   * Gas limit used by contract
+   */
+  gasLimit: number;
+
+  /**
+   * If network support arbitrum like 2D fees should be set to true
+   * more info: https://medium.com/offchainlabs/understanding-arbitrum-2-dimensional-fees-fd1d582596c9
+   */
+  twoDimensionFees?: boolean;
+
+  /**
    * Max number of attempts to deliver transaction
    */
   maxAttempts?: number;
 
   /**
-   * Multiply last failed gas multiplier by
+   * Multiply last failed gas fee by
    */
-  priorityFeePerGasMultiplier?: number;
+  multiplier?: number;
+
+  /**
+   * Multiply las failed gas limit by
+   */
+  gasLimitMultiplier?: number;
 
   /**
    * If we want to take rewards from last block we can achieve is using percentiles
@@ -50,15 +65,18 @@ type TransactionDeliveryManOpts = {
 type FeeStructure = {
   maxFeePerGas: number;
   maxPriorityFeePerGas: number;
+  gasLimit: number;
 };
 
 const unsafeBnToNumber = (bn: BigNumber) => Number(bn.toString());
 
-const getEthFeeFromGasOracle: GasOracleFn = async (apiKey: string = "") => {
+const getEthFeeFromGasOracle: GasOracleFn = async (
+  opts: TransactionDeliveryManOpts
+) => {
   const response = // rate limit is 5 seconds
     (
       await fetchWithCache<any>(
-        `https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${apiKey}`,
+        `https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=`,
         6_000
       )
     ).data;
@@ -74,6 +92,7 @@ const getEthFeeFromGasOracle: GasOracleFn = async (apiKey: string = "") => {
     maxPriorityFeePerGas: Math.round(
       (FastGasPrice - suggestBaseFee) * ONE_GWEI
     ),
+    gasLimit: opts.gasLimit,
   };
 };
 
@@ -82,9 +101,11 @@ const CHAIN_ID_TO_GAS_ORACLE = {
 } as Record<number, GasOracleFn | undefined>;
 
 const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
-  maxAttempts: 5,
-  priorityFeePerGasMultiplier: 1.125, // 112,5%
+  maxAttempts: 10,
+  multiplier: 1.125, // 112,5%
+  gasLimitMultiplier: 1.5,
   percentileOfPriorityFee: 75,
+  twoDimensionFees: false,
   logger: (text: string) =>
     console.log(`[${TransactionDeliveryMan.name}] ${text}`),
 };
@@ -99,8 +120,7 @@ export class TransactionDeliveryMan {
   public async deliver<T extends Contract, M extends keyof T>(
     contract: T,
     method: M,
-    params: Parameters<T[M]>,
-    gasLimit?: number
+    params: Parameters<T[M]>
   ): Promise<TransactionResponse> {
     const provider = contract.provider as providers.JsonRpcProvider;
     const address = await contract.signer.getAddress();
@@ -108,19 +128,18 @@ export class TransactionDeliveryMan {
     let lastAttempt: LastDeliveryAttempt | undefined = undefined;
 
     const currentNonce = await provider.getTransactionCount(address);
+    const fees = await this.getFees(provider);
     const contractOverrides: ContractOverrides = {
-      gasLimit,
       nonce: currentNonce,
-      ...(await this.getFees(provider)),
+      ...fees,
     };
 
     for (let i = 0; i < this.opts.maxAttempts; i++) {
       try {
         lastAttempt = { ...contractOverrides };
-        lastAttempt.result = await contract[method](
-          ...params,
-          contractOverrides
-        );
+        lastAttempt.result = await contract[method](...params, {
+          ...contractOverrides,
+        });
       } catch (e: any) {
         // if underpriced then bump fee
         this.opts.logger(
@@ -161,8 +180,13 @@ export class TransactionDeliveryMan {
 
   private isUnderpricedError(e: any) {
     return (
+      // RPC errors sucks most of the time, thus we can not rely on them
+      // thus this is list is wider then it could be
       e.message.includes("maxFeePerGas") ||
       e.message.includes("baseFeePerGas") ||
+      e.code === ErrorCode.INSUFFICIENT_FUNDS ||
+      e.code === ErrorCode.SERVER_ERROR ||
+      e.code === ErrorCode.UNPREDICTABLE_GAS_LIMIT ||
       e.code === ErrorCode.INSUFFICIENT_FUNDS
     );
   }
@@ -193,9 +217,9 @@ export class TransactionDeliveryMan {
       throw new Error(`Gas oracle is not defined for ${chainId}`);
     }
 
-    const fee = await gasOracle();
+    const fee = await gasOracle(this.opts);
 
-    this.opts.logger(`getFees result ${JSON.stringify(fee)}`);
+    this.opts.logger(`getFees result from gasOracle ${JSON.stringify(fee)}`);
 
     return fee;
   }
@@ -207,15 +231,18 @@ export class TransactionDeliveryMan {
     const lastBlock = await provider.getBlock("latest");
     const maxPriorityFeePerGas = await this.estimatePriorityFee(provider);
 
-    // we can be sure that his baseFee will be enough even in worst case
     const baseFee = Math.round(
       unsafeBnToNumber(lastBlock.baseFeePerGas as BigNumber)
     );
     const maxFeePerGas = baseFee + maxPriorityFeePerGas;
 
-    const fee = { maxFeePerGas, maxPriorityFeePerGas };
+    const fee: FeeStructure = {
+      maxFeePerGas,
+      maxPriorityFeePerGas,
+      gasLimit: this.opts.gasLimit,
+    };
 
-    this.opts.logger(`getFees result ${JSON.stringify(fee)}`);
+    this.opts.logger(`getFees result from provider ${JSON.stringify(fee)}`);
 
     return fee;
   }
@@ -242,19 +269,23 @@ export class TransactionDeliveryMan {
 
   private scaleFees(currentFees: FeeStructure): FeeStructure {
     const maxPriorityFeePerGas = Math.round(
-      currentFees.maxPriorityFeePerGas * this.opts.priorityFeePerGasMultiplier
+      currentFees.maxPriorityFeePerGas * this.opts.multiplier
     );
     const maxFeePerGas = Math.round(
-      currentFees.maxFeePerGas * this.opts.priorityFeePerGasMultiplier
+      currentFees.maxFeePerGas * this.opts.multiplier
     );
+    const gasLimit = this.opts.twoDimensionFees
+      ? Math.round(currentFees.gasLimit * this.opts.gasLimitMultiplier)
+      : currentFees.gasLimit;
 
-    this.opts.logger(
-      `Scaling fees maxFeePerGas to ${maxFeePerGas} and maxPriorityFeePerGas to ${maxPriorityFeePerGas}`
-    );
-
-    return {
+    const scaledFees: FeeStructure = {
       maxPriorityFeePerGas,
       maxFeePerGas,
+      gasLimit,
     };
+
+    this.opts.logger(`Scaling fees to ${JSON.stringify(scaledFees)}`);
+
+    return scaledFees;
   }
 }
