@@ -76,7 +76,7 @@ const getEthFeeFromGasOracle: GasOracleFn = async (
   const response = // rate limit is 5 seconds
     (
       await fetchWithCache<any>(
-        `https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=`,
+        `https://api.etherscan.io/api?module=gastracker&action=gasoracle`,
         6_000
       )
     ).data;
