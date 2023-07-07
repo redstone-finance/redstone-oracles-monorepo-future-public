@@ -30,7 +30,7 @@ export const config = Object.freeze({
   cacheServiceUrls: JSON.parse(
     getFromEnv("CACHE_SERVICE_URLS") ?? "[]"
   ) as string[],
-  gasLimit: getFromEnv("GAS_LIMIT") as string,
+  gasLimit: Number.parseInt(getFromEnv("GAS_LIMIT")!),
   updateConditions: JSON.parse(
     getFromEnv("UPDATE_CONDITIONS") ?? "[]"
   ) as ConditionChecksNames[],
@@ -48,6 +48,7 @@ export const config = Object.freeze({
   expectedTxDeliveryTimeInMS: Number(
     getFromEnv("EXPECTED_TX_DELIVERY_TIME_IN_MS", false)
   ),
+  isArbitrumNetwork: getFromEnv("IS_ARBITRUM_NETWORK", true) === "true",
 });
 
 /// Config validation ///

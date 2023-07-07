@@ -17,10 +17,10 @@ interface UpdatePricesArgs {
   proposedTimestamp: number;
 }
 
-const TX_CONFIG = { gasLimit: config.gasLimit };
-
 const deliveryMan = new TransactionDeliveryMan({
   expectedDeliveryTimeMs: config.expectedTxDeliveryTimeInMS,
+  gasLimit: config.gasLimit,
+  twoDimensionFees: config.isArbitrumNetwork,
 });
 
 export const updatePrices = async (
@@ -82,8 +82,7 @@ const updatePricesInPriceFeedsAdapter = async ({
   const deliveryResult = await deliveryMan.deliver(
     wrappedContract,
     "updateDataFeedsValues",
-    [proposedTimestamp],
-    TX_CONFIG.gasLimit ? Number(TX_CONFIG.gasLimit) : undefined
+    [proposedTimestamp]
   );
 
   return deliveryResult;
