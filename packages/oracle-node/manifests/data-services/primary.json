@@ -156,12 +156,10 @@
     "AAVE": {
       "source": [
         "binance",
-        "binanceus",
         "binanceusdm",
         "bitget",
         "bitmart",
         "bitfinex2",
-        "bittrex",
         "bybit",
         "coinbaseprime",
         "coinbasepro",
@@ -180,6 +178,9 @@
         "uniswap-v3-on-chain-weth-3000",
         "xt"
       ]
+    },
+    "C3M": {
+      "source": ["twelve-data"]
     }
   }
 }
