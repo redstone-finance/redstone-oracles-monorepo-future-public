@@ -17,11 +17,17 @@ interface UpdatePricesArgs {
   proposedTimestamp: number;
 }
 
-const deliveryMan = new TransactionDeliveryMan({
-  expectedDeliveryTimeMs: config.expectedTxDeliveryTimeInMS,
-  gasLimit: config.gasLimit,
-  twoDimensionFees: config.isArbitrumNetwork,
-});
+let deliveryMan: TransactionDeliveryMan | undefined = undefined;
+const getDeliveryMan = () => {
+  deliveryMan =
+    deliveryMan ??
+    new TransactionDeliveryMan({
+      expectedDeliveryTimeMs: config().expectedTxDeliveryTimeInMS,
+      gasLimit: config().gasLimit,
+      twoDimensionFees: config().isArbitrumNetwork,
+    });
+  return deliveryMan;
+};
 
 export const updatePrices = async (
   dataPackages: DataPackagesResponse,
@@ -60,14 +66,14 @@ export const updatePrices = async (
 const updatePriceInAdapterContract = async (
   args: UpdatePricesArgs
 ): Promise<TransactionResponse> => {
-  switch (config.adapterContractType) {
+  switch (config().adapterContractType) {
     case "price-feeds":
       return await updatePricesInPriceFeedsAdapter(args);
     case "mento":
       return await updatePricesInMentoAdapter(args);
     default:
       throw new Error(
-        `Unsupported adapter contract type: ${config.adapterContractType}`
+        `Unsupported adapter contract type: ${config().adapterContractType}`
       );
   }
 };
@@ -79,7 +85,7 @@ const updatePricesInPriceFeedsAdapter = async ({
 }: UpdatePricesArgs): Promise<TransactionResponse> => {
   const wrappedContract = wrapContract(adapterContract);
 
-  const deliveryResult = await deliveryMan.deliver(
+  const deliveryResult = await getDeliveryMan().deliver(
     wrappedContract,
     "updateDataFeedsValues",
     [proposedTimestamp]

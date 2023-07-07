@@ -1,0 +1,14 @@
+{
+  "chain": {
+    "name": "Goerli test network",
+    "id": 5
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0x2C31d00C1AE878F28c58B3aC0672007aECb4A124",
+  "dataServiceId": "redstone-main-demo",
+  "priceFeeds": {
+    "OHM": ""
+  }
+}

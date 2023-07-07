@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { ValuesForDataFeeds } from "redstone-sdk";
+import { config } from "../../src/config";
 import { shouldUpdate } from "../../src/core/update-conditions/should-update";
 import {
   createNumberFromContract,
@@ -23,7 +24,7 @@ describe("should-update", () => {
       dataPackages,
       valuesFromContract: smallerValueDiff,
       lastUpdateTimestamp,
-    });
+    }, config());
     expect(shouldUpdatePrices).to.be.false;
     expect(JSON.parse(warningMessage)[0]).to.match(
       /Not enough time has passed to update prices/
@@ -45,7 +46,7 @@ describe("should-update", () => {
       dataPackages,
       valuesFromContract: biggerValueDiff,
       lastUpdateTimestamp,
-    });
+    }, config());
     expect(shouldUpdatePrices).to.be.true;
     expect(JSON.parse(warningMessage)).to.match(
       /Not enough time has passed to update prices/
@@ -63,7 +64,7 @@ describe("should-update", () => {
       dataPackages,
       valuesFromContract: smallerValueDiff,
       lastUpdateTimestamp,
-    });
+    }, config());
     expect(shouldUpdatePrices).to.be.true;
     expect(JSON.parse(warningMessage)).to.match(
       /Value has not deviated enough to be updated/
@@ -86,7 +87,7 @@ describe("should-update", () => {
       dataPackages,
       valuesFromContract: sameValue,
       lastUpdateTimestamp,
-    });
+    }, config());
     expect(warningMessage).to.match(
       /Value has not deviated enough to be updated/
     );
@@ -106,7 +107,7 @@ describe("should-update", () => {
       dataPackages,
       valuesFromContract: sameValue,
       lastUpdateTimestamp,
-    });
+    }, config());
     expect(warningMessage).to.match(/Enough time passed to updated price/);
   });
 });

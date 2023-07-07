@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { ValuesForDataFeeds } from "redstone-sdk";
+import { config } from "../../src/config";
 import { valueDeviationCondition } from "../../src/core/update-conditions/value-deviation-condition";
 import {
   createNumberFromContract,
@@ -20,7 +21,8 @@ describe("value-deviation-condition", () => {
     };
     const { shouldUpdatePrices, warningMessage } = valueDeviationCondition(
       dataPackages,
-      smallerValueDiff
+      smallerValueDiff,
+      config()
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
@@ -36,7 +38,8 @@ describe("value-deviation-condition", () => {
     };
     const { shouldUpdatePrices, warningMessage } = valueDeviationCondition(
       dataPackages,
-      biggerValueDiff
+      biggerValueDiff,
+      config()
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(/Value has deviated enough to be/);
