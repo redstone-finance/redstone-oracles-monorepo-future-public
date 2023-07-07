@@ -18,6 +18,8 @@ const runIteration = async () => {
   const { dataServiceId, uniqueSignersCount, dataFeeds } = config;
   const adapterContract = getAdapterContract();
 
+  await sendHealthcheckPing();
+
   const { lastUpdateTimestamp } = await getLastRoundParamsFromContract(
     adapterContract
   );
@@ -48,8 +50,6 @@ const runIteration = async () => {
   } else {
     await updatePrices(dataPackages, adapterContract, lastUpdateTimestamp);
   }
-
-  await sendHealthcheckPing();
 };
 
 const task = new AsyncTask(

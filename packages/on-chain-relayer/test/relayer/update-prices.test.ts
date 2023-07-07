@@ -1,10 +1,3 @@
-import chai, { expect } from "chai";
-import chaiAsPromised from "chai-as-promised";
-import { ethers } from "hardhat";
-import { PriceFeedsAdapterWithoutRoundsMock } from "../../typechain-types";
-import { updatePrices } from "../../src/core/contract-interactions/update-prices";
-import { getLastRoundParamsFromContract } from "../../src/core/contract-interactions/get-last-round-params";
-import { server } from "./mock-server";
 import {
   btcDataFeed,
   dataFeedsIds,
@@ -12,6 +5,14 @@ import {
   getDataPackagesResponse,
   mockEnvVariables,
 } from "../helpers";
+mockEnvVariables();
+import chai, { expect } from "chai";
+import chaiAsPromised from "chai-as-promised";
+import { ethers } from "hardhat";
+import { PriceFeedsAdapterWithoutRoundsMock } from "../../typechain-types";
+import { updatePrices } from "../../src/core/contract-interactions/update-prices";
+import { getLastRoundParamsFromContract } from "../../src/core/contract-interactions/get-last-round-params";
+import { server } from "./mock-server";
 import { parseUnits } from "ethers/lib/utils";
 import * as getProviderOrSigner from "../../src/core/contract-interactions/get-provider-or-signer";
 
@@ -22,7 +23,6 @@ const mockToken2Address = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"; // cUSD 
 
 describe("update-prices", () => {
   before(() => {
-    mockEnvVariables();
     server.listen();
   });
 
@@ -39,19 +39,16 @@ describe("update-prices", () => {
     await priceFeedsAdapter.deployed();
 
     // Update prices
-    const { lastUpdateTimestamp } =
-      await getLastRoundParamsFromContract(priceFeedsAdapter);
-    const dataPackages = await getDataPackagesResponse();
-    await updatePrices(
-      dataPackages,
-      priceFeedsAdapter,
-      lastUpdateTimestamp
+    const { lastUpdateTimestamp } = await getLastRoundParamsFromContract(
+      priceFeedsAdapter
     );
+    const dataPackages = await getDataPackagesResponse();
+    await updatePrices(dataPackages, priceFeedsAdapter, lastUpdateTimestamp);
 
     // Check updated values
-    const dataFeedsValues = await priceFeedsAdapter.getValuesForDataFeeds(
-      [btcDataFeed]
-    );
+    const dataFeedsValues = await priceFeedsAdapter.getValuesForDataFeeds([
+      btcDataFeed,
+    ]);
     expect(dataFeedsValues[0]).to.be.equal(2307768000000);
   });
 
@@ -79,14 +76,11 @@ describe("update-prices", () => {
     mockEnvVariables(overrideMockConfig);
 
     // Update prices
-    const { lastUpdateTimestamp } =
-      await getLastRoundParamsFromContract(mentoAdapter);
-    const dataPackages = await getDataPackagesResponse();
-    await updatePrices(
-      dataPackages,
-      mentoAdapter,
-      lastUpdateTimestamp
+    const { lastUpdateTimestamp } = await getLastRoundParamsFromContract(
+      mentoAdapter
     );
+    const dataPackages = await getDataPackagesResponse();
+    await updatePrices(dataPackages, mentoAdapter, lastUpdateTimestamp);
 
     // Check updated values in SortedOracles
     const normalizeValue = (num: number) => parseUnits(num.toString(), 24);
