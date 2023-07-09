@@ -80,14 +80,6 @@ describe("DataServiceWrapper", () => {
       );
     });
 
-    it("Should properly execute with one invalid and one slower cache", async () => {
-      await runTest(
-        contract,
-        ["http://invalid-cache.com", "http://slower-cache.com"],
-        "mock-data-service-tests"
-      );
-    });
-
     it("Should get urls from redstone-protocol if not provided", async () => {
       await runTest(contract, undefined, "mock-data-service-tests");
     });
@@ -97,27 +89,7 @@ describe("DataServiceWrapper", () => {
     });
 
     it("Should throw error when multiple invalid caches", async () => {
-      const expectedErrorMessage = `All redstone payloads do not pass dry run verification, aggregated errors: {
-  "reason": null,
-  "code": "CALL_EXCEPTION",
-  "method": "save2ValuesInStorage(bytes32[])",
-  "data": "0xec459bc000000000000000000000000041e13e6e0a8b13f8539b71f3c07d3f97f887f573",
-  "errorArgs": [
-    "0x41e13E6e0A8B13F8539B71f3c07d3f97F887F573"
-  ],
-  "errorName": "SignerNotAuthorised",
-  "errorSignature": "SignerNotAuthorised(address)"
-},{
-  "reason": null,
-  "code": "CALL_EXCEPTION",
-  "method": "save2ValuesInStorage(bytes32[])",
-  "data": "0xec459bc000000000000000000000000041e13e6e0a8b13f8539b71f3c07d3f97f887f573",
-  "errorArgs": [
-    "0x41e13E6e0A8B13F8539B71f3c07d3f97F887F573"
-  ],
-  "errorName": "SignerNotAuthorised",
-  "errorSignature": "SignerNotAuthorised(address)"
-}`;
+      const expectedErrorMessage = `VM Exception while processing transaction: reverted with custom error 'SignerNotAuthorised("0x41e13E6e0A8B13F8539B71f3c07d3f97F887F573")`;
       await expect(
         runTest(
           contract,

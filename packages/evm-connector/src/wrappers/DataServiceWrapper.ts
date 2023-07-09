@@ -1,11 +1,8 @@
 import {
   DataPackagesRequestParams,
-  requestDataPackages,
   requestRedstonePayload,
 } from "redstone-sdk";
 import { BaseWrapper, ParamsForDryRunVerification } from "./BaseWrapper";
-import { parseAggregatedErrors } from "../helpers/parse-aggregated-errors";
-import { runDryRun } from "../helpers/run-dry-run";
 import { version } from "../../package.json";
 import { resolveDataServiceUrls } from "redstone-sdk";
 import { SignedDataPackage } from "redstone-protocol";
@@ -47,25 +44,14 @@ export class DataServiceWrapper extends BaseWrapper {
     dryRunParams: ParamsForDryRunVerification
   ): Promise<string> {
     const unsignedMetadataMsg = this.getUnsignedMetadata();
-    const disablePayloadsDryRun = Boolean(
-      this.dataPackagesRequestParams.disablePayloadsDryRun
-    );
 
     const dataPackagesRequestParams =
       await this.resolveDataPackagesRequestParams();
 
-    if (disablePayloadsDryRun) {
-      return this.requestPayloadWithoutDryRun(
-        dataPackagesRequestParams,
-        unsignedMetadataMsg
-      );
-    }
-
-    return this.requestPayloadWithDryRun({
-      unsignedMetadataMsg,
+    return requestRedstonePayload(
       dataPackagesRequestParams,
-      ...dryRunParams,
-    });
+      unsignedMetadataMsg
+    );
   }
 
   private async resolveDataPackagesRequestParams(): Promise<
@@ -92,45 +78,6 @@ export class DataServiceWrapper extends BaseWrapper {
     }
 
     return fetchedParams;
-  }
-
-  /* 
-    Call function on provider always returns some result and doesn't throw an error.
-    Later we need to decode the result from the call (decodeFunctionResult) and
-    this function will throw an error if the call was reverted.
-  */
-  async requestPayloadWithDryRun({
-    unsignedMetadataMsg,
-    dataPackagesRequestParams: input,
-    ...dryRunParams
-  }: DryRunParamsWithUnsignedMetadata) {
-    const promises = input.urls.map(async (url) => {
-      const redstonePayload = await this.requestPayloadWithoutDryRun(
-        {
-          ...input,
-          urls: [url],
-        },
-        unsignedMetadataMsg
-      );
-      await runDryRun({ ...dryRunParams, redstonePayload });
-      return redstonePayload;
-    });
-    return Promise.any(promises).catch((error: any) => {
-      const parsedErrors = parseAggregatedErrors(error);
-      throw new Error(
-        `All redstone payloads do not pass dry run verification, aggregated errors: ${parsedErrors}`
-      );
-    });
-  }
-
-  async requestPayloadWithoutDryRun(
-    dataPackagesRequestParams: Required<DataPackagesRequestInput>,
-    unsignedMetadataMsg: string
-  ) {
-    return requestRedstonePayload(
-      dataPackagesRequestParams,
-      unsignedMetadataMsg
-    );
   }
 
   private async getDataServiceIdFromContract(): Promise<string> {
