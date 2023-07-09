@@ -18,7 +18,6 @@ export interface DataPackagesRequestParams {
   dataServiceId: string;
   uniqueSignersCount: number;
   dataFeeds?: string[];
-  disablePayloadsDryRun?: boolean;
   urls?: string[];
   valuesToCompare?: ValuesForDataFeeds;
 }
