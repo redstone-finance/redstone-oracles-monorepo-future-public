@@ -805,9 +805,6 @@
       "source": ["newyorkfed"],
       "decimals": 0
     },
-    "WSTETH": {
-      "source": ["coingecko"]
-    },
     "JUSDC": {
       "source": ["camelot-weth"]
     },
@@ -824,6 +821,14 @@
         "kaiko",
         "mexc",
         "uniswap-v2-on-chain-weth"
+      ]
+    },
+    "WSTETH": {
+      "source": [
+        "balancer-weth",
+        "coingecko",
+        "maverick",
+        "uniswap-v3-on-chain-weth-500"
       ]
     },
     "PLS": {
