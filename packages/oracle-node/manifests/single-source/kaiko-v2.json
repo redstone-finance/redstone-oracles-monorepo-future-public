@@ -1,8 +1,8 @@
 {
-  "interval": 15000,
+  "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": ["kaiko"],
-  "sourceTimeout": 50000,
+  "defaultSource": ["kaiko-v2"],
+  "sourceTimeout": 5000,
   "deviationCheck": {
     "deviationWithRecentValues": {
       "maxPercent": 25,
@@ -17,8 +17,8 @@
     "AVAX": {},
     "LINK": {},
     "BTC": {},
-    "QI": {},
     "USDC": {},
+    "XAVA": {},
     "EUR": {},
     "STETH": {}
   }
