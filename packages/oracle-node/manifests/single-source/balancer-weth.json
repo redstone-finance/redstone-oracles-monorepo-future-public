@@ -11,6 +11,7 @@
   "defaultSource": ["balancer-weth"],
   "tokens": {
     "OHM": {},
-    "BB-A-WETH": {}
+    "BB-A-WETH": {},
+    "WSTETH": {}
   }
 }
