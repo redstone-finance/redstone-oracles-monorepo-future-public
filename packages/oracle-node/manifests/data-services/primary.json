@@ -181,6 +181,23 @@
     },
     "C3M": {
       "source": ["twelve-data"]
+    },
+    "SONIA": {
+      "source": ["stlouisfed"]
+    },
+    "SOFR": {
+      "source": ["newyorkfed"]
+    },
+    "SOFR_EFFECTIVE_DATE": {
+      "source": ["newyorkfed"],
+      "decimals": 0
+    },
+    "SOFRAI": {
+      "source": ["newyorkfed"]
+    },
+    "SOFRAI_EFFECTIVE_DATE": {
+      "source": ["newyorkfed"],
+      "decimals": 0
     }
   }
 }
