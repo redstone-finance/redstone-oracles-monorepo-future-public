@@ -6,7 +6,7 @@ import { getSigner } from "../../src/core/contract-interactions/get-provider-or-
 import { config, setConfigProvider } from "../../src/config";
 import { fileSystemConfigProvider } from "../../src/FilesystemConfigProvider";
 
-// Usage: yarn run-script src/scripts/price-feeds/deploy-price-feeds-contracts.ts
+// Usage: yarn run-script scripts/price-feeds/deploy-price-feeds-contracts.ts
 // Note! You should configure the .env file properly before running this script
 
 (async () => {

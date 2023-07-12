@@ -9,7 +9,7 @@ import {
   SignedDataPackagePlainObj,
 } from "redstone-protocol";
 import { resolveDataServiceUrls } from "./data-services-urls";
-import { SafeNumber, MathUtils } from "redstone-utils";
+import { SafeNumber } from "redstone-utils";
 
 const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 const DEFAULT_DECIMALS = 8;
@@ -20,6 +20,7 @@ export interface DataPackagesRequestParams {
   dataFeeds?: string[];
   urls?: string[];
   valuesToCompare?: ValuesForDataFeeds;
+  historicalTimestamp?: number;
 }
 
 export interface DataPackagesResponse {
@@ -164,9 +165,18 @@ export const requestDataPackages = async (
 
 const prepareDataPackagePromises = (reqParams: DataPackagesRequestParams) => {
   const urls = getUrlsForDataServiceId(reqParams);
+  const pathComponents = [
+    "data-packages",
+    reqParams.historicalTimestamp ? "historical" : "latest",
+    reqParams.dataServiceId,
+  ];
+  if (reqParams.historicalTimestamp) {
+    pathComponents.push(`${reqParams.historicalTimestamp}`);
+  }
+
   return urls.map((url) =>
     axios
-      .get(`${url}/data-packages/latest/${reqParams.dataServiceId}`)
+      .get([url].concat(pathComponents).join("/"))
       .then((response) => parseDataPackagesResponse(response.data, reqParams))
   );
 };

@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import {
-  ConditionChecksNames,
+  ConditionCheckNames,
   ConfigProvider,
   OnChainRelayerManifest,
 } from "./types";
@@ -33,12 +33,19 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
   const manifest = readJSON<OnChainRelayerManifest>(mainfestPath);
   const { timeSinceLastUpdateInMilliseconds, deviationPercentage } =
     manifest.updateTriggers;
-  let updateConditions = [] as ConditionChecksNames[];
+  let updateConditions = [] as ConditionCheckNames[];
   if (timeSinceLastUpdateInMilliseconds) {
     updateConditions.push("time");
   }
   if (deviationPercentage) {
     updateConditions.push("value-deviation");
+  }
+
+  const fallbackDeviationCheckOffsetInMinutes = Number.parseInt(
+    getFromEnv("FALLBACK_DEVIATION_CHECK_OFFSET_IN_MINUTES")!
+  );
+  if (fallbackDeviationCheckOffsetInMinutes > 0) {
+    updateConditions.push("fallback-deviation");
   }
   return Object.freeze({
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
@@ -51,10 +58,11 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     dataServiceId: manifest.dataServiceId,
     uniqueSignersCount: Number(getFromEnv("UNIQUE_SIGNERS_COUNT")),
     dataFeeds: Object.keys(manifest.priceFeeds),
-    cacheServiceUrls: JSON.parse(getFromEnv("CACHE_SERVICE_URLS")!) as string[],
     gasLimit: Number.parseInt(getFromEnv("GAS_LIMIT")!),
     updateConditions: updateConditions,
     minDeviationPercentage: deviationPercentage,
+    fallbackDeviationCheckOffsetInMinutes:
+      fallbackDeviationCheckOffsetInMinutes,
     healthcheckPingUrl: getFromEnv("HEALTHCHECK_PING_URL", true),
     adapterContractType:
       getFromEnv("ADAPTER_CONTRACT_TYPE", true) ??
@@ -63,5 +71,9 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       getFromEnv("EXPECTED_TX_DELIVERY_TIME_IN_MS")
     ),
     isArbitrumNetwork: getFromEnv("IS_ARBITRUM_NETWORK", true) === "true",
+    historicalPackagesGateway: getFromEnv("HISTORICAL_PACKAGES_GATEWAY"),
+    historicalPackagesDataServiceId: getFromEnv(
+      "HISTORICAL_PACKAGES_DATA_SERVICE_ID"
+    ),
   });
 };
