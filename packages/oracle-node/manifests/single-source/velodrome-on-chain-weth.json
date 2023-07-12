@@ -1,0 +1,27 @@
+{
+  "interval": 15000,
+  "priceAggregator": "median",
+  "defaultSource": ["velodrome-on-chain-WETH"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "alETH": {},
+    "alETH_velodrome-on-chain-weth_BUY_10K_slippage": {
+      "skipSigning": true
+    },
+    "alETH_velodrome-on-chain-weth_SELL_10K_slippage": {
+      "skipSigning": true
+    },
+    "alETH_velodrome-on-chain-weth_BUY_100K_slippage": {
+      "skipSigning": true
+    },
+    "alETH_velodrome-on-chain-weth_SELL_100K_slippage": {
+      "skipSigning": true
+    }
+  }
+}
