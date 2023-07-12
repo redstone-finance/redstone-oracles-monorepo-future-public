@@ -1,10 +1,7 @@
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
-import { ValuesForDataFeeds, requestDataPackages } from "redstone-sdk";
-import { shouldUpdate } from "./core/update-conditions/should-update";
+import { getIterationArgs } from "./args/get-iteration-args";
 import { updatePrices } from "./core/contract-interactions/update-prices";
-import { getLastRoundParamsFromContract } from "./core/contract-interactions/get-last-round-params";
 import { getAdapterContract } from "./core/contract-interactions/get-contract";
-import { getValuesForDataFeeds } from "./core/contract-interactions/get-values-for-data-feeds";
 import { sendHealthcheckPing } from "./core/monitoring/send-healthcheck-ping";
 import { config, setConfigProvider } from "./config";
 import { fileSystemConfigProvider } from "./FilesystemConfigProvider";
@@ -17,40 +14,16 @@ console.log(
 );
 
 const runIteration = async () => {
-  const { dataServiceId, uniqueSignersCount, dataFeeds, updateConditions } = relayerConfig;
   const adapterContract = getAdapterContract();
-
+  const iterationArgs = await getIterationArgs(adapterContract);
   await sendHealthcheckPing();
-
-  const { lastUpdateTimestamp } = await getLastRoundParamsFromContract(
-    adapterContract
-  );
-
-  // We fetch latest values from contract only if we want to check value deviation
-  let valuesFromContract: ValuesForDataFeeds = {};
-  if (updateConditions.includes("value-deviation")) {
-    valuesFromContract = await getValuesForDataFeeds(
-      adapterContract,
-      dataFeeds
-    );
-  }
-
-  const dataPackages = await requestDataPackages({
-    dataServiceId,
-    uniqueSignersCount,
-    dataFeeds,
-    valuesToCompare: valuesFromContract,
-  });
-
-  const { shouldUpdatePrices } = shouldUpdate({
-    dataPackages,
-    valuesFromContract,
-    lastUpdateTimestamp,
-  }, relayerConfig);
-
-  if (!shouldUpdatePrices) {
-  } else {
-    await updatePrices(dataPackages, adapterContract, lastUpdateTimestamp);
+  
+  if (iterationArgs.shouldUpdatePrices) {
+    if (!iterationArgs.args) {
+      return console.log(iterationArgs.message);
+    } else {
+      await updatePrices(iterationArgs.args);
+    }
   }
 };
 
@@ -61,7 +34,10 @@ const task = new AsyncTask(
 );
 
 const job = new SimpleIntervalJob(
-  { milliseconds: relayerConfig.relayerIterationInterval, runImmediately: true },
+  {
+    milliseconds: relayerConfig.relayerIterationInterval,
+    runImmediately: true,
+  },
   task,
   { preventOverrun: true }
 );
