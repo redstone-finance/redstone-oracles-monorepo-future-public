@@ -1,0 +1,14 @@
+{
+  "chain": {
+    "name": "Ethereum Mainnet",
+    "id": 1
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0x5BeEFeFE23aecccC77d164AB8E9Ff74e056588f1",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "C3M": "0x6E27A25999B3C665E44D903B2139F5a4Be2B6C26"
+  }
+}
