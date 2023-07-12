@@ -1,0 +1,42 @@
+node_modules
+.env
+coverage
+coverage.json
+typechain
+typechain-types
+
+# Hardhat files
+cache
+artifacts
+deployments
+
+# OpenZeppelin
+.openzeppelin/unknown-*.json
+
+hardhat-deployed-contracts.json
+
+# integration tests temporary files
+adapter-contract-address.txt
+
+# Temporary directory
+.tmp
+
+# local env variables
+.env.w3f
+
+# Typescript
+dist
+
+# ESLint
+*.eslintcache
+
+# macOS
+.DS_Store
+*.icloud
+
+# yarn
+yarn-error.log
+
+# vscode
+.vscode
+/.idea/

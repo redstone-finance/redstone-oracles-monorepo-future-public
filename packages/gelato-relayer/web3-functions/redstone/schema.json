@@ -1,0 +1,20 @@
+{
+  "web3FunctionVersion": "2.0.0",
+  "runtime": "js-1.0",
+  "memory": 256,
+  "timeout": 30,
+  "userArgs": {
+    "adapterContractAddress": "string",
+    "dataServiceId": "string",
+    "uniqueSignersCount": "number",
+    "dataFeeds": "string[]",
+    "updateConditions": "string[]",
+    "updatePriceInterval": "number",
+    "minDeviationPermillage": "number",
+    "adapterContractType": "string",
+    "fallbackDeviationCheckOffsetInMinutes": "number",
+    "fallbackTimeOffsetInMinutes": "number",
+    "historicalPackagesGateway": "string",
+    "historicalPackagesDataServiceId": "string"
+  }
+}
