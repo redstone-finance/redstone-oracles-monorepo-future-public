@@ -1,0 +1,40 @@
+{
+  "interval": 15000,
+  "priceAggregator": "median",
+  "defaultSource": ["velodrome-on-chain-USDC"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "alUSD": {},
+    "alUSD_velodrome-on-chain-usdc_BUY_10K_slippage": {
+      "skipSigning": true
+    },
+    "alUSD_velodrome-on-chain-usdc_SELL_10K_slippage": {
+      "skipSigning": true
+    },
+    "alUSD_velodrome-on-chain-usdc_BUY_100K_slippage": {
+      "skipSigning": true
+    },
+    "alUSD_velodrome-on-chain-usdc_SELL_100K_slippage": {
+      "skipSigning": true
+    },
+    "OP": {},
+    "OP_velodrome-on-chain-usdc_BUY_10K_slippage": {
+      "skipSigning": true
+    },
+    "OP_velodrome-on-chain-usdc_SELL_10K_slippage": {
+      "skipSigning": true
+    },
+    "OP_velodrome-on-chain-usdc_BUY_100K_slippage": {
+      "skipSigning": true
+    },
+    "OP_velodrome-on-chain-usdc_SELL_100K_slippage": {
+      "skipSigning": true
+    }
+  }
+}
