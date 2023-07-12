@@ -43,6 +43,7 @@ export interface RelayerConfig {
   updateConditions: ConditionCheckNames[];
   minDeviationPercentage?: number;
   fallbackDeviationCheckOffsetInMinutes?: number;
+  fallbackTimeOffsetInMinutes?: number;
   healthcheckPingUrl?: string;
   adapterContractType: string;
   expectedTxDeliveryTimeInMS: number;
@@ -56,4 +57,5 @@ export type ConfigProvider = () => RelayerConfig;
 export type ConditionCheckNames =
   | "time"
   | "value-deviation"
-  | "fallback-deviation";
+  | "fallback-deviation"
+  | "fallback-time";

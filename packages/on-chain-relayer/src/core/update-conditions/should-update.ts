@@ -7,6 +7,7 @@ import {
   RelayerConfig,
 } from "../../types";
 import { fallbackDeviationCondition } from "./fallback-deviation-condition";
+import { fallbackTimeCondition } from "./fallback-time-condition";
 
 export const shouldUpdate = (
   context: Context,
@@ -24,8 +25,8 @@ export const shouldUpdate = (
 
   console.log(
     `Update condition ${
-      shouldUpdatePrices ? "" : "NOT"
-    } satisfied: ${warningMessages.join("; ")}`
+      shouldUpdatePrices ? "" : "NOT "
+    }satisfied: ${warningMessages.join("; ")}`
   );
 
   return {
@@ -41,7 +42,10 @@ const checkConditionByName = (
 ) => {
   switch (name) {
     case "time":
-      return timeUpdateCondition(context.lastUpdateTimestamp, config);
+      return timeUpdateCondition(
+        context.lastUpdateTimestamp,
+        config.updatePriceInterval!
+      );
 
     case "value-deviation":
       return valueDeviationCondition(
@@ -57,5 +61,8 @@ const checkConditionByName = (
         context.valuesFromContract,
         config
       );
+
+    case "fallback-time":
+      return fallbackTimeCondition(context.lastUpdateTimestamp, config);
   }
 };

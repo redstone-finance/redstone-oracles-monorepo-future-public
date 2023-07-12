@@ -49,7 +49,7 @@ export const mockEnvVariables = (overrideMockConfig: any = {}) => {
   setConfigProvider(() => {
     return {
       relayerIterationInterval: "10",
-      updatePriceInterval: "1000",
+      updatePriceInterval: 1000,
       rpcUrl: "http://127.0.0.1:8545",
       chainName: "HardhatNetwork",
       chainId: "31337",

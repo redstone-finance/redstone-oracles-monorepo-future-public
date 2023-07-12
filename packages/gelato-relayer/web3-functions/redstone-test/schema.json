@@ -1,0 +1,12 @@
+{
+  "web3FunctionVersion": "2.0.0",
+  "runtime": "js-1.0",
+  "memory": 256,
+  "timeout": 30,
+  "userArgs": {
+    "shouldUpdatePrices": "boolean",
+    "message": "string",
+    "args": "string",
+    "adapterContractAddress": "string"
+  }
+}

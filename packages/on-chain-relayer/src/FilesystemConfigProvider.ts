@@ -34,19 +34,22 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
   const { timeSinceLastUpdateInMilliseconds, deviationPercentage } =
     manifest.updateTriggers;
   let updateConditions = [] as ConditionCheckNames[];
-  if (timeSinceLastUpdateInMilliseconds) {
-    updateConditions.push("time");
-  }
+
+  const fallbackOffsetInMinutes = Number.parseInt(
+    getFromEnv("FALLBACK_OFFSET_IN_MINUTES")!
+  );
   if (deviationPercentage) {
-    updateConditions.push("value-deviation");
+    updateConditions.push(
+      fallbackOffsetInMinutes > 0 ? "fallback-deviation" : "value-deviation"
+    );
   }
 
-  const fallbackDeviationCheckOffsetInMinutes = Number.parseInt(
-    getFromEnv("FALLBACK_DEVIATION_CHECK_OFFSET_IN_MINUTES")!
-  );
-  if (fallbackDeviationCheckOffsetInMinutes > 0) {
-    updateConditions.push("fallback-deviation");
+  if (timeSinceLastUpdateInMilliseconds) {
+    updateConditions.push(
+      fallbackOffsetInMinutes > 0 ? "fallback-time" : "time"
+    );
   }
+
   return Object.freeze({
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
     updatePriceInterval: timeSinceLastUpdateInMilliseconds,
@@ -61,8 +64,8 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     gasLimit: Number.parseInt(getFromEnv("GAS_LIMIT")!),
     updateConditions: updateConditions,
     minDeviationPercentage: deviationPercentage,
-    fallbackDeviationCheckOffsetInMinutes:
-      fallbackDeviationCheckOffsetInMinutes,
+    fallbackDeviationCheckOffsetInMinutes: fallbackOffsetInMinutes,
+    fallbackTimeOffsetInMinutes: fallbackOffsetInMinutes,
     healthcheckPingUrl: getFromEnv("HEALTHCHECK_PING_URL", true),
     adapterContractType:
       getFromEnv("ADAPTER_CONTRACT_TYPE", true) ??
