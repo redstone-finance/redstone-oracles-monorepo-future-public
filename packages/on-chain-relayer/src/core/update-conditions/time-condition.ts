@@ -1,7 +1,11 @@
-import { RelayerConfig } from "../../types";
+export const timeUpdateCondition = (
+  lastUpdateTimestamp: number,
+  updatePriceInterval: number
+) => {
+  if (isNaN(updatePriceInterval)) {
+    throw "Update price interval must not be NaN";
+  }
 
-export const timeUpdateCondition = (lastUpdateTimestamp: number, config: RelayerConfig) => {
-  const updatePriceInterval = config.updatePriceInterval!;
   const currentTimestamp = Date.now();
   const timeDiff = currentTimestamp - lastUpdateTimestamp;
   const shouldUpdatePrices = timeDiff >= updatePriceInterval;
