@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "lib": [
+      "es2021"
+    ],
+    "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -9,6 +12,7 @@
     "strict": true,
     "esModuleInterop": true,
     "outDir": "dist",
+    "allowJs": true,
     "declaration": true,
     "declarationMap": true,
     "incremental": true,
@@ -34,6 +38,9 @@
     },
     {
       "path": "../sdk"
+    },
+    {
+      "path": "../utils"
     },
     {
       "path": "../rpc-providers/tsconfig.build.json"

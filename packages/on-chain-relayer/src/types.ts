@@ -4,6 +4,7 @@ export interface Context {
   dataPackages: DataPackagesResponse;
   valuesFromContract: ValuesForDataFeeds;
   lastUpdateTimestamp: number;
+  olderDataPackages?: DataPackagesResponse;
 }
 
 export interface ConditionCheckResponse {
@@ -38,16 +39,21 @@ export interface RelayerConfig {
   dataServiceId: string;
   uniqueSignersCount: number;
   dataFeeds: string[];
-  cacheServiceUrls: string[];
   gasLimit: number;
-  updateConditions: ConditionChecksNames[];
+  updateConditions: ConditionCheckNames[];
   minDeviationPercentage?: number;
+  fallbackDeviationCheckOffsetInMinutes?: number;
   healthcheckPingUrl?: string;
   adapterContractType: string;
   expectedTxDeliveryTimeInMS: number;
   isArbitrumNetwork: boolean;
+  historicalPackagesGateway?: string;
+  historicalPackagesDataServiceId?: string;
 }
 
 export type ConfigProvider = () => RelayerConfig;
 
-export type ConditionChecksNames = "time" | "value-deviation";
+export type ConditionCheckNames =
+  | "time"
+  | "value-deviation"
+  | "fallback-deviation";

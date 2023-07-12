@@ -24,7 +24,7 @@ export const getSortedOraclesContractAtAddress = (
   );
 };
 
-const getAbiForAdapter = () => {
+export const getAbiForAdapter = () => {
   switch (config().adapterContractType) {
     case "price-feeds":
       return redstoneAdapterABI;

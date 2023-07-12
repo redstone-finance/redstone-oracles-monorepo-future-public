@@ -1,7 +1,4 @@
 import { TransactionResponse } from "@ethersproject/providers";
-import { WrapperBuilder } from "@redstone-finance/evm-connector";
-import { Contract } from "ethers";
-import { DataPackagesResponse } from "redstone-sdk";
 import { config } from "../../config";
 import {
   MentoContracts,
@@ -10,12 +7,7 @@ import {
 
 import { getSortedOraclesContractAtAddress } from "./get-contract";
 import { TransactionDeliveryMan } from "redstone-rpc-providers";
-
-interface UpdatePricesArgs {
-  adapterContract: Contract;
-  wrapContract(adapterContract: Contract): Contract;
-  proposedTimestamp: number;
-}
+import { UpdatePricesArgs } from "../../args/get-update-prices-args";
 
 let deliveryMan: TransactionDeliveryMan | undefined = undefined;
 const getDeliveryMan = () => {
@@ -29,38 +21,11 @@ const getDeliveryMan = () => {
   return deliveryMan;
 };
 
-export const updatePrices = async (
-  dataPackages: DataPackagesResponse,
-  adapterContract: Contract,
-  lastUpdateTimestamp: number
-): Promise<void> => {
-  const dataPackagesTimestamps = Object.values(dataPackages).flatMap(
-    (dataPackages) =>
-      dataPackages.map(
-        (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
-      )
-  );
-  const minimalTimestamp = Math.min(...dataPackagesTimestamps);
-
-  if (lastUpdateTimestamp >= minimalTimestamp) {
-    console.log(
-      `Cannot update prices, proposed prices are not newer ${JSON.stringify({
-        lastUpdateTimestamp,
-        dataPackageTimestamp: minimalTimestamp,
-      })}`
-    );
-  } else {
-    const wrapContract = (adapterContract: Contract) =>
-      WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
-    const updateTx = await updatePriceInAdapterContract({
-      adapterContract,
-      wrapContract,
-      proposedTimestamp: minimalTimestamp,
-    });
-    console.log(`Update prices tx sent: ${updateTx.hash}`);
-    await updateTx.wait();
-    console.log(`Successfully updated prices: ${updateTx.hash}`);
-  }
+export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
+  const updateTx = await updatePriceInAdapterContract(updatePricesArgs);
+  console.log(`Update prices tx sent: ${updateTx.hash}`);
+  await updateTx.wait();
+  console.log(`Successfully updated prices: ${updateTx.hash}`);
 };
 
 const updatePriceInAdapterContract = async (
