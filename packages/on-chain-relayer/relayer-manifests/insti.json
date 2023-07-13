@@ -7,10 +7,10 @@
     "deviationPercentage": 0.000001,
     "timeSinceLastUpdateInMilliseconds": 3600000
   },
-  "adapterContract": "0xea102d73b2D3b789F65ce6Dba6fDC5538BF3C7bb",
-  "dataServiceId": "redstone-main-demo",
+  "adapterContract": "0xE852C24abFf46311D07f0Ad2A34fb95E42e11670",
+  "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {
-    "SONIA": "",
-    "SOFR": ""
+    "SONIA": "0xd265434Bb76D427e1fa0A5678F0bB939442d7045",
+    "SOFR": "0xC1CCc79da438aA393a6AE36e03cD1B194Fcf5D70"
   }
 }
