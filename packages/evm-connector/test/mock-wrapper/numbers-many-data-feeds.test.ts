@@ -86,7 +86,9 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
 
   it("Should work properly with manual payload", async () => {
     const mockWrapper = new MockWrapper(mockNumericPackages);
-    const payload = await mockWrapper.getRedstonePayloadForManualUsage();
+    const payload = await mockWrapper.getRedstonePayloadForManualUsage(
+      contract
+    );
     const dataFeedIds: ("ETH" | "BTC")[] = ["ETH", "BTC"];
     const tx = await contract.save2ValuesInStorageWithManualPayload(
       dataFeedIds.map(utils.convertStringToBytes32),

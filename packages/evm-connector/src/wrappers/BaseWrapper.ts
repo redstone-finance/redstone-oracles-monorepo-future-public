@@ -1,12 +1,6 @@
-import { Contract, PopulatedTransaction, Signer } from "ethers";
+import { Contract, Signer } from "ethers";
 import { addContractWait } from "../helpers/add-contract-wait";
 import { RedstonePayload, SignedDataPackage } from "redstone-protocol";
-
-export interface ParamsForDryRunVerification {
-  functionName: string;
-  contract: Contract;
-  transaction: PopulatedTransaction;
-}
 
 interface OverwriteFunctionArgs {
   wrappedContract: Contract;
@@ -17,55 +11,62 @@ interface OverwriteFunctionArgs {
 export abstract class BaseWrapper {
   protected contract!: Contract;
 
-  abstract getDataPackagesForPayload(
-    params?: ParamsForDryRunVerification
-  ): Promise<SignedDataPackage[]>;
+  abstract getDataPackagesForPayload(): Promise<SignedDataPackage[]>;
 
   abstract getUnsignedMetadata(): string;
 
-  async getRedstonePayloadForManualUsage(
-    params?: ParamsForDryRunVerification
-  ): Promise<string> {
-    const shouldBePreparedForManualUsage = true;
-    const payloadWithoutZeroExPrefix = await this.getBytesDataForAppending(
-      params,
-      shouldBePreparedForManualUsage
-    );
+  async getBytesDataForAppending(): Promise<string> {
+    const shouldBeMultipleOf32 = false;
+    return await this.prepareRedstonePayload(shouldBeMultipleOf32);
+  }
+
+  // Redstone payload can be passed as the last argument of the contract function
+  // But it needs to have a length that is a multiplicity of 32, otherwise zeros
+  // will be padded right and contract will revert with `CalldataMustHaveValidPayload`
+  async getRedstonePayloadForManualUsage(contract: Contract): Promise<string> {
+    this.setContractForFetchingDefaultParams(contract);
+    const shouldBeMultipleOf32 = true;
+    const payloadWithoutZeroExPrefix = await this.prepareRedstonePayload(shouldBeMultipleOf32);
     return "0x" + payloadWithoutZeroExPrefix;
   }
 
-  async getBytesDataForAppending(
-    params?: ParamsForDryRunVerification,
-    shouldBePreparedForManualUsage = false
-  ): Promise<string> {
-    const signedDataPackages = await this.getDataPackagesForPayload(params);
+  async prepareRedstonePayload(shouldBeMultipleOf32: boolean): Promise<string> {
+    const signedDataPackages = await this.getDataPackagesForPayload();
     let unsignedMetadata = this.getUnsignedMetadata();
 
-    // Redstone payload can be passed as the last argument of the contract function
-    // But it needs to have a length that is a multiplicity of 32, otherwise zeros
-    // will be padded right and contract will revert with `CalldataMustHaveValidPayload`
-    if (shouldBePreparedForManualUsage) {
-      const originalPayload = RedstonePayload.prepare(
-        signedDataPackages,
-        unsignedMetadata
-      );
-      // Calculating the number of bytes in the hex representation of payload
-      const originalPayloadLength = originalPayload.length / 2;
+    const originalPayload = RedstonePayload.prepare(
+      signedDataPackages,
+      unsignedMetadata
+    );
 
-      // Number of bytes that we want to add to unsigned metadata so that
-      // payload byte size becomes a multiplicity of 32
-      const bytesToAdd = 32 - (originalPayloadLength % 32);
-
-      // Adding underscores to the end of the metadata string, each underscore
-      // uses one byte in UTF-8
-      unsignedMetadata += "_".repeat(bytesToAdd);
+    if (!shouldBeMultipleOf32) {
+      return originalPayload;
     }
 
-    return RedstonePayload.prepare(signedDataPackages, unsignedMetadata);
+    // Calculating the number of bytes in the hex representation of payload
+    // We divide by 2, beacuse 2 symbols in a hex string represent one byte
+    const originalPayloadLength = originalPayload.length / 2;
+
+    // Number of bytes that we want to add to unsigned metadata so that
+    // payload byte size becomes a multiplicity of 32
+    const bytesToAdd = 32 - (originalPayloadLength % 32);
+
+    // Adding underscores to the end of the metadata string, each underscore
+    // uses one byte in UTF-8
+    unsignedMetadata += "_".repeat(bytesToAdd);
+
+    return RedstonePayload.prepare(
+      signedDataPackages,
+      unsignedMetadata
+    );
+  }
+
+  setContractForFetchingDefaultParams(contract: Contract) {
+    this.contract = contract;
   }
 
   overwriteEthersContract(contract: Contract): Contract {
-    this.contract = contract;
+    this.setContractForFetchingDefaultParams(contract);
     const contractPrototype = Object.getPrototypeOf(contract);
     const wrappedContract = Object.assign(
       Object.create(contractPrototype),
@@ -105,11 +106,7 @@ export abstract class BaseWrapper {
       const originalTx = await contract.populateTransaction[functionName](
         ...args
       );
-      const dataToAppend = await this.getBytesDataForAppending({
-        functionName,
-        contract,
-        transaction: originalTx,
-      });
+      const dataToAppend = await this.getBytesDataForAppending();
       originalTx.data += dataToAppend;
       return originalTx;
     };

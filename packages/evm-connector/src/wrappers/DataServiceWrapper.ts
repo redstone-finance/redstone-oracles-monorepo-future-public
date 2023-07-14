@@ -1,14 +1,10 @@
-import {
-  DataPackagesRequestParams,
-  requestRedstonePayload,
-} from "redstone-sdk";
-import { BaseWrapper, ParamsForDryRunVerification } from "./BaseWrapper";
+import { DataPackagesRequestParams, requestDataPackages } from "redstone-sdk";
+import { BaseWrapper } from "./BaseWrapper";
 import { version } from "../../package.json";
 import { resolveDataServiceUrls } from "redstone-sdk";
 import { SignedDataPackage } from "redstone-protocol";
 
-export interface DryRunParamsWithUnsignedMetadata
-  extends ParamsForDryRunVerification {
+export interface DryRunParamsWithUnsignedMetadata {
   unsignedMetadataMsg: string;
   dataPackagesRequestParams: Required<DataPackagesRequestInput>;
 }
@@ -27,31 +23,11 @@ export class DataServiceWrapper extends BaseWrapper {
     return `${currentTimestamp}#${version}#${this.dataPackagesRequestParams.dataServiceId}`;
   }
 
-  // Currently, we do not support preparing a manual payload in the
-  // DataServiceWrapper, as it would complicate the code too much
-  getDataPackagesForPayload(): Promise<SignedDataPackage[]> {
-    throw new Error(
-      `getDataPackagesForPayload is not supported by DataServiceWrapper`
-    );
-  }
-  getRedstonePayloadForManualUsage(): Promise<string> {
-    throw new Error(
-      `getRedstonePayloadForManualUsage is not supported by DataServiceWrapper`
-    );
-  }
-
-  async getBytesDataForAppending(
-    dryRunParams: ParamsForDryRunVerification
-  ): Promise<string> {
-    const unsignedMetadataMsg = this.getUnsignedMetadata();
-
+  async getDataPackagesForPayload(): Promise<SignedDataPackage[]> {
     const dataPackagesRequestParams =
       await this.resolveDataPackagesRequestParams();
-
-    return requestRedstonePayload(
-      dataPackagesRequestParams,
-      unsignedMetadataMsg
-    );
+    const dpResponse = await requestDataPackages(dataPackagesRequestParams);
+    return Object.values(dpResponse).flat();
   }
 
   private async resolveDataPackagesRequestParams(): Promise<
