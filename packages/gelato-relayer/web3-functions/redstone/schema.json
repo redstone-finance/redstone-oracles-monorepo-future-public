@@ -4,17 +4,8 @@
   "memory": 256,
   "timeout": 30,
   "userArgs": {
-    "adapterContractAddress": "string",
-    "dataServiceId": "string",
     "uniqueSignersCount": "number",
-    "dataFeeds": "string[]",
-    "updateConditions": "string[]",
-    "updatePriceInterval": "number",
-    "minDeviationPermillage": "number",
     "adapterContractType": "string",
-    "fallbackDeviationCheckOffsetInMinutes": "number",
-    "fallbackTimeOffsetInMinutes": "number",
-    "historicalPackagesGateway": "string",
-    "historicalPackagesDataServiceId": "string"
+    "manifestUrl": "string"
   }
 }

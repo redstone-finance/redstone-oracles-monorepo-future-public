@@ -1,10 +1,11 @@
 import dotenv from "dotenv";
 import {
-  ConditionCheckNames,
   ConfigProvider,
+  OnChainRelayerEnv,
   OnChainRelayerManifest,
 } from "./types";
 import fs from "fs";
+import { makeConfigProvider } from "./make-config-provider";
 
 dotenv.config();
 
@@ -29,43 +30,15 @@ function readJSON<T>(path: string): T {
 }
 
 export const fileSystemConfigProvider: ConfigProvider = () => {
-  const mainfestPath = getFromEnv("MANIFEST_FILE")!;
-  const manifest = readJSON<OnChainRelayerManifest>(mainfestPath);
-  const { timeSinceLastUpdateInMilliseconds, deviationPercentage } =
-    manifest.updateTriggers;
-  let updateConditions = [] as ConditionCheckNames[];
+  const manifestPath = getFromEnv("MANIFEST_FILE")!;
+  const manifest = readJSON<OnChainRelayerManifest>(manifestPath);
 
-  const fallbackOffsetInMinutes = Number.parseInt(
-    getFromEnv("FALLBACK_OFFSET_IN_MINUTES")!
-  );
-  if (deviationPercentage) {
-    updateConditions.push(
-      fallbackOffsetInMinutes > 0 ? "fallback-deviation" : "value-deviation"
-    );
-  }
-
-  if (timeSinceLastUpdateInMilliseconds) {
-    updateConditions.push(
-      fallbackOffsetInMinutes > 0 ? "fallback-time" : "time"
-    );
-  }
-
-  return Object.freeze({
+  const env: OnChainRelayerEnv = {
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
-    updatePriceInterval: timeSinceLastUpdateInMilliseconds,
     rpcUrl: getFromEnv("RPC_URL")!,
-    chainName: manifest.chain.name!,
-    chainId: manifest.chain.id,
     privateKey: getFromEnv("PRIVATE_KEY")!,
-    adapterContractAddress: manifest.adapterContract,
-    dataServiceId: manifest.dataServiceId,
     uniqueSignersCount: Number(getFromEnv("UNIQUE_SIGNERS_COUNT")),
-    dataFeeds: Object.keys(manifest.priceFeeds),
     gasLimit: Number.parseInt(getFromEnv("GAS_LIMIT")!),
-    updateConditions: updateConditions,
-    minDeviationPercentage: deviationPercentage,
-    fallbackDeviationCheckOffsetInMinutes: fallbackOffsetInMinutes,
-    fallbackTimeOffsetInMinutes: fallbackOffsetInMinutes,
     healthcheckPingUrl: getFromEnv("HEALTHCHECK_PING_URL", true),
     adapterContractType:
       getFromEnv("ADAPTER_CONTRACT_TYPE", true) ??
@@ -74,9 +47,11 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       getFromEnv("EXPECTED_TX_DELIVERY_TIME_IN_MS")
     ),
     isArbitrumNetwork: getFromEnv("IS_ARBITRUM_NETWORK", true) === "true",
-    historicalPackagesGateway: getFromEnv("HISTORICAL_PACKAGES_GATEWAY"),
-    historicalPackagesDataServiceId: getFromEnv(
-      "HISTORICAL_PACKAGES_DATA_SERVICE_ID"
+    fallbackOffsetInMinutes: Number.parseInt(
+      getFromEnv("FALLBACK_OFFSET_IN_MINUTES", true) ?? "0"
     ),
-  });
+    historicalPackagesGateway: getFromEnv("HISTORICAL_PACKAGES_GATEWAY", true),
+  };
+
+  return makeConfigProvider(manifest, env);
 };

@@ -87,29 +87,18 @@ export const getIterationArgs = async (
 export const requestHistoricalDataPackages = (
   requestParams: DataPackagesRequestParams
 ): Promise<DataPackagesResponse> => {
-  const {
-    fallbackDeviationCheckOffsetInMinutes,
-    historicalPackagesGateway,
-    historicalPackagesDataServiceId,
-  } = config();
+  const { fallbackOffsetInMinutes, historicalPackagesGateway } = config();
 
-  if (
-    !!fallbackDeviationCheckOffsetInMinutes &&
-    !!historicalPackagesGateway &&
-    !!historicalPackagesDataServiceId
-  ) {
+  if (!!fallbackOffsetInMinutes && !!historicalPackagesGateway) {
     return requestDataPackages({
       ...requestParams,
-      dataServiceId: historicalPackagesDataServiceId,
-      historicalTimestamp: olderPackagesTimestamp(
-        fallbackDeviationCheckOffsetInMinutes
-      ),
+      historicalTimestamp: olderPackagesTimestamp(fallbackOffsetInMinutes),
       urls: [historicalPackagesGateway],
     });
   }
 
   throw (
     `Historical packages fetcher for fallback deviation check is not properly configured: ` +
-    `offset=${fallbackDeviationCheckOffsetInMinutes} min., gateway=${historicalPackagesGateway}, dataServiceId=${historicalPackagesDataServiceId}`
+    `offset=${fallbackOffsetInMinutes} min., gateway=${historicalPackagesGateway}`
   );
 };
