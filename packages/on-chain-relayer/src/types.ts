@@ -42,15 +42,27 @@ export interface RelayerConfig {
   gasLimit: number;
   updateConditions: ConditionCheckNames[];
   minDeviationPercentage?: number;
-  fallbackDeviationCheckOffsetInMinutes?: number;
-  fallbackTimeOffsetInMinutes?: number;
   healthcheckPingUrl?: string;
   adapterContractType: string;
   expectedTxDeliveryTimeInMS: number;
   isArbitrumNetwork: boolean;
+  fallbackOffsetInMinutes?: number;
   historicalPackagesGateway?: string;
-  historicalPackagesDataServiceId?: string;
 }
+
+export type OnChainRelayerEnv = {
+  relayerIterationInterval: number;
+  rpcUrl: string;
+  privateKey: string;
+  uniqueSignersCount: number;
+  gasLimit: number;
+  healthcheckPingUrl?: string;
+  adapterContractType: string;
+  expectedTxDeliveryTimeInMS: number;
+  isArbitrumNetwork: boolean;
+  fallbackOffsetInMinutes: number;
+  historicalPackagesGateway?: string;
+};
 
 export type ConfigProvider = () => RelayerConfig;
 

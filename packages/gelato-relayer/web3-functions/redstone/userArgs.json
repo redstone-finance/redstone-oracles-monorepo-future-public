@@ -1,14 +1,5 @@
 {
-  "adapterContractAddress": "0x89b6137B9c09677BC77dc53B9dc564E2B3eA2d43",
-  "dataServiceId": "redstone-main-demo",
   "uniqueSignersCount": 1,
-  "dataFeeds": ["ETH"],
-  "updateConditions": ["fallback-time"],
-  "updatePriceInterval": 140000,
-  "minDeviationPermillage": 5,
   "adapterContractType": "price-feeds",
-  "fallbackDeviationCheckOffsetInMinutes": 3,
-  "fallbackTimeOffsetInMinutes": 3,
-  "historicalPackagesGateway": "",
-  "historicalPackagesDataServiceId": "redstone-primary-prod"
+  "manifestUrl": "https://raw.githubusercontent.com/redstone-finance/redstone-oracles-monorepo/848-fetching-manifest-in-gelato/packages/on-chain-relayer/relayer-manifests/goerli-sweth-fallback.json"
 }

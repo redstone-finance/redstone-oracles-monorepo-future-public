@@ -7,9 +7,17 @@ export type IterationArgs<Args> = {
   message?: string;
 };
 
+export type IterationArgsProviderEnv = {
+  historicalPackagesGateway?: string;
+  fallbackOffsetInMinutes: number;
+};
+
 export interface IterationArgsProviderInterface<Args> {
+  adapterContractAddress?: string;
+
   getArgs(
     userArgs: Web3FunctionUserArgs,
+    env: IterationArgsProviderEnv,
     provider: providers.StaticJsonRpcProvider
   ): Promise<IterationArgs<Args>>;
 
