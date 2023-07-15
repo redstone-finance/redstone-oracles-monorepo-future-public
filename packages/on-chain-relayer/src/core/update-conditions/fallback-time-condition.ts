@@ -9,7 +9,7 @@ export const fallbackTimeCondition = (
 ) => {
   const requiredTimeInterval =
     config.updatePriceInterval! +
-    MS_IN_ONE_MINUTE * config.fallbackTimeOffsetInMinutes!;
+    MS_IN_ONE_MINUTE * config.fallbackOffsetInMinutes!;
 
   const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
     lastUpdateTimestamp,
