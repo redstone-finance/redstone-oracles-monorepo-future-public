@@ -3,10 +3,10 @@ import { Contract, providers } from "ethers";
 import {
   getAbiForAdapter,
   getIterationArgs,
-  IRedstoneAdapter,
   makeConfigProvider,
   OnChainRelayerEnv,
   OnChainRelayerManifest,
+  RedstoneAdapterBase,
   setConfigProvider,
   UpdatePricesArgs,
 } from "redstone-on-chain-relayer";
@@ -19,6 +19,16 @@ import axios from "axios";
 
 const NOT_NEEDED_FOR_GELATO = "Not needed for Gelato";
 const NUMBER_NOT_NEEDED_FOR_GELATO = 0;
+
+const EMPTY_GELATO_ENV = {
+  relayerIterationInterval: NUMBER_NOT_NEEDED_FOR_GELATO,
+  rpcUrl: NOT_NEEDED_FOR_GELATO,
+  privateKey: NOT_NEEDED_FOR_GELATO,
+  gasLimit: NUMBER_NOT_NEEDED_FOR_GELATO,
+  healthcheckPingUrl: undefined,
+  expectedTxDeliveryTimeInMS: NUMBER_NOT_NEEDED_FOR_GELATO,
+  isArbitrumNetwork: false,
+};
 
 export class IterationArgsProvider
   implements IterationArgsProviderInterface<UpdatePricesArgs>
@@ -42,7 +52,7 @@ export class IterationArgsProvider
       this.adapterContractAddress,
       abi,
       provider
-    ) as IRedstoneAdapter;
+    ) as RedstoneAdapterBase;
 
     return await getIterationArgs(adapterContract);
   }
@@ -71,19 +81,11 @@ export class IterationArgsProvider
     ).data as OnChainRelayerManifest;
 
     if (!manifest) {
-      throw "Unknown manifest.";
+      throw "Manifest fetching error";
     }
 
     const relayerEnv: OnChainRelayerEnv = {
-      relayerIterationInterval: NUMBER_NOT_NEEDED_FOR_GELATO,
-      rpcUrl: NOT_NEEDED_FOR_GELATO,
-      privateKey: NOT_NEEDED_FOR_GELATO,
-      uniqueSignersCount: userArgs.uniqueSignersCount as unknown as number,
-      gasLimit: NUMBER_NOT_NEEDED_FOR_GELATO,
-      healthcheckPingUrl: undefined,
-      adapterContractType: userArgs.adapterContractType as unknown as string,
-      expectedTxDeliveryTimeInMS: NUMBER_NOT_NEEDED_FOR_GELATO,
-      isArbitrumNetwork: false,
+      ...EMPTY_GELATO_ENV,
       ...env,
     };
 

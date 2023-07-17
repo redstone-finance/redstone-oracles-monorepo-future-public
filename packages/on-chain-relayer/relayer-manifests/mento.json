@@ -7,6 +7,7 @@
     "timeSinceLastUpdateInMilliseconds": 3600000
   },
   "adapterContract": "0x9268744b117629f7937C0bec4CfcFFf980500388",
+  "adapterContractType": "mento",
   "dataServiceId": "redstone-main-demo",
   "priceFeeds": {
     "EUR": "",

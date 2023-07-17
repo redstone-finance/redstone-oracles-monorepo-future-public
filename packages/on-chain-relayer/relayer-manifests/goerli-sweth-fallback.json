@@ -4,7 +4,8 @@
     "id": 5
   },
   "updateTriggers": {
-    "timeSinceLastUpdateInMilliseconds": 300000
+    "timeSinceLastUpdateInMilliseconds": 300000,
+    "deviationPercentage": 0.5
   },
   "adapterContract": "0xd5c814D2930D84a0149A0e3827E208df0679483b",
   "dataServiceId": "redstone-primary-prod",

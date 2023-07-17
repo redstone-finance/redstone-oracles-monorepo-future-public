@@ -1,5 +1,3 @@
 {
-  "uniqueSignersCount": 1,
-  "adapterContractType": "price-feeds",
-  "manifestUrl": "https://raw.githubusercontent.com/redstone-finance/redstone-oracles-monorepo/848-fetching-manifest-in-gelato/packages/on-chain-relayer/relayer-manifests/goerli-sweth-fallback.json"
+  "manifestUrl": "https://raw.githubusercontent.com/redstone-finance/redstone-oracles-monorepo/853-simplify-fallback-deviationtime-update-conditions/packages/on-chain-relayer/relayer-manifests/goerli-sweth-fallback.json"
 }
