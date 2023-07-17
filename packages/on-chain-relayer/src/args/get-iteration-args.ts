@@ -1,70 +1,59 @@
 import { getLastRoundParamsFromContract } from "../core/contract-interactions/get-last-round-params";
-import {
-  DataPackagesRequestParams,
-  DataPackagesResponse,
-  requestDataPackages,
-  ValuesForDataFeeds,
-} from "redstone-sdk";
+import { ValuesForDataFeeds } from "redstone-sdk";
 import { getValuesForDataFeeds } from "../core/contract-interactions/get-values-for-data-feeds";
 import { shouldUpdate } from "../core/update-conditions/should-update";
 import {
   getUpdatePricesArgs,
   UpdatePricesArgs,
 } from "./get-update-prices-args";
-import { IRedstoneAdapter } from "../../typechain-types";
+import { RedstoneAdapterBase } from "../../typechain-types";
 import { config } from "../config";
-import { olderPackagesTimestamp } from "../core/older-packages-timestamp";
+
+import { fetchDataPackages } from "../core/fetch-data-packages";
+import { getUniqueSignersThresholdFromContract } from "../core/contract-interactions/get-unique-signers-threshold";
 
 export const getIterationArgs = async (
-  adapterContract: IRedstoneAdapter
+  adapterContract: RedstoneAdapterBase
 ): Promise<{
   shouldUpdatePrices: boolean;
   args?: UpdatePricesArgs;
   message?: string;
 }> => {
-  const { dataServiceId, uniqueSignersCount, dataFeeds, updateConditions } =
-    config();
+  const relayerConfig = config();
+  const { dataFeeds, updateConditions } = relayerConfig;
 
   const { lastUpdateTimestamp } = await getLastRoundParamsFromContract(
     adapterContract
   );
 
+  const uniqueSignersThreshold = await getUniqueSignersThresholdFromContract(
+    adapterContract
+  );
+
   // We fetch latest values from contract only if we want to check value deviation
+  const shouldCheckValueDeviation =
+    updateConditions.includes("value-deviation");
   let valuesFromContract: ValuesForDataFeeds = {};
-  if (
-    updateConditions.includes("value-deviation") ||
-    updateConditions.includes("fallback-deviation")
-  ) {
+  if (shouldCheckValueDeviation) {
     valuesFromContract = await getValuesForDataFeeds(
       adapterContract,
       dataFeeds
     );
   }
+  const dataPackages = await fetchDataPackages(
+    relayerConfig,
+    uniqueSignersThreshold,
+    valuesFromContract
+  );
 
-  const requestParams = {
-    dataServiceId,
-    uniqueSignersCount,
-    dataFeeds,
-    valuesToCompare: valuesFromContract,
-  };
-
-  const promises = [requestDataPackages(requestParams)];
-  if (updateConditions.includes("fallback-deviation")) {
-    promises.push(requestHistoricalDataPackages(requestParams));
-  }
-
-  const values = await Promise.all(promises);
-  const dataPackages = values[0];
-  const olderDataPackages = values[1];
-
-  const { shouldUpdatePrices, warningMessage } = shouldUpdate(
+  const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
     {
       dataPackages,
-      olderDataPackages,
       valuesFromContract,
+      uniqueSignersThreshold,
       lastUpdateTimestamp,
     },
-    config()
+    relayerConfig
   );
 
   if (!shouldUpdatePrices) {
@@ -82,23 +71,4 @@ export const getIterationArgs = async (
       message: `${warningMessage}; ${updatePricesArgs.message || ""}`,
     };
   }
-};
-
-export const requestHistoricalDataPackages = (
-  requestParams: DataPackagesRequestParams
-): Promise<DataPackagesResponse> => {
-  const { fallbackOffsetInMinutes, historicalPackagesGateway } = config();
-
-  if (!!fallbackOffsetInMinutes && !!historicalPackagesGateway) {
-    return requestDataPackages({
-      ...requestParams,
-      historicalTimestamp: olderPackagesTimestamp(fallbackOffsetInMinutes),
-      urls: [historicalPackagesGateway],
-    });
-  }
-
-  throw (
-    `Historical packages fetcher for fallback deviation check is not properly configured: ` +
-    `offset=${fallbackOffsetInMinutes} min., gateway=${historicalPackagesGateway}`
-  );
 };
