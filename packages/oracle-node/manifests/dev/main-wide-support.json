@@ -902,6 +902,16 @@
         "uniswap-v3-optimism-on-chain-usdc-500"
       ]
     },
+    "crvUSD": {
+      "source": ["curve-usdt", "curve-usdc", "curve-frax"]
+    },
+    "GHO": {
+      "source": [
+        "curve-crvusd",
+        "uniswap-v3-on-chain-usdc-3000",
+        "uniswap-v3-on-chain-usdt-3000"
+      ]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
