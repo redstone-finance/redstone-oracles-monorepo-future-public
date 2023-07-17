@@ -1,4 +1,4 @@
-export { IRedstoneAdapter } from "../typechain-types/";
+export { RedstoneAdapterBase } from "../typechain-types/";
 export { getIterationArgs } from "./args/get-iteration-args";
 export { UpdatePricesArgs } from "./args/get-update-prices-args";
 export { getAbiForAdapter } from "./core/contract-interactions/get-contract";

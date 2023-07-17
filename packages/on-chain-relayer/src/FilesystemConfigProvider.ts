@@ -9,8 +9,6 @@ import { makeConfigProvider } from "./make-config-provider";
 
 dotenv.config();
 
-const DEFAULT_ADAPTER_CONTRACT_TYPE = "price-feeds";
-
 const getFromEnv = (name: string, optional: boolean = false) => {
   const envValue = process.env[name];
   if (!envValue && !optional) {
@@ -37,12 +35,8 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
     rpcUrl: getFromEnv("RPC_URL")!,
     privateKey: getFromEnv("PRIVATE_KEY")!,
-    uniqueSignersCount: Number(getFromEnv("UNIQUE_SIGNERS_COUNT")),
     gasLimit: Number.parseInt(getFromEnv("GAS_LIMIT")!),
     healthcheckPingUrl: getFromEnv("HEALTHCHECK_PING_URL", true),
-    adapterContractType:
-      getFromEnv("ADAPTER_CONTRACT_TYPE", true) ??
-      DEFAULT_ADAPTER_CONTRACT_TYPE,
     expectedTxDeliveryTimeInMS: Number(
       getFromEnv("EXPECTED_TX_DELIVERY_TIME_IN_MS")
     ),
