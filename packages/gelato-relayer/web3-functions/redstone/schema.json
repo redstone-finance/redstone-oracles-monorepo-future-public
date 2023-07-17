@@ -4,8 +4,6 @@
   "memory": 256,
   "timeout": 30,
   "userArgs": {
-    "uniqueSignersCount": "number",
-    "adapterContractType": "string",
     "manifestUrl": "string"
   }
 }

@@ -12,7 +12,7 @@ describe("time-condition", () => {
     const lastUpdateTimestamp = Date.now() - 1;
     const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
       lastUpdateTimestamp,
-      config().updatePriceInterval!
+      config()
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
@@ -24,7 +24,7 @@ describe("time-condition", () => {
     const lastUpdateTimestamp = Date.now() - 100000;
     const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
       lastUpdateTimestamp,
-      config().updatePriceInterval!
+      config()
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(/Enough time passed to updated prices/);
