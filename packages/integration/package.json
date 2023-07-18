@@ -1,0 +1,15 @@
+{
+  "name": "@redstone-finance/integration-tests",
+  "version": "0.0.1",
+  "prettier": "redstone-prettier-config",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "run-ts": "ts-node"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
