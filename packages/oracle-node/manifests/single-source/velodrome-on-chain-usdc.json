@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["velodrome-on-chain-USDC"],
+  "defaultSource": ["velodrome-on-chain-usdc"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,7 +10,7 @@
     }
   },
   "tokens": {
-    "alUSD": {},
+    "ALUSD": {},
     "alUSD_velodrome-on-chain-usdc_BUY_10K_slippage": {
       "skipSigning": true
     },
