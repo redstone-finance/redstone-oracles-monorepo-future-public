@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["velodrome-on-chain-WETH"],
+  "defaultSource": ["velodrome-on-chain-weth"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,7 +10,7 @@
     }
   },
   "tokens": {
-    "alETH": {},
+    "ALETH": {},
     "alETH_velodrome-on-chain-weth_BUY_10K_slippage": {
       "skipSigning": true
     },
