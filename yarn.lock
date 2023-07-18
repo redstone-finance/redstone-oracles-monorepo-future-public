@@ -1362,10 +1362,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@balancer-labs/sdk@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@balancer-labs/sdk/-/sdk-1.1.1.tgz#20925ad09034041ce8d82f19c15c0a978338c3ca"
-  integrity sha512-hHuyNF2oPavl6w7AuubGdj12w5SiPyEEvi+myK/UrZG8YRjIKqf6o5cLmpCqicihuR9JEzUgx7x/d4uXtxZlWg==
+"@balancer-labs/sdk@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@balancer-labs/sdk/-/sdk-1.1.2.tgz#048b838b9ccd628d7d3cd001aafe1b4c326ecad2"
+  integrity sha512-5W1kN5IpIxxos1fhPu8g2VM7qgH/vU9CugtURjvyLCTR0LmABeHDcaQQVl2A3u2h0BfewZjQBVzYsobpYXZRjA==
   dependencies:
     "@balancer-labs/sor" "4.1.1-beta.9"
     "@ethersproject/abi" "^5.4.0"
