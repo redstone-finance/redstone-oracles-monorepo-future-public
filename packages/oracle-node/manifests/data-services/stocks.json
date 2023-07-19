@@ -56,16 +56,16 @@
       "source": ["twelve-data"]
     },
     "SPY": {
-      "source": ["twelve-data"]
+      "source": ["twelve-data", "yf-unofficial"]
     },
     "QQQ": {
-      "source": ["twelve-data"]
+      "source": ["twelve-data", "yf-unofficial"]
     },
     "ONEQ": {
       "source": ["twelve-data"]
     },
     "IWM": {
-      "source": ["twelve-data"]
+      "source": ["twelve-data", "yf-unofficial"]
     },
     "EFA": {
       "source": ["twelve-data"]
@@ -100,8 +100,8 @@
     "ZR=F": {
       "source": ["yf-unofficial"]
     },
-    "CL=F": {
-      "source": ["yf-unofficial"]
+    "CRUDE": {
+      "source": ["currencycom", "twelve-data", "yf-unofficial"]
     },
     "RB=F": {
       "source": ["yf-unofficial"]
@@ -112,14 +112,14 @@
     "EH=F": {
       "source": ["yf-unofficial"]
     },
-    "GC=F": {
-      "source": ["yf-unofficial"]
+    "GOLD": {
+      "source": ["currencycom", "twelve-data", "yf-unofficial"]
     },
-    "SI=F": {
-      "source": ["yf-unofficial"]
+    "SILVER": {
+      "source": ["currencycom", "twelve-data", "yf-unofficial"]
     },
-    "HG=F": {
-      "source": ["yf-unofficial"]
+    "COPPER": {
+      "source": ["currencycom", "twelve-data", "yf-unofficial"]
     },
     "PL=F": {
       "source": ["yf-unofficial"]
@@ -303,6 +303,18 @@
     },
     "META": {
       "source": ["currencycom", "twelve-data"]
+    },
+    "DIA.ETF": {
+      "source": ["twelve-data", "yf-unofficial"]
+    },
+    "SPX": {
+      "source": ["twelve-data", "yf-unofficial"]
+    },
+    "EUROSTOXX50": {
+      "source": ["twelve-data"]
+    },
+    "NASDAQ": {
+      "source": ["twelve-data", "yf-unofficial"]
     }
   }
 }
