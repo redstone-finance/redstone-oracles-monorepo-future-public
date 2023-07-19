@@ -409,6 +409,9 @@
     },
     "IB01.L": {
       "source": ["twelve-data-etf-uk"]
+    },
+    "SHLB_GMX-AVAX_B": {
+      "source": ["avalanche-evm-fetcher"]
     }
   }
 }
