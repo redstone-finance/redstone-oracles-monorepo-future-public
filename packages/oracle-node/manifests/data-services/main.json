@@ -1522,6 +1522,9 @@
     "crvUSDBTCETH": {
       "source": ["avalanche-evm-fetcher"]
     },
+    "SHLB_GMX-AVAX_B": {
+      "source": ["avalanche-evm-fetcher"]
+    },
     "crvFRAX": {
       "source": ["ethereum-evm-fetcher"]
     },
