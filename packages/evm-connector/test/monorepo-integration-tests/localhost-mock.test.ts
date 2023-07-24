@@ -8,6 +8,14 @@ import { SampleForLocalhostMockTest } from "../../typechain-types";
 const dynamicDescribe =
   process.env.MONOREPO_INTEGRATION_TEST === "true" ? describe : describe.skip;
 
+const getCacheServiceUrls = (): string[] => {
+  if (process.env.CACHE_SERVICE_URLS) {
+    return JSON.parse(process.env.CACHE_SERVICE_URLS) as string[];
+  } else {
+    return ["http://localhost:3000"];
+  }
+}
+
 // This test is used in monorepo intergration tests
 dynamicDescribe("Localhost mock test", function () {
   let contract: SampleForLocalhostMockTest;
@@ -18,7 +26,7 @@ dynamicDescribe("Localhost mock test", function () {
       dataServiceId: "mock-data-service",
       uniqueSignersCount: 1,
       dataFeeds: dataFeedIds,
-      urls: ["http://localhost:3000"],
+      urls: getCacheServiceUrls(),
     });
     const oracleValues = await wrappedContract.extractOracleValuesView(
       bytes32Symbols

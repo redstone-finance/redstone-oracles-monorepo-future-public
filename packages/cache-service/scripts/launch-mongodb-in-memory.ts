@@ -6,8 +6,9 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 const FILE_NAME_WITH_MONGO_DB_URI = "./tmp-mongo-db-uri.log";
 
 (async () => {
+  const filePath = process.argv[2] ?? FILE_NAME_WITH_MONGO_DB_URI;
   const mongod = await MongoMemoryServer.create();
   const uri = mongod.getUri();
-  writeFileSync(FILE_NAME_WITH_MONGO_DB_URI, uri);
+  writeFileSync(filePath, uri);
   console.log(`Started mongo DB in memory: ${uri}`);
 })();

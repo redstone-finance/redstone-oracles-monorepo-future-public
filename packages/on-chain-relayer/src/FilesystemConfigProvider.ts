@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import "dotenv/config";
 import {
   ConfigProvider,
   OnChainRelayerEnv,
@@ -6,8 +6,6 @@ import {
 } from "./types";
 import fs from "fs";
 import { makeConfigProvider } from "./make-config-provider";
-
-dotenv.config();
 
 const getFromEnv = (name: string, optional: boolean = false) => {
   const envValue = process.env[name];
@@ -18,14 +16,31 @@ const getFromEnv = (name: string, optional: boolean = false) => {
 };
 
 // copy of method from oracle-node. Probably should be moved to some common package
-function readJSON<T>(path: string): T {
+const readJSON = <T>(path: string): T => {
   const content = fs.readFileSync(path, "utf-8");
   try {
     return JSON.parse(content) as T;
   } catch (e: any) {
     throw new Error(`File "${path}" does not contain a valid JSON`);
   }
-}
+};
+
+const getJSONFromEnv = <T>(
+  varName: string,
+  optional = false
+): T | undefined => {
+  const envVal = getFromEnv(varName, optional);
+  if (!envVal) {
+    return;
+  }
+  try {
+    return JSON.parse(envVal) as T;
+  } catch (e: any) {
+    if (!optional) {
+      throw e;
+    }
+  }
+};
 
 export const fileSystemConfigProvider: ConfigProvider = () => {
   const manifestPath = getFromEnv("MANIFEST_FILE")!;
@@ -44,6 +59,7 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     fallbackOffsetInMinutes: Number.parseInt(
       getFromEnv("FALLBACK_OFFSET_IN_MINUTES", true) ?? "0"
     ),
+    cacheServiceUrls: getJSONFromEnv<string[]>("CACHE_SERVICE_URLS", true),
     historicalPackagesGateway: getFromEnv("HISTORICAL_PACKAGES_GATEWAY", true),
   };
 
