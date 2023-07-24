@@ -1,22 +1,49 @@
-import * as common from "./integration-test-common";
+import {
+  buildEvmConnector,
+  CacheLayerInstance,
+  configureCleanup,
+  OracleNodeInstance,
+  runWithLogPrefix,
+  startAndWaitForCacheLayer,
+  startAndWaitForOracleNode,
+  stopCacheLayer,
+  stopOracleNode,
+  waitForDataAndDisplayIt,
+} from "./integration-test-common";
+
+let cacheLayerInstance: CacheLayerInstance | undefined = undefined;
+let oracleNodeInstance: OracleNodeInstance | undefined = undefined;
 
 const stopAll = () => {
   console.log("stopAll called");
-  common.stopOracleNode();
-  common.stopCacheLayer();
+  stopOracleNode(oracleNodeInstance);
+  stopCacheLayer(cacheLayerInstance);
 };
 
 const main = async () => {
-  process.env.MONOREPO_INTEGRATION_TEST = "true";
-  await common.startAndWaitForCacheLayer();
-  await common.startAndWaitForOracleNode();
-  await common.waitForDataAndDisplayIt();
-  await common.buildEvmConnector();
-  await common.runWithLogPrefix("yarn", ["test", "test/monorepo-integration-tests/localhost-mock.test.ts"], "evm-connector");
+  const cacheLayerInstanceId = "1";
+  const oracleNodeInstanceId = "1";
+  cacheLayerInstance = await startAndWaitForCacheLayer(cacheLayerInstanceId);
+  oracleNodeInstance = await startAndWaitForOracleNode(
+    oracleNodeInstanceId,
+    cacheLayerInstance.cacheServicePort
+  );
+  await waitForDataAndDisplayIt(cacheLayerInstance);
+  await buildEvmConnector();
+  await runWithLogPrefix(
+    "yarn",
+    ["test", "test/monorepo-integration-tests/localhost-mock.test.ts"],
+    "evm-connector",
+    {
+      MONOREPO_INTEGRATION_TEST: "true",
+      CACHE_SERVICE_URLS: `["http://localhost:${cacheLayerInstance.cacheServicePort}"]`,
+    }
+  );
 
   process.exit();
-}
+};
 
-common.configureCleanup(stopAll);
+configureCleanup(stopAll);
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 main();

@@ -15,13 +15,14 @@ export async function fetchDataPackages(
   valuesFromContract: ValuesForDataFeeds,
   isHistorical: boolean = false
 ) {
-  const { dataServiceId, dataFeeds } = config;
+  const { dataServiceId, dataFeeds, cacheServiceUrls } = config;
 
-  const requestParams = {
+  const requestParams: DataPackagesRequestParams = {
     dataServiceId,
     uniqueSignersCount: uniqueSignersThreshold,
     dataFeeds,
     valuesToCompare: valuesFromContract,
+    urls: cacheServiceUrls
   };
 
   return isHistorical

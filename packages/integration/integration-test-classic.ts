@@ -1,48 +1,39 @@
-import { ChildProcess } from "child_process";
 import fs from "fs";
-import * as common from "./integration-test-common";
+import {
+  buildEvmConnector,
+  CacheLayerInstance,
+  configureCleanup,
+  HardhatInstance,
+  OracleNodeInstance,
+  RelayerInstance,
+  runWithLogPrefix,
+  startAndWaitForCacheLayer,
+  startAndWaitForHardHat,
+  startAndWaitForOracleNode,
+  startRelayer,
+  stopCacheLayer,
+  stopHardhat,
+  stopOracleNode,
+  stopRelayer,
+  waitForDataAndDisplayIt,
+  waitForSuccess,
+} from "./integration-test-common";
 
-const hardhatMockPrivateKey =
-  "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
-
-let hardhatNodeProcess: ChildProcess | undefined = undefined;
-let onChainRelayerProcess: ChildProcess | undefined = undefined;
+let hardhatInstance: HardhatInstance | undefined = undefined;
+let relayerInstance: RelayerInstance | undefined = undefined;
+let cacheLayerInstance: CacheLayerInstance | undefined = undefined;
+let oracleNodeInstance: OracleNodeInstance | undefined = undefined;
 
 const stopAll = () => {
   console.log("stopAll called");
-  common.stop(onChainRelayerProcess, "on chain relayer");
-  onChainRelayerProcess = undefined;
-  common.stop(hardhatNodeProcess, "hardhat node");
-  hardhatNodeProcess = undefined;
-  common.stopOracleNode();
-  common.stopCacheLayer();
+  stopRelayer(relayerInstance);
+  stopHardhat(hardhatInstance);
+  stopOracleNode(oracleNodeInstance);
+  stopCacheLayer(cacheLayerInstance);
 };
 
-const main = async () => {
-  process.env.MONOREPO_INTEGRATION_TEST = "true";
-  await common.startAndWaitForCacheLayer();
-  await common.startAndWaitForOracleNode();
-  await common.waitForDataAndDisplayIt();
-  await common.buildEvmConnector();
-
-  // Compile on-chain-relayer
-  process.chdir("../on-chain-relayer");
-  await common.lazilyInstallNPMDeps();
-  await common.runWithLogPrefix(
-    "yarn",
-    ["compile"],
-    "compile relayer contracts"
-  );
-  await common.lazilyBuildTypescript();
-
-  // Launch local EVM instance with hardhat
-  hardhatNodeProcess = common.runWithLogPrefixInBackground(
-    "yarn",
-    ["start-node"],
-    "hardhat-node"
-  );
-  await common.waitForUrl("127.0.0.1:8545"); // wait for hardhat to start blockchain instance
-  await common.runWithLogPrefix(
+const deployMockAdapter = async () => {
+  await runWithLogPrefix(
     "yarn",
     [
       "hardhat",
@@ -53,38 +44,11 @@ const main = async () => {
     ],
     "deploy mock adapter"
   );
-  const adapterContractAddress = fs.readFileSync(
-    "adapter-contract-address.txt",
-    "utf-8"
-  );
+};
 
-  // Launch on-chain-relayer
-  fs.copyFileSync(".env.example", ".env");
-  common.updateDotEnvFile("RPC_URL", "http://127.0.0.1:8545");
-  common.updateDotEnvFile("PRIVATE_KEY", hardhatMockPrivateKey);
-  common.updateDotEnvFile("CACHE_SERVICE_URLS", '["http://localhost:3000"]');
-  common.updateDotEnvFile("HEALTHCHECK_PING_URL", "");
-  common.updateDotEnvFile(
-    "MANIFEST_FILE",
-    "../integration/relayerManifest.json"
-  );
-  common.copyAndReplace(
-    /__ADAPTER_CONTRACT_ADDRESS__/,
-    adapterContractAddress,
-    "../integration/relayerManifestSample.json",
-    "../integration/relayerManifest.json"
-  );
-  common.printDotenv("on chain relayer");
-  process.env.ADAPTER_CONTRACT_ADDRESS = adapterContractAddress;
-
-  onChainRelayerProcess = common.runWithLogPrefixInBackground(
-    "yarn",
-    ["start"],
-    "on-chain-relayer"
-  );
-
-  const waitForPricesCheck = () =>
-    common.runWithLogPrefix(
+const waitForPricesCheck =
+  (adapterContractAddress: string) => async (): Promise<boolean> =>
+    await runWithLogPrefix(
       "yarn",
       [
         "hardhat",
@@ -94,14 +58,48 @@ const main = async () => {
         "test/monorepo-integration-tests/scripts/verify-mock-prices.ts",
       ],
       "relayer-contract",
+      { ADAPTER_CONTRACT_ADDRESS: adapterContractAddress },
       false
     );
+
+const main = async () => {
+  const cacheLayerInstanceId = "1";
+  const oracleNodeInstanceId = "1";
+  cacheLayerInstance = await startAndWaitForCacheLayer(cacheLayerInstanceId);
+  oracleNodeInstance = await startAndWaitForOracleNode(
+    oracleNodeInstanceId,
+    cacheLayerInstance.cacheServicePort
+  );
+  await waitForDataAndDisplayIt(cacheLayerInstance);
+  await buildEvmConnector();
+
+  const hardhatInstanceId = "1";
+  hardhatInstance = await startAndWaitForHardHat(hardhatInstanceId);
+
+  await deployMockAdapter();
+
+  const adapterContractAddress = fs.readFileSync(
+    "adapter-contract-address.txt",
+    "utf-8"
+  );
+  const relayerInstanceId = "1";
+  relayerInstance = await startRelayer(
+    relayerInstanceId,
+    adapterContractAddress,
+    cacheLayerInstance
+  );
+
   // Verify prices on-chain
-  common.waitForSuccess(waitForPricesCheck, 5, "couldn't find prices on chain");
+  await waitForSuccess(
+    waitForPricesCheck(adapterContractAddress),
+    5,
+    "couldn't find prices on chain"
+  );
 
   process.exit();
 };
 
-common.configureCleanup(stopAll);
+configureCleanup(stopAll);
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 main();
