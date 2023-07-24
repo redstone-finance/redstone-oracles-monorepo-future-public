@@ -363,7 +363,7 @@ describe("Data packages (e2e)", () => {
     const parsedDataPoints = JSON.parse(allFeedsDataPackages[0]).dataPoints;
     expect(allFeedsDataPackages.length).toBe(4);
     expect(parsedDataPoints.length).toBe(3);
-    for (const [_, dataPackages] of Object.entries<any>(testResponse2.body)) {
+    for (const [, dataPackages] of Object.entries<any>(testResponse2.body)) {
       for (let i = 0; i++; i < dataPackages.length) {
         const dataPackage = JSON.parse(dataPackages[i]);
         expect(dataPackage).toMatchObject(mockDataPackages[0]);
@@ -564,7 +564,7 @@ describe("Data packages (e2e)", () => {
       .send({ "from-timestamp": "1", "api-key": "2" })
       .expect(400);
 
-    const response = await request(httpServer)
+    await request(httpServer)
       .get("/data-packages/stats")
       .query({
         "api-key": "invalid-api-key",

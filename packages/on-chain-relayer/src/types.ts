@@ -47,6 +47,7 @@ export interface RelayerConfig {
   expectedTxDeliveryTimeInMS: number;
   isArbitrumNetwork: boolean;
   fallbackOffsetInMinutes?: number;
+  cacheServiceUrls?: string[];
   historicalPackagesGateway?: string;
 }
 
@@ -59,6 +60,7 @@ export type OnChainRelayerEnv = {
   expectedTxDeliveryTimeInMS: number;
   isArbitrumNetwork: boolean;
   fallbackOffsetInMinutes: number;
+  cacheServiceUrls?: string[];
   historicalPackagesGateway?: string;
 };
 
