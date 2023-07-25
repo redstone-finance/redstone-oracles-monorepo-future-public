@@ -920,6 +920,12 @@
         "uniswap-v3-on-chain-usdt-3000"
       ]
     },
+    "USDC.USDT": {
+      "source": ["non-usd-based"]
+    },
+    "USDC.DAI": {
+      "source": ["non-usd-based"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
