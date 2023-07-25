@@ -14,12 +14,16 @@ const getCacheServiceUrls = (): string[] => {
   } else {
     return ["http://localhost:3000"];
   }
-}
+};
 
 // This test is used in monorepo intergration tests
-dynamicDescribe("Localhost mock test", function () {
+dynamicDescribe("verify prices test", function () {
   let contract: SampleForLocalhostMockTest;
-  const bytes32Symbols = ["ETH", "BTC", "AAVE"].map(formatBytes32String);
+  const pricesToVerify = JSON.parse(process.env.PRICES_TO_CHECK ?? "[]") as {
+    [token: string]: number;
+  };
+  const bytes32Symbols = Object.keys(pricesToVerify).map(formatBytes32String);
+  const expectedPrices = Object.values(pricesToVerify);
 
   const testShouldPass = async (dataFeedIds?: string[]) => {
     const wrappedContract = WrapperBuilder.wrap(contract).usingDataService({
@@ -31,14 +35,21 @@ dynamicDescribe("Localhost mock test", function () {
     const oracleValues = await wrappedContract.extractOracleValuesView(
       bytes32Symbols
     );
+    console.log(`oracle values ${JSON.stringify(oracleValues)}`);
     checkValues(oracleValues);
   };
 
   const checkValues = (values: BigNumber[]) => {
-    const expectedValues = [1500, 16000, 42];
-    expect(values.length === expectedValues.length);
+    console.log(`values from cache service: ${JSON.stringify(values)}`);
+    expect(values.length).to.eq(
+      expectedPrices.length,
+      "the number of prices returned from contract does not equal expected number of prices"
+    );
     for (let i = 0; i < values.length; i++) {
-      expect(values[i]).to.eq(BigNumber.from(expectedValues[i] * 10 ** 8));
+      expect(values[i]).to.eq(
+        BigNumber.from(expectedPrices[i] * 10 ** 8),
+        `price for ${i} token is not what was expected`
+      );
     }
   };
 
