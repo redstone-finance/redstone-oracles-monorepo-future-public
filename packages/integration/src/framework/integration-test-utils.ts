@@ -1,6 +1,8 @@
 import { ChildProcess, spawn, spawnSync } from "child_process";
 import fs from "fs";
 
+export type PriceSet = { [token: string]: number };
+
 export const stopChild = (
   childProcess: ChildProcess | undefined,
   name: string
@@ -66,12 +68,13 @@ export const waitForSuccess = async (
 export const copyAndReplace = (
   regex: RegExp,
   replacement: string,
-  dotenvFileName: string,
-  dotenvDest: string
+  srcFilePath: string,
+  destFilePath: string
 ) => {
-  const dotenvContents = fs.readFileSync(dotenvFileName, "utf-8");
+  const dotenvContents = fs.readFileSync(srcFilePath, "utf-8");
   const newDotenvContents = dotenvContents.replace(regex, replacement);
-  fs.writeFileSync(dotenvDest, newDotenvContents, "utf-8");
+  fs.writeFileSync(destFilePath, newDotenvContents, "utf-8");
+  return regex.test(dotenvContents);
 };
 
 export const updateDotEnvFile = (
@@ -79,12 +82,15 @@ export const updateDotEnvFile = (
   varValue: string,
   dotenvFilePath: string
 ) => {
-  copyAndReplace(
+  const found = copyAndReplace(
     new RegExp(`^${varName}=.*$`, "gm"),
     `${varName}=${varValue}`,
     dotenvFilePath,
     dotenvFilePath
   );
+  if (!found) {
+    fs.appendFileSync(dotenvFilePath, `${varName}=${varValue}\n`);
+  }
 };
 
 const logPrefixLength = 25;

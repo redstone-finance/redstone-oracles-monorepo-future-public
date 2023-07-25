@@ -14,7 +14,7 @@ const EXPECTED_COUNT = parseInt(process.argv[2]);
 main();
 
 async function main() {
-  mongoose.set('strictQuery', true);
+  mongoose.set("strictQuery", true);
   await mongoose.connect(config.mongoDbUrl);
   console.log("MongoDB connected");
 

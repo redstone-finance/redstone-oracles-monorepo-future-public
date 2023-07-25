@@ -48,3 +48,8 @@ export const buildEvmConnector = async () => {
   await runWithLogPrefix("yarn", ["compile"], "compile evm connector");
   await lazilyBuildTypescript();
 };
+
+export const compileRelayerContracts = async () => {
+  process.chdir("../on-chain-relayer");
+  await runWithLogPrefix("yarn", ["compile"], "compile relayer contracts");
+};
