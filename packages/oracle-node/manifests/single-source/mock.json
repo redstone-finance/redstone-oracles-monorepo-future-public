@@ -1,5 +1,5 @@
 {
-  "interval": 15000,
+  "interval": 5000,
   "priceAggregator": "median",
   "defaultSource": ["mock"],
   "sourceTimeout": 50000,
