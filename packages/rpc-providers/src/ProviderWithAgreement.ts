@@ -108,7 +108,9 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
     if (blockNumbers.length === 0) {
       throw new AggregateError(
-        "Failed to getBlockNumber from at least one provider"
+        `Failed to getBlockNumber from at least one provider: ${blockNumbersResults.map(
+          (result) => (result as PromiseRejectedResult).reason
+        )}`
       );
     }
 
