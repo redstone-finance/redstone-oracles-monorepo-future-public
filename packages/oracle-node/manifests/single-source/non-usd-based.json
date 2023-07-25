@@ -10,6 +10,23 @@
     }
   },
   "tokens": {
-    "VST/ETH": {}
+    "VST": {
+      "source": ["coingecko"]
+    },
+    "ETH": {
+      "source": ["coingecko"]
+    },
+    "VST/ETH": {},
+    "USDC": {
+      "source": ["coingecko"]
+    },
+    "USDT": {
+      "source": ["coingecko"]
+    },
+    "DAI": {
+      "source": ["coingecko"]
+    },
+    "USDC.USDT": {},
+    "USDC.DAI": {}
   }
 }

@@ -208,6 +208,12 @@
     "SOFRAI_EFFECTIVE_DATE": {
       "source": ["newyorkfed"],
       "decimals": 0
+    },
+    "USDC.USDT": {
+      "source": ["non-usd-based"]
+    },
+    "USDC.DAI": {
+      "source": ["non-usd-based"]
     }
   }
 }
