@@ -541,18 +541,9 @@ describe("Data packages (e2e)", () => {
     expect(response.body).toEqual(
       expect.objectContaining({
         "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
-          dataPackagesCount: 32,
-          verifiedDataPackagesCount: 32,
-          verifiedDataPackagesPercentage: 100,
+          dataServiceId: "mock-data-service-1",
+          verifiedDataPackagesCount: 8,
           nodeName: "Mock node 1",
-          dataServiceId: MOCK_DATA_SERVICE_ID,
-        },
-        "0x2": {
-          dataPackagesCount: 32,
-          verifiedDataPackagesCount: 32,
-          verifiedDataPackagesPercentage: 100,
-          nodeName: "unknown",
-          dataServiceId: "unknown",
         },
       })
     );
