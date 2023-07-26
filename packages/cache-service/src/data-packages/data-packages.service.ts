@@ -1,4 +1,4 @@
-import { Injectable, Logger } from "@nestjs/common";
+import { BadRequestException, Injectable, Logger } from "@nestjs/common";
 import { Cache } from "cache-manager";
 import {
   RedstonePayload,
@@ -304,48 +304,37 @@ export class DataPackagesService {
   ): Promise<DataPackagesStatsResponse> {
     const { fromTimestamp, toTimestamp } = statsRequestParams;
 
-    // Fetching stats form DB
-    const signersStats = await DataPackage.aggregate([
-      {
-        $match: {
+    if (toTimestamp - fromTimestamp > 7_200_000) {
+      throw new BadRequestException(
+        "Too big search period. to-timestamp - from-timestamp  can not be bigger than 7_200_000"
+      );
+    }
+
+    const oraclesState = await getOracleState();
+    const nodes = Object.values(oraclesState.nodes);
+
+    const countsPerNode = await Promise.all(
+      nodes.map(async (node) => {
+        const count = await DataPackage.countDocuments({
           $and: [
             { timestampMilliseconds: { $gte: fromTimestamp } },
             { timestampMilliseconds: { $lte: toTimestamp } },
+            { dataServiceId: node.dataServiceId },
+            { signerAddress: node.evmAddress },
+            { isSignatureValid: true },
           ],
-        },
-      },
-      {
-        $group: {
-          _id: "$signerAddress",
-          dataPackagesCount: { $sum: 1 },
-          verifiedDataPackagesCount: {
-            $sum: { $cond: ["$isSignatureValid", 1, 0] },
-          },
-        },
-      },
-    ]);
+        });
+        return { node, count };
+      })
+    );
 
-    // Prepare stats response
-    const state = await getOracleState();
     const stats: DataPackagesStatsResponse = {};
-    for (const {
-      dataPackagesCount,
-      verifiedDataPackagesCount,
-      _id: signerAddress,
-    } of signersStats) {
-      const nodeDetails = Object.values(state.nodes).find(
-        ({ evmAddress }) => evmAddress === signerAddress
-      );
 
-      const verifiedDataPackagesPercentage =
-        (100 * verifiedDataPackagesCount) / Math.max(dataPackagesCount, 1);
-
-      stats[signerAddress] = {
-        dataPackagesCount,
-        verifiedDataPackagesCount,
-        verifiedDataPackagesPercentage,
-        nodeName: nodeDetails?.name || "unknown",
-        dataServiceId: nodeDetails?.dataServiceId || "unknown",
+    for (const countPerNode of countsPerNode) {
+      stats[countPerNode.node.evmAddress] = {
+        dataServiceId: countPerNode.node.dataServiceId,
+        verifiedDataPackagesCount: countPerNode.count,
+        nodeName: countPerNode.node.name,
       };
     }
 

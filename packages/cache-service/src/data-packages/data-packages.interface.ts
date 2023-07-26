@@ -86,9 +86,7 @@ export interface DataPackagesResponse {
 
 export interface DataPackagesStatsResponse {
   [signerAddress: string]: {
-    dataPackagesCount: number;
     verifiedDataPackagesCount: number;
-    verifiedDataPackagesPercentage: number;
     nodeName: string;
     dataServiceId: string;
   };
