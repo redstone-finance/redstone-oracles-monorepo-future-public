@@ -11,16 +11,16 @@
   },
   "tokens": {
     "ALETH": {},
-    "alETH_velodrome-on-chain-weth_BUY_10K_slippage": {
+    "alETH_velodrome-on-chain-weth_BUY_10000_slippage": {
       "skipSigning": true
     },
-    "alETH_velodrome-on-chain-weth_SELL_10K_slippage": {
+    "alETH_velodrome-on-chain-weth_SELL_10000_slippage": {
       "skipSigning": true
     },
-    "alETH_velodrome-on-chain-weth_BUY_100K_slippage": {
+    "alETH_velodrome-on-chain-weth_BUY_100000_slippage": {
       "skipSigning": true
     },
-    "alETH_velodrome-on-chain-weth_SELL_100K_slippage": {
+    "alETH_velodrome-on-chain-weth_SELL_100000_slippage": {
       "skipSigning": true
     }
   }

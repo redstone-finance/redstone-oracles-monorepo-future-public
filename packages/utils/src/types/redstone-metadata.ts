@@ -9,7 +9,7 @@ export interface MetadataForRedstonePrice {
 
 export interface MetadataPerSource {
   /** Info about slippage. Defined only for sources which supports calculating slippage. */
-  slippage?: SlippageInfo;
+  slippage?: SlippageData[];
 
   /** Defined only for sources which supports fetching liquidity. */
   liquidity?: string;
@@ -18,7 +18,7 @@ export interface MetadataPerSource {
   value?: string | "error";
 }
 
-export interface SlippageInfo {
+export interface SlippageData {
   slippageAsPercent: string;
   direction: "buy" | "sell";
   simulationValueInUsd: string;
