@@ -48,7 +48,7 @@ export interface RelayerConfig {
   isArbitrumNetwork: boolean;
   fallbackOffsetInMinutes?: number;
   cacheServiceUrls?: string[];
-  historicalPackagesGateway?: string;
+  historicalPackagesGateways?: string[];
 }
 
 export type OnChainRelayerEnv = {
@@ -61,7 +61,7 @@ export type OnChainRelayerEnv = {
   isArbitrumNetwork: boolean;
   fallbackOffsetInMinutes: number;
   cacheServiceUrls?: string[];
-  historicalPackagesGateway?: string;
+  historicalPackagesGateways?: string[];
 };
 
 export type ConfigProvider = () => RelayerConfig;

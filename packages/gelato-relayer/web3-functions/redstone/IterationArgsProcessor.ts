@@ -79,8 +79,9 @@ export class IterationArgsProcessor<Args> {
         fallbackOffsetInMinutes: Number.parseInt(
           (await this.context.storage.get("FALLBACK_OFFSET_IN_MINUTES")) ?? "0"
         ),
-        historicalPackagesGateway: await this.context.storage.get(
-          "HISTORICAL_PACKAGES_GATEWAY"
+        historicalPackagesGateways: JSON.parse(
+          (await this.context.storage.get("HISTORICAL_PACKAGES_GATEWAYS")) ??
+            "[]"
         ),
       };
 
@@ -91,8 +92,8 @@ export class IterationArgsProcessor<Args> {
       fallbackOffsetInMinutes: Number.parseInt(
         (await this.context.secrets.get("FALLBACK_OFFSET_IN_MINUTES")) ?? "0"
       ),
-      historicalPackagesGateway: await this.context.secrets.get(
-        "HISTORICAL_PACKAGES_GATEWAY"
+      historicalPackagesGateways: JSON.parse(
+        (await this.context.secrets.get("HISTORICAL_PACKAGES_GATEWAYS")) ?? "[]"
       ),
     };
 

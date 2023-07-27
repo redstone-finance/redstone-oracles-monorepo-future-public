@@ -22,7 +22,7 @@ describe("value-deviation-condition fallback mode tests", () => {
   before(() => {
     mockEnvVariables({
       fallbackOffsetInMinutes: 1,
-      historicalPackagesGateway: "X",
+      historicalPackagesGateways: ["X"],
     });
   });
 

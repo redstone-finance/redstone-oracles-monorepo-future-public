@@ -33,21 +33,21 @@ export async function fetchDataPackages(
 const requestHistoricalDataPackages = (
   requestParams: DataPackagesRequestParams
 ): Promise<DataPackagesResponse> => {
-  const { fallbackOffsetInMinutes, historicalPackagesGateway } = config();
+  const { fallbackOffsetInMinutes, historicalPackagesGateways } = config();
 
-  if (!!fallbackOffsetInMinutes && !!historicalPackagesGateway) {
+  if (!!fallbackOffsetInMinutes && !!historicalPackagesGateways) {
     return requestDataPackages({
       ...requestParams,
       historicalTimestamp: calculateOlderPackagesTimestamp(
         fallbackOffsetInMinutes
       ),
-      urls: [historicalPackagesGateway],
+      urls: historicalPackagesGateways,
     });
   }
 
   throw (
     `Historical packages fetcher for fallback deviation check is not properly configured: ` +
-    `offset=${fallbackOffsetInMinutes} min., gateway=${historicalPackagesGateway}`
+    `offset=${fallbackOffsetInMinutes} min., gateway=${JSON.stringify(historicalPackagesGateways)}`
   );
 };
 
