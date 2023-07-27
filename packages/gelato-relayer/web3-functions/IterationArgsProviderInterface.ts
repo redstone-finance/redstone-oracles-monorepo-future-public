@@ -8,7 +8,7 @@ export type IterationArgs<Args> = {
 };
 
 export type IterationArgsProviderEnv = {
-  historicalPackagesGateway?: string;
+  historicalPackagesGateways?: string[];
   fallbackOffsetInMinutes: number;
 };
 

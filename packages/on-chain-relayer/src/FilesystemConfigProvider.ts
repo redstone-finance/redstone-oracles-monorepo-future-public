@@ -59,8 +59,8 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     fallbackOffsetInMinutes: Number.parseInt(
       getFromEnv("FALLBACK_OFFSET_IN_MINUTES", true) ?? "0"
     ),
-    cacheServiceUrls: getJSONFromEnv<string[]>("CACHE_SERVICE_URLS", true),
-    historicalPackagesGateway: getFromEnv("HISTORICAL_PACKAGES_GATEWAY", true),
+    cacheServiceUrls: getJSONFromEnv("CACHE_SERVICE_URLS", true),
+    historicalPackagesGateways: getJSONFromEnv("HISTORICAL_PACKAGES_GATEWAYS", true),
   };
 
   return makeConfigProvider(manifest, env);
