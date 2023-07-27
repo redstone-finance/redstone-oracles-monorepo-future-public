@@ -5,5 +5,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "solidity.packageDefaultDependenciesContractsDirectory": "",
-  "solidity.packageDefaultDependenciesDirectory": "node_modules"
+  "solidity.packageDefaultDependenciesDirectory": "node_modules",
+  "eslint.workingDirectories": [
+    "./packages/gelato-relayer",
+    "./packages/integration",
+    "./packages/cache-service"
+  ]
 }

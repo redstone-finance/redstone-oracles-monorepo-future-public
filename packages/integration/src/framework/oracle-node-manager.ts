@@ -10,7 +10,7 @@ import {
 import { installAndBuild } from "./integration-test-compile";
 import { CacheLayerInstance } from "./cache-layer-manager";
 
-const hardhatMockPrivateKey =
+export const hardhatMockPrivateKey =
   "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 
 export type OracleNodeInstance = {
@@ -21,12 +21,26 @@ export type OracleNodeInstance = {
 const mockPricesPath = "./mock-prices.json";
 export const startAndWaitForOracleNode = async (
   instance: OracleNodeInstance,
-  cacheServiceInstances: CacheLayerInstance[]
+  cacheServiceInstances: CacheLayerInstance[],
+  manifestFileName: string = "mock"
 ): Promise<void> => {
   process.chdir("../oracle-node");
   await installAndBuild();
-
   const dotenvPath = `.env-${instance.instanceId}`;
+  populateEnvVariables(cacheServiceInstances, dotenvPath, manifestFileName);
+  instance.oracleNodeProcess = runWithLogPrefixInBackground(
+    "yarn",
+    ["start"],
+    `oracle-node-${instance.instanceId}`,
+    { DOTENV_CONFIG_PATH: dotenvPath }
+  );
+};
+
+const populateEnvVariables = (
+  cacheServiceInstances: CacheLayerInstance[],
+  dotenvPath: string,
+  manifestFileName: string
+) => {
   const cacheServiceUrls = cacheServiceInstances.map(
     (cacheLayerInstance) =>
       `http://localhost:${cacheLayerInstance.directCacheServicePort}`
@@ -39,18 +53,12 @@ export const startAndWaitForOracleNode = async (
   );
   updateDotEnvFile(
     "OVERRIDE_MANIFEST_USING_FILE",
-    "./manifests/single-source/mock.json",
+    `./manifests/single-source/${manifestFileName}.json`,
     dotenvPath
   );
   updateDotEnvFile("ECDSA_PRIVATE_KEY", hardhatMockPrivateKey, dotenvPath);
   updateDotEnvFile("MOCK_PRICES_URL_OR_PATH", mockPricesPath, dotenvPath);
   printDotenv("oracle node", dotenvPath);
-  instance.oracleNodeProcess = runWithLogPrefixInBackground(
-    "yarn",
-    ["start"],
-    `oracle-node-${instance.instanceId}`,
-    { DOTENV_CONFIG_PATH: dotenvPath }
-  );
 };
 
 export const stopOracleNode = (oracleNode: OracleNodeInstance) => {

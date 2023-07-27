@@ -65,7 +65,8 @@ const startAndWaitForCacheService = async (
 
 export const startAndWaitForCacheLayer = async (
   instance: CacheLayerInstance,
-  directOnly: boolean
+  directOnly: boolean,
+  enableHistoricalDataServing: boolean = false
 ): Promise<CacheLayerInstance> => {
   (instance.dotenvPath = `.env-${instance.instanceId}`),
     process.chdir("../cache-service");
@@ -92,6 +93,11 @@ export const startAndWaitForCacheLayer = async (
   updateDotEnvFile("ENABLE_DIRECT_POSTING_ROUTES", "true", instance.dotenvPath);
   updateDotEnvFile("ENABLE_STREAMR_LISTENING", "false", instance.dotenvPath);
   updateDotEnvFile("USE_MOCK_ORACLE_STATE", "true", instance.dotenvPath);
+  updateDotEnvFile(
+    "ENABLE_HISTORICAL_DATA_SERVING",
+    String(enableHistoricalDataServing),
+    instance.dotenvPath
+  );
   printDotenv("cache service", instance.dotenvPath);
   await startAndWaitForCacheService(instance, true);
   if (!directOnly) {
