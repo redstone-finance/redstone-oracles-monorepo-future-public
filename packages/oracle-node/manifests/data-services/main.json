@@ -786,7 +786,7 @@
       ]
     },
     "BIT": {
-      "source": ["coinbaseprime", "coinbasepro", "coingecko", "gate", "mexc"]
+      "source": ["coinbaseprime", "coinbasepro", "coingecko", "gate"]
     },
     "KAVA": {
       "source": [

@@ -777,14 +777,7 @@
       ]
     },
     "BIT": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "gate",
-        "lbank",
-        "mexc"
-      ]
+      "source": ["coinbaseprime", "coinbasepro", "coingecko", "gate", "lbank"]
     },
     "KAVA": {
       "source": [
