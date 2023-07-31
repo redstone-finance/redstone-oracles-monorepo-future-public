@@ -22,7 +22,7 @@ const mockPricesPath = "./mock-prices.json";
 export const startAndWaitForOracleNode = async (
   instance: OracleNodeInstance,
   cacheServiceInstances: CacheLayerInstance[],
-  manifestFileName: string = "mock"
+  manifestFileName: string = "single-source/mock"
 ): Promise<void> => {
   process.chdir("../oracle-node");
   await installAndBuild();
@@ -53,7 +53,7 @@ const populateEnvVariables = (
   );
   updateDotEnvFile(
     "OVERRIDE_MANIFEST_USING_FILE",
-    `./manifests/single-source/${manifestFileName}.json`,
+    `./manifests/${manifestFileName}.json`,
     dotenvPath
   );
   updateDotEnvFile("ECDSA_PRIVATE_KEY", hardhatMockPrivateKey, dotenvPath);

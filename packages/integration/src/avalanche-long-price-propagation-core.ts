@@ -2,7 +2,7 @@ import { runLongPricePropagationCoreTest } from "./framework/run-long-price-prop
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
-  const manifestFileName = "avalanche";
+  const manifestFileName = "data-services/avalanche";
   const nodeWorkingTimeInMinutes = 15;
   const nodeIntervalInMilliseconds = 60000;
   const coldStartIterationsCount = 4;
