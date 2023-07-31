@@ -137,9 +137,10 @@ export class DataPackagesController {
     this.sendSerializableResponse(res, payload, query.format);
   }
 
-  @Get("stats")
+  @Get("stats/:PERIOD")
   async getStats(
-    @Query() query: GetDataPackagesStatsQuery
+    @Query() query: GetDataPackagesStatsQuery,
+    @Param("PERIOD") period: string
   ): Promise<DataPackagesStatsResponse> {
     if (query["api-key"] !== config.apiKeyForAccessToAdminRoutes) {
       throw new HttpException(
@@ -151,9 +152,10 @@ export class DataPackagesController {
       );
     }
 
+    const now = Date.now();
     return await this.dataPackagesService.getDataPackagesStats({
-      fromTimestamp: Number(query["from-timestamp"]),
-      toTimestamp: Number(query["to-timestamp"] || Date.now()),
+      fromTimestamp: now - Number(period),
+      toTimestamp: now,
     });
   }
 
