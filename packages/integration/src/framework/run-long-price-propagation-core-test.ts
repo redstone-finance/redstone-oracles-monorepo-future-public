@@ -2,15 +2,12 @@ import fs from "fs";
 import {
   CacheLayerInstance,
   configureCleanup,
-  hardhatMockPrivateKey,
   OracleNodeInstance,
-  printDotenv,
   sleep,
   startAndWaitForCacheLayer,
   startAndWaitForOracleNode,
   stopCacheLayer,
   stopOracleNode,
-  updateDotEnvFile,
   updateManifestFile,
 } from "./integration-test-framework";
 import { compareDataPackagesFromLocalAndProd } from "./compare-data-packages";
@@ -89,6 +86,7 @@ export const runLongPricePropagationCoreTest = async (
       );
     }
     process.exit();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error(`Error, ${JSON.stringify(error.stack)}`);
     process.exit(1);
@@ -99,9 +97,9 @@ const overwriteNodeInterval = (
   nodeInterval: number,
   manifestFileName: string
 ) => {
-  const newManifestPath = `../oracle-node/manifests/data-services/${manifestFileName}-${oracleNodeInstance.instanceId}.json`;
+  const newManifestPath = `../oracle-node/manifests/${manifestFileName}-${oracleNodeInstance.instanceId}.json`;
   fs.copyFileSync(
-    `../oracle-node/manifests/data-services/${manifestFileName}.json`,
+    `../oracle-node/manifests/${manifestFileName}.json`,
     newManifestPath
   );
   updateManifestFile("interval", String(nodeInterval), newManifestPath);

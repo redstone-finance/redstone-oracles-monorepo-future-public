@@ -11,9 +11,11 @@ export const fetchDataPackagesFromCaches = async (
       `http://localhost:${cacheLayerInstance.directCacheServicePort}/data-packages/historical/mock-data-service/${timestamp}`
     )
   ).data;
+
+  const prodDataServiceName = manifestFileName.replace("data-services/", "");
   const responseFromProdCache = (
     await axios.get(
-      `https://oracle-gateway-2.a.redstone.finance/data-packages/historical/redstone-${manifestFileName}-prod/${timestamp}`
+      `https://oracle-gateway-2.a.redstone.finance/data-packages/historical/redstone-${prodDataServiceName}-prod/${timestamp}`
     )
   ).data;
 
