@@ -70,13 +70,6 @@ export class GetLatestDataPackagesQuery {
 
 export class GetDataPackagesStatsQuery {
   @IsString()
-  "from-timestamp": string;
-
-  @IsOptional()
-  @IsString()
-  "to-timestamp"?: string;
-
-  @IsString()
   "api-key": string;
 }
 

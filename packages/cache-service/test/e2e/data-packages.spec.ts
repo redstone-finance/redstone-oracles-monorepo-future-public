@@ -527,13 +527,30 @@ describe("Data packages (e2e)", () => {
 
   it("/data-packages/stats (GET) - should work properly with a valid api key", async () => {
     // Sending request for stats
-    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    const mockDataPackage = mockDataPackages[0];
+    await DataPackage.insertMany([
+      {
+        ...mockDataPackage,
+        timestampMilliseconds: Date.now(),
+        isSignatureValid: true,
+        dataFeedId: "BTC",
+        dataServiceId: "mock-data-service-1",
+        signerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      },
+      {
+        ...mockDataPackage,
+        timestampMilliseconds: Date.now(),
+        isSignatureValid: true,
+        dataFeedId: "BTC",
+        dataServiceId: "mock-data-service-1",
+        signerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      },
+    ]);
+
     const response = await request(httpServer)
-      .get("/data-packages/stats")
+      .get(`/data-packages/stats/${7200 * 1000}`)
       .query({
         "api-key": "test-api-key",
-        "from-timestamp": dpTimestamp - 3600 * 1000,
-        "to-timestamp": dpTimestamp + 1,
       })
       .expect(200);
 
@@ -542,7 +559,7 @@ describe("Data packages (e2e)", () => {
       expect.objectContaining({
         "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": {
           dataServiceId: "mock-data-service-1",
-          verifiedDataPackagesCount: 8,
+          verifiedDataPackagesCount: 2,
           nodeName: "Mock node 1",
         },
       })
@@ -551,15 +568,14 @@ describe("Data packages (e2e)", () => {
 
   it("/data-packages/stats (GET) - should fail for an invalid api key", async () => {
     await request(httpServer)
-      .get("/data-packages/stats")
-      .send({ "from-timestamp": "1", "api-key": "2" })
+      .get("/data-packages/stats/1")
+      .send({ "api-key": "2" })
       .expect(400);
 
     await request(httpServer)
-      .get("/data-packages/stats")
+      .get("/data-packages/stats/1")
       .query({
         "api-key": "invalid-api-key",
-        "from-timestamp": "10",
       })
       .expect(401);
   });

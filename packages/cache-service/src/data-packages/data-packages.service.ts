@@ -306,7 +306,7 @@ export class DataPackagesService {
 
     if (toTimestamp - fromTimestamp > 7_200_000) {
       throw new BadRequestException(
-        "Too big search period. to-timestamp - from-timestamp  can not be bigger than 7_200_000"
+        "Too big search period. Can not be bigger than 7_200_000"
       );
     }
 
