@@ -28,7 +28,6 @@ import { runPromiseWithLogging } from "../utils/utils";
 // update frequency in nodes, 5s cache TTL on the app level, and 5s cache TTL
 // on the CDN level - then the max data delay is ~20s, which is still good enough :)
 const CACHE_TTL = 5000;
-const MAX_ALLOWED_TIMESTAMP_DELAY = 180 * 1000; // 3 minutes in milliseconds
 export const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 
 export interface StatsRequestParams {
@@ -138,7 +137,7 @@ export class DataPackagesService {
         $match: {
           dataServiceId,
           timestampMilliseconds: timestamp ?? {
-            $gte: Date.now() - MAX_ALLOWED_TIMESTAMP_DELAY,
+            $gte: Date.now() - config.maxAllowedTimestampDelay,
           },
         },
       },
@@ -195,7 +194,7 @@ export class DataPackagesService {
         $match: {
           dataServiceId,
           timestampMilliseconds: {
-            $gte: Date.now() - MAX_ALLOWED_TIMESTAMP_DELAY,
+            $gte: Date.now() - config.maxAllowedTimestampDelay,
           },
         },
       },
