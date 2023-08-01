@@ -11,6 +11,7 @@ interface CacheServiceConfigRequiredFields {
   useMockOracleRegistryState: boolean;
   enableHistoricalDataServing: boolean;
   secondMongoDbUrl?: string;
+  maxAllowedTimestampDelay: number;
 }
 
 type CacheServiceConfig =
@@ -23,6 +24,7 @@ type CacheServiceConfig =
 
 const DEFAULT_BUNDLR_NODE_URL = "https://node2.bundlr.network";
 const DEFAULT_APP_PORT = 3000;
+const DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY = 90 * 1000; // 1.5 minutes in milliseconds
 
 const getEnv = (envName: string, required = true): string => {
   if (!process.env[envName] && required) {
@@ -51,6 +53,10 @@ const config = {
   enableHistoricalDataServing:
     getEnv("ENABLE_HISTORICAL_DATA_SERVING", false) === "true",
   secondMongoDbUrl: getEnv("SECOND_MONGO_DB_URL", false),
+  maxAllowedTimestampDelay: Number(
+    getEnv("MAX_ALLOWED_TIMESTAMP_DELAY", false) ||
+      DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY
+  ),
 } as CacheServiceConfig;
 
 if (config.enableArchivingOnArweave) {
