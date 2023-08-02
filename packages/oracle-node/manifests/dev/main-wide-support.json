@@ -914,10 +914,12 @@
       ]
     },
     "USDC.USDT": {
-      "source": ["non-usd-based"]
+      "source": ["non-usd-based"],
+      "decimals": 14
     },
     "USDC.DAI": {
-      "source": ["non-usd-based"]
+      "source": ["non-usd-based"],
+      "decimals": 14
     },
     "ARDRIVE": {
       "source": ["permaswap"]
