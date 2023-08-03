@@ -1,6 +1,7 @@
 import { ChildProcess } from "child_process";
 import fs from "fs";
 import {
+  debug,
   PriceSet,
   printDotenv,
   runWithLogPrefixInBackground,
@@ -10,42 +11,55 @@ import {
 import { installAndBuild } from "./integration-test-compile";
 import { CacheLayerInstance } from "./cache-layer-manager";
 
-export const hardhatMockPrivateKey =
+export const HARDHAT_MOCK_PRIVATE_KEY =
   "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+const ORACLE_NODE_DIR = "../oracle-node";
 
 export type OracleNodeInstance = {
-  oracleNodeProcess?: ChildProcess;
   instanceId: string;
+  oracleNodeProcess?: ChildProcess;
 };
 
-const mockPricesPath = "./mock-prices.json";
+export const buildOracleNode = async () =>
+  await installAndBuild(ORACLE_NODE_DIR, false);
+
+const getLogPrefix = (instance: OracleNodeInstance) =>
+  `oracle-node-${instance.instanceId}`;
+
+const mockPricesPath = `${ORACLE_NODE_DIR}/./mock-prices.json`;
 export const startAndWaitForOracleNode = async (
   instance: OracleNodeInstance,
   cacheServiceInstances: CacheLayerInstance[],
   manifestFileName: string = "single-source/mock"
 ): Promise<void> => {
-  process.chdir("../oracle-node");
-  await installAndBuild();
-  const dotenvPath = `.env-${instance.instanceId}`;
-  populateEnvVariables(cacheServiceInstances, dotenvPath, manifestFileName);
+  debug(`starting ${getLogPrefix(instance)}`);
+  const dotenvPath = `${ORACLE_NODE_DIR}/.env-${instance.instanceId}`;
+  populateEnvVariables(
+    dotenvPath,
+    instance,
+    cacheServiceInstances,
+    manifestFileName
+  );
   instance.oracleNodeProcess = runWithLogPrefixInBackground(
-    "yarn",
-    ["start"],
-    `oracle-node-${instance.instanceId}`,
+    "node",
+    ["dist/index"],
+    getLogPrefix(instance),
+    ORACLE_NODE_DIR,
     { DOTENV_CONFIG_PATH: dotenvPath }
   );
 };
 
 const populateEnvVariables = (
-  cacheServiceInstances: CacheLayerInstance[],
   dotenvPath: string,
+  instance: OracleNodeInstance,
+  cacheServiceInstances: CacheLayerInstance[],
   manifestFileName: string
 ) => {
   const cacheServiceUrls = cacheServiceInstances.map(
     (cacheLayerInstance) =>
       `http://localhost:${cacheLayerInstance.directCacheServicePort}`
   );
-  fs.copyFileSync(".env.example", dotenvPath);
+  fs.copyFileSync(`${ORACLE_NODE_DIR}/.env.example`, dotenvPath);
   updateDotEnvFile(
     "OVERRIDE_DIRECT_CACHE_SERVICE_URLS",
     JSON.stringify(cacheServiceUrls),
@@ -56,19 +70,22 @@ const populateEnvVariables = (
     `./manifests/${manifestFileName}.json`,
     dotenvPath
   );
-  updateDotEnvFile("ECDSA_PRIVATE_KEY", hardhatMockPrivateKey, dotenvPath);
+  updateDotEnvFile(
+    "LEVEL_DB_LOCATION",
+    `oracle-node-level-db-${instance.instanceId}`,
+    dotenvPath
+  );
+  updateDotEnvFile("ECDSA_PRIVATE_KEY", HARDHAT_MOCK_PRIVATE_KEY, dotenvPath);
   updateDotEnvFile("MOCK_PRICES_URL_OR_PATH", mockPricesPath, dotenvPath);
-  printDotenv("oracle node", dotenvPath);
+  printDotenv(getLogPrefix(instance), dotenvPath);
 };
 
-export const stopOracleNode = (oracleNode: OracleNodeInstance) => {
-  stopChild(
-    oracleNode.oracleNodeProcess,
-    `oracle node-${oracleNode.instanceId}`
-  );
+export const stopOracleNode = (instance: OracleNodeInstance) => {
+  debug(`stopping ${getLogPrefix(instance)}`);
+  stopChild(instance.oracleNodeProcess, getLogPrefix(instance));
 };
 
 export const setMockPrices = (mockPrices: PriceSet) => {
-  process.chdir("../oracle-node");
+  debug(`setting mock prices to ${JSON.stringify(mockPrices)}`);
   fs.writeFileSync(mockPricesPath, JSON.stringify(mockPrices));
 };

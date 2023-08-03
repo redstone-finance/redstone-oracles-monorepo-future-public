@@ -1,7 +1,10 @@
 import {
+  buildCacheLayer,
   buildEvmConnector,
+  buildOracleNode,
   CacheLayerInstance,
   configureCleanup,
+  debug,
   OracleNodeInstance,
   setMockPrices,
   startAndWaitForCacheLayer,
@@ -16,17 +19,21 @@ const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
 
 const stopAll = () => {
-  console.log("stopAll called");
+  debug("stopAll called");
   stopOracleNode(oracleNodeInstance);
   stopCacheLayer(cacheLayerInstance);
 };
 
 const main = async () => {
+  // setup
+  await buildCacheLayer();
+  await buildEvmConnector();
+  await buildOracleNode();
+
   setMockPrices({ __DEFAULT__: 42 });
   await startAndWaitForCacheLayer(cacheLayerInstance, true);
   await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
   await waitForDataAndDisplayIt(cacheLayerInstance);
-  await buildEvmConnector();
   await verifyPricesInCacheService([cacheLayerInstance], { BTC: 42 });
 
   process.exit();

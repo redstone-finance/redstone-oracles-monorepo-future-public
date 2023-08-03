@@ -2,6 +2,7 @@ import { ChildProcess, spawnSync } from "child_process";
 import fs from "fs";
 import { installAndBuild } from "./integration-test-compile";
 import {
+  debug,
   PriceSet,
   printDotenv,
   runWithLogPrefix,
@@ -23,8 +24,13 @@ export type CacheLayerInstance = {
   dotenvPath?: string;
 };
 
-let cacheServicePort = 3000;
+const CACHE_SERVICE_DIR = "../cache-service";
+const EVM_CONNECTOR_DIR = "../evm-connector";
 
+const getLogPrefix = (instance: CacheLayerInstance) =>
+  `cache-service-${instance.instanceId}`;
+
+let cacheServicePort = 3000;
 const portNumberForInstance = (
   instance: CacheLayerInstance,
   direct: boolean
@@ -38,15 +44,22 @@ const portNumberForInstance = (
   return ++cacheServicePort;
 };
 
+export const buildCacheLayer = async () =>
+  await installAndBuild(CACHE_SERVICE_DIR, false);
+
+export const buildEvmConnector = async () =>
+  await installAndBuild(EVM_CONNECTOR_DIR, true);
+
 const startAndWaitForCacheService = async (
   instance: CacheLayerInstance,
   direct: boolean
 ) => {
   const cacheServicePort = portNumberForInstance(instance, direct);
   const childProcess = runWithLogPrefixInBackground(
-    "yarn",
-    ["start:prod"],
-    `${direct ? "direct" : "public"}-cache-service-${instance.instanceId}`,
+    "node",
+    ["dist/src/main"],
+    `${direct ? "direct" : "public"}-${getLogPrefix(instance)}`,
+    CACHE_SERVICE_DIR,
     {
       DOTENV_CONFIG_PATH: instance.dotenvPath!,
       APP_PORT: `${cacheServicePort}`,
@@ -68,22 +81,22 @@ export const startAndWaitForCacheLayer = async (
   directOnly: boolean,
   enableHistoricalDataServing: boolean = false
 ): Promise<CacheLayerInstance> => {
-  (instance.dotenvPath = `.env-${instance.instanceId}`),
-    process.chdir("../cache-service");
-  await installAndBuild();
+  debug(`starting ${getLogPrefix(instance)}`);
+  instance.dotenvPath ??= `${CACHE_SERVICE_DIR}/.env-${instance.instanceId}`;
 
-  const mongoUriFile = `./tmp-mongo-db-uri-${instance.instanceId}.log`;
+  const mongoUriFile = `${CACHE_SERVICE_DIR}/tmp-mongo-db-uri-${instance.instanceId}.log`;
   // Spinning up a mongo DB instance for cache service
   spawnSync("rm", ["-f", mongoUriFile]);
   instance.mongoDbProcess = runWithLogPrefixInBackground(
     "yarn",
     ["run-ts", "scripts/launch-mongodb-in-memory.ts", mongoUriFile],
-    `mongo-db-${instance.instanceId}`
+    `mongo-db-${instance.instanceId}`,
+    CACHE_SERVICE_DIR
   );
   await waitForFile(mongoUriFile);
   const memoryMongoDbUrl = fs.readFileSync(mongoUriFile, "utf-8");
 
-  fs.copyFileSync(".env.example", instance.dotenvPath);
+  fs.copyFileSync(`${CACHE_SERVICE_DIR}/.env.example`, instance.dotenvPath);
   updateDotEnvFile("MONGO_DB_URL", memoryMongoDbUrl, instance.dotenvPath);
   updateDotEnvFile(
     "API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES",
@@ -98,7 +111,8 @@ export const startAndWaitForCacheLayer = async (
     String(enableHistoricalDataServing),
     instance.dotenvPath
   );
-  printDotenv("cache service", instance.dotenvPath);
+  updateDotEnvFile("MAX_ALLOWED_TIMESTAMP_DELAY", "20000", instance.dotenvPath);
+  printDotenv(getLogPrefix(instance), instance.dotenvPath);
   await startAndWaitForCacheService(instance, true);
   if (!directOnly) {
     await startAndWaitForCacheService(instance, false);
@@ -106,33 +120,31 @@ export const startAndWaitForCacheLayer = async (
   return instance;
 };
 
-export const stopCacheLayer = (cacheLayer: CacheLayerInstance) => {
-  stopChild(
-    cacheLayer.directCacheServiceProcess,
-    `direct cache service-${cacheLayer.instanceId}`
-  );
-  cacheLayer.directCacheServiceProcess = undefined;
-  stopChild(
-    cacheLayer?.publicCacheServiceProcess,
-    `public cache service-${cacheLayer.instanceId}`
-  );
-  cacheLayer.publicCacheServiceProcess = undefined;
-  stopChild(cacheLayer.mongoDbProcess, `mongo-${cacheLayer?.instanceId}`);
-  cacheLayer.mongoDbProcess = undefined;
+export const stopCacheLayer = (instance: CacheLayerInstance) => {
+  debug(`stopping ${getLogPrefix(instance)}`);
+  stopDirectAndPublicCacheServices(instance);
+  stopMongoDb(instance);
+};
+
+export const stopMongoDb = (instance: CacheLayerInstance) => {
+  stopChild(instance.mongoDbProcess, `mongo-${instance.instanceId}`);
+  instance.mongoDbProcess = undefined;
 };
 
 export const stopDirectCacheService = (instance: CacheLayerInstance) => {
+  debug(`stopping direct-${getLogPrefix(instance)}`);
   stopChild(
-    instance?.directCacheServiceProcess,
-    `direct cache service-${instance?.instanceId}`
+    instance.directCacheServiceProcess,
+    `direct-${getLogPrefix(instance)}`
   );
   instance.directCacheServiceProcess = undefined;
 };
 
 export const stopPublicCacheService = (instance: CacheLayerInstance) => {
+  debug(`stopping public-${getLogPrefix(instance)}`);
   stopChild(
-    instance?.publicCacheServiceProcess,
-    `direct cache service-${instance?.instanceId}`
+    instance.publicCacheServiceProcess,
+    `public-${getLogPrefix(instance)}`
   );
   instance.publicCacheServiceProcess = undefined;
 };
@@ -145,10 +157,12 @@ export const stopDirectAndPublicCacheServices = (
 };
 
 export const startDirectCacheService = async (instance: CacheLayerInstance) => {
+  debug(`start direct-${getLogPrefix(instance)}`);
   await startAndWaitForCacheService(instance, true);
 };
 
 export const startPublicCacheService = async (instance: CacheLayerInstance) => {
+  debug(`start public-${getLogPrefix(instance)}`);
   await startAndWaitForCacheService(instance, false);
 };
 
@@ -162,8 +176,9 @@ export const startDirectAndPublicCacheServices = async (
 export const waitForDataPackages = async (
   expectedDataPackageCount: number,
   feedId: string,
-  cacheLayerInstance: CacheLayerInstance
+  instance: CacheLayerInstance
 ) => {
+  debug(`waiting for ${expectedDataPackageCount} packages for ${feedId}`);
   await runWithLogPrefix(
     "yarn",
     [
@@ -173,30 +188,28 @@ export const waitForDataPackages = async (
       `${feedId}`,
     ],
     `Waiting ${feedId}`,
-    { DOTENV_CONFIG_PATH: cacheLayerInstance.dotenvPath! }
+    CACHE_SERVICE_DIR,
+    { DOTENV_CONFIG_PATH: instance.dotenvPath! }
   );
 };
 
-export const waitForDataAndDisplayIt = async (
-  cacheLayerInstance: CacheLayerInstance
-) => {
+export const waitForDataAndDisplayIt = async (instance: CacheLayerInstance) => {
   // Waiting for data packages to be available in cache service
-  process.chdir("../cache-service");
-  await waitForDataPackages(1, "___ALL_FEEDS___", cacheLayerInstance);
-  await waitForDataPackages(1, "ETH", cacheLayerInstance);
-  await waitForDataPackages(1, "BTC", cacheLayerInstance);
-  await waitForDataPackages(1, "AAVE", cacheLayerInstance);
+  await waitForDataPackages(1, "___ALL_FEEDS___", instance);
+  await waitForDataPackages(1, "ETH", instance);
+  await waitForDataPackages(1, "BTC", instance);
+  await waitForDataPackages(1, "AAVE", instance);
 
   // Querying data packages from cache service
   await runWithLogPrefix(
     "curl",
     [
       `http://localhost:${
-        cacheLayerInstance.publicCacheServicePort ??
-        cacheLayerInstance.directCacheServicePort
+        instance.publicCacheServicePort ?? instance.directCacheServicePort
       }/data-packages/latest/mock-data-service"`,
     ],
-    "fetch packages"
+    "fetch packages",
+    CACHE_SERVICE_DIR
   );
 };
 
@@ -204,7 +217,7 @@ export const verifyPricesInCacheService = async (
   cacheLayerInstances: CacheLayerInstance[],
   expectedPrices: PriceSet
 ) => {
-  process.chdir("../evm-connector");
+  debug(`verifying prices, waiting for: ${JSON.stringify(expectedPrices)}`);
   const cacheLayerUrls = cacheLayerInstances.map(
     (cacheLayerInstance) =>
       `http://localhost:${
@@ -219,6 +232,7 @@ export const verifyPricesInCacheService = async (
         "yarn",
         ["test", "test/monorepo-integration-tests/verify-prices.test.ts"],
         "evm-connector",
+        EVM_CONNECTOR_DIR,
         {
           MONOREPO_INTEGRATION_TEST: "true",
           CACHE_SERVICE_URLS: JSON.stringify(cacheLayerUrls),
@@ -229,4 +243,20 @@ export const verifyPricesInCacheService = async (
     5,
     "prices are not what expected"
   );
+};
+
+export const verifyPricesNotInCacheService = async (
+  cacheLayerInstances: CacheLayerInstance[],
+  expectedPrices: PriceSet
+) => {
+  try {
+    await verifyPricesInCacheService(cacheLayerInstances, expectedPrices);
+    throw new Error("IMPOSSIBLE");
+  } catch (e: unknown) {
+    if ((e as Error).message === "IMPOSSIBLE") {
+      throw new Error(
+        "IMPOSSIBLE: prices were updated even though there was no active node. Most probably there is a bug in testing code."
+      );
+    }
+  }
 };

@@ -1,12 +1,15 @@
-import fs from "fs";
 import {
+  buildCacheLayer,
   buildEvmConnector,
+  buildOracleNode,
+  buildRelayer,
   CacheLayerInstance,
   configureCleanup,
+  debug,
+  deployMockAdapter,
   HardhatInstance,
   OracleNodeInstance,
   RelayerInstance,
-  runWithLogPrefix,
   setMockPrices,
   startAndWaitForCacheLayer,
   startAndWaitForHardHat,
@@ -26,28 +29,20 @@ const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
 
 const stopAll = () => {
-  console.log("stopAll called");
+  debug("stopAll called");
   stopRelayer(relayerInstance);
   stopHardhat(hardhatInstance);
   stopOracleNode(oracleNodeInstance);
   stopCacheLayer(cacheLayerInstance);
 };
 
-const deployMockAdapter = async () => {
-  await runWithLogPrefix(
-    "yarn",
-    [
-      "hardhat",
-      "--network",
-      "localhost",
-      "run",
-      "test/monorepo-integration-tests/scripts/deploy-mock-adapter.ts",
-    ],
-    "deploy mock adapter"
-  );
-};
-
 const main = async () => {
+  // setup
+  await buildCacheLayer();
+  await buildEvmConnector();
+  await buildOracleNode();
+  await buildRelayer();
+
   await startAndWaitForCacheLayer(cacheLayerInstance, true);
   setMockPrices({
     BTC: 16000,
@@ -56,16 +51,10 @@ const main = async () => {
   });
   await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
   await waitForDataAndDisplayIt(cacheLayerInstance);
-  await buildEvmConnector();
-
   await startAndWaitForHardHat(hardhatInstance);
 
-  await deployMockAdapter();
+  const adapterContractAddress = await deployMockAdapter();
 
-  const adapterContractAddress = fs.readFileSync(
-    "adapter-contract-address.txt",
-    "utf-8"
-  );
   await startRelayer(
     relayerInstance,
     adapterContractAddress,
