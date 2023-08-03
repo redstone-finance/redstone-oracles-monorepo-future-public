@@ -3,19 +3,19 @@ import fs from "fs";
 
 export type PriceSet = { [token: string]: number };
 
+const SLEEP_TIME_MILLISECONDS = 5000;
+
 export const stopChild = (
   childProcess: ChildProcess | undefined,
   name: string
 ) => {
-  if (!childProcess) {
+  if (!childProcess?.pid || childProcess.exitCode !== null) {
+    debug(`process ${name} didn't start or already terminated.`);
     return;
   }
-  console.log(`terminate ${name}`);
-  childProcess.on("error", (e) =>
-    console.log(`error in process, ${name}: ${e}`)
-  );
+  debug(`terminate ${name}`);
   if (!childProcess.kill()) {
-    console.log(`failed to terminate ${name}`);
+    debug(`failed to terminate ${name}`);
   }
 };
 
@@ -29,25 +29,27 @@ export const printDotenv = (label: string, filePath: string) => {
   console.groupEnd();
 };
 
-const sleepTimeMilliseconds = 5000;
-
-export const waitForFile = async (filename: string) => {
-  while (!fs.existsSync(filename)) {
-    console.log(`${filename} is not present, waiting...`);
-    await sleep(sleepTimeMilliseconds);
+export const waitForFile = async (filePath: string, tries = 5) => {
+  while (!fs.existsSync(filePath)) {
+    if (--tries <= 0) {
+      throw new Error(`path ${filePath} didn't become availabe, aborting...`);
+    }
+    debug(`${filePath} is not present, waiting, tries left ${tries}...`);
+    await sleep(SLEEP_TIME_MILLISECONDS);
   }
+  debug(`${filePath} bacame available`);
 };
 
-export const waitForUrl = async (url: string) => {
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    const result = spawnSync("curl", [url]);
-    if (result.status === 0) {
-      break;
+export const waitForUrl = async (url: string, tries = 5) => {
+  // eslint-disable-next-line no-constant-condition,@typescript-eslint/no-unnecessary-condition
+  while (spawnSync("curl", [url]).status !== 0) {
+    if (--tries <= 0) {
+      throw new Error(`url ${url} didn't become availabe, aborting...`);
     }
-    console.log(`${url} is not responding, waiting...`);
-    await sleep(sleepTimeMilliseconds);
+    debug(`${url} is not responding, waiting, tries left: ${tries}...`);
+    await sleep(SLEEP_TIME_MILLISECONDS);
   }
+  debug(`${url} became available`);
 };
 
 export const waitForSuccess = async (
@@ -58,7 +60,7 @@ export const waitForSuccess = async (
   let waitCounter = 0;
   while (!(await cond())) {
     if (++waitCounter < count) {
-      await sleep(sleepTimeMilliseconds);
+      await sleep(SLEEP_TIME_MILLISECONDS);
     } else {
       throw new Error(errorMessage);
     }
@@ -117,10 +119,10 @@ export const addPrefixToProcessLogs = (
   const normalizedPrefix = normalizePrefix(logPrefix);
   const normalizedErrorPrefix = normalizePrefix(logPrefix + " (stderr)");
   if (!childProcess.stdout) {
-    console.log(`stdout for ${logPrefix} won't be displayed`);
+    debug(`stdout for ${logPrefix} won't be displayed`);
   }
   if (!childProcess.stderr) {
-    console.log(`stderr for ${logPrefix} won't be displayed`);
+    debug(`stderr for ${logPrefix} won't be displayed`);
   }
   childProcess.stdout?.on("data", (data: string) => {
     data
@@ -146,11 +148,14 @@ export const runWithLogPrefix = async (
   cmd: string,
   args: string[],
   logPrefix: string,
+  cwd: string,
   extraEnv?: ExtraEnv,
   throwOnError = true
 ) => {
-  const childProcess = spawn(cmd, args, { env: extendEnv(extraEnv) });
+  debug(`starting process in foreground ${cmd} ${args.join(",")}`);
+  const childProcess = spawn(cmd, args, { env: extendEnv(extraEnv), cwd });
   addPrefixToProcessLogs(childProcess, logPrefix);
+  childProcess.on("error", (e) => debug(`error in process, ${cmd}: ${e}`));
   await new Promise<void>((resolve) => {
     childProcess.on("exit", resolve);
   });
@@ -164,26 +169,40 @@ export const runWithLogPrefixInBackground = (
   cmd: string,
   args: string[],
   logPrefix: string,
+  cwd: string,
   extraEnv?: ExtraEnv
 ) => {
-  const childProcess = spawn(cmd, args, { env: extendEnv(extraEnv) });
+  const childProcess = spawn(cmd, args, {
+    env: extendEnv(extraEnv),
+    cwd: `${process.cwd()}/${cwd}`,
+  });
+  debug(
+    `started process in background ${cmd} ${args.join(" ")}, pid ${
+      childProcess.pid
+    }`
+  );
+  childProcess.on("error", (e) => debug(`error in process, ${cmd}: ${e}`));
   addPrefixToProcessLogs(childProcess, logPrefix);
   return childProcess;
 };
 
 export const configureCleanup = (cleanUp: () => void) => {
   process.on("exit", (code) => {
-    console.log(`exiting with code ${code}`);
+    debug(`exiting with code ${code}`);
     cleanUp();
   });
 
   process.on("signal", (signal) => {
-    console.log(`exiting due to the signal ${signal}`);
+    debug(`exiting due to the signal ${signal}`);
     process.exit(-1);
   });
 
   process.on("uncaughtException", (error) => {
-    console.log("exiting due to uncaught exception", error);
+    debug(`exiting due to uncaught exception, ${error}`);
     process.exit(-1);
   });
+};
+
+export const debug = (message: string) => {
+  console.log(`\nmain : ${message}`);
 };

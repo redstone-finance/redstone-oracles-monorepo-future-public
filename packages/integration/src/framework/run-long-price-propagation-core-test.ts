@@ -1,5 +1,7 @@
 import fs from "fs";
 import {
+  buildCacheLayer,
+  buildOracleNode,
   CacheLayerInstance,
   configureCleanup,
   OracleNodeInstance,
@@ -33,64 +35,61 @@ export const runLongPricePropagationCoreTest = async (
   nodeIntervalInMilliseconds: number,
   coldStartIterationsCount: number
 ) => {
-  try {
-    await startAndWaitForCacheLayer(cacheLayerInstance, true, true);
-    overwriteNodeInterval(nodeIntervalInMilliseconds, manifestFileName);
-    await startAndWaitForOracleNode(
-      oracleNodeInstance,
-      [cacheLayerInstance],
-      `${manifestFileName}-${oracleNodeInstance.instanceId}`
+  await buildCacheLayer();
+  await buildOracleNode();
+
+  await startAndWaitForCacheLayer(cacheLayerInstance, true, true);
+  overwriteNodeInterval(nodeIntervalInMilliseconds, manifestFileName);
+  await startAndWaitForOracleNode(
+    oracleNodeInstance,
+    [cacheLayerInstance],
+    `${manifestFileName}-${oracleNodeInstance.instanceId}`
+  );
+
+  const nodeWorkingTimeInMilliseconds =
+    MINUTE_IN_MILLISECONDS * nodeWorkingTimeInMinutes;
+  await sleep(nodeWorkingTimeInMilliseconds);
+  stopOracleNode(oracleNodeInstance);
+
+  const latestTimestamp = await fetchLatestTimestampFromLocal(
+    cacheLayerInstance
+  );
+
+  const iterationsCount =
+    nodeWorkingTimeInMilliseconds / nodeIntervalInMilliseconds;
+  const timestampsRange = [...Array(iterationsCount).keys()];
+  const timestampsCountToAnalyze = timestampsRange.slice(
+    0,
+    iterationsCount - coldStartIterationsCount
+  );
+  const fetchDataPackagesPromises = [];
+  for (const timestampDiffNumber of timestampsCountToAnalyze) {
+    const newTimestamp =
+      latestTimestamp - timestampDiffNumber * nodeIntervalInMilliseconds;
+    fetchDataPackagesPromises.push(
+      fetchDataPackagesFromCaches(
+        cacheLayerInstance,
+        newTimestamp,
+        manifestFileName
+      )
     );
-
-    const nodeWorkingTimeInMilliseconds =
-      MINUTE_IN_MILLISECONDS * nodeWorkingTimeInMinutes;
-    await sleep(nodeWorkingTimeInMilliseconds);
-    stopOracleNode(oracleNodeInstance);
-
-    const latestTimestamp = await fetchLatestTimestampFromLocal(
-      cacheLayerInstance
-    );
-
-    const iterationsCount =
-      nodeWorkingTimeInMilliseconds / nodeIntervalInMilliseconds;
-    const timestampsRange = [...Array(iterationsCount).keys()];
-    const timestampsCountToAnalyze = timestampsRange.slice(
-      0,
-      iterationsCount - coldStartIterationsCount
-    );
-    const fetchDataPackagesPromises = [];
-    for (const timestampDiffNumber of timestampsCountToAnalyze) {
-      const newTimestamp =
-        latestTimestamp - timestampDiffNumber * nodeIntervalInMilliseconds;
-      fetchDataPackagesPromises.push(
-        fetchDataPackagesFromCaches(
-          cacheLayerInstance,
-          newTimestamp,
-          manifestFileName
-        )
-      );
-    }
-    const dataPackagesResponses = await Promise.all(fetchDataPackagesPromises);
-
-    for (const response of dataPackagesResponses) {
-      const { responseFromLocalCache, responseFromProdCache, timestamp } =
-        response;
-
-      console.log(
-        `Comparing data packages from local and prod cache for ${timestamp} timestamp`
-      );
-      compareDataPackagesFromLocalAndProd(
-        responseFromLocalCache,
-        responseFromProdCache,
-        MAX_PERCENTAGE_VALUE_DIFFERENCE
-      );
-    }
-    process.exit();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    console.error(`Error, ${JSON.stringify(error.stack)}`);
-    process.exit(1);
   }
+  const dataPackagesResponses = await Promise.all(fetchDataPackagesPromises);
+
+  for (const response of dataPackagesResponses) {
+    const { responseFromLocalCache, responseFromProdCache, timestamp } =
+      response;
+
+    console.log(
+      `Comparing data packages from local and prod cache for ${timestamp} timestamp`
+    );
+    compareDataPackagesFromLocalAndProd(
+      responseFromLocalCache,
+      responseFromProdCache,
+      MAX_PERCENTAGE_VALUE_DIFFERENCE
+    );
+  }
+  process.exit();
 };
 
 const overwriteNodeInterval = (

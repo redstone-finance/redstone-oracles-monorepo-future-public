@@ -1,7 +1,10 @@
 import {
+  buildCacheLayer,
   buildEvmConnector,
+  buildOracleNode,
   CacheLayerInstance,
   configureCleanup,
+  debug,
   OracleNodeInstance,
   setMockPrices,
   startAndWaitForCacheLayer,
@@ -11,6 +14,7 @@ import {
   stopDirectAndPublicCacheServices,
   stopOracleNode,
   verifyPricesInCacheService,
+  verifyPricesNotInCacheService,
   waitForDataAndDisplayIt,
 } from "./framework/integration-test-framework";
 
@@ -21,7 +25,7 @@ const oracleNodeInstance2: OracleNodeInstance = { instanceId: "2" };
 const oracleNodeInstance3: OracleNodeInstance = { instanceId: "3" };
 
 const stopAll = () => {
-  console.log("stopAll called");
+  debug("stopAll called");
   stopOracleNode(oracleNodeInstance1);
   stopOracleNode(oracleNodeInstance2);
   stopOracleNode(oracleNodeInstance3);
@@ -30,26 +34,20 @@ const stopAll = () => {
 };
 
 const main = async () => {
+  // setup
+  await buildCacheLayer();
+  await buildEvmConnector();
+  await buildOracleNode();
+
   const allCacheLayers = [cacheLayerInstance1, cacheLayerInstance2];
   setMockPrices({ __DEFAULT__: 42 });
 
-  // setup
   await startAndWaitForCacheLayer(cacheLayerInstance1, false);
   await startAndWaitForCacheLayer(cacheLayerInstance2, false);
-  await startAndWaitForOracleNode(oracleNodeInstance1, [
-    cacheLayerInstance1,
-    cacheLayerInstance2,
-  ]);
-  await startAndWaitForOracleNode(oracleNodeInstance2, [
-    cacheLayerInstance1,
-    cacheLayerInstance2,
-  ]);
-  await startAndWaitForOracleNode(oracleNodeInstance3, [
-    cacheLayerInstance1,
-    cacheLayerInstance2,
-  ]);
+  await startAndWaitForOracleNode(oracleNodeInstance1, allCacheLayers);
+  await startAndWaitForOracleNode(oracleNodeInstance2, allCacheLayers);
+  await startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
   await waitForDataAndDisplayIt(cacheLayerInstance1);
-  await buildEvmConnector();
 
   // verify everything works
   await verifyPricesInCacheService(allCacheLayers, { BTC: 42 });
@@ -60,11 +58,19 @@ const main = async () => {
   setMockPrices({ __DEFAULT__: 43 });
   await verifyPricesInCacheService(allCacheLayers, { BTC: 43 });
 
+  // stop all nodes and verify that prices are not being updated
+  stopOracleNode(oracleNodeInstance2);
+  stopOracleNode(oracleNodeInstance3);
+  setMockPrices({ __DEFAULT__: 44 });
+  await verifyPricesNotInCacheService(allCacheLayers, { BTC: 44 });
+
   // start stopped cache service, stop another one and verify everything works
+  await startAndWaitForOracleNode(oracleNodeInstance2, allCacheLayers);
+  await startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
   await startDirectAndPublicCacheServices(cacheLayerInstance1);
   stopDirectAndPublicCacheServices(cacheLayerInstance2);
-  setMockPrices({ __DEFAULT__: 44 });
-  await verifyPricesInCacheService(allCacheLayers, { BTC: 44 });
+  setMockPrices({ __DEFAULT__: 45 });
+  await verifyPricesInCacheService(allCacheLayers, { BTC: 45 });
 
   process.exit();
 };
