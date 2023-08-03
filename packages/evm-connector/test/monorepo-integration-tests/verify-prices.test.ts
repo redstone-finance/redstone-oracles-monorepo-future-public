@@ -35,7 +35,6 @@ dynamicDescribe("verify prices test", function () {
     const oracleValues = await wrappedContract.extractOracleValuesView(
       bytes32Symbols
     );
-    console.log(`oracle values ${JSON.stringify(oracleValues)}`);
     checkValues(oracleValues);
   };
 
