@@ -44,6 +44,8 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "curve-usdc",
+        "curve-usdt",
         "currencycom",
         "kaiko",
         "kraken",
@@ -57,8 +59,6 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "curve-usdc",
-        "curve-usdt",
         "huobipro",
         "kraken",
         "okx",
@@ -139,24 +139,14 @@
         "uniswap-v3-on-chain-weth-500"
       ]
     },
-    "FRXETH": {
-      "source": ["curve-eth", "uniswap-v3-on-chain-weth-500"]
-    },
     "ALETH": {
-      "source": ["curve-eth", "curve-frxeth", "velodrome-on-chain-weth"]
-    },
-    "crvFRAX": {
-      "source": ["ethereum-evm-fetcher"]
-    },
-    "3Crv": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["velodrome-on-chain-weth"]
     },
     "ALUSD": {
-      "source": ["curve-crvfrax", "curve-3crv", "velodrome-on-chain-usdc"]
+      "source": ["velodrome-on-chain-usdc"]
     },
     "LUSD": {
       "source": [
-        "curve-3crv",
         "maverick",
         "uniswap-v3-on-chain-usdc-500",
         "uniswap-v3-optimism-on-chain-usdc-500",
