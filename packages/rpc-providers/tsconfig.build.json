@@ -14,5 +14,10 @@
     "incremental": true,
     "composite": true
   },
-  "include": ["./src/**/*.ts", "package.json", "./contracts", "src/**/*.json"]
+  "include": ["./src/**/*.ts", "package.json", "./contracts", "src/**/*.json"],
+  "references": [
+    {
+      "path": "../utils"
+    }
+  ]
 }

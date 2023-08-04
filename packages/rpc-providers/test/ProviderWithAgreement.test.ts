@@ -1,10 +1,11 @@
-import * as hardhat from "hardhat";
 import chai, { expect } from "chai";
-import * as sinon from "sinon";
 import chaiAsPromised from "chai-as-promised";
 import { providers, Signer, Wallet } from "ethers";
-import { Counter } from "../typechain-types";
+import * as hardhat from "hardhat";
+import * as sinon from "sinon";
+import { sleepMS } from "../src/common";
 import { ProviderWithAgreement } from "../src/ProviderWithAgreement";
+import { Counter } from "../typechain-types";
 import { deployCounter } from "./helpers";
 
 chai.use(chaiAsPromised);
@@ -50,22 +51,23 @@ describe("ProviderWithAgreement", () => {
 
   describe("elected block number cache", () => {
     it("should omit cache when TTL passed", async () => {
-      const providerWithAgreement = new ProviderWithAgreement(
-        [hardhat.ethers.provider, hardhat.ethers.provider],
-        { blockNumberCacheTTLInMS: 0 }
-      );
+      const providerWithAgreement = new ProviderWithAgreement([
+        hardhat.ethers.provider,
+        hardhat.ethers.provider,
+      ]);
 
       const first = await providerWithAgreement.getBlockNumber();
+      await sleepMS(201);
       await hardhat.ethers.provider.send("evm_mine", []);
       const second = await providerWithAgreement.getBlockNumber();
 
       expect(first + 1).to.eq(second);
     });
     it("should NOT omit cache when TTL NOT passed", async () => {
-      const providerWithAgreement = new ProviderWithAgreement(
-        [hardhat.ethers.provider, hardhat.ethers.provider],
-        { blockNumberCacheTTLInMS: 5000 }
-      );
+      const providerWithAgreement = new ProviderWithAgreement([
+        hardhat.ethers.provider,
+        hardhat.ethers.provider,
+      ]);
 
       const first = await providerWithAgreement.getBlockNumber();
       await hardhat.ethers.provider.send("evm_mine", []);
@@ -80,14 +82,11 @@ describe("ProviderWithAgreement", () => {
     let counter: Counter;
 
     beforeEach(async () => {
-      providerWithAgreement = new ProviderWithAgreement(
-        [
-          new providers.StaticJsonRpcProvider("http://blabla.xd"),
-          hardhat.ethers.provider,
-          hardhat.ethers.provider,
-        ],
-        { blockNumberCacheTTLInMS: 0 }
-      );
+      providerWithAgreement = new ProviderWithAgreement([
+        new providers.StaticJsonRpcProvider("http://blabla.xd"),
+        hardhat.ethers.provider,
+        hardhat.ethers.provider,
+      ]);
       counter = contract.connect(signer.connect(providerWithAgreement));
     });
 
@@ -109,6 +108,7 @@ describe("ProviderWithAgreement", () => {
       const tx = await counter.inc();
       await tx.wait();
       expect(await counter.getCount({ blockTag: blockNumber })).to.eq(0);
+      await sleepMS(201);
       expect(await counter.getCount()).to.eq(1);
     });
   });

@@ -23,5 +23,10 @@
     "src/**/*.json",
     "./artifacts/**/*.json",
     "./hardhat.config.ts"
+  ],
+  "references": [
+    {
+      "path": "../utils"
+    }
   ]
 }
