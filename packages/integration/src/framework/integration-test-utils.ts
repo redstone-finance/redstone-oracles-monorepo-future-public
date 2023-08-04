@@ -95,19 +95,6 @@ export const updateDotEnvFile = (
   }
 };
 
-export const updateManifestFile = (
-  varName: string,
-  varValue: string,
-  manifestFilePath: string
-) => {
-  copyAndReplace(
-    new RegExp(`"${varName}":.*$`, "gm"),
-    `"${varName}": ${varValue},`,
-    manifestFilePath,
-    manifestFilePath
-  );
-};
-
 const logPrefixLength = 25;
 const normalizePrefix = (prefix: string): string =>
   (prefix + " ".repeat(logPrefixLength)).substring(0, logPrefixLength);

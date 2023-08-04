@@ -1,26 +1,31 @@
 import { MathUtils } from "redstone-utils";
+import {
+  ALL_FEEDS_DATA_FEED_ID,
+  DeviationsPerDataFeed,
+} from "./run-long-price-propagation-core-test";
 
-const omittedDataFeeds = ["___ALL_FEEDS___", "crvUSDBTCETH"];
+const removedDataFeedsFromManifest = ["FRXETH", "3Crv", "crvFRAX"];
+
+interface DataPackages {
+  [dataFeedId: string]: Array<DataPackage>;
+}
 
 interface DataPackage {
-  [dataFeedId: string]: Array<{
-    timestampMilliseconds: number;
-    signature: string;
-    isSignatureValid: boolean;
-    dataPoints: Array<{
-      dataFeedId: string;
-      value: number;
-    }>;
-    dataServiceId: string;
+  timestampMilliseconds: number;
+  signature: string;
+  isSignatureValid: boolean;
+  dataPoints: Array<{
     dataFeedId: string;
-    signerAddress: string;
+    value: number;
   }>;
+  dataServiceId: string;
+  dataFeedId: string;
+  signerAddress: string;
 }
 
 export const compareDataPackagesFromLocalAndProd = (
-  dataPackagesFromLocal: DataPackage,
-  dataPackagesFromProd: DataPackage,
-  maxPercentageValueDifference: number
+  dataPackagesFromLocal: DataPackages,
+  dataPackagesFromProd: DataPackages
 ) => {
   const dataFeedsFromLocal = Object.keys(dataPackagesFromLocal);
   const dataFeedsFromProd = Object.keys(dataPackagesFromProd);
@@ -47,10 +52,9 @@ export const compareDataPackagesFromLocalAndProd = (
     )}`
   );
 
-  compareValuesInDataPackages(
+  return compareValuesInDataPackages(
     dataPackagesFromProd,
-    dataPackagesFromLocal,
-    maxPercentageValueDifference
+    dataPackagesFromLocal
   );
 };
 
@@ -61,35 +65,68 @@ const getMissingDataFeedsInDataPackages = (
   dataFeedsFromFirstDataPackage.filter(
     (dataFeed) =>
       !dataFeedsFromSecondDataPackage.includes(dataFeed) &&
-      !omittedDataFeeds.includes(dataFeed)
+      dataFeed !== ALL_FEEDS_DATA_FEED_ID &&
+      !removedDataFeedsFromManifest.includes(dataFeed)
   );
 
 const compareValuesInDataPackages = (
-  firstDataPackage: DataPackage,
-  secondDataPackage: DataPackage,
-  maxPercentageValueDifference: number
+  dataPackagesFromProd: DataPackages,
+  dataPackagesFromLocal: DataPackages
 ) => {
-  for (const [dataFeedId, dataFeedObject] of Object.entries(firstDataPackage)) {
-    console.log(
-      `Comparing data feeds values from prod and local for ${dataFeedId}`
-    );
-    if (omittedDataFeeds.includes(dataFeedId)) {
-      console.log(`Data feed ${dataFeedId} is omitted, skipping`);
+  const deviationsPerDataFeed: {
+    [dataFeedId: string]: number | DeviationsPerDataFeed;
+  } = {};
+  for (const [dataFeedId, dataFeedObject] of Object.entries(
+    dataPackagesFromProd
+  )) {
+    if (removedDataFeedsFromManifest.includes(dataFeedId)) {
+      console.log(`Data feed ${dataFeedId} is removed from manifest, skipping`);
       continue;
     }
-    const valueFromFirstDataPackages = dataFeedObject[0].dataPoints[0].value;
-    const dataPointsFromSecond = secondDataPackage[dataFeedId];
-    const deviations = dataPointsFromSecond.map(({ dataPoints }) =>
+    if (dataFeedId === ALL_FEEDS_DATA_FEED_ID) {
+      const deviationsFromBigPackage = compareValuesFromBigPackageAndLocalCache(
+        dataFeedObject,
+        dataPackagesFromLocal
+      );
+      deviationsPerDataFeed[ALL_FEEDS_DATA_FEED_ID] = deviationsFromBigPackage;
+      continue;
+    }
+    const dataPointValueFromLocal =
+      dataPackagesFromLocal[dataFeedId][0].dataPoints[0].value;
+    const deviations = dataFeedObject.map(({ dataPoints }) =>
       MathUtils.calculateDeviationPercent({
-        newValue: valueFromFirstDataPackages,
+        newValue: dataPointValueFromLocal,
         prevValue: dataPoints[0].value,
       })
     );
     const maxDeviation = Math.max(...deviations);
-    if (maxDeviation >= maxPercentageValueDifference) {
-      throw new Error(
-        `Value difference for data feed ${dataFeedId} is bigger than maximum (${maxPercentageValueDifference}%) - ${maxDeviation}%`
-      );
+    deviationsPerDataFeed[dataFeedId] = maxDeviation;
+  }
+  return deviationsPerDataFeed;
+};
+
+const compareValuesFromBigPackageAndLocalCache = (
+  allFeedObjectFromProd: DataPackage[],
+  dataPackagesFromLocal: DataPackages
+) => {
+  const deviationsPerDataFeed: DeviationsPerDataFeed = {};
+  for (const dataPackage of allFeedObjectFromProd) {
+    for (const dataPoint of dataPackage.dataPoints) {
+      const dataFeedId = dataPoint.dataFeedId;
+      const dataFeedValueFromLocal =
+        dataPackagesFromLocal[dataFeedId][0].dataPoints[0].value;
+      const deviation = MathUtils.calculateDeviationPercent({
+        newValue: dataFeedValueFromLocal,
+        prevValue: dataPoint.value,
+      });
+      const currentDeviationPerDataFeed = deviationsPerDataFeed[dataFeedId];
+      if (
+        !currentDeviationPerDataFeed ||
+        deviation > currentDeviationPerDataFeed
+      ) {
+        deviationsPerDataFeed[dataFeedId] = deviation;
+      }
     }
   }
+  return deviationsPerDataFeed;
 };
