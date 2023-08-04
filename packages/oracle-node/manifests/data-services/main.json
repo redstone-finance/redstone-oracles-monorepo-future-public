@@ -925,6 +925,8 @@
     "GHO": {
       "source": [
         "balancer-multi-dai",
+        "balancer-multi-usdc",
+        "balancer-multi-usdt",
         "balancer-lusd",
         "curve-crvusd",
         "uniswap-v3-on-chain-usdc-3000",
