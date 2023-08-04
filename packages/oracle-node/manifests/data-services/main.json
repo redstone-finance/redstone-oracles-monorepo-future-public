@@ -322,16 +322,12 @@
         "binancecoinm",
         "binanceusdm",
         "bitcoincom",
-        "bitfinex2",
         "bitget",
         "bitrue",
-        "btcturk",
         "bybit",
-        "cex",
         "coingecko",
         "gate",
         "hitbtc",
-        "hollaex",
         "huobipro",
         "kraken",
         "kucoin",
@@ -339,8 +335,7 @@
         "mexc",
         "okx",
         "phemex",
-        "poloniex",
-        "probit"
+        "poloniex"
       ]
     },
     "DAI": {
