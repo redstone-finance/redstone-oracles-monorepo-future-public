@@ -2,21 +2,21 @@ import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Deferrable } from "@ethersproject/properties";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { utils } from "ethers";
+import { RedstoneCommon } from "redstone-utils";
 import { sleepMS, timeout } from "./common";
 import {
   ProviderWithFallback,
   ProviderWithFallbackConfig,
 } from "./ProviderWithFallback";
 
+const BLOCK_NUMBER_TTL = 200;
+
 export interface ProviderWithAgreementConfig {
   numberOfProvidersThatHaveToAgree: number;
   getBlockNumberTimeoutMS: number;
   sleepBetweenBlockSync: number;
-  blockNumberCacheTTLInMS: number;
   electBlockFn: (blocks: number[], numberOfAgreeingNodes: number) => number;
 }
-
-const convertMsToNanoseconds = (ms: number) => BigInt(ms * 1e6);
 
 const DEFAULT_ELECT_BLOCK_FN = (blockNumbers: number[]): number => {
   const mid = Math.floor(blockNumbers.length / 2);
@@ -32,15 +32,13 @@ const defaultConfig: Omit<
   keyof ProviderWithFallbackConfig
 > = {
   numberOfProvidersThatHaveToAgree: 2,
-  getBlockNumberTimeoutMS: 2_000,
-  sleepBetweenBlockSync: 100,
-  blockNumberCacheTTLInMS: 50,
+  getBlockNumberTimeoutMS: 2_500,
+  sleepBetweenBlockSync: 400,
   electBlockFn: DEFAULT_ELECT_BLOCK_FN,
 };
 
 export class ProviderWithAgreement extends ProviderWithFallback {
   private readonly agreementConfig: ProviderWithAgreementConfig;
-  private blockNumberCache = { value: 0, lastUpdate: 0n };
 
   constructor(
     providers: JsonRpcProvider[],
@@ -84,14 +82,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     return callResult;
   }
 
-  private async electBlockNumber(): Promise<number> {
-    if (
-      process.hrtime.bigint() - this.blockNumberCache.lastUpdate <
-      convertMsToNanoseconds(this.agreementConfig.blockNumberCacheTTLInMS)
-    ) {
-      return this.blockNumberCache.value;
-    }
-
+  private electBlockNumber = RedstoneCommon.memoize(async () => {
     // collect block numbers
     const blockNumbersResults = await Promise.allSettled(
       this.providers.map((provider) =>
@@ -119,13 +110,8 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       this.providers.length
     );
 
-    this.blockNumberCache = {
-      value: electedBlockNumber,
-      lastUpdate: process.hrtime.bigint(),
-    };
-
     return electedBlockNumber;
-  }
+  }, BLOCK_NUMBER_TTL);
 
   private executeCallWithAgreement(
     transaction: Deferrable<TransactionRequest>,
