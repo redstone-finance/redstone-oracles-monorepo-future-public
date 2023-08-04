@@ -1,4 +1,3 @@
-import fs from "fs";
 import {
   buildCacheLayer,
   buildOracleNode,
@@ -10,11 +9,22 @@ import {
   startAndWaitForOracleNode,
   stopCacheLayer,
   stopOracleNode,
-  updateManifestFile,
 } from "./integration-test-framework";
 import { compareDataPackagesFromLocalAndProd } from "./compare-data-packages";
 import { fetchLatestTimestampFromLocal } from "./fetch-latest-timestamp-from-local-cache";
 import { fetchDataPackagesFromCaches } from "./fetch-data-packages-from-local-and-prod-cache";
+import { printAllDeviations } from "./print-all-deviations";
+import { checkDeviations } from "./check-deviations";
+
+export interface DeviationsPerDataFeed {
+  [dataFeedId: string]: number;
+}
+
+export interface DeviationsWithBigPackage {
+  [dataFeedId: string]: number | DeviationsPerDataFeed;
+}
+
+export const ALL_FEEDS_DATA_FEED_ID = "___ALL_FEEDS___";
 
 const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
@@ -39,11 +49,10 @@ export const runLongPricePropagationCoreTest = async (
   await buildOracleNode();
 
   await startAndWaitForCacheLayer(cacheLayerInstance, true, true);
-  overwriteNodeInterval(nodeIntervalInMilliseconds, manifestFileName);
   await startAndWaitForOracleNode(
     oracleNodeInstance,
     [cacheLayerInstance],
-    `${manifestFileName}-${oracleNodeInstance.instanceId}`
+    manifestFileName
   );
 
   const nodeWorkingTimeInMilliseconds =
@@ -83,23 +92,12 @@ export const runLongPricePropagationCoreTest = async (
     console.log(
       `Comparing data packages from local and prod cache for ${timestamp} timestamp`
     );
-    compareDataPackagesFromLocalAndProd(
+    const deviationsPerDataFeed = compareDataPackagesFromLocalAndProd(
       responseFromLocalCache,
-      responseFromProdCache,
-      MAX_PERCENTAGE_VALUE_DIFFERENCE
+      responseFromProdCache
     );
+    printAllDeviations(deviationsPerDataFeed);
+    checkDeviations(deviationsPerDataFeed, MAX_PERCENTAGE_VALUE_DIFFERENCE);
   }
   process.exit();
-};
-
-const overwriteNodeInterval = (
-  nodeInterval: number,
-  manifestFileName: string
-) => {
-  const newManifestPath = `../oracle-node/manifests/${manifestFileName}-${oracleNodeInstance.instanceId}.json`;
-  fs.copyFileSync(
-    `../oracle-node/manifests/${manifestFileName}.json`,
-    newManifestPath
-  );
-  updateManifestFile("interval", String(nodeInterval), newManifestPath);
 };
