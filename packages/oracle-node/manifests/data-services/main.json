@@ -743,8 +743,8 @@
     "FRAX": {
       "source": [
         "coingecko",
-        "curve-usdc",
         "curve-usdc-multi-block",
+        "curve-usdc",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
         "uniswap-v2-on-chain-fxs",
@@ -901,26 +901,19 @@
       "source": ["fixed-value"],
       "fixedValue": 1
     },
-    "FRXETH": {
-      "source": ["curve-eth", "uniswap-v3-on-chain-weth-500"]
-    },
     "ALETH": {
-      "source": ["curve-eth", "curve-frxeth", "velodrome-on-chain-weth"]
+      "source": ["velodrome-on-chain-weth"]
     },
     "ALUSD": {
-      "source": ["curve-crvfrax", "curve-3crv", "velodrome-on-chain-usdc"]
+      "source": ["velodrome-on-chain-usdc"]
     },
     "LUSD": {
       "source": [
-        "curve-3crv",
         "maverick",
         "uniswap-v3-on-chain-usdc-500",
         "uniswap-v3-optimism-on-chain-usdc-500",
         "velodrome-on-chain-usdc"
       ]
-    },
-    "crvUSD": {
-      "source": ["curve-usdt", "curve-usdc", "curve-frax"]
     },
     "GHO": {
       "source": [
@@ -928,7 +921,6 @@
         "balancer-multi-usdc",
         "balancer-multi-usdt",
         "balancer-lusd",
-        "curve-crvusd",
         "uniswap-v3-on-chain-usdc-3000",
         "uniswap-v3-on-chain-usdt-3000"
       ]
@@ -1678,12 +1670,6 @@
     },
     "SHLB_GMX-AVAX_B": {
       "source": ["avalanche-evm-fetcher"]
-    },
-    "crvFRAX": {
-      "source": ["ethereum-evm-fetcher"]
-    },
-    "3Crv": {
-      "source": ["ethereum-evm-fetcher"]
     },
     "BAT": {},
     "MKR": {},
