@@ -113,6 +113,12 @@ const compareValuesFromBigPackageAndLocalCache = (
   for (const dataPackage of allFeedObjectFromProd) {
     for (const dataPoint of dataPackage.dataPoints) {
       const dataFeedId = dataPoint.dataFeedId;
+      if (removedDataFeedsFromManifest.includes(dataFeedId)) {
+        console.log(
+          `Data feed ${dataFeedId} is removed from manifest, skipping`
+        );
+        continue;
+      }
       const dataFeedValueFromLocal =
         dataPackagesFromLocal[dataFeedId][0].dataPoints[0].value;
       const deviation = MathUtils.calculateDeviationPercent({

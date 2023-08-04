@@ -25,11 +25,11 @@ export const checkDeviations = (
       );
       deviationsBiggerThanAllowed += 1;
     }
+  }
 
-    if (deviationsBiggerThanAllowed > 0) {
-      throw new Error(
-        `Found deviations bigger than maximum ${maxPercentageValueDifference}%`
-      );
-    }
+  if (deviationsBiggerThanAllowed > 0) {
+    throw new Error(
+      `Found deviations bigger than maximum ${maxPercentageValueDifference}%`
+    );
   }
 };
