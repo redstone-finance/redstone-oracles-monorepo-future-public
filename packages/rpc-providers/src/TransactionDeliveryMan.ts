@@ -15,6 +15,8 @@ type LastDeliveryAttempt = {
   result?: TransactionResponse;
 };
 
+type FeeHistoryResponse = { reward: string[] };
+
 type GasOracleFn = (opts: TransactionDeliveryManOpts) => Promise<FeeStructure>;
 
 type TransactionDeliveryManOpts = {
@@ -181,7 +183,6 @@ export class TransactionDeliveryMan {
   private isUnderpricedError(e: any) {
     return (
       // RPC errors sucks most of the time, thus we can not rely on them
-      // thus this is list is wider then it could be
       e.message.includes("maxFeePerGas") ||
       e.message.includes("baseFeePerGas") ||
       e.code === ErrorCode.INSUFFICIENT_FUNDS ||
@@ -254,17 +255,32 @@ export class TransactionDeliveryMan {
   private async estimatePriorityFee(
     provider: providers.JsonRpcProvider
   ): Promise<number> {
-    const feeHistory = await provider.send("eth_feeHistory", [
-      "0x2",
-      "pending",
-      [this.opts.percentileOfPriorityFee],
-    ]);
+    let feeHistory = await this.getFeeHistory(provider, "pending");
+    // some chains may not support "pending" (e.g. BNB)
+    if (!feeHistory.reward) {
+      feeHistory = await this.getFeeHistory(provider, "latest");
+    }
 
     const rewardsPerBlockForPercentile = feeHistory.reward
       .flat()
       .map((hex: string) => parseInt(hex, 16));
 
     return Math.max(...rewardsPerBlockForPercentile);
+  }
+
+  /**
+   * https://docs.alchemy.com/reference/eth-feehistory
+   * pending is better because serves newest information, however some RPCs doesn't support it like tBNB
+   */
+  private async getFeeHistory(
+    provider: providers.JsonRpcProvider,
+    newestBlock: "pending" | "latest"
+  ): Promise<FeeHistoryResponse> {
+    return await provider.send("eth_feeHistory", [
+      "0x2",
+      newestBlock,
+      [this.opts.percentileOfPriorityFee],
+    ]);
   }
 
   private scaleFees(currentFees: FeeStructure): FeeStructure {
