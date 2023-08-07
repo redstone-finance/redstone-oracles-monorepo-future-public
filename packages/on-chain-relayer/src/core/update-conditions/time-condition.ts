@@ -10,8 +10,8 @@ export const timeUpdateCondition = (
   const isFallback = fallbackOffsetInMinutes > 0;
   let updatePriceInterval = config.updatePriceInterval;
 
-  if (!updatePriceInterval || isNaN(updatePriceInterval)) {
-    throw "Update price interval must not be NaN";
+  if (!updatePriceInterval) {
+    throw "Update price interval must be defined";
   }
 
   if (isFallback) {

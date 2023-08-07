@@ -7,6 +7,7 @@ import {
   configureCleanup,
   debug,
   deployMockAdapter,
+  deployMockPriceFeed,
   HardhatInstance,
   OracleNodeInstance,
   RelayerInstance,
@@ -49,18 +50,22 @@ const main = async () => {
     ETH: 1500,
     __DEFAULT__: 42,
   });
-  await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
+  startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
   await waitForDataAndDisplayIt(cacheLayerInstance);
   await startAndWaitForHardHat(hardhatInstance);
 
   const adapterContractAddress = await deployMockAdapter();
+  const priceFeedContractAddress = await deployMockPriceFeed(
+    adapterContractAddress
+  );
 
-  await startRelayer(
+  startRelayer(
     relayerInstance,
     adapterContractAddress,
-    cacheLayerInstance
+    [cacheLayerInstance],
+    false
   );
-  await verifyPricesOnChain(adapterContractAddress, {
+  await verifyPricesOnChain(adapterContractAddress, priceFeedContractAddress, {
     BTC: 16000,
     ETH: 1500,
     AAVE: 42,

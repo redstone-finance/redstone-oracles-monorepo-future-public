@@ -27,11 +27,11 @@ const getLogPrefix = (instance: OracleNodeInstance) =>
   `oracle-node-${instance.instanceId}`;
 
 const mockPricesPath = `${ORACLE_NODE_DIR}/./mock-prices.json`;
-export const startAndWaitForOracleNode = async (
+export const startAndWaitForOracleNode = (
   instance: OracleNodeInstance,
   cacheServiceInstances: CacheLayerInstance[],
   manifestFileName: string = "single-source/mock"
-): Promise<void> => {
+) => {
   debug(`starting ${getLogPrefix(instance)}`);
   const dotenvPath = `${ORACLE_NODE_DIR}/.env-${instance.instanceId}`;
   populateEnvVariables(
