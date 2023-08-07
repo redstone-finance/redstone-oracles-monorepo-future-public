@@ -355,7 +355,7 @@
         "huobipro",
         "kraken",
         "okx",
-        "sushiswap-on-chain-weth",
+        "sushiswap-ethereum-on-chain-weth",
         "uniswap-v2-on-chain-weth",
         "xt"
       ]
@@ -762,7 +762,7 @@
         "balancer-dai",
         "balancer-weth",
         "coingecko",
-        "sushiswap-on-chain-dai",
+        "sushiswap-ethereum-on-chain-dai",
         "uniswap-v3"
       ]
     },
@@ -954,8 +954,8 @@
         "mexc",
         "phemex",
         "okx",
-        "uniswap-v3-arbitrum-on-chain-eth-500",
-        "uniswap-v3-arbitrum-on-chain-eth-3000",
+        "uniswap-v3-arbitrum-on-chain-weth-500",
+        "uniswap-v3-arbitrum-on-chain-weth-3000",
         "uniswap-v3-arbitrum-on-chain-usdc-500",
         "uniswap-v3-arbitrum-on-chain-usdc-3000"
       ]
@@ -1027,6 +1027,13 @@
         "bitget",
         "kucoin",
         "uniswap-v3-on-chain-weth-3000"
+      ]
+    },
+    "PREMIA": {
+      "source": [
+        "sushiswap-arbitrum-on-chain-weth",
+        "sushiswap-ethereum-on-chain-weth",
+        "uniswap-v3-arbitrum-on-chain-weth-3000"
       ]
     },
     "ARDRIVE": {
