@@ -44,7 +44,7 @@ export const startRelayer = (
       }`
   );
   fs.copyFileSync(`${RELAYER_DIR}/.env.example`, dotenvPath);
-  updateDotEnvFile("RPC_URL", "http://127.0.0.1:8545", dotenvPath);
+  updateDotEnvFile("RPC_URLS", '["http://127.0.0.1:8545"]', dotenvPath);
   updateDotEnvFile("PRIVATE_KEY", HARDHAT_MOCK_PRIVATE_KEY, dotenvPath);
   updateDotEnvFile(
     "CACHE_SERVICE_URLS",
