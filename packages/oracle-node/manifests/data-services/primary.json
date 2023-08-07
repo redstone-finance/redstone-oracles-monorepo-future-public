@@ -33,6 +33,10 @@
         "sushiswap",
         "uniswap"
       ],
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      },
       "skipSigning": true
     },
     "USDT": {
@@ -51,6 +55,10 @@
         "kraken",
         "uniswap"
       ],
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      },
       "skipSigning": true
     },
     "DAI": {
@@ -66,6 +74,10 @@
         "uniswap-v2-on-chain-weth",
         "xt"
       ],
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      },
       "skipSigning": true
     },
     "FXS": {
@@ -91,6 +103,10 @@
         "uniswap-v2-on-chain-fxs",
         "uniswap-v3"
       ],
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      },
       "skipSigning": true
     },
     "ETH": {
@@ -143,7 +159,11 @@
       "source": ["velodrome-on-chain-weth"]
     },
     "ALUSD": {
-      "source": ["velodrome-on-chain-usdc"]
+      "source": ["velodrome-on-chain-usdc"],
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      }
     },
     "LUSD": {
       "source": [
@@ -151,7 +171,11 @@
         "uniswap-v3-on-chain-usdc-500",
         "uniswap-v3-optimism-on-chain-usdc-500",
         "velodrome-on-chain-usdc"
-      ]
+      ],
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      }
     },
     "AAVE": {
       "source": [
@@ -201,11 +225,18 @@
     },
     "USDC.USDT": {
       "source": ["non-usd-based"],
-      "decimals": 14
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      }
     },
     "USDC.DAI": {
       "source": ["non-usd-based"],
-      "decimals": 14
+      "decimals": 14,
+      "deviationWithRecentValues": {
+        "maxPercent": 5,
+        "maxDelayMilliseconds": 300000
+      }
     },
     "TRX": {
       "source": [

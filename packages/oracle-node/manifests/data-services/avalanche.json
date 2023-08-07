@@ -118,7 +118,8 @@
         "probit",
         "sushiswap-on-chain-weth",
         "uniswap-v2-on-chain-weth"
-      ]
+      ],
+      "skipSigning": true
     },
     "BTC": {
       "source": [
@@ -257,10 +258,12 @@
         "mexc",
         "pangolin-on-chain-wavax",
         "trader-joe-on-chain-wavax"
-      ]
+      ],
+      "skipSigning": true
     },
     "YYAV3SA1": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher"],
+      "skipSigning": true
     },
     "GMX": {
       "source": [
@@ -305,7 +308,8 @@
         "hitbtc",
         "lbank",
         "oceanex"
-      ]
+      ],
+      "skipSigning": true
     },
     "YY_GLP": {
       "source": ["avalanche-evm-fetcher"]
@@ -328,7 +332,8 @@
       "deviationWithRecentValues": {
         "maxPercent": 5,
         "maxDelayMilliseconds": 300000
-      }
+      },
+      "skipSigning": true
     },
     "SHLB_AVAX-USDC_B": {
       "source": ["avalanche-evm-fetcher"]
@@ -387,7 +392,8 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "TJ_AVAX_USDC_AUTO": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher"],
+      "skipSigning": true
     },
     "CRV": {
       "source": [
