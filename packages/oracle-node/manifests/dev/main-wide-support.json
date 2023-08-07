@@ -749,7 +749,9 @@
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
         "uniswap-v2-on-chain-fxs",
-        "uniswap-v3"
+        "uniswap-v3-on-chain-usdc-500",
+        "uniswap-v3-on-chain-dai-500",
+        "uniswap-v3-on-chain-usdt-500"
       ]
     },
     "VST": {
