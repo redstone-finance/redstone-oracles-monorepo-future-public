@@ -32,7 +32,7 @@ export interface OnChainRelayerManifest {
 export interface RelayerConfig {
   relayerIterationInterval: number;
   updatePriceInterval?: number;
-  rpcUrl: string;
+  rpcUrls: string[];
   chainName: string;
   chainId: number;
   privateKey: string;
@@ -53,7 +53,7 @@ export interface RelayerConfig {
 
 export type OnChainRelayerEnv = {
   relayerIterationInterval: number;
-  rpcUrl: string;
+  rpcUrls: string[];
   privateKey: string;
   gasLimit: number;
   healthcheckPingUrl?: string;
