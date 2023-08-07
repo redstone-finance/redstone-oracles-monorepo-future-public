@@ -9,7 +9,7 @@ RUN cd ../evm-connector && yarn compile
 RUN yarn build
 
 ENV RELAYER_ITERATION_INTERVAL=600000
-ENV RPC_URL=https://rpc.ankr.com/eth_goerli
+ENV RPC_URLS='["https://rpc.ankr.com/eth_goerli"]''
 ENV PRIVATE_KEY=
 ENV UNIQUE_SIGNERS_COUNT=1
 ENV CACHE_SERVICE_URLS='["https://d1zm8lxy9v2ddd.cloudfront.net"]'
