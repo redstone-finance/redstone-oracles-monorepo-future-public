@@ -1,0 +1,18 @@
+{
+  "interval": 15000,
+  "priceAggregator": "median",
+  "defaultSource": ["sushiswap-ethereum-on-chain-weth"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "ETH": {
+      "source": ["coingecko"]
+    },
+    "PREMIA": {}
+  }
+}

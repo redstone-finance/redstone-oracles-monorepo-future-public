@@ -48,8 +48,6 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "curve-usdc",
-        "curve-usdt",
         "currencycom",
         "kaiko",
         "kraken",
@@ -67,10 +65,12 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "curve-usdc",
+        "curve-usdt",
         "huobipro",
         "kraken",
         "okx",
-        "sushiswap-on-chain-weth",
+        "sushiswap-ethereum-on-chain-weth",
         "uniswap-v2-on-chain-weth",
         "xt"
       ],
@@ -262,6 +262,13 @@
         "okx",
         "phemex",
         "poloniex"
+      ]
+    },
+    "PREMIA": {
+      "source": [
+        "sushiswap-arbitrum-on-chain-weth",
+        "sushiswap-ethereum-on-chain-weth",
+        "uniswap-v3-arbitrum-on-chain-weth-3000"
       ]
     }
   }

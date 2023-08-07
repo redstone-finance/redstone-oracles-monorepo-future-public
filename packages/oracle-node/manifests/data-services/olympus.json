@@ -97,7 +97,11 @@
       }
     },
     "OHM": {
-      "source": ["balancer-dai", "balancer-weth", "sushiswap-on-chain-dai"],
+      "source": [
+        "balancer-dai",
+        "balancer-weth",
+        "sushiswap-ethereum-on-chain-dai"
+      ],
       "priceAggregator": "lwap"
     },
     "OHM_balancer-dai_liquidity": {
@@ -110,7 +114,7 @@
     },
     "OHM_sushiswap-on-chain-dai_liquidity": {
       "skipSigning": true,
-      "source": ["sushiswap-on-chain-dai"]
+      "source": ["sushiswap-ethereum-on-chain-dai"]
     }
   }
 }
