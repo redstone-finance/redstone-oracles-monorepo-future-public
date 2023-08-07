@@ -116,7 +116,7 @@
         "okx",
         "poloniex",
         "probit",
-        "sushiswap-on-chain-weth",
+        "sushiswap-ethereum-on-chain-weth",
         "uniswap-v2-on-chain-weth"
       ],
       "skipSigning": true
@@ -325,7 +325,7 @@
         "huobipro",
         "kraken",
         "okx",
-        "sushiswap-on-chain-weth",
+        "sushiswap-ethereum-on-chain-weth",
         "uniswap-v2-on-chain-weth",
         "xt"
       ],

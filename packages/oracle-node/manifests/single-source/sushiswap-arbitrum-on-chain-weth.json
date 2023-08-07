@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["sushiswap-on-chain-weth"],
+  "defaultSource": ["sushiswap-arbitrum-on-chain-weth"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,6 +10,9 @@
     }
   },
   "tokens": {
-    "DAI": {}
+    "ETH": {
+      "source": ["coingecko"]
+    },
+    "PREMIA": {}
   }
 }

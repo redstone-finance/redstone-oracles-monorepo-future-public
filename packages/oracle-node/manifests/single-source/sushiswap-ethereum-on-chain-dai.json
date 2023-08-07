@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["sushiswap-on-chain-dai"],
+  "defaultSource": ["sushiswap-ethereum-on-chain-dai"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
