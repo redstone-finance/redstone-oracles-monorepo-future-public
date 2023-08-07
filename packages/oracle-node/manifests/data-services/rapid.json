@@ -316,7 +316,7 @@
         "huobipro",
         "kraken",
         "okx",
-        "sushiswap-on-chain-weth",
+        "sushiswap-ethereum-on-chain-weth",
         "uniswap-v2-on-chain-weth",
         "xt"
       ]
@@ -326,7 +326,7 @@
         "balancer-dai",
         "balancer-weth",
         "coingecko",
-        "sushiswap-on-chain-dai",
+        "sushiswap-ethereum-on-chain-dai",
         "uniswap-v3"
       ]
     }

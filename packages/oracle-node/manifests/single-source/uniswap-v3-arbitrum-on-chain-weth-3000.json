@@ -1,0 +1,18 @@
+{
+  "interval": 15000,
+  "priceAggregator": "median",
+  "defaultSource": ["uniswap-v3-arbitrum-on-chain-weth-3000"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "PREMIA": {},
+    "ETH": {
+      "source": ["coingecko"]
+    }
+  }
+}
