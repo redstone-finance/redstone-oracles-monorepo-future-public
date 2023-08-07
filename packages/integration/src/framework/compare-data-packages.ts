@@ -6,11 +6,11 @@ import {
 
 const removedDataFeedsFromManifest = ["FRXETH", "3Crv", "crvFRAX"];
 
-interface DataPackages {
+export interface DataPackages {
   [dataFeedId: string]: Array<DataPackage>;
 }
 
-interface DataPackage {
+export interface DataPackage {
   timestampMilliseconds: number;
   signature: string;
   isSignatureValid: boolean;

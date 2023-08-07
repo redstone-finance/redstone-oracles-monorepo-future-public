@@ -125,7 +125,7 @@ export const addPrefixToProcessLogs = (
   );
 };
 
-type ExtraEnv = { [varName: string]: string };
+export type ExtraEnv = { [varName: string]: string };
 
 const extendEnv = (extraEnv?: ExtraEnv): NodeJS.ProcessEnv => {
   return { ...process.env, ...extraEnv };
@@ -139,15 +139,17 @@ export const runWithLogPrefix = async (
   extraEnv?: ExtraEnv,
   throwOnError = true
 ) => {
-  debug(`starting process in foreground ${cmd} ${args.join(",")}`);
+  debug(`starting process in foreground '${cmd} ${args.join(" ")}'`);
   const childProcess = spawn(cmd, args, { env: extendEnv(extraEnv), cwd });
   addPrefixToProcessLogs(childProcess, logPrefix);
-  childProcess.on("error", (e) => debug(`error in process, ${cmd}: ${e}`));
+  childProcess.on("error", (e) =>
+    debug(`error in process, ${cmd}: ${e.toString()}`)
+  );
   await new Promise<void>((resolve) => {
     childProcess.on("exit", resolve);
   });
   if (throwOnError && childProcess.exitCode !== 0) {
-    throw new Error(`command ${cmd} ${args} failed`);
+    throw new Error(`command '${cmd} ${args.join(" ")}' failed`);
   }
   return childProcess.exitCode === 0;
 };
@@ -164,11 +166,13 @@ export const runWithLogPrefixInBackground = (
     cwd: `${process.cwd()}/${cwd}`,
   });
   debug(
-    `started process in background ${cmd} ${args.join(" ")}, pid ${
+    `started process in background '${cmd} ${args.join(" ")}', pid ${
       childProcess.pid
     }`
   );
-  childProcess.on("error", (e) => debug(`error in process, ${cmd}: ${e}`));
+  childProcess.on("error", (e) =>
+    debug(`error in process, ${cmd}: ${e.toString()}`)
+  );
   addPrefixToProcessLogs(childProcess, logPrefix);
   return childProcess;
 };
@@ -185,7 +189,8 @@ export const configureCleanup = (cleanUp: () => void) => {
   });
 
   process.on("uncaughtException", (error) => {
-    debug(`exiting due to uncaught exception, ${error}`);
+    debug(`exiting due to uncaught exception, ${error.toString()}`);
+    debug(`stack trace ${error.stack ?? "(unavailable)"}`);
     process.exit(-1);
   });
 };

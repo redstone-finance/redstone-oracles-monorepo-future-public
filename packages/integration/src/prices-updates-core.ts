@@ -35,7 +35,7 @@ const main = async () => {
   setMockPrices({ __DEFAULT__: 42 });
   await startAndWaitForCacheLayer(cacheLayerInstance1, false);
   await startAndWaitForCacheLayer(cacheLayerInstance2, false);
-  await startAndWaitForOracleNode(oracleNodeInstance, [
+  startAndWaitForOracleNode(oracleNodeInstance, [
     cacheLayerInstance1,
     cacheLayerInstance2,
   ]);

@@ -5,7 +5,7 @@
   },
   "updateTriggers": {
     "deviationPercentage": 0,
-    "timeSinceLastUpdateInMilliseconds": 110000
+    "timeSinceLastUpdateInMilliseconds": 10000
   },
   "adapterContract": "__ADAPTER_CONTRACT_ADDRESS__",
   "dataServiceId": "mock-data-service",

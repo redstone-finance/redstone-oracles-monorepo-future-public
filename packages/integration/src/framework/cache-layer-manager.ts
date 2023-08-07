@@ -112,6 +112,11 @@ export const startAndWaitForCacheLayer = async (
     instance.dotenvPath
   );
   updateDotEnvFile("MAX_ALLOWED_TIMESTAMP_DELAY", "20000", instance.dotenvPath);
+  updateDotEnvFile(
+    "ENABLE_HISTORICAL_DATA_SERVING",
+    "true",
+    instance.dotenvPath
+  );
   printDotenv(getLogPrefix(instance), instance.dotenvPath);
   await startAndWaitForCacheService(instance, true);
   if (!directOnly) {
@@ -206,7 +211,7 @@ export const waitForDataAndDisplayIt = async (instance: CacheLayerInstance) => {
     [
       `http://localhost:${
         instance.publicCacheServicePort ?? instance.directCacheServicePort
-      }/data-packages/latest/mock-data-service"`,
+      }/data-packages/latest/mock-data-service`,
     ],
     "fetch packages",
     CACHE_SERVICE_DIR

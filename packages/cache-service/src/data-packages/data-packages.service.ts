@@ -219,6 +219,9 @@ export class DataPackagesService {
       },
     ]);
 
+    if (groupedDataPackages.length === 0) {
+      return fetchedPackagesPerDataFeed;
+    }
     // Parse DB response
     const dataPackagesWithSameTimestamp = groupedDataPackages[0];
     for (let i = 0; i < dataPackagesWithSameTimestamp.count; i++) {
