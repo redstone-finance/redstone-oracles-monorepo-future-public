@@ -48,7 +48,7 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
 
   const env: OnChainRelayerEnv = {
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
-    rpcUrl: getFromEnv("RPC_URL")!,
+    rpcUrls: JSON.parse(getFromEnv("RPC_URLS")!),
     privateKey: getFromEnv("PRIVATE_KEY")!,
     gasLimit: Number.parseInt(getFromEnv("GAS_LIMIT")!),
     healthcheckPingUrl: getFromEnv("HEALTHCHECK_PING_URL", true),
@@ -60,7 +60,10 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       getFromEnv("FALLBACK_OFFSET_IN_MINUTES", true) ?? "0"
     ),
     cacheServiceUrls: getJSONFromEnv("CACHE_SERVICE_URLS", true),
-    historicalPackagesGateways: getJSONFromEnv("HISTORICAL_PACKAGES_GATEWAYS", true),
+    historicalPackagesGateways: getJSONFromEnv(
+      "HISTORICAL_PACKAGES_GATEWAYS",
+      true
+    ),
   };
 
   return makeConfigProvider(manifest, env);
