@@ -303,15 +303,25 @@
       "source": [
         "binance",
         "bitcoincom",
+        "bitget",
+        "bitrue",
+        "bybit",
         "coinbaseprime",
         "coinbasepro",
+        "coingecko",
+        "gate",
         "hitbtc",
         "huobipro",
+        "kraken",
         "kucoin",
+        "latoken",
         "lbank",
+        "mexc",
+        "phemex",
         "okx",
         "poloniex",
-        "probit"
+        "probit",
+        "uniswap-v3-on-chain-weth-3000"
       ]
     },
     "TRX": {
@@ -932,6 +942,119 @@
     "USDC.DAI": {
       "source": ["non-usd-based"],
       "decimals": 14
+    },
+    "PEPE": {
+      "source": [
+        "binance",
+        "bitget",
+        "bitrue",
+        "bybit",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "phemex",
+        "okx",
+        "uniswap-v3-on-chain-weth-3000"
+      ]
+    },
+    "ARB": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceusdm",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "bybit",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "huobipro",
+        "gate",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "phemex",
+        "okx",
+        "uniswap-v3-arbitrum-on-chain-eth-500",
+        "uniswap-v3-arbitrum-on-chain-eth-3000",
+        "uniswap-v3-arbitrum-on-chain-usdc-500",
+        "uniswap-v3-arbitrum-on-chain-usdc-3000"
+      ]
+    },
+    "OP": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "bybit",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "huobipro",
+        "gate",
+        "kucoin",
+        "latoken",
+        "mexc",
+        "phemex",
+        "okx",
+        "xt",
+        "velodrome-on-chain-weth",
+        "velodrome-on-chain-usdc",
+        "uniswap-v3-optimism-on-chain-weth-3000",
+        "uniswap-v3-optimism-on-chain-usdc-3000"
+      ]
+    },
+    "DYDX": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceusdm",
+        "bitget",
+        "bitrue",
+        "bybit",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx",
+        "phemex",
+        "xt",
+        "uniswap-v3-on-chain-weth-3000"
+      ]
+    },
+    "ALCX": {
+      "source": [
+        "binance",
+        "bitrue",
+        "coinbasepro",
+        "coinbaseprime",
+        "coingecko",
+        "gate",
+        "kraken",
+        "latoken",
+        "okx"
+      ]
+    },
+    "AURA": {
+      "source": [
+        "balancer-weth",
+        "bitget",
+        "kucoin",
+        "uniswap-v3-on-chain-weth-3000"
+      ]
     },
     "ANS": {
       "source": ["permaswap"]
@@ -1972,7 +2095,6 @@
     "PYR": {},
     "KDA": {},
     "IMX": {},
-    "ALCX": {},
     "GMT": {},
     "AVT": {},
     "PRO": {},
@@ -2365,14 +2487,11 @@
     "APY": {},
     "TON": {},
     "LDO": {},
-    "ARB": {},
-    "OP": {},
     "LUNC": {},
     "AGIX": {},
     "FEI": {},
     "CVX": {},
     "OSMO": {},
-    "DYDX": {},
     "FLR": {},
     "ETHW": {},
     "SSV": {},
@@ -2438,7 +2557,6 @@
     "PENDLE": {},
     "BFC": {},
     "LOOKS": {},
-    "AURA": {},
     "WMT": {},
     "TSUKA": {},
     "BSW": {},
@@ -2544,7 +2662,6 @@
     "SOUL": {},
     "APX": {},
     "GMM": {},
-    "LAZIO": {},
-    "PEPE": {}
+    "LAZIO": {}
   }
 }
