@@ -1,15 +1,17 @@
 import axios from "axios";
 import { BigNumber, utils } from "ethers";
-import { RedstoneOraclesState } from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/types";
-import redstoneOraclesInitialState from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/initial-state.json";
+import {
+  RedstoneOraclesState,
+  redstoneOraclesInitialState,
+} from "redstone-oracles-smartweave-contracts";
 import {
   INumericDataPoint,
   RedstonePayload,
   SignedDataPackage,
   SignedDataPackagePlainObj,
 } from "redstone-protocol";
-import { resolveDataServiceUrls } from "./data-services-urls";
 import { SafeNumber } from "redstone-utils";
+import { resolveDataServiceUrls } from "./data-services-urls";
 
 const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 const DEFAULT_DECIMALS = 8;

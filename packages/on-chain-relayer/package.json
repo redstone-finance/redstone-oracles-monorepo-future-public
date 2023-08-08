@@ -17,7 +17,11 @@
     "dotenv": "^16.0.3",
     "ethers": "^5.6.8",
     "toad-scheduler": "^2.2.0",
-    "redstone-utils": "^0.0.1"
+    "@redstone-finance/evm-connector": "*",
+    "redstone-protocol": "*",
+    "redstone-rpc-providers": "*",
+    "redstone-sdk": "*",
+    "redstone-utils": "*"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",
@@ -32,7 +36,7 @@
     "@types/mocha": ">=9.1.0",
     "@types/node": "^18.14.6",
     "chai": "^4.2.0",
-    "hardhat": "^2.9.7",
+    "hardhat": "2.14.0",
     "hardhat-gas-reporter": "^1.0.9",
     "msw": "^1.1.0",
     "solidity-coverage": "^0.8.0",

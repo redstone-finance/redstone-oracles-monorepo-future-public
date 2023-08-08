@@ -115,3 +115,4 @@ typechain-types
 .vscode
 
 worktree-*
+oracle-node-obfuscated

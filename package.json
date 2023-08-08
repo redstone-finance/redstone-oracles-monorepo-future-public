@@ -18,7 +18,17 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/cache-service",
+      "packages/evm-connector",
+      "packages/on-chain-relayer",
+      "packages/oracle-node",
+      "packages/oracles-smartweave-contracts",
+      "packages/protocol",
+      "packages/rpc-providers",
+      "packages/sdk",
+      "packages/streamr-proxy",
+      "packages/utils",
+      "packages/integration"
     ],
     "nohoist": [
       "ts-node"
