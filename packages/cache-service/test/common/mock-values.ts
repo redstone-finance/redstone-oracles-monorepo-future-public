@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { RedstoneOraclesState } from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/types";
 import { DataPackage, DataPoint, NumericDataPoint } from "redstone-protocol";
-import { convertNumberToBytes } from "redstone-protocol/src/common/utils";
+import { utils } from "redstone-protocol";
 
 export const MOCK_PRIVATE_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
@@ -55,7 +55,7 @@ export const getMockDataPackages = () => [
   produceMockDataPackage([
     new NumericDataPoint({ dataFeedId: "mock-data-feed-id-1", value: 42 }),
     new NumericDataPoint({ dataFeedId: "mock-data-feed-id-2", value: 123 }),
-    new DataPoint("XD", convertNumberToBytes(1.2, 8, 32), {
+    new DataPoint("XD", utils.convertNumberToBytes(1.2, 8, 32), {
       type: "HEX_BIG_INT",
       sources: { exchange_1: "1.19", exchange_2: "1.20", exchange_3: "1.21" },
     }),

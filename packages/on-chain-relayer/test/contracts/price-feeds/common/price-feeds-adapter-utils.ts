@@ -1,12 +1,12 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
+import { utils } from "redstone-protocol";
+import { ethers, upgrades } from "hardhat";
 import { IRedstoneAdapter } from "../../../../typechain-types";
 import { formatBytes32String } from "ethers/lib/utils";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
-import { ethers, upgrades } from "hardhat";
 import { SimpleNumericMockConfig } from "@redstone-finance/evm-connector/dist/src/wrappers/SimpleMockNumericWrapper";
-import { convertStringToBytes32 } from "redstone-protocol/src/common/utils";
 
 interface AdapterTestsParams {
   adapterContractName: string;
@@ -73,7 +73,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
   ) => {
     // Validating values
     const dataFeedIds = Object.keys(args.expectedValues);
-    const dataFeedIdsBytes32 = dataFeedIds.map(convertStringToBytes32);
+    const dataFeedIdsBytes32 = dataFeedIds.map(utils.convertStringToBytes32);
     const values = await adapterContract.getValuesForDataFeeds(
       dataFeedIdsBytes32
     );
@@ -350,7 +350,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       increaseBlockTimeBySeconds: 1,
     });
     const value = await adapterContract.getValueForDataFeed(
-      convertStringToBytes32("BTC")
+      utils.convertStringToBytes32("BTC")
     );
     expect(value.toNumber()).to.be.equal(42 * 10 ** 8);
   });
@@ -362,7 +362,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       });
 
       const values = await adapterContract.getValuesForDataFeeds([
-        convertStringToBytes32("BTC"),
+        utils.convertStringToBytes32("BTC"),
       ]);
       expect(values.length).to.equal(1);
       expect(values[0].toNumber()).to.equal(42 * 10 ** 8);
@@ -371,13 +371,15 @@ export const describeCommonPriceFeedsAdapterTests = ({
 
   it("should revert trying to get invalid (zero) data feed value", async () => {
     await expect(
-      adapterContract.getValueForDataFeed(convertStringToBytes32("BTC"))
+      adapterContract.getValueForDataFeed(utils.convertStringToBytes32("BTC"))
     ).to.be.revertedWith("DataFeedValueCannotBeZero");
   });
 
   it("should revert trying to get a value for an unsupported data feed", async () => {
     await expect(
-      adapterContract.getValueForDataFeed(convertStringToBytes32("SMTH-ELSE"))
+      adapterContract.getValueForDataFeed(
+        utils.convertStringToBytes32("SMTH-ELSE")
+      )
     ).to.be.revertedWith("DataFeedIdNotFound");
   });
 
@@ -388,14 +390,16 @@ export const describeCommonPriceFeedsAdapterTests = ({
 
     await expect(
       adapterContract.getValuesForDataFeeds(
-        ["BTC", "SMTH-ELSE"].map(convertStringToBytes32)
+        ["BTC", "SMTH-ELSE"].map(utils.convertStringToBytes32)
       )
     ).to.be.revertedWith("DataFeedIdNotFound");
   });
 
   it("should revert trying to get several values, if one data feed has invalid (zero) value", async () => {
     await expect(
-      adapterContract.getValuesForDataFeeds(["BTC"].map(convertStringToBytes32))
+      adapterContract.getValuesForDataFeeds(
+        ["BTC"].map(utils.convertStringToBytes32)
+      )
     ).to.be.revertedWith("DataFeedValueCannotBeZero");
   });
 };
