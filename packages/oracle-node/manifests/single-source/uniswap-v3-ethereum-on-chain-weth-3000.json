@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["uniswap-v3-on-chain-usdc-500"],
+  "defaultSource": ["uniswap-v3-ethereum-on-chain-weth-3000"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,7 +10,6 @@
     }
   },
   "tokens": {
-    "EUROC": {},
-    "LUSD": {}
+    "AAVE": {}
   }
 }
