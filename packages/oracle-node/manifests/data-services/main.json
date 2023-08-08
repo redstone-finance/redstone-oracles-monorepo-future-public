@@ -321,7 +321,7 @@
         "okx",
         "poloniex",
         "probit",
-        "uniswap-v3-on-chain-weth-3000"
+        "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
     "TRX": {
@@ -722,7 +722,7 @@
         "okx",
         "phemex",
         "poloniex",
-        "uniswap-v3-on-chain-weth-3000",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
       ]
     },
@@ -758,9 +758,9 @@
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
         "uniswap-v2-on-chain-fxs",
-        "uniswap-v3-on-chain-usdc-500",
-        "uniswap-v3-on-chain-dai-500",
-        "uniswap-v3-on-chain-usdt-500"
+        "uniswap-v3-ethereum-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-dai-500",
+        "uniswap-v3-ethereum-on-chain-usdt-500"
       ]
     },
     "VST": {
@@ -851,7 +851,7 @@
         "balancer-weth",
         "coingecko",
         "maverick",
-        "uniswap-v3-on-chain-weth-500"
+        "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
     "PLS": {
@@ -887,7 +887,7 @@
         "coingecko",
         "huobipro",
         "trader-joe-v2-on-chain-usdc",
-        "uniswap-v3-on-chain-usdc-500"
+        "uniswap-v3-ethereum-on-chain-usdc-500"
       ]
     },
     "SHLB_EUROC-USDC_V2_1_B": {
@@ -924,7 +924,7 @@
     "LUSD": {
       "source": [
         "maverick",
-        "uniswap-v3-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-usdc-500",
         "uniswap-v3-optimism-on-chain-usdc-500",
         "velodrome-on-chain-usdc"
       ]
@@ -935,8 +935,8 @@
         "balancer-multi-usdc",
         "balancer-multi-usdt",
         "balancer-lusd",
-        "uniswap-v3-on-chain-usdc-3000",
-        "uniswap-v3-on-chain-usdt-3000"
+        "uniswap-v3-ethereum-on-chain-usdc-3000",
+        "uniswap-v3-ethereum-on-chain-usdt-3000"
       ]
     },
     "USDC.USDT": {
@@ -962,7 +962,7 @@
         "mexc",
         "phemex",
         "okx",
-        "uniswap-v3-on-chain-weth-3000"
+        "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
     "ARB": {
@@ -1036,7 +1036,7 @@
         "okx",
         "phemex",
         "xt",
-        "uniswap-v3-on-chain-weth-3000"
+        "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
     "ALCX": {
@@ -1057,7 +1057,7 @@
         "balancer-weth",
         "bitget",
         "kucoin",
-        "uniswap-v3-on-chain-weth-3000"
+        "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
     "PREMIA": {
@@ -1784,7 +1784,7 @@
         "balancer-multi-weth",
         "balancer-multi-wsteth",
         "maverick",
-        "uniswap-v3-on-chain-weth-500"
+        "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
     "gmdUSDC": {
