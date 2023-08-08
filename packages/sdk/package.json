@@ -14,13 +14,16 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "ethers": "^5.7.2",
     "redstone-oracles-smartweave-contracts": "*",
-    "redstone-protocol": "*"
+    "redstone-protocol": "*",
+    "redstone-utils": "*"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",
     "jest": "^28.1.0",
     "msw": "^0.47.4",
-    "ts-jest": "^28.0.3"
+    "ts-jest": "^28.0.3",
+    "typescript": "^5.1.6"
   }
 }
