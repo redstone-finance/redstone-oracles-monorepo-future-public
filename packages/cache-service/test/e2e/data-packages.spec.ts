@@ -30,11 +30,8 @@ import {
 } from "../common/mock-values";
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
 import { signByMockSigner } from "../common/test-utils";
-import {
-  NumberLike,
-  convertBytesToNumber,
-} from "redstone-protocol/src/common/utils";
-import { DEFAULT_NUM_VALUE_DECIMALS } from "redstone-protocol/src/common/redstone-constants";
+import { utils } from "redstone-protocol";
+import { consts } from "redstone-protocol";
 
 type WithSigner = { signerAddress: string };
 
@@ -47,11 +44,11 @@ jest.mock("redstone-sdk", () => ({
 const dataFeedIds = [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"];
 
 const parseDataPointValueToNumber = (
-  dataPointValue: NumberLike,
-  decimals = DEFAULT_NUM_VALUE_DECIMALS
+  dataPointValue: utils.NumberLike,
+  decimals = consts.DEFAULT_NUM_VALUE_DECIMALS
 ) =>
   typeof dataPointValue === "string"
-    ? convertBytesToNumber(base64.decode(dataPointValue as string)) /
+    ? utils.convertBytesToNumber(base64.decode(dataPointValue as string)) /
       10 ** decimals
     : dataPointValue;
 

@@ -10,7 +10,6 @@
     "target": "es2018",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
@@ -19,7 +18,8 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "declarationMap": true,
-    "composite": true
+    "composite": true,
+    "resolveJsonModule": true
   },
   "include": ["./src", "./test", "./scripts"],
   "references": [

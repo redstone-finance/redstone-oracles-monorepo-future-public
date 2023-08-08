@@ -3,7 +3,7 @@ import { ethers } from "hardhat";
 import { WrapperBuilder } from "../../src/index";
 import { utils } from "redstone-protocol";
 import { mockNumericPackages } from "../tests-common";
-import { REDSTONE_MARKER_HEX } from "redstone-protocol/src/common/redstone-constants";
+import { consts } from "redstone-protocol";
 
 describe("PopulateTransactionTest", function () {
   it("Should overwrite populateTransaction", async () => {
@@ -28,7 +28,7 @@ describe("PopulateTransactionTest", function () {
     ](dataFeedId);
 
     // Checking the calldata
-    const redstoneMarker = REDSTONE_MARKER_HEX.replace("0x", "");
+    const redstoneMarker = consts.REDSTONE_MARKER_HEX.replace("0x", "");
     expect(originalTxPopulated.data)
       .to.be.a("string")
       .and.satisfy((str: string) => !str.endsWith(redstoneMarker));
