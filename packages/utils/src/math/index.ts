@@ -1,6 +1,6 @@
 import Decimal from "decimal.js";
-import { ISafeNumber, createSafeNumber } from "../ISafeNumber";
 import * as ISafeNumberMath from "../ISafeNumber";
+import { createSafeNumber, ISafeNumber } from "../ISafeNumber";
 
 export type ConvertibleToISafeNumber = number | string | Decimal | ISafeNumber;
 
