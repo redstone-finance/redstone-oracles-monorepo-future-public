@@ -4,6 +4,7 @@ import { BigNumber, Contract, providers } from "ethers";
 import { fetchWithCache, sleepMS } from "./common";
 
 const ONE_GWEI = 1e9;
+const ETHERS_CONSTANT_MAX_PRIORITY_FEE = 1500000000;
 
 type ContractOverrides = {
   nonce: number;
@@ -255,17 +256,22 @@ export class TransactionDeliveryMan {
   private async estimatePriorityFee(
     provider: providers.JsonRpcProvider
   ): Promise<number> {
-    let feeHistory = await this.getFeeHistory(provider, "pending");
-    // some chains may not support "pending" (e.g. BNB)
-    if (!feeHistory.reward) {
-      feeHistory = await this.getFeeHistory(provider, "latest");
+    try {
+      let feeHistory = await this.getFeeHistory(provider, "pending");
+      // some chains may not support "pending" (e.g. BNB)
+      if (!feeHistory.reward) {
+        feeHistory = await this.getFeeHistory(provider, "latest");
+      }
+
+      const rewardsPerBlockForPercentile = feeHistory.reward
+        .flat()
+        .map((hex: string) => parseInt(hex, 16));
+
+      return Math.max(...rewardsPerBlockForPercentile);
+    } catch (e) {
+      // last fallback if eth_feeHistory is not supported by RPC
+      return ETHERS_CONSTANT_MAX_PRIORITY_FEE;
     }
-
-    const rewardsPerBlockForPercentile = feeHistory.reward
-      .flat()
-      .map((hex: string) => parseInt(hex, 16));
-
-    return Math.max(...rewardsPerBlockForPercentile);
   }
 
   /**
