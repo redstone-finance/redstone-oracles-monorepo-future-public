@@ -88,6 +88,26 @@
       "arweavePublicKey": "9sOhBBp6cfHzKoFWzbErLf1s_7VtNVW3MNcKb_9gAwOdBJKplP1pv0VKyQOQw-e2e1Y8kZSN1rTRvs-4lrINJh8a0MrruHRD1lZBhuleykiz8KeDEJux7WQZ6G-2i8MC3RcGjKtUKeGJgwzZFB8GkT8OkXAhqWc3kRdbQzvLR7R1qp4usn5LSoKBO2pChQs-K_ruqh7wwLCr996XXbYIPkGpQaaVf00IXX2ItAvYd4emKKVnKnYOc18TN6T19ur6-KCz-23w1-QuLzK4MbvBeHJ-Y4FkahPRLeAeZmhjdNjMAXRcWkQMETmex0Tvg5qDELo-8BXYbuZgPQO3ea4TjPixHaAdaYach6fwAfG4pDboxkzoNrQdHjuPUnEhlOGRRGPNcqZPxVZQ2nVVnnoLcYq1pcCL6cPM1-licGeG1P2EV8Uo9P85UALn71wSdvdE2C3bWnmI-BCMiN4xkdX7_kcv80D7ZSWQni4d6_7l7JgXTvXs6GISvjpXqUcoUBohabzMixUFG8I3rqsVxuWJXQtmLko3kuP-CoeRyQOZk4dAovhlJ2MM5L6Yi2FjM5we2ApGSaC8v9dhyVWIrN87s8lQdgeOTycFZL9UoAi2uK57pkVlkgkYkD139ERUlRBtZ0XVenQO6lAXhYjxK7AaW08ZfkfS4PrLWzjNQ8BBIZE",
       "ecdsaPublicKey": "0x04feeab427d82702f95c9d1727e47c823c5841ea8b0864607ecb637ff4377604b8213dfd06628d01e624c30dfb20cfa0296be7c1481ce994adb6424d1a391493cf"
     },
+    "OxQ-vLXcwTZdcdlCziC95duFylo8Aj9xBJ4XsC3xlGk": {
+      "name": "redstone-arbitrum-dev-node-1",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "Data feeds from arbitrum redstone nodes - dev 1",
+      "dataServiceId": "redstone-arbitrum-demo",
+      "evmAddress": "0x16883583647260AB2e2BA63c4c38D9807Fd7296e",
+      "ipAddress": "0.0.0.0",
+      "url": "https://redstone.finance/",
+      "ecdsaPublicKey": "0x041aea25f013dee918d88063daca2d0113fa41a95b66440d8d8edf09a3d397045f5b9d391c1e50e6998d3b2f95918899e382f444714e64d9fd689c92d4a2535ea1"
+    },
+    "LtVolyIqpjhCr8fw_ue_-Y9xaH5IURpKZclyJbsu4SE": {
+      "name": "redstone-arbitrum-dev-node-2",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "Data feeds from arbitrum redstone nodes - dev 2",
+      "dataServiceId": "redstone-arbitrum-demo",
+      "evmAddress": "0x1053d519Cc8C8cd7e53FecbFb13B6F0ffbD4c8C5",
+      "ipAddress": "0.0.0.0",
+      "url": "https://redstone.finance/",
+      "ecdsaPublicKey": "0x04d0f2bb463dfe89778fc6fe68ed6945bbf13f1391369942d78607cc4eac906aa63d082caf6c81c3c191daf4bbb7cfabbf5fca1ca762e02529cf700a15ac0cd828"
+    },
     "tTTthGBknPG4MWH5y-zDKO2dEF3Fxo0gPbzV6PLNlNQ": {
       "name": "redstone-avalanche-prod-node-1",
       "description": "Most popular tokens from the Avalanche ecosystem - prod node 1",
@@ -219,6 +239,56 @@
       "ipAddress": "0.0.0.0",
       "ecdsaPublicKey": "0x04f23aa199aeda6e55628e0ec88194c47713ba260898aae4483fb2f166c7e29b1664f817922059736358de71bdf374b3354db58d15f928a6fac9d1f61e284019b7",
       "arweavePublicKey": "2p14sG942MfNwRQnPPF78vdxXovnz0hSTUYiSmCvPlQHojPQyDdfX2fbML09kbkeq8TNQel7BzShDVDpfhM21lXDQhvW8kQTSk6I2qilZIbYRi4i0omgHLw6QnUOGPBdxUdbRSq63gH5A0aR_ATPgzKNwSZpViG3CODgOVRUWtzWlaHKGx3D5oloKnS9nnJJlZSh2sbDfq7MIOlZEHDpunERLByLlsxi33oj1YsrcV2rP_tUUDbuDNLWhwHorAjZqDKmPP0FEy38oABrB-NbDNihPs06V2wMNb4U6tlLiEcsfNTagWpQ8re6K3WpK5XKBOcaOhVqcmo2axP1go35pjV6RuISCQWGGqvnyeAsKdGjDANtSk5RYqjqy6cQTJfEKrHZbv2MaiLr5EUsnzP_9u4ZCo8vcVXj4BLLDIYNvm4b_Ik2j8ZoA432u2hAMtQYZNqfencj9kiKzBRoeDQF4nsJOQ5YUHkyS_a1Vnq0KPslPbACApJZntCz3LR2Te_ZxJePM_v9O6jtX2bTsRgkjGF5dWD4OFda89mFSKn9ZBzgysMTWiJsLYnnqPVW8zIP2PjG7VgfkpEIDzWFbCJiX2aevGT94P5pTuI9AF1cyKMX0kxeDibbqg6m9LixPqY0Kdm6pOwGa1RWP2tprPoQuS9uepP1vyzJEzk6jAyaQqU"
+    },
+    "ckah_Yc4ZhzQbx27Lgo1Ad1yePneQdkusER_c49KVK0": {
+      "name": "redstone-arbitrum-prod-node-1",
+      "description": "Data feeds from arbitrum redstone nodes - prod 1",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataServiceId": "redstone-arbitrum-prod",
+      "evmAddress": "0x345Efd26098e173F811e3B9Af1B0e0a11872B38b",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "ecdsaPublicKey": "0x0437026448b1a69e4be9bcee0789199c50e93446c75eb697efbeb732fa3b51d130f92d6597de811106511ba39f712f8cf025b82e0003a611b9f78804e66caf46d8"
+    },
+    "3HHevuTyFGYJJ-nBPonvDaB5oGIZbCbZtF0CAeFB13s": {
+      "name": "redstone-arbitrum-prod-node-2",
+      "description": "Data feeds from arbitrum redstone nodes - prod 2",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataServiceId": "redstone-arbitrum-prod",
+      "evmAddress": "0xbD0c5ccd85D5831B10E3e49527B8Cd67e2EFAf39",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "ecdsaPublicKey": "0x046ecbc2bcca15fb4a44b88e85e1433b22ad09b7960370c9dba379e09f37ebea0cbc3fb9a60f39df2c4b7cd8b885717ca1dafeac35e9edc5b550d0b61c4a7e581f"
+    },
+    "AkT1al4MbVqV8w9LXIvdsE-2xm_moP1ARaImUlqgDZA": {
+      "name": "redstone-arbitrum-prod-node-3",
+      "description": "Data feeds from arbitrum redstone nodes - prod 3",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataServiceId": "redstone-arbitrum-prod",
+      "evmAddress": "0x2F3E8EC88C01593d10ca9461c807660fF2D8DB28",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "ecdsaPublicKey": "0x047f0ac528b5b5f306b6488965bcd86cce263487320caaab7703171c8cf461eb692cd35837ff91d243d2972fc4c4598d08d8e1f5795ecbb1cb974087970a5783d8"
+    },
+    "k9ke_oPBAy4bt-Vu0_kwRcSx4HwcQl3Jd8h7dmomfrc": {
+      "name": "redstone-arbitrum-prod-node-4",
+      "description": "Data feeds from arbitrum redstone nodes - prod 4",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataServiceId": "redstone-arbitrum-prod",
+      "evmAddress": "0xb7f154bB5491565D215F4EB1c3fe3e84960627aF",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "ecdsaPublicKey": "0x04e051f36116b6bc953f2a94825a4931f6fe6e3a3f218e1dab2712a2a31fff450d1e8f82dcb3cba9dce6dd382d6b0e259d2a896f8a10947a234c08e6f424d272c9"
+    },
+    "7zqOor2CATpcOq_DduEAsJ_8us4FJ0BTZbMjLAH4MsU": {
+      "name": "redstone-arbitrum-prod-node-5",
+      "description": "Data feeds from arbitrum redstone nodes - prod 5",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "dataServiceId": "redstone-arbitrum-prod",
+      "evmAddress": "0xE6b0De8F4B31F137d3c59b5a0A71e66e7D504Ef9",
+      "url": "https://redstone.finance",
+      "ipAddress": "0.0.0.0",
+      "ecdsaPublicKey": "0x04b41ed2eaf2b8b15232ab7d25458d1b2cc1ef02200ab50f912307cf832f619aadf89800ac17b1c3e40c4bebc7b4305bbec558ca5e60acb034dbb6c09273e29fbe"
     }
   },
   "evolve": null,
@@ -286,6 +356,16 @@
       "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
       "description": "Time-weighted average prices for most popular tokens",
       "admin": "aw9F_2R2ogYPnM66TDsW1qtiiRflRcgZQG6OLySOSZE"
+    },
+    "redstone-arbitrum-demo": {
+      "name": "Redstone arbitrum demo",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "Data feeds from dev arbitrum redstone nodes"
+    },
+    "redstone-arbitrum-prod": {
+      "name": "Redstone arbitrum prod",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "description": "Data feeds from arbitrum prod redstone nodes"
     }
   },
   "contractAdmins": [
