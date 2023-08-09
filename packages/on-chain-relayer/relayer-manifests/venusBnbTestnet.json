@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "Smart Chain - Testnet",
+    "id": 97
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 600000,
+    "deviationPercentage": 0.2
+  },
+  "dataServiceId": "redstone-primary-prod",
+  "adapterContract": "0x5B0E8F9B1A0De4fEC0fbe53387817f30D7Dec800",
+  "priceFeeds": {
+    "TRX": "0x50db815D3c4B869F89925690E936ED85b0b76075"
+  }
+}
