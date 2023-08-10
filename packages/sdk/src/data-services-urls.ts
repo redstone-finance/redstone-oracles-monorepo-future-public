@@ -10,11 +10,16 @@ export const REDSTONE_DATA_SERVICES_URLS: Record<string, string[]> = {
     "https://oracle-gateway-1.a.redstone.finance",
     "https://oracle-gateway-2.a.redstone.finance",
   ],
+  "redstone-arbitrum-prod": [
+    "https://oracle-gateway-1.a.redstone.finance",
+    "https://oracle-gateway-2.a.redstone.finance",
+  ],
   "redstone-custom-urls-demo": ["https://d1zm8lxy9v2ddd.cloudfront.net"],
   "redstone-main-demo": [DEMO_URL],
   "redstone-rapid-demo": [DEMO_URL],
   "redstone-stocks-demo": [DEMO_URL],
   "redstone-twaps-demo": [DEMO_URL],
+  "redstone-arbitrum-demo": [DEMO_URL],
   "mock-data-service": ["http://localhost:3000"],
   "mock-data-service-tests": ["http://valid-cache.com"],
 };
