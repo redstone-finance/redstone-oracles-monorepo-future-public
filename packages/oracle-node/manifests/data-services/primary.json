@@ -285,6 +285,9 @@
         "sushiswap-ethereum-on-chain-weth",
         "uniswap-v3-arbitrum-on-chain-weth-3000"
       ]
+    },
+    "PREMIA-TWAP-60": {
+      "source": ["twap-cache-service-minute-redstone-primary-demo"]
     }
   }
 }
