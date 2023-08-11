@@ -17,6 +17,7 @@ const getDeliveryMan = () => {
       expectedDeliveryTimeMs: config().expectedTxDeliveryTimeInMS,
       gasLimit: config().gasLimit,
       twoDimensionFees: config().isArbitrumNetwork,
+      multiplier: config().gasMultiplier,
     });
   return deliveryMan;
 };
