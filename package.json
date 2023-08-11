@@ -28,7 +28,8 @@
       "packages/sdk",
       "packages/streamr-proxy",
       "packages/utils",
-      "packages/integration"
+      "packages/integration",
+      "packages/gelato-relayer"
     ],
     "nohoist": [
       "ts-node"

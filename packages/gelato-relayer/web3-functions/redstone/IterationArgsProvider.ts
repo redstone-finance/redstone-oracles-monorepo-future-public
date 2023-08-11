@@ -22,7 +22,7 @@ const NUMBER_NOT_NEEDED_FOR_GELATO = 0;
 
 const EMPTY_GELATO_ENV = {
   relayerIterationInterval: NUMBER_NOT_NEEDED_FOR_GELATO,
-  rpcUrl: NOT_NEEDED_FOR_GELATO,
+  rpcUrls: [NOT_NEEDED_FOR_GELATO],
   privateKey: NOT_NEEDED_FOR_GELATO,
   gasLimit: NUMBER_NOT_NEEDED_FOR_GELATO,
   healthcheckPingUrl: undefined,
