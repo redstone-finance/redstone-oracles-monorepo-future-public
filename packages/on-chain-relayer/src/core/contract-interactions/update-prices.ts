@@ -24,9 +24,9 @@ const getDeliveryMan = () => {
 
 export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
   const updateTx = await updatePriceInAdapterContract(updatePricesArgs);
-  console.log(`Update prices tx sent: ${updateTx.hash}`);
-  await updateTx.wait();
-  console.log(`Successfully updated prices: ${updateTx.hash}`);
+  console.log(
+    `Update prices tx delivered hash=${updateTx.hash}  gasPrice=${updateTx.gasPrice} blockNumber=${updateTx.blockNumber}`
+  );
 };
 
 const updatePriceInAdapterContract = async (
