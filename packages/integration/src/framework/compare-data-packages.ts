@@ -4,7 +4,18 @@ import {
   DeviationsPerDataFeed,
 } from "./run-long-price-propagation-core-test";
 
-const removedDataFeedsFromManifest = ["FRXETH", "3Crv", "crvFRAX"];
+const removedDataFeedsFromManifest = [
+  "FRXETH",
+  "3Crv",
+  "crvFRAX",
+  "LINK",
+  "TJ_AVAX_USDC_AUTO",
+  "YYAV3SA1",
+  "XAVA",
+  "DAI",
+  "BUSD",
+  "USDT.e",
+];
 
 export interface DataPackages {
   [dataFeedId: string]: Array<DataPackage>;
