@@ -1,4 +1,5 @@
 import Decimal from "decimal.js";
+import { BigNumber } from "ethers";
 import * as ISafeNumberMath from "../ISafeNumber";
 import { createSafeNumber, ISafeNumber } from "../ISafeNumber";
 
@@ -32,3 +33,21 @@ export const calculateDeviationPercent = (args: {
 
 export const getMedian = (numbers: ConvertibleToISafeNumber[]) =>
   ISafeNumberMath.getMedian(numbers.map(castToISafeNumber)).unsafeToNumber();
+
+export class PrecisionScaler {
+  private readonly tokenDecimalsScaler: Decimal;
+
+  constructor(public readonly tokenDecimals: number) {
+    this.tokenDecimalsScaler = new Decimal(10).pow(tokenDecimals);
+  }
+
+  toSolidityValue(floatNumber: Decimal.Value): string {
+    return new Decimal(floatNumber).mul(this.tokenDecimalsScaler).toString();
+  }
+
+  fromSolidityValue(contractValue: BigNumber | string): Decimal {
+    return new Decimal(BigNumber.from(contractValue).toString()).div(
+      this.tokenDecimalsScaler
+    );
+  }
+}
