@@ -40,6 +40,7 @@ export interface RelayerConfig {
   dataServiceId: string;
   dataFeeds: string[];
   gasLimit: number;
+  gasMultiplier: number;
   updateConditions: ConditionCheckNames[];
   minDeviationPercentage?: number;
   healthcheckPingUrl?: string;
@@ -62,6 +63,7 @@ export type OnChainRelayerEnv = {
   fallbackOffsetInMinutes: number;
   cacheServiceUrls?: string[];
   historicalPackagesGateways?: string[];
+  gasMultiplier: number;
 };
 
 export type ConfigProvider = () => RelayerConfig;
