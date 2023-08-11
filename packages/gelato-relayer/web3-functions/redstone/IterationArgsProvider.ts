@@ -28,6 +28,7 @@ const EMPTY_GELATO_ENV = {
   healthcheckPingUrl: undefined,
   expectedTxDeliveryTimeInMS: NUMBER_NOT_NEEDED_FOR_GELATO,
   isArbitrumNetwork: false,
+  gasMultiplier: 1.125,
 };
 
 export class IterationArgsProvider

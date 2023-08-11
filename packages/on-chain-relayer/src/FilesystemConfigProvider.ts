@@ -51,6 +51,9 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     rpcUrls: JSON.parse(getFromEnv("RPC_URLS")!),
     privateKey: getFromEnv("PRIVATE_KEY")!,
     gasLimit: Number.parseInt(getFromEnv("GAS_LIMIT")!),
+    gasMultiplier: Number.parseFloat(
+      getFromEnv("GAS_MULTIPLIER", true) || "1.125"
+    ),
     healthcheckPingUrl: getFromEnv("HEALTHCHECK_PING_URL", true),
     expectedTxDeliveryTimeInMS: Number(
       getFromEnv("EXPECTED_TX_DELIVERY_TIME_IN_MS")
