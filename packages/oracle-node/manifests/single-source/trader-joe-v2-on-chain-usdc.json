@@ -1,7 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["trader-joe-v2-on-chain-usdc"],
+  "defaultSource": ["trader-joe-v2-avalanche-on-chain-usdc"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
