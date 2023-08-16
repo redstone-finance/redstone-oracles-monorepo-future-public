@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { ALL_FEEDS_KEY } from "../src/data-packages/data-packages.service";
 import config from "../src/config";
 import { MathUtils } from "redstone-utils";
+import { consts } from "redstone-protocol";
 import {
   queryDataPackages,
   groupDataPackagesByField,
@@ -61,7 +61,7 @@ async function main() {
   const dataPackages = await queryDataPackages({
     startTimestamp: START_TIMESTAMP,
     endTimestamp: END_TIMESTAMP,
-    dataFeedId: ALL_FEEDS_KEY,
+    dataFeedId: consts.ALL_FEEDS_KEY,
     dataServiceId: DATA_SERVICE_ID,
   });
   const dataPackagesBySigner = groupDataPackagesByField(

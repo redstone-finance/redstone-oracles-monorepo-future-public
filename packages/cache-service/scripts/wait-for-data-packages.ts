@@ -1,6 +1,6 @@
-import { DataPackage } from "../src/data-packages/data-packages.model";
-import { ALL_FEEDS_KEY } from "../src/data-packages/data-packages.service";
 import mongoose from "mongoose";
+import { consts } from "redstone-protocol";
+import { DataPackage } from "../src/data-packages/data-packages.model";
 import config from "../src/config";
 
 // USAGE: yarn run-ts scripts/wait-for-data-packages.ts <expected-count> <data-feed-id>
@@ -8,7 +8,7 @@ import config from "../src/config";
 // Note! This script is used only in monorepo integration tests
 
 const INTERVAL_MILLISECONDS = 5000; // 5 seconds
-const DATA_FEED_ID = process.argv[3] || ALL_FEEDS_KEY;
+const DATA_FEED_ID = process.argv[3] || consts.ALL_FEEDS_KEY;
 const EXPECTED_COUNT = parseInt(process.argv[2]);
 
 main();

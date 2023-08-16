@@ -1,7 +1,12 @@
 import { ethers } from "ethers";
 import { RedstoneOraclesState } from "redstone-oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/types";
-import { DataPackage, DataPoint, NumericDataPoint } from "redstone-protocol";
 import { utils } from "redstone-protocol";
+import {
+  DataPackage,
+  DataPoint,
+  NumericDataPoint,
+  consts,
+} from "redstone-protocol";
 
 export const MOCK_PRIVATE_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
@@ -115,21 +120,21 @@ export const mockDataPackagesForUniqueSigners = [
   {
     ...getMockDataPackages()[0],
     isSignatureValid: true,
-    dataFeedId: "___ALL_FEEDS___",
+    dataFeedId: consts.ALL_FEEDS_KEY,
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x4",
   },
   {
     ...getMockDataPackages()[0],
     isSignatureValid: true,
-    dataFeedId: "___ALL_FEEDS___",
+    dataFeedId: consts.ALL_FEEDS_KEY,
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x4",
   },
   {
     ...getMockDataPackages()[0],
     isSignatureValid: true,
-    dataFeedId: "___ALL_FEEDS___",
+    dataFeedId: consts.ALL_FEEDS_KEY,
     dataServiceId: "mock-data-service-1",
     signerAddress: "0x5",
   },
