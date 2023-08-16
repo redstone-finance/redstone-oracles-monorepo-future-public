@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import { DataPointPlainObj } from "redstone-protocol";
-import { ALL_FEEDS_KEY } from "../src/data-packages/data-packages.service";
+import { DataPointPlainObj, consts } from "redstone-protocol";
 import { CachedDataPackage } from "../src/data-packages/data-packages.model";
 import {
   formatTime,
@@ -171,7 +170,7 @@ async function fetchDataPackages(
     const dataPackages = await queryDataPackages({
       startTimestamp: timestampIntervals.startTimestamp,
       endTimestamp: timestampIntervals.endTimestamp,
-      dataFeedId: ALL_FEEDS_KEY,
+      dataFeedId: consts.ALL_FEEDS_KEY,
       dataServiceId: dataServiceId,
     });
     console.log(`Fetched ${dataPackages.length} data packages`);

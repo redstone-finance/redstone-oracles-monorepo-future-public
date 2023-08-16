@@ -4,7 +4,7 @@ import {
   CachedDataPackage,
   DataPackage,
 } from "../src/data-packages/data-packages.model";
-import { ALL_FEEDS_KEY } from "../src/data-packages/data-packages.service";
+import { consts } from "redstone-protocol";
 
 const END_TIMESTAMP = getRoundedCurrentTimestamp();
 const START_TIMESTAMP = END_TIMESTAMP - 3 * 24 * 3600 * 1000; // END_TIMESTAMP - 5 days
@@ -299,7 +299,9 @@ async function queryDataPackages(
         $lte: interval.endTimestamp,
       },
       dataServiceId: dataServiceId,
-      ...(ANALYZE_ONLY_BIG_PACKAGES ? { dataFeedId: ALL_FEEDS_KEY } : {}),
+      ...(ANALYZE_ONLY_BIG_PACKAGES
+        ? { dataFeedId: consts.ALL_FEEDS_KEY }
+        : {}),
     },
     { timestampMilliseconds: 1, signerAddress: 1, dataPoints: 1 }
   );
