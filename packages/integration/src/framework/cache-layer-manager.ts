@@ -1,3 +1,4 @@
+import { consts } from "redstone-protocol";
 import { ChildProcess, spawnSync } from "child_process";
 import fs from "fs";
 import { installAndBuild } from "./integration-test-compile";
@@ -200,7 +201,8 @@ export const waitForDataPackages = async (
 
 export const waitForDataAndDisplayIt = async (instance: CacheLayerInstance) => {
   // Waiting for data packages to be available in cache service
-  await waitForDataPackages(1, "___ALL_FEEDS___", instance);
+  const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY as string;
+  await waitForDataPackages(1, ALL_FEEDS_KEY, instance);
   await waitForDataPackages(1, "ETH", instance);
   await waitForDataPackages(1, "BTC", instance);
   await waitForDataPackages(1, "AAVE", instance);

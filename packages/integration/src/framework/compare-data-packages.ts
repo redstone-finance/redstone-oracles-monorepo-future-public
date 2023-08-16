@@ -1,9 +1,13 @@
 import { MathUtils } from "redstone-utils";
+import { DataPackagePlainObj, consts } from "redstone-protocol";
 import {
-  ALL_FEEDS_DATA_FEED_ID,
   DeviationsPerDataFeed,
+  DeviationsPerSource,
+  DeviationsWithBigPackage,
+  SourceDeviationsPerDataFeed,
 } from "./run-long-price-propagation-core-test";
 
+// TODO: remove after updating primary prod nodes
 const removedDataFeedsFromManifest = [
   "FRXETH",
   "3Crv",
@@ -16,22 +20,21 @@ const removedDataFeedsFromManifest = [
   "BUSD",
   "USDT.e",
 ];
+const sourcesRemovedFromManifest = [
+  "bybit",
+  "curve-frxeth",
+  "curve-3crv",
+  "curve-crvfrax",
+];
 
 export interface DataPackages {
-  [dataFeedId: string]: Array<DataPackage>;
+  [dataFeedId: string]: Array<DataPackagePlainObj>;
 }
 
-export interface DataPackage {
-  timestampMilliseconds: number;
-  signature: string;
-  isSignatureValid: boolean;
-  dataPoints: Array<{
-    dataFeedId: string;
-    value: number;
-  }>;
-  dataServiceId: string;
-  dataFeedId: string;
-  signerAddress: string;
+interface SourceMetadata {
+  [source: string]: {
+    value: string;
+  };
 }
 
 export const compareDataPackagesFromLocalAndProd = (
@@ -76,7 +79,7 @@ const getMissingDataFeedsInDataPackages = (
   dataFeedsFromFirstDataPackage.filter(
     (dataFeed) =>
       !dataFeedsFromSecondDataPackage.includes(dataFeed) &&
-      dataFeed !== ALL_FEEDS_DATA_FEED_ID &&
+      dataFeed !== consts.ALL_FEEDS_KEY &&
       !removedDataFeedsFromManifest.includes(dataFeed)
   );
 
@@ -84,44 +87,105 @@ const compareValuesInDataPackages = (
   dataPackagesFromProd: DataPackages,
   dataPackagesFromLocal: DataPackages
 ) => {
-  const deviationsPerDataFeed: {
-    [dataFeedId: string]: number | DeviationsPerDataFeed;
-  } = {};
-  for (const [dataFeedId, dataFeedObject] of Object.entries(
+  const deviationsPerDataFeed: DeviationsWithBigPackage = {};
+  const sourceDeviationsPerDataFeed: SourceDeviationsPerDataFeed = {};
+  for (const [dataFeedId, allFeedObjectsFromProd] of Object.entries(
     dataPackagesFromProd
   )) {
     if (removedDataFeedsFromManifest.includes(dataFeedId)) {
       console.log(`Data feed ${dataFeedId} is removed from manifest, skipping`);
       continue;
     }
-    if (dataFeedId === ALL_FEEDS_DATA_FEED_ID) {
+    const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY as string;
+    if (dataFeedId === ALL_FEEDS_KEY) {
       const deviationsFromBigPackage = compareValuesFromBigPackageAndLocalCache(
-        dataFeedObject,
+        allFeedObjectsFromProd,
         dataPackagesFromLocal
       );
-      deviationsPerDataFeed[ALL_FEEDS_DATA_FEED_ID] = deviationsFromBigPackage;
+      deviationsPerDataFeed[ALL_FEEDS_KEY] = deviationsFromBigPackage;
       continue;
     }
-    const dataPointValueFromLocal =
-      dataPackagesFromLocal[dataFeedId][0].dataPoints[0].value;
-    const deviations = dataFeedObject.map(({ dataPoints }) =>
-      MathUtils.calculateDeviationPercent({
-        newValue: dataPointValueFromLocal,
-        prevValue: dataPoints[0].value,
-      })
+    const maxDeviation = compareValuesFromSmallPackagesAndLocalCache(
+      dataPackagesFromLocal,
+      dataFeedId,
+      allFeedObjectsFromProd
     );
-    const maxDeviation = Math.max(...deviations);
     deviationsPerDataFeed[dataFeedId] = maxDeviation;
+
+    const deviationsPerSource = compareSourcesValuesFromProdAndLocal(
+      dataPackagesFromLocal,
+      dataFeedId,
+      allFeedObjectsFromProd
+    );
+    sourceDeviationsPerDataFeed[dataFeedId] = deviationsPerSource;
   }
-  return deviationsPerDataFeed;
+  return { deviationsPerDataFeed, sourceDeviationsPerDataFeed };
+};
+
+const compareValuesFromSmallPackagesAndLocalCache = (
+  dataPackagesFromLocal: DataPackages,
+  dataFeedId: string,
+  allFeedObjectsFromProd: DataPackagePlainObj[]
+) => {
+  const dataPointValueFromLocal =
+    dataPackagesFromLocal[dataFeedId][0].dataPoints[0].value;
+  const deviations = allFeedObjectsFromProd.map(({ dataPoints }) =>
+    MathUtils.calculateDeviationPercent({
+      newValue: Number(dataPointValueFromLocal),
+      prevValue: Number(dataPoints[0].value),
+    })
+  );
+  return Math.max(...deviations);
+};
+
+const compareSourcesValuesFromProdAndLocal = (
+  dataPackagesFromLocal: DataPackages,
+  dataFeedId: string,
+  allFeedObjectsFromProd: DataPackagePlainObj[]
+) => {
+  const deviationsPerSource: DeviationsPerSource = {};
+  const dataPointsFromLocal = dataPackagesFromLocal[dataFeedId][0].dataPoints;
+  const sourceMetadataFromLocal = dataPointsFromLocal[0]?.metadata
+    ?.sourceMetadata as SourceMetadata | undefined;
+
+  for (const { dataPoints } of allFeedObjectsFromProd) {
+    const sourceMetadataFromProd = dataPoints[0]?.metadata?.sourceMetadata as
+      | SourceMetadata
+      | undefined;
+    if (sourceMetadataFromProd && sourceMetadataFromLocal) {
+      for (const [source, { value }] of Object.entries(
+        sourceMetadataFromProd
+      )) {
+        if (sourcesRemovedFromManifest.includes(source)) {
+          console.log(`Source ${source} is removed from manifest, skipping`);
+          continue;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        const valueFromLocal = sourceMetadataFromLocal[source]?.value ?? 0;
+        const valueFromProd = value;
+        if (valueFromLocal && valueFromProd) {
+          const deviation = MathUtils.calculateDeviationPercent({
+            newValue: valueFromLocal,
+            prevValue: valueFromProd,
+          });
+          deviationsPerSource[source] = Math.max(
+            deviation,
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            deviationsPerSource[source] ?? 0
+          );
+        }
+      }
+    }
+  }
+  return deviationsPerSource;
 };
 
 const compareValuesFromBigPackageAndLocalCache = (
-  allFeedObjectFromProd: DataPackage[],
+  allFeedObjectsFromProd: DataPackagePlainObj[],
   dataPackagesFromLocal: DataPackages
 ) => {
   const deviationsPerDataFeed: DeviationsPerDataFeed = {};
-  for (const dataPackage of allFeedObjectFromProd) {
+  for (const dataPackage of allFeedObjectsFromProd) {
     for (const dataPoint of dataPackage.dataPoints) {
       const dataFeedId = dataPoint.dataFeedId;
       if (removedDataFeedsFromManifest.includes(dataFeedId)) {

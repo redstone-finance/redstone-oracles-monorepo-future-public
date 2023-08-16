@@ -34,3 +34,6 @@ export const SIGNATURE_BS = 65;
 
 // Byte size of data feed id
 export const DATA_FEED_ID_BS = 32;
+
+// Key for big data package
+export const ALL_FEEDS_KEY = "___ALL_FEEDS___";

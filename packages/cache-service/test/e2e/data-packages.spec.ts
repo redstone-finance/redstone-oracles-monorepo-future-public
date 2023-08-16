@@ -3,7 +3,12 @@ import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { ethers } from "ethers";
 import { base64 } from "ethers/lib/utils";
-import { DataPoint, SignedDataPackagePlainObj } from "redstone-protocol";
+import {
+  DataPoint,
+  SignedDataPackagePlainObj,
+  consts,
+  utils,
+} from "redstone-protocol";
 import {
   RedstonePayloadParser,
   convertDataPointToNumericDataPoint,
@@ -17,7 +22,6 @@ import {
   DataPackage,
   DataPackageDocument,
 } from "../../src/data-packages/data-packages.model";
-import { ALL_FEEDS_KEY } from "../../src/data-packages/data-packages.service";
 import {
   MOCK_DATA_SERVICE_ID,
   MOCK_SIGNATURE,
@@ -30,8 +34,6 @@ import {
 } from "../common/mock-values";
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
 import { signByMockSigner } from "../common/test-utils";
-import { utils } from "redstone-protocol";
-import { consts } from "redstone-protocol";
 
 type WithSigner = { signerAddress: string };
 
@@ -41,6 +43,7 @@ jest.mock("redstone-sdk", () => ({
   getOracleRegistryState: jest.fn(() => mockOracleRegistryState),
 }));
 
+const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY;
 const dataFeedIds = [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"];
 
 const parseDataPointValueToNumber = (

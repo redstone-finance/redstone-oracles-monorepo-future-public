@@ -1,5 +1,5 @@
+import { consts } from "redstone-protocol";
 import {
-  ALL_FEEDS_DATA_FEED_ID,
   DeviationsPerDataFeed,
   DeviationsWithBigPackage,
 } from "./run-long-price-propagation-core-test";
@@ -10,9 +10,10 @@ export const printAllDeviations = (
 ) => {
   const dataFeeds = Object.keys(deviationsPerDataFeed);
   for (const dataFeedId of dataFeeds) {
-    if (dataFeedId === ALL_FEEDS_DATA_FEED_ID) {
+    const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY as string;
+    if (dataFeedId === ALL_FEEDS_KEY) {
       const deviationsFromBigPackage = deviationsPerDataFeed[
-        ALL_FEEDS_DATA_FEED_ID
+        ALL_FEEDS_KEY
       ] as DeviationsPerDataFeed;
       printAllDeviations(deviationsFromBigPackage, true);
       continue;

@@ -1,4 +1,6 @@
-export const mockOraclesState = {
+import { RedstoneOraclesState } from "redstone-oracles-smartweave-contracts";
+
+export const mockOraclesState: RedstoneOraclesState = {
   nodes: {
     "Mock arweave address": {
       name: "mock-node",
