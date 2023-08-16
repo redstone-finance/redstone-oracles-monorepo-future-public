@@ -1,4 +1,5 @@
-import { Cache } from "cache-manager";
+import { compressMsg } from "redstone-streamr-proxy";
+import { consts } from "redstone-protocol";
 import "../common/set-test-envs";
 import {
   MOCK_DATA_SERVICE_ID,
@@ -12,7 +13,6 @@ import { sleep } from "../common/test-utils";
 import { StreamrListenerService } from "../../src/streamr-listener/streamr-listener.service";
 import { DataPackagesService } from "../../src/data-packages/data-packages.service";
 import { BundlrService } from "../../src/bundlr/bundlr.service";
-import { compressMsg } from "redstone-streamr-proxy";
 
 jest.mock("redstone-sdk", () => ({
   __esModule: true,
@@ -47,7 +47,7 @@ const expectedSavedDataPackages = [
     signerAddress: MOCK_SIGNER_ADDRESS,
     dataServiceId: MOCK_DATA_SERVICE_ID,
     isSignatureValid: true,
-    dataFeedId: "___ALL_FEEDS___",
+    dataFeedId: consts.ALL_FEEDS_KEY,
   },
 ];
 

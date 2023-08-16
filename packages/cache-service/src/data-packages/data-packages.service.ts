@@ -3,6 +3,7 @@ import { Cache } from "cache-manager";
 import {
   RedstonePayload,
   UniversalSigner,
+  consts,
   recoverDeserializedSignerAddress,
 } from "redstone-protocol";
 import {
@@ -28,7 +29,6 @@ import { runPromiseWithLogging } from "../utils/utils";
 // update frequency in nodes, 5s cache TTL on the app level, and 5s cache TTL
 // on the CDN level - then the max data delay is ~20s, which is still good enough :)
 const CACHE_TTL = 5000;
-export const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 
 export interface StatsRequestParams {
   fromTimestamp: number;
@@ -393,7 +393,7 @@ export class DataPackagesService {
       cachedDataPackage.dataFeedId =
         receivedDataPackage.dataPoints[0].dataFeedId;
     } else {
-      cachedDataPackage.dataFeedId = ALL_FEEDS_KEY;
+      cachedDataPackage.dataFeedId = consts.ALL_FEEDS_KEY;
     }
     return cachedDataPackage;
   }

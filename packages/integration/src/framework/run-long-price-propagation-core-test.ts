@@ -14,7 +14,8 @@ import { compareDataPackagesFromLocalAndProd } from "./compare-data-packages";
 import { fetchLatestTimestampFromLocal } from "./fetch-latest-timestamp-from-local-cache";
 import { fetchDataPackagesFromCaches } from "./fetch-data-packages-from-local-and-prod-cache";
 import { printAllDeviations } from "./print-all-deviations";
-import { checkDeviations } from "./check-deviations";
+import { checkValuesDeviations } from "./check-values-deviations";
+import { checkSourcesDeviations } from "./check-sources-deviations";
 
 export interface DeviationsPerDataFeed {
   [dataFeedId: string]: number;
@@ -24,7 +25,13 @@ export interface DeviationsWithBigPackage {
   [dataFeedId: string]: number | DeviationsPerDataFeed;
 }
 
-export const ALL_FEEDS_DATA_FEED_ID = "___ALL_FEEDS___";
+export interface DeviationsPerSource {
+  [source: string]: number;
+}
+
+export interface SourceDeviationsPerDataFeed {
+  [dataFeedId: string]: DeviationsPerSource;
+}
 
 const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
@@ -92,12 +99,20 @@ export const runLongPricePropagationCoreTest = async (
     console.log(
       `Comparing data packages from local and prod cache for ${timestamp} timestamp`
     );
-    const deviationsPerDataFeed = compareDataPackagesFromLocalAndProd(
-      responseFromLocalCache,
-      responseFromProdCache
-    );
+    const { deviationsPerDataFeed, sourceDeviationsPerDataFeed } =
+      compareDataPackagesFromLocalAndProd(
+        responseFromLocalCache,
+        responseFromProdCache
+      );
     printAllDeviations(deviationsPerDataFeed);
-    checkDeviations(deviationsPerDataFeed, MAX_PERCENTAGE_VALUE_DIFFERENCE);
+    checkValuesDeviations(
+      deviationsPerDataFeed,
+      MAX_PERCENTAGE_VALUE_DIFFERENCE
+    );
+    checkSourcesDeviations(
+      sourceDeviationsPerDataFeed,
+      MAX_PERCENTAGE_VALUE_DIFFERENCE
+    );
   }
   process.exit();
 };
