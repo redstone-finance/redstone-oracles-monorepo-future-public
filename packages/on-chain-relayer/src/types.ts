@@ -18,6 +18,7 @@ export interface OnChainRelayerManifest {
     id: number;
   };
   updateTriggers: {
+    cron?: string;
     deviationPercentage?: number;
     timeSinceLastUpdateInMilliseconds?: number;
   };
@@ -32,6 +33,7 @@ export interface OnChainRelayerManifest {
 export interface RelayerConfig {
   relayerIterationInterval: number;
   updatePriceInterval?: number;
+  cronExpression?: string;
   rpcUrls: string[];
   chainName: string;
   chainId: number;
@@ -47,7 +49,8 @@ export interface RelayerConfig {
   adapterContractType: string;
   expectedTxDeliveryTimeInMS: number;
   isArbitrumNetwork: boolean;
-  fallbackOffsetInMinutes?: number;
+  fallbackOffsetInMinutes: number;
+  fallbackOffsetInMS: number;
   cacheServiceUrls?: string[];
   historicalPackagesGateways?: string[];
 }
@@ -68,4 +71,4 @@ export type OnChainRelayerEnv = {
 
 export type ConfigProvider = () => RelayerConfig;
 
-export type ConditionCheckNames = "time" | "value-deviation";
+export type ConditionCheckNames = "time" | "value-deviation" | "cron";

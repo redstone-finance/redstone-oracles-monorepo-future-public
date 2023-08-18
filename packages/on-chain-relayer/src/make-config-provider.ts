@@ -6,12 +6,13 @@ import {
 } from "./types";
 
 const DEFAULT_ADAPTER_CONTRACT_TYPE = "price-feeds";
+export const MS_IN_ONE_MINUTE = 60000;
 
 export const makeConfigProvider = (
   manifest: OnChainRelayerManifest,
   env: OnChainRelayerEnv
 ): RelayerConfig => {
-  const { timeSinceLastUpdateInMilliseconds, deviationPercentage } =
+  const { timeSinceLastUpdateInMilliseconds, deviationPercentage, cron } =
     manifest.updateTriggers;
   let updateConditions = [] as ConditionCheckNames[];
 
@@ -23,8 +24,13 @@ export const makeConfigProvider = (
     updateConditions.push("time");
   }
 
+  if (cron) {
+    updateConditions.push("cron");
+  }
+
   return Object.freeze({
     updatePriceInterval: timeSinceLastUpdateInMilliseconds,
+    cronExpression: cron,
     chainName: manifest.chain.name!,
     chainId: manifest.chain.id,
     adapterContractAddress: manifest.adapterContract,
@@ -34,6 +40,7 @@ export const makeConfigProvider = (
     minDeviationPercentage: deviationPercentage,
     adapterContractType:
       manifest.adapterContractType ?? DEFAULT_ADAPTER_CONTRACT_TYPE,
+    fallbackOffsetInMS: env.fallbackOffsetInMinutes * MS_IN_ONE_MINUTE,
     ...env,
   });
 };
