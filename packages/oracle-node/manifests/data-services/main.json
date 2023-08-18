@@ -1760,8 +1760,11 @@
     "sAVAX": {
       "source": ["avalanche-evm-fetcher"]
     },
-    "GLP": {
+    "GLP_AVALANCHE": {
       "source": ["avalanche-evm-fetcher"]
+    },
+    "GLP_ARBITRUM": {
+      "source": ["arbitrum-evm-fetcher"]
     },
     "YY_GLP": {
       "source": ["avalanche-evm-fetcher"]
