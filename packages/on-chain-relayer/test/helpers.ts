@@ -10,6 +10,7 @@ import { DataPackagesResponse } from "redstone-sdk";
 import { formatBytes32String } from "ethers/lib/utils";
 import { setConfigProvider } from "../src";
 import { ethers } from "hardhat";
+import { MS_IN_ONE_MINUTE } from "../src/make-config-provider";
 
 export const ethDataFeed = formatBytes32String("ETH");
 export const btcDataFeed = formatBytes32String("BTC");
@@ -62,6 +63,8 @@ export const mockEnvVariables = (overrideMockConfig: any = {}) => {
       updateConditions: ["time", "value-deviation"],
       minDeviationPercentage: 10,
       adapterContractType: "price-feeds",
+      fallbackOffsetInMS:
+        (overrideMockConfig.fallbackOffsetInMinutes ?? 0) * MS_IN_ONE_MINUTE,
       ...overrideMockConfig,
     };
   });
@@ -138,4 +141,13 @@ export const deployMockSortedOracles = async (signer?: Signer) => {
   const contract = await MockSortedOraclesFactory.deploy();
   await contract.deployed();
   return contract;
+};
+
+export const dateStrToMilliseconds = (str: string) => new Date(str).getTime();
+export const setCurrentSystemTime = (str: string) => {
+  Date.now = () => dateStrToMilliseconds(str);
+};
+export const originalDateNow = Date.now;
+export const restoreOriginalSystemTime = () => {
+  Date.now = originalDateNow;
 };
