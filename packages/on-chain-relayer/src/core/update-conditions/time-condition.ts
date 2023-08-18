@@ -1,13 +1,11 @@
 import { RelayerConfig } from "../../types";
 
-const MS_IN_ONE_MINUTE = 60000;
-
 export const timeUpdateCondition = (
   lastUpdateTimestamp: number,
   config: RelayerConfig
 ) => {
-  const fallbackOffsetInMinutes = config.fallbackOffsetInMinutes ?? 0;
-  const isFallback = fallbackOffsetInMinutes > 0;
+  const { fallbackOffsetInMS } = config;
+  const isFallback = fallbackOffsetInMS > 0;
   let updatePriceInterval = config.updatePriceInterval;
 
   if (!updatePriceInterval) {
@@ -15,7 +13,7 @@ export const timeUpdateCondition = (
   }
 
   if (isFallback) {
-    updatePriceInterval += MS_IN_ONE_MINUTE * fallbackOffsetInMinutes;
+    updatePriceInterval += fallbackOffsetInMS;
   }
 
   const currentTimestamp = Date.now();

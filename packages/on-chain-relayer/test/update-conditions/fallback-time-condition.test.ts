@@ -5,7 +5,9 @@ import { timeUpdateCondition } from "../../src/core/update-conditions/time-condi
 
 describe("fallback-time-condition", () => {
   before(() => {
-    mockEnvVariables({ fallbackOffsetInMinutes: 1 });
+    mockEnvVariables({
+      fallbackOffsetInMinutes: 1,
+    });
   });
 
   it("should return false if time diff smaller than interval", () => {

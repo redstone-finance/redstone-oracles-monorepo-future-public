@@ -6,6 +6,7 @@ import {
   RelayerConfig,
 } from "../../types";
 import { valueDeviationCondition } from "./value-deviation-condition";
+import { cronCondition } from "./cron-condition";
 
 export const shouldUpdate = async (
   context: Context,
@@ -45,6 +46,9 @@ const checkConditionByName = async (
   switch (name) {
     case "time":
       return timeUpdateCondition(context.lastUpdateTimestamp, config);
+
+    case "cron":
+      return cronCondition(context.lastUpdateTimestamp, config);
 
     case "value-deviation":
       return await valueDeviationCondition(

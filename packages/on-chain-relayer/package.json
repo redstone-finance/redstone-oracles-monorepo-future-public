@@ -14,14 +14,15 @@
     "test": "NODE_ENV=test hardhat test"
   },
   "dependencies": {
+    "@redstone-finance/evm-connector": "*",
+    "cron-parser": "^4.8.1",
     "dotenv": "^16.0.3",
     "ethers": "^5.6.8",
-    "toad-scheduler": "^2.2.0",
-    "@redstone-finance/evm-connector": "*",
     "redstone-protocol": "*",
     "redstone-rpc-providers": "*",
     "redstone-sdk": "*",
-    "redstone-utils": "*"
+    "redstone-utils": "*",
+    "toad-scheduler": "^2.2.0"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",
