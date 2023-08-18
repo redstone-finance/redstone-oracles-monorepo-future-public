@@ -1,0 +1,14 @@
+{
+  "chain": {
+    "name": "Arbitrum One",
+    "id": 42161
+  },
+  "updateTriggers": {
+    "cron": "0 8 * * *"
+  },
+  "adapterContract": "0x5B0E8F9B1A0De4fEC0fbe53387817f30D7Dec800",
+  "dataServiceId": "redstone-primary-demo",
+  "priceFeeds": {
+      "PREMIA-TWAP-60": "0x50db815D3c4B869F89925690E936ED85b0b76075"
+  }
+}
