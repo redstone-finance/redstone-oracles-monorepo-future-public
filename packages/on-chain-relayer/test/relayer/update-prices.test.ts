@@ -40,17 +40,16 @@ describe("update-prices", () => {
     await priceFeedsAdapter.deployed();
 
     // Update prices
-    const { lastUpdateTimestamp } = await getLastRoundParamsFromContract(
+    const lastUpdateTimestamps = await getLastRoundParamsFromContract(
       priceFeedsAdapter
     );
     const dataPackages = await getDataPackagesResponse();
     const updatePricesArgs = await getUpdatePricesArgs(
       dataPackages,
-      priceFeedsAdapter,
-      lastUpdateTimestamp
+      priceFeedsAdapter
     );
 
-    await updatePrices(updatePricesArgs.args!);
+    await updatePrices(updatePricesArgs);
 
     // Check updated values
     const dataFeedsValues = await priceFeedsAdapter.getValuesForDataFeeds([
@@ -86,17 +85,16 @@ describe("update-prices", () => {
     mockEnvVariables(overrideMockConfig);
 
     // Update prices
-    const { lastUpdateTimestamp } = await getLastRoundParamsFromContract(
+    const lastUpdateTimestamps = await getLastRoundParamsFromContract(
       mentoAdapter
     );
     const dataPackages = await getDataPackagesResponse();
     const updatePricesArgs = await getUpdatePricesArgs(
       dataPackages,
-      mentoAdapter,
-      lastUpdateTimestamp
+      mentoAdapter
     );
 
-    await updatePrices(updatePricesArgs.args!);
+    await updatePrices(updatePricesArgs);
 
     // Check updated values in SortedOracles
     const normalizeValue = (num: number) => parseUnits(num.toString(), 24);

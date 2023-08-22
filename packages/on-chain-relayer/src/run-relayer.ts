@@ -17,13 +17,11 @@ const runIteration = async () => {
   const adapterContract = getAdapterContract();
   const iterationArgs = await getIterationArgs(adapterContract);
   await sendHealthcheckPing();
-  
+
   if (iterationArgs.shouldUpdatePrices) {
-    if (!iterationArgs.args) {
-      return console.log(iterationArgs.message);
-    } else {
-      await updatePrices(iterationArgs.args);
-    }
+    await updatePrices(iterationArgs.args);
+  } else {
+    console.log(iterationArgs.message);
   }
 };
 

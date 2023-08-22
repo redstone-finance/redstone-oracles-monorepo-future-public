@@ -6,6 +6,7 @@ import {
   RelayerConfig,
 } from "../../types";
 import { valueDeviationCondition } from "./value-deviation-condition";
+import { checkIfDataPackageTimestampIsNewer } from "./data-packages-timestamp";
 import { cronCondition } from "./cron-condition";
 
 export const shouldUpdate = async (
@@ -26,6 +27,13 @@ export const shouldUpdate = async (
     }
   }
 
+  const { shouldNotUpdatePrice, message } =
+    checkIfDataPackageTimestampIsNewer(context);
+  if (shouldNotUpdatePrice) {
+    shouldUpdatePrices = false;
+    warningMessages.push(message!);
+  }
+
   console.log(
     `Update condition ${
       shouldUpdatePrices ? "" : "NOT "
@@ -42,13 +50,19 @@ const checkConditionByName = async (
   name: ConditionCheckNames,
   context: Context,
   config: RelayerConfig
-) => {
+): Promise<{ shouldUpdatePrices: boolean; warningMessage: string }> => {
   switch (name) {
     case "time":
-      return timeUpdateCondition(context.lastUpdateTimestamp, config);
+      return timeUpdateCondition(
+        context.lastUpdateTimestamps.lastBlockTimestampMS,
+        config
+      );
 
     case "cron":
-      return cronCondition(context.lastUpdateTimestamp, config);
+      return cronCondition(
+        context.lastUpdateTimestamps.lastBlockTimestampMS,
+        config
+      );
 
     case "value-deviation":
       return await valueDeviationCondition(

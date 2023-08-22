@@ -1,45 +1,26 @@
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { Contract } from "ethers";
 import { DataPackagesResponse } from "redstone-sdk";
+import { chooseDataPackagesTimestamp } from "../core/update-conditions/data-packages-timestamp";
 
 export interface UpdatePricesArgs {
   adapterContract: Contract;
   proposedTimestamp: number;
-
   wrapContract(adapterContract: Contract): Contract;
 }
 
-export const getUpdatePricesArgs = async (
+export const getUpdatePricesArgs = (
   dataPackages: DataPackagesResponse,
-  adapterContract: Contract,
-  lastUpdateTimestamp: number
-): Promise<{ args?: UpdatePricesArgs; message?: string }> => {
-  const dataPackagesTimestamps = Object.values(dataPackages).flatMap(
-    (dataPackages) =>
-      dataPackages.map(
-        (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
-      )
-  );
-  const minimalTimestamp = Math.min(...dataPackagesTimestamps);
+  adapterContract: Contract
+): UpdatePricesArgs => {
+  const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
 
-  if (lastUpdateTimestamp >= minimalTimestamp) {
-    const message = `Cannot update prices, proposed prices are not newer ${JSON.stringify(
-      {
-        lastUpdateTimestamp,
-        dataPackageTimestamp: minimalTimestamp,
-      }
-    )}`;
+  const wrapContract = (adapterContract: Contract) =>
+    WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
 
-    return { message };
-  } else {
-    const wrapContract = (adapterContract: Contract) =>
-      WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
-    let args = {
-      adapterContract,
-      wrapContract,
-      proposedTimestamp: minimalTimestamp,
-    };
-
-    return { args };
-  }
+  return {
+    adapterContract,
+    wrapContract,
+    proposedTimestamp,
+  };
 };
