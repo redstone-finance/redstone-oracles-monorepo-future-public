@@ -275,6 +275,14 @@
     },
     "GLP": {
       "source": ["arbitrum-evm-fetcher"]
+    },
+    "WSTETH": {
+      "source": [
+        "balancer-weth",
+        "coingecko",
+        "maverick",
+        "uniswap-v3-ethereum-on-chain-weth-500"
+      ]
     }
   }
 }
