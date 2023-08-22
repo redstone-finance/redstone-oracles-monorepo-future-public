@@ -1,9 +1,10 @@
 import { DataPackagesResponse, ValuesForDataFeeds } from "redstone-sdk";
+import { LastRoundTimestamps } from "./core/contract-interactions/get-last-round-params";
 
 export interface Context {
   dataPackages: DataPackagesResponse;
   valuesFromContract: ValuesForDataFeeds;
-  lastUpdateTimestamp: number;
+  lastUpdateTimestamps: LastRoundTimestamps;
   uniqueSignersThreshold: number;
 }
 

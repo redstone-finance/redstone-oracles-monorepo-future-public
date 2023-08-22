@@ -24,7 +24,10 @@ describe("should-update", () => {
       {
         dataPackages,
         valuesFromContract: smallerValueDiff,
-        lastUpdateTimestamp,
+        lastUpdateTimestamps: {
+          lastBlockTimestampMS: lastUpdateTimestamp,
+          lastDataPackageTimestampMS: lastUpdateTimestamp,
+        },
         uniqueSignersThreshold: 2,
       },
       config()
@@ -50,7 +53,11 @@ describe("should-update", () => {
       {
         dataPackages,
         valuesFromContract: biggerValueDiff,
-        lastUpdateTimestamp,
+        lastUpdateTimestamps: {
+          lastBlockTimestampMS: lastUpdateTimestamp,
+          // this timestamp should not be taken into account here
+          lastDataPackageTimestampMS: Date.now() - 1000000,
+        },
         uniqueSignersThreshold: 2,
       },
       config()
@@ -72,7 +79,10 @@ describe("should-update", () => {
       {
         dataPackages,
         valuesFromContract: smallerValueDiff,
-        lastUpdateTimestamp,
+        lastUpdateTimestamps: {
+          lastBlockTimestampMS: lastUpdateTimestamp,
+          lastDataPackageTimestampMS: lastUpdateTimestamp,
+        },
         uniqueSignersThreshold: 2,
       },
       config()
@@ -99,7 +109,10 @@ describe("should-update", () => {
       {
         dataPackages,
         valuesFromContract: sameValue,
-        lastUpdateTimestamp,
+        lastUpdateTimestamps: {
+          lastBlockTimestampMS: lastUpdateTimestamp,
+          lastDataPackageTimestampMS: lastUpdateTimestamp,
+        },
         uniqueSignersThreshold: 2,
       },
       config()
@@ -123,7 +136,11 @@ describe("should-update", () => {
       {
         dataPackages,
         valuesFromContract: sameValue,
-        lastUpdateTimestamp,
+        lastUpdateTimestamps: {
+          lastBlockTimestampMS: lastUpdateTimestamp,
+          // this timestamp should not be taken into account here
+          lastDataPackageTimestampMS: Date.now() + 100000,
+        },
         uniqueSignersThreshold: 2,
       },
       config()

@@ -1,10 +1,17 @@
 import { IRedstoneAdapter } from "../../../typechain-types";
 
+export type LastRoundTimestamps = {
+  lastDataPackageTimestampMS: number;
+  lastBlockTimestampMS: number;
+};
+
 export const getLastRoundParamsFromContract = async (
   adapterContract: IRedstoneAdapter
-) => {
+): Promise<LastRoundTimestamps> => {
   const timestamps = await adapterContract.getTimestampsFromLatestUpdate();
+
   return {
-    lastUpdateTimestamp: timestamps.blockTimestamp.toNumber() * 1000,
+    lastDataPackageTimestampMS: timestamps.dataTimestamp.toNumber(),
+    lastBlockTimestampMS: timestamps.blockTimestamp.toNumber() * 1000,
   };
 };
