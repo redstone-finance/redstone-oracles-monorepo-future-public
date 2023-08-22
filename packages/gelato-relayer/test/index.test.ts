@@ -2,19 +2,19 @@ import hre from "hardhat";
 import { expect } from "chai";
 import { before } from "mocha";
 import { Web3FunctionHardhat } from "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
-import * as args from "../web3-functions/redstone-test/userArgs.json";
+import * as args from "../web3-functions/redstone-mock/userArgs.json";
 
 import { Web3FunctionResultCallData } from "@gelatonetwork/web3-functions-sdk";
 
 const { w3f } = hre;
 
-describe("Redstone Gelato Relayer Tests", function () {
+describe("RedStone Gelato w3f Tests", function () {
   this.timeout(0);
 
   let redstoneW3f: Web3FunctionHardhat;
 
   before(async function () {
-    redstoneW3f = w3f.get("redstone-test");
+    redstoneW3f = w3f.get("redstone-mock");
   });
 
   it("Return canExec: true when update is needed", async () => {
