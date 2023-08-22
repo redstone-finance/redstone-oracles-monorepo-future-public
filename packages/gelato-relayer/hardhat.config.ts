@@ -11,14 +11,13 @@ import "hardhat-deploy";
 // Process Env Variables
 import * as dotenv from "dotenv";
 // Libraries
-import assert from "assert";
 
 dotenv.config();
 
-// Process Env Variables
-const ALCHEMY_ID = process.env.ALCHEMY_ID;
-assert.ok(ALCHEMY_ID, "no Alchemy ID in process.env");
+process.env.DENO_PATH = "./../../node_modules/deno-bin/bin/deno";
 
+// Process Env Variables - an empty ID might lead to a "Must be authorized" error.
+const ALCHEMY_ID = process.env.ALCHEMY_ID;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const ETHERSCAN_KEY = process.env.ETHERSCAN_KEY;
 
