@@ -8,7 +8,6 @@ import {
 } from "./get-update-prices-args";
 import { RedstoneAdapterBase } from "../../typechain-types";
 import { config } from "../config";
-
 import { fetchDataPackages } from "../core/fetch-data-packages";
 import { getUniqueSignersThresholdFromContract } from "../core/contract-interactions/get-unique-signers-threshold";
 
@@ -16,13 +15,13 @@ export const getIterationArgs = async (
   adapterContract: RedstoneAdapterBase
 ): Promise<{
   shouldUpdatePrices: boolean;
-  args?: UpdatePricesArgs;
+  args: UpdatePricesArgs;
   message?: string;
 }> => {
   const relayerConfig = config();
   const { dataFeeds, updateConditions } = relayerConfig;
 
-  const { lastUpdateTimestamp } = await getLastRoundParamsFromContract(
+  const lastUpdateTimestamps = await getLastRoundParamsFromContract(
     adapterContract
   );
 
@@ -51,24 +50,16 @@ export const getIterationArgs = async (
       dataPackages,
       valuesFromContract,
       uniqueSignersThreshold,
-      lastUpdateTimestamp,
+      lastUpdateTimestamps,
     },
     relayerConfig
   );
 
-  if (!shouldUpdatePrices) {
-    return { shouldUpdatePrices, message: warningMessage };
-  } else {
-    const updatePricesArgs = await getUpdatePricesArgs(
-      dataPackages,
-      adapterContract,
-      lastUpdateTimestamp
-    );
+  const updatePricesArgs = getUpdatePricesArgs(dataPackages, adapterContract);
 
-    return {
-      shouldUpdatePrices,
-      ...updatePricesArgs,
-      message: `${warningMessage}; ${updatePricesArgs.message || ""}`,
-    };
-  }
+  return {
+    shouldUpdatePrices,
+    message: warningMessage,
+    args: updatePricesArgs,
+  };
 };

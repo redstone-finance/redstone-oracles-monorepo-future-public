@@ -4,7 +4,6 @@ import { BigNumber, Contract, providers } from "ethers";
 import { fetchWithCache, sleepMS } from "./common";
 
 const ONE_GWEI = 1e9;
-const ETHERS_CONSTANT_MAX_PRIORITY_FEE = 1500000000;
 
 type ContractOverrides = {
   nonce: number;
@@ -257,11 +256,7 @@ export class TransactionDeliveryMan {
     provider: providers.JsonRpcProvider
   ): Promise<number> {
     try {
-      let feeHistory = await this.getFeeHistory(provider, "pending");
-      // some chains may not support "pending" (e.g. BNB)
-      if (!feeHistory.reward) {
-        feeHistory = await this.getFeeHistory(provider, "latest");
-      }
+      const feeHistory = await this.getFeeHistory(provider, "pending");
 
       const rewardsPerBlockForPercentile = feeHistory.reward
         .flat()
@@ -269,8 +264,9 @@ export class TransactionDeliveryMan {
 
       return Math.max(...rewardsPerBlockForPercentile);
     } catch (e) {
-      // last fallback if eth_feeHistory is not supported by RPC
-      return ETHERS_CONSTANT_MAX_PRIORITY_FEE;
+      // this should only works for networks which doesn't support EIP1559
+      // but implement some compatibility layer like BSC
+      return unsafeBnToNumber(await provider.getGasPrice());
     }
   }
 
@@ -280,7 +276,7 @@ export class TransactionDeliveryMan {
    */
   private async getFeeHistory(
     provider: providers.JsonRpcProvider,
-    newestBlock: "pending" | "latest"
+    newestBlock: "pending"
   ): Promise<FeeHistoryResponse> {
     return await provider.send("eth_feeHistory", [
       "0x2",
