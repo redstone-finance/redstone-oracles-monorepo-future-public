@@ -66,9 +66,7 @@
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
-        "gate",
-        "pangolin-on-chain-wavax",
-        "trader-joe-on-chain-wavax"
+        "gate"
       ]
     },
     "AVAX": {
@@ -152,15 +150,7 @@
       ]
     },
     "QI": {
-      "source": [
-        "binance",
-        "coingecko",
-        "coinmarketcap",
-        "kucoin",
-        "pangolin-on-chain-wavax",
-        "trader-joe-on-chain-wavax",
-        "xt"
-      ]
+      "source": ["binance", "coingecko", "coinmarketcap", "kucoin", "xt"]
     },
     "USDC": {
       "source": [
@@ -190,15 +180,7 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "PTP": {
-      "source": [
-        "bkex",
-        "coinex",
-        "coingecko",
-        "coinmarketcap",
-        "mexc",
-        "pangolin-on-chain-wavax",
-        "trader-joe-on-chain-wavax"
-      ]
+      "source": ["bkex", "coinex", "coingecko", "coinmarketcap", "mexc"]
     },
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"]
