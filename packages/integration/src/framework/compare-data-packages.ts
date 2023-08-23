@@ -129,11 +129,19 @@ const compareValuesFromSmallPackagesAndLocalCache = (
 ) => {
   const dataPointValueFromLocal =
     dataPackagesFromLocal[dataFeedId][0].dataPoints[0].value;
-  const deviations = allFeedObjectsFromProd.map(({ dataPoints }) =>
-    MathUtils.calculateDeviationPercent({
-      newValue: Number(dataPointValueFromLocal),
-      prevValue: Number(dataPoints[0].value),
-    })
+  const deviations = allFeedObjectsFromProd.reduce(
+    (deviations, { dataPoints }) => {
+      if (areBothValuesValid(dataPointValueFromLocal, dataPoints[0].value)) {
+        deviations.push(
+          MathUtils.calculateDeviationPercent({
+            newValue: dataPointValueFromLocal,
+            prevValue: dataPoints[0].value,
+          })
+        );
+      }
+      return deviations;
+    },
+    [] as number[]
   );
   return Math.max(...deviations);
 };
@@ -163,7 +171,7 @@ const compareSourcesValuesFromProdAndLocal = (
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         const valueFromLocal = sourceMetadataFromLocal[source]?.value ?? 0;
         const valueFromProd = value;
-        if (valueFromLocal && valueFromProd) {
+        if (areBothValuesValid(valueFromLocal, valueFromProd)) {
           const deviation = MathUtils.calculateDeviationPercent({
             newValue: valueFromLocal,
             prevValue: valueFromProd,
@@ -211,3 +219,12 @@ const compareValuesFromBigPackageAndLocalCache = (
   }
   return deviationsPerDataFeed;
 };
+
+const areBothValuesValid = (
+  valueFromLocal: number | string,
+  valueFromProd: number | string
+) =>
+  valueFromLocal &&
+  valueFromProd &&
+  valueFromLocal !== "error" &&
+  valueFromProd !== "error";
