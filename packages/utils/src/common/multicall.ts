@@ -7,9 +7,11 @@ export function overrideMulticallAddress(address: string) {
   multicallAddress = address;
 }
 
+export type CallParams = { function: string; params: any[] };
+
 export async function multiCallOneContract(
   contract: Contract,
-  calls: { function: string; params: any[] }[],
+  calls: CallParams[],
   blockNumber?: string
 ): Promise<any[]> {
   const functionToIndex: Record<string, number> = calls.reduce(
