@@ -12,7 +12,9 @@ export const sendHealthcheckPing = async () => {
           "Healthcheck address not found. Configure your `HEALTHCHECK_PING_URL` properly"
         );
       } else {
-        throw error;
+        console.error(
+          `Unknown error occurred, when trying to health check ping code: ${error?.code} message: ${error.message}`
+        );
       }
     }
   }

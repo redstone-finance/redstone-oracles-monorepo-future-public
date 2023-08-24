@@ -16,7 +16,7 @@ console.log(
 const runIteration = async () => {
   const adapterContract = getAdapterContract();
   const iterationArgs = await getIterationArgs(adapterContract);
-  await sendHealthcheckPing();
+  sendHealthcheckPing();
 
   if (iterationArgs.shouldUpdatePrices) {
     await updatePrices(iterationArgs.args);
