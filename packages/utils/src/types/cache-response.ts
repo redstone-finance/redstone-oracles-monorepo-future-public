@@ -1,8 +1,8 @@
-export interface DataPackageFromCacheResponse {
-  [dataFeedId: string]: DataPackageFromCache[];
+export interface DataPackageFromGatewayResponse {
+  [dataFeedId: string]: DataPackageFromGateway[];
 }
 
-export interface DataPackageFromCache {
+export interface DataPackageFromGateway {
   timestampMilliseconds: number;
   signature: string;
   dataPoints: [
