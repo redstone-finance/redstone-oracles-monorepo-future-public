@@ -7,26 +7,6 @@ import {
   SourceDeviationsPerDataFeed,
 } from "./run-long-price-propagation-core-test";
 
-// TODO: remove after updating primary prod nodes
-const removedDataFeedsFromManifest = [
-  "FRXETH",
-  "3Crv",
-  "crvFRAX",
-  "LINK",
-  "TJ_AVAX_USDC_AUTO",
-  "YYAV3SA1",
-  "XAVA",
-  "DAI",
-  "BUSD",
-  "USDT.e",
-];
-const sourcesRemovedFromManifest = [
-  "bybit",
-  "curve-frxeth",
-  "curve-3crv",
-  "curve-crvfrax",
-];
-
 export interface DataPackages {
   [dataFeedId: string]: Array<DataPackagePlainObj>;
 }
@@ -79,8 +59,7 @@ const getMissingDataFeedsInDataPackages = (
   dataFeedsFromFirstDataPackage.filter(
     (dataFeed) =>
       !dataFeedsFromSecondDataPackage.includes(dataFeed) &&
-      dataFeed !== consts.ALL_FEEDS_KEY &&
-      !removedDataFeedsFromManifest.includes(dataFeed)
+      dataFeed !== consts.ALL_FEEDS_KEY
   );
 
 const compareValuesInDataPackages = (
@@ -92,10 +71,6 @@ const compareValuesInDataPackages = (
   for (const [dataFeedId, allFeedObjectsFromProd] of Object.entries(
     dataPackagesFromProd
   )) {
-    if (removedDataFeedsFromManifest.includes(dataFeedId)) {
-      console.log(`Data feed ${dataFeedId} is removed from manifest, skipping`);
-      continue;
-    }
     const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY as string;
     if (dataFeedId === ALL_FEEDS_KEY) {
       const deviationsFromBigPackage = compareValuesFromBigPackageAndLocalCache(
@@ -164,10 +139,6 @@ const compareSourcesValuesFromProdAndLocal = (
       for (const [source, { value }] of Object.entries(
         sourceMetadataFromProd
       )) {
-        if (sourcesRemovedFromManifest.includes(source)) {
-          console.log(`Source ${source} is removed from manifest, skipping`);
-          continue;
-        }
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         const valueFromLocal = sourceMetadataFromLocal[source]?.value ?? 0;
         const valueFromProd = value;
@@ -196,12 +167,6 @@ const compareValuesFromBigPackageAndLocalCache = (
   for (const dataPackage of allFeedObjectsFromProd) {
     for (const dataPoint of dataPackage.dataPoints) {
       const dataFeedId = dataPoint.dataFeedId;
-      if (removedDataFeedsFromManifest.includes(dataFeedId)) {
-        console.log(
-          `Data feed ${dataFeedId} is removed from manifest, skipping`
-        );
-        continue;
-      }
       const dataFeedValueFromLocal =
         dataPackagesFromLocal[dataFeedId][0].dataPoints[0].value;
       const deviation = MathUtils.calculateDeviationPercent({
