@@ -37,7 +37,7 @@ export const getMedian = (numbers: ConvertibleToISafeNumber[]) =>
 export class PrecisionScaler {
   private readonly tokenDecimalsScaler: Decimal;
 
-  constructor(public readonly tokenDecimals: number) {
+  constructor(readonly tokenDecimals: number) {
     this.tokenDecimalsScaler = new Decimal(10).pow(tokenDecimals);
   }
 
@@ -46,8 +46,6 @@ export class PrecisionScaler {
   }
 
   fromSolidityValue(contractValue: BigNumber | string): Decimal {
-    return new Decimal(BigNumber.from(contractValue).toString()).div(
-      this.tokenDecimalsScaler
-    );
+    return new Decimal(contractValue.toString()).div(this.tokenDecimalsScaler);
   }
 }
