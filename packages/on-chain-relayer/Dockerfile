@@ -60,14 +60,4 @@ COPY --from=build /app/packages/oracles-smartweave-contracts/package.json ./pack
 
 RUN yarn install --frozen-lockfile --non-interactive --production=true
 
-ENV RELAYER_ITERATION_INTERVAL=600000
-ENV RPC_URLS='["https://rpc.ankr.com/eth_goerli"]'
-ENV PRIVATE_KEY=
-ENV UNIQUE_SIGNERS_COUNT=1
-ENV CACHE_SERVICE_URLS='["https://d1zm8lxy9v2ddd.cloudfront.net"]'
-ENV GAS_LIMIT=5000000
-ENV HEALTHCHECK_PING_URL=
-ENV HISTORICAL_PACKAGES_GATEWAYS=
-ENV HISTORICAL_PACKAGES_DATA_SERVICE_ID=redstone-primary-prod
-
 CMD cd packages/on-chain-relayer && node src/run-relayer.js
