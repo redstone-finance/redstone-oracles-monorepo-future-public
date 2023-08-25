@@ -132,6 +132,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "curve-usdc",
         "curve-usdt",
         "huobipro",
@@ -160,6 +161,7 @@
     "FRAX": {
       "source": [
         "coingecko",
+        "coinmarketcap",
         "curve-usdc-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
@@ -184,6 +186,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "currencycom",
         "dia",
         "hitbtc",
@@ -216,6 +219,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "currencycom",
         "hitbtc",
         "huobipro",
@@ -242,6 +246,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "huobipro",
         "gate",
         "kraken",
@@ -264,6 +269,7 @@
         "bybit",
         "coinbaseprime",
         "coinbasepro",
+        "coinmarketcap",
         "okx",
         "xt",
         "huobipro",
@@ -278,6 +284,7 @@
       "source": [
         "balancer-weth",
         "coingecko",
+        "coinmarketcap",
         "maverick",
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
