@@ -117,7 +117,6 @@
     "GMX": {
       "source": [
         "binance",
-        "bkex",
         "bybit",
         "coingecko",
         "coinmarketcap",
@@ -151,7 +150,6 @@
       "source": [
         "binance",
         "bitrue",
-        "bkex",
         "coingecko",
         "coinmarketcap",
         "lbank",
@@ -286,6 +284,23 @@
     },
     "WSTETH_LIMIT_CHECK": {
       "source": ["ethereum-evm-fetcher"]
+    },
+    "JOE": {
+      "source": [
+        "binance",
+        "bitget",
+        "bitrue",
+        "coingecko",
+        "coinmarketcap",
+        "huobipro",
+        "gate",
+        "latoken",
+        "mexc",
+        "okx",
+        "phemex",
+        "trader-joe-on-chain-wavax",
+        "xt"
+      ]
     }
   }
 }
