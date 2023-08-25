@@ -286,6 +286,7 @@
         "binanceus",
         "bitcoincom",
         "coingecko",
+        "coinmarketcap",
         "hitbtc",
         "lbank",
         "oceanex"
@@ -301,6 +302,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "curve-usdc",
         "curve-usdt",
         "huobipro",
@@ -364,6 +366,7 @@
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
+        "coinmarketcap",
         "huobipro",
         "trader-joe-v2-avalanche-on-chain-usdc",
         "uniswap-v3-ethereum-on-chain-usdc-500"
@@ -384,6 +387,7 @@
         "bybit",
         "coinbaseprime",
         "coinbasepro",
+        "coinmarketcap",
         "okx",
         "xt",
         "huobipro",
