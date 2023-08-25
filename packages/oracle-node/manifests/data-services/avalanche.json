@@ -180,7 +180,7 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "PTP": {
-      "source": ["bkex", "coinex", "coingecko", "coinmarketcap", "mexc"]
+      "source": ["coinex", "coingecko", "coinmarketcap", "mexc"]
     },
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"]
@@ -250,7 +250,6 @@
     "GMX": {
       "source": [
         "binance",
-        "bkex",
         "bybit",
         "coingecko",
         "coinmarketcap",
@@ -269,11 +268,11 @@
         "binance",
         "bitget",
         "bitrue",
-        "bkex",
         "coingecko",
         "coinmarketcap",
         "huobipro",
         "gate",
+        "latoken",
         "mexc",
         "okx",
         "phemex",
