@@ -308,6 +308,9 @@
         "trader-joe-on-chain-wavax",
         "xt"
       ]
+    },
+    "MOO_GMX": {
+      "source": ["arbitrum-evm-fetcher"]
     }
   }
 }
