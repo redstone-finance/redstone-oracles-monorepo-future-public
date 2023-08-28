@@ -1070,6 +1070,9 @@
     "PREMIA-TWAP-60": {
       "source": ["twap-cache-service-minute-redstone-main-demo"]
     },
+    "MOO_GMX": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
     "ANS": {
       "source": ["permaswap"]
     },
