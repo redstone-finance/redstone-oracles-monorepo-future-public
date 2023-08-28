@@ -776,7 +776,7 @@
       ]
     },
     "CANTO": {
-      "source": ["bkex", "coingecko", "gate", "mexc"]
+      "source": ["bitget", "bitmart", "coingecko", "gate", "mexc"]
     },
     "GMX": {
       "source": [
