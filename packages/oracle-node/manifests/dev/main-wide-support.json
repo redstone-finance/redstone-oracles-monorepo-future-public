@@ -136,6 +136,20 @@
         "uniswap"
       ]
     },
+    "USDC.e": {
+      "source": [
+        "camelot-weth",
+        "camelot-usdt",
+        "uniswap-v3-arbitrum-on-chain-weth-500",
+        "uniswap-v3-arbitrum-on-chain-weth-3000",
+        "uniswap-v3-arbitrum-on-chain-arb-500",
+        "uniswap-v3-arbitrum-on-chain-usdc-100",
+        "uniswap-v3-arbitrum-on-chain-arb-3000",
+        "uniswap-v3-arbitrum-on-chain-usdt-100",
+        "uniswap-v3-arbitrum-on-chain-dai-100",
+        "uniswap-v3-arbitrum-on-chain-dai-500"
+      ]
+    },
     "XRP": {
       "source": [
         "ascendex",
