@@ -43,7 +43,9 @@
     },
     "USDC": {
       "source": [
+        "binance",
         "binanceus",
+        "binanceusdm",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -55,10 +57,16 @@
         "kraken",
         "kucoin",
         "lbank",
+        "maverick",
         "okx",
         "probit",
-        "sushiswap",
-        "uniswap"
+        "uniswap-v3-ethereum-on-chain-weth-500",
+        "uniswap-v3-ethereum-on-chain-dai-100",
+        "uniswap-v3-ethereum-on-chain-usdt-100",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "uniswap-v3-ethereum-on-chain-dai-500",
+        "uniswap-v3-ethereum-on-chain-weth-10000",
+        "uniswap-v3-ethereum-on-chain-usdt-500"
       ],
       "deviationWithRecentValues": {
         "maxPercent": 5,
