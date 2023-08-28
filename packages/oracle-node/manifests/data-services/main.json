@@ -1079,6 +1079,12 @@
     "ACNH": {
       "source": ["permaswap"]
     },
+    "U": {
+      "source": ["permaswap"]
+    },
+    "STAMP": {
+      "source": ["permaswap"]
+    },
     "AUD": {
       "source": ["binance", "currencycom", "ecb", "kraken", "twelve-data"]
     },
