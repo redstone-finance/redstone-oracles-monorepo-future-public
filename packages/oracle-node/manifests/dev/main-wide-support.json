@@ -756,11 +756,17 @@
     "FXS": {
       "source": [
         "binance",
+        "bitget",
+        "bitmart",
         "bitrue",
-        "bkex",
         "coingecko",
+        "coinmarketcap",
+        "huobipro",
+        "latoken",
         "lbank",
+        "mexc",
         "kucoin",
+        "okx",
         "phemex"
       ]
     },
@@ -794,14 +800,21 @@
     "GMX": {
       "source": [
         "binance",
+        "bitget",
+        "bitmart",
+        "bitrue",
         "bkex",
         "bybit",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "huobipro",
+        "kraken",
         "kucoin",
         "mexc",
-        "trader-joe"
+        "okx",
+        "phemex",
+        "trader-joe-on-chain-wavax"
       ]
     },
     "BIT": {
