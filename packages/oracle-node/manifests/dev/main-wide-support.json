@@ -1099,6 +1099,28 @@
     "YY_WOMBEX_GLP": {
       "source": ["arbitrum-evm-fetcher"]
     },
+    "BAL": {
+      "source": [
+        "balancer-multi-weth",
+        "bitget",
+        "bitmart",
+        "binance",
+        "binanceusdm",
+        "bitfinex2",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "mexc",
+        "okx",
+        "xt"
+      ]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
