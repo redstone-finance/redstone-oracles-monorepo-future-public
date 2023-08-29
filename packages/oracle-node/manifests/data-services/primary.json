@@ -176,7 +176,7 @@
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
-    "WSTETH_LIMIT_CHECK": {
+    "WSTETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher"]
     },
     "SWETH": {
