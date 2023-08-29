@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable, Logger } from "@nestjs/common";
-import { Cache } from "cache-manager";
 import {
   RedstonePayload,
   UniversalSigner,
@@ -23,6 +22,7 @@ import { makePayload } from "../utils/make-redstone-payload";
 import { getOracleState } from "../utils/get-oracle-state";
 import { BundlrService } from "../bundlr/bundlr.service";
 import { runPromiseWithLogging } from "../utils/utils";
+import { RedstoneCommon } from "redstone-utils";
 
 // Cache TTL can slightly increase the data delay, but having efficient
 // caching is crucial for the app performance. Assuming, that we have 10s
@@ -70,45 +70,18 @@ export class DataPackagesService {
     await DataPackage.insertMany(dataPackages);
   }
 
-  async getLatestDataPackagesWithSameTimestampWithCache(
-    dataServiceId: string,
-    cacheManager: Cache
-  ): Promise<DataPackagesResponse> {
-    const cacheKey = `data-packages/latest/${dataServiceId}`;
-    const dataPackagesFromCache = await cacheManager.get<DataPackagesResponse>(
-      cacheKey
-    );
+  getLatestDataPackagesWithSameTimestampWithCache = RedstoneCommon.memoize({
+    functionToMemoize: (dataServiceId: string) =>
+      this.getLatestDataPackagesWithSameTimestamp(dataServiceId),
+    ttl: CACHE_TTL,
+  });
 
-    if (!dataPackagesFromCache) {
-      const dataPackages = await this.getLatestDataPackagesWithSameTimestamp(
-        dataServiceId
-      );
-      await cacheManager.set(cacheKey, dataPackages, CACHE_TTL);
-      return dataPackages;
-    } else {
-      return dataPackagesFromCache;
-    }
-  }
+  getMostRecentDataPackagesWithCache = RedstoneCommon.memoize({
+    functionToMemoize: (dataServiceId: string) =>
+      this.getMostRecentDataPackagesFromDB(dataServiceId),
+    ttl: CACHE_TTL,
+  });
 
-  async getMostRecentDataPackagesWithCache(
-    dataServiceId: string,
-    cacheManager: Cache
-  ): Promise<DataPackagesResponse> {
-    const cacheKey = `data-packages/latest-not-aligned-by-time/${dataServiceId}`;
-    const dataPackagesFromCache = await cacheManager.get<DataPackagesResponse>(
-      cacheKey
-    );
-
-    if (!dataPackagesFromCache) {
-      const dataPackages = await this.getMostRecentDataPackagesFromDB(
-        dataServiceId
-      );
-      await cacheManager.set(cacheKey, dataPackages, CACHE_TTL);
-      return dataPackages;
-    } else {
-      return dataPackagesFromCache;
-    }
-  }
   async getByTimestamp(
     dataServiceId: string,
     timestamp: number
@@ -270,27 +243,21 @@ export class DataPackagesService {
     );
   }
 
-  async queryLatestDataPackages(
-    requestParams: DataPackagesRequestParams,
-    cacheManager: Cache
-  ) {
+  async queryLatestDataPackages(requestParams: DataPackagesRequestParams) {
     const cachedDataPackagesResponse =
       await this.getLatestDataPackagesWithSameTimestampWithCache(
-        requestParams.dataServiceId,
-        cacheManager
+        requestParams.dataServiceId
       );
 
     return parseDataPackagesResponse(cachedDataPackagesResponse, requestParams);
   }
 
   async getPayload(
-    requestParams: DataPackagesRequestParams,
-    cacheManager: Cache
+    requestParams: DataPackagesRequestParams
   ): Promise<RedstonePayload> {
     const cachedDataPackagesResponse =
       await this.getMostRecentDataPackagesWithCache(
-        requestParams.dataServiceId,
-        cacheManager
+        requestParams.dataServiceId
       );
 
     const dataPackages = parseDataPackagesResponse(
