@@ -34,6 +34,8 @@ import {
 } from "../common/mock-values";
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
 import { signByMockSigner } from "../common/test-utils";
+import { DataPackagesService } from "../../src/data-packages/data-packages.service";
+import { RedstoneCommon } from "redstone-utils";
 
 type WithSigner = { signerAddress: string };
 
@@ -578,5 +580,62 @@ describe("Data packages (e2e)", () => {
         "api-key": "invalid-api-key",
       })
       .expect(401);
+  });
+
+  describe("cache", () => {
+    it("/data-packages/latest (GET) - should serve cached result", async () => {
+      // invalidate cache
+      jest.spyOn(Date, "now").mockImplementationOnce(() => -1);
+
+      const dataPackageService = app.get(DataPackagesService);
+
+      const getLatestSpy = jest.spyOn(
+        dataPackageService,
+        "getLatestDataPackagesWithSameTimestamp"
+      );
+      const firstRequest = request(httpServer)
+        .get("/data-packages/latest/mock-data-service-1")
+        .expect(200);
+
+      const secondConcurrentRequest = request(httpServer)
+        .get("/data-packages/latest/mock-data-service-1")
+        .expect(200);
+
+      await Promise.all([firstRequest, secondConcurrentRequest]);
+      expect(getLatestSpy).toBeCalledTimes(1);
+
+      await request(httpServer)
+        .get("/data-packages/latest/mock-data-service-1")
+        .expect(200);
+
+      expect(getLatestSpy).toBeCalledTimes(1);
+    });
+
+    it("/data-packages/latest (GET) - should be called twice for different data-service-id", async () => {
+      jest.spyOn(Date, "now").mockImplementationOnce(() => -1);
+
+      const dataPackageService = app.get(DataPackagesService);
+
+      const getLatestSpy = jest.spyOn(
+        dataPackageService,
+        "getLatestDataPackagesWithSameTimestamp"
+      );
+      const firstRequest = request(httpServer)
+        .get("/data-packages/latest/mock-data-service-1")
+        .expect(200);
+
+      const secondConcurrentRequest = request(httpServer)
+        .get("/data-packages/latest/mock-data-service-2")
+        .expect(200);
+
+      await Promise.all([firstRequest, secondConcurrentRequest]);
+      expect(getLatestSpy).toBeCalledTimes(2);
+
+      await request(httpServer)
+        .get("/data-packages/latest/mock-data-service-1")
+        .expect(200);
+
+      expect(getLatestSpy).toBeCalledTimes(2);
+    });
   });
 });
