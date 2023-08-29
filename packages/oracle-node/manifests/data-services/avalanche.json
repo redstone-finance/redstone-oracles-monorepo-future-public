@@ -258,13 +258,19 @@
     "GMX": {
       "source": [
         "binance",
+        "bitget",
+        "bitmart",
+        "bitrue",
         "bybit",
         "coingecko",
         "coinmarketcap",
         "gate",
         "huobipro",
+        "kraken",
         "kucoin",
         "mexc",
+        "okx",
+        "phemex",
         "trader-joe-on-chain-wavax"
       ]
     },

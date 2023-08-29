@@ -90,12 +90,17 @@
     "FXS": {
       "source": [
         "binance",
+        "bitget",
+        "bitmart",
         "bitrue",
-        "bkex",
         "coingecko",
+        "coinmarketcap",
+        "huobipro",
+        "latoken",
         "lbank",
-        "kaiko",
+        "mexc",
         "kucoin",
+        "okx",
         "phemex"
       ],
       "skipSigning": true
