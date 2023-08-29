@@ -25,6 +25,13 @@ export const mockOracleRegistryState: RedstoneOraclesState = {
       description: "mock-description",
       admin: "mock-admin",
     },
+    "mock-data-service-2": {
+      name: "Mock data service 1",
+      manifestTxId: "mock-manifest-tx-id",
+      logo: "mock-logo-url",
+      description: "mock-description",
+      admin: "mock-admin",
+    },
   },
   nodes: {
     "mock-node-1": {
