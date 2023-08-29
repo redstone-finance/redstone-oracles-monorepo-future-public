@@ -238,3 +238,4 @@ export * from "./contracts/ContractParamsProvider";
 export * from "./contracts/IContractConnector";
 export * from "./contracts/prices/IPricesContractAdapter";
 export * from "./data-feed-values";
+export * from "./fetch-data-packages";
