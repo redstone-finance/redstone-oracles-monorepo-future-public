@@ -1,7 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["bybit"],
+  "defaultSource": ["bingx"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,19 +10,6 @@
     }
   },
   "tokens": {
-    "AVAX": {},
-    "GMX": {},
-    "CMP": {},
-    "BNB": {},
-    "CRV": {},
-    "AAVE": {},
-    "STETH": {},
-    "TRX": {},
-    "SHIB": {},
-    "PEPE": {},
-    "ARB": {},
-    "OP": {},
-    "DYDX": {},
     "DPX": {},
     "USDT": {
       "source": ["coingecko"]

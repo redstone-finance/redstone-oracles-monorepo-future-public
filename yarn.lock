@@ -7597,10 +7597,10 @@ cbor@^9.0.0:
   dependencies:
     nofilter "^3.1.0"
 
-ccxt@^3.0.92:
-  version "3.1.60"
-  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-3.1.60.tgz#04c75d2c811869f07caa2acbc0b7d69942b5ca83"
-  integrity sha512-tUQUdPuuWFsegDjdVHaHM2tpXBV1AgXAs7wJYbwn9AnJvKQR/d2xXaDKU709Wr2Jt1ojnTqltYrbab6BjmsUDQ==
+ccxt@^4.0.78:
+  version "4.0.78"
+  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-4.0.78.tgz#22870a1d43bafadd1788b5b97a81fa5aa593fd5a"
+  integrity sha512-IOHgMiGFT7bpaOcCnLe8pYCLX5Fzio6UtVRSAvL8OnxepyWzWXChgvko26xaSh4ms39ZOBQE2UbcCLuiyDINKw==
   dependencies:
     ws "^8.8.1"
 
