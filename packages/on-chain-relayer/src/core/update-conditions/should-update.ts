@@ -34,12 +34,6 @@ export const shouldUpdate = async (
     warningMessages.push(message!);
   }
 
-  console.log(
-    `Update condition ${
-      shouldUpdatePrices ? "" : "NOT "
-    }satisfied: ${warningMessages.join("; ")}`
-  );
-
   return {
     shouldUpdatePrices,
     warningMessage: JSON.stringify(warningMessages),
