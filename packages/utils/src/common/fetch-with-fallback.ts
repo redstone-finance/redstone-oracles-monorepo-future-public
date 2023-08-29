@@ -1,14 +1,13 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export type AxiosGetRequest = {
   urls: string[];
-  axiosConfig?: AxiosRequestConfig<any>;
+  axiosConfig?: AxiosRequestConfig;
 };
 
-export const fetchWithFallbacks = async <T>(args: AxiosGetRequest) => {
+export const fetchWithFallbacks = <T>(
+  args: AxiosGetRequest
+): Promise<AxiosResponse<T>> => {
   const requests = args.urls.map((url) => axios.get<T>(url, args.axiosConfig));
-
-  const response = await Promise.any(requests);
-
-  return response;
+  return Promise.any(requests);
 };
