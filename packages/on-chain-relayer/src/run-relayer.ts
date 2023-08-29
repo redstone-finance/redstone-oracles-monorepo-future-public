@@ -16,12 +16,16 @@ console.log(
 const runIteration = async () => {
   const adapterContract = getAdapterContract();
   const iterationArgs = await getIterationArgs(adapterContract);
+
   sendHealthcheckPing();
+  console.log(
+    `Update condition ${
+      iterationArgs.shouldUpdatePrices ? "" : "NOT "
+    }satisfied: ${iterationArgs.message}`
+  );
 
   if (iterationArgs.shouldUpdatePrices) {
     await updatePrices(iterationArgs.args);
-  } else {
-    console.log(iterationArgs.message);
   }
 };
 
