@@ -1093,6 +1093,17 @@
     "MOO_GMX": {
       "source": ["arbitrum-evm-fetcher"]
     },
+    "DPX": {
+      "source": [
+        "bingx",
+        "bitget",
+        "bybit",
+        "coinex",
+        "coingecko",
+        "kucoin",
+        "mexc"
+      ]
+    },
     "ANS": {
       "source": ["permaswap"]
     },
