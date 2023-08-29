@@ -337,6 +337,18 @@
     },
     "MOO_GMX": {
       "source": ["arbitrum-evm-fetcher"]
+    },
+    "DPX": {
+      "source": [
+        "bingx",
+        "bitget",
+        "bybit",
+        "coinex",
+        "coingecko",
+        "coinmarketcap",
+        "kucoin",
+        "mexc"
+      ]
     }
   }
 }
