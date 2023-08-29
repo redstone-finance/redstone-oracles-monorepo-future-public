@@ -143,13 +143,19 @@
     "GMX": {
       "source": [
         "binance",
+        "bitget",
+        "bitmart",
+        "bitrue",
         "bybit",
         "coingecko",
         "coinmarketcap",
         "gate",
         "huobipro",
+        "kraken",
         "kucoin",
-        "mexc"
+        "mexc",
+        "okx",
+        "phemex"
       ]
     },
     "DAI": {
@@ -176,11 +182,17 @@
     "FXS": {
       "source": [
         "binance",
+        "bitget",
+        "bitmart",
         "bitrue",
         "coingecko",
         "coinmarketcap",
+        "huobipro",
+        "latoken",
         "lbank",
+        "mexc",
         "kucoin",
+        "okx",
         "phemex"
       ]
     },
