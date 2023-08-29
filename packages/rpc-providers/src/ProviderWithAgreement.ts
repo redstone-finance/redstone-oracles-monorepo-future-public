@@ -82,36 +82,39 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     return callResult;
   }
 
-  private electBlockNumber = RedstoneCommon.memoize(async () => {
-    // collect block numbers
-    const blockNumbersResults = await Promise.allSettled(
-      this.providers.map((provider) =>
-        timeout(
-          provider.getBlockNumber(),
-          this.agreementConfig.getBlockNumberTimeoutMS
+  private electBlockNumber = RedstoneCommon.memoize({
+    functionToMemoize: async () => {
+      // collect block numbers
+      const blockNumbersResults = await Promise.allSettled(
+        this.providers.map((provider) =>
+          timeout(
+            provider.getBlockNumber(),
+            this.agreementConfig.getBlockNumberTimeoutMS
+          )
         )
-      )
-    );
-
-    const blockNumbers = blockNumbersResults
-      .filter((result) => result.status === "fulfilled")
-      .map((result) => (result as PromiseFulfilledResult<number>).value);
-
-    if (blockNumbers.length === 0) {
-      throw new AggregateError(
-        `Failed to getBlockNumber from at least one provider: ${blockNumbersResults.map(
-          (result) => (result as PromiseRejectedResult).reason
-        )}`
       );
-    }
 
-    const electedBlockNumber = this.agreementConfig.electBlockFn(
-      blockNumbers,
-      this.providers.length
-    );
+      const blockNumbers = blockNumbersResults
+        .filter((result) => result.status === "fulfilled")
+        .map((result) => (result as PromiseFulfilledResult<number>).value);
 
-    return electedBlockNumber;
-  }, BLOCK_NUMBER_TTL);
+      if (blockNumbers.length === 0) {
+        throw new AggregateError(
+          `Failed to getBlockNumber from at least one provider: ${blockNumbersResults.map(
+            (result) => (result as PromiseRejectedResult).reason
+          )}`
+        );
+      }
+
+      const electedBlockNumber = this.agreementConfig.electBlockFn(
+        blockNumbers,
+        this.providers.length
+      );
+
+      return electedBlockNumber;
+    },
+    ttl: BLOCK_NUMBER_TTL,
+  });
 
   private executeCallWithAgreement(
     transaction: Deferrable<TransactionRequest>,

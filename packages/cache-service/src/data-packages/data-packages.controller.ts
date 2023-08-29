@@ -38,10 +38,7 @@ const CONTENT_TYPE_JSON = "application/json";
 @Controller("data-packages")
 @UsePipes(new ValidationPipe({ transform: true }))
 export class DataPackagesController {
-  constructor(
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    private dataPackagesService: DataPackagesService
-  ) {}
+  constructor(private dataPackagesService: DataPackagesService) {}
 
   private prepareDataPackagesRequestParams(
     query: GetLatestDataPackagesQuery
@@ -80,8 +77,7 @@ export class DataPackagesController {
   ): Promise<DataPackagesResponse> {
     await this.validateDataServiceId(dataServiceId);
     return this.dataPackagesService.getLatestDataPackagesWithSameTimestampWithCache(
-      dataServiceId,
-      this.cacheManager
+      dataServiceId
     );
   }
 
@@ -92,8 +88,7 @@ export class DataPackagesController {
   ): Promise<DataPackagesResponse> {
     await this.validateDataServiceId(dataServiceId);
     return this.dataPackagesService.getMostRecentDataPackagesWithCache(
-      dataServiceId,
-      this.cacheManager
+      dataServiceId
     );
   }
 
@@ -120,8 +115,7 @@ export class DataPackagesController {
   @Header("Cache-Control", "max-age=5")
   async getLatest(@Query() query: GetLatestDataPackagesQuery) {
     return await this.dataPackagesService.queryLatestDataPackages(
-      this.prepareDataPackagesRequestParams(query),
-      this.cacheManager
+      this.prepareDataPackagesRequestParams(query)
     );
   }
 
@@ -131,8 +125,7 @@ export class DataPackagesController {
     @Res() res: Response
   ) {
     const payload = await this.dataPackagesService.getPayload(
-      this.prepareDataPackagesRequestParams(query),
-      this.cacheManager
+      this.prepareDataPackagesRequestParams(query)
     );
     this.sendSerializableResponse(res, payload, query.format);
   }
