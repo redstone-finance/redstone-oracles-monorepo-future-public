@@ -348,6 +348,29 @@
         "xt"
       ]
     },
+    "BAL": {
+      "source": [
+        "balancer-multi-weth",
+        "bitget",
+        "bitmart",
+        "binance",
+        "binanceusdm",
+        "bitfinex2",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "mexc",
+        "okx",
+        "xt"
+      ]
+    },
     "MOO_GMX": {
       "source": ["arbitrum-evm-fetcher"]
     },
