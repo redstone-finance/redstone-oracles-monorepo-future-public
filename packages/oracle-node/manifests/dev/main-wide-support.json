@@ -871,7 +871,7 @@
         "uniswap-v2-on-chain-weth"
       ]
     },
-    "WSTETH": {
+    "wstETH": {
       "source": [
         "balancer-weth",
         "coingecko",
@@ -880,7 +880,7 @@
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
-    "WSTETH_FUNDAMENTAL": {
+    "wstETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher"]
     },
     "PLS": {
