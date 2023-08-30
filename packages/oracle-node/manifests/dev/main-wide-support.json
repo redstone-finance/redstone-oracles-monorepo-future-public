@@ -1121,6 +1121,12 @@
         "xt"
       ]
     },
+    "SUSHI_DPX_ETH_LP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "MOO_SUSHI_DPX_ETH_LP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
