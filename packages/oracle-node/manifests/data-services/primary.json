@@ -17,7 +17,6 @@
     "USDC": {
       "source": [
         "binance",
-        "binanceus",
         "binanceusdm",
         "bitfinex2",
         "bittrex",
@@ -48,7 +47,6 @@
     },
     "USDT": {
       "source": [
-        "binanceus",
         "bitfinex2",
         "bittrex",
         "cex",
@@ -68,7 +66,6 @@
     },
     "DAI": {
       "source": [
-        "binanceus",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -129,7 +126,6 @@
         "bequant",
         "binance",
         "binancecoinm",
-        "binanceus",
         "binanceusdm",
         "bitcoincom",
         "bitfinex2",
