@@ -3,7 +3,7 @@ import { Deferrable } from "@ethersproject/properties";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { utils } from "ethers";
 import { RedstoneCommon } from "redstone-utils";
-import { sleepMS, timeout } from "./common";
+import { sleepMS } from "./common";
 import {
   ProviderWithFallback,
   ProviderWithFallbackConfig,
@@ -87,7 +87,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       // collect block numbers
       const blockNumbersResults = await Promise.allSettled(
         this.providers.map((provider) =>
-          timeout(
+          RedstoneCommon.timeout(
             provider.getBlockNumber(),
             this.agreementConfig.getBlockNumberTimeoutMS
           )

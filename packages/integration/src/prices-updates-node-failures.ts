@@ -64,9 +64,9 @@ const main = async () => {
 
   await startAndWaitForCacheLayer(cacheLayerInstance1, false);
   await startAndWaitForCacheLayer(cacheLayerInstance2, false);
-  startAndWaitForOracleNode(oracleNodeInstance1, allCacheLayers);
-  startAndWaitForOracleNode(oracleNodeInstance2, allCacheLayers);
-  startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
+  await startAndWaitForOracleNode(oracleNodeInstance1, allCacheLayers);
+  await startAndWaitForOracleNode(oracleNodeInstance2, allCacheLayers);
+  await startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
   await waitForDataAndDisplayIt(cacheLayerInstance1);
   await waitForDataAndDisplayIt(cacheLayerInstance2);
   await startAndWaitForHardHat(hardhatInstance);
@@ -120,9 +120,9 @@ const main = async () => {
   );
 
   // start stopped nodes and cache service, stop another cache service one and verify if everything works
-  startAndWaitForOracleNode(oracleNodeInstance2, allCacheLayers);
-  startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
-  await startDirectAndPublicCacheServices(cacheLayerInstance1);
+  await startAndWaitForOracleNode(oracleNodeInstance2, allCacheLayers);
+  await startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
+  await await startDirectAndPublicCacheServices(cacheLayerInstance1);
   stopDirectAndPublicCacheServices(cacheLayerInstance2);
   setMockPrices({ __DEFAULT__: 45 });
   expectedPrices = { BTC: 45 };

@@ -50,7 +50,7 @@ const main = async () => {
     ETH: 1500,
     __DEFAULT__: 42,
   });
-  startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
+  await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
   await waitForDataAndDisplayIt(cacheLayerInstance);
   await startAndWaitForHardHat(hardhatInstance);
 

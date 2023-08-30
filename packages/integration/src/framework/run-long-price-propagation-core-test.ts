@@ -56,7 +56,7 @@ export const runLongPricePropagationCoreTest = async (
   await buildOracleNode();
 
   await startAndWaitForCacheLayer(cacheLayerInstance, true, true);
-  startAndWaitForOracleNode(
+  await startAndWaitForOracleNode(
     oracleNodeInstance,
     [cacheLayerInstance],
     manifestFileName
