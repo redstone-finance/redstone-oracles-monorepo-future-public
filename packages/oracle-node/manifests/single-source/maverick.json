@@ -13,6 +13,6 @@
     "SWETH": {},
     "ETH": { "source": ["coingecko"] },
     "LUSD": {},
-    "WSTETH": {}
+    "wstETH": {}
   }
 }
