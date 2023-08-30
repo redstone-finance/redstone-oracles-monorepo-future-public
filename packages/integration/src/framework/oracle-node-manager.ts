@@ -10,10 +10,13 @@ import {
 } from "./integration-test-utils";
 import { installAndBuild } from "./integration-test-compile";
 import { CacheLayerInstance } from "./cache-layer-manager";
+import { RedstoneCommon } from "redstone-utils";
 
 export const HARDHAT_MOCK_PRIVATE_KEY =
   "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 const ORACLE_NODE_DIR = "../oracle-node";
+const NODE_BROADCAST_TIMEOUT = 300_000;
+const EXPECTED_BROADCAST_LOG = "Broadcasting data package completed";
 
 export type OracleNodeInstance = {
   instanceId: string;
@@ -46,6 +49,22 @@ export const startAndWaitForOracleNode = (
     getLogPrefix(instance),
     ORACLE_NODE_DIR,
     { DOTENV_CONFIG_PATH: dotenvPath }
+  );
+
+  const isReadyPromise = new Promise<void>((resolve, rejects) => {
+    instance.oracleNodeProcess?.stdout?.on("data", (data: string) => {
+      if (data.includes(EXPECTED_BROADCAST_LOG)) {
+        resolve();
+      }
+    });
+  });
+
+  return RedstoneCommon.timeout(
+    isReadyPromise,
+    NODE_BROADCAST_TIMEOUT,
+    `Timeout when waiting for node ${getLogPrefix(
+      instance
+    )} to publish data packages. Was expecting ${EXPECTED_BROADCAST_LOG} log message.`
   );
 };
 

@@ -1,13 +1,11 @@
 import { ErrorCode } from "@ethersproject/logger";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
+import { ethers } from "hardhat";
+import Sinon from "sinon";
 import { TransactionDeliveryMan } from "../src";
 import { Counter } from "../typechain-types";
 import { deployCounter } from "./helpers";
-import Sinon from "sinon";
-import { Contract } from "ethers";
-import { error } from "console";
-import { ethers } from "hardhat";
 
 chai.use(chaiAsPromised);
 
