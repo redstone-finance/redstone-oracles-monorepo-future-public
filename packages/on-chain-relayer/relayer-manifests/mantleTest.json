@@ -1,0 +1,14 @@
+{
+  "chain": {
+    "name": "Mantle",
+    "id": 5000
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5
+  },
+  "adapterContract": "0x2ED1f6f2Ac7b0B8534db19976ea83504682B0B00",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "wstETH": "0x6985aaF13a197700c3C8747f5924686D7F0bE781"
+  }
+}
