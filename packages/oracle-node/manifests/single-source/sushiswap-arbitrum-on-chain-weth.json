@@ -12,7 +12,6 @@
   "tokens": {
     "ETH": {
       "source": ["coingecko"]
-    },
-    "PREMIA": {}
+    }
   }
 }
