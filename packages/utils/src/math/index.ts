@@ -1,5 +1,5 @@
 import Decimal from "decimal.js";
-import { BigNumber } from "ethers";
+import { BigNumberish } from "ethers";
 import * as ISafeNumberMath from "../ISafeNumber";
 import { createSafeNumber, ISafeNumber } from "../ISafeNumber";
 
@@ -35,7 +35,7 @@ export const getMedian = (numbers: ConvertibleToISafeNumber[]) =>
   ISafeNumberMath.getMedian(numbers.map(castToISafeNumber)).unsafeToNumber();
 
 export class PrecisionScaler {
-  private readonly tokenDecimalsScaler: Decimal;
+  readonly tokenDecimalsScaler: Decimal;
 
   constructor(readonly tokenDecimals: number) {
     this.tokenDecimalsScaler = new Decimal(10).pow(tokenDecimals);
@@ -45,7 +45,7 @@ export class PrecisionScaler {
     return new Decimal(floatNumber).mul(this.tokenDecimalsScaler).toString();
   }
 
-  fromSolidityValue(contractValue: BigNumber | string): Decimal {
+  fromSolidityValue(contractValue: BigNumberish): Decimal {
     return new Decimal(contractValue.toString()).div(this.tokenDecimalsScaler);
   }
 }
