@@ -291,7 +291,6 @@
     "PREMIA": {
       "source": [
         "camelot-v3-weth-500",
-        "sushiswap-arbitrum-on-chain-weth",
         "sushiswap-ethereum-on-chain-weth",
         "uniswap-v3-arbitrum-on-chain-weth-3000"
       ]
