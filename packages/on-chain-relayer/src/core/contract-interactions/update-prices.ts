@@ -18,14 +18,16 @@ const getDeliveryMan = () => {
       gasLimit: config().gasLimit,
       twoDimensionFees: config().isArbitrumNetwork,
       multiplier: config().gasMultiplier,
+      isAuctionModel: config().isAuctionModel,
     });
   return deliveryMan;
 };
 
 export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
   const updateTx = await updatePriceInAdapterContract(updatePricesArgs);
+
   console.log(
-    `Update prices tx delivered hash=${updateTx.hash}  gasPrice=${updateTx.gasPrice} blockNumber=${updateTx.blockNumber}`
+    `Update prices tx delivered hash=${updateTx.hash} gasLimit=${updateTx.gasLimit} gasPrice=${updateTx.gasPrice} maxFeePerGas=${updateTx.maxFeePerGas} maxPriorityFeePerGas=${updateTx.maxPriorityFeePerGas}`
   );
 };
 
