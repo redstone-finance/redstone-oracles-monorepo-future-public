@@ -67,6 +67,7 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       "HISTORICAL_PACKAGES_GATEWAYS",
       true
     ),
+    isAuctionModel: getFromEnv("IS_AUCTION_MODEL", true) === "true",
   };
 
   return makeConfigProvider(manifest, env);

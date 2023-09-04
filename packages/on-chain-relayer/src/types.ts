@@ -53,6 +53,7 @@ export interface RelayerConfig {
   fallbackOffsetInMinutes: number;
   fallbackOffsetInMS: number;
   cacheServiceUrls?: string[];
+  isAuctionModel?: boolean;
   historicalPackagesGateways?: string[];
 }
 
@@ -68,6 +69,7 @@ export type OnChainRelayerEnv = {
   cacheServiceUrls?: string[];
   historicalPackagesGateways?: string[];
   gasMultiplier: number;
+  isAuctionModel?: boolean;
 };
 
 export type ConfigProvider = () => RelayerConfig;

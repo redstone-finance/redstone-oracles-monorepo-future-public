@@ -102,6 +102,34 @@ describe("TransactionDeliveryMan", () => {
       gasLimit: 315000,
     });
   });
+
+  it("should work with auction model", async () => {
+    const deliveryMan = new TransactionDeliveryMan({
+      expectedDeliveryTimeMs: 20,
+      gasLimit: 210000,
+      isAuctionModel: true,
+    });
+    const { incStub, mockContract } = createStubCounter(counter);
+
+    incStub.onFirstCall().rejects(underpricedError);
+    incStub.onSecondCall().callsFake(counter.inc);
+
+    const result = await deliveryMan.deliver(mockContract, "inc", []);
+    await result.wait();
+    expect(await counter.getCount()).to.eq(1);
+
+    expect(incStub.firstCall.args[0]).to.deep.equal({
+      nonce: 1,
+      gasPrice: 1766973062,
+      gasLimit: 210000,
+    });
+
+    expect(incStub.getCall(1).args[0]).to.deep.equal({
+      nonce: 1,
+      gasLimit: 210000,
+      gasPrice: 1987844695,
+    });
+  });
 });
 
 const createStubCounter = (counter: Counter) => {
