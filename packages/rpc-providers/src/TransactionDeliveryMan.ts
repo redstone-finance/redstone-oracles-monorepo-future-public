@@ -2,8 +2,16 @@ import { ErrorCode } from "@ethersproject/logger";
 import { TransactionResponse } from "@ethersproject/providers";
 import { BigNumber, Contract, providers } from "ethers";
 import { fetchWithCache, sleepMS } from "./common";
+import {
+  AuctionModelFee,
+  AuctionModelGasEstimator,
+} from "./AuctionModelGasEstimator";
+import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
+import { GasEstimator } from "./GasEstimator";
 
 const ONE_GWEI = 1e9;
+
+export type FeeStructure = Eip1559Fee | AuctionModelFee;
 
 type ContractOverrides = {
   nonce: number;
@@ -11,15 +19,12 @@ type ContractOverrides = {
 
 type LastDeliveryAttempt = {
   nonce: number;
-  maxFeePerGas: number;
   result?: TransactionResponse;
 };
 
-type FeeHistoryResponse = { reward: string[] };
-
 type GasOracleFn = (opts: TransactionDeliveryManOpts) => Promise<FeeStructure>;
 
-type TransactionDeliveryManOpts = {
+export type TransactionDeliveryManOpts = {
   /**
    * It depends on network block finalization
    * For example for ETH ~12 s block times  we should set it to 14_000
@@ -61,16 +66,15 @@ type TransactionDeliveryManOpts = {
    */
   percentileOfPriorityFee?: number;
 
+  /**
+   * Should be set to true if chain doesn't support EIP1559
+   */
+  isAuctionModel?: boolean;
+
   logger?: (text: string) => void;
 };
 
-type FeeStructure = {
-  maxFeePerGas: number;
-  maxPriorityFeePerGas: number;
-  gasLimit: number;
-};
-
-const unsafeBnToNumber = (bn: BigNumber) => Number(bn.toString());
+export const unsafeBnToNumber = (bn: BigNumber) => Number(bn.toString());
 
 const getEthFeeFromGasOracle: GasOracleFn = async (
   opts: TransactionDeliveryManOpts
@@ -103,6 +107,7 @@ const CHAIN_ID_TO_GAS_ORACLE = {
 } as Record<number, GasOracleFn | undefined>;
 
 const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
+  isAuctionModel: false,
   maxAttempts: 10,
   multiplier: 1.125, // 112,5%
   gasLimitMultiplier: 1.5,
@@ -114,9 +119,13 @@ const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
 
 export class TransactionDeliveryMan {
   private readonly opts: Required<TransactionDeliveryManOpts>;
+  private readonly estimator: GasEstimator<any>;
 
   constructor(opts: TransactionDeliveryManOpts) {
     this.opts = { ...DEFAULT_TRANSACTION_DELIVERY_MAN_PTS, ...opts };
+    this.estimator = this.opts.isAuctionModel
+      ? new AuctionModelGasEstimator(this.opts)
+      : new Eip1559GasEstimator(this.opts);
   }
 
   public async deliver<T extends Contract, M extends keyof T>(
@@ -149,7 +158,9 @@ export class TransactionDeliveryMan {
         );
 
         if (this.isUnderpricedError(e)) {
-          const scaledFees = this.scaleFees(await this.getFees(provider));
+          const scaledFees = this.estimator.scaleFees(
+            await this.getFees(provider)
+          );
           Object.assign(contractOverrides, scaledFees);
           // we don't want to sleep on error, we want to react fast
           continue;
@@ -170,7 +181,7 @@ export class TransactionDeliveryMan {
         }
         return lastAttempt?.result;
       } else {
-        const scaledFees = this.scaleFees(contractOverrides);
+        const scaledFees = this.estimator.scaleFees(contractOverrides);
         Object.assign(contractOverrides, scaledFees);
       }
     }
@@ -205,7 +216,7 @@ export class TransactionDeliveryMan {
     try {
       return await this.getFeeFromGasOracle(provider);
     } catch (e) {
-      return await this.getFeeFromProvider(provider);
+      return await this.estimator.getFees(provider);
     }
   }
 
@@ -223,87 +234,5 @@ export class TransactionDeliveryMan {
     this.opts.logger(`getFees result from gasOracle ${JSON.stringify(fee)}`);
 
     return fee;
-  }
-
-  /** this is reasonable (ether.js is not reasonable) fallback if gasOracle is not set */
-  private async getFeeFromProvider(
-    provider: providers.JsonRpcProvider
-  ): Promise<FeeStructure> {
-    const lastBlock = await provider.getBlock("latest");
-    const maxPriorityFeePerGas = await this.estimatePriorityFee(provider);
-
-    const baseFee = Math.round(
-      unsafeBnToNumber(lastBlock.baseFeePerGas as BigNumber)
-    );
-    const maxFeePerGas = baseFee + maxPriorityFeePerGas;
-
-    const fee: FeeStructure = {
-      maxFeePerGas,
-      maxPriorityFeePerGas,
-      gasLimit: this.opts.gasLimit,
-    };
-
-    this.opts.logger(`getFees result from provider ${JSON.stringify(fee)}`);
-
-    return fee;
-  }
-
-  /**
-   * Take value of percentileOfPriorityFee from last 2 blocks.
-   * And return maximal value from it.
-   */
-  private async estimatePriorityFee(
-    provider: providers.JsonRpcProvider
-  ): Promise<number> {
-    try {
-      const feeHistory = await this.getFeeHistory(provider, "pending");
-
-      const rewardsPerBlockForPercentile = feeHistory.reward
-        .flat()
-        .map((hex: string) => parseInt(hex, 16));
-
-      return Math.max(...rewardsPerBlockForPercentile);
-    } catch (e) {
-      // this should only works for networks which doesn't support EIP1559
-      // but implement some compatibility layer like BSC
-      return unsafeBnToNumber(await provider.getGasPrice());
-    }
-  }
-
-  /**
-   * https://docs.alchemy.com/reference/eth-feehistory
-   * pending is better because serves newest information, however some RPCs doesn't support it like tBNB
-   */
-  private async getFeeHistory(
-    provider: providers.JsonRpcProvider,
-    newestBlock: "pending"
-  ): Promise<FeeHistoryResponse> {
-    return await provider.send("eth_feeHistory", [
-      "0x2",
-      newestBlock,
-      [this.opts.percentileOfPriorityFee],
-    ]);
-  }
-
-  private scaleFees(currentFees: FeeStructure): FeeStructure {
-    const maxPriorityFeePerGas = Math.round(
-      currentFees.maxPriorityFeePerGas * this.opts.multiplier
-    );
-    const maxFeePerGas = Math.round(
-      currentFees.maxFeePerGas * this.opts.multiplier
-    );
-    const gasLimit = this.opts.twoDimensionFees
-      ? Math.round(currentFees.gasLimit * this.opts.gasLimitMultiplier)
-      : currentFees.gasLimit;
-
-    const scaledFees: FeeStructure = {
-      maxPriorityFeePerGas,
-      maxFeePerGas,
-      gasLimit,
-    };
-
-    this.opts.logger(`Scaling fees to ${JSON.stringify(scaledFees)}`);
-
-    return scaledFees;
   }
 }
