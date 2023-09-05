@@ -6,8 +6,35 @@ export const cronCondition = (
   config: RelayerConfig
 ) => {
   const currentTimestamp = Date.now();
+  const warningMessages: string[] = [];
+  let shouldUpdatePrices = false;
+  for (const cronExpression of config.cronExpressions ?? []) {
+    const cronCheck = checkCronCondition(
+      cronExpression,
+      currentTimestamp,
+      lastUpdateTimestamp,
+      config
+    );
+
+    shouldUpdatePrices ||= cronCheck.shouldUpdatePrices;
+    if (cronCheck.warningMessage.length > 0) {
+      warningMessages.push(cronCheck.warningMessage);
+    }
+  }
+  return {
+    shouldUpdatePrices,
+    warningMessage: JSON.stringify(warningMessages),
+  };
+};
+
+const checkCronCondition = (
+  cronExpression: string,
+  currentTimestamp: number,
+  lastUpdateTimestamp: number,
+  config: RelayerConfig
+) => {
   const lastExpectedUpdateTime = cronParser
-    .parseExpression(config.cronExpression || "", {
+    .parseExpression(cronExpression, {
       // We move current time a bit back for the case with fallback
       currentDate: new Date(currentTimestamp - config.fallbackOffsetInMS),
     })
