@@ -44,7 +44,7 @@ const checkConditionByName = async (
   name: ConditionCheckNames,
   context: Context,
   config: RelayerConfig
-): Promise<{ shouldUpdatePrices: boolean; warningMessage: string }> => {
+): Promise<ConditionCheckResponse> => {
   switch (name) {
     case "time":
       return timeUpdateCondition(
