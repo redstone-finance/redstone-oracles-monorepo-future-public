@@ -19,7 +19,7 @@ export interface OnChainRelayerManifest {
     id: number;
   };
   updateTriggers: {
-    cron?: string;
+    cron?: string[];
     deviationPercentage?: number;
     timeSinceLastUpdateInMilliseconds?: number;
   };
@@ -34,7 +34,7 @@ export interface OnChainRelayerManifest {
 export interface RelayerConfig {
   relayerIterationInterval: number;
   updatePriceInterval?: number;
-  cronExpression?: string;
+  cronExpressions?: string[];
   rpcUrls: string[];
   chainName: string;
   chainId: number;
