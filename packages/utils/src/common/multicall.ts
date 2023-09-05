@@ -29,14 +29,12 @@ export async function multiCallOneContract(
   const multiCallContext: ContractCallContext = {
     reference: "this",
     contractAddress: contract.address,
-    abi: contract.interface.fragments.map((fragment) =>
-      fragment.format(FormatTypes.full)
-    ),
+    abi: JSON.parse(contract.interface.format(FormatTypes.json) as string),
     calls: callContexts,
   };
 
   const multicall = new Multicall({
-    tryAggregate: true,
+    tryAggregate: false,
     ethersProvider: contract.provider,
     multicallCustomContractAddress: multicallAddress,
   });
@@ -45,25 +43,13 @@ export async function multiCallOneContract(
 
   const resultsInOrder = new Array(calls.length);
   for (const result of results.results["this"].callsReturnContext) {
-    if (!result.success) {
-      throw new Error(
-        `Failed to execute method of multicall contract: ${contract.address} method name: ${result.methodName}`
-      );
-    }
     const index = functionToIndex[result.reference!];
-    if (result.decoded) {
-      if (result.returnValues.length > 1) {
-        throw new Error(
-          `ethereum-multicall returned more then one decoded response, which was unexpected. Fix code.`
-        );
-      }
-      resultsInOrder[index] = result.returnValues[0];
-    } else {
-      resultsInOrder[index] = contract.interface.decodeFunctionResult(
-        result.methodName,
-        result.returnValues
+    if (result.returnValues.length > 1) {
+      throw new Error(
+        `ethereum-multicall returned more then one decoded response, which was unexpected. Fix code.`
       );
     }
+    resultsInOrder[index] = result.returnValues[0];
   }
   return resultsInOrder;
 }
