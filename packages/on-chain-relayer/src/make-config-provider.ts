@@ -24,7 +24,7 @@ export const makeConfigProvider = (
     updateConditions.push("time");
   }
 
-  if (cron) {
+  if (cron && cron.length > 0) {
     updateConditions.push("cron");
   }
 

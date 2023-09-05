@@ -12,7 +12,7 @@ import { cronCondition } from "../../src/core/update-conditions/cron-condition";
 describe("fallback-cron-condition", () => {
   before(() => {
     mockEnvVariables({
-      cronExpression: "0 * * * *", // every hour at 0th minute
+      cronExpressions: ["0 * * * *"], // every hour at 0th minute
       fallbackOffsetInMinutes: 1,
     });
   });
