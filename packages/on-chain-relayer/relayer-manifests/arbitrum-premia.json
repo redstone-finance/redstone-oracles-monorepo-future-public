@@ -4,7 +4,7 @@
     "id": 42161
   },
   "updateTriggers": {
-    "crons": ["0 8 * * *"]
+    "cron": ["30 56 7 * * *", "58 7 * * *", "30 59 7 * * *"]
   },
   "adapterContract": "0x5B0E8F9B1A0De4fEC0fbe53387817f30D7Dec800",
   "dataServiceId": "redstone-primary-demo",
