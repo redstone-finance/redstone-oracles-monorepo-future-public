@@ -30,7 +30,7 @@ export const makeConfigProvider = (
 
   return Object.freeze({
     updatePriceInterval: timeSinceLastUpdateInMilliseconds,
-    cronExpression: cron,
+    cronExpressions: cron,
     chainName: manifest.chain.name!,
     chainId: manifest.chain.id,
     adapterContractAddress: manifest.adapterContract,

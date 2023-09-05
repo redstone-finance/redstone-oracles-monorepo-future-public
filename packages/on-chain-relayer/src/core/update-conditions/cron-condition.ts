@@ -23,7 +23,7 @@ export const cronCondition = (
   }
   return {
     shouldUpdatePrices,
-    warningMessage: JSON.stringify(warningMessages),
+    warningMessage: warningMessages.toString(),
   };
 };
 
