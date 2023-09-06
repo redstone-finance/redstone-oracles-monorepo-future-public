@@ -297,6 +297,18 @@
     },
     "PREMIA-TWAP-60": {
       "source": ["twap-cache-service-minute-redstone-primary-demo"]
+    },
+    "MNT": {
+      "source": [
+        "bingx",
+        "bitmart",
+        "bybit",
+        "coingecko",
+        "gate",
+        "mexc",
+        "huobipro",
+        "uniswap-v3-ethereum-on-chain-weth-3000"
+      ]
     }
   }
 }
