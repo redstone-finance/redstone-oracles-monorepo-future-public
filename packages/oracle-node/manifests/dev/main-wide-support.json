@@ -816,8 +816,17 @@
         "trader-joe-on-chain-wavax"
       ]
     },
-    "BIT": {
-      "source": ["coinbaseprime", "coinbasepro", "coingecko", "gate", "lbank"]
+    "MNT": {
+      "source": [
+        "bingx",
+        "bitmart",
+        "bybit",
+        "coingecko",
+        "gate",
+        "mexc",
+        "huobipro",
+        "uniswap-v3-ethereum-on-chain-weth-3000"
+      ]
     },
     "KAVA": {
       "source": [
