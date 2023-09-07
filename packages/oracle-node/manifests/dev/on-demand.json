@@ -15,7 +15,6 @@
         "bequant",
         "binance",
         "binancecoinm",
-        "binanceus",
         "binanceusdm",
         "bitcoincom",
         "bitfinex2",
@@ -41,7 +40,6 @@
     },
     "USDT": {
       "source": [
-        "binanceus",
         "bitfinex2",
         "bittrex",
         "cex",
@@ -56,7 +54,6 @@
     },
     "USDC": {
       "source": [
-        "binanceus",
         "bitfinex2",
         "bittrex",
         "btcturk",
