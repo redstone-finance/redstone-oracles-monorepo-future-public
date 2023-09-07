@@ -2,6 +2,7 @@
   "interval": 60000,
   "priceAggregator": "median",
   "sourceTimeout": 50000,
+  "minValidSourcesPercentage": 10,
   "deviationCheck": {
     "deviationWithRecentValues": {
       "maxPercent": 25,
