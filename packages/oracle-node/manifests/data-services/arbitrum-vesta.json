@@ -12,7 +12,6 @@
   "tokens": {
     "USDC": {
       "source": [
-        "binanceus",
         "bitfinex2",
         "bittrex",
         "btcturk",
@@ -33,7 +32,6 @@
     },
     "USDT": {
       "source": [
-        "binanceus",
         "bitfinex2",
         "bittrex",
         "cex",
