@@ -36,6 +36,7 @@ export class ContractParamsProvider {
     return this.requestParams.dataFeeds;
   }
 
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   protected async requestPayload(
     requestParams: DataPackagesRequestParams
   ): Promise<string> {

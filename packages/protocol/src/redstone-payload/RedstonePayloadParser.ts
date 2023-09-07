@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers";
-import { base64, formatUnits, hexlify, toUtf8String } from "ethers/lib/utils";
+import { formatUnits, hexlify, toUtf8String } from "ethers/lib/utils";
 import {
   DATA_FEED_ID_BS,
   DATA_PACKAGES_COUNT_BS,
@@ -12,7 +12,7 @@ import {
   TIMESTAMP_BS,
   UNSIGNED_METADATA_BYTE_SIZE_BS,
 } from "../common/redstone-constants";
-import { convertBytesToNumber, convertNumberToBytes } from "../common/utils";
+import { convertBytesToNumber } from "../common/utils";
 import { DataPackage } from "../data-package/DataPackage";
 import { SignedDataPackage } from "../data-package/SignedDataPackage";
 import { DataPoint } from "../data-point/DataPoint";
@@ -33,7 +33,7 @@ export class RedstonePayloadParser {
   parse(): RedstonePayloadParsingResult {
     this.assertValidRedstoneMarker();
 
-    let unsignedMetadata = this.extractUnsignedMetadata();
+    const unsignedMetadata = this.extractUnsignedMetadata();
 
     let negativeOffset =
       unsignedMetadata.length +
@@ -142,7 +142,10 @@ export class RedstonePayloadParser {
       negativeOffset += DATA_FEED_ID_BS;
 
       // Building a data point
-      const dataPoint = this.createDataPoint(dataFeedId, dataPointValue);
+      const dataPoint = RedstonePayloadParser.createDataPoint(
+        dataFeedId,
+        dataPointValue
+      );
 
       // Collecting data point
       // Using `unshift` instead of `push` because we read from the end
@@ -155,7 +158,7 @@ export class RedstonePayloadParser {
     );
   }
 
-  private createDataPoint(
+  private static createDataPoint(
     dataFeedId: Uint8Array,
     dataPointValue: Uint8Array
   ): DataPoint {

@@ -6,6 +6,8 @@ import {
   DataPoint,
   INumericDataPoint,
   StringDataPoint,
+  DataPointPlainObj,
+  SignedDataPackagePlainObj,
 } from "../src";
 import { deserializeDataPointFromObj } from "../src/data-point/data-point-deserializer";
 
@@ -27,7 +29,7 @@ const testSerializationAndDeserializationOfNumericDataPoint = (
   const plainObj = dataPoint.toObj();
   expect(plainObj).toEqual(dataPointArgs);
   const deserializedDataPoint = deserializeDataPointFromObj(
-    JSON.parse(JSON.stringify(plainObj))
+    JSON.parse(JSON.stringify(plainObj)) as DataPointPlainObj
   );
   expect(deserializedDataPoint.toBytesHex()).toBe(dataPoint.toBytesHex());
 };
@@ -76,7 +78,7 @@ describe("Fixed size data package", () => {
       value: "U29tZSByYW5kb20gc3RyaW5nIHZhbHVlIGhlaGVoZQ==",
     });
     const deserializedDataPoint = deserializeDataPointFromObj(
-      JSON.parse(JSON.stringify(plainObj))
+      JSON.parse(JSON.stringify(plainObj)) as DataPointPlainObj
     );
     expect(deserializedDataPoint.toBytesHex()).toBe(dataPoint.toBytesHex());
   });
@@ -97,7 +99,9 @@ describe("Fixed size data package", () => {
         "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
     });
     const deserializedSignedDataPackage = SignedDataPackage.fromObj(
-      JSON.parse(JSON.stringify(serializedPlainObj))
+      JSON.parse(
+        JSON.stringify(serializedPlainObj)
+      ) as SignedDataPackagePlainObj
     ).toBytesHex();
     expect(deserializedSignedDataPackage).toBe(signedDataPackage.toBytesHex());
   });
@@ -145,7 +149,9 @@ describe("Fixed size data package", () => {
         "WJ+EFIe6pSwzCRcjKWIYMWyhmtKJP+tN2aI55+Ip5w4osIGH0ngUEjTO4b7sAPBGd5MIv11qbPaFxWReppbGDRs=",
     });
     const deserializedSignedDataPackage = SignedDataPackage.fromObj(
-      JSON.parse(JSON.stringify(serializedPlainObj))
+      JSON.parse(
+        JSON.stringify(serializedPlainObj)
+      ) as SignedDataPackagePlainObj
     ).toBytesHex();
     expect(deserializedSignedDataPackage).toBe(signedDataPackage.toBytesHex());
   });

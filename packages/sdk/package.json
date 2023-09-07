@@ -10,7 +10,8 @@
     "build": "rm -rf dist && tsc --build",
     "preversion": "yarn build",
     "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push",
-    "pack-package": "yarn build && cd dist && npm pack"
+    "pack-package": "yarn build && cd dist && npm pack",
+    "lint": "eslint ."
   },
   "dependencies": {
     "axios": "^0.27.2",

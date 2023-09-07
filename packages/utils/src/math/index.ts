@@ -15,7 +15,7 @@ export const castToISafeNumber = (
   } else if (numberLike.isSafeNumber()) {
     return numberLike;
   } else {
-    throw new Error(`Can not cast ${numberLike} to ISafeNumber`);
+    throw new Error(`Can not cast ${String(numberLike)} to ISafeNumber`);
   }
 };
 
@@ -46,6 +46,8 @@ export class PrecisionScaler {
   }
 
   fromSolidityValue(contractValue: BigNumberish): Decimal {
-    return new Decimal(BigNumber.from(contractValue).toHexString()).div(this.tokenDecimalsScaler);
+    return new Decimal(BigNumber.from(contractValue).toHexString()).div(
+      this.tokenDecimalsScaler
+    );
   }
 }

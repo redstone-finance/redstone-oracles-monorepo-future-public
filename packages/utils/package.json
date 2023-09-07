@@ -9,7 +9,8 @@
     "test": "jest",
     "build": "rm -rf dist && tsc --build",
     "preversion": "yarn build",
-    "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push -f"
+    "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push -f",
+    "lint": "eslint ."
   },
   "dependencies": {
     "decimal.js": "^10.4.3",

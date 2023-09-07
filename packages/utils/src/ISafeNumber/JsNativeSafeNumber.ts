@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/class-methods-use-this */
 import { NumberArg, ISafeNumber } from "./ISafeNumber";
 
 export enum NumberValidationResult {
@@ -27,7 +28,7 @@ export const JsNativeSafeNumberConfig = {
     },
     [NumberValidationResult.isOverflow]: console.error,
     [NumberValidationResult.isUnderflow]: console.error,
-  } as Record<NumberValidationError, (msg: string) => any>,
+  } as Record<NumberValidationError, (msg: string) => unknown>,
   EPSILON: 1e-14,
 };
 
@@ -43,7 +44,9 @@ export class JsNativeSafeNumber implements ISafeNumber {
       return new JsNativeSafeNumber(parseToSafeNumber(numberLike));
     } else {
       throw new Error(
-        `Invalid number format: Tried to create JsNativeSafeNumber from ${numberLike}`
+        `Invalid number format: Tried to create JsNativeSafeNumber from ${String(
+          numberLike
+        )}`
       );
     }
   }

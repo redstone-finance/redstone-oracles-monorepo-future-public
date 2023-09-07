@@ -7,13 +7,13 @@ export function overrideMulticallAddress(address: string) {
   multicallAddress = address;
 }
 
-export type CallParams = { function: string; params: any[] };
+export type CallParams = { function: string; params: unknown[] };
 
 export async function multiCallOneContract(
   contract: Contract,
   calls: CallParams[],
   blockNumber?: string
-): Promise<any[]> {
+): Promise<unknown[]> {
   const functionToIndex: Record<string, number> = calls.reduce(
     (prev, current, index) => ({
       ...prev,
@@ -29,7 +29,9 @@ export async function multiCallOneContract(
   const multiCallContext: ContractCallContext = {
     reference: "this",
     contractAddress: contract.address,
-    abi: JSON.parse(contract.interface.format(FormatTypes.json) as string),
+    abi: JSON.parse(
+      contract.interface.format(FormatTypes.json) as string
+    ) as unknown[],
     calls: callContexts,
   };
 
@@ -41,9 +43,9 @@ export async function multiCallOneContract(
 
   const results = await multicall.call(multiCallContext, { blockNumber });
 
-  const resultsInOrder = new Array(calls.length);
+  const resultsInOrder: unknown[] = new Array(calls.length);
   for (const result of results.results["this"].callsReturnContext) {
-    const index = functionToIndex[result.reference!];
+    const index = functionToIndex[result.reference];
     if (result.returnValues.length > 1) {
       throw new Error(
         `ethereum-multicall returned more then one decoded response, which was unexpected. Fix code.`
