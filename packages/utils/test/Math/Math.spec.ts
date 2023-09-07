@@ -4,6 +4,7 @@ import {
   calculateSum,
   createSafeNumber,
   getMedian,
+  NumberArg,
 } from "../../src/ISafeNumber";
 
 describe("calculateSum", () => {
@@ -22,7 +23,7 @@ describe("calculateSum", () => {
   });
 
   it("Should properly calculate sum for a big array", () => {
-    const bigArr = Array(2000).fill(120000);
+    const bigArr = Array<NumberArg>(2000).fill(120000);
     expect(calculateSum(bigArr).toString()).toBe((120000 * 2000).toString());
   });
 });
@@ -45,7 +46,7 @@ describe("calculateAverageValue", () => {
   });
 
   it("Should properly calculate an average value for a big array", () => {
-    const bigArr = Array(2000).fill(createSafeNumber(1121315));
+    const bigArr = Array<NumberArg>(2000).fill(createSafeNumber(1121315));
     expect(calculateAverageValue(bigArr).toString()).toBe("1121315");
   });
 

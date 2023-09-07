@@ -24,7 +24,7 @@ export function deserializeSignedPackage(
   const signatureBytes: Uint8Array = base64.decode(signatureBase64);
   const parsedSignature = splitSignature(signatureBytes);
 
-  const { signature, ...unsignedDataPackagePlainObj } = plainObject;
+  const { signature: _, ...unsignedDataPackagePlainObj } = plainObject;
   const unsignedDataPackage = DataPackage.fromObj(unsignedDataPackagePlainObj);
 
   return { signature: parsedSignature, dataPackage: unsignedDataPackage };

@@ -56,7 +56,9 @@ const getDataPackagesFromGateway = async (
 
   if (typeof response.data === "string") {
     throw new Error(
-      `Failed to fetch data package from ${url}. Data service ID responded with: ${response.data}`
+      `Failed to fetch data package from ${url}. Data service ID responded with: ${String(
+        response.data
+      )}`
     );
   }
 
@@ -76,7 +78,7 @@ export const aggregateValues = (
       return MathUtils.getMedian(plainValues);
     default:
       throw new Error(
-        `Unsupported aggregationAlgorithm ${aggregationAlgorithm}`
+        `Unsupported aggregationAlgorithm ${String(aggregationAlgorithm)}`
       );
   }
 };

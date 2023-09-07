@@ -122,7 +122,7 @@ const main = async () => {
   // start stopped nodes and cache service, stop another cache service one and verify if everything works
   await startAndWaitForOracleNode(oracleNodeInstance2, allCacheLayers);
   await startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
-  await await startDirectAndPublicCacheServices(cacheLayerInstance1);
+  await startDirectAndPublicCacheServices(cacheLayerInstance1);
   stopDirectAndPublicCacheServices(cacheLayerInstance2);
   setMockPrices({ __DEFAULT__: 45 });
   expectedPrices = { BTC: 45 };

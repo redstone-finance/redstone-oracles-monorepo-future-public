@@ -30,12 +30,12 @@ export interface DataPackagesResponse {
 }
 
 export interface ValuesForDataFeeds {
-  [dataFeedId: string]: BigNumber;
+  [dataFeedId: string]: BigNumber | undefined;
 }
 
 export const getOracleRegistryState =
   async (): Promise<RedstoneOraclesState> => {
-    return redstoneOraclesInitialState;
+    return await Promise.resolve(redstoneOraclesInitialState);
   };
 
 export const getDataServiceIdForSigner = (
@@ -52,7 +52,7 @@ export const getDataServiceIdForSigner = (
 
 export const parseDataPackagesResponse = (
   dpResponse: {
-    [dataFeedId: string]: SignedDataPackagePlainObj[];
+    [dataFeedId: string]: SignedDataPackagePlainObj[] | undefined;
   },
   reqParams: DataPackagesRequestParams
 ): DataPackagesResponse => {
@@ -115,7 +115,7 @@ const getDataPackagesSortedByDeviation = (
   const decimals =
     getDecimalsForDataFeedId(dataFeedPackages) ?? DEFAULT_DECIMALS;
   const valueToCompare = Number(
-    utils.formatUnits(valuesToCompare[dataFeedId], decimals)
+    utils.formatUnits(valuesToCompare[dataFeedId]!, decimals)
   );
 
   return sortDataPackagesByDeviationDesc(dataFeedPackages, valueToCompare);
@@ -138,9 +138,10 @@ export const getDecimalsForDataFeedId = (
   return firstDecimal;
 };
 
-const errToString = (e: any): string => {
+const errToString = (err: unknown): string => {
+  const e = err as Error;
   if (e instanceof AggregateError) {
-    const stringifiedErrors = e.errors.reduce(
+    const stringifiedErrors = (e.errors as Error[]).reduce(
       (prev, oneOfErrors, curIndex) =>
         (prev += `${curIndex}: ${oneOfErrors.message}, `),
       ""
@@ -157,7 +158,7 @@ export const requestDataPackages = async (
   const promises = prepareDataPackagePromises(reqParams);
   try {
     return await Promise.any(promises);
-  } catch (e: any) {
+  } catch (e: unknown) {
     const errMessage = `Request failed ${JSON.stringify({
       reqParams,
     })}, Original error: ${errToString(e)}`;
@@ -178,7 +179,9 @@ const prepareDataPackagePromises = (reqParams: DataPackagesRequestParams) => {
 
   return urls.map((url) =>
     axios
-      .get([url].concat(pathComponents).join("/"))
+      .get<Record<string, SignedDataPackagePlainObj[]>>(
+        [url].concat(pathComponents).join("/")
+      )
       .then((response) => parseDataPackagesResponse(response.data, reqParams))
   );
 };
