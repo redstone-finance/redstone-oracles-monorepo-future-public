@@ -17,7 +17,6 @@
         "bequant",
         "binance",
         "binancecoinm",
-        "binanceus",
         "binanceusdm",
         "bitcoincom",
         "bitfinex2",
@@ -48,7 +47,6 @@
         "bequant",
         "binance",
         "binancecoinm",
-        "binanceus",
         "binanceusdm",
         "bitcoincom",
         "bitfinex2",
@@ -76,7 +74,6 @@
     },
     "USDT": {
       "source": [
-        "binanceus",
         "bitfinex2",
         "bittrex",
         "cex",
@@ -94,7 +91,6 @@
         "ascendex",
         "binance",
         "binancecoinm",
-        "binanceus",
         "binanceusdm",
         "bitcoincom",
         "bitget",
@@ -121,7 +117,6 @@
         "ascendex",
         "binance",
         "binancecoinm",
-        "binanceus",
         "binanceusdm",
         "bitcoincom",
         "bitfinex2",
@@ -176,7 +171,6 @@
         "bequant",
         "binance",
         "binancecoinm",
-        "binanceus",
         "binanceusdm",
         "bitcoincom",
         "bitfinex2",
@@ -227,7 +221,6 @@
         "bequant",
         "binance",
         "binancecoinm",
-        "binanceus",
         "binanceusdm",
         "bitcoincom",
         "bitfinex2",
@@ -282,7 +275,6 @@
     "USDC": {
       "source": [
         "binance",
-        "binanceus",
         "binanceusdm",
         "bitfinex2",
         "bittrex",
@@ -314,7 +306,6 @@
     },
     "DAI": {
       "source": [
-        "binanceus",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",

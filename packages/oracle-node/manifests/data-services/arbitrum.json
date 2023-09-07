@@ -341,7 +341,6 @@
     "BUSD": {
       "source": [
         "binance",
-        "binanceus",
         "bitcoincom",
         "coingecko",
         "coinmarketcap",
