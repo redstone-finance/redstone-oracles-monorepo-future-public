@@ -937,19 +937,26 @@
       "source": ["fixed-value"],
       "fixedValue": 1
     },
+    "3Crv": {
+      "source": ["ethereum-evm-fetcher"]
+    },
     "LUSD": {
       "source": [
+        "curve-3crv",
+        "coingecko",
         "maverick",
-        "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-optimism-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-usdc-10000",
         "velodrome-on-chain-usdc"
       ]
     },
     "GHO": {
       "source": [
         "balancer-lusd",
-        "uniswap-v3-ethereum-on-chain-usdc-3000",
-        "uniswap-v3-ethereum-on-chain-usdt-3000"
+        "balancer-multi-dai",
+        "balancer-multi-usdc",
+        "balancer-multi-usdt",
+        "coingecko",
+        "uniswap-v3-ethereum-on-chain-usdc-500"
       ]
     },
     "USDC.USDT": {
