@@ -933,12 +933,6 @@
         "gate"
       ]
     },
-    "ALETH": {
-      "source": ["velodrome-on-chain-weth"]
-    },
-    "ALUSD": {
-      "source": ["velodrome-on-chain-usdc"]
-    },
     "LUSD": {
       "source": [
         "maverick",
