@@ -17,7 +17,7 @@ export function memoize<T, A extends unknown[]>({
   ttl,
   cacheKeyBuilder = JSON.stringify,
 }: MemoizeArgs<T, A>): (...args: A) => Promise<T> {
-  const cache: Record<string, MemoizeCache<T>> = {};
+  const cache: Partial<Record<string, MemoizeCache<T>>> = {};
 
   return async (...args: A) => {
     const cacheKey = cacheKeyBuilder(args);
@@ -30,7 +30,7 @@ export function memoize<T, A extends unknown[]>({
     // to avoid caching results forever
     cleanStaleCacheEntries(cache, ttl);
 
-    if (!cache[cacheKey] || Date.now() - cache[cacheKey].lastSet > ttl) {
+    if (!cache[cacheKey] || Date.now() - cache[cacheKey]!.lastSet > ttl) {
       cache[cacheKey] = {
         lastSet: Date.now(),
         promise: functionToMemoize(...args).catch((err) => {
@@ -40,12 +40,12 @@ export function memoize<T, A extends unknown[]>({
         }),
       };
     }
-    return await cache[cacheKey].promise;
+    return await cache[cacheKey]!.promise;
   };
 }
 
 const cleanStaleCacheEntries = <T>(
-  cache: Record<string, MemoizeCache<T>>,
+  cache: Partial<Record<string, MemoizeCache<T>>>,
   ttl: number
 ) => {
   const now = Date.now();
@@ -58,7 +58,7 @@ const cleanStaleCacheEntries = <T>(
   );
 
   for (const key of cacheKeys) {
-    if (now - cache[key].lastSet > ttl) {
+    if (now - cache[key]!.lastSet > ttl) {
       delete cache[key];
     }
   }

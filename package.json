@@ -13,7 +13,9 @@
   "devDependencies": {
     "@types/node": "^17.0.36",
     "prettier": "^2.6.2",
-    "redstone-prettier-config": "^1.0.0"
+    "redstone-prettier-config": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0"
   },
   "private": true,
   "workspaces": {
