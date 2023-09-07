@@ -957,12 +957,6 @@
       "source": ["fixed-value"],
       "fixedValue": 1
     },
-    "ALETH": {
-      "source": ["velodrome-on-chain-weth"]
-    },
-    "ALUSD": {
-      "source": ["velodrome-on-chain-usdc"]
-    },
     "LUSD": {
       "source": [
         "maverick",
