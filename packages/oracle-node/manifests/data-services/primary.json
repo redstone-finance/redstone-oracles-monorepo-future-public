@@ -181,11 +181,15 @@
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
+    "3Crv": {
+      "source": ["ethereum-evm-fetcher"]
+    },
     "LUSD": {
       "source": [
+        "curve-3crv",
+        "coingecko",
         "maverick",
-        "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-optimism-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-usdc-10000",
         "velodrome-on-chain-usdc"
       ],
       "deviationWithRecentValues": {
