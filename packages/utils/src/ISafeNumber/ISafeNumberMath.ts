@@ -1,10 +1,13 @@
-import { ISafeNumber } from "./ISafeNumber";
+import { ISafeNumber, NumberArg } from "./ISafeNumber";
 import { createSafeNumber } from "./ISafeNumberFactory";
 
-export const calculateSum = (numbers: ISafeNumber[]) =>
-  numbers.reduce((prev, curr) => prev.add(curr), createSafeNumber(0));
+export const calculateSum = (numbers: NumberArg[]) =>
+  numbers.reduce<ISafeNumber>(
+    (prev, curr) => prev.add(curr),
+    createSafeNumber(0)
+  );
 
-export const calculateAverageValue = (numbers: ISafeNumber[]): ISafeNumber => {
+export const calculateAverageValue = (numbers: NumberArg[]): ISafeNumber => {
   if (numbers.length === 0) {
     throw new Error("Can not calculate an average value for an empty array");
   }

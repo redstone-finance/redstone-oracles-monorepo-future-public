@@ -51,7 +51,7 @@ export const startAndWaitForOracleNode = (
     { DOTENV_CONFIG_PATH: dotenvPath }
   );
 
-  const isReadyPromise = new Promise<void>((resolve, rejects) => {
+  const isReadyPromise = new Promise<void>((resolve, _rejects) => {
     instance.oracleNodeProcess?.stdout?.on("data", (data: string) => {
       if (data.includes(EXPECTED_BROADCAST_LOG)) {
         resolve();
