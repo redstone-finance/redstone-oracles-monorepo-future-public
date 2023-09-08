@@ -321,8 +321,8 @@
     },
     "OHM": {
       "source": [
-        "balancer-dai",
-        "balancer-weth",
+        "balancer-ethereum-dai",
+        "balancer-ethereum-weth",
         "coingecko",
         "sushiswap-ethereum-on-chain-dai",
         "uniswap-v3"
