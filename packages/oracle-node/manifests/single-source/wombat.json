@@ -11,6 +11,6 @@
   },
   "tokens": {
     "ETH": { "source": ["coingecko"] },
-    "ETHX": {}
+    "ETHx": {}
   }
 }
