@@ -312,7 +312,8 @@
     },
     "wstETH": {
       "source": [
-        "balancer-weth",
+        "balancer-arbitrum-weth",
+        "balancer-ethereum-weth",
         "coingecko",
         "coinmarketcap",
         "maverick",
@@ -370,7 +371,7 @@
     },
     "BAL": {
       "source": [
-        "balancer-multi-weth",
+        "balancer-ethereum-weth",
         "bitget",
         "bitmart",
         "binance",
