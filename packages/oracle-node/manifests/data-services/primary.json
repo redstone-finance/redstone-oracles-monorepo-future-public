@@ -164,7 +164,8 @@
     },
     "wstETH": {
       "source": [
-        "balancer-weth",
+        "balancer-arbitrum-weth",
+        "balancer-ethereum-weth",
         "coingecko",
         "maverick",
         "uniswap-v3-ethereum-on-chain-weth-500"
@@ -175,7 +176,7 @@
     },
     "SWETH": {
       "source": [
-        "balancer-multi-weth",
+        "balancer-ethereum-weth",
         "maverick",
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
@@ -318,7 +319,7 @@
     },
     "ETHx": {
       "source": [
-        "balancer-multi-weth",
+        "balancer-ethereum-weth",
         "coingecko",
         "curve-weth",
         "pancake-swap-on-chain-weth-500",
