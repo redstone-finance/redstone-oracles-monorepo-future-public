@@ -11,30 +11,6 @@
   },
   "tokens": {
     "ALUSD": {},
-    "alUSD_velodrome-on-chain-usdc_BUY_10000_slippage": {
-      "skipSigning": true
-    },
-    "alUSD_velodrome-on-chain-usdc_SELL_10000_slippage": {
-      "skipSigning": true
-    },
-    "alUSD_velodrome-on-chain-usdc_BUY_100000_slippage": {
-      "skipSigning": true
-    },
-    "alUSD_velodrome-on-chain-usdc_SELL_100000_slippage": {
-      "skipSigning": true
-    },
-    "OP": {},
-    "OP_velodrome-on-chain-usdc_BUY_10000_slippage": {
-      "skipSigning": true
-    },
-    "OP_velodrome-on-chain-usdc_SELL_10000_slippage": {
-      "skipSigning": true
-    },
-    "OP_velodrome-on-chain-usdc_BUY_100000_slippage": {
-      "skipSigning": true
-    },
-    "OP_velodrome-on-chain-usdc_SELL_100000_slippage": {
-      "skipSigning": true
-    }
+    "OP": {}
   }
 }
