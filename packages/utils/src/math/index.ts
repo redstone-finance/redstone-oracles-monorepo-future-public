@@ -1,5 +1,6 @@
 import Decimal from "decimal.js";
-import { BigNumber, BigNumberish } from "ethers";
+import { BigNumberish } from "ethers";
+import { bignumberishToDecimal } from "../common";
 import * as ISafeNumberMath from "../ISafeNumber";
 import { createSafeNumber, ISafeNumber } from "../ISafeNumber";
 
@@ -46,8 +47,6 @@ export class PrecisionScaler {
   }
 
   fromSolidityValue(contractValue: BigNumberish): Decimal {
-    return new Decimal(BigNumber.from(contractValue).toHexString()).div(
-      this.tokenDecimalsScaler
-    );
+    return bignumberishToDecimal(contractValue).div(this.tokenDecimalsScaler);
   }
 }

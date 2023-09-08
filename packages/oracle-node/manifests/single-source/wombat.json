@@ -1,7 +1,7 @@
 {
-  "interval": 15000,
+  "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": ["uniswap-v3-ethereum-on-chain-weth-500"],
+  "defaultSource": ["wombat"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,8 +10,7 @@
     }
   },
   "tokens": {
-    "SWETH": {},
-    "FRXETH": {},
-    "wstETH": {}
+    "ETH": { "source": ["coingecko"] },
+    "ETHX": {}
   }
 }
