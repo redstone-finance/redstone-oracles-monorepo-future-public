@@ -8,8 +8,11 @@
       "maxDelayMilliseconds": 300000
     }
   },
-  "defaultSource": ["balancer-dai"],
+  "defaultSource": ["balancer-ethereum-dai"],
   "tokens": {
+    "DAI": {
+      "source": ["coingecko"]
+    },
     "OHM": {}
   }
 }

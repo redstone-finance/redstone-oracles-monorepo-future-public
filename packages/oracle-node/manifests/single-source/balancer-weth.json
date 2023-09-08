@@ -8,10 +8,13 @@
       "maxDelayMilliseconds": 300000
     }
   },
-  "defaultSource": ["balancer-weth"],
+  "defaultSource": ["balancer-ethereum-weth"],
   "tokens": {
+    "ETH": {
+      "source": ["coingecko"]
+    },
     "OHM": {},
-    "BB-A-WETH": {},
-    "wstETH": {}
+    "wstETH": {},
+    "SWETH": {}
   }
 }
