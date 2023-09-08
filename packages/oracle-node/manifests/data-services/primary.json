@@ -145,8 +145,7 @@
         "okx",
         "poloniex",
         "probit"
-      ],
-      "skipSigning": true
+      ]
     },
     "STETH": {
       "source": [
