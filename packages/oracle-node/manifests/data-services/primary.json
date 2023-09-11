@@ -198,10 +198,10 @@
     },
     "GHO": {
       "source": [
-        "balancer-lusd",
-        "balancer-multi-dai",
-        "balancer-multi-usdc",
-        "balancer-multi-usdt",
+        "balancer-ethereum-lusd",
+        "balancer-ethereum-dai",
+        "balancer-ethereum-usdc",
+        "balancer-ethereum-usdt",
         "coingecko",
         "uniswap-v3-ethereum-on-chain-usdc-500"
       ],
