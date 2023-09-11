@@ -1,5 +1,7 @@
 import { runLongPricePropagationCoreTest } from "./framework/run-long-price-propagation-core-test";
 
+const REMOVED_DATA_FEEDS = ["ALUSD", "ALETH"];
+
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const manifestFileName = "data-services/primary";
@@ -10,6 +12,7 @@ import { runLongPricePropagationCoreTest } from "./framework/run-long-price-prop
     manifestFileName,
     nodeWorkingTimeInMinutes,
     nodeIntervalInMilliseconds,
-    coldStartIterationsCount
+    coldStartIterationsCount,
+    REMOVED_DATA_FEEDS
   );
 })();
