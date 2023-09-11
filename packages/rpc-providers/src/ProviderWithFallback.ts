@@ -8,8 +8,11 @@ import {
   TransactionReceipt,
 } from "@ethersproject/providers";
 import { ProviderWithFallbackBase } from "./ProviderWithFallbackBase";
+import { RedstoneCommon } from "redstone-utils";
 
 const logger = Logger.globalLogger();
+
+export const PROVIDER_OPERATION_TIMEOUT = 30_000;
 
 export type ProviderWithFallbackConfig = {
   unrecoverableErrors: ErrorCode[];
@@ -156,7 +159,11 @@ export class ProviderWithFallback
     fnName: string,
     ...args: any[]
   ): Promise<any> {
-    return this.doExecuteWithFallback(0, this.providerIndex, fnName, ...args);
+    return RedstoneCommon.timeout(
+      this.doExecuteWithFallback(0, this.providerIndex, fnName, ...args),
+      PROVIDER_OPERATION_TIMEOUT,
+      `executeWithFallback(${fnName}) timeout after ${PROVIDER_OPERATION_TIMEOUT}`
+    );
   }
 
   private async doExecuteWithFallback(
