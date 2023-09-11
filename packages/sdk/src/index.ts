@@ -1,15 +1,15 @@
 import axios from "axios";
 import { BigNumber, utils } from "ethers";
 import {
-  RedstoneOraclesState,
   redstoneOraclesInitialState,
+  RedstoneOraclesState,
 } from "redstone-oracles-smartweave-contracts";
 import {
+  consts,
   INumericDataPoint,
   RedstonePayload,
   SignedDataPackage,
   SignedDataPackagePlainObj,
-  consts,
 } from "redstone-protocol";
 import { SafeNumber } from "redstone-utils";
 import { resolveDataServiceUrls } from "./data-services-urls";
@@ -238,7 +238,11 @@ export default {
 };
 export * from "./data-services-urls";
 export * from "./contracts/ContractParamsProvider";
+export * from "./contracts/ContractParamsProviderMock";
 export * from "./contracts/IContractConnector";
 export * from "./contracts/prices/IPricesContractAdapter";
 export * from "./data-feed-values";
 export * from "./fetch-data-packages";
+export * from "./simple-relayer/IPriceManagerContractAdapter";
+export * from "./simple-relayer/IPriceFeedContractAdapter";
+export * from "./simple-relayer/start-simple-relayer";

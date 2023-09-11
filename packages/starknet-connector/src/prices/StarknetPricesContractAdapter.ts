@@ -1,6 +1,7 @@
 import { Contract, Result } from "starknet";
 import { ContractParamsProvider, IPricesContractAdapter } from "redstone-sdk";
 import { FEE_MULTIPLIER } from "../StarknetContractConnector";
+import { getNumberFromStarknet } from "../starknet-utils";
 
 export class StarknetPricesContractAdapter implements IPricesContractAdapter {
   constructor(private contract: Contract) {}
@@ -26,7 +27,7 @@ export class StarknetPricesContractAdapter implements IPricesContractAdapter {
           paramsProvider.getHexlifiedFeedIds(),
           await paramsProvider.getPayloadData(),
         ],
-        { maxFee: 0.004 * FEE_MULTIPLIER }
+        { maxFee: 0.004 * FEE_MULTIPLIER, parseRequest: true }
       )
     ).transaction_hash;
   }
@@ -42,10 +43,14 @@ export class StarknetPricesContractAdapter implements IPricesContractAdapter {
   }
 
   async readTimestampFromContract(): Promise<number> {
-    return (await this.contract.call("get_saved_timestamp"))[0].toNumber();
+    return getNumberFromStarknet(
+      await this.contract.call("get_saved_timestamp")
+    );
   }
 
   protected extractNumbers(response: Result): number[] {
-    return response[0].map((value: any) => value.toNumber());
+    return (response as Result[]).map((value: any) =>
+      getNumberFromStarknet(value)
+    );
   }
 }
