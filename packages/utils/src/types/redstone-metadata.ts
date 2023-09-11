@@ -20,6 +20,12 @@ export interface MetadataPerSource {
 
 export interface SlippageData {
   slippageAsPercent: string;
-  direction: "buy" | "sell";
+  direction: TradeDirections;
   simulationValueInUsd: string;
 }
+
+export enum TradeDirection {
+  BUY = "buy",
+  SELL = "sell",
+}
+export type TradeDirections = `${TradeDirection}`;
