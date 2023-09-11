@@ -27,13 +27,13 @@ else
 	endif
 endif
 
-SRC=cairo/src
-TEST=cairo/test
+SRC=src
+TEST=test
 OBJ=build/main_compiled.json
 CNT=$(SRC)/contracts/$(CONTRACT).cairo
 CNC=build/$(CONTRACT)_compiled.json
 ABI=build/$(CONTRACT)_abi.json
-DATA_DIR=../protocol/scripts/payload-generator/data
+DATA_DIR=../../protocol/scripts/payload-generator/data
 
 SHELL := /bin/bash
 
@@ -161,7 +161,7 @@ clean:
 	rm -rf build
 
 prepare_data:
-	make -C ../protocol/scripts/payload-generator DATA_NAME=$(DATA_NAME) prepare_data
+	make -C ../../protocol/scripts/payload-generator DATA_NAME=$(DATA_NAME) prepare_data
 
 #You may have needed:
 #	python3.9 -m venv /Users/lukaszkalbarczyk/cairo_venv

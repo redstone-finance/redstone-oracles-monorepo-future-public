@@ -2,26 +2,19 @@ import { toUtf8Bytes } from "@ethersproject/strings/lib/utf8";
 import { hexlify } from "@ethersproject/bytes";
 import { arrayify } from "ethers/lib/utils";
 
-import {
-  DataPackagesRequestParams,
-  getUrlsForDataServiceId,
-  requestRedstonePayload,
-} from "../index";
+import { DataPackagesRequestParams, requestRedstonePayload } from "../index";
 
 export class ContractParamsProvider {
-  constructor(
-    public readonly requestParams: DataPackagesRequestParams,
-    urls?: string[]
-  ) {
-    if (!urls) {
-      requestParams.urls = getUrlsForDataServiceId(requestParams);
-    }
+  constructor(public readonly requestParams: DataPackagesRequestParams) {}
+
+  async getPayloadHex(withPrefix = true): Promise<string> {
+    return (
+      (withPrefix ? "0x" : "") + (await this.requestPayload(this.requestParams))
+    );
   }
 
   async getPayloadData(): Promise<number[]> {
-    const payloadHex = await this.requestPayload(this.requestParams);
-
-    return Array.from(arrayify(payloadHex));
+    return Array.from(arrayify(await this.getPayloadHex(true)));
   }
 
   getHexlifiedFeedIds(): string[] {
@@ -40,6 +33,6 @@ export class ContractParamsProvider {
   protected async requestPayload(
     requestParams: DataPackagesRequestParams
   ): Promise<string> {
-    return "0x" + (await requestRedstonePayload(requestParams));
+    return await requestRedstonePayload(requestParams);
   }
 }

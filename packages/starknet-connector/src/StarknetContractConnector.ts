@@ -1,10 +1,17 @@
 import axios from "axios";
-import { Abi, AccountInterface, Contract, Provider } from "starknet";
+import {
+  Abi,
+  AccountInterface,
+  Contract,
+  Provider,
+  TransactionFinalityStatus,
+} from "starknet";
 
-const WAIT_FOR_TRANSACTION_TIME_INTERVAL = 30103;
-
-export type NetworkName = "mainnet-alpha" | "goerli-alpha" | "goerli-alpha-2";
-
+export enum NetworkName {
+  SN_MAIN = "SN_MAIN",
+  SN_GOERLI = "SN_GOERLI",
+  SN_GOERLI2 = "SN_GOERLI2",
+}
 export const FEE_MULTIPLIER = 1000000000000000000;
 
 export abstract class StarknetContractConnector {
@@ -14,28 +21,30 @@ export abstract class StarknetContractConnector {
     account: AccountInterface | undefined,
     private contractAddress: string,
     private abi: Abi,
-    private network: NetworkName = "goerli-alpha"
+    private network: NetworkName = NetworkName.SN_GOERLI
   ) {
     this.provider =
       account || new Provider({ sequencer: { network: this.network } });
   }
 
   async waitForTransaction(txHash: string): Promise<boolean> {
-    const result = await this.provider.waitForTransaction(
-      txHash,
-      WAIT_FOR_TRANSACTION_TIME_INTERVAL,
-      ["ACCEPTED_ON_L2", "REJECTED"]
-    );
+    const successState = TransactionFinalityStatus.ACCEPTED_ON_L2;
+    const result = await this.provider.waitForTransaction(txHash, {
+      successStates: [successState],
+    });
 
-    console.log(
-      `Transaction ${txHash} finished with status: ${result.status}, fee: ${
-        result.actual_fee != undefined
-          ? parseInt(result.actual_fee) / FEE_MULTIPLIER
-          : result.actual_fee
-      } ETH`
-    );
+    var logText = `Transaction ${txHash} finished with status: ${result.status}`;
+    const anyResult = result as any;
 
-    return result.status == "ACCEPTED_ON_L2";
+    if (!!anyResult.actual_fee) {
+      logText += `, fee: ${
+        parseInt(anyResult.actual_fee) / FEE_MULTIPLIER
+      } ETH`;
+    }
+
+    console.log(logText);
+
+    return result.status == successState;
   }
 
   getContract(): Contract {

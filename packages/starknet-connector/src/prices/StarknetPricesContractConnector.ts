@@ -14,7 +14,7 @@ export class StarknetPricesContractConnector
   constructor(
     account: AccountInterface | undefined,
     contractAddress: string,
-    network: NetworkName = "goerli-alpha"
+    network: NetworkName = NetworkName.SN_GOERLI
   ) {
     super(account, contractAddress, prices_abi, network);
   }

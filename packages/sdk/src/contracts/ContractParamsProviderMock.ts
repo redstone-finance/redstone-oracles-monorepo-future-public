@@ -1,25 +1,18 @@
-import {
-  ContractParamsProvider,
-  DataPackagesRequestParams,
-} from "redstone-sdk";
 import fs from "fs";
-import path from "path";
 import { hexlify } from "@ethersproject/bytes";
 import { toUtf8Bytes } from "@ethersproject/strings/lib/utf8";
+import { ContractParamsProvider } from "./ContractParamsProvider";
+import { DataPackagesRequestParams } from "../index";
 
 export class ContractParamsProviderMock extends ContractParamsProvider {
   overriddenFeedIds?: string[];
 
-  constructor(private filename: string, dataFeeds: string[]) {
+  constructor(private filePath: string, dataFeeds: string[]) {
     super({ uniqueSignersCount: 0, dataServiceId: "", dataFeeds });
   }
 
-  protected async requestPayload(
-    requestParams: DataPackagesRequestParams
-  ): Promise<string> {
-    return fs
-      .readFileSync(path.join(__dirname, `../sample-data/${this.filename}.hex`))
-      .toString();
+  protected requestPayload(_: DataPackagesRequestParams): Promise<string> {
+    return Promise.resolve(fs.readFileSync(this.filePath).toString());
   }
 
   override getHexlifiedFeedIds(): string[] {
