@@ -10,12 +10,15 @@ const getFromEnv = (name: string) => {
   return envVariable;
 };
 
+export type VERSION = "0";
+
 export const config = Object.freeze({
   relayerIterationInterval: getFromEnv("RELAYER_ITERATION_INTERVAL"),
   updatePriceInterval: getFromEnv("UPDATE_PRICE_INTERVAL"),
   network: getFromEnv("NETWORK"),
   privateKey: getFromEnv("PRIVATE_KEY"),
-  managerAddress: getFromEnv("MANAGER_ADDRESS"),
+  priceManagerAddress: getFromEnv("PRICE_MANAGER_ADDRESS"),
+  priceManagerVersion: getFromEnv("PRICE_MANAGER_VERSION") as VERSION,
   ownerAddress: getFromEnv("OWNER_ADDRESS"),
   maxEthFee: getFromEnv("MAX_ETH_FEE"),
 });

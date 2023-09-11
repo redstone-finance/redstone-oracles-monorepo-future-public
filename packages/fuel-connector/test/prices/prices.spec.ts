@@ -1,9 +1,13 @@
-import { ContractParamsProvider, IPricesContractAdapter } from "redstone-sdk";
-import { ContractParamsProviderMock } from "../common/ContractParamsProviderMock";
+import {
+  ContractParamsProvider,
+  IPricesContractAdapter,
+  ContractParamsProviderMock,
+} from "redstone-sdk";
 import {
   deployPricesContract,
   SAMPLE_PACKAGES_TIMESTAMP,
 } from "./prices-contract-test-utils";
+import path from "path";
 
 jest.setTimeout(120000);
 
@@ -15,6 +19,15 @@ describe("Prices contract", () => {
     expect(result).toBe(0);
   });
 
+  const createContractParamsProviderMock = (
+    dataFeeds: string[],
+    filename: string = "2sig_ETH_BTC"
+  ) => {
+    const filePath = path.join(__dirname, `../sample-data/${filename}.hex`);
+
+    return new ContractParamsProviderMock(filePath, dataFeeds);
+  };
+
   const performPayloadTest = async (
     callback: (
       adapter: IPricesContractAdapter,
@@ -22,10 +35,7 @@ describe("Prices contract", () => {
     ) => Promise<number[]>
   ): Promise<number[]> => {
     const adapter = await deployPricesContract();
-    const paramsProvider = new ContractParamsProviderMock("2sig_ETH_BTC", [
-      "ETH",
-      "BTC",
-    ]);
+    const paramsProvider = createContractParamsProviderMock(["ETH", "BTC"]);
 
     return await callback(adapter, paramsProvider);
   };
@@ -78,7 +88,7 @@ describe("Prices contract", () => {
 
   it("get_prices should panic with insufficient number of signers", async () => {
     const adapter = await deployPricesContract();
-    const paramsProvider = new ContractParamsProviderMock("2sig_ETH_BTC", [
+    const paramsProvider = createContractParamsProviderMock([
       "ETH",
       "BTC",
       "AVAX",
