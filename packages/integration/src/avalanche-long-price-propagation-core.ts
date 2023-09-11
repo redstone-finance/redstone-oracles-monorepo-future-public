@@ -1,5 +1,15 @@
 import { runLongPricePropagationCoreTest } from "./framework/run-long-price-propagation-core-test";
 
+const REMOVED_DATA_FEEDS = [
+  "DAI",
+  "YYAV3SA1",
+  "TJ_AVAX_USDC_AUTO",
+  "BUSD",
+  "XAVA",
+  "LINK",
+  "USDT.e",
+];
+
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const manifestFileName = "data-services/avalanche";
@@ -10,6 +20,7 @@ import { runLongPricePropagationCoreTest } from "./framework/run-long-price-prop
     manifestFileName,
     nodeWorkingTimeInMinutes,
     nodeIntervalInMilliseconds,
-    coldStartIterationsCount
+    coldStartIterationsCount,
+    REMOVED_DATA_FEEDS
   );
 })();

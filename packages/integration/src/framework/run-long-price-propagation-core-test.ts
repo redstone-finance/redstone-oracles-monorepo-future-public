@@ -10,12 +10,16 @@ import {
   stopCacheLayer,
   stopOracleNode,
 } from "./integration-test-framework";
-import { compareDataPackagesFromLocalAndProd } from "./compare-data-packages";
+import {
+  compareDataPackagesFromLocalAndProd,
+  DataPackages,
+} from "./compare-data-packages";
 import { fetchLatestTimestampFromLocal } from "./fetch-latest-timestamp-from-local-cache";
 import { fetchDataPackagesFromCaches } from "./fetch-data-packages-from-local-and-prod-cache";
 import { printAllDeviations } from "./print-all-deviations";
 import { checkValuesDeviations } from "./check-values-deviations";
 import { checkSourcesDeviations } from "./check-sources-deviations";
+import { checkMissingDataFeeds } from "./check-missing-data-feeds";
 
 export interface DeviationsPerDataFeed {
   [dataFeedId: string]: number;
@@ -31,6 +35,11 @@ export interface DeviationsPerSource {
 
 export interface SourceDeviationsPerDataFeed {
   [dataFeedId: string]: DeviationsPerSource;
+}
+
+export interface DataPackagesFromLocalAndProd {
+  dataPackagesFromLocal: DataPackages;
+  dataPackagesFromProd: DataPackages;
 }
 
 const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
@@ -50,7 +59,8 @@ export const runLongPricePropagationCoreTest = async (
   manifestFileName: string,
   nodeWorkingTimeInMinutes: number,
   nodeIntervalInMilliseconds: number,
-  coldStartIterationsCount: number
+  coldStartIterationsCount: number,
+  removedDataFeeds?: string[]
 ) => {
   await buildCacheLayer();
   await buildOracleNode();
@@ -101,10 +111,20 @@ export const runLongPricePropagationCoreTest = async (
     );
     const { deviationsPerDataFeed, sourceDeviationsPerDataFeed } =
       compareDataPackagesFromLocalAndProd(
-        responseFromLocalCache,
-        responseFromProdCache
+        {
+          dataPackagesFromLocal: responseFromLocalCache,
+          dataPackagesFromProd: responseFromProdCache,
+        },
+        removedDataFeeds
       );
     printAllDeviations(deviationsPerDataFeed);
+    checkMissingDataFeeds(
+      {
+        dataPackagesFromLocal: responseFromLocalCache,
+        dataPackagesFromProd: responseFromProdCache,
+      },
+      removedDataFeeds
+    );
     checkValuesDeviations(
       deviationsPerDataFeed,
       MAX_PERCENTAGE_VALUE_DIFFERENCE

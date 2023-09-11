@@ -1,6 +1,7 @@
 import { MathUtils } from "redstone-utils";
 import { DataPackagePlainObj, consts } from "redstone-protocol";
 import {
+  DataPackagesFromLocalAndProd,
   DeviationsPerDataFeed,
   DeviationsPerSource,
   DeviationsWithBigPackage,
@@ -18,64 +19,35 @@ interface SourceMetadata {
 }
 
 export const compareDataPackagesFromLocalAndProd = (
-  dataPackagesFromLocal: DataPackages,
-  dataPackagesFromProd: DataPackages
-) => {
-  const dataFeedsFromLocal = Object.keys(dataPackagesFromLocal);
-  const dataFeedsFromProd = Object.keys(dataPackagesFromProd);
-
-  const missingDataPackagesInLocal = getMissingDataFeedsInDataPackages(
-    dataFeedsFromProd,
-    dataFeedsFromLocal
-  );
-  if (missingDataPackagesInLocal.length > 0) {
-    throw new Error(
-      `Missing data packages data package from local cache service: ${missingDataPackagesInLocal.join(
-        ","
-      )}`
-    );
-  }
-
-  const missingDataPackagesInProd = getMissingDataFeedsInDataPackages(
-    dataFeedsFromLocal,
-    dataFeedsFromProd
-  );
-  console.warn(
-    `Missing data packages data package from prod cache service: ${missingDataPackagesInProd.join(
-      ","
-    )}`
-  );
-
-  return compareValuesInDataPackages(
-    dataPackagesFromProd,
-    dataPackagesFromLocal
-  );
-};
-
-const getMissingDataFeedsInDataPackages = (
-  dataFeedsFromFirstDataPackage: string[],
-  dataFeedsFromSecondDataPackage: string[]
+  { dataPackagesFromLocal, dataPackagesFromProd }: DataPackagesFromLocalAndProd,
+  removedDataFeeds?: string[]
 ) =>
-  dataFeedsFromFirstDataPackage.filter(
-    (dataFeed) =>
-      !dataFeedsFromSecondDataPackage.includes(dataFeed) &&
-      dataFeed !== consts.ALL_FEEDS_KEY
+  compareValuesInDataPackages(
+    dataPackagesFromProd,
+    dataPackagesFromLocal,
+    removedDataFeeds
   );
 
 const compareValuesInDataPackages = (
   dataPackagesFromProd: DataPackages,
-  dataPackagesFromLocal: DataPackages
+  dataPackagesFromLocal: DataPackages,
+  removedDataFeeds?: string[]
 ) => {
   const deviationsPerDataFeed: DeviationsWithBigPackage = {};
   const sourceDeviationsPerDataFeed: SourceDeviationsPerDataFeed = {};
   for (const [dataFeedId, allFeedObjectsFromProd] of Object.entries(
     dataPackagesFromProd
   )) {
+    if (removedDataFeeds?.includes(dataFeedId)) {
+      console.log(`Data feed ${dataFeedId} is removed from manifest, skipping`);
+      continue;
+    }
     const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY as string;
     if (dataFeedId === ALL_FEEDS_KEY) {
       const deviationsFromBigPackage = compareValuesFromBigPackageAndLocalCache(
         allFeedObjectsFromProd,
-        dataPackagesFromLocal
+        dataPackagesFromLocal,
+        removedDataFeeds
       );
       deviationsPerDataFeed[ALL_FEEDS_KEY] = deviationsFromBigPackage;
       continue;
@@ -161,12 +133,16 @@ const compareSourcesValuesFromProdAndLocal = (
 
 const compareValuesFromBigPackageAndLocalCache = (
   allFeedObjectsFromProd: DataPackagePlainObj[],
-  dataPackagesFromLocal: DataPackages
+  dataPackagesFromLocal: DataPackages,
+  removedDataFeeds?: string[]
 ) => {
   const deviationsPerDataFeed: DeviationsPerDataFeed = {};
   for (const dataPackage of allFeedObjectsFromProd) {
     for (const dataPoint of dataPackage.dataPoints) {
       const dataFeedId = dataPoint.dataFeedId;
+      if (removedDataFeeds?.includes(dataFeedId)) {
+        continue;
+      }
       const dataFeedValueFromLocal =
         dataPackagesFromLocal[dataFeedId][0].dataPoints[0].value;
       const deviation = MathUtils.calculateDeviationPercent({
