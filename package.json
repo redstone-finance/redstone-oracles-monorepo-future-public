@@ -31,7 +31,10 @@
       "packages/streamr-proxy",
       "packages/utils",
       "packages/integration",
-      "packages/gelato-relayer"
+      "packages/gelato-relayer",
+      "packages/fuel-connector",
+      "packages/starknet-connector",
+      "packages/starknet-relayer"
     ],
     "nohoist": [
       "ts-node"

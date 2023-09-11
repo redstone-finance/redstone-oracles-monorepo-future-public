@@ -1,7 +1,7 @@
 import { StarknetContractConnector } from "@redstone-finance/starknet-connector";
-import { Abi, Account, ec, Provider, Signer } from "starknet";
+import { Abi, Account, Provider, Signer } from "starknet";
 
-export abstract class StarknetRelayerContractConnector extends StarknetContractConnector {
+export abstract class RelayerStarknetContractConnector extends StarknetContractConnector {
   protected constructor(
     abi: Abi,
     protected config: any,
@@ -12,9 +12,9 @@ export abstract class StarknetRelayerContractConnector extends StarknetContractC
     const account = new Account(
       provider,
       config.ownerAddress,
-      new Signer(ec.getKeyPair(config.privateKey))
+      new Signer(config.privateKey)
     );
 
-    super(account, contractAddress || config.managerAddress, abi);
+    super(account, contractAddress || config.priceManagerAddress, abi);
   }
 }

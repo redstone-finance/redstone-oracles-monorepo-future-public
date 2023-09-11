@@ -7,7 +7,8 @@ Proudly supported by:
 [![Fuel Grants Program](fuel-grants-program.png)](#-the-fuel-grants-program)
 
 RedStone proposes a completely new modular design where data is first put into a data availability layer and then
-fetched on-chain. This allow us to broadcast a large number of assets at high frequency to a cheaper layer and put it on
+fetched on-chain. This allows us to broadcast a large number of assets at high frequency to a cheaper layer and put it
+on
 chain only when required by the protocol.
 
 The `@redstone-finance/fuel-connector` module implements an alternative design of providing oracle data to smart
@@ -27,21 +28,22 @@ the [whole RedStone Oracle model](https://docs.redstone.finance/docs/introductio
 ## 👨‍💻 Code structure
 
 - [sway](sway) directory contains the fuel-network on-chain libraries written in sway `0.35.5`.
-  - There are also various tests of signature verification with the given signers, timestamp validation, value
-    aggregation as well as full data-processing tests with various configurations.
-  - You can find all the possibilities [here](sway/README.md).
-  - You can read [here](sway/contract/README.md) how the contract works.
+    - There are also various tests of signature verification with the given signers, timestamp validation, value
+      aggregation as well as full data-processing tests with various configurations.
+    - You can find all the possibilities [here](sway/README.md).
+    - You can read [here](sway/contract/README.md) how the contract works.
 - [src](src) directory contains the typescript classes, useful for establishing a connection between typescript and
   fuel-network layers.
-  - See [below](#-connecting-to-the-contract), how to connect to the contract.
+    - See [below](#-connecting-to-the-contract), how to connect to the contract.
 - [test](test) directory contains the off-chain tests, especially:
-  - [e2e contract usage tests](test%2Fprices%2Fprices.spec.ts) - with payload sending and receiving aggregated data
-  - [integration tests](test%2Fprices%2Fintegration.spec.ts) - to be used for checking if the contract was properly
-    initialized in the fuel network
-  - [gas usage tests](test%2Fprices%2Fgas-usage.spec.ts) - to be used for checking the gas costs of particular
-    operations in various configurations and also
-    the summary of the single item costs.
-  - [a piece of code](test%2Fprices%2Ftransfer.spec.ts) for transferring ETHs from genesis accounts on the local network
+    - [e2e contract usage tests](test/prices/prices.spec.ts) - with payload sending and receiving aggregated data
+    - [integration tests](test/prices/integration.spec.ts) - to be used for checking if the contract was properly
+      initialized in the fuel network
+    - [gas usage tests](test/prices/gas-usage.spec.ts) - to be used for checking the gas costs of particular
+      operations in various configurations and also
+      the summary of the single item costs.
+    - [a piece of code](test/prices/transfer.spec.ts) for transferring ETHs from genesis accounts on the local
+      network
 
 ## 🔥 Connecting to the contract
 
@@ -64,9 +66,9 @@ selected [RedStone data service](https://app.redstone.finance) and requested dat
 const prices = new FuelPricesContractConnector(yourWalletOrProvider, yourContractAddress);
 
 const paramsProvider = new ContractParamsProvider({
-  dataServiceId: "redstone-main-demo",
-  uniqueSignersCount: 1,
-  dataFeeds: ["ETH", "BTC"]
+    dataServiceId: "redstone-main-demo",
+    uniqueSignersCount: 1,
+    dataFeeds: ["ETH", "BTC"]
 });
 
 ```
@@ -98,4 +100,4 @@ creators, and new or existing projects to build on the world's fastest modular e
 
 ## 📄 License
 
-Redstone fuel connector is an open-source and free software released under the BUSL-1.1 License.
+RedStone Fuel connector is an open-source and free software released under the BUSL-1.1 License.
