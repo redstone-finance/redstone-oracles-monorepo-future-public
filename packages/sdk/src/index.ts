@@ -20,9 +20,9 @@ export interface DataPackagesRequestParams {
   dataServiceId: string;
   uniqueSignersCount: number;
   dataFeeds?: string[];
-  urls?: string[];
+  urls?: string[] | undefined;
   valuesToCompare?: ValuesForDataFeeds;
-  historicalTimestamp?: number;
+  historicalTimestamp?: number | undefined;
 }
 
 export interface DataPackagesResponse {

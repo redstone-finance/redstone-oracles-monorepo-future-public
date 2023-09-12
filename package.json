@@ -22,19 +22,19 @@
     "packages": [
       "packages/cache-service",
       "packages/evm-connector",
+      "packages/fuel-connector",
+      "packages/gelato-relayer",
+      "packages/integration",
       "packages/on-chain-relayer",
       "packages/oracle-node",
       "packages/oracles-smartweave-contracts",
       "packages/protocol",
       "packages/rpc-providers",
       "packages/sdk",
-      "packages/streamr-proxy",
-      "packages/utils",
-      "packages/integration",
-      "packages/gelato-relayer",
-      "packages/fuel-connector",
       "packages/starknet-connector",
-      "packages/starknet-relayer"
+      "packages/starknet-relayer",
+      "packages/streamr-proxy",
+      "packages/utils"
     ],
     "nohoist": [
       "ts-node"

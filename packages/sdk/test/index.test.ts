@@ -13,7 +13,7 @@ const getReqParams = (urls?: string[]): DataPackagesRequestParams => {
     dataFeeds: ["BTC", "ETH"],
     dataServiceId: "mock-data-service-tests",
     uniqueSignersCount: 2,
-    urls,
+    urls: urls!,
   };
 };
 

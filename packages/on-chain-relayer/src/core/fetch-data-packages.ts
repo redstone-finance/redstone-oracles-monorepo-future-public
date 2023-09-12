@@ -63,4 +63,5 @@ const calculateOlderPackagesTimestamp = (
       ) * MILLISECONDS_IN_ONE_MINUTE
     );
   }
+  return undefined;
 };

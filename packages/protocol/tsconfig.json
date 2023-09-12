@@ -1,21 +1,31 @@
 {
   "compilerOptions": {
-    "target": "es2018",
-    "lib": ["ES2021.String"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "outDir": "dist",
     "allowJs": true,
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "composite": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "types": ["jest", "node"]
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2021",
   },
-  "include": ["src/**/*.ts", "test", "test/**/*.json"]
+  "include": [
+    "src/**/*.ts",
+    "test",
+    "test/**/*.json"
+  ]
 }

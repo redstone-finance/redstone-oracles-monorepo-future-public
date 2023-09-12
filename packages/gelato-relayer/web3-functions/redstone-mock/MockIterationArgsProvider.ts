@@ -31,7 +31,7 @@ export class MockIterationArgsProvider
     };
   }
 
-  getTransactionData(args: string): Promise<string | undefined> {
+  getTransactionData(args: string | undefined): Promise<string | undefined> {
     return Promise.resolve(args);
   }
 }

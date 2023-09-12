@@ -4,9 +4,13 @@
     "node_modules",
     "test",
     "dist",
-    "**/*spec.ts"
+    "**/*spec.ts",
+    "scripts"
   ],
   "references": [
+    {
+      "path": "../evm-connector/tsconfig.build.json"
+    },
     {
       "path": "../protocol/tsconfig.build.json"
     },
@@ -14,10 +18,10 @@
       "path": "../sdk/tsconfig.build.json"
     },
     {
-      "path": "../streamr-proxy/tsconfig.build.json"
+      "path": "../utils/tsconfig.build.json"
     },
     {
-      "path": "../utils/tsconfig.build.json"
+      "path": "../rpc-providers/tsconfig.build.json"
     }
   ]
 }

@@ -1,18 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es2021",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "outDir": "dist",
+    "allowJs": true,
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "composite": true
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2021",
   },
   "include": [
     "./src/**/*.ts",
@@ -26,7 +35,7 @@
   ],
   "references": [
     {
-      "path": "../utils"
+      "path": "../utils/tsconfig.build.json"
     }
   ]
 }

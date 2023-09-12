@@ -4,7 +4,7 @@ import { providers } from "ethers";
 export type IterationArgs<Args> = {
   shouldUpdatePrices: boolean;
   args?: Args;
-  message?: string;
+  message?: string | undefined;
 };
 
 export type IterationArgsProviderEnv = {
@@ -13,7 +13,7 @@ export type IterationArgsProviderEnv = {
 };
 
 export interface IterationArgsProviderInterface<Args> {
-  adapterContractAddress?: string;
+  adapterContractAddress?: string | undefined;
 
   getArgs(
     userArgs: Web3FunctionUserArgs,

@@ -8,7 +8,7 @@ const REDSTONE_TYPE_TAG_VALUE = "redstone-oracles";
 @Injectable()
 export class BundlrService {
   private readonly logger = new Logger(BundlrService.name);
-  private bundlrClient: Bundlr;
+  private bundlrClient: Bundlr | undefined;
 
   constructor() {
     if (config.enableArchivingOnArweave) {
@@ -24,7 +24,10 @@ export class BundlrService {
     try {
       await this.saveDataPackages(dataPackages);
     } catch (e) {
-      this.logger.error("Error occured while saving to Bundlr", e.stack);
+      this.logger.error(
+        "Error occured while saving to Bundlr",
+        (e as Error).stack
+      );
     }
   }
 
@@ -52,7 +55,7 @@ export class BundlrService {
 
     const dataToSave = this.prepareDataToSave(dataPackage);
 
-    const tx = await this.bundlrClient.createTransaction(dataToSave, {
+    const tx = await this.bundlrClient!.createTransaction(dataToSave, {
       tags: tagsArray,
     });
 

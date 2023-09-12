@@ -17,12 +17,12 @@ import {
 
 export type CacheLayerInstance = {
   instanceId: string;
-  mongoDbProcess?: ChildProcess;
-  directCacheServiceProcess?: ChildProcess;
-  publicCacheServiceProcess?: ChildProcess;
+  mongoDbProcess?: ChildProcess | undefined;
+  directCacheServiceProcess?: ChildProcess | undefined;
+  publicCacheServiceProcess?: ChildProcess | undefined;
   directCacheServicePort?: number;
   publicCacheServicePort?: number;
-  dotenvPath?: string;
+  dotenvPath?: string | undefined;
 };
 
 const CACHE_SERVICE_DIR = "../cache-service";

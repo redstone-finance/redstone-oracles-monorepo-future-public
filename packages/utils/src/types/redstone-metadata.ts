@@ -12,7 +12,7 @@ export interface MetadataPerSource {
   slippage?: SlippageData[];
 
   /** Defined only for sources which supports fetching liquidity. */
-  liquidity?: string;
+  liquidity?: string | undefined;
 
   /** Defined for all sources. If source failed value will be = "error"  */
   value?: string;

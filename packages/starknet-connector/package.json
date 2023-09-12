@@ -18,7 +18,8 @@
     "redstone-sdk": ">=1.8.1"
   },
   "devDependencies": {
-    "@types/node": "^18.13.0"
+    "@types/node": "^18.13.0",
+    "typescript": "^5.2.2"
   },
   "files": [
     "dist/**/*"

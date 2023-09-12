@@ -14,7 +14,9 @@ export class ContractParamsProviderMock extends ContractParamsProvider {
     super({ uniqueSignersCount: 0, dataServiceId: "", dataFeeds });
   }
 
-  protected requestPayload(_: DataPackagesRequestParams): Promise<string> {
+  protected override requestPayload(
+    _: DataPackagesRequestParams
+  ): Promise<string> {
     return Promise.resolve(this.fileReader(this.filePath).toString());
   }
 
