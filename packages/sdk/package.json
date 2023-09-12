@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=test jest",
-    "build": "rm -rf dist && tsc --build",
+    "clean": "rm -rf dist",
+    "build": "yarn clean && tsc --build",
     "preversion": "yarn build",
     "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push",
     "pack-package": "yarn build && cd dist && npm pack",
