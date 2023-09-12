@@ -9,22 +9,22 @@ export type DataPackageDocument = CachedDataPackage & Document;
 @Schema({ autoIndex: true })
 export class CachedDataPackage {
   @Prop({ required: true })
-  timestampMilliseconds: number;
+  timestampMilliseconds!: number;
 
   @Prop({ required: true })
-  signature: string;
+  signature!: string;
 
   @Prop({ required: true })
-  isSignatureValid: boolean;
+  isSignatureValid!: boolean;
 
   @Prop({ type: Types.Mixed, required: true })
-  dataPoints: DataPointPlainObj[];
+  dataPoints!: DataPointPlainObj[];
 
   @Prop({ required: true })
-  dataServiceId: string;
+  dataServiceId!: string;
 
   @Prop({ required: true })
-  signerAddress: string;
+  signerAddress!: string;
 
   @Prop({ required: false })
   dataFeedId?: string;
@@ -44,6 +44,6 @@ DataPackageSchema.index({
   timestampMilliseconds: -1,
 });
 
-mongoose.set('strictQuery', true);
+mongoose.set("strictQuery", true);
 
 export const DataPackage = mongoose.model("DataPackage", DataPackageSchema);

@@ -40,6 +40,7 @@ const getJSONFromEnv = <T>(
       throw e;
     }
   }
+  return undefined;
 };
 
 export const fileSystemConfigProvider: ConfigProvider = () => {

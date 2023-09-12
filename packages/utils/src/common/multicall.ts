@@ -45,10 +45,12 @@ export async function multiCallOneContract(
   const multicall = new Multicall({
     tryAggregate: false,
     ethersProvider: contract.provider,
-    multicallCustomContractAddress: multicallAddress,
+    multicallCustomContractAddress: multicallAddress!,
   });
 
-  const results = await multicall.call(multiCallContext, { blockNumber });
+  const results = await multicall.call(multiCallContext, {
+    blockNumber: blockNumber!,
+  });
 
   const resultsInOrder: unknown[] = new Array(calls.length);
   for (const result of results.results["this"].callsReturnContext) {
@@ -131,7 +133,7 @@ export const callMulticall = async (
   const result = await new Multicall({
     tryAggregate: false,
     ethersProvider: provider,
-    multicallCustomContractAddress: multicallAddress,
+    multicallCustomContractAddress: multicallAddress!,
   }).call(contractCallContexts, contractCallOptions);
   return new MulticallResult(result);
 };

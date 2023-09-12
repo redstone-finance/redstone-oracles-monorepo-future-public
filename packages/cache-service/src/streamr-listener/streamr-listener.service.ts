@@ -78,10 +78,10 @@ export class StreamrListenerService {
     this.logger.log(`Stream exists. Connecting to: ${streamId}`);
     const subscription = await this.streamrClient.subscribe(
       streamId,
-      async (message: Uint8Array) => {
+      async (message: unknown) => {
         try {
           this.logger.log(`Received a message from stream: ${streamId}`);
-          const dataPackagesReceived = decompressMsg(message);
+          const dataPackagesReceived = decompressMsg(message as Uint8Array);
           const dataPackagesToSave =
             await this.dataPackageService.prepareReceivedDataPackagesForBulkSaving(
               dataPackagesReceived,
@@ -94,7 +94,7 @@ export class StreamrListenerService {
             nodeEvmAddress
           );
         } catch (e) {
-          this.logger.error("Error occured ", e.stack);
+          this.logger.error("Error occured ", (e as Error).stack);
         }
       }
     );

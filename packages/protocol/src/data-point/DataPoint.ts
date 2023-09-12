@@ -6,7 +6,7 @@ import { INumericDataPoint } from "./NumericDataPoint";
 export interface IStandardDataPoint {
   dataFeedId: ConvertibleToBytes32;
   value: string; // base64-encoded bytes
-  metadata?: Metadata;
+  metadata?: Metadata | undefined;
 }
 export type DataPointPlainObj = IStandardDataPoint | INumericDataPoint;
 

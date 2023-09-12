@@ -1,34 +1,42 @@
 {
   "compilerOptions": {
-    "lib": ["es2021"],
-    "target": "es2018",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "outDir": "dist",
+    "allowJs": true,
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "composite": true
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2021",
   },
   "include": [
     "./src",
     "./test",
     "./typechain-types",
     "package.json",
-    "./contracts"
+    "./contracts",
+    "./hardhat.config.ts",
   ],
-  "files": ["./hardhat.config.ts"],
   "references": [
     {
-      "path": "../protocol"
+      "path": "../protocol/tsconfig.build.json"
     },
     {
-      "path": "../sdk"
+      "path": "../sdk/tsconfig.build.json"
     }
   ]
 }
