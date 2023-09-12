@@ -13,7 +13,7 @@ import {
   RedstonePayloadParser,
   convertDataPointToNumericDataPoint,
 } from "redstone-protocol/dist/src/redstone-payload/RedstonePayloadParser";
-import * as request from "supertest";
+import request from "supertest";
 import { AppModule } from "../../src/app.module";
 import { BundlrService } from "../../src/bundlr/bundlr.service";
 import { ResponseFormat } from "../../src/data-packages/data-packages.interface";
@@ -35,7 +35,6 @@ import {
 import { connectToTestDB, dropTestDatabase } from "../common/test-db";
 import { signByMockSigner } from "../common/test-utils";
 import { DataPackagesService } from "../../src/data-packages/data-packages.service";
-import { RedstoneCommon } from "redstone-utils";
 
 type WithSigner = { signerAddress: string };
 

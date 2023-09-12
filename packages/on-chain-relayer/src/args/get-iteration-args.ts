@@ -11,13 +11,15 @@ import { config } from "../config";
 import { fetchDataPackages } from "../core/fetch-data-packages";
 import { getUniqueSignersThresholdFromContract } from "../core/contract-interactions/get-unique-signers-threshold";
 
-export const getIterationArgs = async (
-  adapterContract: RedstoneAdapterBase
-): Promise<{
+type IterationArgs = {
   shouldUpdatePrices: boolean;
   args: UpdatePricesArgs;
   message?: string;
-}> => {
+};
+
+export const getIterationArgs = async (
+  adapterContract: RedstoneAdapterBase
+): Promise<IterationArgs> => {
   const relayerConfig = config();
   const { dataFeeds, updateConditions } = relayerConfig;
 

@@ -17,6 +17,7 @@ const runIteration = async () => {
   const adapterContract = getAdapterContract();
   const iterationArgs = await getIterationArgs(adapterContract);
 
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   sendHealthcheckPing();
   console.log(
     `Update condition ${

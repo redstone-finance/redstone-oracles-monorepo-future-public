@@ -1,20 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "declaration": true,
-    "outDir": "./dist",
-    "module": "commonjs",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "lib": ["es2021"],
     "allowJs": true,
     "composite": true,
+    "declaration": true,
     "declarationMap": true,
-    "incremental": true
-  },
-  "ts-node": {
-    "files": true
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2021",
   },
   "include": [
     "src/contracts/redstone-oracle-registry/**/*",
@@ -22,5 +29,9 @@
     "index.ts",
     "src/contracts/redstone-oracle-registry/initial-state.json"
   ],
-  "exclude": ["node_modules", "tools", "test"]
+  "exclude": [
+    "node_modules",
+    "tools",
+    "test"
+  ]
 }

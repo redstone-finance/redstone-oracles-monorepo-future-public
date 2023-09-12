@@ -49,7 +49,7 @@ export class SimpleNumericMockWrapper extends MockWrapper {
     super(mockDataPackages);
   }
 
-  getUnsignedMetadata(): string {
+  override getUnsignedMetadata(): string {
     return `${version}#simple-numeric-mock`;
   }
 }

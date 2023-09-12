@@ -12,9 +12,9 @@ import { DataPoint, Metadata } from "./DataPoint";
 export interface INumericDataPoint {
   dataFeedId: ConvertibleToBytes32;
   value: number;
-  decimals?: number;
+  decimals?: number | undefined;
   valueByteSize?: number;
-  metadata?: Metadata;
+  metadata?: Metadata | undefined;
 }
 
 // This data point does not store information about data size in its serialized value
@@ -40,7 +40,7 @@ export class NumericDataPoint extends DataPoint {
     );
   }
 
-  toObj(): INumericDataPoint {
+  override toObj(): INumericDataPoint {
     return {
       ...this.numericDataPointArgs,
     };

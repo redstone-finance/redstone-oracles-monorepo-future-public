@@ -33,8 +33,8 @@ export interface OnChainRelayerManifest {
 
 export interface RelayerConfig {
   relayerIterationInterval: number;
-  updatePriceInterval?: number;
-  cronExpressions?: string[];
+  updatePriceInterval?: number | undefined;
+  cronExpressions?: string[] | undefined;
   rpcUrls: string[];
   chainName: string;
   chainId: number;
@@ -45,16 +45,16 @@ export interface RelayerConfig {
   gasLimit: number;
   gasMultiplier: number;
   updateConditions: ConditionCheckNames[];
-  minDeviationPercentage?: number;
-  healthcheckPingUrl?: string;
+  minDeviationPercentage?: number | undefined;
+  healthcheckPingUrl?: string | undefined;
   adapterContractType: string;
   expectedTxDeliveryTimeInMS: number;
   isArbitrumNetwork: boolean;
   fallbackOffsetInMinutes: number;
   fallbackOffsetInMS: number;
-  cacheServiceUrls?: string[];
+  cacheServiceUrls?: string[] | undefined;
   isAuctionModel?: boolean;
-  historicalPackagesGateways?: string[];
+  historicalPackagesGateways?: string[] | undefined;
 }
 
 export type OnChainRelayerEnv = {
@@ -62,12 +62,12 @@ export type OnChainRelayerEnv = {
   rpcUrls: string[];
   privateKey: string;
   gasLimit: number;
-  healthcheckPingUrl?: string;
+  healthcheckPingUrl?: string | undefined;
   expectedTxDeliveryTimeInMS: number;
   isArbitrumNetwork: boolean;
   fallbackOffsetInMinutes: number;
-  cacheServiceUrls?: string[];
-  historicalPackagesGateways?: string[];
+  cacheServiceUrls?: string[] | undefined;
+  historicalPackagesGateways?: string[] | undefined;
   gasMultiplier: number;
   isAuctionModel?: boolean;
 };
