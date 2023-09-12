@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=test hardhat test",
-    "build": "hardhat compile && rm -rf dist && tsc --build",
+    "build": "hardhat compile && rm -rf dist && tsc --build tsconfig.build.json",
     "preversion": "yarn build",
     "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push"
   },
@@ -29,7 +29,7 @@
     "sinon": "^15.0.3",
     "solidity-coverage": "^0.8.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   },
   "peerDependencies": {
     "ethers": "5.x.x"

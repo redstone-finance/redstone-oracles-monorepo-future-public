@@ -69,7 +69,7 @@ export type TransactionDeliveryManOpts = {
   /**
    * Should be set to true if chain doesn't support EIP1559
    */
-  isAuctionModel?: boolean;
+  isAuctionModel?: boolean | undefined;
 
   logger?: (text: string) => void;
 };

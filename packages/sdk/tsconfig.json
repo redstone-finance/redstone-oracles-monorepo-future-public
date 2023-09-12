@@ -1,31 +1,41 @@
 {
   "compilerOptions": {
-    "lib": ["es2021"],
-    "target": "es2018",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "outDir": "dist",
     "allowJs": true,
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
-    "composite": true,
-    "incremental": true
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "exactOptionalPropertyTypes": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2021",
   },
-  "include": ["./src", "./test"],
+  "include": [
+    "./src",
+    "./test"
+  ],
   "references": [
     {
-      "path": "../protocol"
+      "path": "../protocol/tsconfig.build.json"
     },
     {
-      "path": "../oracles-smartweave-contracts"
+      "path": "../oracles-smartweave-contracts/tsconfig.build.json"
     },
     {
-      "path": "../utils"
+      "path": "../utils/tsconfig.build.json"
     }
   ]
 }

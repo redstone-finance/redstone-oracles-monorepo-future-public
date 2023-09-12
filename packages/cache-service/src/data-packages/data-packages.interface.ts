@@ -18,14 +18,14 @@ import { CachedDataPackage } from "./data-packages.model";
 
 export class ReceivedDataPackage implements SignedDataPackagePlainObj {
   @IsString()
-  signature: string;
+  signature!: string;
 
   @ValidateNested({ each: true })
   @Type(() => ReceivedDataPoint)
-  dataPoints: DataPointPlainObj[];
+  dataPoints!: DataPointPlainObj[];
 
   @IsString()
-  timestampMilliseconds: number;
+  timestampMilliseconds!: number;
 
   @IsOptional()
   sources?: Record<string, string | number>;
@@ -33,10 +33,10 @@ export class ReceivedDataPackage implements SignedDataPackagePlainObj {
 
 export class ReceivedDataPoint {
   @IsString()
-  dataFeedId: string;
+  dataFeedId!: string;
 
   @Validate(IsNumberOrString)
-  value: string | number;
+  value!: string | number;
 }
 
 export class BulkPostRequestBody {
@@ -44,10 +44,10 @@ export class BulkPostRequestBody {
   @Matches(/^0x[0-9A-Fa-f]*$/)
   @MinLength(132)
   @MaxLength(132)
-  requestSignature: string;
+  requestSignature!: string;
 
   @ValidateNested({ each: true })
-  dataPackages: ReceivedDataPackage[];
+  dataPackages!: ReceivedDataPackage[];
 }
 
 export type ResponseFormat = "raw" | "hex" | "bytes" | "json";
