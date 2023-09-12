@@ -1,4 +1,3 @@
-import fs from "fs";
 import { hexlify } from "@ethersproject/bytes";
 import { toUtf8Bytes } from "@ethersproject/strings/lib/utf8";
 import { ContractParamsProvider } from "./ContractParamsProvider";
@@ -7,12 +6,16 @@ import { DataPackagesRequestParams } from "../index";
 export class ContractParamsProviderMock extends ContractParamsProvider {
   overriddenFeedIds?: string[];
 
-  constructor(private filePath: string, dataFeeds: string[]) {
+  constructor(
+    dataFeeds: string[],
+    private filePath: string,
+    private fileReader: (filePath: string) => Buffer
+  ) {
     super({ uniqueSignersCount: 0, dataServiceId: "", dataFeeds });
   }
 
   protected requestPayload(_: DataPackagesRequestParams): Promise<string> {
-    return Promise.resolve(fs.readFileSync(this.filePath).toString());
+    return Promise.resolve(this.fileReader(this.filePath).toString());
   }
 
   override getHexlifiedFeedIds(): string[] {

@@ -1,13 +1,15 @@
 import {
   ContractParamsProvider,
-  IPricesContractAdapter,
   ContractParamsProviderMock,
+  IPricesContractAdapter,
 } from "redstone-sdk";
 import {
   deployPricesContract,
   SAMPLE_PACKAGES_TIMESTAMP,
 } from "./prices-contract-test-utils";
 import path from "path";
+import * as fs from "fs";
+import { BigNumberish } from "ethers";
 
 jest.setTimeout(120000);
 
@@ -25,15 +27,15 @@ describe("Prices contract", () => {
   ) => {
     const filePath = path.join(__dirname, `../sample-data/${filename}.hex`);
 
-    return new ContractParamsProviderMock(filePath, dataFeeds);
+    return new ContractParamsProviderMock(dataFeeds, filePath, fs.readFileSync);
   };
 
   const performPayloadTest = async (
     callback: (
       adapter: IPricesContractAdapter,
       paramsProvider: ContractParamsProvider
-    ) => Promise<number[]>
-  ): Promise<number[]> => {
+    ) => Promise<BigNumberish[]>
+  ): Promise<BigNumberish[]> => {
     const adapter = await deployPricesContract();
     const paramsProvider = createContractParamsProviderMock(["ETH", "BTC"]);
 
