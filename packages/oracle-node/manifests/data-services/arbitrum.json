@@ -316,7 +316,6 @@
         "balancer-ethereum-weth",
         "coingecko",
         "coinmarketcap",
-        "maverick",
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
