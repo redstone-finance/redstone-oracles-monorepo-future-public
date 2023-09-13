@@ -5,7 +5,6 @@ import {
   RedstoneOraclesState,
 } from "redstone-oracles-smartweave-contracts";
 import {
-  consts,
   INumericDataPoint,
   RedstonePayload,
   SignedDataPackage,
@@ -15,6 +14,7 @@ import { SafeNumber } from "redstone-utils";
 import { resolveDataServiceUrls } from "./data-services-urls";
 
 const DEFAULT_DECIMALS = 8;
+const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 
 export interface DataPackagesRequestParams {
   dataServiceId: string;
@@ -58,7 +58,7 @@ export const parseDataPackagesResponse = (
 ): DataPackagesResponse => {
   const parsedResponse: DataPackagesResponse = {};
 
-  const requestedDataFeedIds = reqParams.dataFeeds ?? [consts.ALL_FEEDS_KEY];
+  const requestedDataFeedIds = reqParams.dataFeeds ?? [ALL_FEEDS_KEY];
 
   for (const dataFeedId of requestedDataFeedIds) {
     const dataFeedPackages = dpResponse[dataFeedId];
@@ -102,9 +102,9 @@ const getDataPackagesSortedByDeviation = (
     return dataFeedPackages;
   }
 
-  if (dataFeedId === consts.ALL_FEEDS_KEY) {
+  if (dataFeedId === ALL_FEEDS_KEY) {
     throw new Error(
-      `Cannot sort data packages by deviation for ${consts.ALL_FEEDS_KEY}`
+      `Cannot sort data packages by deviation for ${ALL_FEEDS_KEY}`
     );
   }
 
