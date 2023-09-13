@@ -3,7 +3,8 @@ import { DataPackagesFromLocalAndProd } from "./run-long-price-propagation-core-
 
 export const checkMissingDataFeeds = (
   { dataPackagesFromLocal, dataPackagesFromProd }: DataPackagesFromLocalAndProd,
-  removedDataFeeds?: string[]
+  removedDataFeeds?: string[],
+  dataFeedsNotWorkingLocally?: string[]
 ) => {
   const dataFeedsFromLocal = Object.keys(dataPackagesFromLocal);
   const dataFeedsFromProd = Object.keys(dataPackagesFromProd);
@@ -11,7 +12,8 @@ export const checkMissingDataFeeds = (
   const missingDataPackagesInLocal = getMissingDataFeedsInDataPackages(
     dataFeedsFromProd,
     dataFeedsFromLocal,
-    removedDataFeeds
+    removedDataFeeds,
+    dataFeedsNotWorkingLocally
   );
   if (missingDataPackagesInLocal.length > 0) {
     throw new Error(
@@ -35,11 +37,13 @@ export const checkMissingDataFeeds = (
 const getMissingDataFeedsInDataPackages = (
   dataFeedsFromFirstDataPackage: string[],
   dataFeedsFromSecondDataPackage: string[],
-  removedDataFeeds?: string[]
+  removedDataFeeds?: string[],
+  dataFeedsNotWorkingLocally?: string[]
 ) =>
   dataFeedsFromFirstDataPackage.filter(
     (dataFeed) =>
       !dataFeedsFromSecondDataPackage.includes(dataFeed) &&
       dataFeed !== consts.ALL_FEEDS_KEY &&
-      !removedDataFeeds?.includes(dataFeed)
+      !removedDataFeeds?.includes(dataFeed) &&
+      !dataFeedsNotWorkingLocally?.includes(dataFeed)
   );

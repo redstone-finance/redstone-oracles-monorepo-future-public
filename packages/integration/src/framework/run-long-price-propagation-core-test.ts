@@ -60,7 +60,8 @@ export const runLongPricePropagationCoreTest = async (
   nodeWorkingTimeInMinutes: number,
   nodeIntervalInMilliseconds: number,
   coldStartIterationsCount: number,
-  removedDataFeeds?: string[]
+  removedDataFeeds?: string[],
+  dataFeedsNotWorkingLocally?: string[]
 ) => {
   await buildCacheLayer();
   await buildOracleNode();
@@ -115,7 +116,8 @@ export const runLongPricePropagationCoreTest = async (
           dataPackagesFromLocal: responseFromLocalCache,
           dataPackagesFromProd: responseFromProdCache,
         },
-        removedDataFeeds
+        removedDataFeeds,
+        dataFeedsNotWorkingLocally
       );
     printAllDeviations(deviationsPerDataFeed);
     checkMissingDataFeeds(
@@ -123,7 +125,8 @@ export const runLongPricePropagationCoreTest = async (
         dataPackagesFromLocal: responseFromLocalCache,
         dataPackagesFromProd: responseFromProdCache,
       },
-      removedDataFeeds
+      removedDataFeeds,
+      dataFeedsNotWorkingLocally
     );
     checkValuesDeviations(
       deviationsPerDataFeed,
