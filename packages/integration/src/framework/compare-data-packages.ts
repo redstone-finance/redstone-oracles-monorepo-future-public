@@ -20,25 +20,31 @@ interface SourceMetadata {
 
 export const compareDataPackagesFromLocalAndProd = (
   { dataPackagesFromLocal, dataPackagesFromProd }: DataPackagesFromLocalAndProd,
-  removedDataFeeds?: string[]
+  removedDataFeeds?: string[],
+  dataFeedsNotWorkingLocally?: string[]
 ) =>
   compareValuesInDataPackages(
     dataPackagesFromProd,
     dataPackagesFromLocal,
-    removedDataFeeds
+    removedDataFeeds,
+    dataFeedsNotWorkingLocally
   );
 
 const compareValuesInDataPackages = (
   dataPackagesFromProd: DataPackages,
   dataPackagesFromLocal: DataPackages,
-  removedDataFeeds?: string[]
+  removedDataFeeds?: string[],
+  dataFeedsNotWorkingLocally?: string[]
 ) => {
   const deviationsPerDataFeed: DeviationsWithBigPackage = {};
   const sourceDeviationsPerDataFeed: SourceDeviationsPerDataFeed = {};
   for (const [dataFeedId, allFeedObjectsFromProd] of Object.entries(
     dataPackagesFromProd
   )) {
-    if (removedDataFeeds?.includes(dataFeedId)) {
+    if (
+      removedDataFeeds?.includes(dataFeedId) ||
+      dataFeedsNotWorkingLocally?.includes(dataFeedId)
+    ) {
       console.log(`Data feed ${dataFeedId} is removed from manifest, skipping`);
       continue;
     }
@@ -47,7 +53,8 @@ const compareValuesInDataPackages = (
       const deviationsFromBigPackage = compareValuesFromBigPackageAndLocalCache(
         allFeedObjectsFromProd,
         dataPackagesFromLocal,
-        removedDataFeeds
+        removedDataFeeds,
+        dataFeedsNotWorkingLocally
       );
       deviationsPerDataFeed[ALL_FEEDS_KEY] = deviationsFromBigPackage;
       continue;
@@ -134,13 +141,17 @@ const compareSourcesValuesFromProdAndLocal = (
 const compareValuesFromBigPackageAndLocalCache = (
   allFeedObjectsFromProd: DataPackagePlainObj[],
   dataPackagesFromLocal: DataPackages,
-  removedDataFeeds?: string[]
+  removedDataFeeds?: string[],
+  dataFeedsNotWorkingLocally?: string[]
 ) => {
   const deviationsPerDataFeed: DeviationsPerDataFeed = {};
   for (const dataPackage of allFeedObjectsFromProd) {
     for (const dataPoint of dataPackage.dataPoints) {
       const dataFeedId = dataPoint.dataFeedId;
-      if (removedDataFeeds?.includes(dataFeedId)) {
+      if (
+        removedDataFeeds?.includes(dataFeedId) ||
+        dataFeedsNotWorkingLocally?.includes(dataFeedId)
+      ) {
         continue;
       }
       const dataFeedValueFromLocal =
