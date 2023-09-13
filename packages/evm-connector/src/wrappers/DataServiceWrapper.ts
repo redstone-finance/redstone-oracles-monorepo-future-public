@@ -4,11 +4,6 @@ import { version } from "../../package.json";
 import { resolveDataServiceUrls } from "redstone-sdk";
 import { SignedDataPackage } from "redstone-protocol";
 
-export interface DryRunParamsWithUnsignedMetadata {
-  unsignedMetadataMsg: string;
-  dataPackagesRequestParams: Required<DataPackagesRequestInput>;
-}
-
 export type DataPackagesRequestInput = Partial<DataPackagesRequestParams>;
 
 export class DataServiceWrapper extends BaseWrapper {
