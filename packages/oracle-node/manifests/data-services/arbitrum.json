@@ -66,9 +66,11 @@
         "uniswap-v3-ethereum-on-chain-weth-10000",
         "uniswap-v3-ethereum-on-chain-usdt-500"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "USDC.e": {
@@ -83,9 +85,11 @@
         "uniswap-v3-arbitrum-on-chain-dai-100",
         "uniswap-v3-arbitrum-on-chain-dai-500"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "USDT": {
@@ -101,9 +105,11 @@
         "kraken",
         "uniswap"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "BTC": {
@@ -168,9 +174,11 @@
         "uniswap-v2-on-chain-weth",
         "xt"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "FXS": {
