@@ -39,9 +39,11 @@
         "uniswap-v3-ethereum-on-chain-weth-10000",
         "uniswap-v3-ethereum-on-chain-usdt-500"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       },
       "skipSigning": true
     },
@@ -58,9 +60,12 @@
         "kraken",
         "uniswap"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       },
       "skipSigning": true
     },
@@ -78,9 +83,11 @@
         "uniswap-v2-on-chain-weth",
         "xt"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       },
       "skipSigning": true
     },
@@ -113,9 +120,11 @@
         "uniswap-v3-ethereum-on-chain-dai-500",
         "uniswap-v3-ethereum-on-chain-usdt-500"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       },
       "skipSigning": true
     },
@@ -190,9 +199,11 @@
         "maverick",
         "velodrome-on-chain-usdc"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "GHO": {
@@ -204,9 +215,11 @@
         "coingecko",
         "uniswap-v3-ethereum-on-chain-usdc-500"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "AAVE": {
@@ -257,17 +270,21 @@
     },
     "USDC.USDT": {
       "source": ["non-usd-based"],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "USDC.DAI": {
       "source": ["non-usd-based"],
       "decimals": 14,
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "TRX": {
