@@ -431,6 +431,15 @@
     },
     "YY_WOMBEX_DAI": {
       "source": ["arbitrum-evm-fetcher"]
+    },
+    "arbJnrLLP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "arbMzeLLP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "arbSnrLLP": {
+      "source": ["arbitrum-evm-fetcher"]
     }
   }
 }
