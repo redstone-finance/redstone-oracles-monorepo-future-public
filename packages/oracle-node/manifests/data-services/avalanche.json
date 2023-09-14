@@ -53,9 +53,11 @@
         "kraken",
         "uniswap"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "PNG": {
@@ -174,9 +176,11 @@
         "uniswap-v3-ethereum-on-chain-weth-10000",
         "uniswap-v3-ethereum-on-chain-usdt-500"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "sAVAX": {
@@ -320,9 +324,11 @@
         "uniswap-v2-on-chain-weth",
         "xt"
       ],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       },
       "skipSigning": true
     },

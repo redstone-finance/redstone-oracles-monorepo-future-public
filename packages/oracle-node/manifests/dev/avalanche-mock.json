@@ -15,9 +15,11 @@
     },
     "USDT": {
       "source": ["coingecko", "mock"],
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "PNG": {},
@@ -26,9 +28,11 @@
     "BTC": {},
     "QI": {},
     "USDC": {
-      "deviationWithRecentValues": {
-        "maxPercent": 5,
-        "maxDelayMilliseconds": 300000
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
       }
     },
     "sAVAX": {},
