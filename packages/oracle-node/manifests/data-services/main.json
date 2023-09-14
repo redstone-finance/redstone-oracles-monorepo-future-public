@@ -1154,6 +1154,15 @@
         "wombat"
       ]
     },
+    "arbJnrLLP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "arbMzeLLP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "arbSnrLLP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
     "ANS": {
       "source": ["permaswap"]
     },
