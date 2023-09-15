@@ -40,10 +40,11 @@ export function groupDataPackagesByField(
   const groupedBySigner: DataPackagesGroupedByField = {};
 
   for (const dataPackage of dataPackages) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!groupedBySigner[dataPackage[field]]) {
       groupedBySigner[dataPackage[field]] = [];
     }
-    groupedBySigner[dataPackage[field]].push(dataPackage);
+    groupedBySigner[dataPackage[field]]!.push(dataPackage);
   }
 
   return groupedBySigner;

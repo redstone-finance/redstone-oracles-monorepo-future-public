@@ -4,7 +4,18 @@ import { DataPointPlainObj } from "@redstone-finance/protocol";
 
 const { Types } = mongoose.Schema;
 
-export type DataPackageDocument = CachedDataPackage & Document;
+export type DataPackageDocument = CachedDataPackage &
+  Document<{ dataFeedId: string; signerAddress: string }>;
+
+export type DataPackageDocumentAggregated = {
+  count: number;
+  _id: { timestampMilliseconds: number };
+  signatures: string[];
+  dataPoints: DataPointPlainObj[][];
+  dataFeedIds: string[];
+  signerAddress: string[];
+  isSignatureValid: boolean[];
+};
 
 @Schema({ autoIndex: true })
 export class CachedDataPackage {

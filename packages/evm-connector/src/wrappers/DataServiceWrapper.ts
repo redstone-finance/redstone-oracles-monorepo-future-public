@@ -25,7 +25,7 @@ export class DataServiceWrapper extends BaseWrapper {
     const dataPackagesRequestParams =
       await this.resolveDataPackagesRequestParams();
     const dpResponse = await requestDataPackages(dataPackagesRequestParams);
-    return Object.values(dpResponse).flat();
+    return Object.values(dpResponse).flat() as SignedDataPackage[];
   }
 
   private async resolveDataPackagesRequestParams(): Promise<

@@ -7,6 +7,7 @@ import { MentoAdapterBase } from "../../typechain-types";
 
 const DATA_FEEDS = ["CUSD", "EUR"];
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const mentoAdapterContract = getAdapterContract() as MentoAdapterBase;
   for (const dataFeedId of DATA_FEEDS) {

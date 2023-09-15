@@ -59,7 +59,7 @@ describe("Gas Usage of integrated and initialized prices contract", () => {
       "get_prices",
       uniqueSignerCount,
       dataFeeds,
-      Number(gasUsage[0].toString())
+      Number(String(gasUsage[0]))
     );
 
     gasUsage = (await adapter.writePricesFromPayloadToContract(
@@ -69,7 +69,7 @@ describe("Gas Usage of integrated and initialized prices contract", () => {
       "write_prices",
       uniqueSignerCount,
       dataFeeds,
-      Number(gasUsage[0].toString())
+      Number(String(gasUsage[0]))
     );
 
     gasUsage = (await adapter.readPricesFromContract(
@@ -79,7 +79,7 @@ describe("Gas Usage of integrated and initialized prices contract", () => {
       "read_prices",
       uniqueSignerCount,
       dataFeeds,
-      Number(gasUsage[0].toString())
+      Number(String(gasUsage[0]))
     );
 
     const timestampGasUsage = await adapter.readTimestampFromContract();

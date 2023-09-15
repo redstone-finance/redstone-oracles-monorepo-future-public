@@ -9,8 +9,8 @@ export interface RedstoneOraclesState extends EvolveState {
   dataServices: DataServices;
 }
 
-export type Nodes = { [key in string]: Node };
-export type DataServices = { [key in string]: DataService };
+export type Nodes = { [key: string]: Node };
+export type DataServices = { [key: string]: DataService };
 
 interface Node {
   name: string;
