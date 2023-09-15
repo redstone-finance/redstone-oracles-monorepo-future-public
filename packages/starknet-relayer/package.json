@@ -5,30 +5,20 @@
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && tsc -build",
+    "build": "rm -rf dist && tsc --build tsconfig.build.json",
     "start": "node dist/src/start-relayer.js",
     "start:dev": "yarn build && ts-node src/start-relayer.ts",
-    "get-price": "yarn build && node dist/src/scripts/get-price.js"
+    "get-price": "yarn build && node dist/src/scripts/get-price.js",
+    "lint": "eslint ."
   },
   "dependencies": {
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
-    "redstone-sdk": ">=1.8.1",
-    "@redstone-finance/starknet-connector": "^0.4.0"
+    "redstone-sdk": "^1.8.3",
+    "@redstone-finance/starknet-connector": "^0.4.1"
   },
   "devDependencies": {
     "@types/node": "^18.13.0",
     "typescript": "^5.2.2"
-  },
-  "references": [
-    {
-      "path": "../protocol"
-    },
-    {
-      "path": "../sdk"
-    },
-    {
-      "path": "../starknet-connector"
-    }
-  ]
+  }
 }

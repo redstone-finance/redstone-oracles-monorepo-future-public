@@ -114,3 +114,5 @@ typechain-types
 worktree-*
 oracle-node-obfuscated
 packages/on-chain-relayer/price-feed-contract-address.txt
+
+packages/**/yarn*

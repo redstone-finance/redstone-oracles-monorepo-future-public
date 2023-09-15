@@ -98,7 +98,7 @@ describe("Prices contract", () => {
 
     try {
       await adapter.getPricesFromPayload(paramsProvider);
-    } catch (e: any) {
+    } catch (e) {
       expect(e).not.toBeNull();
     }
   });

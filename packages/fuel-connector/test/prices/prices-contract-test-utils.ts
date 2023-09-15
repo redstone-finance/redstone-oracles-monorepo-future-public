@@ -17,7 +17,7 @@ export const connectPricesContract = async (
   if (!!process.env.CONTRACT_ID && process.env.GENESIS_SECRET) {
     const wallet = Wallet.fromPrivateKey(process.env.GENESIS_SECRET, provider);
 
-    return new (forGasUsageOnly
+    return await new (forGasUsageOnly
       ? GasUsageFuelPricesContractConnector
       : FuelPricesContractConnector)(
       wallet,
@@ -33,7 +33,7 @@ export const deployPricesContract = async (
 ): Promise<IPricesContractAdapter> => {
   const wallet = await generateTestWallet(provider, [[1_000, NativeAssetId]]);
 
-  return new FuelPricesContractDeployer(wallet, {
+  return await new FuelPricesContractDeployer(wallet, {
     fakeTimestamp: SAMPLE_PACKAGES_TIMESTAMP + 60,
     signerCountThreshold: 2,
     signers: [

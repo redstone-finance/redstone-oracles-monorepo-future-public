@@ -1,18 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "outDir": "dist",
+    "allowJs": true,
+    "composite": true,
     "declaration": true,
     "declarationMap": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "composite": true
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "outDir": "dist",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2021"
   },
   "ts-node": {
     "files": true
@@ -21,13 +29,13 @@
   "exclude": ["node_modules"],
   "references": [
     {
-      "path": "../starknet-connector"
+      "path": "../starknet-connector/tsconfig.build.json"
     },
     {
-      "path": "../sdk"
+      "path": "../sdk/tsconfig.build.json"
     },
     {
-      "path": "../protocol"
+      "path": "../protocol/tsconfig.build.json"
     }
   ]
 }

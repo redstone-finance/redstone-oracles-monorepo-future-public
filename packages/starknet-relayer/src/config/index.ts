@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import { NetworkName } from "@redstone-finance/starknet-connector";
 
 dotenv.config();
 
@@ -12,13 +13,24 @@ const getFromEnv = (name: string) => {
 
 export type VERSION = "0";
 
-export const config = Object.freeze({
-  relayerIterationInterval: getFromEnv("RELAYER_ITERATION_INTERVAL"),
-  updatePriceInterval: getFromEnv("UPDATE_PRICE_INTERVAL"),
+export interface StarknetRelayerConfig {
+  relayerIterationInterval: number;
+  updatePriceInterval: number;
+  network: NetworkName;
+  privateKey: string;
+  priceManagerAddress: string;
+  priceManagerVersion: VERSION;
+  ownerAddress: string;
+  maxEthFee: number;
+}
+
+export const config = Object.freeze(<StarknetRelayerConfig>{
+  relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
+  updatePriceInterval: Number(getFromEnv("UPDATE_PRICE_INTERVAL")),
   network: getFromEnv("NETWORK"),
   privateKey: getFromEnv("PRIVATE_KEY"),
   priceManagerAddress: getFromEnv("PRICE_MANAGER_ADDRESS"),
   priceManagerVersion: getFromEnv("PRICE_MANAGER_VERSION") as VERSION,
   ownerAddress: getFromEnv("OWNER_ADDRESS"),
-  maxEthFee: getFromEnv("MAX_ETH_FEE"),
+  maxEthFee: Number(getFromEnv("MAX_ETH_FEE")),
 });
