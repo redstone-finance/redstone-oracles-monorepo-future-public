@@ -1,4 +1,4 @@
-import redstoneSDK from "redstone-sdk";
+import redstoneSDK from "@redstone-finance/sdk";
 import niceLogger from "./utils/nice-logger";
 
 export const printRedstoneOracleRegistryState = async () => {

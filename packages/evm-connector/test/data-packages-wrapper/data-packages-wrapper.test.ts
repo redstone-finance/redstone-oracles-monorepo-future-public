@@ -1,7 +1,7 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { ethers } from "hardhat";
-import { utils } from "redstone-protocol";
+import { utils } from "@redstone-finance/protocol";
 import { WrapperBuilder } from "../../src/index";
 import { SampleRedstoneConsumerNumericMockManyDataFeeds } from "../../typechain-types";
 import { expectedNumericValues } from "../tests-common";

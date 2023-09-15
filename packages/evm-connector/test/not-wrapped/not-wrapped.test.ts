@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { utils } from "redstone-protocol";
+import { utils } from "@redstone-finance/protocol";
 import { SampleRedstoneConsumerNumericMock } from "../../typechain-types";
 
 describe("Not Wrapped Contract", function () {

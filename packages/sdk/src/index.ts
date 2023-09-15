@@ -3,14 +3,14 @@ import { BigNumber, utils } from "ethers";
 import {
   redstoneOraclesInitialState,
   RedstoneOraclesState,
-} from "redstone-oracles-smartweave-contracts";
+} from "@redstone-finance/oracles-smartweave-contracts";
 import {
   INumericDataPoint,
   RedstonePayload,
   SignedDataPackage,
   SignedDataPackagePlainObj,
-} from "redstone-protocol";
-import { SafeNumber } from "redstone-utils";
+} from "@redstone-finance/protocol";
+import { SafeNumber } from "@redstone-finance/utils";
 import { resolveDataServiceUrls } from "./data-services-urls";
 
 const DEFAULT_DECIMALS = 8;

@@ -3,7 +3,7 @@ import {
   DataPackagesResponse,
   requestDataPackages,
   ValuesForDataFeeds,
-} from "redstone-sdk";
+} from "@redstone-finance/sdk";
 import { RelayerConfig } from "../types";
 import { config } from "../config";
 
@@ -22,7 +22,7 @@ export async function fetchDataPackages(
     uniqueSignersCount: uniqueSignersThreshold,
     dataFeeds,
     valuesToCompare: valuesFromContract,
-    urls: cacheServiceUrls
+    urls: cacheServiceUrls,
   };
 
   return isHistorical
@@ -47,7 +47,9 @@ const requestHistoricalDataPackages = (
 
   throw (
     `Historical packages fetcher for fallback deviation check is not properly configured: ` +
-    `offset=${fallbackOffsetInMinutes} min., gateway=${JSON.stringify(historicalPackagesGateways)}`
+    `offset=${fallbackOffsetInMinutes} min., gateway=${JSON.stringify(
+      historicalPackagesGateways
+    )}`
   );
 };
 

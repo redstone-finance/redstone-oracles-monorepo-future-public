@@ -1,4 +1,4 @@
-import { consts } from "redstone-protocol";
+import { consts } from "@redstone-finance/protocol";
 import { DataPackagesFromLocalAndProd } from "./run-long-price-propagation-core-test";
 
 export const checkMissingDataFeeds = (

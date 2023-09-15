@@ -1,7 +1,7 @@
 import { utils } from "ethers";
 import { ethers } from "hardhat";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
-import { requestDataPackages } from "redstone-sdk";
+import { requestDataPackages } from "@redstone-finance/sdk";
 import { getSigner } from "../../src/core/contract-interactions/get-provider-or-signer";
 import { config, setConfigProvider } from "../../src/config";
 import { fileSystemConfigProvider } from "../../src/FilesystemConfigProvider";

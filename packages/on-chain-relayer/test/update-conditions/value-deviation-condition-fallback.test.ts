@@ -5,7 +5,7 @@ import {
   getDataPackagesResponse,
   mockEnvVariables,
 } from "../helpers";
-import { ValuesForDataFeeds } from "redstone-sdk";
+import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 import { performValueDeviationConditionChecks } from "../../src/core/update-conditions/value-deviation-condition";
 
 const HISTORICAL_DATA_POINTS = [

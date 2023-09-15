@@ -1,5 +1,5 @@
 import { resolveDataServiceUrls } from "./data-services-urls";
-import { RedstoneCommon, RedstoneTypes } from "redstone-utils";
+import { RedstoneCommon, RedstoneTypes } from "@redstone-finance/utils";
 
 /** Fetches data-packages from gateway */
 type FetchDataPackagesArgs = {

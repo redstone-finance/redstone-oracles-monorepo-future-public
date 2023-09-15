@@ -3,7 +3,7 @@ import {
   FuelPricesContractConnector,
 } from "../../src";
 import { InvocationResult } from "fuels";
-import { IPricesContractAdapter } from "redstone-sdk";
+import { IPricesContractAdapter } from "@redstone-finance/sdk";
 
 export class GasUsageFuelPricesContractConnector extends FuelPricesContractConnector {
   override getAdapter(): Promise<IPricesContractAdapter> {

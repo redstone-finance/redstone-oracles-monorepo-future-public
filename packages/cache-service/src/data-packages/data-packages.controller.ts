@@ -17,8 +17,8 @@ import {
 } from "@nestjs/common";
 import { Cache } from "cache-manager";
 import type { Response } from "express";
-import { Serializable } from "redstone-protocol";
-import { DataPackagesRequestParams } from "redstone-sdk";
+import { Serializable } from "@redstone-finance/protocol";
+import { DataPackagesRequestParams } from "@redstone-finance/sdk";
 import config from "../config";
 import { duplexStream } from "../utils/streams";
 import {

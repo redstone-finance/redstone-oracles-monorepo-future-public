@@ -10,7 +10,7 @@ import {
 } from "./integration-test-utils";
 import { installAndBuild } from "./integration-test-compile";
 import { CacheLayerInstance } from "./cache-layer-manager";
-import { RedstoneCommon } from "redstone-utils";
+import { RedstoneCommon } from "@redstone-finance/utils";
 
 export const HARDHAT_MOCK_PRIVATE_KEY =
   "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";

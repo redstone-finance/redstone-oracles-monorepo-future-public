@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { consts } from "redstone-protocol";
+import { consts } from "@redstone-finance/protocol";
 import { DataPackage } from "../src/data-packages/data-packages.model";
 import config from "../src/config";
 

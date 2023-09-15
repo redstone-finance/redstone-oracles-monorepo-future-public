@@ -1,5 +1,5 @@
-import { compressMsg } from "redstone-streamr-proxy";
-import { consts } from "redstone-protocol";
+import { compressMsg } from "@redstone-finance/streamr-proxy";
+import { consts } from "@redstone-finance/protocol";
 import "../common/set-test-envs";
 import {
   MOCK_DATA_SERVICE_ID,
@@ -14,15 +14,15 @@ import { StreamrListenerService } from "../../src/streamr-listener/streamr-liste
 import { DataPackagesService } from "../../src/data-packages/data-packages.service";
 import { BundlrService } from "../../src/bundlr/bundlr.service";
 
-jest.mock("redstone-sdk", () => ({
+jest.mock("@redstone-finance/sdk", () => ({
   __esModule: true,
-  ...jest.requireActual("redstone-sdk"),
+  ...jest.requireActual("@redstone-finance/sdk"),
   getOracleRegistryState: jest.fn(() => mockOracleRegistryState),
 }));
 
-jest.mock("redstone-streamr-proxy", () => ({
+jest.mock("@redstone-finance/streamr-proxy", () => ({
   __esModule: true,
-  ...jest.requireActual("redstone-streamr-proxy"),
+  ...jest.requireActual("@redstone-finance/streamr-proxy"),
   StreamrClient: jest.fn().mockImplementation(() => ({
     subscribe(_streamId: string, callback: (msg: Uint8Array) => void) {
       callback(compressMsg(getMockDataPackages()));

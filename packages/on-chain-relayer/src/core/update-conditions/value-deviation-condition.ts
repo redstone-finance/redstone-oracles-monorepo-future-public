@@ -1,5 +1,8 @@
 import { RelayerConfig } from "../../types";
-import { DataPackagesResponse, ValuesForDataFeeds } from "redstone-sdk";
+import {
+  DataPackagesResponse,
+  ValuesForDataFeeds,
+} from "@redstone-finance/sdk";
 import { checkValueDeviationCondition } from "./check-value-deviation-condition";
 import { fetchDataPackages } from "../fetch-data-packages";
 

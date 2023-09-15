@@ -1,4 +1,4 @@
-import { RedstoneOraclesState } from "redstone-oracles-smartweave-contracts";
+import { RedstoneOraclesState } from "@redstone-finance/oracles-smartweave-contracts";
 
 export const mockOraclesState: RedstoneOraclesState = {
   nodes: {

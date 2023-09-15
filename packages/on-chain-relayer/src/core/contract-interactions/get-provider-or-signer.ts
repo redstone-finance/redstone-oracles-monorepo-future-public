@@ -1,5 +1,5 @@
 import { providers, Wallet } from "ethers";
-import { ProviderWithFallback } from "redstone-rpc-providers";
+import { ProviderWithFallback } from "@redstone-finance/rpc-providers";
 import { config } from "../../config";
 
 export const getProvider = () => {

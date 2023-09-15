@@ -6,7 +6,7 @@ import {
 } from "../../custom-integrations/mento/mento-utils";
 
 import { getSortedOraclesContractAtAddress } from "./get-contract";
-import { TransactionDeliveryMan } from "redstone-rpc-providers";
+import { TransactionDeliveryMan } from "@redstone-finance/rpc-providers";
 import { UpdatePricesArgs } from "../../args/get-update-prices-args";
 
 let deliveryMan: TransactionDeliveryMan | undefined = undefined;

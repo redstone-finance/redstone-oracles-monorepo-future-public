@@ -9,7 +9,7 @@ import {
   SignedDataPackagePlainObj,
   StringDataPoint,
   utils,
-} from "redstone-protocol";
+} from "@redstone-finance/protocol";
 import { MockDataPackageConfig } from "../wrappers/MockWrapper";
 
 export const MAX_MOCK_SIGNERS_COUNT = 19;

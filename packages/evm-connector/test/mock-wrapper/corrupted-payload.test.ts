@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { utils } from "redstone-protocol";
+import { utils } from "@redstone-finance/protocol";
 import { WrapperBuilder } from "../../src/index";
 import { BaseWrapper } from "../../src/wrappers/BaseWrapper";
 import { SampleRedstoneConsumerNumericMockManyDataFeeds } from "../../typechain-types";
@@ -13,7 +13,7 @@ class CustomPayloadWrapper extends BaseWrapper {
 
   async getDataPackagesForPayload() {
     return [];
-  };
+  }
 
   getUnsignedMetadata() {
     return "";
