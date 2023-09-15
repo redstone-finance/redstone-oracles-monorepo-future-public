@@ -22,7 +22,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -34,7 +33,6 @@
         "kraken",
         "kucoin",
         "lbank",
-        "oceanex",
         "okx",
         "poloniex",
         "probit"
@@ -52,8 +50,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
-        "chainlink",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -66,7 +62,6 @@
         "kraken",
         "kucoin",
         "lbank",
-        "oceanex",
         "okx",
         "poloniex",
         "probit"
@@ -76,14 +71,12 @@
       "source": [
         "bitfinex2",
         "bittrex",
-        "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "currencycom",
         "kaiko",
-        "kraken",
-        "uniswap"
+        "kraken"
       ]
     },
     "BNB": {
@@ -100,11 +93,9 @@
         "gate",
         "hitbtc",
         "huobipro",
-        "kaiko",
         "kucoin",
         "mexc",
         "lbank",
-        "oceanex",
         "okx",
         "phemex",
         "poloniex",
@@ -122,7 +113,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -132,7 +122,6 @@
         "kraken",
         "kucoin",
         "lbank",
-        "oceanex",
         "okx",
         "poloniex",
         "probit"
@@ -149,17 +138,14 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "coingecko",
         "currencycom",
         "hitbtc",
         "hollaex",
         "huobipro",
-        "kaiko",
         "kraken",
         "kucoin",
         "lbank",
-        "oceanex",
         "okx",
         "poloniex",
         "probit"
@@ -176,7 +162,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -185,7 +170,6 @@
         "huobipro",
         "kraken",
         "kucoin",
-        "oceanex",
         "okx"
       ]
     },
@@ -199,7 +183,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -209,7 +192,6 @@
         "kraken",
         "kucoin",
         "lbank",
-        "oceanex",
         "okx",
         "poloniex",
         "probit"
@@ -218,7 +200,6 @@
     "XLM": {
       "source": [
         "ascendex",
-        "bequant",
         "binance",
         "binancecoinm",
         "binanceusdm",
@@ -226,7 +207,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -235,7 +215,6 @@
         "huobipro",
         "kraken",
         "kucoin",
-        "oceanex",
         "okx",
         "poloniex",
         "probit"
@@ -279,7 +258,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "coingecko",
         "currencycom",
         "huobipro",
@@ -298,12 +276,6 @@
         "uniswap-v3-ethereum-on-chain-usdt-500"
       ]
     },
-    "FRAX": {
-      "source": ["coingecko", "curve-usdc", "uniswap-v3"]
-    },
-    "VST": {
-      "source": ["curve-frax"]
-    },
     "DAI": {
       "source": [
         "coinbaseprime",
@@ -317,15 +289,6 @@
         "sushiswap-ethereum-on-chain-weth",
         "uniswap-v2-on-chain-weth",
         "xt"
-      ]
-    },
-    "OHM": {
-      "source": [
-        "balancer-ethereum-dai",
-        "balancer-ethereum-weth",
-        "coingecko",
-        "sushiswap-ethereum-on-chain-dai",
-        "uniswap-v3"
       ]
     }
   }
