@@ -4,7 +4,7 @@ import {
   signOnDemandDataPackage,
   UniversalSigner,
   prepareMessageToSign,
-} from "redstone-protocol";
+} from "@redstone-finance/protocol";
 import { MOCK_PRIVATE_KEYS } from "../../src/helpers/test-utils";
 
 interface ScoreByAddressResponse {

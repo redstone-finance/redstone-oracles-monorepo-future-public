@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { utils } from "redstone-protocol";
+import { utils } from "@redstone-finance/protocol";
 import { getRange } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
 import { SampleDuplicatedDataFeeds } from "../../typechain-types";

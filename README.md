@@ -18,9 +18,9 @@ You can learn more at https://docs.redstone.finance
 - [oracle-node](packages/oracle-node/) (Reference implementation of the data provider node)
 - [cache-service](packages/cache-service/) (Implementation of the redstone cache nodes)
 - [evm-connector](packages/evm-connector/) (@redstone-finance/evm-connector)
-- [protocol](packages/protocol/) (redstone-protocol)
-- [sdk](packages/sdk/) (redstone-sdk)
-- [oracles-smartweave-contracts](packages/oracles-smartweave-contracts) (redstone-oracles-smartweave-contracts)
+- [protocol](packages/protocol/) (@redstone-finance/protocol)
+- [sdk](packages/sdk/) (@redstone-finance/sdk)
+- [oracles-smartweave-contracts](packages/oracles-smartweave-contracts) (@redstone-finance/oracles-smartweave-contracts)
 - [eth-contracts](packages/eth-contracts/) (Implementation of Redstone token with vesting, locking, and disputes resolution protocol)
 
 ## 🙋‍♂️ Contact

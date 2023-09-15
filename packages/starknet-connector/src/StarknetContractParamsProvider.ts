@@ -1,7 +1,7 @@
 import {
   ContractParamsProvider,
   DataPackagesRequestParams,
-} from "redstone-sdk";
+} from "@redstone-finance/sdk";
 
 export class StarknetContractParamsProvider extends ContractParamsProvider {
   protected override async requestPayload(

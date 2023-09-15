@@ -1,5 +1,5 @@
 import { Provider } from "@fuel-ts/providers";
-import { IPricesContractAdapter } from "redstone-sdk";
+import { IPricesContractAdapter } from "@redstone-finance/sdk";
 import { Wallet } from "@fuel-ts/wallet";
 import { NativeAssetId } from "fuels";
 import { GasUsageFuelPricesContractConnector } from "./GasUsageFuelPricesContractConnector";

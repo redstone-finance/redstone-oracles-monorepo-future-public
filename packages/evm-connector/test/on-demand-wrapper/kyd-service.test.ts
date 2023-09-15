@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { ethers, network } from "hardhat";
-import { ScoreType } from "redstone-protocol";
+import { ScoreType } from "@redstone-finance/protocol";
 import { WrapperBuilder } from "../../src/index";
 import { SampleKydServiceConsumer } from "../../typechain-types";
 import { server } from "./mock-server";

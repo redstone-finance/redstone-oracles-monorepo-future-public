@@ -1,5 +1,5 @@
-import { MathUtils } from "redstone-utils";
-import { DataPackagePlainObj, consts } from "redstone-protocol";
+import { MathUtils } from "@redstone-finance/utils";
+import { DataPackagePlainObj, consts } from "@redstone-finance/protocol";
 import {
   DataPackagesFromLocalAndProd,
   DeviationsPerDataFeed,

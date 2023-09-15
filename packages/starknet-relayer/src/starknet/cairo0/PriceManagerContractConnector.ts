@@ -1,7 +1,7 @@
 import {
   ContractParamsProvider,
   IPriceManagerContractAdapter,
-} from "redstone-sdk";
+} from "@redstone-finance/sdk";
 import price_manager_abi from "../../config/price_manager_abi.json";
 import { StarknetContractParamsProvider } from "@redstone-finance/starknet-connector";
 import { PriceManagerContractAdapter } from "./PriceManagerContractAdapter";

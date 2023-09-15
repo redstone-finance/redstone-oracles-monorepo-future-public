@@ -4,7 +4,7 @@ import {
   IContractConnector,
   IPriceFeedContractAdapter,
   IPriceManagerContractAdapter,
-} from "redstone-sdk";
+} from "@redstone-finance/sdk";
 import { PriceFeedContractConnector } from "./cairo0/PriceFeedContractConnector";
 
 export class ContractConnectorFactory {

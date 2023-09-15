@@ -1,4 +1,4 @@
-import { consts } from "redstone-protocol";
+import { consts } from "@redstone-finance/protocol";
 import {
   DeviationsPerDataFeed,
   DeviationsWithBigPackage,

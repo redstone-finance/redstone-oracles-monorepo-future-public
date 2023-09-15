@@ -5,7 +5,7 @@ import {
   SampleStorageProxy,
 } from "../../typechain-types";
 import { WrapperBuilder } from "../../src";
-import { utils } from "redstone-protocol";
+import { utils } from "@redstone-finance/protocol";
 import {
   expectedNumericValues,
   mockNumericPackages,

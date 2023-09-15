@@ -1,4 +1,4 @@
-import { consts } from "redstone-protocol";
+import { consts } from "@redstone-finance/protocol";
 import { ChildProcess, spawnSync } from "child_process";
 import fs from "fs";
 import { installAndBuild } from "./integration-test-compile";

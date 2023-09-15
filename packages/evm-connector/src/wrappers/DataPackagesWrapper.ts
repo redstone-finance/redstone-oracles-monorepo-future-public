@@ -1,4 +1,4 @@
-import { DataPackagesResponse } from "redstone-sdk";
+import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { BaseWrapper } from "./BaseWrapper";
 import { version } from "../../package.json";
 

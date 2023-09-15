@@ -1,4 +1,7 @@
-import { DataPackagesResponse, ValuesForDataFeeds } from "redstone-sdk";
+import {
+  DataPackagesResponse,
+  ValuesForDataFeeds,
+} from "@redstone-finance/sdk";
 import { LastRoundTimestamps } from "./core/contract-interactions/get-last-round-params";
 
 export interface Context {

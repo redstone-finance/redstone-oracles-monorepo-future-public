@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { UniversalSigner } = require("redstone-protocol");
+const { UniversalSigner } = require("@redstone-finance/protocol");
 
 const MOCK_SIGNATURE =
   "GPZOwPKiZM1UreO9Aeq5rO/fdA9VqnocYgMJ1kIKn6FC0MQmXYnnIgepT3Ji9LsHPn9wUDD8RhUN6lR5k9Mbehs=";

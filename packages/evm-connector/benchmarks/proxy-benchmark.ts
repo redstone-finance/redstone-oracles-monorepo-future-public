@@ -1,6 +1,6 @@
 import { ethers } from "hardhat";
-import { DataPackage, NumericDataPoint } from "redstone-protocol";
-import { utils } from "redstone-protocol";
+import { DataPackage, NumericDataPoint } from "@redstone-finance/protocol";
+import { utils } from "@redstone-finance/protocol";
 import {
   MOCK_SIGNERS,
   DEFAULT_TIMESTAMP_FOR_TESTS,
