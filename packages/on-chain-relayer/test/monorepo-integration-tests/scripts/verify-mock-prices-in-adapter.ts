@@ -7,10 +7,10 @@ import { PriceFeedsAdapterWithoutRounds } from "../../../typechain-types";
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const ContractFactory = await ethers.getContractFactory(
-    "PriceFeedsAdapterWithoutRoundsOneSignerMock",
+    "PriceFeedsAdapterWithoutRoundsOneSignerMock"
   );
   const contract: PriceFeedsAdapterWithoutRounds = ContractFactory.attach(
-    process.env.ADAPTER_CONTRACT_ADDRESS ?? "",
+    process.env.ADAPTER_CONTRACT_ADDRESS ?? ""
   ) as PriceFeedsAdapterWithoutRounds;
 
   console.log("adapter contract address", process.env.ADAPTER_CONTRACT_ADDRESS);

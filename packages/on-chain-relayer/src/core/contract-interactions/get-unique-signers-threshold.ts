@@ -1,7 +1,7 @@
 import { RedstoneAdapterBase } from "../../../typechain-types";
 
 export const getUniqueSignersThresholdFromContract = async (
-  adapterContract: RedstoneAdapterBase,
+  adapterContract: RedstoneAdapterBase
 ) => {
   return await adapterContract.getUniqueSignersThreshold();
 };

@@ -11,10 +11,10 @@ const NEW_SORTED_ORACLES_ADDRESS = "0xFdd8bD58115FfBf04e47411c1d228eCC45E93075";
   const mentoAdapterContract = getAdapterContract() as MentoAdapterBase;
 
   console.log(
-    `Updating sorted oracle address to: ${NEW_SORTED_ORACLES_ADDRESS}`,
+    `Updating sorted oracle address to: ${NEW_SORTED_ORACLES_ADDRESS}`
   );
   const tx = await mentoAdapterContract.updateSortedOraclesAddress(
-    NEW_SORTED_ORACLES_ADDRESS,
+    NEW_SORTED_ORACLES_ADDRESS
   );
 
   console.log(`Tx sent: ${tx.hash}`);

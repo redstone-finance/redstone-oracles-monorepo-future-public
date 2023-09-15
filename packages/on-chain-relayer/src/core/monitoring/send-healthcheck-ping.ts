@@ -10,11 +10,11 @@ export const sendHealthcheckPing = async () => {
       const error = e as AxiosError;
       if (error.code === "ENOTFOUND") {
         console.error(
-          "Healthcheck address not found. Configure your `HEALTHCHECK_PING_URL` properly",
+          "Healthcheck address not found. Configure your `HEALTHCHECK_PING_URL` properly"
         );
       } else {
         console.error(
-          `Unknown error occurred, when trying to health check ping code: ${error.code} message: ${error.message}`,
+          `Unknown error occurred, when trying to health check ping code: ${error.code} message: ${error.message}`
         );
       }
     }
