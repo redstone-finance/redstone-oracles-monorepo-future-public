@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import "../common/set-test-envs";
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
@@ -38,6 +44,7 @@ import { DataPackagesService } from "../../src/data-packages/data-packages.servi
 
 type WithSigner = { signerAddress: string };
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 jest.mock("@redstone-finance/sdk", () => ({
   __esModule: true,
   ...jest.requireActual("@redstone-finance/sdk"),
@@ -52,8 +59,7 @@ const parseDataPointValueToNumber = (
   decimals = consts.DEFAULT_NUM_VALUE_DECIMALS
 ) =>
   typeof dataPointValue === "string"
-    ? utils.convertBytesToNumber(base64.decode(dataPointValue as string)) /
-      10 ** decimals
+    ? utils.convertBytesToNumber(base64.decode(dataPointValue)) / 10 ** decimals
     : dataPointValue;
 
 const getExpectedDataPackagesInDB = (
@@ -70,7 +76,7 @@ const getExpectedDataPackagesInDB = (
 const mockSigners = [MOCK_SIGNER_ADDRESS, "0x2", "0x3", "0x4", "0x5"];
 
 describe("Data packages (e2e)", () => {
-  let app: INestApplication, httpServer: any;
+  let app: INestApplication, httpServer: unknown;
   let bundlrSaveDataPackagesSpy: jest.SpyInstance<
     Promise<void>,
     [dataPackages: CachedDataPackage[]]
@@ -149,7 +155,6 @@ describe("Data packages (e2e)", () => {
       dataFeedId: 1,
     });
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { _id, __v, ...rest } = dp.toJSON() as any;
       return rest;
     });
@@ -172,7 +177,6 @@ describe("Data packages (e2e)", () => {
       dataFeedId: 1,
     });
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { _id, __v, ...rest } = dp.toJSON() as any;
       return rest;
     });
@@ -215,7 +219,6 @@ describe("Data packages (e2e)", () => {
       dataFeedId: 1,
     });
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { _id, __v, ...rest } = dp.toJSON() as any;
       return rest;
     });

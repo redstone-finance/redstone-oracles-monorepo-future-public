@@ -8,7 +8,8 @@
   "scripts": {
     "test": "NODE_ENV=test hardhat test",
     "build": "hardhat compile && rm -rf dist && tsc --build tsconfig.build.json",
-    "preversion": "yarn build"
+    "preversion": "yarn build",
+    "lint": "eslint ."
   },
   "dependencies": {
     "axios": "^1.4.0",

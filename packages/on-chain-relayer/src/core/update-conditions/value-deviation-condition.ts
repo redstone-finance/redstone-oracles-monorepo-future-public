@@ -10,12 +10,12 @@ export const performValueDeviationConditionChecks = async (
   latestDataPackages: DataPackagesResponse,
   valuesFromContract: ValuesForDataFeeds,
   config: RelayerConfig,
-  olderDataPackagesFetchCallback: () => Promise<DataPackagesResponse>
+  olderDataPackagesFetchCallback: () => Promise<DataPackagesResponse>,
 ) => {
   const { shouldUpdatePrices, warningMessage } = checkValueDeviationCondition(
     latestDataPackages,
     valuesFromContract,
-    config
+    config,
   );
 
   const isFallback = (config.fallbackOffsetInMinutes ?? 0) > 0;
@@ -31,7 +31,7 @@ export const performValueDeviationConditionChecks = async (
     } = checkValueDeviationCondition(
       olderDataPackages,
       valuesFromContract,
-      config
+      config,
     );
 
     olderShouldUpdatePrices = olderShouldUpdatePricesTmp;
@@ -50,14 +50,14 @@ export const valueDeviationCondition = async (
   latestDataPackages: DataPackagesResponse,
   uniqueSignersThreshold: number,
   valuesFromContract: ValuesForDataFeeds,
-  config: RelayerConfig
+  config: RelayerConfig,
 ) => {
   const olderDataPackagesFetchCallback = async () => {
     return await fetchDataPackages(
       config,
       uniqueSignersThreshold,
       valuesFromContract,
-      true
+      true,
     );
   };
 
@@ -65,6 +65,6 @@ export const valueDeviationCondition = async (
     latestDataPackages,
     valuesFromContract,
     config,
-    olderDataPackagesFetchCallback
+    olderDataPackagesFetchCallback,
   );
 };

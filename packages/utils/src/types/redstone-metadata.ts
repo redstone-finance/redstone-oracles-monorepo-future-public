@@ -4,7 +4,7 @@ export type MetadataForRedstonePrice = {
   value: string;
 
   /** Metadata per source */
-  sourceMetadata: Record<string, MetadataPerSource>;
+  sourceMetadata: Record<string, MetadataPerSource | undefined>;
 };
 
 export interface MetadataPerSource {
@@ -12,7 +12,7 @@ export interface MetadataPerSource {
   slippage?: SlippageData[];
 
   /** Defined only for sources which supports fetching liquidity. */
-  liquidity?: string | undefined;
+  liquidity?: string;
 
   /** Defined for all sources. If source failed value will be = "error"  */
   value?: string;

@@ -6,8 +6,8 @@ const handlers = [
   rest.get(
     "http://mock-cache-service/data-packages/latest/redstone-main-demo",
     async (req, res, ctx) => {
-      return res(ctx.json(getDataPackagesResponse()));
-    }
+      return await res(ctx.json(getDataPackagesResponse()));
+    },
   ),
 ];
 

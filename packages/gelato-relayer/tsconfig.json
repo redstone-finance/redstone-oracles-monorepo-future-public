@@ -6,7 +6,6 @@
     "declarationMap": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "exactOptionalPropertyTypes": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
@@ -22,7 +21,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ES2021",
-    "downlevelIteration": true,
+    "downlevelIteration": true
   },
   "include": [
     "hardhat",
@@ -31,7 +30,7 @@
     "src",
     "typechain",
     "web3-functions",
-    "hardhat.config.ts",
+    "hardhat.config.ts"
   ],
   "exclude": ["node_modules"],
   "references": [
@@ -40,6 +39,6 @@
     },
     {
       "path": "../evm-connector/tsconfig.build.json"
-    },
+    }
   ]
 }

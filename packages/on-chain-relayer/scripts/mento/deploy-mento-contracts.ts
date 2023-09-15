@@ -17,9 +17,11 @@ const main = async () => {
   console.log(`Mento adapter deployed: ${mentoAdapter.address}`);
 };
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 main();
 
 async function maybeDeploySortedOracles() {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (SORTED_ORACLES_ADDRESS === "") {
     console.log(`Deploying mock sorted oracles`);
     const sortedOracles = await deployMockSortedOracles(getSigner());
@@ -33,7 +35,7 @@ async function maybeDeploySortedOracles() {
 async function deployMentoAdapter(sortedOraclesAddress: string) {
   const MentoAdapterFactory = await ethers.getContractFactory(
     "MentoAdapter",
-    getSigner()
+    getSigner(),
   );
   const mentoAdapter = await MentoAdapterFactory.deploy(sortedOraclesAddress);
   await mentoAdapter.deployed();

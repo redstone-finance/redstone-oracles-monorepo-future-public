@@ -11,10 +11,11 @@ export class MockIterationArgsProvider
 {
   constructor(public adapterContractAddress?: string) {}
 
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this, @typescript-eslint/require-await
   async getArgs(
     userArgs: Web3FunctionUserArgs,
-    env: IterationArgsProviderEnv,
-    provider: providers.StaticJsonRpcProvider
+    _env: IterationArgsProviderEnv,
+    _provider: providers.StaticJsonRpcProvider
   ): Promise<IterationArgs<string | undefined>> {
     const { shouldUpdatePrices, message, args } = userArgs;
 
@@ -31,6 +32,7 @@ export class MockIterationArgsProvider
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   getTransactionData(args: string | undefined): Promise<string | undefined> {
     return Promise.resolve(args);
   }

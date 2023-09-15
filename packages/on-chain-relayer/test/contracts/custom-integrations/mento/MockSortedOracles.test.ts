@@ -14,13 +14,13 @@ describe("MockSortedOracles", () => {
 
   const reportNewOracleValue = async (
     valueToReport: number,
-    signer: SignerWithAddress
+    signer: SignerWithAddress,
   ) => {
     const rates = await contract.getRates(mockTokenAddress);
     const { lesserKey, greaterKey } = calculateLinkedListPosition(
       rates,
       BigNumber.from(valueToReport),
-      signer.address
+      signer.address,
     );
 
     const tx = await contract

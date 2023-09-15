@@ -61,11 +61,11 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
     provider: providers.JsonRpcProvider,
     newestBlock: "pending"
   ): Promise<FeeHistoryResponse> {
-    return await provider.send("eth_feeHistory", [
+    return (await provider.send("eth_feeHistory", [
       "0x2",
       newestBlock,
       [this.opts.percentileOfPriorityFee],
-    ]);
+    ])) as FeeHistoryResponse;
   }
 
   scaleFees(currentFees: Eip1559Fee): Eip1559Fee {

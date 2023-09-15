@@ -74,7 +74,7 @@ export class GetDataPackagesStatsQuery {
 }
 
 export interface DataPackagesResponse {
-  [dataFeedId: string]: CachedDataPackage[];
+  [dataFeedId: string]: CachedDataPackage[] | undefined;
 }
 
 export interface DataPackagesStatsResponse {

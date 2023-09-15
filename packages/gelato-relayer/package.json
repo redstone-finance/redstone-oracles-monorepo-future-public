@@ -1,6 +1,7 @@
 {
   "name": "@redstone-finance/gelato-relayer",
   "version": "0.3.0",
+  "prettier": "redstone-prettier-config",
   "description": "RedStone Relayer based on Gelato Web3 Functions",
   "repository": "https://github.com/redstone-finance/redstone-oracles-monorepo",
   "private": true,
@@ -12,7 +13,8 @@
     "sample-contract-deploy": "npx hardhat deploy",
     "test": "npx hardhat test",
     "w3f-run": "yarn build && npx hardhat w3f-run redstone --debug --logs",
-    "w3f-deploy": "yarn build && npx hardhat w3f-deploy redstone"
+    "w3f-deploy": "yarn build && npx hardhat w3f-deploy redstone",
+    "lint": "eslint ."
   },
   "license": "BUSL-1.1",
   "devDependencies": {
@@ -28,14 +30,14 @@
     "@types/chai": "^4.2.0",
     "@types/mocha": ">=9.1.0",
     "@types/node": "^18.14.6",
-    "@typescript-eslint/eslint-plugin": "5.53.0",
-    "@typescript-eslint/parser": "5.53.0",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
     "axios": "^1.4.0",
     "chai": "^4.2.0",
     "dotenv": "^16.0.3",
-    "eslint": "^8.0.1",
-    "eslint-config-prettier": "8.6.0",
-    "eslint-plugin-prettier": "4.2.1",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "ethereum-waffle": "^4.0.10",
     "ethers": "^5.6.8",
     "hardhat": "^2.14.0",

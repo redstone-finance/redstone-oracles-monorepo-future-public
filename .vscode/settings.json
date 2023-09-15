@@ -10,5 +10,8 @@
     "./packages/gelato-relayer",
     "./packages/integration",
     "./packages/cache-service"
-  ]
+  ],
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

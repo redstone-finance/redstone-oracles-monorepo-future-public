@@ -6,7 +6,7 @@ export type LastRoundTimestamps = {
 };
 
 export const getLastRoundParamsFromContract = async (
-  adapterContract: IRedstoneAdapter
+  adapterContract: IRedstoneAdapter,
 ): Promise<LastRoundTimestamps> => {
   const timestamps = await adapterContract.getTimestampsFromLatestUpdate();
 

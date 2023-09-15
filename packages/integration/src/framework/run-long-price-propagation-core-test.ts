@@ -78,9 +78,8 @@ export const runLongPricePropagationCoreTest = async (
   await sleep(nodeWorkingTimeInMilliseconds);
   stopOracleNode(oracleNodeInstance);
 
-  const latestTimestamp = await fetchLatestTimestampFromLocal(
-    cacheLayerInstance
-  );
+  const latestTimestamp =
+    await fetchLatestTimestampFromLocal(cacheLayerInstance);
 
   const iterationsCount =
     nodeWorkingTimeInMilliseconds / nodeIntervalInMilliseconds;

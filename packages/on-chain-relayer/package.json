@@ -9,6 +9,7 @@
     "start": "node dist/src/run-relayer.js",
     "start:dev": "ts-node src/run-relayer.ts",
     "compile": "hardhat compile",
+    "lint": "eslint .",
     "run-script": "hardhat run",
     "start-node": "hardhat node",
     "test": "NODE_ENV=test hardhat test"

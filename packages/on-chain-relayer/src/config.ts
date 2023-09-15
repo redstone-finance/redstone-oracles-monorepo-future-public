@@ -9,7 +9,7 @@ export const config = () => {
   }
   if (!configProvider) {
     throw new Error(
-      "Config provider not defined. Consider calling setConfigProvider method."
+      "Config provider not defined. Consider calling setConfigProvider method.",
     );
   }
   relayerConfig = configProvider();
@@ -19,7 +19,7 @@ export const config = () => {
   // Validating adapter contract type
   if (!["mento", "price-feeds"].includes(relayerConfig.adapterContractType)) {
     throw new Error(
-      `Adapter contract type not supported: ${relayerConfig.adapterContractType}`
+      `Adapter contract type not supported: ${relayerConfig.adapterContractType}`,
     );
   }
 
@@ -29,7 +29,7 @@ export const config = () => {
     relayerConfig.updateConditions.includes("value-deviation")
   ) {
     throw new Error(
-      "Mento adapter does not support the value-deviation update condition"
+      "Mento adapter does not support the value-deviation update condition",
     );
   }
   return relayerConfig;

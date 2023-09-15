@@ -2,7 +2,7 @@ import { RelayerConfig } from "../../types";
 
 export const timeUpdateCondition = (
   lastUpdateTimestamp: number,
-  config: RelayerConfig
+  config: RelayerConfig,
 ) => {
   const { fallbackOffsetInMS } = config;
   const isFallback = fallbackOffsetInMS > 0;

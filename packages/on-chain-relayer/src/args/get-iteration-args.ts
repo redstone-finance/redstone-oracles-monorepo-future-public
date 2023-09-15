@@ -18,18 +18,16 @@ type IterationArgs = {
 };
 
 export const getIterationArgs = async (
-  adapterContract: RedstoneAdapterBase
+  adapterContract: RedstoneAdapterBase,
 ): Promise<IterationArgs> => {
   const relayerConfig = config();
   const { dataFeeds, updateConditions } = relayerConfig;
 
-  const lastUpdateTimestamps = await getLastRoundParamsFromContract(
-    adapterContract
-  );
+  const lastUpdateTimestamps =
+    await getLastRoundParamsFromContract(adapterContract);
 
-  const uniqueSignersThreshold = await getUniqueSignersThresholdFromContract(
-    adapterContract
-  );
+  const uniqueSignersThreshold =
+    await getUniqueSignersThresholdFromContract(adapterContract);
 
   // We fetch latest values from contract only if we want to check value deviation
   const shouldCheckValueDeviation =
@@ -38,13 +36,13 @@ export const getIterationArgs = async (
   if (shouldCheckValueDeviation) {
     valuesFromContract = await getValuesForDataFeeds(
       adapterContract,
-      dataFeeds
+      dataFeeds,
     );
   }
   const dataPackages = await fetchDataPackages(
     relayerConfig,
     uniqueSignersThreshold,
-    valuesFromContract
+    valuesFromContract,
   );
 
   const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
@@ -54,7 +52,7 @@ export const getIterationArgs = async (
       uniqueSignersThreshold,
       lastUpdateTimestamps,
     },
-    relayerConfig
+    relayerConfig,
   );
 
   const updatePricesArgs = getUpdatePricesArgs(dataPackages, adapterContract);

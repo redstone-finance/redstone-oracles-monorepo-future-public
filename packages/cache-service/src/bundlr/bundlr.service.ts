@@ -53,9 +53,9 @@ export class BundlrService {
       value,
     }));
 
-    const dataToSave = this.prepareDataToSave(dataPackage);
+    const dataToSave = BundlrService.prepareDataToSave(dataPackage);
 
-    const tx = await this.bundlrClient!.createTransaction(dataToSave, {
+    const tx = this.bundlrClient!.createTransaction(dataToSave, {
       tags: tagsArray,
     });
 
@@ -67,7 +67,7 @@ export class BundlrService {
   }
 
   // TOOD: maybe use gzip compression in future
-  prepareDataToSave(dataPackage: CachedDataPackage) {
+  static prepareDataToSave(dataPackage: CachedDataPackage) {
     return JSON.stringify(dataPackage);
   }
 }

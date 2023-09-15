@@ -9,11 +9,11 @@ import { consts } from "@redstone-finance/protocol";
 const END_TIMESTAMP = getRoundedCurrentTimestamp();
 const START_TIMESTAMP = END_TIMESTAMP - 3 * 24 * 3600 * 1000; // END_TIMESTAMP - 5 days
 
-const ANALYZE_ONLY_BIG_PACKAGES = true;
-const ENABLE_TIMESTAMP_LOGGING = false;
-const ENABLE_LOGGING_OF_MISSING_FEEDS = true;
-const ENABLE_MISSING_VALUE_FOR_SIGNERS_CHECK = false;
-const ENABLE_DATA_PACKAGES_COUNT_CHECK = false;
+const ANALYZE_ONLY_BIG_PACKAGES: boolean = true;
+const ENABLE_TIMESTAMP_LOGGING: boolean = false;
+const ENABLE_LOGGING_OF_MISSING_FEEDS: boolean = true;
+const ENABLE_MISSING_VALUE_FOR_SIGNERS_CHECK: boolean = false;
+const ENABLE_DATA_PACKAGES_COUNT_CHECK: boolean = false;
 const MIN_DEVIATION_FOR_WARNING = 1; // 1%
 const PAGE_SIZE_MILLISECONDS = 24 * 3600 * 1000;
 const EXCEPTIONAL_DEVIATION = 4242;
@@ -37,23 +37,30 @@ const EXPECTED_SIGNERS_2 = {
 type Timestamp = number;
 type DataFeedId = string;
 type SignerAddress = string;
-type DataPackagesResponse = Record<Timestamp, DataPackagesForManyFeeds>;
-type DataPackagesForManyFeeds = Record<DataFeedId, DataPackagesForManySigners>;
+type DataPackagesResponse = Record<
+  Timestamp,
+  DataPackagesForManyFeeds | undefined
+>;
+type DataPackagesForManyFeeds = Record<
+  DataFeedId,
+  DataPackagesForManySigners | undefined
+>;
 type SimplifiedDataPackage = {
   value: number;
 };
 type DataPackagesForManySigners = Record<
   SignerAddress,
-  SimplifiedDataPackage[]
+  SimplifiedDataPackage[] | undefined
 >;
 type ValuesPerSigner = {
-  [signer: string]: number[];
+  [signer: string]: number[] | undefined;
 };
 type TimeInterval = {
   startTimestamp: number;
   endTimestamp: number;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 main();
 
 async function main() {
@@ -130,11 +137,11 @@ function compareDataPackagesAtTimestamp(
     const context = `Data feed: ${dataFeedId}. ${timestampContext}`;
 
     const valuesPerSigner1 = extractValuesForDataFeed(
-      dataPackages1[timestamp],
+      dataPackages1[timestamp]!,
       dataFeedId
     );
     const valuesPerSigner2 = extractValuesForDataFeed(
-      dataPackages2[timestamp],
+      dataPackages2[timestamp]!,
       dataFeedId
     );
 
@@ -167,8 +174,8 @@ function checkDeviation(
   valuesPerSigner2: ValuesPerSigner,
   context: string
 ) {
-  const values1 = Object.values(valuesPerSigner1).flat();
-  const values2 = Object.values(valuesPerSigner2).flat();
+  const values1 = Object.values(valuesPerSigner1).flat() as number[];
+  const values2 = Object.values(valuesPerSigner2).flat() as number[];
 
   const deviation = getMaxDeviation(values1, values2);
 
@@ -229,9 +236,9 @@ function extractValuesForDataFeed(
     return {};
   } else {
     for (const [signer, dataPackages] of Object.entries(
-      dataPackagesForManyFeeds[dataFeedId]
+      dataPackagesForManyFeeds[dataFeedId]!
     )) {
-      valuesPerSigner[signer] = dataPackages.map((dp) => dp.value);
+      valuesPerSigner[signer] = dataPackages!.map((dp) => dp.value);
     }
 
     return valuesPerSigner;
@@ -271,15 +278,15 @@ function groupDataPackages(
 
     for (const dataPoint of dataPackage.dataPoints) {
       const { dataFeedId, value } = dataPoint;
-      if (!result[timestampMilliseconds][dataFeedId]) {
-        result[timestampMilliseconds][dataFeedId] = {};
+      if (!result[timestampMilliseconds]![dataFeedId]) {
+        result[timestampMilliseconds]![dataFeedId] = {};
       }
 
-      if (!result[timestampMilliseconds][dataFeedId][signerAddress]) {
-        result[timestampMilliseconds][dataFeedId][signerAddress] = [];
+      if (!result[timestampMilliseconds]![dataFeedId]![signerAddress]) {
+        result[timestampMilliseconds]![dataFeedId]![signerAddress] = [];
       }
 
-      result[timestampMilliseconds][dataFeedId][signerAddress].push({
+      result[timestampMilliseconds]![dataFeedId]![signerAddress]!.push({
         value: value as number,
       });
     }
@@ -347,7 +354,9 @@ function extractAllDataFeedIds(
   const allDataFeedIds = new Set<string>([]);
 
   for (const dataPackagesForManyFeeds of Object.values(dataPackages)) {
-    for (const dataFeedId of Object.keys(dataPackagesForManyFeeds)) {
+    for (const dataFeedId of Object.keys(
+      dataPackagesForManyFeeds as DataPackagesForManyFeeds
+    )) {
       allDataFeedIds.add(dataFeedId);
     }
   }
