@@ -1,6 +1,6 @@
 import { Contract, utils } from "ethers";
 import { config } from "../../config";
-import { ValuesForDataFeeds } from "redstone-sdk";
+import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 
 // TODO: rewrite this file, as now we even support getting values from smart contract for MentoAdapter
 export const getValuesForDataFeeds = async (

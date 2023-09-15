@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Document } from "mongoose";
-import { DataPointPlainObj } from "redstone-protocol";
+import { DataPointPlainObj } from "@redstone-finance/protocol";
 
 const { Types } = mongoose.Schema;
 

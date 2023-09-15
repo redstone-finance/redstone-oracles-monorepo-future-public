@@ -1,5 +1,5 @@
 import { getLastRoundParamsFromContract } from "../core/contract-interactions/get-last-round-params";
-import { ValuesForDataFeeds } from "redstone-sdk";
+import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 import { getValuesForDataFeeds } from "../core/contract-interactions/get-values-for-data-feeds";
 import { shouldUpdate } from "../core/update-conditions/should-update";
 import {

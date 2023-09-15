@@ -3,7 +3,7 @@ import {
   ContractParamsProvider,
   IPriceManagerContractAdapter,
   PriceManagerMetadata,
-} from "redstone-sdk";
+} from "@redstone-finance/sdk";
 import {
   FEE_MULTIPLIER,
   getNumberFromStarknetResult,

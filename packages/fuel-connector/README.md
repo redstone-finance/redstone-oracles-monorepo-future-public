@@ -28,22 +28,22 @@ the [whole RedStone Oracle model](https://docs.redstone.finance/docs/introductio
 ## 👨‍💻 Code structure
 
 - [sway](sway) directory contains the fuel-network on-chain libraries written in sway `0.35.5`.
-    - There are also various tests of signature verification with the given signers, timestamp validation, value
-      aggregation as well as full data-processing tests with various configurations.
-    - You can find all the possibilities [here](sway/README.md).
-    - You can read [here](sway/contract/README.md) how the contract works.
+  - There are also various tests of signature verification with the given signers, timestamp validation, value
+    aggregation as well as full data-processing tests with various configurations.
+  - You can find all the possibilities [here](sway/README.md).
+  - You can read [here](sway/contract/README.md) how the contract works.
 - [src](src) directory contains the typescript classes, useful for establishing a connection between typescript and
   fuel-network layers.
-    - See [below](#-connecting-to-the-contract), how to connect to the contract.
+  - See [below](#-connecting-to-the-contract), how to connect to the contract.
 - [test](test) directory contains the off-chain tests, especially:
-    - [e2e contract usage tests](test/prices/prices.spec.ts) - with payload sending and receiving aggregated data
-    - [integration tests](test/prices/integration.spec.ts) - to be used for checking if the contract was properly
-      initialized in the fuel network
-    - [gas usage tests](test/prices/gas-usage.spec.ts) - to be used for checking the gas costs of particular
-      operations in various configurations and also
-      the summary of the single item costs.
-    - [a piece of code](test/prices/transfer.spec.ts) for transferring ETHs from genesis accounts on the local
-      network
+  - [e2e contract usage tests](test/prices/prices.spec.ts) - with payload sending and receiving aggregated data
+  - [integration tests](test/prices/integration.spec.ts) - to be used for checking if the contract was properly
+    initialized in the fuel network
+  - [gas usage tests](test/prices/gas-usage.spec.ts) - to be used for checking the gas costs of particular
+    operations in various configurations and also
+    the summary of the single item costs.
+  - [a piece of code](test/prices/transfer.spec.ts) for transferring ETHs from genesis accounts on the local
+    network
 
 ## 🔥 Connecting to the contract
 
@@ -51,26 +51,30 @@ First, you need to import the connector code to your project
 
 ```ts
 // Typescript
-import {FuelPricesContractConnector} from "@redstone-finance/fuel-connector";
-import {ContractParamsProvider} from "redstone-sdk";
+import { FuelPricesContractConnector } from "@redstone-finance/fuel-connector";
+import { ContractParamsProvider } from "@redstone-finance/sdk";
 
 // Javascript
-const {FuelPricesContractConnector} = require("@redstone-finance/fuel-connector");
-const {ContractParamsProvider} = require("redstone-sdk");
+const {
+  FuelPricesContractConnector,
+} = require("@redstone-finance/fuel-connector");
+const { ContractParamsProvider } = require("@redstone-finance/sdk");
 ```
 
 Then you can invoke the contract methods described above pointing to the
 selected [RedStone data service](https://app.redstone.finance) and requested data feeds.
 
 ```ts
-const prices = new FuelPricesContractConnector(yourWalletOrProvider, yourContractAddress);
+const prices = new FuelPricesContractConnector(
+  yourWalletOrProvider,
+  yourContractAddress
+);
 
 const paramsProvider = new ContractParamsProvider({
-    dataServiceId: "redstone-main-demo",
-    uniqueSignersCount: 1,
-    dataFeeds: ["ETH", "BTC"]
+  dataServiceId: "redstone-main-demo",
+  uniqueSignersCount: 1,
+  dataFeeds: ["ETH", "BTC"],
 });
-
 ```
 
 The `yourWalletOrProvider` param is needed to be passed for testnet usage. For the local network it can remain
@@ -83,7 +87,6 @@ Now you can access any of the contract's methods by invoking the code:
 (await prices.getAdapter()).writePricesFromPayloadToContract(paramsProvider);
 (await prices.getAdapter()).readPricesFromContract(paramsProvider);
 (await prices.getAdapter()).readTimestampFromContract();
-
 ```
 
 ### Installing the dependencies

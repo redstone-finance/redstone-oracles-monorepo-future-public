@@ -1,4 +1,4 @@
-import { getOracleRegistryState } from "redstone-sdk";
+import { getOracleRegistryState } from "@redstone-finance/sdk";
 import config from "../config";
 import { mockOraclesState } from "../oracle-registry-state/mock-oracle-registry-state";
 

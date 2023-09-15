@@ -1,4 +1,4 @@
-import { DataPackagesResponse } from "redstone-sdk";
+import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { Context } from "../../types";
 
 export const checkIfDataPackageTimestampIsNewer = (context: Context) => {

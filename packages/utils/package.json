@@ -1,7 +1,7 @@
 {
-  "name": "redstone-utils",
+  "name": "@redstone-finance/utils",
   "prettier": "redstone-prettier-config",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -9,7 +9,6 @@
     "test": "jest",
     "build": "rm -rf dist && tsc --build tsconfig.build.json",
     "preversion": "yarn build",
-    "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push -f",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -23,7 +22,7 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "ethers": "5.x.x",
-    "axios": "*"
+    "axios": "*",
+    "ethers": "5.x.x"
   }
 }

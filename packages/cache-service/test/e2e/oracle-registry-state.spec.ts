@@ -5,9 +5,9 @@ import request from "supertest";
 import { AppModule } from "../../src/app.module";
 import { mockOracleRegistryState } from "../common/mock-values";
 
-jest.mock("redstone-sdk", () => ({
+jest.mock("@redstone-finance/sdk", () => ({
   __esModule: true,
-  ...jest.requireActual("redstone-sdk"),
+  ...jest.requireActual("@redstone-finance/sdk"),
   getOracleRegistryState: jest.fn(() => mockOracleRegistryState),
 }));
 

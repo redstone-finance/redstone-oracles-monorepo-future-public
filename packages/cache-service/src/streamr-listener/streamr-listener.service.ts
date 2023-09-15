@@ -1,6 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
-import { getOracleRegistryState } from "redstone-sdk";
+import { getOracleRegistryState } from "@redstone-finance/sdk";
 import config from "../config";
 import {
   decompressMsg,
@@ -8,7 +8,7 @@ import {
   getStreamIdForNodeByEvmAddress,
   StreamrClient,
   Subscription,
-} from "redstone-streamr-proxy";
+} from "@redstone-finance/streamr-proxy";
 import { DataPackagesService } from "../data-packages/data-packages.service";
 
 interface StreamrSubscriptions {

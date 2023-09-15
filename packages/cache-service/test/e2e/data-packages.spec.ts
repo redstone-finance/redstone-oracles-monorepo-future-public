@@ -8,11 +8,11 @@ import {
   SignedDataPackagePlainObj,
   consts,
   utils,
-} from "redstone-protocol";
+} from "@redstone-finance/protocol";
 import {
   RedstonePayloadParser,
   convertDataPointToNumericDataPoint,
-} from "redstone-protocol/dist/src/redstone-payload/RedstonePayloadParser";
+} from "@redstone-finance/protocol/dist/src/redstone-payload/RedstonePayloadParser";
 import request from "supertest";
 import { AppModule } from "../../src/app.module";
 import { BundlrService } from "../../src/bundlr/bundlr.service";
@@ -38,9 +38,9 @@ import { DataPackagesService } from "../../src/data-packages/data-packages.servi
 
 type WithSigner = { signerAddress: string };
 
-jest.mock("redstone-sdk", () => ({
+jest.mock("@redstone-finance/sdk", () => ({
   __esModule: true,
-  ...jest.requireActual("redstone-sdk"),
+  ...jest.requireActual("@redstone-finance/sdk"),
   getOracleRegistryState: jest.fn(() => mockOracleRegistryState),
 }));
 

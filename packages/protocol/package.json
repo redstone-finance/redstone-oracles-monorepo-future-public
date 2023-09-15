@@ -1,7 +1,7 @@
 {
-  "name": "redstone-protocol",
+  "name": "@redstone-finance/protocol",
   "prettier": "redstone-prettier-config",
-  "version": "1.0.5",
+  "version": "0.3.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -9,7 +9,6 @@
     "test": "NODE_ENV=test jest",
     "build": "rm -rf dist && tsc --build tsconfig.build.json",
     "preversion": "yarn build",
-    "postversion": "git commit -a -m \"build: $npm_package_name@$npm_package_version\" && git push",
     "lint": "eslint ."
   },
   "dependencies": {

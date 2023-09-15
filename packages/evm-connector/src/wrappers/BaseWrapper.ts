@@ -1,6 +1,6 @@
 import { Contract, Signer } from "ethers";
 import { addContractWait } from "../helpers/add-contract-wait";
-import { RedstonePayload, SignedDataPackage } from "redstone-protocol";
+import { RedstonePayload, SignedDataPackage } from "@redstone-finance/protocol";
 
 interface OverwriteFunctionArgs {
   wrappedContract: Contract;
@@ -26,7 +26,9 @@ export abstract class BaseWrapper {
   async getRedstonePayloadForManualUsage(contract: Contract): Promise<string> {
     this.setContractForFetchingDefaultParams(contract);
     const shouldBeMultipleOf32 = true;
-    const payloadWithoutZeroExPrefix = await this.prepareRedstonePayload(shouldBeMultipleOf32);
+    const payloadWithoutZeroExPrefix = await this.prepareRedstonePayload(
+      shouldBeMultipleOf32
+    );
     return "0x" + payloadWithoutZeroExPrefix;
   }
 
@@ -55,10 +57,7 @@ export abstract class BaseWrapper {
     // uses one byte in UTF-8
     unsignedMetadata += "_".repeat(bytesToAdd);
 
-    return RedstonePayload.prepare(
-      signedDataPackages,
-      unsignedMetadata
-    );
+    return RedstonePayload.prepare(signedDataPackages, unsignedMetadata);
   }
 
   setContractForFetchingDefaultParams(contract: Contract) {

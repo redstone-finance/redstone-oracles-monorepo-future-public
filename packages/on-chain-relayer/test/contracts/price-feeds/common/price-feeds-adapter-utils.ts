@@ -1,7 +1,7 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
-import { utils } from "redstone-protocol";
+import { utils } from "@redstone-finance/protocol";
 import { ethers, upgrades } from "hardhat";
 import { IRedstoneAdapter } from "../../../../typechain-types";
 import { formatBytes32String } from "ethers/lib/utils";

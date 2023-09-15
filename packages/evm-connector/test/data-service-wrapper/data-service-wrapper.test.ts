@@ -2,7 +2,7 @@ import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { Contract } from "ethers";
 import { ethers } from "hardhat";
-import { utils } from "redstone-protocol";
+import { utils } from "@redstone-finance/protocol";
 import { WrapperBuilder } from "../../src/index";
 import { SampleRedstoneConsumerNumericMockManyDataFeeds } from "../../typechain-types";
 import { expectedNumericValues } from "../tests-common";
@@ -26,7 +26,7 @@ const checkExpectedValues = async (contract: Contract) => {
   expect(secondValueFromContract.toNumber()).to.be.equal(
     expectedNumericValues["BTC"]
   );
-}
+};
 
 const runTest = async (
   contract: Contract,
@@ -47,14 +47,17 @@ const runTest = async (
   await checkExpectedValues(contract);
 };
 
-const runTestWithManualPayload = async (contract: Contract, payload: string) => {
+const runTestWithManualPayload = async (
+  contract: Contract,
+  payload: string
+) => {
   const tx = await contract.save2ValuesInStorageWithManualPayload(
     dataFeedIdsB32,
     payload
   );
   await tx.wait();
   await checkExpectedValues(contract);
-}
+};
 
 describe("DataServiceWrapper", () => {
   before(() => server.listen());
@@ -96,7 +99,7 @@ describe("DataServiceWrapper", () => {
       );
     });
 
-    it("Should get urls from redstone-protocol if not provided", async () => {
+    it("Should get urls from @redstone-finance/protocol if not provided", async () => {
       await runTest(contract, undefined, "mock-data-service-tests");
     });
 

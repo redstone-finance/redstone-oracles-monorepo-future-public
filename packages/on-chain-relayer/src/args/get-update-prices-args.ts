@@ -1,6 +1,6 @@
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { Contract } from "ethers";
-import { DataPackagesResponse } from "redstone-sdk";
+import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { chooseDataPackagesTimestamp } from "../core/update-conditions/data-packages-timestamp";
 
 export interface UpdatePricesArgs {

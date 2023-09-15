@@ -1,7 +1,7 @@
 import Arweave from "arweave";
 import fs from "fs";
 import { ArWallet, WarpFactory } from "warp-contracts";
-import deployedContracts from "redstone-oracles-smartweave-contracts/deployed-contracts.json";
+import deployedContracts from "@redstone-finance/oracles-smartweave-contracts/deployed-contracts.json";
 
 const oracleRegistryContractId = deployedContracts["oracle-registry"];
 

@@ -2,7 +2,7 @@ import {
   ContractParamsProvider,
   ContractParamsProviderMock,
   IPricesContractAdapter,
-} from "redstone-sdk";
+} from "@redstone-finance/sdk";
 import {
   deployPricesContract,
   SAMPLE_PACKAGES_TIMESTAMP,
