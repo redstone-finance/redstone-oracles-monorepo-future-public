@@ -1,10 +1,13 @@
 import { StarknetContractConnector } from "@redstone-finance/starknet-connector";
 import { Abi, Account, Provider, Signer } from "starknet";
+import { StarknetRelayerConfig } from "../config";
 
-export abstract class RelayerStarknetContractConnector extends StarknetContractConnector {
+export abstract class RelayerStarknetContractConnector<
+  Adapter
+> extends StarknetContractConnector<Adapter> {
   protected constructor(
     abi: Abi,
-    protected config: any,
+    protected config: StarknetRelayerConfig,
     contractAddress?: string
   ) {
     const provider = new Provider({ sequencer: { network: config.network } });

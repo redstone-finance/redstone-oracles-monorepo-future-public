@@ -1,6 +1,5 @@
 import {
   ContractParamsProvider,
-  IContractConnector,
   IPriceManagerContractAdapter,
 } from "redstone-sdk";
 import price_manager_abi from "../../config/price_manager_abi.json";
@@ -12,14 +11,12 @@ import {
   DATA_SERVICE_ID,
   UNIQUE_SIGNER_COUNT,
 } from "../../config/data-service-parameters";
+import { StarknetRelayerConfig } from "../../config";
 
-export class PriceManagerContractConnector
-  extends RelayerStarknetContractConnector
-  implements IContractConnector<IPriceManagerContractAdapter>
-{
+export class PriceManagerContractConnector extends RelayerStarknetContractConnector<IPriceManagerContractAdapter> {
   private readonly paramsProvider: ContractParamsProvider;
 
-  constructor(config: any) {
+  constructor(config: StarknetRelayerConfig) {
     super(price_manager_abi, config);
 
     this.paramsProvider = new StarknetContractParamsProvider({
@@ -29,11 +26,13 @@ export class PriceManagerContractConnector
     });
   }
 
-  async getAdapter(): Promise<IPriceManagerContractAdapter> {
-    return new PriceManagerContractAdapter(
-      this.getContract(),
-      this.paramsProvider,
-      this.config.maxEthFee
+  getAdapter(): Promise<IPriceManagerContractAdapter> {
+    return Promise.resolve(
+      new PriceManagerContractAdapter(
+        this.getContract(),
+        this.paramsProvider,
+        this.config.maxEthFee
+      )
     );
   }
 }

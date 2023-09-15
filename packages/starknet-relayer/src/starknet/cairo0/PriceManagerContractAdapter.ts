@@ -6,8 +6,9 @@ import {
 } from "redstone-sdk";
 import {
   FEE_MULTIPLIER,
-  getNumberFromStarknet,
+  getNumberFromStarknetResult,
 } from "@redstone-finance/starknet-connector";
+import { BigNumberish } from "ethers";
 
 export class PriceManagerContractAdapter
   implements IPriceManagerContractAdapter
@@ -20,15 +21,16 @@ export class PriceManagerContractAdapter
 
   async readTimestampAndRound(): Promise<PriceManagerMetadata> {
     const result = (await this.contract.call("read_round_data")) as {
-      [key: string]: any;
+      [key: string]: BigNumberish;
     };
 
     return {
       payload_timestamp:
-        getNumberFromStarknet(result["payload_timestamp"]) * 1000,
-      round: getNumberFromStarknet(result["round"]),
-      block_number: getNumberFromStarknet(result["block_number"]),
-      block_timestamp: getNumberFromStarknet(result["block_timestamp"]) * 1000,
+        getNumberFromStarknetResult(result["payload_timestamp"]) * 1000,
+      round: getNumberFromStarknetResult(result["round"]),
+      block_number: getNumberFromStarknetResult(result["block_number"]),
+      block_timestamp:
+        getNumberFromStarknetResult(result["block_timestamp"]) * 1000,
     };
   }
 

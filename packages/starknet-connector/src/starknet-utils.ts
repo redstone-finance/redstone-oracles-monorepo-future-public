@@ -1,3 +1,6 @@
-export function getNumberFromStarknet(value: any) {
-  return Number(value.toString());
+import { Result } from "starknet";
+import { BigNumberish } from "ethers";
+
+export function getNumberFromStarknetResult(value: Result | BigNumberish) {
+  return Number(value);
 }
