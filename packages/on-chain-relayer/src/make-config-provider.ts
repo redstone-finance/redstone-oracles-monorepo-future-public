@@ -10,7 +10,7 @@ export const MS_IN_ONE_MINUTE = 60000;
 
 export const makeConfigProvider = (
   manifest: OnChainRelayerManifest,
-  env: OnChainRelayerEnv,
+  env: OnChainRelayerEnv
 ): RelayerConfig => {
   const { timeSinceLastUpdateInMilliseconds, deviationPercentage, cron } =
     manifest.updateTriggers;

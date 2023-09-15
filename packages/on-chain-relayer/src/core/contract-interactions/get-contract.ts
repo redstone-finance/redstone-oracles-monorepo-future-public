@@ -14,17 +14,17 @@ export const getAdapterContract = () => {
   return new Contract(
     adapterContractAddress,
     abi,
-    signer,
+    signer
   ) as RedstoneAdapterBase;
 };
 
 export const getSortedOraclesContractAtAddress = (
-  sortedOraclesMentoContractAddress: string,
+  sortedOraclesMentoContractAddress: string
 ) => {
   return new Contract(
     sortedOraclesMentoContractAddress,
     sortedOraclesABI,
-    getProvider(),
+    getProvider()
   );
 };
 
@@ -36,7 +36,7 @@ export const getAbiForAdapter = (): ContractInterface => {
       return mentoAdapterABI;
     default:
       throw new Error(
-        `Unsupported adapter contract type: ${config().adapterContractType}`,
+        `Unsupported adapter contract type: ${config().adapterContractType}`
       );
   }
 };

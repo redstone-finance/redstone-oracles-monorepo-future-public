@@ -24,11 +24,11 @@ describe("cron-condition", () => {
     const lastUpdateTimestamp = dateStrToMilliseconds("2023-08-16T00:00:30");
     const { shouldUpdatePrices, warningMessage } = cronCondition(
       lastUpdateTimestamp,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Should not update prices according to cron expr/,
+      /Should not update prices according to cron expr/
     );
   });
 
@@ -37,11 +37,11 @@ describe("cron-condition", () => {
     const lastUpdateTimestamp = dateStrToMilliseconds("2023-08-16T00:00:30");
     const { shouldUpdatePrices, warningMessage } = cronCondition(
       lastUpdateTimestamp,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Should not update prices according to cron expr/,
+      /Should not update prices according to cron expr/
     );
   });
 
@@ -50,11 +50,11 @@ describe("cron-condition", () => {
     const lastUpdateTimestamp = dateStrToMilliseconds("2023-08-16T00:59:59");
     const { shouldUpdatePrices, warningMessage } = cronCondition(
       lastUpdateTimestamp,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(
-      /Should update prices according to cron expr/,
+      /Should update prices according to cron expr/
     );
   });
 
@@ -67,11 +67,11 @@ describe("cron-condition", () => {
     const lastUpdateTimestamp = dateStrToMilliseconds("2023-08-16T01:01:30");
     const { shouldUpdatePrices, warningMessage } = cronCondition(
       lastUpdateTimestamp,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(
-      /Should update prices according to cron expr/,
+      /Should update prices according to cron expr/
     );
   });
 
@@ -84,11 +84,11 @@ describe("cron-condition", () => {
     const lastUpdateTimestamp = dateStrToMilliseconds("2023-08-16T01:00:30");
     const { shouldUpdatePrices, warningMessage } = cronCondition(
       lastUpdateTimestamp,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(
-      /Should update prices according to cron expr/,
+      /Should update prices according to cron expr/
     );
   });
 
@@ -101,11 +101,11 @@ describe("cron-condition", () => {
     const lastUpdateTimestamp = dateStrToMilliseconds("2023-08-16T01:03:30");
     const { shouldUpdatePrices, warningMessage } = cronCondition(
       lastUpdateTimestamp,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Should not update prices according to cron expr/,
+      /Should not update prices according to cron expr/
     );
   });
 });

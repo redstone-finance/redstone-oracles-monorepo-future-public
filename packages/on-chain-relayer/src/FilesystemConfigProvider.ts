@@ -27,7 +27,7 @@ const readJSON = <T>(path: string): T => {
 
 const getJSONFromEnv = <T>(
   varName: string,
-  optional = false,
+  optional = false
 ): T | undefined => {
   const envVal = getFromEnv(varName, optional);
   if (!envVal) {
@@ -53,20 +53,20 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     privateKey: getFromEnv("PRIVATE_KEY")!,
     gasLimit: Number.parseInt(getFromEnv("GAS_LIMIT")!),
     gasMultiplier: Number.parseFloat(
-      getFromEnv("GAS_MULTIPLIER", true) || "1.125",
+      getFromEnv("GAS_MULTIPLIER", true) || "1.125"
     ),
     healthcheckPingUrl: getFromEnv("HEALTHCHECK_PING_URL", true),
     expectedTxDeliveryTimeInMS: Number(
-      getFromEnv("EXPECTED_TX_DELIVERY_TIME_IN_MS"),
+      getFromEnv("EXPECTED_TX_DELIVERY_TIME_IN_MS")
     ),
     isArbitrumNetwork: getFromEnv("IS_ARBITRUM_NETWORK", true) === "true",
     fallbackOffsetInMinutes: Number.parseInt(
-      getFromEnv("FALLBACK_OFFSET_IN_MINUTES", true) ?? "0",
+      getFromEnv("FALLBACK_OFFSET_IN_MINUTES", true) ?? "0"
     ),
     cacheServiceUrls: getJSONFromEnv("CACHE_SERVICE_URLS", true),
     historicalPackagesGateways: getJSONFromEnv(
       "HISTORICAL_PACKAGES_GATEWAYS",
-      true,
+      true
     ),
     isAuctionModel: getFromEnv("IS_AUCTION_MODEL", true) === "true",
   };

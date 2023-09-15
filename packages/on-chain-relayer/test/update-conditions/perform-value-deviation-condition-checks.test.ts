@@ -22,11 +22,11 @@ describe("check-value-deviation-condition", () => {
     const { shouldUpdatePrices, warningMessage } = checkValueDeviationCondition(
       dataPackages,
       smallerValueDiff,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Value has not deviated enough to be updated/,
+      /Value has not deviated enough to be updated/
     );
     expect(warningMessage).not.to.match(/Fallback deviation:/);
   });
@@ -40,7 +40,7 @@ describe("check-value-deviation-condition", () => {
     const { shouldUpdatePrices, warningMessage } = checkValueDeviationCondition(
       dataPackages,
       biggerValueDiff,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(/Value has deviated enough to be/);

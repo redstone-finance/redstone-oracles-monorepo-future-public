@@ -35,7 +35,7 @@ async function maybeDeploySortedOracles() {
 async function deployMentoAdapter(sortedOraclesAddress: string) {
   const MentoAdapterFactory = await ethers.getContractFactory(
     "MentoAdapter",
-    getSigner(),
+    getSigner()
   );
   const mentoAdapter = await MentoAdapterFactory.deploy(sortedOraclesAddress);
   await mentoAdapter.deployed();

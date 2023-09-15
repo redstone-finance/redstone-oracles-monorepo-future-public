@@ -14,7 +14,7 @@ const PRICE_FEED_ADDRESS = "";
   const priceFeedContract = new Contract(
     PRICE_FEED_ADDRESS,
     abi,
-    provider,
+    provider
   ) as PriceFeedBase;
   const latestRoundData = await priceFeedContract.latestRoundData();
   const price = utils.formatUnits(latestRoundData.answer, 8);

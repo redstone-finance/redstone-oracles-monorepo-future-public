@@ -33,7 +33,7 @@ describe("update-prices", () => {
   it("should update price in price-feeds adapter", async () => {
     // Deploy contract
     const PriceFeedsAdapterFactory = await ethers.getContractFactory(
-      "PriceFeedsAdapterWithoutRoundsMock",
+      "PriceFeedsAdapterWithoutRoundsMock"
     );
     const priceFeedsAdapter: PriceFeedsAdapterWithoutRoundsMock =
       await PriceFeedsAdapterFactory.deploy();
@@ -45,7 +45,7 @@ describe("update-prices", () => {
     const dataPackages = await getDataPackagesResponse();
     const updatePricesArgs = getUpdatePricesArgs(
       dataPackages,
-      priceFeedsAdapter,
+      priceFeedsAdapter
     );
 
     await updatePrices(updatePricesArgs);
@@ -68,7 +68,7 @@ describe("update-prices", () => {
     const MentoAdapterFactory =
       await ethers.getContractFactory("MentoAdapterMock");
     const mentoAdapter = await MentoAdapterFactory.deploy(
-      sortedOracles.address,
+      sortedOracles.address
     );
     await mentoAdapter.deployed();
 
@@ -95,7 +95,7 @@ describe("update-prices", () => {
     const normalizeValue = (num: number) => parseUnits(num.toString(), 24);
     const expectOracleValues = async (
       tokenAddress: string,
-      expectedValues: number[],
+      expectedValues: number[]
     ) => {
       const [, oracleValues] = await sortedOracles.getRates(tokenAddress);
       const expectedValuesNormalized = expectedValues.map(normalizeValue);
