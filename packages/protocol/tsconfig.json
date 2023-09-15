@@ -6,7 +6,6 @@
     "declarationMap": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "exactOptionalPropertyTypes": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
@@ -21,11 +20,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2021",
+    "target": "ES2021"
   },
-  "include": [
-    "src/**/*.ts",
-    "test",
-    "test/**/*.json"
-  ]
+  "include": ["src/**/*.ts", "test", "test/**/*.json"]
 }

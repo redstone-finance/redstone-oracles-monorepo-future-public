@@ -81,7 +81,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       `Agreement provider after ${PROVIDER_OPERATION_TIMEOUT} [ms] during call`
     );
 
-    return callResult;
+    return await callResult;
   }
 
   private electBlockNumber = RedstoneCommon.memoize({
@@ -102,7 +102,9 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
       if (blockNumbers.length === 0) {
         throw new AggregateError(
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           `Failed to getBlockNumber from at least one provider: ${blockNumbersResults.map(
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             (result) => (result as PromiseRejectedResult).reason
           )}`
         );
@@ -132,9 +134,8 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
       const syncProvider = async (providerIndex: number) => {
         while (!stop && blockPerProvider[providerIndex] < electedBlockNumber) {
-          blockPerProvider[providerIndex] = await this.providers[
-            providerIndex
-          ].getBlockNumber();
+          blockPerProvider[providerIndex] =
+            await this.providers[providerIndex].getBlockNumber();
           await sleepMS(this.agreementConfig.sleepBetweenBlockSync);
         }
       };
@@ -178,13 +179,14 @@ export class ProviderWithAgreement extends ProviderWithFallback {
         try {
           await syncProvider(providerIndex);
           await call(providerIndex);
-        } catch (e: any) {
-          errors.push(e);
+        } catch (e) {
+          errors.push(e as Error);
         } finally {
           handleProviderResult();
         }
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       this.providers.forEach((_, providerIndex) => syncThenCall(providerIndex));
     });
   }

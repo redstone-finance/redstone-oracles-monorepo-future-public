@@ -5,6 +5,7 @@ import { IRedstoneAdapter, PriceFeedBase } from "../../../../typechain-types";
 import { formatBytes32String } from "ethers/lib/utils";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
+import { ContractTransaction } from "ethers";
 
 interface PriceFeedTestsParams {
   priceFeedContractName: string;
@@ -27,7 +28,7 @@ export const describeCommonPriceFeedTests = ({
   const deployAll = async () => {
     const adapterFactory = await ethers.getContractFactory(adapterContractName);
     const priceFeedFactory = await ethers.getContractFactory(
-      priceFeedContractName
+      priceFeedContractName,
     );
 
     const adapter = await adapterFactory.deploy();
@@ -36,7 +37,10 @@ export const describeCommonPriceFeedTests = ({
     await adapter.deployed();
     await priceFeed.deployed();
 
-    const tx = await (priceFeed as any).setAdapterAddress(adapter.address);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const tx = (await priceFeed.setAdapterAddress(
+      adapter.address,
+    )) as ContractTransaction;
     await tx.wait();
 
     return {
@@ -90,13 +94,13 @@ export const describeCommonPriceFeedTests = ({
       mockDataTimestamp = prevBlockTime * 1000;
       await time.setNextBlockTimestamp(curBlockTime);
 
-      const wrappedContract = (await WrapperBuilder.wrap(
-        contracts.adapter
+      const wrappedContract = WrapperBuilder.wrap(
+        contracts.adapter,
       ).usingSimpleNumericMock({
         mockSignersCount: 2,
         timestampMilliseconds: mockDataTimestamp,
         dataPoints: [{ dataFeedId: "BTC", value: 42 }],
-      })) as IRedstoneAdapter;
+      }) as IRedstoneAdapter;
 
       const tx = await wrappedContract.updateDataFeedsValues(mockDataTimestamp);
       await tx.wait();
@@ -110,7 +114,7 @@ export const describeCommonPriceFeedTests = ({
     it("should properly get latest round data", async () => {
       const latestRoundData = await contracts.priceFeed.latestRoundData();
       expect(latestRoundData.roundId.toNumber()).to.eq(
-        expectedRoundIdAfterOneUpdate
+        expectedRoundIdAfterOneUpdate,
       );
       expect(latestRoundData.startedAt.toNumber()).to.eq(curBlockTime);
       expect(latestRoundData.updatedAt.toNumber()).to.eq(curBlockTime);
@@ -133,27 +137,28 @@ export const describeCommonPriceFeedTests = ({
 
     beforeEach(async () => {
       const contractFactory = await ethers.getContractFactory(
-        priceFeedContractName
+        priceFeedContractName,
       );
       contractV1 = (await upgrades.deployProxy(
-        contractFactory
+        contractFactory,
       )) as PriceFeedBase;
     });
 
     it("should initialize properly", async () => {
       expect(contractV1).to.not.be.undefined;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
       await expect((contractV1 as any).initialize()).to.rejectedWith(
-        "Initializable: contract is already initialized"
+        "Initializable: contract is already initialized",
       );
       const dataFeed = await contractV1.getDataFeedId();
       expect(dataFeed).to.eq(
-        "0x4254430000000000000000000000000000000000000000000000000000000000"
+        "0x4254430000000000000000000000000000000000000000000000000000000000",
       );
 
       const adapterAddress = await contractV1.getPriceFeedAdapter();
 
       expect(adapterAddress).to.eq(
-        "0x0000000000000000000000000000000000000000"
+        "0x0000000000000000000000000000000000000000",
       );
     });
 
@@ -162,12 +167,12 @@ export const describeCommonPriceFeedTests = ({
 
       before(async () => {
         const updateContractFactory = await ethers.getContractFactory(
-          "PriceFeedUpdatedMock"
+          "PriceFeedUpdatedMock",
         );
 
         updatedContract = (await upgrades.upgradeProxy(
           contractV1,
-          updateContractFactory
+          updateContractFactory,
         )) as PriceFeedBase;
       });
 
@@ -175,7 +180,7 @@ export const describeCommonPriceFeedTests = ({
         const dataFeed = await updatedContract.getDataFeedId();
 
         expect(dataFeed).to.eq(
-          "0x4554480000000000000000000000000000000000000000000000000000000000"
+          "0x4554480000000000000000000000000000000000000000000000000000000000",
         );
       });
 
@@ -183,7 +188,7 @@ export const describeCommonPriceFeedTests = ({
         const adapterAddress = await updatedContract.getPriceFeedAdapter();
 
         expect(adapterAddress).to.eq(
-          "0x2C31d00C1AE878F28c58B3aC0672007aECb4A124"
+          "0x2C31d00C1AE878F28c58B3aC0672007aECb4A124",
         );
       });
     });

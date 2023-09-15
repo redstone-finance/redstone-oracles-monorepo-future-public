@@ -9,7 +9,7 @@ export const getProvider = () => {
       new providers.JsonRpcProvider(url, {
         name: chainName,
         chainId,
-      })
+      }),
   );
 
   if (rpcUrls.length === 1) {

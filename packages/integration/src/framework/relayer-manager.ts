@@ -160,7 +160,7 @@ export const verifyPricesNotOnChain = async (
       priceFeedContractAddress,
       expectedPrices
     );
-  } catch (e: unknown) {
+  } catch (e) {
     exceptionOccurred = true;
   }
   if (!exceptionOccurred) {

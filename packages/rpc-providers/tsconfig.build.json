@@ -1,10 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": [
-    "./test/**/*.ts",
-    "./artifacts/**/*.json",
-    "./hardhat.config.ts"
-  ],
+  "exclude": ["./test/**/*.ts", "./artifacts/**/*.json", "./hardhat.config.ts"],
   "references": [
     {
       "path": "../utils/tsconfig.build.json"

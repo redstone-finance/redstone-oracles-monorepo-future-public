@@ -13,8 +13,8 @@ export const doesStreamExist = async (
   try {
     await streamr.getStream(streamId);
     return true;
-  } catch (error: any) {
-    if (error.toString().includes("NOT_FOUND")) {
+  } catch (error) {
+    if ((error as Error).toString().includes("NOT_FOUND")) {
       return false;
     } else {
       throw error;
@@ -22,14 +22,14 @@ export const doesStreamExist = async (
   }
 };
 
-export const compressMsg = (data: any) => {
+export const compressMsg = (data: unknown) => {
   const dataStringified = JSON.stringify(data);
   return pako.deflate(dataStringified);
 };
 
-export const decompressMsg = (msg: Uint8Array) => {
+export const decompressMsg = <T = unknown>(msg: Uint8Array): T => {
   const stringifiedData = pako.inflate(msg, {
     to: "string",
   });
-  return JSON.parse(stringifiedData);
+  return JSON.parse(stringifiedData) as T;
 };

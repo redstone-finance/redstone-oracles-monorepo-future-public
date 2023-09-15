@@ -12,11 +12,11 @@ describe("PriceFeedWithRounds", () => {
   });
 
   describe("Tests for getting historical price feed values", () => {
-    it("should properly get round data for several rounds", async () => {
+    it("should properly get round data for several rounds", () => {
       expect(1).to.be.equal(1);
     });
 
-    it("should revert trying to get round data for invalid rounds", async () => {
+    it("should revert trying to get round data for invalid rounds", () => {
       expect(1).to.be.equal(1);
     });
   });

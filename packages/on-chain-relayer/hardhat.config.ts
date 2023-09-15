@@ -8,9 +8,7 @@ import { HardhatUserConfig } from "hardhat/config";
 
 dotenv.config();
 
-const accounts = process.env.PRIVATE_KEY
-  ? [process.env.PRIVATE_KEY]
-  : undefined!;
+const accounts = process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [];
 
 const config: HardhatUserConfig = {
   solidity: {

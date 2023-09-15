@@ -48,7 +48,7 @@ const config = {
   bundlrNodeUrl: getEnv("BUNDLR_NODE_URL", false) || DEFAULT_BUNDLR_NODE_URL,
   allowedStreamrDataServiceIds: JSON.parse(
     getEnv("ALLOWED_STREAMR_DATA_SERVICE_IDS", false) || "[]"
-  ),
+  ) as string[],
   useMockOracleRegistryState: getEnv("USE_MOCK_ORACLE_STATE", false) === "true",
   enableHistoricalDataServing:
     getEnv("ENABLE_HISTORICAL_DATA_SERVING", false) === "true",
@@ -60,7 +60,7 @@ const config = {
 } as CacheServiceConfig;
 
 if (config.enableArchivingOnArweave) {
-  config.arweaveJwkKey = JSON.parse(arweaveJwkKeyForArchiving);
+  config.arweaveJwkKey = JSON.parse(arweaveJwkKeyForArchiving) as JWKInterface;
 }
 
 export default config;

@@ -29,7 +29,7 @@ describe("SDK tests", () => {
   test("Should properly request data packages", async () => {
     const dataPackages = await requestDataPackages(getReqParams());
     expect(mockSignedDataPackages.ETH[0]).toMatchObject(
-      dataPackages["ETH"][0].toObj()
+      dataPackages["ETH"]![0].toObj()
     );
   });
 
@@ -48,7 +48,7 @@ describe("SDK tests", () => {
     ]);
     const dataPackages = await requestDataPackages(defaultReqParams);
     expect(mockSignedDataPackages.ETH[0]).toMatchObject(
-      dataPackages["ETH"][0].toObj()
+      dataPackages["ETH"]![0].toObj()
     );
   });
 
@@ -89,9 +89,9 @@ describe("SDK tests", () => {
       valuesToCompare: { ETH: utils.parseUnits("999", 8) },
     });
 
-    expect(dataPackages["ETH"].length).toBe(2);
-    expect(dataPackages["ETH"][0].toObj().dataPoints[0].value).toBe(990);
-    expect(dataPackages["ETH"][1].toObj().dataPoints[0].value).toBe(1002);
+    expect(dataPackages["ETH"]!.length).toBe(2);
+    expect(dataPackages["ETH"]![0].toObj().dataPoints[0].value).toBe(990);
+    expect(dataPackages["ETH"]![1].toObj().dataPoints[0].value).toBe(1002);
   });
 
   test("Should get single data package with biggest deviation", async () => {
@@ -102,8 +102,8 @@ describe("SDK tests", () => {
       valuesToCompare: { ETH: utils.parseUnits("991", 8) },
     });
 
-    expect(dataPackages["ETH"].length).toBe(1);
-    expect(dataPackages["ETH"][0].toObj().dataPoints[0].value).toBe(1002);
+    expect(dataPackages["ETH"]!.length).toBe(1);
+    expect(dataPackages["ETH"]![0].toObj().dataPoints[0].value).toBe(1002);
   });
 
   test("Should get all data packages with biggest deviation", async () => {
@@ -114,10 +114,10 @@ describe("SDK tests", () => {
       valuesToCompare: { ETH: utils.parseUnits("996", 8) },
     });
 
-    expect(dataPackages["ETH"].length).toBe(4);
-    expect(dataPackages["ETH"][0].toObj().dataPoints[0].value).toBe(990);
-    expect(dataPackages["ETH"][1].toObj().dataPoints[0].value).toBe(1002);
-    expect(dataPackages["ETH"][2].toObj().dataPoints[0].value).toBe(1000);
-    expect(dataPackages["ETH"][3].toObj().dataPoints[0].value).toBe(1000);
+    expect(dataPackages["ETH"]!.length).toBe(4);
+    expect(dataPackages["ETH"]![0].toObj().dataPoints[0].value).toBe(990);
+    expect(dataPackages["ETH"]![1].toObj().dataPoints[0].value).toBe(1002);
+    expect(dataPackages["ETH"]![2].toObj().dataPoints[0].value).toBe(1000);
+    expect(dataPackages["ETH"]![3].toObj().dataPoints[0].value).toBe(1000);
   });
 });

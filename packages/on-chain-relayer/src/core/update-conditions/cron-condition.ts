@@ -3,7 +3,7 @@ import { RelayerConfig } from "../../types";
 
 export const cronCondition = (
   lastUpdateTimestamp: number,
-  config: RelayerConfig
+  config: RelayerConfig,
 ) => {
   const currentTimestamp = Date.now();
   const warningMessages: string[] = [];
@@ -13,7 +13,7 @@ export const cronCondition = (
       cronExpression,
       currentTimestamp,
       lastUpdateTimestamp,
-      config
+      config,
     );
 
     shouldUpdatePrices ||= cronCheck.shouldUpdatePrices;
@@ -31,7 +31,7 @@ const checkCronCondition = (
   cronExpression: string,
   currentTimestamp: number,
   lastUpdateTimestamp: number,
-  config: RelayerConfig
+  config: RelayerConfig,
 ) => {
   const lastExpectedUpdateTime = cronParser
     .parseExpression(cronExpression, {

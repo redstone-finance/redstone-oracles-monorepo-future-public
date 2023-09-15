@@ -5,6 +5,7 @@ import request from "supertest";
 import { AppModule } from "../../src/app.module";
 import { mockOracleRegistryState } from "../common/mock-values";
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 jest.mock("@redstone-finance/sdk", () => ({
   __esModule: true,
   ...jest.requireActual("@redstone-finance/sdk"),

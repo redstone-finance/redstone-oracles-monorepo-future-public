@@ -1,4 +1,4 @@
-import { utils } from "ethers";
+import { ContractTransaction, utils } from "ethers";
 import { ethers } from "hardhat";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { requestDataPackages } from "@redstone-finance/sdk";
@@ -11,18 +11,19 @@ import { RedstoneAdapterBase } from "../../typechain-types";
 // Usage: yarn run-script scripts/price-feeds/deploy-price-feeds-contracts.ts
 // Note! You should configure the .env file properly before running this script
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   setConfigProvider(fileSystemConfigProvider);
-  const dataFeeds = config().dataFeeds as string[];
+  const dataFeeds = config().dataFeeds;
 
   console.log("Deploying adapter contract...");
   const adapterFactory = await ethers.getContractFactory(
     "PriceFeedsAdapter",
-    getSigner()
+    getSigner(),
   );
   const dataFeedsAsBytes32 = dataFeeds.map(utils.formatBytes32String);
   const adapterContract = (await adapterFactory.deploy(
-    dataFeedsAsBytes32
+    dataFeedsAsBytes32,
   )) as RedstoneAdapterBase;
   await adapterContract.deployed();
   console.log(`Adapter contract deployed - ${adapterContract.address}`);
@@ -31,22 +32,21 @@ import { RedstoneAdapterBase } from "../../typechain-types";
   for (const dataFeed of dataFeeds) {
     const priceFeedFactory = await ethers.getContractFactory(
       "PriceFeed",
-      getSigner()
+      getSigner(),
     );
     const priceFeedContract = await priceFeedFactory.deploy(
       adapterContract.address,
       utils.formatBytes32String(dataFeed),
-      `RedStone price feed for ${dataFeed}`
+      `RedStone price feed for ${dataFeed}`,
     );
     await priceFeedContract.deployed();
     console.log(
-      `Price feed contract for ${dataFeed} deployed - ${priceFeedContract.address}`
+      `Price feed contract for ${dataFeed} deployed - ${priceFeedContract.address}`,
     );
   }
 
-  const uniqueSignersCount = await getUniqueSignersThresholdFromContract(
-    adapterContract
-  );
+  const uniqueSignersCount =
+    await getUniqueSignersThresholdFromContract(adapterContract);
 
   console.log("Updating data feeds values...");
   const { dataServiceId, gasLimit } = config();
@@ -56,22 +56,19 @@ import { RedstoneAdapterBase } from "../../typechain-types";
     dataFeeds,
   });
 
-  if (adapterContract) {
-    const wrappedContract =
-      WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
+  const wrappedContract =
+    WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
 
-    const dataPackageTimestamp =
-      dataPackages[dataFeeds[0]][0].dataPackage.timestampMilliseconds;
+  const dataPackageTimestamp =
+    dataPackages[dataFeeds[0]][0].dataPackage.timestampMilliseconds;
 
-    const firstRound = 1;
-    const updateTransaction = await wrappedContract.updateDataFeedsValues(
-      firstRound,
-      dataPackageTimestamp,
-      { gasLimit }
-    );
-    await updateTransaction.wait();
-    console.log("Successfully updated prices");
-  } else {
-    console.error("Price manager contract not deployed");
-  }
+  const firstRound = 1;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  const updateTransaction = (await wrappedContract.updateDataFeedsValues(
+    firstRound,
+    dataPackageTimestamp,
+    { gasLimit },
+  )) as ContractTransaction;
+  await updateTransaction.wait();
+  console.log("Successfully updated prices");
 })();

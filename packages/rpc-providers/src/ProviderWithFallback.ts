@@ -82,15 +82,15 @@ export class ProviderWithFallback
     return this.currentProvider.once(eventName, listener);
   }
 
-  override emit(eventName: EventType, ...args: any[]): boolean {
+  override emit(eventName: EventType, ...args: unknown[]): boolean {
     return this.currentProvider.emit(eventName, ...args);
   }
 
-  override listenerCount(eventName?: EventType | undefined): number {
+  override listenerCount(eventName?: EventType): number {
     return this.currentProvider.listenerCount(eventName);
   }
 
-  override listeners(eventName?: EventType | undefined): Listener[] {
+  override listeners(eventName?: EventType): Listener[] {
     return this.currentProvider.listeners(eventName);
   }
 
@@ -98,17 +98,14 @@ export class ProviderWithFallback
     return this.currentProvider.addListener(eventName, listener);
   }
 
-  override off(
-    eventName: EventType,
-    listener?: Listener | undefined
-  ): Provider {
+  override off(eventName: EventType, listener?: Listener): Provider {
     this.currentProvider.off(eventName, listener);
     this.updateGlobalListenerAfterRemoval();
 
     return this.currentProvider;
   }
 
-  override removeAllListeners(eventName?: EventType | undefined): Provider {
+  override removeAllListeners(eventName?: EventType): Provider {
     this.currentProvider.removeAllListeners(eventName);
     this.updateGlobalListenerAfterRemoval();
 
@@ -124,8 +121,8 @@ export class ProviderWithFallback
 
   override waitForTransaction(
     transactionHash: string,
-    confirmations?: number | undefined,
-    timeout?: number | undefined
+    confirmations?: number,
+    timeout?: number
   ): Promise<TransactionReceipt> {
     return this.currentProvider.waitForTransaction(
       transactionHash,
@@ -155,28 +152,29 @@ export class ProviderWithFallback
     }
   }
 
-  protected override executeWithFallback(
+  protected override executeWithFallback<T = unknown>(
     fnName: string,
-    ...args: any[]
-  ): Promise<any> {
-    return RedstoneCommon.timeout(
-      this.doExecuteWithFallback(0, this.providerIndex, fnName, ...args),
+    ...args: unknown[]
+  ): Promise<T> {
+    return RedstoneCommon.timeout<T>(
+      this.doExecuteWithFallback<T>(0, this.providerIndex, fnName, ...args),
       PROVIDER_OPERATION_TIMEOUT,
       `executeWithFallback(${fnName}) timeout after ${PROVIDER_OPERATION_TIMEOUT}`
     );
   }
 
-  private async doExecuteWithFallback(
+  private async doExecuteWithFallback<T = unknown>(
     alreadyRetriedCount = 0,
     lastProviderUsedIndex: number,
     fnName: string,
-    ...args: any[]
-  ): Promise<any> {
+    ...args: unknown[]
+  ): Promise<T> {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
       return await (this.currentProvider as any)[fnName](...args);
-    } catch (error: any) {
+    } catch (error) {
       this.electNewProviderOrFail(
-        error,
+        error as { code: ErrorCode; message: string },
         alreadyRetriedCount,
         lastProviderUsedIndex
       );
@@ -211,7 +209,7 @@ export class ProviderWithFallback
   }
 
   private electNewProviderOrFail(
-    error: any,
+    error: { code: ErrorCode; message: string } | undefined,
     retryNumber: number,
     lastUsedProviderIndex: number
   ): void {

@@ -13,6 +13,11 @@ const ONE_GWEI = 1e9;
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
 
+type EthersError = {
+  code?: string | number;
+  message: string;
+};
+
 type ContractOverrides = {
   nonce: number;
 } & FeeStructure;
@@ -69,7 +74,7 @@ export type TransactionDeliveryManOpts = {
   /**
    * Should be set to true if chain doesn't support EIP1559
    */
-  isAuctionModel?: boolean | undefined;
+  isAuctionModel?: boolean;
 
   logger?: (text: string) => void;
 };
@@ -81,7 +86,9 @@ const getEthFeeFromGasOracle: GasOracleFn = async (
 ) => {
   const response = // rate limit is 5 seconds
     (
-      await fetchWithCache<any>(
+      await fetchWithCache<{
+        result: { suggestBaseFee: number; FastGasPrice: number };
+      }>(
         `https://api.etherscan.io/api?module=gastracker&action=gasoracle`,
         6_000
       )
@@ -119,7 +126,7 @@ const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
 
 export class TransactionDeliveryMan {
   private readonly opts: Required<TransactionDeliveryManOpts>;
-  private readonly estimator: GasEstimator<any>;
+  private readonly estimator: GasEstimator<FeeStructure>;
 
   constructor(opts: TransactionDeliveryManOpts) {
     this.opts = { ...DEFAULT_TRANSACTION_DELIVERY_MAN_PTS, ...opts };
@@ -148,16 +155,18 @@ export class TransactionDeliveryMan {
     for (let i = 0; i < this.opts.maxAttempts; i++) {
       try {
         lastAttempt = { ...contractOverrides };
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
         lastAttempt.result = await contract[method](...params, {
           ...contractOverrides,
         });
-      } catch (e: any) {
+      } catch (err) {
+        const e = err as EthersError;
         // if underpriced then bump fee
         this.opts.logger(
           `Failed attempt to call contract code ${e.code} message: ${e.message}`
         );
 
-        if (this.isUnderpricedError(e)) {
+        if (TransactionDeliveryMan.isUnderpricedError(e)) {
           const scaledFees = this.estimator.scaleFees(
             await this.getFees(provider)
           );
@@ -179,7 +188,7 @@ export class TransactionDeliveryMan {
             "Transaction with sane nonce was delivered by someone else"
           );
         }
-        return lastAttempt?.result;
+        return lastAttempt.result;
       } else {
         const scaledFees = this.estimator.scaleFees(contractOverrides);
         Object.assign(contractOverrides, scaledFees);
@@ -191,7 +200,7 @@ export class TransactionDeliveryMan {
     );
   }
 
-  private isUnderpricedError(e: any) {
+  private static isUnderpricedError(e: EthersError) {
     return (
       // RPC errors sucks most of the time, thus we can not rely on them
       e.message.includes("maxFeePerGas") ||
@@ -203,6 +212,7 @@ export class TransactionDeliveryMan {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   private isTransactionDelivered(
     lastAttempt: LastDeliveryAttempt | undefined,
     currentNonce: number

@@ -20,21 +20,22 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2021",
+    "target": "ES2021"
   },
   "include": [
     "./src",
     "./test",
     "./typechain-types",
     "package.json",
+    "./hardhat.config.ts",
     "./contracts",
     "src/**/*.json",
     "./artifacts/**/*.json",
     "scripts"
   ],
-  "files": [
-    "./hardhat.config.ts"
-  ],
+  "ts-node": {
+    "files": true
+  },
   "references": [
     {
       "path": "../evm-connector/tsconfig.build.json"

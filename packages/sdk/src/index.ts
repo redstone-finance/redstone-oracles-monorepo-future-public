@@ -19,14 +19,14 @@ const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 export interface DataPackagesRequestParams {
   dataServiceId: string;
   uniqueSignersCount: number;
-  dataFeeds?: string[] | undefined;
-  urls?: string[] | undefined;
+  dataFeeds?: string[];
+  urls?: string[];
   valuesToCompare?: ValuesForDataFeeds;
-  historicalTimestamp?: number | undefined;
+  historicalTimestamp?: number;
 }
 
 export interface DataPackagesResponse {
-  [dataFeedId: string]: SignedDataPackage[];
+  [dataFeedId: string]: SignedDataPackage[] | undefined;
 }
 
 export interface ValuesForDataFeeds {
@@ -158,7 +158,7 @@ export const requestDataPackages = async (
   const promises = prepareDataPackagePromises(reqParams);
   try {
     return await Promise.any(promises);
-  } catch (e: unknown) {
+  } catch (e) {
     const errMessage = `Request failed ${JSON.stringify({
       reqParams,
     })}, Original error: ${errToString(e)}`;
@@ -191,7 +191,9 @@ export const requestRedstonePayload = async (
   unsignedMetadataMsg?: string
 ): Promise<string> => {
   const signedDataPackagesResponse = await requestDataPackages(reqParams);
-  const signedDataPackages = Object.values(signedDataPackagesResponse).flat();
+  const signedDataPackages = Object.values(
+    signedDataPackagesResponse
+  ).flat() as SignedDataPackage[];
 
   return RedstonePayload.prepare(signedDataPackages, unsignedMetadataMsg || "");
 };

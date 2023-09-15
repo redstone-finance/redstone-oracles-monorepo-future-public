@@ -21,6 +21,7 @@ if (config.enableStreamrListening) {
 }
 
 if (config.mongoDbUrl) {
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   mongoose.connect(config.mongoDbUrl);
   imports.push(MongooseModule.forRoot(config.mongoDbUrl));
 }

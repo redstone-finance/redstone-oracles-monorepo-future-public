@@ -8,6 +8,7 @@ import {
 import { getSortedOraclesContractAtAddress } from "./get-contract";
 import { TransactionDeliveryMan } from "@redstone-finance/rpc-providers";
 import { UpdatePricesArgs } from "../../args/get-update-prices-args";
+import { MentoAdapterBase } from "../../../typechain-types";
 
 let deliveryMan: TransactionDeliveryMan | undefined = undefined;
 const getDeliveryMan = () => {
@@ -27,12 +28,16 @@ export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
   const updateTx = await updatePriceInAdapterContract(updatePricesArgs);
 
   console.log(
-    `Update prices tx delivered hash=${updateTx.hash} gasLimit=${updateTx.gasLimit} gasPrice=${updateTx.gasPrice} maxFeePerGas=${updateTx.maxFeePerGas} maxPriorityFeePerGas=${updateTx.maxPriorityFeePerGas}`
+    `Update prices tx delivered hash=${updateTx.hash} gasLimit=${String(
+      updateTx.gasLimit,
+    )} gasPrice=${updateTx.gasPrice?.toString()} maxFeePerGas=${String(
+      updateTx.maxFeePerGas,
+    )} maxPriorityFeePerGas=${String(updateTx.maxPriorityFeePerGas)}`,
   );
 };
 
 const updatePriceInAdapterContract = async (
-  args: UpdatePricesArgs
+  args: UpdatePricesArgs,
 ): Promise<TransactionResponse> => {
   switch (config().adapterContractType) {
     case "price-feeds":
@@ -41,7 +46,7 @@ const updatePriceInAdapterContract = async (
       return await updatePricesInMentoAdapter(args);
     default:
       throw new Error(
-        `Unsupported adapter contract type: ${config().adapterContractType}`
+        `Unsupported adapter contract type: ${config().adapterContractType}`,
       );
   }
 };
@@ -56,7 +61,7 @@ const updatePricesInPriceFeedsAdapter = async ({
   const deliveryResult = await getDeliveryMan().deliver(
     wrappedContract,
     "updateDataFeedsValues",
-    [proposedTimestamp]
+    [proposedTimestamp],
   );
 
   return deliveryResult;
@@ -67,7 +72,8 @@ const updatePricesInMentoAdapter = async ({
   wrapContract,
   proposedTimestamp,
 }: UpdatePricesArgs): Promise<TransactionResponse> => {
-  const sortedOraclesAddress = await adapterContract.sortedOracles();
+  // eslint-disable-next-line
+  const sortedOraclesAddress: string = await adapterContract.sortedOracles();
   const sortedOracles = getSortedOraclesContractAtAddress(sortedOraclesAddress);
   const linkedListPositions =
     await prepareLinkedListLocationsForMentoAdapterReport({
@@ -75,7 +81,7 @@ const updatePricesInMentoAdapter = async ({
       wrapContract,
       sortedOracles,
     } as MentoContracts);
-  return await wrapContract(
-    adapterContract
+  return await (
+    wrapContract(adapterContract) as MentoAdapterBase
   ).updatePriceValuesAndCleanOldReports(proposedTimestamp, linkedListPositions);
 };

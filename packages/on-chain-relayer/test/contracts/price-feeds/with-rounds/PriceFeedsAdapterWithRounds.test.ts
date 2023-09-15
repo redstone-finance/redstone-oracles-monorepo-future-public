@@ -14,27 +14,27 @@ describe("PriceFeedsAdapterWithRounds", () => {
   });
 
   describe("Tests for adapter with rounds support", () => {
-    it("should properly get latest round id", async () => {
+    it("should properly get latest round id", () => {
       expect(1).to.be.equal(1);
     });
 
-    it("should properly get latest round params", async () => {
+    it("should properly get latest round params", () => {
       expect(1).to.be.equal(1);
     });
 
-    it("should properly get values for different (valid) rounds", async () => {
+    it("should properly get values for different (valid) rounds", () => {
       expect(1).to.be.equal(1);
     });
 
-    it("should revert trying to get values for invalid rounds", async () => {
+    it("should revert trying to get values for invalid rounds", () => {
       expect(1).to.be.equal(1);
     });
 
-    it("should properly get values and timestamps for different (valid) rounds", async () => {
+    it("should properly get values and timestamps for different (valid) rounds", () => {
       expect(1).to.be.equal(1);
     });
 
-    it("should revert trying to get values and timestamps for invalid rounds", async () => {
+    it("should revert trying to get values and timestamps for invalid rounds", () => {
       expect(1).to.be.equal(1);
     });
   });
