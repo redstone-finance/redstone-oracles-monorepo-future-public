@@ -13,7 +13,7 @@ const DEFAULT_DECIMALS = 8;
 export const checkValueDeviationCondition = (
   dataPackages: DataPackagesResponse,
   valuesFromContract: ValuesForDataFeeds,
-  config: RelayerConfig,
+  config: RelayerConfig
 ) => {
   const dataFeedsIds = Object.keys(dataPackages);
 
@@ -31,20 +31,20 @@ export const checkValueDeviationCondition = (
         const valueFromContractAsDecimal = Number(
           formatUnits(
             valueFromContract.toString(),
-            dataPointObj.decimals ?? DEFAULT_DECIMALS,
-          ),
+            dataPointObj.decimals ?? DEFAULT_DECIMALS
+          )
         );
 
         logTrace.addPerDataFeedLog(
           dataPackage.timestampMilliseconds,
           valueFromContractAsDecimal,
           dataPackages[dataFeedId]!.length,
-          dataPointObj,
+          dataPointObj
         );
 
         const currentDeviation = calculateDeviation(
           dataPointObj.value,
-          valueFromContractAsDecimal,
+          valueFromContractAsDecimal
         );
         maxDeviation = Math.max(currentDeviation, maxDeviation);
       }
@@ -65,7 +65,7 @@ export const checkValueDeviationCondition = (
 
 const calculateDeviation = (
   valueFromFetchedDataPackage: number,
-  valueFromContract: number,
+  valueFromContract: number
 ) => {
   return MathUtils.calculateDeviationPercent({
     newValue: valueFromFetchedDataPackage,
@@ -91,7 +91,7 @@ class ValueDeviationLogTrace {
     timestamp: number,
     valueFromContract: number,
     packagesCount: number,
-    dataPoint: INumericDataPoint,
+    dataPoint: INumericDataPoint
   ) {
     const dataFeedId = dataPoint.dataFeedId;
     const perData = this.perDataFeedId[dataFeedId];

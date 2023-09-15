@@ -49,7 +49,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
 
     // Wrap it with Redstone payload
     const wrappedContract = WrapperBuilder.wrap(
-      adapterContract,
+      adapterContract
     ).usingSimpleNumericMock({
       timestampMilliseconds: mockDataTimestamp,
       ...(args.mockWrapperConfig || defaultMockWrapperConfig),
@@ -69,7 +69,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
   };
 
   const validateValuesAndTimestamps = async (
-    args: ValidateValuesAndTimestampsParams,
+    args: ValidateValuesAndTimestampsParams
   ) => {
     // Validating values
     const dataFeedIds = Object.keys(args.expectedValues);
@@ -84,12 +84,12 @@ export const describeCommonPriceFeedsAdapterTests = ({
     // Validating timestamps
     const timestamps = await adapterContract.getTimestampsFromLatestUpdate();
     expect(timestamps.blockTimestamp.toNumber()).to.eq(
-      args.expectedLatestBlockTimestamp,
+      args.expectedLatestBlockTimestamp
     );
 
     if (!skipTestsForPrevDataTimestamp) {
       expect(timestamps.dataTimestamp.toNumber()).to.eq(
-        args.expectedLatestDataTimestamp,
+        args.expectedLatestDataTimestamp
       );
     }
   };
@@ -110,7 +110,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
         await ethers.getContractFactory(adapterContractName);
 
       contractV1 = (await upgrades.deployProxy(
-        adapterContractFactory,
+        adapterContractFactory
       )) as IRedstoneAdapter;
     });
 
@@ -118,20 +118,20 @@ export const describeCommonPriceFeedsAdapterTests = ({
       expect(contractV1).to.not.be.undefined;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
       await expect((contractV1 as any).initialize()).to.rejectedWith(
-        "Initializable: contract is already initialized",
+        "Initializable: contract is already initialized"
       );
 
       const dataFeeds = await contractV1.getDataFeedIds();
       expect(dataFeeds.length).to.eq(1);
       expect(dataFeeds[0]).to.eq(
-        "0x4254430000000000000000000000000000000000000000000000000000000000",
+        "0x4254430000000000000000000000000000000000000000000000000000000000"
       );
 
       expect(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
         await (contractV1 as any).getAuthorisedSignerIndex(
-          "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
-        ),
+          "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
+        )
       ).to.eq(1);
     });
 
@@ -140,12 +140,12 @@ export const describeCommonPriceFeedsAdapterTests = ({
 
       before(async () => {
         const updatedContractFactory = await ethers.getContractFactory(
-          "PriceFeedsAdapterUpdatedMock",
+          "PriceFeedsAdapterUpdatedMock"
         );
 
         updatedContract = (await upgrades.upgradeProxy(
           contractV1,
-          updatedContractFactory,
+          updatedContractFactory
         )) as IRedstoneAdapter;
       });
 
@@ -163,8 +163,8 @@ export const describeCommonPriceFeedsAdapterTests = ({
         expect(
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
           await (updatedContract as any).getAuthorisedSignerIndex(
-            "0xb323240B8185C1918A338Bd76A6473E20A25fa62",
-          ),
+            "0xb323240B8185C1918A338Bd76A6473E20A25fa62"
+          )
         ).to.eq(0);
       });
     });
@@ -173,14 +173,14 @@ export const describeCommonPriceFeedsAdapterTests = ({
   it("should properly get indexes for data feeds", async () => {
     // TODO: implement more tests here
     const btcDataFeedIndex = await adapterContract.getDataFeedIndex(
-      formatBytes32String("BTC"),
+      formatBytes32String("BTC")
     );
     expect(btcDataFeedIndex.toNumber()).to.eq(0);
   });
 
   it("should revert trying to get index if data feed is not supported", async () => {
     await expect(
-      adapterContract.getDataFeedIndex(formatBytes32String("BAD_SYMBOL")),
+      adapterContract.getDataFeedIndex(formatBytes32String("BAD_SYMBOL"))
     ).to.be.revertedWith("DataFeedIdNotFound");
   });
 
@@ -192,7 +192,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
     await updateValues({ increaseBlockTimeBySeconds: 1 });
 
     await expect(
-      updateValues({ increaseBlockTimeBySeconds: 2 }),
+      updateValues({ increaseBlockTimeBySeconds: 2 })
     ).to.be.revertedWith("MinIntervalBetweenUpdatesHasNotPassedYet");
   });
 
@@ -206,7 +206,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
         updateValues({
           increaseBlockTimeBySeconds: 5,
           calculateMockDataTimestamp: () => mockDataTimestamp,
-        }),
+        })
       ).to.be.revertedWith("DataTimestampShouldBeNewerThanBefore");
     });
 
@@ -219,7 +219,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
         updateValues({
           increaseBlockTimeBySeconds: 5,
           calculateMockDataTimestamp: () => mockDataTimestamp - 1,
-        }),
+        })
       ).to.be.revertedWith("DataTimestampShouldBeNewerThanBefore");
     });
   }
@@ -230,7 +230,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
         increaseBlockTimeBySeconds: 1,
         calculateMockDataTimestamp: (blockTimestamp) =>
           (blockTimestamp - 4 * 60) * 1000,
-      }),
+      })
     ).to.be.revertedWith("TimestampIsTooOld");
   });
 
@@ -240,7 +240,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
         increaseBlockTimeBySeconds: 1,
         calculateMockDataTimestamp: (blockTimestamp) =>
           (blockTimestamp + 4 * 60) * 1000,
-      }),
+      })
     ).to.be.revertedWith("TimestampFromTooLongFuture");
   });
 
@@ -254,14 +254,14 @@ export const describeCommonPriceFeedsAdapterTests = ({
           mockSignersCount: 2,
           timestampMilliseconds: latestBlockTimestamp * 1000,
         },
-      }),
+      })
     ).to.be.revertedWith("DataPackageTimestampMismatch");
   });
 
   it("should revert if redstone payload is not attached", async () => {
     const mockBlockTimestamp = (await time.latest()) + 1;
     await expect(
-      adapterContract.updateDataFeedsValues(mockBlockTimestamp * 1000),
+      adapterContract.updateDataFeedsValues(mockBlockTimestamp * 1000)
     ).to.be.revertedWith("CalldataMustHaveValidPayload");
   });
 
@@ -273,7 +273,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
           dataPoints: [{ dataFeedId: "NON-BTC", value: 42 }],
           mockSignersCount: 2,
         },
-      }),
+      })
     ).to.be.revertedWith("InsufficientNumberOfUniqueSigners(0, 2)");
   });
 
@@ -285,7 +285,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
           dataPoints: [{ dataFeedId: "BTC", value: 42 }],
           mockSignersCount: 1,
         },
-      }),
+      })
     ).to.be.revertedWith("InsufficientNumberOfUniqueSigners(1, 2)");
   });
 
@@ -350,7 +350,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       increaseBlockTimeBySeconds: 1,
     });
     const value = await adapterContract.getValueForDataFeed(
-      utils.convertStringToBytes32("BTC"),
+      utils.convertStringToBytes32("BTC")
     );
     expect(value.toNumber()).to.be.equal(42 * 10 ** 8);
   });
@@ -371,15 +371,15 @@ export const describeCommonPriceFeedsAdapterTests = ({
 
   it("should revert trying to get invalid (zero) data feed value", async () => {
     await expect(
-      adapterContract.getValueForDataFeed(utils.convertStringToBytes32("BTC")),
+      adapterContract.getValueForDataFeed(utils.convertStringToBytes32("BTC"))
     ).to.be.revertedWith("DataFeedValueCannotBeZero");
   });
 
   it("should revert trying to get a value for an unsupported data feed", async () => {
     await expect(
       adapterContract.getValueForDataFeed(
-        utils.convertStringToBytes32("SMTH-ELSE"),
-      ),
+        utils.convertStringToBytes32("SMTH-ELSE")
+      )
     ).to.be.revertedWith("DataFeedIdNotFound");
   });
 
@@ -390,16 +390,16 @@ export const describeCommonPriceFeedsAdapterTests = ({
 
     await expect(
       adapterContract.getValuesForDataFeeds(
-        ["BTC", "SMTH-ELSE"].map(utils.convertStringToBytes32),
-      ),
+        ["BTC", "SMTH-ELSE"].map(utils.convertStringToBytes32)
+      )
     ).to.be.revertedWith("DataFeedIdNotFound");
   });
 
   it("should revert trying to get several values, if one data feed has invalid (zero) value", async () => {
     await expect(
       adapterContract.getValuesForDataFeeds(
-        ["BTC"].map(utils.convertStringToBytes32),
-      ),
+        ["BTC"].map(utils.convertStringToBytes32)
+      )
     ).to.be.revertedWith("DataFeedValueCannotBeZero");
   });
 };

@@ -22,7 +22,7 @@ const DATA_FEEDS = {
     const dataFeedIdBytes32 = formatBytes32String(symbol);
     const tx = await mentoAdapterContract.setDataFeed(
       dataFeedIdBytes32,
-      tokenAddress,
+      tokenAddress
     );
     console.log(`Tx sent: ${tx.hash}`);
     await tx.wait();

@@ -29,7 +29,7 @@ export const dataFeedsIds = [ethDataFeed, btcDataFeed];
 export const getWrappedContractAndUpdateBlockTimestamp = async (
   contract: Contract,
   timestamp: number,
-  newDataPoint?: DataPoint,
+  newDataPoint?: DataPoint
 ) => {
   const dataPoints = [
     { dataFeedId: "ETH", value: 1670.99 },
@@ -48,7 +48,7 @@ export const getWrappedContractAndUpdateBlockTimestamp = async (
 };
 
 export const mockEnvVariables = (
-  overrideMockConfig: Record<string, unknown> = {},
+  overrideMockConfig: Record<string, unknown> = {}
 ) => {
   setConfigProvider(() => {
     return {
@@ -95,7 +95,7 @@ const DEFAULT_DATA_POINTS = [
 ];
 
 export const getDataPackagesResponse = async (
-  dataPoints: INumericDataPoint[] = DEFAULT_DATA_POINTS,
+  dataPoints: INumericDataPoint[] = DEFAULT_DATA_POINTS
 ) => {
   const timestampMilliseconds = (await time.latest()) * 1000;
 
@@ -114,7 +114,7 @@ export const getDataPackagesResponse = async (
         signedDataPackages[dataPointObj.dataFeedId as DataPointsKeys] = [];
       }
       signedDataPackages[dataPointObj.dataFeedId as DataPointsKeys]!.push(
-        signedDataPackage,
+        signedDataPackage
       );
     }
   }
@@ -126,7 +126,7 @@ export const deployMockSortedOracles = async (signer?: Signer) => {
   const AddressSortedLinkedListWithMedianFactory =
     await ethers.getContractFactory(
       "AddressSortedLinkedListWithMedian",
-      signer,
+      signer
     );
   const sortedLinkedListContract =
     await AddressSortedLinkedListWithMedianFactory.deploy();
@@ -140,7 +140,7 @@ export const deployMockSortedOracles = async (signer?: Signer) => {
         AddressSortedLinkedListWithMedian: sortedLinkedListContract.address,
       },
       signer,
-    } as FactoryOptions,
+    } as FactoryOptions
   );
   const contract = await MockSortedOraclesFactory.deploy();
   await contract.deployed();

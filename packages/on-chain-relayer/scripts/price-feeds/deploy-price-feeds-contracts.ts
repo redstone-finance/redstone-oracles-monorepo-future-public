@@ -19,11 +19,11 @@ import { RedstoneAdapterBase } from "../../typechain-types";
   console.log("Deploying adapter contract...");
   const adapterFactory = await ethers.getContractFactory(
     "PriceFeedsAdapter",
-    getSigner(),
+    getSigner()
   );
   const dataFeedsAsBytes32 = dataFeeds.map(utils.formatBytes32String);
   const adapterContract = (await adapterFactory.deploy(
-    dataFeedsAsBytes32,
+    dataFeedsAsBytes32
   )) as RedstoneAdapterBase;
   await adapterContract.deployed();
   console.log(`Adapter contract deployed - ${adapterContract.address}`);
@@ -32,16 +32,16 @@ import { RedstoneAdapterBase } from "../../typechain-types";
   for (const dataFeed of dataFeeds) {
     const priceFeedFactory = await ethers.getContractFactory(
       "PriceFeed",
-      getSigner(),
+      getSigner()
     );
     const priceFeedContract = await priceFeedFactory.deploy(
       adapterContract.address,
       utils.formatBytes32String(dataFeed),
-      `RedStone price feed for ${dataFeed}`,
+      `RedStone price feed for ${dataFeed}`
     );
     await priceFeedContract.deployed();
     console.log(
-      `Price feed contract for ${dataFeed} deployed - ${priceFeedContract.address}`,
+      `Price feed contract for ${dataFeed} deployed - ${priceFeedContract.address}`
     );
   }
 
@@ -67,7 +67,7 @@ import { RedstoneAdapterBase } from "../../typechain-types";
   const updateTransaction = (await wrappedContract.updateDataFeedsValues(
     firstRound,
     dataPackageTimestamp,
-    { gasLimit },
+    { gasLimit }
   )) as ContractTransaction;
   await updateTransaction.wait();
   console.log("Successfully updated prices");

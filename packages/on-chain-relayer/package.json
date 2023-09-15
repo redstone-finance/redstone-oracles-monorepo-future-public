@@ -4,6 +4,7 @@
   "types": "dist/src/index.d.ts",
   "main": "dist/src/index.js",
   "license": "MIT",
+  "prettier": "redstone-prettier-config",
   "scripts": {
     "build": "rm -rf dist && tsc --build tsconfig.build.json",
     "start": "node dist/src/run-relayer.js",

@@ -39,14 +39,14 @@ describe("value-deviation-condition fallback mode tests", () => {
         dataPackages,
         smallerValueDiff,
         config(),
-        olderDataPackagesFetchCallback,
+        olderDataPackagesFetchCallback
       );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Fallback deviation: Value has not deviated enough to be updated/,
+      /Fallback deviation: Value has not deviated enough to be updated/
     );
     expect(warningMessage).not.to.match(
-      /Older Value has deviated enough to be updated/,
+      /Older Value has deviated enough to be updated/
     );
   });
 
@@ -63,14 +63,14 @@ describe("value-deviation-condition fallback mode tests", () => {
         dataPackages,
         biggerValueDiff,
         config(),
-        olderDataPackagesFetchCallback,
+        olderDataPackagesFetchCallback
       );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Fallback deviation: Value has deviated enough to be/,
+      /Fallback deviation: Value has deviated enough to be/
     );
     expect(warningMessage).to.match(
-      /Older Value has not deviated enough to be/,
+      /Older Value has not deviated enough to be/
     );
   });
 
@@ -87,11 +87,11 @@ describe("value-deviation-condition fallback mode tests", () => {
         dataPackages,
         biggerValueDiff,
         config(),
-        olderDataPackagesFetchCallback,
+        olderDataPackagesFetchCallback
       );
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(
-      /Fallback deviation: Value has deviated enough to be/,
+      /Fallback deviation: Value has deviated enough to be/
     );
     expect(warningMessage).to.match(/Older Value has deviated enough to be/);
   });
@@ -109,14 +109,14 @@ describe("value-deviation-condition fallback mode tests", () => {
         dataPackages,
         biggerValueDiff,
         config(),
-        olderDataPackagesFetchCallback,
+        olderDataPackagesFetchCallback
       );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Fallback deviation: Value has not deviated enough to be/,
+      /Fallback deviation: Value has not deviated enough to be/
     );
     expect(warningMessage).not.to.match(
-      /Older Value has not deviated enough to be/,
+      /Older Value has not deviated enough to be/
     );
   });
 });

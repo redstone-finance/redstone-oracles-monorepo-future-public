@@ -10,7 +10,7 @@ setConfigProvider(fileSystemConfigProvider);
 const relayerConfig = config();
 
 console.log(
-  `Starting contract prices updater with interval ${relayerConfig.relayerIterationInterval}`,
+  `Starting contract prices updater with interval ${relayerConfig.relayerIterationInterval}`
 );
 
 const runIteration = async () => {
@@ -22,7 +22,7 @@ const runIteration = async () => {
   console.log(
     `Update condition ${
       iterationArgs.shouldUpdatePrices ? "" : "NOT "
-    }satisfied: ${iterationArgs.message}`,
+    }satisfied: ${iterationArgs.message}`
   );
 
   if (iterationArgs.shouldUpdatePrices) {
@@ -33,7 +33,7 @@ const runIteration = async () => {
 const task = new AsyncTask(
   "Relayer task",
   () => runIteration(),
-  (error) => console.log(error.stack),
+  (error) => console.log(error.stack)
 );
 
 const job = new SimpleIntervalJob(
@@ -42,7 +42,7 @@ const job = new SimpleIntervalJob(
     runImmediately: true,
   },
   task,
-  { preventOverrun: true },
+  { preventOverrun: true }
 );
 
 const scheduler = new ToadScheduler();

@@ -6,7 +6,7 @@ import { IRedstoneAdapter } from "../../../typechain-types";
 // TODO: rewrite this file, as now we even support getting values from smart contract for MentoAdapter
 export const getValuesForDataFeeds = async (
   priceFeedsAdapterContract: IRedstoneAdapter,
-  dataFeeds: string[],
+  dataFeeds: string[]
 ): Promise<ValuesForDataFeeds> => {
   // We do not support getting latest values from smart contract for MentoAdapter
   if (config().adapterContractType === "mento") {

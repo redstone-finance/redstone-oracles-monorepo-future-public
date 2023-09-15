@@ -14,11 +14,11 @@ describe("fallback-time-condition", () => {
     const lastUpdateTimestamp = Date.now() - 1;
     const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
       lastUpdateTimestamp,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Fallback time: Not enough time has passed to update prices/,
+      /Fallback time: Not enough time has passed to update prices/
     );
   });
 
@@ -26,11 +26,11 @@ describe("fallback-time-condition", () => {
     const lastUpdateTimestamp = Date.now() - 60999;
     const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
       lastUpdateTimestamp,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Fallback time: Not enough time has passed to update prices/,
+      /Fallback time: Not enough time has passed to update prices/
     );
   });
 
@@ -38,11 +38,11 @@ describe("fallback-time-condition", () => {
     const lastUpdateTimestamp = Date.now() - 61000;
     const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
       lastUpdateTimestamp,
-      config(),
+      config()
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(
-      /Fallback time: Enough time passed to updated prices/,
+      /Fallback time: Enough time passed to updated prices/
     );
   });
 });

@@ -11,7 +11,7 @@ import { cronCondition } from "./cron-condition";
 
 export const shouldUpdate = async (
   context: Context,
-  config: RelayerConfig,
+  config: RelayerConfig
 ): Promise<ConditionCheckResponse> => {
   const warningMessages: string[] = [];
   let shouldUpdatePrices = false;
@@ -19,7 +19,7 @@ export const shouldUpdate = async (
     const conditionCheck = await checkConditionByName(
       conditionName,
       context,
-      config,
+      config
     );
     shouldUpdatePrices ||= conditionCheck.shouldUpdatePrices;
     if (conditionCheck.warningMessage.length > 0) {
@@ -43,19 +43,19 @@ export const shouldUpdate = async (
 const checkConditionByName = async (
   name: ConditionCheckNames,
   context: Context,
-  config: RelayerConfig,
+  config: RelayerConfig
 ): Promise<ConditionCheckResponse> => {
   switch (name) {
     case "time":
       return timeUpdateCondition(
         context.lastUpdateTimestamps.lastBlockTimestampMS,
-        config,
+        config
       );
 
     case "cron":
       return cronCondition(
         context.lastUpdateTimestamps.lastBlockTimestampMS,
-        config,
+        config
       );
 
     case "value-deviation":
@@ -63,7 +63,7 @@ const checkConditionByName = async (
         context.dataPackages,
         context.uniqueSignersThreshold,
         context.valuesFromContract,
-        config,
+        config
       );
   }
 };

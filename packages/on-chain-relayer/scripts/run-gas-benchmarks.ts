@@ -31,7 +31,7 @@ async function benchmarkContract(contractName: string) {
 
     // Wrapping contract with Redstone payload
     const wrappedContract = WrapperBuilder.wrap(
-      contract,
+      contract
     ).usingSimpleNumericMock({
       mockSignersCount: 2,
       timestampMilliseconds: mockDataTimestamp,
