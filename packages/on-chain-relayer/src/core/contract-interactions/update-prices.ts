@@ -29,15 +29,15 @@ export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
 
   console.log(
     `Update prices tx delivered hash=${updateTx.hash} gasLimit=${String(
-      updateTx.gasLimit,
+      updateTx.gasLimit
     )} gasPrice=${updateTx.gasPrice?.toString()} maxFeePerGas=${String(
-      updateTx.maxFeePerGas,
-    )} maxPriorityFeePerGas=${String(updateTx.maxPriorityFeePerGas)}`,
+      updateTx.maxFeePerGas
+    )} maxPriorityFeePerGas=${String(updateTx.maxPriorityFeePerGas)}`
   );
 };
 
 const updatePriceInAdapterContract = async (
-  args: UpdatePricesArgs,
+  args: UpdatePricesArgs
 ): Promise<TransactionResponse> => {
   switch (config().adapterContractType) {
     case "price-feeds":
@@ -46,7 +46,7 @@ const updatePriceInAdapterContract = async (
       return await updatePricesInMentoAdapter(args);
     default:
       throw new Error(
-        `Unsupported adapter contract type: ${config().adapterContractType}`,
+        `Unsupported adapter contract type: ${config().adapterContractType}`
       );
   }
 };
@@ -61,7 +61,7 @@ const updatePricesInPriceFeedsAdapter = async ({
   const deliveryResult = await getDeliveryMan().deliver(
     wrappedContract,
     "updateDataFeedsValues",
-    [proposedTimestamp],
+    [proposedTimestamp]
   );
 
   return deliveryResult;

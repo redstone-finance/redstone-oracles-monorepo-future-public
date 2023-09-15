@@ -15,7 +15,7 @@ const addressesAreEqual = (addr1: string, addr2: string) => {
 
 const safelyGetAddressOrZero = (
   oracleAddresses: string[],
-  uncheckedIndex: number,
+  uncheckedIndex: number
 ) => {
   return uncheckedIndex < 0 || uncheckedIndex > oracleAddresses.length - 1
     ? ZERO_ADDRESS
@@ -25,7 +25,7 @@ const safelyGetAddressOrZero = (
 export const calculateLinkedListPosition = (
   rates: [string[], BigNumber[], number[]],
   valueToInsert: BigNumber,
-  oracleAddress: string,
+  oracleAddress: string
 ) => {
   // We need to copy the arrays for being able to filter out current oracle later
   const oracleAddresses = [...rates[0]];
@@ -33,7 +33,7 @@ export const calculateLinkedListPosition = (
 
   // Removing current oracle values
   const indexOfCurrentOracle = oracleAddresses.findIndex((elem) =>
-    addressesAreEqual(oracleAddress, elem),
+    addressesAreEqual(oracleAddress, elem)
   );
   if (indexOfCurrentOracle > -1) {
     const numberOfItemsToRemove = 1;
@@ -75,7 +75,7 @@ export const prepareLinkedListLocationsForMentoAdapterReport = async ({
 
   // Fetching current values and oracle addresses
   const ratesPerToken = await Promise.all(
-    dataFeeds.map((df) => sortedOracles.getRates(df.tokenAddress)),
+    dataFeeds.map((df) => sortedOracles.getRates(df.tokenAddress))
   );
 
   // Filling the `locationsInSortedLinkedLists` array
@@ -87,7 +87,7 @@ export const prepareLinkedListLocationsForMentoAdapterReport = async ({
     const locationInSortedLinkedList = calculateLinkedListPosition(
       ratesPerToken[dataFeedIndex],
       proposedValuesNormalized[dataFeedIndex],
-      mentoAdapter.address,
+      mentoAdapter.address
     );
     locationsInSortedLinkedLists.push(locationInSortedLinkedList);
   }

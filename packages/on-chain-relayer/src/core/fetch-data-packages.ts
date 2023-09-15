@@ -13,7 +13,7 @@ export async function fetchDataPackages(
   config: RelayerConfig,
   uniqueSignersThreshold: number,
   valuesFromContract: ValuesForDataFeeds,
-  isHistorical: boolean = false,
+  isHistorical: boolean = false
 ) {
   const { dataServiceId, dataFeeds, cacheServiceUrls } = config;
 
@@ -31,7 +31,7 @@ export async function fetchDataPackages(
 }
 
 const requestHistoricalDataPackages = (
-  requestParams: DataPackagesRequestParams,
+  requestParams: DataPackagesRequestParams
 ): Promise<DataPackagesResponse> => {
   const { fallbackOffsetInMinutes, historicalPackagesGateways } = config();
 
@@ -39,7 +39,7 @@ const requestHistoricalDataPackages = (
     return requestDataPackages({
       ...requestParams,
       historicalTimestamp: calculateOlderPackagesTimestamp(
-        fallbackOffsetInMinutes,
+        fallbackOffsetInMinutes
       ),
       urls: historicalPackagesGateways,
     });
@@ -48,20 +48,20 @@ const requestHistoricalDataPackages = (
   throw (
     `Historical packages fetcher for fallback deviation check is not properly configured: ` +
     `offset=${fallbackOffsetInMinutes} min., gateway=${JSON.stringify(
-      historicalPackagesGateways,
+      historicalPackagesGateways
     )}`
   );
 };
 
 const calculateOlderPackagesTimestamp = (
-  deviationCheckOffsetInMinutes: number,
+  deviationCheckOffsetInMinutes: number
 ) => {
   if (deviationCheckOffsetInMinutes > 0) {
     // We round the timestamp to full minutes for being compatible with
     // oracle-nodes, which usually work with rounded 10s and 60s intervals
     return (
       Math.round(
-        Date.now() / MILLISECONDS_IN_ONE_MINUTE - deviationCheckOffsetInMinutes,
+        Date.now() / MILLISECONDS_IN_ONE_MINUTE - deviationCheckOffsetInMinutes
       ) * MILLISECONDS_IN_ONE_MINUTE
     );
   }

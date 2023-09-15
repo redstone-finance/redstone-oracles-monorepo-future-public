@@ -14,7 +14,7 @@ export const checkIfDataPackageTimestampIsNewer = (context: Context) => {
       {
         lastDataPackageTimestampMS,
         dataPackageTimestamp: dataPackageTimestamp,
-      },
+      }
     )}`;
     return { shouldNotUpdatePrice: true, message };
   }
@@ -23,13 +23,13 @@ export const checkIfDataPackageTimestampIsNewer = (context: Context) => {
 };
 
 export const chooseDataPackagesTimestamp = (
-  dataPackages: DataPackagesResponse,
+  dataPackages: DataPackagesResponse
 ) => {
   const dataPackageTimestamps = Object.values(dataPackages).flatMap(
     (dataPackages) =>
       dataPackages!.map(
-        (dataPackage) => dataPackage.dataPackage.timestampMilliseconds,
-      ),
+        (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
+      )
   );
   return Math.min(...dataPackageTimestamps);
 };

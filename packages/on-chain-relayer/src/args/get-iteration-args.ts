@@ -18,7 +18,7 @@ type IterationArgs = {
 };
 
 export const getIterationArgs = async (
-  adapterContract: RedstoneAdapterBase,
+  adapterContract: RedstoneAdapterBase
 ): Promise<IterationArgs> => {
   const relayerConfig = config();
   const { dataFeeds, updateConditions } = relayerConfig;
@@ -36,13 +36,13 @@ export const getIterationArgs = async (
   if (shouldCheckValueDeviation) {
     valuesFromContract = await getValuesForDataFeeds(
       adapterContract,
-      dataFeeds,
+      dataFeeds
     );
   }
   const dataPackages = await fetchDataPackages(
     relayerConfig,
     uniqueSignersThreshold,
-    valuesFromContract,
+    valuesFromContract
   );
 
   const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
@@ -52,7 +52,7 @@ export const getIterationArgs = async (
       uniqueSignersThreshold,
       lastUpdateTimestamps,
     },
-    relayerConfig,
+    relayerConfig
   );
 
   const updatePricesArgs = getUpdatePricesArgs(dataPackages, adapterContract);
