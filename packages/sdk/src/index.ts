@@ -19,7 +19,7 @@ const ALL_FEEDS_KEY = "___ALL_FEEDS___";
 export interface DataPackagesRequestParams {
   dataServiceId: string;
   uniqueSignersCount: number;
-  dataFeeds?: string[];
+  dataFeeds?: string[] | undefined;
   urls?: string[] | undefined;
   valuesToCompare?: ValuesForDataFeeds;
   historicalTimestamp?: number | undefined;

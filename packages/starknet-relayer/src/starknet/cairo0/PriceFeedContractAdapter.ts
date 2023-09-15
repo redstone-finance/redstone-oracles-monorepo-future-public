@@ -7,7 +7,7 @@ export class PriceFeedContractAdapter {
   async readLatestRoundData(): Promise<PriceFeedRoundData> {
     return (
       (await this.contract.call("latest_round_data")) as {
-        [key: string]: any;
+        round: PriceFeedRoundData;
       }
     )["round"];
   }
