@@ -21,7 +21,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "coingecko",
         "currencycom",
         "huobipro",
@@ -51,14 +50,13 @@
       "source": [
         "bitfinex2",
         "bittrex",
-        "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "currencycom",
         "kaiko",
-        "kraken",
-        "uniswap"
+        "kaiko-v2",
+        "kraken"
       ],
 
       "deviationCheck": {
@@ -114,7 +112,6 @@
         "curve-usdc-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
-        "kaiko",
         "uniswap-v2-on-chain-fxs",
         "uniswap-v3-ethereum-on-chain-usdc-500",
         "uniswap-v3-ethereum-on-chain-dai-500",
@@ -139,7 +136,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -150,7 +146,6 @@
         "kraken",
         "kucoin",
         "lbank",
-        "oceanex",
         "okx",
         "poloniex",
         "probit"
@@ -240,7 +235,6 @@
         "kucoin",
         "lbank",
         "mexc",
-        "oceanex",
         "okx",
         "phemex",
         "poloniex",
