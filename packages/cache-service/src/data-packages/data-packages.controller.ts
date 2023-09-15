@@ -1,12 +1,10 @@
 import {
   Body,
-  CACHE_MANAGER,
   Controller,
   Get,
   Header,
   HttpException,
   HttpStatus,
-  Inject,
   Param,
   Post,
   Query,
@@ -15,7 +13,6 @@ import {
   UsePipes,
   ValidationPipe,
 } from "@nestjs/common";
-import { Cache } from "cache-manager";
 import type { Response } from "express";
 import { Serializable } from "@redstone-finance/protocol";
 import { DataPackagesRequestParams } from "@redstone-finance/sdk";
@@ -40,7 +37,7 @@ const CONTENT_TYPE_JSON = "application/json";
 export class DataPackagesController {
   constructor(private dataPackagesService: DataPackagesService) {}
 
-  private prepareDataPackagesRequestParams(
+  private static prepareDataPackagesRequestParams(
     query: GetLatestDataPackagesQuery
   ): DataPackagesRequestParams {
     // TODO: implement request validation
@@ -56,9 +53,9 @@ export class DataPackagesController {
     return requestParams;
   }
 
-  private async validateDataServiceId(dataServiceId: string) {
+  private static async validateDataServiceId(dataServiceId: string) {
     const isDataServiceIdValid =
-      await this.dataPackagesService.isDataServiceIdValid(dataServiceId);
+      await DataPackagesService.isDataServiceIdValid(dataServiceId);
     if (!isDataServiceIdValid) {
       throw new HttpException(
         {
@@ -75,8 +72,8 @@ export class DataPackagesController {
   async getAllLatest(
     @Param("DATA_SERVICE_ID") dataServiceId: string
   ): Promise<DataPackagesResponse> {
-    await this.validateDataServiceId(dataServiceId);
-    return this.dataPackagesService.getLatestDataPackagesWithSameTimestampWithCache(
+    await DataPackagesController.validateDataServiceId(dataServiceId);
+    return await this.dataPackagesService.getLatestDataPackagesWithSameTimestampWithCache(
       dataServiceId
     );
   }
@@ -86,14 +83,15 @@ export class DataPackagesController {
   async getMostRecent(
     @Param("DATA_SERVICE_ID") dataServiceId: string
   ): Promise<DataPackagesResponse> {
-    await this.validateDataServiceId(dataServiceId);
-    return this.dataPackagesService.getMostRecentDataPackagesWithCache(
+    await DataPackagesController.validateDataServiceId(dataServiceId);
+    return await this.dataPackagesService.getMostRecentDataPackagesWithCache(
       dataServiceId
     );
   }
 
   @Get("historical/:DATA_SERVICE_ID/:TIMESTAMP")
   @Header("Cache-Control", "max-age=5")
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getByTimestamp(
     @Param("DATA_SERVICE_ID") dataServiceId: string,
     @Param("TIMESTAMP") timestamp: string
@@ -103,9 +101,9 @@ export class DataPackagesController {
         `historical/* routes are not enabled in this cache-service configuration`
       );
     }
-    await this.validateDataServiceId(dataServiceId);
+    await DataPackagesController.validateDataServiceId(dataServiceId);
 
-    return this.dataPackagesService.getByTimestamp(
+    return await DataPackagesService.getByTimestamp(
       dataServiceId,
       Number(timestamp)
     );
@@ -115,7 +113,7 @@ export class DataPackagesController {
   @Header("Cache-Control", "max-age=5")
   async getLatest(@Query() query: GetLatestDataPackagesQuery) {
     return await this.dataPackagesService.queryLatestDataPackages(
-      this.prepareDataPackagesRequestParams(query)
+      DataPackagesController.prepareDataPackagesRequestParams(query)
     );
   }
 
@@ -125,12 +123,13 @@ export class DataPackagesController {
     @Res() res: Response
   ) {
     const payload = await this.dataPackagesService.getPayload(
-      this.prepareDataPackagesRequestParams(query)
+      DataPackagesController.prepareDataPackagesRequestParams(query)
     );
-    this.sendSerializableResponse(res, payload, query.format);
+    DataPackagesController.sendSerializableResponse(res, payload, query.format);
   }
 
   @Get("stats/:PERIOD")
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getStats(
     @Query() query: GetDataPackagesStatsQuery,
     @Param("PERIOD") period: string
@@ -146,7 +145,7 @@ export class DataPackagesController {
     }
 
     const now = Date.now();
-    return await this.dataPackagesService.getDataPackagesStats({
+    return await DataPackagesService.getDataPackagesStats({
       fromTimestamp: now - Number(period),
       toTimestamp: now,
     });
@@ -164,10 +163,10 @@ export class DataPackagesController {
       );
     }
 
-    const signerAddress = this.dataPackagesService.verifyRequester(body);
+    const signerAddress = DataPackagesService.verifyRequester(body);
 
     const dataPackagesToSave =
-      await this.dataPackagesService.prepareReceivedDataPackagesForBulkSaving(
+      await DataPackagesService.prepareReceivedDataPackagesForBulkSaving(
         body.dataPackages,
         signerAddress
       );
@@ -175,7 +174,7 @@ export class DataPackagesController {
     await this.dataPackagesService.saveMany(dataPackagesToSave, signerAddress);
   }
 
-  private sendSerializableResponse(
+  private static sendSerializableResponse(
     res: Response,
     data: Serializable,
     format?: ResponseFormat

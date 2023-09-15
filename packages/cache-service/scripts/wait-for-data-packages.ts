@@ -11,6 +11,7 @@ const INTERVAL_MILLISECONDS = 5000; // 5 seconds
 const DATA_FEED_ID = process.argv[3] || consts.ALL_FEEDS_KEY;
 const EXPECTED_COUNT = parseInt(process.argv[2]);
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 main();
 
 async function main() {
@@ -19,6 +20,7 @@ async function main() {
   console.log("MongoDB connected");
 
   await checkDataPackagesCount();
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   setInterval(checkDataPackagesCount, INTERVAL_MILLISECONDS);
 }
 

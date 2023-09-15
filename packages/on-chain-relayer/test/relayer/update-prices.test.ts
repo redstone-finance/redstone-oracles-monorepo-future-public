@@ -33,20 +33,19 @@ describe("update-prices", () => {
   it("should update price in price-feeds adapter", async () => {
     // Deploy contract
     const PriceFeedsAdapterFactory = await ethers.getContractFactory(
-      "PriceFeedsAdapterWithoutRoundsMock"
+      "PriceFeedsAdapterWithoutRoundsMock",
     );
     const priceFeedsAdapter: PriceFeedsAdapterWithoutRoundsMock =
       await PriceFeedsAdapterFactory.deploy();
     await priceFeedsAdapter.deployed();
 
     // Update prices
-    const lastUpdateTimestamps = await getLastRoundParamsFromContract(
-      priceFeedsAdapter
-    );
+    const _lastUpdateTimestamps =
+      await getLastRoundParamsFromContract(priceFeedsAdapter);
     const dataPackages = await getDataPackagesResponse();
-    const updatePricesArgs = await getUpdatePricesArgs(
+    const updatePricesArgs = getUpdatePricesArgs(
       dataPackages,
-      priceFeedsAdapter
+      priceFeedsAdapter,
     );
 
     await updatePrices(updatePricesArgs);
@@ -59,17 +58,17 @@ describe("update-prices", () => {
   });
 
   it("should update prices in mento adapter", async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
     (getProviderOrSigner as any).getProvider = () => ethers.provider;
 
     // Deploying sorted oracles
     const sortedOracles = await deployMockSortedOracles();
 
     // Deploying mento adapter
-    const MentoAdapterFactory = await ethers.getContractFactory(
-      "MentoAdapterMock"
-    );
+    const MentoAdapterFactory =
+      await ethers.getContractFactory("MentoAdapterMock");
     const mentoAdapter = await MentoAdapterFactory.deploy(
-      sortedOracles.address
+      sortedOracles.address,
     );
     await mentoAdapter.deployed();
 
@@ -85,14 +84,10 @@ describe("update-prices", () => {
     mockEnvVariables(overrideMockConfig);
 
     // Update prices
-    const lastUpdateTimestamps = await getLastRoundParamsFromContract(
-      mentoAdapter
-    );
+    const _lastUpdateTimestamps =
+      await getLastRoundParamsFromContract(mentoAdapter);
     const dataPackages = await getDataPackagesResponse();
-    const updatePricesArgs = await getUpdatePricesArgs(
-      dataPackages,
-      mentoAdapter
-    );
+    const updatePricesArgs = getUpdatePricesArgs(dataPackages, mentoAdapter);
 
     await updatePrices(updatePricesArgs);
 
@@ -100,7 +95,7 @@ describe("update-prices", () => {
     const normalizeValue = (num: number) => parseUnits(num.toString(), 24);
     const expectOracleValues = async (
       tokenAddress: string,
-      expectedValues: number[]
+      expectedValues: number[],
     ) => {
       const [, oracleValues] = await sortedOracles.getRates(tokenAddress);
       const expectedValuesNormalized = expectedValues.map(normalizeValue);

@@ -30,15 +30,15 @@ describe("should-update", () => {
         },
         uniqueSignersThreshold: 2,
       },
-      config()
+      config(),
     );
     expect(shouldUpdatePrices).to.be.false;
-    expect(JSON.parse(warningMessage)[0]).to.match(
-      /Not enough time has passed to update prices/
+    expect((JSON.parse(warningMessage) as string[])[0]).to.match(
+      /Not enough time has passed to update prices/,
     );
 
-    expect(JSON.parse(warningMessage)[1]).to.match(
-      /Value has not deviated enough to/
+    expect((JSON.parse(warningMessage) as string[])[1]).to.match(
+      /Value has not deviated enough to/,
     );
   });
 
@@ -60,11 +60,11 @@ describe("should-update", () => {
         },
         uniqueSignersThreshold: 2,
       },
-      config()
+      config(),
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(JSON.parse(warningMessage)).to.match(
-      /Not enough time has passed to update prices/
+      /Not enough time has passed to update prices/,
     );
   });
 
@@ -85,11 +85,11 @@ describe("should-update", () => {
         },
         uniqueSignersThreshold: 2,
       },
-      config()
+      config(),
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(JSON.parse(warningMessage)).to.match(
-      /Value has not deviated enough to be updated/
+      /Value has not deviated enough to be updated/,
     );
   });
 
@@ -115,10 +115,10 @@ describe("should-update", () => {
         },
         uniqueSignersThreshold: 2,
       },
-      config()
+      config(),
     );
     expect(warningMessage).to.match(
-      /Value has not deviated enough to be updated/
+      /Value has not deviated enough to be updated/,
     );
   });
 
@@ -143,7 +143,7 @@ describe("should-update", () => {
         },
         uniqueSignersThreshold: 2,
       },
-      config()
+      config(),
     );
     expect(warningMessage).to.match(/Enough time passed to updated price/);
   });

@@ -7,10 +7,11 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "workspaces"],
-  ignorePatterns: ["dist", "jest.config*", ".eslintrc.js"],
+  ignorePatterns: ["dist", "jest.config*", "*.js"],
   rules: {
     "@typescript-eslint/no-floating-promises": "warn",
     "@typescript-eslint/no-unnecessary-condition": "error",
+    "no-constant-condition": "off",
     "no-return-await": "off",
     "class-methods-use-this": "off",
     "@typescript-eslint/class-methods-use-this": [
@@ -26,6 +27,7 @@ module.exports = {
       "warn",
       { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
     ],
+    "@typescript-eslint/unbound-method": ["error", { ignoreStatic: true }],
   },
   root: true,
 };

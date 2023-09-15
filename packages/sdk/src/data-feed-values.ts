@@ -31,7 +31,7 @@ export const getDataFeedValues = async (
   for (const [dataFeedId, dataPackages] of Object.entries(
     dataPackagesPerFeed
   )) {
-    const plainValues = dataPackages
+    const plainValues = dataPackages!
       .filter((dp) => dp.dataPoints.length === 1)
       .map((dp) => Number(dp.dataPoints[0].value));
 

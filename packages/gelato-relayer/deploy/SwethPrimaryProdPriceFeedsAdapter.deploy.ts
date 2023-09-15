@@ -9,6 +9,7 @@ const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
 

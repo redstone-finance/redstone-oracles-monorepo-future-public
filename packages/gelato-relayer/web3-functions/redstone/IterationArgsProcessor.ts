@@ -46,18 +46,19 @@ export class IterationArgsProcessor<Args> {
     }
   }
 
-  private async shouldNotExec(
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
+  private shouldNotExec(
     iterationArgs: IterationArgs<Args>,
     alternativeMessage = "Unknown reason"
-  ): Promise<Web3FunctionResult> {
+  ): Web3FunctionResult {
     return {
       canExec: false,
       message: iterationArgs.message || alternativeMessage,
     };
   }
 
-  private async canExec(data: string): Promise<Web3FunctionResult> {
-    if (!!this.argsProvider.adapterContractAddress) {
+  private canExec(data: string): Web3FunctionResult {
+    if (this.argsProvider.adapterContractAddress) {
       return {
         canExec: true,
         callData: [{ data, to: `${this.argsProvider.adapterContractAddress}` }],
@@ -82,7 +83,7 @@ export class IterationArgsProcessor<Args> {
         historicalPackagesGateways: JSON.parse(
           (await this.context.storage.get("HISTORICAL_PACKAGES_GATEWAYS")) ??
             "[]"
-        ),
+        ) as string[],
       };
 
       return env;
@@ -94,7 +95,7 @@ export class IterationArgsProcessor<Args> {
       ),
       historicalPackagesGateways: JSON.parse(
         (await this.context.secrets.get("HISTORICAL_PACKAGES_GATEWAYS")) ?? "[]"
-      ),
+      ) as string[],
     };
 
     return env;

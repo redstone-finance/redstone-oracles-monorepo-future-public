@@ -1,5 +1,5 @@
 export interface DataPackageFromGatewayResponse {
-  [dataFeedId: string]: DataPackageFromGateway[];
+  [dataFeedId: string]: DataPackageFromGateway[] | undefined;
 }
 
 export interface DataPackageFromGateway {

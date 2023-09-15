@@ -10,11 +10,11 @@ export const MS_IN_ONE_MINUTE = 60000;
 
 export const makeConfigProvider = (
   manifest: OnChainRelayerManifest,
-  env: OnChainRelayerEnv
+  env: OnChainRelayerEnv,
 ): RelayerConfig => {
   const { timeSinceLastUpdateInMilliseconds, deviationPercentage, cron } =
     manifest.updateTriggers;
-  let updateConditions = [] as ConditionCheckNames[];
+  const updateConditions = [] as ConditionCheckNames[];
 
   if (deviationPercentage) {
     updateConditions.push("value-deviation");
@@ -31,7 +31,7 @@ export const makeConfigProvider = (
   return Object.freeze({
     updatePriceInterval: timeSinceLastUpdateInMilliseconds,
     cronExpressions: cron,
-    chainName: manifest.chain.name!,
+    chainName: manifest.chain.name,
     chainId: manifest.chain.id,
     adapterContractAddress: manifest.adapterContract,
     dataServiceId: manifest.dataServiceId,

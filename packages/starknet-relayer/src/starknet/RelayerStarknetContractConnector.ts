@@ -3,7 +3,7 @@ import { Abi, Account, Provider, Signer } from "starknet";
 import { StarknetRelayerConfig } from "../config";
 
 export abstract class RelayerStarknetContractConnector<
-  Adapter
+  Adapter,
 > extends StarknetContractConnector<Adapter> {
   protected constructor(
     abi: Abi,

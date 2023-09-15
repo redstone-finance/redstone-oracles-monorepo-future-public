@@ -11,11 +11,12 @@ export interface UpdatePricesArgs {
 
 export const getUpdatePricesArgs = (
   dataPackages: DataPackagesResponse,
-  adapterContract: Contract
+  adapterContract: Contract,
 ): UpdatePricesArgs => {
   const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
 
   const wrapContract = (adapterContract: Contract) =>
+    // eslint-disable-next-line
     WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
 
   return {

@@ -13,7 +13,7 @@ const DEFAULT_DECIMALS = 8;
 export const checkValueDeviationCondition = (
   dataPackages: DataPackagesResponse,
   valuesFromContract: ValuesForDataFeeds,
-  config: RelayerConfig
+  config: RelayerConfig,
 ) => {
   const dataFeedsIds = Object.keys(dataPackages);
 
@@ -24,27 +24,27 @@ export const checkValueDeviationCondition = (
     const valueFromContract =
       valuesFromContract[dataFeedId] ?? BigNumber.from(0);
 
-    for (const { dataPackage } of dataPackages[dataFeedId]) {
+    for (const { dataPackage } of dataPackages[dataFeedId]!) {
       for (const dataPoint of dataPackage.dataPoints) {
         const dataPointObj = dataPoint.toObj() as INumericDataPoint;
 
         const valueFromContractAsDecimal = Number(
           formatUnits(
             valueFromContract.toString(),
-            dataPointObj.decimals ?? DEFAULT_DECIMALS
-          )
+            dataPointObj.decimals ?? DEFAULT_DECIMALS,
+          ),
         );
 
         logTrace.addPerDataFeedLog(
           dataPackage.timestampMilliseconds,
           valueFromContractAsDecimal,
-          dataPackages[dataFeedId].length,
-          dataPointObj
+          dataPackages[dataFeedId]!.length,
+          dataPointObj,
         );
 
         const currentDeviation = calculateDeviation(
           dataPointObj.value,
-          valueFromContractAsDecimal
+          valueFromContractAsDecimal,
         );
         maxDeviation = Math.max(currentDeviation, maxDeviation);
       }
@@ -65,7 +65,7 @@ export const checkValueDeviationCondition = (
 
 const calculateDeviation = (
   valueFromFetchedDataPackage: number,
-  valueFromContract: number
+  valueFromContract: number,
 ) => {
   return MathUtils.calculateDeviationPercent({
     newValue: valueFromFetchedDataPackage,
@@ -76,12 +76,13 @@ const calculateDeviation = (
 class ValueDeviationLogTrace {
   private perDataFeedId: Record<
     string,
-    {
-      valueFromContract: number;
-      valuesFromNode: number[];
-      timestamp: number;
-      packagesCount: number;
-    }
+    | {
+        valueFromContract: number;
+        valuesFromNode: number[];
+        timestamp: number;
+        packagesCount: number;
+      }
+    | undefined
   > = {};
   private maxDeviation!: string;
   private thresholdDeviation!: string;
@@ -90,10 +91,11 @@ class ValueDeviationLogTrace {
     timestamp: number,
     valueFromContract: number,
     packagesCount: number,
-    dataPoint: INumericDataPoint
+    dataPoint: INumericDataPoint,
   ) {
     const dataFeedId = dataPoint.dataFeedId;
-    if (!this.perDataFeedId[dataFeedId]) {
+    const perData = this.perDataFeedId[dataFeedId];
+    if (!perData) {
       this.perDataFeedId[dataFeedId] = {
         valueFromContract: valueFromContract,
         valuesFromNode: [dataPoint.value],
@@ -101,7 +103,7 @@ class ValueDeviationLogTrace {
         timestamp,
       };
     } else {
-      this.perDataFeedId[dataFeedId].valuesFromNode.push(dataPoint.value);
+      perData.valuesFromNode.push(dataPoint.value);
     }
   }
 

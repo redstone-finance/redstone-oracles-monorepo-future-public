@@ -58,7 +58,7 @@ export async function startSimpleRelayer(
         pendingTransactionHash = txHash;
         console.log(`Waiting for the transaction's status changes...`);
         await connector.waitForTransaction(txHash);
-      } catch (error: unknown) {
+      } catch (error) {
         console.error((error as Error).stack || error);
       } finally {
         if (

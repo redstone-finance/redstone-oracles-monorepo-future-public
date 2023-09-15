@@ -52,6 +52,7 @@ const EXPECTED_DATA_FEEDS = [
   "sAVAX",
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 main();
 
 async function main() {
@@ -84,6 +85,7 @@ async function main() {
       lastTimestamp = timestamp;
 
       const timestampFromId = new Date(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
         (dataPackage as any)._id.getTimestamp()
       ).getTime();
 
@@ -98,7 +100,7 @@ async function main() {
           (dataFeedId) =>
             !dataPackage.dataPoints.some((dp) => dp.dataFeedId === dataFeedId)
         );
-        console.log("Missing data feeds: " + missingDataFeeds);
+        console.log("Missing data feeds: " + missingDataFeeds.join(","));
       }
 
       if (timestampFromIdDiff > 10000) {

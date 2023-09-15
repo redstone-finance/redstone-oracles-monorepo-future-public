@@ -5,6 +5,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 const FILE_NAME_WITH_MONGO_DB_URI = "./tmp-mongo-db-uri.log";
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const filePath = process.argv[2] ?? FILE_NAME_WITH_MONGO_DB_URI;
   const mongod = await MongoMemoryServer.create();

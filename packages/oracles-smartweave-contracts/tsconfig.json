@@ -6,7 +6,6 @@
     "declarationMap": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "exactOptionalPropertyTypes": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
@@ -21,7 +20,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2021",
+    "target": "ES2021"
   },
   "include": [
     "src/contracts/redstone-oracle-registry/**/*",
@@ -29,9 +28,5 @@
     "index.ts",
     "src/contracts/redstone-oracle-registry/initial-state.json"
   ],
-  "exclude": [
-    "node_modules",
-    "tools",
-    "test"
-  ]
+  "exclude": ["node_modules", "tools", "test"]
 }

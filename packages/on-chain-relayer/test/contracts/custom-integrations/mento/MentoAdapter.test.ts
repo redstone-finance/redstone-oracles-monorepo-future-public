@@ -30,13 +30,13 @@ describe("MentoAdapter", () => {
   const reportDirectly = async (
     tokenAddress: string,
     valueToReport: number,
-    signer: SignerWithAddress
+    signer: SignerWithAddress,
   ) => {
     const rates = await sortedOracles.getRates(tokenAddress);
     const { lesserKey, greaterKey } = calculateLinkedListPosition(
       rates,
       normalizeValue(valueToReport),
-      signer.address
+      signer.address,
     );
 
     const tx = await sortedOracles
@@ -45,14 +45,14 @@ describe("MentoAdapter", () => {
         tokenAddress,
         normalizeValue(valueToReport),
         lesserKey,
-        greaterKey
+        greaterKey,
       );
     await tx.wait();
   };
 
   const reportWithAdapter = async (
     mockToken1Value: number,
-    mockToken2Value: number
+    mockToken2Value: number,
   ) => {
     // Wrapping contract
     const dataPoints = [
@@ -81,13 +81,13 @@ describe("MentoAdapter", () => {
     // Updating oracle values
     await wrapContract(mentoAdapter).updatePriceValues(
       proposedTimestamp,
-      locationsInSortedLinkedLists
+      locationsInSortedLinkedLists,
     );
   };
 
   const expectOracleValues = async (
     tokenAddress: string,
-    expectedValues: number[]
+    expectedValues: number[],
   ) => {
     const [, oracleValues] = await sortedOracles.getRates(tokenAddress);
     const expectedValuesNormalized = expectedValues.map(normalizeValue);
@@ -103,20 +103,19 @@ describe("MentoAdapter", () => {
     sortedOracles = await deployMockSortedOracles();
 
     // Deploying mento adapter
-    const MentoAdapterFactory = await ethers.getContractFactory(
-      "MentoAdapterMock"
-    );
+    const MentoAdapterFactory =
+      await ethers.getContractFactory("MentoAdapterMock");
     mentoAdapter = await MentoAdapterFactory.deploy(sortedOracles.address);
     await mentoAdapter.deployed();
 
     // Registering data feeds
     await mentoAdapter.setDataFeed(
       formatBytes32String("MOCK1"),
-      mockToken1Address
+      mockToken1Address,
     );
     await mentoAdapter.setDataFeed(
       formatBytes32String("MOCK2"),
-      mockToken2Address
+      mockToken2Address,
     );
   });
 

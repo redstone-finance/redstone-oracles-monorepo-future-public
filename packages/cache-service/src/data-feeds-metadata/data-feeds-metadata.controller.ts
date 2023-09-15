@@ -7,5 +7,6 @@ const DATA_FEEDS__METADATA_GITHUB_URL =
 export class DataFeedsMetadataController {
   @Get()
   @Redirect(DATA_FEEDS__METADATA_GITHUB_URL)
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   getSymbolsMetadata() {}
 }
