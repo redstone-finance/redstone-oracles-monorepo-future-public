@@ -11,7 +11,7 @@ export class FuelConnector {
   constructor(protected providerUrl: string | undefined) {}
 
   getGasLimit(): number {
-    return !!this.providerUrl?.indexOf("127.0.0.1") ? 0 : FUEL_BASE_GAS_LIMIT;
+    return this.providerUrl?.indexOf("127.0.0.1") ? 0 : FUEL_BASE_GAS_LIMIT;
   }
 
   async getBlockNumber(): Promise<number> {
@@ -23,11 +23,12 @@ export class FuelConnector {
       "query LatestBlockHeight { chain { latestBlock {  header { height, time } } } }";
 
     const response = await axios({
-      url: this.providerUrl,
+      url: this.providerUrl!,
       method: "POST",
       data: { query: LATEST_BLOCK_QUERY },
     });
 
+    // eslint-disable-next-line
     return response.data.data.chain.latestBlock.header;
   }
 }

@@ -14,14 +14,13 @@ export class FuelPricesContractConnector extends FuelContractConnector<IPricesCo
     super(wallet);
   }
 
-  async getContract(): Promise<FuelPricesContract> {
+  getContract(): FuelPricesContract {
     return PricesAbi__factory.connect(this.contractId, this.wallet!);
   }
 
-  async getAdapter(): Promise<IPricesContractAdapter> {
-    return new FuelPricesContractAdapter(
-      await this.getContract(),
-      this.getGasLimit()
+  getAdapter(): Promise<IPricesContractAdapter> {
+    return Promise.resolve(
+      new FuelPricesContractAdapter(this.getContract(), this.getGasLimit())
     );
   }
 }

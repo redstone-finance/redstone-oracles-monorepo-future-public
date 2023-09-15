@@ -2,10 +2,11 @@ import { utils } from "ethers";
 import { priceFeedAddresses } from "../config/price-feed-addresses";
 import { ContractConnectorFactory } from "../starknet/ContractConnectorFactory";
 import { config } from "../config";
-import { getNumberFromStarknet } from "@redstone-finance/starknet-connector";
+import { getNumberFromStarknetResult } from "@redstone-finance/starknet-connector";
 
 const priceFeeds = priceFeedAddresses[config.priceManagerVersion];
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises -- Disabled for scripts
 (async () => {
   for (const feedAddress of [priceFeeds.BTC, priceFeeds.ETH]) {
     try {
@@ -16,7 +17,7 @@ const priceFeeds = priceFeedAddresses[config.priceManagerVersion];
       ).readLatestRoundData();
 
       const price = utils.formatUnits(
-        getNumberFromStarknet(latestRoundData.answer),
+        getNumberFromStarknetResult(latestRoundData.answer),
         8
       );
 

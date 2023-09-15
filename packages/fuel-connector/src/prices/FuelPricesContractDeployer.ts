@@ -98,21 +98,19 @@ export class FuelPricesContractDeployer extends FuelContractConnector<IPricesCon
 
   private getStorageSlots() {
     const FAKE_TIMESTAMP_KEY = "0x66616b655f74696d657374616d70"; // fake_timestamp
-    let storageSlots = [];
+    const storageSlots = [];
 
-    if (this.parameters != null) {
-      if (this.parameters.fakeTimestamp != null) {
-        storageSlots.push({
-          key: FAKE_TIMESTAMP_KEY,
-          value: hexlify(this.parameters.fakeTimestamp),
-        });
-      }
+    if (this.parameters.fakeTimestamp != null) {
+      storageSlots.push({
+        key: FAKE_TIMESTAMP_KEY,
+        value: hexlify(this.parameters.fakeTimestamp),
+      });
     }
 
     return storageSlots.map(({ key, value }) => {
       return {
-        key: hexZeroPad(key, 32) as string,
-        value: hexZeroPad(value, 32) as string,
+        key: hexZeroPad(key, 32),
+        value: hexZeroPad(value, 32),
       };
     });
   }
@@ -128,7 +126,9 @@ class PricesContractFactory extends ContractFactory {
     super(bytecode, abi, walletOrProvider);
   }
 
-  createTransactionRequest(deployContractOptions?: DeployContractOptions): {
+  override createTransactionRequest(
+    deployContractOptions?: DeployContractOptions
+  ): {
     contractId: string;
     transactionRequest: CreateTransactionRequest;
   } {

@@ -1,16 +1,12 @@
 import { AccountInterface } from "starknet";
 import prices_abi from "./prices_abi.json";
-import { IContractConnector } from "redstone-sdk";
 import { StarknetPricesContractAdapter } from "./StarknetPricesContractAdapter";
 import {
   NetworkName,
   StarknetContractConnector,
 } from "../StarknetContractConnector";
 
-export class StarknetPricesContractConnector
-  extends StarknetContractConnector
-  implements IContractConnector<StarknetPricesContractAdapter>
-{
+export class StarknetPricesContractConnector extends StarknetContractConnector<StarknetPricesContractAdapter> {
   constructor(
     account: AccountInterface | undefined,
     contractAddress: string,
@@ -19,7 +15,9 @@ export class StarknetPricesContractConnector
     super(account, contractAddress, prices_abi, network);
   }
 
-  async getAdapter(): Promise<StarknetPricesContractAdapter> {
-    return new StarknetPricesContractAdapter(await this.getContract());
+  getAdapter(): Promise<StarknetPricesContractAdapter> {
+    return Promise.resolve(
+      new StarknetPricesContractAdapter(this.getContract())
+    );
   }
 }
