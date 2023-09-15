@@ -1,4 +1,7 @@
-import { ContractParamsProvider, IPricesContractAdapter } from "redstone-sdk";
+import {
+  ContractParamsProvider,
+  IPricesContractAdapter,
+} from "@redstone-finance/sdk";
 import { FuelPricesContract } from "./FuelPricesContractConnector";
 import { num, u256 } from "../u256-utils";
 import { InvocationResult } from "fuels";

@@ -6,7 +6,7 @@ import { BN, ContractFactory, hexlify, hexZeroPad, WalletLocked } from "fuels";
 import { FuelPricesContractAdapter } from "./FuelPricesContractAdapter";
 import { FuelContractConnector } from "../FuelContractConnector";
 import { FuelPricesContract } from "./FuelPricesContractConnector";
-import { IPricesContractAdapter } from "redstone-sdk";
+import { IPricesContractAdapter } from "@redstone-finance/sdk";
 import { BytesLike } from "@ethersproject/bytes";
 import { Interface, JsonAbi } from "@fuel-ts/abi-coder";
 import { CreateTransactionRequest, Provider } from "@fuel-ts/providers";

@@ -6,7 +6,7 @@ import {
   ScoreType,
   UniversalSigner,
   prepareMessageToSign,
-} from "redstone-protocol";
+} from "@redstone-finance/protocol";
 import { BaseWrapper } from "./BaseWrapper";
 import { version } from "../../package.json";
 

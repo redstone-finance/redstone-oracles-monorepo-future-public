@@ -2,7 +2,7 @@ import {
   INumericDataPoint,
   DataPackage,
   NumericDataPoint,
-} from "redstone-protocol";
+} from "@redstone-finance/protocol";
 import {
   MAX_MOCK_SIGNERS_COUNT,
   getMockSignerAddress,

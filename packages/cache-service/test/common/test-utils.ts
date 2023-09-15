@@ -1,4 +1,4 @@
-import { UniversalSigner } from "redstone-protocol";
+import { UniversalSigner } from "@redstone-finance/protocol";
 import { MOCK_PRIVATE_KEY } from "./mock-values";
 
 export const signByMockSigner = (signableData: any): string => {

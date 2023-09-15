@@ -1,9 +1,12 @@
 import { BigNumber } from "ethers";
-import { INumericDataPoint } from "redstone-protocol";
-import { DataPackagesResponse, ValuesForDataFeeds } from "redstone-sdk";
+import { INumericDataPoint } from "@redstone-finance/protocol";
+import {
+  DataPackagesResponse,
+  ValuesForDataFeeds,
+} from "@redstone-finance/sdk";
 import { RelayerConfig } from "../../types";
 import { formatUnits } from "ethers/lib/utils";
-import { MathUtils } from "redstone-utils";
+import { MathUtils } from "@redstone-finance/utils";
 
 const DEFAULT_DECIMALS = 8;
 

@@ -6,7 +6,7 @@ import {
   Provider,
   TransactionFinalityStatus,
 } from "starknet";
-import { IContractConnector } from "redstone-sdk";
+import { IContractConnector } from "@redstone-finance/sdk";
 
 export enum NetworkName {
   SN_MAIN = "SN_MAIN",

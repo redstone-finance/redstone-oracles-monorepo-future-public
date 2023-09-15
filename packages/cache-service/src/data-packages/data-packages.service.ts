@@ -4,12 +4,12 @@ import {
   UniversalSigner,
   consts,
   recoverDeserializedSignerAddress,
-} from "redstone-protocol";
+} from "@redstone-finance/protocol";
 import {
   DataPackagesRequestParams,
   getDataServiceIdForSigner,
   parseDataPackagesResponse,
-} from "redstone-sdk";
+} from "@redstone-finance/sdk";
 import config from "../config";
 import {
   BulkPostRequestBody,
@@ -22,7 +22,7 @@ import { makePayload } from "../utils/make-redstone-payload";
 import { getOracleState } from "../utils/get-oracle-state";
 import { BundlrService } from "../bundlr/bundlr.service";
 import { runPromiseWithLogging } from "../utils/utils";
-import { RedstoneCommon } from "redstone-utils";
+import { RedstoneCommon } from "@redstone-finance/utils";
 
 // Cache TTL can slightly increase the data delay, but having efficient
 // caching is crucial for the app performance. Assuming, that we have 10s

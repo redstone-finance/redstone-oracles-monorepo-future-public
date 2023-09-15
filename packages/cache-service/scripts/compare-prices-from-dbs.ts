@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { DataPointPlainObj, consts } from "redstone-protocol";
+import { DataPointPlainObj, consts } from "@redstone-finance/protocol";
 import { CachedDataPackage } from "../src/data-packages/data-packages.model";
 import {
   formatTime,

@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import { WrapperBuilder } from "../../src/index";
-import { utils } from "redstone-protocol";
+import { utils } from "@redstone-finance/protocol";
 import { mockNumericPackages } from "../tests-common";
-import { consts } from "redstone-protocol";
+import { consts } from "@redstone-finance/protocol";
 
 describe("PopulateTransactionTest", function () {
   it("Should overwrite populateTransaction", async () => {

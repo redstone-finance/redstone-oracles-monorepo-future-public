@@ -2,7 +2,7 @@ import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Deferrable } from "@ethersproject/properties";
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { utils } from "ethers";
-import { RedstoneCommon } from "redstone-utils";
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { sleepMS } from "./common";
 import {
   PROVIDER_OPERATION_TIMEOUT,

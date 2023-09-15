@@ -2,7 +2,7 @@ import {
   DataPackage,
   SignedDataPackage,
   RedstonePayload,
-} from "redstone-protocol";
+} from "@redstone-finance/protocol";
 import {
   MockSignerAddress,
   getMockSignerPrivateKey,

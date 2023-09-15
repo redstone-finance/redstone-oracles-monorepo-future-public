@@ -2,7 +2,7 @@ import chai, { expect } from "chai";
 import { ethers } from "hardhat";
 import { SampleRedstoneConsumerNumericMock } from "../../typechain-types";
 import { WrapperBuilder } from "../../src/index";
-import { utils } from "redstone-protocol";
+import { utils } from "@redstone-finance/protocol";
 import { mockNumericPackages } from "../tests-common";
 import chaiAsPromised from "chai-as-promised";
 

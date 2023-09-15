@@ -1,5 +1,5 @@
 import { mockSignedDataPackageObjects } from "../tests-common";
-import { SignedDataPackage } from "redstone-protocol";
+import { SignedDataPackage } from "@redstone-finance/protocol";
 
 const singedDataPackageObj = mockSignedDataPackageObjects;
 

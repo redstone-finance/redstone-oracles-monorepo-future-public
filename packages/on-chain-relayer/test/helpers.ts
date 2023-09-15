@@ -5,8 +5,8 @@ import {
   DataPackage,
   INumericDataPoint,
   NumericDataPoint,
-} from "redstone-protocol";
-import { DataPackagesResponse } from "redstone-sdk";
+} from "@redstone-finance/protocol";
+import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { formatBytes32String } from "ethers/lib/utils";
 import { setConfigProvider } from "../src";
 import { ethers } from "hardhat";

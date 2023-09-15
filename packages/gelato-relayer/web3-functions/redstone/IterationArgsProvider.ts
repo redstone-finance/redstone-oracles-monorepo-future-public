@@ -9,7 +9,7 @@ import {
   RedstoneAdapterBase,
   setConfigProvider,
   UpdatePricesArgs,
-} from "redstone-on-chain-relayer";
+} from "@redstone-finance/on-chain-relayer";
 import {
   IterationArgs,
   IterationArgsProviderEnv,

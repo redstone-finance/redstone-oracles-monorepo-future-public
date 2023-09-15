@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 import { expect } from "chai";
 import { SampleProxyConnector } from "../../typechain-types";
 import { WrapperBuilder } from "../../src";
-import { utils } from "redstone-protocol";
+import { utils } from "@redstone-finance/protocol";
 import {
   expectedNumericValues,
   mockNumericPackages,
