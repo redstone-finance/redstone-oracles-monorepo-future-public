@@ -20,7 +20,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "chainlink",
         "coinbaseprime",
         "coinbasepro",
@@ -32,7 +31,6 @@
         "kraken",
         "kucoin",
         "lbank",
-        "oceanex",
         "okx",
         "poloniex",
         "probit"
@@ -42,14 +40,12 @@
       "source": [
         "bitfinex2",
         "bittrex",
-        "cex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "currencycom",
         "kaiko",
-        "kraken",
-        "uniswap"
+        "kraken"
       ]
     },
     "USDC": {
@@ -57,7 +53,6 @@
         "bitfinex2",
         "bittrex",
         "btcturk",
-        "cex",
         "coingecko",
         "currencycom",
         "huobipro",
@@ -67,8 +62,7 @@
         "lbank",
         "okx",
         "probit",
-        "sushiswap",
-        "uniswap"
+        "sushiswap"
       ]
     }
   }
