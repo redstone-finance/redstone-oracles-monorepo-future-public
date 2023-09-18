@@ -1,0 +1,9 @@
+const ERR_UNKNOWN_OP_NUMBER = 1001;
+const ERR_ADDRESS_MISMATCH = 398;
+const ERR_MISSING_DATA = 666;
+
+const OP_NUMBER_BITS = 256; ;; number of bits in op number
+
+const OP_REDSTONE_WRITE_PRICES = 0x479227d578c45748b6c76eac834302019001b3ee2362a2921a367b76dee3760e; ;; keccak(RedStone_Write_Prices)
+const OP_REDSTONE_FETCH_DATA = 0x31a4a6560a71d9b83d4e2fe08cf460dc0163a78ca5cb069320b889323e60271f; ;; keccak(RedStone_Fetch_Data)
+const OP_REDSTONE_DATA_FETCHED = 0x935fa9d12c36fe0497717d21bb640dab03970ebf4952f582dbba462a76985802; ;; keccak(RedStone_Data_Fetched)

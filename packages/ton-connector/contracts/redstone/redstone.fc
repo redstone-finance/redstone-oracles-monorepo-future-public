@@ -1,0 +1,46 @@
+#include "constants.fc";
+#include "crypto.fc";
+#include "slice.fc";
+
+(int, int, int)parse_data_package(slice data);
+
+(int)get_data_package_signer_address(slice data, slice signature) {
+    var hash = keccak(data, 1);
+
+    return recover_address(hash, signature);
+}
+
+(int, int, int, int)get_data_package_values(cell data_package) {
+    slice data_package_cell = data_package.begin_parse();
+    cell data_cell = data_package_cell~load_ref();
+    slice data = data_cell.begin_parse();
+
+    int address = get_data_package_signer_address(data, data_package_cell);
+    var (feed_id, value, timestamp) = parse_data_package(data);
+
+    return (address, feed_id, value, timestamp);
+}
+
+(int, int, int)parse_data_package(slice data) {
+    int dp_count = data~slice_uint(DATA_POINTS_COUNT_BITS);
+    throw_unless(ERR_DATA_NOT_SUPPORTED_BASE + dp_count, dp_count == 1);
+
+    int value_size_bits = data~slice_uint(DATA_POINT_VALUE_BYTE_SIZE_BITS) * 8;
+    throw_unless(ERR_DATA_NOT_SUPPORTED_BASE + value_size_bits, value_size_bits <= MAX_VALUE_SIZE_BITS);
+    throw_unless(ERR_DATA_NOT_SUPPORTED_BASE + value_size_bits, value_size_bits > 0);
+
+    int timestamp = data~slice_uint(TIMESTAMP_BITS);
+    int value = data~slice_uint(value_size_bits);
+    int feed_id = data~slice_uint(DATA_FEED_ID_BITS);
+
+    if (feed_id != 0) {
+        while(feed_id == (feed_id / 256) * 256) {
+            feed_id = feed_id / 256;
+        }
+    }
+
+    throw_unless(ERR_DATA_NOT_EMPTY, data.slice_data_empty?());
+
+    return (feed_id, value, timestamp);
+}
+

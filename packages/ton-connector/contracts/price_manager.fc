@@ -1,0 +1,128 @@
+#include "stdlib.fc";
+
+#include "utils/utils.fc";
+#include "utils/op.fc";
+#include "utils/dict.fc";
+
+#include "redstone/processor.fc";
+#include "redstone/redstone.fc";
+#include "redstone/tuple.fc";
+#include "redstone/constants.fc";
+
+;; =============== storage =============================
+
+global int timestamp;
+global int signer_count_threshold;
+global cell signers;
+global cell values_dict;
+
+() load_data() impure {
+    cell data = get_data();
+    slice ds = data.begin_parse();
+
+    signer_count_threshold = ds~load_uint(8);
+    timestamp = ds~load_uint(TIMESTAMP_BITS);
+    signers = ds~load_ref();
+    values_dict = ds~load_ref();
+}
+
+()save_data() impure {
+    set_data(begin_cell()
+            .store_uint(signer_count_threshold, 8)
+            .store_uint(timestamp, TIMESTAMP_BITS)
+            .store_ref(signers)
+            .store_ref(values_dict)
+            .end_cell());
+}
+
+;; =============== write =============================
+
+(tuple, int)get_prices(tuple data_feed_ids, cell payload) impure;
+
+()write_prices(cell data_feeds_cell, cell payload_cell) impure {
+    tuple data_feeds = data_feeds_cell.tuple_deserialize_integers();
+
+    ~dump(data_feeds);
+
+    var (values, min_timestamp) = get_prices(data_feeds, payload_cell);
+    values_dict = dict_from_keys_and_values(data_feeds, values, DATA_FEED_ID_BITS, MAX_VALUE_SIZE_BITS);
+    timestamp = min_timestamp;
+
+    save_data();
+}
+
+;; =============== messages =============================
+
+() recv_internal(int balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
+    int op = in_msg_body~load_uint(OP_NUMBER_BITS);
+    var cs = in_msg_full.begin_parse();
+    var flags = cs~load_uint(4);
+
+    if (flags & 1) { ;; ignore all bounced messages
+        return ();
+    }
+
+    load_data();
+
+    if (op == OP_REDSTONE_WRITE_PRICES) {
+        cell data_feeds_cell = in_msg_body~load_ref();
+        cell payload_cell = in_msg_body~load_ref();
+
+        write_prices(data_feeds_cell, payload_cell);
+
+        return ();
+    }
+
+    if (op == OP_REDSTONE_FETCH_DATA) {
+        int feed_id = in_msg_body~load_uint(DATA_FEED_ID_BITS);
+
+        slice sender_address = cs~load_msg_addr();
+
+        (slice val_slice, int success) = values_dict.udict_get?(DATA_FEED_ID_BITS, feed_id);
+        throw_unless(ERR_MISSING_DATA, success);
+
+        int value = val_slice~load_uint(MAX_VALUE_SIZE_BITS);
+
+        send_message(OP_REDSTONE_DATA_FETCHED, sender_address, begin_cell().store_uint(value, MAX_VALUE_SIZE_BITS).store_uint(timestamp, TIMESTAMP_BITS));
+
+        return ();
+    }
+
+    throw (ERR_UNKNOWN_OP_NUMBER);
+}
+
+;; =============== getters =============================
+
+(tuple)read_prices(tuple data_feed_ids) method_id {
+    load_data();
+
+    return dict_values_for_keys(values_dict, data_feed_ids, DATA_FEED_ID_BITS, MAX_VALUE_SIZE_BITS, 0);
+}
+
+(int)read_timestamp() method_id {
+    load_data();
+
+    return timestamp;
+}
+
+(tuple, int)get_prices(tuple data_feed_ids, cell payload) method_id {
+    load_data();
+
+    (tuple values, int min_timestamp, builder logs) = process_payload(
+            payload,
+            data_feed_ids,
+            tuple_deserialize_integers(signers),
+            signer_count_threshold,
+            now());
+
+    ~dump(values);
+    ~dump(min_timestamp);
+
+    return (values, min_timestamp);
+}
+
+(cell)get_prices_v2(cell data_feed_ids, cell payload) method_id {
+    (tuple values, _) = get_prices(tuple_deserialize_integers(data_feed_ids), payload);
+
+    return values.tuple_to_cell(MAX_VALUE_SIZE_BITS);
+}
