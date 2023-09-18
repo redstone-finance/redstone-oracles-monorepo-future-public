@@ -1,0 +1,93 @@
+#include "constants.fc";
+#include "redstone.fc";
+#include "validation.fc";
+#include "tuple.fc";
+
+const MATRIX_KEY_LEN = 8;
+
+(tuple)verify_and_aggregate_results(cell matrix, int data_feeds_len, int signers_len, int signer_count_threshold);
+(cell, int, builder)make_matrix_with_log(slice payload_slice, int expected_data_package_count, tuple data_feed_ids, tuple signers, int current_timestamp);
+
+(tuple, int, builder)process_payload(cell payload, tuple data_feed_ids, tuple signers, int signer_count_threshold, int current_timestamp) impure {
+    slice payload_slice = payload.begin_parse();
+
+    int data_package_count = payload_slice~load_int(DATA_PACKAGES_COUNT_BITS);
+    int marker = payload_slice~slice_uint(REDSTONE_MARKER_BITS);
+
+    throw_unless(ERR_WRONG_REDSTONE_MARKER, marker == REDSTONE_MARKER);
+
+    var (matrix, min_timestamp, log) = make_matrix_with_log(payload_slice, data_package_count, data_feed_ids, signers, current_timestamp);
+
+    tuple result = verify_and_aggregate_results(matrix, data_feed_ids.tlen(), signers.tlen(), signer_count_threshold);
+
+    return (result, min_timestamp, log);
+}
+
+(tuple)verify_and_aggregate_results(cell matrix, int data_feeds_len, int signers_len, int signer_count_threshold) {
+    tuple result = empty_tuple();
+    int feed_index = 0;
+    while(feed_index < data_feeds_len) {
+        int signer_index = 0;
+        tuple values = empty_tuple();
+        while(signer_index < signers_len) {
+            (slice payl, int success) = matrix.udict_get?(MATRIX_KEY_LEN, signers_len * feed_index + signer_index);
+            if(success == true) {
+                values~tpush(payl~load_int(MAX_VALUE_SIZE_BITS));
+            }
+            signer_index += 1;
+        }
+
+        ~dump(values);
+        throw_unless(ERR_UNIQUE_SIGNERS_THRESHOLD_NOT_ACHIEVED_BASE + feed_index, values.tlen() >= signer_count_threshold);
+        result~tpush(values.median());
+        feed_index += 1;
+    }
+
+    return result;
+}
+
+(cell, int, builder)make_matrix_with_log(slice payload_slice, int expected_data_package_count, tuple data_feed_ids, tuple signers, int current_timestamp) {
+    builder log = begin_cell();
+    cell matrix = new_dict();
+    int min_timestamp = 0xFFFFFFFFFFFFFFFF;
+
+    int k = 0;
+    while (payload_slice.slice_refs_empty?() != true) {
+        cell inner_cell = payload_slice~load_ref();
+        slice inner_slice = inner_cell.begin_parse();
+
+        builder log_inner = begin_cell();
+
+        while(inner_slice.slice_refs_empty?() != true) {
+            cell dp_cell = inner_slice~load_ref();
+
+            var (address, feed_id, value, timestamp) = get_data_package_values(dp_cell);
+
+            validate_timestamp(k, timestamp / 1000, current_timestamp);
+            int signer_index = signers.index_of(address);
+            int feed_index = data_feed_ids.index_of(feed_id);
+
+            if ((signer_index != UNKNOWN_INDEX) & (feed_index != UNKNOWN_INDEX)) {
+                int index = signers.tlen() * feed_index + signer_index;
+                matrix~udict_set(MATRIX_KEY_LEN, index, begin_cell().store_int(value, MAX_VALUE_SIZE_BITS).end_cell().begin_parse());
+                min_timestamp = min(min_timestamp, timestamp);
+            }
+
+            cell log_values = begin_cell()
+                    .store_ref(begin_cell().store_int(signer_index, 8).store_int(address, ADDRESS_BITS + 8).end_cell()) ;; wtf
+                    .store_ref(begin_cell().store_int(feed_index, 8).store_int(feed_id, DATA_FEED_ID_BITS).end_cell())
+                    .store_ref(begin_cell().store_int(value, MAX_VALUE_SIZE_BITS).end_cell())
+                    .store_ref(begin_cell().store_int(timestamp / 1000, TIMESTAMP_BITS).store_int(current_timestamp, TIMESTAMP_BITS).end_cell())
+                    .end_cell();
+
+            k += 1;
+            log_inner = log_inner.store_ref(log_values);
+        }
+
+        log = log.store_ref(log_inner.end_cell());
+    }
+
+    throw_unless(ERR_WRONG_DATA_PACKAGE_COUNT_BASE + k, expected_data_package_count == k);
+
+    return (matrix, min_timestamp, log);
+}

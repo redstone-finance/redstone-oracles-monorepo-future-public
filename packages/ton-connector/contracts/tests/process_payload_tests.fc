@@ -1,0 +1,18 @@
+#include "../stdlib.fc";
+#include "../redstone/processor.fc";
+#include "../redstone/crypto.fc";
+
+() recv_internal(int balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
+    ;; nop;
+}
+
+(tuple, int)test_process_payload(tuple data_feed_ids, tuple signers, int signer_count_threshold, int current_timestamp, cell payload) method_id {
+    (tuple values, int min_timestamp, builder logs) = process_payload(
+            payload,
+            data_feed_ids,
+            signers,
+            signer_count_threshold,
+            current_timestamp);
+
+    return (values, min_timestamp);
+}

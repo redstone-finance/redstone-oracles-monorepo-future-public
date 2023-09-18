@@ -1,0 +1,54 @@
+#include "op.fc";
+
+;;
+;; Basic workchain addresses
+;;
+
+int err::invalid_address() asm "72 PUSHINT";
+
+int parse_work_addr(slice cs) impure {
+    (int sender_wc, slice sender_addr) = parse_var_addr(cs);
+    ;; checking if is an address from the Basechain only
+    ;; to learn more about this check out the official doc here
+    ;; https://docs.ton.org/learn/overviews/ton-blockchain
+    throw_unless(err::invalid_address(), 0 == sender_wc);
+    return sender_addr~load_uint(256);
+}
+
+;;
+;; Send modes
+;;
+
+int send_mode::default() asm "0 PUSHINT";
+
+(slice) serialize_work_addr(int addr) {
+    return (begin_cell()
+            .store_uint(2, 2) ;; Is std address
+            .store_uint(0, 1) ;; Non-unicast
+            .store_uint(0, 8) ;; Basic workchain
+            .store_uint(addr, 256) ;; Address hash
+    ).end_cell().begin_parse();
+}
+
+() send_message(
+        int op_number,
+        slice to_addr,
+        builder content
+) impure {
+    parse_work_addr(to_addr);
+
+    var body = begin_cell()
+            .store_uint(op_number, OP_NUMBER_BITS)
+            .store_builder(content)
+            .end_cell();
+
+    var msg = begin_cell()
+            .store_uint(0x10, 6)
+            .store_slice(to_addr)
+            .store_coins(10000000)
+            .store_uint(1, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+            .store_ref(body)
+            .end_cell();
+
+    send_raw_message(msg, send_mode::default());
+}

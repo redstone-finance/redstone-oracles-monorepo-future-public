@@ -20,6 +20,10 @@
     "prettier": "^3.0.3",
     "redstone-prettier-config": "^1.0.0"
   },
+  "resolutions": {
+    "@ton-community/func-js-bin": "0.4.5-tvmbeta.1",
+    "@ton-community/func-js": "0.6.3-tvmbeta.1"
+  },
   "private": true,
   "workspaces": {
     "packages": [
