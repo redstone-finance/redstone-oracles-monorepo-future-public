@@ -1,0 +1,16 @@
+#include "constants.fc";
+
+const MAX_DATA_TIMESTAMP_DELAY_SECONDS = 900; ;; 15 * 60
+const MAX_DATA_TIMESTAMP_AHEAD_SECONDS = 180; ;; 3 * 60
+
+(int)validate_timestamp(int index, int timestamp, int current_timestamp) impure {
+    if (current_timestamp > timestamp) {
+        throw_if(ERR_TIMESTAMP_OUT_OF_RANGE_BASE + index, current_timestamp - timestamp > MAX_DATA_TIMESTAMP_DELAY_SECONDS);
+    }
+
+    if (timestamp > current_timestamp) {
+        throw_if(ERR_TIMESTAMP_OUT_OF_RANGE_BASE + index + 50, timestamp - current_timestamp > MAX_DATA_TIMESTAMP_AHEAD_SECONDS);
+    }
+
+    return true;
+}

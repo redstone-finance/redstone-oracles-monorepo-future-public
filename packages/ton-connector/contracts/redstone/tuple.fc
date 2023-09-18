@@ -1,0 +1,122 @@
+#include "constants.fc";
+#include "slice.fc";
+
+const UNKNOWN_INDEX = -100;
+
+(int) tlen (tuple t) asm "TLEN";
+forall X -> (tuple, X) ~tpop (tuple t) asm "TPOP";
+
+;; forall X -> tuple set_at(tuple t, X value, int index) asm "SETINDEXVAR";
+;; my_tuple~set_at(1, index);
+
+(int)index_of(tuple vec, int value) {
+    int n = vec.tlen() - 1;
+    int k = 0;
+    while (vec.tlen() > 0) {
+        if (vec~tpop() == value) {
+            return n - k;
+        }
+        k += 1;
+    }
+
+    return UNKNOWN_INDEX;
+}
+
+
+(tuple)sort(tuple vec) {
+    tuple res = empty_tuple();
+
+    repeat (vec.tlen()) {
+        tuple tmp = empty_tuple();
+        int min_elt = vec~tpop();
+
+        while (vec.tlen() > 0) {
+            (min_elt, int b) = minmax(min_elt, vec~tpop());
+
+            tmp~tpush(b);
+        }
+
+        res~tpush(min_elt);
+        vec = tmp;
+    }
+
+    return res;
+}
+
+(int)median(tuple vec) {
+    int n = vec.tlen();
+
+    throw_unless(ERR_TUPLE_EMPTY, n > 0);
+
+    if(n == 1) {
+        return vec.first();
+    } else {
+        var (q, r) = (n / 2, n % 2);
+        tuple sorted = vec.sort();
+
+        if (r == 1) {
+            return sorted.at(q);
+        } else {
+            return (sorted.at(q) + sorted.at(q - 1)) / 2;
+        }
+    }
+}
+
+(cell)tuple_to_cell(tuple t, int value_size) {
+    int values_per_cell = (1023 / value_size);
+    builder res = begin_cell();
+
+    builder tmp = begin_cell();
+    int i = 0;
+    while (i < t.tlen()) {
+        tmp~store_int(t.at(i), value_size);
+        i += 1;
+
+        if(i % values_per_cell == 0) {
+            if (i > values_per_cell) {
+                res = res.store_ref(tmp.end_cell());
+            } else {
+                res = res.store_builder(tmp);
+            }
+            tmp = begin_cell();
+        }
+    }
+
+    if (i > values_per_cell) {
+        res = res.store_ref(tmp.end_cell());
+    } else {
+        res = res.store_builder(tmp);
+    }
+
+    return res.end_cell();
+}
+
+(tuple)tuple_reversed(tuple t1) {
+    tuple t2 = empty_tuple();
+    repeat (t1.tlen()) {
+        var value = t1~tpop();
+        t2~tpush(value);
+    }
+    return t2;
+}
+
+(tuple)tuple_deserialize_integers(cell c) {
+    slice s = c.begin_parse();
+    tuple result = empty_tuple();
+
+    int length = s~load_int(24);
+
+    throw_unless(ERR_LENGTH_OVERFLOW, length <= 255);
+
+    repeat length {
+        int k = s.preload_int(15);
+        int size = k == 0x0100 ? 257 : 64;
+        int v = s~slice_int(size);
+        result~tpush(v);
+
+        cell c = s~load_ref();
+        s = c.begin_parse();
+    }
+
+    return result.tuple_reversed();
+}
