@@ -10,7 +10,7 @@ export const fetchLatestTimestampFromLocal = async (
   );
   const latestDataPackages = responseFromCache.data;
   const latestTimestamp =
-    latestDataPackages[Object.keys(latestDataPackages)[0]][0]
-      .timestampMilliseconds;
+    latestDataPackages[Object.keys(latestDataPackages)[0]]?.[0]
+      ?.timestampMilliseconds;
   return latestTimestamp;
 };

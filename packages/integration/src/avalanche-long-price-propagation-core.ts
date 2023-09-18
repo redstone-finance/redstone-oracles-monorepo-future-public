@@ -8,6 +8,7 @@ const REMOVED_DATA_FEEDS = [
   "XAVA",
   "LINK",
   "USDT.e",
+  "SHLB_USDT.e-USDt_C",
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
