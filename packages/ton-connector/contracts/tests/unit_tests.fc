@@ -1,0 +1,32 @@
+#include "../stdlib.fc";
+#include "../redstone/redstone.fc";
+#include "../redstone/tuple.fc";
+#include "../redstone/slice.fc";
+
+() recv_internal(int balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
+    ;; nop;
+}
+
+(int)test_get_data_package_signer_address(slice data, slice signature) method_id {
+    return get_data_package_signer_address(data, signature);
+}
+
+(int)test_median(tuple vec) method_id {
+    return median(vec);
+}
+
+(slice, int)test_slice_uint(slice data, int len) method_id {
+    return slice_uint(data, len);
+}
+
+(slice, int)test_slice_int(slice data, int len) method_id {
+    return slice_int(data, len);
+}
+
+(int, int, int)test_parse_data_package(slice data) method_id {
+    return parse_data_package(data);
+}
+
+(tuple)test_tuple_deserialize_integers(cell c) method_id {
+    return tuple_deserialize_integers(c);
+}

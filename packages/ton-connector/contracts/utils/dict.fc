@@ -1,0 +1,38 @@
+#include "../redstone/tuple.fc";
+
+(cell)dict_from_keys_and_values(tuple keys, tuple values, int key_len, int value_len) {
+    throw_unless(666, keys.tlen() == values.tlen());
+
+    cell dict = new_dict();
+
+    int i = 0;
+    while (i < keys.tlen()) {
+        int key = keys.at(i);
+        int val = values.at(i);
+
+        slice val_slice = begin_cell().store_uint(val, value_len).end_cell().begin_parse();
+
+        dict~udict_set(key_len, key, val_slice);
+
+        i += 1;
+    }
+
+    return dict;
+}
+
+(tuple)dict_values_for_keys(cell dict, tuple keys, int key_len, int value_len, int default_value) {
+    tuple result = empty_tuple();
+
+    int i = 0;
+    while (i < keys.tlen()) {
+        int key = keys.at(i);
+        (slice val_slice, int success) = dict.udict_get?(key_len, key);
+
+        int value = success == true ? val_slice~load_uint(value_len) : default_value;
+        result~tpush(value);
+
+        i += 1;
+    }
+
+    return result;
+}
