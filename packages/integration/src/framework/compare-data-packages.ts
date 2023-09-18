@@ -9,7 +9,7 @@ import {
 } from "./run-long-price-propagation-core-test";
 
 export interface DataPackages {
-  [dataFeedId: string]: Array<DataPackagePlainObj>;
+  [dataFeedId: string]: Array<DataPackagePlainObj> | undefined;
 }
 
 interface SourceMetadata {
@@ -41,6 +41,7 @@ const compareValuesInDataPackages = (
   for (const [dataFeedId, allFeedObjectsFromProd] of Object.entries(
     dataPackagesFromProd
   )) {
+    console.log(`Comparing values in data packages for ${dataFeedId}`);
     if (
       removedDataFeeds?.includes(dataFeedId) ||
       dataFeedsNotWorkingLocally?.includes(dataFeedId)
@@ -79,16 +80,21 @@ const compareValuesInDataPackages = (
 const compareValuesFromSmallPackagesAndLocalCache = (
   dataPackagesFromLocal: DataPackages,
   dataFeedId: string,
-  allFeedObjectsFromProd: DataPackagePlainObj[]
+  allFeedObjectsFromProd: DataPackagePlainObj[] | undefined
 ) => {
-  const dataPointValueFromLocal =
-    dataPackagesFromLocal[dataFeedId][0].dataPoints[0].value;
-  const deviations = allFeedObjectsFromProd.reduce(
+  const dataFeedValueFromLocal =
+    dataPackagesFromLocal[dataFeedId]?.[0]?.dataPoints[0]?.value;
+  if (!dataFeedValueFromLocal) {
+    console.log(`Missing data feed in local for ${dataFeedId}`);
+    // Returning deviation as 100% in order to throw error in checkValuesDeviations
+    return 100;
+  }
+  const deviations = (allFeedObjectsFromProd ?? []).reduce(
     (deviations, { dataPoints }) => {
-      if (areBothValuesValid(dataPointValueFromLocal, dataPoints[0].value)) {
+      if (areBothValuesValid(dataFeedValueFromLocal, dataPoints[0].value)) {
         deviations.push(
           MathUtils.calculateDeviationPercent({
-            newValue: dataPointValueFromLocal,
+            newValue: dataFeedValueFromLocal,
             prevValue: dataPoints[0].value,
           })
         );
@@ -103,14 +109,14 @@ const compareValuesFromSmallPackagesAndLocalCache = (
 const compareSourcesValuesFromProdAndLocal = (
   dataPackagesFromLocal: DataPackages,
   dataFeedId: string,
-  allFeedObjectsFromProd: DataPackagePlainObj[]
+  allFeedObjectsFromProd: DataPackagePlainObj[] | undefined
 ) => {
   const deviationsPerSource: DeviationsPerSource = {};
-  const dataPointsFromLocal = dataPackagesFromLocal[dataFeedId][0].dataPoints;
-  const sourceMetadataFromLocal = dataPointsFromLocal[0]?.metadata
+  const dataPointsFromLocal = dataPackagesFromLocal[dataFeedId]?.[0].dataPoints;
+  const sourceMetadataFromLocal = dataPointsFromLocal?.[0]?.metadata
     ?.sourceMetadata as SourceMetadata | undefined;
 
-  for (const { dataPoints } of allFeedObjectsFromProd) {
+  for (const { dataPoints } of allFeedObjectsFromProd ?? []) {
     const sourceMetadataFromProd = dataPoints[0]?.metadata?.sourceMetadata as
       | SourceMetadata
       | undefined;
@@ -139,13 +145,13 @@ const compareSourcesValuesFromProdAndLocal = (
 };
 
 const compareValuesFromBigPackageAndLocalCache = (
-  allFeedObjectsFromProd: DataPackagePlainObj[],
+  allFeedObjectsFromProd: DataPackagePlainObj[] | undefined,
   dataPackagesFromLocal: DataPackages,
   removedDataFeeds?: string[],
   dataFeedsNotWorkingLocally?: string[]
 ) => {
   const deviationsPerDataFeed: DeviationsPerDataFeed = {};
-  for (const dataPackage of allFeedObjectsFromProd) {
+  for (const dataPackage of allFeedObjectsFromProd ?? []) {
     for (const dataPoint of dataPackage.dataPoints) {
       const dataFeedId = dataPoint.dataFeedId;
       if (
@@ -154,8 +160,12 @@ const compareValuesFromBigPackageAndLocalCache = (
       ) {
         continue;
       }
-      const dataFeedValueFromLocal =
-        dataPackagesFromLocal[dataFeedId][0].dataPoints[0].value;
+      let dataFeedValueFromLocal =
+        dataPackagesFromLocal[dataFeedId]?.[0]?.dataPoints[0]?.value;
+      if (!dataFeedValueFromLocal) {
+        console.log(`Missing data feed in local for ${dataFeedId}`);
+        dataFeedValueFromLocal = 0;
+      }
       const deviation = MathUtils.calculateDeviationPercent({
         newValue: dataFeedValueFromLocal,
         prevValue: dataPoint.value,

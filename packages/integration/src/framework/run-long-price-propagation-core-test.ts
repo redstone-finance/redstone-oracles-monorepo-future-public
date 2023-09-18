@@ -81,6 +81,10 @@ export const runLongPricePropagationCoreTest = async (
   const latestTimestamp =
     await fetchLatestTimestampFromLocal(cacheLayerInstance);
 
+  if (!latestTimestamp) {
+    throw new Error("Cannot fetch latest timestamp from local cache");
+  }
+
   const iterationsCount =
     nodeWorkingTimeInMilliseconds / nodeIntervalInMilliseconds;
   const timestampsRange = [...Array(iterationsCount).keys()];
