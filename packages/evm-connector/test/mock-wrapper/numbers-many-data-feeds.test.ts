@@ -27,7 +27,7 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
 
   const testShouldPass = async (
     mockNumericPackages: MockDataPackageConfig[],
-    dataFeedIds: ("ETH" | "BTC")[]
+    dataFeedIds: ("ETH" | "BTC")[],
   ) => {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
@@ -46,31 +46,34 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
     const secondValueFromContract = await contract.secondValue();
 
     expect(firstValueFromContract.toNumber()).to.be.equal(
-      expectedNumericValues[dataFeedIds[0]]
+      expectedNumericValues[dataFeedIds[0]],
     );
     expect(secondValueFromContract.toNumber()).to.be.equal(
-      expectedNumericValues[dataFeedIds[1]]
+      expectedNumericValues[dataFeedIds[1]],
     );
   };
 
   const testShouldRevertWith = async (
     mockNumericPackages: MockDataPackageConfig[],
     dataFeedIds: string[],
-    revertMsg: string
+    revertMsg: string,
+    ...args: unknown[]
   ) => {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
 
     await expect(
       wrappedContract.save2ValuesInStorage(
-        dataFeedIds.map(utils.convertStringToBytes32)
-      )
-    ).to.be.revertedWith(revertMsg);
+        dataFeedIds.map(utils.convertStringToBytes32),
+      ),
+    )
+      .to.be.revertedWith(revertMsg)
+      .withArgs(...args);
   };
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerNumericMockManyDataFeeds"
+      "SampleRedstoneConsumerNumericMockManyDataFeeds",
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
@@ -86,13 +89,12 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
 
   it("Should work properly with manual payload", async () => {
     const mockWrapper = new MockWrapper(mockNumericPackages);
-    const payload = await mockWrapper.getRedstonePayloadForManualUsage(
-      contract
-    );
+    const payload =
+      await mockWrapper.getRedstonePayloadForManualUsage(contract);
     const dataFeedIds: ("ETH" | "BTC")[] = ["ETH", "BTC"];
     const tx = await contract.save2ValuesInStorageWithManualPayload(
       dataFeedIds.map(utils.convertStringToBytes32),
-      payload
+      payload,
     );
     await tx.wait();
     await checkExpectedValues(dataFeedIds);
@@ -107,7 +109,7 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
             { dataFeedId: "BTC", value: 400 },
             { dataFeedId: "SOME OTHER ID", value: 123 },
           ],
-        })
+        }),
       ),
       ...getRange({ start: 0, length: NUMBER_OF_MOCK_NUMERIC_SIGNERS }).map(
         (mockSignerIndex: any) => ({
@@ -116,11 +118,11 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
             { dataFeedId: "ETH", value: 42 },
             { dataFeedId: "SOME OTHER ID", value: 345 },
           ],
-        })
+        }),
       ),
     ];
     const mockSinglePackages = mockSinglePackageConfigs.map(
-      getMockNumericPackage
+      getMockNumericPackage,
     );
     await testShouldPass(mockSinglePackages, ["BTC", "ETH"]);
   });
@@ -140,7 +142,9 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
     await testShouldRevertWith(
       mockNumericPackages,
       ["BTC", "NOT_BTC_AND_NOT_ETH"],
-      "InsufficientNumberOfUniqueSigners(0, 10)"
+      "InsufficientNumberOfUniqueSigners",
+      0,
+      10,
     );
   });
 
@@ -153,7 +157,9 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "InsufficientNumberOfUniqueSigners(9, 10)"
+      "InsufficientNumberOfUniqueSigners",
+      9,
+      10,
     );
   });
 
@@ -166,7 +172,7 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "TimestampIsNotValid()"
+      "TimestampIsNotValid",
     );
   });
 
@@ -179,19 +185,22 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      `SignerNotAuthorised("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199")`
+      "SignerNotAuthorised",
+      "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199",
     );
   });
 
   it("Should revert for insufficient number of signers", async () => {
     const newMockPackages = mockNumericPackages.slice(
       0,
-      NUMBER_OF_MOCK_NUMERIC_SIGNERS - 1
+      NUMBER_OF_MOCK_NUMERIC_SIGNERS - 1,
     );
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "InsufficientNumberOfUniqueSigners(9, 10)"
+      "InsufficientNumberOfUniqueSigners",
+      9,
+      10,
     );
   });
 
@@ -201,7 +210,9 @@ describe("SampleRedstoneConsumerNumericMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "InsufficientNumberOfUniqueSigners(9, 10)"
+      "InsufficientNumberOfUniqueSigners",
+      9,
+      10,
     );
   });
 });

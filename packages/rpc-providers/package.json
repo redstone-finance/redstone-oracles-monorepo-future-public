@@ -12,27 +12,24 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "axios": "^1.4.0",
-    "@redstone-finance/utils": "^0.3.0"
+    "@redstone-finance/utils": "^0.3.0",
+    "axios": "^1.5.0",
+    "ethers": "^5.7.2"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-chai-matchers": "^1.0.0",
+    "@nomicfoundation/hardhat-chai-matchers": "1.0.6",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
-    "@nomiclabs/hardhat-ethers": "^2.0.0",
+    "@nomiclabs/hardhat-ethers": "^2.0.6",
     "@nomiclabs/hardhat-etherscan": "^3.0.0",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
     "@types/sinon": "^10.0.15",
     "chai": "^4.3.7",
-    "ethers": "5.7.2",
-    "hardhat": "^2.13.0",
+    "hardhat": "^2.14.0",
     "sinon": "^15.0.3",
     "solidity-coverage": "^0.8.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
-  },
-  "peerDependencies": {
-    "ethers": "5.x.x"
   }
 }

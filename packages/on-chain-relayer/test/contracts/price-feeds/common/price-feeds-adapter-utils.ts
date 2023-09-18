@@ -274,7 +274,9 @@ export const describeCommonPriceFeedsAdapterTests = ({
           mockSignersCount: 2,
         },
       })
-    ).to.be.revertedWith("InsufficientNumberOfUniqueSigners(0, 2)");
+    )
+      .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
+      .withArgs(0, 2);
   });
 
   it("should revert for too few signers", async () => {
@@ -286,7 +288,9 @@ export const describeCommonPriceFeedsAdapterTests = ({
           mockSignersCount: 1,
         },
       })
-    ).to.be.revertedWith("InsufficientNumberOfUniqueSigners(1, 2)");
+    )
+      .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
+      .withArgs(1, 2);
   });
 
   it("should properly update data feeds one time", async () => {
