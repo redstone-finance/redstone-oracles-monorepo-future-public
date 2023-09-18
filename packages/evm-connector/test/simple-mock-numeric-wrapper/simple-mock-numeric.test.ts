@@ -15,7 +15,7 @@ describe("Simple Mock Numeric Wrapper", function () {
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerNumericMockManyDataFeeds"
+      "SampleRedstoneConsumerNumericMockManyDataFeeds",
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
@@ -23,7 +23,7 @@ describe("Simple Mock Numeric Wrapper", function () {
 
   it("Should properly execute on contract wrapped using simple numeric mock", async () => {
     const wrappedContract = WrapperBuilder.wrap(
-      contract
+      contract,
     ).usingSimpleNumericMock({
       mockSignersCount: 10,
       dataPoints,
@@ -39,16 +39,16 @@ describe("Simple Mock Numeric Wrapper", function () {
     const secondValueFromContract = await contract.secondValue();
 
     expect(firstValueFromContract.toNumber()).to.be.equal(
-      dataPoints[0].value * 10 ** 8
+      dataPoints[0].value * 10 ** 8,
     );
     expect(secondValueFromContract.toNumber()).to.be.equal(
-      dataPoints[1].value * 10 ** 8
+      dataPoints[1].value * 10 ** 8,
     );
   });
 
   it("Should revert for too few signers", async () => {
     const wrappedContract = WrapperBuilder.wrap(
-      contract
+      contract,
     ).usingSimpleNumericMock({
       mockSignersCount: 9,
       dataPoints,
@@ -58,13 +58,15 @@ describe("Simple Mock Numeric Wrapper", function () {
       wrappedContract.save2ValuesInStorage([
         utils.convertStringToBytes32(dataPoints[0].dataFeedId),
         utils.convertStringToBytes32(dataPoints[1].dataFeedId),
-      ])
-    ).to.be.revertedWith("InsufficientNumberOfUniqueSigners(9, 10)");
+      ]),
+    )
+      .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
+      .withArgs(9, 10);
   });
 
   it("Should revert for too old timestamp", async () => {
     const wrappedContract = WrapperBuilder.wrap(
-      contract
+      contract,
     ).usingSimpleNumericMock({
       mockSignersCount: 10,
       dataPoints,
@@ -75,7 +77,9 @@ describe("Simple Mock Numeric Wrapper", function () {
       wrappedContract.save2ValuesInStorage([
         utils.convertStringToBytes32(dataPoints[0].dataFeedId),
         utils.convertStringToBytes32(dataPoints[1].dataFeedId),
-      ])
-    ).to.be.revertedWith("TimestampIsNotValid()");
+      ]),
+    )
+      .to.be.revertedWith("TimestampIsNotValid")
+      .withArgs();
   });
 });

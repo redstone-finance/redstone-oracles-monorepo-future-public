@@ -11,7 +11,7 @@
     "cli": "ts-node src/main.ts"
   },
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^1.5.0",
     "warp-contracts": "^1.2.47"
   },
   "devDependencies": {

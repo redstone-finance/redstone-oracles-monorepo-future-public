@@ -23,7 +23,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
 
   const testShouldPass = async (
     mockBytesPackages: MockDataPackageConfig[],
-    dataFeedIds: ("ETH" | "BTC")[]
+    dataFeedIds: ("ETH" | "BTC")[],
   ) => {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockBytesPackages);
@@ -38,31 +38,34 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     const secondValueFromContract = await contract.secondValue();
 
     expect(firstValueFromContract).to.be.equal(
-      expectedBytesValues[dataFeedIds[0]]
+      expectedBytesValues[dataFeedIds[0]],
     );
     expect(secondValueFromContract).to.be.equal(
-      expectedBytesValues[dataFeedIds[1]]
+      expectedBytesValues[dataFeedIds[1]],
     );
   };
 
   const testShouldRevertWith = async (
     mockBytesPackages: MockDataPackageConfig[],
     dataFeedIds: string[],
-    revertMsg: string
+    revertMsg: string,
+    ...args: unknown[]
   ) => {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockBytesPackages);
 
     await expect(
       wrappedContract.save2ValuesInStorage(
-        dataFeedIds.map(utils.convertStringToBytes32)
-      )
-    ).to.be.revertedWith(revertMsg);
+        dataFeedIds.map(utils.convertStringToBytes32),
+      ),
+    )
+      .to.be.revertedWith(revertMsg)
+      .withArgs(...args);
   };
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerBytesMockManyDataFeeds"
+      "SampleRedstoneConsumerBytesMockManyDataFeeds",
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
@@ -91,7 +94,9 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     await testShouldRevertWith(
       mockBytesPackages,
       ["BTC", "NOT_BTC_AND_NOT_ETH"],
-      "InsufficientNumberOfUniqueSigners(0, 3)"
+      "InsufficientNumberOfUniqueSigners",
+      0,
+      3,
     );
   });
 
@@ -104,7 +109,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "TimestampIsNotValid()"
+      "TimestampIsNotValid",
     );
   });
 
@@ -117,19 +122,22 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      `SignerNotAuthorised("0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199")`
+      "SignerNotAuthorised",
+      "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199",
     );
   });
 
   it("Should revert for insufficient number of signers", async () => {
     const newMockPackages = mockBytesPackages.slice(
       0,
-      NUMBER_OF_MOCK_SIGNERS - 1
+      NUMBER_OF_MOCK_SIGNERS - 1,
     );
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "InsufficientNumberOfUniqueSigners(2, 3)"
+      "InsufficientNumberOfUniqueSigners",
+      2,
+      3,
     );
   });
 
@@ -139,7 +147,9 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "InsufficientNumberOfUniqueSigners(2, 3)"
+      "InsufficientNumberOfUniqueSigners",
+      2,
+      3,
     );
   });
 });
