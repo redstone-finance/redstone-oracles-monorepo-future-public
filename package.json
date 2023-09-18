@@ -7,13 +7,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "version:all": "lerna version --force-publish",
-    "publish:all": "lerna publish --all"
+    "publish:all": "lerna publish --all",
+    "syncpack:fix-mismatches": "syncpack fix-mismatches --types !local",
+    "syncpack:list": "syncpack list-mismatches --types !local"
   },
   "keywords": [],
   "author": "hatskier <Suvorovalex1997@gmail.com> (https://hatskier.com/)",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^17.0.36",
+    "@types/node": "^18.14.6",
     "@typescript-eslint/eslint-plugin": "^6.6.0",
     "@typescript-eslint/parser": "^6.6.0",
     "lerna": "^7.3.0",
