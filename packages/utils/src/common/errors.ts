@@ -29,13 +29,11 @@ export function stringifyError(e: unknown): string {
     return `Aggregate error messages: ${errorMessages.join("; ")}`;
   } else if (axios.isAxiosError(error)) {
     return JSON.stringify(error.response?.data) + " | " + error.stack;
+  } else if (error instanceof Error) {
+    return error.stack || String(error);
+  } else if (typeof error.toJSON === "function") {
+    return JSON.stringify(error.toJSON());
   } else {
-    if (error instanceof Error) {
-      return error.stack || String(error);
-    } else if (typeof error.toJSON === "function") {
-      return JSON.stringify(error.toJSON());
-    } else {
-      return "error can't be handle by stringifyError function";
-    }
+    return `error can't be handle by stringifyError function ${String(e)}`;
   }
 }

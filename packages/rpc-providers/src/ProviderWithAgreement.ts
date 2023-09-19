@@ -102,11 +102,11 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
       if (blockNumbers.length === 0) {
         throw new AggregateError(
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          `Failed to getBlockNumber from at least one provider: ${blockNumbersResults.map(
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-            (result) => (result as PromiseRejectedResult).reason
-          )}`
+          blockNumbersResults.map(
+            (result) =>
+              new Error(String((result as PromiseRejectedResult).reason))
+          ),
+          `Failed to getBlockNumber from at least one provider`
         );
       }
 
