@@ -12,13 +12,13 @@ describe("SampleNumericArrayLib", function () {
 
   const prepareRandomArray = (arrayLength: number) => {
     return getRange({ start: 0, length: arrayLength }).map(() =>
-      Math.round(Math.random() * 10000),
+      Math.round(Math.random() * 10000)
     );
   };
 
   beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleNumericArrayLib",
+      "SampleNumericArrayLib"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
@@ -37,7 +37,7 @@ describe("SampleNumericArrayLib", function () {
 
     const cachedArray = await contract.getCachedArray();
     expect(cachedArray.map((bn: BigNumber) => bn.toNumber())).to.eql(
-      sortedTestArr,
+      sortedTestArr
     );
   });
 

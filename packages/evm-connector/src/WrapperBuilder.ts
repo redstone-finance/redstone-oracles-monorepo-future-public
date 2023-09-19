@@ -13,35 +13,33 @@ import {
   SimpleNumericMockWrapper,
 } from "./wrappers/SimpleMockNumericWrapper";
 
-export class WrapperBuilder {
-  constructor(private baseContract: Contract) {}
+export class WrapperBuilder<T extends Contract> {
+  constructor(private baseContract: T) {}
 
-  static wrap(contract: Contract): WrapperBuilder {
+  static wrap<T extends Contract>(contract: T): WrapperBuilder<T> {
     return new WrapperBuilder(contract);
   }
 
-  usingDataService(
-    dataPackagesRequestInput: DataPackagesRequestInput
-  ): Contract {
-    return new DataServiceWrapper(
+  usingDataService(dataPackagesRequestInput: DataPackagesRequestInput): T {
+    return new DataServiceWrapper<T>(
       dataPackagesRequestInput
     ).overwriteEthersContract(this.baseContract);
   }
 
-  usingMockDataPackages(mockDataPackages: MockDataPackageConfig[]) {
-    return new MockWrapper(mockDataPackages).overwriteEthersContract(
+  usingMockDataPackages(mockDataPackages: MockDataPackageConfig[]): T {
+    return new MockWrapper<T>(mockDataPackages).overwriteEthersContract(
       this.baseContract
     );
   }
 
-  usingSimpleNumericMock(simpleNumericMockConfig: SimpleNumericMockConfig) {
-    return new SimpleNumericMockWrapper(
+  usingSimpleNumericMock(simpleNumericMockConfig: SimpleNumericMockConfig): T {
+    return new SimpleNumericMockWrapper<T>(
       simpleNumericMockConfig
     ).overwriteEthersContract(this.baseContract);
   }
 
-  usingOnDemandRequest(nodeUrls: string[], scoreType: ScoreType) {
-    return new OnDemandRequestWrapper(
+  usingOnDemandRequest(nodeUrls: string[], scoreType: ScoreType): T {
+    return new OnDemandRequestWrapper<T>(
       {
         signer: this.baseContract.signer,
         scoreType,
@@ -51,7 +49,7 @@ export class WrapperBuilder {
   }
 
   usingDataPackages(dataPackages: DataPackagesResponse) {
-    return new DataPackagesWrapper(dataPackages).overwriteEthersContract(
+    return new DataPackagesWrapper<T>(dataPackages).overwriteEthersContract(
       this.baseContract
     );
   }

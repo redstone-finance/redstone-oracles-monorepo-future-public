@@ -19,13 +19,13 @@ const handlers = [
   rest.get(
     "http://valid-cache.com/data-packages/latest/*",
     async (req, res, ctx) => {
-      return res(ctx.json(getValidDataPackagesResponse()));
+      return await res(ctx.json(getValidDataPackagesResponse()));
     }
   ),
   rest.get(
     "http://invalid-cache.com/data-packages/latest/*",
     async (req, res, ctx) => {
-      return res(
+      return await res(
         ctx.json({
           ETH: getDataPackageResponse("ETH").map((obj) => ({
             ...obj,
@@ -42,7 +42,10 @@ const handlers = [
   rest.get(
     "http://slower-cache.com/data-packages/latest/*",
     async (req, res, ctx) => {
-      return res(ctx.delay(200), ctx.json(getValidDataPackagesResponse()));
+      return await res(
+        ctx.delay(200),
+        ctx.json(getValidDataPackagesResponse())
+      );
     }
   ),
 ];

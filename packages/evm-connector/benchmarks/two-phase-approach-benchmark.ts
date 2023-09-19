@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { ethers } from "hardhat";
 import { DataPackage, NumericDataPoint } from "@redstone-finance/protocol";
 import { utils } from "@redstone-finance/protocol";
@@ -9,6 +10,7 @@ import {
 import { WrapperBuilder } from "../src/index";
 import { MockDataPackageConfig } from "../src/wrappers/MockWrapper";
 import { StorageStructureModel, HashCalldataModel } from "../typechain-types";
+import { ContractTransaction } from "ethers";
 
 interface BenchmarkTestCaseParams {
   passedArgumentsCount: number;
@@ -39,16 +41,15 @@ const requiredSignersCount = 3;
 describe("Benchmark", function () {
   let storageStructureModel: StorageStructureModel;
   let hashCalldataModel: HashCalldataModel;
-  const fullGasReport: any = {};
+  const fullGasReport: Record<string, GasReport> = {};
 
   this.beforeEach(async () => {
     const StorageStructureFactory = await ethers.getContractFactory(
       "StorageStructureModel"
     );
 
-    const HashCalldataFactory = await ethers.getContractFactory(
-      "HashCalldataModel"
-    );
+    const HashCalldataFactory =
+      await ethers.getContractFactory("HashCalldataModel");
 
     storageStructureModel = await StorageStructureFactory.deploy();
     await storageStructureModel.deployed();
@@ -57,7 +58,7 @@ describe("Benchmark", function () {
     await hashCalldataModel.deployed();
   });
 
-  this.afterAll(async () => {
+  this.afterAll(() => {
     console.log("=== FINAL GAS REPORT ===");
     console.log(JSON.stringify(fullGasReport, null, 2));
   });
@@ -149,45 +150,51 @@ describe("Benchmark", function () {
     await setDeleteFromStorageHashTx.wait();
 
     try {
-      let sendStructRequestFunction: (...args: Uint8Array[]) => any;
-      let executeStructRequestFunction: (requestId: number) => any;
-      let sendHashRequestFunction: (...args: Uint8Array[]) => any;
+      let sendStructRequestFunction: (
+        ...args: Uint8Array[]
+      ) => Promise<ContractTransaction>;
+      let executeStructRequestFunction: (
+        requestId: number
+      ) => Promise<ContractTransaction>;
+      let sendHashRequestFunction: (
+        ...args: Uint8Array[]
+      ) => Promise<ContractTransaction>;
       let executeHashRequestFunction: (
         blockNumber: number,
         address: string,
         ...args: Uint8Array[]
-      ) => any;
+      ) => Promise<ContractTransaction>;
 
       switch (benchmarkParams.passedArgumentsCount) {
         case 3:
           sendStructRequestFunction =
-            wrappedStorageStructureModel.sendRequestWith3Args;
+            wrappedStorageStructureModel.sendRequestWith3Args as typeof sendStructRequestFunction;
           executeStructRequestFunction =
             wrappedStorageStructureModel.executeRequestWith3ArgsWithPrices;
           sendHashRequestFunction =
-            wrappedHashCalldataModel.sendRequestWith3Args;
+            wrappedHashCalldataModel.sendRequestWith3Args as typeof sendHashRequestFunction;
           executeHashRequestFunction =
-            wrappedHashCalldataModel.executeRequestWith3ArgsWithPrices;
+            wrappedHashCalldataModel.executeRequestWith3ArgsWithPrices as typeof executeHashRequestFunction;
           break;
         case 5:
           sendStructRequestFunction =
-            wrappedStorageStructureModel.sendRequestWith5Args;
+            wrappedStorageStructureModel.sendRequestWith5Args as typeof sendStructRequestFunction;
           executeStructRequestFunction =
             wrappedStorageStructureModel.executeRequestWith5ArgsWithPrices;
           sendHashRequestFunction =
-            wrappedHashCalldataModel.sendRequestWith5Args;
+            wrappedHashCalldataModel.sendRequestWith5Args as typeof sendHashRequestFunction;
           executeHashRequestFunction =
-            wrappedHashCalldataModel.executeRequestWith5ArgsWithPrices;
+            wrappedHashCalldataModel.executeRequestWith5ArgsWithPrices as typeof executeHashRequestFunction;
           break;
         case 10:
           sendStructRequestFunction =
-            wrappedStorageStructureModel.sendRequestWith10Args;
+            wrappedStorageStructureModel.sendRequestWith10Args as typeof sendStructRequestFunction;
           executeStructRequestFunction =
             wrappedStorageStructureModel.executeRequestWith10ArgsWithPrices;
           sendHashRequestFunction =
-            wrappedHashCalldataModel.sendRequestWith10Args;
+            wrappedHashCalldataModel.sendRequestWith10Args as typeof sendHashRequestFunction;
           executeHashRequestFunction =
-            wrappedHashCalldataModel.executeRequestWith10ArgsWithPrices;
+            wrappedHashCalldataModel.executeRequestWith10ArgsWithPrices as typeof executeHashRequestFunction;
           break;
         default:
           throw new Error("Unsupported passed arguments count");

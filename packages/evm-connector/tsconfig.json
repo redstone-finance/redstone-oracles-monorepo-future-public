@@ -20,7 +20,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2021",
+    "target": "ES2021"
   },
   "include": [
     "./src",
@@ -29,6 +29,7 @@
     "package.json",
     "./contracts",
     "./hardhat.config.ts",
+    "benchmarks"
   ],
   "references": [
     {

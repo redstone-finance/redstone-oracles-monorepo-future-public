@@ -1,17 +1,12 @@
 {
-    "extends": "./tsconfig.json",
-    "exclude": [
-        "node_modules",
-        "test",
-        "dist",
-        "**/*spec.ts"
-    ],
-    "references": [
-        {
-            "path": "../protocol/tsconfig.build.json"
-        },
-        {
-            "path": "../sdk/tsconfig.build.json"
-        }
-    ]
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts", "benchmarks"],
+  "references": [
+    {
+      "path": "../protocol/tsconfig.build.json"
+    },
+    {
+      "path": "../sdk/tsconfig.build.json"
+    }
+  ]
 }

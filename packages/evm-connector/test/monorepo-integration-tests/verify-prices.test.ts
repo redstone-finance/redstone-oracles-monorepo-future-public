@@ -32,9 +32,8 @@ dynamicDescribe("verify prices test", function () {
       dataFeeds: dataFeedIds,
       urls: getCacheServiceUrls(),
     });
-    const oracleValues = await wrappedContract.extractOracleValuesView(
-      bytes32Symbols
-    );
+    const oracleValues =
+      await wrappedContract.extractOracleValuesView(bytes32Symbols);
     checkValues(oracleValues);
   };
 

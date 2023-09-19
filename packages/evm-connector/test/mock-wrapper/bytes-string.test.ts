@@ -4,6 +4,7 @@ import {
   getMockPackageWithOneBytesDataPoint,
   getRange,
   DEFAULT_DATA_FEED_ID_BYTES_32,
+  MockSignerIndex,
 } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
 import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
@@ -16,11 +17,11 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
   const mockBytesPackages: MockDataPackageConfig[] = getRange({
     start: 0,
     length: 3,
-  }).map((mockSignerIndex: any) =>
+  }).map((mockSignerIndex: number) =>
     getMockPackageWithOneBytesDataPoint({
-      mockSignerIndex,
+      mockSignerIndex: mockSignerIndex as MockSignerIndex,
       hexValue: someLongHexValue,
-    }),
+    })
   );
 
   const testShouldPass = async (mockPackages: MockDataPackageConfig[]) => {
@@ -28,7 +29,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockPackages);
 
     const tx = await wrappedContract.saveLatestValueInStorage(
-      DEFAULT_DATA_FEED_ID_BYTES_32,
+      DEFAULT_DATA_FEED_ID_BYTES_32
     );
     await tx.wait();
 
@@ -45,7 +46,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockPackages);
 
     await expect(
-      wrappedContract.saveLatestValueInStorage(DEFAULT_DATA_FEED_ID_BYTES_32),
+      wrappedContract.saveLatestValueInStorage(DEFAULT_DATA_FEED_ID_BYTES_32)
     )
       .to.be.revertedWith(revertMsg)
       .withArgs(...args);
@@ -53,7 +54,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleRedstoneConsumerBytesMockStrings",
+      "SampleRedstoneConsumerBytesMockStrings"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
@@ -78,7 +79,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
     ];
     await testShouldRevertWith(
       newPackages,
-      "EachSignerMustProvideTheSameValue",
+      "EachSignerMustProvideTheSameValue"
     );
   });
 
@@ -87,7 +88,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
       [mockBytesPackages[0], mockBytesPackages[1]],
       "InsufficientNumberOfUniqueSigners",
       2,
-      3,
+      3
     );
   });
 
@@ -96,7 +97,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
       [mockBytesPackages[0], mockBytesPackages[1], mockBytesPackages[1]],
       "InsufficientNumberOfUniqueSigners",
       2,
-      3,
+      3
     );
   });
 
@@ -110,7 +111,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
         }),
       ],
       "SignerNotAuthorised",
-      "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199",
+      "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199"
     );
   });
 });

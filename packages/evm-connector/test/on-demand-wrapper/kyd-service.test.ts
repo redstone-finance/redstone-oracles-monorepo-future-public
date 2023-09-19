@@ -25,7 +25,7 @@ describe("SampleKydServiceConsumer", () => {
         "http://first-node.com/score-by-address",
         "http://second-node.com/score-by-address",
       ],
-      ScoreType.coinbaseKYD,
+      ScoreType.coinbaseKYD
     );
     const transaction = await wrappedContract.executeActionPassingKYD();
     await transaction.wait();
@@ -40,7 +40,7 @@ describe("SampleKydServiceConsumer", () => {
         "http://first-node.com/score-by-address",
         "http://second-node.com/score-by-address",
       ],
-      ScoreType.coinbaseKYD,
+      ScoreType.coinbaseKYD
     );
     await expect(wrappedContract.executeActionPassingKYD())
       .to.be.revertedWith(`UserDidNotPassKYD`)
@@ -53,7 +53,7 @@ describe("SampleKydServiceConsumer", () => {
         "http://first-node.com/score-by-address",
         "http://invalid-address-node.com/score-by-address",
       ],
-      ScoreType.coinbaseKYD,
+      ScoreType.coinbaseKYD
     );
     await expect(wrappedContract.executeActionPassingKYD())
       .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
@@ -66,7 +66,7 @@ describe("SampleKydServiceConsumer", () => {
         "http://first-node.com/score-by-address",
         "http://invalid-value-node.com/score-by-address",
       ],
-      ScoreType.coinbaseKYD,
+      ScoreType.coinbaseKYD
     );
     await expect(wrappedContract.executeActionPassingKYD())
       .to.be.revertedWith("AllValuesMustBeEqual")
@@ -79,7 +79,7 @@ describe("SampleKydServiceConsumer", () => {
         "http://first-node.com/score-by-address",
         "http://first-node.com/score-by-address",
       ],
-      ScoreType.coinbaseKYD,
+      ScoreType.coinbaseKYD
     );
     await expect(wrappedContract.executeActionPassingKYD())
       .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
@@ -88,12 +88,12 @@ describe("SampleKydServiceConsumer", () => {
 });
 
 const getContract = async (
-  isValidSigner: boolean = true,
+  isValidSigner: boolean = true
 ): Promise<SampleKydServiceConsumer> => {
   const signers = await ethers.getSigners();
   const ContractFactory = await ethers.getContractFactory(
     "SampleKydServiceConsumer",
-    isValidSigner ? signers[0] : signers[1],
+    isValidSigner ? signers[0] : signers[1]
   );
   const contract = await ContractFactory.deploy();
   await contract.deployed();

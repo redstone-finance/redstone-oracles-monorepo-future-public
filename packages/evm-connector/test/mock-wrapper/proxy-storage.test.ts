@@ -54,9 +54,8 @@ describe("SampleStorageProxy", function () {
   const ethDataFeedId = utils.convertStringToBytes32("ETH");
 
   this.beforeEach(async () => {
-    const SampleStorageFactory = await ethers.getContractFactory(
-      "SampleStorageProxy"
-    );
+    const SampleStorageFactory =
+      await ethers.getContractFactory("SampleStorageProxy");
     contract = await SampleStorageFactory.deploy();
     await contract.deployed();
 
@@ -76,9 +75,8 @@ describe("SampleStorageProxy", function () {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
 
-    const fetchedValue = await wrappedContract.fetchValueUsingProxyDryRun(
-      ethDataFeedId
-    );
+    const fetchedValue =
+      await wrappedContract.fetchValueUsingProxyDryRun(ethDataFeedId);
 
     expect(fetchedValue).to.eq(expectedNumericValues.ETH);
   });
@@ -87,9 +85,8 @@ describe("SampleStorageProxy", function () {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
 
-    const fetchedValue = await wrappedContract.fetchStructUsingProxyDryRun(
-      ethDataFeedId
-    );
+    const fetchedValue =
+      await wrappedContract.fetchStructUsingProxyDryRun(ethDataFeedId);
 
     const expectedValue = [
       "sample",
@@ -109,9 +106,8 @@ describe("SampleStorageProxy", function () {
       ethers.BigNumber.from(dataPoint.value * 10 ** 8)
     );
 
-    const fetchedValues = await wrappedContract.fetchValuesUsingProxyDryRun(
-      dataFeedIdsBytes
-    );
+    const fetchedValues =
+      await wrappedContract.fetchValuesUsingProxyDryRun(dataFeedIdsBytes);
 
     expect(dataValues).to.deep.eq(fetchedValues);
   });
@@ -146,7 +142,7 @@ describe("SampleStorageProxy", function () {
         dataFeedIdsBytes
       );
 
-    const names = dataPoints.map((dataPoint) => "sample");
+    const names = dataPoints.map((_dataPoint) => "sample");
     const values = dataPoints.map((dataPoint) =>
       ethers.BigNumber.from(dataPoint.value * 10 ** 8)
     );
