@@ -8,16 +8,23 @@ import { CustomTonNetwork } from "@redstone-finance/ton-connector";
 import { mnemonicToWalletKey } from "ton-crypto";
 import { PriceFeedRelayerTonContractConnector } from "./PriceFeedRelayerTonContractConnector";
 import { PriceFeedRelayerTonContractAdapter } from "./PriceFeedRelayerTonContractAdapter";
+import { manifest } from "../config/manifest";
 
 export class ContractConnectorFactory {
-  static tonNetwork = new CustomTonNetwork(async () => {
-    return await mnemonicToWalletKey(config.walletMnemonic);
-  }, config);
+  static tonNetwork = new CustomTonNetwork(
+    async () => {
+      return await mnemonicToWalletKey(config.walletMnemonic);
+    },
+    config,
+    manifest.workchain
+  );
 
-  static makePriceManagerContractConnector(): IContractConnector<IPriceManagerContractAdapter> {
+  static makePriceManagerContractConnector(
+    adapterAddress: string
+  ): IContractConnector<IPriceManagerContractAdapter> {
     return new PriceManagerRelayerTonContractConnector(
       this.tonNetwork,
-      config.priceManagerAddress
+      adapterAddress
     );
   }
 

@@ -1,0 +1,12 @@
+{
+  "workchain": 0,
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 300000
+  },
+  "adapterContract": "EQBRC6Knx1hXyaPhIePnxKLN9eh4ZH7AD5iKc-axZnXz1vnr",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "BTC": "EQDs2RheskN-b8CC7XqeZHXY0qJrIIC_vjnQa8Yw6VQHBWAF",
+    "ETH": "EQBkJlGNaZD7EgWLgLVJ-A7K7lswKbDDGjvQQdXJjgmUQWvJ"
+  }
+}
