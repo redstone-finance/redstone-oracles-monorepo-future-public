@@ -50,3 +50,48 @@ export class PrecisionScaler {
     return bignumberishToDecimal(contractValue).div(this.tokenDecimalsScaler);
   }
 }
+
+export const filterOutliers = (
+  numbers: number[],
+  maxDiscrepancy: number
+): { representativeGroup: number[]; outliers: number[] } => {
+  const numbersCopy = [...numbers];
+  if (numbersCopy.length < 2) {
+    return { representativeGroup: numbersCopy, outliers: [] };
+  }
+
+  const sortedNumbers = numbersCopy.sort((a, b) => a - b);
+
+  let bestGroup = { startIndex: 0, endIndex: 0 };
+
+  for (
+    let startIndex = bestGroup.startIndex;
+    startIndex < sortedNumbers.length;
+    startIndex++
+  ) {
+    for (
+      let endIndex = sortedNumbers.length;
+      startIndex < endIndex;
+      endIndex--
+    ) {
+      const firstElementValue = sortedNumbers[startIndex];
+      const lastElementValue = sortedNumbers[endIndex - 1];
+
+      if (lastElementValue - firstElementValue < maxDiscrepancy) {
+        if (endIndex - startIndex > bestGroup.endIndex - bestGroup.startIndex)
+          bestGroup = { startIndex, endIndex };
+      }
+    }
+  }
+
+  return {
+    representativeGroup: sortedNumbers.slice(
+      bestGroup.startIndex,
+      bestGroup.endIndex
+    ),
+    outliers: [
+      ...sortedNumbers.slice(0, bestGroup.startIndex),
+      ...sortedNumbers.slice(bestGroup.endIndex, sortedNumbers.length),
+    ],
+  };
+};

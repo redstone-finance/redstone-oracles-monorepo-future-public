@@ -6,6 +6,7 @@ import {
   getMedian,
   NumberArg,
 } from "../../src/ISafeNumber";
+import { filterOutliers } from "../../src/math";
 
 describe("calculateSum", () => {
   it("Should properly calculate sum for empty array", () => {
@@ -136,5 +137,59 @@ describe("getMedian", () => {
     expect(
       getMedian([-7, -5, -4, -8].map(createSafeNumber)).toString()
     ).toEqual("-6");
+  });
+});
+
+describe("filterOutliers function", () => {
+  it("should return the single number as the representative group when only one number is provided", () => {
+    const result = filterOutliers([5], 100);
+    expect(result.representativeGroup).toEqual([5]);
+    expect(result.outliers).toEqual([]);
+  });
+
+  it("should return both numbers as the representative group when two numbers are within maxDiscrepancy", () => {
+    const result = filterOutliers([5, 95], 100);
+    expect(result.representativeGroup).toEqual([5, 95]);
+    expect(result.outliers).toEqual([]);
+  });
+
+  it("should return one of the numbers as an outlier when two numbers are outside maxDiscrepancy", () => {
+    const result = filterOutliers([5, 150], 100);
+    expect(result.representativeGroup).toEqual([5]);
+    expect(result.outliers).toEqual([150]);
+  });
+
+  it("should group numbers correctly into multiple groups based on maxDiscrepancy", () => {
+    const result = filterOutliers([5, 10, 15, 200, 210, 220, 500], 100);
+    expect(result.representativeGroup).toEqual([5, 10, 15]);
+    expect(result.outliers).toEqual([200, 210, 220, 500]);
+  });
+
+  it("should group numbers correctly into multiple groups based on maxDiscrepancy", () => {
+    const result = filterOutliers([1, 2, 5, 10, 15, 200, 210, 220, 500], 100);
+    expect(result.representativeGroup).toEqual([1, 2, 5, 10, 15]);
+    expect(result.outliers).toEqual([200, 210, 220, 500]);
+  });
+
+  it("should group numbers correctly into multiple groups based on maxDiscrepancy", () => {
+    const result = filterOutliers([100, 201, 301, 401], 100);
+    expect(result.representativeGroup).toEqual([100]);
+    expect(result.outliers).toEqual([201, 301, 401]);
+  });
+
+  it("should group all numbers into a single group if they are within maxDiscrepancy", () => {
+    const result = filterOutliers([5, 10, 15, 95], 100);
+    expect(result.representativeGroup).toEqual([5, 10, 15, 95]);
+    expect(result.outliers).toEqual([]);
+  });
+
+  it("should treat all numbers as separate groups if they are all outside maxDiscrepancy of each other", () => {
+    const result = filterOutliers([5, 150, 300, 460], 100);
+    expect(result.representativeGroup).toEqual([5]);
+  });
+
+  it("should select the biggest possible group", () => {
+    const result = filterOutliers([1, 2, 3, 100, 101, 102, 103, 104], 100);
+    expect(result.representativeGroup).toEqual([100, 101, 102, 103, 104]);
   });
 });

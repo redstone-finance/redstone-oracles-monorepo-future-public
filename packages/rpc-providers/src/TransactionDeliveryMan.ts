@@ -1,24 +1,21 @@
 import { ErrorCode } from "@ethersproject/logger";
 import { TransactionResponse } from "@ethersproject/providers";
 import { BigNumber, Contract, providers } from "ethers";
-import { fetchWithCache, sleepMS } from "./common";
 import {
   AuctionModelFee,
   AuctionModelGasEstimator,
 } from "./AuctionModelGasEstimator";
 import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
+import { MultiNodeTxBroadcaster } from "./TxBrodcaster";
+import { fetchWithCache, sleepMS } from "./common";
 
 const ONE_GWEI = 1e9;
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
+type EthersError = { code: ErrorCode; message: string };
 
-type EthersError = {
-  code?: string | number;
-  message: string;
-};
-
-type ContractOverrides = {
+export type ContractOverrides = {
   nonce: number;
 } & FeeStructure;
 
@@ -141,11 +138,11 @@ export class TransactionDeliveryMan {
     params: Parameters<T[M]>
   ): Promise<TransactionResponse> {
     const provider = contract.provider as providers.JsonRpcProvider;
-    const address = await contract.signer.getAddress();
+    const txBroadcaster = new MultiNodeTxBroadcaster(contract);
 
     let lastAttempt: LastDeliveryAttempt | undefined = undefined;
 
-    const currentNonce = await provider.getTransactionCount(address);
+    const currentNonce = await txBroadcaster.fetchNonce();
     const fees = await this.getFees(provider);
     const contractOverrides: ContractOverrides = {
       nonce: currentNonce,
@@ -154,44 +151,71 @@ export class TransactionDeliveryMan {
 
     for (let i = 0; i < this.opts.maxAttempts; i++) {
       try {
-        lastAttempt = { ...contractOverrides };
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-        lastAttempt.result = await contract[method](...params, {
+        lastAttempt = {
+          ...(lastAttempt ? lastAttempt : {}),
           ...contractOverrides,
-        });
-      } catch (err) {
-        const e = err as EthersError;
-        // if underpriced then bump fee
-        this.opts.logger(
-          `Failed attempt to call contract code ${e.code} message: ${e.message}`
+        };
+        lastAttempt.result = await txBroadcaster.broadcast(
+          method,
+          params,
+          contractOverrides
         );
+        this.opts.logger(`Transaction broadcasted successfully`);
+      } catch (e: unknown) {
+        // if it is not ethers error we can't handle it
+        const ethersError = getEthersLikeErrorOrFail(e);
 
-        if (TransactionDeliveryMan.isUnderpricedError(e)) {
-          const scaledFees = this.estimator.scaleFees(
-            await this.getFees(provider)
+        // if underpriced then bump fee
+        if (TransactionDeliveryMan.isUnderpricedError(ethersError)) {
+          Object.assign(
+            contractOverrides,
+            this.estimator.scaleFees(await this.getFees(provider))
           );
-          Object.assign(contractOverrides, scaledFees);
-          // we don't want to sleep on error, we want to react fast
+          // skip sleeping if caused by underpriced
           continue;
-        } else {
-          throw e;
+        } else if (TransactionDeliveryMan.isNonceExpiredError(ethersError)) {
+          // if not by us, then it was delivered by someone else
+          if (!lastAttempt?.result) {
+            throw new Error(
+              `Transaction with same nonce ${lastAttempt?.nonce} was delivered by someone else`
+            );
+          } else {
+            // it means that in meantime between check if transaction is delivered and sending new transaction
+            // previous transaction was already delivered by (maybe) us
+            this.opts.logger(
+              `Transaction ${lastAttempt.result.hash} mined nonce changed: ${
+                lastAttempt.nonce
+              } => ${lastAttempt.nonce + 1}`
+            );
+            return lastAttempt.result;
+          }
         }
       }
 
+      this.opts.logger(
+        `Waiting ${this.opts.expectedDeliveryTimeMs} [MS] for mining transaction`
+      );
       await sleepMS(this.opts.expectedDeliveryTimeMs);
 
-      const currentNonce = await provider.getTransactionCount(address);
-      if (this.isTransactionDelivered(lastAttempt, currentNonce)) {
+      const currentNonce = await txBroadcaster.fetchNonce();
+      if (
+        TransactionDeliveryMan.isTransactionDelivered(lastAttempt, currentNonce)
+      ) {
         // transaction was already delivered because nonce increased
         if (!lastAttempt.result) {
           throw new Error(
-            "Transaction with sane nonce was delivered by someone else"
+            `Transaction with same nonce ${lastAttempt.nonce} was delivered by someone else`
           );
         }
+        this.opts.logger(
+          `Transaction ${lastAttempt.result.hash} mined nonce changed: ${lastAttempt.nonce} => ${currentNonce}`
+        );
         return lastAttempt.result;
       } else {
-        const scaledFees = this.estimator.scaleFees(contractOverrides);
-        Object.assign(contractOverrides, scaledFees);
+        Object.assign(
+          contractOverrides,
+          this.estimator.scaleFees(await this.getFees(provider))
+        );
       }
     }
 
@@ -200,24 +224,44 @@ export class TransactionDeliveryMan {
     );
   }
 
-  private static isUnderpricedError(e: EthersError) {
-    return (
-      // RPC errors sucks most of the time, thus we can not rely on them
-      e.message.includes("maxFeePerGas") ||
-      e.message.includes("baseFeePerGas") ||
-      e.code === ErrorCode.INSUFFICIENT_FUNDS ||
-      e.code === ErrorCode.SERVER_ERROR ||
-      e.code === ErrorCode.UNPREDICTABLE_GAS_LIMIT ||
-      e.code === ErrorCode.INSUFFICIENT_FUNDS
-    );
+  // RPC errors sucks most of the time, thus we can not rely on them
+  private static isUnderpricedError(e: EthersError | AggregateError) {
+    const isErrorMatchingPredicate = (e: EthersError) =>
+      (e.message.includes("maxFeePerGas") ||
+        e.message.includes("baseFeePerGas") ||
+        e.code === ErrorCode.INSUFFICIENT_FUNDS ||
+        e.code === ErrorCode.SERVER_ERROR ||
+        e.code === ErrorCode.UNPREDICTABLE_GAS_LIMIT) &&
+      !e.message.includes("VM Exception while processing transaction");
+
+    if (e instanceof AggregateError) {
+      return e.errors.some(
+        (err: unknown) => isEthersError(err) && isErrorMatchingPredicate(err)
+      );
+    }
+
+    return isErrorMatchingPredicate(e);
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
-  private isTransactionDelivered(
+  private static isNonceExpiredError(e: EthersError | AggregateError) {
+    const isErrorMatchingPredicate = (e: EthersError) =>
+      e.message.includes("nonce has already been used") ||
+      e.code === ErrorCode.NONCE_EXPIRED;
+
+    if (e instanceof AggregateError) {
+      return e.errors.some(
+        (err: unknown) => isEthersError(err) && isErrorMatchingPredicate(err)
+      );
+    }
+
+    return isErrorMatchingPredicate(e);
+  }
+
+  private static isTransactionDelivered(
     lastAttempt: LastDeliveryAttempt | undefined,
     currentNonce: number
-  ) {
-    return lastAttempt && currentNonce > lastAttempt.nonce;
+  ): lastAttempt is LastDeliveryAttempt {
+    return lastAttempt ? currentNonce > lastAttempt.nonce : false;
   }
 
   private async getFees(
@@ -246,3 +290,18 @@ export class TransactionDeliveryMan {
     return fee;
   }
 }
+
+const getEthersLikeErrorOrFail = (e: unknown): AggregateError | EthersError => {
+  const error = e as Partial<EthersError>;
+
+  if (error instanceof AggregateError || (error.code && error.message)) {
+    return error as EthersError | AggregateError;
+  }
+
+  throw e;
+};
+
+const isEthersError = (e: unknown): e is EthersError => {
+  const error = e as Partial<EthersError>;
+  return !!error.code && !!error.message;
+};
