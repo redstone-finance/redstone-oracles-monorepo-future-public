@@ -17,7 +17,7 @@ describe("ProviderWithFallback", () => {
   let contract: Counter;
 
   beforeEach(async () => {
-    contract = await deployCounter();
+    contract = await deployCounter(hardhat.ethers.provider);
   });
 
   describe("with first always failing and second always working provider", () => {

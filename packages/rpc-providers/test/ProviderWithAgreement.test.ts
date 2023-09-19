@@ -17,7 +17,7 @@ describe("ProviderWithAgreement", () => {
   let signer: Signer = new Wallet(TEST_PRIV_KEY);
 
   beforeEach(async () => {
-    contract = await deployCounter();
+    contract = await deployCounter(hardhat.ethers.provider);
   });
 
   afterEach(() => {});

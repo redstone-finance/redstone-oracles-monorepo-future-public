@@ -40,6 +40,10 @@ export abstract class ProviderWithFallbackBase implements Provider {
     return this.executeWithFallback("sendTransaction", ...args);
   }
 
+  send(...args: unknown[]): Promise<unknown> {
+    return this.executeWithFallback("send", ...args);
+  }
+
   getBlockNumber(): Promise<number> {
     return this.executeWithFallback("getBlockNumber");
   }
