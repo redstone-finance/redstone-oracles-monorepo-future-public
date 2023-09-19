@@ -50,9 +50,8 @@ describe("DataPackagesWrapper", () => {
   it("Should work properly with manual payload", async () => {
     const dataPackagesResponse = getValidDataPackagesResponse();
     const dpWrapper = new DataPackagesWrapper(dataPackagesResponse);
-    const redstonePayload = await dpWrapper.getRedstonePayloadForManualUsage(
-      contract
-    );
+    const redstonePayload =
+      await dpWrapper.getRedstonePayloadForManualUsage(contract);
     const tx = await contract.save2ValuesInStorageWithManualPayload(
       dataFeedIds,
       redstonePayload

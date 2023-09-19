@@ -36,7 +36,7 @@ describe("SampleProxyConnector", function () {
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory(
-      "SampleProxyConnector",
+      "SampleProxyConnector"
     );
     contract = await ContractFactory.deploy();
     await contract.deployed();
@@ -72,7 +72,7 @@ describe("SampleProxyConnector", function () {
       getMockNumericPackage({
         dataPoints,
         mockSignerIndex: i as MockSignerIndex,
-      }),
+      })
     );
 
     const wrappedContract =
@@ -82,8 +82,8 @@ describe("SampleProxyConnector", function () {
       await expect(
         wrappedContract.checkOracleValue(
           utils.convertStringToBytes32(dataPoint.dataFeedId),
-          Math.round(dataPoint.value * 10 ** 8),
-        ),
+          Math.round(dataPoint.value * 10 ** 8)
+        )
       ).not.to.be.reverted;
     }
   });
@@ -94,7 +94,7 @@ describe("SampleProxyConnector", function () {
     await expect(
       wrappedContract.requireValueForward({
         value: ethers.utils.parseUnits("2137"),
-      }),
+      })
     ).not.to.be.reverted;
   });
 
@@ -104,11 +104,11 @@ describe("SampleProxyConnector", function () {
     await expect(
       wrappedContract.checkOracleValueLongEncodedFunction(
         ethDataFeedId,
-        expectedNumericValues.ETH,
-      ),
+        expectedNumericValues.ETH
+      )
     ).not.to.be.reverted;
     await expect(
-      wrappedContract.checkOracleValueLongEncodedFunction(ethDataFeedId, 9999),
+      wrappedContract.checkOracleValueLongEncodedFunction(ethDataFeedId, 9999)
     )
       .to.be.revertedWith("WrongValue")
       .withArgs();
@@ -123,19 +123,19 @@ describe("SampleProxyConnector", function () {
     await testShouldRevertWith(
       newMockPackages,
       "ProxyCalldataFailedWithCustomError",
-      "0x355b8743",
+      "0x355b8743"
     );
   });
 
   it("Should fail with correct message (insufficient number of unique signers)", async () => {
     const newMockPackages = mockNumericPackages.slice(
       0,
-      NUMBER_OF_MOCK_NUMERIC_SIGNERS - 1,
+      NUMBER_OF_MOCK_NUMERIC_SIGNERS - 1
     );
     await testShouldRevertWith(
       newMockPackages,
       "ProxyCalldataFailedWithCustomError",
-      "0x2b13aef50000000000000000000000000000000000000000000000000000000000000009000000000000000000000000000000000000000000000000000000000000000a",
+      "0x2b13aef50000000000000000000000000000000000000000000000000000000000000009000000000000000000000000000000000000000000000000000000000000000a"
     );
   });
 
@@ -148,7 +148,7 @@ describe("SampleProxyConnector", function () {
     await testShouldRevertWith(
       newMockPackages,
       "ProxyCalldataFailedWithCustomError",
-      "0xec459bc00000000000000000000000008626f6940e2eb28930efb4cef49b2d1f2c9c1199",
+      "0xec459bc00000000000000000000000008626f6940e2eb28930efb4cef49b2d1f2c9c1199"
     );
   });
 
@@ -156,7 +156,7 @@ describe("SampleProxyConnector", function () {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
     await expect(wrappedContract.proxyEmptyError()).to.be.revertedWith(
-      "ProxyCalldataFailedWithoutErrMsg",
+      "ProxyCalldataFailedWithoutErrMsg"
     );
   });
 

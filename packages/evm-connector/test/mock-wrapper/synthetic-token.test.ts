@@ -15,7 +15,7 @@ import {
 
 describe("SampleSyntheticToken", function () {
   let sampleContract: SampleSyntheticToken,
-    wrappedContract: any,
+    wrappedContract: SampleSyntheticToken,
     signer: Signer,
     address: string;
 

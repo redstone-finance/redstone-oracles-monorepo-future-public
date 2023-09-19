@@ -67,7 +67,7 @@ describe("MentoAdapter", () => {
         mockSignersCount: 10,
         dataPoints,
         timestampMilliseconds,
-      }) as MentoAdapterBase;
+      });
 
     // Prepare arguments
     const proposedTimestamp = timestampMilliseconds;

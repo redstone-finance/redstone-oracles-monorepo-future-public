@@ -38,8 +38,8 @@ export const mockNumericPackageConfigs: MockNumericPackageArgs[] = [
     ],
   },
   ...getRange({ start: 3, length: NUMBER_OF_MOCK_NUMERIC_SIGNERS - 3 }).map(
-    (mockSignerIndex: any) => ({
-      mockSignerIndex,
+    (mockSignerIndex: number) => ({
+      mockSignerIndex: mockSignerIndex as MockSignerIndex,
       dataPoints: [
         { dataFeedId: "ETH", value: 42 },
         { dataFeedId: "BTC", value: 400 },
@@ -57,7 +57,7 @@ export const mockSignedDataPackageObjects = mockNumericPackageConfigs.map(
   getMockSignedDataPackageObj
 );
 
-export const expectedNumericValues: any = {
+export const expectedNumericValues: Record<string, number> = {
   ETH: 42 * 10 ** 8,
   BTC: 400 * 10 ** 8,
 };

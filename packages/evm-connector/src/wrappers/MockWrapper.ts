@@ -1,31 +1,29 @@
-import {
-  DataPackage,
-  SignedDataPackage,
-  RedstonePayload,
-} from "@redstone-finance/protocol";
+import { DataPackage, SignedDataPackage } from "@redstone-finance/protocol";
 import {
   MockSignerAddress,
   getMockSignerPrivateKey,
 } from "../helpers/test-utils";
 import { BaseWrapper } from "./BaseWrapper";
 import { version } from "../../package.json";
+import { Contract } from "ethers";
 
 export interface MockDataPackageConfig {
   signer: MockSignerAddress;
   dataPackage: DataPackage;
 }
 
-export class MockWrapper extends BaseWrapper {
+export class MockWrapper<T extends Contract> extends BaseWrapper<T> {
   constructor(private mockDataPackages: MockDataPackageConfig[]) {
     super();
   }
 
-  getUnsignedMetadata(): string {
+  override getUnsignedMetadata(): string {
     return `${version}#mock`;
   }
 
   // This function is async, because it's async in BaseWrapper
-  async getDataPackagesForPayload() {
+  // eslint-disable-next-line @typescript-eslint/require-await
+  override async getDataPackagesForPayload() {
     const signedDataPackages: SignedDataPackage[] = [];
 
     for (const mockDataPackage of this.mockDataPackages) {
@@ -37,6 +35,7 @@ export class MockWrapper extends BaseWrapper {
     return signedDataPackages;
   }
 
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this, @typescript-eslint/require-await
   async dryRunToVerifyPayload(payloads: string[]): Promise<string> {
     return payloads[0];
   }

@@ -1,6 +1,6 @@
-import { Contract, BytesLike, Event } from "ethers";
-import { deepCopy } from "ethers/lib/utils";
-import { TransactionResponse } from "@ethersproject/providers";
+import { Contract, BytesLike, Event, ContractReceipt } from "ethers";
+import { deepCopy, LogDescription } from "ethers/lib/utils";
+import { Log, TransactionResponse } from "@ethersproject/providers";
 
 // Copied from ethers.js source code
 export const addContractWait = (
@@ -9,21 +9,22 @@ export const addContractWait = (
 ) => {
   const wait = tx.wait.bind(tx);
   tx.wait = (confirmations?: number) => {
-    return wait(confirmations).then((receipt: any) => {
-      receipt.events = receipt.logs.map((log: any) => {
-        let event: any = <Event>deepCopy(log);
-        // let parsed: LogDescription = null;
-        let parsed: any = null;
+    return wait(confirmations).then((receipt: ContractReceipt) => {
+      receipt.events = receipt.logs.map((log: Log) => {
+        const event = <Event>deepCopy(log);
+        let parsed: LogDescription | undefined;
         try {
           parsed = contract.interface.parseLog(log);
-        } catch (e) {}
+        } catch (e) {
+          // ignore
+        }
 
         // Successfully parsed the event log; include it
         if (parsed) {
           event.args = parsed.args;
-          event.decode = (data: BytesLike, topics?: Array<any>) => {
+          event.decode = (data: BytesLike, topics?: Array<string>) => {
             return contract.interface.decodeEventLog(
-              parsed.eventFragment,
+              parsed!.eventFragment,
               data,
               topics
             );

@@ -1,6 +1,5 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { Contract } from "ethers";
 import { ethers } from "hardhat";
 import { utils } from "@redstone-finance/protocol";
 import { WrapperBuilder } from "../../src/index";
@@ -16,7 +15,9 @@ const dataFeedIdsB32 = [
   utils.convertStringToBytes32("BTC"),
 ];
 
-const checkExpectedValues = async (contract: Contract) => {
+const checkExpectedValues = async (
+  contract: SampleRedstoneConsumerNumericMockManyDataFeeds
+) => {
   const firstValueFromContract = await contract.firstValue();
   const secondValueFromContract = await contract.secondValue();
 
@@ -29,7 +30,7 @@ const checkExpectedValues = async (contract: Contract) => {
 };
 
 const runTest = async (
-  contract: Contract,
+  contract: SampleRedstoneConsumerNumericMockManyDataFeeds,
   urls?: string[],
   dataServiceId?: string,
   uniqueSignersCount?: number
@@ -48,7 +49,7 @@ const runTest = async (
 };
 
 const runTestWithManualPayload = async (
-  contract: Contract,
+  contract: SampleRedstoneConsumerNumericMockManyDataFeeds,
   payload: string
 ) => {
   const tx = await contract.save2ValuesInStorageWithManualPayload(
@@ -131,7 +132,7 @@ describe("DataServiceWrapper", () => {
   });
 
   describe("With RedstoneDataServiceConsumer contract", () => {
-    let contract: Contract;
+    let contract: SampleRedstoneConsumerNumericMockManyDataFeeds;
 
     beforeEach(async () => {
       const ContractFactory = await ethers.getContractFactory(
