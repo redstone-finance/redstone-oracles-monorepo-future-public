@@ -177,7 +177,7 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "SWETH": {
-      "source": ["balancer-ethereum-weth", "maverick"]
+      "source": ["balancer-ethereum-weth"]
     },
     "3Crv": {
       "source": ["ethereum-evm-fetcher"]
