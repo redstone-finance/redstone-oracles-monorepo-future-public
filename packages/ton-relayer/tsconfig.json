@@ -28,6 +28,7 @@
   "include": [
     "src/**/*",
     "src/**/*.json",
+    "relayer-manifests/**/*.json",
     "./package.json",
     "index.ts"
   ],
