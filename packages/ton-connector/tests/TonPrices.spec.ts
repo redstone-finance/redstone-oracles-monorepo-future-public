@@ -90,10 +90,10 @@ describe("Ton Prices Tests", () => {
     console.log(timestamp);
 
     await pricesFeed.fetchData();
-    const btcPrice = await pricesFeed.getData();
-    console.log(btcPrice);
+    const feedData = await pricesFeed.getData();
+    console.log(feedData);
 
-    expect(btcPrice.value).toBe(prices[1]);
-    expect(btcPrice.timestamp).toBe(timestamp);
+    expect(feedData.value).toBe(prices[1]);
+    expect(feedData.timestamp).toBe(timestamp);
   });
 });

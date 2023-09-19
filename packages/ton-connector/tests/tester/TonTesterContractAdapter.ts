@@ -1,14 +1,9 @@
-import { OpenedContract } from "ton";
-import { SandboxContract } from "@ton-community/sandbox";
 import { TonTester } from "./TonTester";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
+import { AnyTonOpenedContract } from "../../src";
 
 export class TonTesterContractAdapter {
-  constructor(
-    public readonly contract:
-      | OpenedContract<TonTester>
-      | SandboxContract<TonTester>
-  ) {}
+  constructor(public readonly contract: AnyTonOpenedContract<TonTester>) {}
 
   async testProcessPayload(
     paramsProvider: ContractParamsProvider,
