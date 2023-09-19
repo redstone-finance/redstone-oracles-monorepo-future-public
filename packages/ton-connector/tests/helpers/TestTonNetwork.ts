@@ -9,12 +9,14 @@ export class TestTonNetwork implements TonNetwork {
   api?: TonClient4;
   oldApi?: TonClient;
   workchain = 0;
+  walletAddress?: Address;
 
   constructor(
     protected blockchain: Blockchain,
     deployer: SandboxContract<TreasuryContract>
   ) {
     this.sender = deployer.getSender();
+    this.walletAddress = this.sender.address;
   }
 
   open<T extends Contract>(
@@ -24,7 +26,7 @@ export class TestTonNetwork implements TonNetwork {
   }
 
   isContractDeployed(address: Address): Promise<boolean> {
-    return Promise.resolve(address == this.sender.address);
+    return Promise.resolve(address === this.walletAddress);
   }
 
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this -- Interface conformance

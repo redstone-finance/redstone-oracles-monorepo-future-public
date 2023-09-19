@@ -1,10 +1,12 @@
 import { IContractConnector } from "../contracts/IContractConnector";
 import { IPriceManagerContractAdapter } from "./IPriceManagerContractAdapter";
+import { sendHealthcheckPing } from "@redstone-finance/utils";
 
 export async function startSimpleRelayer(
   config: {
     relayerIterationInterval: string | number;
     updatePriceInterval: string | number;
+    healthcheckPingUrl?: string;
   },
   connector: IContractConnector<IPriceManagerContractAdapter>
 ) {
@@ -24,6 +26,9 @@ export async function startSimpleRelayer(
   // eslint-disable-next-line @typescript-eslint/no-misused-promises -- We've decided to allow the exception for setInterval
   setInterval(async () => {
     {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      sendHealthcheckPing(config.healthcheckPingUrl);
+
       let txHash: string | undefined;
 
       try {

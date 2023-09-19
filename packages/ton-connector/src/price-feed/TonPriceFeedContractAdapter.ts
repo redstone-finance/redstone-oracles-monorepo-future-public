@@ -1,13 +1,9 @@
-import { OpenedContract } from "ton";
-import { SandboxContract } from "@ton-community/sandbox";
 import { TonPriceFeed } from "../../wrappers/TonPriceFeed";
 
+import { AnyTonOpenedContract } from "../network/TonNetwork";
+
 export class TonPriceFeedContractAdapter {
-  constructor(
-    public readonly contract:
-      | OpenedContract<TonPriceFeed>
-      | SandboxContract<TonPriceFeed>
-  ) {}
+  constructor(public readonly contract: AnyTonOpenedContract<TonPriceFeed>) {}
 
   async sendDeploy(): Promise<void> {
     await this.contract.sendDeploy();
