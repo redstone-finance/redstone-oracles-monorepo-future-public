@@ -34,8 +34,8 @@ export class ProviderWithFallback
   extends ProviderWithFallbackBase
   implements Provider
 {
+  public readonly providers: Provider[];
   protected readonly providerWithFallbackConfig: ProviderWithFallbackConfig;
-  protected readonly providers: Provider[];
   private currentProvider: Provider;
   private providerIndex = 0;
 
