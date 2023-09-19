@@ -203,7 +203,7 @@ async function updatePriceInAdapter(
         value,
       },
     ],
-  }) as IRedstoneAdapter;
+  });
 
   // round 1
   await wrappedContract.updateDataFeedsValues(timestamp);

@@ -20,12 +20,12 @@ describe("PopulateTransactionTest", function () {
 
     // Prepare calldata for original and wrapped contracts
     const dataFeedId = utils.convertStringToBytes32("ETH");
-    const originalTxPopulated = await contract.populateTransaction[
-      "getValueForDataFeedId"
-    ](dataFeedId);
-    const wrappedTxPopulated = await wrappedContract.populateTransaction[
-      "getValueForDataFeedId"
-    ](dataFeedId);
+    const originalTxPopulated =
+      await contract.populateTransaction["getValueForDataFeedId"](dataFeedId);
+    const wrappedTxPopulated =
+      await wrappedContract.populateTransaction["getValueForDataFeedId"](
+        dataFeedId
+      );
 
     // Checking the calldata
     const redstoneMarker = consts.REDSTONE_MARKER_HEX.replace("0x", "");

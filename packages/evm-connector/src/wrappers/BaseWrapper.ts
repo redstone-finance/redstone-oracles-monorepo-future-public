@@ -2,14 +2,14 @@ import { Contract, Signer } from "ethers";
 import { addContractWait } from "../helpers/add-contract-wait";
 import { RedstonePayload, SignedDataPackage } from "@redstone-finance/protocol";
 
-interface OverwriteFunctionArgs {
-  wrappedContract: Contract;
-  contract: Contract;
+interface OverwriteFunctionArgs<T extends Contract> {
+  wrappedContract: T;
+  contract: T;
   functionName: string;
 }
 
-export abstract class BaseWrapper {
-  protected contract!: Contract;
+export abstract class BaseWrapper<T extends Contract> {
+  protected contract!: T;
 
   abstract getDataPackagesForPayload(): Promise<SignedDataPackage[]>;
 
@@ -23,12 +23,11 @@ export abstract class BaseWrapper {
   // Redstone payload can be passed as the last argument of the contract function
   // But it needs to have a length that is a multiplicity of 32, otherwise zeros
   // will be padded right and contract will revert with `CalldataMustHaveValidPayload`
-  async getRedstonePayloadForManualUsage(contract: Contract): Promise<string> {
+  async getRedstonePayloadForManualUsage(contract: T): Promise<string> {
     this.setContractForFetchingDefaultParams(contract);
     const shouldBeMultipleOf32 = true;
-    const payloadWithoutZeroExPrefix = await this.prepareRedstonePayload(
-      shouldBeMultipleOf32
-    );
+    const payloadWithoutZeroExPrefix =
+      await this.prepareRedstonePayload(shouldBeMultipleOf32);
     return "0x" + payloadWithoutZeroExPrefix;
   }
 
@@ -60,15 +59,15 @@ export abstract class BaseWrapper {
     return RedstonePayload.prepare(signedDataPackages, unsignedMetadata);
   }
 
-  setContractForFetchingDefaultParams(contract: Contract) {
+  setContractForFetchingDefaultParams(contract: T) {
     this.contract = contract;
   }
 
-  overwriteEthersContract(contract: Contract): Contract {
+  overwriteEthersContract(contract: T): T {
     this.setContractForFetchingDefaultParams(contract);
-    const contractPrototype = Object.getPrototypeOf(contract);
+    const contractPrototype = Object.getPrototypeOf(contract) as object;
     const wrappedContract = Object.assign(
-      Object.create(contractPrototype),
+      Object.create(contractPrototype) as T,
       contract,
       { populateTransaction: {} }
     );
@@ -98,9 +97,9 @@ export abstract class BaseWrapper {
     wrappedContract,
     contract,
     functionName,
-  }: OverwriteFunctionArgs) {
+  }: OverwriteFunctionArgs<T>) {
     wrappedContract.populateTransaction[functionName] = async (
-      ...args: any[]
+      ...args: unknown[]
     ) => {
       const originalTx = await contract.populateTransaction[functionName](
         ...args
@@ -111,15 +110,17 @@ export abstract class BaseWrapper {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   private overwriteFunction({
     wrappedContract,
     contract,
     functionName,
-  }: OverwriteFunctionArgs) {
+  }: OverwriteFunctionArgs<T>) {
     const isCall = contract.interface.getFunction(functionName).constant;
     const isDryRun = functionName.endsWith("DryRun");
 
-    (wrappedContract[functionName] as any) = async (...args: any[]) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+    (wrappedContract as any)[functionName] = async (...args: unknown[]) => {
       const tx = await wrappedContract.populateTransaction[functionName](
         ...args
       );
@@ -127,14 +128,14 @@ export abstract class BaseWrapper {
       if (isCall || isDryRun) {
         const shouldUseSigner = Signer.isSigner(contract.signer);
 
-        const result = await contract[
-          shouldUseSigner ? "signer" : "provider"
-        ].call(tx);
+        const result =
+          await contract[shouldUseSigner ? "signer" : "provider"].call(tx);
 
         const decoded = contract.interface.decodeFunctionResult(
           functionName,
           result
         );
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return decoded.length == 1 ? decoded[0] : decoded;
       } else {
         const sentTx = await contract.signer.sendTransaction(tx);

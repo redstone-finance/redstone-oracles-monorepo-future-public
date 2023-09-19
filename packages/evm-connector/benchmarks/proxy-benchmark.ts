@@ -8,6 +8,10 @@ import {
 } from "../src/helpers/test-utils";
 import { WrapperBuilder } from "../src/index";
 import { MockDataPackageConfig } from "../src/wrappers/MockWrapper";
+import {
+  SampleChainableStorageProxy,
+  SampleChainableStorageProxyConsumer,
+} from "../typechain-types";
 interface BenchmarkTestCaseParams {
   requiredSignersCount: number;
   requestedSymbolsCount: number;
@@ -32,9 +36,9 @@ const TEST_CASES = {
 };
 
 describe("Benchmark", function () {
-  const fullGasReport: any = {};
+  const fullGasReport: Record<string, GasReport> = {};
 
-  this.afterAll(async () => {
+  this.afterAll(() => {
     console.log("=== FINAL GAS REPORT ===");
     console.log(JSON.stringify(fullGasReport, null, 2));
   });
@@ -55,7 +59,9 @@ describe("Benchmark", function () {
 
     await initialProxy.updateUniqueSignersThreshold(requiredSignersCount);
 
-    let currentProxy = initialProxy;
+    let currentProxy:
+      | SampleChainableStorageProxy
+      | SampleChainableStorageProxyConsumer = initialProxy;
     for (let i = 0; i < chainLength - 2; i++) {
       const nextProxy = await StorageProxyConsumer.deploy(initialProxy.address);
       await nextProxy.deployed();

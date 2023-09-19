@@ -100,7 +100,7 @@ export const describeCommonPriceFeedTests = ({
         mockSignersCount: 2,
         timestampMilliseconds: mockDataTimestamp,
         dataPoints: [{ dataFeedId: "BTC", value: 42 }],
-      }) as IRedstoneAdapter;
+      });
 
       const tx = await wrappedContract.updateDataFeedsValues(mockDataTimestamp);
       await tx.wait();

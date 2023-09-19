@@ -51,9 +51,8 @@ describe("SignerOrProviderTest", function () {
         mockNumericPackages
       );
 
-    const tx = await wrappedContract.saveOracleValueInContractStorage(
-      DATA_FEED_ID
-    );
+    const tx =
+      await wrappedContract.saveOracleValueInContractStorage(DATA_FEED_ID);
     await tx.wait();
   });
 });
