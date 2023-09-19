@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const getFromEnv = (name: string) => {
+export const getFromEnv = (name: string) => {
   const envVariable = process.env[name];
   if (!envVariable) {
     throw new Error(`Missing environment variable ${name}`);
@@ -14,10 +14,9 @@ const API_V2_ENDPOINT = "https://testnet.toncenter.com/api/v2/jsonRPC";
 
 export const config = Object.freeze({
   relayerIterationInterval: getFromEnv("RELAYER_ITERATION_INTERVAL"),
-  updatePriceInterval: getFromEnv("UPDATE_PRICE_INTERVAL"),
   healthcheckPingUrl: getFromEnv("HEALTHCHECK_PING_URL"),
   endpoint: API_V2_ENDPOINT,
   apiKey: getFromEnv("TONCENTER_API_KEY"),
   walletMnemonic: getFromEnv("WALLET_MNEMONIC").split(" "),
-  priceManagerAddress: getFromEnv("PRICE_MANAGER_ADDRESS"),
+  manifestFile: getFromEnv("MANIFEST_FILE"),
 });
