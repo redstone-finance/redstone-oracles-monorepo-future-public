@@ -1,9 +1,9 @@
 import { utils } from "ethers";
-import { priceFeedAddresses } from "../config/price-feed-addresses";
 import { ContractConnectorFactory } from "../ton/ContractConnectorFactory";
+import { manifest } from "../config/manifest";
 
 (async () => {
-  for (const feedAddress of [priceFeedAddresses.BTC, priceFeedAddresses.ETH]) {
+  for (const [_, feedAddress] of Object.entries(manifest.priceFeeds)) {
     try {
       const connector =
         ContractConnectorFactory.makePriceFeedContractConnector(feedAddress);
