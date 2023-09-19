@@ -30,7 +30,7 @@ const TEST_CASES = {
 
 describe("Benchmark", function () {
   let contract: Benchmark;
-  const fullGasReport: any = {};
+  const fullGasReport: Record<string, GasReport> = {};
 
   this.beforeEach(async () => {
     const ContractFactory = await ethers.getContractFactory("Benchmark");
@@ -38,7 +38,7 @@ describe("Benchmark", function () {
     await contract.deployed();
   });
 
-  this.afterAll(async () => {
+  this.afterAll(() => {
     console.log("=== FINAL GAS REPORT ===");
     console.log(JSON.stringify(fullGasReport, null, 2));
   });
@@ -157,22 +157,19 @@ describe("Benchmark", function () {
     await uniqueSignersThresholdUpdateTx.wait();
 
     // Test empty function without wrapping
-    const emptyTxWithoutWrapping = await contract.emptyExtractOracleValues(
-      bytes32Symbols
-    );
+    const emptyTxWithoutWrapping =
+      await contract.emptyExtractOracleValues(bytes32Symbols);
     const emptyTxWithoutWrappingReceipt = await emptyTxWithoutWrapping.wait();
 
     // Test empty function with wrapping
-    const emptyTxWithWrapping = await wrappedContract.emptyExtractOracleValues(
-      bytes32Symbols
-    );
+    const emptyTxWithWrapping =
+      await wrappedContract.emptyExtractOracleValues(bytes32Symbols);
     const emptyTxWithWrappingReceipt = await emptyTxWithWrapping.wait();
 
     try {
       // Test non-empty function with wrapping
-      const realOracleTx = await wrappedContract.extractOracleValues(
-        bytes32Symbols
-      );
+      const realOracleTx =
+        await wrappedContract.extractOracleValues(bytes32Symbols);
       const realOracleTxReceipt = await realOracleTx.wait();
 
       const gasReport: GasReport = {

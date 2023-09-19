@@ -5,8 +5,8 @@ import { SampleBitmapLib } from "../../typechain-types";
 
 describe("SampleBitmapLib", function () {
   let contract: SampleBitmapLib,
-    expectedBitmap: any = {},
     bitmapNumber = BigNumber.from(0);
+  const expectedBitmap = {} as Record<number, number>;
 
   const setBit = async (bitIndex: number) => {
     expectedBitmap[bitIndex] = 1;
@@ -32,7 +32,7 @@ describe("SampleBitmapLib", function () {
   });
 
   it("Bitmap should be empty in the beginning", async () => {
-    validateBitmap();
+    await validateBitmap();
   });
 
   for (const bitIndexToSet of [0, 1, 42, 235, 255]) {

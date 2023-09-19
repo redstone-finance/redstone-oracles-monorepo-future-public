@@ -53,7 +53,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
     ).usingSimpleNumericMock({
       timestampMilliseconds: mockDataTimestamp,
       ...(args.mockWrapperConfig || defaultMockWrapperConfig),
-    }) as IRedstoneAdapter;
+    });
 
     // Update one data feed
     await time.setNextBlockTimestamp(mockBlockTimestamp);

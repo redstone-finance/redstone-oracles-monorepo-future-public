@@ -12,7 +12,7 @@ interface ScoreByAddressResponse {
     {
       dataFeedId: string;
       value: number;
-    }
+    },
   ];
   timestampMilliseconds: number;
   signature: string;
@@ -30,7 +30,7 @@ const handlers = [
         valueBasedOnAddress: true,
       });
 
-      return res(ctx.json(signedDataPackage.toObj()));
+      return await res(ctx.json(signedDataPackage.toObj()));
     }
   ),
 
@@ -43,7 +43,7 @@ const handlers = [
         valueBasedOnAddress: true,
       });
 
-      return res(ctx.json(signedDataPackage.toObj()));
+      return await res(ctx.json(signedDataPackage.toObj()));
     }
   ),
 
@@ -57,7 +57,7 @@ const handlers = [
         dataFeedId: "invalid data feed id",
       });
 
-      return res(ctx.json(signedDataPackage.toObj()));
+      return await res(ctx.json(signedDataPackage.toObj()));
     }
   ),
 
@@ -69,7 +69,7 @@ const handlers = [
         value: 1234,
         privateKey: MOCK_PRIVATE_KEYS[2],
       });
-      return res(ctx.json(signedDataPackage.toObj()));
+      return await res(ctx.json(signedDataPackage.toObj()));
     }
   ),
 ];
@@ -100,7 +100,7 @@ const getSignedDataPackage = ({
   }
 
   return signOnDemandDataPackage(
-    !!dataFeedId ? dataFeedId : address,
+    dataFeedId ? dataFeedId : address,
     valueToResponse,
     Number(timestamp),
     privateKey

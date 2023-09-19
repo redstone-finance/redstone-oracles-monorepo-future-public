@@ -5,6 +5,7 @@ import {
   DEFAULT_DATA_FEED_ID_BYTES_32,
   getMockPackageWithOneBytesDataPoint,
   getRange,
+  MockSignerIndex,
 } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src";
 
@@ -15,9 +16,9 @@ describe("Long Inputs", function () {
     return getRange({
       start: 0,
       length: 3,
-    }).map((mockSignerIndex: any) =>
+    }).map((mockSignerIndex) =>
       getMockPackageWithOneBytesDataPoint({
-        mockSignerIndex,
+        mockSignerIndex: mockSignerIndex as MockSignerIndex,
         hexValue,
       })
     );

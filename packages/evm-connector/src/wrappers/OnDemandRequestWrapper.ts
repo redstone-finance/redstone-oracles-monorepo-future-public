@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Signer } from "ethers";
+import { Contract, Signer } from "ethers";
 import {
   SignedDataPackage,
   SignedDataPackagePlainObj,
@@ -15,7 +15,7 @@ export interface OnDemandRequestParams {
   scoreType: ScoreType;
 }
 
-export class OnDemandRequestWrapper extends BaseWrapper {
+export class OnDemandRequestWrapper<T extends Contract> extends BaseWrapper<T> {
   constructor(
     private readonly requestParams: OnDemandRequestParams,
     private readonly nodeUrls: string[]
@@ -23,15 +23,16 @@ export class OnDemandRequestWrapper extends BaseWrapper {
     super();
   }
 
-  getUnsignedMetadata(): string {
+  override getUnsignedMetadata(): string {
     return `${version}#on-demand-request`;
   }
 
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this, @typescript-eslint/require-await
   async dryRunToVerifyPayload(payloads: string[]): Promise<string> {
     return payloads[0];
   }
 
-  async getDataPackagesForPayload(): Promise<SignedDataPackage[]> {
+  override async getDataPackagesForPayload(): Promise<SignedDataPackage[]> {
     const timestamp = Date.now();
     const message = prepareMessageToSign(timestamp);
     const { signer, scoreType } = this.requestParams;
