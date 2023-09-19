@@ -8,6 +8,7 @@ export class BlueprintTonNetwork implements TonNetwork {
   sender: Sender;
   api: TonClient4;
   workchain: number;
+  walletAddress?: Address;
 
   constructor(
     private networkProvider: NetworkProvider,
@@ -17,6 +18,7 @@ export class BlueprintTonNetwork implements TonNetwork {
     this.sender = networkProvider.sender();
     this.api = networkProvider.api();
     this.workchain = networkProvider.network() == "testnet" ? 0 : -1;
+    this.walletAddress = networkProvider.sender().address;
   }
 
   open<T extends Contract>(contract: T): OpenedContract<T> {

@@ -1,10 +1,9 @@
 import { TonContract } from "./TonContract";
-import { OpenedContract } from "ton";
 import { TonContractFactory } from "./TonContractFactory";
-
-import { TonNetwork } from "./network/TonNetwork";
-import { SandboxContract } from "@ton-community/sandbox";
+import { AnyTonOpenedContract, TonNetwork } from "./network/TonNetwork";
 import { IContractConnector } from "@redstone-finance/sdk";
+import { sleep } from "./Ton";
+import { hexlify } from "ethers/lib/utils";
 
 export abstract class TonContractConnector<
   Contract extends TonContract,
@@ -23,9 +22,7 @@ export abstract class TonContractConnector<
     return await contractFactory.makeForExecute(this.network, this.address!);
   }
 
-  async getContract(): Promise<
-    OpenedContract<Contract> | SandboxContract<Contract>
-  > {
+  async getContract(): Promise<AnyTonOpenedContract<Contract>> {
     const contractFactory = new TonContractFactory(this.contractType);
     const contract = await this.makeContract(contractFactory);
 
@@ -38,8 +35,56 @@ export abstract class TonContractConnector<
     return (await this.network.api!.getLastBlock()).last.seqno;
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this -- Interface conformance
-  waitForTransaction(_: string): Promise<boolean> {
-    throw "Not implemented";
+  async waitForTransaction(_: string): Promise<boolean> {
+    const { hash } = await this.fetchNetworkValues();
+    let transactionId: string | undefined;
+    let totalFees: number | undefined;
+
+    let currentHash = hash;
+    while (hash == currentHash) {
+      console.log(`Waiting for contract changes...`);
+      await sleep(1500);
+
+      ({
+        hash: currentHash,
+        transactionId,
+        totalFees,
+      } = await this.fetchNetworkValues());
+    }
+
+    console.log(
+      `Contract changed with transaction: '${transactionId}'; totalFees: ${totalFees} TONs`
+    );
+
+    return true;
+  }
+
+  private async fetchNetworkValues() {
+    const api = this.network.api;
+    const walletAddress = this.network.walletAddress;
+
+    if (!api || !walletAddress) {
+      throw "Api or Wallet address is undefined";
+    }
+
+    const seqno = (await api.getLastBlock()).last.seqno;
+    const account = await api.getAccountLite(seqno, walletAddress);
+    const hash = account.account.last!.hash;
+    const transactions = await api.getAccountTransactions(
+      walletAddress,
+      BigInt(account.account.last!.lt),
+      Buffer.from(hash, "base64")
+    );
+
+    const lastTransaction = transactions[0].tx;
+
+    const transactionId = hexlify(lastTransaction.hash()).substring(2);
+
+    return {
+      seqno,
+      hash,
+      transactionId,
+      totalFees: Number(lastTransaction.totalFees.coins) / 10 ** 9,
+    };
   }
 }

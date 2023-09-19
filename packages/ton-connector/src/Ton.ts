@@ -1,5 +1,5 @@
 import { SendMode, TonClient, TonClient4 } from "ton";
-import { Cell, ContractProvider, Sender } from "ton-core";
+import { Address, Cell, ContractProvider, Sender } from "ton-core";
 import { TonNetwork } from "./network/TonNetwork";
 
 export async function sleep(ms: number) {
@@ -8,8 +8,9 @@ export async function sleep(ms: number) {
 
 export abstract class Ton {
   sender!: Sender;
-  api: TonClient4 | undefined;
-  oldApi: TonClient | undefined;
+  api?: TonClient4;
+  oldApi?: TonClient;
+  walletAddress?: Address;
 
   async connect(network: TonNetwork): Promise<Ton> {
     await network.setUp();
@@ -17,9 +18,9 @@ export abstract class Ton {
     this.sender = network.sender!;
     this.api = network.api;
     this.oldApi = network.oldApi;
+    this.walletAddress = network.walletAddress;
 
-    const walletAddress = this.sender.address;
-    if (!(await network.isContractDeployed(walletAddress))) {
+    if (!(await network.isContractDeployed(network.walletAddress))) {
       throw "wallet is not deployed";
     }
 
@@ -32,34 +33,10 @@ export abstract class Ton {
     body?: Cell,
     sendMode = SendMode.PAY_GAS_SEPARATELY
   ): Promise<void> {
-    await this.wait(async () => {
-      await provider.internal(this.sender, {
-        value: `${coins.toFixed(2)}`,
-        body,
-        sendMode,
-      });
+    await provider.internal(this.sender, {
+      value: `${coins.toFixed(2)}`,
+      body,
+      sendMode,
     });
-  }
-
-  protected async wait<T>(callback: () => Promise<T>): Promise<T> {
-    if (!this.api) {
-      return await callback();
-    }
-
-    const seqno = (await this.api.getLastBlock()).last.seqno;
-
-    const result = await callback();
-
-    // wait until confirmed
-    let currentSeqno = seqno;
-    while (currentSeqno == seqno) {
-      console.log("waiting for transaction to confirm...");
-      await sleep(1500);
-      currentSeqno = (await this.api.getLastBlock()).last.seqno;
-    }
-
-    console.log("transaction confirmed!");
-
-    return result;
   }
 }
