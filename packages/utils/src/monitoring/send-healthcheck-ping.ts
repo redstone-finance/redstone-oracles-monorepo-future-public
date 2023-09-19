@@ -1,8 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { config } from "../../config";
 
-export const sendHealthcheckPing = async () => {
-  const { healthcheckPingUrl } = config();
+export const sendHealthcheckPing = async (healthcheckPingUrl?: string) => {
   if (healthcheckPingUrl) {
     try {
       await axios.get(healthcheckPingUrl);

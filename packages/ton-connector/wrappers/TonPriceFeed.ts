@@ -21,6 +21,6 @@ export class TonPriceFeed extends TonContract {
     const builder = messageBuilder(OP_REDSTONE_FETCH_DATA);
     const body = builder.endCell();
 
-    await this.internalMessage(provider, 0.05, body);
+    await this.internalMessage(provider, 0.02, body);
   }
 }

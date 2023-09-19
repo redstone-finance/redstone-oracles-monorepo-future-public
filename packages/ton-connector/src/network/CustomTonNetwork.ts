@@ -17,15 +17,16 @@ export class CustomTonNetwork implements TonNetwork {
   oldApi?: TonClient;
   sender?: Sender;
   walletContract?: OpenedContract<WalletContractV4>;
+  walletAddress?: Address;
 
   constructor(
-    private walletKeyProvider: () => KeyPair | undefined,
+    private walletKeyProvider: () => Promise<KeyPair | undefined>,
     private apiV2Config: TonApiV2Config,
     public workchain = 0
   ) {}
 
   async setUp() {
-    const walletKey = this.walletKeyProvider();
+    const walletKey = await this.walletKeyProvider();
 
     assert(walletKey, "Wallet key is undefined!");
 
@@ -41,13 +42,13 @@ export class CustomTonNetwork implements TonNetwork {
 
     this.walletContract = this.oldApi.open(wallet);
     this.sender = this.walletContract.sender(walletKey.secretKey);
+    this.walletAddress = wallet.address;
   }
 
   async isContractDeployed(address?: Address): Promise<boolean> {
-    const seqno = await this.walletContract!.getSeqno();
-
-    return await (address == undefined ||
-      this.api!.isContractDeployed(seqno, address));
+    return (
+      address != undefined && (await this.oldApi!.isContractDeployed(address))
+    );
   }
 
   open<T extends Contract>(contract: T): OpenedContract<T> {

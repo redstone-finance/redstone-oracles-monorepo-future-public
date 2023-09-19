@@ -3,14 +3,11 @@ import {
   IPricesContractAdapter,
 } from "@redstone-finance/sdk";
 import { TonPriceManager } from "../../wrappers/TonPriceManager";
-import { OpenedContract } from "ton";
-import { SandboxContract } from "@ton-community/sandbox";
+import { AnyTonOpenedContract } from "../network/TonNetwork";
 
 export class TonPriceManagerContractAdapter implements IPricesContractAdapter {
   constructor(
-    public readonly contract:
-      | OpenedContract<TonPriceManager>
-      | SandboxContract<TonPriceManager>
+    public readonly contract: AnyTonOpenedContract<TonPriceManager>
   ) {}
 
   async sendDeploy(): Promise<void> {

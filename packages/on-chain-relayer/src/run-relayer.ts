@@ -1,8 +1,8 @@
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
+import { sendHealthcheckPing } from "@redstone-finance/utils";
 import { getIterationArgs } from "./args/get-iteration-args";
 import { updatePrices } from "./core/contract-interactions/update-prices";
 import { getAdapterContract } from "./core/contract-interactions/get-contract";
-import { sendHealthcheckPing } from "./core/monitoring/send-healthcheck-ping";
 import { config, setConfigProvider } from "./config";
 import { fileSystemConfigProvider } from "./FilesystemConfigProvider";
 
@@ -18,7 +18,7 @@ const runIteration = async () => {
   const iterationArgs = await getIterationArgs(adapterContract);
 
   // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  sendHealthcheckPing();
+  sendHealthcheckPing(relayerConfig.healthcheckPingUrl);
   console.log(
     `Update condition ${
       iterationArgs.shouldUpdatePrices ? "" : "NOT "

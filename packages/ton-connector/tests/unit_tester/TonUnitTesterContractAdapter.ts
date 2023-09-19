@@ -1,14 +1,9 @@
-import { OpenedContract } from "ton";
-import { SandboxContract } from "@ton-community/sandbox";
 import { TonUnitTester } from "./TonUnitTester";
 import { Cell } from "ton-core";
+import { AnyTonOpenedContract } from "../../src";
 
 export class TonUnitTesterContractAdapter {
-  constructor(
-    public readonly contract:
-      | OpenedContract<TonUnitTester>
-      | SandboxContract<TonUnitTester>
-  ) {}
+  constructor(public readonly contract: AnyTonOpenedContract<TonUnitTester>) {}
 
   async testGetDataPackageSignerAddress(data: string, signature: string) {
     return await this.contract.getTestGetDataPackageSignerAddress(
