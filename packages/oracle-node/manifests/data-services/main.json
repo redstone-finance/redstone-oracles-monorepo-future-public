@@ -1088,6 +1088,9 @@
     "arbSnrLLP": {
       "source": ["arbitrum-evm-fetcher"]
     },
+    "LVL": {
+      "source": ["bitget", "coingecko", "coinmarketcap", "mexc"]
+    },
     "ANS": {
       "source": ["permaswap"]
     },
