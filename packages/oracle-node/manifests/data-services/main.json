@@ -133,7 +133,6 @@
     },
     "USDC.e": {
       "source": [
-        "camelot-usdt",
         "uniswap-v3-arbitrum-on-chain-weth-500",
         "uniswap-v3-arbitrum-on-chain-weth-3000",
         "uniswap-v3-arbitrum-on-chain-arb-500",
@@ -1804,7 +1803,7 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "SWETH": {
-      "source": ["balancer-ethereum-weth", "maverick"]
+      "source": ["balancer-ethereum-weth"]
     },
     "gmdUSDC": {
       "source": ["avalanche-evm-fetcher"]
