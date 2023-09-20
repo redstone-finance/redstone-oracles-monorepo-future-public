@@ -50,7 +50,7 @@ COPY --from=build /app/packages/utils/package.json ./packages/utils
 COPY --from=build /app/packages/oracles-smartweave-contracts/dist ./packages/oracles-smartweave-contracts/dist
 COPY --from=build /app/packages/oracles-smartweave-contracts/package.json ./packages/oracles-smartweave-contracts
 
-RUN yarn install --frozen-lockfile --non-interactive --production=true
+RUN yarn install --frozen-lockfile --non-interactive --production=true && yarn cache clean
 
 ENV ENABLE_JSON_LOGS=true
 ENV MONGO_DB_URL=
