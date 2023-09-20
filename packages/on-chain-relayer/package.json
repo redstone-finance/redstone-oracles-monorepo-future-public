@@ -1,10 +1,10 @@
 {
   "name": "@redstone-finance/on-chain-relayer",
   "version": "0.3.0",
+  "prettier": "redstone-prettier-config",
   "types": "dist/src/index.d.ts",
   "main": "dist/src/index.js",
   "license": "MIT",
-  "prettier": "redstone-prettier-config",
   "scripts": {
     "build": "rm -rf dist && tsc --build tsconfig.build.json",
     "start": "node dist/src/run-relayer.js",
@@ -37,15 +37,12 @@
     "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^18.14.6",
     "chai": "^4.3.7",
     "hardhat": "^2.14.0",
     "hardhat-gas-reporter": "^1.0.9",
     "msw": "^1.2.1",
     "solidity-coverage": "^0.8.1",
-    "ts-node": "^10.9.1",
-    "typechain": "^8.1.0",
-    "typescript": "^5.2.2"
+    "typechain": "^8.1.0"
   },
   "files": [
     "dist/**/*"
