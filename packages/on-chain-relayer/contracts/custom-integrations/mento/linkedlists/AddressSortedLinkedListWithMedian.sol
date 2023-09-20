@@ -166,7 +166,6 @@ library AddressSortedLinkedListWithMedian {
     bytes32[] memory byteKeys = list.getKeys();
     address[] memory keys = new address[](byteKeys.length);
     uint256[] memory values = new uint256[](byteKeys.length);
-    // prettier-ignore
     SortedLinkedListWithMedian.MedianRelation[] memory relations =
       new SortedLinkedListWithMedian.MedianRelation[](keys.length);
     for (uint256 i = 0; i < byteKeys.length; i = i.add(1)) {

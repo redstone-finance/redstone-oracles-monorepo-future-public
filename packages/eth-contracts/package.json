@@ -1,6 +1,7 @@
 {
   "name": "@redstone-finance/eth-contracts",
   "version": "0.3.0",
+  "prettier": "redstone-prettier-config",
   "description": "RedStone ethereum contracts",
   "main": "dist/src/index.js",
   "private": true,
@@ -28,14 +29,10 @@
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^18.14.6",
     "chai": "^4.3.7",
     "ethereum-waffle": "^4.0.10",
     "hardhat": "^2.14.0",
     "hardhat-gas-reporter": "^1.0.9",
-    "parcel": "^2.7.0",
-    "prettier-plugin-solidity": "^1.1.3",
-    "ts-node": "^10.9.1",
-    "typechain": "^8.1.0"
+    "parcel": "^2.7.0"
   }
 }
