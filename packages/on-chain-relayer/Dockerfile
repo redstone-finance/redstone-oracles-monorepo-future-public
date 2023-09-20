@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package.json .
 COPY yarn.lock .
 COPY .yarnrc .
+COPY tsconfig-common.json .
 
 COPY packages/on-chain-relayer/package.json ./packages/on-chain-relayer/
 COPY packages/protocol/package.json ./packages/protocol/
