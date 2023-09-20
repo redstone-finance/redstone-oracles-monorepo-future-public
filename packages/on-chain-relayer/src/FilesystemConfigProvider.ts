@@ -7,12 +7,21 @@ import {
 import fs from "fs";
 import { makeConfigProvider } from "./make-config-provider";
 
-const getFromEnv = (name: string, optional: boolean = false) => {
+type GetFromEnvType = {
+  (name: string, optional: true): string | undefined;
+  (name: string, optional: boolean): string | undefined;
+  (name: string, optional?: false): string;
+};
+
+const getFromEnv: GetFromEnvType = (
+  name: string,
+  optional: boolean = false
+) => {
   const envValue = process.env[name];
   if (!envValue && !optional) {
     throw new Error(`Missing environment variable ${name}`);
   }
-  return envValue;
+  return envValue!;
 };
 
 // copy of method from oracle-node. Probably should be moved to some common package
@@ -25,7 +34,12 @@ const readJSON = <T>(path: string): T => {
   }
 };
 
-const getJSONFromEnv = <T>(
+type GetJSONFromEnvType = {
+  <T>(varName: string, optional: true): T | undefined;
+  <T>(varName: string, optional: boolean): T | undefined;
+  <T>(varName: string, optional?: false): T;
+};
+const getJSONFromEnv: GetJSONFromEnvType = <T>(
   varName: string,
   optional = false
 ): T | undefined => {
@@ -46,11 +60,10 @@ const getJSONFromEnv = <T>(
 export const fileSystemConfigProvider: ConfigProvider = () => {
   const manifestPath = getFromEnv("MANIFEST_FILE")!;
   const manifest = readJSON<OnChainRelayerManifest>(manifestPath);
-
   const env: OnChainRelayerEnv = {
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
-    rpcUrls: JSON.parse(getFromEnv("RPC_URLS")!) as string[],
-    privateKey: getFromEnv("PRIVATE_KEY")!,
+    rpcUrls: JSON.parse(getFromEnv("RPC_URLS")) as string[],
+    privateKey: getFromEnv("PRIVATE_KEY"),
     gasLimit: Number.parseInt(getFromEnv("GAS_LIMIT")!),
     gasMultiplier: Number.parseFloat(
       getFromEnv("GAS_MULTIPLIER", true) || "1.125"
