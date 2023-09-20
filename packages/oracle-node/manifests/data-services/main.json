@@ -1810,7 +1810,7 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "SWETH": {
-      "source": ["balancer-ethereum-weth"]
+      "source": ["balancer-ethereum-weth", "maverick"]
     },
     "gmdUSDC": {
       "source": ["avalanche-evm-fetcher"]
