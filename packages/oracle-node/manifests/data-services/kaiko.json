@@ -3,6 +3,7 @@
   "priceAggregator": "median",
   "defaultSource": ["kaiko"],
   "sourceTimeout": 5000,
+  "minValidSourcesPercentage": 1,
   "deviationCheck": {
     "deviationWithRecentValues": {
       "maxPercent": 25,
