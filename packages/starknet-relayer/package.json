@@ -18,8 +18,5 @@
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2"
   },
-  "devDependencies": {
-    "@types/node": "^18.14.6",
-    "typescript": "^5.2.2"
-  }
+  "devDependencies": {}
 }
