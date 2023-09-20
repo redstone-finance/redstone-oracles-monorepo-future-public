@@ -355,6 +355,31 @@
         "uniswap-v3-arbitrum-on-chain-usdc-500",
         "uniswap-v3-arbitrum-on-chain-usdc-3000"
       ]
+    },
+    "OP": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "bybit",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "huobipro",
+        "gate",
+        "kucoin",
+        "latoken",
+        "mexc",
+        "phemex",
+        "okx",
+        "xt",
+        "uniswap-v3-optimism-on-chain-weth-3000",
+        "uniswap-v3-optimism-on-chain-usdc-3000"
+      ]
     }
   }
 }
