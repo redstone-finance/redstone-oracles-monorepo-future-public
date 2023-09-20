@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package.json .
 COPY yarn.lock .
 COPY .yarnrc .
+COPY tsconfig-common.json .
 
 COPY packages/cache-service/package.json ./packages/cache-service/
 COPY packages/protocol/package.json ./packages/protocol/
