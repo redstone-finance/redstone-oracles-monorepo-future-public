@@ -3,6 +3,8 @@ import "dotenv/config";
 
 interface CacheServiceConfigRequiredFields {
   appPort: number;
+  // empty string means that in-memory DB will be created and used
+  // e.g. by e2e test process
   mongoDbUrl: string;
   enableStreamrListening: boolean;
   enableDirectPostingRoutes: boolean;
@@ -14,23 +16,32 @@ interface CacheServiceConfigRequiredFields {
   maxAllowedTimestampDelay: number;
 }
 
-type CacheServiceConfig =
-  | (CacheServiceConfigRequiredFields & {
+type CacheServiceConfigOptionalFields =
+  | {
       enableArchivingOnArweave: true;
       arweaveJwkKey: JWKInterface;
       bundlrNodeUrl: string;
-    })
-  | (CacheServiceConfigRequiredFields & { enableArchivingOnArweave: false });
+    }
+  | { enableArchivingOnArweave: false };
+
+type CacheServiceConfig = CacheServiceConfigRequiredFields &
+  CacheServiceConfigOptionalFields;
 
 const DEFAULT_BUNDLR_NODE_URL = "https://node2.bundlr.network";
 const DEFAULT_APP_PORT = 3000;
 const DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY = 90 * 1000; // 1.5 minutes in milliseconds
 
-const getEnv = (envName: string, required = true): string => {
-  if (!process.env[envName] && required) {
+type GetEnvType = {
+  (envName: string, required: false): string | undefined;
+  (envName: string, required: boolean): string | undefined;
+  (envName: string, required?: true): string;
+};
+
+const getEnv: GetEnvType = (envName: string, required: boolean = true) => {
+  if (process.env[envName] === undefined && required) {
     throw new Error(`Required env variable not found: ${envName}`);
   }
-  return process.env[envName] || ("" as string);
+  return process.env[envName]!;
 };
 
 const arweaveJwkKeyForArchiving = getEnv(
@@ -38,14 +49,22 @@ const arweaveJwkKeyForArchiving = getEnv(
   false
 );
 
-const config = {
+const optionalConfig: CacheServiceConfigOptionalFields =
+  arweaveJwkKeyForArchiving
+    ? {
+        enableArchivingOnArweave: true,
+        arweaveJwkKey: JSON.parse(arweaveJwkKeyForArchiving) as JWKInterface,
+        bundlrNodeUrl:
+          getEnv("BUNDLR_NODE_URL", false) || DEFAULT_BUNDLR_NODE_URL,
+      }
+    : { enableArchivingOnArweave: false };
+
+const config: CacheServiceConfig = {
   appPort: Number(getEnv("APP_PORT", false) || DEFAULT_APP_PORT),
-  mongoDbUrl: getEnv("MONGO_DB_URL", false),
+  mongoDbUrl: getEnv("MONGO_DB_URL"),
   enableStreamrListening: getEnv("ENABLE_STREAMR_LISTENING") === "true",
   enableDirectPostingRoutes: getEnv("ENABLE_DIRECT_POSTING_ROUTES") === "true",
   apiKeyForAccessToAdminRoutes: getEnv("API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES"),
-  enableArchivingOnArweave: !!arweaveJwkKeyForArchiving,
-  bundlrNodeUrl: getEnv("BUNDLR_NODE_URL", false) || DEFAULT_BUNDLR_NODE_URL,
   allowedStreamrDataServiceIds: JSON.parse(
     getEnv("ALLOWED_STREAMR_DATA_SERVICE_IDS", false) || "[]"
   ) as string[],
@@ -57,10 +76,7 @@ const config = {
     getEnv("MAX_ALLOWED_TIMESTAMP_DELAY", false) ||
       DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY
   ),
-} as CacheServiceConfig;
-
-if (config.enableArchivingOnArweave) {
-  config.arweaveJwkKey = JSON.parse(arweaveJwkKeyForArchiving) as JWKInterface;
-}
+  ...optionalConfig,
+};
 
 export default config;
