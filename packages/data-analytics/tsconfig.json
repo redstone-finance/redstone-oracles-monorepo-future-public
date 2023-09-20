@@ -1,18 +1,7 @@
 {
+  "extends": "../../tsconfig-common.json",
   "compilerOptions": {
-    "strict": true,
-    "target": "es2018",
-    "declaration": true,
-    "outDir": "./dist",
-    "module": "commonjs",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "lib": ["es2021"],
-    "allowJs": true,
-    "declarationMap": true,
-    "incremental": true,
-    "composite": true
+    "outDir": "dist"
   },
   "ts-node": {
     "files": true
