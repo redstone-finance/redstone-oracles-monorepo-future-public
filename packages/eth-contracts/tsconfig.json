@@ -1,18 +1,7 @@
 {
+  "extends": "../../tsconfig-common.json",
   "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "outDir": "dist",
-    "declaration": true,
-    "declarationMap": true,
-    "incremental": true,
-    "composite": true
+    "outDir": "dist"
   },
   "include": ["./src", "./test", "./typechain-types", "package.json"],
   "files": ["./hardhat.config.ts"]
