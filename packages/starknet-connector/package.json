@@ -1,7 +1,7 @@
 {
   "name": "@redstone-finance/starknet-connector",
   "prettier": "redstone-prettier-config",
-  "version": "0.3.0",
+  "version": "0.3.3-alpha.0",
   "description": "A tool to inject RedStone data into Starknet compatible smart contracts",
   "license": "MIT",
   "main": "dist/src/index.js",
@@ -12,13 +12,15 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@redstone-finance/sdk": "^0.3.0",
+    "@redstone-finance/sdk": "^0.3.3-alpha.0",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
     "starknet": "^5.19.5"
   },
-  "devDependencies": {},
   "files": [
     "dist/**/*"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

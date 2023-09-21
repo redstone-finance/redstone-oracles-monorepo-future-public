@@ -1,7 +1,7 @@
 {
   "name": "@redstone-finance/utils",
   "prettier": "redstone-prettier-config",
-  "version": "0.3.0",
+  "version": "0.3.3-alpha.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -17,5 +17,7 @@
     "ethereum-multicall": "^2.19.0",
     "ethers": "^5.7.2"
   },
-  "devDependencies": {}
+  "publishConfig": {
+    "access": "public"
+  }
 }
