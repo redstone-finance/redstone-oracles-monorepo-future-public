@@ -176,7 +176,7 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "PTP": {
-      "source": ["coinex", "coingecko", "coinmarketcap", "mexc"]
+      "source": ["coingecko", "coinmarketcap", "mexc"]
     },
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"]
