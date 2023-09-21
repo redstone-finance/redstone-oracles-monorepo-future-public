@@ -1020,15 +1020,7 @@
       "source": ["arbitrum-evm-fetcher"]
     },
     "DPX": {
-      "source": [
-        "bingx",
-        "bitget",
-        "bybit",
-        "coinex",
-        "coingecko",
-        "kucoin",
-        "mexc"
-      ]
+      "source": ["bingx", "bitget", "bybit", "coingecko", "kucoin", "mexc"]
     },
     "YY_WOMBEX_USDT": {
       "source": ["arbitrum-evm-fetcher"]
