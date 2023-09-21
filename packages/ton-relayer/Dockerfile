@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package.json .
 COPY yarn.lock .
 COPY .yarnrc .
+COPY tsconfig-common.json .
 
 COPY packages/ton-relayer/package.json ./packages/ton-relayer/
 COPY packages/protocol/package.json ./packages/protocol/
@@ -57,6 +58,6 @@ ENV MANIFEST_FILE=testnet-test.json
 ENV TONCENTER_API_KEY=
 ENV WALLET_MNEMONIC=
 
-RUN yarn install --frozen-lockfile --non-interactive --production=true
+RUN yarn install --frozen-lockfile --non-interactive --production=true && yarn cache clean
 
 CMD cd packages/ton-relayer && yarn start
