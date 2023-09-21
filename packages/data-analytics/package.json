@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/data-analytics",
-  "version": "0.3.0",
+  "version": "0.3.3-alpha.0",
   "prettier": "redstone-prettier-config",
   "main": "index.js",
   "private": "true",
