@@ -587,7 +587,7 @@ describe("Data packages (e2e)", () => {
   describe("cache", () => {
     it("/data-packages/latest (GET) - should serve cached result", async () => {
       // invalidate cache
-      jest.spyOn(Date, "now").mockImplementationOnce(() => -1);
+      jest.spyOn(Date, "now").mockImplementationOnce(() => 1);
 
       const dataPackageService = app.get(DataPackagesService);
 
@@ -614,7 +614,7 @@ describe("Data packages (e2e)", () => {
     });
 
     it("/data-packages/latest (GET) - should be called twice for different data-service-id", async () => {
-      jest.spyOn(Date, "now").mockImplementationOnce(() => -1);
+      jest.spyOn(Date, "now").mockImplementationOnce(() => 1);
 
       const dataPackageService = app.get(DataPackagesService);
 
