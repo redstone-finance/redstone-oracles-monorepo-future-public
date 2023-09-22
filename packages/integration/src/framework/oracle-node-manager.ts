@@ -68,6 +68,9 @@ export const startAndWaitForOracleNode = (
   );
 };
 
+const getMockPricesPath = (instance: OracleNodeInstance) =>
+  `${mockPricesPath}-${instance.instanceId}`;
+
 const populateEnvVariables = (
   dotenvPath: string,
   instance: OracleNodeInstance,
@@ -95,7 +98,11 @@ const populateEnvVariables = (
     dotenvPath
   );
   updateDotEnvFile("ECDSA_PRIVATE_KEY", HARDHAT_MOCK_PRIVATE_KEY, dotenvPath);
-  updateDotEnvFile("MOCK_PRICES_URL_OR_PATH", mockPricesPath, dotenvPath);
+  updateDotEnvFile(
+    "MOCK_PRICES_URL_OR_PATH",
+    getMockPricesPath(instance),
+    dotenvPath
+  );
   printDotenv(getLogPrefix(instance), dotenvPath);
 };
 
@@ -104,7 +111,19 @@ export const stopOracleNode = (instance: OracleNodeInstance) => {
   stopChild(instance.oracleNodeProcess, getLogPrefix(instance));
 };
 
-export const setMockPrices = (mockPrices: PriceSet) => {
-  debug(`setting mock prices to ${JSON.stringify(mockPrices)}`);
-  fs.writeFileSync(mockPricesPath, JSON.stringify(mockPrices));
+export const setMockPrices = (
+  mockPrices: PriceSet,
+  instance: OracleNodeInstance
+) => {
+  debug(
+    `setting mock prices to ${JSON.stringify(
+      mockPrices
+    )} for oracle node ${getLogPrefix(instance)}`
+  );
+  fs.writeFileSync(getMockPricesPath(instance), JSON.stringify(mockPrices));
 };
+
+export const setMockPricesMany = (
+  mockPrices: PriceSet,
+  instances: OracleNodeInstance[]
+) => instances.map((instance) => setMockPrices(mockPrices, instance));
