@@ -110,8 +110,8 @@ async function main() {
       for (const dataPoint of dataPackage.dataPoints) {
         if (prevValues[dataPoint.dataFeedId]) {
           const deviation = MathUtils.calculateDeviationPercent({
-            newValue: Number(prevValues[dataPoint.dataFeedId]),
-            prevValue: Number(dataPoint.value),
+            baseValue: Number(prevValues[dataPoint.dataFeedId]),
+            deviatedValue: Number(dataPoint.value),
           });
           if (deviation > MIN_DEVIATION_PERCENTAGE_TO_LOG) {
             console.log(`Deviation for ${dataPoint.dataFeedId}: ${deviation}`);
