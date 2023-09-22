@@ -176,10 +176,10 @@
     "PEN": {
       "source": ["twelve-data"]
     },
-    "BRLUSD=X": {
-      "source": ["twelve-data"]
+    "BRL": {
+      "source": ["ecb", "twelve-data", "yf-unofficial"]
     },
-    "COPUSD=X": {
+    "COP": {
       "source": ["twelve-data"]
     },
     "BBBY": {

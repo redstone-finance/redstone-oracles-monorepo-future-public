@@ -213,12 +213,7 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "LUSD": {
-      "source": [
-        "curve-3crv",
-        "coingecko",
-        "maverick",
-        "velodrome-on-chain-usdc"
-      ],
+      "source": ["curve-3crv", "coingecko", "velodrome-on-chain-usdc"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -411,6 +406,59 @@
         "uniswap-v3-optimism-on-chain-weth-3000",
         "uniswap-v3-optimism-on-chain-usdc-3000"
       ]
+    },
+    "CELO": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "bittrex",
+        "bybit",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kucoin",
+        "latoken",
+        "mexc",
+        "okx"
+      ]
+    },
+    "BRL": {
+      "source": [
+        "binance-api",
+        "bitso-api",
+        "ecb",
+        "kaiko",
+        "kaiko-v2",
+        "kucoin-api",
+        "mercado-api",
+        "twelve-data"
+      ]
+    },
+    "EUR": {
+      "source": [
+        "binance",
+        "bitstamp-api",
+        "coinbase-api",
+        "currencycom",
+        "ecb",
+        "kaiko",
+        "kaiko-v2",
+        "kraken",
+        "kucoin-api",
+        "twelve-data"
+      ]
+    },
+    "CELO/EUR": {
+      "source": ["non-usd-based"]
+    },
+    "CELO/BRL": {
+      "source": ["non-usd-based"]
     }
   }
 }
