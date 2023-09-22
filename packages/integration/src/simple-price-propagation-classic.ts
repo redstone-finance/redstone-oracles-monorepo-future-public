@@ -45,11 +45,14 @@ const main = async () => {
   await buildRelayer();
 
   await startAndWaitForCacheLayer(cacheLayerInstance, true);
-  setMockPrices({
-    BTC: 16000,
-    ETH: 1500,
-    __DEFAULT__: 42,
-  });
+  setMockPrices(
+    {
+      BTC: 16000,
+      ETH: 1500,
+      __DEFAULT__: 42,
+    },
+    oracleNodeInstance
+  );
   await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
   await waitForDataAndDisplayIt(cacheLayerInstance);
   await startAndWaitForHardHat(hardhatInstance);

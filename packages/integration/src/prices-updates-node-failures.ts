@@ -11,7 +11,7 @@ import {
   HardhatInstance,
   OracleNodeInstance,
   PriceSet,
-  setMockPrices,
+  setMockPricesMany,
   sleep,
   startAndWaitForCacheLayer,
   startAndWaitForHardHat,
@@ -39,6 +39,12 @@ const relayerInstanceMain: OracleNodeInstance = { instanceId: "main" };
 const relayerInstanceFallback: OracleNodeInstance = { instanceId: "fallback" };
 const hardhatInstance: HardhatInstance = { instanceId: "1" };
 
+const allOracleNodeInstances = [
+  oracleNodeInstance1,
+  oracleNodeInstance2,
+  oracleNodeInstance3,
+];
+
 const stopAll = () => {
   debug("stopAll called");
   stopRelayer(relayerInstanceMain);
@@ -59,7 +65,7 @@ const main = async () => {
   await buildRelayer();
 
   const allCacheLayers = [cacheLayerInstance1, cacheLayerInstance2];
-  setMockPrices({ __DEFAULT__: 42 });
+  setMockPricesMany({ __DEFAULT__: 42 }, allOracleNodeInstances);
   let expectedPrices: PriceSet = { BTC: 42 };
 
   await startAndWaitForCacheLayer(cacheLayerInstance1, false);
@@ -98,7 +104,7 @@ const main = async () => {
   // stop single oracle node and cache service and verify everything works
   stopOracleNode(oracleNodeInstance1);
   stopDirectAndPublicCacheServices(cacheLayerInstance1);
-  setMockPrices({ __DEFAULT__: 43 });
+  setMockPricesMany({ __DEFAULT__: 43 }, allOracleNodeInstances);
   expectedPrices = { BTC: 43 };
   await verifyPricesInCacheService(allCacheLayers, expectedPrices);
   await verifyPricesOnChain(
@@ -110,7 +116,7 @@ const main = async () => {
   // stop all nodes and verify that prices are not being updated
   stopOracleNode(oracleNodeInstance2);
   stopOracleNode(oracleNodeInstance3);
-  setMockPrices({ __DEFAULT__: 44 });
+  setMockPricesMany({ __DEFAULT__: 44 }, allOracleNodeInstances);
   expectedPrices = { BTC: 44 };
   await verifyPricesNotInCacheService(allCacheLayers, expectedPrices);
   await verifyPricesNotOnChain(
@@ -124,7 +130,7 @@ const main = async () => {
   await startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
   await startDirectAndPublicCacheServices(cacheLayerInstance1);
   stopDirectAndPublicCacheServices(cacheLayerInstance2);
-  setMockPrices({ __DEFAULT__: 45 });
+  setMockPricesMany({ __DEFAULT__: 45 }, allOracleNodeInstances);
   expectedPrices = { BTC: 45 };
   await verifyPricesInCacheService(allCacheLayers, expectedPrices);
   await verifyPricesOnChain(
@@ -135,7 +141,7 @@ const main = async () => {
 
   // stop main relayer and verify that prices are not updated...
   stopRelayer(relayerInstanceMain);
-  setMockPrices({ __DEFAULT__: 46 });
+  setMockPricesMany({ __DEFAULT__: 46 }, allOracleNodeInstances);
   expectedPrices = { BTC: 46 };
   await verifyPricesInCacheService(allCacheLayers, expectedPrices);
   await verifyPricesNotOnChain(

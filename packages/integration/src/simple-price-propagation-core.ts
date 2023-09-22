@@ -30,7 +30,7 @@ const main = async () => {
   await buildEvmConnector();
   await buildOracleNode();
 
-  setMockPrices({ __DEFAULT__: 42 });
+  setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
   await startAndWaitForCacheLayer(cacheLayerInstance, true);
   await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
   await waitForDataAndDisplayIt(cacheLayerInstance);

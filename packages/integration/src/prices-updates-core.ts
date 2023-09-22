@@ -32,7 +32,7 @@ const main = async () => {
   await buildEvmConnector();
   await buildOracleNode();
 
-  setMockPrices({ __DEFAULT__: 42 });
+  setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
   await startAndWaitForCacheLayer(cacheLayerInstance1, false);
   await startAndWaitForCacheLayer(cacheLayerInstance2, false);
   await startAndWaitForOracleNode(oracleNodeInstance, [
@@ -43,11 +43,11 @@ const main = async () => {
   await verifyPricesInCacheService([cacheLayerInstance1, cacheLayerInstance2], {
     BTC: 42,
   });
-  setMockPrices({ __DEFAULT__: 43 });
+  setMockPrices({ __DEFAULT__: 43 }, oracleNodeInstance);
   await verifyPricesInCacheService([cacheLayerInstance1, cacheLayerInstance2], {
     BTC: 43,
   });
-  setMockPrices({ __DEFAULT__: 44 });
+  setMockPrices({ __DEFAULT__: 44 }, oracleNodeInstance);
   await verifyPricesInCacheService([cacheLayerInstance1, cacheLayerInstance2], {
     BTC: 44,
   });
