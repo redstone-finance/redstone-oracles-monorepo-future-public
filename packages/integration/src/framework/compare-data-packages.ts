@@ -94,8 +94,8 @@ const compareValuesFromSmallPackagesAndLocalCache = (
       if (areBothValuesValid(dataFeedValueFromLocal, dataPoints[0].value)) {
         deviations.push(
           MathUtils.calculateDeviationPercent({
-            newValue: dataFeedValueFromLocal,
-            prevValue: dataPoints[0].value,
+            deviatedValue: dataFeedValueFromLocal,
+            baseValue: dataPoints[0].value,
           })
         );
       }
@@ -129,8 +129,8 @@ const compareSourcesValuesFromProdAndLocal = (
         const valueFromProd = value;
         if (areBothValuesValid(valueFromLocal, valueFromProd)) {
           const deviation = MathUtils.calculateDeviationPercent({
-            newValue: valueFromLocal,
-            prevValue: valueFromProd,
+            deviatedValue: valueFromLocal,
+            baseValue: valueFromProd,
           });
           deviationsPerSource[source] = Math.max(
             deviation,
@@ -167,8 +167,8 @@ const compareValuesFromBigPackageAndLocalCache = (
         dataFeedValueFromLocal = 0;
       }
       const deviation = MathUtils.calculateDeviationPercent({
-        newValue: dataFeedValueFromLocal,
-        prevValue: dataPoint.value,
+        deviatedValue: dataFeedValueFromLocal,
+        baseValue: dataPoint.value,
       });
       const currentDeviationPerDataFeed = deviationsPerDataFeed[dataFeedId];
       if (

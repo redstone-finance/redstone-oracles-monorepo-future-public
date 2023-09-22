@@ -62,8 +62,8 @@ describe("calculateDeviationPercent", () => {
   it("Should properly calculate zero deviation", () => {
     expect(
       calculateDeviationPercent({
-        prevValue: createSafeNumber(10.5),
-        currValue: createSafeNumber(10.5),
+        baseValue: createSafeNumber(10.5),
+        deviatedValue: createSafeNumber(10.5),
       }).toString()
     ).toBe("0");
   });
@@ -71,24 +71,24 @@ describe("calculateDeviationPercent", () => {
   it("Should properly calculate big deviations", () => {
     expect(
       calculateDeviationPercent({
-        prevValue: createSafeNumber(1),
-        currValue: createSafeNumber(10),
+        baseValue: createSafeNumber(1),
+        deviatedValue: createSafeNumber(10),
       }).toString()
-    ).toBe("90");
+    ).toBe("900");
 
     expect(
       calculateDeviationPercent({
-        prevValue: createSafeNumber(10),
-        currValue: createSafeNumber(1),
+        baseValue: createSafeNumber(10),
+        deviatedValue: createSafeNumber(1),
       }).toString()
-    ).toBe("900");
+    ).toBe("90");
   });
 
   it("Should properly calculate deviation with a negative value", () => {
     expect(
       calculateDeviationPercent({
-        prevValue: createSafeNumber(-42),
-        currValue: createSafeNumber(42),
+        baseValue: createSafeNumber(-42),
+        deviatedValue: createSafeNumber(42),
       }).toString()
     ).toBe("200");
   });
@@ -96,8 +96,8 @@ describe("calculateDeviationPercent", () => {
   it("Should work with zero value", () => {
     expect(
       calculateDeviationPercent({
-        prevValue: createSafeNumber(1),
-        currValue: createSafeNumber(0),
+        baseValue: createSafeNumber(0),
+        deviatedValue: createSafeNumber(1),
       }).unsafeToNumber()
     ).toBeGreaterThan(2 ** 40); // some big number depends on implementation of N
   });
@@ -105,8 +105,8 @@ describe("calculateDeviationPercent", () => {
   it("Should properly calculate deviation for zero measured value and non-zero true value", () => {
     expect(
       calculateDeviationPercent({
-        prevValue: createSafeNumber(0),
-        currValue: createSafeNumber(1),
+        baseValue: createSafeNumber(1),
+        deviatedValue: createSafeNumber(0),
       }).toString()
     ).toBe("100");
   });

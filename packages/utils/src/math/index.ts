@@ -24,12 +24,12 @@ export const calculateSum = (numbers: ConvertibleToISafeNumber[]) =>
   ISafeNumberMath.calculateSum(numbers.map(castToISafeNumber)).unsafeToNumber();
 
 export const calculateDeviationPercent = (args: {
-  prevValue: ConvertibleToISafeNumber;
-  newValue: ConvertibleToISafeNumber;
+  baseValue: ConvertibleToISafeNumber;
+  deviatedValue: ConvertibleToISafeNumber;
 }) =>
   ISafeNumberMath.calculateDeviationPercent({
-    prevValue: castToISafeNumber(args.prevValue),
-    currValue: castToISafeNumber(args.newValue),
+    baseValue: castToISafeNumber(args.baseValue),
+    deviatedValue: castToISafeNumber(args.deviatedValue),
   }).unsafeToNumber();
 
 export const getMedian = (numbers: ConvertibleToISafeNumber[]) =>
