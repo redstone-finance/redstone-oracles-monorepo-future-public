@@ -2,6 +2,9 @@ import { runLongPricePropagationCoreTest } from "./framework/run-long-price-prop
 
 const REMOVED_DATA_FEEDS: string[] = [];
 const DATA_FEEDS_NOT_WORKING_LOCALLY = ["PREMIA-TWAP-60"];
+const skippedSources = JSON.parse(
+  process.env.SKIPPED_SOURCES ?? "[]"
+) as string[];
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
@@ -15,6 +18,7 @@ const DATA_FEEDS_NOT_WORKING_LOCALLY = ["PREMIA-TWAP-60"];
     nodeIntervalInMilliseconds,
     coldStartIterationsCount,
     REMOVED_DATA_FEEDS,
-    DATA_FEEDS_NOT_WORKING_LOCALLY
+    DATA_FEEDS_NOT_WORKING_LOCALLY,
+    skippedSources
   );
 })();

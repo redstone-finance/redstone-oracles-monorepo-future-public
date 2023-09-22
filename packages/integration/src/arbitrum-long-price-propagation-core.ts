@@ -1,5 +1,9 @@
 import { runLongPricePropagationCoreTest } from "./framework/run-long-price-propagation-core-test";
 
+const skippedSources = JSON.parse(
+  process.env.SKIPPED_SOURCES ?? "[]"
+) as string[];
+
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const manifestFileName = "data-services/arbitrum";
@@ -10,6 +14,7 @@ import { runLongPricePropagationCoreTest } from "./framework/run-long-price-prop
     manifestFileName,
     nodeWorkingTimeInMinutes,
     nodeIntervalInMilliseconds,
-    coldStartIterationsCount
+    coldStartIterationsCount,
+    skippedSources
   );
 })();
