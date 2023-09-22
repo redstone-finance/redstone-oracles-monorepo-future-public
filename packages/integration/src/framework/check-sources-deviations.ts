@@ -2,7 +2,8 @@ import { SourceDeviationsPerDataFeed } from "./run-long-price-propagation-core-t
 
 export const checkSourcesDeviations = (
   deviationsPerDataFeed: SourceDeviationsPerDataFeed,
-  maxPercentageValueDifference: number
+  maxPercentageValueDifference: number,
+  sourcesToSkip: string[] = []
 ) => {
   let deviationsBiggerThanAllowed = 0;
   const dataFeeds = Object.keys(deviationsPerDataFeed);
@@ -10,10 +11,15 @@ export const checkSourcesDeviations = (
     const deviationsPerSource = deviationsPerDataFeed[dataFeedId];
     for (const [source, deviation] of Object.entries(deviationsPerSource)) {
       if (deviation > maxPercentageValueDifference) {
+        const ignoreDeviation = sourcesToSkip.includes(source);
         console.log(
-          `Source deviation for ${dataFeedId} from ${source} is bigger than maximum (${maxPercentageValueDifference}%) - ${deviation}%`
+          `Source deviation for ${dataFeedId} from ${source} is bigger than maximum (${maxPercentageValueDifference}%) - ${deviation}% ${
+            ignoreDeviation ? "(ignored)" : ""
+          }`
         );
-        deviationsBiggerThanAllowed += 1;
+        if (!ignoreDeviation) {
+          deviationsBiggerThanAllowed += 1;
+        }
       }
     }
   }
