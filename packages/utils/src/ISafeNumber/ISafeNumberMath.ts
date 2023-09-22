@@ -17,16 +17,16 @@ export const calculateAverageValue = (numbers: NumberArg[]): ISafeNumber => {
 };
 
 export const calculateDeviationPercent = (args: {
-  prevValue: ISafeNumber;
-  currValue: ISafeNumber;
+  baseValue: ISafeNumber;
+  deviatedValue: ISafeNumber;
 }) => {
-  const { prevValue, currValue } = args;
+  const { baseValue, deviatedValue } = args;
 
-  if (currValue.eq(0)) {
+  if (baseValue.eq(0)) {
     return createSafeNumber(Number.MAX_SAFE_INTEGER);
   }
 
-  const result = prevValue.sub(currValue).div(currValue).abs().mul(100);
+  const result = deviatedValue.sub(baseValue).div(baseValue).abs().mul(100);
 
   return result;
 };

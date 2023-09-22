@@ -210,25 +210,27 @@ export const getUrlsForDataServiceId = (
 const sortDataPackagesByDeviationDesc = (
   dataPackages: SignedDataPackagePlainObj[],
   valueToCompare: number
-) =>
-  dataPackages.sort((leftDataPackage, rightDataPackage) => {
+) => {
+  const baseValue = SafeNumber.createSafeNumber(valueToCompare);
+  return dataPackages.sort((leftDataPackage, rightDataPackage) => {
     const leftValue = SafeNumber.createSafeNumber(
       leftDataPackage.dataPoints[0].value
     );
     const leftValueDeviation = SafeNumber.calculateDeviationPercent({
-      currValue: leftValue,
-      prevValue: SafeNumber.createSafeNumber(valueToCompare),
+      deviatedValue: leftValue,
+      baseValue,
     });
     const rightValue = SafeNumber.createSafeNumber(
       rightDataPackage.dataPoints[0].value
     );
     const rightValueDeviation = SafeNumber.calculateDeviationPercent({
-      currValue: rightValue,
-      prevValue: SafeNumber.createSafeNumber(valueToCompare),
+      deviatedValue: rightValue,
+      baseValue,
     });
 
     return rightValueDeviation.sub(leftValueDeviation).unsafeToNumber();
   });
+};
 
 export default {
   getOracleRegistryState,
