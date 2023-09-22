@@ -714,10 +714,21 @@
     "CELO": {
       "source": [
         "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
         "bittrex",
+        "bybit",
         "coinbaseprime",
         "coinbasepro",
+        "coingecko",
+        "gate",
+        "huobipro",
         "kucoin",
+        "latoken",
+        "mexc",
         "okx"
       ]
     },
@@ -913,12 +924,7 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "LUSD": {
-      "source": [
-        "curve-3crv",
-        "coingecko",
-        "maverick",
-        "velodrome-on-chain-usdc"
-      ]
+      "source": ["curve-3crv", "coingecko", "velodrome-on-chain-usdc"]
     },
     "GHO": {
       "source": [
@@ -1121,13 +1127,13 @@
     "LVL": {
       "source": ["bitget", "coingecko", "coinmarketcap", "mexc"]
     },
-    "ANS": {
-      "source": ["permaswap"]
+    "CELO/EUR": {
+      "source": ["non-usd-based"]
+    },
+    "CELO/BRL": {
+      "source": ["non-usd-based"]
     },
     "ARDRIVE": {
-      "source": ["permaswap"]
-    },
-    "ACNH": {
       "source": ["permaswap"]
     },
     "U": {
@@ -1145,10 +1151,14 @@
     "EUR": {
       "source": [
         "binance",
+        "bitstamp-api",
+        "coinbase-api",
         "currencycom",
         "ecb",
         "kaiko",
+        "kaiko-v2",
         "kraken",
+        "kucoin-api",
         "twelve-data"
       ]
     },
@@ -1190,6 +1200,18 @@
     },
     "HUF": {
       "source": ["ecb", "twelve-data"]
+    },
+    "BRL": {
+      "source": [
+        "binance-api",
+        "bitso-api",
+        "ecb",
+        "kaiko",
+        "kaiko-v2",
+        "kucoin-api",
+        "mercado-api",
+        "twelve-data"
+      ]
     },
     "SPY": {
       "source": ["twelve-data", "yf-unofficial"]
@@ -1281,10 +1303,7 @@
     "ARS": {
       "source": ["twelve-data"]
     },
-    "BRLUSD=X": {
-      "source": ["twelve-data"]
-    },
-    "COPUSD=X": {
+    "COP": {
       "source": ["twelve-data"]
     },
     "BBBY": {
@@ -1559,12 +1578,6 @@
     },
     "META": {
       "source": ["currencycom", "twelve-data"]
-    },
-    "ROOK": {
-      "source": ["poloniex"]
-    },
-    "CUSDT": {
-      "source": ["poloniex"]
     },
     "lensprotocol": {
       "source": ["lens"]
