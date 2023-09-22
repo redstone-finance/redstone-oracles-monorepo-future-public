@@ -68,8 +68,8 @@ const calculateDeviation = (
   valueFromContract: number
 ) => {
   return MathUtils.calculateDeviationPercent({
-    newValue: valueFromFetchedDataPackage,
-    prevValue: valueFromContract,
+    deviatedValue: valueFromFetchedDataPackage,
+    baseValue: valueFromContract,
   });
 };
 
