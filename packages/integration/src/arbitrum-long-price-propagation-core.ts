@@ -1,6 +1,8 @@
 import { runLongPricePropagationCoreTest } from "./framework/run-long-price-propagation-core-test";
 
-const skippedSources = JSON.parse(
+const REMOVED_DATA_FEEDS: string[] = [];
+const DATA_FEEDS_NOT_WORKING_LOCALLY: string[] = [];
+const SKIPPED_SOURCES = JSON.parse(
   process.env.SKIPPED_SOURCES ?? "[]"
 ) as string[];
 
@@ -15,6 +17,8 @@ const skippedSources = JSON.parse(
     nodeWorkingTimeInMinutes,
     nodeIntervalInMilliseconds,
     coldStartIterationsCount,
-    skippedSources
+    REMOVED_DATA_FEEDS,
+    DATA_FEEDS_NOT_WORKING_LOCALLY,
+    SKIPPED_SOURCES
   );
 })();

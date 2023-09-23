@@ -60,9 +60,9 @@ export const runLongPricePropagationCoreTest = async (
   nodeWorkingTimeInMinutes: number,
   nodeIntervalInMilliseconds: number,
   coldStartIterationsCount: number,
-  removedDataFeeds?: string[],
-  dataFeedsNotWorkingLocally?: string[],
-  sourcesToSkip?: string[]
+  removedDataFeeds: string[],
+  dataFeedsNotWorkingLocally: string[],
+  sourcesToSkip: string[]
 ) => {
   await buildCacheLayer();
   await buildOracleNode();

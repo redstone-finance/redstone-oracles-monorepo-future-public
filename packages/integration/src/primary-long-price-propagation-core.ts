@@ -2,7 +2,7 @@ import { runLongPricePropagationCoreTest } from "./framework/run-long-price-prop
 
 const REMOVED_DATA_FEEDS: string[] = [];
 const DATA_FEEDS_NOT_WORKING_LOCALLY = ["PREMIA-TWAP-60"];
-const skippedSources = JSON.parse(
+const SKIPPED_SOURCES = JSON.parse(
   process.env.SKIPPED_SOURCES ?? "[]"
 ) as string[];
 
@@ -19,6 +19,6 @@ const skippedSources = JSON.parse(
     coldStartIterationsCount,
     REMOVED_DATA_FEEDS,
     DATA_FEEDS_NOT_WORKING_LOCALLY,
-    skippedSources
+    SKIPPED_SOURCES
   );
 })();
