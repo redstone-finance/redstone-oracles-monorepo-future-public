@@ -1,26 +1,32 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { assertWithLog } from "./errors";
 
 type MemoizeCache<T> = { promise: Promise<T>; lastSet: number };
-type MemoizeArgs<T, A extends unknown[]> = {
-  functionToMemoize: (...args: A) => Promise<T>;
-  ttl: number;
-  cacheKeyBuilder?: (args: A) => string;
-};
 const EXPECTED_MAX_CACHE_ENTRIES_PER_FN = 10_000;
 const EXPECTED_MAX_CACHE_KEY_LENGTH_PER_FN = 10_000;
+
+type MemoizeArgs<F extends (...args: unknown[]) => Promise<unknown>> = {
+  functionToMemoize: F;
+  ttl: number;
+  cacheKeyBuilder?: (...args: Parameters<F>) => string | Promise<string>;
+};
 
 /**
  * Be default for building cacheKey JSON.stringify function is used, thus order of keys in object matters
  */
-export function memoize<T, A extends unknown[]>({
+export function memoize<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  F extends (...args: any[]) => Promise<unknown>,
+  R = ReturnType<F>,
+>({
   functionToMemoize,
   ttl,
-  cacheKeyBuilder = JSON.stringify,
-}: MemoizeArgs<T, A>): (...args: A) => Promise<T> {
-  const cache: Partial<Record<string, MemoizeCache<T>>> = {};
+  cacheKeyBuilder = (...args: unknown[]) => JSON.stringify(args),
+}: MemoizeArgs<F>): F {
+  const cache: Partial<Record<string, MemoizeCache<R>>> = {};
 
-  return async (...args: A) => {
-    const cacheKey = cacheKeyBuilder(args);
+  return (async (...args: Parameters<F>) => {
+    const cacheKey = await cacheKeyBuilder(...args);
 
     assertWithLog(
       cacheKey.length < EXPECTED_MAX_CACHE_KEY_LENGTH_PER_FN,
@@ -30,18 +36,19 @@ export function memoize<T, A extends unknown[]>({
     // to avoid caching results forever
     cleanStaleCacheEntries(cache, ttl);
 
-    if (!cache[cacheKey] || Date.now() - cache[cacheKey]!.lastSet > ttl) {
+    // we don't check ttl because it is cleared here: cleanStaleCacheEntries
+    if (!cache[cacheKey]) {
       cache[cacheKey] = {
         lastSet: Date.now(),
-        promise: functionToMemoize(...args).catch((err) => {
+        promise: functionToMemoize(...args).catch((err: unknown) => {
           // don't propagate cache when promise resolves to error
           delete cache[cacheKey];
           throw err;
-        }),
+        }) as Promise<R>,
       };
     }
     return await cache[cacheKey]!.promise;
-  };
+  }) as F;
 }
 
 const cleanStaleCacheEntries = <T>(
