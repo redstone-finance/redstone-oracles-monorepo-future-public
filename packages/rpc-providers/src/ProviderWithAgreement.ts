@@ -11,6 +11,8 @@ import {
 } from "./ProviderWithFallback";
 
 const BLOCK_NUMBER_TTL = 200;
+// 10 min
+const AGREED_RESULT_TTL = 600_000;
 
 export interface ProviderWithAgreementConfig {
   numberOfProvidersThatHaveToAgree: number;
@@ -75,8 +77,9 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     const electedBlockTag = utils.hexlify(
       blockTag ?? (await this.electBlockNumber())
     );
+
     const callResult = RedstoneCommon.timeout(
-      this.executeCallWithAgreement(transaction, electedBlockTag),
+      this.executeCallWithAgreementWithCache(transaction, electedBlockTag),
       PROVIDER_OPERATION_TIMEOUT,
       `Agreement provider after ${PROVIDER_OPERATION_TIMEOUT} [ms] during call`
     );
@@ -118,6 +121,15 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       return electedBlockNumber;
     },
     ttl: BLOCK_NUMBER_TTL,
+  });
+
+  private executeCallWithAgreementWithCache = RedstoneCommon.memoize({
+    functionToMemoize: (
+      transaction: Deferrable<TransactionRequest>,
+      electedBlockTag: BlockTag
+    ) => this.executeCallWithAgreement(transaction, electedBlockTag),
+    ttl: AGREED_RESULT_TTL,
+    cacheKeyBuilder: txCacheKeyBuilder,
   });
 
   private executeCallWithAgreement(
@@ -202,3 +214,18 @@ const convertHexToNumber = (hex: string): number => {
   }
   return number;
 };
+
+/**
+ * It takes fields of transaction which might have change output
+ * of call method
+ */
+const txCacheKeyBuilder = async (
+  transaction: Deferrable<TransactionRequest>,
+  blockTag: BlockTag
+) =>
+  String(await transaction.chainId) +
+  String(await transaction.to) +
+  String(await transaction.from) +
+  String(await transaction.data) +
+  String(await transaction.customData) +
+  String(blockTag);
