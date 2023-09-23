@@ -22,4 +22,8 @@ contract Counter {
   function getCount() public view returns (uint256) {
     return count;
   }
+
+  function getCountPlusOne() public view returns (uint256) {
+    return count + 1;
+  }
 }

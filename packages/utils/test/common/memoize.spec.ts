@@ -8,7 +8,10 @@ describe("memoize", () => {
   });
 
   it("should cache the result within TTL", async () => {
-    const mockFn = jest.fn().mockResolvedValue("result");
+    const mockFn: (arg: string) => Promise<string> = jest
+      .fn()
+      .mockResolvedValue("result");
+
     const memoized = memoize({ functionToMemoize: mockFn, ttl: 1000 });
 
     const result1 = await memoized("test");
