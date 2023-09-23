@@ -10,7 +10,8 @@ const REMOVED_DATA_FEEDS = [
   "USDT.e",
   "SHLB_USDT.e-USDt_C",
 ];
-const skippedSources = JSON.parse(
+const DATA_FEEDS_NOT_WORKING_LOCALLY: string[] = [];
+const SKIPPED_SOURCES = JSON.parse(
   process.env.SKIPPED_SOURCES ?? "[]"
 ) as string[];
 
@@ -26,6 +27,7 @@ const skippedSources = JSON.parse(
     nodeIntervalInMilliseconds,
     coldStartIterationsCount,
     REMOVED_DATA_FEEDS,
-    skippedSources
+    DATA_FEEDS_NOT_WORKING_LOCALLY,
+    SKIPPED_SOURCES
   );
 })();
