@@ -223,9 +223,11 @@ const txCacheKeyBuilder = async (
   transaction: Deferrable<TransactionRequest>,
   blockTag: BlockTag
 ) =>
-  String(await transaction.chainId) +
-  String(await transaction.to) +
-  String(await transaction.from) +
-  String(await transaction.data) +
-  String(await transaction.customData) +
-  String(blockTag);
+  [
+    String(await transaction.chainId),
+    String(await transaction.to),
+    String(await transaction.from),
+    String(await transaction.data),
+    String(await transaction.customData),
+    String(blockTag),
+  ].join("#");
