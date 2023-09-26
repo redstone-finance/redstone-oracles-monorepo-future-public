@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "Arbitrum One",
+    "id": 42161
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "adapterContract": "0x35A499B170fA8dB973FA4998d76B260fA234c228",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "SWETH": "0xAD17b1bc8Ad4fbF3201CC59AFa94f951097662Af"
+  }
+}
