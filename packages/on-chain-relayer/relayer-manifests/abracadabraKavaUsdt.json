@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "Kava EVM",
+    "id": 2222
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.2,
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0x6CFc01ECEB12C9365a15A1d8906314031C0AFD05",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "USDT": "0xc0c3B20Af1A431b9Ab4bfe1f396b12D97392e50f"
+  }
+}
