@@ -494,6 +494,26 @@
     },
     "CELO/BRL": {
       "source": ["non-usd-based"]
+    },
+    "USDC/EUR": {
+      "source": ["non-usd-based"]
+    },
+    "USDC/BRL": {
+      "source": ["non-usd-based"]
+    },
+    "EUROC": {
+      "source": [
+        "bitstamp",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "huobipro",
+        "trader-joe-v2-avalanche-on-chain-usdc",
+        "uniswap-v3-ethereum-on-chain-usdc-500"
+      ]
+    },
+    "EUROC/EUR": {
+      "source": ["non-usd-based"]
     }
   }
 }
