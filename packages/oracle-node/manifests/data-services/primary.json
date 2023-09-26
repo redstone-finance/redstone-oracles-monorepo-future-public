@@ -77,14 +77,49 @@
         "uniswap-v3-ethereum-on-chain-usdc-500",
         "uniswap-v3-ethereum-on-chain-dai-100"
       ],
-
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      },
-      "skipSigning": true
+      }
+    },
+    "BTC": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bingx",
+        "bitcoincom",
+        "bitfinex2",
+        "bitget",
+        "bitrue",
+        "bittrex",
+        "btcturk",
+        "bitmart",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "currencycom",
+        "digifinex",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "gate",
+        "kaiko",
+        "kaiko-v2",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "mexc",
+        "okx",
+        "poloniex",
+        "probit",
+        "xt"
+      ]
     },
     "DAI": {
       "source": [
