@@ -886,7 +886,7 @@
     },
     "EUROC": {
       "source": [
-        "bitmart",
+        "bitstamp",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -1131,6 +1131,15 @@
       "source": ["non-usd-based"]
     },
     "CELO/BRL": {
+      "source": ["non-usd-based"]
+    },
+    "USDC/EUR": {
+      "source": ["non-usd-based"]
+    },
+    "USDC/BRL": {
+      "source": ["non-usd-based"]
+    },
+    "EUROC/EUR": {
       "source": ["non-usd-based"]
     },
     "ARDRIVE": {
