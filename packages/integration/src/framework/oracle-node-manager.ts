@@ -8,7 +8,6 @@ import {
   stopChild,
   updateDotEnvFile,
 } from "./integration-test-utils";
-import { installAndBuild } from "./integration-test-compile";
 import { CacheLayerInstance } from "./cache-layer-manager";
 import { RedstoneCommon } from "@redstone-finance/utils";
 
@@ -22,9 +21,6 @@ export type OracleNodeInstance = {
   instanceId: string;
   oracleNodeProcess?: ChildProcess;
 };
-
-export const buildOracleNode = async () =>
-  await installAndBuild(ORACLE_NODE_DIR, false);
 
 const getLogPrefix = (instance: OracleNodeInstance) =>
   `oracle-node-${instance.instanceId}`;
