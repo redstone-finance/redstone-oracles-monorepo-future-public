@@ -1,4 +1,3 @@
-import { expect } from "chai";
 import { BigNumber } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
 import { ethers } from "hardhat";
@@ -19,11 +18,18 @@ import { PriceFeedsAdapterWithoutRounds } from "../../../typechain-types";
     [token: string]: number;
   };
   const bytes32Symbols = Object.keys(pricesToVerify).map(formatBytes32String);
-  const expectedPrices = Object.values(pricesToVerify);
-
   const oracleValues = await contract.getValuesForDataFeeds(bytes32Symbols);
-  expect(oracleValues.length).to.eq(expectedPrices.length);
-  for (let i = 0; i < oracleValues.length; i++) {
-    expect(oracleValues[i]).to.eq(BigNumber.from(expectedPrices[i] * 10 ** 8));
+
+  let oracleValuesIndex = 0;
+  for (const symbol of Object.keys(pricesToVerify)) {
+    const expectedPrice = pricesToVerify[symbol] * 10 ** 8;
+    if (!BigNumber.from(expectedPrice).eq(oracleValues[oracleValuesIndex])) {
+      throw new Error(
+        `${symbol}: price in adapter(${oracleValues[
+          oracleValuesIndex
+        ].toString()}) doesn't match with expected price (${expectedPrice})`
+      );
+    }
+    oracleValuesIndex++;
   }
 })();

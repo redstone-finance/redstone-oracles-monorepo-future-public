@@ -3,6 +3,7 @@ import {
   ConfigProvider,
   OnChainRelayerEnv,
   OnChainRelayerManifest,
+  OnChainRelayerManifestSchema,
 } from "./types";
 import fs from "fs";
 import { makeConfigProvider } from "./make-config-provider";
@@ -59,7 +60,9 @@ const getJSONFromEnv: GetJSONFromEnvType = <T>(
 
 export const fileSystemConfigProvider: ConfigProvider = () => {
   const manifestPath = getFromEnv("MANIFEST_FILE")!;
-  const manifest = readJSON<OnChainRelayerManifest>(manifestPath);
+  const manifest = OnChainRelayerManifestSchema.parse(
+    readJSON<OnChainRelayerManifest>(manifestPath)
+  );
   const env: OnChainRelayerEnv = {
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
     rpcUrls: JSON.parse(getFromEnv("RPC_URLS")) as string[],

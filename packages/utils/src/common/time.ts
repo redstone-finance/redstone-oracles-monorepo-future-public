@@ -1,3 +1,6 @@
+import { rejects } from "assert";
+import { resolve } from "path";
+
 export const timeout = <T>(
   prom: Promise<T>,
   timeoutMS: number,
@@ -18,3 +21,6 @@ export const timeout = <T>(
     ),
   ]).finally(() => clearTimeout(timer));
 };
+
+export const sleep = (ms: number) =>
+  new Promise((resolve, rejects) => setTimeout(resolve, ms));
