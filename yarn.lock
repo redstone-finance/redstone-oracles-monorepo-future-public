@@ -11110,11 +11110,6 @@ ghost-testrpc@^0.0.2:
     chalk "^2.4.2"
     node-emoji "^1.10.0"
 
-git-last-commit@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/git-last-commit/-/git-last-commit-1.0.1.tgz#749323f09e8317c2c2878f99eeffff33650c3d57"
-  integrity sha512-FDSgeMqa7GnJDxt/q0AbrxbfeTyxp4ImxEw1e4nw6NUHA5FMhFUq33dTXI4Xdgcj1VQ1q5QLWF6WxFrJ8KCBOg==
-
 git-raw-commits@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/git-raw-commits/-/git-raw-commits-3.0.0.tgz#5432f053a9744f67e8db03dbc48add81252cfdeb"
