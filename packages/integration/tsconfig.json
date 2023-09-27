@@ -9,6 +9,9 @@
     },
     {
       "path": "../protocol/tsconfig.build.json"
+    },
+    {
+      "path": "../on-chain-relayer/tsconfig.build.json"
     }
   ]
 }

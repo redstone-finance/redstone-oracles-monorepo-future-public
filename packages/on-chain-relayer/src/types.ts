@@ -3,6 +3,7 @@ import {
   ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
 import { LastRoundTimestamps } from "./core/contract-interactions/get-last-round-params";
+import { z } from "zod";
 
 export interface Context {
   dataPackages: DataPackagesResponse;
@@ -16,23 +17,25 @@ export interface ConditionCheckResponse {
   warningMessage: string;
 }
 
-export interface OnChainRelayerManifest {
-  chain: {
-    name: string;
-    id: number;
-  };
-  updateTriggers: {
-    cron?: string[];
-    deviationPercentage?: number;
-    timeSinceLastUpdateInMilliseconds?: number;
-  };
-  adapterContract: string;
-  adapterContractType?: string;
-  dataServiceId: string;
-  priceFeeds: {
-    [dataFeedId: string]: string /* PriceFeed contract address */;
-  };
-}
+export const OnChainRelayerManifestSchema = z.object({
+  chain: z.object({
+    name: z.string(),
+    id: z.number(),
+  }),
+  updateTriggers: z.object({
+    cron: z.array(z.string()).optional(),
+    deviationPercentage: z.number().optional(),
+    timeSinceLastUpdateInMilliseconds: z.number().optional(),
+  }),
+  adapterContract: z.string(),
+  adapterContractType: z.string().optional(),
+  dataServiceId: z.string(),
+  priceFeeds: z.record(z.string(), z.string()),
+});
+
+export type OnChainRelayerManifest = z.infer<
+  typeof OnChainRelayerManifestSchema
+>;
 
 export interface RelayerConfig {
   relayerIterationInterval: number;

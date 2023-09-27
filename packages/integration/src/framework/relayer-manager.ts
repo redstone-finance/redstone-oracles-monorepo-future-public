@@ -1,7 +1,10 @@
+import { OnChainRelayerManifest } from "@redstone-finance/on-chain-relayer";
 import { ChildProcess } from "child_process";
 import fs from "fs";
+import _ from "lodash";
+import { CacheLayerInstance } from "./cache-layer-manager";
+import { installAndBuild } from "./integration-test-compile";
 import {
-  copyAndReplace,
   ExtraEnv,
   PriceSet,
   printDotenv,
@@ -11,12 +14,12 @@ import {
   updateDotEnvFile,
   waitForSuccess,
 } from "./integration-test-utils";
-import { installAndBuild } from "./integration-test-compile";
-import { CacheLayerInstance } from "./cache-layer-manager";
+import { RedstoneCommon } from "@redstone-finance/utils";
 
 const HARDHAT_MOCK_PRIVATE_KEY =
   "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 const RELAYER_DIR = "../on-chain-relayer";
+const MANIFEST_PATH = "../integration/relayerManifest.json";
 
 export type RelayerInstance = {
   relayerProcess?: ChildProcess;
@@ -26,17 +29,24 @@ export type RelayerInstance = {
 const getLogPrefix = (instance: RelayerInstance) =>
   `relayer-${instance.instanceId}`;
 
-export const buildRelayer = async () =>
-  await installAndBuild(RELAYER_DIR, true);
+type RelayerConfig = {
+  isFallback: boolean;
+  adapterContractAddress: string;
+  cacheServiceInstances: CacheLayerInstance[];
+  intervalInMs?: number;
+  updateTriggers?: {
+    cron?: string[];
+    deviationPercentage?: number;
+    timeSinceLastUpdateInMilliseconds?: number;
+  };
+};
 
 export const startRelayer = (
   instance: RelayerInstance,
-  adapterContractAddress: string,
-  cacheServiceInstances: CacheLayerInstance[],
-  isFallback: boolean
+  config: RelayerConfig
 ) => {
   const dotenvPath = `${RELAYER_DIR}/.env-${instance.instanceId}`;
-  const cacheServiceUrls = cacheServiceInstances.map(
+  const cacheServiceUrls = config.cacheServiceInstances.map(
     (cacheLayerInstance) =>
       `http://localhost:${
         cacheLayerInstance.publicCacheServicePort ??
@@ -52,20 +62,21 @@ export const startRelayer = (
     dotenvPath
   );
   updateDotEnvFile("HEALTHCHECK_PING_URL", "", dotenvPath);
-  updateDotEnvFile(
-    "MANIFEST_FILE",
-    "../integration/relayerManifest.json",
-    dotenvPath
-  );
-  copyAndReplace(
-    /__ADAPTER_CONTRACT_ADDRESS__/,
-    adapterContractAddress,
-    "../integration/relayerManifestSample.json",
-    "../integration/relayerManifest.json"
-  );
+  createManifestFile({
+    adapterContract: config.adapterContractAddress,
+    updateTriggers: config.updateTriggers,
+  });
+  updateDotEnvFile("MANIFEST_FILE", MANIFEST_PATH, dotenvPath);
+  if (config.intervalInMs) {
+    updateDotEnvFile(
+      "RELAYER_ITERATION_INTERVAL",
+      config.intervalInMs.toString(),
+      dotenvPath
+    );
+  }
   updateDotEnvFile(
     "FALLBACK_OFFSET_IN_MINUTES",
-    `${isFallback ? 2 : 0}`,
+    `${config.isFallback ? 2 : 0}`,
     dotenvPath
   );
   updateDotEnvFile(
@@ -194,3 +205,40 @@ export const deployMockPriceFeed = async (adapterContractAddress: string) => {
   );
   return priceFeedContractAddress;
 };
+
+const createManifestFile = (
+  manifestConfig: Partial<OnChainRelayerManifest>,
+  path: string = MANIFEST_PATH
+): void => {
+  const sampleManifest = JSON.parse(
+    fs.readFileSync("../integration/relayerManifestSample.json").toString()
+  ) as Partial<OnChainRelayerManifest>;
+
+  // prevent from overwriting with undefined
+  if (!manifestConfig.updateTriggers) {
+    manifestConfig.updateTriggers = sampleManifest.updateTriggers;
+  }
+
+  const manifest = { ...sampleManifest, ...manifestConfig };
+  fs.writeFileSync(path, JSON.stringify(manifest));
+};
+
+export const waitForRelayerIterations = (
+  relayerInstance: RelayerInstance,
+  iterationsCount: number
+): Promise<void> =>
+  RedstoneCommon.timeout(
+    new Promise((resolve, reject) => {
+      let count = 0;
+      relayerInstance.relayerProcess?.stdout?.on("data", (log: string) => {
+        if (log.includes("Update condition")) {
+          if (++count >= iterationsCount) {
+            resolve();
+          }
+        }
+      });
+    }),
+    // it should normally occur in time defined in relayerSampleManifest.json which is set to ~10s
+    120_000,
+    "Failed to wait for relayer iteration. (Maybe log message has changed)"
+  );

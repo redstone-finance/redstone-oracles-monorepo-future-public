@@ -1,8 +1,4 @@
 import {
-  buildCacheLayer,
-  buildEvmConnector,
-  buildOracleNode,
-  buildRelayer,
   CacheLayerInstance,
   configureCleanup,
   debug,
@@ -27,7 +23,7 @@ import {
   verifyPricesNotInCacheService,
   verifyPricesNotOnChain,
   verifyPricesOnChain,
-  waitForDataAndDisplayIt,
+  waitForDataAndDisplayIt
 } from "./framework/integration-test-framework";
 
 const cacheLayerInstance1: CacheLayerInstance = { instanceId: "1" };
@@ -58,12 +54,6 @@ const stopAll = () => {
 };
 
 const main = async () => {
-  // setup
-  await buildCacheLayer();
-  await buildEvmConnector();
-  await buildOracleNode();
-  await buildRelayer();
-
   const allCacheLayers = [cacheLayerInstance1, cacheLayerInstance2];
   setMockPricesMany({ __DEFAULT__: 42 }, allOracleNodeInstances);
   let expectedPrices: PriceSet = { BTC: 42 };
@@ -80,18 +70,16 @@ const main = async () => {
   const priceFeedContractAddress = await deployMockPriceFeed(
     adapterContractAddress
   );
-  startRelayer(
-    relayerInstanceMain,
+  startRelayer(relayerInstanceMain, {
+    cacheServiceInstances: allCacheLayers,
     adapterContractAddress,
-    allCacheLayers,
-    false
-  );
-  startRelayer(
-    relayerInstanceFallback,
+    isFallback: false,
+  });
+  startRelayer(relayerInstanceFallback, {
+    cacheServiceInstances: allCacheLayers,
     adapterContractAddress,
-    allCacheLayers,
-    true
-  );
+    isFallback: true,
+  });
 
   // verify everything works
   await verifyPricesInCacheService(allCacheLayers, expectedPrices);

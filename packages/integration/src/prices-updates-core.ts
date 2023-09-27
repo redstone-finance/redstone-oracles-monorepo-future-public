@@ -1,7 +1,4 @@
 import {
-  buildCacheLayer,
-  buildEvmConnector,
-  buildOracleNode,
   CacheLayerInstance,
   configureCleanup,
   debug,
@@ -27,11 +24,6 @@ const stopAll = () => {
 };
 
 const main = async () => {
-  // setup
-  await buildCacheLayer();
-  await buildEvmConnector();
-  await buildOracleNode();
-
   setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
   await startAndWaitForCacheLayer(cacheLayerInstance1, false);
   await startAndWaitForCacheLayer(cacheLayerInstance2, false);
