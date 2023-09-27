@@ -5255,17 +5255,30 @@
     ton-x "^2.1.0"
     ts-node "^10.9.1"
 
+"@ton-community/func-js-bin@0.4.4":
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/@ton-community/func-js-bin/-/func-js-bin-0.4.4.tgz#b7b1b5b5e0939286cf2ccb0b8ff6c1db5774e623"
+  integrity sha512-zCSVXmh+rFMgouzTbWkSVDIt1Z5i36u9rws/Kuqn89/a0vhA1aEoJJ3oJypz0TjWKJQveU4doJsPlqu7UT2zkw==
+
 "@ton-community/func-js-bin@0.4.5-tvmbeta.1":
   version "0.4.5-tvmbeta.1"
   resolved "https://registry.yarnpkg.com/@ton-community/func-js-bin/-/func-js-bin-0.4.5-tvmbeta.1.tgz#0d6785ebf9cf1a689db4568f663e41586ed3e0c8"
   integrity sha512-RjiF47XnOwZ26/HDX5M1KPoH9Xd8FwRqEYtj6FXMYOS2lUlYdZOnBYTMuwRkfNl2hRSrg15NkErl5aRR8YTMzg==
 
-"@ton-community/func-js@0.6.3-tvmbeta.1", "@ton-community/func-js@^0.6.2":
+"@ton-community/func-js@0.6.3-tvmbeta.1":
   version "0.6.3-tvmbeta.1"
   resolved "https://registry.yarnpkg.com/@ton-community/func-js/-/func-js-0.6.3-tvmbeta.1.tgz#90ec7987f341d1a56862a72b6b0415eb42c04bbb"
   integrity sha512-6/Iz3bbDQFMzyFUc0tOLukY2l+ItXZJt7q5Jcs8edHlBsYhffHUIgXinPE7E70Bb0E3Cbs3p+8RxPSLLrUDGhQ==
   dependencies:
     "@ton-community/func-js-bin" "0.4.5-tvmbeta.1"
+    arg "^5.0.2"
+
+"@ton-community/func-js@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@ton-community/func-js/-/func-js-0.6.2.tgz#bd82279e1c489a1422d141d99506bdea12ded9dc"
+  integrity sha512-5bewe8APG2TVgIPLUV5atQfAy+NtdjjGBfsWUeRdVUclzQ5H2wZ8aJsVNLiDBpKSNEKdOAP/1PownOFeodpQHg==
+  dependencies:
+    "@ton-community/func-js-bin" "0.4.4"
     arg "^5.0.2"
 
 "@ton-community/sandbox@0.12.0-tvmbeta.1":
@@ -20198,7 +20211,7 @@ zksync-web3@^0.8.1:
   resolved "https://registry.yarnpkg.com/zksync-web3/-/zksync-web3-0.8.1.tgz#db289d8f6caf61f4d5ddc471fa3448d93208dc14"
   integrity sha512-1A4aHPQ3MyuGjpv5X/8pVEN+MdZqMjfVmiweQSRjOlklXYu65wT9BGEOtCmMs5d3gIvLp4ssfTeuR5OCKOD2kw==
 
-zod@^3.20.2:
+zod@^3.20.2, zod@^3.22.2:
   version "3.22.2"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.2.tgz#3add8c682b7077c05ac6f979fea6998b573e157b"
   integrity sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg==

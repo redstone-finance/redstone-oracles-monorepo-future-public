@@ -48,8 +48,6 @@ const portNumberForInstance = (
 export const buildCacheLayer = async () =>
   await installAndBuild(CACHE_SERVICE_DIR, false);
 
-export const buildEvmConnector = async () =>
-  await installAndBuild(EVM_CONNECTOR_DIR, true);
 
 const startAndWaitForCacheService = async (
   instance: CacheLayerInstance,
@@ -199,13 +197,16 @@ export const waitForDataPackages = async (
   );
 };
 
-export const waitForDataAndDisplayIt = async (instance: CacheLayerInstance) => {
+export const waitForDataAndDisplayIt = async (
+  instance: CacheLayerInstance,
+  expectedDataPackageCount: number = 1
+) => {
   // Waiting for data packages to be available in cache service
   const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY as string;
-  await waitForDataPackages(1, ALL_FEEDS_KEY, instance);
-  await waitForDataPackages(1, "ETH", instance);
-  await waitForDataPackages(1, "BTC", instance);
-  await waitForDataPackages(1, "AAVE", instance);
+  await waitForDataPackages(expectedDataPackageCount, ALL_FEEDS_KEY, instance);
+  await waitForDataPackages(expectedDataPackageCount, "ETH", instance);
+  await waitForDataPackages(expectedDataPackageCount, "BTC", instance);
+  await waitForDataPackages(expectedDataPackageCount, "AAVE", instance);
 
   // Querying data packages from cache service
   await runWithLogPrefix(

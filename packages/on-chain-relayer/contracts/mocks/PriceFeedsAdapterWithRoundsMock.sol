@@ -6,7 +6,7 @@ import {AuthorisedMockSignersBase} from "@redstone-finance/evm-connector/contrac
 import {PriceFeedsAdapterWithRounds} from "../price-feeds/with-rounds/PriceFeedsAdapterWithRounds.sol";
 
 contract PriceFeedsAdapterWithRoundsMock is PriceFeedsAdapterWithRounds, AuthorisedMockSignersBase {
-  function getDataFeedIds() public pure override returns (bytes32[] memory dataFeedIds) {
+  function getDataFeedIds() public  virtual pure override returns (bytes32[] memory dataFeedIds) {
     dataFeedIds = new bytes32[](1);
     dataFeedIds[0] = bytes32("BTC");
   }

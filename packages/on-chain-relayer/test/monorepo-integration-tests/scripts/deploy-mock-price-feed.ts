@@ -6,7 +6,7 @@ const PRICE_FEED_ADDRESS_FILENAME = "price-feed-contract-address.txt";
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   const priceFeedContractFactory = await ethers.getContractFactory(
-    "PriceFeedWithoutRoundsMock"
+    "PriceFeedWithRoundsMock"
   );
   const priceFeedContract = await priceFeedContractFactory.deploy();
   const adapterContractAddress = process.env.ADAPTER_CONTRACT_ADDRESS;
