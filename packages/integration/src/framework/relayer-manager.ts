@@ -1,9 +1,8 @@
 import { OnChainRelayerManifest } from "@redstone-finance/on-chain-relayer";
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { ChildProcess } from "child_process";
 import fs from "fs";
-import _ from "lodash";
 import { CacheLayerInstance } from "./cache-layer-manager";
-import { installAndBuild } from "./integration-test-compile";
 import {
   ExtraEnv,
   PriceSet,
@@ -14,7 +13,6 @@ import {
   updateDotEnvFile,
   waitForSuccess,
 } from "./integration-test-utils";
-import { RedstoneCommon } from "@redstone-finance/utils";
 
 const HARDHAT_MOCK_PRIVATE_KEY =
   "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
@@ -228,7 +226,7 @@ export const waitForRelayerIterations = (
   iterationsCount: number
 ): Promise<void> =>
   RedstoneCommon.timeout(
-    new Promise((resolve, reject) => {
+    new Promise((resolve, _reject) => {
       let count = 0;
       relayerInstance.relayerProcess?.stdout?.on("data", (log: string) => {
         if (log.includes("Update condition")) {

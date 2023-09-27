@@ -1,6 +1,13 @@
+import { checkMissingDataFeeds } from "./check-missing-data-feeds";
+import { checkSourcesDeviations } from "./check-sources-deviations";
+import { checkValuesDeviations } from "./check-values-deviations";
 import {
-  buildCacheLayer,
-  buildOracleNode,
+  compareDataPackagesFromLocalAndProd,
+  DataPackages,
+} from "./compare-data-packages";
+import { fetchDataPackagesFromCaches } from "./fetch-data-packages-from-local-and-prod-cache";
+import { fetchLatestTimestampFromLocal } from "./fetch-latest-timestamp-from-local-cache";
+import {
   CacheLayerInstance,
   configureCleanup,
   OracleNodeInstance,
@@ -8,18 +15,9 @@ import {
   startAndWaitForCacheLayer,
   startAndWaitForOracleNode,
   stopCacheLayer,
-  stopOracleNode,
+  stopOracleNode
 } from "./integration-test-framework";
-import {
-  compareDataPackagesFromLocalAndProd,
-  DataPackages,
-} from "./compare-data-packages";
-import { fetchLatestTimestampFromLocal } from "./fetch-latest-timestamp-from-local-cache";
-import { fetchDataPackagesFromCaches } from "./fetch-data-packages-from-local-and-prod-cache";
 import { printAllDeviations } from "./print-all-deviations";
-import { checkValuesDeviations } from "./check-values-deviations";
-import { checkSourcesDeviations } from "./check-sources-deviations";
-import { checkMissingDataFeeds } from "./check-missing-data-feeds";
 
 export interface DeviationsPerDataFeed {
   [dataFeedId: string]: number;
@@ -64,9 +62,6 @@ export const runLongPricePropagationCoreTest = async (
   dataFeedsNotWorkingLocally: string[],
   sourcesToSkip: string[]
 ) => {
-  await buildCacheLayer();
-  await buildOracleNode();
-
   await startAndWaitForCacheLayer(cacheLayerInstance, true, true);
   await startAndWaitForOracleNode(
     oracleNodeInstance,

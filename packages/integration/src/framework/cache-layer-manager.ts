@@ -1,10 +1,9 @@
 import { consts } from "@redstone-finance/protocol";
 import { ChildProcess, spawnSync } from "child_process";
 import fs from "fs";
-import { installAndBuild } from "./integration-test-compile";
 import {
-  debug,
   PriceSet,
+  debug,
   printDotenv,
   runWithLogPrefix,
   runWithLogPrefixInBackground,
@@ -44,10 +43,6 @@ const portNumberForInstance = (
   }
   return ++cacheServicePort;
 };
-
-export const buildCacheLayer = async () =>
-  await installAndBuild(CACHE_SERVICE_DIR, false);
-
 
 const startAndWaitForCacheService = async (
   instance: CacheLayerInstance,
