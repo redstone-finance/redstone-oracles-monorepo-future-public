@@ -12,9 +12,9 @@ import { CacheLayerInstance } from "./cache-layer-manager";
 import {
   PriceSet,
   printDotenv,
+  printExtraEnv,
   runWithLogPrefixInBackground,
   stopChild,
-  updateDotEnvFile,
   waitForSuccess,
 } from "./integration-test-utils";
 
@@ -48,7 +48,7 @@ export const startRelayer = (
   instance: RelayerInstance,
   config: RelayerConfig
 ) => {
-  const dotenvPath = `${RELAYER_DIR}/.env-${instance.instanceId}`;
+  const dotenvPath = `${RELAYER_DIR}/.env.example`;
   const cacheServiceUrls = config.cacheServiceInstances.map(
     (cacheLayerInstance) =>
       `http://localhost:${
@@ -56,53 +56,36 @@ export const startRelayer = (
         cacheLayerInstance.directCacheServicePort
       }`
   );
-  fs.copyFileSync(`${RELAYER_DIR}/.env.example`, dotenvPath);
-
   const rpcUrls = config.rpcUrls ?? ["http://127.0.0.1:8545"];
-  updateDotEnvFile("RPC_URLS", JSON.stringify(rpcUrls), dotenvPath);
-  updateDotEnvFile("PRIVATE_KEY", HARDHAT_MOCK_PRIVATE_KEY, dotenvPath);
-  updateDotEnvFile(
-    "CACHE_SERVICE_URLS",
-    JSON.stringify(cacheServiceUrls),
-    dotenvPath
-  );
-  updateDotEnvFile("HEALTHCHECK_PING_URL", "", dotenvPath);
   createManifestFile({
     adapterContract: config.adapterContractAddress,
     updateTriggers: config.updateTriggers,
   });
-  updateDotEnvFile("MANIFEST_FILE", MANIFEST_PATH, dotenvPath);
+  const extraEnv: Record<string, string> = {
+    RPC_URLS: JSON.stringify(rpcUrls),
+    PRIVATE_KEY: HARDHAT_MOCK_PRIVATE_KEY,
+    CACHE_SERVICE_URLS: JSON.stringify(cacheServiceUrls),
+    HEALTHCHECK_PING_URL: "",
+    MANIFEST_FILE: MANIFEST_PATH,
+    FALLBACK_OFFSET_IN_MINUTES: `${config.isFallback ? 2 : 0}`,
+    HISTORICAL_PACKAGES_DATA_SERVICE_ID: "mock-data-service",
+    HISTORICAL_PACKAGES_GATEWAYS: JSON.stringify(cacheServiceUrls),
+  };
   if (config.intervalInMs) {
-    updateDotEnvFile(
-      "RELAYER_ITERATION_INTERVAL",
-      config.intervalInMs.toString(),
-      dotenvPath
-    );
+    extraEnv["RELAYER_ITERATION_INTERVAL"] = config.intervalInMs.toString();
   }
-  updateDotEnvFile(
-    "FALLBACK_OFFSET_IN_MINUTES",
-    `${config.isFallback ? 2 : 0}`,
-    dotenvPath
-  );
-  updateDotEnvFile(
-    "HISTORICAL_PACKAGES_DATA_SERVICE_ID",
-    "mock-data-service",
-    dotenvPath
-  );
-  updateDotEnvFile(
-    "HISTORICAL_PACKAGES_GATEWAYS",
-    JSON.stringify(cacheServiceUrls),
-    dotenvPath
-  );
-
-  printDotenv("on chain relayer", dotenvPath);
+  printDotenv(getLogPrefix(instance), dotenvPath);
+  printExtraEnv(getLogPrefix(instance), extraEnv);
 
   instance.relayerProcess = runWithLogPrefixInBackground(
     "node",
     ["dist/src/run-relayer"],
     getLogPrefix(instance),
     RELAYER_DIR,
-    { DOTENV_CONFIG_PATH: dotenvPath }
+    {
+      ...extraEnv,
+      DOTENV_CONFIG_PATH: dotenvPath,
+    }
   );
 };
 
@@ -224,7 +207,7 @@ export const deployMockAdapter = async (
     "@redstone-finance/on-chain-relayer/artifacts/contracts/mocks/PriceFeedsAdapterWithRoundsOneSignerMock.sol/PriceFeedsAdapterWithRoundsOneSignerMock.json"
   );
 
-  const signer = await getConnectedSigner(rpcUrl);
+  const signer = getConnectedSigner(rpcUrl);
 
   const factory = ethers.ContractFactory.fromSolidity(
     adapterContractDeployment,
@@ -244,7 +227,7 @@ export const deployMockPriceFeed = async (
     "@redstone-finance/on-chain-relayer/artifacts/contracts/mocks/PriceFeedWithRoundsMock.sol/PriceFeedWithRoundsMock.json"
   );
 
-  const signer = await getConnectedSigner(rpcUrl);
+  const signer = getConnectedSigner(rpcUrl);
 
   const factory = ethers.ContractFactory.fromSolidity(
     adapterContractDeployment,
@@ -258,7 +241,7 @@ export const deployMockPriceFeed = async (
   return contract;
 };
 
-export const getConnectedSigner = async (rpcUrl = "http://127.0.0.1:8545") => {
+export const getConnectedSigner = (rpcUrl = "http://127.0.0.1:8545") => {
   const wallet = new ethers.Wallet(HARDHAT_MOCK_PRIVATE_KEY);
   const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
   return wallet.connect(provider);

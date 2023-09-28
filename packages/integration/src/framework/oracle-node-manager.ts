@@ -4,9 +4,9 @@ import {
   debug,
   PriceSet,
   printDotenv,
+  printExtraEnv,
   runWithLogPrefixInBackground,
   stopChild,
-  updateDotEnvFile,
 } from "./integration-test-utils";
 import { CacheLayerInstance } from "./cache-layer-manager";
 import { RedstoneCommon } from "@redstone-finance/utils";
@@ -32,19 +32,23 @@ export const startAndWaitForOracleNode = (
   manifestFileName: string = "single-source/mock"
 ) => {
   debug(`starting ${getLogPrefix(instance)}`);
-  const dotenvPath = `${ORACLE_NODE_DIR}/.env-${instance.instanceId}`;
-  populateEnvVariables(
-    dotenvPath,
+  const dotenvPath = `${ORACLE_NODE_DIR}/.env.example`;
+  const extraEnv = createExtraEnv(
     instance,
     cacheServiceInstances,
     manifestFileName
   );
+  printDotenv(getLogPrefix(instance), dotenvPath);
+  printExtraEnv(getLogPrefix(instance), extraEnv);
   instance.oracleNodeProcess = runWithLogPrefixInBackground(
     "node",
     ["dist/index"],
     getLogPrefix(instance),
     ORACLE_NODE_DIR,
-    { DOTENV_CONFIG_PATH: dotenvPath }
+    {
+      ...extraEnv,
+      DOTENV_CONFIG_PATH: dotenvPath,
+    }
   );
 
   const isReadyPromise = new Promise<void>((resolve, _rejects) => {
@@ -67,8 +71,7 @@ export const startAndWaitForOracleNode = (
 const getMockPricesPath = (instance: OracleNodeInstance) =>
   `${mockPricesPath}-${instance.instanceId}`;
 
-const populateEnvVariables = (
-  dotenvPath: string,
+const createExtraEnv = (
   instance: OracleNodeInstance,
   cacheServiceInstances: CacheLayerInstance[],
   manifestFileName: string
@@ -77,29 +80,14 @@ const populateEnvVariables = (
     (cacheLayerInstance) =>
       `http://localhost:${cacheLayerInstance.directCacheServicePort}`
   );
-  fs.copyFileSync(`${ORACLE_NODE_DIR}/.env.example`, dotenvPath);
-  updateDotEnvFile(
-    "OVERRIDE_DIRECT_CACHE_SERVICE_URLS",
-    JSON.stringify(cacheServiceUrls),
-    dotenvPath
-  );
-  updateDotEnvFile(
-    "OVERRIDE_MANIFEST_USING_FILE",
-    `./manifests/${manifestFileName}.json`,
-    dotenvPath
-  );
-  updateDotEnvFile(
-    "LEVEL_DB_LOCATION",
-    `oracle-node-level-db-${instance.instanceId}`,
-    dotenvPath
-  );
-  updateDotEnvFile("ECDSA_PRIVATE_KEY", HARDHAT_MOCK_PRIVATE_KEY, dotenvPath);
-  updateDotEnvFile(
-    "MOCK_PRICES_URL_OR_PATH",
-    getMockPricesPath(instance),
-    dotenvPath
-  );
-  printDotenv(getLogPrefix(instance), dotenvPath);
+  const extraEnv: Record<string, string> = {
+    OVERRIDE_DIRECT_CACHE_SERVICE_URLS: JSON.stringify(cacheServiceUrls),
+    OVERRIDE_MANIFEST_USING_FILE: `./manifests/${manifestFileName}.json`,
+    LEVEL_DB_LOCATION: `oracle-node-level-db-${instance.instanceId}`,
+    ECDSA_PRIVATE_KEY: HARDHAT_MOCK_PRIVATE_KEY,
+    MOCK_PRICES_URL_OR_PATH: getMockPricesPath(instance),
+  };
+  return extraEnv;
 };
 
 export const stopOracleNode = (instance: OracleNodeInstance) => {

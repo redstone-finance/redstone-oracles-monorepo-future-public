@@ -1,6 +1,6 @@
 import { RedstoneCommon } from "@redstone-finance/utils";
 import axios from "axios";
-import { ChildProcess, spawn, spawnSync } from "child_process";
+import { ChildProcess, spawn } from "child_process";
 import fs from "fs";
 
 export type PriceSet = { [token: string]: number };
@@ -24,6 +24,15 @@ export const stopChild = (
 export const printDotenv = (label: string, filePath: string) => {
   console.group(`${label} ${filePath}`);
   console.log(fs.readFileSync(filePath, "utf-8"));
+  console.groupEnd();
+};
+
+export const printExtraEnv = (
+  label: string,
+  extraEnv: Record<string, string>
+) => {
+  console.group(`${label} extra env`);
+  console.log(JSON.stringify(extraEnv, undefined, 2));
   console.groupEnd();
 };
 
@@ -77,22 +86,6 @@ export const copyAndReplace = (
   const newDotenvContents = dotenvContents.replace(regex, replacement);
   fs.writeFileSync(destFilePath, newDotenvContents, "utf-8");
   return regex.test(dotenvContents);
-};
-
-export const updateDotEnvFile = (
-  varName: string,
-  varValue: string,
-  dotenvFilePath: string
-) => {
-  const found = copyAndReplace(
-    new RegExp(`^${varName}=.*$`, "gm"),
-    `${varName}=${varValue}`,
-    dotenvFilePath,
-    dotenvFilePath
-  );
-  if (!found) {
-    fs.appendFileSync(dotenvFilePath, `${varName}=${varValue}\n`);
-  }
 };
 
 const logPrefixLength = 25;
