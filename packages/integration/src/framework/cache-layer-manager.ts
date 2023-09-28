@@ -8,10 +8,10 @@ import {
   runWithLogPrefix,
   runWithLogPrefixInBackground,
   stopChild,
-  updateDotEnvFile,
   waitForFile,
   waitForSuccess,
   waitForUrl,
+  printExtraEnv,
 } from "./integration-test-utils";
 
 export type CacheLayerInstance = {
@@ -21,11 +21,12 @@ export type CacheLayerInstance = {
   publicCacheServiceProcess?: ChildProcess;
   directCacheServicePort?: number;
   publicCacheServicePort?: number;
-  dotenvPath?: string;
+  extraEnv?: Record<string, string>;
 };
 
 const CACHE_SERVICE_DIR = "../cache-service";
 const EVM_CONNECTOR_DIR = "../evm-connector";
+const DOTENV_PATH = `${CACHE_SERVICE_DIR}/.env.example`;
 
 const getLogPrefix = (instance: CacheLayerInstance) =>
   `cache-service-${instance.instanceId}`;
@@ -49,14 +50,15 @@ const startAndWaitForCacheService = async (
   direct: boolean
 ) => {
   const cacheServicePort = portNumberForInstance(instance, direct);
+  instance.extraEnv!["APP_PORT"] = `${cacheServicePort}`;
   const childProcess = runWithLogPrefixInBackground(
     "node",
     ["dist/src/main"],
     `${direct ? "direct" : "public"}-${getLogPrefix(instance)}`,
     CACHE_SERVICE_DIR,
     {
-      DOTENV_CONFIG_PATH: instance.dotenvPath!,
-      APP_PORT: `${cacheServicePort}`,
+      ...instance.extraEnv,
+      DOTENV_CONFIG_PATH: DOTENV_PATH,
     }
   );
   const cacheServiceUrl = `http://localhost:${cacheServicePort}`;
@@ -76,7 +78,6 @@ export const startAndWaitForCacheLayer = async (
   enableHistoricalDataServing: boolean = false
 ): Promise<CacheLayerInstance> => {
   debug(`starting ${getLogPrefix(instance)}`);
-  instance.dotenvPath ??= `${CACHE_SERVICE_DIR}/.env-${instance.instanceId}`;
 
   const mongoUriFile = `${CACHE_SERVICE_DIR}/tmp-mongo-db-uri-${instance.instanceId}.log`;
   // Spinning up a mongo DB instance for cache service
@@ -90,28 +91,17 @@ export const startAndWaitForCacheLayer = async (
   await waitForFile(mongoUriFile);
   const memoryMongoDbUrl = fs.readFileSync(mongoUriFile, "utf-8");
 
-  fs.copyFileSync(`${CACHE_SERVICE_DIR}/.env.example`, instance.dotenvPath);
-  updateDotEnvFile("MONGO_DB_URL", memoryMongoDbUrl, instance.dotenvPath);
-  updateDotEnvFile(
-    "API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES",
-    "hehe",
-    instance.dotenvPath
-  );
-  updateDotEnvFile("ENABLE_DIRECT_POSTING_ROUTES", "true", instance.dotenvPath);
-  updateDotEnvFile("ENABLE_STREAMR_LISTENING", "false", instance.dotenvPath);
-  updateDotEnvFile("USE_MOCK_ORACLE_STATE", "true", instance.dotenvPath);
-  updateDotEnvFile(
-    "ENABLE_HISTORICAL_DATA_SERVING",
-    String(enableHistoricalDataServing),
-    instance.dotenvPath
-  );
-  updateDotEnvFile("MAX_ALLOWED_TIMESTAMP_DELAY", "20000", instance.dotenvPath);
-  updateDotEnvFile(
-    "ENABLE_HISTORICAL_DATA_SERVING",
-    "true",
-    instance.dotenvPath
-  );
-  printDotenv(getLogPrefix(instance), instance.dotenvPath);
+  instance.extraEnv = {
+    MONGO_DB_URL: memoryMongoDbUrl,
+    API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES: "hehe",
+    ENABLE_DIRECT_POSTING_ROUTES: "true",
+    ENABLE_STREAMR_LISTENING: "false",
+    USE_MOCK_ORACLE_STATE: "true",
+    ENABLE_HISTORICAL_DATA_SERVING: String(enableHistoricalDataServing),
+    MAX_ALLOWED_TIMESTAMP_DELAY: "20000",
+  };
+  printDotenv(getLogPrefix(instance), DOTENV_PATH);
+  printExtraEnv(getLogPrefix(instance), instance.extraEnv);
   await startAndWaitForCacheService(instance, true);
   if (!directOnly) {
     await startAndWaitForCacheService(instance, false);
@@ -188,7 +178,10 @@ export const waitForDataPackages = async (
     ],
     `Waiting ${feedId}`,
     CACHE_SERVICE_DIR,
-    { DOTENV_CONFIG_PATH: instance.dotenvPath! }
+    {
+      ...instance.extraEnv,
+      DOTENV_CONFIG_PATH: DOTENV_PATH,
+    }
   );
 };
 
