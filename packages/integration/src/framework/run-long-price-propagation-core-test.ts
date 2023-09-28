@@ -83,13 +83,12 @@ export const runLongPricePropagationCoreTest = async (
 
   const iterationsCount =
     nodeWorkingTimeInMilliseconds / nodeIntervalInMilliseconds;
-  const timestampsRange = [...Array(iterationsCount).keys()];
-  const timestampsCountToAnalyze = timestampsRange.slice(
-    0,
-    iterationsCount - coldStartIterationsCount
-  );
   const fetchDataPackagesPromises = [];
-  for (const timestampDiffNumber of timestampsCountToAnalyze) {
+  for (
+    let timestampDiffNumber = 0;
+    timestampDiffNumber < iterationsCount - coldStartIterationsCount;
+    ++timestampDiffNumber
+  ) {
     const newTimestamp =
       latestTimestamp - timestampDiffNumber * nodeIntervalInMilliseconds;
     fetchDataPackagesPromises.push(
