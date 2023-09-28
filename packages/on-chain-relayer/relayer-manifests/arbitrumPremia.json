@@ -4,6 +4,7 @@
     "id": 42161
   },
   "updateTriggers": {
+    "deviationPercentage": 0.5,
     "cron": ["55 7 * * *", "30 59 7 * * *", "40 59 7 * * *", "50 59 7 * * *"]
   },
   "adapterContract": "0x5B0E8F9B1A0De4fEC0fbe53387817f30D7Dec800",
