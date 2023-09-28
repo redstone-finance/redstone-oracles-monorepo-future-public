@@ -9,7 +9,7 @@ module.exports = {
   plugins: ["@typescript-eslint", "workspaces"],
   ignorePatterns: ["dist", "jest.config*", "*.js"],
   rules: {
-    "@typescript-eslint/no-floating-promises": "warn",
+    "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
     "no-constant-condition": "off",
     "no-return-await": "off",
@@ -20,11 +20,11 @@ module.exports = {
         ignoreOverrideMethods: true,
       },
     ],
-    "@typescript-eslint/return-await": ["warn", "always"],
+    "@typescript-eslint/return-await": ["error", "always"],
     "workspaces/require-dependency": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
-      "warn",
+      "error",
       { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
     ],
     "@typescript-eslint/unbound-method": ["error", { ignoreStatic: true }],
