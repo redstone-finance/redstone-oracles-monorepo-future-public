@@ -1,3 +1,5 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
+import axios from "axios";
 import { ChildProcess, spawn, spawnSync } from "child_process";
 import fs from "fs";
 
@@ -19,10 +21,6 @@ export const stopChild = (
   }
 };
 
-export const sleep = async (millis: number) => {
-  await new Promise((resolve) => setTimeout(resolve, millis));
-};
-
 export const printDotenv = (label: string, filePath: string) => {
   console.group(`${label} ${filePath}`);
   console.log(fs.readFileSync(filePath, "utf-8"));
@@ -32,24 +30,26 @@ export const printDotenv = (label: string, filePath: string) => {
 export const waitForFile = async (filePath: string, tries = 5) => {
   while (!fs.existsSync(filePath)) {
     if (--tries <= 0) {
-      throw new Error(`path ${filePath} didn't become availabe, aborting...`);
+      throw new Error(`path ${filePath} didn't become available, aborting...`);
     }
     debug(`${filePath} is not present, waiting, tries left ${tries}...`);
-    await sleep(SLEEP_TIME_MILLISECONDS);
+    await RedstoneCommon.sleep(SLEEP_TIME_MILLISECONDS);
   }
-  debug(`${filePath} bacame available`);
+  debug(`${filePath} became available`);
 };
 
 export const waitForUrl = async (url: string, tries = 5) => {
-  // eslint-disable-next-line no-constant-condition,@typescript-eslint/no-unnecessary-condition
-  while (spawnSync("curl", [url]).status !== 0) {
-    if (--tries <= 0) {
-      throw new Error(`url ${url} didn't become availabe, aborting...`);
+  for (let i = 0; i < tries; i++) {
+    try {
+      await axios.get(url);
+      debug(`${url} became available`);
+      return;
+    } catch {
+      debug(`${url} is not responding, waiting, tries left: ${tries - i}`);
     }
-    debug(`${url} is not responding, waiting, tries left: ${tries}...`);
-    await sleep(SLEEP_TIME_MILLISECONDS);
+    await RedstoneCommon.sleep(SLEEP_TIME_MILLISECONDS);
   }
-  debug(`${url} became available`);
+  throw new Error(`url ${url} didn't become available, aborting...`);
 };
 
 export const waitForSuccess = async (
@@ -60,7 +60,7 @@ export const waitForSuccess = async (
   let waitCounter = 0;
   while (!(await cond())) {
     if (++waitCounter < count) {
-      await sleep(SLEEP_TIME_MILLISECONDS);
+      await RedstoneCommon.sleep(SLEEP_TIME_MILLISECONDS);
     } else {
       throw new Error(errorMessage);
     }

@@ -1,7 +1,4 @@
-import { abi as priceFeedAbi } from "@redstone-finance/on-chain-relayer/artifacts/contracts/mocks/PriceFeedWithRoundsMock.sol/PriceFeedWithRoundsMock.json";
-import { PriceFeedWithRounds } from "@redstone-finance/on-chain-relayer/typechain-types";
 import { RedstoneCommon } from "@redstone-finance/utils";
-import { ethers } from "ethers";
 import {
   CacheLayerInstance,
   configureCleanup,
@@ -51,17 +48,16 @@ const main = async () => {
   await waitForDataAndDisplayIt(cacheLayerInstance);
   await startAndWaitForHardHat(hardhatInstance);
 
-  const adapterContractAddress = await deployMockAdapter();
-  const priceFeedContractAddress = await deployMockPriceFeed(
-    adapterContractAddress
-  );
+  const adapterContract = await deployMockAdapter();
+  const adapterContractAddress = adapterContract.address;
+  const priceFeedContract = await deployMockPriceFeed(adapterContractAddress);
 
   startRelayer(relayerInstance, {
     cacheServiceInstances: [cacheLayerInstance],
     adapterContractAddress,
     isFallback: false,
   });
-  await verifyPricesOnChain(adapterContractAddress, priceFeedContractAddress, {
+  await verifyPricesOnChain(adapterContract, priceFeedContract, {
     BTC: 16000,
   });
   // end of updating first prices
@@ -90,18 +86,12 @@ const main = async () => {
   );
   await waitForDataAndDisplayIt(cacheLayerInstance, 2);
   await waitForRelayerIterations(relayerInstance, 1);
-  await verifyPricesOnChain(adapterContractAddress, priceFeedContractAddress, {
+  await verifyPricesOnChain(adapterContract, priceFeedContract, {
     BTC: valueWithGoodDeviation,
     ETH: 42 + 42 * 0.01,
   });
 
-  const priceFeed = new ethers.Contract(
-    priceFeedContractAddress,
-    priceFeedAbi,
-    new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545")
-  ) as PriceFeedWithRounds;
-
-  const currentRoundsCount = await priceFeed.latestRound();
+  const currentRoundsCount = await priceFeedContract.latestRound();
   if (currentRoundsCount.toNumber() !== 2) {
     throw new Error(
       `Expected round id to equals 2, but equals ${currentRoundsCount.toString()}`
@@ -110,7 +100,7 @@ const main = async () => {
 
   // here time deviation should kick in
   await RedstoneCommon.sleep(70_000);
-  const nextRoundCount = await priceFeed.latestRound();
+  const nextRoundCount = await priceFeedContract.latestRound();
   if (nextRoundCount.toNumber() !== 3) {
     throw new Error(
       `Expected round id to equals 3, but equals ${nextRoundCount.toString()}`

@@ -17,7 +17,7 @@ import {
   stopOracleNode,
   stopRelayer,
   verifyPricesOnChain,
-  waitForDataAndDisplayIt
+  waitForDataAndDisplayIt,
 } from "./framework/integration-test-framework";
 
 const hardhatInstance: HardhatInstance = { instanceId: "1" };
@@ -47,10 +47,9 @@ const main = async () => {
   await waitForDataAndDisplayIt(cacheLayerInstance);
   await startAndWaitForHardHat(hardhatInstance);
 
-  const adapterContractAddress = await deployMockAdapter();
-  const priceFeedContractAddress = await deployMockPriceFeed(
-    adapterContractAddress
-  );
+  const adapterContract = await deployMockAdapter();
+  const adapterContractAddress = adapterContract.address;
+  const priceFeedContract = await deployMockPriceFeed(adapterContractAddress);
 
   startRelayer(relayerInstance, {
     adapterContractAddress,
@@ -58,7 +57,7 @@ const main = async () => {
     isFallback: false,
   });
 
-  await verifyPricesOnChain(adapterContractAddress, priceFeedContractAddress, {
+  await verifyPricesOnChain(adapterContract, priceFeedContract, {
     BTC: 16000,
     ETH: 1500,
     AAVE: 42,

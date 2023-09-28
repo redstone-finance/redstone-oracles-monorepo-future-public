@@ -50,10 +50,10 @@ const main = async () => {
   await waitForDataAndDisplayIt(cacheLayerInstance);
   await startAndWaitForHardHat(hardhatInstance);
 
-  const adapterContractAddress = await deployMockAdapter();
-  const priceFeedContractAddress = await deployMockPriceFeed(
-    adapterContractAddress
-  );
+  const adapterContract = await deployMockAdapter();
+  const adapterContractAddress = adapterContract.address;
+  const priceFeedContract = await deployMockPriceFeed(adapterContractAddress);
+  const priceFeedContractAddress = priceFeedContract.address;
 
   // iteration of relayer happen every ~10 seconds
   // cron is set on every 8 seconds
@@ -85,7 +85,7 @@ const main = async () => {
     );
   }
 
-  await verifyPricesOnChain(adapterContractAddress, priceFeedContractAddress, {
+  await verifyPricesOnChain(adapterContract, priceFeedContract, {
     BTC: 16000,
   });
 
