@@ -15,6 +15,7 @@
     "@redstone-finance/on-chain-relayer": "^0.3.3-alpha.0",
     "@redstone-finance/protocol": "^0.3.3-alpha.0",
     "@redstone-finance/utils": "^0.3.3-alpha.0",
+    "axios": "^1.5.1",
     "ethers": "^5.7.2"
   },
   "devDependencies": {

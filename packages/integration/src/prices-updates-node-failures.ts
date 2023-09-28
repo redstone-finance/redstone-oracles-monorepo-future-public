@@ -1,3 +1,4 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import {
   CacheLayerInstance,
   configureCleanup,
@@ -8,7 +9,6 @@ import {
   OracleNodeInstance,
   PriceSet,
   setMockPricesMany,
-  sleep,
   startAndWaitForCacheLayer,
   startAndWaitForHardHat,
   startAndWaitForOracleNode,
@@ -23,7 +23,7 @@ import {
   verifyPricesNotInCacheService,
   verifyPricesNotOnChain,
   verifyPricesOnChain,
-  waitForDataAndDisplayIt
+  waitForDataAndDisplayIt,
 } from "./framework/integration-test-framework";
 
 const cacheLayerInstance1: CacheLayerInstance = { instanceId: "1" };
@@ -66,10 +66,11 @@ const main = async () => {
   await waitForDataAndDisplayIt(cacheLayerInstance1);
   await waitForDataAndDisplayIt(cacheLayerInstance2);
   await startAndWaitForHardHat(hardhatInstance);
-  const adapterContractAddress = await deployMockAdapter();
-  const priceFeedContractAddress = await deployMockPriceFeed(
-    adapterContractAddress
-  );
+
+  const adapterContract = await deployMockAdapter();
+  const adapterContractAddress = adapterContract.address;
+  const priceFeedContract = await deployMockPriceFeed(adapterContractAddress);
+
   startRelayer(relayerInstanceMain, {
     cacheServiceInstances: allCacheLayers,
     adapterContractAddress,
@@ -83,11 +84,7 @@ const main = async () => {
 
   // verify everything works
   await verifyPricesInCacheService(allCacheLayers, expectedPrices);
-  await verifyPricesOnChain(
-    adapterContractAddress,
-    priceFeedContractAddress,
-    expectedPrices
-  );
+  await verifyPricesOnChain(adapterContract, priceFeedContract, expectedPrices);
 
   // stop single oracle node and cache service and verify everything works
   stopOracleNode(oracleNodeInstance1);
@@ -95,11 +92,7 @@ const main = async () => {
   setMockPricesMany({ __DEFAULT__: 43 }, allOracleNodeInstances);
   expectedPrices = { BTC: 43 };
   await verifyPricesInCacheService(allCacheLayers, expectedPrices);
-  await verifyPricesOnChain(
-    adapterContractAddress,
-    priceFeedContractAddress,
-    expectedPrices
-  );
+  await verifyPricesOnChain(adapterContract, priceFeedContract, expectedPrices);
 
   // stop all nodes and verify that prices are not being updated
   stopOracleNode(oracleNodeInstance2);
@@ -108,8 +101,8 @@ const main = async () => {
   expectedPrices = { BTC: 44 };
   await verifyPricesNotInCacheService(allCacheLayers, expectedPrices);
   await verifyPricesNotOnChain(
-    adapterContractAddress,
-    priceFeedContractAddress,
+    adapterContract,
+    priceFeedContract,
     expectedPrices
   );
 
@@ -121,11 +114,7 @@ const main = async () => {
   setMockPricesMany({ __DEFAULT__: 45 }, allOracleNodeInstances);
   expectedPrices = { BTC: 45 };
   await verifyPricesInCacheService(allCacheLayers, expectedPrices);
-  await verifyPricesOnChain(
-    adapterContractAddress,
-    priceFeedContractAddress,
-    expectedPrices
-  );
+  await verifyPricesOnChain(adapterContract, priceFeedContract, expectedPrices);
 
   // stop main relayer and verify that prices are not updated...
   stopRelayer(relayerInstanceMain);
@@ -133,18 +122,14 @@ const main = async () => {
   expectedPrices = { BTC: 46 };
   await verifyPricesInCacheService(allCacheLayers, expectedPrices);
   await verifyPricesNotOnChain(
-    adapterContractAddress,
-    priceFeedContractAddress,
+    adapterContract,
+    priceFeedContract,
     expectedPrices
   );
-  await sleep(100_000); // fallback relayer delay is 120 seconds and verifyPricesNotOnChain takes 4*5 = 20 seconds
+  await RedstoneCommon.sleep(100_000); // fallback relayer delay is 120 seconds and verifyPricesNotOnChain takes 4*5 = 20 seconds
 
   // ... unless fallback relayer kicks in
-  await verifyPricesOnChain(
-    adapterContractAddress,
-    priceFeedContractAddress,
-    expectedPrices
-  );
+  await verifyPricesOnChain(adapterContract, priceFeedContract, expectedPrices);
 
   process.exit();
 };

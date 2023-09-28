@@ -1,13 +1,17 @@
 import { OnChainRelayerManifest } from "@redstone-finance/on-chain-relayer";
+import {
+  PriceFeedWithRoundsMock,
+  PriceFeedsAdapterWithRoundsOneSignerMock,
+} from "@redstone-finance/on-chain-relayer/typechain-types";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { ChildProcess } from "child_process";
+import { BigNumber, ethers } from "ethers";
+import { formatBytes32String } from "ethers/lib/utils";
 import fs from "fs";
 import { CacheLayerInstance } from "./cache-layer-manager";
 import {
-  ExtraEnv,
   PriceSet,
   printDotenv,
-  runWithLogPrefix,
   runWithLogPrefixInBackground,
   stopChild,
   updateDotEnvFile,
@@ -37,6 +41,7 @@ type RelayerConfig = {
     deviationPercentage?: number;
     timeSinceLastUpdateInMilliseconds?: number;
   };
+  rpcUrls?: string[];
 };
 
 export const startRelayer = (
@@ -52,7 +57,9 @@ export const startRelayer = (
       }`
   );
   fs.copyFileSync(`${RELAYER_DIR}/.env.example`, dotenvPath);
-  updateDotEnvFile("RPC_URLS", '["http://127.0.0.1:8545"]', dotenvPath);
+
+  const rpcUrls = config.rpcUrls ?? ["http://127.0.0.1:8545"];
+  updateDotEnvFile("RPC_URLS", JSON.stringify(rpcUrls), dotenvPath);
   updateDotEnvFile("PRIVATE_KEY", HARDHAT_MOCK_PRIVATE_KEY, dotenvPath);
   updateDotEnvFile(
     "CACHE_SERVICE_URLS",
@@ -102,71 +109,103 @@ export const startRelayer = (
 export const stopRelayer = (instance: RelayerInstance) =>
   stopChild(instance.relayerProcess, getLogPrefix(instance));
 
-const runHardhatScript = async (
-  path: string,
-  extraEnv: ExtraEnv,
-  label: string,
-  throwOnError = false
-) =>
-  await runWithLogPrefix(
-    "yarn",
-    ["hardhat", "--network", "localhost", "run", path],
-    label,
-    RELAYER_DIR,
-    extraEnv,
-    throwOnError
-  );
+const waitForPricesInAdapterCheck = async (
+  adapterContract: PriceFeedsAdapterWithRoundsOneSignerMock,
+  expectedPrices: PriceSet
+): Promise<boolean> => {
+  try {
+    console.log(`Checking prices in adapter ${adapterContract.address}`);
 
-const waitForPricesInAdapterCheck =
-  (adapterContractAddress: string, expectedPrices: PriceSet) =>
-  async (): Promise<boolean> =>
-    await runHardhatScript(
-      "test/monorepo-integration-tests/scripts/verify-mock-prices-in-adapter.ts",
-      {
-        ADAPTER_CONTRACT_ADDRESS: adapterContractAddress,
-        PRICES_TO_CHECK: `${JSON.stringify(expectedPrices)}`,
-      },
-      "adapter-contract"
+    const bytes32Symbols = Object.keys(expectedPrices).map(formatBytes32String);
+    const oracleValues =
+      await adapterContract.getValuesForDataFeeds(bytes32Symbols);
+
+    let oracleValuesIndex = 0;
+    for (const symbol of Object.keys(expectedPrices)) {
+      const expectedPrice = expectedPrices[symbol] * 10 ** 8;
+      if (!BigNumber.from(expectedPrice).eq(oracleValues[oracleValuesIndex])) {
+        throw new Error(
+          `${symbol}: price in adapter(${oracleValues[
+            oracleValuesIndex
+          ].toString()}) doesn't match with expected price (${expectedPrice})`
+        );
+      }
+      oracleValuesIndex++;
+    }
+    return true;
+  } catch (e: unknown) {
+    const error = e as Error;
+    console.log(error.message);
+    return false;
+  }
+};
+
+const waitForPricesInPriceFeedCheck = async (
+  priceFeedContract: PriceFeedWithRoundsMock,
+  expectedPrices: PriceSet
+): Promise<boolean> => {
+  try {
+    console.log(`Checking price in feed ${priceFeedContract.address}`);
+
+    const dataFeedId = ethers.utils.parseBytes32String(
+      await priceFeedContract.getDataFeedId()
     );
-const waitForPricesInPriceFeedCheck =
-  (priceFeedContractAddress: string, expectedPrices: PriceSet) =>
-  async (): Promise<boolean> =>
-    await runHardhatScript(
-      "test/monorepo-integration-tests/scripts/verify-mock-prices-in-price-feed.ts",
-      {
-        PRICE_FEED_CONTRACT_ADDRESS: priceFeedContractAddress,
-        PRICES_TO_CHECK: `${JSON.stringify(expectedPrices)}`,
-      },
-      "price-feed-contract"
-    );
+    const lastPrice = await priceFeedContract.latestRoundData();
+    const decimals = await priceFeedContract.decimals();
+
+    if (!expectedPrices[dataFeedId]) {
+      throw new Error(
+        `Price feed contract does not provide dataFeedId=${dataFeedId}`
+      );
+    }
+
+    const expectedPrice = BigNumber.from(10)
+      .pow(decimals)
+      .mul(expectedPrices[dataFeedId]);
+
+    if (!lastPrice.answer.eq(expectedPrice)) {
+      throw new Error(
+        `Price in feed adapter ${lastPrice.answer.toString()} != expectedPrice ${expectedPrice.toString()}`
+      );
+    }
+
+    return true;
+  } catch (e: unknown) {
+    const error = e as Error;
+    console.log(error.message);
+    return false;
+  }
+};
 
 export const verifyPricesOnChain = async (
-  adapterContractAddress: string,
-  priceFeedContractAddress: string,
+  adapterContract: PriceFeedsAdapterWithRoundsOneSignerMock,
+  priceFeedContract: PriceFeedWithRoundsMock,
   expectedPrices: PriceSet
 ) => {
-  await waitForSuccess(
-    waitForPricesInAdapterCheck(adapterContractAddress, expectedPrices),
-    5,
-    "couldn't find prices in adapter"
-  );
-  await waitForSuccess(
-    waitForPricesInPriceFeedCheck(priceFeedContractAddress, expectedPrices),
-    5,
-    "couldn't find prices in price feed"
-  );
+  await Promise.all([
+    waitForSuccess(
+      () => waitForPricesInAdapterCheck(adapterContract, expectedPrices),
+      5,
+      "couldn't find prices in adapter"
+    ),
+    waitForSuccess(
+      () => waitForPricesInPriceFeedCheck(priceFeedContract, expectedPrices),
+      5,
+      "couldn't find prices in price feed"
+    ),
+  ]);
 };
 
 export const verifyPricesNotOnChain = async (
-  adapterContractAddress: string,
-  priceFeedContractAddress: string,
+  adapterContract: PriceFeedsAdapterWithRoundsOneSignerMock,
+  priceFeedContract: PriceFeedWithRoundsMock,
   expectedPrices: PriceSet
 ) => {
   let exceptionOccurred = false;
   try {
     await verifyPricesOnChain(
-      adapterContractAddress,
-      priceFeedContractAddress,
+      adapterContract,
+      priceFeedContract,
       expectedPrices
     );
   } catch (e) {
@@ -178,30 +217,51 @@ export const verifyPricesNotOnChain = async (
     );
   }
 };
-export const deployMockAdapter = async () => {
-  await runHardhatScript(
-    "test/monorepo-integration-tests/scripts/deploy-mock-adapter.ts",
-    {},
-    "deploy mock adapter"
+export const deployMockAdapter = async (
+  rpcUrl?: string
+): Promise<PriceFeedsAdapterWithRoundsOneSignerMock> => {
+  const adapterContractDeployment = await import(
+    "@redstone-finance/on-chain-relayer/artifacts/contracts/mocks/PriceFeedsAdapterWithRoundsOneSignerMock.sol/PriceFeedsAdapterWithRoundsOneSignerMock.json"
   );
-  const adapterContractAddress = fs.readFileSync(
-    `${RELAYER_DIR}/adapter-contract-address.txt`,
-    "utf-8"
+
+  const signer = await getConnectedSigner(rpcUrl);
+
+  const factory = ethers.ContractFactory.fromSolidity(
+    adapterContractDeployment,
+    signer
   );
-  return adapterContractAddress;
+
+  const contract =
+    (await factory.deploy()) as PriceFeedsAdapterWithRoundsOneSignerMock;
+  return contract;
 };
 
-export const deployMockPriceFeed = async (adapterContractAddress: string) => {
-  await runHardhatScript(
-    "test/monorepo-integration-tests/scripts/deploy-mock-price-feed.ts",
-    { ADAPTER_CONTRACT_ADDRESS: adapterContractAddress },
-    "deploy mock price feed"
+export const deployMockPriceFeed = async (
+  adapterAddress: string,
+  rpcUrl?: string
+): Promise<PriceFeedWithRoundsMock> => {
+  const adapterContractDeployment = await import(
+    "@redstone-finance/on-chain-relayer/artifacts/contracts/mocks/PriceFeedWithRoundsMock.sol/PriceFeedWithRoundsMock.json"
   );
-  const priceFeedContractAddress = fs.readFileSync(
-    `${RELAYER_DIR}/price-feed-contract-address.txt`,
-    "utf-8"
+
+  const signer = await getConnectedSigner(rpcUrl);
+
+  const factory = ethers.ContractFactory.fromSolidity(
+    adapterContractDeployment,
+    signer
   );
-  return priceFeedContractAddress;
+
+  const contract = (await factory.deploy()) as PriceFeedWithRoundsMock;
+  const tx = await contract.setAdapterAddress(adapterAddress);
+  await tx.wait();
+
+  return contract;
+};
+
+export const getConnectedSigner = async (rpcUrl = "http://127.0.0.1:8545") => {
+  const wallet = new ethers.Wallet(HARDHAT_MOCK_PRIVATE_KEY);
+  const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
+  return wallet.connect(provider);
 };
 
 const createManifestFile = (

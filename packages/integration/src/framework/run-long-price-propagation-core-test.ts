@@ -1,3 +1,4 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { checkMissingDataFeeds } from "./check-missing-data-feeds";
 import { checkSourcesDeviations } from "./check-sources-deviations";
 import { checkValuesDeviations } from "./check-values-deviations";
@@ -11,11 +12,10 @@ import {
   CacheLayerInstance,
   configureCleanup,
   OracleNodeInstance,
-  sleep,
   startAndWaitForCacheLayer,
   startAndWaitForOracleNode,
   stopCacheLayer,
-  stopOracleNode
+  stopOracleNode,
 } from "./integration-test-framework";
 import { printAllDeviations } from "./print-all-deviations";
 
@@ -71,7 +71,7 @@ export const runLongPricePropagationCoreTest = async (
 
   const nodeWorkingTimeInMilliseconds =
     MINUTE_IN_MILLISECONDS * nodeWorkingTimeInMinutes;
-  await sleep(nodeWorkingTimeInMilliseconds);
+  await RedstoneCommon.sleep(nodeWorkingTimeInMilliseconds);
   stopOracleNode(oracleNodeInstance);
 
   const latestTimestamp =

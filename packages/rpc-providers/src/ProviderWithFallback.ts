@@ -21,7 +21,6 @@ export type ProviderWithFallbackConfig = {
 
 export const FALLBACK_DEFAULT_CONFIG: ProviderWithFallbackConfig = {
   unrecoverableErrors: [
-    ErrorCode.CALL_EXCEPTION,
     ErrorCode.MISSING_ARGUMENT,
     ErrorCode.MISSING_NEW,
     ErrorCode.NONCE_EXPIRED,
@@ -172,7 +171,7 @@ export class ProviderWithFallback
     try {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
       return await (this.currentProvider as any)[fnName](...args);
-    } catch (error) {
+    } catch (error: unknown) {
       this.electNewProviderOrFail(
         error as { code: ErrorCode; message: string },
         alreadyRetriedCount,
