@@ -1,16 +1,14 @@
 import axios, { AxiosError } from "axios";
 
-export const assert = (condition: boolean, errMsg?: string) => {
+export const assert = (condition: boolean, errMsg: string) => {
   if (!condition) {
-    const errText = `Assertion failed: ` + (errMsg ? `: ${errMsg}` : "");
-    throw new Error(errText);
+    throw new Error(`Assertion failed: ${errMsg}`);
   }
 };
 
-export const assertWithLog = (condition: boolean, errMsg?: string) => {
+export const assertWithLog = (condition: boolean, errMsg: string) => {
   if (!condition) {
-    const errText = `Assertion failed: ` + (errMsg ? `: ${errMsg}` : "");
-    console.error(errText);
+    console.error(`Assertion failed: ${errMsg}`);
   }
 };
 

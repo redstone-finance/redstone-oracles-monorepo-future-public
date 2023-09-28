@@ -25,7 +25,7 @@ export type OracleNodeInstance = {
 const getLogPrefix = (instance: OracleNodeInstance) =>
   `oracle-node-${instance.instanceId}`;
 
-const mockPricesPath = `${ORACLE_NODE_DIR}/./mock-prices.json`;
+const mockPricesPath = `${ORACLE_NODE_DIR}/mock-prices.json`;
 export const startAndWaitForOracleNode = (
   instance: OracleNodeInstance,
   cacheServiceInstances: CacheLayerInstance[],

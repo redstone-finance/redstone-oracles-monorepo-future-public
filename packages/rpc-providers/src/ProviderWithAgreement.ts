@@ -30,10 +30,7 @@ const DEFAULT_ELECT_BLOCK_FN = (blockNumbers: number[]): number => {
     : Math.round((blockNumbers[mid - 1] + blockNumbers[mid]) / 2);
 };
 
-const defaultConfig: Omit<
-  ProviderWithAgreementConfig,
-  keyof ProviderWithFallbackConfig
-> = {
+const defaultConfig: ProviderWithAgreementConfig = {
   numberOfProvidersThatHaveToAgree: 2,
   getBlockNumberTimeoutMS: 2_500,
   sleepBetweenBlockSync: 400,

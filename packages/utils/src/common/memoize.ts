@@ -30,7 +30,7 @@ export function memoize<
 
     assertWithLog(
       cacheKey.length < EXPECTED_MAX_CACHE_KEY_LENGTH_PER_FN,
-      `Assumed cache key will not be longer then ${EXPECTED_MAX_CACHE_KEY_LENGTH_PER_FN}`
+      `Assumed cache key will not be longer than ${EXPECTED_MAX_CACHE_KEY_LENGTH_PER_FN}. Suspicious key ${cacheKey}`
     );
 
     // to avoid caching results forever

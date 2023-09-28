@@ -49,7 +49,7 @@ const compareValuesInDataPackages = (
       console.log(`Data feed ${dataFeedId} is removed from manifest, skipping`);
       continue;
     }
-    const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY as string;
+    const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY;
     if (dataFeedId === ALL_FEEDS_KEY) {
       const deviationsFromBigPackage = compareValuesFromBigPackageAndLocalCache(
         allFeedObjectsFromProd,
