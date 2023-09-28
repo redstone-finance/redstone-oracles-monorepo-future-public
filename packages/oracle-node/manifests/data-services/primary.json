@@ -241,6 +241,9 @@
     "wstETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher"]
     },
+    "wstETH/stETH": {
+      "source": ["ethereum-evm-fetcher"]
+    },
     "SWETH": {
       "source": ["balancer-ethereum-weth", "maverick"]
     },
