@@ -72,6 +72,11 @@ export abstract class ProviderWithFallbackBase implements Provider {
     return this.executeWithFallback("getStorageAt", ...args);
   }
 
+  /**
+   * [IMPORTANT] if call returns Solidity Error (function reverts, function doesn't exist etc.)
+   * It won't fallback. Because in such a case error is thrown after decoding on `Contract` interface level
+   * This is expected behavior
+   */
   call(...args: unknown[]): Promise<string> {
     return this.executeWithFallback("call", ...args);
   }
