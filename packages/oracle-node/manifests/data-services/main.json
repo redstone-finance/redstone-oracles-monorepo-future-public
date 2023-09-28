@@ -858,6 +858,9 @@
     "wstETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher"]
     },
+    "wstETH/stETH": {
+      "source": ["ethereum-evm-fetcher"]
+    },
     "PLS": {
       "source": ["bitget", "coingecko", "camelot-weth"]
     },
