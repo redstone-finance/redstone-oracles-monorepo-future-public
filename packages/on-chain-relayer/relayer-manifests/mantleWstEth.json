@@ -10,6 +10,6 @@
   "adapterContract": "0x9D0cA5a8a19B2CB9711721a5B026f8B32161b7f2",
   "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {
-    "wstETH": "0xE8d850331faAbb277a24C09d91aabb68fb808748"
+    "wstETH/stETH": "0xE8d850331faAbb277a24C09d91aabb68fb808748"
   }
 }
