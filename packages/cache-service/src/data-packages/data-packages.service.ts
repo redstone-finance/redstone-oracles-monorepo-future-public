@@ -29,12 +29,6 @@ import { BundlrService } from "../bundlr/bundlr.service";
 import { runPromiseWithLogging } from "../utils/utils";
 import { RedstoneCommon } from "@redstone-finance/utils";
 
-// Cache TTL can slightly increase the data delay, but having efficient
-// caching is crucial for the app performance. Assuming, that we have 10s
-// update frequency in nodes, 5s cache TTL on the app level, and 5s cache TTL
-// on the CDN level - then the max data delay is ~20s, which is still good enough :)
-const CACHE_TTL = 5000;
-
 export interface StatsRequestParams {
   fromTimestamp: number;
   toTimestamp: number;
@@ -79,13 +73,13 @@ export class DataPackagesService {
   getLatestDataPackagesWithSameTimestampWithCache = RedstoneCommon.memoize({
     functionToMemoize: (dataServiceId: string) =>
       this.getLatestDataPackagesWithSameTimestamp(dataServiceId),
-    ttl: CACHE_TTL,
+    ttl: config.dataPackagesTTL,
   });
 
   getMostRecentDataPackagesWithCache = RedstoneCommon.memoize({
     functionToMemoize: (dataServiceId: string) =>
       DataPackagesService.getMostRecentDataPackagesFromDB(dataServiceId),
-    ttl: CACHE_TTL,
+    ttl: config.dataPackagesTTL,
   });
 
   static async getByTimestamp(
