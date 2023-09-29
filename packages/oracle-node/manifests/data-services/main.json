@@ -433,6 +433,7 @@
         "binancecoinm",
         "binanceusdm",
         "bitfinex2",
+        "bittrex",
         "btcturk",
         "coinbaseprime",
         "coinbasepro",
@@ -753,7 +754,6 @@
       "source": [
         "coingecko",
         "curve-usdc-multi-block",
-        "curve-usdc",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
         "uniswap-v2-on-chain-fxs",
@@ -763,7 +763,7 @@
       ]
     },
     "VST": {
-      "source": ["curve-frax", "curve-frax-multi-block"]
+      "source": ["curve-frax-multi-block"]
     },
     "OHM": {
       "source": [
@@ -790,8 +790,7 @@
         "kucoin",
         "mexc",
         "okx",
-        "phemex",
-        "trader-joe-on-chain-wavax"
+        "phemex"
       ]
     },
     "MNT": {
@@ -1155,7 +1154,7 @@
       "source": ["permaswap"]
     },
     "AUD": {
-      "source": ["currencycom", "ecb", "kraken", "twelve-data"]
+      "source": ["binance", "currencycom", "ecb", "kraken", "twelve-data"]
     },
     "GBP": {
       "source": ["binance", "currencycom", "ecb", "kraken", "twelve-data"]
@@ -1175,22 +1174,22 @@
       ]
     },
     "JPY": {
-      "source": ["ecb"]
+      "source": ["twelve-data"]
     },
     "CHF": {
-      "source": ["ecb", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "NOK": {
-      "source": ["ecb", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "MXN": {
-      "source": ["ecb", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "NZD": {
-      "source": ["currencycom", "ecb", "twelve-data"]
+      "source": ["currencycom", "twelve-data"]
     },
     "CAD": {
-      "source": ["ecb", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "CNH": {
       "source": ["twelve-data"]
@@ -1256,7 +1255,7 @@
       "source": ["currencycom", "twelve-data", "yf-unofficial"]
     },
     "COPPER": {
-      "source": ["currencycom", "yf-unofficial"]
+      "source": ["currencycom", "twelve-data", "yf-unofficial"]
     },
     "IBM": {
       "source": ["twelve-data"]
