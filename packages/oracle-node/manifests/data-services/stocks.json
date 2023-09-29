@@ -153,16 +153,27 @@
       "source": ["yf-unofficial"]
     },
     "GBP": {
-      "source": ["binance", "currencycom", "twelve-data", "kraken"]
+      "source": ["binance", "currencycom", "ecb", "twelve-data", "kraken"]
     },
     "AUD": {
-      "source": ["binance", "currencycom", "twelve-data", "kraken"]
+      "source": ["binance", "currencycom", "ecb", "twelve-data", "kraken"]
     },
     "CHF": {
       "source": ["twelve-data"]
     },
     "EUR": {
-      "source": ["binance", "currencycom", "twelve-data", "kraken"]
+      "source": [
+        "binance",
+        "bitstamp-api",
+        "coinbase-api",
+        "currencycom",
+        "ecb",
+        "kaiko",
+        "kaiko-v2",
+        "kraken",
+        "kucoin-api",
+        "twelve-data"
+      ]
     },
     "JPY": {
       "source": ["twelve-data"]
@@ -177,7 +188,16 @@
       "source": ["twelve-data"]
     },
     "BRL": {
-      "source": ["ecb", "twelve-data", "yf-unofficial"]
+      "source": [
+        "binance-api",
+        "bitso-api",
+        "ecb",
+        "kaiko",
+        "kaiko-v2",
+        "kucoin-api",
+        "mercado-api",
+        "twelve-data"
+      ]
     },
     "COP": {
       "source": ["twelve-data"]
