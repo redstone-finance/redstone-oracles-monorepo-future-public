@@ -255,10 +255,21 @@
     "CELO": {
       "source": [
         "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
         "bittrex",
+        "bybit",
         "coinbaseprime",
         "coinbasepro",
+        "coingecko",
+        "gate",
+        "huobipro",
         "kucoin",
+        "latoken",
+        "mexc",
         "okx"
       ]
     },
@@ -275,6 +286,7 @@
         "coingecko",
         "huobipro",
         "kaiko",
+        "kaiko-v2",
         "kucoin",
         "lbank",
         "okx"

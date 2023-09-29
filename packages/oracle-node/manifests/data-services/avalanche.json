@@ -98,6 +98,8 @@
         "coingecko",
         "coinmarketcap",
         "huobipro",
+        "kaiko",
+        "kaiko-v2",
         "kucoin",
         "lbank",
         "okx"
@@ -300,8 +302,7 @@
         "kucoin",
         "mexc",
         "okx",
-        "phemex",
-        "trader-joe-on-chain-wavax"
+        "phemex"
       ]
     },
     "GLP": {
