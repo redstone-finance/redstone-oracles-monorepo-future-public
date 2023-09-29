@@ -14,6 +14,7 @@ interface CacheServiceConfigRequiredFields {
   enableHistoricalDataServing: boolean;
   secondMongoDbUrl?: string;
   maxAllowedTimestampDelay: number;
+  dataPackagesTTL: number;
 }
 
 type CacheServiceConfigOptionalFields =
@@ -30,6 +31,12 @@ type CacheServiceConfig = CacheServiceConfigRequiredFields &
 const DEFAULT_BUNDLR_NODE_URL = "https://node2.bundlr.network";
 const DEFAULT_APP_PORT = 3000;
 const DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY = 90 * 1000; // 1.5 minutes in milliseconds
+
+// Cache TTL can slightly increase the data delay, but having efficient
+// caching is crucial for the app performance. Assuming, that we have 10s
+// update frequency in nodes, 5s cache TTL on the app level, and 5s cache TTL
+// on the CDN level - then the max data delay is ~20s, which is still good enough :)
+const CACHE_TTL = 5000;
 
 type GetEnvType = {
   (envName: string, required: false): string | undefined;
@@ -76,6 +83,7 @@ const config: CacheServiceConfig = {
     getEnv("MAX_ALLOWED_TIMESTAMP_DELAY", false) ||
       DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY
   ),
+  dataPackagesTTL: Number(getEnv("DATA_PACKAGES_TTL", false) || CACHE_TTL),
   ...optionalConfig,
 };
 
