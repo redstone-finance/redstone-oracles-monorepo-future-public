@@ -1,3 +1,3 @@
 {
-  "manifestUrl": "https://raw.githubusercontent.com/redstone-finance/redstone-oracles-monorepo/main/packages/on-chain-relayer/relayer-manifests/goerli-sweth-fallback.json"
+  "manifestUrl": "https://raw.githubusercontent.com/redstone-finance/redstone-oracles-monorepo/main/packages/gelato-relayer/test/goerli-sweth-test.json"
 }
