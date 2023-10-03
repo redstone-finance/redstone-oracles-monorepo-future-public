@@ -49,15 +49,14 @@ const compareValuesInDataPackages = (
       console.log(`Data feed ${dataFeedId} is removed from manifest, skipping`);
       continue;
     }
-    const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY;
-    if (dataFeedId === ALL_FEEDS_KEY) {
+    if (dataFeedId === consts.ALL_FEEDS_KEY) {
       const deviationsFromBigPackage = compareValuesFromBigPackageAndLocalCache(
         allFeedObjectsFromProd,
         dataPackagesFromLocal,
         removedDataFeeds,
         dataFeedsNotWorkingLocally
       );
-      deviationsPerDataFeed[ALL_FEEDS_KEY] = deviationsFromBigPackage;
+      deviationsPerDataFeed[consts.ALL_FEEDS_KEY] = deviationsFromBigPackage;
       continue;
     }
     const maxDeviation = compareValuesFromSmallPackagesAndLocalCache(

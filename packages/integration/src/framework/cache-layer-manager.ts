@@ -226,8 +226,11 @@ export const waitForDataAndDisplayIt = async (
   expectedDataPackageCount: number = 1
 ) => {
   // Waiting for data packages to be available in cache service
-  const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY as string;
-  await waitForDataPackages(expectedDataPackageCount, ALL_FEEDS_KEY, instance);
+  await waitForDataPackages(
+    expectedDataPackageCount,
+    consts.ALL_FEEDS_KEY,
+    instance
+  );
   await waitForDataPackages(expectedDataPackageCount, "ETH", instance);
   await waitForDataPackages(expectedDataPackageCount, "BTC", instance);
   await waitForDataPackages(expectedDataPackageCount, "AAVE", instance);

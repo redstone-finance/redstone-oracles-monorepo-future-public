@@ -18,14 +18,15 @@ import {
   stopOracleNode,
 } from "./integration-test-framework";
 import { printAllDeviations } from "./print-all-deviations";
+import { consts } from "@redstone-finance/protocol";
 
 export interface DeviationsPerDataFeed {
   [dataFeedId: string]: number;
 }
 
-export interface DeviationsWithBigPackage {
-  [dataFeedId: string]: number | DeviationsPerDataFeed;
-}
+export type DeviationsWithBigPackage = DeviationsPerDataFeed & {
+  [consts.ALL_FEEDS_KEY]?: DeviationsPerDataFeed;
+};
 
 export interface DeviationsPerSource {
   [source: string]: number;

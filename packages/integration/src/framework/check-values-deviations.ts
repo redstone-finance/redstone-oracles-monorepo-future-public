@@ -1,8 +1,5 @@
 import { consts } from "@redstone-finance/protocol";
-import {
-  DeviationsPerDataFeed,
-  DeviationsWithBigPackage,
-} from "./run-long-price-propagation-core-test";
+import { DeviationsWithBigPackage } from "./run-long-price-propagation-core-test";
 
 export const checkValuesDeviations = (
   deviationsPerDataFeed: DeviationsWithBigPackage,
@@ -11,18 +8,16 @@ export const checkValuesDeviations = (
   let deviationsBiggerThanAllowed = 0;
   const dataFeeds = Object.keys(deviationsPerDataFeed);
   for (const dataFeedId of dataFeeds) {
-    const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY as string;
-    if (dataFeedId === ALL_FEEDS_KEY) {
-      const deviationsFromBigPackage = deviationsPerDataFeed[
-        ALL_FEEDS_KEY
-      ] as DeviationsPerDataFeed;
+    if (dataFeedId === consts.ALL_FEEDS_KEY) {
+      const deviationsFromBigPackage =
+        deviationsPerDataFeed[consts.ALL_FEEDS_KEY]!;
       checkValuesDeviations(
-        deviationsFromBigPackage,
+        deviationsFromBigPackage as DeviationsWithBigPackage,
         maxPercentageValueDifference
       );
       continue;
     }
-    const deviation = deviationsPerDataFeed[dataFeedId] as number;
+    const deviation = deviationsPerDataFeed[dataFeedId];
     if (deviation > maxPercentageValueDifference) {
       console.log(
         `Value deviation for ${dataFeedId} is bigger than maximum (${maxPercentageValueDifference}%) - ${deviation}%`
