@@ -16,7 +16,6 @@ export const getUpdatePricesArgs = (
   const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
 
   const wrapContract = (adapterContract: Contract) =>
-    // eslint-disable-next-line
     WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
 
   return {
