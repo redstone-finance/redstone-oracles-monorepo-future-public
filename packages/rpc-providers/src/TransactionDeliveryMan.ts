@@ -246,6 +246,8 @@ export class TransactionDeliveryMan {
   private static isNonceExpiredError(e: EthersError | AggregateError) {
     const isErrorMatchingPredicate = (e: EthersError) =>
       e.message.includes("nonce has already been used") ||
+      e.message.includes("invalid nonce") ||
+      e.message.includes("invalid sequence") ||
       e.code === ErrorCode.NONCE_EXPIRED;
 
     if (e instanceof AggregateError) {
