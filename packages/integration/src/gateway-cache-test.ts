@@ -34,8 +34,10 @@ const CACHE_TTL = 100_000;
  */
 const main = async () => {
   setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
-  await startAndWaitForCacheLayer(cacheLayerInstance, true, false, {
+  await startAndWaitForCacheLayer(cacheLayerInstance, {
     dataPackagesTtl: CACHE_TTL,
+    enableHistoricalDataServing: false,
+    directOnly: true,
   });
   await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
   await waitForDataInMongoDb(cacheLayerInstance);

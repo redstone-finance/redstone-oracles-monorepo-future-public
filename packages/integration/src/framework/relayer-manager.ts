@@ -8,7 +8,7 @@ import { ChildProcess } from "child_process";
 import { BigNumber, ethers } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
 import fs from "fs";
-import { CacheLayerInstance } from "./cache-layer-manager";
+import { CacheLayerInstance, getCacheServicePort } from "./cache-layer-manager";
 import {
   PriceSet,
   printDotenv,
@@ -51,10 +51,7 @@ export const startRelayer = (
   const dotenvPath = `${RELAYER_DIR}/.env.example`;
   const cacheServiceUrls = config.cacheServiceInstances.map(
     (cacheLayerInstance) =>
-      `http://localhost:${
-        cacheLayerInstance.publicCacheServicePort ??
-        cacheLayerInstance.directCacheServicePort
-      }`
+      `http://localhost:${getCacheServicePort(cacheLayerInstance, "any")}`
   );
   const rpcUrls = config.rpcUrls ?? ["http://127.0.0.1:8545"];
   createManifestFile({

@@ -6,6 +6,7 @@ import {
   CacheLayerInstance,
   configureCleanup,
   debug,
+  getCacheServicePort,
   OracleNodeInstance,
   setMockPrices,
   startAndWaitForCacheLayer,
@@ -33,7 +34,10 @@ const stopAll = () => {
  */
 const main = async () => {
   setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
-  await startAndWaitForCacheLayer(cacheLayerInstance, true, true);
+  await startAndWaitForCacheLayer(cacheLayerInstance, {
+    directOnly: true,
+    enableHistoricalDataServing: true,
+  });
   await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
   await waitForDataInMongoDb(cacheLayerInstance);
   await verifyPricesInCacheService([cacheLayerInstance], { BTC: 42 });
@@ -41,7 +45,10 @@ const main = async () => {
   const latestResponse = await axios.get<{
     AAVE: { timestampMilliseconds: number }[];
   }>(
-    `http://localhost:${cacheLayerInstance.directCacheServicePort}/data-packages/latest/mock-data-service`
+    `http://localhost:${getCacheServicePort(
+      cacheLayerInstance,
+      "direct"
+    )}/data-packages/latest/mock-data-service`
   );
 
   const lastTimestamp = latestResponse.data["AAVE"][0].timestampMilliseconds;
@@ -56,7 +63,10 @@ const main = async () => {
   const historyResponse = await axios.get<{
     AAVE: { timestampMilliseconds: number };
   }>(
-    `http://localhost:${cacheLayerInstance.directCacheServicePort}/data-packages/historical/mock-data-service/${lastTimestamp}`
+    `http://localhost:${getCacheServicePort(
+      cacheLayerInstance,
+      "direct"
+    )}/data-packages/historical/mock-data-service/${lastTimestamp}`
   );
 
   assert.deepEqual(

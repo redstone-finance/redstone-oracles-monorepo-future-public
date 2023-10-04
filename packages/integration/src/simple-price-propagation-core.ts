@@ -23,7 +23,7 @@ const stopAll = () => {
 
 const main = async () => {
   setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
-  await startAndWaitForCacheLayer(cacheLayerInstance, true);
+  await startAndWaitForCacheLayer(cacheLayerInstance, { directOnly: true });
   await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
   await waitForDataAndDisplayIt(cacheLayerInstance);
   await verifyPricesInCacheService([cacheLayerInstance], { BTC: 42 });

@@ -25,8 +25,8 @@ const stopAll = () => {
 
 const main = async () => {
   setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
-  await startAndWaitForCacheLayer(cacheLayerInstance1, false);
-  await startAndWaitForCacheLayer(cacheLayerInstance2, false);
+  await startAndWaitForCacheLayer(cacheLayerInstance1, { directOnly: false });
+  await startAndWaitForCacheLayer(cacheLayerInstance2, { directOnly: false });
   await startAndWaitForOracleNode(oracleNodeInstance, [
     cacheLayerInstance1,
     cacheLayerInstance2,

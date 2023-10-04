@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CacheLayerInstance } from "./cache-layer-manager";
+import { CacheLayerInstance, getCacheServicePort } from "./cache-layer-manager";
 import { DataPackages } from "./compare-data-packages";
 
 const HISTORICAL_ORACLE_GATEWAY_URL =
@@ -12,7 +12,10 @@ export const fetchDataPackagesFromCaches = async (
 ) => {
   const responseFromLocalCache = (
     await axios.get<DataPackages>(
-      `http://localhost:${cacheLayerInstance.directCacheServicePort}/data-packages/historical/mock-data-service/${timestamp}`
+      `http://localhost:${getCacheServicePort(
+        cacheLayerInstance,
+        "direct"
+      )}/data-packages/historical/mock-data-service/${timestamp}`
     )
   ).data;
 

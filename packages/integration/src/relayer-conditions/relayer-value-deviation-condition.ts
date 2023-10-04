@@ -35,7 +35,7 @@ const stopAll = () => {
 };
 
 const main = async () => {
-  await startAndWaitForCacheLayer(cacheLayerInstance, true);
+  await startAndWaitForCacheLayer(cacheLayerInstance, { directOnly: true });
   setMockPrices(
     {
       BTC: 16000,

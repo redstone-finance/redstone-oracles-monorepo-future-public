@@ -1,12 +1,15 @@
 import axios from "axios";
-import { CacheLayerInstance } from "./cache-layer-manager";
+import { CacheLayerInstance, getCacheServicePort } from "./cache-layer-manager";
 import { DataPackages } from "./compare-data-packages";
 
 export const fetchLatestTimestampFromLocal = async (
   cacheLayerInstance: CacheLayerInstance
 ) => {
   const responseFromCache = await axios.get<DataPackages>(
-    `http://localhost:${cacheLayerInstance.directCacheServicePort}/data-packages/latest/mock-data-service`
+    `http://localhost:${getCacheServicePort(
+      cacheLayerInstance,
+      "direct"
+    )}/data-packages/latest/mock-data-service`
   );
   const latestDataPackages = responseFromCache.data;
   const latestTimestamp =
