@@ -343,7 +343,6 @@
     "TRX": {
       "source": [
         "ascendex",
-        "bequant",
         "binance",
         "binancecoinm",
         "binanceusdm",
@@ -433,7 +432,6 @@
         "binancecoinm",
         "binanceusdm",
         "bitfinex2",
-        "bittrex",
         "btcturk",
         "coinbaseprime",
         "coinbasepro",
@@ -496,7 +494,6 @@
         "ascendex",
         "bequant",
         "binance",
-        "binancecoinm",
         "binanceusdm",
         "bitcoincom",
         "bitfinex2",
