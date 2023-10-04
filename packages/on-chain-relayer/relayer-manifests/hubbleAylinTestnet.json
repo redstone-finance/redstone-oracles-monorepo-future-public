@@ -1,0 +1,18 @@
+{
+  "chain": {
+    "name": "Hubble Aylin Testnet",
+    "id": 486
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.1,
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0x522879A79412299C0319bFD44494f0FE00B630c5",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "USDC": "0x6fb7Bc688ebc892E6D9CBd4A24deF578029Ae5E6",
+    "ETH": "0x949D2fe1aCBE0cA1e9322B785584f28D318FB861",
+    "ARB": "0x43bd9b164c68085E385f1F6481981e52d09E2C78",
+    "AVAX": "0x2D55E2a3FD466a4660384F30f537B2B89e61d87B"
+  }
+}
