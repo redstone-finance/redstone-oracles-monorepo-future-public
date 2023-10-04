@@ -63,7 +63,10 @@ export const runLongPricePropagationCoreTest = async (
   dataFeedsNotWorkingLocally: string[],
   sourcesToSkip: string[]
 ) => {
-  await startAndWaitForCacheLayer(cacheLayerInstance, true, true);
+  await startAndWaitForCacheLayer(cacheLayerInstance, {
+    enableHistoricalDataServing: true,
+    directOnly: true,
+  });
   await startAndWaitForOracleNode(
     oracleNodeInstance,
     [cacheLayerInstance],

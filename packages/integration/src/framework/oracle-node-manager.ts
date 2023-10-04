@@ -8,7 +8,7 @@ import {
   runWithLogPrefixInBackground,
   stopChild,
 } from "./integration-test-utils";
-import { CacheLayerInstance } from "./cache-layer-manager";
+import { CacheLayerInstance, getCacheServicePort } from "./cache-layer-manager";
 import { RedstoneCommon } from "@redstone-finance/utils";
 
 export const HARDHAT_MOCK_PRIVATE_KEY =
@@ -78,7 +78,7 @@ const createExtraEnv = (
 ) => {
   const cacheServiceUrls = cacheServiceInstances.map(
     (cacheLayerInstance) =>
-      `http://localhost:${cacheLayerInstance.directCacheServicePort}`
+      `http://localhost:${getCacheServicePort(cacheLayerInstance, "direct")}`
   );
   const extraEnv: Record<string, string> = {
     OVERRIDE_DIRECT_CACHE_SERVICE_URLS: JSON.stringify(cacheServiceUrls),

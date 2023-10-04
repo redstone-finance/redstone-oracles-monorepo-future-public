@@ -16,12 +16,18 @@ import {
 
 export type CacheLayerInstance = {
   instanceId: string;
-  mongoDbProcess?: ChildProcess;
-  directCacheServiceProcess?: ChildProcess;
-  publicCacheServiceProcess?: ChildProcess;
-  directCacheServicePort?: number;
-  publicCacheServicePort?: number;
-  mongodbUrl?: string;
+  mongo?: {
+    url: string;
+    process: ChildProcess;
+  };
+  directCacheService?: {
+    process: ChildProcess;
+    env: Record<string, string>;
+  };
+  publicCacheService?: {
+    process: ChildProcess;
+    env: Record<string, string>;
+  };
 };
 
 const CACHE_SERVICE_DIR = "../cache-service";
@@ -32,101 +38,60 @@ const getLogPrefix = (instance: CacheLayerInstance) =>
   `cache-service-${instance.instanceId}`;
 
 let cacheServicePort = 3000;
-const portNumberForInstance = (
-  instance: CacheLayerInstance,
-  direct: boolean
-) => {
-  if (direct && instance.directCacheServicePort) {
-    return instance.directCacheServicePort;
-  }
-  if (!direct && instance.publicCacheServicePort) {
-    return instance.publicCacheServicePort;
-  }
-  return ++cacheServicePort;
-};
 
-export type GatewayConfig = {
-  direct: boolean;
+export type CacheLayerConfig = {
   dataPackagesTtl?: number;
-};
-
-const startAndWaitForCacheService = async (
-  instance: CacheLayerInstance,
-  config: GatewayConfig,
-  env: Record<string, string>
-) => {
-  const cacheServicePort = portNumberForInstance(instance, config.direct);
-  const childProcess = runWithLogPrefixInBackground(
-    "node",
-    ["dist/src/main"],
-    `${config.direct ? "direct" : "public"}-${getLogPrefix(instance)}`,
-    CACHE_SERVICE_DIR,
-    {
-      ...env,
-      APP_PORT: cacheServicePort.toString(),
-      DOTENV_CONFIG_PATH: DOTENV_PATH,
-    }
-  );
-  const cacheServiceUrl = `http://localhost:${cacheServicePort}`;
-  await waitForUrl(cacheServiceUrl);
-  if (config.direct) {
-    instance.directCacheServiceProcess = childProcess;
-    instance.directCacheServicePort = cacheServicePort;
-  } else {
-    instance.publicCacheServiceProcess = childProcess;
-    instance.publicCacheServicePort = cacheServicePort;
-  }
+  directOnly: boolean;
+  enableHistoricalDataServing: boolean;
 };
 
 export const startAndWaitForCacheLayer = async (
   instance: CacheLayerInstance,
-  directOnly: boolean,
-  enableHistoricalDataServing: boolean = false,
-  gatewayConfig: Partial<GatewayConfig> = {}
+  gatewayConfig: Partial<CacheLayerConfig> = {}
 ): Promise<CacheLayerInstance> => {
   debug(`starting ${getLogPrefix(instance)}`);
 
   const mongoUriFile = `${CACHE_SERVICE_DIR}/tmp-mongo-db-uri-${instance.instanceId}.log`;
   // Spinning up a mongo DB instance for cache service
   spawnSync("rm", ["-f", mongoUriFile]);
-  instance.mongoDbProcess = runWithLogPrefixInBackground(
+  const mongoProcess = runWithLogPrefixInBackground(
     "yarn",
     ["run-ts", "scripts/launch-mongodb-in-memory.ts", mongoUriFile],
     `mongo-db-${instance.instanceId}`,
     CACHE_SERVICE_DIR
   );
   await waitForFile(mongoUriFile);
-  instance.mongodbUrl = fs.readFileSync(mongoUriFile, "utf-8");
+  const mongoUrl = fs.readFileSync(mongoUriFile, "utf-8");
+
+  instance.mongo = {
+    process: mongoProcess,
+    url: mongoUrl,
+  };
 
   const commonGatewayEnv = {
-    MONGO_DB_URL: instance.mongodbUrl,
+    MONGO_DB_URL: mongoUrl,
     API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES: "hehe",
     ENABLE_DIRECT_POSTING_ROUTES: "true",
     ENABLE_STREAMR_LISTENING: "false",
     USE_MOCK_ORACLE_STATE: "true",
-    ENABLE_HISTORICAL_DATA_SERVING: String(enableHistoricalDataServing),
+    ENABLE_HISTORICAL_DATA_SERVING: String(
+      gatewayConfig.enableHistoricalDataServing ?? false
+    ),
     MAX_ALLOWED_TIMESTAMP_DELAY: "20000",
     DATA_PACKAGES_TTL: (gatewayConfig.dataPackagesTtl ?? 0).toString(),
   };
   printDotenv(getLogPrefix(instance), DOTENV_PATH);
   printExtraEnv(getLogPrefix(instance), commonGatewayEnv);
-  await startAndWaitForCacheService(
-    instance,
-    {
-      ...gatewayConfig,
-      direct: true,
-    },
-    commonGatewayEnv
-  );
-  if (!directOnly) {
-    await startAndWaitForCacheService(
-      instance,
-      {
-        ...gatewayConfig,
-        direct: false,
-      },
-      commonGatewayEnv
-    );
+
+  await startDirectCacheService(instance, {
+    ...commonGatewayEnv,
+    APP_PORT: (cacheServicePort++).toString(),
+  });
+  if (!gatewayConfig.directOnly) {
+    await startPublicCacheService(instance, {
+      ...commonGatewayEnv,
+      APP_PORT: (cacheServicePort++).toString(),
+    });
   }
   return instance;
 };
@@ -138,26 +103,23 @@ export const stopCacheLayer = (instance: CacheLayerInstance) => {
 };
 
 export const stopMongoDb = (instance: CacheLayerInstance) => {
-  stopChild(instance.mongoDbProcess, `mongo-${instance.instanceId}`);
-  instance.mongoDbProcess = undefined;
+  stopChild(instance.mongo?.process, `mongo-${instance.instanceId}`);
 };
 
 export const stopDirectCacheService = (instance: CacheLayerInstance) => {
   debug(`stopping direct-${getLogPrefix(instance)}`);
   stopChild(
-    instance.directCacheServiceProcess,
+    instance.directCacheService?.process,
     `direct-${getLogPrefix(instance)}`
   );
-  instance.directCacheServiceProcess = undefined;
 };
 
 export const stopPublicCacheService = (instance: CacheLayerInstance) => {
   debug(`stopping public-${getLogPrefix(instance)}`);
   stopChild(
-    instance.publicCacheServiceProcess,
+    instance.publicCacheService?.process,
     `public-${getLogPrefix(instance)}`
   );
-  instance.publicCacheServiceProcess = undefined;
 };
 
 export const stopDirectAndPublicCacheServices = (
@@ -169,33 +131,58 @@ export const stopDirectAndPublicCacheServices = (
 
 export const startDirectCacheService = async (
   instance: CacheLayerInstance,
-  env: Record<string, string>
+  extraEnv: Record<string, string>
 ) => {
   debug(`start direct-${getLogPrefix(instance)}`);
-  await startAndWaitForCacheService(instance, { direct: true }, env);
+  const childProcess = runWithLogPrefixInBackground(
+    "node",
+    ["dist/src/main"],
+    `direct-${getLogPrefix(instance)}`,
+    CACHE_SERVICE_DIR,
+    extraEnv
+  );
+
+  const cacheServiceUrl = `http://localhost:${extraEnv["APP_PORT"]}`;
+  await waitForUrl(cacheServiceUrl);
+  instance.directCacheService = {
+    process: childProcess,
+    env: extraEnv,
+  };
 };
 
 export const startPublicCacheService = async (
   instance: CacheLayerInstance,
-  env: Record<string, string>
+  extraEnv: Record<string, string>
 ) => {
   debug(`start public-${getLogPrefix(instance)}`);
-  await startAndWaitForCacheService(instance, { direct: false }, env);
+  const childProcess = runWithLogPrefixInBackground(
+    "node",
+    ["dist/src/main"],
+    `public-${getLogPrefix(instance)}`,
+    CACHE_SERVICE_DIR,
+    extraEnv
+  );
+
+  const cacheServiceUrl = `http://localhost:${extraEnv["APP_PORT"]}`;
+  await waitForUrl(cacheServiceUrl);
+  instance.publicCacheService = {
+    process: childProcess,
+    env: extraEnv,
+  };
 };
 
 export const startDirectAndPublicCacheServices = async (
   instance: CacheLayerInstance
 ) => {
-  const commonGatewayEnv: Record<string, string> = {
-    MONGO_DB_URL: instance.mongodbUrl!,
-    API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES: "hehe",
-    ENABLE_DIRECT_POSTING_ROUTES: "true",
-    ENABLE_STREAMR_LISTENING: "false",
-    USE_MOCK_ORACLE_STATE: "true",
-    MAX_ALLOWED_TIMESTAMP_DELAY: "20000",
-  };
-  await startDirectCacheService(instance, commonGatewayEnv);
-  await startPublicCacheService(instance, commonGatewayEnv);
+  const directEnv = instance.directCacheService?.env;
+  const publicEnv = instance.publicCacheService?.env;
+  if (!directEnv || !publicEnv) {
+    throw new Error(
+      `You are trying to FIRST start cache service directly, it is forbidden, you should first start cache layer startAndWaitForCacheLayer, in subsequent calls starts you can use this method`
+    );
+  }
+  await startDirectCacheService(instance, directEnv);
+  await startPublicCacheService(instance, publicEnv);
 };
 
 export const waitForDataPackages = async (
@@ -215,7 +202,7 @@ export const waitForDataPackages = async (
     `Waiting ${feedId}`,
     CACHE_SERVICE_DIR,
     {
-      MONGO_DB_URL: instance.mongodbUrl!,
+      MONGO_DB_URL: instance.mongo!.url,
       DOTENV_CONFIG_PATH: DOTENV_PATH,
     }
   );
@@ -239,9 +226,10 @@ export const waitForDataAndDisplayIt = async (
   await runWithLogPrefix(
     "curl",
     [
-      `http://localhost:${
-        instance.publicCacheServicePort ?? instance.directCacheServicePort
-      }/data-packages/latest/mock-data-service`,
+      `http://localhost:${getCacheServicePort(
+        instance,
+        "any"
+      )}/data-packages/latest/mock-data-service`,
     ],
     "fetch packages",
     CACHE_SERVICE_DIR
@@ -253,12 +241,10 @@ export const verifyPricesInCacheService = async (
   expectedPrices: PriceSet
 ) => {
   debug(`verifying prices, waiting for: ${JSON.stringify(expectedPrices)}`);
+
   const cacheLayerUrls = cacheLayerInstances.map(
     (cacheLayerInstance) =>
-      `http://localhost:${
-        cacheLayerInstance.publicCacheServicePort ??
-        cacheLayerInstance.directCacheServicePort
-      }`
+      `http://localhost:${getCacheServicePort(cacheLayerInstance, "any")}`
   );
 
   await waitForSuccess(
@@ -293,5 +279,36 @@ export const verifyPricesNotInCacheService = async (
         "IMPOSSIBLE: prices were updated even though there was no active node. Most probably there is a bug in testing code."
       );
     }
+  }
+};
+
+export const getCacheServicePort = (
+  cacheLayerInstance: CacheLayerInstance,
+  type: "direct" | "public" | "any"
+): string => {
+  const publicPort = cacheLayerInstance.publicCacheService?.env["APP_PORT"];
+  const directPort = cacheLayerInstance.directCacheService?.env["APP_PORT"];
+
+  if (type === "direct") {
+    if (!directPort) {
+      throw new Error(
+        `Missing port for direct cache service. Probably it is not started yet`
+      );
+    }
+    return directPort;
+  } else if (type === "public") {
+    if (!publicPort) {
+      throw new Error(
+        `Missing port for public cache service. Probably it is not started yet`
+      );
+    }
+    return publicPort;
+  } else {
+    if (!publicPort && !directPort) {
+      throw new Error(
+        `Missing port for public and private cache service. Probably it is not started yet`
+      );
+    }
+    return publicPort ?? directPort!;
   }
 };
