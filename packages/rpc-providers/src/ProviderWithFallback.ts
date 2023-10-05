@@ -12,7 +12,8 @@ import { RedstoneCommon } from "@redstone-finance/utils";
 
 const logger = Logger.globalLogger();
 
-export const PROVIDER_OPERATION_TIMEOUT = 30_000;
+export const PROVIDER_OPERATION_TIMEOUT = 20_000;
+export const SINGLE_PROVIDER_OPERATION_TIMEOUT = 7_000;
 
 export type ProviderWithFallbackConfig = {
   unrecoverableErrors: ErrorCode[];
@@ -169,8 +170,11 @@ export class ProviderWithFallback
     ...args: unknown[]
   ): Promise<T> {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-      return await (this.currentProvider as any)[fnName](...args);
+      return await RedstoneCommon.timeout(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+        (this.currentProvider as any)[fnName](...args),
+        SINGLE_PROVIDER_OPERATION_TIMEOUT
+      );
     } catch (error: unknown) {
       this.electNewProviderOrFail(
         error as { code: ErrorCode; message: string },
