@@ -1,6 +1,13 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "test", "dist", "**/*spec.ts", "benchmarks"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test",
+    "**/*spec.ts",
+    "benchmarks",
+    "hardhat.config.ts"
+  ],
   "references": [
     {
       "path": "../protocol/tsconfig.build.json"

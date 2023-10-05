@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@typechain/ethers-v5": "^10.2.0",
-    "ethers": "^5.7.2"
+    "ethers": "^5.7.2",
+    "web3": "^4.1.2"
   },
   "devDependencies": {
     "@types/cli-progress": "^3.11.0"

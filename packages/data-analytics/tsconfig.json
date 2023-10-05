@@ -3,13 +3,5 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "ts-node": {
-    "files": true
-  },
-  "include": [
-    "src/**/*",
-    "src/**/*.json",
-    "./package.json",
-  ],
-  "exclude": ["node_modules"],
+  "include": ["**/*", "package.json"]
 }

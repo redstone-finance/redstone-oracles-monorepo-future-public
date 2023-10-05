@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["./src", "./test"],
   "references": [
     {
       "path": "../protocol/tsconfig.build.json"

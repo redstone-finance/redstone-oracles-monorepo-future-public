@@ -3,6 +3,5 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["./src", "./test", "./typechain-types", "package.json"],
-  "files": ["./hardhat.config.ts"]
+  "include": ["**/*", "package.json"]
 }
