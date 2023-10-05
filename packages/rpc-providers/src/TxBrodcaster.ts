@@ -107,12 +107,11 @@ export class MultiNodeTxBroadcaster implements TxBroadcaster {
       } catch (e) {
         const rpcUrl = getRpcUrl(provider);
         (e as { rpcUrl: string }).rpcUrl = rpcUrl;
-        logger(
-          `provider ${rpcUrl}: failed to broadcast tx: ${RedstoneCommon.stringifyError(
-            e
-          )}`
-        );
-        throw e;
+        const errMessage = `provider ${rpcUrl}: failed to broadcast tx: ${RedstoneCommon.stringifyError(
+          e
+        )}`;
+        logger(errMessage);
+        throw new Error(errMessage);
       }
     };
 
