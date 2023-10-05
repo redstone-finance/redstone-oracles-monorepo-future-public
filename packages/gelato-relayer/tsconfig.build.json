@@ -1,10 +1,6 @@
 {
-  "extends": "../../tsconfig-common.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "downlevelIteration": true
-  },
-  "include": ["**/*", "**/.json"],
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts", "**/*.json"],
   "references": [
     {
       "path": "../on-chain-relayer/tsconfig.build.json"

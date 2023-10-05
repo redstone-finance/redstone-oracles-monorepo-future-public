@@ -2,10 +2,11 @@
   "extends": "./tsconfig.json",
   "exclude": [
     "node_modules",
-    "tests",
     "dist",
+    "tests",
     "**/*spec.ts",
-    "scripts"
+    "scripts",
+    "jest.config.ts"
   ],
   "references": [
     {

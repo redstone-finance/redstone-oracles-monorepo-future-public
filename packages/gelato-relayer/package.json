@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist && rm -rf .tmp && rm -rf artifacts",
-    "build": "yarn clean && yarn compile && tsc --build",
+    "build": "yarn clean && yarn compile && tsc --build tsconfig.build.json",
     "compile": "cd ../evm-connector && hardhat compile && cd ../on-chain-relayer && hardhat compile && cd ../gelato-relayer && hardhat compile",
     "sample-contract-compile": "npx hardhat compile --force",
     "sample-contract-deploy": "npx hardhat deploy",

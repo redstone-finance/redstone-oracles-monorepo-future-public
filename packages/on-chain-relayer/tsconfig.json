@@ -3,20 +3,7 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": [
-    "./src",
-    "./test",
-    "./typechain-types",
-    "package.json",
-    "./hardhat.config.ts",
-    "./contracts",
-    "src/**/*.json",
-    "./artifacts/**/*.json",
-    "scripts"
-  ],
-  "ts-node": {
-    "files": true
-  },
+  "include": ["**/*", "package.json", "src/**/*.json", "artifacts/**/*.json"],
   "references": [
     {
       "path": "../evm-connector/tsconfig.build.json"

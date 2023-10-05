@@ -3,16 +3,7 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "ts-node": {
-    "files": true
-  },
-  "include": [
-    "src/**/*",
-    "src/**/*.json",
-    "relayer-manifests/**/*.json",
-    "./package.json",
-    "index.ts"
-  ],
+  "include": ["**/*", "relayer-manifests/*.json", "package.json"],
   "references": [
     {
       "path": "../ton-connector/tsconfig.build.json"
