@@ -1,6 +1,13 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "test", "dist", "**/*spec.ts", "scripts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test",
+    "**/*spec.ts",
+    "scripts",
+    "hardhat.config.ts"
+  ],
   "references": [
     {
       "path": "../evm-connector/tsconfig.build.json"

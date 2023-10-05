@@ -2,6 +2,7 @@ import { utils } from "ethers";
 import { ContractConnectorFactory } from "../ton/ContractConnectorFactory";
 import { manifest } from "../config/manifest";
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
   for (const [_, feedAddress] of Object.entries(manifest.priceFeeds)) {
     try {
