@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/gelato-relayer",
-  "version": "0.3.3-alpha.0",
+  "version": "0.3.3",
   "prettier": "redstone-prettier-config",
   "description": "RedStone Relayer based on Gelato Web3 Functions",
   "repository": "https://github.com/redstone-finance/redstone-oracles-monorepo",
@@ -29,7 +29,7 @@
     "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
-    "axios": "^1.5.0",
+    "axios": "^1.5.1",
     "chai": "^4.3.7",
     "dotenv": "^16.0.3",
     "ethereum-waffle": "^4.0.10",
@@ -43,6 +43,6 @@
   "dependencies": {
     "@gelatonetwork/automate-sdk": "^2.3.1",
     "@gelatonetwork/web3-functions-sdk": "^2.1.1",
-    "@redstone-finance/on-chain-relayer": "^0.3.3-alpha.0"
+    "@redstone-finance/on-chain-relayer": "^0.3.3"
   }
 }
