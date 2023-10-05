@@ -165,15 +165,7 @@ export class TransactionDeliveryMan {
         // if it is not ethers error we can't handle it
         const ethersError = getEthersLikeErrorOrFail(e);
 
-        // if underpriced then bump fee
-        if (TransactionDeliveryMan.isUnderpricedError(ethersError)) {
-          Object.assign(
-            contractOverrides,
-            this.estimator.scaleFees(await this.getFees(provider))
-          );
-          // skip sleeping if caused by underpriced
-          continue;
-        } else if (TransactionDeliveryMan.isNonceExpiredError(ethersError)) {
+        if (TransactionDeliveryMan.isNonceExpiredError(ethersError)) {
           // if not by us, then it was delivered by someone else
           if (!lastAttempt?.result) {
             throw new Error(
@@ -189,6 +181,14 @@ export class TransactionDeliveryMan {
             );
             return lastAttempt.result;
           }
+          // if underpriced then bump fee
+        } else if (TransactionDeliveryMan.isUnderpricedError(ethersError)) {
+          Object.assign(
+            contractOverrides,
+            this.estimator.scaleFees(await this.getFees(provider))
+          );
+          // skip sleeping if caused by underpriced
+          continue;
         }
       }
 
@@ -230,7 +230,6 @@ export class TransactionDeliveryMan {
       (e.message.includes("maxFeePerGas") ||
         e.message.includes("baseFeePerGas") ||
         e.code === ErrorCode.INSUFFICIENT_FUNDS ||
-        e.code === ErrorCode.SERVER_ERROR ||
         e.code === ErrorCode.UNPREDICTABLE_GAS_LIMIT) &&
       !e.message.includes("VM Exception while processing transaction");
 
