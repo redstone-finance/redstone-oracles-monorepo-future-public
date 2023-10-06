@@ -9,10 +9,8 @@ import "hardhat-deploy";
 
 // ================================= TASKS =========================================
 // Process Env Variables
-import * as dotenv from "dotenv";
+import "dotenv/config";
 // Libraries
-
-dotenv.config();
 
 process.env.DENO_PATH = "./../../node_modules/deno-bin/bin/deno";
 

@@ -1,7 +1,5 @@
-import dotenv from "dotenv";
+import "dotenv/config";
 import { NetworkName } from "@redstone-finance/starknet-connector";
-
-dotenv.config();
 
 const getFromEnv = (name: string) => {
   const envVariable = process.env[name];

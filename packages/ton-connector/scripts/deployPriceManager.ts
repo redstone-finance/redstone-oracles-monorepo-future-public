@@ -1,5 +1,4 @@
 import { compile, NetworkProvider } from "@ton-community/blueprint";
-import * as dotenv from "dotenv";
 import { PriceManagerInitData } from "../src/price-manager/PriceManagerInitData";
 import { TonPriceManagerContractDeployer } from "../src/price-manager/TonPriceManagerContractDeployer";
 import { BlueprintTonNetwork } from "../src";
@@ -7,8 +6,6 @@ import { config } from "../src/config";
 import * as fs from "fs";
 
 export async function run(provider: NetworkProvider) {
-  dotenv.config();
-
   const code = await compile("price_manager");
 
   const contract = await new TonPriceManagerContractDeployer(
