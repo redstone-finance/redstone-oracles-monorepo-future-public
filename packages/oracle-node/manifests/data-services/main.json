@@ -414,7 +414,6 @@
         "bittrex",
         "bitmart",
         "btcturk",
-        "bybit",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -784,7 +783,6 @@
         "bitget",
         "bitmart",
         "bitrue",
-        "bybit",
         "coingecko",
         "gate",
         "huobipro",
@@ -836,7 +834,6 @@
     "STETH": {
       "source": [
         "bitget",
-        "bybit",
         "curve-eth",
         "curve-weth",
         "gate",
