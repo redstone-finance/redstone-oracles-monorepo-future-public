@@ -3,23 +3,33 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { formatBytes32String, parseUnits } from "ethers/lib/utils";
-import { ethers } from "hardhat";
+import { parseUnits } from "ethers/lib/utils";
+import { ethers, upgrades } from "hardhat";
 import {
   calculateLinkedListPosition,
   prepareLinkedListLocationsForMentoAdapterReport,
 } from "../../../../src/custom-integrations/mento/mento-utils";
 import {
   MentoAdapterBase,
+  MentoAdapterMock,
   MockSortedOracles,
 } from "../../../../typechain-types";
 import { deployMockSortedOracles } from "../../../helpers";
 
 chai.use(chaiAsPromised);
 
+interface LocationInSortedLinkedListStruct {
+  lesserKey: string;
+  greaterKey: string;
+}
+
+type LocationsModifierFn = (
+  locationsBefore: LocationInSortedLinkedListStruct[]
+) => LocationInSortedLinkedListStruct[];
+
 describe("MentoAdapter", () => {
   let sortedOracles: MockSortedOracles;
-  let mentoAdapter: MentoAdapterBase;
+  let mentoAdapter: MentoAdapterMock;
   let signers: SignerWithAddress[];
 
   const mockToken1Address = "0xF194afDf50B03e69Bd7D057c1Aa9e10c9954E4C9"; // CELO token address
@@ -52,12 +62,16 @@ describe("MentoAdapter", () => {
 
   const reportWithAdapter = async (
     mockToken1Value: number,
-    mockToken2Value: number
+    mockToken2Value: number,
+    adapter?: MentoAdapterBase,
+    locationsModifierFn: LocationsModifierFn = (l) => l
   ) => {
+    const adapterToTest = adapter ?? mentoAdapter;
+
     // Wrapping contract
     const dataPoints = [
-      { dataFeedId: "MOCK1", value: mockToken1Value },
-      { dataFeedId: "MOCK2", value: mockToken2Value },
+      { dataFeedId: "BTC", value: mockToken1Value },
+      { dataFeedId: "ETH", value: mockToken2Value },
     ];
     const blockTimestamp = await time.latest();
     const timestampMilliseconds = blockTimestamp * 1000;
@@ -73,15 +87,15 @@ describe("MentoAdapter", () => {
     const proposedTimestamp = timestampMilliseconds;
     const locationsInSortedLinkedLists =
       await prepareLinkedListLocationsForMentoAdapterReport({
-        mentoAdapter,
+        mentoAdapter: adapterToTest,
         wrapContract,
         sortedOracles,
       });
 
     // Updating oracle values
-    await wrapContract(mentoAdapter).updatePriceValues(
+    await wrapContract(adapterToTest).updatePriceValues(
       proposedTimestamp,
-      locationsInSortedLinkedLists
+      locationsModifierFn(locationsInSortedLinkedLists)
     );
   };
 
@@ -92,6 +106,30 @@ describe("MentoAdapter", () => {
     const [, oracleValues] = await sortedOracles.getRates(tokenAddress);
     const expectedValuesNormalized = expectedValues.map(normalizeValue);
     expect(oracleValues).to.eql(expectedValuesNormalized);
+  };
+
+  const checkCommonFunctionsForMentoAdapter = async (
+    adapter: MentoAdapterBase,
+    sortedOraclesAddress: string
+  ) => {
+    const sortedOracles = await adapter.getSortedOracles();
+    expect(sortedOracles).to.eq(sortedOraclesAddress);
+
+    const normalizedValue = await adapter.normalizeRedstoneValueForMento(42);
+    expect(normalizedValue.div("1" + "0".repeat(16)).toNumber()).to.eq(42);
+
+    await reportWithAdapter(42, 1200, adapter);
+    await expectOracleValues(mockToken1Address, [42]);
+    await expectOracleValues(mockToken2Address, [1200]);
+  };
+
+  const testModifiedLocations = async (
+    locationsModifier: LocationsModifierFn
+  ) => {
+    await reportDirectly(mockToken1Address, 40, signers[0]);
+    await reportDirectly(mockToken1Address, 100, signers[1]);
+    await reportWithAdapter(42, 1199, mentoAdapter, locationsModifier);
+    await expectOracleValues(mockToken1Address, [100, 42, 40]);
   };
 
   before(async () => {
@@ -105,24 +143,18 @@ describe("MentoAdapter", () => {
     // Deploying mento adapter
     const MentoAdapterFactory =
       await ethers.getContractFactory("MentoAdapterMock");
-    mentoAdapter = await MentoAdapterFactory.deploy(sortedOracles.address);
+    mentoAdapter = await MentoAdapterFactory.deploy();
     await mentoAdapter.deployed();
 
-    // Registering data feeds
-    await mentoAdapter.setDataFeed(
-      formatBytes32String("MOCK1"),
-      mockToken1Address
-    );
-    await mentoAdapter.setDataFeed(
-      formatBytes32String("MOCK2"),
-      mockToken2Address
-    );
+    // Setting sorted oracles address
+    await mentoAdapter.setSortedOraclesAddress(sortedOracles.address);
   });
 
   it("Should report oracle values", async () => {
-    await reportWithAdapter(42, 1200);
-    await expectOracleValues(mockToken1Address, [42]);
-    await expectOracleValues(mockToken2Address, [1200]);
+    await checkCommonFunctionsForMentoAdapter(
+      mentoAdapter,
+      sortedOracles.address
+    );
   });
 
   it("Should report oracle values with other oracles", async () => {
@@ -149,20 +181,70 @@ describe("MentoAdapter", () => {
     await expectOracleValues(mockToken2Address, [160, 30]);
   });
 
-  it("Should remove a data feed", async () => {
-    await mentoAdapter.removeDataFeed(formatBytes32String("MOCK2"));
-    const dataFeedIds = await mentoAdapter.getDataFeedIds();
-    expect(dataFeedIds.length).to.eq(1);
-    expect(dataFeedIds[0]).to.eq(formatBytes32String("MOCK1"));
+  it("Should fail if list of locations is too short", async () => {
+    const modifier: LocationsModifierFn = (arr) => {
+      arr.pop(); // remove the last element
+      return arr;
+    };
+    const errMsg = "panic code 0x32"; // Array out of bound error
+    await expect(testModifiedLocations(modifier)).to.be.revertedWith(errMsg);
   });
 
-  it("Should update a sorted oracle address", async () => {
-    expect(await mentoAdapter.sortedOracles()).to.eq(sortedOracles.address);
+  it("Should fail if locations are invalid", async () => {
+    const modifier: LocationsModifierFn = (arr) =>
+      arr.map(({ greaterKey, lesserKey }) => ({
+        greaterKey: lesserKey,
+        lesserKey: greaterKey,
+      }));
+    await expect(testModifiedLocations(modifier)).to.be.revertedWith(
+      "get lesser and greater failure"
+    );
+  });
 
-    const newSortedOraclesAddress =
-      "0x0000000000000000000000000000000000000000";
-    await mentoAdapter.updateSortedOraclesAddress(newSortedOraclesAddress);
+  it("Should work properly if list of locations is just valid", async () => {
+    const modifier: LocationsModifierFn = (arr) => arr;
+    await testModifiedLocations(modifier);
+  });
 
-    expect(await mentoAdapter.sortedOracles()).to.eq(newSortedOraclesAddress);
+  it("Should work properly if list of locations is too long", async () => {
+    const modifier: LocationsModifierFn = (arr) => [...arr].concat([...arr]);
+    await testModifiedLocations(modifier);
+  });
+
+  it("Should properly upgrade mento adapter contract", async () => {
+    const MentoAdapterFactory =
+      await ethers.getContractFactory("MentoAdapterMock");
+    const mentoAdapterV1 = (await upgrades.deployProxy(
+      MentoAdapterFactory
+    )) as MentoAdapterMock;
+    await mentoAdapterV1.setSortedOraclesAddress(sortedOracles.address);
+    const contractAddress = mentoAdapterV1.address;
+
+    // Check contract before upgrade
+    const dataFeedsCountBeforeUpgrade =
+      await mentoAdapterV1.getDataFeedsCount();
+    expect(dataFeedsCountBeforeUpgrade.toNumber()).to.eql(2);
+    await checkCommonFunctionsForMentoAdapter(
+      mentoAdapterV1,
+      sortedOracles.address
+    );
+
+    // Upgrading the contract
+    const MentoAdapterMockV2Factory =
+      await ethers.getContractFactory("MentoAdapterMockV2");
+    await upgrades.upgradeProxy(mentoAdapterV1, MentoAdapterMockV2Factory);
+
+    // Check contract after upgrade
+    const mentoAdapterV2 = await ethers.getContractAt(
+      "MentoAdapterMock",
+      contractAddress
+    );
+    await mentoAdapterV2.setSortedOraclesAddress(sortedOracles.address);
+    const dataFeedsCountAfterUpgrade = await mentoAdapterV2.getDataFeedsCount();
+    expect(dataFeedsCountAfterUpgrade.toNumber()).to.eql(1);
+    await checkCommonFunctionsForMentoAdapter(
+      mentoAdapterV2,
+      sortedOracles.address
+    );
   });
 });
