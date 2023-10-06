@@ -25,9 +25,15 @@ export async function fetchDataPackages(
     urls: cacheServiceUrls,
   };
 
-  return isHistorical
-    ? await requestHistoricalDataPackages(requestParams)
-    : await requestDataPackages(requestParams);
+  try {
+    return isHistorical
+      ? await requestHistoricalDataPackages(requestParams)
+      : await requestDataPackages(requestParams);
+  } catch (e) {
+    console.error((e as Error).message); // Do not remove - to have the full message visible as the Gelato web3FunctionLogs log entry.
+
+    throw e;
+  }
 }
 
 const requestHistoricalDataPackages = (

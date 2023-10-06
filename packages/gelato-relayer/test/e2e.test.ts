@@ -17,7 +17,8 @@ describe("RedStone Gelato w3f: On-chain Relayer & remote manifest e2e Tests", fu
     redstoneW3f = w3f.get("redstone");
   });
 
-  it("Return canExec: true when update is needed", async () => {
+  /// TODO: Temporary disabled - will be re-enabled after manifest's upgrade on the main branch
+  it.skip("Return canExec: true when update is needed", async () => {
     const userArgs: any = { ...args };
     const { result } = await redstoneW3f.run({ userArgs });
     expect(result.canExec).to.equal(true);
@@ -31,7 +32,7 @@ describe("RedStone Gelato w3f: On-chain Relayer & remote manifest e2e Tests", fu
 
     expect(callData.length).to.equal(1);
     expect(callData[0].to).to.equal(
-      "0xd5c814D2930D84a0149A0e3827E208df0679483b"
+      "0x37D7B138e9545af5D944009E94D56A5398EC7CE4"
     );
   });
 });

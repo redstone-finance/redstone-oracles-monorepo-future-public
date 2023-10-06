@@ -51,10 +51,11 @@ export class IterationArgsProcessor<Args> {
     iterationArgs: IterationArgs<Args>,
     alternativeMessage = "Unknown reason"
   ): Web3FunctionResult {
-    return {
-      canExec: false,
-      message: iterationArgs.message || alternativeMessage,
-    };
+    const message = iterationArgs.message || alternativeMessage;
+
+    console.log(message); // Do not remove - to have the full message visible as the Gelato web3FunctionLogs log entry.
+
+    return { canExec: false, message };
   }
 
   private canExec(data: string): Web3FunctionResult {
