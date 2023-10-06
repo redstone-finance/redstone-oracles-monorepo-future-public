@@ -1,6 +1,5 @@
 import {
   btcDataFeed,
-  dataFeedsIds,
   deployMockSortedOracles,
   getDataPackagesResponse,
   mockEnvVariables,
@@ -11,7 +10,6 @@ import chaiAsPromised from "chai-as-promised";
 import { ethers } from "hardhat";
 import { PriceFeedsAdapterWithoutRoundsMock } from "../../typechain-types";
 import { updatePrices } from "../../src/core/contract-interactions/update-prices";
-import { getLastRoundParamsFromContract } from "../../src/core/contract-interactions/get-last-round-params";
 import { server } from "./mock-server";
 import { parseUnits } from "ethers/lib/utils";
 import * as getProviderOrSigner from "../../src/core/contract-interactions/get-provider-or-signer";
@@ -46,8 +44,6 @@ describe("update-prices", () => {
     );
 
     // Update prices
-    const _lastUpdateTimestamps =
-      await getLastRoundParamsFromContract(priceFeedsAdapter);
     const dataPackages = await getDataPackagesResponse();
     const updatePricesArgs = getUpdatePricesArgs(
       dataPackages,
@@ -73,14 +69,11 @@ describe("update-prices", () => {
     // Deploying mento adapter
     const MentoAdapterFactory =
       await ethers.getContractFactory("MentoAdapterMock");
-    const mentoAdapter = await MentoAdapterFactory.deploy(
-      sortedOracles.address
-    );
+    const mentoAdapter = await MentoAdapterFactory.deploy();
     await mentoAdapter.deployed();
 
-    // Registering data feeds
-    await mentoAdapter.setDataFeed(dataFeedsIds[0], mockToken1Address);
-    await mentoAdapter.setDataFeed(dataFeedsIds[1], mockToken2Address);
+    // Setting sorted oracles contract address
+    await mentoAdapter.setSortedOraclesAddress(sortedOracles.address);
 
     // Mocking config
     const overrideMockConfig = {
@@ -90,8 +83,6 @@ describe("update-prices", () => {
     mockEnvVariables(overrideMockConfig);
 
     // Update prices
-    const _lastUpdateTimestamps =
-      await getLastRoundParamsFromContract(mentoAdapter);
     const dataPackages = await getDataPackagesResponse();
     const updatePricesArgs = getUpdatePricesArgs(dataPackages, mentoAdapter);
 
@@ -107,7 +98,7 @@ describe("update-prices", () => {
       const expectedValuesNormalized = expectedValues.map(normalizeValue);
       expect(oracleValues).to.eql(expectedValuesNormalized);
     };
-    await expectOracleValues(mockToken1Address, [1670.99]);
-    await expectOracleValues(mockToken2Address, [23077.68]);
+    await expectOracleValues(mockToken1Address, [23077.68]);
+    await expectOracleValues(mockToken2Address, [1670.99]);
   });
 });
