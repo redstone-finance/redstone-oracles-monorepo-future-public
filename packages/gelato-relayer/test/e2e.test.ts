@@ -17,8 +17,7 @@ describe("RedStone Gelato w3f: On-chain Relayer & remote manifest e2e Tests", fu
     redstoneW3f = w3f.get("redstone");
   });
 
-  /// TODO: Temporary disabled - will be re-enabled after manifest's upgrade on the main branch
-  it.skip("Return canExec: true when update is needed", async () => {
+  it("Return canExec: true when update is needed", async () => {
     const userArgs: any = { ...args };
     const { result } = await redstoneW3f.run({ userArgs });
     expect(result.canExec).to.equal(true);
