@@ -17,8 +17,7 @@ describe("RedStone Gelato w3f Tests", function () {
     redstoneW3f = w3f.get("redstone-mock");
   });
 
-  /// TODO: Temporary disabled - will be re-enabled after manifest's upgrade on the main branch
-  it.skip("Return canExec: true when update is needed", async () => {
+  it("Return canExec: true when update is needed", async () => {
     const userArgs: any = { ...args };
     userArgs.shouldUpdatePrices = true;
     userArgs.args = "0x0512341435321111a";
