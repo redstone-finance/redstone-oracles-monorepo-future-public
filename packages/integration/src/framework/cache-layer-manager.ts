@@ -1,4 +1,5 @@
 import { consts } from "@redstone-finance/protocol";
+import * as redstoneSDK from "@redstone-finance/sdk";
 import { ChildProcess, spawnSync } from "child_process";
 import fs from "fs";
 import {
@@ -280,6 +281,23 @@ export const verifyPricesNotInCacheService = async (
       );
     }
   }
+};
+
+export const fetchDataPackages = async (
+  cacheLayerInstances: CacheLayerInstance[],
+  fetchParams: redstoneSDK.DataPackagesRequestParams = {
+    dataServiceId: "mock-data-service",
+    uniqueSignersCount: 1,
+  }
+) => {
+  const cacheLayerUrls = cacheLayerInstances.map(
+    (cacheLayerInstance) =>
+      `http://localhost:${getCacheServicePort(cacheLayerInstance, "any")}`
+  );
+  return await redstoneSDK.requestDataPackages({
+    ...fetchParams,
+    urls: cacheLayerUrls,
+  });
 };
 
 export const getCacheServicePort = (

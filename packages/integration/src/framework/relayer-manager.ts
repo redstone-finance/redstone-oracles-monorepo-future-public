@@ -1,15 +1,22 @@
+import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { OnChainRelayerManifest } from "@redstone-finance/on-chain-relayer";
 import {
   PriceFeedWithRoundsMock,
   PriceFeedsAdapterWithRoundsOneSignerMock,
 } from "@redstone-finance/on-chain-relayer/typechain-types";
+import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { ChildProcess } from "child_process";
 import { BigNumber, ethers } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
 import fs from "fs";
-import { CacheLayerInstance, getCacheServicePort } from "./cache-layer-manager";
 import {
+  CacheLayerInstance,
+  fetchDataPackages,
+  getCacheServicePort,
+} from "./cache-layer-manager";
+import {
+  debug,
   PriceSet,
   printDotenv,
   printExtraEnv,
@@ -113,7 +120,7 @@ const waitForPricesInAdapterCheck = async (
       oracleValuesIndex++;
     }
     return true;
-  } catch (e: unknown) {
+  } catch (e) {
     const error = e as Error;
     console.log(error.message);
     return false;
@@ -150,7 +157,7 @@ const waitForPricesInPriceFeedCheck = async (
     }
 
     return true;
-  } catch (e: unknown) {
+  } catch (e) {
     const error = e as Error;
     console.log(error.message);
     return false;
@@ -197,6 +204,7 @@ export const verifyPricesNotOnChain = async (
     );
   }
 };
+
 export const deployMockAdapter = async (
   rpcUrl?: string
 ): Promise<PriceFeedsAdapterWithRoundsOneSignerMock> => {
@@ -280,3 +288,36 @@ export const waitForRelayerIterations = (
     120_000,
     "Failed to wait for relayer iteration. (Maybe log message has changed)"
   );
+
+export const updateValuesInAdapterContract = async (
+  contract: PriceFeedsAdapterWithRoundsOneSignerMock,
+  signedDataPackages: DataPackagesResponse
+) => {
+  debug(
+    `manual prices update in ${contract.address}. New prices ${JSON.stringify(
+      signedDataPackages
+    )}`
+  );
+  const wrappedContract =
+    WrapperBuilder.wrap(contract).usingDataPackages(signedDataPackages);
+
+  const dataPackageTimestamp =
+    Object.values(signedDataPackages)[0]![0].dataPackage.timestampMilliseconds;
+
+  const updateTransaction = await wrappedContract.updateDataFeedsValues(
+    dataPackageTimestamp,
+    { gasLimit: 10_000_000 }
+  );
+
+  await updateTransaction.wait();
+};
+
+export const deployMockAdapterAndSetInitialPrices = async (
+  initialPricesCacheInstances: CacheLayerInstance[],
+  rpcUrl?: string
+) => {
+  const adapterContract = await deployMockAdapter(rpcUrl);
+  const currentPrices = await fetchDataPackages(initialPricesCacheInstances);
+  await updateValuesInAdapterContract(adapterContract, currentPrices);
+  return adapterContract;
+};
