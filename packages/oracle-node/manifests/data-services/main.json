@@ -1143,6 +1143,17 @@
     "EUROC/EUR": {
       "source": ["non-usd-based"]
     },
+    "crvFRAX": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "ALUSD": {
+      "source": [
+        "curve-3crv",
+        "curve-crvfrax",
+        "velodrome-on-chain-usdc",
+        "velodrome-on-chain-frax"
+      ]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
