@@ -1,5 +1,4 @@
 import { compile, NetworkProvider } from "@ton-community/blueprint";
-import * as dotenv from "dotenv";
 import * as fs from "fs";
 import { PriceFeedInitData } from "../src/price-feed/PriceFeedInitData";
 import { TonPriceFeedContractDeployer } from "../src/price-feed/TonPriceFeedContractDeployer";
@@ -7,8 +6,6 @@ import { BlueprintTonNetwork } from "../src";
 import { config } from "../src/config";
 
 export async function run(provider: NetworkProvider) {
-  dotenv.config();
-
   const managerAddress = await fs.promises.readFile(
     `deploy/price_manager.address`,
     "utf8"

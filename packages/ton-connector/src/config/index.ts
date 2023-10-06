@@ -1,7 +1,4 @@
-import * as dotenv from "dotenv";
 import { TonApiV2Config } from "../network/TonNetwork";
-
-dotenv.config();
 
 const API_ENDPOINT = "https://testnet.toncenter.com/api/v2/jsonRPC";
 

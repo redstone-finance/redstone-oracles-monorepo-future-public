@@ -1,12 +1,10 @@
-import * as dotenv from "dotenv";
+import "dotenv/config";
 import "hardhat-gas-reporter";
 import "@openzeppelin/hardhat-upgrades";
 import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
 import "@typechain/hardhat";
 import { HardhatUserConfig } from "hardhat/config";
-
-dotenv.config();
 
 const accounts = process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [];
 
