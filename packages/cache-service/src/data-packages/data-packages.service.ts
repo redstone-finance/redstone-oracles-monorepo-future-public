@@ -161,9 +161,7 @@ export class DataPackagesService {
   async getLatestDataPackagesWithSameTimestamp(
     dataServiceId: string
   ): Promise<DataPackagesResponse> {
-    const fetchedPackagesPerDataFeed: {
-      [dataFeedId: string]: CachedDataPackage[] | undefined;
-    } = {};
+    const fetchedPackagesPerDataFeed: DataPackagesResponse = {};
 
     const groupedDataPackages =
       await DataPackage.aggregate<DataPackageDocumentAggregated>([
@@ -241,9 +239,12 @@ export class DataPackagesService {
   static isSignerAddressAlreadyInDbResponseForDataFeed(
     signerAddress: string,
     fetchedPackagesForDataFeed: CachedDataPackage[] | undefined
-  ) {
-    return fetchedPackagesForDataFeed?.some((dataPackage) =>
-      Object.values(dataPackage).includes(signerAddress)
+  ): boolean {
+    return (
+      !!fetchedPackagesForDataFeed &&
+      fetchedPackagesForDataFeed.some(
+        (dataPackage) => dataPackage.signerAddress === signerAddress
+      )
     );
   }
 

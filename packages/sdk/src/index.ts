@@ -103,9 +103,7 @@ const getDataPackagesSortedByDeviation = (
   }
 
   if (dataFeedId === consts.ALL_FEEDS_KEY) {
-    throw new Error(
-      `Cannot sort data packages by deviation for ${consts.ALL_FEEDS_KEY}`
-    );
+    return dataFeedPackages;
   }
 
   if (!valuesToCompare[dataFeedId]) {
