@@ -73,7 +73,7 @@ const updatePricesInMentoAdapter = async ({
   proposedTimestamp,
 }: UpdatePricesArgs): Promise<TransactionResponse> => {
   // eslint-disable-next-line
-  const sortedOraclesAddress: string = await adapterContract.sortedOracles();
+  const sortedOraclesAddress: string = await adapterContract.getSortedOracles();
   const sortedOracles = getSortedOraclesContractAtAddress(sortedOraclesAddress);
   const linkedListPositions =
     await prepareLinkedListLocationsForMentoAdapterReport({

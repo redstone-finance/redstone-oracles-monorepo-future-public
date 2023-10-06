@@ -2,8 +2,7 @@
 
 pragma solidity ^0.8.14;
 
-import {EnumerableMap} from "@openzeppelin/contracts/utils/structs/EnumerableMap.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {ISortedOracles} from "./ISortedOracles.sol";
 import {RedstoneAdapterBase} from "../../core/RedstoneAdapterBase.sol";
 
@@ -17,8 +16,8 @@ import {RedstoneAdapterBase} from "../../core/RedstoneAdapterBase.sol";
  * addresses.
  *
  */
-abstract contract MentoAdapterBase is RedstoneAdapterBase, Ownable {
-  using EnumerableMap for EnumerableMap.UintToAddressMap;
+abstract contract MentoAdapterBase is RedstoneAdapterBase, Initializable {
+  error TokenNotFoundForIndex(uint256 tokenIndex);
 
   struct DataFeedDetails {
     bytes32 dataFeedId;
@@ -30,39 +29,43 @@ abstract contract MentoAdapterBase is RedstoneAdapterBase, Ownable {
   uint256 internal constant PRICE_MULTIPLIER = 1e16;
 
   // 68 = 4 (fun selector) + 32 (proposedTimestamp) + 32 (size of one array element)
-  uint256 internal INITIAL_CALLDATA_OFFSET = 68;
+  uint256 internal constant INITIAL_CALLDATA_OFFSET = 68;
   uint256 internal constant LOCATION_IN_SORTED_LIST_BYTE_SIZE = 64;
-
-  ISortedOracles public sortedOracles;
-  EnumerableMap.UintToAddressMap private dataFeedIdToTokenAddressMap;
 
   struct LocationInSortedLinkedList {
     address lesserKey;
     address greaterKey;
   }
 
-  constructor(ISortedOracles sortedOracles_) {
-    sortedOracles = sortedOracles_;
+  /**
+   * @dev Helpful function for upgradable contracts
+   */
+  function initialize() public initializer {
+    // We don't have storage variables, but we keep this function
+    // Because it is used for contract setup in upgradable contracts
   }
 
-  function updateSortedOraclesAddress(ISortedOracles sortedOracles_) public onlyOwner {
-    sortedOracles = sortedOracles_;
-  }
+  // This function must be overriden
+  function getSortedOracles()
+    public
+    view
+    virtual
+    returns (ISortedOracles sortedOracles);
 
   /**
    * @notice Used for getting proposed values from RedStone's data packages
    * @param dataFeedIds An array of data feed identifiers
    * @return values The normalized values for corresponding data feeds
    */
-  function getNormalizedOracleValuesFromTxCalldata(bytes32[] calldata dataFeedIds)
-    public
-    view
-    returns (uint256[] memory)
-  {
+  function getNormalizedOracleValuesFromTxCalldata(
+    bytes32[] calldata dataFeedIds
+  ) public view returns (uint256[] memory) {
     uint256[] memory values = getOracleNumericValuesFromTxMsg(dataFeedIds);
-    for (uint256 i = 0; i < values.length;) {
+    for (uint256 i = 0; i < values.length; ) {
       values[i] = normalizeRedstoneValueForMento(values[i]);
-      unchecked { i++; } // reduces gas costs
+      unchecked {
+        i++;
+      } // reduces gas costs
     }
     return values;
   }
@@ -80,25 +83,31 @@ abstract contract MentoAdapterBase is RedstoneAdapterBase, Ownable {
 
   function removeAllExpiredReports() public {
     uint256 tokensLength = getDataFeedsCount();
-    for (uint256 tokenIndex = 0; tokenIndex < tokensLength;) {
+    ISortedOracles sortedOracles = getSortedOracles();
+    for (uint256 tokenIndex = 0; tokenIndex < tokensLength; ) {
       (, address tokenAddress) = getTokenDetailsAtIndex(tokenIndex);
       uint256 curNumberOfReports = sortedOracles.numTimestamps(tokenAddress);
       if (curNumberOfReports > 0) {
-        sortedOracles.removeExpiredReports(tokenAddress, curNumberOfReports - 1);
+        sortedOracles.removeExpiredReports(
+          tokenAddress,
+          curNumberOfReports - 1
+        );
       }
-      unchecked { tokenIndex++; } // reduces gas costs
+      unchecked {
+        tokenIndex++;
+      } // reduces gas costs
     }
   }
 
-  function normalizeRedstoneValueForMento(uint256 valueFromRedstone)
-    public
-    pure
-    returns (uint256)
-  {
+  function normalizeRedstoneValueForMento(
+    uint256 valueFromRedstone
+  ) public pure returns (uint256) {
     return PRICE_MULTIPLIER * valueFromRedstone;
   }
 
-  function convertMentoValueToRedstoneValue(uint256 mentoValue) public pure returns(uint256) {
+  function convertMentoValueToRedstoneValue(
+    uint256 mentoValue
+  ) public pure returns (uint256) {
     return mentoValue / PRICE_MULTIPLIER;
   }
 
@@ -117,27 +126,37 @@ abstract contract MentoAdapterBase is RedstoneAdapterBase, Ownable {
     updateDataFeedsValues(proposedTimestamp);
   }
 
-  function _validateAndUpdateDataFeedsValues(bytes32[] memory dataFeedIds, uint256[] memory values)
-    internal
-    override
-  {
+  function _validateAndUpdateDataFeedsValues(
+    bytes32[] memory dataFeedIds,
+    uint256[] memory values
+  ) internal override {
     LocationInSortedLinkedList[]
       memory locationsInSortedList = extractLinkedListLocationsFromCalldata();
-    for (uint256 dataFeedIndex = 0; dataFeedIndex < dataFeedIds.length;) {
-      bytes32 dataFeedId = dataFeedIds[dataFeedIndex];
-      address tokenAddress = getTokenAddressByDataFeedId(dataFeedId);
-      uint256 priceValue = normalizeRedstoneValueForMento(values[dataFeedIndex]);
-      LocationInSortedLinkedList memory location = locationsInSortedList[dataFeedIndex];
+    for (uint256 dataFeedIndex = 0; dataFeedIndex < dataFeedIds.length; ) {
+      (, address tokenAddress) = getTokenDetailsAtIndex(dataFeedIndex);
+      uint256 priceValue = normalizeRedstoneValueForMento(
+        values[dataFeedIndex]
+      );
+      LocationInSortedLinkedList memory location = locationsInSortedList[
+        dataFeedIndex
+      ];
 
-      sortedOracles.report(tokenAddress, priceValue, location.lesserKey, location.greaterKey);
+      getSortedOracles().report(
+        tokenAddress,
+        priceValue,
+        location.lesserKey,
+        location.greaterKey
+      );
 
-      unchecked { dataFeedIndex++; } // reduces gas costs
+      unchecked {
+        dataFeedIndex++;
+      } // reduces gas costs
     }
   }
 
   function extractLinkedListLocationsFromCalldata()
     private
-    view
+    pure
     returns (LocationInSortedLinkedList[] memory locationsInSortedList)
   {
     uint256 calldataOffset = INITIAL_CALLDATA_OFFSET;
@@ -149,72 +168,83 @@ abstract contract MentoAdapterBase is RedstoneAdapterBase, Ownable {
     calldataOffset += STANDARD_SLOT_BS;
 
     locationsInSortedList = new LocationInSortedLinkedList[](arrayLength);
-    for (uint256 i = 0; i < arrayLength;) {
+    for (uint256 i = 0; i < arrayLength; ) {
       locationsInSortedList[i] = abi.decode(
-        msg.data[calldataOffset:calldataOffset + LOCATION_IN_SORTED_LIST_BYTE_SIZE],
+        msg.data[calldataOffset:calldataOffset +
+          LOCATION_IN_SORTED_LIST_BYTE_SIZE],
         (LocationInSortedLinkedList)
       );
       calldataOffset += LOCATION_IN_SORTED_LIST_BYTE_SIZE;
-      unchecked { i++; } // reduces gas costs
+      unchecked {
+        i++;
+      } // reduces gas costs
     }
-  }
-
-  // Adds or updates token address for a given data feed id
-  function setDataFeed(bytes32 dataFeedId, address tokenAddress) external onlyOwner {
-    dataFeedIdToTokenAddressMap.set(uint256(dataFeedId), tokenAddress);
-  }
-
-  function removeDataFeed(bytes32 dataFeedId) external onlyOwner {
-    dataFeedIdToTokenAddressMap.remove(uint256(dataFeedId));
-  }
-
-  function getDataFeedsCount() public view returns (uint256) {
-    return dataFeedIdToTokenAddressMap.length();
-  }
-
-  function getTokenAddressByDataFeedId(bytes32 dataFeedId) public view returns (address) {
-    return dataFeedIdToTokenAddressMap.get(uint256(dataFeedId));
   }
 
   function getDataFeedIds() public view override returns (bytes32[] memory) {
     uint256 dataFeedsCount = getDataFeedsCount();
     bytes32[] memory dataFeedIds = new bytes32[](dataFeedsCount);
-    for (uint256 dataFeedIndex = 0; dataFeedIndex < dataFeedsCount;) {
+    for (uint256 dataFeedIndex = 0; dataFeedIndex < dataFeedsCount; ) {
       (dataFeedIds[dataFeedIndex], ) = getTokenDetailsAtIndex(dataFeedIndex);
-      unchecked { dataFeedIndex++; } // reduces gas costs
+      unchecked {
+        dataFeedIndex++;
+      } // reduces gas costs
     }
 
     return dataFeedIds;
   }
 
+  // This function is used by mento relayer
   function getDataFeeds() public view returns (DataFeedDetails[] memory) {
     uint256 dataFeedsCount = getDataFeedsCount();
     DataFeedDetails[] memory dataFeeds = new DataFeedDetails[](dataFeedsCount);
-    for (uint256 dataFeedIndex = 0; dataFeedIndex < dataFeedsCount;) {
-      (bytes32 dataFeedId, address tokenAddress) = getTokenDetailsAtIndex(dataFeedIndex);
+    for (uint256 dataFeedIndex = 0; dataFeedIndex < dataFeedsCount; ) {
+      (bytes32 dataFeedId, address tokenAddress) = getTokenDetailsAtIndex(
+        dataFeedIndex
+      );
       dataFeeds[dataFeedIndex] = DataFeedDetails({
         dataFeedId: dataFeedId,
         tokenAddress: tokenAddress
       });
-      unchecked { dataFeedIndex++; } // reduces gas costs
+      unchecked {
+        dataFeedIndex++;
+      } // reduces gas costs
     }
     return dataFeeds;
   }
 
-  function getTokenDetailsAtIndex(uint256 tokenIndex)
-    public
-    view
-    returns (bytes32 dataFeedId, address tokenAddress)
-  {
-    (uint256 dataFeedIdNumber, address tokenAddress_) = dataFeedIdToTokenAddressMap.at(tokenIndex);
-    dataFeedId = bytes32(dataFeedIdNumber);
-    tokenAddress = tokenAddress_;
+  // This function must be overriden in the child contract
+  function getTokenDetailsAtIndex(
+    uint256 tokenIndex
+  ) public view virtual returns (bytes32 dataFeedId, address tokenAddress);
+
+  // This function must be overriden in the child contract
+  function getDataFeedsCount() public view virtual returns (uint256);
+
+  function getTokenIndexByDataFeedId(
+    bytes32 dataFeedId
+  ) public view virtual returns (uint256) {
+    uint256 dataFeedsCount = getDataFeedsCount();
+    for (uint256 dataFeedIndex = 0; dataFeedIndex < dataFeedsCount; ) {
+      (bytes32 dataFeedIdAtIndex, ) = getTokenDetailsAtIndex(dataFeedIndex);
+      if (dataFeedId == dataFeedIdAtIndex) {
+        return dataFeedIndex;
+      }
+      unchecked {
+        dataFeedIndex++;
+      } // reduces gas costs
+    }
+
+    revert DataFeedIdNotFound(dataFeedId);
   }
 
   // [HIGH RISK] Using this function directly may cause significant risk
-  function getValueForDataFeedUnsafe(bytes32 dataFeedId) public view override returns (uint256) {
-    address tokenAddress = getTokenAddressByDataFeedId(dataFeedId);
-    (uint256 medianRate, ) = sortedOracles.medianRate(tokenAddress);
+  function getValueForDataFeedUnsafe(
+    bytes32 dataFeedId
+  ) public view override returns (uint256) {
+    uint256 tokenIndex = getTokenIndexByDataFeedId(dataFeedId);
+    (, address tokenAddress) = getTokenDetailsAtIndex(tokenIndex);
+    (uint256 medianRate, ) = getSortedOracles().medianRate(tokenAddress);
     return convertMentoValueToRedstoneValue(medianRate);
   }
 }
