@@ -1,6 +1,4 @@
-import dotenv from "dotenv";
-
-dotenv.config();
+import "dotenv/config";
 
 export const getFromEnv = (name: string) => {
   const envVariable = process.env[name];
