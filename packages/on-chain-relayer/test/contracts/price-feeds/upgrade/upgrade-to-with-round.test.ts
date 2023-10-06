@@ -191,7 +191,7 @@ async function updatePriceInAdapter(
   value: number
 ) {
   await time.increase(4);
-  const timestamp = Date.now() + 100_000;
+  const timestamp = ((await time.latest()) + 50) * 1000;
   const wrappedContract = WrapperBuilder.wrap(
     adapterWithoutRounds
   ).usingSimpleNumericMock({

@@ -12,6 +12,7 @@ import { setConfigProvider, RelayerConfig } from "../src";
 import { ethers } from "hardhat";
 import { MS_IN_ONE_MINUTE } from "../src/make-config-provider";
 import { FactoryOptions } from "hardhat/types";
+import { MockSortedOracles } from "../typechain-types";
 
 export const ethDataFeed = formatBytes32String("ETH");
 export const btcDataFeed = formatBytes32String("BTC");
@@ -121,7 +122,9 @@ export const getDataPackagesResponse = async (
   return signedDataPackages;
 };
 
-export const deployMockSortedOracles = async (signer?: Signer) => {
+export const deployMockSortedOracles = async (
+  signer?: Signer
+): Promise<MockSortedOracles> => {
   // Deploying AddressSortedLinkedListWithMedian library
   const AddressSortedLinkedListWithMedianFactory =
     await ethers.getContractFactory(
