@@ -218,7 +218,6 @@
     "STETH": {
       "source": [
         "bitget",
-        "bybit",
         "curve-eth",
         "curve-weth",
         "gate",
@@ -529,7 +528,6 @@
         "bittrex",
         "bitmart",
         "btcturk",
-        "bybit",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
