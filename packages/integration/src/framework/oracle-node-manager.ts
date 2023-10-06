@@ -11,8 +11,11 @@ import {
 import { CacheLayerInstance, getCacheServicePort } from "./cache-layer-manager";
 import { RedstoneCommon } from "@redstone-finance/utils";
 
-export const HARDHAT_MOCK_PRIVATE_KEY =
-  "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+export const HARDHAT_MOCK_PRIVATE_KEYS = [
+  "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+  "59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d",
+  "5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a",
+];
 const ORACLE_NODE_DIR = "../oracle-node";
 const NODE_BROADCAST_TIMEOUT = 300_000;
 const EXPECTED_BROADCAST_LOG = "Broadcasting data package completed";
@@ -29,14 +32,16 @@ const mockPricesPath = `${ORACLE_NODE_DIR}/mock-prices.json`;
 export const startAndWaitForOracleNode = (
   instance: OracleNodeInstance,
   cacheServiceInstances: CacheLayerInstance[],
-  manifestFileName: string = "single-source/mock"
+  manifestFileName: string = "single-source/mock",
+  privateKeyIndex: number = 0
 ) => {
   debug(`starting ${getLogPrefix(instance)}`);
   const dotenvPath = `${ORACLE_NODE_DIR}/.env.example`;
   const extraEnv = createExtraEnv(
     instance,
     cacheServiceInstances,
-    manifestFileName
+    manifestFileName,
+    privateKeyIndex
   );
   printDotenv(getLogPrefix(instance), dotenvPath);
   printExtraEnv(getLogPrefix(instance), extraEnv);
@@ -74,7 +79,8 @@ const getMockPricesPath = (instance: OracleNodeInstance) =>
 const createExtraEnv = (
   instance: OracleNodeInstance,
   cacheServiceInstances: CacheLayerInstance[],
-  manifestFileName: string
+  manifestFileName: string,
+  privateKeyIndex: number
 ) => {
   const cacheServiceUrls = cacheServiceInstances.map(
     (cacheLayerInstance) =>
@@ -84,7 +90,7 @@ const createExtraEnv = (
     OVERRIDE_DIRECT_CACHE_SERVICE_URLS: JSON.stringify(cacheServiceUrls),
     OVERRIDE_MANIFEST_USING_FILE: `./manifests/${manifestFileName}.json`,
     LEVEL_DB_LOCATION: `oracle-node-level-db-${instance.instanceId}`,
-    ECDSA_PRIVATE_KEY: HARDHAT_MOCK_PRIVATE_KEY,
+    ECDSA_PRIVATE_KEY: HARDHAT_MOCK_PRIVATE_KEYS[privateKeyIndex],
     MOCK_PRICES_URL_OR_PATH: getMockPricesPath(instance),
   };
   return extraEnv;

@@ -58,8 +58,14 @@ const main = async () => {
   setMockPricesMany({ __DEFAULT__: 42 }, allOracleNodeInstances);
   let expectedPrices: PriceSet = { BTC: 42 };
 
-  await startAndWaitForCacheLayer(cacheLayerInstance1, { directOnly: false });
-  await startAndWaitForCacheLayer(cacheLayerInstance2, { directOnly: false });
+  await startAndWaitForCacheLayer(cacheLayerInstance1, {
+    directOnly: false,
+    enableHistoricalDataServing: true,
+  });
+  await startAndWaitForCacheLayer(cacheLayerInstance2, {
+    directOnly: false,
+    enableHistoricalDataServing: true,
+  });
   await startAndWaitForOracleNode(oracleNodeInstance1, allCacheLayers);
   await startAndWaitForOracleNode(oracleNodeInstance2, allCacheLayers);
   await startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
