@@ -6,7 +6,7 @@ export const getProvider = () => {
   const { rpcUrls, chainName, chainId } = config();
   const rpcs = rpcUrls.map(
     (url) =>
-      new providers.JsonRpcProvider(url, {
+      new providers.StaticJsonRpcProvider(url, {
         name: chainName,
         chainId,
       })
