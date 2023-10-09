@@ -445,10 +445,12 @@
       ]
     },
     "YY_WOMBEX_USDT": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher"],
+      "decimals": 12
     },
     "YY_WOMBEX_USDC.e": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher"],
+      "decimals": 12
     },
     "YY_WOMBEX_GLP": {
       "source": ["arbitrum-evm-fetcher"]
