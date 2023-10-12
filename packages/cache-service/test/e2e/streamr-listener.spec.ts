@@ -7,7 +7,7 @@ import {
   getMockDataPackages,
   mockOracleRegistryState,
 } from "../common/mock-values";
-import { connectToTestDB, dropTestDatabase } from "../common/test-db";
+import { createTestDB, dropTestDatabase } from "../common/test-db";
 import {
   DataPackage,
   DataPackageDocument,
@@ -15,7 +15,8 @@ import {
 import { sleep } from "../common/test-utils";
 import { StreamrListenerService } from "../../src/streamr-listener/streamr-listener.service";
 import { DataPackagesService } from "../../src/data-packages/data-packages.service";
-import { BundlrService } from "../../src/bundlr/bundlr.service";
+import { BundlrBroadcaster } from "../../src/broadcasters/bundlr-broadcaster";
+import { MongoBroadcaster } from "../../src/broadcasters/mongo-broadcaster";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return
 jest.mock("@redstone-finance/sdk", () => ({
@@ -38,12 +39,17 @@ jest.mock("@redstone-finance/streamr-proxy", () => ({
   })),
 }));
 
-const bundlrService = new BundlrService();
-const bundlrSaveDataPackagesSpy = jest.spyOn(bundlrService, "saveDataPackages");
-const dataPackageService = new DataPackagesService(bundlrService);
-const dataPackageServiceSaveManySpy = jest.spyOn(
-  dataPackageService,
-  "saveManyDataPackagesInDB"
+const bundlrBroadcaster = new BundlrBroadcaster();
+const bundlrBroadcasterBroadcastSpy = jest.spyOn(
+  bundlrBroadcaster,
+  "broadcast"
+);
+const mongoBroadcaster = new MongoBroadcaster();
+const mongoBroadcasterBroadcastSpy = jest.spyOn(mongoBroadcaster, "broadcast");
+
+const dataPackageService = new DataPackagesService(
+  bundlrBroadcaster,
+  mongoBroadcaster
 );
 
 const expectedSavedDataPackages = [
@@ -61,11 +67,11 @@ describe("Streamr Listener (e2e)", () => {
 
   beforeEach(async () => {
     // Connect to mongoDB in memory
-    await connectToTestDB();
+    await createTestDB();
 
     streamrListenerService = new StreamrListenerService(dataPackageService);
-    bundlrSaveDataPackagesSpy.mockClear();
-    dataPackageServiceSaveManySpy.mockClear();
+    bundlrBroadcasterBroadcastSpy.mockClear();
+    mongoBroadcasterBroadcastSpy.mockClear();
   });
 
   afterEach(async () => await dropTestDatabase());
@@ -85,12 +91,16 @@ describe("Streamr Listener (e2e)", () => {
 
   it("Should listen to streamr streams and save data on Bundlr", async () => {
     await streamrListenerService.syncStreamrListening();
-    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => Promise.resolve());
+    bundlrBroadcasterBroadcastSpy.mockImplementationOnce(() =>
+      Promise.resolve()
+    );
 
     await sleep(1000);
 
-    expect(bundlrSaveDataPackagesSpy).toBeCalledTimes(1);
-    expect(bundlrSaveDataPackagesSpy).toBeCalledWith(expectedSavedDataPackages);
+    expect(bundlrBroadcasterBroadcastSpy).toBeCalledTimes(1);
+    expect(bundlrBroadcasterBroadcastSpy).toBeCalledWith(
+      expectedSavedDataPackages
+    );
   });
 
   it("Should listen to streamr streams and save data on Bundlr when allowed data service ids are set", async () => {
@@ -100,13 +110,17 @@ describe("Streamr Listener (e2e)", () => {
         MOCK_DATA_SERVICE_ID.toLowerCase(),
         "other-data-service",
       ]);
-    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => Promise.resolve());
+    bundlrBroadcasterBroadcastSpy.mockImplementationOnce(() =>
+      Promise.resolve()
+    );
 
     await streamrListenerService.syncStreamrListening();
     await sleep(1000);
 
-    expect(bundlrSaveDataPackagesSpy).toBeCalledTimes(1);
-    expect(bundlrSaveDataPackagesSpy).toBeCalledWith(expectedSavedDataPackages);
+    expect(bundlrBroadcasterBroadcastSpy).toBeCalledTimes(1);
+    expect(bundlrBroadcasterBroadcastSpy).toBeCalledWith(
+      expectedSavedDataPackages
+    );
     spy.mockRestore();
   });
 
@@ -114,51 +128,55 @@ describe("Streamr Listener (e2e)", () => {
     const spy = jest
       .spyOn(streamrListenerService, "getAllowedDataServiceIds")
       .mockReturnValue(["other-data-service"]);
-    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => Promise.resolve());
+    bundlrBroadcasterBroadcastSpy.mockImplementationOnce(() =>
+      Promise.resolve()
+    );
 
     await streamrListenerService.syncStreamrListening();
     await sleep(1000);
 
-    expect(bundlrSaveDataPackagesSpy).toBeCalledTimes(0);
+    expect(bundlrBroadcasterBroadcastSpy).toBeCalledTimes(0);
     spy.mockRestore();
   });
 
   it("Should save dataPackages to DB, even if bundlr fails", async () => {
     await streamrListenerService.syncStreamrListening();
     // mocking race first bundlr fails then DB try to save
-    dataPackageServiceSaveManySpy.mockImplementationOnce(
+    mongoBroadcasterBroadcastSpy.mockImplementationOnce(
       () => sleep(20) as Promise<void>
     );
-    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => Promise.reject());
+    bundlrBroadcasterBroadcastSpy.mockImplementationOnce(() =>
+      Promise.reject()
+    );
 
     await sleep(1000);
 
-    expect(bundlrSaveDataPackagesSpy).toBeCalledTimes(1);
-    expect(bundlrSaveDataPackagesSpy).toBeCalledWith(expectedSavedDataPackages);
+    expect(bundlrBroadcasterBroadcastSpy).toBeCalledTimes(1);
+    expect(bundlrBroadcasterBroadcastSpy).toBeCalledWith(
+      expectedSavedDataPackages
+    );
 
-    expect(dataPackageServiceSaveManySpy).toBeCalledTimes(1);
-    expect(dataPackageServiceSaveManySpy).toReturn();
+    expect(mongoBroadcasterBroadcastSpy).toBeCalledTimes(1);
+    expect(mongoBroadcasterBroadcastSpy).toReturn();
   });
 
   it("Should save dataPackages to bundlr, even if DB fails", async () => {
     await streamrListenerService.syncStreamrListening();
 
     // mocking race first data fails then bundlr try to save
-    bundlrSaveDataPackagesSpy.mockImplementationOnce(
+    bundlrBroadcasterBroadcastSpy.mockImplementationOnce(
       () => sleep(20) as Promise<void>
     );
-    dataPackageServiceSaveManySpy.mockImplementationOnce(() =>
-      Promise.reject()
-    );
+    mongoBroadcasterBroadcastSpy.mockImplementationOnce(() => Promise.reject());
 
     await sleep(1000);
 
-    expect(dataPackageServiceSaveManySpy).toBeCalledTimes(1);
-    expect(dataPackageServiceSaveManySpy).toBeCalledWith(
+    expect(mongoBroadcasterBroadcastSpy).toBeCalledTimes(1);
+    expect(mongoBroadcasterBroadcastSpy).toBeCalledWith(
       expectedSavedDataPackages
     );
 
-    expect(bundlrSaveDataPackagesSpy).toBeCalledTimes(1);
-    expect(bundlrSaveDataPackagesSpy).toReturn();
+    expect(bundlrBroadcasterBroadcastSpy).toBeCalledTimes(1);
+    expect(bundlrBroadcasterBroadcastSpy).toReturn();
   });
 });

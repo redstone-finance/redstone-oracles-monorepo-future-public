@@ -6,6 +6,7 @@ interface CacheServiceConfigRequiredFields {
   // empty string means that in-memory DB will be created and used
   // e.g. by e2e test process
   mongoDbUrl: string;
+  streamrPrivateKey?: string;
   enableStreamrListening: boolean;
   enableDirectPostingRoutes: boolean;
   apiKeyForAccessToAdminRoutes: string;
@@ -70,6 +71,7 @@ const config: CacheServiceConfig = {
   appPort: Number(getEnv("APP_PORT", false) || DEFAULT_APP_PORT),
   mongoDbUrl: getEnv("MONGO_DB_URL"),
   enableStreamrListening: getEnv("ENABLE_STREAMR_LISTENING") === "true",
+  streamrPrivateKey: getEnv("STREAMR_PRIVATE_KEY", false),
   enableDirectPostingRoutes: getEnv("ENABLE_DIRECT_POSTING_ROUTES") === "true",
   apiKeyForAccessToAdminRoutes: getEnv("API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES"),
   allowedStreamrDataServiceIds: JSON.parse(

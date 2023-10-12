@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, Logger } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  Optional,
+} from "@nestjs/common";
 import {
   RedstonePayload,
   UniversalSigner,
@@ -10,7 +15,14 @@ import {
   getDataServiceIdForSigner,
   parseDataPackagesResponse,
 } from "@redstone-finance/sdk";
+import { RedstoneCommon } from "@redstone-finance/utils";
+import { BundlrBroadcaster } from "../broadcasters/bundlr-broadcaster";
+import { DataPackagesBroadcaster } from "../broadcasters/data-packages-broadcaster";
+import { MongoBroadcaster } from "../broadcasters/mongo-broadcaster";
+import { StreamrBroadcaster } from "../broadcasters/streamr-broadcaster";
 import config from "../config";
+import { getOracleState } from "../utils/get-oracle-state";
+import { makePayload } from "../utils/make-redstone-payload";
 import {
   BulkPostRequestBody,
   DataPackagesResponse,
@@ -23,51 +35,87 @@ import {
   DataPackageDocument,
   DataPackageDocumentAggregated,
 } from "./data-packages.model";
-import { makePayload } from "../utils/make-redstone-payload";
-import { getOracleState } from "../utils/get-oracle-state";
-import { BundlrService } from "../bundlr/bundlr.service";
-import { runPromiseWithLogging } from "../utils/utils";
-import { RedstoneCommon } from "@redstone-finance/utils";
 
 export interface StatsRequestParams {
   fromTimestamp: number;
   toTimestamp: number;
 }
 
+export type BroadcasterInfo = {
+  name: string;
+  instance: DataPackagesBroadcaster;
+};
+
 @Injectable()
 export class DataPackagesService {
   private readonly logger = new Logger(DataPackagesService.name);
+  private readonly broadcasters: BroadcasterInfo[] = [];
 
-  constructor(private readonly bundlrService: BundlrService) {}
+  constructor(
+    @Optional() private readonly bundlrBroadcaster?: BundlrBroadcaster,
+    @Optional() private readonly mongoBroadcaster?: MongoBroadcaster,
+    @Optional() private readonly streamrBroadcaster?: StreamrBroadcaster
+  ) {
+    if (mongoBroadcaster) {
+      this.broadcasters.push({
+        instance: mongoBroadcaster,
+        name: "Mongo database",
+      });
+    }
+    if (bundlrBroadcaster) {
+      this.broadcasters.push({
+        instance: bundlrBroadcaster,
+        name: "Bundlr service",
+      });
+    }
+    if (streamrBroadcaster) {
+      this.broadcasters.push({
+        instance: streamrBroadcaster,
+        name: "Streamr",
+      });
+    }
 
-  /**  Save dataPackages to DB and bundlr if enabled */
-  async saveMany(
+    this.logger.log(
+      `Active broadcasters:  ${this.broadcasters
+        .map(({ name }) => name)
+        .join(",")}`
+    );
+  }
+
+  /**  Save dataPackages to DB and bundlr (optionally) and streamr (optionally) */
+  async broadcast(
     dataPackagesToSave: CachedDataPackage[],
     nodeEvmAddress: string
   ): Promise<void> {
-    const savePromises: Promise<unknown>[] = [];
-    const saveToDbPromise = runPromiseWithLogging(
-      this.saveManyDataPackagesInDB(dataPackagesToSave),
-      `Save ${dataPackagesToSave.length} data packages for node ${nodeEvmAddress} to Database`,
-      this.logger
+    const savePromises: Promise<unknown>[] = this.broadcasters.map(
+      (broadcaster) =>
+        this.performBroadcast(dataPackagesToSave, nodeEvmAddress, broadcaster)
     );
-    savePromises.push(saveToDbPromise);
-
-    if (config.enableArchivingOnArweave) {
-      const saveToBundlrPromise = runPromiseWithLogging(
-        this.bundlrService.saveDataPackages(dataPackagesToSave),
-        `Save ${dataPackagesToSave.length} data packages for node ${nodeEvmAddress} to Bundlr`,
-        this.logger
-      );
-      savePromises.push(saveToBundlrPromise);
-    }
 
     await Promise.allSettled(savePromises);
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
-  async saveManyDataPackagesInDB(dataPackages: CachedDataPackage[]) {
-    await DataPackage.insertMany(dataPackages);
+  private async performBroadcast(
+    dataPackagesToSave: CachedDataPackage[],
+    nodeEvmAddress: string,
+    { instance: broadcaster, name }: BroadcasterInfo
+  ): Promise<void> {
+    const message = `broadcast ${dataPackagesToSave.length} data packages for node ${nodeEvmAddress}`;
+
+    return await broadcaster
+      .broadcast(dataPackagesToSave)
+      .then((result) => {
+        this.logger.log(`[${name}] succeeded to ${message}.`);
+        return result;
+      })
+      .catch((error) => {
+        this.logger.error(
+          `[${name}] failed to ${message}. ${RedstoneCommon.stringifyError(
+            error
+          )}`
+        );
+        throw error;
+      });
   }
 
   getLatestDataPackagesWithSameTimestampWithCache = RedstoneCommon.memoize({

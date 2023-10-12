@@ -171,7 +171,7 @@ export class DataPackagesController {
         signerAddress
       );
 
-    await this.dataPackagesService.saveMany(dataPackagesToSave, signerAddress);
+    await this.dataPackagesService.broadcast(dataPackagesToSave, signerAddress);
   }
 
   private static sendSerializableResponse(

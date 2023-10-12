@@ -2264,7 +2264,7 @@
     ethers "^5.5.2"
     siwe "1.1.6"
 
-"@gelatonetwork/web3-functions-sdk@^2.1.7":
+"@gelatonetwork/web3-functions-sdk@^2.1.1":
   version "2.1.7"
   resolved "https://registry.yarnpkg.com/@gelatonetwork/web3-functions-sdk/-/web3-functions-sdk-2.1.7.tgz#1a47d702708232acb734028d6b7b01a6e664b295"
   integrity sha512-lVK2LqKhOg2TGSHCqpmzM1NzPo8VxyppDz2SC92kywlBiGSozz35uGwqaFZF6wnoX9ghPjjNsXqEABtK4nAB/g==
