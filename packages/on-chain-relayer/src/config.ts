@@ -14,8 +14,6 @@ export const config = () => {
   }
   relayerConfig = configProvider();
 
-  /// Config validation ///
-
   // Validating adapter contract type
   if (!["mento", "price-feeds"].includes(relayerConfig.adapterContractType)) {
     throw new Error(

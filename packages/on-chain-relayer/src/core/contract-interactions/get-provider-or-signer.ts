@@ -16,7 +16,10 @@ export const getProvider = () => {
     return rpcs[0];
   }
 
-  return new ProviderWithFallback(rpcs);
+  return new ProviderWithFallback(rpcs, {
+    singleProviderOperationTimeout: config().singleProviderOperationTimeout,
+    allProvidersOperationTimeout: config().allProvidersOperationTimeout,
+  });
 };
 
 export const getSigner = () => {
