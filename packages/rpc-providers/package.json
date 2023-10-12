@@ -28,7 +28,7 @@
     "chai": "^4.3.7",
     "hardhat": "^2.14.0",
     "sinon": "^15.0.3",
-    "solidity-coverage": "^0.8.1"
+    "solidity-coverage": "^0.8.5"
   },
   "publishConfig": {
     "access": "public"
