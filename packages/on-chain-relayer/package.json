@@ -42,7 +42,7 @@
     "hardhat": "^2.14.0",
     "hardhat-gas-reporter": "^1.0.9",
     "msw": "^1.2.1",
-    "solidity-coverage": "^0.8.1",
+    "solidity-coverage": "^0.8.5",
     "typechain": "^8.1.0"
   },
   "files": [
