@@ -2,12 +2,13 @@ import { Injectable, Logger } from "@nestjs/common";
 import { CachedDataPackage } from "../data-packages/data-packages.model";
 import Bundlr from "@bundlr-network/client";
 import config from "../config";
+import { DataPackagesBroadcaster } from "./data-packages-broadcaster";
 
 const REDSTONE_TYPE_TAG_VALUE = "redstone-oracles";
 
 @Injectable()
-export class BundlrService {
-  private readonly logger = new Logger(BundlrService.name);
+export class BundlrBroadcaster implements DataPackagesBroadcaster {
+  private readonly logger = new Logger(BundlrBroadcaster.name);
   private bundlrClient: Bundlr | undefined;
 
   constructor() {
@@ -20,20 +21,16 @@ export class BundlrService {
     }
   }
 
-  async safelySaveDataPackages(dataPackages: CachedDataPackage[]) {
-    try {
-      await this.saveDataPackages(dataPackages);
-    } catch (e) {
-      this.logger.error(
-        "Error occured while saving to Bundlr",
-        (e as Error).stack
-      );
-    }
-  }
-
-  async saveDataPackages(dataPackages: CachedDataPackage[]) {
+  async broadcast(dataPackages: CachedDataPackage[]): Promise<void> {
     for (const dataPackage of dataPackages) {
-      await this.saveOneDataPackage(dataPackage);
+      try {
+        await this.saveOneDataPackage(dataPackage);
+      } catch (e) {
+        this.logger.error(
+          "Error occured while saving dataPackage to Bundlr",
+          (e as Error).stack
+        );
+      }
     }
   }
 
@@ -53,7 +50,7 @@ export class BundlrService {
       value,
     }));
 
-    const dataToSave = BundlrService.prepareDataToSave(dataPackage);
+    const dataToSave = BundlrBroadcaster.prepareDataToSave(dataPackage);
 
     const tx = this.bundlrClient!.createTransaction(dataToSave, {
       tags: tagsArray,
