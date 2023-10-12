@@ -18,7 +18,7 @@ abstract contract PriceFeedsAdapterBase is RedstoneAdapterBase, Initializable {
     // We don't have storage variables, but we keep this function
     // Because it is used for contract setup in upgradable contracts
   }
-  
+
   /**
    * @dev This function is virtual and may contain additional logic in the derived contract
    * E.g. it can check if the updating conditions are met (e.g. if at least one
