@@ -1,9 +1,6 @@
 import { TransactionResponse } from "@ethersproject/providers";
 import { config } from "../../config";
-import {
-  MentoContracts,
-  prepareLinkedListLocationsForMentoAdapterReport,
-} from "../../custom-integrations/mento/mento-utils";
+import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
 
 import { getSortedOraclesContractAtAddress } from "./get-contract";
 import { TransactionDeliveryMan } from "@redstone-finance/rpc-providers";
@@ -72,15 +69,15 @@ const updatePricesInMentoAdapter = async ({
   wrapContract,
   proposedTimestamp,
 }: UpdatePricesArgs): Promise<TransactionResponse> => {
-  // eslint-disable-next-line
-  const sortedOraclesAddress: string = await adapterContract.getSortedOracles();
+  const mentoAdapter = adapterContract as MentoAdapterBase;
+  const sortedOraclesAddress = await mentoAdapter.getSortedOracles();
   const sortedOracles = getSortedOraclesContractAtAddress(sortedOraclesAddress);
   const linkedListPositions =
     await prepareLinkedListLocationsForMentoAdapterReport({
-      mentoAdapter: adapterContract,
-      wrapContract,
+      mentoAdapter,
+      wrapContract: wrapContract as (c: MentoAdapterBase) => MentoAdapterBase,
       sortedOracles,
-    } as MentoContracts);
+    });
   return await (
     wrapContract(adapterContract) as MentoAdapterBase
   ).updatePriceValuesAndCleanOldReports(proposedTimestamp, linkedListPositions);

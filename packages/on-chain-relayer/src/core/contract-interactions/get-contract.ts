@@ -4,7 +4,7 @@ import { abi as mentoAdapterABI } from "../../../artifacts/contracts/custom-inte
 import { abi as sortedOraclesABI } from "../../../artifacts/contracts/custom-integrations/mento/ISortedOracles.sol/ISortedOracles.json";
 import { config } from "../../config";
 import { getProvider } from "./get-provider-or-signer";
-import { RedstoneAdapterBase } from "../../../typechain-types";
+import { ISortedOracles, RedstoneAdapterBase } from "../../../typechain-types";
 
 export const getAdapterContract = () => {
   const { privateKey, adapterContractAddress } = config();
@@ -25,7 +25,7 @@ export const getSortedOraclesContractAtAddress = (
     sortedOraclesMentoContractAddress,
     sortedOraclesABI,
     getProvider()
-  );
+  ) as ISortedOracles;
 };
 
 export const getAbiForAdapter = (): ContractInterface => {
