@@ -12,7 +12,7 @@ import {PriceFeedsAdapterBase} from "../PriceFeedsAdapterBase.sol";
  * - getDataFeedIds
  * - getUniqueSignersThreshold
  * - getAuthorisedSignerIndex
- * 
+ *
  * We also recommend to override `getDataFeedIndex` function with hardcoded
  * values, as it can significantly reduce gas usage
  */
@@ -80,7 +80,7 @@ abstract contract PriceFeedsAdapterWithRounds is PriceFeedsAdapterBase {
 
 
   /**
-   * @notice Returns data from the latest successful round 
+   * @notice Returns data from the latest successful round
    * @return latestRoundId
    * @return latestRoundDataTimestamp
    * @return latestRoundBlockTimestamp
