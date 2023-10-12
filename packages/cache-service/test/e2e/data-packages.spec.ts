@@ -4,11 +4,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import "../common/set-test-envs";
 import { INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
-import { ethers } from "ethers";
-import { base64 } from "ethers/lib/utils";
 import {
   DataPoint,
   SignedDataPackagePlainObj,
@@ -19,15 +16,18 @@ import {
   RedstonePayloadParser,
   convertDataPointToNumericDataPoint,
 } from "@redstone-finance/protocol/dist/src/redstone-payload/RedstonePayloadParser";
+import { ethers } from "ethers";
+import { base64 } from "ethers/lib/utils";
 import request from "supertest";
 import { AppModule } from "../../src/app.module";
-import { BundlrService } from "../../src/bundlr/bundlr.service";
+import { BundlrBroadcaster } from "../../src/broadcasters/bundlr-broadcaster";
 import { ResponseFormat } from "../../src/data-packages/data-packages.interface";
 import {
   CachedDataPackage,
   DataPackage,
   DataPackageDocument,
 } from "../../src/data-packages/data-packages.model";
+import { DataPackagesService } from "../../src/data-packages/data-packages.service";
 import {
   MOCK_DATA_SERVICE_ID,
   MOCK_SIGNATURE,
@@ -38,9 +38,11 @@ import {
   mockSigner,
   produceMockDataPackage,
 } from "../common/mock-values";
-import { connectToTestDB, dropTestDatabase } from "../common/test-db";
+import {
+  createTestDB as createAndConnectToTestDb,
+  dropTestDatabase,
+} from "../common/test-db";
 import { signByMockSigner } from "../common/test-utils";
-import { DataPackagesService } from "../../src/data-packages/data-packages.service";
 
 type WithSigner = { signerAddress: string };
 
@@ -84,6 +86,9 @@ describe("Data packages (e2e)", () => {
   let mockDataPackages: SignedDataPackagePlainObj[];
 
   beforeEach(async () => {
+    // Connect to mongoDB in memory
+    await createAndConnectToTestDb();
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -93,13 +98,10 @@ describe("Data packages (e2e)", () => {
     await app.init();
     httpServer = app.getHttpServer();
 
-    const bundlrService = app.get(BundlrService);
-    bundlrSaveDataPackagesSpy = jest.spyOn(bundlrService, "saveDataPackages");
+    const bundlrBroadcaster = app.get(BundlrBroadcaster);
+    bundlrSaveDataPackagesSpy = jest.spyOn(bundlrBroadcaster, "broadcast");
     bundlrSaveDataPackagesSpy.mockImplementation(() => Promise.resolve());
     bundlrSaveDataPackagesSpy.mockClear();
-
-    // Connect to mongoDB in memory
-    await connectToTestDB();
 
     // Adding test data to DB
     const dataPackagesToInsert = [];

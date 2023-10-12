@@ -4,25 +4,33 @@ import { ScheduleModule } from "@nestjs/schedule";
 import mongoose from "mongoose";
 import { LoggerModule } from "nestjs-pino";
 import { AppController } from "./app.controller";
-import { BundlrService } from "./bundlr/bundlr.service";
 import config from "./config";
 import { DataFeedsMetadataController } from "./data-feeds-metadata/data-feeds-metadata.controller";
 import { DataPackagesController } from "./data-packages/data-packages.controller";
 import { DataPackagesService } from "./data-packages/data-packages.service";
 import { OracleRegistryStateController } from "./oracle-registry-state/oracle-registry-state.controller";
 import { StreamrListenerService } from "./streamr-listener/streamr-listener.service";
+import { StreamrBroadcaster } from "./broadcasters/streamr-broadcaster";
+import { BundlrBroadcaster } from "./broadcasters/bundlr-broadcaster";
+import { MongoBroadcaster } from "./broadcasters/mongo-broadcaster";
 
-const providers: Provider[] = [DataPackagesService, BundlrService];
+const providers: Provider[] = [
+  DataPackagesService,
+  BundlrBroadcaster,
+  MongoBroadcaster,
+];
 const imports = [LoggerModule.forRoot()];
 
 if (config.enableStreamrListening) {
   providers.push(StreamrListenerService);
   imports.push(ScheduleModule.forRoot());
 }
+if (config.streamrPrivateKey) {
+  providers.push(StreamrBroadcaster);
+}
 
 if (config.mongoDbUrl) {
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  mongoose.connect(config.mongoDbUrl);
+  void mongoose.connect(config.mongoDbUrl);
   imports.push(MongooseModule.forRoot(config.mongoDbUrl));
 }
 
