@@ -12,12 +12,11 @@ import { RedstoneCommon } from "@redstone-finance/utils";
 
 const logger = Logger.globalLogger();
 
-export const PROVIDER_OPERATION_TIMEOUT = 20_000;
-export const SINGLE_PROVIDER_OPERATION_TIMEOUT = 7_000;
-
 export type ProviderWithFallbackConfig = {
   unrecoverableErrors: ErrorCode[];
   providerNames?: string[];
+  singleProviderOperationTimeout: number;
+  allProvidersOperationTimeout: number;
 };
 
 export const FALLBACK_DEFAULT_CONFIG: ProviderWithFallbackConfig = {
@@ -28,6 +27,8 @@ export const FALLBACK_DEFAULT_CONFIG: ProviderWithFallbackConfig = {
     ErrorCode.TRANSACTION_REPLACED,
     ErrorCode.REPLACEMENT_UNDERPRICED,
   ],
+  singleProviderOperationTimeout: 30_000,
+  allProvidersOperationTimeout: 7_000,
 };
 
 export class ProviderWithFallback
@@ -158,8 +159,8 @@ export class ProviderWithFallback
   ): Promise<T> {
     return RedstoneCommon.timeout<T>(
       this.doExecuteWithFallback<T>(0, this.providerIndex, fnName, ...args),
-      PROVIDER_OPERATION_TIMEOUT,
-      `executeWithFallback(${fnName}) timeout after ${PROVIDER_OPERATION_TIMEOUT}`
+      this.providerWithFallbackConfig.allProvidersOperationTimeout,
+      `executeWithFallback(${fnName}) timeout after ${this.providerWithFallbackConfig.allProvidersOperationTimeout}`
     );
   }
 
@@ -173,7 +174,7 @@ export class ProviderWithFallback
       return await RedstoneCommon.timeout(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
         (this.currentProvider as any)[fnName](...args),
-        SINGLE_PROVIDER_OPERATION_TIMEOUT
+        this.providerWithFallbackConfig.singleProviderOperationTimeout
       );
     } catch (error: unknown) {
       this.electNewProviderOrFail(

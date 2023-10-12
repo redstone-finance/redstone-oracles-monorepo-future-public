@@ -27,6 +27,8 @@ const EMPTY_GELATO_ENV = {
   gasLimit: NUMBER_NOT_NEEDED_FOR_GELATO,
   healthcheckPingUrl: undefined,
   expectedTxDeliveryTimeInMS: NUMBER_NOT_NEEDED_FOR_GELATO,
+  singleProviderOperationTimeout: NUMBER_NOT_NEEDED_FOR_GELATO,
+  allProvidersOperationTimeout: NUMBER_NOT_NEEDED_FOR_GELATO,
   isArbitrumNetwork: false,
   gasMultiplier: 1.125,
 };
