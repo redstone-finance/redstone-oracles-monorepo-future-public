@@ -161,7 +161,7 @@ export class TransactionDeliveryMan {
           contractOverrides
         );
         this.opts.logger(`Transaction broadcasted successfully`);
-      } catch (e: unknown) {
+      } catch (e) {
         // if it is not ethers error we can't handle it
         const ethersError = getEthersLikeErrorOrFail(e);
 
