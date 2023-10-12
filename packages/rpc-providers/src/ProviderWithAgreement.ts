@@ -5,7 +5,6 @@ import { utils } from "ethers";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { sleepMS } from "./common";
 import {
-  PROVIDER_OPERATION_TIMEOUT,
   ProviderWithFallback,
   ProviderWithFallbackConfig,
 } from "./ProviderWithFallback";
@@ -77,8 +76,8 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
     const callResult = RedstoneCommon.timeout(
       this.executeCallWithAgreementWithCache(transaction, electedBlockTag),
-      PROVIDER_OPERATION_TIMEOUT,
-      `Agreement provider after ${PROVIDER_OPERATION_TIMEOUT} [ms] during call`
+      this.providerWithFallbackConfig.allProvidersOperationTimeout,
+      `Agreement provider after ${this.providerWithFallbackConfig.allProvidersOperationTimeout} [ms] during call`
     );
 
     return await callResult;

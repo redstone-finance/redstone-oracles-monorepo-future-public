@@ -2,8 +2,8 @@ import {
   DataPackagesResponse,
   ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
-import { LastRoundTimestamps } from "./core/contract-interactions/get-last-round-params";
 import { z } from "zod";
+import { LastRoundTimestamps } from "./core/contract-interactions/get-last-round-params";
 
 export interface Context {
   dataPackages: DataPackagesResponse;
@@ -61,6 +61,8 @@ export interface RelayerConfig {
   cacheServiceUrls?: string[];
   isAuctionModel?: boolean;
   historicalPackagesGateways?: string[];
+  singleProviderOperationTimeout: number;
+  allProvidersOperationTimeout: number;
 }
 
 export type OnChainRelayerEnv = {
@@ -76,6 +78,8 @@ export type OnChainRelayerEnv = {
   historicalPackagesGateways?: string[];
   gasMultiplier: number;
   isAuctionModel?: boolean;
+  singleProviderOperationTimeout: number;
+  allProvidersOperationTimeout: number;
 };
 
 export type ConfigProvider = () => RelayerConfig;
