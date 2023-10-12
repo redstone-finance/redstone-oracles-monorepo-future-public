@@ -103,7 +103,7 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
 
     _validateAndUpdateDataFeedsValues(dataFeedsIdsArray, oracleValues);
   }
-  
+
   /**
    * @dev Note! This function is not called directly, it's called for each data package    .
    * in redstone payload and just verifies if each data package has the same timestamp
