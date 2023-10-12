@@ -1,7 +1,7 @@
 {
   "name": "@redstone-finance/rpc-providers",
   "prettier": "redstone-prettier-config",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -12,7 +12,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@redstone-finance/utils": "^0.3.3",
+    "@redstone-finance/utils": "^0.3.4",
     "axios": "^1.5.1",
     "ethers": "^5.7.2"
   },
