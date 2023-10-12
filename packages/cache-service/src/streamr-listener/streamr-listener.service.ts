@@ -94,7 +94,7 @@ export class StreamrListenerService {
             );
           this.logger.log(`Data packages parsed for node: ${nodeEvmAddress}`);
 
-          await this.dataPackageService.saveMany(
+          await this.dataPackageService.broadcast(
             dataPackagesToSave,
             nodeEvmAddress
           );

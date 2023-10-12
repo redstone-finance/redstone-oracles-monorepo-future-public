@@ -11,10 +11,7 @@ const config: Config.InitialOptions = {
   collectCoverageFrom: ["**/*.(t|j)s"],
   coverageDirectory: "../coverage",
   testEnvironment: "node",
-  moduleNameMapper: {
-    "streamr-client": "<rootDir>/../.jest/streamr-client-stub.js",
-  },
-  setupFiles: ["<rootDir>/../.jest/set-env-vars.js"],
+  setupFiles: ["<rootDir>/../.jest/set-env-vars.ts"],
 };
 
 export default config;
