@@ -1,21 +1,21 @@
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
-import { Contract } from "ethers";
 import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { chooseDataPackagesTimestamp } from "../core/update-conditions/data-packages-timestamp";
+import { RedstoneAdapterBase } from "../../typechain-types";
 
 export interface UpdatePricesArgs {
-  adapterContract: Contract;
+  adapterContract: RedstoneAdapterBase;
   proposedTimestamp: number;
-  wrapContract(adapterContract: Contract): Contract;
+  wrapContract(adapterContract: RedstoneAdapterBase): RedstoneAdapterBase;
 }
 
 export const getUpdatePricesArgs = (
   dataPackages: DataPackagesResponse,
-  adapterContract: Contract
+  adapterContract: RedstoneAdapterBase
 ): UpdatePricesArgs => {
   const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
 
-  const wrapContract = (adapterContract: Contract) =>
+  const wrapContract = (adapterContract: RedstoneAdapterBase) =>
     WrapperBuilder.wrap(adapterContract).usingDataPackages(dataPackages);
 
   return {
