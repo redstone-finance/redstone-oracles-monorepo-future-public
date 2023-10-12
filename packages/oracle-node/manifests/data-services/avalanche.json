@@ -230,6 +230,10 @@
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"]
     },
+    "YY_PTP_sAVAX": {
+      "source": ["fixed-value"],
+      "fixedValue": 10.9
+    },
     "PNG_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"]
     },
