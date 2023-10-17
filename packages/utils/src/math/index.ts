@@ -1,10 +1,15 @@
 import Decimal from "decimal.js";
-import { BigNumberish } from "ethers";
+import { BigNumber, BigNumberish } from "ethers";
 import { bignumberishToDecimal } from "../common";
 import * as ISafeNumberMath from "../ISafeNumber";
 import { createSafeNumber, ISafeNumber } from "../ISafeNumber";
 
-export type ConvertibleToISafeNumber = number | string | Decimal | ISafeNumber;
+export type ConvertibleToISafeNumber =
+  | number
+  | string
+  | Decimal
+  | ISafeNumber
+  | BigNumber;
 
 export const castToISafeNumber = (
   numberLike: ConvertibleToISafeNumber
@@ -13,6 +18,8 @@ export const castToISafeNumber = (
     return createSafeNumber(numberLike.toString());
   } else if (numberLike instanceof Decimal) {
     return createSafeNumber(numberLike.toString());
+  } else if (numberLike instanceof BigNumber) {
+    return createSafeNumber(bignumberishToDecimal(numberLike).toString());
   } else if (numberLike.isSafeNumber()) {
     return numberLike;
   } else {

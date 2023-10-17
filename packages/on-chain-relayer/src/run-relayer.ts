@@ -30,10 +30,8 @@ const runIteration = async () => {
   }
 };
 
-const task = new AsyncTask(
-  "Relayer task",
-  () => runIteration(),
-  (error) => console.log(error.stack)
+const task = new AsyncTask("Relayer task", runIteration, (error) =>
+  console.log(error.stack)
 );
 
 const job = new SimpleIntervalJob(

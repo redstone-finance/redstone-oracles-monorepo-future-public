@@ -1,3 +1,4 @@
+import { MathUtils } from "@redstone-finance/utils";
 import { BigNumber } from "ethers";
 import { ISortedOracles, MentoAdapterBase } from "../../../typechain-types";
 
@@ -25,7 +26,8 @@ const safelyGetAddressOrZero = (
 export const calculateLinkedListPosition = (
   rates: [string[], BigNumber[], number[]],
   valueToInsert: BigNumber,
-  oracleAddress: string
+  oracleAddress: string,
+  maxDeviationAllowedInPercent = Number.MAX_SAFE_INTEGER
 ) => {
   // We need to copy the arrays for being able to filter out current oracle later
   const oracleAddresses = [...rates[0]];
@@ -39,6 +41,20 @@ export const calculateLinkedListPosition = (
     const numberOfItemsToRemove = 1;
     oracleAddresses.splice(indexOfCurrentOracle, numberOfItemsToRemove);
     oracleValues.splice(indexOfCurrentOracle, numberOfItemsToRemove);
+  }
+
+  if (oracleValues.length) {
+    const currentMedian = MathUtils.getMedian(oracleValues);
+    const deviation = MathUtils.calculateDeviationPercent({
+      baseValue: currentMedian,
+      deviatedValue: valueToInsert,
+    });
+    if (deviation > maxDeviationAllowedInPercent) {
+      console.log(
+        `deviation ${deviation} is higher than max acceptable deviation ${maxDeviationAllowedInPercent}. Sorted oracles median price: ${currentMedian}. Redstone price:${valueToInsert.toString()}`
+      );
+      return undefined;
+    }
   }
 
   // We use a simple O(N) algorithm here, since it's easier to read
@@ -59,11 +75,10 @@ export const calculateLinkedListPosition = (
   };
 };
 
-export const prepareLinkedListLocationsForMentoAdapterReport = async ({
-  mentoAdapter,
-  wrapContract,
-  sortedOracles,
-}: MentoContracts) => {
+export const prepareLinkedListLocationsForMentoAdapterReport = async (
+  { mentoAdapter, wrapContract, sortedOracles }: MentoContracts,
+  maxDeviationAllowedInPercent?: number
+) => {
   const dataFeeds = await mentoAdapter.getDataFeeds();
   const dataFeedIds = dataFeeds.map((df) => df.dataFeedId);
   const locationsInSortedLinkedLists = [];
@@ -87,8 +102,15 @@ export const prepareLinkedListLocationsForMentoAdapterReport = async ({
     const locationInSortedLinkedList = calculateLinkedListPosition(
       ratesPerToken[dataFeedIndex],
       proposedValuesNormalized[dataFeedIndex],
-      mentoAdapter.address
+      mentoAdapter.address,
+      maxDeviationAllowedInPercent
     );
+    if (!locationInSortedLinkedList) {
+      console.log(
+        `price for ${dataFeeds[dataFeedIndex].dataFeedId} deviates too much`
+      );
+      return undefined;
+    }
     locationsInSortedLinkedLists.push(locationInSortedLinkedList);
   }
 

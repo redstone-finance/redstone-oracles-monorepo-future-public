@@ -72,13 +72,22 @@ const updatePricesInMentoAdapter = async ({
   const mentoAdapter = adapterContract as MentoAdapterBase;
   const sortedOraclesAddress = await mentoAdapter.getSortedOracles();
   const sortedOracles = getSortedOraclesContractAtAddress(sortedOraclesAddress);
+  const maxDeviationAllowed = config().mentoMaxDeviationAllowed;
   const linkedListPositions =
-    await prepareLinkedListLocationsForMentoAdapterReport({
-      mentoAdapter,
-      wrapContract: wrapContract as (c: MentoAdapterBase) => MentoAdapterBase,
-      sortedOracles,
-    });
+    await prepareLinkedListLocationsForMentoAdapterReport(
+      {
+        mentoAdapter,
+        wrapContract: wrapContract as (c: MentoAdapterBase) => MentoAdapterBase,
+        sortedOracles,
+      },
+      maxDeviationAllowed
+    );
+  if (!linkedListPositions) {
+    throw new Error(
+      `Prices in Sorted Oracles deviated more than ${maxDeviationAllowed}% from Redstone prices`
+    );
+  }
   return await (
-    wrapContract(adapterContract) as MentoAdapterBase
+    wrapContract(mentoAdapter) as MentoAdapterBase
   ).updatePriceValuesAndCleanOldReports(proposedTimestamp, linkedListPositions);
 };
