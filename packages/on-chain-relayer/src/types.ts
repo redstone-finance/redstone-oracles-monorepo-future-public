@@ -28,7 +28,10 @@ export const OnChainRelayerManifestSchema = z.object({
     timeSinceLastUpdateInMilliseconds: z.number().optional(),
   }),
   adapterContract: z.string(),
-  adapterContractType: z.string().optional(),
+  adapterContractType: z
+    .enum(["price-feeds", "mento"])
+    .default("price-feeds")
+    .optional(),
   dataServiceId: z.string(),
   priceFeeds: z.record(z.string(), z.string()),
 });
@@ -61,6 +64,7 @@ export interface RelayerConfig {
   cacheServiceUrls?: string[];
   isAuctionModel?: boolean;
   historicalPackagesGateways?: string[];
+  mentoMaxDeviationAllowed?: number;
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
 }
@@ -78,6 +82,7 @@ export type OnChainRelayerEnv = {
   historicalPackagesGateways?: string[];
   gasMultiplier: number;
   isAuctionModel?: boolean;
+  mentoMaxDeviationAllowed?: number;
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
 };

@@ -63,6 +63,13 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
   const manifest = OnChainRelayerManifestSchema.parse(
     readJSON<OnChainRelayerManifest>(manifestPath)
   );
+  const mentoMaxDeviationAllowedString = getFromEnv(
+    "MENTO_MAX_DEVIATION_ALLOWED",
+    true
+  );
+  const mentoMaxDeviationAllowed = mentoMaxDeviationAllowedString
+    ? Number.parseInt(mentoMaxDeviationAllowedString)
+    : undefined;
   const env: OnChainRelayerEnv = {
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
     rpcUrls: JSON.parse(getFromEnv("RPC_URLS")) as string[],
@@ -91,6 +98,7 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       true
     ),
     isAuctionModel: getFromEnv("IS_AUCTION_MODEL", true) === "true",
+    mentoMaxDeviationAllowed,
   };
 
   return makeConfigProvider(manifest, env);
