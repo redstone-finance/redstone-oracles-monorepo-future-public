@@ -929,7 +929,6 @@
     },
     "GHO": {
       "source": [
-        "balancer-ethereum-dai",
         "balancer-ethereum-lusd",
         "balancer-ethereum-usdc",
         "balancer-ethereum-usdt",
