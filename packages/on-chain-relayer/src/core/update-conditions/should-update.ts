@@ -8,6 +8,7 @@ import {
 import { valueDeviationCondition } from "./value-deviation-condition";
 import { checkIfDataPackageTimestampIsNewer } from "./data-packages-timestamp";
 import { cronCondition } from "./cron-condition";
+import { checkIfDataPackagesDecimalsAreAcceptable } from "./data-packages-decimals";
 
 export const shouldUpdate = async (
   context: Context,
@@ -27,8 +28,17 @@ export const shouldUpdate = async (
     }
   }
 
-  const { shouldNotUpdatePrice, message } =
+  let { shouldNotUpdatePrice, message } =
     checkIfDataPackageTimestampIsNewer(context);
+  if (shouldNotUpdatePrice) {
+    shouldUpdatePrices = false;
+    warningMessages.push(message!);
+  }
+
+  ({ shouldNotUpdatePrice, message } = checkIfDataPackagesDecimalsAreAcceptable(
+    context,
+    config
+  ));
   if (shouldNotUpdatePrice) {
     shouldUpdatePrices = false;
     warningMessages.push(message!);
