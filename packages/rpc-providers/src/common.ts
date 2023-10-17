@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { ErrorCode } from "@ethersproject/logger";
 
 export const sleepMS = (ms: number) =>
   new Promise((resolve, _reject) => setTimeout(resolve, ms));
@@ -17,4 +18,11 @@ export const fetchWithCache = async <T>(url: string, ttl: number) => {
   FETCH_CACHE[url] = { response, capturedAt };
 
   return response as AxiosResponse<T>;
+};
+
+export type EthersError = { code: ErrorCode; message: string };
+
+export const isEthersError = (e: unknown): e is EthersError => {
+  const error = e as Partial<EthersError>;
+  return !!error.code && !!error.message;
 };

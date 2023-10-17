@@ -8,12 +8,12 @@ import {
 import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
 import { MultiNodeTxBroadcaster } from "./TxBrodcaster";
-import { fetchWithCache, sleepMS } from "./common";
+import { EthersError, fetchWithCache, isEthersError, sleepMS } from "./common";
+import { RedstoneCommon } from "@redstone-finance/utils";
 
 const ONE_GWEI = 1e9;
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
-type EthersError = { code: ErrorCode; message: string };
 
 export type ContractOverrides = {
   nonce: number;
@@ -190,6 +190,12 @@ export class TransactionDeliveryMan {
           // skip sleeping if caused by underpriced
           continue;
         }
+
+        this.opts.logger(
+          `Unknown ethers error occurred (continuing) error :${RedstoneCommon.stringifyError(
+            e
+          )}`
+        );
       }
 
       this.opts.logger(
@@ -300,9 +306,4 @@ const getEthersLikeErrorOrFail = (e: unknown): AggregateError | EthersError => {
   }
 
   throw e;
-};
-
-const isEthersError = (e: unknown): e is EthersError => {
-  const error = e as Partial<EthersError>;
-  return !!error.code && !!error.message;
 };
