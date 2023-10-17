@@ -7,8 +7,7 @@ import {
 import { RelayerConfig } from "../../types";
 import { formatUnits } from "ethers/lib/utils";
 import { MathUtils } from "@redstone-finance/utils";
-
-const DEFAULT_DECIMALS = 8;
+import { consts } from "@redstone-finance/protocol";
 
 export const checkValueDeviationCondition = (
   dataPackages: DataPackagesResponse,
@@ -31,7 +30,7 @@ export const checkValueDeviationCondition = (
         const valueFromContractAsDecimal = Number(
           formatUnits(
             valueFromContract.toString(),
-            dataPointObj.decimals ?? DEFAULT_DECIMALS
+            dataPointObj.decimals ?? consts.DEFAULT_NUM_VALUE_DECIMALS
           )
         );
 

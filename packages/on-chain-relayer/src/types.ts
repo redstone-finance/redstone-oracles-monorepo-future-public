@@ -17,6 +17,11 @@ export interface ConditionCheckResponse {
   warningMessage: string;
 }
 
+const PRICE_FEEDS = "price-feeds" as const;
+const MENTO = "mento" as const;
+const AdapterTypesEnum = z.enum([PRICE_FEEDS, MENTO]);
+type AdapterType = z.infer<typeof AdapterTypesEnum>;
+
 export const OnChainRelayerManifestSchema = z.object({
   chain: z.object({
     name: z.string(),
@@ -28,10 +33,7 @@ export const OnChainRelayerManifestSchema = z.object({
     timeSinceLastUpdateInMilliseconds: z.number().optional(),
   }),
   adapterContract: z.string(),
-  adapterContractType: z
-    .enum(["price-feeds", "mento"])
-    .default("price-feeds")
-    .optional(),
+  adapterContractType: AdapterTypesEnum.default(PRICE_FEEDS).optional(),
   dataServiceId: z.string(),
   priceFeeds: z.record(z.string(), z.string()),
 });
@@ -56,7 +58,7 @@ export interface RelayerConfig {
   updateConditions: ConditionCheckNames[];
   minDeviationPercentage?: number;
   healthcheckPingUrl?: string;
-  adapterContractType: string;
+  adapterContractType: AdapterType;
   expectedTxDeliveryTimeInMS: number;
   isArbitrumNetwork: boolean;
   fallbackOffsetInMinutes?: number;
