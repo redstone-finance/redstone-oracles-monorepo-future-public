@@ -14,19 +14,26 @@ describe("MockSortedOracles", () => {
 
   const reportNewOracleValue = async (
     valueToReport: number,
-    signer: SignerWithAddress
+    signer: SignerWithAddress,
+    maxAllowedDeviation = Number.MAX_SAFE_INTEGER
   ) => {
     const rates = await contract.getRates(mockTokenAddress);
-    const { lesserKey, greaterKey } = calculateLinkedListPosition(
+    const insertPositions = calculateLinkedListPosition(
       rates,
       BigNumber.from(valueToReport),
-      signer.address
+      signer.address,
+      maxAllowedDeviation
     );
+    if (!insertPositions) {
+      return undefined;
+    }
+
+    const { lesserKey, greaterKey } = insertPositions;
 
     const tx = await contract
       .connect(signer)
       .report(mockTokenAddress, valueToReport, lesserKey, greaterKey);
-    await tx.wait();
+    return await tx.wait();
   };
 
   const expectOracleValues = async (expectedValues: number[]) => {
@@ -96,5 +103,22 @@ describe("MockSortedOracles", () => {
 
     await reportNewOracleValue(1000, signers[2]);
     await expectOracleValues([1000, 100, 42]);
+  });
+
+  it("Too deviated values should not cause updates", async () => {
+    await reportNewOracleValue(42, signers[0], 10);
+    await expectOracleValues([42]);
+
+    await reportNewOracleValue(44, signers[1], 10);
+    await expectOracleValues([44, 42]);
+
+    await reportNewOracleValue(43, signers[2], 10);
+    await expectOracleValues([44, 43, 42]);
+
+    await reportNewOracleValue(1, signers[3], 10);
+    await expectOracleValues([44, 43, 42]);
+
+    await reportNewOracleValue(1000, signers[4], 10);
+    await expectOracleValues([44, 43, 42]);
   });
 });
