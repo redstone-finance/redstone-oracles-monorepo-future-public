@@ -3,6 +3,7 @@ import { MathUtils, RedstoneCommon } from "@redstone-finance/utils";
 import { ProviderWithAgreement } from "./ProviderWithAgreement";
 import { ProviderWithFallback } from "./ProviderWithFallback";
 import { ContractOverrides } from "./TransactionDeliveryMan";
+import { isEthersError } from "./common";
 
 export interface TxBroadcaster {
   broadcast(
@@ -107,17 +108,26 @@ export class MultiNodeTxBroadcaster implements TxBroadcaster {
       } catch (e) {
         const rpcUrl = getRpcUrl(provider);
         (e as { rpcUrl: string }).rpcUrl = rpcUrl;
-        const errMessage = `provider ${rpcUrl}: failed to broadcast tx: ${RedstoneCommon.stringifyError(
+
+        const errMessage = `provider ${rpcUrl}: failed to broadcast tx: ${MultiNodeTxBroadcaster.stringifyBroadcastError(
           e
         )}`;
         logger(errMessage);
-        throw new Error(errMessage);
+
+        throw e;
       }
     };
 
     const broadcastPromises = this.providers.map(broadcastTx);
 
     return await Promise.any(broadcastPromises);
+  }
+
+  static stringifyBroadcastError(e: unknown) {
+    if (isEthersError(e)) {
+      return JSON.stringify(e);
+    }
+    return RedstoneCommon.stringifyError(e);
   }
 
   static extractProviders<T extends ethers.providers.Provider>(
