@@ -1,5 +1,6 @@
 import { ErrorCode } from "@ethersproject/logger";
 import { TransactionResponse } from "@ethersproject/providers";
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { BigNumber, Contract, providers } from "ethers";
 import {
   AuctionModelFee,
@@ -8,10 +9,8 @@ import {
 import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
 import { MultiNodeTxBroadcaster } from "./TxBrodcaster";
-import { EthersError, fetchWithCache, isEthersError, sleepMS } from "./common";
-import { RedstoneCommon } from "@redstone-finance/utils";
-
-const ONE_GWEI = 1e9;
+import { EthersError, isEthersError, sleepMS } from "./common";
+import { CHAIN_ID_TO_GAS_ORACLE } from "./CustomGasOracles";
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
 
@@ -24,7 +23,10 @@ type LastDeliveryAttempt = {
   result?: TransactionResponse;
 };
 
-type GasOracleFn = (opts: TransactionDeliveryManOpts) => Promise<FeeStructure>;
+export type GasOracleFn = (
+  opts: TransactionDeliveryManOpts,
+  attempt: number
+) => Promise<FeeStructure>;
 
 export type TransactionDeliveryManOpts = {
   /**
@@ -78,38 +80,6 @@ export type TransactionDeliveryManOpts = {
 
 export const unsafeBnToNumber = (bn: BigNumber) => Number(bn.toString());
 
-const getEthFeeFromGasOracle: GasOracleFn = async (
-  opts: TransactionDeliveryManOpts
-) => {
-  const response = // rate limit is 5 seconds
-    (
-      await fetchWithCache<{
-        result: { suggestBaseFee: number; FastGasPrice: number };
-      }>(
-        `https://api.etherscan.io/api?module=gastracker&action=gasoracle`,
-        6_000
-      )
-    ).data;
-
-  const { suggestBaseFee, FastGasPrice } = response.result;
-
-  if (!suggestBaseFee || !FastGasPrice) {
-    throw new Error("Failed to fetch price from oracle");
-  }
-
-  return {
-    maxFeePerGas: Math.round(FastGasPrice * ONE_GWEI),
-    maxPriorityFeePerGas: Math.round(
-      (FastGasPrice - suggestBaseFee) * ONE_GWEI
-    ),
-    gasLimit: opts.gasLimit,
-  };
-};
-
-const CHAIN_ID_TO_GAS_ORACLE = {
-  1: getEthFeeFromGasOracle,
-} as Record<number, GasOracleFn | undefined>;
-
 const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
   isAuctionModel: false,
   maxAttempts: 10,
@@ -143,7 +113,7 @@ export class TransactionDeliveryMan {
     let lastAttempt: LastDeliveryAttempt | undefined = undefined;
 
     const currentNonce = await txBroadcaster.fetchNonce();
-    const fees = await this.getFees(provider);
+    const fees = await this.getFees(provider, 0);
     const contractOverrides: ContractOverrides = {
       nonce: currentNonce,
       ...fees,
@@ -185,7 +155,7 @@ export class TransactionDeliveryMan {
         } else if (TransactionDeliveryMan.isUnderpricedError(ethersError)) {
           Object.assign(
             contractOverrides,
-            this.estimator.scaleFees(await this.getFees(provider))
+            this.estimator.scaleFees(await this.getFees(provider, i + 1))
           );
           // skip sleeping if caused by underpriced
           continue;
@@ -220,7 +190,7 @@ export class TransactionDeliveryMan {
       } else {
         Object.assign(
           contractOverrides,
-          this.estimator.scaleFees(await this.getFees(provider))
+          this.estimator.scaleFees(await this.getFees(provider, i + 1))
         );
       }
     }
@@ -272,17 +242,19 @@ export class TransactionDeliveryMan {
   }
 
   private async getFees(
-    provider: providers.JsonRpcProvider
+    provider: providers.JsonRpcProvider,
+    attempt: number
   ): Promise<FeeStructure> {
     try {
-      return await this.getFeeFromGasOracle(provider);
+      return await this.getFeeFromGasOracle(provider, attempt);
     } catch (e) {
       return await this.estimator.getFees(provider);
     }
   }
 
   private async getFeeFromGasOracle(
-    provider: providers.JsonRpcProvider
+    provider: providers.JsonRpcProvider,
+    attempt: number
   ): Promise<FeeStructure> {
     const { chainId } = await provider.getNetwork();
     const gasOracle = CHAIN_ID_TO_GAS_ORACLE[chainId];
@@ -290,7 +262,7 @@ export class TransactionDeliveryMan {
       throw new Error(`Gas oracle is not defined for ${chainId}`);
     }
 
-    const fee = await gasOracle(this.opts);
+    const fee = await gasOracle(this.opts, attempt);
 
     this.opts.logger(`getFees result from gasOracle ${JSON.stringify(fee)}`);
 
