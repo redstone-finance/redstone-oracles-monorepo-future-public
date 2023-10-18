@@ -11,10 +11,10 @@ import { BigNumber, ethers } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
 import fs from "fs";
 import {
-  CacheLayerInstance,
+  GatewayInstance,
   fetchDataPackages,
   getCacheServicePort,
-} from "./cache-layer-manager";
+} from "./gateway-manager";
 import {
   debug,
   PriceSet,
@@ -41,7 +41,7 @@ const getLogPrefix = (instance: RelayerInstance) =>
 type RelayerConfig = {
   isFallback: boolean;
   adapterContractAddress: string;
-  cacheServiceInstances: CacheLayerInstance[];
+  cacheServiceInstances: GatewayInstance[];
   intervalInMs?: number;
   updateTriggers?: {
     cron?: string[];
@@ -57,8 +57,8 @@ export const startRelayer = (
 ) => {
   const dotenvPath = `${RELAYER_DIR}/.env.example`;
   const cacheServiceUrls = config.cacheServiceInstances.map(
-    (cacheLayerInstance) =>
-      `http://localhost:${getCacheServicePort(cacheLayerInstance, "any")}`
+    (gatewayInstance) =>
+      `http://localhost:${getCacheServicePort(gatewayInstance, "any")}`
   );
   const rpcUrls = config.rpcUrls ?? ["http://127.0.0.1:8545"];
   createManifestFile({
@@ -313,7 +313,7 @@ export const updateValuesInAdapterContract = async (
 };
 
 export const deployMockAdapterAndSetInitialPrices = async (
-  initialPricesCacheInstances: CacheLayerInstance[],
+  initialPricesCacheInstances: GatewayInstance[],
   rpcUrl?: string
 ) => {
   const adapterContract = await deployMockAdapter(rpcUrl);

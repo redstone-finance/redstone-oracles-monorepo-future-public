@@ -3,7 +3,7 @@ import { PriceFeedWithRounds } from "@redstone-finance/on-chain-relayer/typechai
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { ethers } from "ethers";
 import {
-  CacheLayerInstance,
+  GatewayInstance,
   configureCleanup,
   debug,
   deployMockAdapter,
@@ -12,11 +12,11 @@ import {
   OracleNodeInstance,
   RelayerInstance,
   setMockPrices,
-  startAndWaitForCacheLayer,
+  startAndWaitForGateway,
   startAndWaitForHardHat,
   startAndWaitForOracleNode,
   startRelayer,
-  stopCacheLayer,
+  stopGateway,
   stopHardhat,
   stopOracleNode,
   stopRelayer,
@@ -26,7 +26,7 @@ import {
 
 const hardhatInstance: HardhatInstance = { instanceId: "1" };
 const relayerInstance: RelayerInstance = { instanceId: "1" };
-const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
+const gatewayInstance: GatewayInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
 
 const stopAll = () => {
@@ -34,11 +34,11 @@ const stopAll = () => {
   stopRelayer(relayerInstance);
   stopHardhat(hardhatInstance);
   stopOracleNode(oracleNodeInstance);
-  stopCacheLayer(cacheLayerInstance);
+  stopGateway(gatewayInstance);
 };
 
 const main = async () => {
-  await startAndWaitForCacheLayer(cacheLayerInstance, { directOnly: true });
+  await startAndWaitForGateway(gatewayInstance, { directOnly: true });
   setMockPrices(
     {
       BTC: 16000,
@@ -46,8 +46,8 @@ const main = async () => {
     },
     oracleNodeInstance
   );
-  await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
-  await waitForDataAndDisplayIt(cacheLayerInstance);
+  await startAndWaitForOracleNode(oracleNodeInstance, [gatewayInstance]);
+  await waitForDataAndDisplayIt(gatewayInstance);
   await startAndWaitForHardHat(hardhatInstance);
 
   const adapterContract = await deployMockAdapter();
@@ -59,7 +59,7 @@ const main = async () => {
   // time since last update is set on every 8 seconds
   // so on every relayer iteration we should publish new timestamp
   startRelayer(relayerInstance, {
-    cacheServiceInstances: [cacheLayerInstance],
+    cacheServiceInstances: [gatewayInstance],
     adapterContractAddress,
     intervalInMs: 10_000,
     updateTriggers: {

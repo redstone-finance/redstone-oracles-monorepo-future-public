@@ -1,46 +1,46 @@
 import {
-  CacheLayerInstance,
+  GatewayInstance,
   configureCleanup,
   debug,
   OracleNodeInstance,
   setMockPrices,
-  startAndWaitForCacheLayer,
+  startAndWaitForGateway,
   startAndWaitForOracleNode,
-  stopCacheLayer,
+  stopGateway,
   stopOracleNode,
   verifyPricesInCacheService,
   waitForDataAndDisplayIt,
 } from "./framework/integration-test-framework";
 
-const cacheLayerInstance1: CacheLayerInstance = { instanceId: "1" };
-const cacheLayerInstance2: CacheLayerInstance = { instanceId: "2" };
+const gatewayInstance1: GatewayInstance = { instanceId: "1" };
+const gatewayInstance2: GatewayInstance = { instanceId: "2" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
 
 const stopAll = () => {
   debug("stopAll called");
   stopOracleNode(oracleNodeInstance);
-  stopCacheLayer(cacheLayerInstance1);
-  stopCacheLayer(cacheLayerInstance2);
+  stopGateway(gatewayInstance1);
+  stopGateway(gatewayInstance2);
 };
 
 const main = async () => {
   setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
-  await startAndWaitForCacheLayer(cacheLayerInstance1, { directOnly: false });
-  await startAndWaitForCacheLayer(cacheLayerInstance2, { directOnly: false });
+  await startAndWaitForGateway(gatewayInstance1, { directOnly: false });
+  await startAndWaitForGateway(gatewayInstance2, { directOnly: false });
   await startAndWaitForOracleNode(oracleNodeInstance, [
-    cacheLayerInstance1,
-    cacheLayerInstance2,
+    gatewayInstance1,
+    gatewayInstance2,
   ]);
-  await waitForDataAndDisplayIt(cacheLayerInstance1);
-  await verifyPricesInCacheService([cacheLayerInstance1, cacheLayerInstance2], {
+  await waitForDataAndDisplayIt(gatewayInstance1);
+  await verifyPricesInCacheService([gatewayInstance1, gatewayInstance2], {
     BTC: 42,
   });
   setMockPrices({ __DEFAULT__: 43 }, oracleNodeInstance);
-  await verifyPricesInCacheService([cacheLayerInstance1, cacheLayerInstance2], {
+  await verifyPricesInCacheService([gatewayInstance1, gatewayInstance2], {
     BTC: 43,
   });
   setMockPrices({ __DEFAULT__: 44 }, oracleNodeInstance);
-  await verifyPricesInCacheService([cacheLayerInstance1, cacheLayerInstance2], {
+  await verifyPricesInCacheService([gatewayInstance1, gatewayInstance2], {
     BTC: 44,
   });
 

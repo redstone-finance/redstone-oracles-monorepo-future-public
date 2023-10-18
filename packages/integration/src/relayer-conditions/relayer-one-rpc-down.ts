@@ -1,5 +1,5 @@
 import {
-  CacheLayerInstance,
+  GatewayInstance,
   configureCleanup,
   debug,
   deployMockAdapter,
@@ -8,11 +8,11 @@ import {
   OracleNodeInstance,
   RelayerInstance,
   setMockPrices,
-  startAndWaitForCacheLayer,
+  startAndWaitForGateway,
   startAndWaitForHardHat,
   startAndWaitForOracleNode,
   startRelayer,
-  stopCacheLayer,
+  stopGateway,
   stopHardhat,
   stopOracleNode,
   stopRelayer,
@@ -24,7 +24,7 @@ import {
 const firstHardhatInstance: HardhatInstance = { instanceId: "1" };
 const secondHardhatInstance: HardhatInstance = { instanceId: "2" };
 const relayerInstance: RelayerInstance = { instanceId: "1" };
-const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
+const gatewayInstance: GatewayInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
 
 const stopAll = () => {
@@ -33,7 +33,7 @@ const stopAll = () => {
   stopHardhat(firstHardhatInstance);
   stopHardhat(secondHardhatInstance);
   stopOracleNode(oracleNodeInstance);
-  stopCacheLayer(cacheLayerInstance);
+  stopGateway(gatewayInstance);
 };
 
 /**
@@ -44,7 +44,7 @@ const stopAll = () => {
  */
 
 const main = async () => {
-  await startAndWaitForCacheLayer(cacheLayerInstance, { directOnly: true });
+  await startAndWaitForGateway(gatewayInstance, { directOnly: true });
   setMockPrices(
     {
       BTC: 16000,
@@ -52,8 +52,8 @@ const main = async () => {
     },
     oracleNodeInstance
   );
-  await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
-  await waitForDataAndDisplayIt(cacheLayerInstance);
+  await startAndWaitForOracleNode(oracleNodeInstance, [gatewayInstance]);
+  await waitForDataAndDisplayIt(gatewayInstance);
 
   await startAndWaitForHardHat(firstHardhatInstance);
   await startAndWaitForHardHat(secondHardhatInstance, { port: 8989 });
@@ -69,7 +69,7 @@ const main = async () => {
   await deployMockPriceFeed(adapterContractAddress, secondHardhatInstance.url);
 
   startRelayer(relayerInstance, {
-    cacheServiceInstances: [cacheLayerInstance],
+    cacheServiceInstances: [gatewayInstance],
     adapterContractAddress,
     isFallback: false,
     rpcUrls,
@@ -83,7 +83,7 @@ const main = async () => {
   //restart relayer with condition on value deviation 10%
   stopRelayer(relayerInstance);
   startRelayer(relayerInstance, {
-    cacheServiceInstances: [cacheLayerInstance],
+    cacheServiceInstances: [gatewayInstance],
     adapterContractAddress,
     updateTriggers: {
       deviationPercentage: 10,
@@ -103,7 +103,7 @@ const main = async () => {
     },
     oracleNodeInstance
   );
-  await waitForDataAndDisplayIt(cacheLayerInstance, 2);
+  await waitForDataAndDisplayIt(gatewayInstance, 2);
   await waitForRelayerIterations(relayerInstance, 1);
   await verifyPricesOnChain(adapterContract, priceFeedContract, {
     BTC: valueWithGoodDeviation,

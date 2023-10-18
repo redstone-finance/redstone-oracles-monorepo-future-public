@@ -8,8 +8,9 @@ import {
   runWithLogPrefixInBackground,
   stopChild,
 } from "./integration-test-utils";
-import { CacheLayerInstance, getCacheServicePort } from "./cache-layer-manager";
+import { GatewayInstance, getCacheServicePort } from "./gateway-manager";
 import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCacheLayerInstance } from "./redstone-cache-layer-manager";
 
 export const HARDHAT_MOCK_PRIVATE_KEYS = [
   "ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
@@ -29,20 +30,43 @@ const getLogPrefix = (instance: OracleNodeInstance) =>
   `oracle-node-${instance.instanceId}`;
 
 const mockPricesPath = `${ORACLE_NODE_DIR}/mock-prices.json`;
-export const startAndWaitForOracleNode = (
+
+export const startAndWaitForOracleNodeForRedstoneCacheLayer = (
   instance: OracleNodeInstance,
-  cacheServiceInstances: CacheLayerInstance[],
+  redstoneCacheLayerInstances: RedstoneCacheLayerInstance[],
   manifestFileName: string = "single-source/mock",
   privateKeyIndex: number = 0
 ) => {
-  debug(`starting ${getLogPrefix(instance)}`);
-  const dotenvPath = `${ORACLE_NODE_DIR}/.env.example`;
+  const extraEnv = createExtraEnvForRedstoneCacheLayer(
+    instance,
+    redstoneCacheLayerInstances,
+    manifestFileName,
+    privateKeyIndex
+  );
+  return startAndWaitForOracleNodeWithEnv(instance, extraEnv);
+};
+
+export const startAndWaitForOracleNode = (
+  instance: OracleNodeInstance,
+  cacheServiceInstances: GatewayInstance[],
+  manifestFileName: string = "single-source/mock",
+  privateKeyIndex: number = 0
+) => {
   const extraEnv = createExtraEnv(
     instance,
     cacheServiceInstances,
     manifestFileName,
     privateKeyIndex
   );
+  return startAndWaitForOracleNodeWithEnv(instance, extraEnv);
+};
+
+const startAndWaitForOracleNodeWithEnv = (
+  instance: OracleNodeInstance,
+  extraEnv: Record<string, string>
+) => {
+  debug(`starting ${getLogPrefix(instance)}`);
+  const dotenvPath = `${ORACLE_NODE_DIR}/.env.example`;
   printDotenv(getLogPrefix(instance), dotenvPath);
   printExtraEnv(getLogPrefix(instance), extraEnv);
   instance.oracleNodeProcess = runWithLogPrefixInBackground(
@@ -76,15 +100,36 @@ export const startAndWaitForOracleNode = (
 const getMockPricesPath = (instance: OracleNodeInstance) =>
   `${mockPricesPath}-${instance.instanceId}`;
 
-const createExtraEnv = (
+const createExtraEnvForRedstoneCacheLayer = (
   instance: OracleNodeInstance,
-  cacheServiceInstances: CacheLayerInstance[],
+  redstoneCacheLayerInstances: RedstoneCacheLayerInstance[],
   manifestFileName: string,
   privateKeyIndex: number
 ) => {
-  const cacheServiceUrls = cacheServiceInstances.map(
-    (cacheLayerInstance) =>
-      `http://localhost:${getCacheServicePort(cacheLayerInstance, "direct")}`
+  const cacheServiceUrls = redstoneCacheLayerInstances.map(
+    (redstoneCacheLayerInstance) =>
+      `http://localhost:${redstoneCacheLayerInstance.cacheLayerPort}`
+  );
+  const extraEnv: Record<string, string> = {
+    OVERRIDE_PRICE_CACHE_SERVICE_URLS: JSON.stringify(cacheServiceUrls),
+    OVERRIDE_MANIFEST_USING_FILE: `./manifests/${manifestFileName}.json`,
+    LEVEL_DB_LOCATION: `oracle-node-level-db-${instance.instanceId}`,
+    ECDSA_PRIVATE_KEY: HARDHAT_MOCK_PRIVATE_KEYS[privateKeyIndex],
+    MOCK_PRICES_URL_OR_PATH: getMockPricesPath(instance),
+  };
+
+  return extraEnv;
+};
+
+const createExtraEnv = (
+  instance: OracleNodeInstance,
+  gatewayInstances: GatewayInstance[],
+  manifestFileName: string,
+  privateKeyIndex: number
+) => {
+  const cacheServiceUrls = gatewayInstances.map(
+    (gatewayInstance) =>
+      `http://localhost:${getCacheServicePort(gatewayInstance, "direct")}`
   );
   const extraEnv: Record<string, string> = {
     OVERRIDE_DIRECT_CACHE_SERVICE_URLS: JSON.stringify(cacheServiceUrls),
@@ -93,6 +138,7 @@ const createExtraEnv = (
     ECDSA_PRIVATE_KEY: HARDHAT_MOCK_PRIVATE_KEYS[privateKeyIndex],
     MOCK_PRICES_URL_OR_PATH: getMockPricesPath(instance),
   };
+
   return extraEnv;
 };
 

@@ -3,28 +3,28 @@
 
 import axios from "axios";
 import {
-  CacheLayerInstance,
+  GatewayInstance,
   configureCleanup,
   debug,
   getCacheServicePort,
   OracleNodeInstance,
   setMockPrices,
-  startAndWaitForCacheLayer,
+  startAndWaitForGateway,
   startAndWaitForOracleNode,
-  stopCacheLayer,
+  stopGateway,
   stopOracleNode,
   verifyPricesInCacheService,
   waitForDataAndDisplayIt as waitForDataInMongoDb,
 } from "./framework/integration-test-framework";
 import assert from "assert";
 
-const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
+const gatewayInstance: GatewayInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
 
 const stopAll = () => {
   debug("stopAll called");
   stopOracleNode(oracleNodeInstance);
-  stopCacheLayer(cacheLayerInstance);
+  stopGateway(gatewayInstance);
 };
 
 /**
@@ -34,19 +34,19 @@ const stopAll = () => {
  */
 const main = async () => {
   setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
-  await startAndWaitForCacheLayer(cacheLayerInstance, {
+  await startAndWaitForGateway(gatewayInstance, {
     directOnly: true,
     enableHistoricalDataServing: true,
   });
-  await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
-  await waitForDataInMongoDb(cacheLayerInstance);
-  await verifyPricesInCacheService([cacheLayerInstance], { BTC: 42 });
+  await startAndWaitForOracleNode(oracleNodeInstance, [gatewayInstance]);
+  await waitForDataInMongoDb(gatewayInstance);
+  await verifyPricesInCacheService([gatewayInstance], { BTC: 42 });
 
   const latestResponse = await axios.get<{
     AAVE: { timestampMilliseconds: number }[];
   }>(
     `http://localhost:${getCacheServicePort(
-      cacheLayerInstance,
+      gatewayInstance,
       "direct"
     )}/data-packages/latest/mock-data-service`
   );
@@ -57,14 +57,14 @@ const main = async () => {
   }
 
   setMockPrices({ __DEFAULT__: 45 }, oracleNodeInstance);
-  await waitForDataInMongoDb(cacheLayerInstance, 2);
-  await verifyPricesInCacheService([cacheLayerInstance], { BTC: 45 });
+  await waitForDataInMongoDb(gatewayInstance, 2);
+  await verifyPricesInCacheService([gatewayInstance], { BTC: 45 });
 
   const historyResponse = await axios.get<{
     AAVE: { timestampMilliseconds: number };
   }>(
     `http://localhost:${getCacheServicePort(
-      cacheLayerInstance,
+      gatewayInstance,
       "direct"
     )}/data-packages/historical/mock-data-service/${lastTimestamp}`
   );

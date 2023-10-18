@@ -1,6 +1,6 @@
 import { RedstoneCommon } from "@redstone-finance/utils";
 import {
-  CacheLayerInstance,
+  GatewayInstance,
   configureCleanup,
   debug,
   deployMockAdapter,
@@ -9,12 +9,12 @@ import {
   OracleNodeInstance,
   PriceSet,
   setMockPricesMany,
-  startAndWaitForCacheLayer,
+  startAndWaitForGateway,
   startAndWaitForHardHat,
   startAndWaitForOracleNode,
   startDirectAndPublicCacheServices,
   startRelayer,
-  stopCacheLayer,
+  stopGateway,
   stopDirectAndPublicCacheServices,
   stopHardhat,
   stopOracleNode,
@@ -26,8 +26,8 @@ import {
   waitForDataAndDisplayIt,
 } from "./framework/integration-test-framework";
 
-const cacheLayerInstance1: CacheLayerInstance = { instanceId: "1" };
-const cacheLayerInstance2: CacheLayerInstance = { instanceId: "2" };
+const gatewayInstance1: GatewayInstance = { instanceId: "1" };
+const gatewayInstance2: GatewayInstance = { instanceId: "2" };
 const oracleNodeInstance1: OracleNodeInstance = { instanceId: "1" };
 const oracleNodeInstance2: OracleNodeInstance = { instanceId: "2" };
 const oracleNodeInstance3: OracleNodeInstance = { instanceId: "3" };
@@ -49,28 +49,28 @@ const stopAll = () => {
   stopOracleNode(oracleNodeInstance1);
   stopOracleNode(oracleNodeInstance2);
   stopOracleNode(oracleNodeInstance3);
-  stopCacheLayer(cacheLayerInstance1);
-  stopCacheLayer(cacheLayerInstance2);
+  stopGateway(gatewayInstance1);
+  stopGateway(gatewayInstance2);
 };
 
 const main = async () => {
-  const allCacheLayers = [cacheLayerInstance1, cacheLayerInstance2];
+  const allGateways = [gatewayInstance1, gatewayInstance2];
   setMockPricesMany({ __DEFAULT__: 42 }, allOracleNodeInstances);
   let expectedPrices: PriceSet = { BTC: 42 };
 
-  await startAndWaitForCacheLayer(cacheLayerInstance1, {
+  await startAndWaitForGateway(gatewayInstance1, {
     directOnly: false,
     enableHistoricalDataServing: true,
   });
-  await startAndWaitForCacheLayer(cacheLayerInstance2, {
+  await startAndWaitForGateway(gatewayInstance2, {
     directOnly: false,
     enableHistoricalDataServing: true,
   });
-  await startAndWaitForOracleNode(oracleNodeInstance1, allCacheLayers);
-  await startAndWaitForOracleNode(oracleNodeInstance2, allCacheLayers);
-  await startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
-  await waitForDataAndDisplayIt(cacheLayerInstance1);
-  await waitForDataAndDisplayIt(cacheLayerInstance2);
+  await startAndWaitForOracleNode(oracleNodeInstance1, allGateways);
+  await startAndWaitForOracleNode(oracleNodeInstance2, allGateways);
+  await startAndWaitForOracleNode(oracleNodeInstance3, allGateways);
+  await waitForDataAndDisplayIt(gatewayInstance1);
+  await waitForDataAndDisplayIt(gatewayInstance2);
   await startAndWaitForHardHat(hardhatInstance);
 
   const adapterContract = await deployMockAdapter();
@@ -78,26 +78,26 @@ const main = async () => {
   const priceFeedContract = await deployMockPriceFeed(adapterContractAddress);
 
   startRelayer(relayerInstanceMain, {
-    cacheServiceInstances: allCacheLayers,
+    cacheServiceInstances: allGateways,
     adapterContractAddress,
     isFallback: false,
   });
   startRelayer(relayerInstanceFallback, {
-    cacheServiceInstances: allCacheLayers,
+    cacheServiceInstances: allGateways,
     adapterContractAddress,
     isFallback: true,
   });
 
   // verify everything works
-  await verifyPricesInCacheService(allCacheLayers, expectedPrices);
+  await verifyPricesInCacheService(allGateways, expectedPrices);
   await verifyPricesOnChain(adapterContract, priceFeedContract, expectedPrices);
 
   // stop single oracle node and cache service and verify everything works
   stopOracleNode(oracleNodeInstance1);
-  stopDirectAndPublicCacheServices(cacheLayerInstance1);
+  stopDirectAndPublicCacheServices(gatewayInstance1);
   setMockPricesMany({ __DEFAULT__: 43 }, allOracleNodeInstances);
   expectedPrices = { BTC: 43 };
-  await verifyPricesInCacheService(allCacheLayers, expectedPrices);
+  await verifyPricesInCacheService(allGateways, expectedPrices);
   await verifyPricesOnChain(adapterContract, priceFeedContract, expectedPrices);
 
   // stop all nodes and verify that prices are not being updated
@@ -105,7 +105,7 @@ const main = async () => {
   stopOracleNode(oracleNodeInstance3);
   setMockPricesMany({ __DEFAULT__: 44 }, allOracleNodeInstances);
   expectedPrices = { BTC: 44 };
-  await verifyPricesNotInCacheService(allCacheLayers, expectedPrices);
+  await verifyPricesNotInCacheService(allGateways, expectedPrices);
   await verifyPricesNotOnChain(
     adapterContract,
     priceFeedContract,
@@ -113,20 +113,20 @@ const main = async () => {
   );
 
   // start stopped nodes and cache service, stop another cache service one and verify if everything works
-  await startAndWaitForOracleNode(oracleNodeInstance2, allCacheLayers);
-  await startAndWaitForOracleNode(oracleNodeInstance3, allCacheLayers);
-  await startDirectAndPublicCacheServices(cacheLayerInstance1);
-  stopDirectAndPublicCacheServices(cacheLayerInstance2);
+  await startAndWaitForOracleNode(oracleNodeInstance2, allGateways);
+  await startAndWaitForOracleNode(oracleNodeInstance3, allGateways);
+  await startDirectAndPublicCacheServices(gatewayInstance1);
+  stopDirectAndPublicCacheServices(gatewayInstance2);
   setMockPricesMany({ __DEFAULT__: 45 }, allOracleNodeInstances);
   expectedPrices = { BTC: 45 };
-  await verifyPricesInCacheService(allCacheLayers, expectedPrices);
+  await verifyPricesInCacheService(allGateways, expectedPrices);
   await verifyPricesOnChain(adapterContract, priceFeedContract, expectedPrices);
 
   // stop main relayer and verify that prices are not updated...
   stopRelayer(relayerInstanceMain);
   setMockPricesMany({ __DEFAULT__: 46 }, allOracleNodeInstances);
   expectedPrices = { BTC: 46 };
-  await verifyPricesInCacheService(allCacheLayers, expectedPrices);
+  await verifyPricesInCacheService(allGateways, expectedPrices);
   await verifyPricesNotOnChain(
     adapterContract,
     priceFeedContract,

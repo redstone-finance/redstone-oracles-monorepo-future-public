@@ -9,12 +9,12 @@ import {
 import { fetchDataPackagesFromCaches } from "./fetch-data-packages-from-local-and-prod-cache";
 import { fetchLatestTimestampFromLocal } from "./fetch-latest-timestamp-from-local-cache";
 import {
-  CacheLayerInstance,
+  GatewayInstance,
   configureCleanup,
   OracleNodeInstance,
-  startAndWaitForCacheLayer,
+  startAndWaitForGateway,
   startAndWaitForOracleNode,
-  stopCacheLayer,
+  stopGateway,
   stopOracleNode,
 } from "./integration-test-framework";
 import { printAllDeviations } from "./print-all-deviations";
@@ -41,7 +41,7 @@ export interface DataPackagesFromLocalAndProd {
   dataPackagesFromProd: DataPackages;
 }
 
-const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
+const gatewayInstance: GatewayInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
 
 const MINUTE_IN_MILLISECONDS = 1000 * 60;
@@ -50,7 +50,7 @@ const MAX_PERCENTAGE_VALUE_DIFFERENCE = 3;
 const stopAll = () => {
   console.log("stopAll called");
   stopOracleNode(oracleNodeInstance);
-  stopCacheLayer(cacheLayerInstance);
+  stopGateway(gatewayInstance);
 };
 configureCleanup(stopAll);
 
@@ -63,13 +63,13 @@ export const runLongPricePropagationCoreTest = async (
   dataFeedsNotWorkingLocally: string[],
   sourcesToSkip: string[]
 ) => {
-  await startAndWaitForCacheLayer(cacheLayerInstance, {
+  await startAndWaitForGateway(gatewayInstance, {
     enableHistoricalDataServing: true,
     directOnly: true,
   });
   await startAndWaitForOracleNode(
     oracleNodeInstance,
-    [cacheLayerInstance],
+    [gatewayInstance],
     manifestFileName
   );
 
@@ -79,7 +79,7 @@ export const runLongPricePropagationCoreTest = async (
   stopOracleNode(oracleNodeInstance);
 
   const latestTimestamp =
-    await fetchLatestTimestampFromLocal(cacheLayerInstance);
+    await fetchLatestTimestampFromLocal(gatewayInstance);
 
   if (!latestTimestamp) {
     throw new Error("Cannot fetch latest timestamp from local cache");
@@ -97,7 +97,7 @@ export const runLongPricePropagationCoreTest = async (
       latestTimestamp - timestampDiffNumber * nodeIntervalInMilliseconds;
     fetchDataPackagesPromises.push(
       fetchDataPackagesFromCaches(
-        cacheLayerInstance,
+        gatewayInstance,
         newTimestamp,
         manifestFileName
       )

@@ -1,5 +1,5 @@
 import {
-  CacheLayerInstance,
+  GatewayInstance,
   configureCleanup,
   debug,
   deployMockAdapterAndSetInitialPrices,
@@ -9,11 +9,11 @@ import {
   RelayerInstance,
   setMockPrices,
   setMockPricesMany,
-  startAndWaitForCacheLayer,
+  startAndWaitForGateway,
   startAndWaitForHardHat,
   startAndWaitForOracleNode,
   startRelayer,
-  stopCacheLayer,
+  stopGateway,
   stopHardhat,
   stopOracleNode,
   stopRelayer,
@@ -23,7 +23,7 @@ import {
 
 const hardhatInstance: HardhatInstance = { instanceId: "1" };
 const relayerInstance: RelayerInstance = { instanceId: "1" };
-const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
+const gatewayInstance: GatewayInstance = { instanceId: "1" };
 const oracleNodeInstance1: OracleNodeInstance = { instanceId: "1" };
 const oracleNodeInstance2: OracleNodeInstance = { instanceId: "2" };
 
@@ -33,11 +33,11 @@ const stopAll = () => {
   stopHardhat(hardhatInstance);
   stopOracleNode(oracleNodeInstance1);
   stopOracleNode(oracleNodeInstance2);
-  stopCacheLayer(cacheLayerInstance);
+  stopGateway(gatewayInstance);
 };
 
 const main = async () => {
-  await startAndWaitForCacheLayer(cacheLayerInstance, { directOnly: true });
+  await startAndWaitForGateway(gatewayInstance, { directOnly: true });
   setMockPricesMany(
     {
       BTC: 16000,
@@ -46,25 +46,25 @@ const main = async () => {
     },
     [oracleNodeInstance1, oracleNodeInstance2]
   );
-  await startAndWaitForOracleNode(oracleNodeInstance1, [cacheLayerInstance]);
+  await startAndWaitForOracleNode(oracleNodeInstance1, [gatewayInstance]);
   await startAndWaitForOracleNode(
     oracleNodeInstance2,
-    [cacheLayerInstance],
+    [gatewayInstance],
     "single-source/mock",
     1
   );
-  await waitForDataAndDisplayIt(cacheLayerInstance);
+  await waitForDataAndDisplayIt(gatewayInstance);
   await startAndWaitForHardHat(hardhatInstance);
 
   const adapterContract = await deployMockAdapterAndSetInitialPrices([
-    cacheLayerInstance,
+    gatewayInstance,
   ]);
   const adapterContractAddress = adapterContract.address;
   const priceFeedContract = await deployMockPriceFeed(adapterContractAddress);
 
   startRelayer(relayerInstance, {
     adapterContractAddress,
-    cacheServiceInstances: [cacheLayerInstance],
+    cacheServiceInstances: [gatewayInstance],
     isFallback: false,
     updateTriggers: {
       deviationPercentage: 0.1,

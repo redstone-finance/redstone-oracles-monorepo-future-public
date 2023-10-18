@@ -3,26 +3,26 @@
 
 import { RedstoneCommon } from "@redstone-finance/utils";
 import {
-  CacheLayerInstance,
+  GatewayInstance,
   configureCleanup,
   debug,
   OracleNodeInstance,
   setMockPrices,
-  startAndWaitForCacheLayer,
+  startAndWaitForGateway,
   startAndWaitForOracleNode,
-  stopCacheLayer,
+  stopGateway,
   stopOracleNode,
   verifyPricesInCacheService,
   waitForDataAndDisplayIt as waitForDataInMongoDb,
 } from "./framework/integration-test-framework";
 
-const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
+const gatewayInstance: GatewayInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
 
 const stopAll = () => {
   debug("stopAll called");
   stopOracleNode(oracleNodeInstance);
-  stopCacheLayer(cacheLayerInstance);
+  stopGateway(gatewayInstance);
 };
 
 const CACHE_TTL = 100_000;
@@ -34,23 +34,23 @@ const CACHE_TTL = 100_000;
  */
 const main = async () => {
   setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
-  await startAndWaitForCacheLayer(cacheLayerInstance, {
+  await startAndWaitForGateway(gatewayInstance, {
     dataPackagesTtl: CACHE_TTL,
     enableHistoricalDataServing: false,
     directOnly: true,
   });
-  await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
-  await waitForDataInMongoDb(cacheLayerInstance);
+  await startAndWaitForOracleNode(oracleNodeInstance, [gatewayInstance]);
+  await waitForDataInMongoDb(gatewayInstance);
   const cacheStart = Date.now();
-  await verifyPricesInCacheService([cacheLayerInstance], { BTC: 42 });
+  await verifyPricesInCacheService([gatewayInstance], { BTC: 42 });
 
   setMockPrices({ __DEFAULT__: 45 }, oracleNodeInstance);
-  await waitForDataInMongoDb(cacheLayerInstance, 2);
-  await verifyPricesInCacheService([cacheLayerInstance], { BTC: 42 });
+  await waitForDataInMongoDb(gatewayInstance, 2);
+  await verifyPricesInCacheService([gatewayInstance], { BTC: 42 });
 
   const timePassed = Date.now() - cacheStart;
   await RedstoneCommon.sleep(CACHE_TTL - timePassed);
-  await verifyPricesInCacheService([cacheLayerInstance], { BTC: 45 });
+  await verifyPricesInCacheService([gatewayInstance], { BTC: 45 });
 
   process.exit();
 };

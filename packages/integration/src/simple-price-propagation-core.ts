@@ -1,32 +1,32 @@
 import {
-  CacheLayerInstance,
+  GatewayInstance,
   configureCleanup,
   debug,
   OracleNodeInstance,
   setMockPrices,
-  startAndWaitForCacheLayer,
+  startAndWaitForGateway,
   startAndWaitForOracleNode,
-  stopCacheLayer,
+  stopGateway,
   stopOracleNode,
   verifyPricesInCacheService,
   waitForDataAndDisplayIt,
 } from "./framework/integration-test-framework";
 
-const cacheLayerInstance: CacheLayerInstance = { instanceId: "1" };
+const gatewayInstance: GatewayInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };
 
 const stopAll = () => {
   debug("stopAll called");
   stopOracleNode(oracleNodeInstance);
-  stopCacheLayer(cacheLayerInstance);
+  stopGateway(gatewayInstance);
 };
 
 const main = async () => {
   setMockPrices({ __DEFAULT__: 42 }, oracleNodeInstance);
-  await startAndWaitForCacheLayer(cacheLayerInstance, { directOnly: true });
-  await startAndWaitForOracleNode(oracleNodeInstance, [cacheLayerInstance]);
-  await waitForDataAndDisplayIt(cacheLayerInstance);
-  await verifyPricesInCacheService([cacheLayerInstance], { BTC: 42 });
+  await startAndWaitForGateway(gatewayInstance, { directOnly: true });
+  await startAndWaitForOracleNode(oracleNodeInstance, [gatewayInstance]);
+  await waitForDataAndDisplayIt(gatewayInstance);
+  await verifyPricesInCacheService([gatewayInstance], { BTC: 42 });
 
   process.exit();
 };

@@ -1,19 +1,19 @@
 import axios from "axios";
-import { CacheLayerInstance, getCacheServicePort } from "./cache-layer-manager";
+import { GatewayInstance, getCacheServicePort } from "./gateway-manager";
 import { DataPackages } from "./compare-data-packages";
 
 const HISTORICAL_ORACLE_GATEWAY_URL =
   "https://oracle-gateway-2.a.redstone.finance/data-packages/historical";
 
 export const fetchDataPackagesFromCaches = async (
-  cacheLayerInstance: CacheLayerInstance,
+  gatewayInstance: GatewayInstance,
   timestamp: number,
   manifestFileName: string
 ) => {
   const responseFromLocalCache = (
     await axios.get<DataPackages>(
       `http://localhost:${getCacheServicePort(
-        cacheLayerInstance,
+        gatewayInstance,
         "direct"
       )}/data-packages/historical/mock-data-service/${timestamp}`
     )

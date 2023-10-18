@@ -15,7 +15,7 @@ import {
   printExtraEnv,
 } from "./integration-test-utils";
 
-export type CacheLayerInstance = {
+export type GatewayInstance = {
   instanceId: string;
   mongo?: {
     url: string;
@@ -35,21 +35,21 @@ const CACHE_SERVICE_DIR = "../cache-service";
 const EVM_CONNECTOR_DIR = "../evm-connector";
 const DOTENV_PATH = `${CACHE_SERVICE_DIR}/.env.example`;
 
-const getLogPrefix = (instance: CacheLayerInstance) =>
+const getLogPrefix = (instance: GatewayInstance) =>
   `cache-service-${instance.instanceId}`;
 
 let cacheServicePort = 3000;
 
-export type CacheLayerConfig = {
+export type GatewayConfig = {
   dataPackagesTtl?: number;
   directOnly: boolean;
   enableHistoricalDataServing: boolean;
 };
 
-export const startAndWaitForCacheLayer = async (
-  instance: CacheLayerInstance,
-  gatewayConfig: Partial<CacheLayerConfig> = {}
-): Promise<CacheLayerInstance> => {
+export const startAndWaitForGateway = async (
+  instance: GatewayInstance,
+  gatewayConfig: Partial<GatewayConfig> = {}
+): Promise<GatewayInstance> => {
   debug(`starting ${getLogPrefix(instance)}`);
 
   const mongoUriFile = `${CACHE_SERVICE_DIR}/tmp-mongo-db-uri-${instance.instanceId}.log`;
@@ -97,17 +97,17 @@ export const startAndWaitForCacheLayer = async (
   return instance;
 };
 
-export const stopCacheLayer = (instance: CacheLayerInstance) => {
+export const stopGateway = (instance: GatewayInstance) => {
   debug(`stopping ${getLogPrefix(instance)}`);
   stopDirectAndPublicCacheServices(instance);
   stopMongoDb(instance);
 };
 
-export const stopMongoDb = (instance: CacheLayerInstance) => {
+export const stopMongoDb = (instance: GatewayInstance) => {
   stopChild(instance.mongo?.process, `mongo-${instance.instanceId}`);
 };
 
-export const stopDirectCacheService = (instance: CacheLayerInstance) => {
+export const stopDirectCacheService = (instance: GatewayInstance) => {
   debug(`stopping direct-${getLogPrefix(instance)}`);
   stopChild(
     instance.directCacheService?.process,
@@ -115,7 +115,7 @@ export const stopDirectCacheService = (instance: CacheLayerInstance) => {
   );
 };
 
-export const stopPublicCacheService = (instance: CacheLayerInstance) => {
+export const stopPublicCacheService = (instance: GatewayInstance) => {
   debug(`stopping public-${getLogPrefix(instance)}`);
   stopChild(
     instance.publicCacheService?.process,
@@ -124,14 +124,14 @@ export const stopPublicCacheService = (instance: CacheLayerInstance) => {
 };
 
 export const stopDirectAndPublicCacheServices = (
-  instance: CacheLayerInstance
+  instance: GatewayInstance
 ) => {
   stopDirectCacheService(instance);
   stopPublicCacheService(instance);
 };
 
 export const startDirectCacheService = async (
-  instance: CacheLayerInstance,
+  instance: GatewayInstance,
   extraEnv: Record<string, string>
 ) => {
   debug(`start direct-${getLogPrefix(instance)}`);
@@ -152,7 +152,7 @@ export const startDirectCacheService = async (
 };
 
 export const startPublicCacheService = async (
-  instance: CacheLayerInstance,
+  instance: GatewayInstance,
   extraEnv: Record<string, string>
 ) => {
   debug(`start public-${getLogPrefix(instance)}`);
@@ -173,13 +173,13 @@ export const startPublicCacheService = async (
 };
 
 export const startDirectAndPublicCacheServices = async (
-  instance: CacheLayerInstance
+  instance: GatewayInstance
 ) => {
   const directEnv = instance.directCacheService?.env;
   const publicEnv = instance.publicCacheService?.env;
   if (!directEnv || !publicEnv) {
     throw new Error(
-      `You are trying to FIRST start cache service directly, it is forbidden, you should first start cache layer startAndWaitForCacheLayer, in subsequent calls starts you can use this method`
+      `You are trying to FIRST start cache service directly, it is forbidden, you should first start gateway startAndWaitForGateway, in subsequent calls starts you can use this method`
     );
   }
   await startDirectCacheService(instance, directEnv);
@@ -189,7 +189,7 @@ export const startDirectAndPublicCacheServices = async (
 export const waitForDataPackages = async (
   expectedDataPackageCount: number,
   feedId: string,
-  instance: CacheLayerInstance
+  instance: GatewayInstance
 ) => {
   debug(`waiting for ${expectedDataPackageCount} packages for ${feedId}`);
   await runWithLogPrefix(
@@ -210,7 +210,7 @@ export const waitForDataPackages = async (
 };
 
 export const waitForDataAndDisplayIt = async (
-  instance: CacheLayerInstance,
+  instance: GatewayInstance,
   expectedDataPackageCount: number = 1
 ) => {
   // Waiting for data packages to be available in cache service
@@ -238,14 +238,14 @@ export const waitForDataAndDisplayIt = async (
 };
 
 export const verifyPricesInCacheService = async (
-  cacheLayerInstances: CacheLayerInstance[],
+  gatewayInstances: GatewayInstance[],
   expectedPrices: PriceSet
 ) => {
   debug(`verifying prices, waiting for: ${JSON.stringify(expectedPrices)}`);
 
-  const cacheLayerUrls = cacheLayerInstances.map(
-    (cacheLayerInstance) =>
-      `http://localhost:${getCacheServicePort(cacheLayerInstance, "any")}`
+  const gatewayUrls = gatewayInstances.map(
+    (gatewayInstance) =>
+      `http://localhost:${getCacheServicePort(gatewayInstance, "any")}`
   );
 
   await waitForSuccess(
@@ -257,7 +257,7 @@ export const verifyPricesInCacheService = async (
         EVM_CONNECTOR_DIR,
         {
           MONOREPO_INTEGRATION_TEST: "true",
-          CACHE_SERVICE_URLS: JSON.stringify(cacheLayerUrls),
+          CACHE_SERVICE_URLS: JSON.stringify(gatewayUrls),
           PRICES_TO_CHECK: JSON.stringify(expectedPrices),
         },
         false
@@ -268,11 +268,11 @@ export const verifyPricesInCacheService = async (
 };
 
 export const verifyPricesNotInCacheService = async (
-  cacheLayerInstances: CacheLayerInstance[],
+  gatewayInstances: GatewayInstance[],
   expectedPrices: PriceSet
 ) => {
   try {
-    await verifyPricesInCacheService(cacheLayerInstances, expectedPrices);
+    await verifyPricesInCacheService(gatewayInstances, expectedPrices);
     throw new Error("IMPOSSIBLE");
   } catch (e) {
     if ((e as Error).message === "IMPOSSIBLE") {
@@ -284,28 +284,28 @@ export const verifyPricesNotInCacheService = async (
 };
 
 export const fetchDataPackages = async (
-  cacheLayerInstances: CacheLayerInstance[],
+  gatewayInstances: GatewayInstance[],
   fetchParams: redstoneSDK.DataPackagesRequestParams = {
     dataServiceId: "mock-data-service",
     uniqueSignersCount: 1,
   }
 ) => {
-  const cacheLayerUrls = cacheLayerInstances.map(
-    (cacheLayerInstance) =>
-      `http://localhost:${getCacheServicePort(cacheLayerInstance, "any")}`
+  const gatewayUrls = gatewayInstances.map(
+    (gatewayInstance) =>
+      `http://localhost:${getCacheServicePort(gatewayInstance, "any")}`
   );
   return await redstoneSDK.requestDataPackages({
     ...fetchParams,
-    urls: cacheLayerUrls,
+    urls: gatewayUrls,
   });
 };
 
 export const getCacheServicePort = (
-  cacheLayerInstance: CacheLayerInstance,
+  gatewayInstance: GatewayInstance,
   type: "direct" | "public" | "any"
 ): string => {
-  const publicPort = cacheLayerInstance.publicCacheService?.env["APP_PORT"];
-  const directPort = cacheLayerInstance.directCacheService?.env["APP_PORT"];
+  const publicPort = gatewayInstance.publicCacheService?.env["APP_PORT"];
+  const directPort = gatewayInstance.directCacheService?.env["APP_PORT"];
 
   if (type === "direct") {
     if (!directPort) {

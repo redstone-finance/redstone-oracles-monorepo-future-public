@@ -48,12 +48,17 @@ export const waitForFile = async (filePath: string, tries = 5) => {
 };
 
 export const waitForUrl = async (url: string, tries = 5) => {
+  const customStatusValidation = (status: number) => {
+    return status >= 200 && status < 500;
+  };
   for (let i = 0; i < tries; i++) {
     try {
-      await axios.get(url);
+      await axios.get(url, {
+        validateStatus: customStatusValidation,
+      });
       debug(`${url} became available`);
       return;
-    } catch {
+    } catch (error) {
       debug(`${url} is not responding, waiting, tries left: ${tries - i}`);
     }
     await RedstoneCommon.sleep(SLEEP_TIME_MILLISECONDS);
