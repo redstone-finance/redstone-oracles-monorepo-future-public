@@ -41,7 +41,7 @@
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
-    "mongoose": "^6.7.0",
+    "mongoose": "^7.6.3",
     "nestjs-pino": "^3.1.1",
     "pino-http": "^8.2.1",
     "reflect-metadata": "^0.1.13",
