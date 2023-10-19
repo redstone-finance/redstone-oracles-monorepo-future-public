@@ -9,6 +9,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc --build tsconfig.build.json && nest build",
+    "bundle": "ENTRYPOINT=dist/src/main.js rollup -c ../../rollup.config.mjs",
     "run-ts": "ts-node",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",

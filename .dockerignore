@@ -1,9 +1,9 @@
-node_modules
+**/node_modules
 .git
 **/.next
 packages/starknet-connector/build
 **/dist
 **/.DS_Store
-Dockerfile
 docs
+Dockerfile
 *.log

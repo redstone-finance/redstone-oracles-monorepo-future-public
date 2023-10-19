@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "build": "rm -rf dist && tsc --build tsconfig.build.json",
+    "bundle": "ENTRYPOINT=src/scripts/start-relayer.ts rollup -c ../../rollup.config.mjs",
     "start": "node dist/src/scripts/start-relayer.js",
     "start:dev": "yarn build && ts-node src/scripts/start-relayer.ts",
     "get-prices": "yarn build && node dist/src/scripts/get-prices.js",
