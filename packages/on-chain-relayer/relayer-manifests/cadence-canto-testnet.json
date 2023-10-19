@@ -6,7 +6,7 @@
   "updateTriggers": {
     "timeSinceLastUpdateInMilliseconds": 3600000
   },
-  "adapterContract": "0x9A81F4df0428136F58d7087018A4F9A12fA19dE9",
+  "adapterContract": "0x3d4F0DE18f07D4B2C9cd5158b407C7D7CE416AAD",
   "dataServiceId": "redstone-main-demo",
   "priceFeeds": {
     "CANTO": "0x2F82cc52f8f8871B7C6019015ea4583Ebc4473a8",
