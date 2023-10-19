@@ -6,7 +6,8 @@
   "main": "dist/src/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && tsc --build tsconfig.build.json",
+    "build": "rm -rf dist && yarn compile && tsc --build tsconfig.build.json ",
+    "bundle": "ENTRYPOINT=src/run-relayer.ts rollup -c ../../rollup.config.mjs",
     "start": "node dist/src/run-relayer.js",
     "start:dev": "ts-node src/run-relayer.ts",
     "compile": "hardhat compile",
