@@ -558,6 +558,9 @@
         "velodrome-on-chain-usdc",
         "velodrome-on-chain-frax"
       ]
+    },
+    "ETH/USDC": {
+      "source": ["non-usd-based"]
     }
   }
 }
