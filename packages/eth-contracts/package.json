@@ -16,23 +16,28 @@
     "ethers": "^5.7.2"
   },
   "devDependencies": {
+    "@ensdomains/ens": "^0.4.4",
+    "@ensdomains/resolver": "^0.2.4",
     "@ethersproject/abi": "^5.6.3",
     "@ethersproject/bytes": "^5.6.1",
     "@ethersproject/providers": "^5.6.8",
     "@nomiclabs/hardhat-ethers": "^2.0.6",
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
     "@nomiclabs/hardhat-waffle": "^2.0.5",
-    "@openzeppelin/contracts": "4.8.1",
-    "@openzeppelin/contracts-upgradeable": "^4.6.0",
-    "@openzeppelin/hardhat-upgrades": "^1.22.1",
+    "@openzeppelin/contracts": "^4.8.1",
+    "@openzeppelin/contracts-upgradeable": "^4.8.3",
+    "@openzeppelin/hardhat-upgrades": "^1.26.0",
     "@typechain/ethers-v5": "^10.2.0",
     "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.1",
+    "@types/sinon-chai": "^3.2.10",
     "chai": "^4.3.7",
     "ethereum-waffle": "^4.0.10",
-    "hardhat": "^2.14.0",
+    "hardhat": "^2.17.2",
     "hardhat-gas-reporter": "^1.0.9",
-    "parcel": "^2.7.0"
+    "parcel": "^2.7.0",
+    "typechain": "^8.1.1"
   }
 }
