@@ -871,8 +871,8 @@
     "JOE": {
       "source": [
         "binance",
+        "bingx",
         "bitget",
-        "bitrue",
         "coingecko",
         "huobipro",
         "gate",
@@ -967,10 +967,10 @@
         "ascendex",
         "binance",
         "binanceusdm",
+        "bingx",
         "bitget",
         "bitmart",
         "bitrue",
-        "bybit",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
