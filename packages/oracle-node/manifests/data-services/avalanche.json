@@ -314,8 +314,8 @@
     "JOE": {
       "source": [
         "binance",
+        "bingx",
         "bitget",
-        "bitrue",
         "coingecko",
         "coinmarketcap",
         "huobipro",
