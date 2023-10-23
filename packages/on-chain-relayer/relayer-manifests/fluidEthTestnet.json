@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "Ethereum goerli",
+    "id": 5
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 86400000,
+    "deviationPercentage": 1
+  },
+  "adapterContract": "0xF43a01A39Fd28950031a42861faD703147d5C8e7",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH/USDC": "0x00"
+  }
+}
