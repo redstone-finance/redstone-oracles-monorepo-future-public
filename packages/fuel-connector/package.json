@@ -19,7 +19,8 @@
     "fuels": "^0.42.0"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "^7.21.0"
+    "@babel/core": "^7.23.2",
+    "@babel/preset-typescript": "^7.23.2"
   },
   "files": [
     "dist/src/**/*",
