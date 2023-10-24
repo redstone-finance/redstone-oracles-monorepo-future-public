@@ -777,9 +777,8 @@
     },
     "OHM": {
       "source": [
-        "balancer-ethereum-dai",
-        "balancer-ethereum-weth",
         "coingecko",
+        "uniswap-v3-ethereum-on-chain-usdc-3000",
         "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
@@ -1172,7 +1171,7 @@
       "source": ["permaswap"]
     },
     "AUD": {
-      "source": ["binance", "currencycom", "ecb", "kraken", "twelve-data"]
+      "source": ["currencycom", "ecb", "kraken", "twelve-data"]
     },
     "GBP": {
       "source": ["binance", "currencycom", "ecb", "kraken", "twelve-data"]
