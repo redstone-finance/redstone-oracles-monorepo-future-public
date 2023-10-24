@@ -48,7 +48,30 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
     this.streamId = getStreamIdForNodeByEvmAddress(this.address);
   }
 
-  async broadcast(dataPackages: CachedDataPackage[]): Promise<void> {
+  async broadcast(
+    dataPackages: CachedDataPackage[],
+    nodeEvmAddress: string
+  ): Promise<void> {
+    const message = `broadcast ${dataPackages.length} data packages for node ${nodeEvmAddress}`;
+
+    await this.performBroadcast(dataPackages)
+      .then((result) => {
+        this.logger.log(
+          `[${StreamrBroadcaster.name}] succeeded to ${message}.`
+        );
+        return result;
+      })
+      .catch((error) => {
+        this.logger.error(
+          `[${
+            StreamrBroadcaster.name
+          }] failed to ${message}. ${RedstoneCommon.stringifyError(error)}`
+        );
+        throw error;
+      });
+  }
+
+  async performBroadcast(dataPackages: CachedDataPackage[]): Promise<void> {
     const dataToBroadcast: SignedDataPackagePlainObj[] = dataPackages.map(
       (dp) => ({
         timestampMilliseconds: dp.timestampMilliseconds,

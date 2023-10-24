@@ -99,7 +99,8 @@ describe("Streamr Listener (e2e)", () => {
 
     expect(bundlrBroadcasterBroadcastSpy).toBeCalledTimes(1);
     expect(bundlrBroadcasterBroadcastSpy).toBeCalledWith(
-      expectedSavedDataPackages
+      expectedSavedDataPackages,
+      MOCK_SIGNER_ADDRESS
     );
   });
 
@@ -119,7 +120,8 @@ describe("Streamr Listener (e2e)", () => {
 
     expect(bundlrBroadcasterBroadcastSpy).toBeCalledTimes(1);
     expect(bundlrBroadcasterBroadcastSpy).toBeCalledWith(
-      expectedSavedDataPackages
+      expectedSavedDataPackages,
+      MOCK_SIGNER_ADDRESS
     );
     spy.mockRestore();
   });
@@ -153,7 +155,8 @@ describe("Streamr Listener (e2e)", () => {
 
     expect(bundlrBroadcasterBroadcastSpy).toBeCalledTimes(1);
     expect(bundlrBroadcasterBroadcastSpy).toBeCalledWith(
-      expectedSavedDataPackages
+      expectedSavedDataPackages,
+      MOCK_SIGNER_ADDRESS
     );
 
     expect(mongoBroadcasterBroadcastSpy).toBeCalledTimes(1);
@@ -173,7 +176,8 @@ describe("Streamr Listener (e2e)", () => {
 
     expect(mongoBroadcasterBroadcastSpy).toBeCalledTimes(1);
     expect(mongoBroadcasterBroadcastSpy).toBeCalledWith(
-      expectedSavedDataPackages
+      expectedSavedDataPackages,
+      MOCK_SIGNER_ADDRESS
     );
 
     expect(bundlrBroadcasterBroadcastSpy).toBeCalledTimes(1);
