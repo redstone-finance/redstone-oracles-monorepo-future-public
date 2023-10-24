@@ -23,7 +23,7 @@ export class BundlrBroadcaster implements DataPackagesBroadcaster {
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await
-  async broadcast(
+  broadcast(
     dataPackages: CachedDataPackage[],
     nodeEvmAddress: string
   ): Promise<void> {
@@ -46,6 +46,7 @@ export class BundlrBroadcaster implements DataPackagesBroadcaster {
           );
         });
     }
+    return Promise.resolve();
   }
 
   async saveOneDataPackage(dataPackage: CachedDataPackage) {
