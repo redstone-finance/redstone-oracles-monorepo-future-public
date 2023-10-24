@@ -81,7 +81,7 @@ describe("Data packages (e2e)", () => {
   let app: INestApplication, httpServer: unknown;
   let bundlrSaveDataPackagesSpy: jest.SpyInstance<
     Promise<void>,
-    [dataPackages: CachedDataPackage[]]
+    [dataPackages: CachedDataPackage[], nodeEvmAddress: string]
   >;
   let mockDataPackages: SignedDataPackagePlainObj[];
 
@@ -200,7 +200,8 @@ describe("Data packages (e2e)", () => {
     // Should have been saved in Arweave
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledTimes(1);
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledWith(
-      getExpectedDataPackagesInDB(mockDataPackages)
+      getExpectedDataPackagesInDB(mockDataPackages),
+      MOCK_SIGNER_ADDRESS
     );
   });
 
@@ -245,7 +246,8 @@ describe("Data packages (e2e)", () => {
 
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledTimes(1);
     expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledWith(
-      getExpectedDataPackagesInDB(mockDataPackages)
+      getExpectedDataPackagesInDB(mockDataPackages),
+      MOCK_SIGNER_ADDRESS
     );
   });
 
