@@ -3,6 +3,7 @@ import { CachedDataPackage } from "../data-packages/data-packages.model";
 import Bundlr from "@bundlr-network/client";
 import config from "../config";
 import { DataPackagesBroadcaster } from "./data-packages-broadcaster";
+import { RedstoneCommon } from "@redstone-finance/utils";
 
 const REDSTONE_TYPE_TAG_VALUE = "redstone-oracles";
 
@@ -21,16 +22,29 @@ export class BundlrBroadcaster implements DataPackagesBroadcaster {
     }
   }
 
-  async broadcast(dataPackages: CachedDataPackage[]): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async broadcast(
+    dataPackages: CachedDataPackage[],
+    nodeEvmAddress: string
+  ): Promise<void> {
+    const message = `broadcast ${dataPackages.length} data packages for node ${nodeEvmAddress}`;
+
     for (const dataPackage of dataPackages) {
-      try {
-        await this.saveOneDataPackage(dataPackage);
-      } catch (e) {
-        this.logger.error(
-          "Error occured while saving dataPackage to Bundlr",
-          (e as Error).stack
-        );
-      }
+      this.saveOneDataPackage(dataPackage)
+        .then(() =>
+          this.logger.log(
+            `[${BundlrBroadcaster.name}] succeeded to ${message}.`
+          )
+        )
+        .catch((error) => {
+          this.logger.error(
+            `[${
+              BundlrBroadcaster.name
+            }] failed to ${message}. Error occured while saving dataPackage to Bundlr. ${RedstoneCommon.stringifyError(
+              error
+            )}`
+          );
+        });
     }
   }
 

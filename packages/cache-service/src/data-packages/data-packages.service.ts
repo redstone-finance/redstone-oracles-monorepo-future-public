@@ -41,15 +41,10 @@ export interface StatsRequestParams {
   toTimestamp: number;
 }
 
-export type BroadcasterInfo = {
-  name: string;
-  instance: DataPackagesBroadcaster;
-};
-
 @Injectable()
 export class DataPackagesService {
   private readonly logger = new Logger(DataPackagesService.name);
-  private readonly broadcasters: BroadcasterInfo[] = [];
+  private readonly broadcasters: DataPackagesBroadcaster[] = [];
 
   constructor(
     @Optional() private readonly bundlrBroadcaster?: BundlrBroadcaster,
@@ -57,27 +52,18 @@ export class DataPackagesService {
     @Optional() private readonly streamrBroadcaster?: StreamrBroadcaster
   ) {
     if (mongoBroadcaster) {
-      this.broadcasters.push({
-        instance: mongoBroadcaster,
-        name: "Mongo database",
-      });
+      this.broadcasters.push(mongoBroadcaster);
     }
     if (bundlrBroadcaster) {
-      this.broadcasters.push({
-        instance: bundlrBroadcaster,
-        name: "Bundlr service",
-      });
+      this.broadcasters.push(bundlrBroadcaster);
     }
     if (streamrBroadcaster) {
-      this.broadcasters.push({
-        instance: streamrBroadcaster,
-        name: "Streamr",
-      });
+      this.broadcasters.push(streamrBroadcaster);
     }
 
     this.logger.log(
       `Active broadcasters:  ${this.broadcasters
-        .map(({ name }) => name)
+        .map((broadcaster) => broadcaster.constructor.name)
         .join(",")}`
     );
   }
@@ -88,34 +74,10 @@ export class DataPackagesService {
     nodeEvmAddress: string
   ): Promise<void> {
     const savePromises: Promise<unknown>[] = this.broadcasters.map(
-      (broadcaster) =>
-        this.performBroadcast(dataPackagesToSave, nodeEvmAddress, broadcaster)
+      (broadcaster) => broadcaster.broadcast(dataPackagesToSave, nodeEvmAddress)
     );
 
     await Promise.allSettled(savePromises);
-  }
-
-  private async performBroadcast(
-    dataPackagesToSave: CachedDataPackage[],
-    nodeEvmAddress: string,
-    { instance: broadcaster, name }: BroadcasterInfo
-  ): Promise<void> {
-    const message = `broadcast ${dataPackagesToSave.length} data packages for node ${nodeEvmAddress}`;
-
-    return await broadcaster
-      .broadcast(dataPackagesToSave)
-      .then((result) => {
-        this.logger.log(`[${name}] succeeded to ${message}.`);
-        return result;
-      })
-      .catch((error) => {
-        this.logger.error(
-          `[${name}] failed to ${message}. ${RedstoneCommon.stringifyError(
-            error
-          )}`
-        );
-        throw error;
-      });
   }
 
   getLatestDataPackagesWithSameTimestampWithCache = RedstoneCommon.memoize({
