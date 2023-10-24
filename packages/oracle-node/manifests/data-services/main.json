@@ -478,19 +478,28 @@
         "binanceusdm",
         "bitcoincom",
         "bitfinex2",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "bingx",
         "bittrex",
         "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "digifinex",
+        "gate",
         "hitbtc",
         "huobipro",
         "kraken",
         "kucoin",
         "lbank",
+        "mexc",
         "okx",
+        "phemex",
         "poloniex",
-        "probit"
+        "probit",
+        "xt"
       ]
     },
     "LINK": {
@@ -775,7 +784,7 @@
       ]
     },
     "CANTO": {
-      "source": ["bitget", "bitmart", "coingecko", "gate", "mexc"]
+      "source": ["bingx", "bitget", "bitmart", "coingecko", "gate", "mexc"]
     },
     "GMX": {
       "source": [

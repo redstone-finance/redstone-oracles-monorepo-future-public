@@ -54,8 +54,7 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      },
-      "skipSigning": true
+      }
     },
     "USDT": {
       "source": [
@@ -561,6 +560,40 @@
     },
     "ETH/USDC": {
       "source": ["non-usd-based"]
+    },
+    "ATOM": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex2",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "bingx",
+        "bittrex",
+        "btcturk",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "digifinex",
+        "gate",
+        "hitbtc",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx",
+        "phemex",
+        "poloniex",
+        "probit",
+        "xt"
+      ]
+    },
+    "CANTO": {
+      "source": ["bingx", "bitget", "bitmart", "coingecko", "gate", "mexc"]
     }
   }
 }
