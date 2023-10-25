@@ -1,0 +1,12 @@
+{
+  "chain": {
+    "name": "Celo Baklava Testnet",
+    "id": 62320
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 30000
+  },
+  "adapterContract": "0xD716c3C7Da17Da37fE3D3BAc91b36bb68D29D3B4",
+  "adapterContractType": "mento",
+  "dataServiceId": "redstone-primary-prod"
+}
