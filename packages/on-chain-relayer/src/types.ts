@@ -22,21 +22,25 @@ const MENTO = "mento" as const;
 const AdapterTypesEnum = z.enum([PRICE_FEEDS, MENTO]);
 type AdapterType = z.infer<typeof AdapterTypesEnum>;
 
+export const UpdateTriggersSchema = z.object({
+  cron: z.array(z.string()).optional(),
+  deviationPercentage: z.number().optional(),
+  timeSinceLastUpdateInMilliseconds: z.number().optional(),
+});
+
 export const OnChainRelayerManifestSchema = z.object({
   chain: z.object({
     name: z.string(),
     id: z.number(),
   }),
-  updateTriggers: z.object({
-    cron: z.array(z.string()).optional(),
-    deviationPercentage: z.number().optional(),
-    timeSinceLastUpdateInMilliseconds: z.number().optional(),
-  }),
+  updateTriggers: UpdateTriggersSchema,
   adapterContract: z.string(),
   adapterContractType: AdapterTypesEnum.default(PRICE_FEEDS).optional(),
   dataServiceId: z.string(),
   priceFeeds: z.record(z.string(), z.string()),
 });
+
+export type UpdateTriggers = z.infer<typeof UpdateTriggersSchema>;
 
 export type OnChainRelayerManifest = z.infer<
   typeof OnChainRelayerManifestSchema

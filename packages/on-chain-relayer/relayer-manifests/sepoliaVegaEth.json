@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "sepolia",
+    "id": 11155111
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0x3D30d41845aA621F6f712f24D246C6C6339bcf7D",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH": "0x113984EAd16F1789565aa48BAFA5886BC84264D1"
+  }
+}
