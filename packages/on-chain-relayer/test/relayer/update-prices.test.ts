@@ -16,7 +16,7 @@ import * as getProviderOrSigner from "../../src/core/contract-interactions/get-p
 import { Wallet } from "ethers";
 import { UpdatePricesArgs } from "../../src";
 import { chooseDataPackagesTimestamp } from "../../src/core/update-conditions/data-packages-timestamp";
-import { DataPackagesWrapper } from "@redstone-finance/evm-connector/src/wrappers/DataPackagesWrapper";
+import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 
 chai.use(chaiAsPromised);
 

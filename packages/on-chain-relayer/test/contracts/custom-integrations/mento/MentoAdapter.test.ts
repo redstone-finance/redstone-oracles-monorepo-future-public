@@ -1,7 +1,7 @@
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
-import { SimpleNumericMockWrapper } from "@redstone-finance/evm-connector/src/wrappers/SimpleMockNumericWrapper";
+import { SimpleNumericMockWrapper } from "@redstone-finance/evm-connector";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { parseUnits } from "ethers/lib/utils";
