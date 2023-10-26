@@ -11,6 +11,8 @@ interface OverwriteFunctionArgs<T extends Contract> {
 export abstract class BaseWrapper<T extends Contract> {
   protected contract!: T;
 
+  protected explicitMetadataTimestamp?: number;
+
   abstract getDataPackagesForPayload(): Promise<SignedDataPackage[]>;
 
   abstract getUnsignedMetadata(): string;
@@ -146,5 +148,13 @@ export abstract class BaseWrapper<T extends Contract> {
         return sentTx;
       }
     };
+  }
+
+  setMetadataTimestamp(timestamp: number) {
+    this.explicitMetadataTimestamp = timestamp;
+  }
+
+  getMetadataTimestamp(): number {
+    return this.explicitMetadataTimestamp ?? Date.now();
   }
 }

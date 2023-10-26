@@ -19,8 +19,9 @@ export class DataServiceWrapper<T extends Contract> extends BaseWrapper<T> {
   }
 
   getUnsignedMetadata(): string {
-    const currentTimestamp = Date.now();
-    return `${currentTimestamp}#${version}#${this.dataPackagesRequestParams.dataServiceId}`;
+    return `${this.getMetadataTimestamp()}#${version}#${
+      this.dataPackagesRequestParams.dataServiceId
+    }`;
   }
 
   async getDataPackagesForPayload(): Promise<SignedDataPackage[]> {

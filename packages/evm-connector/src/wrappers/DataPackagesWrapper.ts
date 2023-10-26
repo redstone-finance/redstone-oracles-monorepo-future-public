@@ -10,8 +10,7 @@ export class DataPackagesWrapper<T extends Contract> extends BaseWrapper<T> {
   }
 
   override getUnsignedMetadata(): string {
-    const currentTimestamp = Date.now();
-    return `${currentTimestamp}#${version}#data-packages-wrapper`;
+    return `${this.getMetadataTimestamp()}#${version}#data-packages-wrapper`;
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await

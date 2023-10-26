@@ -63,10 +63,11 @@ export class IterationArgsProvider
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getTransactionData({
     adapterContract,
-    wrapContract,
+    dataPackagesWrapper,
     proposedTimestamp,
   }: UpdatePricesArgs): Promise<string | undefined> {
-    const wrappedContract = wrapContract(adapterContract);
+    const wrappedContract =
+      dataPackagesWrapper.overwriteEthersContract(adapterContract);
 
     const { data } =
       await wrappedContract.populateTransaction.updateDataFeedsValues(

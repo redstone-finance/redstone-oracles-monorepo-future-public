@@ -1,11 +1,13 @@
 import { TransactionResponse } from "@ethersproject/providers";
 import { config } from "../../config";
 import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
-
-import { getSortedOraclesContractAtAddress } from "./get-contract";
 import { TransactionDeliveryMan } from "@redstone-finance/rpc-providers";
-import { UpdatePricesArgs } from "../../args/get-update-prices-args";
-import { MentoAdapterBase } from "../../../typechain-types";
+import {
+  MentoAdapterBase,
+  RedstoneAdapterBase,
+} from "../../../typechain-types";
+import { UpdatePricesArgs } from "../../args/get-iteration-args";
+import { getSortedOraclesContractAtAddress } from "./get-contract";
 
 let deliveryMan: TransactionDeliveryMan | undefined = undefined;
 const getDeliveryMan = () => {
@@ -38,9 +40,13 @@ const updatePriceInAdapterContract = async (
 ): Promise<TransactionResponse> => {
   switch (config().adapterContractType) {
     case "price-feeds":
-      return await updatePricesInPriceFeedsAdapter(args);
+      return await updatePricesInPriceFeedsAdapter(
+        args as UpdatePricesArgs<RedstoneAdapterBase>
+      );
     case "mento":
-      return await updatePricesInMentoAdapter(args);
+      return await updatePricesInMentoAdapter(
+        args as UpdatePricesArgs<MentoAdapterBase>
+      );
     default:
       throw new Error(
         `Unsupported adapter contract type: ${config().adapterContractType}`
@@ -49,11 +55,13 @@ const updatePriceInAdapterContract = async (
 };
 
 const updatePricesInPriceFeedsAdapter = async ({
-  adapterContract,
-  wrapContract,
   proposedTimestamp,
-}: UpdatePricesArgs): Promise<TransactionResponse> => {
-  const wrappedContract = wrapContract(adapterContract);
+  dataPackagesWrapper,
+  adapterContract,
+}: UpdatePricesArgs<RedstoneAdapterBase>): Promise<TransactionResponse> => {
+  dataPackagesWrapper.setMetadataTimestamp(Date.now());
+  const wrappedContract =
+    dataPackagesWrapper.overwriteEthersContract(adapterContract);
 
   const deliveryResult = await getDeliveryMan().deliver(
     wrappedContract,
@@ -65,11 +73,10 @@ const updatePricesInPriceFeedsAdapter = async ({
 };
 
 const updatePricesInMentoAdapter = async ({
-  adapterContract,
-  wrapContract,
   proposedTimestamp,
-}: UpdatePricesArgs): Promise<TransactionResponse> => {
-  const mentoAdapter = adapterContract as MentoAdapterBase;
+  dataPackagesWrapper,
+  adapterContract: mentoAdapter,
+}: UpdatePricesArgs<MentoAdapterBase>): Promise<TransactionResponse> => {
   const sortedOraclesAddress = await mentoAdapter.getSortedOracles();
   const sortedOracles = getSortedOraclesContractAtAddress(sortedOraclesAddress);
   const maxDeviationAllowed = config().mentoMaxDeviationAllowed;
@@ -77,7 +84,7 @@ const updatePricesInMentoAdapter = async ({
     await prepareLinkedListLocationsForMentoAdapterReport(
       {
         mentoAdapter,
-        wrapContract: wrapContract as (c: MentoAdapterBase) => MentoAdapterBase,
+        dataPackagesWrapper,
         sortedOracles,
       },
       maxDeviationAllowed
@@ -87,7 +94,13 @@ const updatePricesInMentoAdapter = async ({
       `Prices in Sorted Oracles deviated more than ${maxDeviationAllowed}% from Redstone prices`
     );
   }
-  return await (
-    wrapContract(mentoAdapter) as MentoAdapterBase
-  ).updatePriceValuesAndCleanOldReports(proposedTimestamp, linkedListPositions);
+
+  dataPackagesWrapper.setMetadataTimestamp(Date.now());
+  const wrappedMentoContract =
+    dataPackagesWrapper.overwriteEthersContract(mentoAdapter);
+
+  return await wrappedMentoContract.updatePriceValuesAndCleanOldReports(
+    proposedTimestamp,
+    linkedListPositions
+  );
 };
