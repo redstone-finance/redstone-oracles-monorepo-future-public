@@ -1262,7 +1262,7 @@
     "NASDAQ": {
       "source": ["twelve-data", "yf-unofficial"]
     },
-    "GOLD": {
+    "XAU": {
       "source": ["currencycom", "twelve-data", "yf-unofficial"]
     },
     "SILVER": {

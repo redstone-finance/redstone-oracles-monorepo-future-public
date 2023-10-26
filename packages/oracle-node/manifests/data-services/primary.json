@@ -594,6 +594,50 @@
     },
     "CANTO": {
       "source": ["bingx", "bitget", "bitmart", "coingecko", "gate", "mexc"]
+    },
+    "XAU": {
+      "source": ["currencycom", "twelve-data", "yf-unofficial"]
+    },
+    "XRP": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bitcoincom",
+        "bitfinex2",
+        "bittrex",
+        "btcturk",
+        "coingecko",
+        "currencycom",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "okx",
+        "poloniex",
+        "probit"
+      ]
+    },
+    "SOL": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceusdm",
+        "bitfinex2",
+        "btcturk",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "hitbtc",
+        "huobipro",
+        "kraken",
+        "lbank",
+        "okx"
+      ]
     }
   }
 }

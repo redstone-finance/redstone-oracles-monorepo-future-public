@@ -113,7 +113,7 @@
     "EH=F": {
       "source": ["yf-unofficial"]
     },
-    "GOLD": {
+    "XAU": {
       "source": ["currencycom", "twelve-data", "yf-unofficial"]
     },
     "SILVER": {
