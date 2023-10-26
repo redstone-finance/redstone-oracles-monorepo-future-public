@@ -1,4 +1,4 @@
-import { BaseWrapper } from "@redstone-finance/evm-connector/src/wrappers/BaseWrapper";
+import { BaseWrapper } from "@redstone-finance/evm-connector";
 import { MathUtils } from "@redstone-finance/utils";
 import { BigNumber } from "ethers";
 import { ISortedOracles, MentoAdapterBase } from "../../../typechain-types";
