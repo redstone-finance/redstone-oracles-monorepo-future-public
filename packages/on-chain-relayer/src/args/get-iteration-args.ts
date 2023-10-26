@@ -1,4 +1,4 @@
-import { DataPackagesWrapper } from "@redstone-finance/evm-connector/src/wrappers/DataPackagesWrapper";
+import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 import { Contract } from "ethers";
 import { RedstoneAdapterBase } from "../../typechain-types";
@@ -9,7 +9,7 @@ import { getValuesForDataFeeds } from "../core/contract-interactions/get-values-
 import { fetchDataPackages } from "../core/fetch-data-packages";
 import { chooseDataPackagesTimestamp } from "../core/update-conditions/data-packages-timestamp";
 import { shouldUpdate } from "../core/update-conditions/should-update";
-import { BaseWrapper } from "@redstone-finance/evm-connector/src/wrappers/BaseWrapper";
+import { BaseWrapper } from "@redstone-finance/evm-connector";
 
 type IterationArgs<T extends Contract> = {
   shouldUpdatePrices: boolean;
