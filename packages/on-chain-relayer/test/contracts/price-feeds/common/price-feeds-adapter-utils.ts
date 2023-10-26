@@ -12,6 +12,7 @@ interface AdapterTestsParams {
   adapterContractName: string;
   hasOnlyOneDataFeed: boolean;
   skipTestsForPrevDataTimestamp: boolean;
+  dataFeedId?: string;
 }
 
 interface UpdateValuesParams {
@@ -32,11 +33,12 @@ export const describeCommonPriceFeedsAdapterTests = ({
   adapterContractName,
   hasOnlyOneDataFeed,
   skipTestsForPrevDataTimestamp,
+  dataFeedId = "BTC",
 }: AdapterTestsParams) => {
   let adapterContract: IRedstoneAdapter;
 
   const defaultMockWrapperConfig: SimpleNumericMockConfig = {
-    dataPoints: [{ dataFeedId: "BTC", value: 42 }],
+    dataPoints: [{ dataFeedId, value: 42 }],
     mockSignersCount: 2,
   };
 
@@ -123,9 +125,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
 
       const dataFeeds = await contractV1.getDataFeedIds();
       expect(dataFeeds.length).to.eq(1);
-      expect(dataFeeds[0]).to.eq(
-        "0x4254430000000000000000000000000000000000000000000000000000000000"
-      );
+      expect(dataFeeds[0]).to.eq(formatBytes32String(dataFeedId));
 
       expect(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
@@ -173,7 +173,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
   it("should properly get indexes for data feeds", async () => {
     // TODO: implement more tests here
     const btcDataFeedIndex = await adapterContract.getDataFeedIndex(
-      formatBytes32String("BTC")
+      formatBytes32String(dataFeedId)
     );
     expect(btcDataFeedIndex.toNumber()).to.eq(0);
   });
@@ -284,7 +284,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       updateValues({
         increaseBlockTimeBySeconds: 1,
         mockWrapperConfig: {
-          dataPoints: [{ dataFeedId: "BTC", value: 42 }],
+          dataPoints: [{ dataFeedId, value: 42 }],
           mockSignersCount: 1,
         },
       })
@@ -301,7 +301,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
     await validateValuesAndTimestamps({
       expectedLatestBlockTimestamp: mockBlockTimestamp,
       expectedLatestDataTimestamp: mockDataTimestamp,
-      expectedValues: { BTC: 42 },
+      expectedValues: { [dataFeedId]: 42 },
     });
   });
 
@@ -311,7 +311,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       mockWrapperConfig: {
         dataPoints: [
           { dataFeedId: "NON-BTC", value: 422 },
-          { dataFeedId: "BTC", value: 42 },
+          { dataFeedId, value: 42 },
           { dataFeedId: "NON-BTC-2", value: 123 },
         ],
         mockSignersCount: 2,
@@ -321,7 +321,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
     await validateValuesAndTimestamps({
       expectedLatestBlockTimestamp: mockBlockTimestamp,
       expectedLatestDataTimestamp: mockDataTimestamp,
-      expectedValues: { BTC: 42 },
+      expectedValues: { [dataFeedId]: 42 },
     });
   });
 
@@ -337,14 +337,14 @@ export const describeCommonPriceFeedsAdapterTests = ({
           (blockTimestamp - 1) * 1000,
         mockWrapperConfig: {
           mockSignersCount: 2,
-          dataPoints: [{ dataFeedId: "BTC", value: btcMockValue }],
+          dataPoints: [{ dataFeedId, value: btcMockValue }],
         },
       });
 
       await validateValuesAndTimestamps({
         expectedLatestBlockTimestamp: mockBlockTimestamp,
         expectedLatestDataTimestamp: mockDataTimestamp,
-        expectedValues: { BTC: btcMockValue },
+        expectedValues: { [dataFeedId]: btcMockValue },
       });
     }
   });
@@ -354,7 +354,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       increaseBlockTimeBySeconds: 1,
     });
     const value = await adapterContract.getValueForDataFeed(
-      utils.convertStringToBytes32("BTC")
+      utils.convertStringToBytes32(dataFeedId)
     );
     expect(value.toNumber()).to.be.equal(42 * 10 ** 8);
   });
@@ -366,7 +366,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       });
 
       const values = await adapterContract.getValuesForDataFeeds([
-        utils.convertStringToBytes32("BTC"),
+        utils.convertStringToBytes32(dataFeedId),
       ]);
       expect(values.length).to.equal(1);
       expect(values[0].toNumber()).to.equal(42 * 10 ** 8);
@@ -375,7 +375,9 @@ export const describeCommonPriceFeedsAdapterTests = ({
 
   it("should revert trying to get invalid (zero) data feed value", async () => {
     await expect(
-      adapterContract.getValueForDataFeed(utils.convertStringToBytes32("BTC"))
+      adapterContract.getValueForDataFeed(
+        utils.convertStringToBytes32(dataFeedId)
+      )
     ).to.be.revertedWith("DataFeedValueCannotBeZero");
   });
 
@@ -394,7 +396,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
 
     await expect(
       adapterContract.getValuesForDataFeeds(
-        ["BTC", "SMTH-ELSE"].map(utils.convertStringToBytes32)
+        [dataFeedId, "SMTH-ELSE"].map(utils.convertStringToBytes32)
       )
     ).to.be.revertedWith("DataFeedIdNotFound");
   });
@@ -402,7 +404,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
   it("should revert trying to get several values, if one data feed has invalid (zero) value", async () => {
     await expect(
       adapterContract.getValuesForDataFeeds(
-        ["BTC"].map(utils.convertStringToBytes32)
+        [dataFeedId].map(utils.convertStringToBytes32)
       )
     ).to.be.revertedWith("DataFeedValueCannotBeZero");
   });
