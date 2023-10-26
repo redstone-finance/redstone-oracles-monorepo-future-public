@@ -7,5 +7,8 @@ export {
   RelayerConfig,
   OnChainRelayerEnv,
   OnChainRelayerManifest,
+  OnChainRelayerManifestSchema,
+  UpdateTriggers,
+  UpdateTriggersSchema,
 } from "./types";
 export { makeConfigProvider } from "./make-config-provider";
