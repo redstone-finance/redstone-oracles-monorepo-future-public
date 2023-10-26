@@ -156,7 +156,7 @@
       "source": ["binance", "currencycom", "ecb", "twelve-data", "kraken"]
     },
     "AUD": {
-      "source": ["binance", "currencycom", "ecb", "twelve-data", "kraken"]
+      "source": ["currencycom", "ecb", "twelve-data", "kraken"]
     },
     "CHF": {
       "source": ["twelve-data"]
