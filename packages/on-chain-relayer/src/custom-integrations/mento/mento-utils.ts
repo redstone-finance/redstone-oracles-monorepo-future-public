@@ -1,10 +1,11 @@
+import { BaseWrapper } from "@redstone-finance/evm-connector/src/wrappers/BaseWrapper";
 import { MathUtils } from "@redstone-finance/utils";
 import { BigNumber } from "ethers";
 import { ISortedOracles, MentoAdapterBase } from "../../../typechain-types";
 
 export interface MentoContracts {
   mentoAdapter: MentoAdapterBase;
-  wrapContract(mentoAdapter: MentoAdapterBase): MentoAdapterBase;
+  dataPackagesWrapper: BaseWrapper<MentoAdapterBase>;
   sortedOracles: ISortedOracles;
 }
 
@@ -76,7 +77,7 @@ export const calculateLinkedListPosition = (
 };
 
 export const prepareLinkedListLocationsForMentoAdapterReport = async (
-  { mentoAdapter, wrapContract, sortedOracles }: MentoContracts,
+  { mentoAdapter, dataPackagesWrapper, sortedOracles }: MentoContracts,
   maxDeviationAllowedInPercent?: number
 ) => {
   const dataFeeds = await mentoAdapter.getDataFeeds();
@@ -84,7 +85,9 @@ export const prepareLinkedListLocationsForMentoAdapterReport = async (
   const locationsInSortedLinkedLists = [];
 
   // Calculating proposed oracle values
-  const wrappedContract = wrapContract(mentoAdapter.connect(ZERO_ADDRESS));
+  const wrappedContract = dataPackagesWrapper.overwriteEthersContract(
+    mentoAdapter.connect(ZERO_ADDRESS)
+  );
   const proposedValuesNormalized =
     await wrappedContract.getNormalizedOracleValuesFromTxCalldata(dataFeedIds);
 

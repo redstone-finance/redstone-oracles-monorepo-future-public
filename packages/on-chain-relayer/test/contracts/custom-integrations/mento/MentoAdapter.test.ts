@@ -1,6 +1,7 @@
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
+import { SimpleNumericMockWrapper } from "@redstone-finance/evm-connector/src/wrappers/SimpleMockNumericWrapper";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { parseUnits } from "ethers/lib/utils";
@@ -84,6 +85,11 @@ describe("MentoAdapter", () => {
         dataPoints,
         timestampMilliseconds,
       });
+    const dataPackagesWrapper = new SimpleNumericMockWrapper<MentoAdapterBase>({
+      mockSignersCount: 10,
+      dataPoints,
+      timestampMilliseconds,
+    });
 
     // Prepare arguments
     const proposedTimestamp = timestampMilliseconds;
@@ -91,7 +97,7 @@ describe("MentoAdapter", () => {
       await prepareLinkedListLocationsForMentoAdapterReport(
         {
           mentoAdapter: adapterToTest,
-          wrapContract,
+          dataPackagesWrapper,
           sortedOracles,
         },
         maxAllowedDeviation

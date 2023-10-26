@@ -13,8 +13,10 @@ import { updatePrices } from "../../src/core/contract-interactions/update-prices
 import { server } from "./mock-server";
 import { parseUnits } from "ethers/lib/utils";
 import * as getProviderOrSigner from "../../src/core/contract-interactions/get-provider-or-signer";
-import { getUpdatePricesArgs } from "../../src/args/get-update-prices-args";
 import { Wallet } from "ethers";
+import { UpdatePricesArgs } from "../../src";
+import { chooseDataPackagesTimestamp } from "../../src/core/update-conditions/data-packages-timestamp";
+import { DataPackagesWrapper } from "@redstone-finance/evm-connector/src/wrappers/DataPackagesWrapper";
 
 chai.use(chaiAsPromised);
 
@@ -45,10 +47,11 @@ describe("update-prices", () => {
 
     // Update prices
     const dataPackages = await getDataPackagesResponse();
-    const updatePricesArgs = getUpdatePricesArgs(
-      dataPackages,
-      priceFeedsAdapter
-    );
+    const updatePricesArgs: UpdatePricesArgs = {
+      proposedTimestamp: chooseDataPackagesTimestamp(dataPackages),
+      dataPackagesWrapper: new DataPackagesWrapper(dataPackages),
+      adapterContract: priceFeedsAdapter,
+    };
 
     await updatePrices(updatePricesArgs);
 
@@ -84,8 +87,11 @@ describe("update-prices", () => {
 
     // Update prices
     const dataPackages = await getDataPackagesResponse();
-    const updatePricesArgs = getUpdatePricesArgs(dataPackages, mentoAdapter);
-
+    const updatePricesArgs: UpdatePricesArgs = {
+      proposedTimestamp: chooseDataPackagesTimestamp(dataPackages),
+      dataPackagesWrapper: new DataPackagesWrapper(dataPackages),
+      adapterContract: mentoAdapter,
+    };
     await updatePrices(updatePricesArgs);
 
     // Check updated values in SortedOracles
