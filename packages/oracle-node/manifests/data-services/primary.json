@@ -646,6 +646,19 @@
         "uniswap-v3-ethereum-on-chain-usdc-100",
         "uniswap-v3-polygon-on-chain-usdc-100"
       ]
+    },
+    "XVS": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitrue",
+        "coingecko",
+        "gate",
+        "mexc",
+        "latoken",
+        "phemex"
+      ]
     }
   }
 }
