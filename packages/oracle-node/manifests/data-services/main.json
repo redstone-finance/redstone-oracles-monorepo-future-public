@@ -933,7 +933,12 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "LUSD": {
-      "source": ["curve-3crv", "coingecko", "velodrome-on-chain-usdc"]
+      "source": [
+        "curve-3crv",
+        "maverick",
+        "uniswap-v3-ethereum-on-chain-usdc-500",
+        "velodrome-on-chain-usdc"
+      ]
     },
     "GHO": {
       "source": [
