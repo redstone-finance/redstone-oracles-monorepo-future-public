@@ -1105,6 +1105,14 @@
         "xt"
       ]
     },
+    "agEUR": {
+      "source": [
+        "curve-euroc",
+        "uniswap-v3-ethereum-on-chain-weth-500",
+        "uniswap-v3-ethereum-on-chain-usdc-100",
+        "uniswap-v3-polygon-on-chain-usdc-100"
+      ]
+    },
     "SUSHI_DPX_ETH_LP": {
       "source": ["arbitrum-evm-fetcher"]
     },
