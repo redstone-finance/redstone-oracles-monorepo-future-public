@@ -19,6 +19,7 @@ export const REDSTONE_DATA_SERVICES_URLS: Partial<Record<string, string[]>> = {
   "redstone-rapid-demo": [DEMO_URL],
   "redstone-stocks-demo": [DEMO_URL],
   "redstone-twaps-demo": [DEMO_URL],
+  "redstone-avalanche-demo": [DEMO_URL],
   "redstone-arbitrum-demo": [DEMO_URL],
   "mock-data-service": ["http://localhost:3000"],
   "mock-data-service-tests": ["http://valid-cache.com"],
