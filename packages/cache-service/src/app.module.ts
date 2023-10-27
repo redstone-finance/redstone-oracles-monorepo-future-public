@@ -11,27 +11,31 @@ import { DataPackagesService } from "./data-packages/data-packages.service";
 import { OracleRegistryStateController } from "./oracle-registry-state/oracle-registry-state.controller";
 import { StreamrListenerService } from "./streamr-listener/streamr-listener.service";
 import { StreamrBroadcaster } from "./broadcasters/streamr-broadcaster";
-import { BundlrBroadcaster } from "./broadcasters/bundlr-broadcaster";
 import { MongoBroadcaster } from "./broadcasters/mongo-broadcaster";
+import { BundlrBroadcaster } from "./broadcasters/bundlr-broadcaster";
 
-const providers: Provider[] = [
-  DataPackagesService,
-  BundlrBroadcaster,
-  MongoBroadcaster,
-];
+const providers: Provider[] = [DataPackagesService];
 const imports = [LoggerModule.forRoot()];
 
 if (config.enableStreamrListening) {
   providers.push(StreamrListenerService);
   imports.push(ScheduleModule.forRoot());
 }
+
 if (config.streamrPrivateKey) {
   providers.push(StreamrBroadcaster);
 }
 
+if (config.enableArchivingOnArweave) {
+  providers.push(BundlrBroadcaster);
+}
+
 if (config.mongoDbUrl) {
-  void mongoose.connect(config.mongoDbUrl);
-  imports.push(MongooseModule.forRoot(config.mongoDbUrl));
+  providers.push(MongoBroadcaster);
+  if (config.mongoDbUrl !== "MOCK_MONGO_URL") {
+    void mongoose.connect(config.mongoDbUrl);
+    imports.push(MongooseModule.forRoot(config.mongoDbUrl));
+  }
 }
 
 @Module({
