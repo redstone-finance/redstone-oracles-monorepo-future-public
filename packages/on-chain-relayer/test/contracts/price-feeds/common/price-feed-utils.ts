@@ -32,16 +32,21 @@ export const describeCommonPriceFeedTests = ({
     );
 
     const adapter = await adapterFactory.deploy();
-    const priceFeed = await priceFeedFactory.deploy();
+    const priceFeed =
+      priceFeedContractName == adapterContractName
+        ? adapter
+        : await priceFeedFactory.deploy();
 
     await adapter.deployed();
     await priceFeed.deployed();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    const tx = (await priceFeed.setAdapterAddress(
-      adapter.address
-    )) as ContractTransaction;
-    await tx.wait();
+    if (priceFeedContractName != adapterContractName) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      const tx = (await priceFeed.setAdapterAddress(
+        adapter.address
+      )) as ContractTransaction;
+      await tx.wait();
+    }
 
     return {
       adapter,
@@ -155,11 +160,13 @@ export const describeCommonPriceFeedTests = ({
         "0x4254430000000000000000000000000000000000000000000000000000000000"
       );
 
-      const adapterAddress = await contractV1.getPriceFeedAdapter();
+      if (adapterContractName != priceFeedContractName) {
+        const adapterAddress = await contractV1.getPriceFeedAdapter();
 
-      expect(adapterAddress).to.eq(
-        "0x0000000000000000000000000000000000000000"
-      );
+        expect(adapterAddress).to.eq(
+          "0x0000000000000000000000000000000000000000"
+        );
+      }
     });
 
     describe("should properly upgrade the contract", () => {
