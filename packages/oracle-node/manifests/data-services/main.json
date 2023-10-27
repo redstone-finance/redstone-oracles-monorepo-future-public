@@ -1169,6 +1169,19 @@
         "velodrome-on-chain-frax"
       ]
     },
+    "XVS": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitrue",
+        "coingecko",
+        "gate",
+        "mexc",
+        "latoken",
+        "phemex"
+      ]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
@@ -2047,7 +2060,6 @@
     "DCR": {},
     "BLZ": {},
     "PAXG": {},
-    "XVS": {},
     "UNFI": {},
     "ROSE": {},
     "AVA": {},
