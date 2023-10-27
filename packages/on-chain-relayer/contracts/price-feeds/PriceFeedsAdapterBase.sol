@@ -14,7 +14,7 @@ abstract contract PriceFeedsAdapterBase is RedstoneAdapterBase, Initializable {
   /**
    * @dev Helpful function for upgradable contracts
    */
-  function initialize() public initializer {
+  function initialize() public virtual initializer {
     // We don't have storage variables, but we keep this function
     // Because it is used for contract setup in upgradable contracts
   }
