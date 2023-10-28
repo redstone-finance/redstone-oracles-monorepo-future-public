@@ -601,7 +601,7 @@
       "source": ["bingx", "bitget", "bitmart", "coingecko", "gate", "mexc"]
     },
     "XAU": {
-      "source": ["currencycom", "twelve-data", "yf-unofficial"]
+      "source": ["currencycom", "twelve-data"]
     },
     "XRP": {
       "source": [
