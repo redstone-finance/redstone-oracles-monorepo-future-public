@@ -1289,7 +1289,7 @@
       "source": ["twelve-data", "yf-unofficial"]
     },
     "XAU": {
-      "source": ["currencycom", "twelve-data", "yf-unofficial"]
+      "source": ["currencycom", "twelve-data"]
     },
     "SILVER": {
       "source": ["currencycom", "twelve-data", "yf-unofficial"]
