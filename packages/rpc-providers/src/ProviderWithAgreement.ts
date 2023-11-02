@@ -10,8 +10,8 @@ import {
 } from "./ProviderWithFallback";
 
 const BLOCK_NUMBER_TTL = 200;
-// 10 min
-const AGREED_RESULT_TTL = 600_000;
+// 5 min (max multiblock used)
+const AGREED_RESULT_TTL = 300_000;
 
 export interface ProviderWithAgreementConfig {
   numberOfProvidersThatHaveToAgree: number;

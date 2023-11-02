@@ -37,7 +37,7 @@ export function memoize<
     cleanStaleCacheEntries(cache, ttl);
 
     // we don't check ttl because it is cleared here: cleanStaleCacheEntries
-    if (!cache[cacheKey]) {
+    if (!cache[cacheKey] || Date.now() - cache[cacheKey]!.lastSet > ttl) {
       cache[cacheKey] = {
         lastSet: Date.now(),
         promise: functionToMemoize(...args).catch((err: unknown) => {
@@ -61,12 +61,15 @@ const cleanStaleCacheEntries = <T>(
   // we want to avoid slowing down
   assertWithLog(
     cacheKeys.length < EXPECTED_MAX_CACHE_ENTRIES_PER_FN,
-    `Assumed cache key space will not grow over ${EXPECTED_MAX_CACHE_ENTRIES_PER_FN}`
+    `Assumed cache key space will not grow over ${EXPECTED_MAX_CACHE_ENTRIES_PER_FN} but is ${cacheKeys.length}`
   );
 
-  for (const key of cacheKeys) {
-    if (now - cache[key]!.lastSet > ttl) {
-      delete cache[key];
+  // to avoid trigerring gc too often
+  if (cacheKeys.length > 1_000) {
+    for (const key of cacheKeys) {
+      if (now - cache[key]!.lastSet > ttl) {
+        delete cache[key];
+      }
     }
   }
 };
