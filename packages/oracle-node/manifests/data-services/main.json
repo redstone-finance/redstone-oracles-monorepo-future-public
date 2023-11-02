@@ -1186,6 +1186,77 @@
         "phemex"
       ]
     },
+    "MAGIC": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "coinbasepro",
+        "coinbaseprime",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "huobipro",
+        "lbank",
+        "mexc",
+        "okx",
+        "uniswap-v3-arbitrum-on-chain-weth-3000",
+        "xt"
+      ]
+    },
+    "GRAIL": {
+      "source": [
+        "bingx",
+        "bitget",
+        "bitmart",
+        "coinex",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "huobipro",
+        "kucoin",
+        "mexc"
+      ]
+    },
+    "STG": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "xt"
+      ]
+    },
+    "WOO": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "coingecko",
+        "coinmarketcap",
+        "huobipro",
+        "gate",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "mexc",
+        "okx"
+      ]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
@@ -2121,7 +2192,6 @@
     "CUDOS": {},
     "RFUEL": {},
     "JULD": {},
-    "WOO": {},
     "HAPI": {},
     "FIO": {},
     "FIS": {},
@@ -2640,7 +2710,6 @@
     "FLR": {},
     "ETHW": {},
     "SSV": {},
-    "MAGIC": {},
     "FLOKI": {},
     "ENS": {},
     "BONE": {},
@@ -2677,7 +2746,6 @@
     "PLA": {},
     "VVS": {},
     "PEOPLE": {},
-    "STG": {},
     "MC": {},
     "POLYX": {},
     "HOOK": {},
