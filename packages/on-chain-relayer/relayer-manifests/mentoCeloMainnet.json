@@ -1,0 +1,17 @@
+{
+  "chain": {
+    "name": "Celo Mainnet",
+    "id": 42220
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 600000
+  },
+  "adapterContract": "",
+  "adapterContractType": "mento",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "CELO": "",
+    "CELO/EUR": "",
+    "CELO/BRL": ""
+  }
+}
