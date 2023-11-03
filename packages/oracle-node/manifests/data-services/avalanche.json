@@ -115,8 +115,11 @@
         "bequant",
         "binance",
         "binanceusdm",
+        "bingx",
         "bitcoincom",
         "bitfinex2",
+        "bitget",
+        "bitmart",
         "bittrex",
         "btcturk",
         "coinbaseprime",
@@ -125,15 +128,18 @@
         "coinmarketcap",
         "currencycom",
         "hitbtc",
+        "gate",
         "huobipro",
         "kraken",
         "kucoin",
         "lbank",
+        "mexc",
         "okx",
+        "phemex",
         "poloniex",
         "probit",
-        "sushiswap-ethereum-on-chain-weth",
-        "uniswap-v2-on-chain-weth"
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "xt"
       ],
       "skipSigning": true
     },
@@ -345,18 +351,64 @@
     },
     "DAI": {
       "source": [
+        "bitget",
+        "bitmart",
+        "bitrue",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "coinmarketcap",
         "curve-usdc",
         "curve-usdt",
         "huobipro",
         "kraken",
+        "mexc",
         "okx",
-        "sushiswap-ethereum-on-chain-weth",
-        "uniswap-v2-on-chain-weth",
+        "uniswap-v3-ethereum-on-chain-usdc-100",
+        "uniswap-v3-ethereum-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-frax-500",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "uniswap-v3-ethereum-on-chain-weth-500",
+        "uniswap-v3-ethereum-on-chain-usdt-100",
+        "uniswap-v3-arbitrum-on-chain-usdc-100",
         "xt"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      },
+      "skipSigning": true
+    },
+    "FXS": {
+      "source": [
+        "binance",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coingecko",
+        "fraxswap-on-chain-frax",
+        "huobipro",
+        "latoken",
+        "lbank",
+        "mexc",
+        "kucoin",
+        "okx",
+        "phemex"
+      ],
+      "skipSigning": true
+    },
+    "FRAX": {
+      "source": [
+        "coingecko",
+        "curve-usdc-multi-block",
+        "fraxswap-on-chain-fxs",
+        "fraxswap-on-chain-weth",
+        "uniswap-v3-ethereum-on-chain-fxs-10000",
+        "uniswap-v3-ethereum-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-dai-500",
+        "uniswap-v3-ethereum-on-chain-usdt-500"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -424,15 +476,24 @@
       "source": [
         "binance",
         "binanceusdm",
+        "bingx",
         "bitget",
+        "bitmart",
+        "bitrue",
         "coinbaseprime",
         "coinbasepro",
+        "coingecko",
         "coinmarketcap",
-        "okx",
-        "xt",
+        "gate",
         "huobipro",
+        "kraken",
         "kucoin",
-        "gate"
+        "latoken",
+        "lbank",
+        "mexc",
+        "phemex",
+        "okx",
+        "xt"
       ]
     },
     "crvUSDBTCETH": {
