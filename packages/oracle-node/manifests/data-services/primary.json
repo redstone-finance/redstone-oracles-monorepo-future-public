@@ -122,6 +122,9 @@
     },
     "DAI": {
       "source": [
+        "bitget",
+        "bitmart",
+        "bitrue",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -129,9 +132,15 @@
         "curve-usdt",
         "huobipro",
         "kraken",
+        "mexc",
         "okx",
-        "sushiswap-ethereum-on-chain-weth",
-        "uniswap-v2-on-chain-weth",
+        "uniswap-v3-ethereum-on-chain-usdc-100",
+        "uniswap-v3-ethereum-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-frax-500",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "uniswap-v3-ethereum-on-chain-weth-500",
+        "uniswap-v3-ethereum-on-chain-usdt-100",
+        "uniswap-v3-arbitrum-on-chain-usdc-100",
         "xt"
       ],
       "deviationCheck": {
@@ -139,16 +148,17 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      },
-      "skipSigning": true
+      }
     },
     "FXS": {
       "source": [
         "binance",
+        "bingx",
         "bitget",
         "bitmart",
         "bitrue",
         "coingecko",
+        "fraxswap-on-chain-frax",
         "huobipro",
         "latoken",
         "lbank",
@@ -156,8 +166,7 @@
         "kucoin",
         "okx",
         "phemex"
-      ],
-      "skipSigning": true
+      ]
     },
     "FRAX": {
       "source": [
@@ -175,8 +184,7 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      },
-      "skipSigning": true
+      }
     },
     "ETH": {
       "source": [
@@ -662,6 +670,183 @@
         "gate",
         "mexc",
         "latoken",
+        "phemex"
+      ]
+    },
+    "WBTC": {
+      "source": [
+        "binance",
+        "bingx",
+        "bitrue",
+        "bittrex",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "hitbtc",
+        "kraken",
+        "mexc",
+        "okx",
+        "poloniex",
+        "uniswap-v3-arbitrum-on-chain-weth-3000",
+        "uniswap-v3-arbitrum-on-chain-weth-500",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "uniswap-v3-ethereum-on-chain-weth-500",
+        "uniswap-v3-ethereum-on-chain-usdc-3000",
+        "uniswap-v3-ethereum-on-chain-usdt-3000",
+        "uniswap-v3-ethereum-on-chain-usdc-500"
+      ]
+    },
+    "UNI": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bingx",
+        "bitfinex2",
+        "bitget",
+        "bitmart",
+        "btcturk",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "currencycom",
+        "hitbtc",
+        "hollaex",
+        "huobipro",
+        "gate",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "okx",
+        "phemex",
+        "poloniex",
+        "probit",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "xt"
+      ]
+    },
+    "LINK": {
+      "source": [
+        "ascendex",
+        "bequant",
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitcoincom",
+        "bitfinex2",
+        "bitget",
+        "bitmart",
+        "bittrex",
+        "btcturk",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "currencycom",
+        "hitbtc",
+        "gate",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx",
+        "phemex",
+        "poloniex",
+        "probit",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "xt"
+      ]
+    },
+    "CRV": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "mexc",
+        "phemex",
+        "okx",
+        "xt"
+      ]
+    },
+    "MKR": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitfinex2",
+        "bitget",
+        "coinbasepro",
+        "coinbaseprime",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "mexc",
+        "phemex",
+        "okx",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "uniswap-v3-ethereum-on-chain-weth-10000",
+        "xt"
+      ]
+    },
+    "APE": {
+      "source": [
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coinbasepro",
+        "coinbaseprime",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "phemex",
+        "okx",
+        "xt"
+      ]
+    },
+    "CVX": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coinbasepro",
+        "coinbaseprime",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "mexc",
+        "okx",
         "phemex"
       ]
     }
