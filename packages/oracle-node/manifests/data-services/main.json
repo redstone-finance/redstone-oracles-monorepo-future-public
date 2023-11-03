@@ -365,6 +365,9 @@
     },
     "DAI": {
       "source": [
+        "bitget",
+        "bitmart",
+        "bitrue",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -372,9 +375,15 @@
         "curve-usdt",
         "huobipro",
         "kraken",
+        "mexc",
         "okx",
-        "sushiswap-ethereum-on-chain-weth",
-        "uniswap-v2-on-chain-weth",
+        "uniswap-v3-ethereum-on-chain-usdc-100",
+        "uniswap-v3-ethereum-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-frax-500",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "uniswap-v3-ethereum-on-chain-weth-500",
+        "uniswap-v3-ethereum-on-chain-usdt-100",
+        "uniswap-v3-arbitrum-on-chain-usdc-100",
         "xt"
       ]
     },
@@ -430,40 +439,51 @@
     "UNI": {
       "source": [
         "ascendex",
-        "band",
         "bequant",
         "binance",
         "binancecoinm",
         "binanceusdm",
+        "bingx",
         "bitfinex2",
+        "bitget",
+        "bitmart",
         "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "currencycom",
-        "dia",
         "hitbtc",
         "hollaex",
         "huobipro",
+        "gate",
         "kraken",
         "kucoin",
+        "latoken",
         "lbank",
         "okx",
+        "phemex",
         "poloniex",
         "probit",
-        "uniswap-v3-ethereum-on-chain-weth-3000"
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "xt"
       ]
     },
     "WBTC": {
       "source": [
+        "binance",
+        "bingx",
+        "bitrue",
         "bittrex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "hitbtc",
+        "kraken",
+        "mexc",
         "okx",
         "poloniex",
-        "sushiswap-ethereum-on-chain-weth",
+        "uniswap-v3-arbitrum-on-chain-weth-3000",
+        "uniswap-v3-arbitrum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-usdc-3000",
@@ -508,8 +528,11 @@
         "bequant",
         "binance",
         "binanceusdm",
+        "bingx",
         "bitcoincom",
         "bitfinex2",
+        "bitget",
+        "bitmart",
         "bittrex",
         "btcturk",
         "coinbaseprime",
@@ -517,15 +540,18 @@
         "coingecko",
         "currencycom",
         "hitbtc",
+        "gate",
         "huobipro",
         "kraken",
         "kucoin",
         "lbank",
+        "mexc",
         "okx",
+        "phemex",
         "poloniex",
         "probit",
-        "sushiswap-ethereum-on-chain-weth",
-        "uniswap-v2-on-chain-weth"
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "xt"
       ]
     },
     "LEO": {
@@ -746,11 +772,12 @@
     "FXS": {
       "source": [
         "binance",
+        "bingx",
         "bitget",
         "bitmart",
         "bitrue",
         "coingecko",
-        "coinmarketcap",
+        "fraxswap-on-chain-frax",
         "huobipro",
         "latoken",
         "lbank",
@@ -914,14 +941,23 @@
       "source": [
         "binance",
         "binanceusdm",
+        "bingx",
         "bitget",
+        "bitmart",
+        "bitrue",
         "coinbaseprime",
         "coinbasepro",
-        "okx",
-        "xt",
+        "coingecko",
+        "gate",
         "huobipro",
+        "kraken",
         "kucoin",
-        "gate"
+        "latoken",
+        "lbank",
+        "mexc",
+        "phemex",
+        "okx",
+        "xt"
       ]
     },
     "USDf": {
@@ -1145,7 +1181,7 @@
       "source": ["arbitrum-evm-fetcher"]
     },
     "LVL": {
-      "source": ["bitget", "coingecko", "coinmarketcap", "mexc"]
+      "source": ["bitget", "coingecko", "mexc"]
     },
     "CELO/EUR": {
       "source": ["non-usd-based"]
@@ -1196,7 +1232,6 @@
         "coinbasepro",
         "coinbaseprime",
         "coingecko",
-        "coinmarketcap",
         "gate",
         "huobipro",
         "lbank",
@@ -1213,7 +1248,6 @@
         "bitmart",
         "coinex",
         "coingecko",
-        "coinmarketcap",
         "gate",
         "huobipro",
         "kucoin",
@@ -1229,7 +1263,6 @@
         "bitmart",
         "bitrue",
         "coingecko",
-        "coinmarketcap",
         "gate",
         "kraken",
         "kucoin",
@@ -1246,7 +1279,6 @@
         "bitget",
         "bitmart",
         "coingecko",
-        "coinmarketcap",
         "huobipro",
         "gate",
         "kraken",
@@ -1255,6 +1287,73 @@
         "lbank",
         "mexc",
         "okx"
+      ]
+    },
+    "MKR": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitfinex2",
+        "bitget",
+        "coinbasepro",
+        "coinbaseprime",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "mexc",
+        "phemex",
+        "okx",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "uniswap-v3-ethereum-on-chain-weth-10000",
+        "xt"
+      ]
+    },
+    "APE": {
+      "source": [
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coinbasepro",
+        "coinbaseprime",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "phemex",
+        "okx",
+        "xt"
+      ]
+    },
+    "CVX": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coinbasepro",
+        "coinbaseprime",
+        "coingecko",
+        "gate",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "mexc",
+        "okx",
+        "phemex"
       ]
     },
     "ARDRIVE": {
@@ -1368,7 +1467,7 @@
       "source": ["currencycom", "twelve-data", "yf-unofficial"]
     },
     "COPPER": {
-      "source": ["currencycom", "twelve-data", "yf-unofficial"]
+      "source": ["currencycom", "yf-unofficial"]
     },
     "IBM": {
       "source": ["twelve-data"]
@@ -2013,7 +2112,6 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "BAT": {},
-    "MKR": {},
     "COMP": {},
     "XTZ": {},
     "OMG": {},
@@ -2176,7 +2274,6 @@
     "STEEM": {},
     "QUICK": {},
     "QNT": {},
-    "APE": {},
     "TRU": {},
     "FARM": {},
     "CRPT": {},
@@ -2705,7 +2802,6 @@
     "LUNC": {},
     "AGIX": {},
     "FEI": {},
-    "CVX": {},
     "OSMO": {},
     "FLR": {},
     "ETHW": {},

@@ -334,6 +334,9 @@
     },
     "DAI": {
       "source": [
+        "bitget",
+        "bitmart",
+        "bitrue",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
@@ -341,11 +344,53 @@
         "curve-usdt",
         "huobipro",
         "kraken",
+        "mexc",
         "okx",
-        "sushiswap-ethereum-on-chain-weth",
-        "uniswap-v2-on-chain-weth",
+        "uniswap-v3-ethereum-on-chain-usdc-100",
+        "uniswap-v3-ethereum-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-frax-500",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "uniswap-v3-ethereum-on-chain-weth-500",
+        "uniswap-v3-ethereum-on-chain-usdt-100",
+        "uniswap-v3-arbitrum-on-chain-usdc-100",
         "xt"
       ]
+    },
+    "FXS": {
+      "source": [
+        "binance",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coingecko",
+        "fraxswap-on-chain-frax",
+        "huobipro",
+        "latoken",
+        "lbank",
+        "mexc",
+        "kucoin",
+        "okx",
+        "phemex"
+      ]
+    },
+    "FRAX": {
+      "source": [
+        "coingecko",
+        "curve-usdc-multi-block",
+        "fraxswap-on-chain-fxs",
+        "fraxswap-on-chain-weth",
+        "uniswap-v3-ethereum-on-chain-fxs-10000",
+        "uniswap-v3-ethereum-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-dai-500",
+        "uniswap-v3-ethereum-on-chain-usdt-500"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     }
   }
 }
