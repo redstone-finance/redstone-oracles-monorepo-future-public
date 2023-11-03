@@ -361,17 +361,14 @@
     },
     "TRX": {
       "source": [
-        "ascendex",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitget",
         "bitrue",
         "bybit",
         "coingecko",
         "gate",
-        "hitbtc",
         "huobipro",
         "kraken",
         "kucoin",
