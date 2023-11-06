@@ -6,7 +6,7 @@
   "updateTriggers": {
     "timeSinceLastUpdateInMilliseconds": 600000
   },
-  "adapterContract": "",
+  "adapterContract": "0x6490a3FFAD86CA14FF84Be380D5639Fb8fBD311B",
   "adapterContractType": "mento",
   "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {
