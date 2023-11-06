@@ -510,6 +510,15 @@
     },
     "yyAVAX": {
       "source": ["avalanche-evm-fetcher"]
+    },
+    "GM_ETH_WETHe_USDC": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "GM_BTC_BTCb_USDC": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "GM_AVAX_WAVAX_USDC": {
+      "source": ["avalanche-evm-fetcher"]
     }
   }
 }
