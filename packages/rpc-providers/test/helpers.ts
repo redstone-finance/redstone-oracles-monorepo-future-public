@@ -16,7 +16,7 @@ export class HardhatProviderMocker {
     public toMock: ToMock = {}
   ) {
     const self = this;
-    this.provider = new Proxy(this.provider, {
+    this.provider = new Proxy(provider, {
       get: function (target: providers.JsonRpcProvider, property, receiver) {
         const originalValue = Reflect.get(target, property, receiver);
         if (
@@ -28,6 +28,13 @@ export class HardhatProviderMocker {
           };
         }
         return originalValue;
+      },
+      set(_target: providers.JsonRpcProvider, p, newValue) {
+        if (p.toString() === "call") {
+          self.set({ ...toMock, call: newValue });
+          return true;
+        }
+        return false;
       },
     });
   }

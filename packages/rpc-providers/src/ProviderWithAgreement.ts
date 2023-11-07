@@ -1,13 +1,13 @@
 import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Deferrable } from "@ethersproject/properties";
 import { JsonRpcProvider } from "@ethersproject/providers";
-import { utils } from "ethers";
-import { RedstoneCommon } from "@redstone-finance/utils";
-import { sleepMS } from "./common";
+import { RedstoneCommon, RedstoneCrypto } from "@redstone-finance/utils";
+import { BytesLike, utils } from "ethers";
 import {
   ProviderWithFallback,
   ProviderWithFallbackConfig,
 } from "./ProviderWithFallback";
+import { convertBlockTagToNumber, sleepMS } from "./common";
 
 const BLOCK_NUMBER_TTL = 200;
 // 5 min (max multiblock used)
@@ -200,17 +200,6 @@ export class ProviderWithAgreement extends ProviderWithFallback {
   }
 }
 
-const convertBlockTagToNumber = (blockTag: BlockTag): number =>
-  typeof blockTag === "string" ? convertHexToNumber(blockTag) : blockTag;
-
-const convertHexToNumber = (hex: string): number => {
-  const number = Number.parseInt(hex, 16);
-  if (Number.isNaN(number)) {
-    throw new Error(`Failed to parse ${hex} to number`);
-  }
-  return number;
-};
-
 /**
  * It takes fields of transaction which might have change output
  * of call method
@@ -223,7 +212,16 @@ const txCacheKeyBuilder = async (
     String(await transaction.chainId),
     String(await transaction.to),
     String(await transaction.from),
-    String(await transaction.data),
-    String(await transaction.customData),
+    await hashBytesLikeValue(transaction.data),
+    JSON.stringify(await transaction.customData) || "",
     String(blockTag),
   ].join("#");
+async function hashBytesLikeValue(
+  data: BytesLike | undefined | Promise<BytesLike | undefined>
+) {
+  const awaitedData = await data;
+  if (awaitedData) {
+    return RedstoneCrypto.sha256ToHex(awaitedData);
+  }
+  return "";
+}
