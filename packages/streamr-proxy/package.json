@@ -1,14 +1,15 @@
 {
   "name": "@redstone-finance/streamr-proxy",
   "prettier": "redstone-prettier-config",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=test jest",
     "build": "rm -rf dist && tsc --build tsconfig.build.json",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "preversion": "yarn build"
   },
   "dependencies": {
     "pako": "^2.1.0",

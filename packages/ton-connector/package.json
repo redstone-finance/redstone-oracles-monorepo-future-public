@@ -2,7 +2,7 @@
   "name": "@redstone-finance/ton-connector",
   "prettier": "redstone-prettier-config",
   "description": "A tool to inject RedStone data into TON compatible smart contracts",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "main": "dist/src/index.js",
   "license": "MIT",
   "scripts": {
@@ -19,12 +19,13 @@
     "write-prices": "yarn run-script runPriceManagerWritePrices",
     "pack-package": "yarn build && cd dist && npm pack",
     "lint": "eslint .",
+    "preversion": "yarn build",
     "test": "jest"
   },
   "dependencies": {
     "@orbs-network/ton-access": "^2.3.3",
-    "@redstone-finance/protocol": "^0.3.5",
-    "@redstone-finance/sdk": "^0.3.5",
+    "@redstone-finance/protocol": "^0.3.6",
+    "@redstone-finance/sdk": "^0.3.6",
     "@ton-community/func-js": "0.6.3-tvmbeta.1",
     "@ton-community/func-js-bin": "0.4.5-tvmbeta.1",
     "dotenv": "^16.0.3",
