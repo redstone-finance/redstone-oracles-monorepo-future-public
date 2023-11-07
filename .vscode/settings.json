@@ -14,7 +14,7 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["bundlr", "Streamr", "typechain"],
+  "cSpell.words": ["Multicalls", "bundlr", "Streamr", "typechain"],
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform"
   }

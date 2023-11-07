@@ -87,8 +87,7 @@ const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
   gasLimitMultiplier: 1.5,
   percentileOfPriorityFee: 75,
   twoDimensionFees: false,
-  logger: (text: string) =>
-    console.log(`[${TransactionDeliveryMan.name}] ${text}`),
+  logger: (text: string) => console.log(`[TransactionDeliveryMan] ${text}`),
 };
 
 export class TransactionDeliveryMan {
