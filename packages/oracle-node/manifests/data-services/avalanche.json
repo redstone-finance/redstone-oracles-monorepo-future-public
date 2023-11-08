@@ -496,6 +496,32 @@
         "xt"
       ]
     },
+    "SOL": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitfinex2",
+        "bitget",
+        "btcturk",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "hitbtc",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "mexc",
+        "phemex",
+        "okx",
+        "xt"
+      ]
+    },
     "crvUSDBTCETH": {
       "source": ["avalanche-evm-fetcher"]
     },
@@ -518,6 +544,9 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "GM_AVAX_WAVAX_USDC": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "GM_SOL_SOL_USDC": {
       "source": ["avalanche-evm-fetcher"]
     }
   }

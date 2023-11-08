@@ -583,6 +583,32 @@
         "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
+    "SOL": {
+      "source": [
+        "ascendex",
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitfinex2",
+        "bitget",
+        "btcturk",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "hitbtc",
+        "huobipro",
+        "kraken",
+        "kucoin",
+        "latoken",
+        "lbank",
+        "mexc",
+        "phemex",
+        "okx",
+        "xt"
+      ]
+    },
     "GM_ETH_WETH_USDC": {
       "source": ["arbitrum-evm-fetcher"]
     },
@@ -596,6 +622,9 @@
       "source": ["arbitrum-evm-fetcher"]
     },
     "GM_ARB_ARB_USDC": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "GM_SOL_SOL_USDC": {
       "source": ["arbitrum-evm-fetcher"]
     }
   }
