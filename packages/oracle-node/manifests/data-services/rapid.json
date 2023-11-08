@@ -270,8 +270,24 @@
         "kucoin",
         "latoken",
         "mexc",
-        "okx"
+        "okx",
+        "mento"
       ]
+    },
+    "CELO/EUR": {
+      "source": ["non-usd-based", "mento"]
+    },
+    "CELO/BRL": {
+      "source": ["non-usd-based", "mento"]
+    },
+    "EUROC/EUR": {
+      "source": ["non-usd-based", "mento"]
+    },
+    "USDC/BRL": {
+      "source": ["non-usd-based", "mento"]
+    },
+    "USDC/EUR": {
+      "source": ["non-usd-based", "mento"]
     },
     "AVAX": {
       "source": [
@@ -391,6 +407,32 @@
           "maxDelayMilliseconds": 300000
         }
       }
+    },
+    "EUR": {
+      "source": [
+        "binance",
+        "bitstamp-api",
+        "coinbase-api",
+        "currencycom",
+        "ecb",
+        "kaiko",
+        "kaiko-v2",
+        "kraken",
+        "kucoin-api",
+        "twelve-data"
+      ]
+    },
+    "BRL": {
+      "source": [
+        "binance-api",
+        "bitso-api",
+        "ecb",
+        "kaiko",
+        "kaiko-v2",
+        "kucoin-api",
+        "mercado-api",
+        "twelve-data"
+      ]
     }
   }
 }

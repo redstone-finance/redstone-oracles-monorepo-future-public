@@ -12,6 +12,10 @@
   "tokens": {
     "CELO": {},
     "CELO/EUR": {},
-    "CELO/BRL": {}
+    "CELO/BRL": {},
+    "USDC/EUR": {},
+    "USDC/BRL": {},
+    "USDC": {},
+    "EUROC/EUR": {}
   }
 }
