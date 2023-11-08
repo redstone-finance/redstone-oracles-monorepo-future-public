@@ -1,0 +1,18 @@
+{
+  "chain": {
+    "name": "hubble-mainnet",
+    "id": 1992
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.1,
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0x13436588a94327FdFBc6ecff29c471DEE2158882",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "USDC": "0x3e41f94E65358FFbcf1b7Ed7A523CE8EBA3FE130",
+    "ETH": "0xD2A903f237733DcF0bBF68B174EF222908aA6c29",
+    "ARB": "0x9D321d4dEFCd791D8702a9e1acbf7F6Ca8D041E1",
+    "AVAX": "0x93063D743Fc0082121aec5d183e40554468E1568"
+  }
+}
