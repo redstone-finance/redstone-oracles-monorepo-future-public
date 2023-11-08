@@ -279,16 +279,24 @@
         "ascendex",
         "binance",
         "binanceusdm",
+        "bingx",
         "bitfinex2",
+        "bitget",
         "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
+        "gate",
         "hitbtc",
         "huobipro",
         "kraken",
+        "kucoin",
+        "latoken",
         "lbank",
-        "okx"
+        "mexc",
+        "phemex",
+        "okx",
+        "xt"
       ]
     },
     "DOT": {
