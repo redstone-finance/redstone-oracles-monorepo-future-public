@@ -68,13 +68,13 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
     ])) as FeeHistoryResponse;
   }
 
-  scaleFees(currentFees: Eip1559Fee): Eip1559Fee {
+  scaleFees(currentFees: Eip1559Fee, attempt: number): Eip1559Fee {
+    const multipleBy = this.opts.multiplier ** attempt;
     const maxPriorityFeePerGas = Math.round(
-      currentFees.maxPriorityFeePerGas * this.opts.multiplier
+      currentFees.maxPriorityFeePerGas * multipleBy
     );
-    const maxFeePerGas = Math.round(
-      currentFees.maxFeePerGas * this.opts.multiplier
-    );
+    const maxFeePerGas = Math.round(currentFees.maxFeePerGas * multipleBy);
+
     const gasLimit = this.opts.twoDimensionFees
       ? Math.round(currentFees.gasLimit * this.opts.gasLimitMultiplier)
       : currentFees.gasLimit;
@@ -85,7 +85,9 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
       gasLimit,
     };
 
-    this.opts.logger(`Scaling fees to ${JSON.stringify(scaledFees)}`);
+    this.opts.logger(
+      `Scaling fees (multiplier=${multipleBy}) to ${JSON.stringify(scaledFees)}`
+    );
 
     return scaledFees;
   }

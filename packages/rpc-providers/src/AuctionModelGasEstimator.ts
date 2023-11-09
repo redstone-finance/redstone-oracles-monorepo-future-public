@@ -22,19 +22,22 @@ export class AuctionModelGasEstimator implements GasEstimator<AuctionModelFee> {
     };
   }
 
-  scaleFees(currentFees: AuctionModelFee): AuctionModelFee {
+  scaleFees(currentFees: AuctionModelFee, attempt: number): AuctionModelFee {
     const gasLimit = this.opts.twoDimensionFees
       ? Math.round(currentFees.gasLimit * this.opts.gasLimitMultiplier)
       : currentFees.gasLimit;
 
-    const gasPrice = Math.round(currentFees.gasPrice * this.opts.multiplier);
+    const multipleBy = this.opts.multiplier ** attempt;
+    const gasPrice = Math.round(currentFees.gasPrice * multipleBy);
 
     const scaledFees: AuctionModelFee = {
       gasLimit,
       gasPrice,
     };
 
-    this.opts.logger(`Scaling fees to ${JSON.stringify(scaledFees)}`);
+    this.opts.logger(
+      `Scaling fees (multiplier=${multipleBy}) to ${JSON.stringify(scaledFees)}`
+    );
 
     return scaledFees;
   }
