@@ -5,7 +5,7 @@ import {
 import { fetchWithCache } from "./common";
 
 const ONE_GWEI = 1e9;
-const ONE_MICRO_KAVA = 1e6;
+const ONE_MICRO_KAVA = 1e12;
 
 const getEthFeeFromGasOracle: GasOracleFn = async (
   opts: TransactionDeliveryManOpts

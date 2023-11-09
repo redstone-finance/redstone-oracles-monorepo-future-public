@@ -83,7 +83,7 @@ export const unsafeBnToNumber = (bn: BigNumber) => Number(bn.toString());
 const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
   isAuctionModel: false,
   maxAttempts: 10,
-  multiplier: 1.125, // 112,5%
+  multiplier: 1.125, // 112,5% => 1.125 ** 10 => 3.24 max scaler
   gasLimitMultiplier: 1.5,
   percentileOfPriorityFee: 75,
   twoDimensionFees: false,
@@ -119,6 +119,7 @@ export class TransactionDeliveryMan {
     };
 
     for (let i = 0; i < this.opts.maxAttempts; i++) {
+      const attempt = i + 1;
       try {
         lastAttempt = {
           ...(lastAttempt ? lastAttempt : {}),
@@ -154,7 +155,10 @@ export class TransactionDeliveryMan {
         } else if (TransactionDeliveryMan.isUnderpricedError(ethersError)) {
           Object.assign(
             contractOverrides,
-            this.estimator.scaleFees(await this.getFees(provider, i + 1))
+            this.estimator.scaleFees(
+              await this.getFees(provider, attempt),
+              attempt
+            )
           );
           // skip sleeping if caused by underpriced
           continue;
@@ -189,7 +193,10 @@ export class TransactionDeliveryMan {
       } else {
         Object.assign(
           contractOverrides,
-          this.estimator.scaleFees(await this.getFees(provider, i + 1))
+          this.estimator.scaleFees(
+            await this.getFees(provider, attempt),
+            attempt
+          )
         );
       }
     }
