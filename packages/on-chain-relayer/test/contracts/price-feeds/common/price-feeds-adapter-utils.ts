@@ -117,6 +117,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
     });
 
     it("should properly initialize", async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       expect(contractV1).to.not.be.undefined;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
       await expect((contractV1 as any).initialize()).to.rejectedWith(
