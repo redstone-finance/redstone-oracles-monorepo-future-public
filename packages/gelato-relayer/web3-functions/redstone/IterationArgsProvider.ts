@@ -49,7 +49,7 @@ export class IterationArgsProvider
     const abi = getAbiForAdapter();
 
     if (!this.adapterContractAddress) {
-      throw "Unknown adapterContractAddress";
+      throw new Error("Unknown adapterContractAddress");
     }
 
     const adapterContract = new Contract(
@@ -87,7 +87,7 @@ export class IterationArgsProvider
     ).data as OnChainRelayerManifest | undefined;
 
     if (!manifest) {
-      throw "Manifest fetching error";
+      throw new Error("Manifest fetching error");
     }
 
     const relayerEnv: OnChainRelayerEnv = {

@@ -31,6 +31,7 @@ export const FALLBACK_DEFAULT_CONFIG: ProviderWithFallbackConfig = {
   allProvidersOperationTimeout: 7_000,
 };
 
+type EthersError = Error & { code?: ErrorCode; reason?: string };
 export class ProviderWithFallback
   extends ProviderWithFallbackBase
   implements Provider
@@ -165,7 +166,7 @@ export class ProviderWithFallback
   }
 
   private async doExecuteWithFallback<T = unknown>(
-    alreadyRetriedCount = 0,
+    alreadyRetriedCount: number,
     lastProviderUsedIndex: number,
     fnName: string,
     ...args: unknown[]
@@ -178,7 +179,7 @@ export class ProviderWithFallback
       );
     } catch (error: unknown) {
       this.electNewProviderOrFail(
-        error as { code: ErrorCode; message: string },
+        error as EthersError,
         alreadyRetriedCount,
         lastProviderUsedIndex
       );
@@ -213,14 +214,14 @@ export class ProviderWithFallback
   }
 
   private electNewProviderOrFail(
-    error: { code: ErrorCode; message: string } | undefined,
+    error: EthersError,
     retryNumber: number,
     lastUsedProviderIndex: number
   ): void {
     const providerName = this.extractProviderName(this.providerIndex);
 
     if (
-      error?.code &&
+      error.code &&
       this.providerWithFallbackConfig.unrecoverableErrors.includes(error.code)
     ) {
       logger.warn(`Unrecoverable error ${error.code}, rethrowing error`);
@@ -228,7 +229,7 @@ export class ProviderWithFallback
     }
 
     logger.warn(
-      `Provider ${providerName} failed with error: ${error?.code} ${error?.message}`
+      `Provider ${providerName} failed with error: ${error.code} ${error.message}`
     );
 
     if (retryNumber === this.providers.length - 1) {

@@ -9,7 +9,7 @@ export const timeUpdateCondition = (
   let updatePriceInterval = config.updatePriceInterval;
 
   if (!updatePriceInterval) {
-    throw "Update price interval must be defined";
+    throw new Error("Update price interval must be defined");
   }
 
   if (isFallback) {
