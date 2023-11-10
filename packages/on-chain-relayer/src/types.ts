@@ -73,6 +73,7 @@ export interface RelayerConfig {
   mentoMaxDeviationAllowed?: number;
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
+  agreementAcceptableBlocksDiff: number;
 }
 
 export type OnChainRelayerEnv = {
@@ -91,6 +92,7 @@ export type OnChainRelayerEnv = {
   mentoMaxDeviationAllowed?: number;
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
+  agreementAcceptableBlocksDiff: number;
 };
 
 export type ConfigProvider = () => RelayerConfig;

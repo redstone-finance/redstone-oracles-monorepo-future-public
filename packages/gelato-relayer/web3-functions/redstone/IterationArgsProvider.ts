@@ -29,6 +29,7 @@ const EMPTY_GELATO_ENV = {
   expectedTxDeliveryTimeInMS: NUMBER_NOT_NEEDED_FOR_GELATO,
   singleProviderOperationTimeout: NUMBER_NOT_NEEDED_FOR_GELATO,
   allProvidersOperationTimeout: NUMBER_NOT_NEEDED_FOR_GELATO,
+  agreementAcceptableBlocksDiff: NUMBER_NOT_NEEDED_FOR_GELATO,
   isArbitrumNetwork: false,
   gasMultiplier: 1.125,
 };
