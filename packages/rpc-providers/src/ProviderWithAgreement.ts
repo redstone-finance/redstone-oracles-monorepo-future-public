@@ -13,12 +13,16 @@ const BLOCK_NUMBER_TTL = 200;
 // 5 min (max multiblock used)
 const AGREED_RESULT_TTL = 300_000;
 
-export interface ProviderWithAgreementConfig {
+interface ProviderWithAgreementSpecificConfig {
   numberOfProvidersThatHaveToAgree: number;
   getBlockNumberTimeoutMS: number;
   sleepBetweenBlockSync: number;
   electBlockFn: (blocks: number[], numberOfAgreeingNodes: number) => number;
 }
+
+export type ProviderWithAgreementConfig = Partial<
+  ProviderWithAgreementSpecificConfig & ProviderWithFallbackConfig
+>;
 
 const DEFAULT_ELECT_BLOCK_FN = (blockNumbers: number[]): number => {
   const mid = Math.floor(blockNumbers.length / 2);
@@ -29,7 +33,7 @@ const DEFAULT_ELECT_BLOCK_FN = (blockNumbers: number[]): number => {
     : Math.round((blockNumbers[mid - 1] + blockNumbers[mid]) / 2);
 };
 
-const defaultConfig: ProviderWithAgreementConfig = {
+const defaultConfig: ProviderWithAgreementSpecificConfig = {
   numberOfProvidersThatHaveToAgree: 2,
   getBlockNumberTimeoutMS: 2_500,
   sleepBetweenBlockSync: 400,
@@ -37,12 +41,12 @@ const defaultConfig: ProviderWithAgreementConfig = {
 };
 
 export class ProviderWithAgreement extends ProviderWithFallback {
-  private readonly agreementConfig: ProviderWithAgreementConfig;
+  private readonly agreementConfig: ProviderWithAgreementSpecificConfig;
 
   constructor(
     providers: JsonRpcProvider[],
     config: Partial<
-      ProviderWithAgreementConfig & ProviderWithFallbackConfig
+      ProviderWithAgreementSpecificConfig & ProviderWithFallbackConfig
     > = {}
   ) {
     super(providers, config);
@@ -52,10 +56,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     };
     const numberOfProvidersThatHaveToAgree =
       this.agreementConfig.numberOfProvidersThatHaveToAgree;
-    if (
-      numberOfProvidersThatHaveToAgree < 2 ||
-      numberOfProvidersThatHaveToAgree > this.providers.length
-    ) {
+    if (numberOfProvidersThatHaveToAgree > this.providers.length) {
       throw new Error(
         "numberOfProvidersWhichHaveToAgree should be >= 2 and > then supplied providers count"
       );
