@@ -12,6 +12,10 @@
   "priceFeeds": {
     "CELO": "",
     "CELO/EUR": "",
-    "CELO/BRL": ""
+    "CELO/BRL": "",
+    "USDC": "",
+    "USDC/EUR": "",
+    "USDC/BRL": "",
+    "EUROC/EUR": ""
   }
 }
