@@ -73,11 +73,14 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
   const env: OnChainRelayerEnv = {
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
     rpcUrls: JSON.parse(getFromEnv("RPC_URLS")) as string[],
+    agreementAcceptableBlocksDiff: Number(
+      getFromEnv("AGREEMENT_ACCEPTABLE_BLOCKS_DIFF", true) ?? 1
+    ),
     singleProviderOperationTimeout: Number(
       getFromEnv("SINGLE_PROVIDER_OPERATION_TIMEOUT", true) ?? 5_000
     ),
     allProvidersOperationTimeout: Number(
-      getFromEnv("ALL_PROVIDERS_OPERATION_TIMEOUT", true) ?? 15_000
+      getFromEnv("ALL_PROVIDERS_OPERATION_TIMEOUT", true) ?? 20_000
     ),
     privateKey: getFromEnv("PRIVATE_KEY"),
     gasLimit: Number.parseInt(getFromEnv("GAS_LIMIT")!),

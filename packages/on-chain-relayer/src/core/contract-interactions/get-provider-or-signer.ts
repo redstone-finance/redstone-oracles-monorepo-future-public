@@ -1,29 +1,47 @@
-import { providers, Wallet } from "ethers";
-import { ProviderWithFallback } from "@redstone-finance/rpc-providers";
+import { MegaProviderBuilder } from "@redstone-finance/rpc-providers";
+import { providers } from "ethers";
 import { config } from "../../config";
 
-export const getProvider = () => {
-  const { rpcUrls, chainName, chainId } = config();
-  const rpcs = rpcUrls.map(
-    (url) =>
-      new providers.StaticJsonRpcProvider(url, {
-        name: chainName,
-        chainId,
-      })
-  );
+let cachedProvider: providers.Provider | undefined;
 
-  if (rpcUrls.length === 1) {
-    return rpcs[0];
+const electBlock = (blockNumbers: number[]): number => {
+  blockNumbers.sort((a, b) => a - b);
+  if (blockNumbers.length === 1) {
+    return blockNumbers[0];
+  } else if (
+    blockNumbers.at(-1)! - blockNumbers.at(-2)! <=
+    config().agreementAcceptableBlocksDiff
+  ) {
+    return blockNumbers.at(-1)!;
+  } else {
+    return blockNumbers.at(-2)!;
   }
-
-  return new ProviderWithFallback(rpcs, {
-    singleProviderOperationTimeout: config().singleProviderOperationTimeout,
-    allProvidersOperationTimeout: config().allProvidersOperationTimeout,
-  });
 };
 
-export const getSigner = () => {
-  const provider = getProvider();
-  const signer = new Wallet(config().privateKey, provider);
-  return signer;
+export const getProvider = () => {
+  if (cachedProvider) {
+    return cachedProvider;
+  }
+  const { rpcUrls, chainName, chainId } = config();
+
+  cachedProvider = new MegaProviderBuilder({
+    rpcUrls,
+    timeout: config().singleProviderOperationTimeout,
+    throttleLimit: 1,
+    network: { name: chainName, chainId },
+  })
+    .if(rpcUrls.length > 3)
+    .agreement({
+      singleProviderOperationTimeout: config().singleProviderOperationTimeout,
+      allProvidersOperationTimeout: config().allProvidersOperationTimeout,
+      electBlockFn: electBlock,
+    })
+    .if(rpcUrls.length <= 3)
+    .fallback({
+      singleProviderOperationTimeout: config().singleProviderOperationTimeout,
+      allProvidersOperationTimeout: config().allProvidersOperationTimeout,
+    })
+    .build();
+
+  return cachedProvider;
 };
