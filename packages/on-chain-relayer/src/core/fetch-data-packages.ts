@@ -51,11 +51,11 @@ const requestHistoricalDataPackages = (
     });
   }
 
-  throw (
+  throw new Error(
     `Historical packages fetcher for fallback deviation check is not properly configured: ` +
-    `offset=${fallbackOffsetInMinutes} min., gateway=${JSON.stringify(
-      historicalPackagesGateways
-    )}`
+      `offset=${fallbackOffsetInMinutes} min., gateway=${JSON.stringify(
+        historicalPackagesGateways
+      )}`
   );
 };
 
