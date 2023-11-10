@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "gnosis",
+    "id": 100
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.25,
+    "timeSinceLastUpdateInMilliseconds": 42200000
+  },
+  "adapterContract": "0x0704eEc81ea7CF98Aa4A400c65DC4ED5933bddf7",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "agEUR": "0x9209B81DE03bF9a4bb2f2AeC37330900418da8dB"
+  }
+}
