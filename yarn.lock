@@ -1182,7 +1182,7 @@
     near-api-js "^0.44.2"
     near-seed-phrase "^0.2.0"
 
-"@chainlink/contracts@^0.6.1":
+"@chainlink/contracts@^0.6.0", "@chainlink/contracts@^0.6.1":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@chainlink/contracts/-/contracts-0.6.1.tgz#8842b57e755793cbdbcbc45277fb5d179c993e19"
   integrity sha512-EuwijGexttw0UjfrW+HygwhQIrGAbqpf1ue28R55HhWMHBzphEH0PhWm8DQmFfj5OZNy8Io66N4L0nStkZ3QKQ==
@@ -4030,7 +4030,7 @@
   resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-3.4.2.tgz#d81f786fda2871d1eb8a8c5a73e455753ba53527"
   integrity sha512-z0zMCjyhhp4y7XKAcDAi3Vgms4T2PstwBdahiO0+9NaGICQKjynK3wduSRplTgk4LXmoO1yfDGO5RbjKYxtuxA==
 
-"@openzeppelin/contracts@^4.8.1":
+"@openzeppelin/contracts@^4.7.3", "@openzeppelin/contracts@^4.8.1":
   version "4.9.3"
   resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.9.3.tgz#00d7a8cf35a475b160b3f0293a6403c511099364"
   integrity sha512-He3LieZ1pP2TNt5JbkPA4PNT9WC3gOTOlDcFGJW4Le4QKqwmiNJCRt44APfxMxvq7OugU/cqYuPcSBzOw38DAg==
@@ -4872,6 +4872,18 @@
   integrity sha512-K9hEyUi7G8tqOp7kWIALJLVbGCByhilcy6123WfcorxWwiE1sbQupPyIU5f3YdQK6wMjBsyTWiLW52ZBMp7sXA==
   dependencies:
     "@randlabs/communication-bridge" "1.0.1"
+
+"@redstone-finance/evm-connector-old@npm:@redstone-finance/evm-connector@^0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@redstone-finance/evm-connector/-/evm-connector-0.0.22.tgz#a6c27fa7932ab9e694bda732e6312035353d1632"
+  integrity sha512-Gx6xEWTGQdyFIv1JBS2CWWpEhZJRZZCKlC6Lxy8PiIQsZLBjppZ37ljJLb/BtYfb9NwCOKrLF45FAS1i8W7bNg==
+  dependencies:
+    "@chainlink/contracts" "^0.6.0"
+    "@openzeppelin/contracts" "^4.7.3"
+    axios "^1.1.3"
+    ethers "^5.6.8"
+    redstone-protocol "1.0.5"
+    redstone-sdk "1.0.7"
 
 "@resolver-engine/core@^0.3.3":
   version "0.3.3"
@@ -7765,6 +7777,15 @@ axios@^1.0.0:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
+axios@^1.1.3:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.0.tgz#f1e5292f26b2fd5c2e66876adc5b06cdbd7d2102"
+  integrity sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
 axios@^1.3.4, axios@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.5.1.tgz#11fbaa11fc35f431193a9564109c88c1f27b585f"
@@ -10600,7 +10621,7 @@ ethereumjs-util@^7.0.10, ethereumjs-util@^7.0.3, ethereumjs-util@^7.1.0, ethereu
     ethereum-cryptography "^0.1.3"
     rlp "^2.2.4"
 
-ethers@5.7.2, ethers@^5.0.15, ethers@^5.5.1, ethers@^5.5.2, ethers@^5.5.3, ethers@^5.5.4, ethers@^5.7.1, ethers@^5.7.2:
+ethers@5.7.2, ethers@^5.0.15, ethers@^5.5.1, ethers@^5.5.2, ethers@^5.5.3, ethers@^5.5.4, ethers@^5.6.8, ethers@^5.7.1, ethers@^5.7.2:
   version "5.7.2"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-5.7.2.tgz#3a7deeabbb8c030d4126b24f84e525466145872e"
   integrity sha512-wswUsmWo1aOK8rR7DIKiWSw9DbLWe6x98Jrn8wcTflTVvaXhAMaB5zGAXy0GYQEQp9iO1iSHWVyARQm11zUtyg==
@@ -17403,10 +17424,31 @@ redstone-oracles-monorepo@redstone-finance/redstone-monorepo-priv.git#b71fdc0:
   version "0.0.2"
   resolved "git+ssh://git@github.com/redstone-finance/redstone-monorepo-priv.git#b71fdc0c0ea1b6c860813a98babc0fedc144fddd"
 
+redstone-oracles-smartweave-contracts@*:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/redstone-oracles-smartweave-contracts/-/redstone-oracles-smartweave-contracts-1.0.6.tgz#aa7b6ec453133be240df6cb4fe52a11582cb65b7"
+  integrity sha512-QTGDhkSJyVxggFVaET9EiuwTjdiyNjqWmVNE/jyd8OAESvVtrclLuhQL9bIVlJhVXq6IroyWf0rs8eh/OEG/4Q==
+
 redstone-prettier-config@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redstone-prettier-config/-/redstone-prettier-config-1.0.0.tgz#154b28bf79f41826a4b47421db653d867aa3c241"
   integrity sha512-39BBmwrw+5L4MgV1TLGAlIwmRFvAzZ4iq8xshHdBhiiAgl0J6PeIYrkUkU5l6nMIilua4zkWoEz+58enT0pbhw==
+
+redstone-protocol@*, redstone-protocol@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/redstone-protocol/-/redstone-protocol-1.0.5.tgz#c8555e9a9e3ee49d11b6586bf7090e59404e3395"
+  integrity sha512-62qHSb9jF5875a/gc8MbDcHH1n4dZsBXxlIxpk3vx/MeykAMB6nLd1174Qukvupkr69cneeRQiVqqALkQpmRlg==
+  dependencies:
+    ethers "^5.6.8"
+
+redstone-sdk@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/redstone-sdk/-/redstone-sdk-1.0.7.tgz#ca03b81db77d60a4d75b7bf4c90ed7fb7bac00cd"
+  integrity sha512-pjSNWLoWvaol73kJO58YHqy3VUfDN2hMTeQW4wccQAPWY2OhnM7Ody9TL8l2DxXgXMAUscuqVRHBmUNjT3Q2rw==
+  dependencies:
+    axios "^0.27.2"
+    redstone-oracles-smartweave-contracts "*"
+    redstone-protocol "*"
 
 reduce-flatten@^2.0.0:
   version "2.0.0"
