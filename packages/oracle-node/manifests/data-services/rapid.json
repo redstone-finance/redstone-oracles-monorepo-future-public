@@ -44,7 +44,6 @@
         "lbank",
         "mexc",
         "okx",
-        "poloniex",
         "probit",
         "xt"
       ]
@@ -82,7 +81,6 @@
         "lbank",
         "mexc",
         "okx",
-        "poloniex",
         "probit",
         "xt"
       ]
@@ -127,7 +125,6 @@
         "lbank",
         "okx",
         "phemex",
-        "poloniex",
         "probit",
         "xt"
       ]
@@ -152,7 +149,6 @@
         "kucoin",
         "lbank",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -176,7 +172,6 @@
         "kucoin",
         "lbank",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -222,7 +217,6 @@
         "kucoin",
         "lbank",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -245,7 +239,6 @@
         "kraken",
         "kucoin",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
