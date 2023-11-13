@@ -43,7 +43,6 @@
         "lbank",
         "mexc",
         "okx",
-        "poloniex",
         "probit",
         "xt"
       ]
@@ -136,7 +135,6 @@
         "mexc",
         "okx",
         "phemex",
-        "poloniex",
         "probit",
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
@@ -176,7 +174,6 @@
         "lbank",
         "mexc",
         "okx",
-        "poloniex",
         "probit",
         "xt"
       ]

@@ -44,7 +44,6 @@
         "lbank",
         "mexc",
         "okx",
-        "poloniex",
         "probit",
         "xt"
       ]
@@ -82,7 +81,6 @@
         "lbank",
         "mexc",
         "okx",
-        "poloniex",
         "probit",
         "xt"
       ]
@@ -127,7 +125,6 @@
         "lbank",
         "okx",
         "phemex",
-        "poloniex",
         "probit",
         "xt"
       ]
@@ -200,7 +197,6 @@
         "kucoin",
         "lbank",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -243,7 +239,6 @@
         "kucoin",
         "lbank",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -267,7 +262,6 @@
         "kucoin",
         "lbank",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -319,7 +313,6 @@
         "kucoin",
         "lbank",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -343,7 +336,6 @@
         "mexc",
         "phemex",
         "okx",
-        "poloniex",
         "probit",
         "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
@@ -366,8 +358,7 @@
         "lbank",
         "mexc",
         "okx",
-        "phemex",
-        "poloniex"
+        "phemex"
       ]
     },
     "DAI": {
@@ -416,7 +407,6 @@
         "kucoin",
         "lbank",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -469,7 +459,6 @@
         "lbank",
         "okx",
         "phemex",
-        "poloniex",
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
       ]
@@ -487,7 +476,6 @@
         "kraken",
         "mexc",
         "okx",
-        "poloniex",
         "uniswap-v3-arbitrum-on-chain-weth-3000",
         "uniswap-v3-arbitrum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-weth-3000",
@@ -523,7 +511,6 @@
         "mexc",
         "okx",
         "phemex",
-        "poloniex",
         "probit",
         "xt"
       ]
@@ -554,7 +541,6 @@
         "mexc",
         "okx",
         "phemex",
-        "poloniex",
         "probit",
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
@@ -583,7 +569,6 @@
         "kucoin",
         "lbank",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -643,7 +628,6 @@
         "kraken",
         "kucoin",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -669,7 +653,6 @@
         "kraken",
         "kucoin",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -720,7 +703,6 @@
         "kucoin",
         "lbank",
         "okx",
-        "poloniex",
         "probit"
       ]
     },
@@ -746,7 +728,6 @@
         "mexc",
         "okx",
         "phemex",
-        "poloniex",
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
       ]
