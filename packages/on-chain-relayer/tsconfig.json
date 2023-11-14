@@ -3,7 +3,12 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["**/*", "package.json", "src/**/*.json", "artifacts/**/*.json"],
+  "include": [
+    "**/*.ts",
+    "package.json",
+    "src/**/*.json",
+    "artifacts/**/*.json"
+  ],
   "references": [
     {
       "path": "../evm-connector/tsconfig.build.json"

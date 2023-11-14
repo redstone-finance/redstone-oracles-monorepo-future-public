@@ -28,7 +28,7 @@ export class MegaProviderBuilder {
   private multicallOpts?: MulticallDecoratorOptions;
   private lastIfResult: boolean = true;
 
-  if(conditition: boolean) {
+  enableNextIf(conditition: boolean) {
     this.lastIfResult = conditition;
     return this;
   }
