@@ -30,13 +30,13 @@ export const getProvider = () => {
     throttleLimit: 1,
     network: { name: chainName, chainId },
   })
-    .if(rpcUrls.length > 3)
+    .enableNextIf(rpcUrls.length > 3)
     .agreement({
       singleProviderOperationTimeout: config().singleProviderOperationTimeout,
       allProvidersOperationTimeout: config().allProvidersOperationTimeout,
       electBlockFn: electBlock,
     })
-    .if(rpcUrls.length <= 3)
+    .enableNextIf(rpcUrls.length <= 3)
     .fallback({
       singleProviderOperationTimeout: config().singleProviderOperationTimeout,
       allProvidersOperationTimeout: config().allProvidersOperationTimeout,
