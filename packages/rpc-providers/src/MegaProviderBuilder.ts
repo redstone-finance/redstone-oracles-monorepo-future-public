@@ -11,7 +11,7 @@ import {
   MulticallDecoratorOptions,
   withMulticall,
 } from "./multicall/MulticallWrapper";
-import assert from "assert";
+import { RedstoneCommon } from "@redstone-finance/utils";
 
 type MegaProviderOptions = {
   rpcUrls: string[];
@@ -38,7 +38,7 @@ export class MegaProviderBuilder {
       this.lastIfResult = true;
       return this;
     }
-    assert.ok(
+    RedstoneCommon.assert(
       !this.agreementOpts,
       "You can choose agreement or fallback not both"
     );
@@ -51,7 +51,7 @@ export class MegaProviderBuilder {
       this.lastIfResult = true;
       return this;
     }
-    assert.ok(
+    RedstoneCommon.assert(
       !this.fallbackOpts,
       "You can choose agreement or fallback not both"
     );
