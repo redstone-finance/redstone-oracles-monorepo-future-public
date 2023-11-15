@@ -1337,6 +1337,36 @@
         "phemex"
       ]
     },
+    "GM_ETH_WETH_USDC": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "GM_BTC_WBTC_USDC": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "GM_LINK_LINK_USDC": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "GM_UNI_UNI_USDC": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "GM_ARB_ARB_USDC": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "GM_SOL_SOL_USDC_ARB": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "GM_ETH_WETHe_USDC": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "GM_BTC_BTCb_USDC": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "GM_AVAX_WAVAX_USDC": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "GM_SOL_SOL_USDC_AVAX": {
+      "source": ["avalanche-evm-fetcher"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
