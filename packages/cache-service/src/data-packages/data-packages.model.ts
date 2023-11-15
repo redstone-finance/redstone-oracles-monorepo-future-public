@@ -1,15 +1,26 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Document } from "mongoose";
 import { DataPointPlainObj } from "@redstone-finance/protocol";
+import config from "../config";
 
 const { Types } = mongoose.Schema;
 
 export type DataPackageDocument = CachedDataPackage &
   Document<{ dataFeedId: string; signerAddress: string }>;
 
+export type DataPackageDocumentMostRecentAggregated = {
+  _id: { signerAddress: string; dataFeedId: string };
+  timestampMilliseconds: Date;
+  signature: string;
+  dataPoints: DataPointPlainObj[];
+  dataServiceId: string;
+  dataFeedId: string;
+  isSignatureValid: boolean;
+};
+
 export type DataPackageDocumentAggregated = {
   count: number;
-  _id: { timestampMilliseconds: number };
+  _id: { timestampMilliseconds: Date };
   signatures: string[];
   dataPoints: DataPointPlainObj[][];
   dataFeedIds: string[];
@@ -17,9 +28,18 @@ export type DataPackageDocumentAggregated = {
   isSignatureValid: boolean[];
 };
 
-@Schema({ autoIndex: true })
+@Schema({
+  autoIndex: true,
+  toJSON: { virtuals: false, getters: true },
+  toObject: { virtuals: false, getters: true },
+})
 export class CachedDataPackage {
-  @Prop({ required: true })
+  @Prop({
+    type: Types.Date,
+    required: true,
+    get: (value: Date) => value.getTime(),
+    set: (value: number) => new Date(value),
+  })
   timestampMilliseconds!: number;
 
   @Prop({ required: true })
@@ -54,6 +74,13 @@ DataPackageSchema.index({
   signerAddress: 1,
   timestampMilliseconds: -1,
 });
+
+DataPackageSchema.index(
+  {
+    timestampMilliseconds: -1,
+  },
+  { expireAfterSeconds: config.mongoDbTTLSeconds }
+);
 
 mongoose.set("strictQuery", true);
 
