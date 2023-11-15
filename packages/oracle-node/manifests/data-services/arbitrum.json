@@ -457,16 +457,6 @@
     "MOO_GMX": {
       "source": ["arbitrum-evm-fetcher"]
     },
-    "DPX": {
-      "source": [
-        "bingx",
-        "bitget",
-        "bybit",
-        "coingecko",
-        "coinmarketcap",
-        "mexc"
-      ]
-    },
     "YY_WOMBEX_USDT": {
       "source": ["arbitrum-evm-fetcher"],
       "decimals": 20
@@ -476,12 +466,6 @@
       "decimals": 20
     },
     "YY_WOMBEX_GLP": {
-      "source": ["arbitrum-evm-fetcher"]
-    },
-    "SUSHI_DPX_ETH_LP": {
-      "source": ["arbitrum-evm-fetcher"]
-    },
-    "MOO_SUSHI_DPX_ETH_LP": {
       "source": ["arbitrum-evm-fetcher"]
     },
     "YY_WOMBEX_DAI": {
