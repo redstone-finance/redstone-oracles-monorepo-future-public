@@ -71,6 +71,7 @@ export const startAndWaitForGateway = async (
 
   const commonGatewayEnv = {
     MONGO_DB_URL: mongoUrl,
+    MONGO_DB_TTL_SECONDS: "3600",
     API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES: "hehe",
     ENABLE_DIRECT_POSTING_ROUTES: "true",
     ENABLE_STREAMR_LISTENING: "false",
@@ -123,9 +124,7 @@ export const stopPublicCacheService = (instance: GatewayInstance) => {
   );
 };
 
-export const stopDirectAndPublicCacheServices = (
-  instance: GatewayInstance
-) => {
+export const stopDirectAndPublicCacheServices = (instance: GatewayInstance) => {
   stopDirectCacheService(instance);
   stopPublicCacheService(instance);
 };
