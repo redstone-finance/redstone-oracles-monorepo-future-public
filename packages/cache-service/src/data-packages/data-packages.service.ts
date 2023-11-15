@@ -32,8 +32,8 @@ import {
 import {
   CachedDataPackage,
   DataPackage,
-  DataPackageDocument,
   DataPackageDocumentAggregated,
+  DataPackageDocumentMostRecentAggregated,
 } from "./data-packages.model";
 
 export interface StatsRequestParams {
@@ -117,13 +117,15 @@ export class DataPackagesService {
     const fetchedPackagesPerDataFeed: DataPackagesResponse = {};
 
     const groupedDataPackages =
-      await DataPackage.aggregate<DataPackageDocument>([
+      await DataPackage.aggregate<DataPackageDocumentMostRecentAggregated>([
         {
           $match: {
             dataServiceId,
-            timestampMilliseconds: timestamp ?? {
-              $gte: Date.now() - config.maxAllowedTimestampDelay,
-            },
+            timestampMilliseconds: timestamp
+              ? new Date(timestamp)
+              : {
+                  $gte: new Date(Date.now() - config.maxAllowedTimestampDelay),
+                },
           },
         },
         {
@@ -148,16 +150,17 @@ export class DataPackagesService {
     // Parse DB response
     for (const dataPackage of groupedDataPackages) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const { _id, __v, ...rest } = dataPackage;
-      const dataFeedId = _id!.dataFeedId;
+      const { _id, ...rest } = dataPackage;
+      const dataFeedId = _id.dataFeedId;
       if (!fetchedPackagesPerDataFeed[dataFeedId]) {
         fetchedPackagesPerDataFeed[dataFeedId] = [];
       }
 
       fetchedPackagesPerDataFeed[dataFeedId]!.push({
         ...rest,
+        timestampMilliseconds: rest.timestampMilliseconds.getTime(),
         dataFeedId,
-        signerAddress: _id!.signerAddress,
+        signerAddress: _id.signerAddress,
       });
     }
 
@@ -179,7 +182,7 @@ export class DataPackagesService {
           $match: {
             dataServiceId,
             timestampMilliseconds: {
-              $gte: Date.now() - config.maxAllowedTimestampDelay,
+              $gte: new Date(Date.now() - config.maxAllowedTimestampDelay),
             },
           },
         },
@@ -223,7 +226,7 @@ export class DataPackagesService {
       const dataPoints = dataPackagesWithSameTimestamp.dataPoints[i];
       const signature = dataPackagesWithSameTimestamp.signatures[i];
       const timestampMilliseconds =
-        dataPackagesWithSameTimestamp._id.timestampMilliseconds;
+        dataPackagesWithSameTimestamp._id.timestampMilliseconds.getTime();
       const isSignatureValid =
         dataPackagesWithSameTimestamp.isSignatureValid[i];
 
@@ -301,8 +304,8 @@ export class DataPackagesService {
       nodes.map(async (node) => {
         const count = await DataPackage.countDocuments({
           $and: [
-            { timestampMilliseconds: { $gte: fromTimestamp } },
-            { timestampMilliseconds: { $lte: toTimestamp } },
+            { timestampMilliseconds: { $gte: new Date(fromTimestamp) } },
+            { timestampMilliseconds: { $lte: new Date(toTimestamp) } },
             { dataServiceId: node.dataServiceId },
             { signerAddress: node.evmAddress },
             { isSignatureValid: true },
