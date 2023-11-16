@@ -438,6 +438,14 @@
         "mercado-api",
         "twelve-data"
       ]
+    },
+    "ETH/USDC": {
+      "source": [
+        "chainlink-based",
+        "coingecko-based",
+        "pyth-based",
+        "non-usd-based"
+      ]
     }
   }
 }
