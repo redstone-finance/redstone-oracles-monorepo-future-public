@@ -21,7 +21,7 @@ export abstract class Ton {
     this.walletAddress = network.walletAddress;
 
     if (!(await network.isContractDeployed(network.walletAddress))) {
-      throw "wallet is not deployed";
+      throw new Error("wallet is not deployed");
     }
 
     return this;
