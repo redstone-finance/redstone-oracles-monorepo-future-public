@@ -102,12 +102,13 @@ abstract contract PriceFeedsAdapterWithRounds is PriceFeedsAdapterBase {
    * @return roundDataTimestamp
    * @return roundBlockTimestamp
    */
-  function getRoundData(bytes32 dataFeedId, uint256 roundId) public view returns (uint256 dataFeedValue, uint128 roundDataTimestamp, uint128 roundBlockTimestamp) {
+  function getRoundDataFromAdapter(bytes32 dataFeedId, uint256 roundId) public view returns (uint256 dataFeedValue, uint128 roundDataTimestamp, uint128 roundBlockTimestamp) {
     if (roundId > getLatestRoundId() || roundId == 0) {
       revert RoundNotFound(roundId);
     }
 
     dataFeedValue = getValueForDataFeedAndRound(dataFeedId, roundId);
+    validateDataFeedValue(dataFeedId, dataFeedValue);
     uint256 packedRoundTimestamps = getPackedTimestampsForRound(roundId);
     (roundDataTimestamp, roundBlockTimestamp) = _unpackTimestamps(packedRoundTimestamps);
   }

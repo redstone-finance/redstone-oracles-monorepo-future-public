@@ -85,7 +85,7 @@ describe("upgrade from contracts without rounds to contracts with rounds", () =>
     for (const expectedRoundData of expectedRoundsData) {
       expect(
         await mapToString(
-          adapterWithRounds.getRoundData(
+          adapterWithRounds.getRoundDataFromAdapter(
             formatBytes32String("BTC"),
             expectedRoundData.expectedRound
           )
@@ -281,7 +281,10 @@ async function assertAdapterWithRoundsWorks(
   ).to.eq(expectedPriceScaled);
   expect(
     await mapToString(
-      adapterWithRounds.getRoundData(formatBytes32String("BTC"), expectedRound)
+      adapterWithRounds.getRoundDataFromAdapter(
+        formatBytes32String("BTC"),
+        expectedRound
+      )
     )
   ).deep.eq([expectedPriceScaled, timestamp, blockTime]);
 }
