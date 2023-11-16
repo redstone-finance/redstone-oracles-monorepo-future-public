@@ -30,7 +30,7 @@ export class TonContractFactory {
     );
 
     if (await network.isContractDeployed(address)) {
-      throw "Contract already deployed";
+      throw new Error("Contract already deployed");
     }
 
     await contract.connect(network);

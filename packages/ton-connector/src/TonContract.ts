@@ -4,7 +4,7 @@ import { Maybe } from "ton-core/src/utils/maybe";
 
 export class TonContract extends Ton implements Contract {
   static getName(): string {
-    throw "Must be overridden; Return the contract-filename here;";
+    throw new Error("Must be overridden; Return the contract-filename here;");
   }
 
   constructor(

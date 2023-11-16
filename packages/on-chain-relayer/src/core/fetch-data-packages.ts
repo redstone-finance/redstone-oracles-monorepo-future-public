@@ -41,7 +41,12 @@ const requestHistoricalDataPackages = (
 ): Promise<DataPackagesResponse> => {
   const { fallbackOffsetInMinutes, historicalPackagesGateways } = config();
 
-  if (!!fallbackOffsetInMinutes && !!historicalPackagesGateways) {
+  if (
+    !!fallbackOffsetInMinutes &&
+    !!historicalPackagesGateways &&
+    Array.isArray(historicalPackagesGateways) &&
+    historicalPackagesGateways.length
+  ) {
     return requestDataPackages({
       ...requestParams,
       historicalTimestamp: calculateOlderPackagesTimestamp(
@@ -53,9 +58,9 @@ const requestHistoricalDataPackages = (
 
   throw new Error(
     `Historical packages fetcher for fallback deviation check is not properly configured: ` +
-      `offset=${fallbackOffsetInMinutes} min., gateway=${JSON.stringify(
+      `offset=${fallbackOffsetInMinutes} min., gateways=${JSON.stringify(
         historicalPackagesGateways
-      )}`
+      )}, isArray=${Array.isArray(historicalPackagesGateways)} `
   );
 };
 

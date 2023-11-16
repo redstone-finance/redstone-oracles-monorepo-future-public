@@ -64,7 +64,7 @@ export abstract class TonContractConnector<
     const walletAddress = this.network.walletAddress;
 
     if (!api || !walletAddress) {
-      throw "Api or Wallet address is undefined";
+      throw new Error("Api or Wallet address is undefined");
     }
 
     const seqno = (await api.getLastBlock()).last.seqno;
