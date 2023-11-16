@@ -20,10 +20,8 @@ import { ethers } from "ethers";
 import { base64 } from "ethers/lib/utils";
 import request from "supertest";
 import { AppModule } from "../../src/app.module";
-import { BundlrBroadcaster } from "../../src/broadcasters/bundlr-broadcaster";
 import { ResponseFormat } from "../../src/data-packages/data-packages.interface";
 import {
-  CachedDataPackage,
   DataPackage,
   DataPackageDocument,
 } from "../../src/data-packages/data-packages.model";
@@ -79,10 +77,6 @@ const mockSigners = [MOCK_SIGNER_ADDRESS, "0x2", "0x3", "0x4", "0x5"];
 
 describe("Data packages (e2e)", () => {
   let app: INestApplication, httpServer: unknown;
-  let bundlrSaveDataPackagesSpy: jest.SpyInstance<
-    Promise<void>,
-    [dataPackages: CachedDataPackage[], nodeEvmAddress: string]
-  >;
   let mockDataPackages: SignedDataPackagePlainObj[];
 
   beforeEach(async () => {
@@ -97,11 +91,6 @@ describe("Data packages (e2e)", () => {
     app = moduleFixture.createNestApplication();
     await app.init();
     httpServer = app.getHttpServer();
-
-    const bundlrBroadcaster = app.get(BundlrBroadcaster);
-    bundlrSaveDataPackagesSpy = jest.spyOn(bundlrBroadcaster, "broadcast");
-    bundlrSaveDataPackagesSpy.mockImplementation(() => Promise.resolve());
-    bundlrSaveDataPackagesSpy.mockClear();
 
     // Adding test data to DB
     const dataPackagesToInsert = [];
@@ -184,70 +173,6 @@ describe("Data packages (e2e)", () => {
     });
     expect(dataPackagesInDBCleaned).toEqual(
       expect.arrayContaining(getExpectedDataPackagesInDB(mockDataPackages))
-    );
-  });
-
-  it("/data-packages/bulk (POST) - should post data using Bundlr", async () => {
-    const requestSignature = signByMockSigner(mockDataPackages);
-    await request(httpServer)
-      .post("/data-packages/bulk")
-      .send({
-        requestSignature,
-        dataPackages: mockDataPackages,
-      })
-      .expect(201);
-
-    // Should have been saved in Arweave
-    expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledTimes(1);
-    expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledWith(
-      getExpectedDataPackagesInDB(mockDataPackages),
-      MOCK_SIGNER_ADDRESS
-    );
-  });
-
-  it("/data-packages/bulk (POST) - should post data using DB, even if bundlr fails", async () => {
-    const requestSignature = signByMockSigner(mockDataPackages);
-    // mock bundlr failure
-    bundlrSaveDataPackagesSpy.mockImplementationOnce(() => Promise.reject());
-
-    await request(httpServer)
-      .post("/data-packages/bulk")
-      .send({
-        requestSignature,
-        dataPackages: mockDataPackages,
-      })
-      .expect(201);
-
-    const dataPackagesInDB = await DataPackage.find().sort({
-      dataFeedId: 1,
-    });
-    const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
-      const { _id, __v, ...rest } = dp.toJSON() as any;
-      return rest;
-    });
-    expect(dataPackagesInDBCleaned).toEqual(
-      expect.arrayContaining(getExpectedDataPackagesInDB(mockDataPackages))
-    );
-  });
-
-  it("/data-packages/bulk (POST) - should post data using bundlr, even if DB fails", async () => {
-    const requestSignature = signByMockSigner(mockDataPackages);
-    // mock bundlr DB failure
-    const dataPackageSaveManySpy = jest.spyOn(DataPackage, "insertMany");
-    dataPackageSaveManySpy.mockImplementationOnce(() => Promise.reject());
-
-    await request(httpServer)
-      .post("/data-packages/bulk")
-      .send({
-        requestSignature,
-        dataPackages: mockDataPackages,
-      })
-      .expect(201);
-
-    expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledTimes(1);
-    expect(bundlrSaveDataPackagesSpy).toHaveBeenCalledWith(
-      getExpectedDataPackagesInDB(mockDataPackages),
-      MOCK_SIGNER_ADDRESS
     );
   });
 
