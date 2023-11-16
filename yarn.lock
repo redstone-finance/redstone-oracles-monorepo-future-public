@@ -8540,10 +8540,10 @@ cbor@^9.0.0:
   dependencies:
     nofilter "^3.1.0"
 
-ccxt@4.0.78:
-  version "4.0.78"
-  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-4.0.78.tgz#22870a1d43bafadd1788b5b97a81fa5aa593fd5a"
-  integrity sha512-IOHgMiGFT7bpaOcCnLe8pYCLX5Fzio6UtVRSAvL8OnxepyWzWXChgvko26xaSh4ms39ZOBQE2UbcCLuiyDINKw==
+ccxt@4.1.53:
+  version "4.1.53"
+  resolved "https://registry.yarnpkg.com/ccxt/-/ccxt-4.1.53.tgz#0da487bcb94b26f6ade9f3e9d06cb898f947c4ba"
+  integrity sha512-pJzX01ZFn4jyxmLLZuSONcgwY4+efr1DK6sp73jnt6duO5ZZgssulQiMs9IoOOXDWJfjMSib1MDp1B532tgtCA==
   dependencies:
     ws "^8.8.1"
 

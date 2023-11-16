@@ -12,7 +12,7 @@
   "tokens": {
     "DAI": {},
     "ETH": {
-      "source": ["ascendex", "bequant", "binance"]
+      "source": ["coingecko"]
     },
     "USDT": {
       "source": ["coingecko"]
