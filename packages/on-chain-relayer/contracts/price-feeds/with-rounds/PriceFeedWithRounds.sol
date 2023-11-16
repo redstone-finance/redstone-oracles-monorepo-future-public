@@ -41,7 +41,7 @@ abstract contract PriceFeedWithRounds is PriceFeedBase {
    * @param roundId Requested round identifier
    */
   function getRoundData(uint80 requestedRoundId) public view override returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound) {
-    (uint256 dataFeedValue, uint128 roundDataTimestamp, uint128 roundBlockTimestamp) = getPriceFeedAdapterWithRounds().getRoundData(
+    (uint256 dataFeedValue, uint128 roundDataTimestamp, uint128 roundBlockTimestamp) = getPriceFeedAdapterWithRounds().getRoundDataFromAdapter(
       getDataFeedId(),
       requestedRoundId
     );

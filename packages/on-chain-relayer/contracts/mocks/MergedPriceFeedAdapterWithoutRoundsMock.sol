@@ -15,7 +15,7 @@ contract MergedPriceFeedAdapterWithoutRoundsMock is MergedPriceFeedAdapterWithou
     return getAuthorisedMockSignerIndex(signerAddress);
   }
 
-  function getSingleDataFeedId() public pure virtual override returns (bytes32) {
+  function getDataFeedId() public pure virtual override returns (bytes32) {
     return bytes32("BTC");
   }
 }
