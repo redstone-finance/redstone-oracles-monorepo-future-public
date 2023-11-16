@@ -13,86 +13,66 @@
   "tokens": {
     "ETH": {
       "source": [
-        "ascendex",
         "band",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
         "bitget",
         "bitmart",
         "bingx",
-        "bittrex",
         "bitrue",
-        "btcturk",
+        "bitstamp",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
         "dia",
-        "digifinex",
         "gate",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
+        "htx",
         "kaiko",
         "kaiko-v2",
         "kraken",
         "kucoin",
-        "latoken",
         "lbank",
         "mexc",
         "okx",
-        "probit",
         "xt"
       ]
     },
     "BTC": {
       "source": [
-        "ascendex",
         "band",
-        "bequant",
         "binance",
         "binancecoinm",
         "binanceusdm",
         "bingx",
-        "bitcoincom",
         "bitfinex2",
         "bitget",
         "bitrue",
-        "bittrex",
-        "btcturk",
         "bitmart",
+        "bitstamp",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
-        "digifinex",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
+        "htx",
         "gate",
         "kaiko",
         "kaiko-v2",
         "kraken",
         "kucoin",
-        "latoken",
         "lbank",
         "mexc",
         "okx",
-        "probit",
         "xt"
       ]
     },
     "USDT": {
       "source": [
         "bitfinex2",
-        "bittrex",
+        "bitstamp",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
         "curve-dai",
         "curve-usdc",
         "kaiko",
@@ -108,24 +88,18 @@
     },
     "BNB": {
       "source": [
-        "ascendex",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitget",
         "bitmart",
-        "bybit",
         "coingecko",
         "gate",
-        "hitbtc",
-        "huobipro",
+        "htx",
         "kucoin",
         "mexc",
         "lbank",
         "okx",
-        "phemex",
-        "probit",
         "xt"
       ]
     },
@@ -136,15 +110,13 @@
         "bitfinex2",
         "bitget",
         "bitmart",
-        "bittrex",
         "bitrue",
-        "btcturk",
+        "bitstamp",
         "coingecko",
         "curve-dai",
         "curve-usdt",
-        "digifinex",
         "gate",
-        "huobipro",
+        "htx",
         "kaiko",
         "kaiko-v2",
         "kraken",
@@ -152,10 +124,7 @@
         "lbank",
         "maverick",
         "mexc",
-        "latoken",
-        "phemex",
         "okx",
-        "probit",
         "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-dai-100",
         "uniswap-v3-ethereum-on-chain-usdt-100",
@@ -179,44 +148,29 @@
     },
     "XRP": {
       "source": [
-        "ascendex",
-        "bequant",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
-        "bittrex",
-        "btcturk",
+        "bitstamp",
         "coingecko",
-        "currencycom",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
-        "okx",
-        "probit"
+        "okx"
       ]
     },
     "ADA": {
       "source": [
-        "ascendex",
-        "bequant",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
-        "bittrex",
-        "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "okx"
@@ -224,119 +178,89 @@
     },
     "MATIC": {
       "source": [
-        "ascendex",
         "binance",
         "binanceusdm",
-        "bitcoincom",
-        "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
-        "okx",
-        "probit"
+        "okx"
       ]
     },
     "DOGE": {
       "source": [
-        "ascendex",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
-        "bittrex",
-        "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
-        "hollaex",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
-        "okx",
-        "probit"
+        "okx"
       ]
     },
     "BUSD": {
-      "source": ["binance", "bitcoincom", "coingecko", "hitbtc", "lbank"]
+      "source": ["binance", "coingecko", "gate", "lbank", "mexc"]
     },
     "SOL": {
       "source": [
-        "ascendex",
         "binance",
         "binanceusdm",
         "bingx",
         "bitfinex2",
         "bitget",
-        "btcturk",
+        "bitstamp",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "gate",
-        "hitbtc",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
-        "latoken",
         "lbank",
         "mexc",
-        "phemex",
         "okx",
         "xt"
       ]
     },
     "DOT": {
       "source": [
-        "ascendex",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
-        "bittrex",
-        "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
-        "okx",
-        "probit"
+        "okx"
       ]
     },
     "SHIB": {
       "source": [
         "binance",
-        "bitcoincom",
         "bitget",
         "bitrue",
-        "bybit",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "gate",
-        "hitbtc",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
-        "latoken",
         "lbank",
         "mexc",
-        "phemex",
         "okx",
-        "probit",
         "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
@@ -347,18 +271,16 @@
         "binanceusdm",
         "bitget",
         "bitrue",
-        "bybit",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kaiko",
         "kaiko-v2",
         "kraken",
         "kucoin",
         "lbank",
         "mexc",
-        "okx",
-        "phemex"
+        "okx"
       ]
     },
     "DAI": {
@@ -371,7 +293,7 @@
         "coingecko",
         "curve-usdc",
         "curve-usdt",
-        "huobipro",
+        "htx",
         "kraken",
         "mexc",
         "okx",
@@ -387,27 +309,18 @@
     },
     "LTC": {
       "source": [
-        "ascendex",
-        "bequant",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
-        "bittrex",
-        "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
-        "okx",
-        "probit"
+        "okx"
       ]
     },
     "AVAX": {
@@ -417,14 +330,13 @@
         "bingx",
         "bitfinex2",
         "bitget",
-        "bittrex",
         "bitmart",
-        "btcturk",
+        "bitstamp",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kaiko",
         "kaiko-v2",
         "kucoin",
@@ -435,8 +347,6 @@
     },
     "UNI": {
       "source": [
-        "ascendex",
-        "bequant",
         "binance",
         "binancecoinm",
         "binanceusdm",
@@ -444,21 +354,16 @@
         "bitfinex2",
         "bitget",
         "bitmart",
-        "btcturk",
+        "bitstamp",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
+        "htx",
         "gate",
         "kraken",
         "kucoin",
-        "latoken",
         "lbank",
         "okx",
-        "phemex",
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
       ]
@@ -468,11 +373,9 @@
         "binance",
         "bingx",
         "bitrue",
-        "bittrex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "hitbtc",
         "kraken",
         "mexc",
         "okx",
@@ -487,173 +390,129 @@
     },
     "ATOM": {
       "source": [
-        "ascendex",
         "binance",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
         "bitget",
         "bitmart",
         "bitrue",
         "bingx",
-        "bittrex",
-        "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "digifinex",
         "gate",
-        "hitbtc",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
         "mexc",
         "okx",
-        "phemex",
-        "probit",
         "xt"
       ]
     },
     "LINK": {
       "source": [
-        "ascendex",
-        "bequant",
         "binance",
         "binanceusdm",
         "bingx",
-        "bitcoincom",
         "bitfinex2",
         "bitget",
         "bitmart",
-        "bittrex",
-        "btcturk",
+        "bitstamp",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
-        "hitbtc",
         "gate",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
         "mexc",
         "okx",
-        "phemex",
-        "probit",
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
       ]
     },
     "LEO": {
-      "source": ["bitfinex2", "coingecko", "okx", "probit"]
+      "source": ["bitfinex2", "coingecko", "okx"]
     },
     "OKB": {
-      "source": ["coingecko", "lbank", "okx", "poloniex", "probit"]
+      "source": ["coingecko", "lbank", "okx"]
     },
     "ETC": {
       "source": [
-        "ascendex",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
-        "bittrex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
-        "okx",
-        "probit"
+        "okx"
       ]
     },
     "XMR": {
       "source": [
         "binance",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
         "coingecko",
-        "hitbtc",
-        "hollaex",
         "kraken",
         "kucoin",
-        "okx",
-        "poloniex"
+        "okx"
       ]
     },
     "FIL": {
       "source": [
-        "ascendex",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
-        "bittrex",
-        "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "hitbtc",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
-        "okx",
-        "poloniex"
+        "okx"
       ]
     },
     "BCH": {
       "source": [
-        "ascendex",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
-        "bittrex",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
-        "okx",
-        "probit"
+        "okx"
       ]
     },
     "APT": {
-      "source": ["binance", "binanceusdm", "coingecko", "huobipro"]
+      "source": ["binance", "binanceusdm", "coingecko", "htx"]
     },
     "XLM": {
       "source": [
-        "ascendex",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
-        "bittrex",
-        "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "hitbtc",
-        "hollaex",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
-        "okx",
-        "probit"
+        "okx"
       ]
     },
     "NEAR": {
@@ -662,8 +521,7 @@
         "binanceusdm",
         "bitfinex2",
         "coingecko",
-        "hitbtc",
-        "huobipro",
+        "htx",
         "kucoin",
         "okx"
       ]
@@ -673,37 +531,28 @@
     },
     "FTM": {
       "source": [
-        "ascendex",
         "binance",
         "binanceusdm",
         "bitfinex2",
         "coingecko",
-        "hitbtc",
         "kucoin",
-        "okx",
-        "probit"
+        "okx"
       ]
     },
     "EOS": {
       "source": [
-        "ascendex",
-        "bequant",
         "binance",
         "binancecoinm",
         "binanceusdm",
-        "bitcoincom",
         "bitfinex2",
-        "btcturk",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "hitbtc",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
-        "okx",
-        "probit"
+        "okx"
       ]
     },
     "AAVE": {
@@ -713,13 +562,10 @@
         "bitget",
         "bitmart",
         "bitfinex2",
-        "bybit",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "currencycom",
-        "hitbtc",
-        "huobipro",
+        "htx",
         "kaiko",
         "kaiko-v2",
         "kraken",
@@ -727,13 +573,12 @@
         "lbank",
         "mexc",
         "okx",
-        "phemex",
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
       ]
     },
     "AR": {
-      "source": ["binance", "coingecko", "hitbtc", "huobipro"]
+      "source": ["binance", "bingx", "bitget", "bitrue", "coingecko", "htx"]
     },
     "CELO": {
       "source": [
@@ -743,15 +588,12 @@
         "bitget",
         "bitmart",
         "bitrue",
-        "bittrex",
-        "bybit",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kucoin",
-        "latoken",
         "mexc",
         "okx"
       ]
@@ -765,13 +607,11 @@
         "bitrue",
         "coingecko",
         "fraxswap-on-chain-frax",
-        "huobipro",
-        "latoken",
+        "htx",
         "lbank",
         "mexc",
         "kucoin",
-        "okx",
-        "phemex"
+        "okx"
       ]
     },
     "FRAX": {
@@ -807,31 +647,29 @@
         "bitrue",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "mexc",
-        "okx",
-        "phemex"
+        "okx"
       ]
     },
     "MNT": {
       "source": [
         "bingx",
         "bitmart",
-        "bybit",
         "coingecko",
         "gate",
         "mexc",
-        "huobipro",
+        "htx",
         "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
     "KAVA": {
-      "source": ["ascendex", "binance", "binanceusdm", "huobipro", "kraken"]
+      "source": ["binance", "binanceusdm", "htx", "kraken"]
     },
     "UFT": {
-      "source": ["binance", "bitrue", "coingecko", "gate", "huobipro", "mexc"]
+      "source": ["binance", "bitrue", "coingecko", "gate", "htx", "mexc"]
     },
     "SONIA": {
       "source": ["stlouisfed"]
@@ -859,7 +697,7 @@
         "curve-eth",
         "curve-weth",
         "gate",
-        "huobipro",
+        "htx",
         "kaiko",
         "kaiko-v2",
         "mexc",
@@ -885,7 +723,7 @@
       "source": ["bitget", "coingecko", "camelot-weth"]
     },
     "CMP": {
-      "source": ["bybit", "coingecko", "xt"]
+      "source": ["coingecko", "xt"]
     },
     "VST/ETH": {
       "source": ["non-usd-based"]
@@ -896,12 +734,10 @@
         "bingx",
         "bitget",
         "coingecko",
-        "huobipro",
+        "htx",
         "gate",
-        "latoken",
         "mexc",
         "okx",
-        "phemex",
         "trader-joe-on-chain-wavax",
         "trader-joe-v2-avalanche-on-chain-wavax",
         "xt"
@@ -913,7 +749,7 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "huobipro",
+        "htx",
         "trader-joe-v2-avalanche-on-chain-usdc",
         "uniswap-v3-ethereum-on-chain-usdc-500"
       ]
@@ -936,13 +772,11 @@
         "coinbasepro",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
-        "latoken",
         "lbank",
         "mexc",
-        "phemex",
         "okx",
         "xt"
       ]
@@ -984,22 +818,19 @@
         "binance",
         "bitget",
         "bitrue",
-        "bybit",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
         "mexc",
-        "phemex",
         "okx",
         "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
     "ARB": {
       "source": [
-        "ascendex",
         "binance",
         "binanceusdm",
         "bingx",
@@ -1009,13 +840,12 @@
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "huobipro",
+        "htx",
         "gate",
         "kraken",
         "kucoin",
         "lbank",
         "mexc",
-        "phemex",
         "okx",
         "uniswap-v3-arbitrum-on-chain-weth-500",
         "uniswap-v3-arbitrum-on-chain-weth-3000",
@@ -1025,23 +855,19 @@
     },
     "OP": {
       "source": [
-        "ascendex",
         "binance",
         "binancecoinm",
         "binanceusdm",
         "bitget",
         "bitmart",
         "bitrue",
-        "bybit",
         "coinbaseprime",
         "coinbasepro",
         "coingecko",
-        "huobipro",
+        "htx",
         "gate",
         "kucoin",
-        "latoken",
         "mexc",
-        "phemex",
         "okx",
         "xt",
         "uniswap-v3-optimism-on-chain-weth-3000",
@@ -1050,21 +876,18 @@
     },
     "DYDX": {
       "source": [
-        "ascendex",
         "binance",
         "binanceusdm",
         "bitget",
         "bitrue",
-        "bybit",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
         "lbank",
         "mexc",
         "okx",
-        "phemex",
         "xt",
         "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
@@ -1078,7 +901,6 @@
         "coingecko",
         "gate",
         "kraken",
-        "latoken",
         "okx"
       ]
     },
@@ -1099,7 +921,7 @@
       "source": ["arbitrum-evm-fetcher"]
     },
     "DPX": {
-      "source": ["bingx", "bitget", "bybit", "coingecko", "mexc"]
+      "source": ["bingx", "bitget", "coingecko", "mexc"]
     },
     "YY_WOMBEX_USDT": {
       "source": ["arbitrum-evm-fetcher"]
@@ -1122,10 +944,9 @@
         "coinbasepro",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
-        "latoken",
         "lbank",
         "mexc",
         "okx",
@@ -1198,9 +1019,7 @@
         "bitrue",
         "coingecko",
         "gate",
-        "mexc",
-        "latoken",
-        "phemex"
+        "mexc"
       ]
     },
     "MAGIC": {
@@ -1214,7 +1033,7 @@
         "coinbaseprime",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "lbank",
         "mexc",
         "okx",
@@ -1227,10 +1046,9 @@
         "bingx",
         "bitget",
         "bitmart",
-        "coinex",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kucoin",
         "mexc"
       ]
@@ -1260,11 +1078,10 @@
         "bitget",
         "bitmart",
         "coingecko",
-        "huobipro",
+        "htx",
         "gate",
         "kraken",
         "kucoin",
-        "latoken",
         "lbank",
         "mexc",
         "okx"
@@ -1281,13 +1098,11 @@
         "coinbaseprime",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
-        "latoken",
         "lbank",
         "mexc",
-        "phemex",
         "okx",
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "uniswap-v3-ethereum-on-chain-weth-10000",
@@ -1307,11 +1122,9 @@
         "coinbaseprime",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kucoin",
-        "latoken",
         "lbank",
-        "phemex",
         "okx",
         "xt"
       ]
@@ -1328,13 +1141,11 @@
         "coinbaseprime",
         "coingecko",
         "gate",
-        "huobipro",
+        "htx",
         "kraken",
         "kucoin",
-        "latoken",
         "mexc",
-        "okx",
-        "phemex"
+        "okx"
       ]
     },
     "GM_ETH_WETH_USDC": {
@@ -1437,8 +1248,6 @@
         "binance-api",
         "bitso-api",
         "ecb",
-        "kaiko",
-        "kaiko-v2",
         "kucoin-api",
         "mercado-api",
         "twelve-data"
