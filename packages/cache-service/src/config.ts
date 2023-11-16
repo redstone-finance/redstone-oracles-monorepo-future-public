@@ -1,7 +1,6 @@
-import { JWKInterface } from "arweave/node/lib/wallet";
 import "dotenv/config";
 
-interface CacheServiceConfigRequiredFields {
+interface CacheServiceConfig {
   appPort: number;
   // empty string means that in-memory DB will be created and used
   // e.g. by e2e test process
@@ -19,18 +18,6 @@ interface CacheServiceConfigRequiredFields {
   dataPackagesTTL: number;
 }
 
-type CacheServiceConfigOptionalFields =
-  | {
-      enableArchivingOnArweave: true;
-      arweaveJwkKey: JWKInterface;
-      bundlrNodeUrl: string;
-    }
-  | { enableArchivingOnArweave: false };
-
-type CacheServiceConfig = CacheServiceConfigRequiredFields &
-  CacheServiceConfigOptionalFields;
-
-const DEFAULT_BUNDLR_NODE_URL = "https://node2.bundlr.network";
 const DEFAULT_APP_PORT = 3000;
 const DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY = 90 * 1000; // 1.5 minutes in milliseconds
 
@@ -53,21 +40,6 @@ const getEnv: GetEnvType = (envName: string, required: boolean = true) => {
   return process.env[envName]!;
 };
 
-const arweaveJwkKeyForArchiving = getEnv(
-  "JWK_KEY_FOR_ARCHIVING_ON_ARWEAVE",
-  false
-);
-
-const optionalConfig: CacheServiceConfigOptionalFields =
-  arweaveJwkKeyForArchiving
-    ? {
-        enableArchivingOnArweave: true,
-        arweaveJwkKey: JSON.parse(arweaveJwkKeyForArchiving) as JWKInterface,
-        bundlrNodeUrl:
-          getEnv("BUNDLR_NODE_URL", false) || DEFAULT_BUNDLR_NODE_URL,
-      }
-    : { enableArchivingOnArweave: false };
-
 const config: CacheServiceConfig = {
   appPort: Number(getEnv("APP_PORT", false) || DEFAULT_APP_PORT),
   mongoDbUrl: getEnv("MONGO_DB_URL"),
@@ -88,7 +60,6 @@ const config: CacheServiceConfig = {
       DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY
   ),
   dataPackagesTTL: Number(getEnv("DATA_PACKAGES_TTL", false) || CACHE_TTL),
-  ...optionalConfig,
 };
 
 export default config;

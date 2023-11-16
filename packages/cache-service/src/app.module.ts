@@ -12,7 +12,6 @@ import { OracleRegistryStateController } from "./oracle-registry-state/oracle-re
 import { StreamrListenerService } from "./streamr-listener/streamr-listener.service";
 import { StreamrBroadcaster } from "./broadcasters/streamr-broadcaster";
 import { MongoBroadcaster } from "./broadcasters/mongo-broadcaster";
-import { BundlrBroadcaster } from "./broadcasters/bundlr-broadcaster";
 
 const providers: Provider[] = [DataPackagesService];
 const imports = [LoggerModule.forRoot()];
@@ -24,10 +23,6 @@ if (config.enableStreamrListening) {
 
 if (config.streamrPrivateKey) {
   providers.push(StreamrBroadcaster);
-}
-
-if (config.enableArchivingOnArweave) {
-  providers.push(BundlrBroadcaster);
 }
 
 if (config.mongoDbUrl) {

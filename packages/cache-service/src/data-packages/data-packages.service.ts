@@ -16,7 +16,6 @@ import {
   parseDataPackagesResponse,
 } from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
-import { BundlrBroadcaster } from "../broadcasters/bundlr-broadcaster";
 import { DataPackagesBroadcaster } from "../broadcasters/data-packages-broadcaster";
 import { MongoBroadcaster } from "../broadcasters/mongo-broadcaster";
 import { StreamrBroadcaster } from "../broadcasters/streamr-broadcaster";
@@ -47,15 +46,11 @@ export class DataPackagesService {
   private readonly broadcasters: DataPackagesBroadcaster[] = [];
 
   constructor(
-    @Optional() private readonly bundlrBroadcaster?: BundlrBroadcaster,
     @Optional() private readonly mongoBroadcaster?: MongoBroadcaster,
     @Optional() private readonly streamrBroadcaster?: StreamrBroadcaster
   ) {
     if (mongoBroadcaster) {
       this.broadcasters.push(mongoBroadcaster);
-    }
-    if (bundlrBroadcaster) {
-      this.broadcasters.push(bundlrBroadcaster);
     }
     if (streamrBroadcaster) {
       this.broadcasters.push(streamrBroadcaster);
@@ -68,7 +63,7 @@ export class DataPackagesService {
     );
   }
 
-  /**  Save dataPackages to DB and bundlr (optionally) and streamr (optionally) */
+  /**  Save dataPackages to DB and streamr (optionally) */
   async broadcast(
     dataPackagesToSave: CachedDataPackage[],
     nodeEvmAddress: string
