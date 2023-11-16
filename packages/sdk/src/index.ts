@@ -178,7 +178,7 @@ const prepareDataPackagePromises = (reqParams: DataPackagesRequestParams) => {
   return urls.map((url) =>
     axios
       .get<Record<string, SignedDataPackagePlainObj[]>>(
-        [url].concat(pathComponents).join("/")
+        [url.replace(/\/+$/, "")].concat(pathComponents).join("/")
       )
       .then((response) => parseDataPackagesResponse(response.data, reqParams))
   );

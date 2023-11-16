@@ -1,0 +1,16 @@
+{
+  "chain": {
+    "name": "ethereum-goerli",
+    "id": 5
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.2,
+    "timeSinceLastUpdateInMilliseconds": 900000
+  },
+  "adapterContract": "0x448328E5416F2c99Dd9Bc4979b7DB148Dc10579f",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "SWETH": "0x4d55F539Ec10aec26a125354A94F96218e76f60A",
+    "SWETH/ETH": "0xEea330e1Bfd591ED9a871C9f4489ea9042D442b2"
+  }
+}

@@ -25,7 +25,7 @@ export const connectPricesContract = async (
     ).getAdapter();
   }
 
-  throw "Non-empty CONTRACT_ID and GENESIS_SECRET must be defined!";
+  throw new Error("Non-empty CONTRACT_ID and GENESIS_SECRET must be defined!");
 };
 
 export const deployPricesContract = async (
