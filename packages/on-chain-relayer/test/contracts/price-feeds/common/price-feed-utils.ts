@@ -113,10 +113,22 @@ export const describeCommonPriceFeedTests = ({
 
     beforeEach(async () => {
       contracts = await deployAll();
-      await updatePrices();
+    });
+
+    it("should revert calling latestRoundData if the value is zero", async () => {
+      await expect(contracts.priceFeed.latestRoundData()).to.be.reverted;
+    });
+
+    it("should revert calling latestAnswer if the value is zero", async () => {
+      await expect(contracts.priceFeed.latestAnswer()).to.be.reverted;
+    });
+
+    it("should revert calling getRoundData if the value is zero", async () => {
+      await expect(contracts.priceFeed.getRoundData(0)).to.be.reverted;
     });
 
     it("should properly get latest round data", async () => {
+      await updatePrices();
       const latestRoundData = await contracts.priceFeed.latestRoundData();
       expect(latestRoundData.roundId.toNumber()).to.eq(
         expectedRoundIdAfterOneUpdate
@@ -127,11 +139,13 @@ export const describeCommonPriceFeedTests = ({
     });
 
     it("should properly get latest answer", async () => {
+      await updatePrices();
       const latestAnswer = await contracts.priceFeed.latestAnswer();
       expect(latestAnswer.toNumber()).to.eq(42 * 10 ** 8);
     });
 
     it("should properly get latest round id", async () => {
+      await updatePrices();
       const latestRoundId = await contracts.priceFeed.latestRound();
       expect(latestRoundId.toNumber()).to.eq(expectedRoundIdAfterOneUpdate);
     });
