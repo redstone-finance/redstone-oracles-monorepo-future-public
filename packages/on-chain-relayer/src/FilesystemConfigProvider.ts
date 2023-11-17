@@ -2,7 +2,6 @@ import "dotenv/config";
 import {
   ConfigProvider,
   OnChainRelayerEnv,
-  OnChainRelayerManifest,
   OnChainRelayerManifestSchema,
 } from "./types";
 import fs from "fs";
@@ -58,11 +57,17 @@ const getJSONFromEnv: GetJSONFromEnvType = <T>(
   return undefined;
 };
 
+const readManifest = () => {
+  const manifestFromEnvAsString = getFromEnv("MANIFEST_OVERRIDE", true);
+  const manifestPath = getFromEnv("MANIFEST_FILE");
+  const manifestObject: unknown = manifestFromEnvAsString
+    ? JSON.parse(manifestFromEnvAsString)
+    : readJSON(manifestPath);
+  return OnChainRelayerManifestSchema.parse(manifestObject);
+};
+
 export const fileSystemConfigProvider: ConfigProvider = () => {
-  const manifestPath = getFromEnv("MANIFEST_FILE")!;
-  const manifest = OnChainRelayerManifestSchema.parse(
-    readJSON<OnChainRelayerManifest>(manifestPath)
-  );
+  const manifest = readManifest();
   const mentoMaxDeviationAllowedString = getFromEnv(
     "MENTO_MAX_DEVIATION_ALLOWED",
     true
