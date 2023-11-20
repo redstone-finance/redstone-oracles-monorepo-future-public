@@ -30,6 +30,8 @@ export const timeUpdateCondition = (
 
   return {
     shouldUpdatePrices,
-    warningMessage: `${isFallback ? "Fallback time: " : ""}${warningMessage}`,
+    warningMessage: `${
+      isFallback ? "Time in fallback mode: " : ""
+    }${warningMessage}`,
   };
 };

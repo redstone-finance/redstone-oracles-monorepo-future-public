@@ -107,6 +107,7 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     ),
     isAuctionModel: getFromEnv("IS_AUCTION_MODEL", true) === "true",
     mentoMaxDeviationAllowed,
+    isNotLazy: getFromEnv("IS_NOT_LAZY", false) === "true",
   };
 
   return makeConfigProvider(manifest, env);
