@@ -3,7 +3,12 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["**/*", "package.json", "src/**/*.json", "artifacts/**/*.json"],
+  "include": [
+    "**/*",
+    "package.json",
+    "src/**/*.json",
+    "artifacts/**/*.sol/*.json"
+  ],
   "references": [
     {
       "path": "../utils/tsconfig.build.json"
