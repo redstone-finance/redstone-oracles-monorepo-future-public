@@ -18,7 +18,7 @@ describe("fallback-time-condition", () => {
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Fallback time: Not enough time has passed to update prices/
+      /Time in fallback mode: Not enough time has passed to update prices/
     );
   });
 
@@ -30,7 +30,7 @@ describe("fallback-time-condition", () => {
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Fallback time: Not enough time has passed to update prices/
+      /Time in fallback mode: Not enough time has passed to update prices/
     );
   });
 
@@ -42,7 +42,7 @@ describe("fallback-time-condition", () => {
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(
-      /Fallback time: Enough time passed to updated prices/
+      /Time in fallback mode: Enough time passed to updated prices/
     );
   });
 });

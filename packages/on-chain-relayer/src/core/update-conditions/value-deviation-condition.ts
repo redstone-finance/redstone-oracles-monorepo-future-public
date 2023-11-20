@@ -10,7 +10,7 @@ export const performValueDeviationConditionChecks = async (
   latestDataPackages: DataPackagesResponse,
   valuesFromContract: ValuesForDataFeeds,
   config: RelayerConfig,
-  olderDataPackagesFetchCallback: () => Promise<DataPackagesResponse>
+  historicalDataPackagesFetchCallback: () => Promise<DataPackagesResponse>
 ) => {
   const { shouldUpdatePrices, warningMessage } = checkValueDeviationCondition(
     latestDataPackages,
@@ -19,30 +19,30 @@ export const performValueDeviationConditionChecks = async (
   );
 
   const isFallback = (config.fallbackOffsetInMinutes ?? 0) > 0;
-  let olderShouldUpdatePrices = true;
-  let olderWarningMessage = "";
+  let historicalShouldUpdatePrices = true;
+  let historicalWarningMessage = "";
 
-  if (shouldUpdatePrices && isFallback) {
-    const olderDataPackages = await olderDataPackagesFetchCallback();
+  if ((shouldUpdatePrices || config.isNotLazy) && isFallback) {
+    const historicalDataPackages = await historicalDataPackagesFetchCallback();
 
     const {
-      shouldUpdatePrices: olderShouldUpdatePricesTmp,
-      warningMessage: olderWarningMessageTmp,
+      shouldUpdatePrices: historicalShouldUpdatePricesTmp,
+      warningMessage: historicalWarningMessageTmp,
     } = checkValueDeviationCondition(
-      olderDataPackages,
+      historicalDataPackages,
       valuesFromContract,
       config
     );
 
-    olderShouldUpdatePrices = olderShouldUpdatePricesTmp;
-    olderWarningMessage = ` AND Older ${olderWarningMessageTmp}`;
+    historicalShouldUpdatePrices = historicalShouldUpdatePricesTmp;
+    historicalWarningMessage = ` AND Historical ${historicalWarningMessageTmp}`;
   }
 
   return {
-    shouldUpdatePrices: shouldUpdatePrices && olderShouldUpdatePrices,
+    shouldUpdatePrices: shouldUpdatePrices && historicalShouldUpdatePrices,
     warningMessage: `${
-      isFallback ? "Fallback deviation: " : ""
-    }${warningMessage}${olderWarningMessage}`,
+      isFallback ? "Deviation in fallback mode: " : ""
+    }${warningMessage}${historicalWarningMessage}`,
   };
 };
 

@@ -6,11 +6,12 @@ import {
   VERY_SMALL_DATA_POINTS,
 } from "./perform-fallback-value-deviation-condition-test";
 
-describe("value-deviation-condition fallback mode tests", () => {
+describe("value-deviation-condition fallback mode not lazy tests", () => {
   before(() => {
     mockEnvVariables({
       fallbackOffsetInMinutes: 1,
       historicalPackagesGateways: ["X"],
+      isNotLazy: true,
     });
   });
 
@@ -26,7 +27,7 @@ describe("value-deviation-condition fallback mode tests", () => {
     expect(warningMessage).to.match(
       /Deviation in fallback mode: Value has not deviated enough to be updated/
     );
-    expect(warningMessage).not.to.match(
+    expect(warningMessage).to.match(
       /Historical Value has deviated enough to be updated/
     );
   });
@@ -77,7 +78,7 @@ describe("value-deviation-condition fallback mode tests", () => {
     expect(warningMessage).to.match(
       /Deviation in fallback mode: Value has not deviated enough to be/
     );
-    expect(warningMessage).not.to.match(
+    expect(warningMessage).to.match(
       /Historical Value has not deviated enough to be/
     );
   });
