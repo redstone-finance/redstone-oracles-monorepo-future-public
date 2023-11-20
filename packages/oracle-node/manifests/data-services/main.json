@@ -1184,6 +1184,12 @@
     "STAMP": {
       "source": ["permaswap"]
     },
+    "ACNH": {
+      "source": ["permaswap"]
+    },
+    "ANS": {
+      "source": ["permaswap"]
+    },
     "AUD": {
       "source": ["currencycom", "ecb", "kraken", "twelve-data"]
     },
