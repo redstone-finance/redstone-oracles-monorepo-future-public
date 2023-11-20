@@ -32,6 +32,7 @@ const EMPTY_GELATO_ENV = {
   agreementAcceptableBlocksDiff: NUMBER_NOT_NEEDED_FOR_GELATO,
   isArbitrumNetwork: false,
   gasMultiplier: 1.125,
+  isNotLazy: true,
 };
 
 export class IterationArgsProvider

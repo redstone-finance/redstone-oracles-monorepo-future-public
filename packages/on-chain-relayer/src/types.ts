@@ -74,6 +74,7 @@ export interface RelayerConfig {
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
   agreementAcceptableBlocksDiff: number;
+  isNotLazy: boolean;
 }
 
 export type OnChainRelayerEnv = {
@@ -93,6 +94,7 @@ export type OnChainRelayerEnv = {
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
   agreementAcceptableBlocksDiff: number;
+  isNotLazy: boolean;
 };
 
 export type ConfigProvider = () => RelayerConfig;
