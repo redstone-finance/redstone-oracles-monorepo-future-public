@@ -1,0 +1,19 @@
+#include "../redstone/constants.fc";
+
+const ERR_ADDRESS_MISMATCH = 398;
+const ERR_MISSING_DATA = 666;
+const ERR_STORAGE_KEY_ISSUE = 688;
+const ERR_TOO_OLD_TIMESTAMP = 699;
+
+const OP_NUMBER_BITS = 256; ;; number of bits in op number
+
+const OP_REDSTONE_WRITE_PRICES = 0x479227d578c45748b6c76eac834302019001b3ee2362a2921a367b76dee3760e; ;; keccak(RedStone_Write_Prices)
+const OP_REDSTONE_FETCH_DATA = 0x31a4a6560a71d9b83d4e2fe08cf460dc0163a78ca5cb069320b889323e60271f; ;; keccak(RedStone_Fetch_Data)
+const OP_REDSTONE_DATA_FETCHED = 0x935fa9d12c36fe0497717d21bb640dab03970ebf4952f582dbba462a76985802; ;; keccak(RedStone_Data_Fetched)
+const OP_REDSTONE_WRITE_PRICE = 0x5a8b42dd1771940342d821304acc3de572bf8353a29f25959e46d814b15702f5; ;; keccak(RedStone_Write_Price)
+
+const KEY_LENGTH_BITS = DATA_FEED_ID_BITS;
+
+const KEY_TIMESTAMP = 0xea3a9e76ef6d0a11ecede851814141885c66d1353409ed0035ced3d7ef6db94a; ;;keccak(RedStone_Timestamp)
+const KEY_SIGNER_COUNT_THRESHOLD = 0x388a662fc8e738d49ad6f760960f2b45d1f655251cf8b9b8dbdef11397fe9089; ;;keccak(RedStone_Signer_Count_Threshold)
+const KEY_SIGNERS = 0x4b63bb1a3108cf94abff5b26a08e889be484d16d808a7b9037f7f45b451e0c40; ;;keccak(RedStone_Signers)

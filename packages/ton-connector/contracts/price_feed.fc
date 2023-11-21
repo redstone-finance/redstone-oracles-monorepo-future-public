@@ -1,7 +1,7 @@
 #include "stdlib.fc";
 
 #include "utils/utils.fc";
-#include "utils/op.fc";
+#include "utils/contract_constants.fc";
 
 #include "redstone/constants.fc";
 
@@ -21,49 +21,42 @@ global int timestamp;
 
 () save_data() impure inline {
     set_data(begin_cell()
-            .store_uint(feed_id, DATA_FEED_ID_BITS)
-            .store_slice(adapter_address_slice)
-            .store_uint(price, MAX_VALUE_SIZE_BITS)
-            .store_uint(timestamp, TIMESTAMP_BITS)
-            .end_cell());
+    .store_uint(feed_id, DATA_FEED_ID_BITS)
+    .store_slice(adapter_address_slice)
+    .store_uint(price, MAX_VALUE_SIZE_BITS)
+    .store_uint(timestamp, TIMESTAMP_BITS)
+    .end_cell());
 }
 
-() recv_internal(int balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
-    int op = in_msg_body~load_uint(OP_NUMBER_BITS);
-    var cs = in_msg_full.begin_parse();
-    var flags = cs~load_uint(4);
-
-    if (flags & 1) { ;; ignore all bounced messages
-        return ();
-    }
+() recv_internal(int, int, cell in_msg_full, slice in_msg_body) impure {
+    (int op, slice cs) = in_msg_body~init(in_msg_full);
 
     load_data();
 
     if (op == OP_REDSTONE_FETCH_DATA) {
-        send_message(OP_REDSTONE_FETCH_DATA, adapter_address_slice, begin_cell().store_uint(feed_id, DATA_FEED_ID_BITS));
+        slice sender_address = cs~load_msg_addr();
+        send_message(OP_REDSTONE_FETCH_DATA, adapter_address_slice, begin_cell().store_uint(feed_id, DATA_FEED_ID_BITS).store_slice(sender_address));
 
         return ();
     }
 
     if (op == OP_REDSTONE_DATA_FETCHED) {
         slice sender_address = cs~load_msg_addr();
-
         throw_unless(ERR_ADDRESS_MISMATCH, parse_work_addr(adapter_address_slice) == parse_work_addr(sender_address));
 
         price = in_msg_body~load_uint(MAX_VALUE_SIZE_BITS);
         timestamp = in_msg_body~load_uint(TIMESTAMP_BITS);
+        slice initial_sender = in_msg_body~load_msg_addr();
 
         save_data();
 
-        return ();
+        return send_back_message_to_addr(initial_sender);
     }
-
-    throw(ERR_UNKNOWN_OP_NUMBER);
 }
 
 ;; =============== getters =============================
 
-(int, int)get_price_and_timestamp() method_id {
+(int, int) get_price_and_timestamp() method_id {
     load_data();
 
     return (price, timestamp);

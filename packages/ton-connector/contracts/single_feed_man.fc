@@ -1,0 +1,98 @@
+#include "stdlib.fc";
+
+#include "utils/utils.fc";
+#include "utils/contract_constants.fc";
+
+#include "redstone/dict.fc";
+#include "redstone/processor.fc";
+#include "redstone/redstone.fc";
+#include "redstone/tuple.fc";
+#include "redstone/constants.fc";
+
+;; =============== storage =============================
+
+global int feed_id;
+global int signer_count_threshold;
+global cell signers;
+global int price;
+global int timestamp;
+
+() load_data() impure {
+    var ds = get_data().begin_parse();
+
+    throw_unless(ERR_LENGTH_OVERFLOW, DATA_FEED_ID_BITS + SIGNER_COUNT_THRESHOLD_BITS + MAX_VALUE_SIZE_BITS + TIMESTAMP_BITS <= 1023);
+
+    feed_id = ds~load_uint(DATA_FEED_ID_BITS);
+    signer_count_threshold = ds~load_uint(SIGNER_COUNT_THRESHOLD_BITS);
+    price = ds~load_uint(MAX_VALUE_SIZE_BITS);
+    timestamp = ds~load_uint(TIMESTAMP_BITS);
+    signers = ds~load_ref();
+}
+
+() save_data() impure inline {
+    set_data(begin_cell()
+    .store_uint(feed_id, DATA_FEED_ID_BITS)
+    .store_uint(signer_count_threshold, SIGNER_COUNT_THRESHOLD_BITS)
+    .store_uint(price, MAX_VALUE_SIZE_BITS)
+    .store_uint(timestamp, TIMESTAMP_BITS)
+    .store_ref(signers)
+    .end_cell());
+}
+
+;; =============== write =============================
+
+(int, int) get_price(cell) impure;
+
+() write_price(cell payload_cell) impure {
+    var (value, min_timestamp) = get_price(payload_cell);
+
+    throw_unless(ERR_TOO_OLD_TIMESTAMP, min_timestamp > timestamp);
+    timestamp = min_timestamp;
+    price = value;
+
+    save_data();
+}
+
+;; =============== messages =============================
+
+() recv_internal(int, int, cell in_msg_full, slice in_msg_body) impure {
+    (int op, slice cs) = in_msg_body~init(in_msg_full);
+
+    load_data();
+
+    if (op == OP_REDSTONE_WRITE_PRICE) {
+        cell payload_cell = in_msg_body~load_ref();
+
+        write_price(payload_cell);
+
+        return cs~send_back_message();
+    }
+}
+
+;; =============== getters =============================
+
+(int, int) read_price_and_timestamp() method_id {
+    load_data();
+
+    return (price, timestamp);
+}
+
+(int, int) get_price(cell payload) method_id {
+    load_data();
+
+    (tuple values, int min_timestamp) = process_payload(
+        payload,
+        tuple_from_value(feed_id),
+        tuple_deserialize_integers(signers),
+        signer_count_threshold,
+        now());
+
+    ~dump(values);
+    ~dump(min_timestamp);
+
+    throw_unless(ERR_MISSING_DATA, values.tlen() == 1);
+    price = values.at(0);
+
+    return (price, min_timestamp);
+}
+

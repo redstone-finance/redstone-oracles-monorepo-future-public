@@ -1,21 +1,20 @@
 (int, int, int, int) ecrecover(int hash, int v, int r, int s) asm "ECRECOVER NULLSWAPIFNOT NULLSWAPIFNOT2";
 
-int keccak(slice s, int h) asm "HASHEXT_KECCAK256";
-int keccak2(slice s, slice s1, int h) asm "HASHEXT_KECCAK256";
+forall X -> int keccak(X s, int h) asm "HASHEXT_KECCAK256";
+;; int keccak2(slice s, slice s2, int h) asm "HASHEXT_KECCAK256";
 
-(int)recover_address(int hash, slice signature) {
+(int) recover_address(int hash, slice signature) {
     int r = signature~load_uint(256);
     int s = signature~load_uint(256);
     int v = signature~load_uint(8);
 
-    var (_, x, y, bool) = ecrecover(hash, v - 27, r, s);
+    var (_, x, y, bool) = ecrecover(hash, v >= 27 ? v - 27 : v, r, s);
 
-    if (bool == false) {
-        return 0;
+    if (~ bool) {
+        return bool;
     }
 
-    cell pub_key_cell = begin_cell().store_uint(x, 256).store_uint(y, 256).end_cell();
-    slice pub_key = pub_key_cell.begin_parse();
+    builder pub_key = begin_cell().store_uint(x, 256).store_uint(y, 256);
 
-    return keccak(pub_key, 1) & 0x000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
+    return keccak(pub_key, 1) & 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
 }

@@ -27,16 +27,13 @@ passed.
 Due to the architecture of TON contracts, the initial data must convene with the contract's storage structure,
 which is constructed as below:
 
-```
+```ts   
   begin_cell()
     .store_uint(signer_count_threshold, 8)  /// number as passed below
     .store_uint(timestamp, TIMESTAMP_BITS)  /// initially 0 representing the epoch 0
     .store_ref(signers)                     /// serialized tuple of values passed below
-    .store_ref(values_dict)                 /// initially an empty cell representing the values dict
-  .end_cell());
+    .end_cell();
 ```
-
-[](#pricemanagerfc-vel-prices)
 
 The value of ```signers``` should be passed as a serialized `tuple` of `int`s.\
 📚 See https://github.com/ton-core/ton-core/blob/main/src/tuple/tuple.ts
@@ -63,8 +60,8 @@ and the [TON RedStone payload packing](#-ton-redstone-payload-packing) section b
 
 #### ⨗ get_prices
 
-```   
-(cell)get_prices_v2(cell data_feed_ids, cell payload) method_id;
+```func   
+(cell) get_prices_v2(cell data_feed_ids, cell payload) method_id;
 ```
 
 The functions process on-chain the ```payload``` passed as an argument
@@ -84,8 +81,8 @@ The timestamp of data last saved/written to the contract is able to read by usin
 The method must be invoked as a TON internal message. The arguments of the message are:
 
 * an `int` representing RedStone_Write_Prices name hashed by keccak256 as defined
-  in [operations.ts](../src/config/operations.ts)
-* a `cell`-ref representing the serialized `tuple` of `int`s.\
+  in [constants.ts](../src/config/constants.ts)
+* a `cell`-ref representing the `data_feed_ids` as a serialized `tuple` of `int`s.\
 * a `cell`-ref representing the packed RedStone payload
 
 ```
@@ -94,8 +91,8 @@ The method must be invoked as a TON internal message. The arguments of the messa
     if (op == OP_REDSTONE_WRITE_PRICES) {
         cell data_feeds_cell = in_msg_body~load_ref();
         cell payload_cell = in_msg_body~load_ref();
-        
-        // ...
+
+    // ...
     }
 ```
 
@@ -106,8 +103,8 @@ That's an internal message - it consumes GAS and modifies the contract's storage
 
 #### ⨗ read_prices
 
-```
-(tuple)read_prices(tuple data_feed_ids) method_id
+```func   
+(tuple) read_prices(tuple data_feed_ids) method_id
 ```
 
 The function reads the values persisting in the contract's storage and returns a tuple corresponding to the
@@ -119,8 +116,8 @@ That's just a `method_id` function - it doesn't modify the contract's storage an
 
 #### ∮ read_timestamp
 
-```
-(int)read_timestamp() method_id 
+```func
+(int) read_timestamp() method_id;
 ```
 
 Returns the timestamp of data last saved/written to the contract's storage by using `OP_REDSTONE_WRITE_PRICES` message.
@@ -129,34 +126,54 @@ That's just a `method_id` function - it doesn't modify the contract's storage an
 
 ### price_feed.fc
 
+Due to the architecture of TON contracts, the initial data must convene with the contract's storage structure,
+which is constructed as below:
+
+```ts
+beginCell()
+    .storeUint(BigInt(hexlify(toUtf8Bytes(this.feedId))), consts.DATA_FEED_ID_BS * 8)
+    .storeAddress(Address.parse(this.managerAddress))
+    .storeUint(0, consts.DEFAULT_NUM_VALUE_BS * 8)  /// initially 0 representing the epoch 0
+    .storeUint(0, consts.TIMESTAMP_BS * 8)
+    .endCell();
+```
+
+To define the initial (storage) data for the Price feed contract, use the predefined
+class [PriceFeedInitData.ts](../src/price-feed/PriceFeedInitData.ts).
+
 #### ∱ OP_REDSTONE_FETCH_DATA
 
 Regardless of reading the values persisting in the contract's from outside the network,
 there is a possibility for fetching the value stored in the contract for a `feed_id` on-chain directly.
 There must be invoked an internal message `OP_REDSTONE_FETCH_DATA`. The arguments of the message are:
 
-* an `int` representing RedStone_Fetch_Data name hashed by keccak256 as defined
-  in [operations.ts](../src/config/operations.ts)
+* an `int` representing `RedStone_Fetch_Data` name hashed by keccak256 as defined
+  in [constants.ts](../src/config/constants.ts)
 * an `int` representing the `feed_id` value.
+* a `slice` representing the `initial_sender` of the message, to allow they carried the remaining transaction balance
+  when the returning transaction goes.
 
 ```
     int op = in_msg_body~load_uint(OP_NUMBER_BITS);
 
-
     if (op == OP_REDSTONE_FETCH_DATA) {
         int feed_id = in_msg_body~load_uint(DATA_FEED_ID_BITS);
-        
+        slice initial_sender = in_msg_body~load_msg_addr();
+
         // ...
     }
 ```
 
-The message sends to the sender a returning message `OP_REDSTONE_DATA_FETCHED` containing the value and the timestamp
+The returning message `OP_REDSTONE_DATA_FETCHED` message is sent to the sender, containing the value and the timestamp
 of the value has saved. The message can be then fetched in the sender and processed or saved in the sender's storage.
+The address of the first message sender (`initial_sender`) is added as an address to allow they carry the remaining
+transaction balance.
 
-```
-    begin_cell()
-        .store_uint(value, MAX_VALUE_SIZE_BITS)
-        .store_uint(timestamp, TIMESTAMP_BITS)
+```ts
+begin_cell()
+    .store_uint(value, MAX_VALUE_SIZE_BITS)
+    .store_uint(timestamp, TIMESTAMP_BITS)
+    .store_slice(initial_sender)
     .end_cell()
 ```
 
@@ -166,15 +183,72 @@ That's an internal message - it consumes GAS and modifies the contract's storage
 
 #### ∮ get_price_and_timestamp
 
-```
-(int, int)get_price_and_timestamp() method_id
+```func
+(int, int) get_price_and_timestamp() method_id;
 ```
 
 Returns the value and timestamp of value last saved/written to the contract's storage by
-sending `OP_REDSTONE_FETCH_DATA`
-message and fetching the returned value of the `OP_REDSTONE_DATA_FETCHED` message.
+sending `OP_REDSTONE_FETCH_DATA` message and fetching the returned value of the `OP_REDSTONE_DATA_FETCHED` message.
 
 That's just a `method_id` function - it doesn't modify the contract's storage and don't consume TONs.
+
+### single_feed_man.fc
+
+#### ⨐ initial data
+
+Similar to the [`prices`](#-initial-data) and [`price_feed`](#-initial-data-1) initial data.
+
+Due to the architecture of TON contracts, the initial data must convene with the contract's storage structure,
+which is constructed as below:
+
+```ts   
+beginCell()
+    .storeUint(BigInt(hexlify(toUtf8Bytes(this.feedId))), consts.DATA_FEED_ID_BS * 8)
+    .storeUint(this.signerCountThreshold, SIGNER_COUNT_THRESHOLD_BITS)
+    .storeUint(0, consts.DEFAULT_NUM_VALUE_BS * 8)
+    .storeUint(0, consts.TIMESTAMP_BS * 8)
+    .storeRef(serializeTuple(createTupleItems(this.signers)))
+    .endCell();
+```
+
+To define the initial (storage) data for the Prices contract, use the predefined
+class [SingleFeedManInitData.ts](../src/single-feed-man/SingleFeedManInitData.ts).
+
+A contract like [`price_manager`](#pricemanagerfc-vel-prices), but supporting
+the single feed only, to omit the communication needs between feed and manager contracts.
+
+#### ⨗ get_price
+
+```func
+(int, int) get_price(cell payload) method_id;
+```
+
+Similar to [`get_prices`](#-getprices), but omitting the first (`data_feed_ids`) argument as have it configured during
+the initialization.
+Returns also the min timestamp of the passed data packages.
+
+#### ∮ read_price_and_timestamp
+
+```func
+(int, int) read_price_and_timestamp() method_id;
+```
+
+Works as the [`get_price_and_timestamp`](#-getpriceandtimestamp) function.
+
+#### ∱ OP_REDSTONE_WRITE_PRICE
+
+Similar to [`OP_REDSTONE_WRITE_PRICES`](#-opredstonewriteprices), but omitting the first (`data_feed_ids`) `cell`-ref as
+have it configured during the initialization.
+
+```
+    int op = in_msg_body~load_uint(OP_NUMBER_BITS);
+
+    if (op == OP_REDSTONE_WRITE_PRICE) {
+        cell payload_cell = in_msg_body~load_ref();
+
+        // ...
+    }
+```
 
 ## 📖 TON RedStone Payload packing
 
@@ -184,23 +258,21 @@ the RedStone payload data - represented as a hex string - needed to be passed to
 Having the RedStone payload as defined here https://docs.redstone.finance/img/payload.png,
 the data should be passed as a Cell built as follows.
 
-1. The main *payload* cell consists of:
-1. the metadata in the **data-level bits** consisting of the parts as on the image:\
-   ![payload-metadata.png](../assets/payload-metadata.png)
-1. `1 ... 4` **refs** to *data-package-container* cells.
-1. Each *data-package-container* cell consists of `1 ... 4` *data-package* cells.
-1. Each *data-package* cell consists of:
-1. the data package's signature in the **data-level bits**:\
-   ![data-package-sig.png](../assets/data-package-sig.png)
-1. one **ref** to a cell containing the data of the rest of the data package on its **data-level**:\
-   ![data-package-data.png](../assets/data-package-data.png)
+1. The main *payload* `cell` consists of:
+    1. the metadata in the **data-level bits** consisting of the parts as on the image:\
+       ![payload-metadata.png](../assets/payload-metadata.png)
+    1. a **ref** containing a `udict` indexed by consecutive natural numbers (beginning from 0) containing the list of
+       *data_package* `cell`s.
+1. Each *data-package* `cell` consists of:
+    1. the data package's signature in the **data-level bits**:\
+       ![data-package-sig.png](../assets/data-package-sig.png)
+    1. one **ref** to a `cell` containing the data of the rest of the data package on its **data-level**:\
+       ![data-package-data.png](../assets/data-package-data.png)
 
 #### Current implementation limitations
 
 * The RedStone payload must be fetched by explicitly defining data feeds,
   which leads to **one data point** belonging to **one data package**.
-* The total number of data packages must be in range `1 ... 4 * 4 = 16`
-  (for example `4` feeds times `4` unique signers or `3` feeds times `5` unique signers).
 * The unsigned metadata size must not be exceeding `127 - (2 + 3 + 9) = 113` bytes.
 
 #### Helper
@@ -210,7 +282,7 @@ checks the limitations and prepares the data to be sent to the contract as descr
 
 #### Sample serialization
 
-The image below contains data for `2` feeds times `3` unique signers:\
+The image below contains data for `2` feeds times `2` unique signers:\
 ![sample-serialization.png](../assets/sample-serialization.png)
 
 ### Sample payload

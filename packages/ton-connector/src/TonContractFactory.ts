@@ -3,6 +3,7 @@ import { TonContract } from "./TonContract";
 import { TonInitData } from "./TonInitData";
 
 import { TonNetwork } from "./network/TonNetwork";
+import { TonContractError } from "./TonContractError";
 
 export class TonContractFactory {
   constructor(private contractType: typeof TonContract) {}
@@ -30,7 +31,7 @@ export class TonContractFactory {
     );
 
     if (await network.isContractDeployed(address)) {
-      throw new Error("Contract already deployed");
+      throw new TonContractError("Contract already deployed", contract);
     }
 
     await contract.connect(network);
