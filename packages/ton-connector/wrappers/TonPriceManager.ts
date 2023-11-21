@@ -8,7 +8,7 @@ import {
 } from "../src/ton-utils";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { TonContract } from "../src/TonContract";
-import { OP_REDSTONE_WRITE_PRICES } from "../src/config/operations";
+import { OP_REDSTONE_WRITE_PRICES } from "../src/config/constants";
 import { consts } from "@redstone-finance/protocol";
 
 /* eslint-disable  @typescript-eslint/class-methods-use-this -- TON Getter methods must not be static */
@@ -37,9 +37,10 @@ export class TonPriceManager extends TonContract {
 
     return await this.internalMessage(
       provider,
-      paramsProvider.requestParams.dataFeeds!.length *
-        paramsProvider.requestParams.uniqueSignersCount *
-        0.05,
+      (1 +
+        paramsProvider.requestParams.dataFeeds!.length *
+          paramsProvider.requestParams.uniqueSignersCount) *
+        0.025,
       body
     );
   }
@@ -74,12 +75,7 @@ export class TonPriceManager extends TonContract {
 
     const dataFeedIds = createTupleItems(paramsProvider.getHexlifiedFeedIds());
 
-    // the v4 api is using only GET methods with limited parameter length, so it works only when the payload is small;
-    // also don't support ECRECOVER
-    const shouldUseOldApi = true; // !!this.oldApi;
-
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- Technical
-    return shouldUseOldApi
+    return this.shouldUseOldApi
       ? await this.getPricesV2(provider, dataFeedIds, payloadCell)
       : await this.getPricesV4(provider, dataFeedIds, payloadCell);
   }
@@ -89,7 +85,7 @@ export class TonPriceManager extends TonContract {
     dataFeedIds: TupleItem[],
     payloadCell: Cell
   ) {
-    const getProvider = this.oldApi?.provider(this.address, null) ?? provider;
+    const getProvider = this.getAltApiContractProvider(provider);
 
     const { stack } = await getProvider.get("get_prices_v2", [
       {

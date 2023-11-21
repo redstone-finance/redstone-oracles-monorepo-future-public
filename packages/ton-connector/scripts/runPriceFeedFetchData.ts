@@ -5,10 +5,14 @@ import { config } from "../src/config";
 import * as fs from "fs";
 
 export async function run(provider: NetworkProvider) {
-  const contract = await new TonPriceFeedContractConnector(
+  const connector = new TonPriceFeedContractConnector(
     new BlueprintTonNetwork(provider, config),
     await fs.promises.readFile(`deploy/price_feed.address`, "utf8")
-  ).getAdapter();
+  );
+  const contract = await connector.getAdapter();
 
   await contract.fetchData();
+  await connector.waitForTransaction("");
+
+  console.log(await contract.getData());
 }

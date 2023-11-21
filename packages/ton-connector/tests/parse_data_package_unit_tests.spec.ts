@@ -75,7 +75,7 @@ describe("TON parse data package Unit Tests", () => {
   it("parse data package should fail for wrong data", () => {
     void expect(
       testerAdapter.testParseDataPackage("00" + DATA_PACKAGE_DATA_1)
-    ).rejects.toHaveProperty("exitCode", 1000);
+    ).rejects.toHaveProperty("exitCode", 9);
 
     void expect(testerAdapter.testParseDataPackage("")).rejects.toHaveProperty(
       "exitCode",

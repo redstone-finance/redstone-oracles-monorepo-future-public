@@ -1,6 +1,10 @@
 #include "constants.fc";
 
-(slice, int)slice_uint(slice data, int len) {
+(slice, int) slice_uint(slice data, int len) {
+    if (len <= 0) {
+        return (data, 0);
+    }
+
     throw_unless(ERR_LENGTH_OVERFLOW, len <= 256);
 
     slice num_slice = data.slice_last(len);
@@ -13,7 +17,11 @@
     return (data, value);
 }
 
-(slice, int)slice_int(slice data, int len) {
+(slice, int) slice_int(slice data, int len) {
+    if (len <= 0) {
+        return (data, 0);
+    }
+
     throw_unless(ERR_LENGTH_OVERFLOW, len <= 257);
 
     slice num_slice = data.slice_last(len);

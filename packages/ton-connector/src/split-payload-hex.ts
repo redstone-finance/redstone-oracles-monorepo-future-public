@@ -2,8 +2,6 @@ import { BigNumber } from "ethers";
 import { equal } from "assert";
 import { consts } from "@redstone-finance/protocol";
 
-const UNSIGNED_METADATA_BYTE_SIZE_BS = 3;
-
 export function splitPayloadHex(payloadHex: string) {
   //TODO: assert value size == 32;
 
@@ -19,14 +17,15 @@ export function splitPayloadHex(payloadHex: string) {
     "0x" +
       payloadHex.substring(
         payloadHex.length -
-          2 * (consts.REDSTONE_MARKER_BS + UNSIGNED_METADATA_BYTE_SIZE_BS),
+          2 *
+            (consts.REDSTONE_MARKER_BS + consts.UNSIGNED_METADATA_BYTE_SIZE_BS),
         payloadHex.length - 2 * consts.REDSTONE_MARKER_BS
       )
   ).toNumber();
 
   const metadataBS =
     consts.REDSTONE_MARKER_BS +
-    UNSIGNED_METADATA_BYTE_SIZE_BS +
+    consts.UNSIGNED_METADATA_BYTE_SIZE_BS +
     unsignedMetadataBS +
     consts.DATA_PACKAGES_COUNT_BS;
 
