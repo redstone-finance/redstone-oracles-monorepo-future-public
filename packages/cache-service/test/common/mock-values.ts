@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { RedstoneOraclesState } from "@redstone-finance/oracles-smartweave-contracts/src/contracts/redstone-oracle-registry/types";
+import { RedstoneOraclesState } from "@redstone-finance/oracles-smartweave-contracts";
 import { utils } from "@redstone-finance/protocol";
 import {
   DataPackage,
