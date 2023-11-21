@@ -1,0 +1,60 @@
+#include "constants.fc";
+#include "tuple.fc";
+
+(int, int) udict_get_uint?(cell dict, int key_len, int key, int value_len) {
+    (slice value_slice, int success) = dict.udict_get?(key_len, key);
+    int value = value_slice~load_uint(value_len);
+    value_slice.end_parse();
+
+    return (value, success);
+}
+
+(cell, int) udict_set_uint(cell dict, int key_len, int key, int value_len, int value) {
+    builder value_builder = begin_cell().store_uint(value, value_len);
+    int success = dict~udict_replace_builder?(key_len, key, value_builder);
+    if (~ success) {
+        success = dict~udict_add_builder?(key_len, key, value_builder);
+    }
+
+    return (dict, success);
+}
+
+(cell) dict_save_keys_and_values(cell dict, tuple keys, tuple values, int key_len, int value_len) {
+    throw_unless(ERR_LENGTH_MISMATCH, keys.tlen() == values.tlen());
+
+    int i = 0;
+    while (i < keys.tlen()) {
+        dict~udict_set_uint(key_len, keys.at(i), value_len, values.at(i));
+
+        i += 1;
+    }
+
+    return dict;
+}
+
+(cell) dict_from_keys_and_values(tuple keys, tuple values, int key_len, int value_len) {
+    throw_unless(ERR_LENGTH_MISMATCH, keys.tlen() == values.tlen());
+
+    cell dict = new_dict();
+
+    dict = dict_save_keys_and_values(dict, keys, values, key_len, value_len);
+
+    return dict;
+}
+
+(tuple) dict_values_for_keys(cell dict, tuple keys, int key_len, int value_len, int default_value) {
+    tuple result = empty_tuple();
+
+    int i = 0;
+    while (i < keys.tlen()) {
+        int key = keys.at(i);
+        (slice val_slice, int success) = dict.udict_get?(key_len, key);
+
+        int value = success ? val_slice~load_uint(value_len) : default_value;
+        result~tpush(value);
+
+        i += 1;
+    }
+
+    return result;
+}

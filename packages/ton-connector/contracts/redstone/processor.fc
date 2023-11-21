@@ -2,36 +2,73 @@
 #include "redstone.fc";
 #include "validation.fc";
 #include "tuple.fc";
+#include "dict.fc";
 
-const MATRIX_KEY_LEN = 8;
+const BASE_KEY_LEN = 16;
 
-(tuple)verify_and_aggregate_results(cell matrix, int data_feeds_len, int signers_len, int signer_count_threshold);
-(cell, int, builder)make_matrix_with_log(slice payload_slice, int expected_data_package_count, tuple data_feed_ids, tuple signers, int current_timestamp);
+(cell, int) make_matrix(cell, int, tuple, tuple, int);
+(tuple) verify_and_aggregate_results(cell, int, int, int);
 
-(tuple, int, builder)process_payload(cell payload, tuple data_feed_ids, tuple signers, int signer_count_threshold, int current_timestamp) impure {
+(tuple, int) process_payload(cell payload, tuple data_feed_ids, tuple signers, int signer_count_threshold, int current_timestamp) {
     slice payload_slice = payload.begin_parse();
 
-    int data_package_count = payload_slice~load_int(DATA_PACKAGES_COUNT_BITS);
     int marker = payload_slice~slice_uint(REDSTONE_MARKER_BITS);
-
     throw_unless(ERR_WRONG_REDSTONE_MARKER, marker == REDSTONE_MARKER);
 
-    var (matrix, min_timestamp, log) = make_matrix_with_log(payload_slice, data_package_count, data_feed_ids, signers, current_timestamp);
+    int unsigned_data_length = payload_slice~slice_uint(UNSIGNED_METADATA_BITS);
+    payload_slice~slice_uint(unsigned_data_length);
 
+    int data_package_count = payload_slice~slice_uint(DATA_PACKAGES_COUNT_BITS);
+
+    cell data_packages_dict = payload_slice~load_ref();
+
+    payload_slice.end_parse();
+
+    var (matrix, min_timestamp) = make_matrix(data_packages_dict, data_package_count, data_feed_ids, signers, current_timestamp);
     tuple result = verify_and_aggregate_results(matrix, data_feed_ids.tlen(), signers.tlen(), signer_count_threshold);
 
-    return (result, min_timestamp, log);
+    return (result, min_timestamp);
 }
 
-(tuple)verify_and_aggregate_results(cell matrix, int data_feeds_len, int signers_len, int signer_count_threshold) {
+(cell, int) make_matrix(cell data_packages_dict, int expected_data_package_count, tuple data_feed_ids, tuple signers, int current_timestamp) {
+    cell matrix = new_dict();
+    int min_timestamp = 0xFFFFFFFFFFFFFFFF;
+
+    int key = -1;
+    int k = 0;
+
+    (key, slice data_package_slice, int f) = data_packages_dict.udict_get_next?(BASE_KEY_LEN, key);
+    while (f) {
+        var (address, feed_id, value, timestamp) = get_data_package_values(data_package_slice);
+
+        validate_timestamp(key, timestamp / 1000, current_timestamp);
+        int signer_index = signers.index_of(address);
+        int feed_index = data_feed_ids.index_of(feed_id);
+
+        if ((signer_index != UNKNOWN_INDEX) & (feed_index != UNKNOWN_INDEX)) {
+            int index = signers.tlen() * feed_index + signer_index;
+            matrix~udict_set_uint(BASE_KEY_LEN, index, MAX_VALUE_SIZE_BITS, value);
+            min_timestamp = min(min_timestamp, timestamp);
+        }
+
+        (key, data_package_slice, f) = data_packages_dict.udict_get_next?(BASE_KEY_LEN, key);
+        k = k + 1;
+    }
+
+    throw_unless(ERR_WRONG_DATA_PACKAGE_COUNT_BASE + k, expected_data_package_count == k);
+
+    return (matrix, min_timestamp);
+}
+
+(tuple) verify_and_aggregate_results(cell matrix, int data_feeds_len, int signers_len, int signer_count_threshold) {
     tuple result = empty_tuple();
     int feed_index = 0;
-    while(feed_index < data_feeds_len) {
+    while (feed_index < data_feeds_len) {
         int signer_index = 0;
         tuple values = empty_tuple();
-        while(signer_index < signers_len) {
-            (slice payl, int success) = matrix.udict_get?(MATRIX_KEY_LEN, signers_len * feed_index + signer_index);
-            if(success == true) {
+        while (signer_index < signers_len) {
+            (slice payl, int success) = matrix.udict_get?(BASE_KEY_LEN, signers_len * feed_index + signer_index);
+            if (success) {
                 values~tpush(payl~load_int(MAX_VALUE_SIZE_BITS));
             }
             signer_index += 1;
@@ -44,50 +81,4 @@ const MATRIX_KEY_LEN = 8;
     }
 
     return result;
-}
-
-(cell, int, builder)make_matrix_with_log(slice payload_slice, int expected_data_package_count, tuple data_feed_ids, tuple signers, int current_timestamp) {
-    builder log = begin_cell();
-    cell matrix = new_dict();
-    int min_timestamp = 0xFFFFFFFFFFFFFFFF;
-
-    int k = 0;
-    while (payload_slice.slice_refs_empty?() != true) {
-        cell inner_cell = payload_slice~load_ref();
-        slice inner_slice = inner_cell.begin_parse();
-
-        builder log_inner = begin_cell();
-
-        while(inner_slice.slice_refs_empty?() != true) {
-            cell dp_cell = inner_slice~load_ref();
-
-            var (address, feed_id, value, timestamp) = get_data_package_values(dp_cell);
-
-            validate_timestamp(k, timestamp / 1000, current_timestamp);
-            int signer_index = signers.index_of(address);
-            int feed_index = data_feed_ids.index_of(feed_id);
-
-            if ((signer_index != UNKNOWN_INDEX) & (feed_index != UNKNOWN_INDEX)) {
-                int index = signers.tlen() * feed_index + signer_index;
-                matrix~udict_set(MATRIX_KEY_LEN, index, begin_cell().store_int(value, MAX_VALUE_SIZE_BITS).end_cell().begin_parse());
-                min_timestamp = min(min_timestamp, timestamp);
-            }
-
-            cell log_values = begin_cell()
-                    .store_ref(begin_cell().store_int(signer_index, 8).store_int(address, ADDRESS_BITS + 8).end_cell()) ;; wtf
-                    .store_ref(begin_cell().store_int(feed_index, 8).store_int(feed_id, DATA_FEED_ID_BITS).end_cell())
-                    .store_ref(begin_cell().store_int(value, MAX_VALUE_SIZE_BITS).end_cell())
-                    .store_ref(begin_cell().store_int(timestamp / 1000, TIMESTAMP_BITS).store_int(current_timestamp, TIMESTAMP_BITS).end_cell())
-                    .end_cell();
-
-            k += 1;
-            log_inner = log_inner.store_ref(log_values);
-        }
-
-        log = log.store_ref(log_inner.end_cell());
-    }
-
-    throw_unless(ERR_WRONG_DATA_PACKAGE_COUNT_BASE + k, expected_data_package_count == k);
-
-    return (matrix, min_timestamp, log);
 }

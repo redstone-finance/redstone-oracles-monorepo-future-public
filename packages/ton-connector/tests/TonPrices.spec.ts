@@ -1,31 +1,26 @@
-import { Blockchain } from "@ton-community/sandbox";
 import { Cell } from "ton-core";
 import { compile } from "@ton-community/blueprint";
 import "@ton-community/test-utils";
-import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { TonPriceFeedContractAdapter } from "../src";
 import { TonPriceManagerContractAdapter } from "../src/price-manager/TonPriceManagerContractAdapter";
 import { PriceFeedInitData } from "../src/price-feed/PriceFeedInitData";
 import { PriceManagerInitData } from "../src/price-manager/PriceManagerInitData";
 
-import { TestTonNetwork } from "./helpers/TestTonNetwork";
 import { TonPriceFeedContractDeployer } from "../src/price-feed/TonPriceFeedContractDeployer";
 import { TonPriceManagerContractDeployer } from "../src/price-manager/TonPriceManagerContractDeployer";
+import {
+  createTestNetwork,
+  expectUsdtPrice,
+  getContractParamsProvider,
+  SIGNERS,
+  waitForNewData,
+} from "./helpers/test_helpers";
 
-jest.setTimeout(10000);
-
-export const SIGNERS = [
-  "0x109B4A318A4F5DDCBCA6349B45F881B4137DEAFB",
-  "0x12470F7ABA85C8B81D63137DD5925D6EE114952B",
-  "0x1EA62D73EDF8AC05DFCEA1A34B9796E937A29EFF",
-  "0x2C59617248994D12816EE1FA77CE0A64EEB456BF",
-  "0x83CBA8C619FB629B81A65C2E67FE15CF3E3C9747",
-];
+jest.setTimeout(40000);
 
 describe("Ton Prices Tests", () => {
   let priceManagerCode: Cell;
   let priceFeedCode: Cell;
-  let blockchain: Blockchain;
   let priceManager: TonPriceManagerContractAdapter;
   let pricesFeed: TonPriceFeedContractAdapter;
 
@@ -35,9 +30,7 @@ describe("Ton Prices Tests", () => {
   });
 
   beforeEach(async () => {
-    blockchain = await Blockchain.create();
-    const deployer = await blockchain.treasury("deployer");
-    const network = new TestTonNetwork(blockchain, deployer);
+    const network = await createTestNetwork();
 
     priceManager = await new TonPriceManagerContractDeployer(
       network,
@@ -62,32 +55,17 @@ describe("Ton Prices Tests", () => {
   });
 
   it("should get prices", async () => {
-    const paramsProvider = new ContractParamsProvider({
-      dataServiceId: "redstone-avalanche-prod",
-      uniqueSignersCount: 4,
-      dataFeeds: ["ETH", "BTC", "AVAX", "USDT"],
-    });
+    const paramsProvider = getContractParamsProvider();
 
     const prices = await priceManager.getPricesFromPayload(paramsProvider);
     console.log(prices);
 
     expect(prices).not.toContain(0n);
-    expect(Number(prices[3])).toBeLessThanOrEqual(10 ** 8 * 1.02);
-    expect(Number(prices[3])).toBeGreaterThanOrEqual(10 ** 8 * 0.98);
+    expectUsdtPrice(prices[3]);
   });
 
   it("should write and read prices", async () => {
-    const paramsProvider = new ContractParamsProvider({
-      dataServiceId: "redstone-avalanche-prod",
-      uniqueSignersCount: 4,
-      dataFeeds: ["ETH", "BTC", "AVAX", "USDT"],
-    });
-
-    await priceManager.writePricesFromPayloadToContract(paramsProvider);
-    const prices = await priceManager.readPricesFromContract(paramsProvider);
-    console.log(prices);
-    const timestamp = await priceManager.readTimestampFromContract();
-    console.log(timestamp);
+    const { prices, timestamp } = await writeAndReadPricesAndTimestamp();
 
     await pricesFeed.fetchData();
     const feedData = await pricesFeed.getData();
@@ -96,4 +74,61 @@ describe("Ton Prices Tests", () => {
     expect(feedData.value).toBe(prices[1]);
     expect(feedData.timestamp).toBe(timestamp);
   });
+
+  it("must not write prices with same timestamp", async () => {
+    const { prices, timestamp, paramsProvider } =
+      await writeAndReadPricesAndTimestamp(["BTC", "ETH"]);
+
+    expect(timestamp).toBeGreaterThan(0n);
+    expect(prices).not.toContain(0n);
+
+    const { prices: prices2, timestamp: timestamp2 } =
+      await writeAndReadPricesAndTimestamp(["AVAX", "USDT"]);
+
+    const prices3 = await priceManager.readPricesFromContract(paramsProvider);
+
+    if (timestamp2 == timestamp) {
+      expect(prices2).toStrictEqual([0n, 0n]);
+      expect(prices3).toStrictEqual(prices);
+    } else {
+      expect(prices2).not.toContain(0n);
+      expect(prices3).not.toStrictEqual(prices);
+    }
+  });
+
+  it("should write prices twice", async () => {
+    const { prices, timestamp } = await writeAndReadPricesAndTimestamp([
+      "BTC",
+      "ETH",
+    ]);
+
+    expect(timestamp).toBeGreaterThan(0);
+    expect(prices).not.toContain(0n);
+
+    await waitForNewData();
+
+    const { prices: prices2, timestamp: timestamp2 } =
+      await writeAndReadPricesAndTimestamp();
+
+    expect(timestamp2).not.toBe(timestamp);
+    expect(prices2[0] != prices[0] || prices2[1] != prices[1]).toBeTruthy();
+
+    expect(prices2[2]).not.toBe(0n);
+    expectUsdtPrice(prices2[3]);
+  });
+
+  async function writeAndReadPricesAndTimestamp(
+    dataFeeds: string[] = ["ETH", "BTC", "AVAX", "USDT"]
+  ) {
+    const paramsProvider = getContractParamsProvider(dataFeeds);
+
+    await priceManager.writePricesFromPayloadToContract(paramsProvider);
+    const prices = await priceManager.readPricesFromContract(paramsProvider);
+    console.log(prices);
+
+    const timestamp = await priceManager.readTimestampFromContract();
+    console.log(timestamp);
+
+    return { prices, timestamp, paramsProvider };
+  }
 });

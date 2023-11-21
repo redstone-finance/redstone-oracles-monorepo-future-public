@@ -6,16 +6,21 @@ import { config } from "../src/config";
 import * as fs from "fs";
 
 export async function run(provider: NetworkProvider) {
-  const contract = await new TonPriceManagerContractConnector(
+  const connector = new TonPriceManagerContractConnector(
     new BlueprintTonNetwork(provider, config),
     await fs.promises.readFile(`deploy/price_manager.address`, "utf8")
-  ).getAdapter();
+  );
+  const contract = await connector.getAdapter();
 
   const paramsProvider = new ContractParamsProvider({
-    dataServiceId: "redstone-rapid-demo",
-    uniqueSignersCount: 1,
-    dataFeeds: ["BTC", "ETH", "BNB", "AR", "AVAX", "CELO"],
+    dataServiceId: "redstone-avalanche-prod",
+    uniqueSignersCount: 4,
+    dataFeeds: ["BTC", "ETH", "USDT", "AVAX"],
   });
 
   console.log(await contract.writePricesFromPayloadToContract(paramsProvider));
+
+  await connector.waitForTransaction("");
+
+  console.log(await contract.readPricesFromContract(paramsProvider));
 }

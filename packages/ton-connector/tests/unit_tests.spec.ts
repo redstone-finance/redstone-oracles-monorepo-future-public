@@ -129,9 +129,15 @@ describe("TON unit Tests", () => {
       9
     );
 
-    expect(
-      (await testerAdapter.testSliceUint(DATA_PACKAGE_DATA_1, 0)).value
-    ).toBe(0n);
+    const { remainingSlice, value } = await testerAdapter.testSliceInt(
+      DATA_PACKAGE_DATA_1,
+      0
+    );
+
+    expect(value).toBe(0n);
+    expect(remainingSlice.bits.length).toBe(
+      (DATA_PACKAGE_DATA_1.length / 2) * 8
+    );
   });
 
   it("deserialize integers passed as a serialized tuple", async () => {

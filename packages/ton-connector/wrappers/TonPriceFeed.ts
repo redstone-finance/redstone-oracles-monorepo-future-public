@@ -1,6 +1,6 @@
 import { TonContract } from "../src/TonContract";
 import { ContractProvider } from "ton-core";
-import { OP_REDSTONE_FETCH_DATA } from "../src/config/operations";
+import { OP_REDSTONE_FETCH_DATA } from "../src/config/constants";
 import { createArrayFromTuple, messageBuilder } from "../src/ton-utils";
 
 /* eslint-disable  @typescript-eslint/class-methods-use-this -- TON Getter methods must not be static */
@@ -21,6 +21,6 @@ export class TonPriceFeed extends TonContract {
     const builder = messageBuilder(OP_REDSTONE_FETCH_DATA);
     const body = builder.endCell();
 
-    await this.internalMessage(provider, 0.02, body);
+    await this.internalMessage(provider, 0.025, body);
   }
 }
