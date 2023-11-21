@@ -1,8 +1,8 @@
-import { convertStringToBytes32 } from "@redstone-finance/protocol/src/common/utils";
+import { utils } from "@redstone-finance/protocol";
 import { ethers } from "ethers";
 import { solidityKeccak256 } from "ethers/lib/utils";
 
-const dataFeedId = convertStringToBytes32("ETH/USDC");
+const dataFeedId = utils.convertStringToBytes32("ETH/USDC");
 
 console.log(
   solidityKeccak256(
