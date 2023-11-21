@@ -73,23 +73,6 @@ export class IterationArgsProcessor<Args> {
   }
 
   private async getEnvParams() {
-    if (!this.context.gelatoArgs.taskId) {
-      console.log(
-        "Overriding secrets by storage variables. That means we're not in the Gelato environment but local."
-      );
-      const env: IterationArgsProviderEnv = {
-        fallbackOffsetInMinutes: Number.parseInt(
-          (await this.context.storage.get("FALLBACK_OFFSET_IN_MINUTES")) ?? "0"
-        ),
-        historicalPackagesGateways: JSON.parse(
-          (await this.context.storage.get("HISTORICAL_PACKAGES_GATEWAYS")) ??
-            "[]"
-        ) as string[],
-      };
-
-      return env;
-    }
-
     const env: IterationArgsProviderEnv = {
       fallbackOffsetInMinutes: Number.parseInt(
         (await this.context.secrets.get("FALLBACK_OFFSET_IN_MINUTES")) ?? "0"
