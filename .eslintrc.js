@@ -33,7 +33,8 @@ module.exports = {
     "@typescript-eslint/no-loss-of-precision": "error",
     "@typescript-eslint/unbound-method": ["error", { ignoreStatic: true }],
     "no-throw-literal": "off",
-    "@typescript-eslint/no-throw-literal": "error"
+    "@typescript-eslint/no-throw-literal": "error",
+    "prefer-promise-reject-errors": "error"
   },
   root: true,
 };
