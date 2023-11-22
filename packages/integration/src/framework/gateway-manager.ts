@@ -3,16 +3,16 @@ import * as redstoneSDK from "@redstone-finance/sdk";
 import { ChildProcess, spawnSync } from "child_process";
 import fs from "fs";
 import {
-  PriceSet,
   debug,
+  PriceSet,
   printDotenv,
+  printExtraEnv,
   runWithLogPrefix,
   runWithLogPrefixInBackground,
   stopChild,
   waitForFile,
   waitForSuccess,
   waitForUrl,
-  printExtraEnv,
 } from "./integration-test-utils";
 
 export type GatewayInstance = {

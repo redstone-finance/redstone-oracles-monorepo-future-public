@@ -1,3 +1,4 @@
+import { consts } from "@redstone-finance/protocol";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { checkMissingDataFeeds } from "./check-missing-data-feeds";
 import { checkSourcesDeviations } from "./check-sources-deviations";
@@ -9,8 +10,8 @@ import {
 import { fetchDataPackagesFromCaches } from "./fetch-data-packages-from-local-and-prod-cache";
 import { fetchLatestTimestampFromLocal } from "./fetch-latest-timestamp-from-local-cache";
 import {
-  GatewayInstance,
   configureCleanup,
+  GatewayInstance,
   OracleNodeInstance,
   startAndWaitForGateway,
   startAndWaitForOracleNode,
@@ -18,7 +19,6 @@ import {
   stopOracleNode,
 } from "./integration-test-framework";
 import { printAllDeviations } from "./print-all-deviations";
-import { consts } from "@redstone-finance/protocol";
 
 export interface DeviationsPerDataFeed {
   [dataFeedId: string]: number;
@@ -78,8 +78,7 @@ export const runLongPricePropagationCoreTest = async (
   await RedstoneCommon.sleep(nodeWorkingTimeInMilliseconds);
   stopOracleNode(oracleNodeInstance);
 
-  const latestTimestamp =
-    await fetchLatestTimestampFromLocal(gatewayInstance);
+  const latestTimestamp = await fetchLatestTimestampFromLocal(gatewayInstance);
 
   if (!latestTimestamp) {
     throw new Error("Cannot fetch latest timestamp from local cache");

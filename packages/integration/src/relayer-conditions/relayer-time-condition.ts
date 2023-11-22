@@ -3,11 +3,11 @@ import { PriceFeedWithRounds } from "@redstone-finance/on-chain-relayer/typechai
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { ethers } from "ethers";
 import {
-  GatewayInstance,
   configureCleanup,
   debug,
   deployMockAdapter,
   deployMockPriceFeed,
+  GatewayInstance,
   HardhatInstance,
   OracleNodeInstance,
   RelayerInstance,

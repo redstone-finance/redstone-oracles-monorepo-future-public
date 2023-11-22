@@ -1,13 +1,13 @@
 import {
-  RedstoneCacheLayerInstance,
   configureCleanup,
   debug,
   OracleNodeInstance,
+  RedstoneCacheLayerInstance,
   setMockPrices,
-  startAndWaitForRedstoneCacheLayer,
   startAndWaitForOracleNodeForRedstoneCacheLayer,
-  stopRedstoneCacheLayer,
+  startAndWaitForRedstoneCacheLayer,
   stopOracleNode,
+  stopRedstoneCacheLayer,
   verifyPricesInRedstoneCacheLayer,
   waitForDataInRedstoneCacheLayerAndDisplayIt,
 } from "./framework/integration-test-framework";

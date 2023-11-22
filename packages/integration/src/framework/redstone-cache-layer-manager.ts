@@ -131,7 +131,7 @@ export const waitForDataInRedstoneCacheLayerAndDisplayIt = async (
 
   // Querying data packages from cache service
   const packages = await axios.get(
-    `http://localhost:${instance.cacheLayerPort}/prices\?provider\=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`
+    `http://localhost:${instance.cacheLayerPort}/prices?provider=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`
   );
 
   console.log("Fetched packages:", packages.data);

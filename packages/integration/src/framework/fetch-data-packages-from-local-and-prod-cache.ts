@@ -1,6 +1,6 @@
 import axios from "axios";
-import { GatewayInstance, getCacheServicePort } from "./gateway-manager";
 import { DataPackages } from "./compare-data-packages";
+import { GatewayInstance, getCacheServicePort } from "./gateway-manager";
 
 const HISTORICAL_ORACLE_GATEWAY_URL =
   "https://oracle-gateway-2.a.redstone.finance/data-packages/historical";

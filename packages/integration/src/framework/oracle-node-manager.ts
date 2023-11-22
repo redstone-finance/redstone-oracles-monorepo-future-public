@@ -1,5 +1,7 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { ChildProcess } from "child_process";
 import fs from "fs";
+import { GatewayInstance, getCacheServicePort } from "./gateway-manager";
 import {
   debug,
   PriceSet,
@@ -8,8 +10,6 @@ import {
   runWithLogPrefixInBackground,
   stopChild,
 } from "./integration-test-utils";
-import { GatewayInstance, getCacheServicePort } from "./gateway-manager";
-import { RedstoneCommon } from "@redstone-finance/utils";
 import { RedstoneCacheLayerInstance } from "./redstone-cache-layer-manager";
 
 export const HARDHAT_MOCK_PRIVATE_KEYS = [

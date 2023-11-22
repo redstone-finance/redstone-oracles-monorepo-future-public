@@ -1,8 +1,8 @@
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { OnChainRelayerManifest } from "@redstone-finance/on-chain-relayer";
 import {
-  PriceFeedWithRoundsMock,
   PriceFeedsAdapterWithRoundsOneSignerMock,
+  PriceFeedWithRoundsMock,
 } from "@redstone-finance/on-chain-relayer/typechain-types";
 import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
@@ -11,8 +11,8 @@ import { BigNumber, ethers } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
 import fs from "fs";
 import {
-  GatewayInstance,
   fetchDataPackages,
+  GatewayInstance,
   getCacheServicePort,
 } from "./gateway-manager";
 import {

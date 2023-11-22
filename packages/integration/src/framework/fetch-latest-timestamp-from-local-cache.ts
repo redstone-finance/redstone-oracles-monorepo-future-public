@@ -1,6 +1,6 @@
 import axios from "axios";
-import { GatewayInstance, getCacheServicePort } from "./gateway-manager";
 import { DataPackages } from "./compare-data-packages";
+import { GatewayInstance, getCacheServicePort } from "./gateway-manager";
 
 export const fetchLatestTimestampFromLocal = async (
   gatewayInstance: GatewayInstance

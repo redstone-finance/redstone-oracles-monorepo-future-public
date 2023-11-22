@@ -1,11 +1,12 @@
 // cache works
 // can query historical data-packages
 
+import assert from "assert";
 import axios from "axios";
 import {
-  GatewayInstance,
   configureCleanup,
   debug,
+  GatewayInstance,
   getCacheServicePort,
   OracleNodeInstance,
   setMockPrices,
@@ -16,7 +17,6 @@ import {
   verifyPricesInCacheService,
   waitForDataAndDisplayIt as waitForDataInMongoDb,
 } from "./framework/integration-test-framework";
-import assert from "assert";
 
 const gatewayInstance: GatewayInstance = { instanceId: "1" };
 const oracleNodeInstance: OracleNodeInstance = { instanceId: "1" };

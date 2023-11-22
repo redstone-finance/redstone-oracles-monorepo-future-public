@@ -1,9 +1,9 @@
 import {
-  GatewayInstance,
   configureCleanup,
   debug,
   deployMockAdapterAndSetInitialPrices,
   deployMockPriceFeed,
+  GatewayInstance,
   HardhatInstance,
   OracleNodeInstance,
   RelayerInstance,

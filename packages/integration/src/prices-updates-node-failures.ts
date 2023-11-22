@@ -1,10 +1,10 @@
 import { RedstoneCommon } from "@redstone-finance/utils";
 import {
-  GatewayInstance,
   configureCleanup,
   debug,
   deployMockAdapter,
   deployMockPriceFeed,
+  GatewayInstance,
   HardhatInstance,
   OracleNodeInstance,
   PriceSet,
@@ -14,8 +14,8 @@ import {
   startAndWaitForOracleNode,
   startDirectAndPublicCacheServices,
   startRelayer,
-  stopGateway,
   stopDirectAndPublicCacheServices,
+  stopGateway,
   stopHardhat,
   stopOracleNode,
   stopRelayer,

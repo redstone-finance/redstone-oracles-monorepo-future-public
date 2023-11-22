@@ -1,7 +1,7 @@
 import {
-  GatewayInstance,
   configureCleanup,
   debug,
+  GatewayInstance,
   OracleNodeInstance,
   setMockPrices,
   startAndWaitForGateway,
