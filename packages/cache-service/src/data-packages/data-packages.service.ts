@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  HttpException,
   Injectable,
   Logger,
   Optional,
@@ -34,6 +35,7 @@ import {
   DataPackageDocumentAggregated,
   DataPackageDocumentMostRecentAggregated,
 } from "./data-packages.model";
+import { EMPTY_DATA_PACKAGE_RESPONSE_ERROR_CODE } from "../common/errors";
 
 export interface StatsRequestParams {
   fromTimestamp: number;
@@ -77,21 +79,23 @@ export class DataPackagesService {
 
   getLatestDataPackagesWithSameTimestampWithCache = RedstoneCommon.memoize({
     functionToMemoize: (dataServiceId: string) =>
-      this.getLatestDataPackagesWithSameTimestamp(dataServiceId),
+      this.getLatestDataPackagesFromDbWithSameTimestamp(dataServiceId),
     ttl: config.dataPackagesTTL,
   });
 
-  getMostRecentDataPackagesWithCache = RedstoneCommon.memoize({
+  getLatestDataPackagesWithCache = RedstoneCommon.memoize({
     functionToMemoize: (dataServiceId: string) =>
-      DataPackagesService.getMostRecentDataPackagesFromDB(dataServiceId),
+      DataPackagesService.getDataPackagesFromDbByTimestampOrLatest(
+        dataServiceId
+      ),
     ttl: config.dataPackagesTTL,
   });
 
-  static async getByTimestamp(
+  static async getDataPackagesByTimestamp(
     dataServiceId: string,
     timestamp: number
   ): Promise<DataPackagesResponse> {
-    return await DataPackagesService.getMostRecentDataPackagesFromDB(
+    return await DataPackagesService.getDataPackagesFromDbByTimestampOrLatest(
       dataServiceId,
       timestamp
     );
@@ -105,7 +109,7 @@ export class DataPackagesService {
   /**
    * Packages might have different timestamps if timestamp not passed
    * */
-  static async getMostRecentDataPackagesFromDB(
+  static async getDataPackagesFromDbByTimestampOrLatest(
     dataServiceId: string,
     timestamp?: number
   ): Promise<DataPackagesResponse> {
@@ -142,6 +146,13 @@ export class DataPackagesService {
         },
       ]);
 
+    if (groupedDataPackages.length === 0) {
+      throw new HttpException(
+        "Data packages response is empty",
+        EMPTY_DATA_PACKAGE_RESPONSE_ERROR_CODE
+      );
+    }
+
     // Parse DB response
     for (const dataPackage of groupedDataPackages) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -166,7 +177,7 @@ export class DataPackagesService {
    * All packages will share common timestamp
    *  */
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this
-  async getLatestDataPackagesWithSameTimestamp(
+  async getLatestDataPackagesFromDbWithSameTimestamp(
     dataServiceId: string
   ): Promise<DataPackagesResponse> {
     const fetchedPackagesPerDataFeed: DataPackagesResponse = {};
@@ -203,8 +214,12 @@ export class DataPackagesService {
       ]);
 
     if (groupedDataPackages.length === 0) {
-      return fetchedPackagesPerDataFeed;
+      throw new HttpException(
+        "Data packages response is empty",
+        EMPTY_DATA_PACKAGE_RESPONSE_ERROR_CODE
+      );
     }
+
     // Parse DB response
     const dataPackagesWithSameTimestamp = groupedDataPackages[0];
     for (let i = 0; i < dataPackagesWithSameTimestamp.count; i++) {
@@ -269,9 +284,7 @@ export class DataPackagesService {
     requestParams: DataPackagesRequestParams
   ): Promise<RedstonePayload> {
     const cachedDataPackagesResponse =
-      await this.getMostRecentDataPackagesWithCache(
-        requestParams.dataServiceId
-      );
+      await this.getLatestDataPackagesWithCache(requestParams.dataServiceId);
 
     const dataPackages = parseDataPackagesResponse(
       cachedDataPackagesResponse,

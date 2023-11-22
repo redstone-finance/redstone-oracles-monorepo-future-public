@@ -100,6 +100,7 @@ describe("Data packages (e2e)", () => {
       "service-2",
       "service-3",
       "mock-data-service-1",
+      "mock-data-service-2",
     ]) {
       for (const timestampMilliseconds of [
         mockDataPackage.timestampMilliseconds - 1000,
@@ -347,6 +348,16 @@ describe("Data packages (e2e)", () => {
     ).toMatchSnapshot("historical-data");
   });
 
+  it("/data-packages/latest/ (GET) - should throw 513 if empty data package response", async () => {
+    await DataPackage.deleteMany({});
+    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
+    const response = await request(httpServer)
+      .get("/data-packages/latest/mock-data-service-1")
+      .expect(513);
+    expect(response.body.message).toBe("Data packages response is empty");
+  });
+
   async function performPayloadTests(
     bytesProvider: (response: request.Response) => Uint8Array,
     format?: ResponseFormat
@@ -515,14 +526,14 @@ describe("Data packages (e2e)", () => {
 
   describe("cache", () => {
     it("/data-packages/latest (GET) - should serve cached result", async () => {
-      // invalidate cache
-      jest.spyOn(Date, "now").mockImplementationOnce(() => 1);
+      const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+      jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
 
       const dataPackageService = app.get(DataPackagesService);
 
       const getLatestSpy = jest.spyOn(
         dataPackageService,
-        "getLatestDataPackagesWithSameTimestamp"
+        "getLatestDataPackagesFromDbWithSameTimestamp"
       );
       const firstRequest = request(httpServer)
         .get("/data-packages/latest/mock-data-service-1")
@@ -543,13 +554,14 @@ describe("Data packages (e2e)", () => {
     });
 
     it("/data-packages/latest (GET) - should be called twice for different data-service-id", async () => {
-      jest.spyOn(Date, "now").mockImplementationOnce(() => 1);
+      const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+      jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
 
       const dataPackageService = app.get(DataPackagesService);
 
       const getLatestSpy = jest.spyOn(
         dataPackageService,
-        "getLatestDataPackagesWithSameTimestamp"
+        "getLatestDataPackagesFromDbWithSameTimestamp"
       );
       const firstRequest = request(httpServer)
         .get("/data-packages/latest/mock-data-service-1")

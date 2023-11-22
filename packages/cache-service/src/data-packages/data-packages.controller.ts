@@ -84,7 +84,7 @@ export class DataPackagesController {
     @Param("DATA_SERVICE_ID") dataServiceId: string
   ): Promise<DataPackagesResponse> {
     await DataPackagesController.validateDataServiceId(dataServiceId);
-    return await this.dataPackagesService.getMostRecentDataPackagesWithCache(
+    return await this.dataPackagesService.getLatestDataPackagesWithCache(
       dataServiceId
     );
   }
@@ -92,7 +92,7 @@ export class DataPackagesController {
   @Get("historical/:DATA_SERVICE_ID/:TIMESTAMP")
   @Header("Cache-Control", "max-age=5")
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this
-  async getByTimestamp(
+  async getDataPackagesByTimestamp(
     @Param("DATA_SERVICE_ID") dataServiceId: string,
     @Param("TIMESTAMP") timestamp: string
   ): Promise<DataPackagesResponse> {
@@ -103,7 +103,7 @@ export class DataPackagesController {
     }
     await DataPackagesController.validateDataServiceId(dataServiceId);
 
-    return await DataPackagesService.getByTimestamp(
+    return await DataPackagesService.getDataPackagesByTimestamp(
       dataServiceId,
       Number(timestamp)
     );
