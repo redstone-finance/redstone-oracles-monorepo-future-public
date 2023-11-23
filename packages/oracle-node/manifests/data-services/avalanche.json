@@ -493,6 +493,15 @@
     },
     "GM_SOL_SOL_USDC": {
       "source": ["avalanche-evm-fetcher"]
+    },
+    "BAL_ggAVAX_AVAX": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "BAL_yyAVAX_AVAX": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "BAL_sAVAX_AVAX": {
+      "source": ["avalanche-evm-fetcher"]
     }
   }
 }

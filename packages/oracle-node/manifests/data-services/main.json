@@ -1175,6 +1175,15 @@
     "GM_AVAX_WAVAX_USDC": {
       "source": ["avalanche-evm-fetcher"]
     },
+    "BAL_ggAVAX_AVAX": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "BAL_yyAVAX_AVAX": {
+      "source": ["avalanche-evm-fetcher"]
+    },
+    "BAL_sAVAX_AVAX": {
+      "source": ["avalanche-evm-fetcher"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
