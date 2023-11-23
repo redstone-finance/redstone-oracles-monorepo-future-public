@@ -3,12 +3,12 @@ import { abi as redstoneAdapterABI } from "../../../artifacts/contracts/core/Red
 import { abi as mentoAdapterABI } from "../../../artifacts/contracts/custom-integrations/mento/MentoAdapterBase.sol/MentoAdapterBase.json";
 import { abi as sortedOraclesABI } from "../../../artifacts/contracts/custom-integrations/mento/ISortedOracles.sol/ISortedOracles.json";
 import { config } from "../../config";
-import { getProvider } from "./get-provider-or-signer";
+import { getRelayerProvider } from "./get-relayer-provider";
 import { ISortedOracles, RedstoneAdapterBase } from "../../../typechain-types";
 
 export const getAdapterContract = () => {
   const { privateKey, adapterContractAddress } = config();
-  const provider = getProvider();
+  const provider = getRelayerProvider();
   const signer = new Wallet(privateKey, provider);
   const abi = getAbiForAdapter();
   return new Contract(
@@ -24,7 +24,7 @@ export const getSortedOraclesContractAtAddress = (
   return new Contract(
     sortedOraclesMentoContractAddress,
     sortedOraclesABI,
-    getProvider()
+    getRelayerProvider()
   ) as ISortedOracles;
 };
 

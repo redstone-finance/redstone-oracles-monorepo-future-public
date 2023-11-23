@@ -1,5 +1,5 @@
 import { Contract, utils } from "ethers";
-import { getProvider } from "../../src/core/contract-interactions/get-provider-or-signer";
+import { getRelayerProvider } from "../../src/core/contract-interactions/get-relayer-provider";
 import { abi } from "../../artifacts/contracts/price-feeds/interfaces/IPriceFeed.sol/IPriceFeed.json";
 import { PriceFeedBase } from "../../typechain-types";
 
@@ -10,7 +10,7 @@ const PRICE_FEED_ADDRESS = "";
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {
-  const provider = getProvider();
+  const provider = getRelayerProvider();
   const priceFeedContract = new Contract(
     PRICE_FEED_ADDRESS,
     abi,
