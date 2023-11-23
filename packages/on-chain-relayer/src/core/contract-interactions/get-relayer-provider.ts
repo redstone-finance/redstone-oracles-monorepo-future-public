@@ -41,7 +41,7 @@ export const getRelayerProvider = () => {
       allProvidersOperationTimeout: config().allProvidersOperationTimeout,
       electBlockFn: electBlock,
     })
-    .build();
+    .build()!;
 
   return cachedProvider;
 };

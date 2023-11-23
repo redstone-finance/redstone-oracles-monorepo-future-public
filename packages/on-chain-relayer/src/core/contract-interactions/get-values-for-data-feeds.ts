@@ -1,21 +1,39 @@
-import { utils } from "ethers";
-import { config } from "../../config";
 import { ValuesForDataFeeds } from "@redstone-finance/sdk";
-import { IRedstoneAdapter } from "../../../typechain-types";
+import { utils } from "ethers";
+import { IRedstoneAdapter, MentoAdapterBase } from "../../../typechain-types";
+import { config } from "../../config";
+import { getValuesForMentoDataFeeds } from "../../custom-integrations/mento/mento-utils";
+import { getSortedOraclesContractAtAddress } from "./get-contract";
 
-// TODO: rewrite this file, as now we even support getting values from smart contract for MentoAdapter
 export const getValuesForDataFeeds = async (
-  priceFeedsAdapterContract: IRedstoneAdapter,
+  priceFeedsAdapter: IRedstoneAdapter,
   dataFeeds: string[]
 ): Promise<ValuesForDataFeeds> => {
-  // We do not support getting latest values from smart contract for MentoAdapter
-  if (config().adapterContractType === "mento") {
-    return {};
+  switch (config().adapterContractType) {
+    case "price-feeds":
+      return await getValuesForDataFeedsInPriceFeedsAdapter(
+        priceFeedsAdapter,
+        dataFeeds
+      );
+    case "mento":
+      return await getValuesForDataFeedsInMentoAdapter(
+        priceFeedsAdapter as MentoAdapterBase,
+        dataFeeds
+      );
+    default:
+      throw new Error(
+        `Unsupported adapter contract type: ${config().adapterContractType}`
+      );
   }
+};
 
+const getValuesForDataFeedsInPriceFeedsAdapter = async (
+  priceFeedsAdapter: IRedstoneAdapter,
+  dataFeeds: string[]
+): Promise<ValuesForDataFeeds> => {
   const dataFeedsAsBytes32 = dataFeeds.map(utils.formatBytes32String);
   const valuesFromContractAsBigNumber =
-    await priceFeedsAdapterContract.getValuesForDataFeeds(dataFeedsAsBytes32);
+    await priceFeedsAdapter.getValuesForDataFeeds(dataFeedsAsBytes32);
   const dataFeedsValues: ValuesForDataFeeds = {};
   for (const [index, dataFeedId] of dataFeeds.entries()) {
     const currentValue = valuesFromContractAsBigNumber[index];
@@ -23,4 +41,16 @@ export const getValuesForDataFeeds = async (
     dataFeedsValues[dataFeedId] = currentValue;
   }
   return dataFeedsValues;
+};
+
+const getValuesForDataFeedsInMentoAdapter = async (
+  mentoAdapter: MentoAdapterBase,
+  dataFeeds: string[]
+): Promise<ValuesForDataFeeds> => {
+  const sortedOraclesAddress = await mentoAdapter.getSortedOracles();
+  return await getValuesForMentoDataFeeds(
+    mentoAdapter,
+    getSortedOraclesContractAtAddress(sortedOraclesAddress),
+    dataFeeds
+  );
 };

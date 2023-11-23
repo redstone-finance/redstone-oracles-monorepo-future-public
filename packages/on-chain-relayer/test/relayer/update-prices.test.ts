@@ -4,7 +4,6 @@ import {
   getDataPackagesResponse,
   mockEnvVariables,
 } from "../helpers";
-mockEnvVariables();
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { ethers } from "hardhat";
@@ -34,6 +33,7 @@ describe("update-prices", () => {
   after(() => server.close());
 
   it("should update price in price-feeds adapter", async () => {
+    mockEnvVariables();
     // Deploy contract
     const PriceFeedsAdapterFactory = await ethers.getContractFactory(
       "PriceFeedsAdapterWithoutRoundsMock"
@@ -63,6 +63,13 @@ describe("update-prices", () => {
   });
 
   it("should update prices in mento adapter", async () => {
+    // Mocking config
+    const overrideMockConfig = {
+      adapterContractType: "mento",
+      updateConditions: ["time"],
+    };
+    mockEnvVariables(overrideMockConfig);
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
     (getProviderOrSigner as any).getProvider = () => ethers.provider;
 
@@ -77,13 +84,6 @@ describe("update-prices", () => {
 
     // Setting sorted oracles contract address
     await mentoAdapter.setSortedOraclesAddress(sortedOracles.address);
-
-    // Mocking config
-    const overrideMockConfig = {
-      adapterContractType: "mento",
-      updateConditions: ["time"],
-    };
-    mockEnvVariables(overrideMockConfig);
 
     // Update prices
     const dataPackages = await getDataPackagesResponse();
