@@ -12,16 +12,16 @@
   },
   "tokens": {
     "TSLA": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "AAPL": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "IBM": {
       "source": ["twelve-data"]
     },
     "AMZN": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "GOOG": {
       "source": ["twelve-data"]
@@ -39,7 +39,7 @@
       "source": ["twelve-data"]
     },
     "NFLX": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "NKE": {
       "source": ["twelve-data"]
@@ -102,7 +102,7 @@
       "source": ["yf-unofficial"]
     },
     "CRUDE": {
-      "source": ["currencycom", "twelve-data", "yf-unofficial"]
+      "source": ["twelve-data", "yf-unofficial"]
     },
     "RB=F": {
       "source": ["yf-unofficial"]
@@ -114,13 +114,13 @@
       "source": ["yf-unofficial"]
     },
     "XAU": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "SILVER": {
-      "source": ["currencycom", "twelve-data", "yf-unofficial"]
+      "source": ["twelve-data", "yf-unofficial"]
     },
     "COPPER": {
-      "source": ["currencycom", "yf-unofficial"]
+      "source": ["yf-unofficial"]
     },
     "PL=F": {
       "source": ["yf-unofficial"]
@@ -153,10 +153,10 @@
       "source": ["yf-unofficial"]
     },
     "GBP": {
-      "source": ["binance", "currencycom", "ecb", "twelve-data", "kraken"]
+      "source": ["binance", "ecb", "twelve-data", "kraken"]
     },
     "AUD": {
-      "source": ["currencycom", "ecb", "twelve-data", "kraken"]
+      "source": ["ecb", "twelve-data", "kraken"]
     },
     "CHF": {
       "source": ["twelve-data"]
@@ -166,7 +166,6 @@
         "binance",
         "bitstamp-api",
         "coinbase-api",
-        "currencycom",
         "ecb",
         "kaiko",
         "kaiko-v2",
@@ -213,7 +212,7 @@
       "source": ["twelve-data"]
     },
     "BYND": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "HRTX": {
       "source": ["twelve-data"]
@@ -312,13 +311,13 @@
       "source": ["twelve-data"]
     },
     "GME": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "AMC": {
       "source": ["twelve-data"]
     },
     "META": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "DIA.ETF": {
       "source": ["twelve-data", "yf-unofficial"]

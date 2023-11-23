@@ -1200,17 +1200,16 @@
       "source": ["permaswap"]
     },
     "AUD": {
-      "source": ["currencycom", "ecb", "kraken", "twelve-data"]
+      "source": ["ecb", "kraken", "twelve-data"]
     },
     "GBP": {
-      "source": ["binance", "currencycom", "ecb", "kraken", "twelve-data"]
+      "source": ["binance", "ecb", "kraken", "twelve-data"]
     },
     "EUR": {
       "source": [
         "binance",
         "bitstamp-api",
         "coinbase-api",
-        "currencycom",
         "ecb",
         "kaiko",
         "kaiko-v2",
@@ -1232,7 +1231,7 @@
       "source": ["twelve-data"]
     },
     "NZD": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "CAD": {
       "source": ["twelve-data"]
@@ -1290,16 +1289,16 @@
       "source": ["twelve-data", "yf-unofficial"]
     },
     "XAU": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "SILVER": {
-      "source": ["currencycom", "twelve-data", "yf-unofficial"]
+      "source": ["twelve-data", "yf-unofficial"]
     },
     "CRUDE": {
-      "source": ["currencycom", "twelve-data", "yf-unofficial"]
+      "source": ["twelve-data", "yf-unofficial"]
     },
     "COPPER": {
-      "source": ["currencycom", "yf-unofficial"]
+      "source": ["yf-unofficial"]
     },
     "IBM": {
       "source": ["twelve-data"]
@@ -1544,66 +1543,6 @@
     "CSC=F": {
       "source": ["yf-unofficial"]
     },
-    "ABNB": {
-      "source": ["currencycom"]
-    },
-    "AMD": {
-      "source": ["currencycom"]
-    },
-    "ARKK": {
-      "source": ["currencycom"]
-    },
-    "BABA": {
-      "source": ["currencycom"]
-    },
-    "BILI": {
-      "source": ["currencycom"]
-    },
-    "BNTX": {
-      "source": ["currencycom"]
-    },
-    "COIN": {
-      "source": ["currencycom"]
-    },
-    "CRON": {
-      "source": ["currencycom"]
-    },
-    "GOOGL": {
-      "source": ["currencycom"]
-    },
-    "MRNA": {
-      "source": ["currencycom"]
-    },
-    "NIO": {
-      "source": ["currencycom"]
-    },
-    "NVDA": {
-      "source": ["currencycom"]
-    },
-    "PFE": {
-      "source": ["currencycom"]
-    },
-    "PYPL": {
-      "source": ["currencycom"]
-    },
-    "SQ": {
-      "source": ["currencycom"]
-    },
-    "TSM": {
-      "source": ["currencycom"]
-    },
-    "UBER": {
-      "source": ["currencycom"]
-    },
-    "ZM": {
-      "source": ["currencycom"]
-    },
-    "DKNG": {
-      "source": ["currencycom"]
-    },
-    "TLRY": {
-      "source": ["currencycom"]
-    },
     "ENTROPY": {
       "source": ["drand"],
       "deviationCheck": {
@@ -1614,25 +1553,25 @@
       }
     },
     "AAPL": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "AMZN": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "BYND": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "GME": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "NFLX": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "TSLA": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "META": {
-      "source": ["currencycom", "twelve-data"]
+      "source": ["twelve-data"]
     },
     "lensprotocol": {
       "source": ["lens"]
