@@ -32,7 +32,9 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
       }
     }
     if (!config.disableLog) {
-      `Function ${config.fn.name} failed after ${config.maxRetries} attempts`;
+      console.log(
+        `Function ${config.fn.name} failed after ${config.maxRetries} attempts`
+      );
     }
     throw lastError;
   };

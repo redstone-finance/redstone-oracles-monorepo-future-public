@@ -1,5 +1,5 @@
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
-import { sendHealthcheckPing } from "@redstone-finance/utils";
+import { RedstoneCommon, sendHealthcheckPing } from "@redstone-finance/utils";
 import { getIterationArgs } from "./args/get-iteration-args";
 import { updatePrices } from "./core/contract-interactions/update-prices";
 import { getAdapterContract } from "./core/contract-interactions/get-contract";
@@ -31,7 +31,10 @@ const runIteration = async () => {
 };
 
 const task = new AsyncTask("Relayer task", runIteration, (error) =>
-  console.log(error.stack)
+  console.log(
+    "Unhandled error occurred during iteration:",
+    RedstoneCommon.stringifyError(error)
+  )
 );
 
 const job = new SimpleIntervalJob(

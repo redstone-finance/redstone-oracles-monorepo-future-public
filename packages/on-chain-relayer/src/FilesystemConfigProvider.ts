@@ -79,7 +79,7 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
     rpcUrls: JSON.parse(getFromEnv("RPC_URLS")) as string[],
     agreementAcceptableBlocksDiff: Number(
-      getFromEnv("AGREEMENT_ACCEPTABLE_BLOCKS_DIFF", true) ?? 1
+      getFromEnv("AGREEMENT_ACCEPTABLE_BLOCKS_DIFF", true) ?? -1
     ),
     singleProviderOperationTimeout: Number(
       getFromEnv("SINGLE_PROVIDER_OPERATION_TIMEOUT", true) ?? 5_000

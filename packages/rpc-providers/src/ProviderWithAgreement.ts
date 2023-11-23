@@ -178,7 +178,11 @@ export class ProviderWithAgreement extends ProviderWithFallback {
           reject(
             new AggregateError(
               errors,
-              `Failed to find at least ${this.agreementConfig.numberOfProvidersThatHaveToAgree} agreeing providers.`
+              `Failed to find at least ${
+                this.agreementConfig.numberOfProvidersThatHaveToAgree
+              } agreeing providers. ${
+                this.providers.length - errors.length
+              } responded with success. Result map: ${mapToString(results)}`
             )
           );
         }
@@ -226,3 +230,6 @@ async function hashBytesLikeValue(
   }
   return "";
 }
+
+const mapToString = (map: Map<unknown, unknown>) =>
+  JSON.stringify(Object.fromEntries(map.entries()));

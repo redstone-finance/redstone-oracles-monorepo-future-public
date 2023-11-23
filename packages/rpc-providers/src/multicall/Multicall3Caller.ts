@@ -52,9 +52,9 @@ export async function multicall3(
   } catch (e) {
     // if multicall failed fallback to normal execution model (1 call = 1 request)
     console.log(
-      `[multicall3] failed. Will falback to ${
+      `[multicall3] failed. Will fallback to ${
         call3s.length
-      } seperate calls. Error: ${RedstoneCommon.stringifyError(e)}`
+      } separate calls. Error: ${RedstoneCommon.stringifyError(e)}`
     );
     return await Promise.all(
       call3s.map((call3) => fallbackCall(provider, call3, blockTag))
@@ -75,6 +75,7 @@ async function fallbackCall(
       returnData: callResult,
     };
   } catch (e) {
+    console.log("[multicall3] Fallback call failed");
     return {
       returnData: "0x",
       fallbackRejectReason: e,
