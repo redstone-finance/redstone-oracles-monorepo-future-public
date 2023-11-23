@@ -12,7 +12,7 @@ import { PriceFeedsAdapterWithoutRoundsMock } from "../../typechain-types";
 import { updatePrices } from "../../src/core/contract-interactions/update-prices";
 import { server } from "./mock-server";
 import { parseUnits } from "ethers/lib/utils";
-import * as getProviderOrSigner from "../../src/core/contract-interactions/get-provider-or-signer";
+import * as getProviderOrSigner from "../../src/core/contract-interactions/get-relayer-provider";
 import { Wallet } from "ethers";
 import { UpdatePricesArgs } from "../../src";
 import { chooseDataPackagesTimestamp } from "../../src/core/update-conditions/data-packages-timestamp";

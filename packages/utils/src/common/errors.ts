@@ -24,7 +24,8 @@ export function stringifyError(e: unknown): string {
     return "undefined";
   } else if (error instanceof AggregateError) {
     const errorMessages: string[] = error.errors.map(stringifyError);
-    return `Aggregate error messages: ${errorMessages.join("; ")}`;
+    return `Aggregate error messages: ${error.message}
+    errors: ${errorMessages.join("; ")}`;
   } else if (axios.isAxiosError(error)) {
     return JSON.stringify(error.response?.data) + " | " + error.stack;
   } else if (error instanceof Error) {
