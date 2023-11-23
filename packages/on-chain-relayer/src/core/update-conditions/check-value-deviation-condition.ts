@@ -1,13 +1,12 @@
-import { BigNumber } from "ethers";
-import { INumericDataPoint } from "@redstone-finance/protocol";
+import { consts, INumericDataPoint } from "@redstone-finance/protocol";
 import {
   DataPackagesResponse,
   ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
-import { RelayerConfig } from "../../types";
-import { formatUnits } from "ethers/lib/utils";
 import { MathUtils } from "@redstone-finance/utils";
-import { consts } from "@redstone-finance/protocol";
+import { BigNumber } from "ethers";
+import { formatUnits } from "ethers/lib/utils";
+import { RelayerConfig } from "../../types";
 
 export const checkValueDeviationCondition = (
   dataPackages: DataPackagesResponse,

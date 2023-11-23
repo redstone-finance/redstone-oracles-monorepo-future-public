@@ -1,6 +1,7 @@
 import { BaseWrapper } from "@redstone-finance/evm-connector";
+import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 import { MathUtils } from "@redstone-finance/utils";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { ISortedOracles, MentoAdapterBase } from "../../../typechain-types";
 
 export interface MentoContracts {
@@ -118,4 +119,51 @@ export const prepareLinkedListLocationsForMentoAdapterReport = async (
   }
 
   return locationsInSortedLinkedLists;
+};
+
+const tokenAddressToValue = async (
+  tokenAddress: string,
+  sortedOracles: ISortedOracles,
+  mentoAdapter: MentoAdapterBase
+) => {
+  const rates = await sortedOracles.getRates(tokenAddress);
+  const redstoneOracleIndex = rates[0].findIndex((address) =>
+    addressesAreEqual(address, mentoAdapter.address)
+  );
+  if (redstoneOracleIndex == -1) {
+    return undefined;
+  }
+  return rates[1][redstoneOracleIndex].div(BigNumber.from(10).pow(16));
+};
+
+const dataFeedToTokenAddress = (
+  dataFeedId: string,
+  contractFeeds: MentoAdapterBase.DataFeedDetailsStructOutput[]
+) => {
+  const dataFeedIndex = contractFeeds.findIndex(
+    (cf) => ethers.utils.parseBytes32String(cf.dataFeedId) == dataFeedId
+  );
+  if (dataFeedIndex == -1) {
+    throw new Error(`data feed ${dataFeedId} not present in contract`);
+  }
+  return contractFeeds[dataFeedIndex].tokenAddress;
+};
+
+export const getValuesForMentoDataFeeds = async (
+  mentoAdapter: MentoAdapterBase,
+  sortedOracles: ISortedOracles,
+  dataFeeds: string[]
+): Promise<ValuesForDataFeeds> => {
+  const dataFeedsFromContract = await mentoAdapter.getDataFeeds();
+  const promises = dataFeeds.map(async (dataFeedId) => {
+    const tokenAddress = dataFeedToTokenAddress(
+      dataFeedId,
+      dataFeedsFromContract
+    );
+    return [
+      dataFeedId,
+      await tokenAddressToValue(tokenAddress, sortedOracles, mentoAdapter),
+    ] as const;
+  });
+  return Object.fromEntries(await Promise.all(promises));
 };

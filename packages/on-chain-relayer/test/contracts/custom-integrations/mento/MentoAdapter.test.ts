@@ -1,11 +1,18 @@
+import { Provider } from "@ethersproject/providers";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { WrapperBuilder } from "@redstone-finance/evm-connector";
-import { SimpleNumericMockWrapper } from "@redstone-finance/evm-connector";
+import {
+  SimpleNumericMockWrapper,
+  WrapperBuilder,
+} from "@redstone-finance/evm-connector";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
+import { BigNumber } from "ethers";
 import { parseUnits } from "ethers/lib/utils";
-import { ethers, upgrades } from "hardhat";
+import { ethers, upgrades, waffle } from "hardhat";
+import Sinon from "sinon";
+import * as get_provider from "../../../../src/core/contract-interactions/get-relayer-provider";
+import { getValuesForDataFeeds } from "../../../../src/core/contract-interactions/get-values-for-data-feeds";
 import {
   calculateLinkedListPosition,
   prepareLinkedListLocationsForMentoAdapterReport,
@@ -15,7 +22,9 @@ import {
   MentoAdapterMock,
   MockSortedOracles,
 } from "../../../../typechain-types";
-import { deployMockSortedOracles } from "../../../helpers";
+import { deployMockSortedOracles, mockEnvVariables } from "../../../helpers";
+
+let getProviderStub: Sinon.SinonStub<[], Provider>;
 
 chai.use(chaiAsPromised);
 
@@ -161,11 +170,14 @@ describe("MentoAdapter", () => {
 
   before(async () => {
     signers = await ethers.getSigners();
+    getProviderStub = Sinon.stub(get_provider, "getRelayerProvider");
+    getProviderStub.returns(waffle.provider);
   });
 
   beforeEach(async () => {
     // Deploying sorted oracles
     sortedOracles = await deployMockSortedOracles();
+    mockEnvVariables({ adapterContractType: "mento" });
 
     // Deploying mento adapter
     const MentoAdapterFactory =
@@ -293,5 +305,14 @@ describe("MentoAdapter", () => {
     await reportWithAdapterAndDeviation(50, 160, 10);
     await expectOracleValues(mockToken1Address, [45, 42, 40]);
     await expectOracleValues(mockToken2Address, [16]);
+  });
+
+  it("Should properly read redstone values reported to sorted oracles", async () => {
+    await reportWithAdapter(1, 2, mentoAdapter);
+    const values = await getValuesForDataFeeds(mentoAdapter, ["BTC", "ETH"]);
+    expect(values).to.eql({
+      BTC: BigNumber.from(1 * 10 ** 8),
+      ETH: BigNumber.from(2 * 10 ** 8),
+    });
   });
 });
