@@ -505,8 +505,7 @@
       "source": [
         "balancer-ethereum-weth",
         "maverick",
-        "uniswap-v3-ethereum-on-chain-weth-500",
-        "uniswap-v3-ethereum-on-chain-weth-3000"
+        "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
     "SOL": {
