@@ -62,12 +62,12 @@ export const filterOutliers = (
   numbers: number[],
   maxDiscrepancy: number
 ): { representativeGroup: number[]; outliers: number[] } => {
-  const numbersCopy = [...numbers];
-  if (numbersCopy.length < 2) {
-    return { representativeGroup: numbersCopy, outliers: [] };
+  if (numbers.length < 2) {
+    return { representativeGroup: [...numbers], outliers: [] };
   }
 
-  const sortedNumbers = numbersCopy.sort((a, b) => a - b);
+  const sortedNumbers = [...numbers];
+  sortedNumbers.sort((a, b) => a - b);
 
   let bestGroup = { startIndex: 0, endIndex: 0 };
 

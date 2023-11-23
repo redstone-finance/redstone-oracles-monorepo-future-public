@@ -21,15 +21,6 @@ export const config = () => {
     );
   }
 
-  // Preventing unsupported update condition for mento adapter type
-  if (
-    relayerConfig.adapterContractType === "mento" &&
-    relayerConfig.updateConditions.includes("value-deviation")
-  ) {
-    throw new Error(
-      "Mento adapter does not support the value-deviation update condition"
-    );
-  }
   return relayerConfig;
 };
 
