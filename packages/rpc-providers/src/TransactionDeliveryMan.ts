@@ -75,6 +75,11 @@ export type TransactionDeliveryManOpts = {
    */
   isAuctionModel?: boolean;
 
+  /**
+   * Forcefully disable custom gas oracle if defined
+   */
+  forceDisableCustomGasOracle?: boolean;
+
   logger?: (text: string) => void;
 
   gasOracleTimeout?: number;
@@ -90,6 +95,7 @@ const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
   percentileOfPriorityFee: 75,
   twoDimensionFees: false,
   gasOracleTimeout: 5_000,
+  forceDisableCustomGasOracle: false,
   logger: (text: string) => console.log(`[TransactionDeliveryMan] ${text}`),
 };
 
@@ -269,6 +275,10 @@ export class TransactionDeliveryMan {
     const gasOracle = CHAIN_ID_TO_GAS_ORACLE[chainId];
     if (!gasOracle) {
       throw new Error(`Gas oracle is not defined for ${chainId}`);
+    }
+
+    if (this.opts.forceDisableCustomGasOracle) {
+      throw new Error(`Gas oracle was forcefully disabled`);
     }
 
     const fee = await RedstoneCommon.timeout(

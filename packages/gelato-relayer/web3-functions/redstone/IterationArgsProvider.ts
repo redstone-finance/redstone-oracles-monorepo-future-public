@@ -33,6 +33,7 @@ const EMPTY_GELATO_ENV = {
   isArbitrumNetwork: false,
   gasMultiplier: 1.125,
   isNotLazy: true,
+  disableCustomGasOracle: false,
 };
 
 export class IterationArgsProvider

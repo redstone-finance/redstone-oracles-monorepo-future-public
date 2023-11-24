@@ -19,6 +19,7 @@ const getDeliveryMan = () => {
       twoDimensionFees: config().isArbitrumNetwork,
       multiplier: config().gasMultiplier,
       isAuctionModel: config().isAuctionModel,
+      forceDisableCustomGasOracle: config().disableCustomGasOracle,
     });
   return deliveryMan;
 };

@@ -36,23 +36,13 @@ const getEthFeeFromGasOracle: GasOracleFn = async (
 };
 
 const kavaGasOracle: GasOracleFn = async (
-  opts: TransactionDeliveryManOpts,
-  attempt: number
+  opts: TransactionDeliveryManOpts
   // eslint-disable-next-line @typescript-eslint/require-await
 ) => {
-  if (attempt <= 3) {
-    throw new Error("Fallback to provider oracle");
-  } else if (attempt <= 7) {
-    return {
-      gasLimit: opts.gasLimit,
-      gasPrice: 0.05 * ONE_MICRO_KAVA,
-    };
-  } else {
-    return {
-      gasLimit: opts.gasLimit,
-      gasPrice: 0.25 * ONE_MICRO_KAVA,
-    };
-  }
+  return {
+    gasLimit: opts.gasLimit,
+    gasPrice: 0.26 * ONE_MICRO_KAVA,
+  };
 };
 
 export const CHAIN_ID_TO_GAS_ORACLE = {

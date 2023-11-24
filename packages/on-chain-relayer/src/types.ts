@@ -75,6 +75,7 @@ export interface RelayerConfig {
   allProvidersOperationTimeout: number;
   agreementAcceptableBlocksDiff: number;
   isNotLazy: boolean;
+  disableCustomGasOracle: boolean;
 }
 
 export type OnChainRelayerEnv = {
@@ -95,6 +96,7 @@ export type OnChainRelayerEnv = {
   allProvidersOperationTimeout: number;
   agreementAcceptableBlocksDiff: number;
   isNotLazy: boolean;
+  disableCustomGasOracle: boolean;
 };
 
 export type ConfigProvider = () => RelayerConfig;
