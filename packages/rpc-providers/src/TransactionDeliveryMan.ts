@@ -76,6 +76,8 @@ export type TransactionDeliveryManOpts = {
   isAuctionModel?: boolean;
 
   logger?: (text: string) => void;
+
+  gasOracleTimeout?: number;
 };
 
 export const unsafeBnToNumber = (bn: BigNumber) => Number(bn.toString());
@@ -87,6 +89,7 @@ const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
   gasLimitMultiplier: 1.5,
   percentileOfPriorityFee: 75,
   twoDimensionFees: false,
+  gasOracleTimeout: 5_000,
   logger: (text: string) => console.log(`[TransactionDeliveryMan] ${text}`),
 };
 
@@ -268,7 +271,11 @@ export class TransactionDeliveryMan {
       throw new Error(`Gas oracle is not defined for ${chainId}`);
     }
 
-    const fee = await gasOracle(this.opts, attempt);
+    const fee = await RedstoneCommon.timeout(
+      gasOracle(this.opts, attempt),
+      this.opts.gasOracleTimeout,
+      `Custom gas oracle timeout after ${this.opts.gasOracleTimeout}`
+    );
 
     this.opts.logger(`getFees result from gasOracle ${JSON.stringify(fee)}`);
 
