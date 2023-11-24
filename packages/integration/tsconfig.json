@@ -15,6 +15,15 @@
     },
     {
       "path": "../on-chain-relayer/tsconfig.build.json"
+    },
+    {
+      "path": "../oracle-node/tsconfig.build.json"
+    },
+    {
+      "path": "../evm-connector/tsconfig.build.json"
+    },
+    {
+      "path": "../cache-service/tsconfig.build.json"
     }
   ]
 }

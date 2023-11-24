@@ -6,9 +6,9 @@
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test jest",
-    "build": "rm -rf dist && tsc --build tsconfig.build.json",
-    "lint": "eslint .",
+    "test": "NODE_ENV=test yarn global:jest",
+    "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
+    "lint": "yarn global:eslint .",
     "preversion": "yarn build"
   },
   "dependencies": {

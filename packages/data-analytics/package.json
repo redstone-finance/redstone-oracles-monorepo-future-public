@@ -3,10 +3,10 @@
   "version": "0.3.6",
   "prettier": "redstone-prettier-config",
   "main": "index.js",
-  "private": "true",
+  "private": true,
   "license": "MIT",
   "scripts": {
-    "get-avalanche-statistics": "yarn ts-node scripts/get-redstone-txs-stats-from-avalanche.ts"
+    "get-avalanche-statistics": "yarn global:ts-node scripts/get-redstone-txs-stats-from-avalanche.ts"
   },
   "dependencies": {
     "@ethersproject/abi": "^5.6.3",

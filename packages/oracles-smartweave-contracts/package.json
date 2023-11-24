@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && tsc && node ./scripts/build.js",
-    "test": "yarn build && NODE_ENV=test jest",
+    "build": "rm -rf dist && yarn global:tsc && node ./scripts/build.js",
+    "test": "yarn build && NODE_ENV=test yarn global:jest",
     "preversion": "yarn build"
   },
   "devDependencies": {

@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "hardhat test",
-    "build": "rm -rf dist && yarn compile && tsc --build tsconfig.build.json",
+    "build": "rm -rf dist && yarn compile && yarn global:tsc --build tsconfig.build.json",
     "benchmark": "hardhat test benchmarks/run-benchmarks.ts",
     "compile": "hardhat compile",
     "preversion": "yarn build"
