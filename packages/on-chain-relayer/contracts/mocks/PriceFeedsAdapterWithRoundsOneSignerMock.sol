@@ -12,6 +12,10 @@ contract PriceFeedsAdapterWithRoundsOneSignerMock is PriceFeedsAdapterWithRounds
     dataFeedIds[2] = bytes32("AAVE");
   }
 
+  function getMinIntervalBetweenUpdates() pure public override returns(uint256) {
+    return 0;
+  }
+
   function getUniqueSignersThreshold() public view virtual override returns (uint8) {
     return 1;
   }
