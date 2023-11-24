@@ -1,6 +1,10 @@
 import { runLongPricePropagationCoreTest } from "./framework/run-long-price-propagation-core-test";
 
-const REMOVED_DATA_FEEDS: string[] = [];
+const REMOVED_DATA_FEEDS: string[] = [
+  "SUSHI_DPX_ETH_LP",
+  "MOO_SUSHI_DPX_ETH_LP",
+  "DPX",
+];
 const DATA_FEEDS_NOT_WORKING_LOCALLY: string[] = [];
 const SKIPPED_SOURCES = JSON.parse(
   process.env.SKIPPED_SOURCES ?? "[]"
