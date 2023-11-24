@@ -76,6 +76,8 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     ? Number.parseInt(mentoMaxDeviationAllowedString)
     : undefined;
   const env: OnChainRelayerEnv = {
+    disableCustomGasOracle:
+      getFromEnv("DISABLE_CUSTOM_GAS_ORACLE", true) === "true",
     relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
     rpcUrls: JSON.parse(getFromEnv("RPC_URLS")) as string[],
     agreementAcceptableBlocksDiff: Number(
