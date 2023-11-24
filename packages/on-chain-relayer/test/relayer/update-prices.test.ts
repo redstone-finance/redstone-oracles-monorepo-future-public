@@ -1,21 +1,20 @@
+import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
+import chai, { expect } from "chai";
+import chaiAsPromised from "chai-as-promised";
+import { Wallet } from "ethers";
+import { parseUnits } from "ethers/lib/utils";
+import { ethers } from "hardhat";
+import { UpdatePricesArgs } from "../../src";
+import { updatePrices } from "../../src/core/contract-interactions/update-prices";
+import { chooseDataPackagesTimestamp } from "../../src/core/update-conditions/data-packages-timestamp";
+import { PriceFeedsAdapterWithoutRoundsMock } from "../../typechain-types";
 import {
   btcDataFeed,
   deployMockSortedOracles,
   getDataPackagesResponse,
   mockEnvVariables,
 } from "../helpers";
-import chai, { expect } from "chai";
-import chaiAsPromised from "chai-as-promised";
-import { ethers } from "hardhat";
-import { PriceFeedsAdapterWithoutRoundsMock } from "../../typechain-types";
-import { updatePrices } from "../../src/core/contract-interactions/update-prices";
 import { server } from "./mock-server";
-import { parseUnits } from "ethers/lib/utils";
-import * as getProviderOrSigner from "../../src/core/contract-interactions/get-relayer-provider";
-import { Wallet } from "ethers";
-import { UpdatePricesArgs } from "../../src";
-import { chooseDataPackagesTimestamp } from "../../src/core/update-conditions/data-packages-timestamp";
-import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 
 chai.use(chaiAsPromised);
 
@@ -70,17 +69,17 @@ describe("update-prices", () => {
     };
     mockEnvVariables(overrideMockConfig);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-    (getProviderOrSigner as any).getProvider = () => ethers.provider;
-
     // Deploying sorted oracles
     const sortedOracles = await deployMockSortedOracles();
 
     // Deploying mento adapter
     const MentoAdapterFactory =
       await ethers.getContractFactory("MentoAdapterMock");
-    const mentoAdapter = await MentoAdapterFactory.deploy();
+    let mentoAdapter = await MentoAdapterFactory.deploy();
     await mentoAdapter.deployed();
+    mentoAdapter = mentoAdapter.connect(
+      new Wallet(TEST_PRIVATE_KEY).connect(ethers.provider)
+    );
 
     // Setting sorted oracles contract address
     await mentoAdapter.setSortedOraclesAddress(sortedOracles.address);

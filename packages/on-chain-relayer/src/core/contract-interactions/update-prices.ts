@@ -100,8 +100,10 @@ const updatePricesInMentoAdapter = async ({
   const wrappedMentoContract =
     dataPackagesWrapper.overwriteEthersContract(mentoAdapter);
 
-  return await wrappedMentoContract.updatePriceValuesAndCleanOldReports(
-    proposedTimestamp,
-    linkedListPositions
+  const deliveryResult = await getDeliveryMan().deliver(
+    wrappedMentoContract,
+    "updatePriceValuesAndCleanOldReports",
+    [proposedTimestamp, linkedListPositions]
   );
+  return deliveryResult;
 };
