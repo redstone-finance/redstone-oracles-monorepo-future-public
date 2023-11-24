@@ -1,10 +1,12 @@
-import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
 import { RedstoneCommon, sendHealthcheckPing } from "@redstone-finance/utils";
-import { getIterationArgs } from "./args/get-iteration-args";
-import { updatePrices } from "./core/contract-interactions/update-prices";
-import { getAdapterContract } from "./core/contract-interactions/get-contract";
-import { config, setConfigProvider } from "./config";
+import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
 import { fileSystemConfigProvider } from "./FilesystemConfigProvider";
+import { getIterationArgs } from "./args/get-iteration-args";
+import { config, setConfigProvider } from "./config";
+import { getAdapterContract } from "./core/contract-interactions/get-contract";
+import { updatePrices } from "./core/contract-interactions/update-prices";
+import { simulateUpdateDataFeeds } from "./core/simulate-price-feed-update";
+import { markFirstIteration } from "./core/update-conditions/on-start-condition";
 
 setConfigProvider(fileSystemConfigProvider);
 const relayerConfig = config();
@@ -17,8 +19,7 @@ const runIteration = async () => {
   const adapterContract = getAdapterContract();
   const iterationArgs = await getIterationArgs(adapterContract);
 
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  sendHealthcheckPing(relayerConfig.healthcheckPingUrl);
+  void sendHealthcheckPing(relayerConfig.healthcheckPingUrl);
   console.log(
     `Update condition ${
       iterationArgs.shouldUpdatePrices ? "" : "NOT "
@@ -30,22 +31,41 @@ const runIteration = async () => {
   }
 };
 
-const task = new AsyncTask("Relayer task", runIteration, (error) =>
-  console.log(
-    "Unhandled error occurred during iteration:",
-    RedstoneCommon.stringifyError(error)
-  )
-);
+async function main() {
+  const adapterContract = getAdapterContract();
+  const iterationArgs = await getIterationArgs(adapterContract);
 
-const job = new SimpleIntervalJob(
-  {
-    milliseconds: relayerConfig.relayerIterationInterval,
-    runImmediately: true,
-  },
-  task,
-  { preventOverrun: true }
-);
+  try {
+    await simulateUpdateDataFeeds(iterationArgs, adapterContract);
+    markFirstIteration();
+    await runIteration();
+  } catch (e) {
+    console.log("First transaction has failed:", e);
+    const sleepTime = config().sleepMsAfterFailedSimulation;
+    console.log(`Sleeping for ${sleepTime} ms before exiting`);
+    await RedstoneCommon.sleep(sleepTime);
+    console.log("Killing relayer");
+    process.exit(1);
+  }
 
-const scheduler = new ToadScheduler();
+  const task = new AsyncTask("Relayer task", runIteration, (error) =>
+    console.log(
+      "Unhandled error occurred during iteration:",
+      RedstoneCommon.stringifyError(error)
+    )
+  );
 
-scheduler.addSimpleIntervalJob(job);
+  const job = new SimpleIntervalJob(
+    {
+      milliseconds: relayerConfig.relayerIterationInterval,
+    },
+    task,
+    { preventOverrun: true }
+  );
+
+  const scheduler = new ToadScheduler();
+
+  scheduler.addSimpleIntervalJob(job);
+}
+
+void main();

@@ -6,11 +6,11 @@ import {
   AuctionModelFee,
   AuctionModelGasEstimator,
 } from "./AuctionModelGasEstimator";
+import { CHAIN_ID_TO_GAS_ORACLE } from "./CustomGasOracles";
 import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
-import { MultiNodeTxBroadcaster } from "./TxBrodcaster";
+import { MultiNodeTxBroadcaster, TxBroadcaster } from "./TxBrodcaster";
 import { EthersError, isEthersError, sleepMS } from "./common";
-import { CHAIN_ID_TO_GAS_ORACLE } from "./CustomGasOracles";
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
 
@@ -120,12 +120,13 @@ export class TransactionDeliveryMan {
 
     let lastAttempt: LastDeliveryAttempt | undefined = undefined;
 
-    const currentNonce = await txBroadcaster.fetchNonce();
-    const fees = await this.getFees(provider, 0);
-    const contractOverrides: ContractOverrides = {
-      nonce: currentNonce,
-      ...fees,
-    };
+    const { contractOverrides, transactionRequest } =
+      await this.prepareTransactionRequest(
+        contract,
+        method,
+        params,
+        txBroadcaster
+      );
 
     for (let i = 0; i < this.opts.maxAttempts; i++) {
       const attempt = i + 1;
@@ -134,14 +135,14 @@ export class TransactionDeliveryMan {
           ...(lastAttempt ?? {}),
           ...contractOverrides,
         };
-        lastAttempt.result = await txBroadcaster.broadcast(
-          method,
-          params,
-          contractOverrides
-        );
+        const signedTx = await contract.signer.signTransaction({
+          ...transactionRequest,
+          ...contractOverrides,
+        });
+
+        lastAttempt.result = await txBroadcaster.broadcast(signedTx);
         this.opts.logger(`Transaction broadcasted successfully`);
       } catch (e) {
-        // if it is not ethers error we can't handle it
         const ethersError = getEthersLikeErrorOrFail(e);
 
         if (TransactionDeliveryMan.isNonceExpiredError(ethersError)) {
@@ -160,16 +161,9 @@ export class TransactionDeliveryMan {
             );
             return lastAttempt.result;
           }
-          // if underpriced then bump fee
+          // if underpriced then bump fee and skip sleeping
         } else if (TransactionDeliveryMan.isUnderpricedError(ethersError)) {
-          Object.assign(
-            contractOverrides,
-            this.estimator.scaleFees(
-              await this.getFees(provider, attempt),
-              attempt
-            )
-          );
-          // skip sleeping if caused by underpriced
+          await this.assignNewFees(contractOverrides, provider, attempt);
           continue;
         }
 
@@ -200,19 +194,55 @@ export class TransactionDeliveryMan {
         );
         return lastAttempt.result;
       } else {
-        Object.assign(
-          contractOverrides,
-          this.estimator.scaleFees(
-            await this.getFees(provider, attempt),
-            attempt
-          )
-        );
+        await this.assignNewFees(contractOverrides, provider, attempt);
       }
     }
 
     throw new Error(
       `Failed to deliver transaction after ${this.opts.maxAttempts} attempts`
     );
+  }
+
+  private async assignNewFees(
+    contractOverrides: ContractOverrides,
+    provider: providers.JsonRpcProvider,
+    attempt: number
+  ) {
+    Object.assign(
+      contractOverrides,
+      this.estimator.scaleFees(await this.getFees(provider, attempt), attempt)
+    );
+  }
+
+  async prepareTransactionRequest<T extends Contract>(
+    contract: T,
+    method: string | number | symbol,
+    params: unknown[],
+    txBroadcaster: TxBroadcaster
+  ): Promise<{
+    transactionRequest: providers.TransactionRequest;
+    contractOverrides: ContractOverrides;
+  }> {
+    const currentNonce = await txBroadcaster.fetchNonce();
+    const fees = await this.getFees(
+      contract.provider as providers.JsonRpcProvider,
+      0
+    );
+    const contractOverrides: ContractOverrides = {
+      nonce: currentNonce,
+      ...fees,
+    };
+    const populatedTransaction = await contract.populateTransaction[
+      method.toString()
+    ](...params);
+
+    const transactionRequest = await contract.signer.populateTransaction({
+      ...populatedTransaction,
+      ...contractOverrides,
+      type: Reflect.has(contractOverrides, "gasPrice") ? 0 : 2,
+    });
+
+    return { transactionRequest, contractOverrides };
   }
 
   // RPC errors sucks most of the time, thus we can not rely on them
