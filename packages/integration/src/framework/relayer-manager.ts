@@ -16,8 +16,8 @@ import {
   getCacheServicePort,
 } from "./gateway-manager";
 import {
-  debug,
   PriceSet,
+  debug,
   printDotenv,
   printExtraEnv,
   runWithLogPrefixInBackground,
@@ -47,8 +47,30 @@ type RelayerConfig = {
     cron?: string[];
     deviationPercentage?: number;
     timeSinceLastUpdateInMilliseconds?: number;
+    onStart?: boolean;
   };
   rpcUrls?: string[];
+  gasLimit?: number;
+  sleepAfterFailedSimulation?: number;
+};
+
+const DEFAULT_MANIFEST = {
+  chain: {
+    name: "Goerli test network",
+    id: 31337,
+  },
+  updateTriggers: {
+    deviationPercentage: 0,
+    timeSinceLastUpdateInMilliseconds: 10000,
+    onStart: false,
+  },
+  adapterContract: "__ADAPTER_CONTRACT_ADDRESS__",
+  dataServiceId: "mock-data-service",
+  priceFeeds: {
+    BTC: "",
+    ETH: "",
+    AAVE: "",
+  },
 };
 
 export const startRelayer = (
@@ -62,9 +84,11 @@ export const startRelayer = (
   );
   const rpcUrls = config.rpcUrls ?? ["http://127.0.0.1:8545"];
   createManifestFile({
+    ...DEFAULT_MANIFEST,
     adapterContract: config.adapterContractAddress,
-    updateTriggers: config.updateTriggers,
+    updateTriggers: config.updateTriggers ?? DEFAULT_MANIFEST.updateTriggers,
   });
+
   const extraEnv: Record<string, string> = {
     RPC_URLS: JSON.stringify(rpcUrls),
     PRIVATE_KEY: HARDHAT_MOCK_PRIVATE_KEY,
@@ -74,6 +98,10 @@ export const startRelayer = (
     FALLBACK_OFFSET_IN_MINUTES: `${config.isFallback ? 2 : 0}`,
     HISTORICAL_PACKAGES_DATA_SERVICE_ID: "mock-data-service",
     HISTORICAL_PACKAGES_GATEWAYS: JSON.stringify(cacheServiceUrls),
+    GAS_LIMIT: (config.gasLimit ?? 10_000_000).toString(),
+    SLEEP_MS_AFTER_FAILED_SIMULATION: (
+      config.sleepAfterFailedSimulation ?? 0
+    ).toString(),
   };
   if (config.intervalInMs) {
     extraEnv["RELAYER_ITERATION_INTERVAL"] = config.intervalInMs.toString();
@@ -253,19 +281,10 @@ export const getConnectedSigner = (rpcUrl = "http://127.0.0.1:8545") => {
 };
 
 const createManifestFile = (
-  manifestConfig: Partial<OnChainRelayerManifest>,
+  manifest: OnChainRelayerManifest,
   path: string = MANIFEST_PATH
 ): void => {
-  const sampleManifest = JSON.parse(
-    fs.readFileSync("../integration/relayerManifestSample.json").toString()
-  ) as Partial<OnChainRelayerManifest>;
-
-  // prevent from overwriting with undefined
-  if (!manifestConfig.updateTriggers) {
-    manifestConfig.updateTriggers = sampleManifest.updateTriggers;
-  }
-
-  const manifest = { ...sampleManifest, ...manifestConfig };
+  console.log("relayer manifest", manifest);
   fs.writeFileSync(path, JSON.stringify(manifest));
 };
 
@@ -310,6 +329,8 @@ export const updateValuesInAdapterContract = async (
   );
 
   await updateTransaction.wait();
+  // wait for next iteration to prevent reusing same data-package timestamp
+  await RedstoneCommon.sleep(7_000);
 };
 
 export const deployMockAdapterAndSetInitialPrices = async (

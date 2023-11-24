@@ -110,17 +110,21 @@ export const addPrefixToProcessLogs = (
     debug(`stderr for ${logPrefix} won't be displayed`);
   }
   childProcess.stdout?.on("data", (data: string) => {
+    const time = new Date().toTimeString().slice(0, 8);
     data
       .toString()
       .split("\n")
-      .forEach((line) => console.log(`${normalizedPrefix}: ${line}`));
+      .forEach((line) => console.log(`${time} ${normalizedPrefix}: ${line}`));
   });
-  childProcess.stderr?.on("data", (data: string) =>
+  childProcess.stderr?.on("data", (data: string) => {
+    const time = new Date().toTimeString().slice(0, 8);
     data
       .toString()
       .split("\n")
-      .forEach((line) => console.log(`${normalizedErrorPrefix}: ${line}`))
-  );
+      .forEach((line) =>
+        console.log(`${time} ${normalizedErrorPrefix}: ${line}`)
+      );
+  });
 };
 
 export type ExtraEnv = { [varName: string]: string };

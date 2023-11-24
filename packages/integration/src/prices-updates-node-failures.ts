@@ -1,13 +1,13 @@
 import { RedstoneCommon } from "@redstone-finance/utils";
 import {
-  configureCleanup,
-  debug,
-  deployMockAdapter,
-  deployMockPriceFeed,
   GatewayInstance,
   HardhatInstance,
   OracleNodeInstance,
   PriceSet,
+  configureCleanup,
+  debug,
+  deployMockAdapterAndSetInitialPrices,
+  deployMockPriceFeed,
   setMockPricesMany,
   startAndWaitForGateway,
   startAndWaitForHardHat,
@@ -73,7 +73,8 @@ const main = async () => {
   await waitForDataAndDisplayIt(gatewayInstance2);
   await startAndWaitForHardHat(hardhatInstance);
 
-  const adapterContract = await deployMockAdapter();
+  const adapterContract =
+    await deployMockAdapterAndSetInitialPrices(allGateways);
   const adapterContractAddress = adapterContract.address;
   const priceFeedContract = await deployMockPriceFeed(adapterContractAddress);
 

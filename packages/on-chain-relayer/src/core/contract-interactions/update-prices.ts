@@ -1,28 +1,13 @@
 import { TransactionResponse } from "@ethersproject/providers";
-import { config } from "../../config";
-import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
-import { TransactionDeliveryMan } from "@redstone-finance/rpc-providers";
 import {
   MentoAdapterBase,
   RedstoneAdapterBase,
 } from "../../../typechain-types";
 import { UpdatePricesArgs } from "../../args/get-iteration-args";
+import { config } from "../../config";
+import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
 import { getSortedOraclesContractAtAddress } from "./get-contract";
-
-let deliveryMan: TransactionDeliveryMan | undefined = undefined;
-const getDeliveryMan = () => {
-  deliveryMan =
-    deliveryMan ??
-    new TransactionDeliveryMan({
-      expectedDeliveryTimeMs: config().expectedTxDeliveryTimeInMS,
-      gasLimit: config().gasLimit,
-      twoDimensionFees: config().isArbitrumNetwork,
-      multiplier: config().gasMultiplier,
-      isAuctionModel: config().isAuctionModel,
-      forceDisableCustomGasOracle: config().disableCustomGasOracle,
-    });
-  return deliveryMan;
-};
+import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
 
 export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
   const updateTx = await updatePriceInAdapterContract(updatePricesArgs);
@@ -64,7 +49,7 @@ const updatePricesInPriceFeedsAdapter = async ({
   const wrappedContract =
     dataPackagesWrapper.overwriteEthersContract(adapterContract);
 
-  const deliveryResult = await getDeliveryMan().deliver(
+  const deliveryResult = await getTxDeliveryMan().deliver(
     wrappedContract,
     "updateDataFeedsValues",
     [proposedTimestamp]
@@ -100,7 +85,7 @@ const updatePricesInMentoAdapter = async ({
   const wrappedMentoContract =
     dataPackagesWrapper.overwriteEthersContract(mentoAdapter);
 
-  const deliveryResult = await getDeliveryMan().deliver(
+  const deliveryResult = await getTxDeliveryMan().deliver(
     wrappedMentoContract,
     "updatePriceValuesAndCleanOldReports",
     [proposedTimestamp, linkedListPositions]

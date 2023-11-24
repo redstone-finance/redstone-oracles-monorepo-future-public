@@ -1,16 +1,11 @@
-import { Contract, ethers } from "ethers";
 import { MathUtils, RedstoneCommon } from "@redstone-finance/utils";
+import { Contract, ethers } from "ethers";
 import { ProviderWithAgreement } from "./ProviderWithAgreement";
 import { ProviderWithFallback } from "./ProviderWithFallback";
-import { ContractOverrides } from "./TransactionDeliveryMan";
 import { isEthersError } from "./common";
 
 export interface TxBroadcaster {
-  broadcast(
-    method: string | number | symbol,
-    params: unknown[],
-    contractOverrides: ContractOverrides
-  ): Promise<ethers.providers.TransactionResponse>;
+  broadcast(signedTx: string): Promise<ethers.providers.TransactionResponse>;
   fetchNonce(): Promise<number>;
 }
 
@@ -25,7 +20,7 @@ export class MultiNodeTxBroadcaster implements TxBroadcaster {
   private readonly providers: ethers.providers.Provider[];
   private readonly signer: ethers.Signer;
 
-  constructor(private readonly contract: Contract) {
+  constructor(contract: Contract) {
     this.providers = MultiNodeTxBroadcaster.extractProviders(contract.provider);
     this.signer = contract.signer;
   }
@@ -83,24 +78,8 @@ export class MultiNodeTxBroadcaster implements TxBroadcaster {
    * Resolves when at least one broadcast resolve
    */
   async broadcast(
-    method: string | number | symbol,
-    params: unknown[],
-    contractOverrides: ContractOverrides
+    signedTx: string
   ): Promise<ethers.providers.TransactionResponse> {
-    // we populate transaction and sign it only once
-    const populatedTransaction = await this.contract.populateTransaction[
-      method.toString()
-    ](...params);
-
-    const transactionRequest = await this.contract.signer.populateTransaction({
-      ...populatedTransaction,
-      ...contractOverrides,
-      type: Reflect.has(contractOverrides, "gasPrice") ? 0 : 2,
-    });
-
-    const signedTx =
-      await this.contract.signer.signTransaction(transactionRequest);
-
     const broadcastTx = async (provider: ethers.providers.Provider) => {
       try {
         const sendTxPromise = provider.sendTransaction(signedTx);

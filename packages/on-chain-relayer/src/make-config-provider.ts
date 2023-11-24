@@ -12,8 +12,12 @@ export const makeConfigProvider = (
   manifest: OnChainRelayerManifest,
   env: OnChainRelayerEnv
 ): RelayerConfig => {
-  const { timeSinceLastUpdateInMilliseconds, deviationPercentage, cron } =
-    manifest.updateTriggers;
+  const {
+    timeSinceLastUpdateInMilliseconds,
+    deviationPercentage,
+    cron,
+    onStart,
+  } = manifest.updateTriggers;
   const updateConditions = [] as ConditionCheckNames[];
 
   if (deviationPercentage) {
@@ -26,6 +30,10 @@ export const makeConfigProvider = (
 
   if (cron && cron.length > 0) {
     updateConditions.push("cron");
+  }
+
+  if (onStart) {
+    updateConditions.push("on-start");
   }
 
   return Object.freeze({
