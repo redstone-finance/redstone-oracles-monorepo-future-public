@@ -9,7 +9,13 @@
     "version:all": "lerna version --force-publish",
     "publish:all": "lerna publish",
     "syncpack:fix-mismatches": "syncpack fix-mismatches --types !local",
-    "syncpack:list": "syncpack list-mismatches --types !local"
+    "syncpack:list": "syncpack list-mismatches --types !local",
+    "global:eslint": "cd $INIT_CWD && eslint",
+    "global:jest": "cd $INIT_CWD && jest",
+    "global:prettier": "cd $INIT_CWD && prettier",
+    "global:rollup": "cd $INIT_CWD && rollup",
+    "global:ts-node": "cd $INIT_CWD && ts-node",
+    "global:tsc": "cd $INIT_CWD && tsc"
   },
   "keywords": [],
   "author": "hatskier <Suvorovalex1997@gmail.com> (https://hatskier.com/)",
@@ -27,6 +33,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-workspaces": "^0.9.0",
+    "javascript-obfuscator": "^4.1.0",
     "jest": "^29.6.4",
     "lerna": "^7.3.0",
     "prettier": "^3.0.3",
@@ -46,9 +53,7 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": [
-      "ts-node"
     ]
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }

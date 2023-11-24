@@ -6,12 +6,12 @@
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test yarn global:jest",
     "clean": "rm -rf dist",
-    "build": "yarn clean && tsc --build",
+    "build": "yarn clean && yarn global:tsc --build",
     "preversion": "yarn build",
     "pack-package": "yarn build && cd dist && npm pack",
-    "lint": "eslint ."
+    "lint": "yarn global:eslint ."
   },
   "dependencies": {
     "@redstone-finance/oracles-smartweave-contracts": "^0.3.6",
