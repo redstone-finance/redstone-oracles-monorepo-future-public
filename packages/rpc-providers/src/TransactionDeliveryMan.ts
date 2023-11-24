@@ -131,7 +131,7 @@ export class TransactionDeliveryMan {
       const attempt = i + 1;
       try {
         lastAttempt = {
-          ...(lastAttempt ? lastAttempt : {}),
+          ...(lastAttempt ?? {}),
           ...contractOverrides,
         };
         lastAttempt.result = await txBroadcaster.broadcast(

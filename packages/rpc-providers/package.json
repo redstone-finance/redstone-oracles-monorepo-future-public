@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=test hardhat test",
-    "build": "hardhat compile && rm -rf dist && tsc --build tsconfig.build.json",
+    "build": "hardhat compile && rm -rf dist && yarn global:tsc --build tsconfig.build.json",
     "preversion": "yarn build",
-    "lint": "eslint ."
+    "lint": "yarn global:eslint ."
   },
   "dependencies": {
     "@redstone-finance/utils": "^0.3.6",
@@ -22,11 +22,14 @@
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "@nomiclabs/hardhat-ethers": "^2.0.6",
     "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "@typechain/ethers-v5": "^10.2.0",
+    "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
     "@types/sinon": "^10.0.15",
     "chai": "^4.3.7",
     "hardhat": "^2.17.2",
+    "hardhat-gas-reporter": "^1.0.9",
     "sinon": "^15.0.3",
     "solidity-coverage": "^0.8.5",
     "typechain": "^8.1.1"

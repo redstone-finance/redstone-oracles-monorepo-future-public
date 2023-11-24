@@ -6,10 +6,10 @@
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test jest",
-    "build": "rm -rf dist && tsc --build tsconfig.build.json",
+    "test": "NODE_ENV=test yarn global:jest",
+    "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
     "preversion": "yarn build",
-    "lint": "eslint ."
+    "lint": "yarn global:eslint ."
   },
   "dependencies": {
     "ethers": "^5.7.2"

@@ -7,14 +7,14 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist && rm -rf .tmp && rm -rf artifacts",
-    "build": "yarn clean && yarn compile && tsc --build tsconfig.build.json",
+    "build": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.build.json",
     "compile": "cd ../evm-connector && hardhat compile && cd ../on-chain-relayer && hardhat compile && cd ../gelato-relayer && hardhat compile",
     "sample-contract-compile": "npx hardhat compile --force",
     "sample-contract-deploy": "npx hardhat deploy",
     "test": "npx hardhat test",
     "w3f-run": "yarn build && npx hardhat w3f-run redstone --debug --logs",
     "w3f-deploy": "yarn build && npx hardhat w3f-deploy redstone",
-    "lint": "eslint ."
+    "lint": "yarn global:eslint ."
   },
   "license": "BUSL-1.1",
   "devDependencies": {
