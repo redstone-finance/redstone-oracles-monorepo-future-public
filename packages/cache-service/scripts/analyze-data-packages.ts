@@ -48,7 +48,6 @@ const EXPECTED_DATA_FEEDS = [
   "YY_PTP_sAVAX",
   "YY_TJ_AVAX_ETH_LP",
   "YY_TJ_AVAX_USDC_LP",
-  "YY_TJ_AVAX_sAVAX_LP",
   "sAVAX",
 ];
 
