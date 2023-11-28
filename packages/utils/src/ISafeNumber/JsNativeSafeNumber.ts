@@ -108,6 +108,12 @@ export class JsNativeSafeNumber implements ISafeNumber {
     }
   }
 
+  assertPositive() {
+    if (this._value <= 0) {
+      throw new Error("Assert non positive failed");
+    }
+  }
+
   /** In the case of this implementation it is actually safe. */
   unsafeToNumber(): number {
     return this._value;
