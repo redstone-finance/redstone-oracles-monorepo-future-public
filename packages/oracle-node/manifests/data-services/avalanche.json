@@ -236,9 +236,6 @@
     "YY_PNG_AVAX_ETH_LP": {
       "source": ["avalanche-evm-fetcher"]
     },
-    "YY_TJ_AVAX_sAVAX_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
     "YY_TJ_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"]
     },
