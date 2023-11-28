@@ -11,6 +11,7 @@ export interface ISafeNumber {
   abs(): ISafeNumber;
   decimals(): number;
   assertNonNegative(): void;
+  assertPositive(): void;
   /** Convert number to string without loosing precision */
   toString(): string;
   unsafeToNumber(): number;
