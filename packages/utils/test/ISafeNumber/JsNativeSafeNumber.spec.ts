@@ -81,6 +81,22 @@ describe("JsNativePreciseNumber", () => {
     );
   });
 
+  it("assert positive", () => {
+    expect(() => JsNativeSafeNumber.from(-10).assertPositive()).toThrowError(
+      /Assert non positive failed/
+    );
+
+    expect(() => JsNativeSafeNumber.from(0).assertPositive()).toThrowError(
+      /Assert non positive failed/
+    );
+
+    expect(() => JsNativeSafeNumber.from(-0).assertPositive()).toThrowError(
+      /Assert non positive failed/
+    );
+
+    expect(() => JsNativeSafeNumber.from(10).assertPositive()).not.toThrow();
+  });
+
   describe("arithmetic operations", () => {
     describe("add", () => {
       it("should add floats (tricky 0.3)", () => {
