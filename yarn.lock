@@ -5370,6 +5370,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redstone-finance/alarm-notifier@workspace:packages/lambda-alarm-notifier":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/alarm-notifier@workspace:packages/lambda-alarm-notifier"
+  dependencies:
+    "@types/aws-lambda": "npm:^8.10.128"
+    axios: "npm:^1.6.2"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/cache-service@npm:^0.3.6, @redstone-finance/cache-service@workspace:packages/cache-service":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/cache-service@workspace:packages/cache-service"
@@ -5593,6 +5602,15 @@ __metadata:
     "@redstone-finance/utils": "npm:^0.3.6"
     axios: "npm:^1.5.1"
     ethers: "npm:^5.7.2"
+  languageName: unknown
+  linkType: soft
+
+"@redstone-finance/lambda-http-multi-call@workspace:packages/lambda-http-multi-call":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-http-multi-call@workspace:packages/lambda-http-multi-call"
+  dependencies:
+    "@types/aws-lambda": "npm:^8.10.128"
+    axios: "npm:^1.6.2"
   languageName: unknown
   linkType: soft
 
@@ -7177,6 +7195,13 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: cb0eea87d20db2391f4463d475e2c88ee9d39cf83d056a8a9bc014f50914eceaecc5ed45cdd08c5ecf5df56a7f1e5cff12ffd68ba84d851f1d8a844f42b58b16
+  languageName: node
+  linkType: hard
+
+"@types/aws-lambda@npm:^8.10.128":
+  version: 8.10.129
+  resolution: "@types/aws-lambda@npm:8.10.129"
+  checksum: ed8dd5880d9b0b4920b754c390c9b64c9ff3936b0f56f266dcad6c0caeba0533245b43f547f0ff604a8f4b8f38c8108b36d46d490952862ba852747f5422648f
   languageName: node
   linkType: hard
 
@@ -9637,6 +9662,17 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: a925a07590b0ec1d4daf28cd27890f930daab980371558deb3b883af174b881da09e5ba2cb8393a648fda5859e39934982d0b8b092fe89fc84cb6c80a70a1910
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.6.2":
+  version: 1.6.2
+  resolution: "axios@npm:1.6.2"
+  dependencies:
+    follow-redirects: "npm:^1.15.0"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 9b77e030e85e4f9cbcba7bb52fbff67d6ce906c92d213e0bd932346a50140faf83733bf786f55bd58301bd92f9973885c7b87d6348023e10f7eaf286d0791a1d
   languageName: node
   linkType: hard
 
