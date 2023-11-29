@@ -13,7 +13,10 @@ abstract contract MergedPriceFeedAdapterWithRounds is
   PriceFeedWithRounds,
   PriceFeedsAdapterWithRounds
 {
-  function initialize() public override(PriceFeedBase, PriceFeedsAdapterBase) initializer {}
+  function initialize() public override(PriceFeedBase, PriceFeedsAdapterBase) initializer {
+    // We don't have storage variables, but we keep this function
+    // Because it is used for contract setup in upgradable contracts
+  }
 
   function getPriceFeedAdapter() public view virtual override(MergedPriceFeedAdapterCommon, PriceFeedBase) returns (IRedstoneAdapter) {
     return super.getPriceFeedAdapter();
@@ -27,8 +30,9 @@ abstract contract MergedPriceFeedAdapterWithRounds is
   function getDataFeedIndex(bytes32 dataFeedId) public view virtual override returns (uint256) {
     if (dataFeedId == getDataFeedId()) {
       return 0;
+    } else {
+      revert DataFeedIdNotFound(dataFeedId);
     }
-    revert DataFeedIdNotFound(dataFeedId);
   }
 
   function _emitEventAfterSingleValueUpdate(uint256 newValue) internal virtual {
