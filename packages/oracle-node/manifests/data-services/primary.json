@@ -371,6 +371,13 @@
         "wombat"
       ]
     },
+    "weETH": {
+      "source": [
+        "balancer-ethereum-weth",
+        "curve-weth",
+        "maverick"
+      ]
+    },
     "ARB": {
       "source": [
         "binance",
