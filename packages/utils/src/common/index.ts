@@ -5,3 +5,4 @@ export * from "./fetch-with-fallback";
 export * from "./time";
 export * from "./conversions";
 export * from "./retry";
+export * from "./telemetry";
