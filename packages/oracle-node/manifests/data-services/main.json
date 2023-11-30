@@ -971,6 +971,13 @@
         "wombat"
       ]
     },
+    "weETH": {
+      "source": [
+        "balancer-ethereum-weth",
+        "curve-weth",
+        "maverick"
+      ]
+    },
     "arbJnrLLP": {
       "source": ["arbitrum-evm-fetcher"]
     },
