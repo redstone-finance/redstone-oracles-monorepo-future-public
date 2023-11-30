@@ -17,6 +17,7 @@ export type ProviderWithFallbackConfig = {
   providerNames?: string[];
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
+  reportMetric: (msg: string) => void;
 };
 
 export const FALLBACK_DEFAULT_CONFIG: ProviderWithFallbackConfig = {
@@ -29,6 +30,7 @@ export const FALLBACK_DEFAULT_CONFIG: ProviderWithFallbackConfig = {
   ],
   singleProviderOperationTimeout: 30_000,
   allProvidersOperationTimeout: 7_000,
+  reportMetric: () => {},
 };
 
 type EthersError = Error & { code?: ErrorCode; reason?: string };

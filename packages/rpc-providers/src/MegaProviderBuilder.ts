@@ -12,6 +12,10 @@ import {
   withMulticall,
 } from "./multicall/MulticallWrapper";
 import { RedstoneCommon } from "@redstone-finance/utils";
+import {
+  wrapCallWithMetric,
+  wrapGetBlockNumberWithMetric,
+} from "./MetricWrappers";
 
 type MegaProviderOptions = {
   rpcUrls: string[];
@@ -26,10 +30,20 @@ export class MegaProviderBuilder {
   private fallbackOpts?: Partial<ProviderWithFallbackConfig>;
   private agreementOpts?: Partial<ProviderWithAgreementConfig>;
   private multicallOpts?: MulticallDecoratorOptions;
+  private reportMetric?: (msg: string) => void;
   private lastIfResult: boolean = true;
 
   enableNextIf(conditition: boolean) {
     this.lastIfResult = conditition;
+    return this;
+  }
+
+  metrics(reportMetric: (msg: string) => void) {
+    if (!this.lastIfResult) {
+      this.lastIfResult = true;
+      return this;
+    }
+    this.reportMetric = reportMetric;
     return this;
   }
 
@@ -69,36 +83,33 @@ export class MegaProviderBuilder {
   }
 
   build<T = providers.Provider>(): T {
-    const factories = this.buildProvidersFactories();
+    let factories = this.buildProvidersFactories();
 
     if (factories.length === 1) {
-      return this.maybeDecorateWithMulticall(factories[0]) as T;
-    } else if (factories.length > 1) {
-      if (this.agreementOpts) {
-        const providerWithAgreementFactory = () =>
-          new ProviderWithAgreement(
-            factories.map((f) => f()),
-            this.agreementOpts
-          );
-        return this.maybeDecorateWithMulticall(
-          providerWithAgreementFactory
-        ) as T;
-      } else if (this.fallbackOpts) {
-        const providerWithFallbackFactory = () =>
-          new ProviderWithFallback(
-            factories.map((f) => f()),
-            this.fallbackOpts
-          );
-        return this.maybeDecorateWithMulticall(
-          providerWithFallbackFactory
-        ) as T;
-      } else {
-        throw new Error(
-          "You provided many RPCs but didn't choose to use agreement or fallback"
+      const factory = this.maybeDecorateWithMetrics(factories[0]);
+      return this.maybeDecorateWithMulticall(factory) as T;
+    }
+
+    factories = factories.map(this.maybeDecorateWithMetrics.bind(this));
+
+    if (this.agreementOpts) {
+      const providerWithAgreementFactory = () =>
+        new ProviderWithAgreement(
+          factories.map((f) => f()),
+          this.agreementOpts
         );
-      }
+      return this.maybeDecorateWithMulticall(providerWithAgreementFactory) as T;
+    } else if (this.fallbackOpts) {
+      const providerWithFallbackFactory = () =>
+        new ProviderWithFallback(
+          factories.map((f) => f()),
+          this.fallbackOpts
+        );
+      return this.maybeDecorateWithMulticall(providerWithFallbackFactory) as T;
     } else {
-      throw new Error("You have to provide at least one rpcUrl");
+      throw new Error(
+        "You provided many RPCs but didn't choose to use agreement or fallback"
+      );
     }
   }
 
@@ -108,6 +119,20 @@ export class MegaProviderBuilder {
     } else {
       return factory();
     }
+  }
+
+  private maybeDecorateWithMetrics(
+    factory: () => providers.StaticJsonRpcProvider
+  ) {
+    if (!this.reportMetric) {
+      return factory;
+    }
+
+    const reportMetric = this.reportMetric.bind(this);
+
+    const newFactory = wrapGetBlockNumberWithMetric(factory, reportMetric);
+
+    return wrapCallWithMetric(newFactory, reportMetric);
   }
 
   private buildProvidersFactories() {
