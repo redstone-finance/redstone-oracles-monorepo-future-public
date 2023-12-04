@@ -44,7 +44,7 @@ Use [the following link](https://github.com/redstone-finance/redstone-cache-serv
   - Each node will broadcast data packages to the streamr network and additionally will broadcast them to 2 cache services hosted by RedStone (for faster data access)
   - Cache layer nodes will by default listen on streamr and cache data in DB
   - Thanks to streamr cache layers nodes will won't need to push data every 3 seconds, they can do it in the same way as before, in each iteration
-  - RedStone community and partenrs will be able to launch cache services
+  - RedStone community and partners will be able to launch cache services
   - We will use additional hosted uptime-kuma to notify developers in case of problems
     - There are 2 ways to handle this
       - 1.  Use push monitor type with upside-down mode (push errors to the uptime-kuma service with helpful messages)
