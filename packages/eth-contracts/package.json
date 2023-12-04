@@ -32,11 +32,12 @@
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.1",
-    "@types/sinon-chai": "^3.2.10",
-    "chai": "^4.3.7",
+    "@types/sinon-chai": "^3.2.12",
+    "chai": "^4.3.10",
     "ethereum-waffle": "^4.0.10",
     "hardhat": "^2.17.2",
     "hardhat-gas-reporter": "^1.0.9",
-    "typechain": "^8.1.1"
+    "typechain": "^8.1.1",
+    "typescript": "^5.2.2"
   }
 }
