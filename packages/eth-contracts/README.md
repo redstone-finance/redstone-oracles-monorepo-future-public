@@ -9,7 +9,7 @@ This package contains an implementation of the main RedStone contracts with the 
 
 ### RedstoneToken.sol
 
-A standard implementation of ERC20 token with an ability to mint more tokens by the authorised minter. Minter role can be passed to another address only by the existing minter. Total token supply is limited by the MAX_SUPPLY parameter.
+A standard implementation of ERC20 token with an ability to mint more tokens by the authorized minter. Minter role can be passed to another address only by the existing minter. Total token supply is limited by the MAX_SUPPLY parameter.
 
 This contract is not upgradable.
 
@@ -25,15 +25,15 @@ Data providers need to lock a specified amount of RedStone tokens (using the `lo
 
 If the data provider would like to stop providing services with RedStone oracles, they can unlock the tokens. Firstly, they need to call the `requestUnlock(uint256 amountToUnlock)` method. Then, after waiting for `delayForUnlockingInSeconds` (will be set to 30 days) they can withdraw the locked tokens using the `completeUnlock()` method.
 
-The waiting period is added so that RedStone consumers have enough time to remove the data provider address from their contracts. During the waiting period the data provider' tokens can still be slashed, which should motivate them to provide correct data during the waiting period (probably receiveing less rewards).
+The waiting period is added so that RedStone consumers have enough time to remove the data provider address from their contracts. During the waiting period the data provider' tokens can still be slashed, which should motivate them to provide correct data during the waiting period (probably receiving less rewards).
 
 There is a possibility that a data provider is not able to complete unlock if some part of its locked amount was slashed during the waiting period. In this case, they need to call the `requestUnlock` function again.
 
 #### Slashing
 
-The LockingRegistry contract has a mechanism of slashing (`slash(address slashedAddress, uint256 slashedAmount)` method), which can be performed only by a special authorised address (authorised slasher address). The authorised slasher can slash any amount from any user that locked their funds. This mechanism is created to "punish" misbehaved data providers.
+The LockingRegistry contract has a mechanism of slashing (`slash(address slashedAddress, uint256 slashedAmount)` method), which can be performed only by a special authorized address (authorized slasher address). The authorised slasher can slash any amount from any user that locked their funds. This mechanism is created to "punish" misbehaved data providers.
 
-Initially, we'll specify the RedStone team multisig wallet as the authorised slasher. In future the DisputeResolutionContract will become the authorised slasher and it will be able to slash tokens automatically after the dispute settlement.
+Initially, we'll specify the RedStone team multisig wallet as the authorized slasher. In future the DisputeResolutionContract will become the authorized slasher and it will be able to slash tokens automatically after the dispute settlement.
 
 This contract is upgradable.
 
@@ -41,7 +41,7 @@ This contract is upgradable.
 
 This contract contains the logic of RedStone tokens vesting.
 
-The main difference between the standard vesting is that during the vesting period all the tokens (even unvested ones) can be locked in the LockingRegistry contract. This mechanism will be used by RedStone's first data providers, who will be able to lock their unvested tokens and start providing oracle services without the need of waiting for the end of the vesting period.
+The main difference between the standard vesting is that during the vesting period all the tokens (even unvested ones) can be locked in the LockingRegistry contract. This mechanism will be used by RedStone's first data providers, who will be able to lock their unvested tokens and start providing oracle services without the need to wait for the end of the vesting period.
 
 #### Vesting initialization
 
