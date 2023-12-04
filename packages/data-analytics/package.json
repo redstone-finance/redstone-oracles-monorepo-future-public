@@ -17,6 +17,7 @@
     "web3": "^4.1.2"
   },
   "devDependencies": {
-    "@types/cli-progress": "^3.11.0"
+    "@types/cli-progress": "^3.11.0",
+    "typescript": "^5.2.2"
   }
 }

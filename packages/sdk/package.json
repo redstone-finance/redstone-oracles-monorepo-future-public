@@ -17,7 +17,7 @@
     "@redstone-finance/oracles-smartweave-contracts": "^0.3.6",
     "@redstone-finance/protocol": "^0.3.6",
     "@redstone-finance/utils": "^0.3.6",
-    "axios": "^1.5.1",
+    "axios": "^1.6.2",
     "ethers": "^5.7.2"
   },
   "devDependencies": {

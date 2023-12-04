@@ -18,6 +18,8 @@
   },
   "license": "BUSL-1.1",
   "devDependencies": {
+    "@ethersproject/abi": "^5.6.3",
+    "@ethersproject/providers": "^5.6.8",
     "@nomicfoundation/hardhat-chai-matchers": "1.0.6",
     "@nomicfoundation/hardhat-ethers": "^3.0.4",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
@@ -29,8 +31,9 @@
     "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
-    "axios": "^1.5.1",
-    "chai": "^4.3.7",
+    "@types/sinon-chai": "^3.2.12",
+    "axios": "^1.6.2",
+    "chai": "^4.3.10",
     "dotenv": "^16.0.3",
     "ethereum-waffle": "^4.0.10",
     "ethers": "^5.7.2",
@@ -38,7 +41,8 @@
     "hardhat-deploy": "0.11.23",
     "mocha": "^10.2.0",
     "ts-generator": "0.1.1",
-    "typechain": "^8.1.1"
+    "typechain": "^8.1.1",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@gelatonetwork/automate-sdk": "^2.14.0",

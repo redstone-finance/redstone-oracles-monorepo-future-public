@@ -13,10 +13,12 @@
   },
   "dependencies": {
     "@redstone-finance/utils": "^0.3.6",
-    "axios": "^1.5.1",
+    "axios": "^1.6.2",
     "ethers": "^5.7.2"
   },
   "devDependencies": {
+    "@ethersproject/abi": "^5.6.3",
+    "@ethersproject/providers": "^5.6.8",
     "@nomicfoundation/hardhat-chai-matchers": "1.0.6",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
@@ -26,13 +28,16 @@
     "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
+    "@types/node": "^18.14.6",
     "@types/sinon": "^10.0.15",
-    "chai": "^4.3.7",
+    "chai": "^4.3.10",
     "hardhat": "^2.17.2",
     "hardhat-gas-reporter": "^1.0.9",
     "sinon": "^15.0.3",
     "solidity-coverage": "^0.8.5",
-    "typechain": "^8.1.1"
+    "ts-node": "^10.9.1",
+    "typechain": "^8.1.1",
+    "typescript": "^5.2.2"
   },
   "publishConfig": {
     "access": "public"
