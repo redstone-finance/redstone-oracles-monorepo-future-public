@@ -5370,15 +5370,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redstone-finance/alarm-notifier@workspace:packages/lambda-alarm-notifier":
-  version: 0.0.0-use.local
-  resolution: "@redstone-finance/alarm-notifier@workspace:packages/lambda-alarm-notifier"
-  dependencies:
-    "@types/aws-lambda": "npm:^8.10.128"
-    axios: "npm:^1.6.2"
-  languageName: unknown
-  linkType: soft
-
 "@redstone-finance/cache-service@npm:^0.3.6, @redstone-finance/cache-service@workspace:packages/cache-service":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/cache-service@workspace:packages/cache-service"
@@ -5614,6 +5605,15 @@ __metadata:
     "@redstone-finance/utils": "npm:^0.3.6"
     axios: "npm:^1.6.2"
     ethers: "npm:^5.7.2"
+  languageName: unknown
+  linkType: soft
+
+"@redstone-finance/lambda-alarm-notifier@workspace:packages/lambda-alarm-notifier":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-alarm-notifier@workspace:packages/lambda-alarm-notifier"
+  dependencies:
+    "@types/aws-lambda": "npm:^8.10.128"
+    axios: "npm:^1.6.2"
   languageName: unknown
   linkType: soft
 
