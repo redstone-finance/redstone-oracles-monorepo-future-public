@@ -1,5 +1,5 @@
-import { SendMode, TonClient, TonClient4 } from "ton";
-import { Address, Cell, ContractProvider, Sender } from "ton-core";
+import { SendMode, TonClient, TonClient4 } from "@ton/ton";
+import { Address, Cell, ContractProvider, Sender } from "@ton/core";
 import { TonNetwork } from "./network/TonNetwork";
 
 export async function sleep(ms: number) {

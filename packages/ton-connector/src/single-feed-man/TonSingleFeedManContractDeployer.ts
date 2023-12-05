@@ -2,7 +2,7 @@ import { TonContractDeployer } from "../TonContractDeployer";
 import { TonSingleFeedManContractAdapter } from "./TonSingleFeedManContractAdapter";
 
 import { TonNetwork } from "../network/TonNetwork";
-import { Cell } from "ton-core";
+import { Cell } from "@ton/core";
 import { SingleFeedManInitData } from "./SingleFeedManInitData";
 import { TonSingleFeedMan } from "../../wrappers/TonSingleFeedMan";
 

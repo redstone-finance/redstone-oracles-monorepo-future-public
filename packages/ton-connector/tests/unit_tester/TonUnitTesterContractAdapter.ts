@@ -1,5 +1,5 @@
 import { TonUnitTester } from "./TonUnitTester";
-import { Cell } from "ton-core";
+import { Cell } from "@ton/core";
 import { AnyTonOpenedContract } from "../../src";
 
 export class TonUnitTesterContractAdapter {

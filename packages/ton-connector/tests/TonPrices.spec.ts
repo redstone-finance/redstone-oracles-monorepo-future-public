@@ -1,6 +1,6 @@
-import { Cell } from "ton-core";
-import { compile } from "@ton-community/blueprint";
-import "@ton-community/test-utils";
+import { Cell } from "@ton/core";
+import { compile } from "@ton/blueprint";
+import "@ton/test-utils";
 import { TonPriceFeedContractAdapter } from "../src";
 import { TonPriceManagerContractAdapter } from "../src/price-manager/TonPriceManagerContractAdapter";
 import { PriceFeedInitData } from "../src/price-feed/PriceFeedInitData";

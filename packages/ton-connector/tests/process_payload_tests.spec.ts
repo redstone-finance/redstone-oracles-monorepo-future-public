@@ -1,4 +1,4 @@
-import "@ton-community/test-utils";
+import "@ton/test-utils";
 import { TonTesterContractAdapter } from "./tester/TonTesterContractAdapter";
 
 import {

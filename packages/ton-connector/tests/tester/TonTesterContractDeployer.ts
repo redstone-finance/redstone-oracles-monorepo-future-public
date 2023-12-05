@@ -1,8 +1,8 @@
 import { TonContractDeployer } from "../../src/TonContractDeployer";
-import { TonNetwork } from "../../src/network/TonNetwork";
+import { TonNetwork } from "../../src";
 import { TonTester } from "./TonTester";
 import { TonTesterContractAdapter } from "./TonTesterContractAdapter";
-import { Cell } from "ton-core";
+import { Cell } from "@ton/core";
 import { TonInitData } from "../../src/TonInitData";
 
 export class TonTesterContractDeployer extends TonContractDeployer<

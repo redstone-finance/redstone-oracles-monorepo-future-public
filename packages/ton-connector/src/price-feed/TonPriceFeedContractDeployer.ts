@@ -4,7 +4,7 @@ import { TonPriceFeedContractAdapter } from "./TonPriceFeedContractAdapter";
 import { PriceFeedInitData } from "./PriceFeedInitData";
 
 import { TonNetwork } from "../network/TonNetwork";
-import { Cell } from "ton-core";
+import { Cell } from "@ton/core";
 
 export class TonPriceFeedContractDeployer extends TonContractDeployer<
   TonPriceFeed,

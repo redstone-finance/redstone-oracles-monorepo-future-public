@@ -4,7 +4,7 @@ import { TonContractFactory } from "./TonContractFactory";
 import { TonContractConnector } from "./TonContractConnector";
 import { TonNetwork } from "./network/TonNetwork";
 
-import { Cell } from "ton-core";
+import { Cell } from "@ton/core";
 
 export abstract class TonContractDeployer<
   Contract extends TonContract,

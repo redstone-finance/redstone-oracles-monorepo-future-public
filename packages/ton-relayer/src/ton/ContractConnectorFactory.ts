@@ -5,7 +5,7 @@ import {
   IPriceManagerContractAdapter,
 } from "@redstone-finance/sdk";
 import { CustomTonNetwork } from "@redstone-finance/ton-connector";
-import { mnemonicToWalletKey } from "ton-crypto";
+import { mnemonicToWalletKey } from "@ton/crypto";
 import { PriceFeedRelayerTonContractConnector } from "./PriceFeedRelayerTonContractConnector";
 import { PriceFeedRelayerTonContractAdapter } from "./PriceFeedRelayerTonContractAdapter";
 import { manifest } from "../config/manifest";

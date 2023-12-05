@@ -1,8 +1,8 @@
 import { TonContract } from "./TonContract";
 import { AnyTonOpenedContract, TonNetwork } from "./network/TonNetwork";
 import { TonContractDeployer } from "./TonContractDeployer";
-import { compile, NetworkProvider } from "@ton-community/blueprint";
-import { Address, Cell } from "ton-core";
+import { compile, NetworkProvider } from "@ton/blueprint";
+import { Address, Cell } from "@ton/core";
 import { BlueprintTonNetwork } from "./network/BlueprintTonNetwork";
 import { config } from "./config";
 import { TonContractError } from "./TonContractError";

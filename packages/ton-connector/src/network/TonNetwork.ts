@@ -1,6 +1,6 @@
-import { OpenedContract, TonClient, TonClient4 } from "ton";
-import { Address, Contract, Sender } from "ton-core";
-import { SandboxContract } from "@ton-community/sandbox";
+import { OpenedContract, TonClient, TonClient4 } from "@ton/ton";
+import { Address, Contract, Sender } from "@ton/core";
+import { SandboxContract } from "@ton/sandbox";
 
 export type AnyTonOpenedContract<T> = OpenedContract<T> | SandboxContract<T>;
 
