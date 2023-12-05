@@ -1,10 +1,10 @@
-import { NetworkProvider } from "@ton-community/blueprint";
+import { NetworkProvider } from "@ton/blueprint";
 import * as fs from "fs";
 import { PriceFeedInitData } from "../src/price-feed/PriceFeedInitData";
 import { TonPriceFeedContractDeployer } from "../src/price-feed/TonPriceFeedContractDeployer";
 import { TonNetwork, TonPriceFeed } from "../src";
 import { deploy } from "../src/deploy";
-import { Cell } from "ton-core";
+import { Cell } from "@ton/core";
 
 export async function run(provider: NetworkProvider) {
   const managerAddress = await fs.promises.readFile(

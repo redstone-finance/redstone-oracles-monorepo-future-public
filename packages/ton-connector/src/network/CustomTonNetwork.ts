@@ -6,11 +6,11 @@ import {
   TonClient,
   TonClient4,
   WalletContractV4,
-} from "ton";
-import { KeyPair } from "ton-crypto/dist/primitives/nacl";
+} from "@ton/ton";
+import { KeyPair } from "@ton/crypto/dist/primitives/nacl";
 import assert from "assert";
 import { getHttpV4Endpoint } from "@orbs-network/ton-access";
-import { TonApiV2Config, TonNetwork } from "./TonNetwork";
+import { AnyTonOpenedContract, TonApiV2Config, TonNetwork } from "./TonNetwork";
 
 export class CustomTonNetwork implements TonNetwork {
   api?: TonClient4;
@@ -51,7 +51,7 @@ export class CustomTonNetwork implements TonNetwork {
     );
   }
 
-  open<T extends Contract>(contract: T): OpenedContract<T> {
+  open<T extends Contract>(contract: T): AnyTonOpenedContract<T> {
     return this.api!.open(contract);
   }
 }

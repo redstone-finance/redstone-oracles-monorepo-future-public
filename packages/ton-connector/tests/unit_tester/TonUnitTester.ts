@@ -5,7 +5,7 @@ import {
   createTupleItems,
 } from "../../src/ton-utils";
 
-import { Cell, ContractProvider, serializeTuple } from "ton-core";
+import { Cell, ContractProvider, serializeTuple } from "@ton/core";
 import { hexlify } from "ethers/lib/utils";
 
 /* eslint-disable  @typescript-eslint/class-methods-use-this -- TON Getter methods must not be static */

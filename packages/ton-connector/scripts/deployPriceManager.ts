@@ -1,4 +1,4 @@
-import { NetworkProvider } from "@ton-community/blueprint";
+import { NetworkProvider } from "@ton/blueprint";
 import { PriceManagerInitData } from "../src/price-manager/PriceManagerInitData";
 import { TonPriceManagerContractDeployer } from "../src/price-manager/TonPriceManagerContractDeployer";
 import { TonPriceManager } from "../src";

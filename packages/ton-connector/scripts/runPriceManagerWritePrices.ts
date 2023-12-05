@@ -1,4 +1,4 @@
-import { NetworkProvider } from "@ton-community/blueprint";
+import { NetworkProvider } from "@ton/blueprint";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { TonPriceManagerContractConnector } from "../src/price-manager/TonPriceManagerContractConnector";
 import { BlueprintTonNetwork } from "../src";

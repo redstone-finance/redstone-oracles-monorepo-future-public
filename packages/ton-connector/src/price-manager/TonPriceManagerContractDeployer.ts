@@ -4,7 +4,7 @@ import { PriceManagerInitData } from "./PriceManagerInitData";
 import { TonPriceManagerContractAdapter } from "./TonPriceManagerContractAdapter";
 
 import { TonNetwork } from "../network/TonNetwork";
-import { Cell } from "ton-core";
+import { Cell } from "@ton/core";
 
 export class TonPriceManagerContractDeployer extends TonContractDeployer<
   TonPriceManager,

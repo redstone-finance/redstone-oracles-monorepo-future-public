@@ -1,7 +1,7 @@
-import { TonClient, TonClient4 } from "ton";
-import { Address, Contract, OpenedContract, Sender } from "ton-core";
-import { NetworkProvider } from "@ton-community/blueprint";
-import { TonApiV2Config, TonNetwork } from "./TonNetwork";
+import { TonClient, TonClient4 } from "@ton/ton";
+import { Address, Contract, Sender } from "@ton/core";
+import { NetworkProvider } from "@ton/blueprint";
+import { AnyTonOpenedContract, TonApiV2Config, TonNetwork } from "./TonNetwork";
 
 export class BlueprintTonNetwork implements TonNetwork {
   oldApi: TonClient;
@@ -16,12 +16,12 @@ export class BlueprintTonNetwork implements TonNetwork {
   ) {
     this.oldApi = new TonClient(apiV2Config);
     this.sender = networkProvider.sender();
-    this.api = networkProvider.api();
+    this.api = networkProvider.api() as TonClient4;
     this.workchain = networkProvider.network() == "testnet" ? 0 : -1;
     this.walletAddress = networkProvider.sender().address;
   }
 
-  open<T extends Contract>(contract: T): OpenedContract<T> {
+  open<T extends Contract>(contract: T): AnyTonOpenedContract<T> {
     return this.networkProvider.open(contract);
   }
 

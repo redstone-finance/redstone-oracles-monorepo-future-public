@@ -1,6 +1,12 @@
-import { Address, beginCell, Cell, Contract, ContractProvider } from "ton-core";
+import {
+  Address,
+  beginCell,
+  Cell,
+  Contract,
+  ContractProvider,
+} from "@ton/core";
 import { Ton } from "./Ton";
-import { Maybe } from "ton-core/src/utils/maybe";
+import { Maybe } from "@ton/core/src/utils/maybe";
 
 export class TonContract extends Ton implements Contract {
   static getName(): string {

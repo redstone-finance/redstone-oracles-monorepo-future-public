@@ -1,4 +1,4 @@
-import { Cell, ContractProvider, serializeTuple, TupleItem } from "ton-core";
+import { Cell, ContractProvider, serializeTuple, TupleItem } from "@ton/core";
 import { createPayloadCell } from "../src/create-payload-cell";
 import {
   createArrayFromSerializedTuple,

@@ -5903,16 +5903,16 @@ __metadata:
     "@orbs-network/ton-access": "npm:^2.3.3"
     "@redstone-finance/protocol": "npm:^0.3.6"
     "@redstone-finance/sdk": "npm:^0.3.6"
-    "@ton-community/blueprint": "npm:^0.12.0"
     "@ton-community/func-js": "npm:0.6.3-tvmbeta.1"
     "@ton-community/func-js-bin": "npm:0.4.5-tvmbeta.1"
-    "@ton-community/sandbox": "npm:0.12.0-tvmbeta.1"
-    "@ton-community/test-utils": "npm:^0.2.0"
+    "@ton/blueprint": "npm:^0.14.2"
+    "@ton/core": "npm:^0.53.0"
+    "@ton/crypto": "npm:^3.2.0"
+    "@ton/sandbox": ./ton-sandbox-0.13.1-tvmbeta.1.tgz
+    "@ton/test-utils": "npm:^0.4.2"
+    "@ton/ton": "npm:^13.9.0"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
-    ton: "npm:^13.6.1"
-    ton-core: "npm:^0.52.0"
-    ton-crypto: "npm:^3.2.0"
   languageName: unknown
   linkType: soft
 
@@ -6945,12 +6945,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tact-lang/compiler@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "@tact-lang/compiler@npm:1.1.3"
+"@tact-lang/compiler@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "@tact-lang/compiler@npm:1.1.5"
   dependencies:
     "@ipld/dag-pb": "npm:2.1.18"
-    "@tact-lang/opcode": "npm:^0.0.13"
+    "@tact-lang/opcode": "npm:^0.0.14"
+    "@ton/core": "npm:0.49.2"
+    "@ton/crypto": "npm:^3.2.0"
     arg: "npm:^5.0.2"
     blockstore-core: "npm:1.0.5"
     change-case: "npm:^4.1.2"
@@ -6961,47 +6963,20 @@ __metadata:
     path-normalize: "npm:^6.0.10"
     prando: "npm:^6.0.1"
     qs: "npm:^6.11.0"
-    ton-core: "npm:>=0.49.0"
-    ton-crypto: "npm:^3.2.0"
     zod: "npm:^3.20.2"
   bin:
     tact: bin/tact
-  checksum: e249d710e1ea2f2682cea7d7322cddaf3e7fc8b06682eed7ef49d6e07c0859da3817f085462da03a0e08aaba7ea4c71ba711413e54a5089d299e3d4433580af6
+  checksum: f9ca4af0e6434ffbed231f9a520b8dd792019b4760a8128575885ccde62fa1ec3b7d12a86397cd0bdfe6cf1fe2382a26333d35471b7cb0eaea456265b0ced2da
   languageName: node
   linkType: hard
 
-"@tact-lang/opcode@npm:^0.0.13":
-  version: 0.0.13
-  resolution: "@tact-lang/opcode@npm:0.0.13"
+"@tact-lang/opcode@npm:^0.0.14":
+  version: 0.0.14
+  resolution: "@tact-lang/opcode@npm:0.0.14"
   peerDependencies:
-    ton-core: ">=0.49.0"
-    ton-crypto: ^3.2.0
-  checksum: b17fcdef0b2003a67bec5b3eab11bed812235da2090e5f0c20c9bae4272bdc9b8301ffc6b726aba854887cb8c697b4254c50682d740bb16f8833f7ec6bd21d70
-  languageName: node
-  linkType: hard
-
-"@ton-community/blueprint@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "@ton-community/blueprint@npm:0.12.0"
-  dependencies:
-    "@orbs-network/ton-access": "npm:^2.3.3"
-    "@tact-lang/compiler": "npm:^1.1.3"
-    "@ton-community/func-js": "npm:^0.6.2"
-    "@tonconnect/sdk": "npm:^2.1.3"
-    arg: "npm:^5.0.2"
-    chalk: "npm:^4.1.0"
-    dotenv: "npm:^16.1.4"
-    inquirer: "npm:^8.2.5"
-    qrcode-terminal: "npm:^0.12.0"
-    ton-x: "npm:^2.1.0"
-    ts-node: "npm:^10.9.1"
-  peerDependencies:
-    ton: ">=13.4.1"
-    ton-core: ">=0.48.0"
-    ton-crypto: ">=3.2.0"
-  bin:
-    blueprint: dist/cli/cli.js
-  checksum: 0fd9715c1ff6f79af4ce6d94bc12c89b085d3e69196ece5f44343542392c025f5300ad8054e1775ccb798c0cccde72755d2f40aef2b28da07ce3e5c503cb1fa0
+    "@ton/core": ">=0.49.2"
+    "@ton/crypto": ^3.2.0
+  checksum: ba7588c069d06c14e3005bb2025764017e556cb1dec8cd6707b299139db781fafcd916b9e7e865e64a749017411e6c7565dac06efb2ad440ef66f0aaac57f2da
   languageName: node
   linkType: hard
 
@@ -7024,31 +6999,114 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ton-community/sandbox@npm:0.12.0-tvmbeta.1":
-  version: 0.12.0-tvmbeta.1
-  resolution: "@ton-community/sandbox@npm:0.12.0-tvmbeta.1"
+"@ton/blueprint@npm:^0.14.2":
+  version: 0.14.2
+  resolution: "@ton/blueprint@npm:0.14.2"
+  dependencies:
+    "@orbs-network/ton-access": "npm:^2.3.3"
+    "@tact-lang/compiler": "npm:^1.1.5"
+    "@ton-community/func-js": "npm:^0.6.2"
+    "@tonconnect/sdk": "npm:^2.1.3"
+    arg: "npm:^5.0.2"
+    chalk: "npm:^4.1.0"
+    dotenv: "npm:^16.1.4"
+    inquirer: "npm:^8.2.5"
+    qrcode-terminal: "npm:^0.12.0"
+    ton-x: "npm:^2.1.0"
+    ts-node: "npm:^10.9.1"
   peerDependencies:
-    ton-core: ">=0.48.0"
-    ton-crypto: ">=3.2.0"
-  checksum: 39f5b77c1eadb9d83c26ac92d72a0f2373a39c27422ee9a1295fddb678001e189cfa747ae7cbbf5a980a26ef92b22a18c34a0ec762509c4e39de53dcfcb4476d
+    "@ton/core": ">=0.49.2"
+    "@ton/crypto": ">=3.2.0"
+    "@ton/ton": ">=13.4.1"
+  bin:
+    blueprint: ./dist/cli/cli.js
+  checksum: 6b17c0396fdc8f9a4a4ef797d0704ae0f0142bda3a0fdcb63ccd4c346ed99725703d289e25afcebeee911a08fdb4de93392e65f02e0e916f112a03c907bca4aa
   languageName: node
   linkType: hard
 
-"@ton-community/test-utils@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "@ton-community/test-utils@npm:0.2.0"
+"@ton/core@npm:0.49.2":
+  version: 0.49.2
+  resolution: "@ton/core@npm:0.49.2"
+  dependencies:
+    symbol.inspect: "npm:1.0.1"
+  peerDependencies:
+    "@ton/crypto": ">=3.2.0"
+  checksum: c2f314a936efb63993b561c4dc6630ebba0dbcba9d6bc0e6d2b0ca89857d5bad76f2090d78c93ad8fcbf1e875a183ac5df72ad1f053ad80d819a455fe269835b
+  languageName: node
+  linkType: hard
+
+"@ton/core@npm:^0.53.0":
+  version: 0.53.0
+  resolution: "@ton/core@npm:0.53.0"
+  dependencies:
+    symbol.inspect: "npm:1.0.1"
+  peerDependencies:
+    "@ton/crypto": ">=3.2.0"
+  checksum: 4faba4a889b6b425b4037ebc046cf413f872b250accfc9b30f440c7ef517bc7c516a6cd4f5c0ce956c61645414e0a8b4fbe1c5f4065f5fa3fda3122c9224bccd
+  languageName: node
+  linkType: hard
+
+"@ton/crypto-primitives@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@ton/crypto-primitives@npm:2.0.0"
+  dependencies:
+    jssha: "npm:3.2.0"
+  checksum: 7f5b55f022190bcc93a3dd5e057b126abfb6dd315af0168f51a54779e6cda8f945faea34d8e196c34a7f297f42eb9a66ad7acb6c66a1591ed76abea475e9af56
+  languageName: node
+  linkType: hard
+
+"@ton/crypto@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "@ton/crypto@npm:3.2.0"
+  dependencies:
+    "@ton/crypto-primitives": "npm:2.0.0"
+    jssha: "npm:3.2.0"
+    tweetnacl: "npm:1.0.3"
+  checksum: 6a658dcfd79de44457b06357c6250eab0fa2e850dfb23190e3819581f4a376c428d6b7cd316778d66f9b17dfaa000b8d46d4b7aa295fe236654cef94db80a78d
+  languageName: node
+  linkType: hard
+
+"@ton/sandbox@file:./ton-sandbox-0.13.1-tvmbeta.1.tgz::locator=%40redstone-finance%2Fton-connector%40workspace%3Apackages%2Fton-connector":
+  version: 0.13.1-tvmbeta.1
+  resolution: "@ton/sandbox@file:./ton-sandbox-0.13.1-tvmbeta.1.tgz#./ton-sandbox-0.13.1-tvmbeta.1.tgz::hash=510375&locator=%40redstone-finance%2Fton-connector%40workspace%3Apackages%2Fton-connector"
+  peerDependencies:
+    "@ton/core": ">=0.49.2"
+    "@ton/crypto": ">=3.2.0"
+  checksum: e64b355e63ae2e8bd2176c47141c57101cfd48f205654a00b94f9012288b78f839d1e21ab4d3b0126253a2249395d17298e99594637875a7b0ee60e0d610ce11
+  languageName: node
+  linkType: hard
+
+"@ton/test-utils@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@ton/test-utils@npm:0.4.2"
   dependencies:
     node-inspect-extracted: "npm:^2.0.0"
   peerDependencies:
     "@jest/globals": "*"
+    "@ton/core": ">=0.49.2"
     chai: "*"
-    ton-core: ">=0.36.1"
   peerDependenciesMeta:
     "@jest/globals":
       optional: true
     chai:
       optional: true
-  checksum: 5c0d463851c034148a1672e043da48225ac1af1013e699476d5c81a7bface86b59c1830d18e7af2fb09d1bb3e78ad3d1f433c9124ecefde11b50af3ff42391aa
+  checksum: c0cbc1ac60e5c094162328efb94d8ca80e3483ebb8d0b03ea019da0cd3896ba9314ae32a3896d19856f072ad3f35b542c83a292e20961bffb5a1f123756532d6
+  languageName: node
+  linkType: hard
+
+"@ton/ton@npm:^13.9.0":
+  version: 13.9.0
+  resolution: "@ton/ton@npm:13.9.0"
+  dependencies:
+    axios: "npm:^0.25.0"
+    dataloader: "npm:^2.0.0"
+    symbol.inspect: "npm:1.0.1"
+    teslabot: "npm:^1.3.0"
+    zod: "npm:^3.21.4"
+  peerDependencies:
+    "@ton/core": ">=0.53.0"
+    "@ton/crypto": ">=3.2.0"
+  checksum: efe6b8a7eae5afaacb7092558445e5de7815c342b3f5dd8fe4d6b33d10638b2d35d1fc7f9f9c4ad968ad364631d231f1e3001201bf019289b497bb2dd706d939
   languageName: node
   linkType: hard
 
@@ -24527,17 +24585,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ton-core@npm:>=0.49.0, ton-core@npm:^0.52.0":
-  version: 0.52.0
-  resolution: "ton-core@npm:0.52.0"
-  dependencies:
-    symbol.inspect: "npm:1.0.1"
-  peerDependencies:
-    ton-crypto: ">=3.2.0"
-  checksum: 9c7b4c0e78b0fa65823198808b86e5d9d5b11f750563f9b29f4e92cf16c5ec6e0d1f39bcd11b42dc1bfb36b24a2f17eb4269ee081a684ba6d76c7d9ee90d5c56
-  languageName: node
-  linkType: hard
-
 "ton-crypto-primitives@npm:2.0.0":
   version: 2.0.0
   resolution: "ton-crypto-primitives@npm:2.0.0"
@@ -24558,7 +24605,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ton-crypto@npm:^3.0.0, ton-crypto@npm:^3.2.0":
+"ton-crypto@npm:^3.0.0":
   version: 3.2.0
   resolution: "ton-crypto@npm:3.2.0"
   dependencies:
@@ -24601,22 +24648,6 @@ __metadata:
     ton-crypto: "npm:2.1.0"
     tweetnacl: "npm:1.0.3"
   checksum: abc34fa0f29e77eca48abbb2a934c76da411c086f8cd3bec4bf7d1ff6f2f41494a827822914db69825d3066c1799ab7e0a771de58a9370ef853700946ee43ea7
-  languageName: node
-  linkType: hard
-
-"ton@npm:^13.6.1":
-  version: 13.6.1
-  resolution: "ton@npm:13.6.1"
-  dependencies:
-    axios: "npm:^0.25.0"
-    dataloader: "npm:^2.0.0"
-    symbol.inspect: "npm:1.0.1"
-    teslabot: "npm:^1.3.0"
-    zod: "npm:^3.21.4"
-  peerDependencies:
-    ton-core: ">=0.51.0"
-    ton-crypto: ">=3.2.0"
-  checksum: 9bf6ff215074696bbf3310a5d523cdd28cdaa50edf07e64727fab10e4716a80bbe6609063eee1bdcd9748f32415780c85f3080892d29f45d821595ecedd6d813
   languageName: node
   linkType: hard
 

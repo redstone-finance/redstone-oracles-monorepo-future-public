@@ -1,5 +1,5 @@
 import { TonContract } from "../src/TonContract";
-import { ContractProvider } from "ton-core";
+import { ContractProvider } from "@ton/core";
 import { messageBuilder } from "../src/ton-utils";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { createPayloadCell } from "../src/create-payload-cell";

@@ -1,5 +1,5 @@
-import { NetworkProvider } from "@ton-community/blueprint";
-import { TonPriceFeedContractConnector } from "../src/price-feed/TonPriceFeedContractConnector";
+import { NetworkProvider } from "@ton/blueprint";
+import { TonPriceFeedContractConnector } from "../src";
 import { BlueprintTonNetwork } from "../src";
 import { config } from "../src/config";
 

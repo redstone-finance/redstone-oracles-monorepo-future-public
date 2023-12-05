@@ -1,4 +1,4 @@
-import { Address, Cell, contractAddress } from "ton-core";
+import { Address, Cell, contractAddress } from "@ton/core";
 import { TonContract } from "./TonContract";
 import { TonInitData } from "./TonInitData";
 

@@ -1,4 +1,4 @@
-import { beginCell, Cell, serializeTuple } from "ton-core";
+import { beginCell, Cell, serializeTuple } from "@ton/core";
 import { createTupleItems } from "../ton-utils";
 import { TonInitData } from "../TonInitData";
 import { consts } from "@redstone-finance/protocol";

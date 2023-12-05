@@ -1,4 +1,4 @@
-import { beginCell, Builder, Cell, TupleBuilder, TupleReader } from "ton-core";
+import { beginCell, Builder, Cell, TupleBuilder, TupleReader } from "@ton/core";
 import { OP_NUMBER_BITS } from "./config/constants";
 import { arrayify } from "ethers/lib/utils";
 import { consts } from "@redstone-finance/protocol";

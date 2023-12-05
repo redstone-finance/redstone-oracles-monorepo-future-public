@@ -1,10 +1,10 @@
-import { beginCell, Builder } from "ton-core";
+import { beginCell, Builder } from "@ton/core";
 import { arrayify } from "ethers/lib/utils";
 import assert from "assert";
 import { splitPayloadHex } from "./split-payload-hex";
 import { createBuilderFromString } from "./ton-utils";
 import { consts } from "@redstone-finance/protocol";
-import { serializeDict } from "ton-core/dist/dict/serializeDict";
+import { serializeDict } from "@ton/core/dist/dict/serializeDict";
 
 export const BASE_KEY_LEN = 16;
 
