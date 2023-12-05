@@ -251,6 +251,7 @@ export class TransactionDeliveryMan {
       (e.message.includes("maxFeePerGas") ||
         e.message.includes("baseFeePerGas") ||
         e.code === ErrorCode.INSUFFICIENT_FUNDS ||
+        e.code === ErrorCode.REPLACEMENT_UNDERPRICED ||
         e.code === ErrorCode.UNPREDICTABLE_GAS_LIMIT) &&
       !e.message.includes("VM Exception while processing transaction");
 
