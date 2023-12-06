@@ -1,4 +1,5 @@
 **/node_modules
+doc
 .git
 **/.next
 packages/starknet-connector/build
@@ -7,4 +8,5 @@ packages/starknet-connector/build
 docs
 Dockerfile
 *.log
+.vscode
 terraform
