@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "dist", "test", "**/*spec.ts", "scripts"],
+  "exclude": ["node_modules", "dist", "tests", "**/*spec.ts", "scripts"],
   "references": [
     {
       "path": "../ton-connector/tsconfig.build.json"

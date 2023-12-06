@@ -7,6 +7,4 @@ packages/starknet-connector/build
 docs
 Dockerfile
 *.log
-.vscode
-**/test
 terraform
