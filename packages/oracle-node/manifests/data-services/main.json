@@ -477,7 +477,7 @@
       ]
     },
     "APT": {
-      "source": ["binance", "binanceusdm", "coingecko", "htx"]
+      "source": ["binance", "binanceusdm", "coingecko"]
     },
     "XLM": {
       "source": [
@@ -553,7 +553,7 @@
       ]
     },
     "AR": {
-      "source": ["binance", "bingx", "bitget", "bitrue", "coingecko", "htx"]
+      "source": ["binance", "bingx", "bitget", "bitrue", "coingecko"]
     },
     "CELO": {
       "source": [
