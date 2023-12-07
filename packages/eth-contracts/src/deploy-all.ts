@@ -65,9 +65,8 @@ async function deployTokenContract() {
 }
 
 async function deployLockingContract(tokenAddress: string) {
-  const LockingRegistryFactory = await ethers.getContractFactory(
-    "LockingRegistry"
-  );
+  const LockingRegistryFactory =
+    await ethers.getContractFactory("LockingRegistry");
   const locking = await upgrades.deployProxy(LockingRegistryFactory, [
     tokenAddress,
     AUTHORISED_SLASHER,
