@@ -707,7 +707,6 @@
       "source": [
         "balancer-arbitrum-weth",
         "balancer-ethereum-weth",
-        "coingecko",
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
