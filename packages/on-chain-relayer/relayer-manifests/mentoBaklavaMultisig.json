@@ -1,0 +1,22 @@
+{
+  "chain": {
+    "name": "Celo Baklava Testnet",
+    "id": 62320
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 600000,
+    "deviationPercentage": 0.05
+  },
+  "adapterContract": "0x6E0b50972117d50E3a18Fa8317c0D70B1edC3bFE",
+  "adapterContractType": "mento",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "CELO": "",
+    "CELO/EUR": "",
+    "CELO/BRL": "",
+    "USDC": "",
+    "USDC/EUR": "",
+    "USDC/BRL": "",
+    "EUROC/EUR": ""
+  }
+}
