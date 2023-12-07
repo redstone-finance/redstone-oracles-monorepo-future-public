@@ -173,7 +173,7 @@
       ]
     },
     "AR": {
-      "source": ["binance", "bingx", "bitget", "bitrue", "coingecko", "htx"]
+      "source": ["binance", "bingx", "bitget", "bitrue", "coingecko"]
     },
     "CELO": {
       "source": [
