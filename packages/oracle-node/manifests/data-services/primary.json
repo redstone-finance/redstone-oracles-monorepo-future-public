@@ -368,6 +368,20 @@
         "wombat"
       ]
     },
+    "TIA": {
+      "source": [
+        "binance",
+        "okx",
+        "coinbaseprime",
+        "coinbasepro",
+        "kucoin",
+        "gate",
+        "bitget",
+        "kraken",
+        "xt",
+        "bitfinex2"
+      ]
+    },
     "weETH": {
       "source": [
         "balancer-ethereum-weth",
