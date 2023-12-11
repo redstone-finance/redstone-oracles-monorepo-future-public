@@ -352,6 +352,14 @@
         "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
+    "TLOS": {
+      "source": [
+        "gate",
+        "mexc",
+        "kucoin",
+        "bitget"
+      ]
+    },
     "ETHx": {
       "source": [
         "balancer-ethereum-weth",

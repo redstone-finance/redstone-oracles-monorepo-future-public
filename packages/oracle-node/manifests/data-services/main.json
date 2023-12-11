@@ -923,6 +923,14 @@
     "YY_WOMBEX_DAI": {
       "source": ["arbitrum-evm-fetcher"]
     },
+    "TLOS": {
+      "source": [
+        "gate",
+        "mexc",
+        "kucoin",
+        "bitget"
+      ]
+    },
     "ETHx": {
       "source": [
         "balancer-ethereum-weth",
@@ -2168,7 +2176,6 @@
     "YAM": {},
     "EGT": {},
     "EWT": {},
-    "TLOS": {},
     "RFOX": {},
     "ELON": {},
     "CFG": {},
