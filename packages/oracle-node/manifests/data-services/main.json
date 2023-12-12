@@ -256,19 +256,13 @@
     "TRX": {
       "source": [
         "binance",
-        "binancecoinm",
-        "binanceusdm",
         "bitget",
         "bitrue",
-        "coingecko",
         "gate",
-        "kaiko",
         "kaiko-v2",
-        "kraken",
         "kucoin",
         "lbank",
-        "mexc",
-        "okx"
+        "mexc"
       ]
     },
     "DAI": {
@@ -924,12 +918,7 @@
       "source": ["arbitrum-evm-fetcher"]
     },
     "TLOS": {
-      "source": [
-        "gate",
-        "mexc",
-        "kucoin",
-        "bitget"
-      ]
+      "source": ["gate", "mexc", "kucoin", "bitget"]
     },
     "ETHx": {
       "source": [
@@ -954,11 +943,7 @@
       ]
     },
     "weETH": {
-      "source": [
-        "balancer-ethereum-weth",
-        "curve-weth",
-        "maverick"
-      ]
+      "source": ["balancer-ethereum-weth", "curve-weth", "maverick"]
     },
     "rETH": {
       "source": [
