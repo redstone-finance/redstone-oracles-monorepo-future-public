@@ -22,7 +22,7 @@ function fluxEscape(value: string) {
 export const makeInfluxMetric = (
   name: string,
   tags: Record<string, string | number | boolean | undefined>,
-  fields: Record<string, string | number | boolean | undefined>
+  fields: Record<string, string | number | boolean>
 ) => {
   const parsedTags = seralizeToInfluxObj(tags);
   const parseFields = seralizeToInfluxObj(fields);
