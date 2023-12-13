@@ -111,9 +111,6 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     ),
     isAuctionModel: getFromEnv("IS_AUCTION_MODEL", true) === "true",
     mentoMaxDeviationAllowed,
-    sleepMsAfterFailedSimulation: Number.parseInt(
-      getFromEnv("SLEEP_MS_AFTER_FAILED_SIMULATION", true) ?? "3600000"
-    ),
     isNotLazy: getFromEnv("IS_NOT_LAZY", true) === "true",
   };
 

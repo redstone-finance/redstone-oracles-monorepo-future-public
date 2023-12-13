@@ -9,7 +9,6 @@ import { valueDeviationCondition } from "./value-deviation-condition";
 import { checkIfDataPackageTimestampIsNewer } from "./data-packages-timestamp";
 import { cronCondition } from "./cron-condition";
 import { checkIfDataPackagesDecimalsAreAcceptable } from "./data-packages-decimals";
-import { onStartCondition } from "./on-start-condition";
 
 export const shouldUpdate = async (
   context: Context,
@@ -76,8 +75,5 @@ const checkConditionByName = async (
         context.valuesFromContract,
         config
       );
-
-    case "on-start":
-      return onStartCondition();
   }
 };
