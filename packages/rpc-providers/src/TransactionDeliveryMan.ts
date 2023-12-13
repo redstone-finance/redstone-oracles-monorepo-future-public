@@ -44,7 +44,7 @@ export type TransactionDeliveryManOpts = {
    * If network support arbitrum like 2D fees should be set to true
    * more info: https://medium.com/offchainlabs/understanding-arbitrum-2-dimensional-fees-fd1d582596c9
    */
-  twoDimensionFees?: boolean;
+  isArbitrum?: boolean;
 
   /**
    * Max number of attempts to deliver transaction
@@ -87,13 +87,13 @@ export type TransactionDeliveryManOpts = {
 
 export const unsafeBnToNumber = (bn: BigNumber) => Number(bn.toString());
 
-const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
+export const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
   isAuctionModel: false,
   maxAttempts: 10,
   multiplier: 1.125, // 112,5% => 1.125 ** 10 => 3.24 max scaler
   gasLimitMultiplier: 1.5,
   percentileOfPriorityFee: 75,
-  twoDimensionFees: false,
+  isArbitrum: false,
   gasOracleTimeout: 5_000,
   forceDisableCustomGasOracle: false,
   logger: (text: string) => console.log(`[TransactionDeliveryMan] ${text}`),

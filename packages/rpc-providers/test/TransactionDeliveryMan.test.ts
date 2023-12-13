@@ -138,7 +138,7 @@ describe("TransactionDeliveryMan", () => {
       const deliveryMan = new TransactionDeliveryMan({
         expectedDeliveryTimeMs: 20,
         gasLimit: 210000,
-        twoDimensionFees: true,
+        isArbitrum: true,
       });
 
       const sendStub = Sinon.stub();

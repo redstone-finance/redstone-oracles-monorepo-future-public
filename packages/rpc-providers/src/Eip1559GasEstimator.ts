@@ -5,6 +5,9 @@ import {
 } from "./TransactionDeliveryMan";
 import { GasEstimator } from "./GasEstimator";
 
+// higher fee are discarded by ethers anyway in this way we can cap gasLimit
+const ASSUMED_ARB_MAX_TX_FEE = 1e18;
+
 type FeeHistoryResponse = { reward: string[] };
 
 export type Eip1559Fee = {
@@ -75,9 +78,10 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
     );
     const maxFeePerGas = Math.round(currentFees.maxFeePerGas * multipleBy);
 
-    const gasLimit = this.opts.twoDimensionFees
-      ? Math.round(currentFees.gasLimit * this.opts.gasLimitMultiplier)
-      : currentFees.gasLimit;
+    const gasLimit = this.calculateGasLimit(
+      { maxPriorityFeePerGas, maxFeePerGas, gasLimit: currentFees.gasLimit },
+      attempt
+    );
 
     const scaledFees: Eip1559Fee = {
       maxPriorityFeePerGas,
@@ -90,5 +94,15 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
     );
 
     return scaledFees;
+  }
+
+  calculateGasLimit(fees: Eip1559Fee, attempt: number) {
+    if (!this.opts.isArbitrum) {
+      return fees.gasLimit;
+    }
+    return Math.min(
+      Math.round(fees.gasLimit * this.opts.gasLimitMultiplier ** attempt),
+      Math.round(ASSUMED_ARB_MAX_TX_FEE / fees.maxFeePerGas)
+    );
   }
 }
