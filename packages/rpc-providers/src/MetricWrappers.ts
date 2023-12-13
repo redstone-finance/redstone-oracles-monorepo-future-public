@@ -36,10 +36,6 @@ export function wrapCallWithMetric(
               isFailure,
             },
             {
-              blockNumber:
-                blockTag && blockTag.toString().startsWith("0x")
-                  ? parseInt(blockTag.toString(), 16)
-                  : blockTag,
               duration: end - start,
             }
           )
