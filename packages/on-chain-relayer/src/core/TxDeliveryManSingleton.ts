@@ -8,7 +8,7 @@ export const getTxDeliveryMan = () => {
     new TransactionDeliveryMan({
       expectedDeliveryTimeMs: config().expectedTxDeliveryTimeInMS,
       gasLimit: config().gasLimit,
-      twoDimensionFees: config().isArbitrumNetwork,
+      isArbitrum: config().isArbitrumNetwork,
       multiplier: config().gasMultiplier,
       isAuctionModel: config().isAuctionModel,
     });

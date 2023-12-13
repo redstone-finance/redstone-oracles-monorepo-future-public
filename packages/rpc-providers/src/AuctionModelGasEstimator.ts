@@ -23,7 +23,7 @@ export class AuctionModelGasEstimator implements GasEstimator<AuctionModelFee> {
   }
 
   scaleFees(currentFees: AuctionModelFee, attempt: number): AuctionModelFee {
-    const gasLimit = this.opts.twoDimensionFees
+    const gasLimit = this.opts.isArbitrum
       ? Math.round(currentFees.gasLimit * this.opts.gasLimitMultiplier)
       : currentFees.gasLimit;
 
