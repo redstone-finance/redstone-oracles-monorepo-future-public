@@ -30,7 +30,6 @@ const EMPTY_GELATO_ENV = {
   singleProviderOperationTimeout: NUMBER_NOT_NEEDED_FOR_GELATO,
   allProvidersOperationTimeout: NUMBER_NOT_NEEDED_FOR_GELATO,
   agreementAcceptableBlocksDiff: NUMBER_NOT_NEEDED_FOR_GELATO,
-  sleepMsAfterFailedSimulation: NUMBER_NOT_NEEDED_FOR_GELATO,
   isArbitrumNetwork: false,
   gasMultiplier: 1.125,
   isNotLazy: true,
@@ -90,9 +89,6 @@ export class IterationArgsProvider
     );
 
     const manifest = OnChainRelayerManifestSchema.parse(manifestResponse.data);
-
-    // disable for gelato relayers cause they can't keep state
-    manifest.updateTriggers.onStart = false;
 
     const relayerEnv: OnChainRelayerEnv = {
       ...EMPTY_GELATO_ENV,

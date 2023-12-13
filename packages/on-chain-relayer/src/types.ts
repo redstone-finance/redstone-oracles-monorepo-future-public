@@ -26,7 +26,6 @@ export const UpdateTriggersSchema = z.object({
   cron: z.array(z.string()).optional(),
   deviationPercentage: z.number().optional(),
   timeSinceLastUpdateInMilliseconds: z.number().optional(),
-  onStart: z.boolean().default(true).optional(),
 });
 
 export const OnChainRelayerManifestSchema = z.object({
@@ -74,7 +73,6 @@ export interface RelayerConfig {
   mentoMaxDeviationAllowed?: number;
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
-  sleepMsAfterFailedSimulation: number;
   agreementAcceptableBlocksDiff: number;
   isNotLazy: boolean;
   disableCustomGasOracle: boolean;
@@ -97,15 +95,10 @@ export type OnChainRelayerEnv = {
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
   agreementAcceptableBlocksDiff: number;
-  sleepMsAfterFailedSimulation: number;
   isNotLazy: boolean;
   disableCustomGasOracle: boolean;
 };
 
 export type ConfigProvider = () => RelayerConfig;
 
-export type ConditionCheckNames =
-  | "time"
-  | "value-deviation"
-  | "cron"
-  | "on-start";
+export type ConditionCheckNames = "time" | "value-deviation" | "cron";
