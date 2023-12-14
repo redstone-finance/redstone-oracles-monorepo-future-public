@@ -179,7 +179,7 @@ export class DataPackagesController {
     data: Serializable,
     format?: ResponseFormat
   ) {
-    switch (format || "raw") {
+    switch (format ?? "raw") {
       case "hex":
         res.contentType(CONTENT_TYPE_TEXT);
         res.send(data.toBytesHex());

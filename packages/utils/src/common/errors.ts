@@ -30,7 +30,7 @@ export function stringifyError(e: unknown): string {
   } else if (axios.isAxiosError(error)) {
     return JSON.stringify(error.response?.data) + " | " + error.stack;
   } else if (error instanceof Error) {
-    return error.stack || String(error);
+    return error.stack ?? String(error);
   } else if (typeof error.toJSON === "function") {
     return JSON.stringify(error.toJSON());
   } else {
