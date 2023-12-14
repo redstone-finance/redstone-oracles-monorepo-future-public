@@ -1,8 +1,8 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { SignedDataPackagePlainObj } from "@redstone-finance/protocol";
 import {
-  StreamPermission,
   StreamrClient,
+  StreamPermission,
   compressMsg,
   doesStreamExist,
   getStreamIdForNodeByEvmAddress,
