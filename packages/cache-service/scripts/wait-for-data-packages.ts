@@ -16,7 +16,7 @@ main();
 
 async function main() {
   mongoose.set("strictQuery", true);
-  await mongoose.connect(config.mongoDbUrl);
+  await mongoose.connect(config.mongoDbUrl!);
   console.log("MongoDB connected");
 
   await checkDataPackagesCount();

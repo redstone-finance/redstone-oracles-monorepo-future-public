@@ -4,7 +4,7 @@ interface CacheServiceConfig {
   appPort: number;
   // empty string means that in-memory DB will be created and used
   // e.g. by e2e test process
-  mongoDbUrl: string;
+  mongoDbUrl?: string;
   mongoDbTTLSeconds: number;
   streamrPrivateKey?: string;
   enableStreamrListening: boolean;
@@ -42,8 +42,8 @@ const getEnv: GetEnvType = (envName: string, required: boolean = true) => {
 
 const config: CacheServiceConfig = {
   appPort: Number(getEnv("APP_PORT", false) || DEFAULT_APP_PORT),
-  mongoDbUrl: getEnv("MONGO_DB_URL"),
-  mongoDbTTLSeconds: Number(getEnv("MONGO_DB_TTL_SECONDS")),
+  mongoDbUrl: getEnv("MONGO_DB_URL", false),
+  mongoDbTTLSeconds: Number(getEnv("MONGO_DB_TTL_SECONDS", false) || 0),
   enableStreamrListening: getEnv("ENABLE_STREAMR_LISTENING") === "true",
   streamrPrivateKey: getEnv("STREAMR_PRIVATE_KEY", false),
   enableDirectPostingRoutes: getEnv("ENABLE_DIRECT_POSTING_ROUTES") === "true",

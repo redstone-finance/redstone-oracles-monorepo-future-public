@@ -138,7 +138,7 @@ async function fetchDataPackagesFromBothMongoDbs(
     )}`
   );
   const dataPackagesFromFirst = await fetchDataPackages(
-    config.mongoDbUrl,
+    config.mongoDbUrl!,
     timestampIntervals,
     FIRST_DATA_SERVICE_ID
   );
