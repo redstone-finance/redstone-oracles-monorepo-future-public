@@ -73,6 +73,7 @@ const checkConditionByName = async (
         context.dataPackages,
         context.uniqueSignersThreshold,
         context.valuesFromContract,
+        context.lastUpdateTimestamps.lastBlockTimestampMS,
         config
       );
   }

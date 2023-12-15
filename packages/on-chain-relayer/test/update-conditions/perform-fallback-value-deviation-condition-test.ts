@@ -16,7 +16,8 @@ export const VERY_SMALL_DATA_POINTS = [
 export const performFallbackValueDeviationConditionTest = async (
   ethPrice: number,
   btcPrice: number,
-  dataPoints: INumericDataPoint[]
+  dataPoints: INumericDataPoint[],
+  lastUpdateTimestamp: number = Date.now()
 ) => {
   const dataPackages = await getDataPackagesResponse();
   const olderDataPackagesFetchCallback = () =>
@@ -29,6 +30,7 @@ export const performFallbackValueDeviationConditionTest = async (
     await performValueDeviationConditionChecks(
       dataPackages,
       valueDiff,
+      lastUpdateTimestamp,
       config(),
       olderDataPackagesFetchCallback
     );
