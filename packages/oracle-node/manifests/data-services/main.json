@@ -960,6 +960,9 @@
         "curve-reth"
       ]
     },
+    "osETH/ETH": {
+      "source": ["non-usd-based"]
+    },
     "arbJnrLLP": {
       "source": ["arbitrum-evm-fetcher"]
     },

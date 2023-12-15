@@ -389,6 +389,9 @@
         "curve-reth"
       ]
     },
+    "osETH/ETH": {
+      "source": ["non-usd-based"]
+    },
     "ARB": {
       "source": [
         "binance",
