@@ -9,6 +9,7 @@ import { fetchDataPackages } from "../fetch-data-packages";
 export const performValueDeviationConditionChecks = async (
   latestDataPackages: DataPackagesResponse,
   valuesFromContract: ValuesForDataFeeds,
+  lastUpdateTimestampInMs: number,
   config: RelayerConfig,
   historicalDataPackagesFetchCallback: () => Promise<DataPackagesResponse>
 ) => {
@@ -38,11 +39,22 @@ export const performValueDeviationConditionChecks = async (
     historicalWarningMessage = ` AND Historical ${historicalWarningMessageTmp}`;
   }
 
+  const skipFallbackUpdate =
+    isFallback &&
+    config.fallbackSkipDeviationBasedFrequentUpdates &&
+    Date.now() - lastUpdateTimestampInMs <
+      (config.fallbackOffsetInMinutes ?? 0) * 60 * 1000;
+
+  const skipFallbackErrorMessage = skipFallbackUpdate
+    ? `. Update skipped: less than ${config.fallbackOffsetInMinutes} minutes passed since last update`
+    : "";
+
   return {
-    shouldUpdatePrices: shouldUpdatePrices && historicalShouldUpdatePrices,
+    shouldUpdatePrices:
+      shouldUpdatePrices && historicalShouldUpdatePrices && !skipFallbackUpdate,
     warningMessage: `${
       isFallback ? "Deviation in fallback mode: " : ""
-    }${warningMessage}${historicalWarningMessage}`,
+    }${warningMessage}${historicalWarningMessage}${skipFallbackErrorMessage}`,
   };
 };
 
@@ -50,6 +62,7 @@ export const valueDeviationCondition = async (
   latestDataPackages: DataPackagesResponse,
   uniqueSignersThreshold: number,
   valuesFromContract: ValuesForDataFeeds,
+  lastUpdateTimestampInMs: number,
   config: RelayerConfig
 ) => {
   const olderDataPackagesFetchCallback = async () => {
@@ -64,6 +77,7 @@ export const valueDeviationCondition = async (
   return await performValueDeviationConditionChecks(
     latestDataPackages,
     valuesFromContract,
+    lastUpdateTimestampInMs,
     config,
     olderDataPackagesFetchCallback
   );

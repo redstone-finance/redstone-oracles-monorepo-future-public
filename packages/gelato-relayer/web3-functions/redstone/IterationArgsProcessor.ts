@@ -80,6 +80,11 @@ export class IterationArgsProcessor<Args> {
       historicalPackagesGateways: JSON.parse(
         (await this.context.secrets.get("HISTORICAL_PACKAGES_GATEWAYS")) ?? "[]"
       ) as string[],
+      fallbackSkipDeviationBasedFrequentUpdates: JSON.parse(
+        (await this.context.secrets.get(
+          "SKIP_TX_SENDING_IF_OFFSET_MINUTES_DID_NOT_PASS"
+        )) ?? "false"
+      ) as boolean,
     };
 
     return env;

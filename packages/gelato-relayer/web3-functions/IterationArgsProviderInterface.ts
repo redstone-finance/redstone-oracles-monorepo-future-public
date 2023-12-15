@@ -10,6 +10,7 @@ export type IterationArgs<Args> = {
 export type IterationArgsProviderEnv = {
   historicalPackagesGateways?: string[];
   fallbackOffsetInMinutes: number;
+  fallbackSkipDeviationBasedFrequentUpdates: boolean;
 };
 
 export interface IterationArgsProviderInterface<Args> {

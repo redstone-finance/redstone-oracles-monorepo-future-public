@@ -112,6 +112,9 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     isAuctionModel: getFromEnv("IS_AUCTION_MODEL", true) === "true",
     mentoMaxDeviationAllowed,
     isNotLazy: getFromEnv("IS_NOT_LAZY", true) === "true",
+    fallbackSkipDeviationBasedFrequentUpdates:
+      getFromEnv("SKIP_TX_SENDING_IF_OFFSET_MINUTES_DID_NOT_PASS", true) ===
+      "true",
   };
 
   return makeConfigProvider(manifest, env);
