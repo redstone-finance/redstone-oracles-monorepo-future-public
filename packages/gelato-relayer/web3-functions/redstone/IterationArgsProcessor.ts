@@ -74,6 +74,7 @@ export class IterationArgsProcessor<Args> {
 
   private async getEnvParams() {
     const env: IterationArgsProviderEnv = {
+      manifestUrl: (await this.context.secrets.get("MANIFEST_URL")) ?? "",
       fallbackOffsetInMinutes: Number.parseInt(
         (await this.context.secrets.get("FALLBACK_OFFSET_IN_MINUTES")) ?? "0"
       ),

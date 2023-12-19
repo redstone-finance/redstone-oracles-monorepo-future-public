@@ -4,6 +4,5 @@
   "memory": 256,
   "timeout": 30,
   "userArgs": {
-    "manifestUrl": "string"
   }
 }

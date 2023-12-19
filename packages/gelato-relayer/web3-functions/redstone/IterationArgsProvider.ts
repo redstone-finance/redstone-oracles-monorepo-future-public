@@ -47,7 +47,7 @@ export class IterationArgsProvider
     env: IterationArgsProviderEnv,
     provider: providers.StaticJsonRpcProvider
   ): Promise<IterationArgs<UpdatePricesArgs>> {
-    await this.fetchManifestAndSetUp(userArgs, env);
+    await this.fetchManifestAndSetUp(env);
 
     const abi = getAbiForAdapter();
 
@@ -81,15 +81,17 @@ export class IterationArgsProvider
     return data;
   }
 
-  private async fetchManifestAndSetUp(
-    userArgs: Web3FunctionUserArgs,
-    env: IterationArgsProviderEnv
-  ) {
-    const manifestResponse = await axios.get(
-      `${String(userArgs.manifestUrl)}?t=${Date.now()}`
-    );
+  private async fetchManifestAndSetUp(env: IterationArgsProviderEnv) {
+    const manifestUrl = `${env.manifestUrl}?t=${Date.now()}`;
+    let manifestData: unknown;
+    try {
+      manifestData = (await axios.get(manifestUrl)).data;
+    } catch (e) {
+      console.log(`Error fetching manifest from url: ${manifestUrl}`);
+      throw e;
+    }
 
-    const manifest = OnChainRelayerManifestSchema.parse(manifestResponse.data);
+    const manifest = OnChainRelayerManifestSchema.parse(manifestData);
 
     const relayerEnv: OnChainRelayerEnv = {
       ...EMPTY_GELATO_ENV,
