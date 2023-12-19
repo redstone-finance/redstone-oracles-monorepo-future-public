@@ -107,3 +107,10 @@ Also, the folllowing [Gas usage comparison](#gas-usage-comparison-1) doesn't hav
 | single feed, 4 signers                       | Send: 0.0108<br/>Computation: **0.105**<br/>[Transaction](https://testnet.tonviewer.com/transaction/7cb1ed7cab5372f9c277b96747a0af48c06f6936ed8e7b729ce71eff012a138a) | Send: 0.0136<br/>Computation: **0.116**<br/>[Transaction](https://testnet.tonviewer.com/transaction/596ac33d361d5a6cf4cb48d3f57e6899c75e258f64d90605402689828ba9c2a4)   |
 | 4 feeds, 4 signers                           | Send: 0.0336<br/>Computation: **0.372**<br/>[Transaction](https://testnet.tonviewer.com/transaction/928c69b3c45ca0e1a1fa9c7cad8673fd58997ba0fb8f9da8c9b224d1b323b570) | Send: 0.0326<br/>Computation: **0.391**<br/>[Transaction](https://testnet.tonviewer.com/transaction/9b82ddae1f5828cf8dae648faa39943500c663baf806bfc5d68eed7816857762)   |
 | Computation cost: **increased by ~0.01 TON** | Computation: **0.0243** + 0.0217 *            *number_of_packages*                                                                                                    | Computation: **0.0336** + 0.0223 *            *number_of_packages*                                                                                                      |
+
+# Review comments 2023-12-18
+
+Some small message-sending and address-comparing tweaks in code were done.
+
+Additionally, there is created a `sample_consumer` contract for consuming the data stored in the `price_feed`
+or `single_feed_man` contracts. See [README.md](../contracts/README.md#sample_consumerfc)

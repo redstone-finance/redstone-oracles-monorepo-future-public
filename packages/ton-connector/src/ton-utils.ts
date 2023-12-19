@@ -1,6 +1,6 @@
 import { beginCell, Builder, Cell, TupleBuilder, TupleReader } from "@ton/core";
 import { OP_NUMBER_BITS } from "./config/constants";
-import { arrayify } from "ethers/lib/utils";
+import { arrayify, hexlify, toUtf8Bytes } from "ethers/lib/utils";
 import { consts } from "@redstone-finance/protocol";
 
 export function createTupleItems(
@@ -33,7 +33,7 @@ export function createArrayFromSerializedTuple(
   return values;
 }
 
-export function messageBuilder(opNumber: bigint): Builder {
+export function messageBuilder(opNumber: number): Builder {
   return beginCell().storeUint(opNumber, OP_NUMBER_BITS);
 }
 
@@ -50,4 +50,8 @@ export function createBuilderFromString(value: string) {
   return beginCell().storeBuffer(
     Buffer.from(arrayify(value.startsWith("0x") ? value : "0x" + value))
   );
+}
+
+export function toBigInt(feedId: string) {
+  return BigInt(hexlify(toUtf8Bytes(feedId)));
 }

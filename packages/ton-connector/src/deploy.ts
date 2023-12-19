@@ -15,7 +15,8 @@ export async function deploy<
 >(
   name: string,
   provider: NetworkProvider,
-  deployerProvider: (network: TonNetwork, code: Cell) => D
+  deployerProvider: (network: TonNetwork, code: Cell) => D,
+  nameSuffix?: string
 ): Promise<A | undefined> {
   const code: Cell = await compile(name);
 
@@ -34,15 +35,31 @@ export async function deploy<
   } catch (e) {
     console.warn((e as Error).message);
 
-    await saveAddress(name, (e as TonContractError).contract.address);
+    await saveAddress(
+      name,
+      (e as TonContractError).contract.address,
+      nameSuffix
+    );
   }
 
   return undefined;
 }
 
-async function saveAddress(name: string, address: Address) {
-  const fileName = `deploy/${name}.address`;
-  await fs.promises.writeFile(fileName, address.toString());
+function getFilename(name: string, nameSuffix?: string) {
+  return `deploy/${name}${nameSuffix ? `_${nameSuffix}` : ""}.address`;
+}
 
-  console.log(`Address '${address.toString()}' saved to file ${fileName}.`);
+async function saveAddress(
+  name: string,
+  address: Address,
+  nameSuffix?: string
+) {
+  const filename = getFilename(name, nameSuffix);
+  await fs.promises.writeFile(filename, address.toString());
+
+  console.log(`Address '${address.toString()}' saved to file ${filename}.`);
+}
+
+export async function loadAddress(name: string, nameSuffix?: string) {
+  return await fs.promises.readFile(getFilename(name, nameSuffix), "utf8");
 }

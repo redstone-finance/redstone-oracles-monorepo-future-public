@@ -32,8 +32,8 @@ export abstract class Ton {
     coins: number,
     body?: Cell,
     sendMode = SendMode.PAY_GAS_SEPARATELY
-  ): Promise<void> {
-    await provider.internal(this.sender, {
+  ) {
+    return await provider.internal(this.sender, {
       value: `${coins.toFixed(2)}`,
       body,
       sendMode,

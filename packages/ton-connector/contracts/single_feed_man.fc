@@ -20,8 +20,6 @@ global int timestamp;
 () load_data() impure {
     var ds = get_data().begin_parse();
 
-    throw_unless(ERR_LENGTH_OVERFLOW, DATA_FEED_ID_BITS + SIGNER_COUNT_THRESHOLD_BITS + MAX_VALUE_SIZE_BITS + TIMESTAMP_BITS <= 1023);
-
     feed_id = ds~load_uint(DATA_FEED_ID_BITS);
     signer_count_threshold = ds~load_uint(SIGNER_COUNT_THRESHOLD_BITS);
     price = ds~load_uint(MAX_VALUE_SIZE_BITS);
@@ -66,6 +64,13 @@ global int timestamp;
         write_price(payload_cell);
 
         return cs~send_back_message();
+    }
+
+    if (op == OP_REDSTONE_READ_DATA) {
+        slice sender_address = cs~load_msg_addr();
+        slice initial_sender = in_msg_body~load_msg_addr();
+
+        return send_message(OP_REDSTONE_DATA_READ, sender_address, begin_cell().store_uint(feed_id, DATA_FEED_ID_BITS).store_uint(price, MAX_VALUE_SIZE_BITS).store_uint(timestamp, TIMESTAMP_BITS).store_slice(initial_sender));
     }
 }
 

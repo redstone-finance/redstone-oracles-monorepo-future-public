@@ -3,12 +3,13 @@ import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { TonSingleFeedManContractConnector } from "../src/single-feed-man/TonSingleFeedManContractConnector";
 import { BlueprintTonNetwork } from "../src";
 import { config } from "../src/config";
-import * as fs from "fs";
+import { loadAddress } from "../src/deploy";
+import { TonSingleFeedMan } from "../wrappers/TonSingleFeedMan";
 
 export async function run(provider: NetworkProvider) {
   const connector = new TonSingleFeedManContractConnector(
     new BlueprintTonNetwork(provider, config),
-    await fs.promises.readFile(`deploy/single_feed_man.address`, "utf8")
+    await loadAddress(TonSingleFeedMan.getName())
   );
   const contract = await connector.getAdapter();
 

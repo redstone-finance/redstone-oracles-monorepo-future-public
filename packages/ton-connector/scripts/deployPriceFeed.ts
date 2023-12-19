@@ -1,16 +1,12 @@
 import { NetworkProvider } from "@ton/blueprint";
-import * as fs from "fs";
 import { PriceFeedInitData } from "../src/price-feed/PriceFeedInitData";
 import { TonPriceFeedContractDeployer } from "../src/price-feed/TonPriceFeedContractDeployer";
-import { TonNetwork, TonPriceFeed } from "../src";
-import { deploy } from "../src/deploy";
+import { TonNetwork, TonPriceFeed, TonPriceManager } from "../src";
+import { deploy, loadAddress } from "../src/deploy";
 import { Cell } from "@ton/core";
 
 export async function run(provider: NetworkProvider) {
-  const managerAddress = await fs.promises.readFile(
-    `deploy/price_manager.address`,
-    "utf8"
-  );
+  const managerAddress = await loadAddress(TonPriceManager.getName());
 
   await deploy(
     TonPriceFeed.getName(),
