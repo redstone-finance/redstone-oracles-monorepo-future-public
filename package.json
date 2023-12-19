@@ -16,9 +16,11 @@
     "global:rollup": "cd $INIT_CWD && rollup",
     "global:ts-node": "cd $INIT_CWD && ts-node",
     "global:tsc": "cd $INIT_CWD && tsc",
-    "global:lambda-build": "cd $INIT_CWD && esbuild $INDEX_PATH --bundle --minify --sourcemap --platform=node --target=es2021 --outfile=dist/index.js && yarn global:lambda-zip",
+    "global:lambda-build": "cd $INIT_CWD && esbuild $INDEX_PATH --bundle --minify --sourcemap --platform=node --target=es2021 --outfile=dist/index.js",
     "global:lambda-zip": "cd $INIT_CWD && cd dist && zip -r build.zip index.js*",
-    "global:lambda-pushToBucket": "cd $INIT_CWD && aws s3api put-object --bucket $BUCKET_NAME --key $PACKAGE_NAME.$(git log -1 --pretty=%h).zip --body ./dist/build.zip  && echo \"S3 object: $PACKAGE_NAME.$(git log -1 --pretty=%h).zip\""
+    "global:lambda-pushToBucket": "cd $INIT_CWD && aws s3api put-object --bucket $BUCKET_NAME --key $PACKAGE_NAME.$(git log -1 --pretty=%h).zip --body ./dist/build.zip  && echo \"S3 object: $PACKAGE_NAME.$(git log -1 --pretty=%h).zip\"",
+    "build-all": "yarn workspaces foreach -Ap --topological-dev run build",
+    "lint-all": "yarn workspaces foreach -Ap --topological-dev run lint"
   },
   "keywords": [],
   "author": "hatskier <Suvorovalex1997@gmail.com> (https://hatskier.com/)",

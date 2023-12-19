@@ -7,8 +7,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "yarn global:tsc --build tsconfig.build.json && yarn nest build",
+    "clean": "rm -rf dist",
+    "build": "yarn clean && yarn global:tsc --build tsconfig.build.json && yarn nest build",
     "bundle": "ENTRYPOINT=dist/src/main.js yarn global:rollup -c ../../rollup.config.mjs",
     "run-ts": "yarn global:ts-node",
     "format": "yarn global:prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -45,7 +45,6 @@
     "nestjs-pino": "^3.1.1",
     "pino-http": "^8.2.1",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
   },
   "devDependencies": {

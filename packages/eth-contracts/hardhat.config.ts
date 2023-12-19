@@ -31,7 +31,7 @@ const config: HardhatUserConfig = {
       blockGasLimit: 30_000_000,
     },
     goerli: {
-      url: process.env.GOERLI_URL,
+      url: process.env.GOERLI_URL ?? "https://eth-goerli.public.blastapi.io",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : undefined,
     },
   },
