@@ -5,7 +5,7 @@ import { fetchWithCache } from "../src/common";
 
 describe("common", () => {
   describe("fetchWithCache", () => {
-    let getSpy: any;
+    let getSpy: Sinon.SinonStub;
 
     before(() => {
       getSpy = Sinon.stub(axios, "get");

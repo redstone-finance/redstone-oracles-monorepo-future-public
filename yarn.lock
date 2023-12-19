@@ -6490,6 +6490,7 @@ __metadata:
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
+    "@types/lodash": "npm:^4.14.195"
     "@types/mocha": "npm:^10.0.1"
     "@types/node": "npm:^18.14.6"
     "@types/sinon": "npm:^10.0.15"

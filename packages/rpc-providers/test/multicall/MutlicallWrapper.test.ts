@@ -15,6 +15,7 @@ import { HardhatProviderMocker, deployCounter } from "../helpers";
 chai.use(chaiAsPromised);
 
 const multicallFnSpy = Sinon.spy(multicallUtils.multicall3);
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
 (multicallUtils as any).multicall3 = multicallFnSpy;
 
 function getProvider(
@@ -145,7 +146,7 @@ const describeMultiWrapperSuite = (
         NOT_MULTICALL_ADDRESS,
         () => {
           const provider = providerFabric();
-          provider.call = () => Promise.reject();
+          provider.call = () => Promise.reject(new Error("error"));
           return provider;
         },
         2
@@ -202,12 +203,16 @@ const describeMultiWrapperSuite = (
     });
 
     it("it should work when fallback fails partially", async () => {
-      let stub: Sinon.SinonStub<any[], any>;
+      type ProviderCall = typeof ethers.providers.Provider.prototype.call;
+      type Params = Parameters<ProviderCall>;
+      type Ret = ReturnType<ProviderCall>;
+      type ProviderCallStub = Sinon.SinonStub<Params, Ret>;
+      let stub: ProviderCallStub;
 
       const customProviderFabric = () => {
         const provider = providerFabric();
 
-        stub = Sinon.stub()
+        stub = Sinon.stub<Params, Ret>()
           .onFirstCall()
           .rejects(new Error("multi call error"))
           .onSecondCall()
@@ -238,7 +243,9 @@ const describeMultiWrapperSuite = (
       const count2Casted = count2 as PromiseFulfilledResult<BigNumber>;
 
       expect(countCasted.status).eq("rejected");
-      expect(countCasted.reason.message).eq("first fallback call error");
+      expect((countCasted.reason as Error).message).eq(
+        "first fallback call error"
+      );
       expect(count2Casted.status).eq("fulfilled");
       expect(count2Casted.value.toString()).eq("1");
     });

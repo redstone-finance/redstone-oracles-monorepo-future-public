@@ -1,3 +1,4 @@
+import { TransactionRequest } from "@ethersproject/providers";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { providers, Signer, Wallet } from "ethers";
@@ -14,7 +15,7 @@ const TEST_PRIV_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 describe("ProviderWithAgreement", () => {
   let contract: Counter;
-  let signer: Signer = new Wallet(TEST_PRIV_KEY);
+  const signer: Signer = new Wallet(TEST_PRIV_KEY);
 
   beforeEach(async () => {
     contract = await deployCounter(hardhat.ethers.provider);
@@ -26,7 +27,7 @@ describe("ProviderWithAgreement", () => {
     let providerWithAgreement: ProviderWithAgreement;
     let counter: Counter;
 
-    beforeEach(async () => {
+    beforeEach(() => {
       providerWithAgreement = new ProviderWithAgreement([
         hardhat.ethers.provider,
         hardhat.ethers.provider,
@@ -177,7 +178,7 @@ describe("ProviderWithAgreement", () => {
     let providerWithAgreement: ProviderWithAgreement;
     let counter: Counter;
 
-    beforeEach(async () => {
+    beforeEach(() => {
       providerWithAgreement = new ProviderWithAgreement([
         new providers.StaticJsonRpcProvider("http://blabla.xd"),
         hardhat.ethers.provider,
@@ -223,7 +224,7 @@ describe("ProviderWithAgreement", () => {
       .onFirstCall()
       .returns(Promise.resolve(`0x${"0".repeat(31)}9`));
 
-    beforeEach(async () => {
+    beforeEach(() => {
       providerWithAgreement = new ProviderWithAgreement([
         falseProvider,
         new providers.StaticJsonRpcProvider("http://blabla.xd"),
@@ -252,7 +253,7 @@ describe("ProviderWithAgreement", () => {
     let providerWithAgreement: ProviderWithAgreement;
     let counter: Counter;
 
-    beforeEach(async () => {
+    beforeEach(() => {
       providerWithAgreement = new ProviderWithAgreement([
         hardhat.ethers.provider,
         new providers.StaticJsonRpcProvider("http://blabla.xd"),
@@ -359,7 +360,7 @@ const testCallResolutionAlgo = async (
   stubBlockNumber.resolves(1);
 
   const agreementProvider = new ProviderWithAgreement(
-    new Array(providerResponses.length).fill(mockProvider),
+    new Array<typeof mockProvider>(providerResponses.length).fill(mockProvider),
     { numberOfProvidersThatHaveToAgree: requiredNumberOfProvidersToAgree }
   );
 
@@ -367,6 +368,8 @@ const testCallResolutionAlgo = async (
     stubCall.onCall(i).resolves(providerResponses[i]);
   }
 
-  const result = await agreementProvider.call("" as any);
+  const result = await agreementProvider.call(
+    "" as unknown as TransactionRequest
+  );
   expect(result).to.eq(expected);
 };
