@@ -13,7 +13,7 @@ const TEST_PRIV_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 
 describe("ProviderWithFallback", () => {
-  let signer: Signer = new Wallet(TEST_PRIV_KEY);
+  const signer: Signer = new Wallet(TEST_PRIV_KEY);
   let contract: Counter;
 
   beforeEach(async () => {
@@ -24,7 +24,7 @@ describe("ProviderWithFallback", () => {
     let fallbackProvider: ProviderWithFallback;
     let counter: Counter;
 
-    beforeEach(async () => {
+    beforeEach(() => {
       const alwaysFailingProvider = new providers.JsonRpcProvider(
         "http://blabla.xd"
       );
@@ -40,7 +40,7 @@ describe("ProviderWithFallback", () => {
     });
 
     it("should write to contract", async () => {
-      const tx = await counter.inc();
+      await counter.inc();
     });
 
     it("should await tx", async () => {

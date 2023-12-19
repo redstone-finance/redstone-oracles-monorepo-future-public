@@ -15,15 +15,21 @@ export class HardhatProviderMocker {
     public provider: providers.JsonRpcProvider,
     public toMock: ToMock = {}
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     this.provider = new Proxy(provider, {
       get: function (target: providers.JsonRpcProvider, property, receiver) {
-        const originalValue = Reflect.get(target, property, receiver);
+        const originalValue = Reflect.get(
+          target,
+          property,
+          receiver
+        ) as unknown;
         if (
           typeof originalValue === "function" &&
           Reflect.has(self.toMock, property)
         ) {
-          return function (...args: any[]) {
+          return function (...args: unknown[]) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
             return (self.toMock as any)[property](...args);
           };
         }
@@ -31,6 +37,7 @@ export class HardhatProviderMocker {
       },
       set(_target: providers.JsonRpcProvider, p, newValue) {
         if (p.toString() === "call") {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           self.set({ ...toMock, call: newValue });
           return true;
         }

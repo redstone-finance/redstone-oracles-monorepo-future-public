@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/unbound-method */
 import { ErrorCode } from "@ethersproject/logger";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
@@ -20,6 +22,7 @@ const parseTransaction = (transaction: BytesLike) => {
 
   for (const [key, value] of Object.entries(parsedTx)) {
     if (BigNumber.isBigNumber(value)) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
       (parsedTx as any)[key] = value.toString();
     }
   }
@@ -41,7 +44,7 @@ const parseTxForComparison = (transaction: BytesLike) =>
 describe("TransactionDeliveryMan", () => {
   describe("with single provider", () => {
     let counter!: Counter;
-    let providerMocker = new HardhatProviderMocker(hardhat.ethers.provider);
+    const providerMocker = new HardhatProviderMocker(hardhat.ethers.provider);
 
     beforeEach(async () => {
       await hardhat.ethers.provider.send("hardhat_reset", []);

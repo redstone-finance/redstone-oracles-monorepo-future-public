@@ -1,4 +1,4 @@
-import { BigNumber, providers } from "ethers";
+import { providers } from "ethers";
 import {
   TransactionDeliveryManOpts,
   unsafeBnToNumber,
@@ -24,9 +24,7 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
     const lastBlock = await provider.getBlock("latest");
     const maxPriorityFeePerGas = await this.estimatePriorityFee(provider);
 
-    const baseFee = Math.round(
-      unsafeBnToNumber(lastBlock.baseFeePerGas as BigNumber)
-    );
+    const baseFee = Math.round(unsafeBnToNumber(lastBlock.baseFeePerGas!));
     const maxFeePerGas = baseFee + maxPriorityFeePerGas;
 
     const fee: Eip1559Fee = {
