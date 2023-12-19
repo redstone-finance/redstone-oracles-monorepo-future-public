@@ -6038,7 +6038,6 @@ __metadata:
     pino-http: "npm:^8.2.1"
     prompts: "npm:^2.4.2"
     reflect-metadata: "npm:^0.1.13"
-    rimraf: "npm:^3.0.2"
     rxjs: "npm:^7.2.0"
     source-map-support: "npm:^0.5.20"
     supertest: "npm:^6.2.3"
