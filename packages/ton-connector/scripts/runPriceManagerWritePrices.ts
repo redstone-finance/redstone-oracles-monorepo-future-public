@@ -1,14 +1,14 @@
 import { NetworkProvider } from "@ton/blueprint";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { TonPriceManagerContractConnector } from "../src/price-manager/TonPriceManagerContractConnector";
-import { BlueprintTonNetwork } from "../src";
+import { BlueprintTonNetwork, TonPriceManager } from "../src";
 import { config } from "../src/config";
-import * as fs from "fs";
+import { loadAddress } from "../src/deploy";
 
 export async function run(provider: NetworkProvider) {
   const connector = new TonPriceManagerContractConnector(
     new BlueprintTonNetwork(provider, config),
-    await fs.promises.readFile(`deploy/price_manager.address`, "utf8")
+    await loadAddress(TonPriceManager.getName())
   );
   const contract = await connector.getAdapter();
 

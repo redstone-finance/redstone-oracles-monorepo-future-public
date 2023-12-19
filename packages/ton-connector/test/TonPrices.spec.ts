@@ -5,28 +5,37 @@ import { TonPriceFeedContractAdapter } from "../src";
 import { TonPriceManagerContractAdapter } from "../src/price-manager/TonPriceManagerContractAdapter";
 import { PriceFeedInitData } from "../src/price-feed/PriceFeedInitData";
 import { PriceManagerInitData } from "../src/price-manager/PriceManagerInitData";
-
 import { TonPriceFeedContractDeployer } from "../src/price-feed/TonPriceFeedContractDeployer";
 import { TonPriceManagerContractDeployer } from "../src/price-manager/TonPriceManagerContractDeployer";
+import { TonSampleConsumerContractAdapter } from "../src/sample-consumer/TonSampleConsumerContractAdapter";
 import {
-  createTestNetwork,
   expectUsdtPrice,
   getContractParamsProvider,
   SIGNERS,
   waitForNewData,
 } from "./helpers/test_helpers";
+import { TonSampleConsumerContractDeployer } from "../src/sample-consumer/TonSampleConsumerContractDeployer";
+import { SampleConsumerInitData } from "../src/sample-consumer/SampleConsumerInitData";
+import {
+  createTestNetwork,
+  extractSandboxLogs,
+} from "./helpers/sandbox_helpers";
+import { toBigInt } from "../src/ton-utils";
 
 jest.setTimeout(40000);
 
 describe("Ton Prices Tests", () => {
   let priceManagerCode: Cell;
   let priceFeedCode: Cell;
+  let sampleConsumerCode: Cell;
   let priceManager: TonPriceManagerContractAdapter;
   let pricesFeed: TonPriceFeedContractAdapter;
+  let sampleConsumer: TonSampleConsumerContractAdapter;
 
   beforeAll(async () => {
     priceManagerCode = await compile("price_manager");
     priceFeedCode = await compile("price_feed");
+    sampleConsumerCode = await compile("sample_consumer");
   });
 
   beforeEach(async () => {
@@ -42,6 +51,12 @@ describe("Ton Prices Tests", () => {
       network,
       priceFeedCode,
       new PriceFeedInitData("BTC", priceManager.contract.address.toString())
+    ).getAdapter();
+
+    sampleConsumer = await new TonSampleConsumerContractDeployer(
+      network,
+      sampleConsumerCode,
+      new SampleConsumerInitData(pricesFeed.contract.address.toString())
     ).getAdapter();
   });
 
@@ -73,6 +88,12 @@ describe("Ton Prices Tests", () => {
 
     expect(feedData.value).toBe(prices[1]);
     expect(feedData.timestamp).toBe(timestamp);
+
+    const consumerLogs = extractSandboxLogs(await sampleConsumer.readData(), 3);
+
+    expect(BigInt(consumerLogs[0])).toBe(toBigInt("BTC"));
+    expect(BigInt(consumerLogs[1])).toBe(prices[1]);
+    expect(Number(consumerLogs[2])).toBe(timestamp);
   });
 
   it("must not write prices with same timestamp", async () => {

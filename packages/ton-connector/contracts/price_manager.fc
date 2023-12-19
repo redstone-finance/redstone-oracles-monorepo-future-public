@@ -78,9 +78,8 @@ global cell values_dict;
         throw_unless(ERR_MISSING_DATA, success);
 
         slice sender_address = cs~load_msg_addr();
-        send_message(OP_REDSTONE_DATA_FETCHED, sender_address, begin_cell().store_uint(value, MAX_VALUE_SIZE_BITS).store_uint(timestamp, TIMESTAMP_BITS).store_slice(initial_sender));
 
-        return ();
+        return send_message(OP_REDSTONE_DATA_FETCHED, sender_address, begin_cell().store_uint(value, MAX_VALUE_SIZE_BITS).store_uint(timestamp, TIMESTAMP_BITS).store_slice(initial_sender));
     }
 }
 

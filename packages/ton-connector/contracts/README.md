@@ -164,7 +164,7 @@ There must be invoked an internal message `OP_REDSTONE_FETCH_DATA`. The argument
     }
 ```
 
-The returning message `OP_REDSTONE_DATA_FETCHED` message is sent to the sender, containing the value and the timestamp
+The returning message `OP_REDSTONE_DATA_FETCHED` message is sent to the sender, containing the `value` and the `timestamp`
 of the value has saved. The message can be then fetched in the sender and processed or saved in the sender's storage.
 The address of the first message sender (`initial_sender`) is added as an address to allow they carry the remaining
 transaction balance.
@@ -249,6 +249,64 @@ have it configured during the initialization.
         // ...
     }
 ```
+
+### sample_consumer.fc
+
+A sample consumer for data stored in the [`price_feed`](#price_feedfc). Works also with [`single_feed_man`](#single_feed_manfc).
+The `price_feed` to be called needs to be passed.
+
+#### ⨐ initial data
+
+Similar to the [`price_feed`](#-initial-data-1) initial data, 
+
+Due to the architecture of TON contracts, the initial data must convene with the contract's storage structure,
+which is constructed as below:
+
+```ts   
+beginCell()
+    .storeAddress(Address.parse(this.feedAddress))
+    .endCell();
+```
+
+To define the initial (storage) data for the Prices contract, use the predefined
+class [SampleConsumerInitData.ts](../src/sample-consumer/SampleConsumerInitData.ts).
+
+The contract calls the single feed.
+
+#### ∱ OP_REDSTONE_READ_DATA
+
+There is a possibility for fetching the value stored in the contract for a `feed_id` on-chain directly.
+There must be invoked an internal message `OP_REDSTONE_READ_DATA`. The arguments of the message are:
+
+* a `slice` representing the `initial_sender` of the message, to allow they carried the remaining transaction balance
+  when the returning transaction goes.
+
+```
+    int op = in_msg_body~load_uint(OP_NUMBER_BITS);
+
+    if (op == OP_REDSTONE_READ_DATA) {
+        slice initial_sender = in_msg_body~load_msg_addr();
+
+        // ...
+    }
+```
+
+The returning message `OP_REDSTONE_DATA_READ` message is sent to the sender, containing the `feed_id`, `value` and the `timestamp`
+of the value has saved. The message can be then fetched in the sender and processed or saved in the sender's storage.
+The address of the first message sender (`initial_sender`) is added as an address to allow they carry the remaining
+transaction balance.
+
+```ts
+begin_cell()
+    .store_uint(value, MAX_VALUE_SIZE_BITS)
+    .store_uint(timestamp, TIMESTAMP_BITS)
+    .store_slice(initial_sender)
+    .end_cell()
+```
+
+That's an internal message - it consumes GAS and modifies the contract's storage, so must be paid by TONs.
+
+📖 Internal messages docs: https://docs.ton.org/develop/smart-contracts/guidelines/internal-messages
 
 ## 📖 TON RedStone Payload packing
 

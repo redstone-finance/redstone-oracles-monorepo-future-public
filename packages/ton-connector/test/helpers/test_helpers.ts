@@ -1,12 +1,11 @@
 import { compile, sleep } from "@ton/blueprint";
-import { SandboxTonNetwork } from "./SandboxTonNetwork";
 import path from "path";
 import {
   ContractParamsProvider,
   ContractParamsProviderMock,
 } from "@redstone-finance/sdk";
 import * as fs from "fs";
-import { Blockchain } from "@ton/sandbox";
+import { createTestNetwork } from "./sandbox_helpers";
 
 export const DATA_PACKAGE_DATA_1 =
   "4554480000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000248b3142440186b75caeb000000020000001";
@@ -26,13 +25,6 @@ export const SIGNERS = [
   "0x2C59617248994D12816EE1FA77CE0A64EEB456BF",
   "0x83CBA8C619FB629B81A65C2E67FE15CF3E3C9747",
 ];
-
-export async function createTestNetwork() {
-  const blockchain = await Blockchain.create();
-  const deployer = await blockchain.treasury("deployer");
-
-  return new SandboxTonNetwork(deployer.getSender(), blockchain);
-}
 
 export async function createTesterContractEnv(name: string) {
   const testerCode = await compile(name);

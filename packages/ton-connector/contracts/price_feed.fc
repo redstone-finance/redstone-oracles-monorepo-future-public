@@ -35,14 +35,13 @@ global int timestamp;
 
     if (op == OP_REDSTONE_FETCH_DATA) {
         slice sender_address = cs~load_msg_addr();
-        send_message(OP_REDSTONE_FETCH_DATA, adapter_address_slice, begin_cell().store_uint(feed_id, DATA_FEED_ID_BITS).store_slice(sender_address));
 
-        return ();
+        return send_message(OP_REDSTONE_FETCH_DATA, adapter_address_slice, begin_cell().store_uint(feed_id, DATA_FEED_ID_BITS).store_slice(sender_address));
     }
 
     if (op == OP_REDSTONE_DATA_FETCHED) {
         slice sender_address = cs~load_msg_addr();
-        throw_unless(ERR_ADDRESS_MISMATCH, parse_work_addr(adapter_address_slice) == parse_work_addr(sender_address));
+        throw_unless(ERR_ADDRESS_MISMATCH, equal_slices(adapter_address_slice, sender_address));
 
         price = in_msg_body~load_uint(MAX_VALUE_SIZE_BITS);
         timestamp = in_msg_body~load_uint(TIMESTAMP_BITS);
@@ -51,6 +50,13 @@ global int timestamp;
         save_data();
 
         return send_back_message_to_addr(initial_sender);
+    }
+
+    if (op == OP_REDSTONE_READ_DATA) {
+        slice sender_address = cs~load_msg_addr();
+        slice initial_sender = in_msg_body~load_msg_addr();
+
+        return send_message(OP_REDSTONE_DATA_READ, sender_address, begin_cell().store_uint(feed_id, DATA_FEED_ID_BITS).store_uint(price, MAX_VALUE_SIZE_BITS).store_uint(timestamp, TIMESTAMP_BITS).store_slice(initial_sender));
     }
 }
 

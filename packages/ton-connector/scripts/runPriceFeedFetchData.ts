@@ -1,13 +1,13 @@
 import { NetworkProvider } from "@ton/blueprint";
-import { TonPriceFeedContractConnector } from "../src";
+import { TonPriceFeed, TonPriceFeedContractConnector } from "../src";
 import { BlueprintTonNetwork } from "../src";
 import { config } from "../src/config";
-import * as fs from "fs";
+import { loadAddress } from "../src/deploy";
 
 export async function run(provider: NetworkProvider) {
   const connector = new TonPriceFeedContractConnector(
     new BlueprintTonNetwork(provider, config),
-    await fs.promises.readFile(`deploy/price_feed.address`, "utf8")
+    await loadAddress(TonPriceFeed.getName())
   );
   const contract = await connector.getAdapter();
 
