@@ -435,6 +435,27 @@
     },
     "BAL_sAVAX_AVAX": {
       "source": ["avalanche-evm-fetcher"]
+    },
+    "BAL": {
+      "source": [
+        "balancer-ethereum-weth",
+        "bitget",
+        "bitmart",
+        "binance",
+        "binanceusdm",
+        "bitfinex2",
+        "coinbaseprime",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx",
+        "xt"
+      ]
     }
   }
 }

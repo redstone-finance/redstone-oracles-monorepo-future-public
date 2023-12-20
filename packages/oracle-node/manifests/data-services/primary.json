@@ -363,6 +363,9 @@
     "weETH": {
       "source": ["balancer-ethereum-weth", "curve-weth", "maverick"]
     },
+    "weETH/ETH": {
+      "source": ["non-usd-based"]
+    },
     "rETH": {
       "source": [
         "uniswap-v3-ethereum-on-chain-weth-100",
