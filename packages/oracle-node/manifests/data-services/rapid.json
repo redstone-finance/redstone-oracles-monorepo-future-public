@@ -78,10 +78,8 @@
         "kraken",
         "okx",
         "uniswap-v3-ethereum-on-chain-weth-3000",
-        "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-usdc-100",
-        "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-dai-100"
+        "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
     "BNB": {
@@ -263,11 +261,7 @@
         "okx",
         "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-dai-100",
-        "uniswap-v3-ethereum-on-chain-usdt-100",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
-        "uniswap-v3-ethereum-on-chain-dai-500",
-        "uniswap-v3-ethereum-on-chain-weth-10000",
-        "uniswap-v3-ethereum-on-chain-usdt-500"
+        "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
     "DAI": {
@@ -285,11 +279,7 @@
         "okx",
         "uniswap-v3-ethereum-on-chain-usdc-100",
         "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-frax-500",
         "uniswap-v3-ethereum-on-chain-weth-3000",
-        "uniswap-v3-ethereum-on-chain-weth-500",
-        "uniswap-v3-ethereum-on-chain-usdt-100",
-        "uniswap-v3-arbitrum-on-chain-usdc-100",
         "xt"
       ]
     },
@@ -316,8 +306,7 @@
         "fraxswap-on-chain-weth",
         "uniswap-v3-ethereum-on-chain-fxs-10000",
         "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-dai-500",
-        "uniswap-v3-ethereum-on-chain-usdt-500"
+        "uniswap-v3-ethereum-on-chain-dai-500"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
