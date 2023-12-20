@@ -52,10 +52,8 @@
         "kraken",
         "okx",
         "uniswap-v3-ethereum-on-chain-weth-3000",
-        "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-usdc-100",
-        "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-dai-100"
+        "uniswap-v3-ethereum-on-chain-weth-500"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -172,11 +170,7 @@
         "okx",
         "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-dai-100",
-        "uniswap-v3-ethereum-on-chain-usdt-100",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
-        "uniswap-v3-ethereum-on-chain-dai-500",
-        "uniswap-v3-ethereum-on-chain-weth-10000",
-        "uniswap-v3-ethereum-on-chain-usdt-500"
+        "uniswap-v3-ethereum-on-chain-weth-3000"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -279,14 +273,7 @@
       ]
     },
     "BUSD": {
-      "source": [
-        "binance",
-        "coingecko",
-        "coinmarketcap",
-        "gate",
-        "lbank",
-        "mexc"
-      ],
+      "source": ["binance", "coingecko", "coinmarketcap"],
       "skipSigning": true
     },
     "YY_GLP": {
@@ -307,47 +294,8 @@
         "okx",
         "uniswap-v3-ethereum-on-chain-usdc-100",
         "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-frax-500",
         "uniswap-v3-ethereum-on-chain-weth-3000",
-        "uniswap-v3-ethereum-on-chain-weth-500",
-        "uniswap-v3-ethereum-on-chain-usdt-100",
-        "uniswap-v3-arbitrum-on-chain-usdc-100",
         "xt"
-      ],
-      "deviationCheck": {
-        "deviationWithRecentValues": {
-          "maxPercent": 5,
-          "maxDelayMilliseconds": 300000
-        }
-      },
-      "skipSigning": true
-    },
-    "FXS": {
-      "source": [
-        "binance",
-        "bingx",
-        "bitget",
-        "bitmart",
-        "bitrue",
-        "coingecko",
-        "fraxswap-on-chain-frax",
-        "lbank",
-        "mexc",
-        "kucoin",
-        "okx"
-      ],
-      "skipSigning": true
-    },
-    "FRAX": {
-      "source": [
-        "coingecko",
-        "curve-usdc-multi-block",
-        "fraxswap-on-chain-fxs",
-        "fraxswap-on-chain-weth",
-        "uniswap-v3-ethereum-on-chain-fxs-10000",
-        "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-dai-500",
-        "uniswap-v3-ethereum-on-chain-usdt-500"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
