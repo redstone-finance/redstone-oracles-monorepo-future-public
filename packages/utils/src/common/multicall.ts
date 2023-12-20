@@ -13,13 +13,12 @@ export function overrideMulticallAddress(address: string) {
 }
 
 // for simple single-contract, single-result per contract method call cases
-
 export type CallParams = { function: string; params: unknown[] };
 
 export async function multiCallOneContract(
   contract: Contract,
   calls: CallParams[],
-  blockNumber?: string
+  blockNumber?: string | number
 ): Promise<unknown[]> {
   const functionToIndex: Record<string, number> = calls.reduce(
     (prev, current, index) => ({
@@ -49,7 +48,7 @@ export async function multiCallOneContract(
   });
 
   const results = await multicall.call(multiCallContext, {
-    blockNumber: blockNumber!,
+    blockNumber: blockNumber?.toString(),
   });
 
   const resultsInOrder: unknown[] = new Array(calls.length);
