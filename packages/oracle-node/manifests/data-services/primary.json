@@ -12,7 +12,7 @@
   },
   "tokens": {
     "VST": {
-      "source": ["curve-frax-multi-block"]
+      "source": ["curve-frax-vst-multi-block"]
     },
     "USDC": {
       "source": [
@@ -138,7 +138,7 @@
     "FRAX": {
       "source": [
         "coingecko",
-        "curve-usdc-multi-block",
+        "curve-usdc-frax-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
         "uniswap-v3-ethereum-on-chain-fxs-10000",
@@ -203,9 +203,9 @@
     },
     "SWETH": {
       "source": [
-        "balancer-ethereum-weth",
-        "maverick",
-        "uniswap-v3-ethereum-on-chain-weth-500"
+        "balancer-ethereum-weth-multi-block",
+        "maverick-multi-block",
+        "uniswap-v3-ethereum-on-chain-weth-500-multi-block"
       ]
     },
     "SWETH/ETH": {
@@ -340,10 +340,10 @@
     },
     "ETHx": {
       "source": [
-        "balancer-ethereum-weth",
-        "curve-weth",
-        "uniswap-v3-ethereum-on-chain-weth-500",
-        "wombat"
+        "balancer-ethereum-weth-multi-block",
+        "curve-weth-ethx-multi-block",
+        "uniswap-v3-ethereum-on-chain-weth-500-multi-block",
+        "wombat-multi-block"
       ]
     },
     "TIA": {
@@ -361,7 +361,11 @@
       ]
     },
     "weETH": {
-      "source": ["balancer-ethereum-weth", "curve-weth", "maverick"]
+      "source": [
+        "balancer-ethereum-weth-multi-block",
+        "curve-weth-weeth-multi-block",
+        "maverick-multi-block"
+      ]
     },
     "weETH/ETH": {
       "source": ["non-usd-based"]
