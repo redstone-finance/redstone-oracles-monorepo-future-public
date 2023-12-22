@@ -11,9 +11,6 @@
       "path": "../sdk/tsconfig.build.json"
     },
     {
-      "path": "../streamr-proxy/tsconfig.build.json"
-    },
-    {
       "path": "../utils/tsconfig.build.json"
     }
   ]

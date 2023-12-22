@@ -6,7 +6,7 @@ import {
   compressMsg,
   doesStreamExist,
   getStreamIdForNodeByEvmAddress,
-} from "@redstone-finance/streamr-proxy";
+} from "../common/streamr";
 import { Wallet, providers, utils } from "ethers";
 import { CachedDataPackage } from "../data-packages/data-packages.model";
 import { DataPackagesBroadcaster } from "./data-packages-broadcaster";

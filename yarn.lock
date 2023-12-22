@@ -6020,9 +6020,9 @@ __metadata:
     "@nestjs/testing": "npm:^9.0.0"
     "@redstone-finance/protocol": "npm:^0.3.6"
     "@redstone-finance/sdk": "npm:^0.3.6"
-    "@redstone-finance/streamr-proxy": "npm:^0.3.6"
     "@redstone-finance/utils": "npm:^0.3.6"
     "@types/express": "npm:^4.17.14"
+    "@types/pako": "npm:^2.0.3"
     "@types/supertest": "npm:^2.0.12"
     arweave: "npm:^1.12.2"
     cache-manager: "npm:^5.1.4"
@@ -6035,11 +6035,13 @@ __metadata:
     mongodb-memory-server: "npm:^8.9.5"
     mongoose: "npm:^7.6.3"
     nestjs-pino: "npm:^3.1.1"
+    pako: "npm:^2.1.0"
     pino-http: "npm:^8.2.1"
     prompts: "npm:^2.4.2"
     reflect-metadata: "npm:^0.1.13"
     rxjs: "npm:^7.2.0"
     source-map-support: "npm:^0.5.20"
+    streamr-client: "npm:^8.5.5"
     supertest: "npm:^6.2.3"
     ts-loader: "npm:^9.2.3"
     tsconfig-paths: "npm:4.0.0"
@@ -6539,16 +6541,6 @@ __metadata:
     "@redstone-finance/starknet-connector": "npm:^0.3.6"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
-  languageName: unknown
-  linkType: soft
-
-"@redstone-finance/streamr-proxy@npm:^0.3.6, @redstone-finance/streamr-proxy@workspace:packages/streamr-proxy":
-  version: 0.0.0-use.local
-  resolution: "@redstone-finance/streamr-proxy@workspace:packages/streamr-proxy"
-  dependencies:
-    "@types/pako": "npm:^2.0.0"
-    pako: "npm:^2.1.0"
-    streamr-client: "npm:^8.5.5"
   languageName: unknown
   linkType: soft
 
@@ -8960,7 +8952,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/pako@npm:^2.0.0":
+"@types/pako@npm:^2.0.3":
   version: 2.0.3
   resolution: "@types/pako@npm:2.0.3"
   checksum: 45119ac3c4e8a77317c35493327039b74e333562f06ce038048228918d8ddfaa7958125aab960d1565b3861046022754c414dba1eecb210c44a32c415956bee2

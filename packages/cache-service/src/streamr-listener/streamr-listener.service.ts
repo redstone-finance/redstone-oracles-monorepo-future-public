@@ -8,7 +8,7 @@ import {
   getStreamIdForNodeByEvmAddress,
   StreamrClient,
   Subscription,
-} from "@redstone-finance/streamr-proxy";
+} from "../common/streamr";
 import { DataPackagesService } from "../data-packages/data-packages.service";
 import { ReceivedDataPackage } from "../data-packages/data-packages.interface";
 import { RedstoneOraclesState } from "@redstone-finance/oracles-smartweave-contracts";
