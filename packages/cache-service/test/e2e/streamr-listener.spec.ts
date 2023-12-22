@@ -1,4 +1,4 @@
-import { compressMsg } from "@redstone-finance/streamr-proxy";
+import { compressMsg } from "../../src/common/streamr";
 import { consts } from "@redstone-finance/protocol";
 import "../common/set-test-envs";
 import {
@@ -25,9 +25,9 @@ jest.mock("@redstone-finance/sdk", () => ({
 }));
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-jest.mock("@redstone-finance/streamr-proxy", () => ({
+jest.mock("../../src/common/streamr", () => ({
   __esModule: true,
-  ...jest.requireActual("@redstone-finance/streamr-proxy"),
+  ...jest.requireActual("../../src/common/streamr"),
   StreamrClient: jest.fn().mockImplementation(() => ({
     subscribe(_streamId: string, callback: (msg: Uint8Array) => void) {
       callback(compressMsg(getMockDataPackages()));
