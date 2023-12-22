@@ -11,11 +11,20 @@
     "./packages/integration",
     "./packages/cache-service"
   ],
+  "cSpell.words": ["Multicalls", "bundlr", "Streamr", "typechain"],
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["Multicalls", "bundlr", "Streamr", "typechain"],
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
