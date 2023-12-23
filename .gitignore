@@ -122,6 +122,7 @@ mock-prices.json-*
 
 .terraform
 .yarn
+tmp
 .aws-sam
 .run
 
