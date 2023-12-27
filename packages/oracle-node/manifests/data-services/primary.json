@@ -362,6 +362,7 @@
     },
     "weETH": {
       "source": [
+        "balancer-ethereum-reth-multi-block",
         "balancer-ethereum-weth-multi-block",
         "curve-weth-weeth-multi-block",
         "maverick-multi-block"
