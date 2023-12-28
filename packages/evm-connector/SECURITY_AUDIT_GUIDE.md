@@ -12,7 +12,7 @@ Here are the recommended steps to get into the context of redstone oracles archi
 
 1. Carefully read the [evm-connector readme](./README.md)
 2. Go through the [@redstone-finance/protocol](../protocol/) tests. Esp. [data-package.test.ts](../protocol/test/data-package.test.ts) and [redstone-payload.test.ts](../protocol/test/redstone-payload.test.ts) to understand signed data packages serialization into bytes. It will be extremely helpful for understanding the evm-connector smart contracts
-3. Read the [BaseWrapper.ts in evm-connector](./src/wrappers/BaseWrapper.ts) to understand how we attach the signed data packages to the transasctions calldata (the main line of code is: `tx.data = tx.data + dataToAppend;`)
+3. Read the [BaseWrapper.ts in evm-connector](./src/wrappers/BaseWrapper.ts) to understand how we attach the signed data packages to the transactions calldata (the main line of code is: `tx.data = tx.data + dataToAppend;`)
 4. Read sample contracts and tests for [redstone-evm-connector](./test/) to understand how the contracts will be used by redstone-based dapps. Recommended reading order is below:
    1. Use case with numeric data (single asset at once)
       - [contracts/samples/SampleRedstoneConsumerNumericMock.sol](contracts/samples/SampleRedstoneConsumerNumericMock.sol)
