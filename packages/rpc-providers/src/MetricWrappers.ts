@@ -1,11 +1,11 @@
-import { RedstoneCommon } from "@redstone-finance/utils";
 import { providers } from "ethers";
 import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Deferrable } from "ethers/lib/utils";
+import { Point } from "@influxdata/influxdb-client";
 
 export function wrapCallWithMetric(
   factory: () => providers.StaticJsonRpcProvider,
-  reportMetric: (message: string) => void
+  reportMetric: (message: Point) => void
 ) {
   const newFactory = () => {
     const provider = factory();
@@ -26,20 +26,14 @@ export function wrapCallWithMetric(
         throw e;
       } finally {
         const end = performance.now();
-        reportMetric(
-          RedstoneCommon.makeInfluxMetric(
-            "rpc_provider",
-            {
-              op: "call",
-              chainId: provider.network.chainId,
-              url: provider.connection.url,
-              isFailure,
-            },
-            {
-              duration: end - start,
-            }
-          )
-        );
+        const point = new Point("rpc_provider")
+          .tag("op", "call")
+          .tag("chainId", provider.network.chainId.toString())
+          .tag("url", provider.connection.url)
+          .tag("isFailure", isFailure.toString())
+          .intField("duration", end - start)
+          .timestamp(Date.now());
+        reportMetric(point);
       }
     };
     return provider;
@@ -50,7 +44,7 @@ export function wrapCallWithMetric(
 
 export function wrapGetBlockNumberWithMetric(
   factory: () => providers.StaticJsonRpcProvider,
-  reportMetric: (message: string) => void
+  reportMetric: (message: Point) => void
 ) {
   const newFactory = () => {
     const provider = factory();
@@ -70,21 +64,15 @@ export function wrapGetBlockNumberWithMetric(
         throw e;
       } finally {
         const end = performance.now();
-        reportMetric(
-          RedstoneCommon.makeInfluxMetric(
-            "rpc_provider",
-            {
-              op: "getBlockNumber",
-              chainId: provider.network.chainId,
-              url: provider.connection.url,
-              isFailure,
-            },
-            {
-              blockNumber,
-              duration: end - start,
-            }
-          )
-        );
+        const point = new Point("rpc_provider")
+          .tag("op", "getBlockNumber")
+          .tag("chainId", provider.network.chainId.toString())
+          .tag("url", provider.connection.url)
+          .tag("isFailure", isFailure.toString())
+          .intField("blockNumber", blockNumber)
+          .intField("duration", end - start)
+          .timestamp(Date.now());
+        reportMetric(point);
       }
     };
     return provider;

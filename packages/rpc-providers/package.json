@@ -12,6 +12,7 @@
     "lint": "yarn global:eslint ."
   },
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.33.2",
     "@redstone-finance/utils": "^0.3.6",
     "axios": "^1.6.2",
     "ethers": "^5.7.2"
