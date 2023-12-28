@@ -14,7 +14,7 @@ end users. The information integrity is verified on-chain through signature chec
 - [📦 Installation](#-installation)
 - [🔥 Getting started](#-getting-started)
     - [1. The contract](#1-the-contract)
-    - [2. Connecing to the contract](#2-connecting-to-the-contract)
+    - [2. Connecting to the contract](#2-connecting-to-the-contract)
 - [👨‍💻 Development and contributions](#-development-and-contributions)
     - [Installing the dependencies](#installing-the-dependencies)
 - [📄 License](#-license)
