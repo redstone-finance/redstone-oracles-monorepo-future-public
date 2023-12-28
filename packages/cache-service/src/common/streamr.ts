@@ -1,10 +1,11 @@
 import * as pako from "pako";
 import { StreamrClient } from "streamr-client";
+import config from "../config";
 
 export { StreamrClient, Subscription, StreamPermission } from "streamr-client";
 
 export const getStreamIdForNodeByEvmAddress = (evmAddress: string) =>
-  `${evmAddress}/redstone-oracle-node/data-packages`;
+  config.streamrStreamNamePattern.replaceAll("{evmAddress}", evmAddress);
 
 export const doesStreamExist = async (
   streamr: StreamrClient,
@@ -14,11 +15,7 @@ export const doesStreamExist = async (
     await streamr.getStream(streamId);
     return true;
   } catch (error) {
-    if ((error as Error).toString().includes("NOT_FOUND")) {
-      return false;
-    } else {
-      throw error;
-    }
+    return false;
   }
 };
 
