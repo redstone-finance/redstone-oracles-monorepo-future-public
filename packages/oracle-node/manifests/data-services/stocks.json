@@ -335,7 +335,6 @@
       "source": [
         "bitfinex2",
         "bitstamp",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "curve-dai",
@@ -380,7 +379,6 @@
         "bitget",
         "bitmart",
         "bitrue",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "curve-usdc",
@@ -406,7 +404,6 @@
         "bingx",
         "bitrue",
         "bitstamp",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "dia",
