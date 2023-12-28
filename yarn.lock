@@ -6341,6 +6341,7 @@ __metadata:
   dependencies:
     "@ethersproject/abi": "npm:^5.6.3"
     "@ethersproject/providers": "npm:^5.6.8"
+    "@influxdata/influxdb-client": "npm:^1.33.2"
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.9"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
