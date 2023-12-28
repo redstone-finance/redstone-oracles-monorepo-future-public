@@ -22,7 +22,6 @@
         "bingx",
         "bitrue",
         "bitstamp",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
@@ -41,7 +40,6 @@
       "source": [
         "bitfinex2",
         "bitstamp",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
@@ -63,13 +61,7 @@
       }
     },
     "PNG": {
-      "source": [
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "coinmarketcap",
-        "gate"
-      ]
+      "source": ["coinbasepro", "coingecko", "coinmarketcap", "gate"]
     },
     "AVAX": {
       "source": [
@@ -80,7 +72,6 @@
         "bitget",
         "bitmart",
         "bitstamp",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
@@ -102,7 +93,6 @@
         "bitget",
         "bitmart",
         "bitstamp",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
@@ -128,7 +118,6 @@
         "bitrue",
         "bitmart",
         "bitstamp",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
@@ -284,7 +273,6 @@
         "bitget",
         "bitmart",
         "bitrue",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "curve-usdc",
@@ -343,7 +331,6 @@
     "EUROC": {
       "source": [
         "bitstamp",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
@@ -366,7 +353,6 @@
         "bitget",
         "bitmart",
         "bitrue",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
@@ -387,7 +373,6 @@
         "bitfinex2",
         "bitget",
         "bitstamp",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
@@ -444,7 +429,6 @@
         "binance",
         "binanceusdm",
         "bitfinex2",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "coinmarketcap",

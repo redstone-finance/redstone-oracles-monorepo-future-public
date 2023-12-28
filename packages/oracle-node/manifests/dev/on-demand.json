@@ -16,7 +16,6 @@
         "binanceusdm",
         "bitfinex2",
         "chainlink",
-        "coinbaseprime",
         "coinbasepro",
         "coingecko",
         "kraken",
@@ -26,14 +25,7 @@
       ]
     },
     "USDT": {
-      "source": [
-        "bitfinex2",
-        "coinbaseprime",
-        "coinbasepro",
-        "coingecko",
-        "kaiko",
-        "kraken"
-      ]
+      "source": ["bitfinex2", "coinbasepro", "coingecko", "kaiko", "kraken"]
     },
     "USDC": {
       "source": [
