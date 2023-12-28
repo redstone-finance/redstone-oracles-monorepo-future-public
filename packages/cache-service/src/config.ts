@@ -16,6 +16,7 @@ interface CacheServiceConfig {
   secondMongoDbUrl?: string;
   maxAllowedTimestampDelay: number;
   dataPackagesTTL: number;
+  streamrStreamNamePattern: string;
 }
 
 const DEFAULT_APP_PORT = 3000;
@@ -60,6 +61,9 @@ const config: CacheServiceConfig = {
       DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY
   ),
   dataPackagesTTL: Number(getEnv("DATA_PACKAGES_TTL", false) || CACHE_TTL),
+  streamrStreamNamePattern:
+    getEnv("STREAMR_STREAM_NAME_PATTERN", false) ||
+    "/redstone-oracle-node/{evmAddress}/data-packages",
 };
 
 export default config;
