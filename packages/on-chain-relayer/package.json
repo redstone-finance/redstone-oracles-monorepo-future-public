@@ -18,6 +18,7 @@
     "preversion": "yarn build"
   },
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.33.2",
     "@redstone-finance/evm-connector": "^0.3.6",
     "@redstone-finance/protocol": "^0.3.6",
     "@redstone-finance/rpc-providers": "^0.3.6",

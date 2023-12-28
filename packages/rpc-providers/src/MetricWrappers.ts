@@ -31,7 +31,7 @@ export function wrapCallWithMetric(
           .tag("chainId", provider.network.chainId.toString())
           .tag("url", provider.connection.url)
           .tag("isFailure", isFailure.toString())
-          .intField("duration", end - start)
+          .floatField("duration", end - start)
           .timestamp(Date.now());
         reportMetric(point);
       }
@@ -69,8 +69,8 @@ export function wrapGetBlockNumberWithMetric(
           .tag("chainId", provider.network.chainId.toString())
           .tag("url", provider.connection.url)
           .tag("isFailure", isFailure.toString())
-          .intField("blockNumber", blockNumber)
-          .intField("duration", end - start)
+          .floatField("blockNumber", blockNumber)
+          .floatField("duration", end - start)
           .timestamp(Date.now());
         reportMetric(point);
       }
