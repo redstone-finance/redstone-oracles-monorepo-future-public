@@ -3774,6 +3774,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@influxdata/influxdb-client@npm:^1.33.2":
+  version: 1.33.2
+  resolution: "@influxdata/influxdb-client@npm:1.33.2"
+  checksum: 1d425e0dab231ee2f7554b8743d063421d224c7be67e7f73f8b241b3c4c3a9fd9a4fd0110b94925a22baa165b97bfbcbd105237cbc0151e03437e3a58dd67b37
+  languageName: node
+  linkType: hard
+
 "@ipld/dag-pb@npm:2.1.18, @ipld/dag-pb@npm:^2.0.2":
   version: 2.1.18
   resolution: "@ipld/dag-pb@npm:2.1.18"
@@ -6367,6 +6374,7 @@ __metadata:
   resolution: "@redstone-finance/oracle-node@workspace:packages/oracle-node"
   dependencies:
     "@bundlr-network/client": "npm:^0.8.4"
+    "@influxdata/influxdb-client": "npm:^1.33.2"
     "@metamask/eth-sig-util": "npm:^4.0.1"
     "@redstone-finance/oracles-smartweave-contracts": "npm:^0.3.6"
     "@redstone-finance/protocol": "npm:^0.3.6"
@@ -6528,6 +6536,7 @@ __metadata:
   dependencies:
     "@ethersproject/abi": "npm:^5.6.3"
     "@ethersproject/providers": "npm:^5.6.8"
+    "@influxdata/influxdb-client": "npm:^1.33.2"
     "@nomicfoundation/hardhat-chai-matchers": "npm:1.0.6"
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.9"
     "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"

@@ -16,6 +16,7 @@ import {
   wrapCallWithMetric,
   wrapGetBlockNumberWithMetric,
 } from "./MetricWrappers";
+import { Point } from "@influxdata/influxdb-client";
 
 type MegaProviderOptions = {
   rpcUrls: string[];
@@ -30,7 +31,7 @@ export class MegaProviderBuilder {
   private fallbackOpts?: Partial<ProviderWithFallbackConfig>;
   private agreementOpts?: Partial<ProviderWithAgreementConfig>;
   private multicallOpts?: MulticallDecoratorOptions;
-  private reportMetric?: (msg: string) => void;
+  private reportMetric?: (msg: Point) => void;
   private lastIfResult: boolean = true;
 
   enableNextIf(conditition: boolean) {
@@ -38,7 +39,7 @@ export class MegaProviderBuilder {
     return this;
   }
 
-  metrics(reportMetric: (msg: string) => void) {
+  metrics(reportMetric: (msg: Point) => void) {
     if (!this.lastIfResult) {
       this.lastIfResult = true;
       return this;
