@@ -230,11 +230,11 @@
     },
     "GHO": {
       "source": [
-        "balancer-ethereum-lusd",
         "balancer-ethereum-usdc",
         "balancer-ethereum-usdt",
         "coingecko",
-        "uniswap-v3-ethereum-on-chain-usdc-500"
+        "uniswap-v3-ethereum-on-chain-usdc-500",
+        "uniswap-v3-ethereum-on-chain-usdt-500"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
