@@ -4691,19 +4691,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mswjs/interceptors@npm:^0.17.5":
-  version: 0.17.9
-  resolution: "@mswjs/interceptors@npm:0.17.9"
+"@mswjs/interceptors@npm:^0.17.10":
+  version: 0.17.10
+  resolution: "@mswjs/interceptors@npm:0.17.10"
   dependencies:
     "@open-draft/until": "npm:^1.0.3"
     "@types/debug": "npm:^4.1.7"
     "@xmldom/xmldom": "npm:^0.8.3"
     debug: "npm:^4.3.3"
-    headers-polyfill: "npm:^3.1.0"
+    headers-polyfill: "npm:3.2.5"
     outvariant: "npm:^1.2.1"
     strict-event-emitter: "npm:^0.2.4"
     web-encoding: "npm:^1.1.5"
-  checksum: d99b4f54587ae60d323e1f65a1e7417521553a4431250f600740baa5c8caeb8a5d972952be027fb04d99624004456d80e62d1f0e5328fda49fd8508ab88afe86
+  checksum: 0343a93711b60c321c40733d6bf2720a736d8e0730f5d0d9916ee4a24abfcfca4a83d1e4b2e21c3affef4fc61f04588104be002fbc8258dc4b0d202c384ade33
   languageName: node
   linkType: hard
 
@@ -6227,7 +6227,7 @@ __metadata:
     ethers: "npm:^5.7.2"
     hardhat: "npm:^2.17.2"
     hardhat-gas-reporter: "npm:^1.0.9"
-    msw: "npm:^1.2.1"
+    msw: "npm:^1.2.3"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.2.2"
   languageName: unknown
@@ -6361,7 +6361,7 @@ __metadata:
     ethers: "npm:^5.7.2"
     hardhat: "npm:^2.17.2"
     hardhat-gas-reporter: "npm:^1.0.9"
-    msw: "npm:^1.2.1"
+    msw: "npm:^1.2.3"
     solidity-coverage: "npm:^0.8.5"
     toad-scheduler: "npm:^2.2.0"
     typechain: "npm:^8.1.1"
@@ -6413,11 +6413,10 @@ __metadata:
     jest: "npm:^29.7.0"
     jest-mock-extended: "npm:^3.0.4"
     jsonpath: "npm:^1.1.1"
-    level: "npm:^8.0.0"
     lodash: "npm:^4.17.21"
     luxon: "npm:^3.3.0"
     mongoose: "npm:^7.6.3"
-    msw: "npm:^1.2.1"
+    msw: "npm:^1.2.3"
     node-schedule: "npm:^2.1.1"
     open: "npm:^8.0.4"
     plotly: "npm:^1.0.6"
@@ -6573,7 +6572,7 @@ __metadata:
     "@redstone-finance/utils": "npm:^0.3.6"
     axios: "npm:^1.6.2"
     ethers: "npm:^5.7.2"
-    msw: "npm:^1.2.1"
+    msw: "npm:^1.2.3"
   languageName: unknown
   linkType: soft
 
@@ -8543,11 +8542,11 @@ __metadata:
   linkType: hard
 
 "@types/debug@npm:^4.1.7":
-  version: 4.1.8
-  resolution: "@types/debug@npm:4.1.8"
+  version: 4.1.12
+  resolution: "@types/debug@npm:4.1.12"
   dependencies:
     "@types/ms": "npm:*"
-  checksum: 913aea60b8c94cd0009bbdd531d8a3594ec3275ca0e8d1cbcf783417884252b3c53113f6665fd2fb0076b8ce628ee12cd083d2af107ed26c0f2e75852d8bc074
+  checksum: 5dcd465edbb5a7f226e9a5efd1f399c6172407ef5840686b73e3608ce135eeca54ae8037dcd9f16bdb2768ac74925b820a8b9ecc588a58ca09eca6acabe33e2f
   languageName: node
   linkType: hard
 
@@ -8910,9 +8909,9 @@ __metadata:
   linkType: hard
 
 "@types/ms@npm:*":
-  version: 0.7.31
-  resolution: "@types/ms@npm:0.7.31"
-  checksum: 19fae4f587651e8761c76a0c72ba8af1700d37054476878d164b758edcc926f4420ed06037a1a7fdddc1dbea25265895d743c8b2ea44f3f3f7ac06c449b9221e
+  version: 0.7.34
+  resolution: "@types/ms@npm:0.7.34"
+  checksum: ac80bd90012116ceb2d188fde62d96830ca847823e8ca71255616bc73991aa7d9f057b8bfab79e8ee44ffefb031ddd1bcce63ea82f9e66f7c31ec02d2d823ccc
   languageName: node
   linkType: hard
 
@@ -9141,11 +9140,11 @@ __metadata:
   linkType: hard
 
 "@types/set-cookie-parser@npm:^2.4.0":
-  version: 2.4.3
-  resolution: "@types/set-cookie-parser@npm:2.4.3"
+  version: 2.4.7
+  resolution: "@types/set-cookie-parser@npm:2.4.7"
   dependencies:
     "@types/node": "npm:*"
-  checksum: c4744239247a479b7752bd67c4d2133b8ae267f5128efa76d90198a6283047861fc44070380fd126e446bd6d4e538ab8daf5a36aadbd4e539480f1887050f3f6
+  checksum: 3c4b5168fe2e8f1f70e39de718fab79bf5386dcb3217b16936d732b985af2372eb0670190c0c5c9c3e68ace34dd6e52e9664439cec06354c278601f659c396ff
   languageName: node
   linkType: hard
 
@@ -11881,16 +11880,6 @@ __metadata:
     ansi-styles: "npm:^4.1.0"
     supports-color: "npm:^7.1.0"
   checksum: 3787bd65ecd98ab3a1acc3b4f71d006268a675875e49ee6ea75fb54ba73d268b97544368358c18c42445e408e076ae8ad5cec8fbad36942a2c7ac654883dc61e
-  languageName: node
-  linkType: hard
-
-"chalk@npm:4.1.1":
-  version: 4.1.1
-  resolution: "chalk@npm:4.1.1"
-  dependencies:
-    ansi-styles: "npm:^4.1.0"
-    supports-color: "npm:^7.1.0"
-  checksum: 3866c8b96eca56b5ff4e1e9a243b65e4f77694a486a2cc49316d54af9dae463d2c52bd99b9f0b7a924b87faf3a16dd6ed12d3a7442ac385b608f285e54696c18
   languageName: node
   linkType: hard
 
@@ -16349,7 +16338,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql@npm:^15.0.0 || ^16.0.0, graphql@npm:^16.2.0":
+"graphql@npm:^16.2.0":
   version: 16.7.1
   resolution: "graphql@npm:16.7.1"
   checksum: 0b4e83382bf3cb9c82ddf61a51aab382c4de50c34025173285c580135fe8646aa281c264fcf0c2214ae92ea925742d86999fe5e2ad842b6f3b54a9ffb0b299d2
@@ -16647,10 +16636,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"headers-polyfill@npm:^3.1.0, headers-polyfill@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "headers-polyfill@npm:3.1.2"
-  checksum: 147b2a7012cee01f8d5c6b94c184468204c9fa68b279b9784097cc1826cad7b0457332b7d5c3ad74c1cbe14daddd8009332382c3fdd3025d8a326633b3458968
+"headers-polyfill@npm:3.2.5":
+  version: 3.2.5
+  resolution: "headers-polyfill@npm:3.2.5"
+  checksum: 10202f4ebfaecd6aa31305f29664f876ac01d9174a3fb8fcc5a0df3eaf9c1767fb0d6cf6f961484f2bfd2101b6768090976f146bd88aeedd07af4e741cb2dcb7
   languageName: node
   linkType: hard
 
@@ -20793,20 +20782,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"msw@npm:^1.2.1":
-  version: 1.2.3
-  resolution: "msw@npm:1.2.3"
+"msw@npm:^1.2.3":
+  version: 1.3.2
+  resolution: "msw@npm:1.3.2"
   dependencies:
     "@mswjs/cookies": "npm:^0.2.2"
-    "@mswjs/interceptors": "npm:^0.17.5"
+    "@mswjs/interceptors": "npm:^0.17.10"
     "@open-draft/until": "npm:^1.0.3"
     "@types/cookie": "npm:^0.4.1"
     "@types/js-levenshtein": "npm:^1.1.1"
-    chalk: "npm:4.1.1"
+    chalk: "npm:^4.1.1"
     chokidar: "npm:^3.4.2"
     cookie: "npm:^0.4.2"
-    graphql: "npm:^15.0.0 || ^16.0.0"
-    headers-polyfill: "npm:^3.1.2"
+    graphql: "npm:^16.8.1"
+    headers-polyfill: "npm:3.2.5"
     inquirer: "npm:^8.2.0"
     is-node-process: "npm:^1.2.0"
     js-levenshtein: "npm:^1.1.6"
@@ -20817,13 +20806,13 @@ __metadata:
     type-fest: "npm:^2.19.0"
     yargs: "npm:^17.3.1"
   peerDependencies:
-    typescript: ">= 4.4.x <= 5.1.x"
+    typescript: ">= 4.4.x <= 5.2.x"
   peerDependenciesMeta:
     typescript:
       optional: true
   bin:
     msw: cli/index.js
-  checksum: d6b1988f2db92b09942ea8f6f362e4f1b308bc6ffb0ead387899c49d9191e7a14d505fcef85f854f577bd8c7682a087cb5308f50fec9721cc51c3e650cf73867
+  checksum: c644d8e80b12b15c7b366aa6e0b39442f3ffd3b94824171e562066d8535c720fd824d84986d738a427720e59228660c11991bf724e4dd9face00b0b0f2af8f0d
   languageName: node
   linkType: hard
 

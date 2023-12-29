@@ -21,7 +21,7 @@
     "ethers": "^5.7.2"
   },
   "devDependencies": {
-    "msw": "^1.2.1"
+    "msw": "^1.2.3"
   },
   "publishConfig": {
     "access": "public"
