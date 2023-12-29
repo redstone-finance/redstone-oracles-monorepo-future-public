@@ -296,7 +296,10 @@
         "balancer-arbitrum-weth",
         "balancer-ethereum-weth",
         "coinmarketcap",
-        "uniswap-v3-ethereum-on-chain-weth-500"
+        "maverick",
+        "uniswap-v3-arbitrum-on-chain-weth-100",
+        "uniswap-v3-ethereum-on-chain-weth-500",
+        "uniswap-v3-optimism-on-chain-weth-100"
       ]
     },
     "AVAX": {
