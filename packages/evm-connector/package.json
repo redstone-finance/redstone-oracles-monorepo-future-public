@@ -10,7 +10,8 @@
     "build": "rm -rf dist && yarn compile && yarn global:tsc --build tsconfig.build.json",
     "benchmark": "hardhat test benchmarks/run-benchmarks.ts",
     "compile": "hardhat compile",
-    "preversion": "yarn build"
+    "preversion": "yarn build",
+    "lint": "yarn global:eslint ."
   },
   "dependencies": {
     "@chainlink/contracts": "^0.6.1",

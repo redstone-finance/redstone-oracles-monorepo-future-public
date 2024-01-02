@@ -141,7 +141,7 @@ const errToString = (err: unknown): string => {
   if (e instanceof AggregateError) {
     const stringifiedErrors = (e.errors as Error[]).reduce(
       (prev, oneOfErrors, curIndex) =>
-        (prev += `${curIndex}: ${oneOfErrors.message}, `),
+        prev + `${curIndex}: ${oneOfErrors.message}, `,
       ""
     );
     return `${e.message}: ${stringifiedErrors}`;
