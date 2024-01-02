@@ -1,15 +1,12 @@
 import type { Config } from "@jest/types";
 
 const config: Config.InitialOptions = {
-  roots: ["<rootDir>/"],
-  testMatch: ["**/test/**/?(*.)+(spec).+(ts)"],
-  transform: {
-    "^.+\\.(ts)$": "ts-jest",
-  },
-  testEnvironment: "node",
-  modulePaths: ["<rootDir>"],
+  collectCoverage: true,
+  collectCoverageFrom: ["<rootDir>/src/**/*.(t|j)s"],
+  coverageDirectory: "<rootDir>/coverage",
+  coverageReporters: ["html"],
+  preset: "ts-jest",
   setupFiles: ["<rootDir>/.jest/set-redstone-number-config.ts"],
-  testPathIgnorePatterns: [],
 };
 
 export default config;

@@ -12,6 +12,7 @@
     "syncpack:list": "syncpack list-mismatches --types !local",
     "global:eslint": "cd $INIT_CWD && eslint",
     "global:jest": "cd $INIT_CWD && jest",
+    "global:jest:cov": "cd $INIT_CWD && jest --json --coverage --testLocationInResults --outputFile=coverage/report.json",
     "global:prettier": "cd $INIT_CWD && prettier",
     "global:rollup": "cd $INIT_CWD && rollup",
     "global:ts-node": "cd $INIT_CWD && ts-node",

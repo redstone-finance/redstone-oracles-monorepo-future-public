@@ -1,16 +1,11 @@
 import type { Config } from "@jest/types";
 
 const config: Config.InitialOptions = {
-  verbose: true,
-  moduleFileExtensions: ["js", "json", "ts"],
-  rootDir: "test",
-  testRegex: ".*\\.spec\\.ts$",
-  transform: {
-    "^.+\\.(t|j)s$": "ts-jest",
-  },
-  collectCoverageFrom: ["**/*.(t|j)s"],
-  coverageDirectory: "../coverage",
-  testEnvironment: "node",
+  collectCoverage: true,
+  collectCoverageFrom: ["<rootDir>/src/**/*.(t|j)s"],
+  coverageDirectory: "<rootDir>/coverage",
+  coverageReporters: ["html"],
+  preset: "ts-jest",
   transformIgnorePatterns: ["prices-contract-binary.js"],
 };
 
