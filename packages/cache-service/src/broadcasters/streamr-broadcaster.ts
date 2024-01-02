@@ -83,6 +83,7 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
     );
 
     const streamExists = await this.lazyCheckIfStreamExists(streamId);
+
     if (streamExists) {
       this.logger.log("Broadcasting data packages to streamr");
       await this.streamrClient.publish(
@@ -91,7 +92,9 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
         },
         compressMsg(dataToBroadcast)
       );
-      this.logger.log(`New data published to the stream: ${streamId}`);
+      this.logger.log(
+        `New data published to the stream: ${this.address}/${streamId}`
+      );
     } else {
       await this.tryToCreateStream(streamId);
     }
@@ -103,25 +106,47 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
       return;
     }
 
-    this.logger.log(`Trying to create new Streamr stream: ${streamId}`);
+    this.isStreamCreationRequested = true;
+
+    this.logger.log(
+      `Trying to create new Streamr stream: ${this.address}/${streamId}`
+    );
 
     await this.assertEnoughMaticBalance();
 
-    // Creating a stream
-    const stream = await this.streamrClient.createStream({
-      id: streamId,
-      storageDays: STORAGE_DAYS,
-      inactivityThresholdHours: INACTIVITY_THRESHOLD_HOURS,
-    });
-    this.isStreamCreationRequested = true;
+    await RedstoneCommon.retry({
+      fn: () =>
+        this.streamrClient.createStream({
+          id: streamId,
+          storageDays: STORAGE_DAYS,
+          inactivityThresholdHours: INACTIVITY_THRESHOLD_HOURS,
+        }),
+      waitBetweenMs: 1_000,
+      maxRetries: 10,
+      backOff: {
+        backOffBase: 2,
+      },
+    })();
+
     this.logger.log(`Stream created: ${streamId}`);
 
-    // Adding permissions
-    await stream.grantPermissions({
-      public: true,
-      permissions: [StreamPermission.SUBSCRIBE],
-    });
-    this.logger.log(`Added permissions to the stream: ${stream.id}`);
+    await RedstoneCommon.retry({
+      fn: () =>
+        this.streamrClient.grantPermissions(streamId, {
+          public: true,
+          permissions: [StreamPermission.SUBSCRIBE],
+        }),
+      waitBetweenMs: 1_000,
+      maxRetries: 10,
+      backOff: {
+        backOffBase: 2,
+      },
+    })();
+
+    this.logger.log(
+      `Added permissions to the stream: ${this.address}/${streamId}`
+    );
+    this.streamExistsCached = true;
   }
 
   private async lazyCheckIfStreamExists(streamId: string) {
