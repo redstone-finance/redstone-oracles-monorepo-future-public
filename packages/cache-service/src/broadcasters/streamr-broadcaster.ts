@@ -25,7 +25,6 @@ const INACTIVITY_THRESHOLD_HOURS = 24 * 20; // 20 days
 @Injectable()
 export class StreamrBroadcaster implements DataPackagesBroadcaster {
   private readonly streamrClient: StreamrClient;
-  private readonly streamId: string;
   private readonly address: string;
   private streamExistsCached: boolean = false;
   private isStreamCreationRequested: boolean = false;
@@ -45,7 +44,6 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
       },
     });
     this.address = new Wallet(streamrPrivateKey!).address;
-    this.streamId = getStreamIdForNodeByEvmAddress(this.address);
   }
 
   async broadcast(
@@ -54,7 +52,7 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
   ): Promise<void> {
     const message = `broadcast ${dataPackages.length} data packages for node ${nodeEvmAddress}`;
 
-    await this.performBroadcast(dataPackages)
+    await this.performBroadcast(dataPackages, nodeEvmAddress)
       .then((result) => {
         this.logger.log(
           `[${StreamrBroadcaster.name}] succeeded to ${message}.`
@@ -71,7 +69,11 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
       });
   }
 
-  async performBroadcast(dataPackages: CachedDataPackage[]): Promise<void> {
+  async performBroadcast(
+    dataPackages: CachedDataPackage[],
+    nodeEvmAddress: string
+  ): Promise<void> {
+    const streamId = getStreamIdForNodeByEvmAddress(nodeEvmAddress);
     const dataToBroadcast: SignedDataPackagePlainObj[] = dataPackages.map(
       (dp) => ({
         timestampMilliseconds: dp.timestampMilliseconds,
@@ -80,39 +82,39 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
       })
     );
 
-    const streamExists = await this.lazyCheckIfStreamExists();
+    const streamExists = await this.lazyCheckIfStreamExists(streamId);
     if (streamExists) {
       this.logger.log("Broadcasting data packages to streamr");
       await this.streamrClient.publish(
         {
-          streamId: this.streamId,
+          streamId: streamId,
         },
         compressMsg(dataToBroadcast)
       );
-      this.logger.log(`New data published to the stream: ${this.streamId}`);
+      this.logger.log(`New data published to the stream: ${streamId}`);
     } else {
-      await this.tryToCreateStream();
+      await this.tryToCreateStream(streamId);
     }
   }
 
-  private async tryToCreateStream() {
+  private async tryToCreateStream(streamId: string) {
     if (this.isStreamCreationRequested) {
       this.logger.log("Stream creation already requested, skipping");
       return;
     }
 
-    this.logger.log(`Trying to create new Streamr stream: ${this.streamId}`);
+    this.logger.log(`Trying to create new Streamr stream: ${streamId}`);
 
     await this.assertEnoughMaticBalance();
 
     // Creating a stream
     const stream = await this.streamrClient.createStream({
-      id: this.streamId,
+      id: streamId,
       storageDays: STORAGE_DAYS,
       inactivityThresholdHours: INACTIVITY_THRESHOLD_HOURS,
     });
     this.isStreamCreationRequested = true;
-    this.logger.log(`Stream created: ${this.streamId}`);
+    this.logger.log(`Stream created: ${streamId}`);
 
     // Adding permissions
     await stream.grantPermissions({
@@ -122,11 +124,11 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
     this.logger.log(`Added permissions to the stream: ${stream.id}`);
   }
 
-  private async lazyCheckIfStreamExists() {
+  private async lazyCheckIfStreamExists(streamId: string) {
     if (this.streamExistsCached) {
       return true;
     }
-    return await doesStreamExist(this.streamrClient, this.streamId);
+    return await doesStreamExist(this.streamrClient, streamId);
   }
 
   private async assertEnoughMaticBalance() {
