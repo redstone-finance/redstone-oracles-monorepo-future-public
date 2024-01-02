@@ -1,13 +1,11 @@
 import type { Config } from "@jest/types";
 
 const config: Config.InitialOptions = {
-  roots: ["<rootDir>/"],
-  testMatch: ["**/test/**/?(*.)+(spec).+(ts)"],
-  transform: {
-    "^.+\\.(ts|js)$": "ts-jest",
-  },
-  testEnvironment: "node",
-  modulePaths: ["<rootDir>"],
+  collectCoverage: true,
+  collectCoverageFrom: ["<rootDir>/src/**/*.(t|j)s"],
+  coverageDirectory: "<rootDir>/coverage",
+  coverageReporters: ["html"],
+  preset: "ts-jest",
 };
 
 export default config;

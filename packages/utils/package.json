@@ -6,7 +6,7 @@
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "test": "yarn global:jest",
+    "test": "yarn global:jest:cov",
     "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
     "preversion": "yarn build",
     "lint": "yarn global:eslint ."

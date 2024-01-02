@@ -26,7 +26,7 @@
     "pack-package": "yarn build && cd dist && npm pack",
     "lint": "yarn global:eslint .",
     "preversion": "yarn build",
-    "test": "yarn global:jest"
+    "test": "yarn global:jest:cov"
   },
   "dependencies": {
     "@orbs-network/ton-access": "^2.3.3",

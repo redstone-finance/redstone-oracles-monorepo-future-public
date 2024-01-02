@@ -6,7 +6,7 @@
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test yarn global:jest",
+    "test": "yarn global:jest:cov",
     "clean": "rm -rf dist",
     "build": "yarn clean && yarn global:tsc --build",
     "preversion": "yarn build",
