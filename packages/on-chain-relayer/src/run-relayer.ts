@@ -10,7 +10,9 @@ setConfigProvider(fileSystemConfigProvider);
 const relayerConfig = config();
 
 console.log(
-  `Starting contract prices updater with interval ${relayerConfig.relayerIterationInterval}`
+  `Starting contract prices updater with relayer config ${JSON.stringify(
+    relayerConfig
+  )}`
 );
 
 const runIteration = async () => {
