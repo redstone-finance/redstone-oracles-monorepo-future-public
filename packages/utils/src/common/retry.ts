@@ -2,6 +2,7 @@ import { sleep } from "./time";
 
 export type RetryConfig<T extends (...args: unknown[]) => Promise<unknown>> = {
   fn: T;
+  fnName?: string;
   maxRetries: number;
   waitBetweenMs?: number;
   disableLog?: boolean;
@@ -16,35 +17,38 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
 ) {
   if (config.maxRetries === 0) {
     throw new Error(
-      `Setting ${config.maxRetries} to 0 will never call underlying function`
+      `Setting 'config.maxRetries' to 0 will never call the underlying function`
     );
   }
   return async (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>> => {
+    const fnName = config.fnName ?? config.fn.name;
     const error = new AggregateError(
-      `Retry failed after ${config.maxRetries} attempts`
+      [],
+      `Retry failed after ${config.maxRetries} attempts of ${fnName}`
     );
     for (let i = 0; i < config.maxRetries; i++) {
       try {
         return await (config.fn(...args) as Promise<ReturnType<T>>);
       } catch (e) {
         error.errors.push(e);
+        if (!config.disableLog) {
+          console.log(
+            `Retry ${i + 1}/${config.maxRetries}; Function ${fnName} failed. ${(
+              e as Error
+            ).toString()}`
+          );
+        }
 
-        // don't wait in last iteration
+        // don't wait in the last iteration
         if (config.waitBetweenMs && i !== config.maxRetries - 1) {
           const sleepTimeBackOffMultiplier = config.backOff
             ? Math.pow(config.backOff.backOffBase, i)
             : 1;
           const sleepTime = config.waitBetweenMs * sleepTimeBackOffMultiplier;
-
+          if (!config.disableLog) {
+            console.log(`Waiting ${sleepTime / 1000} s. for the next retry...`);
+          }
           await sleep(sleepTime);
-        }
-
-        if (!config.disableLog) {
-          console.log(
-            `Function ${config.fn.name} failed. Retrying ${i + 1}/${
-              config.maxRetries
-            }`
-          );
         }
       }
     }

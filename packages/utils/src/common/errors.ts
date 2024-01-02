@@ -24,9 +24,9 @@ export function stringifyError(e: unknown): string {
     return "undefined";
   } else if (error instanceof AggregateError) {
     const errorMessages: string[] = error.errors.map(stringifyError);
-    return `Aggregate error messages: ${
-      error.message
-    } errors: ${errorMessages.join("; ")}`;
+    return `AggregateError: ${error.message}, errors: ${errorMessages.join(
+      "; "
+    )}`;
   } else if (axios.isAxiosError(error)) {
     return JSON.stringify(error.response?.data) + " | " + error.stack;
   } else if (error instanceof Error) {
@@ -34,6 +34,8 @@ export function stringifyError(e: unknown): string {
   } else if (typeof error.toJSON === "function") {
     return JSON.stringify(error.toJSON());
   } else {
-    return `error can't be handle by stringifyError function ${String(e)}`;
+    return `Error couldn't be handled by the stringifyError function: ${String(
+      e
+    )}`;
   }
 }
