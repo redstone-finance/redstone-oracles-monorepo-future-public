@@ -66,28 +66,6 @@
       "arweavePublicKey": "sa1_cjxXdrIZgZaxY_L_UkZVf7eL1Q9WTTFrvc9FuRES1ZXwZxXO1QTspji_KboxN54Z8-qFAFXqlun-dgYgGEoLOv57RgWchinlmMHb0QVp2WREe71cSOdioaYfmBhW7eQS8YbvrnFB8cUumdZMOI8UJ6qsBrWOFSDuhPXTdUd2hNZ7mQ9PQR2MMPglZAJnwl36mAb-kaa0cK5s6raeR8_MT0aSSPHQrwyIuM4kOBMvLGEH9XE4LVuNB581Y3h0gXEE_Os7rlhl8BpowkjZM-ZIKK-hUuco9VkjfooQC5CgBHAwivm1--PlIpNa7vtk48cEOkvNoEd0ixN80wfQ2YNgpNFIOV6InnRYyrdPuHBRqE9pCQE48e8VWSxlpgjCiT-bveww42RhRsw_cjVBFHHwMljNQ4bNzjPZLvAaADvSF_ViV4EBpCiqrgj71eyTb0xpUMDSNP7Ae3HcUYPEVC9-n3GjJCCz2akc2zBRxS3zVl13bfApg9JCKzS349Dyaeq9bW9f46CN2U87zLDjUUTJFu3904UumkePlUQjAyMO5YIooChmdoujNla3e_EN6j-SwwjnM3LjDJwNCESETZUrkgZ0Arj6qbENCuEbQLDYqwT7pCJMhXIepolfbloLNnTPTbdCpzyh9pmXwAHokF3hxwSdAzBH11vDSp6ZYvc",
       "ecdsaPublicKey": "0x046199ad0bf504566f88ddae9910277a3cd4989284bd0f2e3bd5bb8907faf86c6306773953fed32bc604aaf0cf36df56acaee285c83f242bc149ef5006b5290692"
     },
-    "5ktkAKcy_tou22r4eijcn_Xue3j6Rn9e8JckXRtHe8o": {
-      "name": "redstone-custom-urls-1",
-      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
-      "description": "RedStone custom urls demo - node 1",
-      "dataServiceId": "redstone-custom-urls-demo",
-      "evmAddress": "0x11fFFc9970c41B9bFB9Aa35Be838d39bce918CfF",
-      "ipAddress": "0.0.0.0",
-      "url": "https://redstone.finance/",
-      "arweavePublicKey": "wgOVFdnHwJVzj7sfoD0F6ndB3Z5HW14LGre-ovDmvAiZtSGcb0y34qbpDZwDMXDV85kxPvTS8xB9gwuJxkkC8e__1wSDZeB63NyMgTYyx4lx4147XSb4dSnMSakgCbFjwD-0SBLFDYBZUusieGGlinx3l-OMAcQOAPiyPgJiVt6ZCBavY7UR4sA8dA4Ghp_m1zrTC7SAYTZlVat_ZLzs9lgTRmJoAlKxjWtGRmtOQz2_ndnxY_5qP59-GdWu_ZOrYBDhv50eeBNbYibiAMZpJ3UiqAt_p77EUJRdLTIHQc6WI5cD5RNzphD3XMRaC9S1iHIUo4fEh5HFbt1V7OLbTMtAtjyXF_gAtCbPIcCMz1bH1Qcw827QO_jOMFgv42m5VzC4YqPf-M0-6KoZ3AM2b9Ifkaeg_rqBCm14jHjPiwGTzdojjNBzG45Jhw8lmybWtp3JdHa37bbKzmazQnD4zTp_hh1aQRvbXYfbaFsVINPdW66uqICKfbRr_krjEyx_Q9FX4nPe4Gg0Or1gn5bgEFgykxCbN9G6ol59pdT_YMyuWPvrR7tH8SqGISLJWI61dSqg4Ook9EdLUmFP1JMOJCWF3o0EqQw61dFcJnawGEkt7ilT3UVmq75uX1cjFQ3nTro6h7ck96PFXQfXMVWV10KVyWpQh9KybZqmY4i6Vxc",
-      "ecdsaPublicKey": "0x04c8487327833fd187c99aa2686097f25f97e0e7856e152c8be66a1e13f8fdaac482da9375191ebef1ee5787ee36d8618dc78bdb8504608d1d5cf79aa7e01a33ee"
-    },
-    "0Eu1WDQA61S98CB7XEQ_9SHpy9Ux06rd79u8jFuesjQ": {
-      "name": "redstone-custom-urls-2",
-      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
-      "description": "Redstone custom URLs demo - node 2",
-      "dataServiceId": "redstone-custom-urls-demo",
-      "evmAddress": "0xdBcC2C6c892C8d3e3Fe4D325fEc810B7376A5Ed6",
-      "ipAddress": "0.0.0.0",
-      "url": "https://redstone.finance/",
-      "arweavePublicKey": "9sOhBBp6cfHzKoFWzbErLf1s_7VtNVW3MNcKb_9gAwOdBJKplP1pv0VKyQOQw-e2e1Y8kZSN1rTRvs-4lrINJh8a0MrruHRD1lZBhuleykiz8KeDEJux7WQZ6G-2i8MC3RcGjKtUKeGJgwzZFB8GkT8OkXAhqWc3kRdbQzvLR7R1qp4usn5LSoKBO2pChQs-K_ruqh7wwLCr996XXbYIPkGpQaaVf00IXX2ItAvYd4emKKVnKnYOc18TN6T19ur6-KCz-23w1-QuLzK4MbvBeHJ-Y4FkahPRLeAeZmhjdNjMAXRcWkQMETmex0Tvg5qDELo-8BXYbuZgPQO3ea4TjPixHaAdaYach6fwAfG4pDboxkzoNrQdHjuPUnEhlOGRRGPNcqZPxVZQ2nVVnnoLcYq1pcCL6cPM1-licGeG1P2EV8Uo9P85UALn71wSdvdE2C3bWnmI-BCMiN4xkdX7_kcv80D7ZSWQni4d6_7l7JgXTvXs6GISvjpXqUcoUBohabzMixUFG8I3rqsVxuWJXQtmLko3kuP-CoeRyQOZk4dAovhlJ2MM5L6Yi2FjM5we2ApGSaC8v9dhyVWIrN87s8lQdgeOTycFZL9UoAi2uK57pkVlkgkYkD139ERUlRBtZ0XVenQO6lAXhYjxK7AaW08ZfkfS4PrLWzjNQ8BBIZE",
-      "ecdsaPublicKey": "0x04feeab427d82702f95c9d1727e47c823c5841ea8b0864607ecb637ff4377604b8213dfd06628d01e624c30dfb20cfa0296be7c1481ce994adb6424d1a391493cf"
-    },
     "OxQ-vLXcwTZdcdlCziC95duFylo8Aj9xBJ4XsC3xlGk": {
       "name": "redstone-arbitrum-dev-node-1",
       "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
@@ -342,13 +320,6 @@
       "admin": "TEHhCDWy-vGmPSZsYJyM0aP_MM4xESgyIZdf5mVODzg",
       "description": "Data feeds from primary RedStone nodes - prod",
       "manifestTxId": ""
-    },
-    "redstone-custom-urls-demo": {
-      "name": "Redstone custom URLs demo",
-      "manifestTxId": "vcxshh2A0m4SF16Y4_Xv0B-NHfdeEyn-9XbkHvmxckc",
-      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
-      "description": "Redstone custom URLs demo",
-      "admin": "BitVOfTwSSod-tUSla4nM77sUuHC4XFcT0Zlg-RZ-tI"
     },
     "redstone-twaps-demo": {
       "name": "RedStone TWAPs demo",
