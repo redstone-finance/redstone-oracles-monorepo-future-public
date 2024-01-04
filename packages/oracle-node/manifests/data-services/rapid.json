@@ -184,10 +184,10 @@
       ]
     },
     "CELO/EUR": {
-      "source": ["non-usd-based", "mento"]
+      "source": ["mento"]
     },
     "CELO/BRL": {
-      "source": ["non-usd-based", "mento"]
+      "source": ["mento"]
     },
     "EUROC": {
       "source": [
@@ -199,13 +199,13 @@
       ]
     },
     "EUROC/EUR": {
-      "source": ["non-usd-based", "mento"]
+      "source": ["mento"]
     },
     "USDC/BRL": {
-      "source": ["non-usd-based", "mento"]
+      "source": ["mento"]
     },
     "USDC/EUR": {
-      "source": ["non-usd-based", "mento"]
+      "source": ["mento"]
     },
     "AVAX": {
       "source": [
@@ -328,12 +328,7 @@
       ]
     },
     "ETH/USDC": {
-      "source": [
-        "chainlink-based",
-        "coingecko-based",
-        "pyth-based",
-        "non-usd-based"
-      ]
+      "source": ["chainlink-based", "coingecko-based", "pyth-based"]
     }
   }
 }
