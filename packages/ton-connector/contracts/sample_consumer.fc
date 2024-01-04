@@ -1,6 +1,6 @@
 #include "stdlib.fc";
 
-#include "utils/utils.fc";
+#include "utils/contract_flow.fc";
 #include "utils/contract_constants.fc";
 
 #include "redstone/constants.fc";
@@ -19,25 +19,21 @@ global slice feed_address_slice;
     load_data();
 
     if (op == OP_REDSTONE_READ_DATA) {
-        slice sender_address = cs~load_msg_addr();
-
-        return send_message(OP_REDSTONE_READ_DATA, feed_address_slice, begin_cell().store_slice(sender_address));
+        return cs~send_forward_message(OP_REDSTONE_READ_DATA, feed_address_slice, begin_cell());
     }
 
     if (op == OP_REDSTONE_DATA_READ) {
-        slice sender_address = cs~load_msg_addr();
-        throw_unless(ERR_ADDRESS_MISMATCH, equal_slices(feed_address_slice, sender_address));
+        slice initial_sender = in_msg_body~verify_return_message(cs, feed_address_slice);
 
         var feed_id = in_msg_body~load_uint(DATA_FEED_ID_BITS);
         var price = in_msg_body~load_uint(MAX_VALUE_SIZE_BITS);
         var timestamp = in_msg_body~load_uint(TIMESTAMP_BITS);
-        slice initial_sender = in_msg_body~load_msg_addr();
 
         ~dump(feed_id);
         ~dump(price);
         ~dump(timestamp);
         ~dump(initial_sender);
 
-        return send_back_message_to_addr(initial_sender);
+        return send_carry_message_to_addr(initial_sender);
     }
 }

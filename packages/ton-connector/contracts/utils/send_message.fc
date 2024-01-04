@@ -1,0 +1,32 @@
+#include "contract_constants.fc";
+#include "config.fc";
+
+const SEND_MODE_DEFAULT = 0;
+const SEND_MODE_CARRY_REMAINING_VALUE = 64;
+const FLAG_IGNORE_SENDING_MESSAGE_ERRORS = 2;
+
+(slice) check_work_addr(slice cs) impure {
+    (int sender_wc, slice sender_addr) = parse_var_addr(cs);
+    throw_unless(ERR_INVALID_ADDRESS, WORKCHAIN_ID == sender_wc);
+
+    return sender_addr;
+}
+
+() send_message(int op_number, slice to_addr, builder content) impure {
+    check_work_addr(to_addr);
+
+    var body = begin_cell()
+            .store_uint(op_number, OP_NUMBER_BITS)
+            .store_builder(content)
+            .end_cell();
+
+    var msg = begin_cell()
+            .store_uint(0x10, 6)
+            .store_slice(to_addr)
+            .store_coins(0)
+            .store_uint(1, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+            .store_ref(body)
+            .end_cell();
+
+    send_raw_message(msg, SEND_MODE_CARRY_REMAINING_VALUE + FLAG_IGNORE_SENDING_MESSAGE_ERRORS);
+}
