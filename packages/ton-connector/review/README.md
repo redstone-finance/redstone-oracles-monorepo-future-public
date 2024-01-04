@@ -114,3 +114,7 @@ Some small message-sending and address-comparing tweaks in code were done.
 
 Additionally, there is created a `sample_consumer` contract for consuming the data stored in the `price_feed`
 or `single_feed_man` contracts. See [README.md](../contracts/README.md#sample_consumerfc)
+
+# Review comments 2024-01-04
+
+Some message-sending (`forward_payload`-like) tweaks in code were done to allow to carry more complicated initial data.

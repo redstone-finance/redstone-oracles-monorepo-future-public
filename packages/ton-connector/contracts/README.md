@@ -104,7 +104,7 @@ That's an internal message - it consumes GAS and modifies the contract's storage
 #### ⨗ read_prices
 
 ```func   
-(tuple) read_prices(tuple data_feed_ids) method_id
+(tuple) read_prices(tuple data_feed_ids) method_id;
 ```
 
 The function reads the values persisting in the contract's storage and returns a tuple corresponding to the
@@ -158,22 +158,23 @@ There must be invoked an internal message `OP_REDSTONE_FETCH_DATA`. The argument
 
     if (op == OP_REDSTONE_FETCH_DATA) {
         int feed_id = in_msg_body~load_uint(DATA_FEED_ID_BITS);
-        slice initial_sender = in_msg_body~load_msg_addr();
+        cell initial_payload = in_msg_body~load_ref();
 
         // ...
     }
 ```
 
-The returning message `OP_REDSTONE_DATA_FETCHED` message is sent to the sender, containing the `value` and the `timestamp`
-of the value has saved. The message can be then fetched in the sender and processed or saved in the sender's storage.
-The address of the first message sender (`initial_sender`) is added as an address to allow they carry the remaining
-transaction balance.
+The returning message `OP_REDSTONE_DATA_FETCHED` message is sent to the sender, containing the `value` and
+the `timestamp` of the value has saved. The message can be then fetched in the sender and processed or saved in the
+sender's storage.
+The initial payload's `ref` (`initial_payload`) is added as a ref - containing for example the first message's sender,
+to allow they carry the remaining transaction balance.
 
 ```ts
 begin_cell()
     .store_uint(value, MAX_VALUE_SIZE_BITS)
     .store_uint(timestamp, TIMESTAMP_BITS)
-    .store_slice(initial_sender)
+    .store_ref(initial_payload)
     .end_cell()
 ```
 
@@ -214,7 +215,7 @@ beginCell()
 To define the initial (storage) data for the Prices contract, use the predefined
 class [SingleFeedManInitData.ts](../src/single-feed-man/SingleFeedManInitData.ts).
 
-A contract like [`price_manager`](#pricemanagerfc-vel-prices), but supporting
+A contract like [`price_manager`](#price_managerfc-vel-prices), but supporting
 the single feed only, to omit the communication needs between feed and manager contracts.
 
 #### ⨗ get_price
@@ -223,7 +224,7 @@ the single feed only, to omit the communication needs between feed and manager c
 (int, int) get_price(cell payload) method_id;
 ```
 
-Similar to [`get_prices`](#-getprices), but omitting the first (`data_feed_ids`) argument as have it configured during
+Similar to [`get_prices`](#-get_prices), but omitting the first (`data_feed_ids`) argument as have it configured during
 the initialization.
 Returns also the min timestamp of the passed data packages.
 
@@ -233,11 +234,12 @@ Returns also the min timestamp of the passed data packages.
 (int, int) read_price_and_timestamp() method_id;
 ```
 
-Works as the [`get_price_and_timestamp`](#-getpriceandtimestamp) function.
+Works as the [`get_price_and_timestamp`](#-get_price_and_timestamp) function.
 
 #### ∱ OP_REDSTONE_WRITE_PRICE
 
-Similar to [`OP_REDSTONE_WRITE_PRICES`](#-opredstonewriteprices), but omitting the first (`data_feed_ids`) `cell`-ref as
+Similar to [`OP_REDSTONE_WRITE_PRICES`](#-op_redstone_write_prices), but omitting the first (`data_feed_ids`) `cell`-ref
+as
 have it configured during the initialization.
 
 ```
@@ -252,12 +254,13 @@ have it configured during the initialization.
 
 ### sample_consumer.fc
 
-A sample consumer for data stored in the [`price_feed`](#price_feedfc). Works also with [`single_feed_man`](#single_feed_manfc).
+A sample consumer for data stored in the [`price_feed`](#price_feedfc). Works also
+with [`single_feed_man`](#single_feed_manfc).
 The `price_feed` to be called needs to be passed.
 
 #### ⨐ initial data
 
-Similar to the [`price_feed`](#-initial-data-1) initial data, 
+Similar to the [`price_feed`](#-initial-data-1) initial data,
 
 Due to the architecture of TON contracts, the initial data must convene with the contract's storage structure,
 which is constructed as below:
@@ -285,22 +288,23 @@ There must be invoked an internal message `OP_REDSTONE_READ_DATA`. The arguments
     int op = in_msg_body~load_uint(OP_NUMBER_BITS);
 
     if (op == OP_REDSTONE_READ_DATA) {
-        slice initial_sender = in_msg_body~load_msg_addr();
+        cell initial_payload = in_msg_body~load_ref();
 
         // ...
     }
 ```
 
-The returning message `OP_REDSTONE_DATA_READ` message is sent to the sender, containing the `feed_id`, `value` and the `timestamp`
-of the value has saved. The message can be then fetched in the sender and processed or saved in the sender's storage.
-The address of the first message sender (`initial_sender`) is added as an address to allow they carry the remaining
-transaction balance.
+The returning message `OP_REDSTONE_DATA_READ` message is sent to the sender, containing the `feed_id`, `value` and
+the `timestamp` of the value has saved. The message can be then fetched in the sender and processed or saved in the
+sender's storage.
+The initial payload's `ref` (`initial_payload`) is added as a ref - containing for example the first message's sender,
+to allow they carry the remaining transaction balance.
 
 ```ts
 begin_cell()
     .store_uint(value, MAX_VALUE_SIZE_BITS)
     .store_uint(timestamp, TIMESTAMP_BITS)
-    .store_slice(initial_sender)
+    .store_ref(initial_payload)
     .end_cell()
 ```
 

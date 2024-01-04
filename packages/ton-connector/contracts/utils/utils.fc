@@ -1,78 +1,9 @@
-#include "contract_constants.fc";
+(builder) store_slice_as_ref(builder content, slice sender_address) {
+    cell forward_payload = begin_cell().store_slice(sender_address).end_cell();
 
-const SEND_MODE_DEFAULT = 0;
-const SEND_MODE_CARRY_REMAINING_VALUE = 64;
-const FLAG_IGNORE_SENDING_MESSAGE_ERRORS = 2;
-
-const BASE_COINS_AMOUNT = 12000000;
-
-(slice) check_work_addr(slice cs) impure {
-    (int sender_wc, slice sender_addr) = parse_var_addr(cs);
-    throw_unless(ERR_INVALID_ADDRESS, WORKCHAIN_ID == sender_wc);
-
-    return sender_addr;
+    return content.store_ref(forward_payload);
 }
 
-(int) parse_work_addr(slice cs) impure {
-    slice sender_addr = check_work_addr(cs);
-
-    return sender_addr~load_uint(256);
-}
-
-(slice) serialize_work_addr(int addr) {
-    return (begin_cell()
-    .store_uint(2, 2) ;; Is std address
-    .store_uint(0, 1) ;; Non-unicast
-    .store_uint(WORKCHAIN_ID, 8) ;; Basic workchain
-    .store_uint(addr, 256) ;; Address hash
-    ).end_cell().begin_parse();
-}
-
-() send_message(int op_number, slice to_addr, builder content) impure {
-    check_work_addr(to_addr);
-
-    throw_unless(ERR_MESSAGE_SIZE_OVERFLOW, content.builder_bits() + OP_NUMBER_BITS <= 1023);
-
-    var body = begin_cell()
-    .store_uint(op_number, OP_NUMBER_BITS)
-    .store_builder(content)
-    .end_cell();
-
-    var msg = begin_cell()
-    .store_uint(0x10, 6)
-    .store_slice(to_addr)
-    .store_coins(0)
-    .store_uint(1, 1 + 4 + 4 + 64 + 32 + 1 + 1)
-    .store_ref(body)
-    .end_cell();
-
-    send_raw_message(msg, SEND_MODE_CARRY_REMAINING_VALUE + FLAG_IGNORE_SENDING_MESSAGE_ERRORS);
-}
-
-() send_back_message_to_addr(slice to_addr) impure {
-    send_message(0, to_addr, begin_cell());
-}
-
-(slice, ()) send_back_message(slice cs) impure {
-    send_back_message_to_addr(cs~load_msg_addr());
-
-    return (cs, ());
-}
-
-(slice, (int, slice)) init(slice in_msg_body, cell in_msg_full) {
-    var cs = in_msg_full.begin_parse();
-
-    if in_msg_body.slice_empty?() {
-        return (in_msg_body, (0, cs));
-    }
-
-    int op = in_msg_body~load_uint(OP_NUMBER_BITS);
-    var flags = cs~load_uint(4);
-
-    if (flags & 1) {
-        ;; ignore all bounced messages
-        return (in_msg_body, (0, cs));
-    }
-
-    return (in_msg_body, (op, cs));
+(builder) builder_with_preloaded_ref(slice in_msg_body) {
+    return in_msg_body.slice_refs_empty?() ? begin_cell() : begin_cell().store_ref(in_msg_body.preload_ref());
 }

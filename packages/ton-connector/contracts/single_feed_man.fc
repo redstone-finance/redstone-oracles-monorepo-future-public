@@ -1,6 +1,6 @@
 #include "stdlib.fc";
 
-#include "utils/utils.fc";
+#include "utils/contract_flow.fc";
 #include "utils/contract_constants.fc";
 
 #include "redstone/dict.fc";
@@ -63,14 +63,16 @@ global int timestamp;
 
         write_price(payload_cell);
 
-        return cs~send_back_message();
+        return cs~send_carry_message();
     }
 
     if (op == OP_REDSTONE_READ_DATA) {
-        slice sender_address = cs~load_msg_addr();
-        slice initial_sender = in_msg_body~load_msg_addr();
+        builder content = in_msg_body.builder_with_preloaded_ref()
+                .store_uint(feed_id, DATA_FEED_ID_BITS)
+                .store_uint(price, MAX_VALUE_SIZE_BITS)
+                .store_uint(timestamp, TIMESTAMP_BITS);
 
-        return send_message(OP_REDSTONE_DATA_READ, sender_address, begin_cell().store_uint(feed_id, DATA_FEED_ID_BITS).store_uint(price, MAX_VALUE_SIZE_BITS).store_uint(timestamp, TIMESTAMP_BITS).store_slice(initial_sender));
+        return cs~send_return_message(OP_REDSTONE_DATA_READ, content);
     }
 }
 

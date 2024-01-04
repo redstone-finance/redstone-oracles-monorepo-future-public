@@ -18,7 +18,7 @@ Here also you can find the description of
 the [whole RedStone Oracle model](https://docs.redstone.finance/docs/introduction).
 
 - [👨‍💻 Code structure](#-code-structure)
-- [🔥 Connecing to the contract](#-connecting-to-the-contract)
+- [🔥 Connecting to the contract](#-connecting-to-the-contract)
 - [⚡ The TON Grants Program](#-the-ton-grants-program)
 - [📄 License](#-license)
 
@@ -39,9 +39,9 @@ Blueprint is a development environment for TON blockchain for writing, testing, 
     - [deployPriceFeed.ts](scripts/deployPriceFeed.ts) / [deployPriceManager.ts](scripts/deployPriceManager.ts) deploy
       the particular contract on testnet
     - [runPriceManagerGetPrices.ts](scripts/runPriceManagerGetPrices.ts) / [runPriceManagerReadPrices.ts](scripts/runPriceManagerReadPrices.ts) / [runPriceManagerWritePrices.ts](scripts/runPriceManagerWritePrices.ts)
-      execute the methods described [here](contracts/README.md#pricemanagerfc-vel-prices)
+      execute the methods described [here](contracts/README.md#price_managerfc-vel-prices)
     - [runPriceFeedFetchData.ts](scripts/runPriceFeedFetchData.ts) / [runPriceFeedGetData.ts](scripts/runPriceFeedGetData.ts)
-      execute the methods described [here](contracts/README.md#pricefeedfc)
+      execute the methods described [here](contracts/README.md#price_feedfc)
 - [src](src) - TypeScript classes, useful for establishing a connection between TypeScript and TON layers.
     - See [below](#-connecting-to-the-contract), how to connect to the contract.
 - [tests](tests) - TypeScript test suite for all contracts (relying on Sandbox for in-process tests):

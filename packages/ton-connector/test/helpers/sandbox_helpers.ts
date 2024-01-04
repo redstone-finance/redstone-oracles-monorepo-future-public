@@ -10,12 +10,11 @@ export async function createTestNetwork() {
 
 export function extractSandboxLogs(
   consumerResult: void | SendMessageResult,
-  transactionId: number
+  transactionIndex: number
 ) {
-  const logs = (consumerResult as SendMessageResult).transactions[
-    transactionId
+  return (consumerResult as SendMessageResult).transactions[
+    transactionIndex
   ].debugLogs
     .split("\n")
     .map((log) => log.substring("#DEBUG#: s0 = ".length));
-  return logs;
 }

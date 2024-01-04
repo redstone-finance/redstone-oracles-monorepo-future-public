@@ -1,0 +1,52 @@
+#include "send_message.fc";
+#include "utils.fc";
+
+(slice, (int, slice)) init(slice in_msg_body, cell in_msg_full) {
+    var cs = in_msg_full.begin_parse();
+
+    if in_msg_body.slice_empty?() {
+        return (in_msg_body, (0, cs));
+    }
+
+    int op = in_msg_body~load_uint(OP_NUMBER_BITS);
+    var flags = cs~load_uint(4);
+
+    if (flags & 1) {
+        ;; ignore all bounced messages
+        return (in_msg_body, (0, cs));
+    }
+
+    return (in_msg_body, (op, cs));
+}
+
+(slice, ()) send_forward_message(slice cs, int op_number, slice to_addr, builder content) impure {
+    send_message(op_number, to_addr, content.store_slice_as_ref(cs~load_msg_addr()));
+
+    return (cs, ());
+}
+
+() send_carry_message_to_addr(slice to_addr) impure {
+    send_message(0, to_addr, begin_cell());
+}
+
+(slice, ()) send_carry_message(slice cs) impure {
+    send_carry_message_to_addr(cs~load_msg_addr());
+
+    return (cs, ());
+}
+
+(slice, ()) send_return_message(slice cs, int op_number, builder content) impure {
+    send_message(op_number, cs~load_msg_addr(), content);
+
+    return (cs, ());
+}
+
+(slice, slice) verify_return_message(slice in_msg_body, slice cs, slice with_address) {
+    slice sender_address = cs~load_msg_addr();
+    throw_unless(ERR_ADDRESS_MISMATCH, equal_slices(sender_address, with_address));
+
+    slice initial_payload = (in_msg_body~load_ref()).begin_parse();
+    slice initial_sender = initial_payload~load_msg_addr();
+
+    return (in_msg_body, initial_sender);
+}

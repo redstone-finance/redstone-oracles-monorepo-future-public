@@ -1,6 +1,5 @@
 #include "../redstone/constants.fc";
 
-const WORKCHAIN_ID = 0;
 const ERR_INVALID_ADDRESS = 72;
 const ERR_MESSAGE_SIZE_OVERFLOW = 92;
 
