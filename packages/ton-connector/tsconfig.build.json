@@ -10,10 +10,13 @@
   ],
   "references": [
     {
-      "path": "../protocol/tsconfig.build.json"
+      "path": "../utils/tsconfig.build.json"
     },
     {
       "path": "../sdk/tsconfig.build.json"
+    },
+    {
+      "path": "../protocol/tsconfig.build.json"
     }
   ]
 }

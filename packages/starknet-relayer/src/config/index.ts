@@ -1,13 +1,7 @@
 import "dotenv/config";
 import { NetworkName } from "@redstone-finance/starknet-connector";
-
-const getFromEnv = (name: string) => {
-  const envVariable = process.env[name];
-  if (!envVariable) {
-    throw new Error(`Missing environment variable ${name}`);
-  }
-  return envVariable;
-};
+import { RedstoneCommon } from "@redstone-finance/utils";
+import { z } from "zod";
 
 export type VERSION = "0";
 
@@ -23,12 +17,20 @@ export interface StarknetRelayerConfig {
 }
 
 export const config = Object.freeze(<StarknetRelayerConfig>{
-  relayerIterationInterval: Number(getFromEnv("RELAYER_ITERATION_INTERVAL")),
-  updatePriceInterval: Number(getFromEnv("UPDATE_PRICE_INTERVAL")),
-  network: getFromEnv("NETWORK"),
-  privateKey: getFromEnv("PRIVATE_KEY"),
-  priceManagerAddress: getFromEnv("PRICE_MANAGER_ADDRESS"),
-  priceManagerVersion: getFromEnv("PRICE_MANAGER_VERSION") as VERSION,
-  ownerAddress: getFromEnv("OWNER_ADDRESS"),
-  maxEthFee: Number(getFromEnv("MAX_ETH_FEE")),
+  relayerIterationInterval: RedstoneCommon.getFromEnv(
+    "RELAYER_ITERATION_INTERVAL",
+    z.number()
+  ),
+  updatePriceInterval: RedstoneCommon.getFromEnv(
+    "UPDATE_PRICE_INTERVAL",
+    z.number()
+  ),
+  network: RedstoneCommon.getFromEnv("NETWORK"),
+  privateKey: RedstoneCommon.getFromEnv("PRIVATE_KEY"),
+  priceManagerAddress: RedstoneCommon.getFromEnv("PRICE_MANAGER_ADDRESS"),
+  priceManagerVersion: RedstoneCommon.getFromEnv(
+    "PRICE_MANAGER_VERSION"
+  ) as VERSION,
+  ownerAddress: RedstoneCommon.getFromEnv("OWNER_ADDRESS"),
+  maxEthFee: RedstoneCommon.getFromEnv("MAX_ETH_FEE", z.number()),
 });

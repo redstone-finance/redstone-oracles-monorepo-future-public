@@ -4,13 +4,15 @@
     "outDir": "dist"
   },
   "include": ["**/*", "src/**/*.json", "package.json"],
-  "exclude": ["node_modules"],
   "references": [
     {
       "path": "../starknet-connector/tsconfig.build.json"
     },
     {
       "path": "../sdk/tsconfig.build.json"
+    },
+    {
+      "path": "../utils/tsconfig.build.json"
     },
     {
       "path": "../protocol/tsconfig.build.json"

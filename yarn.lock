@@ -6364,7 +6364,7 @@ __metadata:
     "@redstone-finance/oracles-smartweave-contracts": "npm:^0.3.6"
     "@redstone-finance/protocol": "npm:^0.3.6"
     fastify: "npm:^4.25.1"
-    zod: "npm:^3.22.2"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -6575,7 +6575,7 @@ __metadata:
     toad-scheduler: "npm:^2.2.0"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.2.2"
-    zod: "npm:^3.22.2"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -6638,7 +6638,7 @@ __metadata:
     typescript: "npm:^5.2.2"
     uuid: "npm:^9.0.0"
     yahoo-finance2: "npm:^2.4.2"
-    zod: "npm:^3.22.2"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -6735,7 +6735,7 @@ __metadata:
     ts-node: "npm:^10.9.1"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.2.2"
-    zod: "npm:^3.22.2"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -6802,6 +6802,7 @@ __metadata:
   dependencies:
     "@redstone-finance/sdk": "npm:^0.3.6"
     "@redstone-finance/starknet-connector": "npm:^0.3.6"
+    "@redstone-finance/utils": "npm:^0.3.6"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
   languageName: unknown
@@ -6814,6 +6815,7 @@ __metadata:
     "@orbs-network/ton-access": "npm:^2.3.3"
     "@redstone-finance/protocol": "npm:^0.3.6"
     "@redstone-finance/sdk": "npm:^0.3.6"
+    "@redstone-finance/utils": "npm:^0.3.6"
     "@ton-community/func-js": "npm:0.6.3-tvmbeta.1"
     "@ton-community/func-js-bin": "npm:0.4.5-tvmbeta.1"
     "@ton/blueprint": "npm:^0.14.2"
@@ -6833,6 +6835,7 @@ __metadata:
   dependencies:
     "@redstone-finance/sdk": "npm:^0.3.6"
     "@redstone-finance/ton-connector": "npm:^0.3.6"
+    "@redstone-finance/utils": "npm:^0.3.6"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
   languageName: unknown
@@ -6846,6 +6849,7 @@ __metadata:
     decimal.js: "npm:^10.4.3"
     ethereum-multicall: "npm:^2.19.0"
     ethers: "npm:^5.7.2"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -28557,7 +28561,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.20.2, zod@npm:^3.22.2":
+"zod@npm:^3.20.2":
   version: 3.22.2
   resolution: "zod@npm:3.22.2"
   checksum: 10afd994bcec3affb81776adc486871bfa6790037f57f0e45280e99baed8c3df5f46c5ab65a6d7921a00dffd9fab299e4492519dd6bb5d2eb3de9a67d3eb8051
@@ -28568,5 +28572,12 @@ __metadata:
   version: 3.21.4
   resolution: "zod@npm:3.21.4"
   checksum: 161e8cf7aea38a99244d65da4a9477d9d966f6a533e503feaa20ff7968a9691065c38c6f1eab5cbbdc8374142fff4a05c9cacb8479803ab50ab6a6ca80e5d624
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.22.4":
+  version: 3.22.4
+  resolution: "zod@npm:3.22.4"
+  checksum: 7578ab283dac0eee66a0ad0fc4a7f28c43e6745aadb3a529f59a4b851aa10872b3890398b3160f257f4b6817b4ce643debdda4fb21a2c040adda7862cab0a587
   languageName: node
   linkType: hard
