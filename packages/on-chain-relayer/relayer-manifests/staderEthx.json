@@ -4,8 +4,8 @@
     "id": 1
   },
   "updateTriggers": {
-    "deviationPercentage": 0.5,
-    "timeSinceLastUpdateInMilliseconds": 21600000
+    "deviationPercentage": 1,
+    "timeSinceLastUpdateInMilliseconds": 86400000
   },
   "adapterContract": "0xF3eB387Ac1317fBc7E2EFD82214eE1E148f0Fe00",
   "dataServiceId": "redstone-primary-prod",
