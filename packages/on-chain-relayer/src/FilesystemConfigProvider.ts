@@ -20,14 +20,15 @@ const readJSON = <T>(path: string): T => {
 };
 
 const readManifest = () => {
-  const manifestFromEnvAsString = RedstoneCommon.getFromEnv(
+  const overriddenManifest = RedstoneCommon.getFromEnv(
     "MANIFEST_OVERRIDE",
-    z.string().optional()
+    OnChainRelayerManifestSchema.optional()
   );
+  if (overriddenManifest) {
+    return overriddenManifest;
+  }
   const manifestPath = RedstoneCommon.getFromEnv("MANIFEST_FILE", z.string());
-  const manifestObject: unknown = manifestFromEnvAsString
-    ? JSON.parse(manifestFromEnvAsString)
-    : readJSON(manifestPath);
+  const manifestObject = readJSON(manifestPath);
   return OnChainRelayerManifestSchema.parse(manifestObject);
 };
 
