@@ -1,4 +1,6 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import "dotenv/config";
+import { z } from "zod";
 
 interface CacheServiceConfig {
   appPort: number;
@@ -28,42 +30,59 @@ const DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY = 90 * 1000; // 1.5 minutes in millise
 // on the CDN level - then the max data delay is ~20s, which is still good enough :)
 const CACHE_TTL = 5000;
 
-type GetEnvType = {
-  (envName: string, required: false): string | undefined;
-  (envName: string, required: boolean): string | undefined;
-  (envName: string, required?: true): string;
-};
-
-const getEnv: GetEnvType = (envName: string, required: boolean = true) => {
-  if (process.env[envName] === undefined && required) {
-    throw new Error(`Required env variable not found: ${envName}`);
-  }
-  return process.env[envName]!;
-};
-
 const config: CacheServiceConfig = {
-  appPort: Number(getEnv("APP_PORT", false) || DEFAULT_APP_PORT),
-  mongoDbUrl: getEnv("MONGO_DB_URL", false),
-  mongoDbTTLSeconds: Number(getEnv("MONGO_DB_TTL_SECONDS", false) || 0),
-  enableStreamrListening: getEnv("ENABLE_STREAMR_LISTENING") === "true",
-  streamrPrivateKey: getEnv("STREAMR_PRIVATE_KEY", false),
-  enableDirectPostingRoutes: getEnv("ENABLE_DIRECT_POSTING_ROUTES") === "true",
-  apiKeyForAccessToAdminRoutes: getEnv("API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES"),
-  allowedStreamrDataServiceIds: JSON.parse(
-    getEnv("ALLOWED_STREAMR_DATA_SERVICE_IDS", false) || "[]"
-  ) as string[],
-  useMockOracleRegistryState: getEnv("USE_MOCK_ORACLE_STATE", false) === "true",
-  enableHistoricalDataServing:
-    getEnv("ENABLE_HISTORICAL_DATA_SERVING", false) === "true",
-  secondMongoDbUrl: getEnv("SECOND_MONGO_DB_URL", false),
-  maxAllowedTimestampDelay: Number(
-    getEnv("MAX_ALLOWED_TIMESTAMP_DELAY", false) ||
-      DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY
+  appPort: RedstoneCommon.getFromEnv(
+    "APP_PORT",
+    z.number().default(DEFAULT_APP_PORT)
   ),
-  dataPackagesTTL: Number(getEnv("DATA_PACKAGES_TTL", false) || CACHE_TTL),
-  streamrStreamNamePattern:
-    getEnv("STREAMR_STREAM_NAME_PATTERN", false) ||
-    "/redstone-oracle-node/{evmAddress}/data-packages",
+  mongoDbUrl: RedstoneCommon.getFromEnv("MONGO_DB_URL", z.string().optional()),
+  mongoDbTTLSeconds: RedstoneCommon.getFromEnv(
+    "MONGO_DB_TTL_SECONDS",
+    z.number().default(0)
+  ),
+  enableStreamrListening: RedstoneCommon.getFromEnv(
+    "ENABLE_STREAMR_LISTENING",
+    z.boolean()
+  ),
+  streamrPrivateKey: RedstoneCommon.getFromEnv(
+    "STREAMR_PRIVATE_KEY",
+    z.string().optional()
+  ),
+  enableDirectPostingRoutes: RedstoneCommon.getFromEnv(
+    "ENABLE_DIRECT_POSTING_ROUTES",
+    z.boolean()
+  ),
+  apiKeyForAccessToAdminRoutes: RedstoneCommon.getFromEnv(
+    "API_KEY_FOR_ACCESS_TO_ADMIN_ROUTES"
+  ),
+  allowedStreamrDataServiceIds: RedstoneCommon.getFromEnv(
+    "ALLOWED_STREAMR_DATA_SERVICE_IDS",
+    z.array(z.string()).default([])
+  ),
+  useMockOracleRegistryState: RedstoneCommon.getFromEnv(
+    "USE_MOCK_ORACLE_STATE",
+    z.boolean().default(false)
+  ),
+  enableHistoricalDataServing: RedstoneCommon.getFromEnv(
+    "ENABLE_HISTORICAL_DATA_SERVING",
+    z.boolean().default(false)
+  ),
+  secondMongoDbUrl: RedstoneCommon.getFromEnv(
+    "SECOND_MONGO_DB_URL",
+    z.string().url().optional()
+  ),
+  maxAllowedTimestampDelay: RedstoneCommon.getFromEnv(
+    "MAX_ALLOWED_TIMESTAMP_DELAY",
+    z.number().positive().default(DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY)
+  ),
+  dataPackagesTTL: RedstoneCommon.getFromEnv(
+    "DATA_PACKAGES_TTL",
+    z.number().default(CACHE_TTL)
+  ),
+  streamrStreamNamePattern: RedstoneCommon.getFromEnv(
+    "STREAMR_STREAM_NAME_PATTERN",
+    z.string().default("/redstone-oracle-node/{evmAddress}/data-packages")
+  ),
 };
 
 export default config;
