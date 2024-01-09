@@ -9,9 +9,10 @@ import { updatePrices } from "./core/contract-interactions/update-prices";
 setConfigProvider(fileSystemConfigProvider);
 const relayerConfig = config();
 
+const configToShow = Object.assign({}, relayerConfig);
 console.log(
   `Starting contract prices updater with relayer config ${JSON.stringify(
-    relayerConfig
+    Reflect.deleteProperty(configToShow, "privateKey")
   )}`
 );
 
