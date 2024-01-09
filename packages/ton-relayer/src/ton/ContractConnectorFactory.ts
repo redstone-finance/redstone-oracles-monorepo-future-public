@@ -1,14 +1,14 @@
-import { config } from "../config";
-import { PriceManagerRelayerTonContractConnector } from "./PriceManagerRelayerTonContractConnector";
 import {
   IContractConnector,
   IPriceManagerContractAdapter,
 } from "@redstone-finance/sdk";
 import { CustomTonNetwork } from "@redstone-finance/ton-connector";
 import { mnemonicToWalletKey } from "@ton/crypto";
-import { PriceFeedRelayerTonContractConnector } from "./PriceFeedRelayerTonContractConnector";
-import { PriceFeedRelayerTonContractAdapter } from "./PriceFeedRelayerTonContractAdapter";
+import { config } from "../config";
 import { manifest } from "../config/manifest";
+import { PriceFeedRelayerTonContractAdapter } from "./PriceFeedRelayerTonContractAdapter";
+import { PriceFeedRelayerTonContractConnector } from "./PriceFeedRelayerTonContractConnector";
+import { PriceManagerRelayerTonContractConnector } from "./PriceManagerRelayerTonContractConnector";
 
 export class ContractConnectorFactory {
   static tonNetwork = new CustomTonNetwork(

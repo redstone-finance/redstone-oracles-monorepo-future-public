@@ -1,4 +1,7 @@
+import { consts } from "@redstone-finance/protocol";
+import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { Cell, ContractProvider, serializeTuple, TupleItem } from "@ton/core";
+import { OP_REDSTONE_WRITE_PRICES } from "../src/config/constants";
 import { createPayloadCell } from "../src/create-payload-cell";
 import {
   createArrayFromSerializedTuple,
@@ -6,10 +9,7 @@ import {
   createTupleItems,
   messageBuilder,
 } from "../src/ton-utils";
-import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { TonContract } from "../src/TonContract";
-import { OP_REDSTONE_WRITE_PRICES } from "../src/config/constants";
-import { consts } from "@redstone-finance/protocol";
 
 /* eslint-disable  @typescript-eslint/class-methods-use-this -- TON Getter methods must not be static */
 export class TonPriceManager extends TonContract {

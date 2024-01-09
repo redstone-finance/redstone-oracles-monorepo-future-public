@@ -1,5 +1,5 @@
-import { TonContract } from "../src/TonContract";
 import { ContractProvider } from "@ton/core";
+import { TonContract } from "../src/TonContract";
 import { OP_REDSTONE_READ_DATA } from "../src/config/constants";
 import { messageBuilder } from "../src/ton-utils";
 

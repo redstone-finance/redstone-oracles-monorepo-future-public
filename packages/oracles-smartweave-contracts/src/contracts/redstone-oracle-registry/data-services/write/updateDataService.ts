@@ -1,8 +1,8 @@
 import {
-  RedstoneOraclesState,
-  RedstoneOraclesAction,
-  UpdateDataServiceInputData,
   ContractErrorType,
+  RedstoneOraclesAction,
+  RedstoneOraclesState,
+  UpdateDataServiceInputData,
 } from "../../types";
 
 declare const ContractError: ContractErrorType;
@@ -15,6 +15,7 @@ export const updateDataService = (
   const { id, update } = data;
 
   const currentDataServiceState = state.dataServices[id];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!currentDataServiceState) {
     throw new ContractError(`Data feed with id ${id} not found`);
   }

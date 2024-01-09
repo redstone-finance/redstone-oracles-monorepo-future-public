@@ -1,6 +1,6 @@
-import { WarpFactory } from "warp-contracts";
-import prompts from "prompts";
 import fs from "fs";
+import prompts from "prompts";
+import { WarpFactory } from "warp-contracts";
 import { getWallet } from "./utils/arweave-utils";
 
 export const uploadManifest = async () => {

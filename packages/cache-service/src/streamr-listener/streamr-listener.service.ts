@@ -1,17 +1,17 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
+import { RedstoneOraclesState } from "@redstone-finance/oracles-smartweave-contracts";
 import { getOracleRegistryState } from "@redstone-finance/sdk";
-import config from "../config";
 import {
+  StreamrClient,
+  Subscription,
   decompressMsg,
   doesStreamExist,
   getStreamIdForNodeByEvmAddress,
-  StreamrClient,
-  Subscription,
 } from "../common/streamr";
-import { DataPackagesService } from "../data-packages/data-packages.service";
+import config from "../config";
 import { ReceivedDataPackage } from "../data-packages/data-packages.interface";
-import { RedstoneOraclesState } from "@redstone-finance/oracles-smartweave-contracts";
+import { DataPackagesService } from "../data-packages/data-packages.service";
 
 interface StreamrSubscriptions {
   [nodeEvmAddress: string]: Subscription | undefined;

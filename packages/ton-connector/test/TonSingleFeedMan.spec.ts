@@ -1,23 +1,23 @@
-import { Cell } from "@ton/core";
 import { compile } from "@ton/blueprint";
+import { Cell } from "@ton/core";
 import "@ton/test-utils";
-import {
-  expectUsdtPrice,
-  getContractParamsProvider,
-  SIGNERS,
-  waitForNewData,
-} from "./helpers/test_helpers";
-import { TonSingleFeedManContractAdapter } from "../src/single-feed-man/TonSingleFeedManContractAdapter";
-import { TonSingleFeedManContractDeployer } from "../src/single-feed-man/TonSingleFeedManContractDeployer";
-import { SingleFeedManInitData } from "../src/single-feed-man/SingleFeedManInitData";
+import { SampleConsumerInitData } from "../src/sample-consumer/SampleConsumerInitData";
 import { TonSampleConsumerContractAdapter } from "../src/sample-consumer/TonSampleConsumerContractAdapter";
 import { TonSampleConsumerContractDeployer } from "../src/sample-consumer/TonSampleConsumerContractDeployer";
-import { SampleConsumerInitData } from "../src/sample-consumer/SampleConsumerInitData";
+import { SingleFeedManInitData } from "../src/single-feed-man/SingleFeedManInitData";
+import { TonSingleFeedManContractAdapter } from "../src/single-feed-man/TonSingleFeedManContractAdapter";
+import { TonSingleFeedManContractDeployer } from "../src/single-feed-man/TonSingleFeedManContractDeployer";
+import { toBigInt } from "../src/ton-utils";
 import {
   createTestNetwork,
   extractSandboxLogs,
 } from "./helpers/sandbox_helpers";
-import { toBigInt } from "../src/ton-utils";
+import {
+  SIGNERS,
+  expectUsdtPrice,
+  getContractParamsProvider,
+  waitForNewData,
+} from "./helpers/test_helpers";
 
 jest.setTimeout(40000);
 

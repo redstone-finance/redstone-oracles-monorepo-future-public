@@ -1,7 +1,7 @@
+import cliProgress from "cli-progress";
+import { Transaction } from "ethers";
 import prompts from "prompts";
 import Web3 from "web3";
-import { Transaction } from "ethers";
-import cliProgress from "cli-progress";
 
 const REDSTONE_MARKER_HEX = "000002ed57011e0000";
 const AVAX_URL = "https://api.avax.network/ext/bc/C/rpc";

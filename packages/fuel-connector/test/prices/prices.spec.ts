@@ -3,13 +3,13 @@ import {
   ContractParamsProviderMock,
   IPricesContractAdapter,
 } from "@redstone-finance/sdk";
-import {
-  deployPricesContract,
-  SAMPLE_PACKAGES_TIMESTAMP,
-} from "./prices-contract-test-utils";
-import path from "path";
-import * as fs from "fs";
 import { BigNumberish } from "ethers";
+import * as fs from "fs";
+import path from "path";
+import {
+  SAMPLE_PACKAGES_TIMESTAMP,
+  deployPricesContract,
+} from "./prices-contract-test-utils";
 
 jest.setTimeout(120000);
 

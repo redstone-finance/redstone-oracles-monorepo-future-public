@@ -1,10 +1,10 @@
 import { Injectable, Logger } from "@nestjs/common";
+import { RedstoneCommon } from "@redstone-finance/utils";
 import {
   CachedDataPackage,
   DataPackage,
 } from "../data-packages/data-packages.model";
 import { DataPackagesBroadcaster } from "./data-packages-broadcaster";
-import { RedstoneCommon } from "@redstone-finance/utils";
 
 @Injectable()
 export class MongoBroadcaster implements DataPackagesBroadcaster {

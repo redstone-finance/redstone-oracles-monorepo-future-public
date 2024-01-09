@@ -1,13 +1,13 @@
 import { Provider } from "@fuel-ts/providers";
-import { IPricesContractAdapter } from "@redstone-finance/sdk";
 import { Wallet } from "@fuel-ts/wallet";
+import { IPricesContractAdapter } from "@redstone-finance/sdk";
 import { NativeAssetId } from "fuels";
-import { GasUsageFuelPricesContractConnector } from "./GasUsageFuelPricesContractConnector";
-import { generateTestWallet } from "../common/test-utils";
 import {
   FuelPricesContractConnector,
   FuelPricesContractDeployer,
 } from "../../src";
+import { generateTestWallet } from "../common/test-utils";
+import { GasUsageFuelPricesContractConnector } from "./GasUsageFuelPricesContractConnector";
 
 export const SAMPLE_PACKAGES_TIMESTAMP = 1678113540;
 export const connectPricesContract = async (

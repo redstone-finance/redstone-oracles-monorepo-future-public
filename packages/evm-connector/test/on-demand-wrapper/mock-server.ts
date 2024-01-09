@@ -1,10 +1,10 @@
-import { setupServer } from "msw/node";
-import { rest, RestRequest } from "msw";
 import {
+  prepareMessageToSign,
   signOnDemandDataPackage,
   UniversalSigner,
-  prepareMessageToSign,
 } from "@redstone-finance/protocol";
+import { rest, RestRequest } from "msw";
+import { setupServer } from "msw/node";
 import { MOCK_PRIVATE_KEYS } from "../../src/helpers/test-utils";
 
 interface ScoreByAddressResponse {

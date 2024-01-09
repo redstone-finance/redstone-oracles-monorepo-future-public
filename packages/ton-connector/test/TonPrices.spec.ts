@@ -1,26 +1,26 @@
-import { Cell } from "@ton/core";
 import { compile } from "@ton/blueprint";
+import { Cell } from "@ton/core";
 import "@ton/test-utils";
 import { TonPriceFeedContractAdapter } from "../src";
-import { TonPriceManagerContractAdapter } from "../src/price-manager/TonPriceManagerContractAdapter";
 import { PriceFeedInitData } from "../src/price-feed/PriceFeedInitData";
-import { PriceManagerInitData } from "../src/price-manager/PriceManagerInitData";
 import { TonPriceFeedContractDeployer } from "../src/price-feed/TonPriceFeedContractDeployer";
+import { PriceManagerInitData } from "../src/price-manager/PriceManagerInitData";
+import { TonPriceManagerContractAdapter } from "../src/price-manager/TonPriceManagerContractAdapter";
 import { TonPriceManagerContractDeployer } from "../src/price-manager/TonPriceManagerContractDeployer";
-import { TonSampleConsumerContractAdapter } from "../src/sample-consumer/TonSampleConsumerContractAdapter";
-import {
-  expectUsdtPrice,
-  getContractParamsProvider,
-  SIGNERS,
-  waitForNewData,
-} from "./helpers/test_helpers";
-import { TonSampleConsumerContractDeployer } from "../src/sample-consumer/TonSampleConsumerContractDeployer";
 import { SampleConsumerInitData } from "../src/sample-consumer/SampleConsumerInitData";
+import { TonSampleConsumerContractAdapter } from "../src/sample-consumer/TonSampleConsumerContractAdapter";
+import { TonSampleConsumerContractDeployer } from "../src/sample-consumer/TonSampleConsumerContractDeployer";
+import { toBigInt } from "../src/ton-utils";
 import {
   createTestNetwork,
   extractSandboxLogs,
 } from "./helpers/sandbox_helpers";
-import { toBigInt } from "../src/ton-utils";
+import {
+  SIGNERS,
+  expectUsdtPrice,
+  getContractParamsProvider,
+  waitForNewData,
+} from "./helpers/test_helpers";
 
 jest.setTimeout(40000);
 

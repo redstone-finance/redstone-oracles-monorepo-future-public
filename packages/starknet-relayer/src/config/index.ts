@@ -1,6 +1,6 @@
-import "dotenv/config";
 import { NetworkName } from "@redstone-finance/starknet-connector";
 import { RedstoneCommon } from "@redstone-finance/utils";
+import "dotenv/config";
 import { z } from "zod";
 
 export type VERSION = "0";

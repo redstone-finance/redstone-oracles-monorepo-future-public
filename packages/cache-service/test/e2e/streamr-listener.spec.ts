@@ -1,21 +1,21 @@
-import { compressMsg } from "../../src/common/streamr";
 import { consts } from "@redstone-finance/protocol";
-import "../common/set-test-envs";
+import { MongoBroadcaster } from "../../src/broadcasters/mongo-broadcaster";
+import { compressMsg } from "../../src/common/streamr";
+import {
+  DataPackage,
+  DataPackageDocument,
+} from "../../src/data-packages/data-packages.model";
+import { DataPackagesService } from "../../src/data-packages/data-packages.service";
+import { StreamrListenerService } from "../../src/streamr-listener/streamr-listener.service";
 import {
   MOCK_DATA_SERVICE_ID,
   MOCK_SIGNER_ADDRESS,
   getMockDataPackages,
   mockOracleRegistryState,
 } from "../common/mock-values";
+import "../common/set-test-envs";
 import { createTestDB, dropTestDatabase } from "../common/test-db";
-import {
-  DataPackage,
-  DataPackageDocument,
-} from "../../src/data-packages/data-packages.model";
 import { sleep } from "../common/test-utils";
-import { StreamrListenerService } from "../../src/streamr-listener/streamr-listener.service";
-import { DataPackagesService } from "../../src/data-packages/data-packages.service";
-import { MongoBroadcaster } from "../../src/broadcasters/mongo-broadcaster";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return
 jest.mock("@redstone-finance/sdk", () => ({

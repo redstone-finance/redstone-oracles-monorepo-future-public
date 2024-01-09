@@ -1,5 +1,5 @@
-import { toUtf8Bytes } from "@ethersproject/strings/lib/utf8";
 import { hexlify } from "@ethersproject/bytes";
+import { toUtf8Bytes } from "@ethersproject/strings/lib/utf8";
 import { arrayify } from "ethers/lib/utils";
 
 import { DataPackagesRequestParams, requestRedstonePayload } from "../index";

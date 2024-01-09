@@ -1,8 +1,8 @@
 import Decimal from "decimal.js";
 import { BigNumber, BigNumberish } from "ethers";
-import { bignumberishToDecimal } from "../common";
 import * as ISafeNumberMath from "../ISafeNumber";
-import { createSafeNumber, ISafeNumber } from "../ISafeNumber";
+import { ISafeNumber, createSafeNumber } from "../ISafeNumber";
+import { bignumberishToDecimal } from "../common";
 
 export type ConvertibleToISafeNumber =
   | number

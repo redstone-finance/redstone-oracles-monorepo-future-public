@@ -1,13 +1,13 @@
 import { toUtf8Bytes } from "ethers/lib/utils";
 import {
   DataPackage,
-  SignedDataPackage,
-  NumericDataPoint,
   DataPoint,
-  INumericDataPoint,
-  StringDataPoint,
   DataPointPlainObj,
+  INumericDataPoint,
+  NumericDataPoint,
+  SignedDataPackage,
   SignedDataPackagePlainObj,
+  StringDataPoint,
 } from "../src";
 import { deserializeDataPointFromObj } from "../src/data-point/data-point-deserializer";
 

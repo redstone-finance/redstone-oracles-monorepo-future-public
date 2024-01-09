@@ -1,7 +1,7 @@
 import { hexlify } from "@ethersproject/bytes";
 import { toUtf8Bytes } from "@ethersproject/strings/lib/utf8";
-import { ContractParamsProvider } from "./ContractParamsProvider";
 import { DataPackagesRequestParams } from "../index";
+import { ContractParamsProvider } from "./ContractParamsProvider";
 
 export class ContractParamsProviderMock extends ContractParamsProvider {
   overriddenFeedIds?: string[];

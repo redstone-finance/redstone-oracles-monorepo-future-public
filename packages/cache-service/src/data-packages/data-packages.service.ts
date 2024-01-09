@@ -20,6 +20,7 @@ import { RedstoneCommon } from "@redstone-finance/utils";
 import { DataPackagesBroadcaster } from "../broadcasters/data-packages-broadcaster";
 import { MongoBroadcaster } from "../broadcasters/mongo-broadcaster";
 import { StreamrBroadcaster } from "../broadcasters/streamr-broadcaster";
+import { EMPTY_DATA_PACKAGE_RESPONSE_ERROR_CODE } from "../common/errors";
 import config from "../config";
 import { getOracleState } from "../utils/get-oracle-state";
 import { makePayload } from "../utils/make-redstone-payload";
@@ -35,7 +36,6 @@ import {
   DataPackageDocumentAggregated,
   DataPackageDocumentMostRecentAggregated,
 } from "./data-packages.model";
-import { EMPTY_DATA_PACKAGE_RESPONSE_ERROR_CODE } from "../common/errors";
 
 export interface StatsRequestParams {
   fromTimestamp: number;

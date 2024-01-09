@@ -1,6 +1,6 @@
+import { sendHealthcheckPing } from "@redstone-finance/utils";
 import { IContractConnector } from "../contracts/IContractConnector";
 import { IPriceManagerContractAdapter } from "./IPriceManagerContractAdapter";
-import { sendHealthcheckPing } from "@redstone-finance/utils";
 
 export async function startSimpleRelayer(
   config: {

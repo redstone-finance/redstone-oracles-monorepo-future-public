@@ -1,11 +1,11 @@
+import { consts } from "@redstone-finance/protocol";
+import { MathUtils } from "@redstone-finance/utils";
 import mongoose from "mongoose";
 import config from "../src/config";
-import { MathUtils } from "@redstone-finance/utils";
-import { consts } from "@redstone-finance/protocol";
 import {
-  queryDataPackages,
-  groupDataPackagesByField,
   formatTime,
+  groupDataPackagesByField,
+  queryDataPackages,
 } from "./common";
 
 // USAGE: yarn run-ts scripts/analyze-data-packages.ts

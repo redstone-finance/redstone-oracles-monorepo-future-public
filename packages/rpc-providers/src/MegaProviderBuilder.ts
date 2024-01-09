@@ -1,22 +1,22 @@
+import { Point } from "@influxdata/influxdb-client";
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { providers } from "ethers";
 import {
-  ProviderWithAgreementConfig,
+  wrapCallWithMetric,
+  wrapGetBlockNumberWithMetric,
+} from "./MetricWrappers";
+import {
   ProviderWithAgreement,
+  ProviderWithAgreementConfig,
 } from "./ProviderWithAgreement";
 import {
-  ProviderWithFallbackConfig,
   ProviderWithFallback,
+  ProviderWithFallbackConfig,
 } from "./ProviderWithFallback";
 import {
   MulticallDecoratorOptions,
   withMulticall,
 } from "./multicall/MulticallWrapper";
-import { RedstoneCommon } from "@redstone-finance/utils";
-import {
-  wrapCallWithMetric,
-  wrapGetBlockNumberWithMetric,
-} from "./MetricWrappers";
-import { Point } from "@influxdata/influxdb-client";
 
 type MegaProviderOptions = {
   rpcUrls: string[];

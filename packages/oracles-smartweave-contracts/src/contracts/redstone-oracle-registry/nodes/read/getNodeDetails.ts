@@ -1,10 +1,10 @@
 import { getDetailsById } from "../../common/getDetailsById";
 import {
-  RedstoneOraclesState,
-  RedstoneOraclesInput,
   GetNodeDetailsInputData,
   GetNodesDetailsResult,
   NodeWithAddress,
+  RedstoneOraclesInput,
+  RedstoneOraclesState,
 } from "../../types";
 
 export const getNodeDetails = (
@@ -13,6 +13,7 @@ export const getNodeDetails = (
 ): GetNodesDetailsResult => {
   const data = input.data as GetNodeDetailsInputData;
   const nodesDetails = getDetailsById({
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     identifier: data?.address,
     state,
     oraclesType: "nodes",

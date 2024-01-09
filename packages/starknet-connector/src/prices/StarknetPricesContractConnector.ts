@@ -1,10 +1,10 @@
 import { AccountInterface } from "starknet";
-import prices_abi from "./prices_abi.json";
-import { StarknetPricesContractAdapter } from "./StarknetPricesContractAdapter";
 import {
   NetworkName,
   StarknetContractConnector,
 } from "../StarknetContractConnector";
+import { StarknetPricesContractAdapter } from "./StarknetPricesContractAdapter";
+import prices_abi from "./prices_abi.json";
 
 export class StarknetPricesContractConnector extends StarknetContractConnector<StarknetPricesContractAdapter> {
   constructor(

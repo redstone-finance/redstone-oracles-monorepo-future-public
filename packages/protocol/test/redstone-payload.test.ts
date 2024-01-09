@@ -1,9 +1,9 @@
 import { arrayify, hexlify, toUtf8Bytes, toUtf8String } from "ethers/lib/utils";
 import {
   DataPackage,
-  SignedDataPackage,
   NumericDataPoint,
   RedstonePayload,
+  SignedDataPackage,
 } from "../src";
 import { hexlifyWithout0xPrefix } from "../src/common/utils";
 

@@ -1,7 +1,7 @@
 import { startSimpleRelayer } from "@redstone-finance/sdk";
 import { config } from "../config";
-import { ContractConnectorFactory } from "../ton/ContractConnectorFactory";
 import { manifest } from "../config/manifest";
+import { ContractConnectorFactory } from "../ton/ContractConnectorFactory";
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises -- Disabled for top-level functions
 startSimpleRelayer(

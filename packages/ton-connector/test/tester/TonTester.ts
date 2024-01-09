@@ -1,8 +1,8 @@
+import { ContractParamsProvider } from "@redstone-finance/sdk";
+import { ContractProvider } from "@ton/core";
 import { TonContract } from "../../src/TonContract";
 import { createPayloadCell } from "../../src/create-payload-cell";
 import { createArrayFromTuple, createTupleItems } from "../../src/ton-utils";
-import { ContractParamsProvider } from "@redstone-finance/sdk";
-import { ContractProvider } from "@ton/core";
 
 /* eslint-disable  @typescript-eslint/class-methods-use-this -- TON Getter methods must not be static */
 export class TonTester extends TonContract {

@@ -5,16 +5,16 @@ import {
   IPricesContractAdapter,
 } from "@redstone-finance/sdk";
 
-import { PriceManagerRelayerTonContractAdapter } from "./PriceManagerRelayerTonContractAdapter";
+import {
+  TonNetwork,
+  TonPricesContractConnector,
+} from "@redstone-finance/ton-connector";
 import {
   DATA_FEEDS,
   DATA_SERVICE_ID,
   UNIQUE_SIGNER_COUNT,
 } from "../config/data-service-parameters";
-import {
-  TonNetwork,
-  TonPricesContractConnector,
-} from "@redstone-finance/ton-connector";
+import { PriceManagerRelayerTonContractAdapter } from "./PriceManagerRelayerTonContractAdapter";
 
 export class PriceManagerRelayerTonContractConnector
   extends TonPricesContractConnector

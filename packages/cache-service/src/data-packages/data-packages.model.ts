@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import mongoose, { Document } from "mongoose";
 import { DataPointPlainObj } from "@redstone-finance/protocol";
+import mongoose, { Document } from "mongoose";
 import config from "../config";
 
 const { Types } = mongoose.Schema;

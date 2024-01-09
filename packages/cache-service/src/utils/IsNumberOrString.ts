@@ -1,7 +1,7 @@
 import {
+  ValidationArguments,
   ValidatorConstraint,
   ValidatorConstraintInterface,
-  ValidationArguments,
 } from "class-validator";
 
 @ValidatorConstraint({ name: "string-or-number", async: false })

@@ -1,8 +1,8 @@
 import {
-  RedstoneOraclesState,
-  RedstoneOraclesAction,
-  CreateDataServiceInputData,
   ContractErrorType,
+  CreateDataServiceInputData,
+  RedstoneOraclesAction,
+  RedstoneOraclesState,
 } from "../../types";
 
 declare const ContractError: ContractErrorType;
@@ -21,6 +21,7 @@ export const createDataService = (
   }
 
   const { id, ...restData } = data;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (state.dataServices[id]) {
     throw new ContractError(`Data feed with id ${id} already exists`);
   }

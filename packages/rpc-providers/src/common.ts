@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from "axios";
 import { BlockTag } from "@ethersproject/abstract-provider";
 import { ErrorCode } from "@ethersproject/logger";
+import axios, { AxiosResponse } from "axios";
 
 export const sleepMS = (ms: number) =>
   new Promise((resolve, _reject) => setTimeout(resolve, ms));

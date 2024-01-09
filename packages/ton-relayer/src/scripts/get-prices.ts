@@ -1,6 +1,6 @@
 import { utils } from "ethers";
-import { ContractConnectorFactory } from "../ton/ContractConnectorFactory";
 import { manifest } from "../config/manifest";
+import { ContractConnectorFactory } from "../ton/ContractConnectorFactory";
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (async () => {

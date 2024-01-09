@@ -1,6 +1,6 @@
+import { MathUtils, RedstoneTypes } from "@redstone-finance/utils";
 import axios from "axios";
 import { resolveDataServiceUrls } from "./data-services-urls";
-import { MathUtils, RedstoneTypes } from "@redstone-finance/utils";
 
 export interface GetDataFeedValuesInput {
   aggregationAlgorithm?: "median" | "min" | "max"; // median by default

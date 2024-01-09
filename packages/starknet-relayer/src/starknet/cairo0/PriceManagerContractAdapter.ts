@@ -1,4 +1,3 @@
-import { Contract } from "starknet";
 import {
   ContractParamsProvider,
   IPriceManagerContractAdapter,
@@ -9,6 +8,7 @@ import {
   getNumberFromStarknetResult,
 } from "@redstone-finance/starknet-connector";
 import { BigNumberish } from "ethers";
+import { Contract } from "starknet";
 
 export class PriceManagerContractAdapter
   implements IPriceManagerContractAdapter
