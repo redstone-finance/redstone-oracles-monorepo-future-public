@@ -1,17 +1,17 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { SignedDataPackagePlainObj } from "@redstone-finance/protocol";
+import { RedstoneCommon } from "@redstone-finance/utils";
+import { Wallet, providers, utils } from "ethers";
 import {
-  StreamrClient,
   StreamPermission,
+  StreamrClient,
   compressMsg,
   doesStreamExist,
   getStreamIdForNodeByEvmAddress,
 } from "../common/streamr";
-import { Wallet, providers, utils } from "ethers";
+import config from "../config";
 import { CachedDataPackage } from "../data-packages/data-packages.model";
 import { DataPackagesBroadcaster } from "./data-packages-broadcaster";
-import config from "../config";
-import { RedstoneCommon } from "@redstone-finance/utils";
 
 const POLYGON_RPC = {
   name: "Polygon",

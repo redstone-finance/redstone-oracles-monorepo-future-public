@@ -119,7 +119,7 @@ export type ContractResult =
   | { state: RedstoneOraclesState }
   | RedstoneOraclesContractResult;
 
-export type ContractErrorType = new (message: string) => any;
+export type ContractErrorType = new (message: string) => unknown;
 
 export interface GetDetailsByIdInput {
   identifier: string;

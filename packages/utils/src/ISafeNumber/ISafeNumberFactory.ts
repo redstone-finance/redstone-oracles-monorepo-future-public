@@ -1,5 +1,5 @@
-import { JsNativeSafeNumber } from "./JsNativeSafeNumber";
 import { NumberArg } from "./ISafeNumber";
+import { JsNativeSafeNumber } from "./JsNativeSafeNumber";
 
 /** Factory for SafeNumber */
 export const createSafeNumber = (numberLike: NumberArg) =>

@@ -4,9 +4,8 @@
     "outDir": "dist"
   },
   "include": [
-    "src/contracts/redstone-oracle-registry/**/*",
+    "**/*",
     "package.json",
-    "index.ts",
     "src/contracts/redstone-oracle-registry/initial-state.json"
   ]
 }

@@ -1,9 +1,9 @@
-import "../common/set-test-envs";
-import { Test, TestingModule } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
 import request from "supertest";
 import { AppModule } from "../../src/app.module";
 import { mockOracleRegistryState } from "../common/mock-values";
+import "../common/set-test-envs";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return
 jest.mock("@redstone-finance/sdk", () => ({

@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
 import { consts } from "@redstone-finance/protocol";
-import { DataPackage } from "../src/data-packages/data-packages.model";
+import mongoose from "mongoose";
 import config from "../src/config";
+import { DataPackage } from "../src/data-packages/data-packages.model";
 
 // USAGE: yarn run-ts scripts/wait-for-data-packages.ts <expected-count> <data-feed-id>
 

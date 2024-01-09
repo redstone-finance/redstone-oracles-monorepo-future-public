@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
+import mongoose from "mongoose";
 
 let mongo: MongoMemoryServer;
 

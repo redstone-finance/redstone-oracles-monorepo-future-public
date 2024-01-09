@@ -13,6 +13,7 @@ export const getDetailsById = ({
 
   const oracleDetails = state[oraclesType][identifier];
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!oracleDetails) {
     throw new ContractError(
       `Oracle with identifier ${identifier} does not exist`

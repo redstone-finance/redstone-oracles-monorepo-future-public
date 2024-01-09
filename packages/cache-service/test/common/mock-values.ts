@@ -1,12 +1,12 @@
-import { ethers } from "ethers";
 import { RedstoneOraclesState } from "@redstone-finance/oracles-smartweave-contracts";
-import { utils } from "@redstone-finance/protocol";
 import {
   DataPackage,
   DataPoint,
   NumericDataPoint,
   consts,
+  utils,
 } from "@redstone-finance/protocol";
+import { ethers } from "ethers";
 
 export const MOCK_PRIVATE_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";

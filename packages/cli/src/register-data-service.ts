@@ -1,6 +1,6 @@
+import { RedstoneOraclesInput } from "@redstone-finance/oracles-smartweave-contracts";
 import prompts from "prompts";
 import { getOracleRegistryContract } from "./utils/arweave-utils";
-import { RedstoneOraclesInput } from "@redstone-finance/oracles-smartweave-contracts";
 import niceLogger from "./utils/nice-logger";
 
 export const registerDataService = async () => {

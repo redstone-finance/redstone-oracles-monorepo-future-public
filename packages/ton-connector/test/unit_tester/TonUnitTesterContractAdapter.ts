@@ -1,6 +1,6 @@
-import { TonUnitTester } from "./TonUnitTester";
 import { Cell } from "@ton/core";
 import { AnyTonOpenedContract } from "../../src";
+import { TonUnitTester } from "./TonUnitTester";
 
 export class TonUnitTesterContractAdapter {
   constructor(public readonly contract: AnyTonOpenedContract<TonUnitTester>) {}

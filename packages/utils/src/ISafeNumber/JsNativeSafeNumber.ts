@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/class-methods-use-this */
-import { NumberArg, ISafeNumber } from "./ISafeNumber";
+import { ISafeNumber, NumberArg } from "./ISafeNumber";
 
 export enum NumberValidationResult {
   isOk,

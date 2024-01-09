@@ -1,8 +1,7 @@
 import { NestFactory } from "@nestjs/core";
+import { json, urlencoded } from "express";
+import { Logger, LoggerErrorInterceptor } from "nestjs-pino";
 import { AppModule } from "./app.module";
-import { urlencoded, json } from "express";
-import { Logger } from "nestjs-pino";
-import { LoggerErrorInterceptor } from "nestjs-pino";
 import config from "./config";
 
 const REQUEST_SIZE_LIMIT = "50mb";

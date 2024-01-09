@@ -1,3 +1,4 @@
+import { consts } from "@redstone-finance/protocol";
 import {
   createTesterContractEnv,
   DATA_PACKAGE_DATA_1,
@@ -6,9 +7,8 @@ import {
   SAMPLE_PACKAGES_TIMESTAMP,
   TON_MAX_UINT,
 } from "./helpers/test_helpers";
-import { TonUnitTesterContractDeployer } from "./unit_tester/TonUnitTesterContractDeployer";
 import { TonUnitTesterContractAdapter } from "./unit_tester/TonUnitTesterContractAdapter";
-import { consts } from "@redstone-finance/protocol";
+import { TonUnitTesterContractDeployer } from "./unit_tester/TonUnitTesterContractDeployer";
 
 const DATA_PACKAGE_VALUES_LENGTH =
   consts.DATA_FEED_ID_BS + consts.DEFAULT_NUM_VALUE_BS + consts.TIMESTAMP_BS;

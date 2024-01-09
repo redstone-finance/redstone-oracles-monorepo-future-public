@@ -1,4 +1,4 @@
-import { Wallet, Contract, providers } from "ethers";
+import { Contract, Wallet, providers } from "ethers";
 import * as hardhat from "hardhat";
 import { Counter } from "../typechain-types";
 

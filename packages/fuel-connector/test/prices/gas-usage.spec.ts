@@ -1,7 +1,7 @@
-import { Provider } from "fuels";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
-import { connectPricesContract } from "./prices-contract-test-utils";
 import { BigNumberish } from "ethers";
+import { Provider } from "fuels";
+import { connectPricesContract } from "./prices-contract-test-utils";
 
 jest.setTimeout(10 * 60000);
 

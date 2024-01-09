@@ -1,7 +1,7 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { BytesLike, Contract, providers } from "ethers";
 import { abi } from "./Multicall3.abi.json";
-import { RedstoneCommon } from "@redstone-finance/utils";
 
 const MULTICALL_DETERMINISTIC_ADDRESS =
   "0xcA11bde05977b3631167028862bE2a173976CA11";

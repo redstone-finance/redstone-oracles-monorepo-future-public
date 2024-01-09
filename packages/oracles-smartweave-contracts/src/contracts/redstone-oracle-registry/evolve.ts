@@ -1,8 +1,8 @@
 import {
-  RedstoneOraclesState,
-  RedstoneOraclesAction,
   ContractErrorType,
   EvolveInputData,
+  RedstoneOraclesAction,
+  RedstoneOraclesState,
 } from "./types";
 
 declare const ContractError: ContractErrorType;

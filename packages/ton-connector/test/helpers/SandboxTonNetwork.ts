@@ -1,7 +1,7 @@
-import { AnyTonOpenedContract, TonNetwork } from "../../src";
 import { Address, Contract, Sender } from "@ton/core";
-import { TonClient, TonClient4 } from "@ton/ton";
 import { Blockchain } from "@ton/sandbox";
+import { TonClient, TonClient4 } from "@ton/ton";
+import { AnyTonOpenedContract, TonNetwork } from "../../src";
 
 export class SandboxTonNetwork implements TonNetwork {
   api?: TonClient4;

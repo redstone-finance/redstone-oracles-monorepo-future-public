@@ -2,7 +2,7 @@ import * as pako from "pako";
 import { StreamrClient } from "streamr-client";
 import config from "../config";
 
-export { StreamrClient, Subscription, StreamPermission } from "streamr-client";
+export { StreamPermission, StreamrClient, Subscription } from "streamr-client";
 
 export const getStreamIdForNodeByEvmAddress = (evmAddress: string) =>
   config.streamrStreamNamePattern.replaceAll("{evmAddress}", evmAddress);

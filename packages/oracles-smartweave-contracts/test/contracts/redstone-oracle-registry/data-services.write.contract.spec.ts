@@ -1,8 +1,8 @@
 import ArLocal from "arlocal";
-import { Warp, Contract, WarpFactory } from "warp-contracts";
-import { Wallet } from "warp-contracts/lib/types/contract/testing/Testing";
 import fs from "fs";
 import path from "path";
+import { Contract, Warp, WarpFactory } from "warp-contracts";
+import { Wallet } from "warp-contracts/lib/types/contract/testing/Testing";
 import {
   CreateDataServiceInputData,
   RedstoneOraclesInput,
@@ -72,7 +72,7 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
       });
       const state = (await contract.readState()).cachedValue.state;
       const dataService = state.dataServices[testId];
-      const { id, ...restTestDataService } = testDataServiceDetails;
+      const { id: _id, ...restTestDataService } = testDataServiceDetails;
       expect(dataService).toEqual({
         ...restTestDataService,
         admin: wallet.address,
@@ -106,13 +106,13 @@ describe("Redstone oracle registry contract - data feeds - write", () => {
       const state = (await contract.readState()).cachedValue.state;
       const firstDataService = state.dataServices["firstTestId"];
       const secondDataService = state.dataServices["secondTestId"];
-      const { ["id"]: firstId, ...restFirstTestDataService } =
+      const { ["id"]: _firstId, ...restFirstTestDataService } =
         testFirsDataServiceDetails;
       expect(firstDataService).toEqual({
         ...restFirstTestDataService,
         admin: wallet.address,
       });
-      const { ["id"]: secondId, ...restSecondTestDataService } =
+      const { ["id"]: _secondId, ...restSecondTestDataService } =
         testSecondDataServiceDetails;
       expect(secondDataService).toEqual({
         ...restSecondTestDataService,

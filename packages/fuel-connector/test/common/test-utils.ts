@@ -1,4 +1,4 @@
-import "./set-test-envs";
+import { randomBytes } from "@fuel-ts/keystore";
 import {
   coinQuantityfy,
   CoinQuantityLike,
@@ -6,7 +6,7 @@ import {
   ScriptTransactionRequest,
 } from "@fuel-ts/providers";
 import { Wallet, WalletUnlocked } from "@fuel-ts/wallet";
-import { randomBytes } from "@fuel-ts/keystore";
+import "./set-test-envs";
 
 export const generateTestWallet = async (
   provider?: string | Provider,

@@ -13,9 +13,9 @@ import {
   UsePipes,
   ValidationPipe,
 } from "@nestjs/common";
-import type { Response } from "express";
 import { Serializable } from "@redstone-finance/protocol";
 import { DataPackagesRequestParams } from "@redstone-finance/sdk";
+import type { Response } from "express";
 import config from "../config";
 import { duplexStream } from "../utils/streams";
 import {

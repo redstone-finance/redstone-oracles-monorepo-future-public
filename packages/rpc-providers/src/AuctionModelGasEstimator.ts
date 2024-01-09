@@ -1,9 +1,9 @@
 import { ethers } from "ethers";
+import { GasEstimator } from "./GasEstimator";
 import {
   TransactionDeliveryManOpts,
   unsafeBnToNumber,
 } from "./TransactionDeliveryMan";
-import { GasEstimator } from "./GasEstimator";
 
 export type AuctionModelFee = {
   gasPrice: number;

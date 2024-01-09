@@ -1,5 +1,5 @@
-import { ContractParamsProvider } from "../ContractParamsProvider";
 import { BigNumberish } from "ethers";
+import { ContractParamsProvider } from "../ContractParamsProvider";
 
 export interface IPricesContractAdapter {
   // Reads on-chain the returned by paramsProvider RedStone payload data and returns aggregated price values

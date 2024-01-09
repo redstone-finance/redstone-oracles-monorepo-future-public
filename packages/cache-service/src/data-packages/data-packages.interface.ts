@@ -1,3 +1,7 @@
+import {
+  DataPointPlainObj,
+  SignedDataPackagePlainObj,
+} from "@redstone-finance/protocol";
 import { Type } from "class-transformer";
 import {
   IsEnum,
@@ -9,10 +13,6 @@ import {
   Validate,
   ValidateNested,
 } from "class-validator";
-import {
-  DataPointPlainObj,
-  SignedDataPackagePlainObj,
-} from "@redstone-finance/protocol";
 import { IsNumberOrString } from "../utils/IsNumberOrString";
 import { CachedDataPackage } from "./data-packages.model";
 

@@ -1,8 +1,8 @@
 import {
-  RedstoneOraclesState,
-  RedstoneOraclesAction,
-  UpdateNodeDetailInputData,
   ContractErrorType,
+  RedstoneOraclesAction,
+  RedstoneOraclesState,
+  UpdateNodeDetailInputData,
 } from "../../types";
 
 declare const ContractError: ContractErrorType;
@@ -16,6 +16,7 @@ export const updateNodeDetails = (
 
   const currentNodeState = state.nodes[caller];
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!currentNodeState) {
     throw new ContractError(`Node with owner ${caller} not found`);
   }

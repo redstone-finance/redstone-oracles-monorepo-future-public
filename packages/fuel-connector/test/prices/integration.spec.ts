@@ -1,5 +1,5 @@
-import { Provider } from "fuels";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
+import { Provider } from "fuels";
 import redstone from "redstone-api";
 import { connectPricesContract } from "./prices-contract-test-utils";
 

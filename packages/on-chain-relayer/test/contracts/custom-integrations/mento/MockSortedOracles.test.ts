@@ -1,9 +1,9 @@
-import { expect } from "chai";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { ethers } from "hardhat";
-import { MockSortedOracles } from "../../../../typechain-types";
+import { expect } from "chai";
 import { BigNumber } from "ethers";
+import { ethers } from "hardhat";
 import { calculateLinkedListPosition } from "../../../../src/custom-integrations/mento/mento-utils";
+import { MockSortedOracles } from "../../../../typechain-types";
 import { deployMockSortedOracles } from "../../../helpers";
 
 describe("MockSortedOracles", () => {

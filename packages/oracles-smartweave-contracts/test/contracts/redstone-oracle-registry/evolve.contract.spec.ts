@@ -1,8 +1,8 @@
 import ArLocal from "arlocal";
-import { Warp, Contract, WarpFactory } from "warp-contracts";
-import { Wallet } from "warp-contracts/lib/types/contract/testing/Testing";
 import fs from "fs";
 import path from "path";
+import { Contract, Warp, WarpFactory } from "warp-contracts";
+import { Wallet } from "warp-contracts/lib/types/contract/testing/Testing";
 import {
   RedstoneOraclesInput,
   RedstoneOraclesState,

@@ -1,10 +1,10 @@
-import { compile, sleep } from "@ton/blueprint";
-import path from "path";
 import {
   ContractParamsProvider,
   ContractParamsProviderMock,
 } from "@redstone-finance/sdk";
+import { compile, sleep } from "@ton/blueprint";
 import * as fs from "fs";
+import path from "path";
 import { createTestNetwork } from "./sandbox_helpers";
 
 export const DATA_PACKAGE_DATA_1 =

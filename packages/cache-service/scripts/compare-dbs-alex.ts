@@ -1,10 +1,10 @@
+import { consts } from "@redstone-finance/protocol";
 import "dotenv/config";
 import mongoose from "mongoose";
 import {
   CachedDataPackage,
   DataPackage,
 } from "../src/data-packages/data-packages.model";
-import { consts } from "@redstone-finance/protocol";
 
 const END_TIMESTAMP = getRoundedCurrentTimestamp();
 const START_TIMESTAMP = END_TIMESTAMP - 3 * 24 * 3600 * 1000; // END_TIMESTAMP - 5 days

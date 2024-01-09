@@ -1,9 +1,9 @@
-import { TonContract } from "../src/TonContract";
-import { ContractProvider } from "@ton/core";
-import { messageBuilder } from "../src/ton-utils";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
-import { createPayloadCell } from "../src/create-payload-cell";
+import { ContractProvider } from "@ton/core";
+import { TonContract } from "../src/TonContract";
 import { OP_REDSTONE_WRITE_PRICE } from "../src/config/constants";
+import { createPayloadCell } from "../src/create-payload-cell";
+import { messageBuilder } from "../src/ton-utils";
 
 /* eslint-disable  @typescript-eslint/class-methods-use-this -- TON Getter methods must not be static */
 export class TonSingleFeedMan extends TonContract {

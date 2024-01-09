@@ -1,8 +1,8 @@
-import "../common/set-test-envs";
-import { Test, TestingModule } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
 import request from "supertest";
 import { AppModule } from "../../src/app.module";
+import "../common/set-test-envs";
 
 describe("Root (e2e)", () => {
   let app: INestApplication;

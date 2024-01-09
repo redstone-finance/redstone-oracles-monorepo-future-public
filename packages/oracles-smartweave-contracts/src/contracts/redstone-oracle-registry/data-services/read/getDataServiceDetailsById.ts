@@ -1,14 +1,11 @@
 import { getDetailsById } from "../../common/getDetailsById";
 import {
-  RedstoneOraclesState,
-  RedstoneOraclesInput,
+  DataServiceWithId,
   GetDataServiceDetailsByIdInputData,
   GetDataServiceDetailsByIdResult,
-  ContractErrorType,
-  DataServiceWithId,
+  RedstoneOraclesInput,
+  RedstoneOraclesState,
 } from "../../types";
-
-declare const ContractError: ContractErrorType;
 
 export const getDataServiceDetailsById = (
   state: RedstoneOraclesState,
@@ -16,6 +13,7 @@ export const getDataServiceDetailsById = (
 ): GetDataServiceDetailsByIdResult => {
   const data = input.data as GetDataServiceDetailsByIdInputData;
   const dataServiceDetails = getDetailsById({
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     identifier: data?.id,
     state,
     oraclesType: "dataServices",

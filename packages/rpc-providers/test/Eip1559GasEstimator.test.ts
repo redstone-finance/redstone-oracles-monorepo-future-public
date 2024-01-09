@@ -1,9 +1,9 @@
+import { expect } from "chai";
 import {
   DEFAULT_TRANSACTION_DELIVERY_MAN_PTS,
   TransactionDeliveryManOpts,
 } from "../src";
 import { Eip1559Fee, Eip1559GasEstimator } from "../src/Eip1559GasEstimator";
-import { expect } from "chai";
 
 describe("Eip1559GasEstimator", () => {
   describe("scaleFees", () => {

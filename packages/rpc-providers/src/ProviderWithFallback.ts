@@ -7,8 +7,8 @@ import {
   Provider,
   TransactionReceipt,
 } from "@ethersproject/providers";
-import { ProviderWithFallbackBase } from "./ProviderWithFallbackBase";
 import { RedstoneCommon } from "@redstone-finance/utils";
+import { ProviderWithFallbackBase } from "./ProviderWithFallbackBase";
 
 const logger = Logger.globalLogger();
 

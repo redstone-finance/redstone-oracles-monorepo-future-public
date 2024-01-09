@@ -2,16 +2,16 @@ import {
   ContractParamsProvider,
   IPriceManagerContractAdapter,
 } from "@redstone-finance/sdk";
-import price_manager_abi from "../../config/price_manager_abi.json";
 import { StarknetContractParamsProvider } from "@redstone-finance/starknet-connector";
-import { PriceManagerContractAdapter } from "./PriceManagerContractAdapter";
-import { RelayerStarknetContractConnector } from "../RelayerStarknetContractConnector";
+import { StarknetRelayerConfig } from "../../config";
 import {
   DATA_FEEDS,
   DATA_SERVICE_ID,
   UNIQUE_SIGNER_COUNT,
 } from "../../config/data-service-parameters";
-import { StarknetRelayerConfig } from "../../config";
+import price_manager_abi from "../../config/price_manager_abi.json";
+import { RelayerStarknetContractConnector } from "../RelayerStarknetContractConnector";
+import { PriceManagerContractAdapter } from "./PriceManagerContractAdapter";
 
 export class PriceManagerContractConnector extends RelayerStarknetContractConnector<IPriceManagerContractAdapter> {
   private readonly paramsProvider: ContractParamsProvider;

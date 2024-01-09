@@ -1,3 +1,4 @@
+import { IContractConnector } from "@redstone-finance/sdk";
 import axios from "axios";
 import {
   Abi,
@@ -6,7 +7,6 @@ import {
   Provider,
   TransactionFinalityStatus,
 } from "starknet";
-import { IContractConnector } from "@redstone-finance/sdk";
 
 export enum NetworkName {
   SN_MAIN = "SN_MAIN",

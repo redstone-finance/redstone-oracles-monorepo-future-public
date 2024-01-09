@@ -1,11 +1,11 @@
-import { config } from "../config";
-import { PriceManagerContractConnector } from "./cairo0/PriceManagerContractConnector";
 import {
   IContractConnector,
   IPriceFeedContractAdapter,
   IPriceManagerContractAdapter,
 } from "@redstone-finance/sdk";
+import { config } from "../config";
 import { PriceFeedContractConnector } from "./cairo0/PriceFeedContractConnector";
+import { PriceManagerContractConnector } from "./cairo0/PriceManagerContractConnector";
 
 export class ContractConnectorFactory {
   static makePriceManagerContractConnector(): IContractConnector<IPriceManagerContractAdapter> {

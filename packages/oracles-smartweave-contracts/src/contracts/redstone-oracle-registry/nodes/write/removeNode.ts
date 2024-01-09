@@ -8,6 +8,7 @@ export const removeNode = (
 ): { state: RedstoneOraclesState } => {
   const currentNodeState = state.nodes[caller];
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!currentNodeState) {
     throw new ContractError(`Node with owner ${caller} not found`);
   }

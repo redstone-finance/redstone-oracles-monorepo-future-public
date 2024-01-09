@@ -1,9 +1,9 @@
 import { providers } from "ethers";
+import { GasEstimator } from "./GasEstimator";
 import {
   TransactionDeliveryManOpts,
   unsafeBnToNumber,
 } from "./TransactionDeliveryMan";
-import { GasEstimator } from "./GasEstimator";
 
 // higher fee are discarded by ethers anyway in this way we can cap gasLimit
 const ASSUMED_ARB_MAX_TX_FEE = 1e18;

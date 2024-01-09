@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
 import { DataPointPlainObj, consts } from "@redstone-finance/protocol";
+import mongoose from "mongoose";
+import config from "../src/config";
 import { CachedDataPackage } from "../src/data-packages/data-packages.model";
 import {
   formatTime,
@@ -7,7 +8,6 @@ import {
   groupDataPackagesByField,
   queryDataPackages,
 } from "./common";
-import config from "../src/config";
 
 mongoose.set("strictQuery", false);
 

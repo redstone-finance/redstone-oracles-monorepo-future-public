@@ -1,5 +1,5 @@
-import { Contract } from "starknet";
 import { PriceFeedRoundData } from "@redstone-finance/sdk";
+import { Contract } from "starknet";
 
 export class PriceFeedContractAdapter {
   constructor(private readonly contract: Contract) {}

@@ -7,3 +7,5 @@ const config: Config.InitialOptions = {
   coverageReporters: ["html"],
   preset: "ts-jest",
 };
+
+export default config;

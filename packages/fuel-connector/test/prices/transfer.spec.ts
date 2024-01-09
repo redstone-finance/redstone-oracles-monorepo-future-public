@@ -1,5 +1,5 @@
-import { NativeAssetId, Provider } from "fuels";
 import { Wallet } from "@fuel-ts/wallet";
+import { NativeAssetId, Provider } from "fuels";
 import { seedTestWallet } from "../common/test-utils";
 
 jest.setTimeout(10 * 60000);

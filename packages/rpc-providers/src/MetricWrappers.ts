@@ -1,7 +1,7 @@
-import { providers } from "ethers";
 import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
-import { Deferrable } from "ethers/lib/utils";
 import { Point } from "@influxdata/influxdb-client";
+import { providers } from "ethers";
+import { Deferrable } from "ethers/lib/utils";
 
 export function wrapCallWithMetric(
   factory: () => providers.StaticJsonRpcProvider,

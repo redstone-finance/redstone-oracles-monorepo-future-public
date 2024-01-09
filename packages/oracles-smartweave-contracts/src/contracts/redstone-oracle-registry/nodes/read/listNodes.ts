@@ -1,9 +1,9 @@
 import { listWithPagination } from "../../common/listWithPagination";
 import {
-  RedstoneOraclesState,
-  RedstoneOraclesInput,
   ListInputData,
   ListResult,
+  RedstoneOraclesInput,
+  RedstoneOraclesState,
 } from "../../types";
 
 export const listNodes = (

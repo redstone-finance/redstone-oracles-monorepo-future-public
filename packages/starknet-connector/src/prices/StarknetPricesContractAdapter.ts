@@ -1,8 +1,8 @@
-import { Contract, Result } from "starknet";
 import {
   ContractParamsProvider,
   IPricesContractAdapter,
 } from "@redstone-finance/sdk";
+import { Contract, Result } from "starknet";
 import { FEE_MULTIPLIER } from "../StarknetContractConnector";
 import { getNumberFromStarknetResult } from "../starknet-utils";
 
