@@ -12,13 +12,15 @@ import {PriceFeedBase} from "../PriceFeedBase.sol";
  * - getPriceFeedAdapter
  */
 abstract contract PriceFeedWithoutRounds is PriceFeedBase {
+  uint80 constant DEFAULT_ROUND = 1;
+
   error GetRoundDataCanBeOnlyCalledWithLatestRound(uint80 requestedRoundId);
 
   /**
-   * @dev We always return 0, since we do not support rounds in this contract
+   * @dev We always return 1, since we do not support rounds in this contract
    */
   function latestRound() public pure override returns (uint80) {
-    return 0;
+    return DEFAULT_ROUND;
   }
   
   /**

@@ -17,6 +17,8 @@ import { MockSortedOracles } from "../typechain-types";
 export const ethDataFeed = formatBytes32String("ETH");
 export const btcDataFeed = formatBytes32String("BTC");
 
+export const DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS = 1;
+
 interface DataPoint {
   dataFeedId: string;
   value: number;

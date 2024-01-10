@@ -13,6 +13,7 @@ abstract contract MergedPriceFeedAdapterWithoutRounds is
   PriceFeedsAdapterWithoutRounds,
   PriceFeedWithoutRounds
 {
+
   function initialize() public override(PriceFeedBase, PriceFeedsAdapterBase) initializer {
     // We don't have storage variables, but we keep this function
     // Because it is used for contract setup in upgradable contracts
@@ -36,7 +37,7 @@ abstract contract MergedPriceFeedAdapterWithoutRounds is
   }
 
   function _emitEventAfterSingleValueUpdate(uint256 newValue) internal virtual {
-    emit AnswerUpdated(SafeCast.toInt256(newValue), 0, block.timestamp);
+    emit AnswerUpdated(SafeCast.toInt256(newValue), latestRound(), block.timestamp);
   }
 
   function _validateAndUpdateDataFeedsValues(

@@ -6,6 +6,7 @@ import { formatBytes32String } from "ethers/lib/utils";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { BigNumber, Event } from "ethers";
+import { DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS } from "../../../helpers";
 
 interface PriceFeedTestsParams {
   mergedPriceFeedAdapterContractName: string;
@@ -121,7 +122,9 @@ export const describeCommonMergedPriceFeedAdapterTests = ({
 
       await testProperPriceUpdate({
         valueForUpdate: 42,
-        expectedRoundId: roundsEndabled ? 1 : 0,
+        expectedRoundId: roundsEndabled
+          ? 1
+          : DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS,
         expectedValuesInRounds: roundsEndabled ? expectedValuesInRounds : [],
       });
     });
@@ -134,7 +137,9 @@ export const describeCommonMergedPriceFeedAdapterTests = ({
 
       await testProperPriceUpdate({
         valueForUpdate: 43,
-        expectedRoundId: roundsEndabled ? 2 : 0,
+        expectedRoundId: roundsEndabled
+          ? 2
+          : DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS,
         expectedValuesInRounds: roundsEndabled ? expectedValuesInRounds : [],
       });
     });
@@ -161,7 +166,9 @@ export const describeCommonMergedPriceFeedAdapterTests = ({
 
       await testProperPriceUpdate({
         valueForUpdate: 44,
-        expectedRoundId: roundsEndabled ? 3 : 0,
+        expectedRoundId: roundsEndabled
+          ? 3
+          : DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS,
         expectedValuesInRounds: roundsEndabled ? expectedValuesInRounds : [],
       });
     });

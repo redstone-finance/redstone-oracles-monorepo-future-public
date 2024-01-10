@@ -10,7 +10,7 @@ import { ContractTransaction } from "ethers";
 interface PriceFeedTestsParams {
   priceFeedContractName: string;
   adapterContractName: string;
-  expectedRoundIdAfterOneUpdate: number;
+  expectedRoundIdAfterTwoUpdates: number;
 }
 
 interface PriceFeedTestsContracts {
@@ -23,7 +23,7 @@ chai.use(chaiAsPromised);
 export const describeCommonPriceFeedTests = ({
   priceFeedContractName,
   adapterContractName,
-  expectedRoundIdAfterOneUpdate,
+  expectedRoundIdAfterTwoUpdates,
 }: PriceFeedTestsParams) => {
   const deployAll = async () => {
     const adapterFactory = await ethers.getContractFactory(adapterContractName);
@@ -127,11 +127,21 @@ export const describeCommonPriceFeedTests = ({
       await expect(contracts.priceFeed.getRoundData(0)).to.be.reverted;
     });
 
-    it("should properly get latest round data", async () => {
+    it("should properly get latest round data for 1 update", async () => {
+      await updatePrices();
+      const latestRoundData = await contracts.priceFeed.latestRoundData();
+      expect(latestRoundData.roundId.toNumber()).to.eq(1);
+      expect(latestRoundData.startedAt.toNumber()).to.eq(curBlockTime);
+      expect(latestRoundData.updatedAt.toNumber()).to.eq(curBlockTime);
+      expect(latestRoundData.answer.toNumber()).to.eq(42 * 10 ** 8);
+    });
+
+    it("should properly get latest round data for 2 updates", async () => {
+      await updatePrices();
       await updatePrices();
       const latestRoundData = await contracts.priceFeed.latestRoundData();
       expect(latestRoundData.roundId.toNumber()).to.eq(
-        expectedRoundIdAfterOneUpdate
+        expectedRoundIdAfterTwoUpdates
       );
       expect(latestRoundData.startedAt.toNumber()).to.eq(curBlockTime);
       expect(latestRoundData.updatedAt.toNumber()).to.eq(curBlockTime);
@@ -140,14 +150,22 @@ export const describeCommonPriceFeedTests = ({
 
     it("should properly get latest answer", async () => {
       await updatePrices();
+      await updatePrices();
       const latestAnswer = await contracts.priceFeed.latestAnswer();
       expect(latestAnswer.toNumber()).to.eq(42 * 10 ** 8);
     });
 
-    it("should properly get latest round id", async () => {
+    it("should properly get latest round id for 1 update", async () => {
       await updatePrices();
       const latestRoundId = await contracts.priceFeed.latestRound();
-      expect(latestRoundId.toNumber()).to.eq(expectedRoundIdAfterOneUpdate);
+      expect(latestRoundId.toNumber()).to.eq(1);
+    });
+
+    it("should properly get latest round id for 2 updates", async () => {
+      await updatePrices();
+      await updatePrices();
+      const latestRoundId = await contracts.priceFeed.latestRound();
+      expect(latestRoundId.toNumber()).to.eq(expectedRoundIdAfterTwoUpdates);
     });
   });
 
