@@ -12,7 +12,7 @@ describe("MergedPriceFeedAdapterWithRounds", () => {
   describeCommonPriceFeedTests({
     priceFeedContractName: contractName,
     adapterContractName: contractName,
-    expectedRoundIdAfterOneUpdate: 1,
+    expectedRoundIdAfterTwoUpdates: 2,
   });
 
   describeCommonPriceFeedsAdapterTests({

@@ -11,6 +11,7 @@ import {
   PriceFeedsAdapterWithRoundsMock,
 } from "../../../../typechain-types";
 import { BigNumber } from "ethers";
+import { DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS } from "../../../helpers";
 
 chai.use(chaiAsPromised);
 
@@ -47,7 +48,11 @@ describe("upgrade from contracts without rounds to contracts with rounds", () =>
         adapterWithoutRounds,
         value
       );
-      await assertCommonPriceFeedWorks(priceFeedWithoutRounds, "0", value);
+      await assertCommonPriceFeedWorks(
+        priceFeedWithoutRounds,
+        DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS.toString(),
+        value
+      );
       await assertCommonAdapterWorks(adapterWithoutRounds, timestamp, value);
     }
 
@@ -63,7 +68,11 @@ describe("upgrade from contracts without rounds to contracts with rounds", () =>
         adapterWithRounds,
         value
       );
-      await assertCommonPriceFeedWorks(priceFeedWithoutRounds, "0", value);
+      await assertCommonPriceFeedWorks(
+        priceFeedWithoutRounds,
+        DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS.toString(),
+        value
+      );
       await assertCommonAdapterWorks(adapterWithRounds, timestamp, value);
       const args = {
         expectedRound: i.toString(),
