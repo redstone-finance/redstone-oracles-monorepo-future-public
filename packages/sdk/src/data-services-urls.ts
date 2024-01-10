@@ -5,7 +5,6 @@ export const REDSTONE_DATA_SERVICES_URLS: Partial<Record<string, string[]>> = {
     "https://oracle-gateway-1.a.redstone.finance",
     "https://oracle-gateway-2.a.redstone.finance",
   ],
-  "redstone-primary-demo": [DEMO_URL],
   "redstone-avalanche-prod": [
     "https://oracle-gateway-1.a.redstone.finance",
     "https://oracle-gateway-2.a.redstone.finance",
@@ -14,7 +13,7 @@ export const REDSTONE_DATA_SERVICES_URLS: Partial<Record<string, string[]>> = {
     "https://oracle-gateway-1.a.redstone.finance",
     "https://oracle-gateway-2.a.redstone.finance",
   ],
-  "redstone-custom-urls-demo": ["https://d1zm8lxy9v2ddd.cloudfront.net"],
+  "redstone-primary-demo": [DEMO_URL],
   "redstone-main-demo": [DEMO_URL],
   "redstone-rapid-demo": [DEMO_URL],
   "redstone-stocks-demo": [DEMO_URL],
