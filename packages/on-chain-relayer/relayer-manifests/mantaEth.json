@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "manta",
+    "id": 169
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0xf4eC1DbD9047153c907e9D4a02CAD85864Ea16dc",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH": "0xf4eC1DbD9047153c907e9D4a02CAD85864Ea16dc"
+  }
+}
