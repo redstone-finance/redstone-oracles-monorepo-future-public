@@ -6776,9 +6776,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-gw-metrics@workspace:packages/gateway-metrics":
+"@redstone-finance/lambda-gw-metrics@workspace:packages/lambda-gw-metrics":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-gw-metrics@workspace:packages/gateway-metrics"
+  resolution: "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda-gw-metrics"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
     axios: "npm:^1.6.2"
