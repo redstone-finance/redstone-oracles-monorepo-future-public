@@ -1,25 +1,25 @@
-const DEMO_URL = "https://d33trozg86ya9x.cloudfront.net";
+const DEV_GWS = [
+  "https://oracle-gateway-1.b.redstone.finance",
+  "https://oracle-gateway-1.b.redstone.vip",
+];
+
+const PROD_GWS = [
+  "https://oracle-gateway-1.a.redstone.finance",
+  "https://oracle-gateway-2.a.redstone.finance",
+  "https://oracle-gateway-1.a.redstone.vip",
+];
 
 export const REDSTONE_DATA_SERVICES_URLS: Partial<Record<string, string[]>> = {
-  "redstone-primary-prod": [
-    "https://oracle-gateway-1.a.redstone.finance",
-    "https://oracle-gateway-2.a.redstone.finance",
-  ],
-  "redstone-avalanche-prod": [
-    "https://oracle-gateway-1.a.redstone.finance",
-    "https://oracle-gateway-2.a.redstone.finance",
-  ],
-  "redstone-arbitrum-prod": [
-    "https://oracle-gateway-1.a.redstone.finance",
-    "https://oracle-gateway-2.a.redstone.finance",
-  ],
-  "redstone-primary-demo": [DEMO_URL],
-  "redstone-main-demo": [DEMO_URL],
-  "redstone-rapid-demo": [DEMO_URL],
-  "redstone-stocks-demo": [DEMO_URL],
-  "redstone-twaps-demo": [DEMO_URL],
-  "redstone-avalanche-demo": [DEMO_URL],
-  "redstone-arbitrum-demo": [DEMO_URL],
+  "redstone-primary-prod": PROD_GWS,
+  "redstone-avalanche-prod": PROD_GWS,
+  "redstone-arbitrum-prod": PROD_GWS,
+  "redstone-primary-demo": DEV_GWS,
+  "redstone-main-demo": DEV_GWS,
+  "redstone-rapid-demo": DEV_GWS,
+  "redstone-stocks-demo": DEV_GWS,
+  "redstone-twaps-demo": DEV_GWS,
+  "redstone-avalanche-demo": DEV_GWS,
+  "redstone-arbitrum-demo": DEV_GWS,
   "mock-data-service": ["http://localhost:3000"],
   "mock-data-service-tests": ["http://valid-cache.com"],
 };
