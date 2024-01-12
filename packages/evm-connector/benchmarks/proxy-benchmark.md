@@ -1,8 +1,8 @@
 # Proxy Benchmark
 
-A proxy contract is a type of smart contract that allows other contracts to be executed without direct interaction. In the context of obtaining oracle values on a blockchain, a proxy contract receives a redstone payload and makes calls to other contracts, passing them the oracle values.
+A proxy contract is a type of smart contract that allows other contracts to be executed without direct interaction. In the context of obtaining oracle values on a blockchain, a proxy contract receives a RedStone payload and makes calls to other contracts, passing them the oracle values.
 
-Currently, we are testing two different implementations of a proxy: the ProxyConnector-based approach and the StorageProxy-based approach. The first approach, when making a call to other contracts, attaches the redstone payload to the calldata and relies on the other contract to extract the values from it. The second approach extracts the values from the redstone payload and stores them in storage. Then, the other contracts can access the values by reading them from the proxy contract's storage. 
+Currently, we are testing two different implementations of a proxy: the ProxyConnector-based approach and the StorageProxy-based approach. The first approach, when making a call to other contracts, attaches the RedStone payload to the calldata and relies on the other contract to extract the values from it. The second approach extracts the values from the RedStone payload and stores them in storage. Then, the other contracts can access the values by reading them from the proxy contract's storage. 
 
 The benchmarks evaluate the performance based on the following variables:
 
@@ -55,6 +55,6 @@ Some of the benchmark results are presented below.
   },
 ```
 
-The data enables us to make the following observations. First, the storageProxy approach scales better w.r.t. number of singers and proxy chain length than proxyConnector approach. This is due to the fact, that in proxyConnector approach RedStone payload is parsed multiple times, whereas in the storageProxy approach it is processed only once. Nonetheless, when values of the aforementioned variables are low, the proxyConnector approach excels. 
+The data enables us to make the following observations. First, the storageProxy approach scales better w.r.t. number of singers and proxy chain length than proxyConnector approach. This is due to the fact, that in proxyConnector approach RedStone payload is parsed multiple times, whereas in the storageProxy approach, it is processed only once. Nonetheless, when the values of the aforementioned variables are low, the proxyConnector approach excels.
 
-Second, the storageProxy approach can utilize the fact that subsequent writes to the same storage slot are cheaper than the initial write. When second writes are considered the storageProxy based approach outperforms proxyConnector across all benchmark scenarios.
+Second, the storageProxy approach can utilize the fact that subsequent writes to the same storage slot are cheaper than the initial write. When second writes are considered the storageProxy-based approach outperforms proxyConnector across all benchmark scenarios.
