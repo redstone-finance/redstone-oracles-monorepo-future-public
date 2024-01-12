@@ -105,7 +105,7 @@ const config: HardhatUserConfig = {
 
   verify: {
     etherscan: {
-      apiKey: ETHERSCAN_KEY ? ETHERSCAN_KEY : "",
+      apiKey: ETHERSCAN_KEY ?? "",
     },
   },
 
