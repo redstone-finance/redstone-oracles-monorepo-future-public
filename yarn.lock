@@ -6785,6 +6785,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-hard-limits-monitoring@workspace:packages/lambda-hard-limits-monitoring":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-hard-limits-monitoring@workspace:packages/lambda-hard-limits-monitoring"
+  dependencies:
+    "@redstone-finance/sdk": "npm:^0.3.6"
+    "@redstone-finance/utils": "npm:^0.3.6"
+    aws-lambda: "npm:^1.0.7"
+    dotenv: "npm:^16.0.3"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-hard-limits@workspace:packages/lambda-hard-limits":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-hard-limits@workspace:packages/lambda-hard-limits"
