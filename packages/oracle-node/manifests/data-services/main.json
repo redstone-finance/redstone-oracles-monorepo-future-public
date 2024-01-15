@@ -972,15 +972,7 @@
       ]
     },
     "XVS": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bingx",
-        "coingecko",
-        "gate",
-        "lbank",
-        "mexc"
-      ]
+      "source": ["binance", "binanceusdm", "bingx", "gate", "lbank", "mexc"]
     },
     "MAGIC": {
       "source": [
