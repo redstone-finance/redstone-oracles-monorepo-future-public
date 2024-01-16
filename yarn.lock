@@ -6773,6 +6773,7 @@ __metadata:
     "@aws-sdk/client-cloudwatch": "npm:^3.485.0"
     "@aws-sdk/client-s3": "npm:^3.485.0"
     "@aws-sdk/client-ssm": "npm:^3.485.0"
+    "@redstone-finance/utils": "npm:^0.3.6"
   languageName: unknown
   linkType: soft
 
@@ -6789,6 +6790,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-hard-limits-monitoring@workspace:packages/lambda-hard-limits-monitoring"
   dependencies:
+    "@aws-sdk/client-lambda": "npm:^3.485.0"
+    "@redstone-finance/lambda-common": "npm:^0.3.6"
     "@redstone-finance/sdk": "npm:^0.3.6"
     "@redstone-finance/utils": "npm:^0.3.6"
     aws-lambda: "npm:^1.0.7"
@@ -6824,6 +6827,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@redstone-finance/evm-connector": "npm:^0.3.6"
+    "@redstone-finance/lambda-common": "npm:^0.3.6"
     "@redstone-finance/rpc-providers": "npm:^0.3.6"
     "@redstone-finance/sdk": "npm:^0.3.6"
     "@types/aws-lambda": "npm:^8.10.128"
