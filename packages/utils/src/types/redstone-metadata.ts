@@ -1,5 +1,7 @@
 // move to common packages when it will be merged ...
 export type MetadataForRedstonePrice = {
+  nodeLabel: string;
+
   /** Aggregated value represented as decimal with '.' decimal point separator */
   value: string;
 
