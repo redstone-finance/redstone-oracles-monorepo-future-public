@@ -33,27 +33,23 @@ const checkCronCondition = (
   lastUpdateTimestamp: number,
   config: RelayerConfig
 ) => {
-  const lastExpectedUpdateTime = cronParser
-    .parseExpression(cronExpression, {
-      // We move current time a bit back for the case with fallback
-      currentDate: new Date(currentTimestamp - config.fallbackOffsetInMS),
-      utc: true,
-    })
-    .prev();
-
-  const timeElapsedSinceLatestUpdate = currentTimestamp - lastUpdateTimestamp;
+  const interval = cronParser.parseExpression(cronExpression, {
+    // We move current time a bit back for the case with fallback
+    currentDate: new Date(currentTimestamp - config.fallbackOffsetInMS),
+    utc: true,
+  });
+  const lastExpectedUpdateTime = interval.prev().getTime();
+  const nextExpectedUpdateTime = interval.next().getTime();
 
   // We want to update price only if there are no update txs after the previous
   // suitable time
-  const maxAllowedTimeSinceLatestUpdate =
-    currentTimestamp - lastExpectedUpdateTime.getTime();
-  const shouldUpdatePrices =
-    maxAllowedTimeSinceLatestUpdate < timeElapsedSinceLatestUpdate;
+  const shouldUpdatePrices = lastExpectedUpdateTime > lastUpdateTimestamp;
 
   const logTrace = JSON.stringify({
     type: "cron",
-    timeElapsedSinceLatestUpdate,
-    maxAllowedTimeSinceLatestUpdate,
+    timeSinceLastUpdate: currentTimestamp - lastUpdateTimestamp,
+    timeSinceLastExpectedUpdate: currentTimestamp - lastExpectedUpdateTime,
+    timeToNextExpectedUpdate: nextExpectedUpdateTime - currentTimestamp,
   });
 
   const warningMessage = shouldUpdatePrices
