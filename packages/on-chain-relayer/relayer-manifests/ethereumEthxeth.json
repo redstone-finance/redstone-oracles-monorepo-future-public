@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "mainnet",
+    "id": 1
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0xc799194cAa24E2874Efa89b4Bf5c92a530B047FF",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETHx/ETH": "0xc799194cAa24E2874Efa89b4Bf5c92a530B047FF"
+  }
+}
