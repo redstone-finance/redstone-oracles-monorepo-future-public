@@ -1127,6 +1127,12 @@
     "BAL_sAVAX_AVAX": {
       "source": ["avalanche-evm-fetcher"]
     },
+    "USDM": {
+      "source": ["curve-3crv"]
+    },
+    "wUSDM": {
+      "source": ["ethereum-evm-fetcher"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
