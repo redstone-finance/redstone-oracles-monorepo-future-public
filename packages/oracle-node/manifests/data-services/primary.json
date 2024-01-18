@@ -749,6 +749,19 @@
     },
     "wUSDM": {
       "source": ["ethereum-evm-fetcher"]
+    },
+    "MANTA": {
+      "source": [
+        "binance",
+        "bingx",
+        "bitget",
+        "bitrue",
+        "coingecko",
+        "gate",
+        "kucoin",
+        "lbank",
+        "mexc"
+      ]
     }
   }
 }
