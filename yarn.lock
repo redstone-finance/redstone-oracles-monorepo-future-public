@@ -6550,6 +6550,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/classic-updates-number-checker@workspace:packages/classic-updates-numer-checker":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/classic-updates-number-checker@workspace:packages/classic-updates-numer-checker"
+  dependencies:
+    "@influxdata/influxdb-client": "npm:^1.33.2"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/cli@workspace:packages/cli":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/cli@workspace:packages/cli"
@@ -12760,14 +12768,6 @@ __metadata:
   checksum: 24b2bd85a4bacba86424903bff6952874bbb8c69ecdbeb77f046e68e67cd1ae4eccfd98af4277538edc6b168db39ca48cd02d172ec3805c3922e4f884732d8ea
   languageName: node
   linkType: hard
-
-"classic-updates-number-checker@workspace:packages/classic-updates-numer-checker":
-  version: 0.0.0-use.local
-  resolution: "classic-updates-number-checker@workspace:packages/classic-updates-numer-checker"
-  dependencies:
-    "@influxdata/influxdb-client": "npm:^1.33.2"
-  languageName: unknown
-  linkType: soft
 
 "clean-stack@npm:^2.0.0":
   version: 2.2.0

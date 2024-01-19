@@ -13,7 +13,7 @@ export const checkIfDataPackageTimestampIsNewer = (context: Context) => {
     const message = `Cannot update prices, proposed prices are not newer ${JSON.stringify(
       {
         lastDataPackageTimestampMS,
-        dataPackageTimestamp: dataPackageTimestamp,
+        dataPackageTimestamp,
       }
     )}`;
     return { shouldNotUpdatePrice: true, message };
