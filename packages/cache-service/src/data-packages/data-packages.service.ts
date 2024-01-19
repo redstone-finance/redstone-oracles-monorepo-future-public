@@ -223,40 +223,78 @@ export class DataPackagesService {
     // Parse DB response
     const dataPackagesWithSameTimestamp = groupedDataPackages[0];
     for (let i = 0; i < dataPackagesWithSameTimestamp.count; i++) {
-      const dataFeedId = dataPackagesWithSameTimestamp.dataFeedIds[i];
-      const signerAddress = dataPackagesWithSameTimestamp.signerAddress[i];
+      const candidatePackage = DataPackagesService.createCachedDataPackage(
+        dataPackagesWithSameTimestamp,
+        dataServiceId,
+        i
+      );
+      const dataFeedId = candidatePackage.dataFeedId!;
+      DataPackagesService.updateBigPackageInResponseIfBetter(
+        fetchedPackagesPerDataFeed,
+        candidatePackage
+      );
       if (
         DataPackagesService.isSignerAddressAlreadyInDbResponseForDataFeed(
-          signerAddress,
+          candidatePackage.signerAddress,
           fetchedPackagesPerDataFeed[dataFeedId]
         )
       ) {
         continue;
       }
-      const dataPoints = dataPackagesWithSameTimestamp.dataPoints[i];
-      const signature = dataPackagesWithSameTimestamp.signatures[i];
-      const timestampMilliseconds =
-        dataPackagesWithSameTimestamp._id.timestampMilliseconds.getTime();
-      const isSignatureValid =
-        dataPackagesWithSameTimestamp.isSignatureValid[i];
 
       if (!fetchedPackagesPerDataFeed[dataFeedId]) {
         fetchedPackagesPerDataFeed[dataFeedId] = [];
       }
 
-      fetchedPackagesPerDataFeed[dataFeedId]!.push({
-        timestampMilliseconds,
-        signature,
-        isSignatureValid,
-        dataPoints,
-        dataServiceId,
-        dataFeedId,
-        signerAddress,
-      });
+      fetchedPackagesPerDataFeed[dataFeedId]!.push(candidatePackage);
     }
 
     return fetchedPackagesPerDataFeed;
   }
+
+  static updateBigPackageInResponseIfBetter = (
+    fetchedPackagesResponse: DataPackagesResponse,
+    candidatePackage: CachedDataPackage
+  ) => {
+    if (candidatePackage.dataFeedId !== consts.ALL_FEEDS_KEY) {
+      return;
+    }
+    const bigPackages = fetchedPackagesResponse[candidatePackage.dataFeedId];
+    if (!bigPackages) {
+      return;
+    }
+    for (let i = 0; i < bigPackages.length; ++i) {
+      if (bigPackages[i].signerAddress === candidatePackage.signerAddress) {
+        if (
+          bigPackages[i].dataPoints.length < candidatePackage.dataPoints.length
+        ) {
+          bigPackages[i] = candidatePackage;
+        }
+      }
+    }
+  };
+
+  static createCachedDataPackage = (
+    aggregate: DataPackageDocumentAggregated,
+    dataServiceId: string,
+    i: number
+  ): CachedDataPackage => {
+    const dataFeedId = aggregate.dataFeedIds[i];
+    const signerAddress = aggregate.signerAddress[i];
+    const dataPoints = aggregate.dataPoints[i];
+    const signature = aggregate.signatures[i];
+    const timestampMilliseconds = aggregate._id.timestampMilliseconds.getTime();
+    const isSignatureValid = aggregate.isSignatureValid[i];
+    return {
+      timestampMilliseconds,
+      signature,
+      isSignatureValid,
+      dataPoints,
+      dataServiceId,
+      dataFeedId,
+      signerAddress,
+    };
+  };
 
   // Filtering unique signers addresses
   static isSignerAddressAlreadyInDbResponseForDataFeed(
