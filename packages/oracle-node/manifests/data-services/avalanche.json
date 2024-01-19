@@ -440,6 +440,9 @@
         "okx",
         "xt"
       ]
+    },
+    "CAI": {
+      "source": ["avalanche-evm-fetcher"]
     }
   }
 }

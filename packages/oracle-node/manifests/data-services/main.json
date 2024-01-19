@@ -1146,6 +1146,9 @@
         "mexc"
       ]
     },
+    "CAI": {
+      "source": ["avalanche-evm-fetcher"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
@@ -1840,6 +1843,13 @@
     "yyAVAX": {
       "source": ["avalanche-evm-fetcher"]
     },
+    "XAVA": {
+      "source": ["coingecko", "coinmarketcap", "gate", "kucoin", "mexc"],
+      "skipSigning": true
+    },
+    "QI": {
+      "source": ["binance", "coingecko", "coinmarketcap", "kucoin", "xt"]
+    },
     "BAT": {},
     "COMP": {},
     "XTZ": {},
@@ -1897,7 +1907,6 @@
     "REEF": {},
     "POLS": {},
     "LPT": {},
-    "XAVA": {},
     "BTT": {},
     "CHR": {},
     "IOST": {},
@@ -1914,7 +1923,6 @@
     "MIR": {},
     "FORTH": {},
     "MLN": {},
-    "QI": {},
     "XDC": {},
     "SNT": {},
     "API3": {},
