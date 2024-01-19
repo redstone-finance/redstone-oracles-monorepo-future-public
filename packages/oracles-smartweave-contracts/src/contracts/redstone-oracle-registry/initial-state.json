@@ -50,10 +50,10 @@
       "name": "redstone-avalanche-node-2",
       "ipAddress": "0.0.0.0",
       "dataServiceId": "redstone-avalanche-demo",
-      "evmAddress": "0x3a7d971De367FE15D164CDD952F64205F2D9f10c",
+      "evmAddress": "0x41ed5321B76C045f5439eCf9e73F96c6c25B1D75",
       "description": "Most popular tokens from the Avalanche ecosystem - demo node 2",
       "arweavePublicKey": "TODO: find and add",
-      "ecdsaPublicKey": "TODO: find and add"
+      "ecdsaPublicKey": "0x0428082ee0046157d0fba27aa9391f5651c41b9dc8b12011ed72622c05e55d56ae503039f912de7345dab28ae68d80b055082f74286b82ffc2c09c07d8b2e22378"
     },
     "aw9F_2R2ogYPnM66TDsW1qtiiRflRcgZQG6OLySOSZE": {
       "name": "redstone-twaps-1",
