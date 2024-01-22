@@ -596,9 +596,6 @@
     "UFT": {
       "source": ["binance", "bitrue", "coingecko", "gate", "mexc"]
     },
-    "SONIA": {
-      "source": ["stlouisfed"]
-    },
     "SOFR": {
       "source": ["newyorkfed"]
     },
