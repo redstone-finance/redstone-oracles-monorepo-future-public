@@ -762,6 +762,9 @@
         "lbank",
         "mexc"
       ]
+    },
+    "STONE": {
+      "source": ["ethereum-evm-fetcher"]
     }
   }
 }
