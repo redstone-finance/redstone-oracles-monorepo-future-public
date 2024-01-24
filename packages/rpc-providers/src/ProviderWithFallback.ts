@@ -28,8 +28,8 @@ export const FALLBACK_DEFAULT_CONFIG: ProviderWithFallbackConfig = {
     ErrorCode.TRANSACTION_REPLACED,
     ErrorCode.REPLACEMENT_UNDERPRICED,
   ],
-  singleProviderOperationTimeout: 30_000,
-  allProvidersOperationTimeout: 7_000,
+  singleProviderOperationTimeout: 7_000,
+  allProvidersOperationTimeout: 36_000,
   reportMetric: () => {},
 };
 
