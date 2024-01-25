@@ -173,8 +173,9 @@
         "xt"
       ]
     },
-    "STETH": {
+    "stETH": {
       "source": [
+        "bingx",
         "bitget",
         "curve-eth",
         "curve-weth",
@@ -393,7 +394,9 @@
     },
     "pxETH": {
       "source": [
+        "balancer-ethereum-frxeth",
         "balancer-ethereum-weth-multi-block",
+        "curve-steth",
         "maverick-multi-block",
         "uniswap-v3-ethereum-on-chain-weth-100-multi-block"
       ]
@@ -760,6 +763,15 @@
     },
     "STONE": {
       "source": ["ethereum-evm-fetcher"]
+    },
+    "frxETH": {
+      "source": [
+        "curve-cvx",
+        "curve-eth",
+        "curve-steth",
+        "curve-weth",
+        "uniswap-v3-ethereum-on-chain-frax-10000"
+      ]
     }
   }
 }
