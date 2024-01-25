@@ -1,4 +1,4 @@
-import { utils } from "ethers";
+import axios from "axios";
 import {
   DataPackagesRequestParams,
   getOracleRegistryState,
@@ -16,9 +16,25 @@ const getReqParams = (urls?: string[]): DataPackagesRequestParams => {
     urls: urls!,
   };
 };
+const SAMPLE_RESPONSE = {
+  data: {
+    ETH: [
+      {
+        dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
+        timestampMilliseconds: 1654353400000,
+        dataServiceId: "service-1",
+        signature:
+          "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
+        dataFeedId: "ETH",
+        signerAddress: "0x2",
+      },
+    ],
+  },
+};
 
 describe("SDK tests", () => {
   beforeAll(() => server.listen());
+  beforeEach(() => jest.restoreAllMocks());
 
   test("Should properly get oracle registry state", async () => {
     const state = await getOracleRegistryState();
@@ -58,7 +74,7 @@ describe("SDK tests", () => {
       "https://bad-url-2.com",
     ]);
     await expect(requestDataPackages(defaultReqParams)).rejects.toThrow(
-      'Request failed {"reqParams":{"dataFeeds":["BTC","ETH"],"dataServiceId":"mock-data-service-tests","uniqueSignersCount":2,"urls":["https://bad-url-1.com","https://bad-url-2.com"]}}, Original error: All promises were rejected: 0: Request failed with status code 400, 1: Request failed with status code 400, '
+      /Request failed with status code 400/
     );
   });
 
@@ -82,42 +98,259 @@ describe("SDK tests", () => {
     );
   });
 
-  test("Should get data packages with biggest deviation", async () => {
+  test("Should get two data packages closest to median", async () => {
     const dataPackages = await requestDataPackages({
       ...getReqParams(),
       dataFeeds: ["ETH"],
-      valuesToCompare: { ETH: utils.parseUnits("999", 8) },
     });
 
     expect(dataPackages["ETH"]!.length).toBe(2);
-    expect(dataPackages["ETH"]![0].toObj().dataPoints[0].value).toBe(990);
-    expect(dataPackages["ETH"]![1].toObj().dataPoints[0].value).toBe(1002);
+    expect(dataPackages["ETH"]![0].toObj().dataPoints[0].value).toBe(1000);
+    expect(dataPackages["ETH"]![1].toObj().dataPoints[0].value).toBe(1000);
   });
 
-  test("Should get single data package with biggest deviation", async () => {
+  test("Should get single data packages closest to median", async () => {
     const dataPackages = await requestDataPackages({
       ...getReqParams(),
       uniqueSignersCount: 1,
       dataFeeds: ["ETH"],
-      valuesToCompare: { ETH: utils.parseUnits("991", 8) },
     });
 
     expect(dataPackages["ETH"]!.length).toBe(1);
-    expect(dataPackages["ETH"]![0].toObj().dataPoints[0].value).toBe(1002);
+    expect(dataPackages["ETH"]![0].toObj().dataPoints[0].value).toBe(1000);
   });
 
-  test("Should get all data packages with biggest deviation", async () => {
+  test("Should get all data packages", async () => {
     const dataPackages = await requestDataPackages({
       ...getReqParams(),
       uniqueSignersCount: 4,
       dataFeeds: ["ETH"],
-      valuesToCompare: { ETH: utils.parseUnits("996", 8) },
     });
 
     expect(dataPackages["ETH"]!.length).toBe(4);
-    expect(dataPackages["ETH"]![0].toObj().dataPoints[0].value).toBe(990);
-    expect(dataPackages["ETH"]![1].toObj().dataPoints[0].value).toBe(1002);
-    expect(dataPackages["ETH"]![2].toObj().dataPoints[0].value).toBe(1000);
-    expect(dataPackages["ETH"]![3].toObj().dataPoints[0].value).toBe(1000);
+    expect(dataPackages["ETH"]![0].toObj().dataPoints[0].value).toBe(1000);
+    expect(dataPackages["ETH"]![1].toObj().dataPoints[0].value).toBe(1000);
+    expect(dataPackages["ETH"]![2].toObj().dataPoints[0].value).toBe(1002);
+    expect(dataPackages["ETH"]![3].toObj().dataPoints[0].value).toBe(990);
+  });
+
+  test("Should get the most fresh data-packages", async () => {
+    const axiosGetSpy = jest.spyOn(axios, "get");
+    axiosGetSpy.mockResolvedValueOnce({
+      data: {
+        ETH: [
+          {
+            dataPoints: [{ dataFeedId: "ETH", value: 1000 }],
+            timestampMilliseconds: 1654353400000 + 69,
+            signature:
+              "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            signerAddress: "0x2",
+          },
+        ],
+      },
+    });
+    axiosGetSpy.mockResolvedValueOnce({
+      data: {
+        ETH: [
+          {
+            dataPoints: [{ dataFeedId: "ETH", value: 1000 }],
+            timestampMilliseconds: 1654353400000 + 420,
+            signature:
+              "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            signerAddress: "0x2",
+          },
+        ],
+      },
+    });
+    axiosGetSpy.mockResolvedValueOnce({
+      data: {
+        ETH: [
+          {
+            dataPoints: [{ dataFeedId: "ETH", value: 1000 }],
+            timestampMilliseconds: 1654353400000,
+            signature:
+              "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            signerAddress: "0x2",
+          },
+        ],
+      },
+    });
+
+    const dataPackages = await requestDataPackages({
+      ...getReqParams(),
+      urls: ["1", "2"],
+      uniqueSignersCount: 1,
+      dataFeeds: ["ETH"],
+    });
+
+    expect(dataPackages["ETH"]![0].dataPackage.timestampMilliseconds).toBe(
+      1654353400000 + 420
+    );
+  });
+
+  test("Should reject when payload does not follow schema", async () => {
+    const axiosGetSpy = jest.spyOn(axios, "get");
+    // missing signature
+    axiosGetSpy.mockResolvedValueOnce({
+      data: {
+        ETH: [
+          {
+            dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
+            timestampMilliseconds: 1654353400000,
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            signerAddress: "0x2",
+          },
+        ],
+      },
+    });
+
+    await expect(
+      requestDataPackages({
+        ...getReqParams(),
+        uniqueSignersCount: 4,
+        dataFeeds: ["ETH"],
+      })
+    ).rejects.toThrowError(/errors: ZodError/);
+  });
+
+  describe("requestDataPackages time handling", () => {
+    beforeAll(() => {
+      jest.useFakeTimers();
+    });
+    afterAll(() => {
+      jest.useRealTimers();
+    });
+
+    it("three gatways respond immediately with successes", async () => {
+      const axiosGetSpy = jest.spyOn(axios, "get");
+      axiosGetSpy.mockResolvedValue(SAMPLE_RESPONSE);
+
+      const start = performance.now();
+      await requestDataPackages({
+        ...getReqParams(),
+        urls: ["1", "2", "3"],
+        uniqueSignersCount: 1,
+        dataFeeds: ["ETH"],
+      });
+
+      const timePassed = performance.now() - start;
+      expect(timePassed).toBe(0);
+    });
+
+    it("two gatways respond immediately with successes one fails immediately", async () => {
+      const axiosGetSpy = jest.spyOn(axios, "get");
+      axiosGetSpy.mockResolvedValue(SAMPLE_RESPONSE);
+      axiosGetSpy.mockRejectedValueOnce(new Error("gw error"));
+
+      const start = performance.now();
+      await requestDataPackages({
+        ...getReqParams(),
+        urls: ["1", "2", "3"],
+        uniqueSignersCount: 1,
+        dataFeeds: ["ETH"],
+      });
+
+      const timePassed = performance.now() - start;
+      expect(timePassed).toBe(0);
+    });
+
+    it("two gatways respond immediately one timeouts", async () => {
+      const axiosGetSpy = jest.spyOn(axios, "get");
+      axiosGetSpy.mockResolvedValue(SAMPLE_RESPONSE);
+      axiosGetSpy.mockImplementationOnce(
+        () => new Promise((_, reject) => setTimeout(reject, 20_000))
+      );
+
+      const start = performance.now();
+      void jest.advanceTimersByTimeAsync(650);
+      await requestDataPackages({
+        ...getReqParams(),
+        urls: ["1", "2", "3"],
+        uniqueSignersCount: 1,
+        dataFeeds: ["ETH"],
+      });
+
+      const timePassed = performance.now() - start;
+      expect(timePassed).toBe(600);
+    });
+
+    it("two gatways timeouts one respond", async () => {
+      const axiosGetSpy = jest.spyOn(axios, "get");
+      axiosGetSpy.mockResolvedValueOnce(SAMPLE_RESPONSE);
+      axiosGetSpy.mockImplementation(
+        () => new Promise((_, reject) => setTimeout(reject, 20_000))
+      );
+
+      const start = performance.now();
+      void jest.advanceTimersByTimeAsync(650);
+      await requestDataPackages({
+        ...getReqParams(),
+        urls: ["1", "2", "3"],
+        uniqueSignersCount: 1,
+        dataFeeds: ["ETH"],
+      });
+
+      const timePassed = performance.now() - start;
+      expect(timePassed).toBe(600);
+    });
+
+    it("three gatways timeout", async () => {
+      const axiosGetSpy = jest.spyOn(axios, "get");
+      axiosGetSpy.mockImplementation(
+        () =>
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("timeout")), 20_000)
+          )
+      );
+
+      const start = performance.now();
+      void jest.advanceTimersByTimeAsync(21_000);
+      const packagesPromise = requestDataPackages({
+        ...getReqParams(),
+        urls: ["1", "2", "3"],
+        uniqueSignersCount: 1,
+        dataFeeds: ["ETH"],
+      });
+
+      await expect(packagesPromise).rejects.toThrowError(/timeout/);
+      const timePassed = performance.now() - start;
+      expect(timePassed).toBe(20_000);
+    });
+
+    it("two gateways timeout last respond after ", async () => {
+      const axiosGetSpy = jest.spyOn(axios, "get");
+
+      axiosGetSpy.mockImplementation(
+        () =>
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("timeout")), 20_000)
+          )
+      );
+      axiosGetSpy.mockImplementationOnce(
+        () =>
+          new Promise((resolve, _) =>
+            setTimeout(() => resolve(SAMPLE_RESPONSE), 20_000)
+          )
+      );
+
+      const start = performance.now();
+      void jest.advanceTimersByTimeAsync(21_000);
+      await requestDataPackages({
+        ...getReqParams(),
+        urls: ["1", "2", "3"],
+        uniqueSignersCount: 1,
+        dataFeeds: ["ETH"],
+      });
+
+      const timePassed = performance.now() - start;
+      expect(timePassed).toBe(20_000);
+    });
   });
 });

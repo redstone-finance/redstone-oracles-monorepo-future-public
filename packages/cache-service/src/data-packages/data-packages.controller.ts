@@ -8,13 +8,11 @@ import {
   Param,
   Post,
   Query,
-  Res,
   ServiceUnavailableException,
   UsePipes,
   ValidationPipe,
 } from "@nestjs/common";
 import { Serializable } from "@redstone-finance/protocol";
-import { DataPackagesRequestParams } from "@redstone-finance/sdk";
 import type { Response } from "express";
 import config from "../config";
 import { duplexStream } from "../utils/streams";
@@ -23,7 +21,6 @@ import {
   DataPackagesResponse,
   DataPackagesStatsResponse,
   GetDataPackagesStatsQuery,
-  GetLatestDataPackagesQuery,
   ResponseFormat,
 } from "./data-packages.interface";
 import { DataPackagesService } from "./data-packages.service";
@@ -36,22 +33,6 @@ const CONTENT_TYPE_JSON = "application/json";
 @UsePipes(new ValidationPipe({ transform: true }))
 export class DataPackagesController {
   constructor(private dataPackagesService: DataPackagesService) {}
-
-  private static prepareDataPackagesRequestParams(
-    query: GetLatestDataPackagesQuery
-  ): DataPackagesRequestParams {
-    // TODO: implement request validation
-
-    const requestParams: DataPackagesRequestParams = {
-      dataServiceId: query["data-service-id"],
-      uniqueSignersCount: Number(query["unique-signers-count"]),
-    };
-
-    if (query["data-feeds"]) {
-      requestParams.dataFeeds = query["data-feeds"].split(",");
-    }
-    return requestParams;
-  }
 
   private static async validateDataServiceId(dataServiceId: string) {
     const isDataServiceIdValid =
@@ -107,25 +88,6 @@ export class DataPackagesController {
       dataServiceId,
       Number(timestamp)
     );
-  }
-
-  @Get("latest")
-  @Header("Cache-Control", "max-age=5")
-  async getLatest(@Query() query: GetLatestDataPackagesQuery) {
-    return await this.dataPackagesService.queryLatestDataPackages(
-      DataPackagesController.prepareDataPackagesRequestParams(query)
-    );
-  }
-
-  @Get("payload")
-  async getPayload(
-    @Query() query: GetLatestDataPackagesQuery,
-    @Res() res: Response
-  ) {
-    const payload = await this.dataPackagesService.getPayload(
-      DataPackagesController.prepareDataPackagesRequestParams(query)
-    );
-    DataPackagesController.sendSerializableResponse(res, payload, query.format);
   }
 
   @Get("stats/:PERIOD")

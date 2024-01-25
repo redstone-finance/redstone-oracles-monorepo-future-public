@@ -10,17 +10,9 @@ import {
   DataPoint,
   SignedDataPackagePlainObj,
   consts,
-  utils,
 } from "@redstone-finance/protocol";
-import {
-  RedstonePayloadParser,
-  convertDataPointToNumericDataPoint,
-} from "@redstone-finance/protocol/dist/src/redstone-payload/RedstonePayloadParser";
-import { ethers } from "ethers";
-import { base64 } from "ethers/lib/utils";
 import request from "supertest";
 import { AppModule } from "../../src/app.module";
-import { ResponseFormat } from "../../src/data-packages/data-packages.interface";
 import {
   DataPackage,
   DataPackageDocument,
@@ -53,14 +45,6 @@ jest.mock("@redstone-finance/sdk", () => ({
 
 const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY;
 const dataFeedIds = [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"];
-
-const parseDataPointValueToNumber = (
-  dataPointValue: utils.NumberLike,
-  decimals = consts.DEFAULT_NUM_VALUE_DECIMALS
-) =>
-  typeof dataPointValue === "string"
-    ? utils.convertBytesToNumber(base64.decode(dataPointValue)) / 10 ** decimals
-    : dataPointValue;
 
 const getExpectedDataPackagesInDB = (
   dataPackages: SignedDataPackagePlainObj[]
@@ -261,51 +245,6 @@ describe("Data packages (e2e)", () => {
     expect(await DataPackage.countDocuments()).toEqual(initialDpCount);
   });
 
-  it("/data-packages/latest (GET)", async () => {
-    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
-    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
-    const testResponse = await request(httpServer)
-      .get("/data-packages/latest")
-      .query({
-        "data-service-id": "service-2",
-        "unique-signers-count": 4,
-        "data-feeds": "ETH,BTC",
-      })
-      .expect(200);
-
-    for (const dataFeedId of ["BTC", "ETH"]) {
-      expect(testResponse.body[dataFeedId].length).toBe(4);
-      const signers = [];
-      for (const dataPackage of testResponse.body[dataFeedId]) {
-        const parsedDataPackage = JSON.parse(dataPackage);
-        expect(parsedDataPackage).toHaveProperty("signature", MOCK_SIGNATURE);
-        signers.push(parsedDataPackage.signature);
-      }
-      expect(signers.length).toBe(4);
-    }
-
-    // Testing response for the case when there is no data feeds specified
-    const testResponse2 = await request(httpServer)
-      .get("/data-packages/latest")
-      .query({
-        "data-service-id": "service-2",
-        "unique-signers-count": 4,
-      })
-      .expect(200);
-
-    const allFeedsDataPackages = testResponse2.body[ALL_FEEDS_KEY];
-    const parsedDataPoints = JSON.parse(allFeedsDataPackages[0]).dataPoints;
-    expect(allFeedsDataPackages.length).toBe(4);
-    expect(parsedDataPoints.length).toBe(3);
-    for (const [, dataPackages] of Object.entries<any>(testResponse2.body)) {
-      for (let i = 0; i++; i < dataPackages.length) {
-        const dataPackage = JSON.parse(dataPackages[i]);
-        expect(dataPackage).toMatchObject(mockDataPackages[0]);
-        expect(dataPackage.signerAddress).toEqual(mockSigners[i]);
-      }
-    }
-  });
-
   it("/data-packages/latest/mock-data-service-1 (GET)", async () => {
     const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
     jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
@@ -356,117 +295,6 @@ describe("Data packages (e2e)", () => {
       .get("/data-packages/latest/mock-data-service-1")
       .expect(513);
     expect(response.body.message).toBe("Data packages response is empty");
-  });
-
-  async function performPayloadTests(
-    bytesProvider: (response: request.Response) => Uint8Array,
-    format?: ResponseFormat
-  ) {
-    const testResponse = await request(httpServer)
-      .get("/data-packages/payload")
-      .query({
-        "data-service-id": "service-2",
-        "unique-signers-count": 4,
-        "data-feeds": "ETH,BTC",
-        format,
-      })
-      .expect(200);
-
-    const expectedStreamLengthWithFeedsSpecified = 2174;
-    const expectedDataPackagesCountWithFeedSpecified = 8; // 4 * 2
-    verifyPayloadResponse(
-      testResponse,
-      bytesProvider,
-      expectedStreamLengthWithFeedsSpecified,
-      expectedDataPackagesCountWithFeedSpecified
-    );
-
-    // Testing response for the case when there is no data feeds specified
-    const testResponse2 = await request(httpServer)
-      .get("/data-packages/payload")
-      .query({
-        "data-service-id": "service-2",
-        "unique-signers-count": 4,
-        format,
-      })
-      .expect(200);
-
-    const expectedStreamLengthForAllFeeds = 1094;
-    const expectedDataPackagesCountForAllFeeds = 4;
-    verifyPayloadResponse(
-      testResponse2,
-      bytesProvider,
-      expectedStreamLengthForAllFeeds,
-      expectedDataPackagesCountForAllFeeds
-    );
-  }
-
-  function verifyPayloadResponse(
-    response: any,
-    bytesProvider: (response: request.Response) => Uint8Array,
-    expectedStreamLength: number,
-    expectedDataPackagesLength: number
-  ) {
-    const payloadBytes = bytesProvider(response);
-
-    expect(payloadBytes.length).toBe(expectedStreamLength);
-
-    const payload = new RedstonePayloadParser(payloadBytes).parse();
-    expect(payload.signedDataPackages.length).toBe(expectedDataPackagesLength);
-
-    const signedDataPackage = payload.signedDataPackages[0];
-    const mockDataPackage = mockDataPackages[0];
-    expect(base64.encode(signedDataPackage.serializeSignatureToHex())).toBe(
-      mockDataPackage.signature
-    );
-    expect(signedDataPackage.dataPackage.timestampMilliseconds).toBe(
-      mockDataPackage.timestampMilliseconds
-    );
-
-    const dataPoints: DataPoint[] = signedDataPackage.dataPackage.dataPoints;
-    expect(dataPoints.length).toBe(3);
-    expect(
-      dataPoints.map((dataPoint) =>
-        convertDataPointToNumericDataPoint(dataPoint).toObj()
-      )
-    ).toEqual(
-      mockDataPackage.dataPoints.map((dp) => ({
-        dataFeedId: dp.dataFeedId,
-        value: parseDataPointValueToNumber(dp.value),
-      }))
-    );
-  }
-
-  it("/data-packages/payload (GET) - should return payload in hex format", async () => {
-    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
-    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
-    await performPayloadTests((response) => {
-      return ethers.utils.arrayify(response.text);
-    }, "hex");
-  });
-
-  it("/data-packages/payload (GET) - should return payload in raw format", async () => {
-    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
-    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
-    await performPayloadTests((response) => {
-      return response.body;
-    }, "raw");
-  });
-
-  it("/data-packages/payload (GET) - should return payload in bytes format", async () => {
-    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
-    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
-    await performPayloadTests((response) => {
-      return response.body;
-    }, "bytes");
-  });
-
-  it("/data-packages/payload (GET) - should return payload in raw format when no format is specified", async () => {
-    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
-    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
-    await performPayloadTests((response) => {
-      return response.body;
-    });
   });
 
   it("/data-packages/stats (GET) - should work properly with a valid api key", async () => {
