@@ -32,7 +32,7 @@ const SECOND_DATA_SERVICE_ID = "redstone-avalanche-prod";
 const MIN_DEVIATION_PERCENTAGE_TO_LOG = 1;
 
 const TOKENS_ONLY_IN_ONE_DB = [
-  "STETH",
+  "stETH",
   "SHLB_AVAX-USDC_B",
   "SHLB_BTC.b-AVAX_B",
   "SHLB_USDT.e-USDt_C",
