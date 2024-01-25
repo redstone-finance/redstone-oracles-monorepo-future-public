@@ -1126,7 +1126,7 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "USDM": {
-      "source": ["curve-3crv"]
+      "source": ["curve-3crv", "curve-sdai"]
     },
     "wUSDM": {
       "source": ["ethereum-evm-fetcher"]

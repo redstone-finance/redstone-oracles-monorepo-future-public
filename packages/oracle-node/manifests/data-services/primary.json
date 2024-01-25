@@ -743,7 +743,7 @@
       ]
     },
     "USDM": {
-      "source": ["curve-3crv"]
+      "source": ["curve-3crv", "curve-sdai"]
     },
     "wUSDM": {
       "source": ["ethereum-evm-fetcher"]
@@ -772,6 +772,9 @@
         "curve-weth",
         "uniswap-v3-ethereum-on-chain-frax-10000"
       ]
+    },
+    "sDAI": {
+      "source": ["ethereum-evm-fetcher"]
     }
   }
 }
