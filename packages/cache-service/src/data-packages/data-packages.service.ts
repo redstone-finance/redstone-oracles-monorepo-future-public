@@ -6,11 +6,16 @@ import {
   Optional,
 } from "@nestjs/common";
 import {
+  RedstonePayload,
   UniversalSigner,
   consts,
   recoverDeserializedSignerAddress,
 } from "@redstone-finance/protocol";
-import { getDataServiceIdForSigner } from "@redstone-finance/sdk";
+import {
+  DataPackagesRequestParams,
+  getDataServiceIdForSigner,
+  parseDataPackagesResponse,
+} from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { DataPackagesBroadcaster } from "../broadcasters/data-packages-broadcaster";
 import { MongoBroadcaster } from "../broadcasters/mongo-broadcaster";
@@ -18,6 +23,7 @@ import { StreamrBroadcaster } from "../broadcasters/streamr-broadcaster";
 import { EMPTY_DATA_PACKAGE_RESPONSE_ERROR_CODE } from "../common/errors";
 import config from "../config";
 import { getOracleState } from "../utils/get-oracle-state";
+import { makePayload } from "../utils/make-redstone-payload";
 import {
   BulkPostRequestBody,
   DataPackagesResponse,
@@ -301,6 +307,29 @@ export class DataPackagesService {
         (dataPackage) => dataPackage.signerAddress === signerAddress
       )
     );
+  }
+
+  async queryLatestDataPackages(requestParams: DataPackagesRequestParams) {
+    const cachedDataPackagesResponse =
+      await this.getLatestDataPackagesWithSameTimestampWithCache(
+        requestParams.dataServiceId
+      );
+
+    return parseDataPackagesResponse(cachedDataPackagesResponse, requestParams);
+  }
+
+  async getPayload(
+    requestParams: DataPackagesRequestParams
+  ): Promise<RedstonePayload> {
+    const cachedDataPackagesResponse =
+      await this.getLatestDataPackagesWithCache(requestParams.dataServiceId);
+
+    const dataPackages = parseDataPackagesResponse(
+      cachedDataPackagesResponse,
+      requestParams
+    );
+
+    return makePayload(dataPackages);
   }
 
   static async getDataPackagesStats(

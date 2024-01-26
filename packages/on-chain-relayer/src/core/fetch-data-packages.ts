@@ -2,6 +2,7 @@ import {
   DataPackagesRequestParams,
   DataPackagesResponse,
   requestDataPackages,
+  ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
 import { RelayerConfig } from "../types";
 import { config } from "../config";
@@ -11,6 +12,7 @@ const MILLISECONDS_IN_ONE_MINUTE = 60 * 1000;
 export async function fetchDataPackages(
   config: RelayerConfig,
   uniqueSignersThreshold: number,
+  valuesFromContract: ValuesForDataFeeds,
   isHistorical: boolean = false
 ) {
   const { dataServiceId, dataFeeds, cacheServiceUrls } = config;
@@ -19,6 +21,7 @@ export async function fetchDataPackages(
     dataServiceId,
     uniqueSignersCount: uniqueSignersThreshold,
     dataFeeds,
+    valuesToCompare: valuesFromContract,
     urls: cacheServiceUrls,
   };
 

@@ -49,7 +49,8 @@ export const getIterationArgs = async (
   }
   const dataPackages = await fetchDataPackages(
     relayerConfig,
-    uniqueSignersThreshold
+    uniqueSignersThreshold,
+    valuesFromContract
   );
 
   const { shouldUpdatePrices, warningMessage } = await shouldUpdate(

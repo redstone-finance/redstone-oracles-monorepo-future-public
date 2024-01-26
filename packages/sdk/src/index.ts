@@ -9,20 +9,19 @@ import {
   SignedDataPackage,
   SignedDataPackagePlainObj,
 } from "@redstone-finance/protocol";
+import { SafeNumber } from "@redstone-finance/utils";
 import axios from "axios";
-import { BigNumber } from "ethers";
+import { BigNumber, utils } from "ethers";
 import { resolveDataServiceUrls } from "./data-services-urls";
-import { MathUtils, RedstoneCommon, SafeNumber } from "@redstone-finance/utils";
-import { z } from "zod";
 
-const GET_REQUEST_TIMEOUT = 10_000;
-const WAIT_FOR_ALL_GATEWAYS_TIME = 600;
+const DEFAULT_DECIMALS = 8;
 
 export interface DataPackagesRequestParams {
   dataServiceId: string;
   uniqueSignersCount: number;
   dataFeeds?: string[];
   urls?: string[];
+  valuesToCompare?: ValuesForDataFeeds;
   historicalTimestamp?: number;
 }
 
@@ -33,33 +32,6 @@ export interface DataPackagesResponse {
 export interface ValuesForDataFeeds {
   [dataFeedId: string]: BigNumber | undefined;
 }
-
-const GwResponseSchema = z.record(
-  z.string(),
-  z.array(
-    z.object({
-      dataPoints: z
-        .array(
-          z
-            .object({
-              dataFeedId: z.string(),
-              value: z.number(),
-            })
-            .or(
-              z.object({
-                dataFeedId: z.string(),
-                value: z.string(),
-              })
-            )
-        )
-        .min(1),
-      timestampMilliseconds: z.number(),
-      signature: z.string(),
-      dataFeedId: z.string(),
-    })
-  )
-);
-export type GwResponse = z.infer<typeof GwResponseSchema>;
 
 export const getOracleRegistryState =
   async (): Promise<RedstoneOraclesState> => {
@@ -78,102 +50,13 @@ export const getDataServiceIdForSigner = (
   throw new Error(`Data service not found for ${signerAddress}`);
 };
 
-export const requestDataPackages = async (
-  reqParams: DataPackagesRequestParams
-): Promise<DataPackagesResponse> => {
-  try {
-    const promises = prepareDataPackagePromises(reqParams);
-
-    if (reqParams.historicalTimestamp) {
-      return await Promise.any(promises);
-    }
-
-    return await getTheMostRecentDataPackages(promises);
-  } catch (e) {
-    const errMessage = `Request failed ${JSON.stringify({
-      reqParams,
-    })}, Original error: ${RedstoneCommon.stringifyError(e)}`;
-    throw new Error(errMessage);
-  }
-};
-
-const getTheMostRecentDataPackages = (
-  promises: Promise<DataPackagesResponse>[]
-): Promise<DataPackagesResponse> => {
-  return new Promise((resolve, reject) => {
-    const collectedResponses: DataPackagesResponse[] = [];
-    const errors: Error[] = [];
-    let waitForAll = true;
-
-    const timer = setTimeout(() => {
-      waitForAll = false;
-      onResult();
-    }, WAIT_FOR_ALL_GATEWAYS_TIME);
-
-    const onResult = () => {
-      if (errors.length === promises.length) {
-        clearTimeout(timer);
-        reject(new AggregateError(errors));
-      } else if (
-        collectedResponses.length + errors.length === promises.length ||
-        (!waitForAll && collectedResponses.length !== 0)
-      ) {
-        const newestPackage = collectedResponses.reduce((a, b) => {
-          const aTimestamp =
-            Object.values(a).at(0)?.at(0)?.dataPackage.timestampMilliseconds ??
-            0;
-          const bTimestamp =
-            Object.values(b).at(0)?.at(0)?.dataPackage.timestampMilliseconds ??
-            0;
-          return bTimestamp > aTimestamp ? b : a;
-        });
-
-        clearTimeout(timer);
-        resolve(newestPackage);
-      }
-    };
-
-    for (const promise of promises) {
-      promise
-        .then((r) => collectedResponses.push(r))
-        .catch((e) => errors.push(e as Error))
-        .finally(onResult);
-    }
-  });
-};
-
-const prepareDataPackagePromises = (
-  reqParams: DataPackagesRequestParams
-): Promise<DataPackagesResponse>[] => {
-  const urls = getUrlsForDataServiceId(reqParams);
-  const pathComponents = [
-    "data-packages",
-    reqParams.historicalTimestamp ? "historical" : "latest",
-    reqParams.dataServiceId,
-  ];
-  if (reqParams.historicalTimestamp) {
-    pathComponents.push(`${reqParams.historicalTimestamp}`);
-  }
-
-  return urls.map((url) =>
-    axios
-      .get<Record<string, SignedDataPackagePlainObj[]>>(
-        [url.replace(/\/+$/, "")].concat(pathComponents).join("/"),
-        { timeout: GET_REQUEST_TIMEOUT }
-      )
-      .then((response) => parseDataPackagesResponse(response.data, reqParams))
-  );
-};
-
 export const parseDataPackagesResponse = (
-  responseData: unknown,
+  dpResponse: {
+    [dataFeedId: string]: SignedDataPackagePlainObj[] | undefined;
+  },
   reqParams: DataPackagesRequestParams
 ): DataPackagesResponse => {
   const parsedResponse: DataPackagesResponse = {};
-
-  const dpResponse = GwResponseSchema.parse(
-    responseData
-  ) as Partial<GwResponse>;
 
   const requestedDataFeedIds = reqParams.dataFeeds ?? [consts.ALL_FEEDS_KEY];
 
@@ -194,41 +77,47 @@ export const parseDataPackagesResponse = (
       );
     }
 
-    parsedResponse[dataFeedId] = pickDataFeedPackagesClosestToMedian(
+    const dataFeedPackagesSorted = getDataPackagesSortedByDeviation(
       dataFeedPackages,
-      reqParams.uniqueSignersCount
+      reqParams.valuesToCompare,
+      dataFeedId
     );
+
+    parsedResponse[dataFeedId] = dataFeedPackagesSorted
+      .slice(0, reqParams.uniqueSignersCount)
+      .map((dataPackage: SignedDataPackagePlainObj) =>
+        SignedDataPackage.fromObj(dataPackage)
+      );
   }
 
   return parsedResponse;
 };
 
-const pickDataFeedPackagesClosestToMedian = (
+const getDataPackagesSortedByDeviation = (
   dataFeedPackages: SignedDataPackagePlainObj[],
-  count: number
-): SignedDataPackage[] => {
-  const median = MathUtils.getMedian(
-    dataFeedPackages.map((dp) => dp.dataPoints[0].value)
+  valuesToCompare: ValuesForDataFeeds | undefined,
+  dataFeedId: string
+) => {
+  if (!valuesToCompare) {
+    return dataFeedPackages;
+  }
+
+  if (dataFeedId === consts.ALL_FEEDS_KEY) {
+    return dataFeedPackages;
+  }
+
+  if (!valuesToCompare[dataFeedId]) {
+    return dataFeedPackages;
+  }
+
+  const decimals =
+    getDecimalsForDataFeedId(dataFeedPackages) ?? DEFAULT_DECIMALS;
+  const valueToCompare = Number(
+    utils.formatUnits(valuesToCompare[dataFeedId]!, decimals)
   );
 
-  return sortByDistanceFromMedian(dataFeedPackages, median)
-    .map((diff) => SignedDataPackage.fromObj(diff.dp))
-    .slice(0, count);
+  return sortDataPackagesByDeviationDesc(dataFeedPackages, valueToCompare);
 };
-
-function sortByDistanceFromMedian(
-  dataFeedPackages: SignedDataPackagePlainObj[],
-  median: number
-) {
-  return dataFeedPackages
-    .map((dp) => ({
-      dp: dp,
-      diff: SafeNumber.createSafeNumber(dp.dataPoints[0].value)
-        .sub(median)
-        .abs(),
-    }))
-    .sort((first, second) => first.diff.sub(second.diff).unsafeToNumber());
-}
 
 export const getDecimalsForDataFeedId = (
   dataPackages: SignedDataPackagePlainObj[]
@@ -245,6 +134,54 @@ export const getDecimalsForDataFeedId = (
     throw new Error("Decimals from data points in data packages are not equal");
   }
   return firstDecimal;
+};
+
+const errToString = (err: unknown): string => {
+  const e = err as Error;
+  if (e instanceof AggregateError) {
+    const stringifiedErrors = (e.errors as Error[]).reduce(
+      (prev, oneOfErrors, curIndex) =>
+        prev + `${curIndex}: ${oneOfErrors.message}, `,
+      ""
+    );
+    return `${e.message}: ${stringifiedErrors}`;
+  } else {
+    return e.message;
+  }
+};
+
+export const requestDataPackages = async (
+  reqParams: DataPackagesRequestParams
+): Promise<DataPackagesResponse> => {
+  const promises = prepareDataPackagePromises(reqParams);
+  try {
+    return await Promise.any(promises);
+  } catch (e) {
+    const errMessage = `Request failed ${JSON.stringify({
+      reqParams,
+    })}, Original error: ${errToString(e)}`;
+    throw new Error(errMessage);
+  }
+};
+
+const prepareDataPackagePromises = (reqParams: DataPackagesRequestParams) => {
+  const urls = getUrlsForDataServiceId(reqParams);
+  const pathComponents = [
+    "data-packages",
+    reqParams.historicalTimestamp ? "historical" : "latest",
+    reqParams.dataServiceId,
+  ];
+  if (reqParams.historicalTimestamp) {
+    pathComponents.push(`${reqParams.historicalTimestamp}`);
+  }
+
+  return urls.map((url) =>
+    axios
+      .get<Record<string, SignedDataPackagePlainObj[]>>(
+        [url.replace(/\/+$/, "")].concat(pathComponents).join("/")
+      )
+      .then((response) => parseDataPackagesResponse(response.data, reqParams))
+  );
 };
 
 export const requestRedstonePayload = async (
@@ -266,6 +203,31 @@ export const getUrlsForDataServiceId = (
     return reqParams.urls;
   }
   return resolveDataServiceUrls(reqParams.dataServiceId);
+};
+
+const sortDataPackagesByDeviationDesc = (
+  dataPackages: SignedDataPackagePlainObj[],
+  valueToCompare: number
+) => {
+  const baseValue = SafeNumber.createSafeNumber(valueToCompare);
+  return dataPackages.sort((leftDataPackage, rightDataPackage) => {
+    const leftValue = SafeNumber.createSafeNumber(
+      leftDataPackage.dataPoints[0].value
+    );
+    const leftValueDeviation = SafeNumber.calculateDeviationPercent({
+      deviatedValue: leftValue,
+      baseValue,
+    });
+    const rightValue = SafeNumber.createSafeNumber(
+      rightDataPackage.dataPoints[0].value
+    );
+    const rightValueDeviation = SafeNumber.calculateDeviationPercent({
+      deviatedValue: rightValue,
+      baseValue,
+    });
+
+    return rightValueDeviation.sub(leftValueDeviation).unsafeToNumber();
+  });
 };
 
 export default {
