@@ -6791,6 +6791,8 @@ __metadata:
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
     "@redstone-finance/sdk": "npm:^0.3.6"
+    "@redstone-finance/utils": "npm:^0.3.6"
+    dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
 
