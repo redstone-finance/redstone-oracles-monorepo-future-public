@@ -1159,6 +1159,32 @@
         "uniswap-v3-ethereum-on-chain-frax-10000"
       ]
     },
+    "eUSD": {
+      "source": [
+        "aerodrome-usdc",
+        "curve-3crv",
+        "curve-crvfrax",
+        "curve-eth+",
+        "curve-rsr"
+      ]
+    },
+    "RSR": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "gate",
+        "kucoin",
+        "mexc",
+        "okx",
+        "xt"
+      ]
+    },
+    "ETH+": {
+      "source": ["curve-weth"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
@@ -1899,7 +1925,6 @@
     "EGLD": {},
     "ANKR": {},
     "HBAR": {},
-    "RSR": {},
     "BSV": {},
     "ICX": {},
     "OGN": {},
