@@ -6933,7 +6933,7 @@ __metadata:
     dotenv: "npm:^16.0.3"
     download: "npm:^8.0.0"
     ecb-euro-exchange-rates: "npm:^2.0.0"
-    ethereum-multicall: "npm:^2.19.0"
+    ethereum-multicall: "npm:^2.21.0"
     ethereum-waffle: "npm:^4.0.10"
     ethereumjs-util: "npm:^7.0.10"
     ethers: "npm:^5.7.2"
@@ -7166,7 +7166,7 @@ __metadata:
   dependencies:
     axios: "npm:^1.6.2"
     decimal.js: "npm:^10.4.3"
-    ethereum-multicall: "npm:^2.19.0"
+    ethereum-multicall: "npm:^2.21.0"
     ethers: "npm:^5.7.2"
     zod: "npm:^3.22.4"
   languageName: unknown
@@ -15194,13 +15194,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethereum-multicall@npm:^2.19.0":
-  version: 2.19.0
-  resolution: "ethereum-multicall@npm:2.19.0"
+"ethereum-multicall@npm:^2.21.0":
+  version: 2.21.0
+  resolution: "ethereum-multicall@npm:2.21.0"
   dependencies:
     "@ethersproject/providers": "npm:^5.0.10"
     ethers: "npm:^5.0.15"
-  checksum: 1f8999c6165b2e4443920402350f207678fed2ff135af245d4cb37168ea4c67e3c2c1819bf8440647167b464d9d5d5915329cbc3027e042bf7e9c983999c9647
+  checksum: 9251a31a0e59ebc6ef05824235893952e08e2c4061e94a5a457da11933ad505338bd7407bc58c97ceb75d5f44dd7c48607d8b215ab7a9a86bfa8356f323b0b40
   languageName: node
   linkType: hard
 
