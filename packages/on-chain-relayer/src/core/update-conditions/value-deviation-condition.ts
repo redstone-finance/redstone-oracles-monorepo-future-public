@@ -66,7 +66,12 @@ export const valueDeviationCondition = async (
   config: RelayerConfig
 ) => {
   const olderDataPackagesFetchCallback = async () => {
-    return await fetchDataPackages(config, uniqueSignersThreshold, true);
+    return await fetchDataPackages(
+      config,
+      uniqueSignersThreshold,
+      valuesFromContract,
+      true
+    );
   };
 
   return await performValueDeviationConditionChecks(
