@@ -55,17 +55,6 @@
       "arweavePublicKey": "TODO: find and add",
       "ecdsaPublicKey": "0x0428082ee0046157d0fba27aa9391f5651c41b9dc8b12011ed72622c05e55d56ae503039f912de7345dab28ae68d80b055082f74286b82ffc2c09c07d8b2e22378"
     },
-    "aw9F_2R2ogYPnM66TDsW1qtiiRflRcgZQG6OLySOSZE": {
-      "name": "redstone-twaps-1",
-      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
-      "description": "RedStone TWAPs - node 1",
-      "dataServiceId": "redstone-twaps-demo",
-      "evmAddress": "0xAAb9568f7165E66AcaFF50B705C3f3e964cbD24f",
-      "ipAddress": "0.0.0.0",
-      "url": "https://redstone.finance",
-      "arweavePublicKey": "sa1_cjxXdrIZgZaxY_L_UkZVf7eL1Q9WTTFrvc9FuRES1ZXwZxXO1QTspji_KboxN54Z8-qFAFXqlun-dgYgGEoLOv57RgWchinlmMHb0QVp2WREe71cSOdioaYfmBhW7eQS8YbvrnFB8cUumdZMOI8UJ6qsBrWOFSDuhPXTdUd2hNZ7mQ9PQR2MMPglZAJnwl36mAb-kaa0cK5s6raeR8_MT0aSSPHQrwyIuM4kOBMvLGEH9XE4LVuNB581Y3h0gXEE_Os7rlhl8BpowkjZM-ZIKK-hUuco9VkjfooQC5CgBHAwivm1--PlIpNa7vtk48cEOkvNoEd0ixN80wfQ2YNgpNFIOV6InnRYyrdPuHBRqE9pCQE48e8VWSxlpgjCiT-bveww42RhRsw_cjVBFHHwMljNQ4bNzjPZLvAaADvSF_ViV4EBpCiqrgj71eyTb0xpUMDSNP7Ae3HcUYPEVC9-n3GjJCCz2akc2zBRxS3zVl13bfApg9JCKzS349Dyaeq9bW9f46CN2U87zLDjUUTJFu3904UumkePlUQjAyMO5YIooChmdoujNla3e_EN6j-SwwjnM3LjDJwNCESETZUrkgZ0Arj6qbENCuEbQLDYqwT7pCJMhXIepolfbloLNnTPTbdCpzyh9pmXwAHokF3hxwSdAzBH11vDSp6ZYvc",
-      "ecdsaPublicKey": "0x046199ad0bf504566f88ddae9910277a3cd4989284bd0f2e3bd5bb8907faf86c6306773953fed32bc604aaf0cf36df56acaee285c83f242bc149ef5006b5290692"
-    },
     "OxQ-vLXcwTZdcdlCziC95duFylo8Aj9xBJ4XsC3xlGk": {
       "name": "redstone-arbitrum-dev-node-1",
       "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
@@ -320,13 +309,6 @@
       "admin": "TEHhCDWy-vGmPSZsYJyM0aP_MM4xESgyIZdf5mVODzg",
       "description": "Data feeds from primary RedStone nodes - prod",
       "manifestTxId": ""
-    },
-    "redstone-twaps-demo": {
-      "name": "RedStone TWAPs demo",
-      "manifestTxId": "ETNFHbaIXCIXSb2mvkY6QWbfcITsFsSDd4h48PhuHYs",
-      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
-      "description": "Time-weighted average prices for most popular tokens",
-      "admin": "aw9F_2R2ogYPnM66TDsW1qtiiRflRcgZQG6OLySOSZE"
     },
     "redstone-arbitrum-demo": {
       "name": "Redstone arbitrum demo",
