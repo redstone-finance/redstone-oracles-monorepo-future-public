@@ -8,7 +8,7 @@
   "scripts": {
     "test": "yarn global:jest:cov",
     "clean": "rm -rf dist",
-    "build": "yarn clean && yarn global:tsc --build",
+    "build": "yarn clean && yarn global:tsc --build tsconfig.build.json",
     "preversion": "yarn build",
     "pack-package": "yarn build && cd dist && npm pack",
     "lint": "yarn global:eslint ."
