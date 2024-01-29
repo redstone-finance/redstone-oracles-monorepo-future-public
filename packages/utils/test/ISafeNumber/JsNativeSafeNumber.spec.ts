@@ -16,7 +16,6 @@ describe("JsNativePreciseNumber", () => {
       ["-12", -12],
       [1, 1],
       [123.123, 123.123],
-      ["0x01", /Invalid number format/],
       ["0.", /Invalid number format/],
       ["0.1.2", /Invalid number format/],
       [".1", 0.1],
@@ -69,6 +68,7 @@ describe("JsNativePreciseNumber", () => {
       [JsNativeSafeNumberConfig.MIN_NUMBER / 2, /Invalid number format/],
       [JsNativeSafeNumberConfig.MIN_NUMBER / 2, /Invalid number format/],
       [JsNativeSafeNumberConfig.MIN_NUMBER * -0.5, /Invalid number format/],
+      ["0x01", /Invalid number format/],
     ])(
       "parse to JsNativePreciseNumber %s to %s",
       (value: NumberArg, expected: number | RegExp) => {
