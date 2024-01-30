@@ -1185,6 +1185,9 @@
     "ETH+": {
       "source": ["curve-weth"]
     },
+    "LAB.m": {
+      "source": ["aperture-swap-weth-500"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },

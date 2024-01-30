@@ -801,6 +801,9 @@
     },
     "sDAI": {
       "source": ["ethereum-evm-fetcher"]
+    },
+    "LAB.m": {
+      "source": ["aperture-swap-weth-500"]
     }
   }
 }
