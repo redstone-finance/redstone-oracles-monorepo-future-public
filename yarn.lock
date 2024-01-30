@@ -6840,6 +6840,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-layerbank-influx-synchronizer@workspace:packages/lambda-layerbank-influx-synchronizer":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-layerbank-influx-synchronizer@workspace:packages/lambda-layerbank-influx-synchronizer"
+  dependencies:
+    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@redstone-finance/lambda-common": "npm:^0.3.6"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-monitoring@workspace:packages/lambda-monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-monitoring@workspace:packages/lambda-monitoring"
