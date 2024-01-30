@@ -3,7 +3,7 @@ import { Signer } from "ethers";
 import { ethers } from "hardhat";
 import { RedstoneToken } from "../typechain-types";
 
-describe("Redstone token", () => {
+describe("RedStone token", () => {
   let contract: RedstoneToken;
   let minter: Signer;
   let other: Signer;

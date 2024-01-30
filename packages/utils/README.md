@@ -1,4 +1,4 @@
-# Redstone Utils
+# RedStone Utils
 
 This package is destined to use internally.
 We gather here functionalities which are used across many data-packages. This has two big advantages:

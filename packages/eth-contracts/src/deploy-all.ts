@@ -104,7 +104,7 @@ async function transferRedstoneTokens(
   recipient: string,
   amount: number
 ) {
-  console.log(`Transfering ${amount} Redstone tokens to the vesting contract`);
+  console.log(`Transfering ${amount} RedStone tokens to the vesting contract`);
   const TokenContractFactory = await ethers.getContractFactory("RedstoneToken");
   const token = TokenContractFactory.attach(tokenAddress);
   const tx = await token.transfer(recipient, toEthBN(amount));

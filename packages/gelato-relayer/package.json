@@ -16,7 +16,7 @@
     "w3f-deploy": "yarn build && npx hardhat w3f-deploy redstone",
     "lint": "yarn global:eslint ."
   },
-  "license": "BUSL-1.1",
+  "license": "MIT",
   "devDependencies": {
     "@ethersproject/abi": "^5.6.3",
     "@ethersproject/providers": "^5.6.8",

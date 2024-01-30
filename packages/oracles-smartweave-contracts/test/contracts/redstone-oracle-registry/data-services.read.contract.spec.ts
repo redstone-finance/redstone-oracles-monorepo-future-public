@@ -9,7 +9,7 @@ import {
 } from "../../../src/contracts/redstone-oracle-registry/types";
 import { mockDataServices } from "./mocks/dataServices.mock";
 
-describe("Redstone oracle registry contract - data feeds - read", () => {
+describe("RedStone oracle registry contract - data feeds - read", () => {
   let contractSrc: string;
   let arlocal: ArLocal;
   let warp: Warp;

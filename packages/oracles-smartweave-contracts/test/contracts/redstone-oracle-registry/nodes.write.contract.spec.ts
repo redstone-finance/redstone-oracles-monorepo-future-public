@@ -21,7 +21,7 @@ const testNodeDetails = {
   url: "testUrl",
 };
 
-describe("Redstone oracle registry contract - nodes - write", () => {
+describe("RedStone oracle registry contract - nodes - write", () => {
   let contractSrc: string;
   let arlocal: ArLocal;
   let warp: Warp;

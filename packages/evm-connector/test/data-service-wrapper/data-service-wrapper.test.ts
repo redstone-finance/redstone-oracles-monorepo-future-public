@@ -154,7 +154,7 @@ describe("DataServiceWrapper", () => {
       await expect(
         runTest(contract, undefined, "wrong-service-id")
       ).rejectedWith(
-        "Data service wrong-service-id is not configured by Redstone protocol"
+        "Data service wrong-service-id is not configured by RedStone protocol"
       );
     });
 

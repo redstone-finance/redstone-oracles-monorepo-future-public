@@ -53,7 +53,7 @@ export const calculateLinkedListPosition = (
     });
     if (deviation > maxDeviationAllowedInPercent) {
       console.log(
-        `deviation ${deviation} is higher than max acceptable deviation ${maxDeviationAllowedInPercent}. Sorted oracles median price: ${currentMedian}. Redstone price:${valueToInsert.toString()}`
+        `deviation ${deviation} is higher than max acceptable deviation ${maxDeviationAllowedInPercent}. Sorted oracles median price: ${currentMedian}. RedStone price:${valueToInsert.toString()}`
       );
       return undefined;
     }

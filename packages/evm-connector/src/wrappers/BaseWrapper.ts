@@ -22,7 +22,7 @@ export abstract class BaseWrapper<T extends Contract> {
     return await this.prepareRedstonePayload(shouldBeMultipleOf32);
   }
 
-  // Redstone payload can be passed as the last argument of the contract function
+  // RedStone payload can be passed as the last argument of the contract function
   // But it needs to have a length that is a multiplicity of 32, otherwise zeros
   // will be padded right and contract will revert with `CalldataMustHaveValidPayload`
   async getRedstonePayloadForManualUsage(contract: T): Promise<string> {
