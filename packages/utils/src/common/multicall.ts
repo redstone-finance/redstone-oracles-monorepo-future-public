@@ -7,6 +7,13 @@ import {
 import { Contract, providers } from "ethers";
 import { FormatTypes } from "ethers/lib/utils";
 
+interface CallMulticallParams {
+  provider: providers.Provider;
+  contractCallContexts: ContractCallContext[] | ContractCallContext;
+  contractCallOptions?: ContractCallOptions;
+  multicallOverrideAddress?: string;
+}
+
 let multicallAddress: undefined | string = undefined;
 export function overrideMulticallAddress(address: string) {
   multicallAddress = address;
@@ -124,15 +131,17 @@ export const prepareCall = (
   };
 };
 
-export const callMulticall = async (
-  provider: providers.Provider,
-  contractCallContexts: ContractCallContext[] | ContractCallContext,
-  contractCallOptions?: ContractCallOptions
-) => {
+export const callMulticall = async ({
+  provider,
+  contractCallContexts,
+  contractCallOptions,
+  multicallOverrideAddress,
+}: CallMulticallParams) => {
   const result = await new Multicall({
     tryAggregate: false,
     ethersProvider: provider,
-    multicallCustomContractAddress: multicallAddress!,
+    multicallCustomContractAddress:
+      multicallAddress ?? multicallOverrideAddress,
   }).call(contractCallContexts, contractCallOptions);
   return new MulticallResult(result);
 };
