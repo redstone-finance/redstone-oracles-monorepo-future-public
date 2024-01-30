@@ -8,7 +8,7 @@ import {
   RedstoneOraclesState,
 } from "../../../src/contracts/redstone-oracle-registry/types";
 
-describe("Redstone oracle registry contract - evolve", () => {
+describe("RedStone oracle registry contract - evolve", () => {
   let contractSrc: string;
   let arlocal: ArLocal;
   let warp: Warp;

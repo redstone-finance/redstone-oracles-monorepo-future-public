@@ -18,7 +18,7 @@ const testDataServiceDetails = {
   manifestTxId: "testManifestId",
 };
 
-describe("Redstone oracle registry contract - data feeds - write", () => {
+describe("RedStone oracle registry contract - data feeds - write", () => {
   let contractSrc: string;
   let arlocal: ArLocal;
   let warp: Warp;

@@ -27,7 +27,7 @@ export const resolveDataServiceUrls = (dataServiceId: string): string[] => {
   const urls = REDSTONE_DATA_SERVICES_URLS[dataServiceId];
   if (!urls) {
     throw Error(
-      `Data service ${dataServiceId} is not configured by Redstone protocol`
+      `Data service ${dataServiceId} is not configured by RedStone protocol`
     );
   }
 

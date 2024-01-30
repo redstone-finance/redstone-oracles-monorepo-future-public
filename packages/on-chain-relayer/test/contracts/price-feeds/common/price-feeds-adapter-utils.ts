@@ -51,7 +51,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       ? args.calculateMockDataTimestamp(mockBlockTimestamp)
       : mockBlockTimestamp * 1000;
 
-    // Wrap it with Redstone payload
+    // Wrap it with RedStone payload
     const wrappedContract = WrapperBuilder.wrap(
       adapterContract
     ).usingSimpleNumericMock({

@@ -311,12 +311,12 @@
       "manifestTxId": ""
     },
     "redstone-arbitrum-demo": {
-      "name": "Redstone arbitrum demo",
+      "name": "RedStone arbitrum demo",
       "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
       "description": "Data feeds from dev arbitrum redstone nodes"
     },
     "redstone-arbitrum-prod": {
-      "name": "Redstone arbitrum prod",
+      "name": "RedStone arbitrum prod",
       "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
       "description": "Data feeds from arbitrum prod redstone nodes"
     }

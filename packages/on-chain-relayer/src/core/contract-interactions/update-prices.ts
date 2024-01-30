@@ -77,7 +77,7 @@ const updatePricesInMentoAdapter = async ({
     );
   if (!linkedListPositions) {
     throw new Error(
-      `Prices in Sorted Oracles deviated more than ${maxDeviationAllowed}% from Redstone prices`
+      `Prices in Sorted Oracles deviated more than ${maxDeviationAllowed}% from RedStone prices`
     );
   }
 
