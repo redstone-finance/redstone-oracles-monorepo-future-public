@@ -9,6 +9,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
+    "isolatedModules": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
