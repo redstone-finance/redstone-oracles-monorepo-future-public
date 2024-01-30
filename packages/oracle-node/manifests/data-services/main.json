@@ -1185,6 +1185,12 @@
     "ETH+": {
       "source": ["curve-weth"]
     },
+    "NOTE": {
+      "source": ["canto-dex-usdc", "canto-dex-usdt", "canto-dex-wcanto"]
+    },
+    "cNOTE": {
+      "source": ["canto-evm-fetcher"]
+    },
     "LAB.m": {
       "source": ["aperture-swap-weth-500"]
     },
