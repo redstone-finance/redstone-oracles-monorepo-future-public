@@ -6785,6 +6785,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda-deviation-monitoring":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda-deviation-monitoring"
+  dependencies:
+    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@redstone-finance/lambda-common": "npm:^0.3.6"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda-gw-metrics":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda-gw-metrics"
