@@ -395,13 +395,18 @@
     "pxETH": {
       "source": [
         "balancer-ethereum-frxeth",
-        "balancer-ethereum-weth-multi-block",
         "curve-steth",
-        "maverick-multi-block",
+        "curve-frxeth-pxeth-multi-block",
         "uniswap-v3-ethereum-on-chain-weth-100-multi-block"
       ]
     },
     "pxETH/ETH": {
+      "source": ["non-usd-based"]
+    },
+    "apxETH": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "apxETH/ETH": {
       "source": ["non-usd-based"]
     },
     "ARB": {
