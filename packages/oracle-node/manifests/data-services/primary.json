@@ -815,6 +815,22 @@
     },
     "LAB.m": {
       "source": ["aperture-swap-weth-500"]
+    },
+    "TON": {
+      "source": [
+        "bingx",
+        "bitget",
+        "bitfinex2",
+        "bitmart",
+        "bitrue",
+        "coingecko",
+        "gate",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx",
+        "xt"
+      ]
     }
   }
 }
