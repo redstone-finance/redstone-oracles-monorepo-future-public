@@ -5,10 +5,15 @@ import { mockSignedDataPackageObjects } from "../tests-common";
 const singedDataPackageObj = mockSignedDataPackageObjects;
 
 const getDataPackageResponse = (dataFeedId: string) =>
-  singedDataPackageObj.filter(
-    (obj) =>
-      obj.dataPoints.filter((dp) => dp.dataFeedId === dataFeedId).length > 0
-  );
+  singedDataPackageObj
+    .filter(
+      (obj) =>
+        obj.dataPoints.filter((dp) => dp.dataFeedId === dataFeedId).length > 0
+    )
+    .map((obj) => ({
+      ...obj,
+      dataFeedId,
+    }));
 
 const getValidDataPackagesResponse = () => ({
   ETH: getDataPackageResponse("ETH"),
@@ -29,11 +34,11 @@ const handlers = [
         ctx.json({
           ETH: getDataPackageResponse("ETH").map((obj) => ({
             ...obj,
-            timestampMilliseconds: 1654353411111,
+            dataPoints: [{ ...obj.dataPoints[0], value: 1 }],
           })),
           BTC: getDataPackageResponse("BTC").map((obj) => ({
             ...obj,
-            timestampMilliseconds: 1654353411111,
+            dataPoints: [{ ...obj.dataPoints[0], value: 1 }],
           })),
         })
       );

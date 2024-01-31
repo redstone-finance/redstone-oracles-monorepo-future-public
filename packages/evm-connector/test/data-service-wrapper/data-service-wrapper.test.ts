@@ -109,7 +109,7 @@ describe("DataServiceWrapper", () => {
     });
 
     it("Should throw error when multiple invalid caches", async () => {
-      const expectedErrorMessage = `VM Exception while processing transaction: reverted with custom error 'SignerNotAuthorised("0x41e13E6e0A8B13F8539B71f3c07d3f97F887F573")`;
+      const expectedErrorMessage = `VM Exception while processing transaction: reverted with custom error 'SignerNotAuthorised("0xE27eB50d7dbBB5548236a88E0F0Af5126cA758CC")`;
       await expect(
         runTest(
           contract,
