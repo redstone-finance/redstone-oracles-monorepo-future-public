@@ -6850,6 +6850,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring"
+  dependencies:
+    "@redstone-finance/lambda-common": "npm:^0.3.6"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-monitoring@workspace:packages/lambda-monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-monitoring@workspace:packages/lambda-monitoring"
