@@ -1168,13 +1168,7 @@
       ]
     },
     "eUSD": {
-      "source": [
-        "aerodrome-usdc",
-        "curve-3crv",
-        "curve-crvfrax",
-        "curve-eth+",
-        "curve-rsr"
-      ]
+      "source": ["aerodrome-usdc", "curve-crvfrax", "curve-eth+", "curve-rsr"]
     },
     "RSR": {
       "source": [
