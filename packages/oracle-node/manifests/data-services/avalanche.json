@@ -263,6 +263,12 @@
     },
     "BUSD": {
       "source": ["binance", "coingecko", "coinmarketcap"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      },
       "skipSigning": true
     },
     "YY_GLP": {
@@ -336,7 +342,13 @@
         "coinmarketcap",
         "trader-joe-v2-avalanche-on-chain-usdc",
         "uniswap-v3-ethereum-on-chain-usdc-500"
-      ]
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "SHLB_EUROC-USDC_V2_1_B": {
       "source": ["avalanche-evm-fetcher"]

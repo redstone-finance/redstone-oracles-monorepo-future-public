@@ -541,7 +541,13 @@
         "curve-crvfrax",
         "velodrome-on-chain-usdc",
         "velodrome-on-chain-frax"
-      ]
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "ETH/USDC": {
       "source": ["non-usd-based"]
@@ -611,7 +617,13 @@
         "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-usdc-100",
         "uniswap-v3-polygon-on-chain-usdc-100"
-      ]
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "XVS": {
       "source": ["binance", "binanceusdm", "bingx", "gate", "lbank", "mexc"]
@@ -748,7 +760,13 @@
       ]
     },
     "USDM": {
-      "source": ["curve-3crv", "curve-sdai"]
+      "source": ["curve-3crv", "curve-sdai"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "wUSDM": {
       "source": ["ethereum-evm-fetcher"]
@@ -785,7 +803,13 @@
         "curve-crvfrax",
         "curve-eth+",
         "curve-rsr"
-      ]
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "RSR": {
       "source": [
@@ -808,7 +832,13 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "NOTE": {
-      "source": ["canto-dex-usdc", "canto-dex-usdt", "canto-dex-wcanto"]
+      "source": ["canto-dex-usdc", "canto-dex-usdt", "canto-dex-wcanto"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "cNOTE": {
       "source": ["canto-evm-fetcher"]
