@@ -26,4 +26,8 @@ contract Counter {
   function getCountPlusOne() public view returns (uint256) {
     return count + 1;
   }
+
+  function getCountWithCallData32Bytes(uint256 param) public view returns (uint256) {
+    return param;
+  }
 }

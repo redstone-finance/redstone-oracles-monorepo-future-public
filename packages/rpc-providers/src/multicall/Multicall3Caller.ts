@@ -3,7 +3,7 @@ import { RedstoneCommon } from "@redstone-finance/utils";
 import { BytesLike, Contract, providers } from "ethers";
 import { abi } from "./Multicall3.abi.json";
 
-export const MULTICALL_DETERMINISTIC_ADDRESS =
+export const MULTICALL3_DETERMINISTIC_ADDRESS =
   "0xcA11bde05977b3631167028862bE2a173976CA11";
 
 // https://github.com/mds1/multicall#batch-contract-reads
@@ -19,7 +19,7 @@ export type Multicall3Result = {
 };
 
 const DEFAULT_MULTICALL3_CONTRACT = new Contract(
-  MULTICALL_DETERMINISTIC_ADDRESS,
+  MULTICALL3_DETERMINISTIC_ADDRESS,
   abi
 );
 
