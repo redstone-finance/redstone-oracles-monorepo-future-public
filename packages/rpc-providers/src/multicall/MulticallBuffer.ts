@@ -10,8 +10,14 @@ export type CallEntry = {
   reject: (reason: unknown) => void;
 };
 
+// 2 nibbles = 1 byte
+const hexSizeToBytesSize = (length: number) => Math.floor(length / 2);
+
 export class MulticallBuffer {
-  constructor(private readonly maxItems: number) {}
+  constructor(
+    private readonly maxCallsCount: number,
+    private readonly maxCallDataSize: number
+  ) {}
 
   private _state = new Map<number, CallEntry[]>();
 
@@ -27,12 +33,32 @@ export class MulticallBuffer {
     }
   }
 
-  isFull(blockTag: BlockTag | undefined): boolean {
-    const blockId = blockTagToBlockId(blockTag);
+  willCallDataSizeBeExceeded(
+    blockTag: BlockTag | undefined,
+    entry: CallEntry
+  ): boolean {
     return (
-      this._state.has(blockId) &&
-      this._state.get(blockId)?.length === this.maxItems
+      this.callDataSize(blockTag) + hexSizeToBytesSize(entry.callData.length) >
+      this.maxCallDataSize
     );
+  }
+
+  isCallsCountFull(blockTag: BlockTag | undefined): boolean {
+    const blockId = blockTagToBlockId(blockTag);
+    if (!this._state.has(blockId)) {
+      return false;
+    }
+    return this._state.get(blockId)!.length === this.maxCallsCount;
+  }
+
+  callDataSize(blockTag: BlockTag | undefined): number {
+    const blockId = blockTagToBlockId(blockTag);
+    const callDataLength =
+      this._state
+        .get(blockId)
+        ?.reduce((acc, entry) => acc + entry.callData.length, 0) ?? 0;
+
+    return hexSizeToBytesSize(callDataLength);
   }
 
   isEmpty(blockTag: BlockTag | undefined): boolean {

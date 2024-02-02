@@ -192,7 +192,7 @@ describe("TransactionDeliveryMan", () => {
       ).to.deep.equal({
         nonce: 1,
         gasLimit: "210000",
-        gasPrice: "1767071952",
+        gasPrice: "1767328378",
       });
 
       expect(
@@ -204,7 +204,7 @@ describe("TransactionDeliveryMan", () => {
       ).to.deep.equal({
         nonce: 1,
         gasLimit: "210000",
-        gasPrice: "1987955946",
+        gasPrice: "1988244425",
       });
     });
   });

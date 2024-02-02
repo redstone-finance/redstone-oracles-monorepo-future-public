@@ -21,11 +21,14 @@ const multicallFnSpy = Sinon.spy(multicallUtils.multicall3);
 function getProvider(
   multicallAddress: string,
   providerFabric: () => ethers.providers.Provider,
-  bufferSize = 2
+  bufferSize = 2,
+  maxCallDataSize = 100000000,
+  autoResolveInterval = -1
 ) {
   const multicallProvider = withMulticall(providerFabric, {
-    autoResolveInterval: -1,
-    bufferSizePerBlockId: bufferSize,
+    autoResolveInterval: autoResolveInterval,
+    maxCallsCount: bufferSize,
+    maxCallDataSize: maxCallDataSize,
     multicallAddress,
   });
   return multicallProvider;
@@ -200,6 +203,26 @@ const describeMultiWrapperSuite = (
       ]);
       expect(count).to.eq(count2);
       expect(multicallFnSpy.getCalls().length).to.eq(1);
+    });
+
+    it("it should empty execute queue base on callDataSize", async () => {
+      const multicallProvider = getProvider(
+        multicall.address,
+        providerFabric,
+        3,
+        37 + 1, // should fit one requests
+        10
+      );
+
+      counter = counter.connect(multicallProvider);
+
+      const [count, count2] = await Promise.all([
+        counter.getCountWithCallData32Bytes(1),
+        counter.getCountWithCallData32Bytes(1),
+      ]);
+
+      expect(count).to.eq(count2);
+      expect(multicallFnSpy.getCalls().length).to.eq(2);
     });
 
     it("it should work when fallback fails partially", async () => {
