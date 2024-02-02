@@ -797,13 +797,7 @@
       ]
     },
     "eUSD": {
-      "source": [
-        "aerodrome-usdc",
-        "curve-3crv",
-        "curve-crvfrax",
-        "curve-eth+",
-        "curve-rsr"
-      ],
+      "source": ["aerodrome-usdc", "curve-crvfrax", "curve-eth+", "curve-rsr"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
