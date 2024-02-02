@@ -199,7 +199,13 @@
         "uniswap-v3-ethereum-on-chain-fxs-10000",
         "uniswap-v3-ethereum-on-chain-usdc-500",
         "uniswap-v3-ethereum-on-chain-dai-500"
-      ]
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "UNI": {
       "source": [
@@ -325,6 +331,12 @@
     },
     "BUSD": {
       "source": ["binance", "coingecko", "coinmarketcap"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      },
       "skipSigning": true
     },
     "JOE": {
