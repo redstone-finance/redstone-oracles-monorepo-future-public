@@ -74,7 +74,7 @@ export class MegaProviderBuilder {
     return this;
   }
 
-  multicall(options?: MulticallDecoratorOptions) {
+  multicall(options: MulticallDecoratorOptions = {}) {
     if (!this.lastIfResult) {
       this.lastIfResult = true;
       return this;
