@@ -28,7 +28,7 @@ export const makeConfigProvider = (
     updateConditions.push("cron");
   }
 
-  return Object.freeze({
+  return {
     updatePriceInterval: timeSinceLastUpdateInMilliseconds,
     cronExpressions: cron,
     chainName: manifest.chain.name,
@@ -42,5 +42,5 @@ export const makeConfigProvider = (
       manifest.adapterContractType ?? DEFAULT_ADAPTER_CONTRACT_TYPE,
     fallbackOffsetInMS: env.fallbackOffsetInMinutes * MS_IN_ONE_MINUTE,
     ...env,
-  });
+  };
 };

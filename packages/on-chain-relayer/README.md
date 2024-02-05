@@ -8,6 +8,7 @@
 
 The complete documentation can be found [here](https://docs.redstone.finance/docs/smart-contract-devs/get-started/redstone-classic)
 
+
 ## Run on-chain relayer
 
 1. Install dependencies - `yarn`

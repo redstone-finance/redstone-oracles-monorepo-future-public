@@ -77,6 +77,7 @@ export interface RelayerConfig {
   isNotLazy: boolean;
   fallbackSkipDeviationBasedFrequentUpdates: boolean;
   disableCustomGasOracle: boolean;
+  temporaryUpdatePriceInterval: number;
 }
 
 export type OnChainRelayerEnv = {
@@ -99,6 +100,7 @@ export type OnChainRelayerEnv = {
   isNotLazy: boolean;
   fallbackSkipDeviationBasedFrequentUpdates: boolean;
   disableCustomGasOracle: boolean;
+  temporaryUpdatePriceInterval: number;
 };
 
 export type ConfigProvider = () => RelayerConfig;
