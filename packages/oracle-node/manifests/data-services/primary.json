@@ -371,6 +371,9 @@
     "weETH/ETH": {
       "source": ["non-usd-based"]
     },
+    "weETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher"]
+    },
     "rETH": {
       "source": [
         "uniswap-v3-ethereum-on-chain-weth-100",
