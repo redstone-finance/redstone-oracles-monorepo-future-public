@@ -38,12 +38,12 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
     );
 
     this.streamrClient = new StreamrClient({
-      auth: { privateKey: streamrPrivateKey! },
+      auth: { privateKey: streamrPrivateKey },
       network: {
         webrtcDisallowPrivateAddresses: false,
       },
     });
-    this.address = new Wallet(streamrPrivateKey!).address;
+    this.address = new Wallet(streamrPrivateKey).address;
   }
 
   async broadcast(

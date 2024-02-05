@@ -1,10 +1,10 @@
 import axios, { AxiosError } from "axios";
 
-export const assert = (condition: boolean, errMsg: string) => {
-  if (!condition) {
+export function assert(value: unknown, errMsg: string): asserts value {
+  if (!value) {
     throw new Error(`Assertion failed: ${errMsg}`);
   }
-};
+}
 
 export const assertWithLog = (condition: boolean, errMsg: string) => {
   if (!condition) {

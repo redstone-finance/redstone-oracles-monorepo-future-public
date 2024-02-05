@@ -35,6 +35,7 @@ const EMPTY_GELATO_ENV = {
   isNotLazy: true,
   disableCustomGasOracle: false,
   fallbackSkipDeviationBasedFrequentUpdates: false,
+  temporaryUpdatePriceInterval: -1,
 };
 
 export class IterationArgsProvider

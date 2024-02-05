@@ -105,6 +105,10 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       "SKIP_TX_SENDING_IF_OFFSET_MINUTES_DID_NOT_PASS",
       z.boolean().default(false)
     ),
+    temporaryUpdatePriceInterval: RedstoneCommon.getFromEnv(
+      "TEMPORARY_UPDATE_PRICE_INTERVAL",
+      z.number().default(RedstoneCommon.minToMs(5))
+    ),
   };
 
   return makeConfigProvider(manifest, env);

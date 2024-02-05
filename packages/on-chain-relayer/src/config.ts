@@ -1,3 +1,4 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { ConfigProvider, RelayerConfig } from "./types";
 
 let configProvider: ConfigProvider | undefined = undefined;
@@ -27,4 +28,31 @@ export const config = () => {
 export const setConfigProvider = (provider: ConfigProvider) => {
   relayerConfig = undefined;
   configProvider = provider;
+};
+
+export const timelyOverrideSinceLastUpdate = (
+  temporaryUpdatePriceInterval: number
+) => {
+  RedstoneCommon.assert(
+    relayerConfig,
+    "[BUG] It should never happen. Fix code..."
+  );
+  const oldUpdatePriceInterval = relayerConfig.updatePriceInterval;
+  relayerConfig.updatePriceInterval = temporaryUpdatePriceInterval;
+
+  const temporaryUpdateDuration = Math.floor(
+    temporaryUpdatePriceInterval * 1.5
+  );
+  console.log(
+    `Timely overriding updatePriceInterval to ${RedstoneCommon.msToMin(
+      temporaryUpdatePriceInterval
+    ).toFixed(2)} [min] for ${RedstoneCommon.msToMin(
+      temporaryUpdateDuration
+    ).toFixed(2)} [min]`
+  );
+
+  setTimeout(() => {
+    relayerConfig!.updatePriceInterval = oldUpdatePriceInterval;
+    console.log(`Set updatePriceInterval to ${oldUpdatePriceInterval} [min]`);
+  }, temporaryUpdateDuration);
 };
