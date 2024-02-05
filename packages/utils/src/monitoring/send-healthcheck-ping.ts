@@ -12,7 +12,8 @@ export const sendHealthcheckPing = async (healthcheckPingUrl?: string) => {
         );
       } else {
         console.error(
-          `Unknown error occurred, when trying to health check ping code: ${error.code} message: ${error.message}`
+          "Unknown error occurred, when trying to health check ping",
+          error
         );
       }
     }
