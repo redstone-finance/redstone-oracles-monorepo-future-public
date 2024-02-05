@@ -902,6 +902,9 @@
         "maverick-multi-block"
       ]
     },
+    "weETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher"]
+    },
     "rETH": {
       "source": [
         "uniswap-v3-ethereum-on-chain-weth-100",
