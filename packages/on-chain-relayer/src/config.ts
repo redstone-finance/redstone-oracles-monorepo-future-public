@@ -40,6 +40,11 @@ export const timelyOverrideSinceLastUpdate = (
   const oldUpdatePriceInterval = relayerConfig.updatePriceInterval;
   relayerConfig.updatePriceInterval = temporaryUpdatePriceInterval;
 
+  const oldConditions = [...relayerConfig.updateConditions];
+  if (!relayerConfig.updateConditions.includes("time")) {
+    relayerConfig.updateConditions.push("time");
+  }
+
   const temporaryUpdateDuration = Math.floor(
     temporaryUpdatePriceInterval * 1.5
   );
@@ -53,6 +58,9 @@ export const timelyOverrideSinceLastUpdate = (
 
   setTimeout(() => {
     relayerConfig!.updatePriceInterval = oldUpdatePriceInterval;
-    console.log(`Set updatePriceInterval to ${oldUpdatePriceInterval} [min]`);
+    relayerConfig!.updateConditions = oldConditions;
+    console.log(
+      `Reverting updatePriceInterval to ${oldUpdatePriceInterval} [min]`
+    );
   }, temporaryUpdateDuration);
 };
