@@ -33,9 +33,8 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
         error.errors.push(e);
         if (!config.disableLog) {
           console.log(
-            `Retry ${i + 1}/${config.maxRetries}; Function ${fnName} failed. ${(
-              e as Error
-            ).toString()}`
+            `Retry ${i + 1}/${config.maxRetries}; Function ${fnName} failed.`,
+            e
           );
         }
 
