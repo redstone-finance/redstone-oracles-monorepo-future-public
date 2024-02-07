@@ -27,7 +27,7 @@ export const JsNativeSafeNumberConfig = {
       throw new Error(msg);
     },
     [NumberValidationResult.isOverflow]: console.error,
-    [NumberValidationResult.isUnderflow]: console.error,
+    [NumberValidationResult.isUnderflow]: () => {},
   } as Record<NumberValidationError, (msg: string) => unknown>,
   EPSILON: 1e-14,
 };
