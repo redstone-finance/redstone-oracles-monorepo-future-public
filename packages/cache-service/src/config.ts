@@ -19,6 +19,7 @@ interface CacheServiceConfig {
   maxAllowedTimestampDelay: number;
   dataPackagesTTL: number;
   streamrStreamNamePattern: string;
+  keepAliveTimeoutInSeconds: number;
 }
 
 const DEFAULT_APP_PORT = 3000;
@@ -82,6 +83,10 @@ const config: CacheServiceConfig = {
   streamrStreamNamePattern: RedstoneCommon.getFromEnv(
     "STREAMR_STREAM_NAME_PATTERN",
     z.string().default("/redstone-oracle-node/{evmAddress}/data-packages")
+  ),
+  keepAliveTimeoutInSeconds: RedstoneCommon.getFromEnv(
+    "KEEP_ALIVE_TIMEOUT_IN_SECONDS",
+    z.number().default(60)
   ),
 };
 
