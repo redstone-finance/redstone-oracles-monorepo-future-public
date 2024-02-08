@@ -38,7 +38,10 @@ export const timelyOverrideSinceLastUpdate = (
     "[BUG] It should never happen. Fix code..."
   );
   const oldUpdatePriceInterval = relayerConfig.updatePriceInterval;
-  relayerConfig.updatePriceInterval = temporaryUpdatePriceInterval;
+  relayerConfig.updatePriceInterval = Math.min(
+    temporaryUpdatePriceInterval,
+    oldUpdatePriceInterval ?? temporaryUpdatePriceInterval
+  );
 
   const oldConditions = [...relayerConfig.updateConditions];
   if (!relayerConfig.updateConditions.includes("time")) {
