@@ -178,12 +178,14 @@
         "bingx",
         "bitget",
         "curve-eth",
+        "curve-frxeth",
         "curve-weth",
-        "gate",
-        "mexc",
         "okx",
         "uniswap-v2-on-chain-weth"
       ]
+    },
+    "stETH/ETH": {
+      "source": ["non-usd-based"]
     },
     "wstETH": {
       "source": [
