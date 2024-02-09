@@ -1,0 +1,14 @@
+{
+  "chain": {
+    "name": "canto",
+    "id": 7700
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0x19219BC90F48DeE4d5cF202E09c438FAacFd8Bea",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "cNOTE": "0x19219BC90F48DeE4d5cF202E09c438FAacFd8Bea"
+  }
+}
