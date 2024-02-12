@@ -19715,6 +19715,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lambda-redstone-txs-indexer@workspace:packages/lambda-redstone-txs-indexer":
+  version: 0.0.0-use.local
+  resolution: "lambda-redstone-txs-indexer@workspace:packages/lambda-redstone-txs-indexer"
+  dependencies:
+    "@aws-sdk/client-ssm": "npm:^3.485.0"
+    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@redstone-finance/on-chain-relayer": "npm:^0.3.6"
+    "@types/aws-lambda": "npm:^8.10.128"
+    axios: "npm:^1.6.2"
+    dotenv: "npm:^16.0.3"
+    ethers: "npm:^5.7.2"
+    prompts: "npm:^2.4.2"
+    ts-node: "npm:^10.9.1"
+  languageName: unknown
+  linkType: soft
+
 "lazystream@npm:^1.0.0":
   version: 1.0.1
   resolution: "lazystream@npm:1.0.1"

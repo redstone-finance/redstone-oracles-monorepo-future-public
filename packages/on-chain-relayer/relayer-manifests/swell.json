@@ -1,6 +1,6 @@
 {
   "chain": {
-    "name": "Ethereum Mainnet",
+    "name": "mainnet",
     "id": 1
   },
   "updateTriggers": {

@@ -15,3 +15,6 @@ export {
   UpdateTriggersSchema,
 } from "./types";
 export { makeConfigProvider } from "./make-config-provider";
+
+import manifests from "../relayer-manifests";
+export { manifests };
