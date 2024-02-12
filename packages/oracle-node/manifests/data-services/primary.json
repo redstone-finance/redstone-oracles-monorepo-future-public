@@ -351,15 +351,14 @@
     },
     "TIA": {
       "source": [
-        "binance",
-        "okx",
-        "coinbasepro",
-        "kucoin",
-        "gate",
+        "bitfinex2",
         "bitget",
-        "kraken",
-        "xt",
-        "bitfinex2"
+        "binance",
+        "coinbasepro",
+        "gate",
+        "kucoin",
+        "okx",
+        "xt"
       ]
     },
     "weETH": {
@@ -782,7 +781,6 @@
         "bingx",
         "bitget",
         "bitrue",
-        "coingecko",
         "gate",
         "kucoin",
         "lbank",
