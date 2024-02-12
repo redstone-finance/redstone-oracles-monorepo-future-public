@@ -153,7 +153,14 @@
       "source": ["yf-unofficial"]
     },
     "GBP": {
-      "source": ["binance", "ecb", "twelve-data", "kraken"]
+      "source": [
+        "alphavantage-usd",
+        "twelve-data",
+        "binance",
+        "ecb",
+        "kraken",
+        "bitfinex2"
+      ]
     },
     "AUD": {
       "source": ["ecb", "twelve-data", "kraken"]

@@ -1234,7 +1234,14 @@
       "source": ["ecb", "kraken", "twelve-data"]
     },
     "GBP": {
-      "source": ["binance", "ecb", "kraken", "twelve-data"]
+      "source": [
+        "alphavantage-usd",
+        "twelve-data",
+        "binance",
+        "ecb",
+        "kraken",
+        "bitfinex2"
+      ]
     },
     "EUR": {
       "source": [
