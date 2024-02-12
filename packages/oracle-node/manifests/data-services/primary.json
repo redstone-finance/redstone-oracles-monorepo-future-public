@@ -858,6 +858,16 @@
         "okx",
         "xt"
       ]
+    },
+    "GBP": {
+      "source": [
+        "alphavantage-usd",
+        "twelve-data",
+        "binance",
+        "ecb",
+        "kraken",
+        "bitfinex2"
+      ]
     }
   }
 }
