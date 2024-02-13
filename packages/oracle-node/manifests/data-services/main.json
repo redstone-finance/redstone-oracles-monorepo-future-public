@@ -1215,6 +1215,10 @@
         "xt"
       ]
     },
+    "USDB": {
+      "source": ["fixed-value"],
+      "fixedValue": 1
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
