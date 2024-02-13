@@ -868,6 +868,10 @@
         "kraken",
         "bitfinex2"
       ]
+    },
+    "USDB": {
+      "source": ["fixed-value"],
+      "fixedValue": 1
     }
   }
 }
