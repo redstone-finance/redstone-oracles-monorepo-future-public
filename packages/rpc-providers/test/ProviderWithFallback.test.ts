@@ -3,7 +3,7 @@ import chaiAsPromised from "chai-as-promised";
 import { providers, Signer, Wallet } from "ethers";
 import * as hardhat from "hardhat";
 import * as sinon from "sinon";
-import { ProviderWithFallback } from "../src/ProviderWithFallback";
+import { ProviderWithFallback } from "../src/providers/ProviderWithFallback";
 import { Counter } from "../typechain-types";
 import { deployCounter } from "./helpers";
 

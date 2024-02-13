@@ -60,10 +60,10 @@ const parseMulticallConfig = (
   };
 };
 
-export function withMulticall<T extends providers.Provider>(
+export function MulticallDecorator<T extends providers.Provider>(
   buildProvider: () => T,
   options: MulticallDecoratorOptions = {}
-): T {
+): () => T {
   const config = parseMulticallConfig(options);
   const modifiedProvider = buildProvider();
   const originalProvider = buildProvider();
@@ -148,7 +148,7 @@ export function withMulticall<T extends providers.Provider>(
 
   modifiedProvider.call = call;
 
-  return modifiedProvider;
+  return () => modifiedProvider;
 }
 
 function createDeferedPromise<T>() {
