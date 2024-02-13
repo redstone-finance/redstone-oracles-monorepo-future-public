@@ -2,7 +2,7 @@ import {
   GasOracleFn,
   TransactionDeliveryManOpts,
 } from "./TransactionDeliveryMan";
-import { fetchWithCache } from "./common";
+import { fetchWithCache } from "../common";
 
 const ONE_GWEI = 1e9;
 const ONE_MICRO_KAVA = 1e12;

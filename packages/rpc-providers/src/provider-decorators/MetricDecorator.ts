@@ -3,12 +3,23 @@ import { Point } from "@influxdata/influxdb-client";
 import { providers } from "ethers";
 import { Deferrable } from "ethers/lib/utils";
 
-export function wrapCallWithMetric(
-  factory: () => providers.StaticJsonRpcProvider,
+export function getProviderNetworkInfo(provider: providers.Provider) {
+  if (provider instanceof providers.StaticJsonRpcProvider) {
+    return {
+      chainId: provider.network.chainId.toString(),
+      url: provider.connection.url,
+    };
+  }
+  return { chainId: "uknown", url: "unknown" };
+}
+
+export function CallMetricDecorator(
+  factory: () => providers.Provider,
   reportMetric: (message: Point) => void
 ) {
   const newFactory = () => {
     const provider = factory();
+    const { chainId, url } = getProviderNetworkInfo(provider);
 
     const oldCall = provider.call.bind(provider);
     provider.call = async (
@@ -28,8 +39,8 @@ export function wrapCallWithMetric(
         const end = performance.now();
         const point = new Point("rpc_provider")
           .tag("op", "call")
-          .tag("chainId", provider.network.chainId.toString())
-          .tag("url", provider.connection.url)
+          .tag("chainId", chainId)
+          .tag("url", url)
           .tag("isFailure", isFailure.toString())
           .floatField("duration", end - start)
           .timestamp(Date.now());
@@ -42,13 +53,14 @@ export function wrapCallWithMetric(
   return newFactory;
 }
 
-export function wrapGetBlockNumberWithMetric(
-  factory: () => providers.StaticJsonRpcProvider,
+export function GetBlockNumberMetricDecorator(
+  factory: () => providers.Provider,
   reportMetric: (message: Point) => void
 ) {
   const newFactory = () => {
     const provider = factory();
 
+    const { chainId, url } = getProviderNetworkInfo(provider);
     const oldGetBlockNumber = provider.getBlockNumber.bind(provider);
     provider.getBlockNumber = async () => {
       const start = performance.now();
@@ -66,8 +78,8 @@ export function wrapGetBlockNumberWithMetric(
         const end = performance.now();
         const point = new Point("rpc_provider")
           .tag("op", "getBlockNumber")
-          .tag("chainId", provider.network.chainId.toString())
-          .tag("url", provider.connection.url)
+          .tag("chainId", chainId)
+          .tag("url", url)
           .tag("isFailure", isFailure.toString())
           .floatField("blockNumber", blockNumber)
           .floatField("duration", end - start)
