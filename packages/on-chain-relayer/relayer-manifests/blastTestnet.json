@@ -1,0 +1,17 @@
+{
+  "chain": {
+    "name": "blast-testnet",
+    "id": 168587773
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0xb7e2d66D9c09A10E5Ca7116BD76F7A7e1e1a7643",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "BTC": "0x24b44096A381344A43559882c9A23A9DAd420781",
+    "ETH": "0xc447B8cAd2db7a8B0fDde540B038C9e06179c0f7",
+    "USDB": "0x2Bc667aDbf3ed021834114599C15388c49C9c773"
+  }
+}
