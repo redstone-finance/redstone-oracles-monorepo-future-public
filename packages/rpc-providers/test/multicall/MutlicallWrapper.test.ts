@@ -6,9 +6,9 @@ import Sinon from "sinon";
 import {
   ProviderWithAgreement,
   ProviderWithFallback,
-  MulticallDecorator,
+  withMulticall,
 } from "../../src";
-import * as multicallUtils from "../../src/provider-decorators/multicall/Multicall3Caller";
+import * as multicallUtils from "../../src/multicall/Multicall3Caller";
 import { Counter } from "../../typechain-types";
 import { HardhatProviderMocker, deployCounter } from "../helpers";
 
@@ -25,12 +25,13 @@ function getProvider(
   maxCallDataSize = 100000000,
   autoResolveInterval = -1
 ) {
-  return MulticallDecorator(providerFabric, {
+  const multicallProvider = withMulticall(providerFabric, {
     autoResolveInterval: autoResolveInterval,
     maxCallsCount: bufferSize,
     maxCallDataSize: maxCallDataSize,
     multicallAddress,
-  })();
+  });
+  return multicallProvider;
 }
 
 const NOT_MULTICALL_ADDRESS = Wallet.createRandom().address;

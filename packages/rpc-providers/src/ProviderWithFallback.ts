@@ -1,6 +1,7 @@
 import { ErrorCode, Logger } from "@ethersproject/logger";
 import {
   EventType,
+  JsonRpcProvider,
   Listener,
   Network,
   Provider,
@@ -8,7 +9,6 @@ import {
 } from "@ethersproject/providers";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { ProviderWithFallbackBase } from "./ProviderWithFallbackBase";
-import { providers } from "ethers";
 
 const logger = Logger.globalLogger();
 
@@ -58,7 +58,7 @@ export class ProviderWithFallback
   }[] = [];
 
   constructor(
-    providers: providers.Provider[],
+    providers: JsonRpcProvider[],
     config: Partial<ProviderWithFallbackConfig> = {}
   ) {
     super();
