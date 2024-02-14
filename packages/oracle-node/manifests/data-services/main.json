@@ -1219,6 +1219,19 @@
       "source": ["fixed-value"],
       "fixedValue": 1
     },
+    "sfrxETH": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "rsETH": {
+      "source": [
+        "balancer-ethereum-ethx",
+        "curve-sfrxeth",
+        "uniswap-v3-ethereum-on-chain-ethx-3000"
+      ]
+    },
+    "rsETH/ETH": {
+      "source": ["non-usd-based"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
