@@ -1,5 +1,5 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
-import { convertBlockTagToNumber } from "../../common";
+import { convertBlockTagToNumber } from "../common";
 
 export type CallEntry = {
   callData: string;

@@ -22,10 +22,7 @@ export const getRelayerProvider = () => {
   if (cachedProvider) {
     return cachedProvider;
   }
-  const { rpcUrls, chainName, chainId, agreementAcceptableBlocksDiff } =
-    config();
-
-  const enableAgreementProvider = agreementAcceptableBlocksDiff > 0;
+  const { rpcUrls, chainName, chainId } = config();
 
   cachedProvider = new MegaProviderBuilder({
     rpcUrls,
@@ -33,21 +30,17 @@ export const getRelayerProvider = () => {
     throttleLimit: 1,
     network: { name: chainName, chainId },
   })
-    .fallback(
-      {
-        singleProviderOperationTimeout: config().singleProviderOperationTimeout,
-        allProvidersOperationTimeout: config().allProvidersOperationTimeout,
-      },
-      !enableAgreementProvider && rpcUrls.length > 1
-    )
-    .agreement(
-      {
-        singleProviderOperationTimeout: config().singleProviderOperationTimeout,
-        allProvidersOperationTimeout: config().allProvidersOperationTimeout,
-        electBlockFn: electBlock,
-      },
-      enableAgreementProvider && rpcUrls.length > 1
-    )
+    .enableNextIf(config().agreementAcceptableBlocksDiff <= 0)
+    .fallback({
+      singleProviderOperationTimeout: config().singleProviderOperationTimeout,
+      allProvidersOperationTimeout: config().allProvidersOperationTimeout,
+    })
+    .enableNextIf(config().agreementAcceptableBlocksDiff > 0)
+    .agreement({
+      singleProviderOperationTimeout: config().singleProviderOperationTimeout,
+      allProvidersOperationTimeout: config().allProvidersOperationTimeout,
+      electBlockFn: electBlock,
+    })
     .build()!;
 
   return cachedProvider;

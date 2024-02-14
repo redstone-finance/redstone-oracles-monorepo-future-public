@@ -1,8 +1,8 @@
 import { MathUtils, RedstoneCommon } from "@redstone-finance/utils";
 import { Contract, ethers } from "ethers";
-import { ProviderWithAgreement } from "../providers/ProviderWithAgreement";
-import { ProviderWithFallback } from "../providers/ProviderWithFallback";
-import { isEthersError } from "../common";
+import { ProviderWithAgreement } from "./ProviderWithAgreement";
+import { ProviderWithFallback } from "./ProviderWithFallback";
+import { isEthersError } from "./common";
 
 export interface TxBroadcaster {
   broadcast(signedTx: string): Promise<ethers.providers.TransactionResponse>;
