@@ -6868,6 +6868,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-monitoring-relayer-last-update@workspace:packages/lambda-monitoring-relayer-last-update":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-monitoring-relayer-last-update@workspace:packages/lambda-monitoring-relayer-last-update"
+  dependencies:
+    "@aws-sdk/client-lambda": "npm:^3.485.0"
+    "@aws-sdk/client-s3": "npm:^3.485.0"
+    "@redstone-finance/lambda-common": "npm:^0.3.6"
+    "@redstone-finance/redstone-monitoring": "npm:^0.3.6"
+    "@types/aws-lambda": "npm:^8.10.128"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-monitoring@workspace:packages/lambda-monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-monitoring@workspace:packages/lambda-monitoring"
@@ -7056,7 +7068,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/redstone-monitoring@workspace:packages/monitoring":
+"@redstone-finance/redstone-monitoring@npm:^0.3.6, @redstone-finance/redstone-monitoring@workspace:packages/monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/redstone-monitoring@workspace:packages/monitoring"
   dependencies:
