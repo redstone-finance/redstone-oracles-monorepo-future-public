@@ -1,13 +1,12 @@
 import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Deferrable } from "@ethersproject/properties";
-import { JsonRpcProvider } from "@ethersproject/providers";
 import { RedstoneCommon, RedstoneCrypto } from "@redstone-finance/utils";
-import { BytesLike, utils } from "ethers";
+import { BytesLike, providers, utils } from "ethers";
 import {
   ProviderWithFallback,
   ProviderWithFallbackConfig,
 } from "./ProviderWithFallback";
-import { convertBlockTagToNumber, sleepMS } from "./common";
+import { convertBlockTagToNumber, sleepMS } from "../common";
 
 const BLOCK_NUMBER_TTL = 200;
 // 5 min (max multiblock used)
@@ -44,7 +43,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
   private readonly agreementConfig: ProviderWithAgreementSpecificConfig;
 
   constructor(
-    providers: JsonRpcProvider[],
+    providers: providers.Provider[],
     config: Partial<
       ProviderWithAgreementSpecificConfig & ProviderWithFallbackConfig
     > = {}

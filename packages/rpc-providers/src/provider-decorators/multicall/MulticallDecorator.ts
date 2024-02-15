@@ -60,13 +60,13 @@ const parseMulticallConfig = (
   };
 };
 
-export function withMulticall<T extends providers.Provider>(
+export function MulticallDecorator<T extends providers.Provider>(
   buildProvider: () => T,
   options: MulticallDecoratorOptions = {}
-): T {
+): () => T {
   const config = parseMulticallConfig(options);
-  const modifiedProvider = buildProvider();
   const originalProvider = buildProvider();
+  const modifiedProvider = RedstoneCommon.cloneClassInstance(originalProvider);
   const queue = new MulticallBuffer(
     config.maxCallsCount,
     config.maxCallDataSize
@@ -118,7 +118,6 @@ export function withMulticall<T extends providers.Provider>(
     };
 
     if (queue.willCallDataSizeBeExceeded(resolvedBlockTag, entry)) {
-      console.log("CALL DATA SIZE EXCEEDED");
       executeCallsFromQueue(resolvedBlockTag);
     }
 
@@ -148,7 +147,7 @@ export function withMulticall<T extends providers.Provider>(
 
   modifiedProvider.call = call;
 
-  return modifiedProvider;
+  return () => modifiedProvider;
 }
 
 function createDeferedPromise<T>() {
