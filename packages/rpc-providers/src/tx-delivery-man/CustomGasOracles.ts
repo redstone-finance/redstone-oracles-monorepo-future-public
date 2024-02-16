@@ -2,25 +2,25 @@ import {
   GasOracleFn,
   TransactionDeliveryManOpts,
 } from "./TransactionDeliveryMan";
-import { fetchWithCache } from "../common";
+import { RedstoneCommon } from "@redstone-finance/utils";
+import axios from "axios";
 
 const ONE_GWEI = 1e9;
 const ONE_MICRO_KAVA = 1e12;
 
+const getEthGasRequest = RedstoneCommon.memoize({
+  functionToMemoize: () =>
+    axios.get<{
+      result: { suggestBaseFee: number; FastGasPrice: number };
+    }>(`https://api.etherscan.io/api?module=gastracker&action=gasoracle`),
+  ttl: 5_100,
+});
+
 const getEthFeeFromGasOracle: GasOracleFn = async (
   opts: TransactionDeliveryManOpts
 ) => {
-  const response = // rate limit is 5 seconds
-    (
-      await fetchWithCache<{
-        result: { suggestBaseFee: number; FastGasPrice: number };
-      }>(
-        `https://api.etherscan.io/api?module=gastracker&action=gasoracle`,
-        6_000
-      )
-    ).data;
-
-  const { suggestBaseFee, FastGasPrice } = response.result;
+  const { data } = await getEthGasRequest();
+  const { suggestBaseFee, FastGasPrice } = data.result;
 
   if (!suggestBaseFee || !FastGasPrice) {
     throw new Error("Failed to fetch price from oracle");
