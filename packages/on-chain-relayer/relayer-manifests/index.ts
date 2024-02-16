@@ -42,6 +42,9 @@ import venusBnbTestnet from "./venusBnbTestnet.json";
 import venusBnbTrx from "./venusBnbTrx.json";
 import venusMainnetXvs from "./venusMainnetXvs.json";
 import voltzArb from "./voltzArb.json";
+import cadenceCantoCnote from "./cadenceCantoCnote.json";
+import blastTestnet from "./blastTestnet.json";
+import ethereumApxetheth from "./ethereumApxetheth.json";
 import { OnChainRelayerManifest } from "../src";
 
 // This file contains mapping from manifest name to manifest content
@@ -49,6 +52,9 @@ import { OnChainRelayerManifest } from "../src";
 // in JS/TS code. We export it as an object for being able to iterate
 // through it and e.g. identify relayer name by an adapter address
 export default {
+  cadenceCantoCnote,
+  blastTestnet,
+  ethereumApxetheth,
   abracadabraKavaBtc,
   abracadabraKavaEth,
   abracadabraKavaUsdt,
