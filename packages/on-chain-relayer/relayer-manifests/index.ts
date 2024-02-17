@@ -45,6 +45,7 @@ import voltzArb from "./voltzArb.json";
 import cadenceCantoCnote from "./cadenceCantoCnote.json";
 import blastTestnet from "./blastTestnet.json";
 import ethereumApxetheth from "./ethereumApxetheth.json";
+import ethereumRsetheth from "./ethereumRsetheth.json";
 import { OnChainRelayerManifest } from "../src";
 
 // This file contains mapping from manifest name to manifest content
@@ -52,9 +53,7 @@ import { OnChainRelayerManifest } from "../src";
 // in JS/TS code. We export it as an object for being able to iterate
 // through it and e.g. identify relayer name by an adapter address
 export default {
-  cadenceCantoCnote,
   blastTestnet,
-  ethereumApxetheth,
   abracadabraKavaBtc,
   abracadabraKavaEth,
   abracadabraKavaUsdt,
@@ -62,16 +61,19 @@ export default {
   arbitrumPremia,
   arbitrumAngleAgeur,
   arbitrumWeethfundamental,
-  cadenceCantoTestnet,
   cadenceCantoAtom,
   cadenceCantoCanto,
+  cadenceCantoCnote,
   cadenceCantoEth,
+  cadenceCantoTestnet,
   cadenceCantoUsdc,
   cadenceCantoUsdt,
+  ethereumApxetheth,
   ethereumEusd,
   ethereumEthxeth,
   ethereumEtherfiWeeth,
   ethereumEtherfiWeetheth,
+  ethereumRsetheth,
   ethereumStakewiseOsetheth,
   fluidEthTestnet,
   gammaBnbTestnet,
