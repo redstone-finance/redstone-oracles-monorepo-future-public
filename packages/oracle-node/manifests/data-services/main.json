@@ -1232,6 +1232,17 @@
     "rsETH/ETH": {
       "source": ["non-usd-based"]
     },
+    "ezETH": {
+      "source": [
+        "balancer-ethereum-weth",
+        "balancer-ethereum-weeth",
+        "curve-weth",
+        "uniswap-v3-ethereum-on-chain-weth-100"
+      ]
+    },
+    "ezETH/ETH": {
+      "source": ["non-usd-based"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
