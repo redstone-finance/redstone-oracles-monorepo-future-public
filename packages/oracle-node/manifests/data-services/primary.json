@@ -193,7 +193,7 @@
         "balancer-ethereum-weth",
         "maverick",
         "uniswap-v3-arbitrum-on-chain-weth-100",
-        "uniswap-v3-ethereum-on-chain-weth-500",
+        "uniswap-v3-ethereum-on-chain-weth-100",
         "uniswap-v3-optimism-on-chain-weth-100"
       ]
     },
@@ -237,9 +237,7 @@
       "source": [
         "balancer-ethereum-usdc",
         "balancer-ethereum-usdt",
-        "coingecko",
-        "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-usdt-500"
+        "coingecko"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -540,12 +538,7 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "ALUSD": {
-      "source": [
-        "curve-3crv",
-        "curve-crvfrax",
-        "velodrome-on-chain-usdc",
-        "velodrome-on-chain-frax"
-      ],
+      "source": ["curve-3crv", "curve-crvfrax", "velodrome-on-chain-usdc"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
