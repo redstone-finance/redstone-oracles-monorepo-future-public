@@ -1347,7 +1347,7 @@
       "source": ["twelve-data", "yf-unofficial"]
     },
     "XAU": {
-      "source": ["twelve-data"]
+      "source": ["twelve-data", "finhub-usd"]
     },
     "SILVER": {
       "source": ["twelve-data", "yf-unofficial"]
