@@ -10,7 +10,7 @@ contract VSTPriceFeedsAdapter is SinglePriceFeedAdapter {
   error InvalidSignersCount(uint256 signersCount);
   error CircuitBreakerTripped();
 
-  function getSingleDataFeedId() public pure override returns (bytes32) {
+  function getDataFeedId() public pure override returns (bytes32) {
     return bytes32("VST");
   }
 

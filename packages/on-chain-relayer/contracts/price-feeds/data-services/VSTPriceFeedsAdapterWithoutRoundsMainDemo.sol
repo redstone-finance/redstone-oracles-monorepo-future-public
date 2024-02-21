@@ -5,7 +5,7 @@ pragma solidity ^0.8.14;
 import {SinglePriceFeedAdapter} from "../without-rounds/SinglePriceFeedAdapter.sol";
 
 contract VSTPriceFeedsAdapterWithoutRoundsMainDemo is SinglePriceFeedAdapter {
-  function getSingleDataFeedId() public pure override returns (bytes32) {
+  function getDataFeedId() public pure override returns (bytes32) {
     return bytes32("VST");
   }
 

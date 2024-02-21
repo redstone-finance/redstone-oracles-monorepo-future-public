@@ -10,7 +10,7 @@ import {PriceFeedsAdapterBase} from "../PriceFeedsAdapterBase.sol";
  * @dev This version works only with a single data feed. It's abstract and
  * the following functions should be implemented in the actual contract
  * before deployment:
- * - getSingleDataFeedId
+ * - getDataFeedId
  * - getUniqueSignersThreshold
  * - getAuthorisedSignerIndex
  * 
@@ -32,7 +32,7 @@ abstract contract SinglePriceFeedAdapter is PriceFeedsAdapterBase {
    * but `getDataFeedIds` and `getDataFeedIndex` should not (and can not)
    * @return dataFeedId The only data feed identifer supported by the adapter
    */
-  function getSingleDataFeedId() public view virtual returns (bytes32);
+  function getDataFeedId() public view virtual returns (bytes32);
 
   /**
    * @notice Returns identifiers of all data feeds supported by the Adapter contract
@@ -41,7 +41,7 @@ abstract contract SinglePriceFeedAdapter is PriceFeedsAdapterBase {
    */
   function getDataFeedIds() public view virtual override returns (bytes32[] memory dataFeedIds) {
     dataFeedIds = new bytes32[](1);
-    dataFeedIds[0] = getSingleDataFeedId();
+    dataFeedIds[0] = getDataFeedId();
   }
 
   /**
@@ -49,7 +49,7 @@ abstract contract SinglePriceFeedAdapter is PriceFeedsAdapterBase {
    * @param dataFeedId The identifier of the requested data feed
    */
   function getDataFeedIndex(bytes32 dataFeedId) public virtual view override returns(uint256) {
-    if (dataFeedId == getSingleDataFeedId()) {
+    if (dataFeedId == getDataFeedId()) {
       return 0;
     }
     revert DataFeedIdNotFound(dataFeedId);
@@ -62,10 +62,8 @@ abstract contract SinglePriceFeedAdapter is PriceFeedsAdapterBase {
    * @param dataFeedId The data feed identifier
    * @param valueForDataFeed Proposed value for the data feed
    */
-  function validateDataFeedValue(bytes32 dataFeedId, uint256 valueForDataFeed) public pure virtual override {
-    if (valueForDataFeed == 0) {
-      revert DataFeedValueCannotBeZero(dataFeedId);
-    }
+  function validateDataFeedValueOnWrite(bytes32 dataFeedId, uint256 valueForDataFeed) public view virtual override {
+    super.validateDataFeedValueOnWrite(dataFeedId, valueForDataFeed);
     if (valueForDataFeed > MAX_VALUE_WITH_20_BYTES) {
       revert DataFeedValueTooBig(valueForDataFeed);
     }
@@ -107,7 +105,7 @@ abstract contract SinglePriceFeedAdapter is PriceFeedsAdapterBase {
    * @param dataFeedValue Proposed value for the data feed
    */
   function _validateAndUpdateDataFeedValue(bytes32 dataFeedId, uint256 dataFeedValue) internal virtual override {
-    validateDataFeedValue(dataFeedId, dataFeedValue);
+    validateDataFeedValueOnWrite(dataFeedId, dataFeedValue);
     assembly {
       let curValueFromStorage := sload(DATA_FROM_LATEST_UPDATE_STORAGE_LOCATION)
       curValueFromStorage := and(curValueFromStorage, BIT_MASK_TO_CLEAR_LAST_20_BYTES) // clear dataFeedValue bits

@@ -19,10 +19,8 @@ abstract contract SinglePriceFeedAdapterWithClearing is SinglePriceFeedAdapter {
   uint256 internal constant MAX_VALUE_WITH_26_BYTES = 0x000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffff;
   uint256 internal constant BIT_MASK_TO_CLEAR_LAST_26_BYTES = 0xffffffffffff0000000000000000000000000000000000000000000000000000;
 
-  function validateDataFeedValue(bytes32 dataFeedId, uint256 valueForDataFeed) public pure virtual override {
-    if (valueForDataFeed == 0) {
-      revert DataFeedValueCannotBeZero(dataFeedId);
-    }
+  function validateDataFeedValueOnWrite(bytes32 dataFeedId, uint256 valueForDataFeed) public view virtual override {
+    super.validateDataFeedValueOnWrite(dataFeedId, valueForDataFeed);
     if (valueForDataFeed > MAX_VALUE_WITH_26_BYTES) {
       revert DataFeedValueTooBig(valueForDataFeed);
     }
@@ -52,7 +50,7 @@ abstract contract SinglePriceFeedAdapterWithClearing is SinglePriceFeedAdapter {
   }
 
   function _validateAndUpdateDataFeedValue(bytes32 dataFeedId, uint256 dataFeedValue) virtual internal override {
-    validateDataFeedValue(dataFeedId, dataFeedValue);
+    validateDataFeedValueOnWrite(dataFeedId, dataFeedValue);
     uint256 blockTimestampCompressedAndShifted = getBlockTimestamp() << 208; // Move value to the first 48 bits
     assembly {
       // Save timestamp and data feed value

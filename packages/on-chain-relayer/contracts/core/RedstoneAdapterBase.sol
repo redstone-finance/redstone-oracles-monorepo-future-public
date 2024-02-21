@@ -317,7 +317,7 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
     // "unsafe" here means "without validation"
     uint256 valueForDataFeed = getValueForDataFeedUnsafe(dataFeedId);
 
-    validateDataFeedValue(dataFeedId, valueForDataFeed);
+    validateDataFeedValueOnRead(dataFeedId, valueForDataFeed);
     return valueForDataFeed;
   }
 
@@ -331,20 +331,35 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
     for (uint256 i = 0; i < dataFeedIds.length;) {
       bytes32 dataFeedId = dataFeedIds[i];
       getDataFeedIndex(dataFeedId); // will revert if data feed id is not supported
-      validateDataFeedValue(dataFeedId, values[i]);
+      validateDataFeedValueOnRead(dataFeedId, values[i]);
       unchecked { i++; } // reduces gas costs
     }
     return values;
   }
 
 
+
   /**
    * @dev Reverts if proposed value for the proposed data feed id is invalid
+   * Is called on every NOT *unsafe method which reads dataFeed
    * By default, it just checks if the value is not equal to 0, but it can be extended
    * @param dataFeedId The data feed identifier
    * @param valueForDataFeed Proposed value for the data feed
    */
-  function validateDataFeedValue(bytes32 dataFeedId, uint256 valueForDataFeed) public pure virtual {
+  function validateDataFeedValueOnRead(bytes32 dataFeedId, uint256 valueForDataFeed) public view virtual {
+    if (valueForDataFeed == 0) {
+      revert DataFeedValueCannotBeZero(dataFeedId);
+    }
+  }
+
+  /**
+   * @dev Reverts if proposed value for the proposed data feed id is invalid
+   * Is called on every NOT *unsafe method which writes dataFeed
+   * By default, it does nothing
+   * @param dataFeedId The data feed identifier
+   * @param valueForDataFeed Proposed value for the data feed
+   */
+  function validateDataFeedValueOnWrite(bytes32 dataFeedId, uint256 valueForDataFeed) public view virtual {
     if (valueForDataFeed == 0) {
       revert DataFeedValueCannotBeZero(dataFeedId);
     }

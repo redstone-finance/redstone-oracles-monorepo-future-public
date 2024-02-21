@@ -47,7 +47,7 @@ abstract contract PriceFeedsAdapterWithRounds is PriceFeedsAdapterBase {
    * @param dataFeedValue Proposed value for the data feed
    */
   function _validateAndUpdateDataFeedValue(bytes32 dataFeedId, uint256 dataFeedValue) internal virtual override {
-    validateDataFeedValue(dataFeedId, dataFeedValue);
+    validateDataFeedValueOnWrite(dataFeedId, dataFeedValue);
     bytes32 locationInStorage = _getValueLocationInStorage(dataFeedId, getLatestRoundId());
     assembly {
       sstore(locationInStorage, dataFeedValue)
@@ -66,7 +66,8 @@ abstract contract PriceFeedsAdapterWithRounds is PriceFeedsAdapterBase {
   }
 
   /**
-   * @dev Returns value for the requested data feed from the given round
+   * @dev [HIGH RISK] Returns value for the requested data feed from the given round
+   * without validation.
    * @param dataFeedId The data feed identifier
    * @param roundId The number of the requested round
    * @return dataFeedValue value for the requested data feed from the given round
@@ -108,7 +109,7 @@ abstract contract PriceFeedsAdapterWithRounds is PriceFeedsAdapterBase {
     }
 
     dataFeedValue = getValueForDataFeedAndRound(dataFeedId, roundId);
-    validateDataFeedValue(dataFeedId, dataFeedValue);
+    validateDataFeedValueOnRead(dataFeedId, dataFeedValue);
     uint256 packedRoundTimestamps = getPackedTimestampsForRound(roundId);
     (roundDataTimestamp, roundBlockTimestamp) = _unpackTimestamps(packedRoundTimestamps);
   }
