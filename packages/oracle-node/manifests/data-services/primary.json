@@ -573,7 +573,7 @@
       "source": ["bingx", "bitget", "bitmart", "coingecko", "gate", "mexc"]
     },
     "XAU": {
-      "source": ["twelve-data"]
+      "source": ["twelve-data", "finhub-usd"]
     },
     "XRP": {
       "source": [
