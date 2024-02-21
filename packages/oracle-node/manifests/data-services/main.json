@@ -1236,6 +1236,28 @@
     "ezETH/ETH": {
       "source": ["non-usd-based"]
     },
+    "crvUSD": {
+      "source": [
+        "curve-crv",
+        "curve-frax",
+        "curve-usdc",
+        "curve-usde",
+        "curve-usdt",
+        "curve-weth"
+      ]
+    },
+    "USDe": {
+      "source": [
+        "curve-crvusd",
+        "curve-dai",
+        "curve-frax",
+        "curve-usdc",
+        "uniswap-v3-ethereum-on-chain-usdt-100"
+      ]
+    },
+    "sUSDe": {
+      "source": ["ethereum-evm-fetcher"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
