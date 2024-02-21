@@ -46,6 +46,7 @@ import cadenceCantoCnote from "./cadenceCantoCnote.json";
 import blastTestnet from "./blastTestnet.json";
 import ethereumApxetheth from "./ethereumApxetheth.json";
 import ethereumRsetheth from "./ethereumRsetheth.json";
+import ethereumEzetheth from "./ethereumEzetheth.json";
 import { OnChainRelayerManifest } from "../src";
 
 // This file contains mapping from manifest name to manifest content
@@ -73,6 +74,7 @@ export default {
   ethereumEthxeth,
   ethereumEtherfiWeeth,
   ethereumEtherfiWeetheth,
+  ethereumEzetheth,
   ethereumRsetheth,
   ethereumStakewiseOsetheth,
   fluidEthTestnet,
