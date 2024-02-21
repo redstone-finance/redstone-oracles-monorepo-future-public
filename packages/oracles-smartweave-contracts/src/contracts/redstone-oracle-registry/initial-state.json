@@ -256,6 +256,16 @@
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
       "ecdsaPublicKey": "0x04b41ed2eaf2b8b15232ab7d25458d1b2cc1ef02200ab50f912307cf832f619aadf89800ac17b1c3e40c4bebc7b4305bbec558ca5e60acb034dbb6c09273e29fbe"
+    },
+    "00HZS36ZwzP43q25-T_UV7pYlNXe9ChwDpNiM7A708c": {
+      "url": "https://redstone.finance",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "redstone-fast-demo",
+      "ipAddress": "0.0.0.0",
+      "dataServiceId": "redstone-fast-demo",
+      "description": "Very frequent updates from the fastest sources",
+      "evmAddress": "0x69f70Aa9828Ed876d49e83Ee006b9d333BB406d8",
+      "ecdsaPublicKey": "0x04d048bea3bcf01b82162703a7f59cf51d91a95a8fd3921b5a858a8ff1c1b858dd337918cb7969c695711f590779ffb9a1028d0205074f11d9fd40e905f6670d0a"
     }
   },
   "evolve": null,
@@ -319,6 +329,13 @@
       "name": "RedStone arbitrum prod",
       "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
       "description": "Data feeds from arbitrum prod redstone nodes"
+    },
+    "redstone-fast-demo": {
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "RedStone Fast Demo",
+      "admin": "00HZS36ZwzP43q25-T_UV7pYlNXe9ChwDpNiM7A708c",
+      "description": "Most popular tokens with fast updates",
+      "manifestTxId": ""
     }
   },
   "contractAdmins": [
