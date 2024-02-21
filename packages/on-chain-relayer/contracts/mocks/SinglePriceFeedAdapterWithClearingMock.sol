@@ -9,7 +9,7 @@ contract SinglePriceFeedAdapterWithClearingMock is
   SinglePriceFeedAdapterWithClearing,
   AuthorisedMockSignersBase
 {
-  function getSingleDataFeedId() public pure override returns (bytes32) {
+  function getDataFeedId() public pure override returns (bytes32) {
     return bytes32("BTC");
   }
 

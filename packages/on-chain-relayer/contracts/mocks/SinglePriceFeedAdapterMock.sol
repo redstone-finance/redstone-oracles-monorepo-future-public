@@ -6,7 +6,7 @@ import {AuthorisedMockSignersBase} from "@redstone-finance/evm-connector/contrac
 import {SinglePriceFeedAdapter} from "../price-feeds/without-rounds/SinglePriceFeedAdapter.sol";
 
 contract SinglePriceFeedAdapterMock is SinglePriceFeedAdapter, AuthorisedMockSignersBase {
-  function getSingleDataFeedId() public pure override returns (bytes32) {
+  function getDataFeedId() public pure override returns (bytes32) {
     return bytes32("BTC");
   }
 

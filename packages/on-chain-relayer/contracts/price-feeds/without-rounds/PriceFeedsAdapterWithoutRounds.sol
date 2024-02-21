@@ -25,7 +25,7 @@ abstract contract PriceFeedsAdapterWithoutRounds is PriceFeedsAdapterBase {
    * @param dataFeedValue Proposed value for the data feed
    */
   function _validateAndUpdateDataFeedValue(bytes32 dataFeedId, uint256 dataFeedValue) internal override virtual {
-    validateDataFeedValue(dataFeedId, dataFeedValue);
+    validateDataFeedValueOnWrite(dataFeedId, dataFeedValue);
     bytes32 locationInStorage = _getValueLocationInStorage(dataFeedId);
     assembly {
       sstore(locationInStorage, dataFeedValue)
