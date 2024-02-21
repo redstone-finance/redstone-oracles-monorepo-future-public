@@ -1,0 +1,21 @@
+{
+  "interval": 1000,
+  "priceAggregator": "median",
+  "defaultSource": ["coingecko"],
+  "sourceTimeout": 2000,
+  "minValidSourcesPercentage": 1,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 30,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "BTC": {
+      "source": ["bitfinex2", "bitstamp", "kaiko", "kaiko-v2", "xt"]
+    },
+    "ETH": {
+      "source": ["bitfinex2", "bitstamp", "kaiko", "kaiko-v2", "xt"]
+    }
+  }
+}

@@ -16,6 +16,7 @@ export const REDSTONE_DATA_SERVICES_URLS: Partial<Record<string, string[]>> = {
   "redstone-primary-demo": DEV_GWS,
   "redstone-main-demo": DEV_GWS,
   "redstone-rapid-demo": DEV_GWS,
+  "redstone-fast-demo": DEV_GWS,
   "redstone-stocks-demo": DEV_GWS,
   "redstone-avalanche-demo": DEV_GWS,
   "redstone-arbitrum-demo": DEV_GWS,
