@@ -6630,6 +6630,7 @@ __metadata:
   dependencies:
     "@redstone-finance/oracles-smartweave-contracts": "npm:^0.3.6"
     "@redstone-finance/protocol": "npm:^0.3.6"
+    esbuild: "npm:^0.19.9"
     fastify: "npm:^4.25.1"
     zod: "npm:^3.22.4"
   languageName: unknown
