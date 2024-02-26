@@ -1,11 +1,8 @@
 import { ISafeNumber, NumberArg } from "./ISafeNumber";
-import { createSafeNumber } from "./ISafeNumberFactory";
+import { SafeZero, createSafeNumber } from "./ISafeNumberFactory";
 
 export const calculateSum = (numbers: NumberArg[]) =>
-  numbers.reduce<ISafeNumber>(
-    (prev, curr) => prev.add(curr),
-    createSafeNumber(0)
-  );
+  numbers.reduce<ISafeNumber>((prev, curr) => prev.add(curr), SafeZero);
 
 export const calculateAverageValue = (numbers: NumberArg[]): ISafeNumber => {
   if (numbers.length === 0) {
