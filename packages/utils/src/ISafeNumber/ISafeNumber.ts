@@ -9,6 +9,7 @@ export interface ISafeNumber {
   gt(numberLike: NumberArg): boolean;
   gte(numberLike: NumberArg): boolean;
   abs(): ISafeNumber;
+  log2(): ISafeNumber;
   decimals(): number;
   assertNonNegative(): void;
   assertPositive(): void;

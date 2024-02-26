@@ -74,6 +74,11 @@ export class JsNativeSafeNumber implements ISafeNumber {
     return this.produceNewSafeNumber(result);
   }
 
+  log2(): JsNativeSafeNumber {
+    const result = Math.log2(this._value);
+    return this.produceNewSafeNumber(result);
+  }
+
   add(numberLike: NumberArg): JsNativeSafeNumber {
     const result =
       this._value + JsNativeSafeNumber.from(numberLike).unsafeToNumber();

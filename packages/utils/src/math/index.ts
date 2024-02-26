@@ -4,6 +4,8 @@ import * as ISafeNumberMath from "../ISafeNumber";
 import { ISafeNumber, createSafeNumber } from "../ISafeNumber";
 import { bignumberishToDecimal } from "../common";
 
+export * from "./monotonic-cubic-spline";
+
 export type ConvertibleToISafeNumber =
   | number
   | string
