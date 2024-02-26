@@ -47,7 +47,8 @@ const config: CacheServiceConfig = {
   ),
   streamrPrivateKey: RedstoneCommon.getFromEnv(
     "STREAMR_PRIVATE_KEY",
-    z.string().optional()
+    z.string().optional(),
+    false
   ),
   enableDirectPostingRoutes: RedstoneCommon.getFromEnv(
     "ENABLE_DIRECT_POSTING_ROUTES",
