@@ -1208,6 +1208,25 @@
         "xt"
       ]
     },
+    "XTZ": {
+      "source": [
+        "binance",
+        "bitfinex2",
+        "bitget",
+        "bitmart",
+        "bingx",
+        "bitrue",
+        "coinbasepro",
+        "coingecko",
+        "gate",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx",
+        "xt"
+      ]
+    },
     "USDB": {
       "source": ["fixed-value"],
       "fixedValue": 1
