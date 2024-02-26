@@ -1,19 +1,28 @@
 import { z, ZodDefault, ZodOptional, ZodType, ZodTypeDef } from "zod";
 
 type GetFromEnvType = {
-  <T>(name: string, schema: ZodDefault<ZodType<T>>): T;
-  <T>(name: string, schema: ZodOptional<ZodType<T>>): T | undefined;
-  <T>(name: string, schema: ZodType<T>): T;
+  /** JSON.parse is used by default before passing the env variable to schema.parse */
+  <T>(name: string, schema: ZodDefault<ZodType<T>>, parseAsJSON?: boolean): T;
+  /** JSON.parse is used by default before passing the env variable to schema.parse */
+  <T>(
+    name: string,
+    schema: ZodOptional<ZodType<T>>,
+    parseAsJSON?: boolean
+  ): T | undefined;
+  /** JSON.parse is NOT used before passing the env variable to schema.parse */
   (name: string): string;
+  /** if schema is provided JSON.parse is used before passing the env variable to schema.parse */
+  <T>(name: string, schema?: ZodType<T>, parseAsJSON?: boolean): T;
 };
 
 export const getFromEnv: GetFromEnvType = <T = string>(
   name: string,
-  schema?: ZodType<T, ZodTypeDef, T | undefined>
+  schema?: ZodType<T, ZodTypeDef, T | undefined>,
+  parseAsJSON = !!schema
 ) => {
   const envValue = process.env[name];
   let envValueParsed: unknown = envValue;
-  if (envValue) {
+  if (parseAsJSON && envValue) {
     try {
       envValueParsed = JSON.parse(envValue);
     } catch (e) {
