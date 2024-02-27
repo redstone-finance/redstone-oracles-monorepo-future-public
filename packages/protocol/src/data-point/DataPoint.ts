@@ -16,7 +16,7 @@ export class DataPoint extends Serializable {
   constructor(
     public readonly dataFeedId: ConvertibleToBytes32,
     public readonly value: Uint8Array,
-    protected readonly metadata?: Metadata
+    public readonly metadata?: Metadata
   ) {
     super();
   }
