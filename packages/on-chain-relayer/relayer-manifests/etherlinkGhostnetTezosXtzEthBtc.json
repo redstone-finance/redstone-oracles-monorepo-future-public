@@ -1,0 +1,16 @@
+{
+  "chain": {
+    "name": "etherlink-ghostnet",
+    "id": 128123
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 10000
+  },
+  "adapterContract": "0xBa3E6072199fBcdC360e535649255d9C91a83490",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH": "0x77965b484ef98426c3eE8EB3d8fBab3a2800fE88",
+    "BTC": "0x4d2D71170e1a37c1ace0f54c99C9Bd2dCeaBC001",
+    "XTZ": "0x0cE55C1Ef43A84f100259811986752e61CBB0D9d"
+  }
+}
