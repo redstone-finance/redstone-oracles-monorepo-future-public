@@ -48,6 +48,7 @@ import ethereumApxetheth from "./ethereumApxetheth.json";
 import ethereumRsetheth from "./ethereumRsetheth.json";
 import ethereumEzetheth from "./ethereumEzetheth.json";
 import arbitrumWeetheth from "./arbitrumWeetheth.json";
+import etherlinkGhostnetTezosXtzEthBtc from "./etherlinkGhostnetTezosXtzEthBtc.json";
 import ethereumUsdeSusde from "./ethereumUsdeSusde.json";
 import { OnChainRelayerManifest } from "../src";
 
@@ -81,6 +82,7 @@ export default {
   ethereumRsetheth,
   ethereumStakewiseOsetheth,
   ethereumUsdeSusde,
+  etherlinkGhostnetTezosXtzEthBtc,
   fluidEthTestnet,
   gammaBnbTestnet,
   hubble,
