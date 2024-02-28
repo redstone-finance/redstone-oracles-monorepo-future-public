@@ -21,7 +21,6 @@ import gammaBnbTestnet from "./gammaBnbTestnet.json";
 import hubble from "./hubble.json";
 import hubbleAylinTestnet from "./hubbleAylinTestnet.json";
 import hubbleExchangeMainnet from "./hubbleExchangeMainnet.json";
-import mantaEth from "./mantaEth.json";
 import mantaLayerBank from "./mantaLayerBank.json";
 import mantleEth from "./mantleEth.json";
 import mantleMnt from "./mantleMnt.json";
@@ -88,7 +87,6 @@ export default {
   hubble,
   hubbleAylinTestnet,
   hubbleExchangeMainnet,
-  mantaEth,
   mantleEth,
   mantaLayerBank,
   mantleMnt,
