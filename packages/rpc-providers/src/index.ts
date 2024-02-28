@@ -7,3 +7,6 @@ export * from "./provider-decorators/multicall/MulticallDecorator";
 export * from "./provider-decorators/multicall/Multicall3Caller";
 export * from "./MegaProviderBuilder";
 export * from "./tx-delivery-man/TxBrodcaster";
+export * from "./chains-configs";
+export * from "./SageOfChains";
+export * from "./common";
