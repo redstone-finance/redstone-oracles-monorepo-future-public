@@ -1,5 +1,11 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
 import { ErrorCode } from "@ethersproject/logger";
+import { Point } from "@influxdata/influxdb-client";
+import { providers } from "ethers";
+
+export type ReportMetricFn = (message: Point) => void;
+export type ContractCallOverrides = { blockTag: BlockTag };
+export type EthersError = { code: ErrorCode; message: string };
 
 export const sleepMS = (ms: number) =>
   new Promise((resolve, _reject) => setTimeout(resolve, ms));
@@ -16,9 +22,13 @@ export const convertHexToNumber = (hex: string): number => {
   return number;
 };
 
-export type EthersError = { code: ErrorCode; message: string };
-
 export const isEthersError = (e: unknown): e is EthersError => {
   const error = e as Partial<EthersError>;
   return !!error.code && !!error.message;
 };
+
+/** In fact it is sync function cause our provider has static assigned network id */
+export async function getProviderChainId(provider: providers.Provider) {
+  const network = await provider.getNetwork();
+  return network.chainId;
+}

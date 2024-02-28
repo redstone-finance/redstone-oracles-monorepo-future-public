@@ -2,6 +2,7 @@ import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Point } from "@influxdata/influxdb-client";
 import { providers } from "ethers";
 import { Deferrable } from "ethers/lib/utils";
+import { ReportMetricFn } from "../common";
 
 export function getProviderNetworkInfo(provider: providers.Provider) {
   if (provider instanceof providers.StaticJsonRpcProvider) {
@@ -15,7 +16,7 @@ export function getProviderNetworkInfo(provider: providers.Provider) {
 
 export function CallMetricDecorator(
   factory: () => providers.Provider,
-  reportMetric: (message: Point) => void
+  reportMetric: ReportMetricFn
 ) {
   const newFactory = () => {
     const provider = factory();
@@ -55,7 +56,7 @@ export function CallMetricDecorator(
 
 export function GetBlockNumberMetricDecorator(
   factory: () => providers.Provider,
-  reportMetric: (message: Point) => void
+  reportMetric: ReportMetricFn
 ) {
   const newFactory = () => {
     const provider = factory();

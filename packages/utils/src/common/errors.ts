@@ -6,6 +6,13 @@ export function assert(value: unknown, errMsg: string): asserts value {
   }
 }
 
+export function assertThenReturn<T>(value: T | undefined, errMsg: string): T {
+  if (!value) {
+    throw new Error(`Assertion failed: ${errMsg}`);
+  }
+  return value;
+}
+
 export const assertWithLog = (condition: boolean, errMsg: string) => {
   if (!condition) {
     console.error(`Assertion failed: ${errMsg}`);

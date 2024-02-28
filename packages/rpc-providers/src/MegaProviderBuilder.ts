@@ -7,7 +7,7 @@ import {
 import { ProviderWithFallback } from "./providers/ProviderWithFallback";
 
 type MegaProviderOptions = {
-  rpcUrls: string[];
+  rpcUrls: readonly string[];
   network: { name: string; chainId: number };
   throttleLimit: number;
   timeout: number;
