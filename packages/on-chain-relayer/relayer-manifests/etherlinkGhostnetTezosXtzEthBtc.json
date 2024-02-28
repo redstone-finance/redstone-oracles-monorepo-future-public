@@ -6,11 +6,11 @@
   "updateTriggers": {
     "timeSinceLastUpdateInMilliseconds": 10000
   },
-  "adapterContract": "0xBa3E6072199fBcdC360e535649255d9C91a83490",
+  "adapterContract": "0xd576DE7A454DE52A61bE4c8d9d40C4165030415c",
   "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {
-    "ETH": "0x77965b484ef98426c3eE8EB3d8fBab3a2800fE88",
-    "BTC": "0x4d2D71170e1a37c1ace0f54c99C9Bd2dCeaBC001",
-    "XTZ": "0x0cE55C1Ef43A84f100259811986752e61CBB0D9d"
+    "ETH": "0xb31D94df41ccc22b46fd2Ae4eA2a6D6eB9c23bfb",
+    "BTC": "0xfe66A25096128f57D3876D42cD2B4347a77784c2",
+    "XTZ": "0xE06FE39f066562DBfE390167AE49D8Cb66e1F887"
   }
 }
