@@ -13,7 +13,7 @@ abstract contract MergedPriceFeedAdapterWithRounds is
   PriceFeedWithRounds,
   PriceFeedsAdapterWithRounds
 {
-  function initialize() public override(PriceFeedBase, PriceFeedsAdapterBase) initializer {
+  function initialize() public virtual override(PriceFeedBase, PriceFeedsAdapterBase) initializer {
     // We don't have storage variables, but we keep this function
     // Because it is used for contract setup in upgradable contracts
   }

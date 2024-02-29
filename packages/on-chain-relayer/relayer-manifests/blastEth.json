@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "blast-mainnet",
+    "id": 81457
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 3600000
+  },
+  "adapterContract": "0x0af23B08bcd8AD35D1e8e8f2D2B779024Bd8D24A",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH": "0x0af23B08bcd8AD35D1e8e8f2D2B779024Bd8D24A"
+  }
+}
