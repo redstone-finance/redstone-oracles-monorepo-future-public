@@ -49,6 +49,8 @@ import ethereumEzetheth from "./ethereumEzetheth.json";
 import arbitrumWeetheth from "./arbitrumWeetheth.json";
 import etherlinkGhostnetTezosXtzEthBtc from "./etherlinkGhostnetTezosXtzEthBtc.json";
 import ethereumUsdeSusde from "./ethereumUsdeSusde.json";
+import blastBtc from "./blastBtc.json";
+import blastEth from "./blastEth.json";
 import { OnChainRelayerManifest } from "../src";
 
 // This file contains mapping from manifest name to manifest content
@@ -56,7 +58,6 @@ import { OnChainRelayerManifest } from "../src";
 // in JS/TS code. We export it as an object for being able to iterate
 // through it and e.g. identify relayer name by an adapter address
 export default {
-  blastTestnet,
   abracadabraKavaBtc,
   abracadabraKavaEth,
   abracadabraKavaUsdt,
@@ -65,6 +66,9 @@ export default {
   arbitrumAngleAgeur,
   arbitrumWeetheth,
   arbitrumWeethfundamental,
+  blastBtc,
+  blastEth,
+  blastTestnet,
   cadenceCantoAtom,
   cadenceCantoCanto,
   cadenceCantoCnote,
