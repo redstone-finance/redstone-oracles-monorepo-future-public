@@ -38,7 +38,7 @@ export class ProviderWithFallback
   extends ProviderWithFallbackBase
   implements Provider
 {
-  public readonly providers: Provider[];
+  public providers: readonly Provider[];
   protected readonly providerWithFallbackConfig: ProviderWithFallbackConfig;
   private currentProvider: Provider;
   private providerIndex = 0;
@@ -68,7 +68,7 @@ export class ProviderWithFallback
 
     const mainProvider = providers[0];
     this.currentProvider = mainProvider;
-    this.providers = [...providers];
+    this.providers = Object.freeze([...providers]);
     this.providerWithFallbackConfig = { ...FALLBACK_DEFAULT_CONFIG, ...config };
   }
 

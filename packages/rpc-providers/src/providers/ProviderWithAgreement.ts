@@ -6,17 +6,20 @@ import {
   ProviderWithFallback,
   ProviderWithFallbackConfig,
 } from "./ProviderWithFallback";
-import { convertBlockTagToNumber, sleepMS } from "../common";
+import { CuratedRpcList, RpcIdentifier } from "./CuratedRpcList";
+import { convertBlockTagToNumber, getProviderNetworkInfo } from "../common";
 
-const BLOCK_NUMBER_TTL = 200;
+const BLOCK_NUMBER_TTL = 1_000;
 // 5 min (max multiblock used)
 const AGREED_RESULT_TTL = 300_000;
 
 interface ProviderWithAgreementSpecificConfig {
   numberOfProvidersThatHaveToAgree: number;
+  minimalProvidersCount: number;
   getBlockNumberTimeoutMS: number;
-  sleepBetweenBlockSync: number;
   electBlockFn: (blocks: number[], numberOfAgreeingNodes: number) => number;
+  enableRpcCuratedList: boolean;
+  blockNumberTTL: number;
 }
 
 export type ProviderWithAgreementConfig = Partial<
@@ -35,18 +38,25 @@ const DEFAULT_ELECT_BLOCK_FN = (blockNumbers: number[]): number => {
 const defaultConfig: ProviderWithAgreementSpecificConfig = {
   numberOfProvidersThatHaveToAgree: 2,
   getBlockNumberTimeoutMS: 2_500,
-  sleepBetweenBlockSync: 400,
   electBlockFn: DEFAULT_ELECT_BLOCK_FN,
+  enableRpcCuratedList: false,
+  minimalProvidersCount: 3,
+  blockNumberTTL: BLOCK_NUMBER_TTL,
+};
+
+type ProviderWithIdentifier = {
+  provider: providers.Provider;
+  identifier: string;
 };
 
 export class ProviderWithAgreement extends ProviderWithFallback {
-  private readonly agreementConfig: ProviderWithAgreementSpecificConfig;
+  readonly agreementConfig: ProviderWithAgreementSpecificConfig;
+  readonly curatedRpcList?: CuratedRpcList;
+  readonly providersWithIdentifier: readonly ProviderWithIdentifier[];
 
   constructor(
     providers: providers.Provider[],
-    config: Partial<
-      ProviderWithAgreementSpecificConfig & ProviderWithFallbackConfig
-    > = {}
+    config: ProviderWithAgreementConfig = {}
   ) {
     super(providers, config);
     this.agreementConfig = {
@@ -59,6 +69,54 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       throw new Error(
         "numberOfProvidersWhichHaveToAgree should be >= 2 and > then supplied providers count"
       );
+    }
+    this.providersWithIdentifier = Object.freeze(
+      this.providers.map((provider, index) => ({
+        provider,
+        identifier: getProviderNetworkInfo(provider, {
+          url: index.toString(),
+          chainId: -1,
+        }).url,
+      }))
+    );
+
+    if (this.agreementConfig.enableRpcCuratedList) {
+      this.curatedRpcList = new CuratedRpcList(
+        {
+          rpcIdentifiers: this.providersWithIdentifier.map((p) => p.identifier),
+          minimalProvidersCount:
+            config.minimalProvidersCount ??
+            numberOfProvidersThatHaveToAgree + 1,
+        },
+        getProviderNetworkInfo(this.providers[0]).chainId
+      );
+    }
+
+    this.electBlockNumber = RedstoneCommon.memoize({
+      functionToMemoize: this.electBlockNumber.bind(this),
+      ttl: this.agreementConfig.blockNumberTTL,
+    });
+  }
+
+  getHealthyProviders(): readonly ProviderWithIdentifier[] {
+    if (!this.curatedRpcList) {
+      return this.providersWithIdentifier;
+    }
+    const choosenProviderIndentifiers = this.curatedRpcList.getBestProviders();
+
+    return this.providersWithIdentifier.filter(({ identifier }) =>
+      choosenProviderIndentifiers.includes(identifier)
+    );
+  }
+
+  getChainId(): number {
+    const { chainId } = getProviderNetworkInfo(this.providers[0]);
+    return chainId;
+  }
+
+  updateScore(identifier: RpcIdentifier, error: boolean) {
+    if (this.curatedRpcList) {
+      this.curatedRpcList.scoreRpc(identifier, { error });
     }
   }
 
@@ -83,41 +141,38 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     return await callResult;
   }
 
-  private electBlockNumber = RedstoneCommon.memoize({
-    functionToMemoize: async () => {
-      // collect block numbers
-      const blockNumbersResults = await Promise.allSettled(
-        this.providers.map((provider) =>
-          RedstoneCommon.timeout(
-            provider.getBlockNumber(),
-            this.agreementConfig.getBlockNumberTimeoutMS
-          )
+  private async electBlockNumber() {
+    // collect block numbers
+    const blockNumbersResults = await Promise.allSettled(
+      this.getHealthyProviders().map(({ provider }) =>
+        RedstoneCommon.timeout(
+          provider.getBlockNumber(),
+          this.agreementConfig.getBlockNumberTimeoutMS
         )
+      )
+    );
+
+    const blockNumbers = blockNumbersResults
+      .filter((result) => result.status === "fulfilled")
+      .map((result) => (result as PromiseFulfilledResult<number>).value);
+
+    if (blockNumbers.length === 0) {
+      throw new AggregateError(
+        blockNumbersResults.map(
+          (result) =>
+            new Error(String((result as PromiseRejectedResult).reason))
+        ),
+        `Failed to getBlockNumber from at least one provider`
       );
+    }
 
-      const blockNumbers = blockNumbersResults
-        .filter((result) => result.status === "fulfilled")
-        .map((result) => (result as PromiseFulfilledResult<number>).value);
+    const electedBlockNumber = this.agreementConfig.electBlockFn(
+      blockNumbers,
+      this.providers.length
+    );
 
-      if (blockNumbers.length === 0) {
-        throw new AggregateError(
-          blockNumbersResults.map(
-            (result) =>
-              new Error(String((result as PromiseRejectedResult).reason))
-          ),
-          `Failed to getBlockNumber from at least one provider`
-        );
-      }
-
-      const electedBlockNumber = this.agreementConfig.electBlockFn(
-        blockNumbers,
-        this.providers.length
-      );
-
-      return electedBlockNumber;
-    },
-    ttl: BLOCK_NUMBER_TTL,
-  });
+    return electedBlockNumber;
+  }
 
   private executeCallWithAgreementWithCache = RedstoneCommon.memoize({
     functionToMemoize: (
@@ -133,26 +188,29 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     electedBlockTag: BlockTag
   ) {
     return new Promise<string>((resolve, reject) => {
-      const electedBlockNumber = convertBlockTagToNumber(electedBlockTag);
       const errors: Error[] = [];
+      const electedBlockNumber = convertBlockTagToNumber(electedBlockTag);
       const results = new Map<string, number>();
-      const blockPerProvider: Record<number, number> = {};
-      let stop = false;
       let finishedProvidersCount = 0;
+      let stop = false;
 
-      const syncProvider = async (providerIndex: number) => {
-        while (!stop && blockPerProvider[providerIndex] < electedBlockNumber) {
-          blockPerProvider[providerIndex] =
-            await this.providers[providerIndex].getBlockNumber();
-          await sleepMS(this.agreementConfig.sleepBetweenBlockSync);
+      const syncToElectedBlock = async ({
+        provider,
+        identifier,
+      }: ProviderWithIdentifier) => {
+        while (
+          !stop &&
+          (await provider.getBlockNumber()) < electedBlockNumber
+        ) {
+          await RedstoneCommon.sleep(500);
+        }
+        if (stop) {
+          throw new Error(`Provider ${identifier} failed to sync to block`);
         }
       };
 
-      const call = async (providerIndex: number) => {
-        const currentResult = await this.providers[providerIndex].call(
-          transaction,
-          electedBlockTag
-        );
+      const call = async ({ provider }: ProviderWithIdentifier) => {
+        const currentResult = await provider.call(transaction, electedBlockTag);
         const currentResultCount = results.get(currentResult);
 
         if (currentResultCount) {
@@ -187,19 +245,21 @@ export class ProviderWithAgreement extends ProviderWithFallback {
         }
       };
 
-      const syncThenCall = async (providerIndex: number) => {
+      const handleProviderCall = async (rpc: ProviderWithIdentifier) => {
         try {
-          await syncProvider(providerIndex);
-          await call(providerIndex);
+          await syncToElectedBlock(rpc);
+          await call(rpc);
+          this.updateScore(rpc.identifier, false);
         } catch (e) {
           errors.push(e as Error);
+          this.updateScore(rpc.identifier, true);
         } finally {
           handleProviderResult();
         }
       };
 
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      this.providers.forEach((_, providerIndex) => syncThenCall(providerIndex));
+      this.getHealthyProviders().forEach(handleProviderCall);
     });
   }
 }

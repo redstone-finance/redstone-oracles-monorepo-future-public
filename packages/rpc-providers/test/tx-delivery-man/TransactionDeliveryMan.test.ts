@@ -7,9 +7,9 @@ import { BigNumber, BytesLike, Transaction, ethers } from "ethers";
 import * as hardhat from "hardhat";
 import _ from "lodash";
 import Sinon from "sinon";
-import { ProviderWithFallback, TransactionDeliveryMan } from "../src";
-import { Counter } from "../typechain-types";
-import { HardhatProviderMocker, deployCounter } from "./helpers";
+import { ProviderWithFallback, TransactionDeliveryMan } from "../../src";
+import { Counter } from "../../typechain-types";
+import { HardhatProviderMocker, deployCounter } from "./../helpers";
 
 chai.use(chaiAsPromised);
 

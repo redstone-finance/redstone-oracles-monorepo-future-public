@@ -2,17 +2,7 @@ import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Point } from "@influxdata/influxdb-client";
 import { providers } from "ethers";
 import { Deferrable } from "ethers/lib/utils";
-import { ReportMetricFn } from "../common";
-
-export function getProviderNetworkInfo(provider: providers.Provider) {
-  if (provider instanceof providers.StaticJsonRpcProvider) {
-    return {
-      chainId: provider.network.chainId.toString(),
-      url: provider.connection.url,
-    };
-  }
-  return { chainId: "uknown", url: "unknown" };
-}
+import { ReportMetricFn, getProviderNetworkInfo } from "../common";
 
 export function CallMetricDecorator(
   factory: () => providers.Provider,
@@ -40,7 +30,7 @@ export function CallMetricDecorator(
         const end = performance.now();
         const point = new Point("rpc_provider")
           .tag("op", "call")
-          .tag("chainId", chainId)
+          .tag("chainId", chainId.toString())
           .tag("url", url)
           .tag("isFailure", isFailure.toString())
           .floatField("duration", end - start)
@@ -79,7 +69,7 @@ export function GetBlockNumberMetricDecorator(
         const end = performance.now();
         const point = new Point("rpc_provider")
           .tag("op", "getBlockNumber")
-          .tag("chainId", chainId)
+          .tag("chainId", chainId.toString())
           .tag("url", url)
           .tag("isFailure", isFailure.toString())
           .floatField("blockNumber", blockNumber)
