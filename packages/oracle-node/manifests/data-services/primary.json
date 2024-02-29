@@ -269,20 +269,6 @@
     "C3M": {
       "source": ["twelve-data"]
     },
-    "SOFR": {
-      "source": ["newyorkfed"]
-    },
-    "SOFR_EFFECTIVE_DATE": {
-      "source": ["newyorkfed"],
-      "decimals": 0
-    },
-    "SOFRAI": {
-      "source": ["newyorkfed"]
-    },
-    "SOFRAI_EFFECTIVE_DATE": {
-      "source": ["newyorkfed"],
-      "decimals": 0
-    },
     "USDC.USDT": {
       "source": ["non-usd-based"],
       "deviationCheck": {

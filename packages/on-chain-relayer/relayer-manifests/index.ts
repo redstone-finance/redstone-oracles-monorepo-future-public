@@ -40,7 +40,6 @@ import swell from "./swell.json";
 import venusBnbTestnet from "./venusBnbTestnet.json";
 import venusBnbTrx from "./venusBnbTrx.json";
 import venusMainnetXvs from "./venusMainnetXvs.json";
-import voltzArb from "./voltzArb.json";
 import cadenceCantoCnote from "./cadenceCantoCnote.json";
 import blastTestnet from "./blastTestnet.json";
 import ethereumApxetheth from "./ethereumApxetheth.json";
@@ -110,5 +109,4 @@ export default {
   venusBnbTestnet,
   venusBnbTrx,
   venusMainnetXvs,
-  voltzArb,
 } as Record<string, OnChainRelayerManifest>;

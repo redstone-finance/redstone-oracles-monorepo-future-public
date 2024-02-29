@@ -596,20 +596,6 @@
     "UFT": {
       "source": ["binance", "bitrue", "coingecko", "gate", "mexc"]
     },
-    "SOFR": {
-      "source": ["newyorkfed"]
-    },
-    "SOFR_EFFECTIVE_DATE": {
-      "source": ["newyorkfed"],
-      "decimals": 0
-    },
-    "SOFRAI": {
-      "source": ["newyorkfed"]
-    },
-    "SOFRAI_EFFECTIVE_DATE": {
-      "source": ["newyorkfed"],
-      "decimals": 0
-    },
     "JGLP": {
       "source": ["camelot-usdc"]
     },
