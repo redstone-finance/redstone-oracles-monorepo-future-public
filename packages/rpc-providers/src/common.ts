@@ -1,7 +1,7 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
 import { ErrorCode } from "@ethersproject/logger";
-import { Point } from "@influxdata/influxdb-client";
 import { providers } from "ethers";
+import { Point } from "@influxdata/influxdb-client";
 
 export type ReportMetricFn = (message: Point) => void;
 export type ContractCallOverrides = { blockTag: BlockTag };
@@ -26,6 +26,25 @@ export const isEthersError = (e: unknown): e is EthersError => {
   const error = e as Partial<EthersError>;
   return !!error.code && !!error.message;
 };
+
+export function getProviderNetworkInfo(
+  provider: providers.Provider,
+  defaultVal = { chainId: -1, url: "unknown" }
+) {
+  try {
+    if (provider instanceof providers.JsonRpcProvider) {
+      return {
+        chainId: provider.network.chainId,
+        url: provider.connection.url,
+      };
+    }
+  } catch {
+    /* This happens in mocha tests...*/
+    return defaultVal;
+  }
+
+  return defaultVal;
+}
 
 /** In fact it is sync function cause our provider has static assigned network id */
 export async function getProviderChainId(provider: providers.Provider) {

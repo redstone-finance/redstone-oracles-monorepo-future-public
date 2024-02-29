@@ -2,11 +2,11 @@ import { expect } from "chai";
 import {
   DEFAULT_TRANSACTION_DELIVERY_MAN_PTS,
   TransactionDeliveryManOpts,
-} from "../src";
+} from "../../src";
 import {
   Eip1559Fee,
   Eip1559GasEstimator,
-} from "../src/tx-delivery-man/Eip1559GasEstimator";
+} from "../../src/tx-delivery-man/Eip1559GasEstimator";
 
 describe("Eip1559GasEstimator", () => {
   describe("scaleFees", () => {

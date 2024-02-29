@@ -104,3 +104,23 @@ export const filterOutliers = (
     ],
   };
 };
+
+/** Returns -1 for empty list */
+export const weightedRandom = (weights: number[]): number => {
+  let totalWeight = 0;
+
+  for (let i = 0; i < weights.length; i++) {
+    totalWeight += weights[i];
+  }
+
+  let random = Math.random() * totalWeight;
+
+  for (let i = 0; i < weights.length; i++) {
+    random -= weights[i];
+    if (random < 0) {
+      return i;
+    }
+  }
+
+  return weights.length - 1;
+};

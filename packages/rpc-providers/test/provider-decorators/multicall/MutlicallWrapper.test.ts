@@ -7,10 +7,10 @@ import {
   ProviderWithAgreement,
   ProviderWithFallback,
   MulticallDecorator,
-} from "../../src";
-import * as multicallUtils from "../../src/provider-decorators/multicall/Multicall3Caller";
-import { Counter } from "../../typechain-types";
-import { deployCounter } from "../helpers";
+} from "../../../src";
+import { Counter } from "../../../typechain-types";
+import * as multicallUtils from "../../../src/provider-decorators/multicall/Multicall3Caller";
+import { deployCounter } from "../../helpers";
 
 chai.use(chaiAsPromised);
 

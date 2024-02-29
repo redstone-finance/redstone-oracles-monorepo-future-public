@@ -10,7 +10,7 @@ import { CHAIN_ID_TO_GAS_ORACLE } from "./CustomGasOracles";
 import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
 import { MultiNodeTxBroadcaster, TxBroadcaster } from "./TxBrodcaster";
-import { EthersError, isEthersError, sleepMS } from "../common";
+import { EthersError, isEthersError } from "../common";
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
 
@@ -177,7 +177,7 @@ export class TransactionDeliveryMan {
       this.opts.logger(
         `Waiting ${this.opts.expectedDeliveryTimeMs} [MS] for mining transaction`
       );
-      await sleepMS(this.opts.expectedDeliveryTimeMs);
+      await RedstoneCommon.sleep(this.opts.expectedDeliveryTimeMs);
 
       const currentNonce = await txBroadcaster.fetchNonce();
       if (

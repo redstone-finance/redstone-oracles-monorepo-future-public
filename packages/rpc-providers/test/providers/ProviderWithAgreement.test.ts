@@ -4,15 +4,21 @@ import chaiAsPromised from "chai-as-promised";
 import { providers, Signer, Wallet } from "ethers";
 import * as hardhat from "hardhat";
 import Sinon, * as sinon from "sinon";
-import { sleepMS } from "../src/common";
-import { ProviderWithAgreement } from "../src/providers/ProviderWithAgreement";
-import { Counter } from "../typechain-types";
-import { deployCounter } from "./helpers";
+import { ProviderWithAgreement } from "../../src/providers/ProviderWithAgreement";
+import { Counter } from "../../typechain-types";
+import { deployCounter } from "../helpers";
+import { RedstoneCommon } from "@redstone-finance/utils";
 
 chai.use(chaiAsPromised);
 
 const TEST_PRIV_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+
+const BLOCK_NUMBER_TTL = 50;
+
+const createAgreementProvider = (providers: providers.Provider[]) =>
+  new ProviderWithAgreement(providers, { blockNumberTTL: BLOCK_NUMBER_TTL });
+
 describe("ProviderWithAgreement", () => {
   let contract: Counter;
   const signer: Signer = new Wallet(TEST_PRIV_KEY);
@@ -28,7 +34,7 @@ describe("ProviderWithAgreement", () => {
     let counter: Counter;
 
     beforeEach(() => {
-      providerWithAgreement = new ProviderWithAgreement([
+      providerWithAgreement = createAgreementProvider([
         hardhat.ethers.provider,
         hardhat.ethers.provider,
         hardhat.ethers.provider,
@@ -52,20 +58,20 @@ describe("ProviderWithAgreement", () => {
 
   describe("elected block number cache", () => {
     it("should omit cache when TTL passed", async () => {
-      const providerWithAgreement = new ProviderWithAgreement([
+      const providerWithAgreement = createAgreementProvider([
         hardhat.ethers.provider,
         hardhat.ethers.provider,
       ]);
 
       const first = await providerWithAgreement.getBlockNumber();
-      await sleepMS(201);
+      await RedstoneCommon.sleep(BLOCK_NUMBER_TTL + 1);
       await hardhat.ethers.provider.send("evm_mine", []);
       const second = await providerWithAgreement.getBlockNumber();
 
       expect(first + 1).to.eq(second);
     });
     it("should NOT omit cache when TTL NOT passed", async () => {
-      const providerWithAgreement = new ProviderWithAgreement([
+      const providerWithAgreement = createAgreementProvider([
         hardhat.ethers.provider,
         hardhat.ethers.provider,
       ]);
@@ -83,7 +89,7 @@ describe("ProviderWithAgreement", () => {
     let counter: Counter;
 
     beforeEach(async () => {
-      providerWithAgreement = new ProviderWithAgreement([
+      providerWithAgreement = createAgreementProvider([
         hardhat.ethers.provider,
         hardhat.ethers.provider,
       ]);
@@ -144,7 +150,7 @@ describe("ProviderWithAgreement", () => {
 
     // however it will cache call exceptions which is okey
     it("should not cache errors", async () => {
-      providerWithAgreement = new ProviderWithAgreement([
+      providerWithAgreement = createAgreementProvider([
         hardhat.ethers.provider,
         new hardhat.ethers.providers.JsonRpcProvider(),
       ]);
@@ -179,7 +185,7 @@ describe("ProviderWithAgreement", () => {
     let counter: Counter;
 
     beforeEach(() => {
-      providerWithAgreement = new ProviderWithAgreement([
+      providerWithAgreement = createAgreementProvider([
         new providers.StaticJsonRpcProvider("http://blabla.xd"),
         hardhat.ethers.provider,
         hardhat.ethers.provider,
@@ -205,7 +211,7 @@ describe("ProviderWithAgreement", () => {
       const tx = await counter.inc();
       await tx.wait();
       expect(await counter.getCount({ blockTag: blockNumber })).to.eq(0);
-      await sleepMS(201);
+      await RedstoneCommon.sleep(BLOCK_NUMBER_TTL + 1);
       expect(await counter.getCount()).to.eq(1);
     });
   });
@@ -214,19 +220,19 @@ describe("ProviderWithAgreement", () => {
     let providerWithAgreement: ProviderWithAgreement;
     let counter: Counter;
 
-    const falseProvider = new providers.StaticJsonRpcProvider(
+    const brokenProvider = new providers.StaticJsonRpcProvider(
       "http://blabla.xd"
     );
 
     // return bad result - should be 0
     sinon
-      .stub(falseProvider, "call")
+      .stub(brokenProvider, "call")
       .onFirstCall()
       .returns(Promise.resolve(`0x${"0".repeat(31)}9`));
 
     beforeEach(() => {
-      providerWithAgreement = new ProviderWithAgreement([
-        falseProvider,
+      providerWithAgreement = createAgreementProvider([
+        brokenProvider,
         new providers.StaticJsonRpcProvider("http://blabla.xd"),
         hardhat.ethers.provider,
       ]);
@@ -254,7 +260,7 @@ describe("ProviderWithAgreement", () => {
     let counter: Counter;
 
     beforeEach(() => {
-      providerWithAgreement = new ProviderWithAgreement([
+      providerWithAgreement = createAgreementProvider([
         hardhat.ethers.provider,
         new providers.StaticJsonRpcProvider("http://blabla.xd"),
         new providers.StaticJsonRpcProvider("http://blabla.xd"),
@@ -305,7 +311,7 @@ describe("ProviderWithAgreement", () => {
 
       const providerWithAgreement = new ProviderWithAgreement(
         [firstProvider, hardhat.ethers.provider],
-        { getBlockNumberTimeoutMS: 20 }
+        { getBlockNumberTimeoutMS: 20, minimalProvidersCount: 2 }
       );
 
       expect(await providerWithAgreement.getBlockNumber()).to.eq(
@@ -344,6 +350,52 @@ describe("ProviderWithAgreement", () => {
           ""
         )
       ).rejectedWith("Failed to find at least 2 agreeing providers.");
+    });
+  });
+
+  describe("With cureated list enabled", () => {
+    it("should work", async () => {
+      const firstProvider = hardhat.ethers.provider;
+      const secondProvider = hardhat.ethers.provider;
+      const brokenProvider = new providers.StaticJsonRpcProvider("2");
+
+      Sinon.stub(brokenProvider, "getBlockNumber").resolves(
+        await hardhat.ethers.provider.getBlockNumber()
+      );
+      const callSpy = Sinon.stub(brokenProvider, "call").rejects("error");
+
+      const agreementProvider = new ProviderWithAgreement(
+        [firstProvider, secondProvider, brokenProvider],
+        {
+          enableRpcCuratedList: true,
+          minimalProvidersCount: 2,
+        }
+      );
+
+      const result = await agreementProvider.call({
+        to: contract.address,
+        data: "0x00",
+      });
+      expect(result).to.eq("0x");
+      expect(callSpy.callCount).to.eq(1);
+
+      // put to qurantine after error
+      agreementProvider.curatedRpcList?.evaluateRpcScore("2");
+
+      await agreementProvider.call({
+        to: contract.address,
+        data: "0x01",
+      });
+      expect(callSpy.callCount).to.eq(1);
+
+      // free broken provider from qurantine and use it again
+      agreementProvider.curatedRpcList?.freeOneRpcFromQuarantine();
+
+      await agreementProvider.call({
+        to: contract.address,
+        data: "0x02",
+      });
+      expect(callSpy.callCount).to.eq(2);
     });
   });
 });

@@ -17,7 +17,7 @@ const logger = (text: string) =>
   console.log(`[${MultiNodeTxBroadcaster.name}] ${text}`);
 
 export class MultiNodeTxBroadcaster implements TxBroadcaster {
-  private readonly providers: ethers.providers.Provider[];
+  private readonly providers: readonly ethers.providers.Provider[];
   private readonly signer: ethers.Signer;
 
   constructor(contract: Contract) {
@@ -110,7 +110,7 @@ export class MultiNodeTxBroadcaster implements TxBroadcaster {
 
   static extractProviders<T extends ethers.providers.Provider>(
     provider: T
-  ): ethers.providers.Provider[] {
+  ): readonly ethers.providers.Provider[] {
     if (
       provider instanceof ProviderWithFallback ||
       provider instanceof ProviderWithAgreement
