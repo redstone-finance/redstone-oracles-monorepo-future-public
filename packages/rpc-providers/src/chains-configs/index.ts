@@ -109,4 +109,16 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 10_000,
   },
+  blast: {
+    name: "Blast Mainnet",
+    chainId: 81457,
+    publicRpcUrls: [
+      "https://rpc.blast.io",
+      "https://rpc.ankr.com/blast",
+      "https://blast.din.dev/rpc",
+      "https://blastl2-mainnet.public.blastapi.io",
+      "https://blast.blockpi.network/v1/rpc/public",
+    ],
+    avgBlockTimeMs: 2_000,
+  },
 };
