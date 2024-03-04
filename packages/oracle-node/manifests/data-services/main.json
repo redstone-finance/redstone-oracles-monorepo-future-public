@@ -1214,7 +1214,7 @@
       ]
     },
     "USDB": {
-      "source": ["ring-swap-weth"]
+      "source": ["ring-swap-weth", "thruster-weth"]
     },
     "sfrxETH": {
       "source": ["ethereum-evm-fetcher"]
