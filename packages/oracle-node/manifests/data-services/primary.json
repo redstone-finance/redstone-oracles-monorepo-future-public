@@ -913,7 +913,7 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "USDB": {
-      "source": ["ring-swap-weth"]
+      "source": ["ring-swap-weth", "thruster-weth"]
     }
   }
 }
