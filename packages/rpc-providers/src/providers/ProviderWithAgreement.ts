@@ -9,7 +9,6 @@ import {
 import { CuratedRpcList, RpcIdentifier } from "./CuratedRpcList";
 import { convertBlockTagToNumber, getProviderNetworkInfo } from "../common";
 
-const BLOCK_NUMBER_TTL = 1_000;
 // 5 min (max multiblock used)
 const AGREED_RESULT_TTL = 300_000;
 
@@ -19,7 +18,6 @@ interface ProviderWithAgreementSpecificConfig {
   getBlockNumberTimeoutMS: number;
   electBlockFn: (blocks: number[], numberOfAgreeingNodes: number) => number;
   enableRpcCuratedList: boolean;
-  blockNumberTTL: number;
 }
 
 export type ProviderWithAgreementConfig = Partial<
@@ -41,7 +39,6 @@ const defaultConfig: ProviderWithAgreementSpecificConfig = {
   electBlockFn: DEFAULT_ELECT_BLOCK_FN,
   enableRpcCuratedList: false,
   minimalProvidersCount: 3,
-  blockNumberTTL: BLOCK_NUMBER_TTL,
 };
 
 type ProviderWithIdentifier = {
@@ -91,11 +88,6 @@ export class ProviderWithAgreement extends ProviderWithFallback {
         getProviderNetworkInfo(this.providers[0]).chainId
       );
     }
-
-    this.electBlockNumber = RedstoneCommon.memoize({
-      functionToMemoize: this.electBlockNumber.bind(this),
-      ttl: this.agreementConfig.blockNumberTTL,
-    });
   }
 
   getHealthyProviders(): readonly ProviderWithIdentifier[] {

@@ -7,17 +7,14 @@ import Sinon, * as sinon from "sinon";
 import { ProviderWithAgreement } from "../../src/providers/ProviderWithAgreement";
 import { Counter } from "../../typechain-types";
 import { deployCounter } from "../helpers";
-import { RedstoneCommon } from "@redstone-finance/utils";
 
 chai.use(chaiAsPromised);
 
 const TEST_PRIV_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
 
-const BLOCK_NUMBER_TTL = 50;
-
 const createAgreementProvider = (providers: providers.Provider[]) =>
-  new ProviderWithAgreement(providers, { blockNumberTTL: BLOCK_NUMBER_TTL });
+  new ProviderWithAgreement(providers);
 
 describe("ProviderWithAgreement", () => {
   let contract: Counter;
@@ -53,34 +50,6 @@ describe("ProviderWithAgreement", () => {
     it("should await tx", async () => {
       const tx = await counter.inc();
       expect(await tx.wait()).not.to.be.undefined;
-    });
-  });
-
-  describe("elected block number cache", () => {
-    it("should omit cache when TTL passed", async () => {
-      const providerWithAgreement = createAgreementProvider([
-        hardhat.ethers.provider,
-        hardhat.ethers.provider,
-      ]);
-
-      const first = await providerWithAgreement.getBlockNumber();
-      await RedstoneCommon.sleep(BLOCK_NUMBER_TTL + 1);
-      await hardhat.ethers.provider.send("evm_mine", []);
-      const second = await providerWithAgreement.getBlockNumber();
-
-      expect(first + 1).to.eq(second);
-    });
-    it("should NOT omit cache when TTL NOT passed", async () => {
-      const providerWithAgreement = createAgreementProvider([
-        hardhat.ethers.provider,
-        hardhat.ethers.provider,
-      ]);
-
-      const first = await providerWithAgreement.getBlockNumber();
-      await hardhat.ethers.provider.send("evm_mine", []);
-      const second = await providerWithAgreement.getBlockNumber();
-
-      expect(first).to.eq(second);
     });
   });
 
@@ -211,7 +180,6 @@ describe("ProviderWithAgreement", () => {
       const tx = await counter.inc();
       await tx.wait();
       expect(await counter.getCount({ blockTag: blockNumber })).to.eq(0);
-      await RedstoneCommon.sleep(BLOCK_NUMBER_TTL + 1);
       expect(await counter.getCount()).to.eq(1);
     });
   });
