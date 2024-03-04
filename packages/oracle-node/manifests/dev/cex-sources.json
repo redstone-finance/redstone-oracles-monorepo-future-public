@@ -1,0 +1,103 @@
+{
+  "interval": 10000,
+  "priceAggregator": "median",
+  "defaultSource": [
+    "coingecko"
+  ],
+  "sourceTimeout": 7000,
+  "minValidSourcesPercentage": 1,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 50,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "BTC": {
+      "source": [
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bingx",
+        "bitfinex2",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "bitstamp",
+        "coinbasepro",
+        "currencycom",
+        "gate",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx"
+      ]
+    },
+    "ETH": {
+      "source": [
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bingx",
+        "bitfinex2",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "bitstamp",
+        "coinbasepro",
+        "currencycom",
+        "gate",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx"
+      ]
+    },
+    "USDC": {
+      "source": [
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bitfinex2",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "bitstamp",
+        "currencycom",
+        "gate",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx"
+      ]
+    },
+    "TIA": {
+      "source": [
+        "binance",
+        "bingx",
+        "bitfinex2",
+        "bitget",
+        "coinbasepro",
+        "gate",
+        "kraken",
+        "kucoin",
+        "okx"
+      ]
+    },
+    "MANTA": {
+      "source": [
+        "binance",
+        "bingx",
+        "bitget",
+        "bitrue",
+        "gate",
+        "kucoin",
+        "lbank",
+        "mexc"
+      ]
+    }
+  }
+}
