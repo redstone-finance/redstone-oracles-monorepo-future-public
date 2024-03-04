@@ -1214,8 +1214,7 @@
       ]
     },
     "USDB": {
-      "source": ["fixed-value"],
-      "fixedValue": 1
+      "source": ["ring-swap-weth"]
     },
     "sfrxETH": {
       "source": ["ethereum-evm-fetcher"]

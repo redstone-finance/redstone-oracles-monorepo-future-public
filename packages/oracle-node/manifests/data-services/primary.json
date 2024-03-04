@@ -866,10 +866,6 @@
         "bitfinex2"
       ]
     },
-    "USDB": {
-      "source": ["fixed-value"],
-      "fixedValue": 1
-    },
     "sfrxETH": {
       "source": ["ethereum-evm-fetcher"]
     },
@@ -915,6 +911,9 @@
     },
     "sUSDe": {
       "source": ["ethereum-evm-fetcher"]
+    },
+    "USDB": {
+      "source": ["ring-swap-weth"]
     }
   }
 }
