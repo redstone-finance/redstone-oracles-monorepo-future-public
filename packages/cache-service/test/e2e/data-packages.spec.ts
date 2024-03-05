@@ -207,6 +207,45 @@ describe("Data packages (e2e)", () => {
     );
   });
 
+  it("/data-packages/latest (GET) return package which contains more UNIQUE data-packages (in this case older one) ", async () => {
+    const mockDataPackage = mockDataPackages[0];
+    await DataPackage.insertMany([
+      {
+        ...mockDataPackage,
+        timestampMilliseconds: mockDataPackage.timestampMilliseconds,
+        isSignatureValid: true,
+        dataFeedId: "BTC",
+        dataServiceId: "mock-data-service-1",
+        signerAddress: "0x2",
+      },
+      {
+        ...mockDataPackage,
+        timestampMilliseconds: mockDataPackage.timestampMilliseconds,
+        isSignatureValid: true,
+        dataFeedId: "ETH",
+        dataServiceId: "mock-data-service-1",
+        signerAddress: "0x2",
+      },
+      {
+        ...mockDataPackage,
+        timestampMilliseconds: mockDataPackage.timestampMilliseconds - 1000,
+        isSignatureValid: true,
+        dataFeedId: "BTC",
+        dataServiceId: "mock-data-service-1",
+        signerAddress: "0x1",
+      },
+    ]);
+    const dpTimestamp = mockDataPackages[0].timestampMilliseconds;
+    jest.spyOn(Date, "now").mockImplementation(() => dpTimestamp);
+    const responseLatest = await request(httpServer)
+      .get("/data-packages/latest/mock-data-service-1")
+      .expect(200);
+
+    expect(responseLatest.body[ALL_FEEDS_KEY][0].timestampMilliseconds).toBe(
+      dpTimestamp - 1000
+    );
+  });
+
   it("/data-packages/latest (GET) return packages with unique signers if multiple packages with repeated singers", async () => {
     await DataPackage.insertMany(mockDataPackagesForUniqueSigners);
 

@@ -191,6 +191,12 @@ export class DataPackagesService {
             _id: {
               timestampMilliseconds: "$timestampMilliseconds",
             },
+            uniqueFeedSignerPairs: {
+              $addToSet: {
+                dataFeedId: "$dataFeedId",
+                signerAddress: "$signerAddress",
+              },
+            },
             count: { $count: {} },
             signatures: { $push: "$signature" },
             dataPoints: { $push: "$dataPoints" },
@@ -200,7 +206,12 @@ export class DataPackagesService {
           },
         },
         {
-          $sort: { count: -1, "_id.timestampMilliseconds": -1 },
+          $addFields: {
+            uniqueCount: { $size: "$uniqueFeedSignerPairs" },
+          },
+        },
+        {
+          $sort: { uniqueCount: -1, "_id.timestampMilliseconds": -1 },
         },
         {
           $limit: 1,
