@@ -1,4 +1,4 @@
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCommon, RedstoneConstants } from "@redstone-finance/utils";
 import "dotenv/config";
 import { z } from "zod";
 
@@ -23,7 +23,6 @@ interface CacheServiceConfig {
 }
 
 const DEFAULT_APP_PORT = 3000;
-const DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY = 90 * 1000; // 1.5 minutes in milliseconds
 
 // Cache TTL can slightly increase the data delay, but having efficient
 // caching is crucial for the app performance. Assuming, that we have 10s
@@ -75,7 +74,10 @@ const config: CacheServiceConfig = {
   ),
   maxAllowedTimestampDelay: RedstoneCommon.getFromEnv(
     "MAX_ALLOWED_TIMESTAMP_DELAY",
-    z.number().positive().default(DEFAULT_MAX_ALLOWED_TIMESTAMP_DELAY)
+    z
+      .number()
+      .positive()
+      .default(RedstoneConstants.DEFAULT_LATEST_DATA_PACKAGES_MAX_DELAY_MS)
   ),
   dataPackagesTTL: RedstoneCommon.getFromEnv(
     "DATA_PACKAGES_TTL",
