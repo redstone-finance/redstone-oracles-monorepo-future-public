@@ -95,6 +95,8 @@ export const ChainConfigs = {
       "https://canto.slingshot.finance",
       "https://canto.gravitychain.io",
       "https://mainnode.plexnode.org:8545",
+      "https://canto-rpc.ansybl.io",
+      "https://canto.dexvaults.com",
     ],
     avgBlockTimeMs: 6_000,
   },

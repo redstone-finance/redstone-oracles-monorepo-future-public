@@ -6600,7 +6600,6 @@ __metadata:
     ethereum-waffle: "npm:^4.0.10"
     ethereumjs-util: "npm:^7.0.10"
     ethers: "npm:^5.7.2"
-    express: "npm:^4.18.2"
     jest: "npm:^29.7.0"
     jest-mock-extended: "npm:^3.0.4"
     jsonpath: "npm:^1.1.1"
