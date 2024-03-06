@@ -249,7 +249,7 @@ export class TransactionDeliveryMan {
     return { transactionRequest, contractOverrides };
   }
 
-  // RPC errors sucks most of the time, thus we can not rely on them
+  // RPC errors suck most of the time, thus we cannot rely on them
   private static isUnderpricedError(e: EthersError | AggregateError) {
     const isErrorMatchingPredicate = (e: EthersError) =>
       (e.message.includes("maxFeePerGas") ||
