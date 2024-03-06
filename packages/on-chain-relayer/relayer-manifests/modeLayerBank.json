@@ -1,0 +1,20 @@
+{
+  "chain": {
+    "name": "mode-mainnet",
+    "id": 34443
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "adapterContract": "0x7C1DAAE7BB0688C9bfE3A918A4224041c7177256",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH": "__NO_FEED__",
+    "BTC": "__NO_FEED__",
+    "USDC": "__NO_FEED__",
+    "USDT": "__NO_FEED__",
+    "weETH": "__NO_FEED__",
+    "ezETH": "__NO_FEED__"
+  }
+}

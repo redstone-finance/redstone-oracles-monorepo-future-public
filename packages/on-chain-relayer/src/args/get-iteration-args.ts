@@ -37,7 +37,7 @@ export const getIterationArgs = async (
   const uniqueSignersThreshold =
     await getUniqueSignersThresholdFromContract(adapterContract);
 
-  // We fetch latest values from contract only if we want to check value deviation
+  // We fetch the latest values from contract only if we want to check value deviation
   const shouldCheckValueDeviation =
     updateConditions.includes("value-deviation");
   let valuesFromContract: ValuesForDataFeeds = {};

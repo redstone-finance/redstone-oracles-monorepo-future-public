@@ -50,6 +50,7 @@ import etherlinkGhostnetTezosXtzEthBtc from "./etherlinkGhostnetTezosXtzEthBtc.j
 import ethereumUsdeSusde from "./ethereumUsdeSusde.json";
 import blastBtc from "./blastBtc.json";
 import blastEth from "./blastEth.json";
+import modeLayerBank from "./modeLayerBank.json";
 import { OnChainRelayerManifest } from "../src";
 
 // This file contains mapping from manifest name to manifest content
@@ -97,6 +98,7 @@ export default {
   mantleWstEth,
   mentoBaklavaMultisig,
   mentoCeloMainnet,
+  modeLayerBank,
   sepoliaAngleAgeur,
   sepoliaVegaBtc,
   sepoliaVegaEth,
