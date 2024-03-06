@@ -1214,7 +1214,7 @@
       ]
     },
     "USDB": {
-      "source": ["ring-swap-weth", "thruster-weth"]
+      "source": ["ring-swap-weth", "thruster-weth", "ambient-eth"]
     },
     "USDB_FUNDAMENTAL": {
       "source": ["blast-evm-fetcher"]
