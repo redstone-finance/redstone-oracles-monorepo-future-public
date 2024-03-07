@@ -1,0 +1,16 @@
+{
+  "chain": {
+    "name": "mantle",
+    "id": 5000
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.2,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0xA504E7f1000C7871a3332B371461aeB2F0024e09",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "USDe": "0x3DFA26B9A15D37190bB8e50aE093730DcA88973E",
+    "sUSDe": "0xd6a987Ff6323F658D04da16c36CE00960137a115"
+  }
+}
