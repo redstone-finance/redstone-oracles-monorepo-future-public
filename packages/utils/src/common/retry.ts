@@ -1,3 +1,4 @@
+import { stringifyError } from "./errors";
 import { sleep } from "./time";
 
 export type RetryConfig<T extends (...args: unknown[]) => Promise<unknown>> = {
@@ -34,7 +35,7 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
         if (!config.disableLog) {
           console.log(
             `Retry ${i + 1}/${config.maxRetries}; Function ${fnName} failed.`,
-            e
+            stringifyError(e)
           );
         }
 

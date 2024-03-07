@@ -1,0 +1,18 @@
+{
+  "interval": 15000,
+  "priceAggregator": "median",
+  "defaultSource": ["ring-swap-weth"],
+  "sourceTimeout": 50000,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 25,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "ETH": {
+      "source": ["coingecko"]
+    },
+    "USDB": {}
+  }
+}
