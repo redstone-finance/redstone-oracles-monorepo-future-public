@@ -25,6 +25,7 @@ import mantaLayerBank from "./mantaLayerBank.json";
 import mantleEth from "./mantleEth.json";
 import mantleMnt from "./mantleMnt.json";
 import mantleTest from "./mantleTest.json";
+import mantleUsdeSusde from "./mantleUsdeSusde.json";
 import mantleWstEth from "./mantleWstEth.json";
 import mentoBaklavaMultisig from "./mentoBaklavaMultisig.json";
 import mentoCeloMainnet from "./mentoCeloMainnet.json";
@@ -95,6 +96,7 @@ export default {
   mantaLayerBank,
   mantleMnt,
   mantleTest,
+  mantleUsdeSusde,
   mantleWstEth,
   mentoBaklavaMultisig,
   mentoCeloMainnet,
