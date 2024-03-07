@@ -103,7 +103,7 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     ),
     fallbackSkipDeviationBasedFrequentUpdates: RedstoneCommon.getFromEnv(
       "SKIP_TX_SENDING_IF_OFFSET_MINUTES_DID_NOT_PASS",
-      z.boolean().default(false)
+      z.boolean().default(true)
     ),
     temporaryUpdatePriceInterval: RedstoneCommon.getFromEnv(
       "TEMPORARY_UPDATE_PRICE_INTERVAL",

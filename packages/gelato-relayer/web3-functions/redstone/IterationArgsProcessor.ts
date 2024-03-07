@@ -84,7 +84,7 @@ export class IterationArgsProcessor<Args> {
       fallbackSkipDeviationBasedFrequentUpdates: JSON.parse(
         (await this.context.secrets.get(
           "SKIP_TX_SENDING_IF_OFFSET_MINUTES_DID_NOT_PASS"
-        )) ?? "false"
+        )) ?? "true"
       ) as boolean,
     };
 
