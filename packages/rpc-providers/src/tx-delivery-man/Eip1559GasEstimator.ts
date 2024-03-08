@@ -8,6 +8,10 @@ import {
 // higher fee are discarded by ethers anyway in this way we can cap gasLimit
 const ASSUMED_ARB_MAX_TX_FEE = 1e18;
 
+// especially for networks where pending blocks can be empty (low blockchain usage)
+// in that cases rewards are defined as zeroes: 'All zeroes are returned if the block is empty.'
+const DEFAULT_MAX_PRIORITY_FEE_PER_GAS = 1e9; // 1 GWEI
+
 type FeeHistoryResponse = { reward: string[] };
 
 export type Eip1559Fee = {
@@ -51,7 +55,10 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
       .flat()
       .map((hex: string) => parseInt(hex, 16));
 
-    return Math.max(...rewardsPerBlockForPercentile);
+    return (
+      Math.max(...rewardsPerBlockForPercentile) ||
+      DEFAULT_MAX_PRIORITY_FEE_PER_GAS
+    );
   }
 
   /**
