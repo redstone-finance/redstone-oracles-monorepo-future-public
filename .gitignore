@@ -127,6 +127,4 @@ tmp
 .aws-sam
 .run
 
-!/packages/ton-connector/ton-sandbox-0.13.1-tvmbeta.1.tgz
-
 *.zip
