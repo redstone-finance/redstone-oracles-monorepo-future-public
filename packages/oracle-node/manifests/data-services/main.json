@@ -1216,6 +1216,9 @@
     "USDB": {
       "source": ["ring-swap-weth", "thruster-weth", "ambient-eth"]
     },
+    "USDB-TWAP-30": {
+      "source": ["twap-cache-service-minute-redstone-main-demo"]
+    },
     "USDB_FUNDAMENTAL": {
       "source": ["blast-evm-fetcher"]
     },
