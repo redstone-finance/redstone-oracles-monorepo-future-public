@@ -347,10 +347,12 @@
     },
     "weETH": {
       "source": [
-        "balancer-ethereum-reth-multi-block",
-        "balancer-ethereum-weth-multi-block",
-        "curve-weth-weeth-multi-block",
-        "maverick-multi-block"
+        "balancer-ethereum-ezeth",
+        "balancer-ethereum-reth",
+        "balancer-ethereum-rsweth",
+        "curve-rsweth",
+        "curve-weth",
+        "maverick"
       ]
     },
     "weETH/ETH": {
@@ -881,6 +883,7 @@
     },
     "ezETH": {
       "source": [
+        "balancer-ethereum-rsweth",
         "balancer-ethereum-weth",
         "balancer-ethereum-weeth",
         "curve-weth",
@@ -920,6 +923,17 @@
     },
     "USDB_FUNDAMENTAL": {
       "source": ["blast-evm-fetcher"]
+    },
+    "rswETH": {
+      "source": [
+        "balancer-ethereum-ezeth",
+        "balancer-ethereum-weeth",
+        "curve-weeth",
+        "maverick"
+      ]
+    },
+    "rswETH/ETH": {
+      "source": ["non-usd-based"]
     }
   }
 }
