@@ -30,8 +30,8 @@ export type GasOracleFn = (
 
 export type TransactionDeliveryManOpts = {
   /**
-   * It depends on network block finalization
-   * For example for ETH ~12 s block times  we should set it to 14_000
+   * It depends on network block finalization,
+   * For example, for ETH ~12 s block times we should set it to 14_000
    */
   expectedDeliveryTimeMs: number;
 
@@ -62,7 +62,7 @@ export type TransactionDeliveryManOpts = {
   gasLimitMultiplier?: number;
 
   /**
-   * If we want to take rewards from last block we can achieve is using percentiles
+   * If we want to take rewards from the last block we can achieve is using percentiles
    * 75 percentile we will receive reward which was given by 75% of users and 25% of them has given bigger reward
    * the bigger the value the higher priority fee
    * If you want to prioritize speed over cost choose number between 75-95
@@ -329,9 +329,13 @@ export class TransactionDeliveryMan {
 }
 
 const getEthersLikeErrorOrFail = (e: unknown): AggregateError | EthersError => {
+  if (e instanceof AggregateError) {
+    return e;
+  }
+
   const error = e as Partial<EthersError>;
 
-  if (error instanceof AggregateError || (error.code && error.message)) {
+  if (error.code && error.message) {
     return error as EthersError | AggregateError;
   }
 
