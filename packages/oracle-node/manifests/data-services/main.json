@@ -881,10 +881,12 @@
     },
     "weETH": {
       "source": [
-        "balancer-ethereum-reth-multi-block",
-        "balancer-ethereum-weth-multi-block",
-        "curve-weth-weeth-multi-block",
-        "maverick-multi-block"
+        "balancer-ethereum-ezeth",
+        "balancer-ethereum-reth",
+        "balancer-ethereum-rsweth",
+        "curve-rsweth",
+        "curve-weth",
+        "maverick"
       ]
     },
     "weETH_FUNDAMENTAL": {
@@ -1237,6 +1239,7 @@
     },
     "ezETH": {
       "source": [
+        "balancer-ethereum-rsweth",
         "balancer-ethereum-weth",
         "balancer-ethereum-weeth",
         "curve-weth",
@@ -1267,6 +1270,17 @@
     },
     "sUSDe": {
       "source": ["ethereum-evm-fetcher"]
+    },
+    "rswETH": {
+      "source": [
+        "balancer-ethereum-ezeth",
+        "balancer-ethereum-weeth",
+        "curve-weeth",
+        "maverick"
+      ]
+    },
+    "rswETH/ETH": {
+      "source": ["non-usd-based"]
     },
     "ARDRIVE": {
       "source": ["permaswap"]
