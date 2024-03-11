@@ -19102,6 +19102,7 @@ __metadata:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.33.2"
     "@redstone-finance/on-chain-relayer": "npm:^0.3.6"
+    "@redstone-finance/utils": "npm:^0.3.6"
     "@types/aws-lambda": "npm:^8.10.128"
     axios: "npm:^1.6.2"
     dotenv: "npm:^16.0.3"
