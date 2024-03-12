@@ -235,7 +235,8 @@
         "balancer-ethereum-frxeth",
         "curve-steth",
         "curve-frxeth",
-        "uniswap-v3-ethereum-on-chain-weth-100"
+        "uniswap-v3-ethereum-on-chain-weth-100",
+        "pancake-swap-on-chain-weth-100"
       ]
     },
     "pxETH/ETH": {

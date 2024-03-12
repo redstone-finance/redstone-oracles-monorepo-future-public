@@ -387,7 +387,8 @@
         "balancer-ethereum-frxeth",
         "curve-steth-pxeth-multi-block",
         "curve-frxeth",
-        "uniswap-v3-ethereum-on-chain-weth-100-multi-block"
+        "uniswap-v3-ethereum-on-chain-weth-100-multi-block",
+        "pancake-swap-on-chain-weth-100"
       ]
     },
     "pxETH/ETH": {
