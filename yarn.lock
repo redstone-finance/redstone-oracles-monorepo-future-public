@@ -6523,7 +6523,20 @@ __metadata:
     "@redstone-finance/utils": "npm:^0.3.6"
     axios: "npm:^1.6.2"
     ethers: "npm:^5.7.2"
-    p-timeout: "npm:^6.1.2"
+  languageName: unknown
+  linkType: soft
+
+"@redstone-finance/lambda-wallets-balances-for-visualization@workspace:packages/lambda-wallets-balances-for-visualization":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-wallets-balances-for-visualization@workspace:packages/lambda-wallets-balances-for-visualization"
+  dependencies:
+    "@redstone-finance/lambda-common": "npm:^0.3.6"
+    "@redstone-finance/on-chain-relayer": "npm:^0.3.6"
+    "@redstone-finance/redstone-monitoring": "npm:^0.3.6"
+    "@redstone-finance/utils": "npm:^0.3.6"
+    axios: "npm:^1.6.2"
+    ethers: "npm:^5.7.2"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -22151,13 +22164,6 @@ __metadata:
   dependencies:
     p-finally: "npm:^1.0.0"
   checksum: 524b393711a6ba8e1d48137c5924749f29c93d70b671e6db761afa784726572ca06149c715632da8f70c090073afb2af1c05730303f915604fd38ee207b70a61
-  languageName: node
-  linkType: hard
-
-"p-timeout@npm:^6.1.2":
-  version: 6.1.2
-  resolution: "p-timeout@npm:6.1.2"
-  checksum: d46b90a9a5fb7c650a5c56dd5cf7102ea9ab6ce998defa2b3d4672789aaec4e2f45b3b0b5a4a3e17a0fb94301ad5dd26da7d8728402e48db2022ad1847594d19
   languageName: node
   linkType: hard
 
