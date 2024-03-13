@@ -177,11 +177,7 @@
     },
     "ETHx": {
       "priceAggregator": "depth",
-      "source": [
-        "curve-weth",
-        "curve-wsteth",
-        "uniswap-v3-ethereum-on-chain-weth-500"
-      ]
+      "source": ["balancer-ethereum-rseth", "curve-weth", "curve-wsteth"]
     },
     "weETH": {
       "priceAggregator": "depth",

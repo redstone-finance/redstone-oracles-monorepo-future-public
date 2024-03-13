@@ -324,11 +324,7 @@
       "source": ["gate", "mexc", "kucoin", "bitget"]
     },
     "ETHx": {
-      "source": [
-        "curve-weth",
-        "curve-wsteth",
-        "uniswap-v3-ethereum-on-chain-weth-500-multi-block"
-      ]
+      "source": ["balancer-ethereum-rseth", "curve-weth", "curve-wsteth"]
     },
     "ETHx/ETH": {
       "source": ["non-usd-based"]
