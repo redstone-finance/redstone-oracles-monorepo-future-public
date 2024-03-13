@@ -1,7 +1,7 @@
 import abracadabraKavaBtc from "./abracadabraKavaBtc.json";
 import abracadabraKavaEth from "./abracadabraKavaEth.json";
 import abracadabraKavaUsdt from "./abracadabraKavaUsdt.json";
-import angle from "./angle.json";
+import ethereumC3m from "./ethereumC3m.json";
 import arbitrumPremia from "./arbitrumPremia.json";
 import arbitrumAngleAgeur from "./arbitrumAngleAgeur.json";
 import arbitrumWeethfundamental from "./arbitrumWeethfundamental.json";
@@ -62,7 +62,6 @@ export default {
   abracadabraKavaBtc,
   abracadabraKavaEth,
   abracadabraKavaUsdt,
-  angle,
   arbitrumPremia,
   arbitrumAngleAgeur,
   arbitrumWeetheth,
@@ -78,6 +77,7 @@ export default {
   cadenceCantoUsdc,
   cadenceCantoUsdt,
   ethereumApxetheth,
+  ethereumC3m,
   ethereumEusd,
   ethereumEthxeth,
   ethereumEtherfiWeeth,
