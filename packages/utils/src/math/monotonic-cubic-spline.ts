@@ -1,28 +1,26 @@
-import { ISafeNumber, SafeZero, createSafeNumber } from "../ISafeNumber";
-
 /**
  * The spline calculated during interpolation.
  */
 export class CubicInterpolation {
   constructor(
-    private firstX: ISafeNumber,
-    private lastX: ISafeNumber,
-    private firstY: ISafeNumber,
-    private lastY: ISafeNumber,
-    private firstSlope: ISafeNumber,
-    private lastSlope: ISafeNumber,
-    private fun: (x: ISafeNumber) => ISafeNumber
+    private firstX: number,
+    private lastX: number,
+    private firstY: number,
+    private lastY: number,
+    private firstSlope: number,
+    private lastSlope: number,
+    private fun: (x: number) => number
   ) {}
 
   /**
    * Returns the value of the function.
    */
-  public forX(x: ISafeNumber): ISafeNumber {
+  public forX(x: number): number {
     // queries outside the range of points are matched by linear interpolation
-    if (x.lt(this.firstX)) {
-      return this.firstY.sub(this.firstSlope.mul(this.firstX.sub(x)));
-    } else if (x.gt(this.lastX)) {
-      return this.lastY.add(this.lastSlope.mul(x.sub(this.lastX)));
+    if (x < this.firstX) {
+      return this.firstY - this.firstSlope * (this.firstX - x);
+    } else if (x > this.lastX) {
+      return this.lastY + this.lastSlope * (x - this.lastX);
     } else {
       // we use the calculated cubic interpolation
       return this.fun(x);
@@ -32,29 +30,29 @@ export class CubicInterpolation {
   /**
    * Returns the approximate function argument for a given value.
    */
-  public forY(y: ISafeNumber, precision: ISafeNumber): ISafeNumber {
+  public forY(y: number, precision: number): number {
     // queries outside the range of points are matched by linear interpolation
-    if (y.lt(this.firstY)) {
-      return this.firstX.sub(this.firstY.sub(y).div(this.firstSlope));
-    } else if (y.gt(this.lastY)) {
-      return this.lastX.add(y.sub(this.lastY).div(this.lastSlope));
+    if (y < this.firstY) {
+      return this.firstX - (this.firstY - y) / this.firstSlope;
+    } else if (y > this.lastY) {
+      return this.lastX + (y - this.lastY) / this.lastSlope;
     } else {
       // binary search for X for which Y is within the given precision
       let lowX = this.firstX;
       let highX = this.lastX;
       let tries = 50;
-      while (lowX.lte(highX) && tries > 0) {
-        const midX = lowX.add(highX).div(2);
-        if (highX.sub(lowX).abs().lt(precision)) {
+      while (lowX <= highX && tries > 0) {
+        const midX = (lowX + highX) / 2;
+        if (Math.abs(highX - lowX) < precision) {
           return midX;
         }
 
         const midY = this.forX(midX);
-        if (midY.sub(y).abs().lt(precision)) {
+        if (Math.abs(midY - y) < precision) {
           return midX;
         }
 
-        if (midY.lt(y)) {
+        if (midY < y) {
           lowX = midX;
         } else {
           highX = midX;
@@ -74,8 +72,8 @@ export class CubicInterpolation {
  * Method source code inspired by code in https://en.wikipedia.org/wiki/Monotone_cubic_interpolation#Example_implementation.
  */
 export const monotoneCubicInterpolation = (
-  xs: ISafeNumber[],
-  ys: ISafeNumber[]
+  xs: number[],
+  ys: number[]
 ): CubicInterpolation => {
   const { fun, firstSlope, lastSlope } = createInterpolant(xs, ys);
   return new CubicInterpolation(
@@ -90,12 +88,12 @@ export const monotoneCubicInterpolation = (
 };
 
 const createInterpolant = (
-  xs: ISafeNumber[],
-  ys: ISafeNumber[]
+  xs: number[],
+  ys: number[]
 ): {
-  fun: (x: ISafeNumber) => ISafeNumber;
-  firstSlope: ISafeNumber;
-  lastSlope: ISafeNumber;
+  fun: (x: number) => number;
+  firstSlope: number;
+  lastSlope: number;
 } => {
   // checking the initial conditions
   if (xs.length != ys.length) {
@@ -105,7 +103,7 @@ const createInterpolant = (
     throw new Error("Empty array of xs");
   }
   if (xs.length === 1) {
-    throw new Error("interpolation cannot be performed for a single point");
+    throw new Error("Interpolation cannot be performed for a single point");
   }
 
   // sorting points
@@ -121,11 +119,11 @@ const createInterpolant = (
     dxs = [],
     ms = [];
   for (let i = 0; i < sortedXs.length - 1; i++) {
-    const dx = sortedXs[i + 1].sub(sortedXs[i]);
-    const dy = sortedYs[i + 1].sub(sortedYs[i]);
+    const dx = sortedXs[i + 1] - sortedXs[i];
+    const dy = sortedYs[i + 1] - sortedYs[i];
     dxs[i] = dx;
     dys[i] = dy;
-    ms[i] = dy.div(dx);
+    ms[i] = dy / dx;
   }
 
   // degree-1 coefficients
@@ -133,34 +131,27 @@ const createInterpolant = (
   for (let i = 0; i < dxs.length - 1; i++) {
     const m = ms[i],
       mNext = ms[i + 1];
-    if (m.mul(mNext).lte(SafeZero)) {
-      c1s.push(SafeZero);
+    if (m * mNext <= 0) {
+      c1s.push(0);
     } else {
-      const dx_ = dxs[i],
+      const dx = dxs[i],
         dxNext = dxs[i + 1],
-        common = dx_.add(dxNext);
-      c1s.push(
-        common
-          .mul(3)
-          .div(common.add(dxNext).div(m).add(common.add(dx_).div(mNext)))
-      );
+        common = dx + dxNext;
+      c1s.push((3 * common) / ((common + dxNext) / m + (common + dx) / mNext));
     }
   }
   c1s.push(ms[ms.length - 1]);
 
   // degree-2 and degree-3 coefficients
-  const c2s: ISafeNumber[] = [],
-    c3s: ISafeNumber[] = [];
+  const c2s = [],
+    c3s = [];
   for (let i = 0; i < c1s.length - 1; i++) {
     const c1 = c1s[i],
       m = ms[i],
-      invDx = createSafeNumber(1).div(dxs[i]),
-      common = c1
-        .add(c1s[i + 1])
-        .sub(m)
-        .sub(m);
-    c2s.push(m.sub(c1).sub(common).mul(invDx));
-    c3s.push(common.mul(invDx).mul(invDx));
+      invDx = 1 / dxs[i],
+      common = c1 + c1s[i + 1] - 2 * m;
+    c2s.push((m - c1 - common) * invDx);
+    c3s.push(common * invDx * invDx);
   }
 
   return {
@@ -170,13 +161,10 @@ const createInterpolant = (
   };
 };
 
-const sortPoints = (
-  xs: ISafeNumber[],
-  ys: ISafeNumber[]
-): [ISafeNumber[], ISafeNumber[]] => {
+const sortPoints = (xs: number[], ys: number[]): [number[], number[]] => {
   const indexes = [...Array(xs.length).keys()];
   indexes.sort((a, b) => {
-    return xs[a].lt(xs[b]) ? -1 : 1;
+    return xs[a] - xs[b];
   });
 
   const sortedXs = [];
@@ -191,7 +179,7 @@ const sortPoints = (
 /**
  * Whether the given list of values is strictly monotonic.
  */
-const isStrictlyMonotonic = (ys: ISafeNumber[]) => {
+const isStrictlyMonotonic = (ys: number[]) => {
   if (ys.length < 2) {
     return true;
   }
@@ -204,12 +192,12 @@ const isStrictlyMonotonic = (ys: ISafeNumber[]) => {
     const current = ys[i];
 
     // check monotonicity
-    if (current.gt(previous)) {
+    if (current > previous) {
       if (direction === "decreasing") {
         return false;
       }
       direction = "increasing";
-    } else if (current.lt(previous)) {
+    } else if (current < previous) {
       if (direction === "increasing") {
         return false;
       }
@@ -226,16 +214,10 @@ const isStrictlyMonotonic = (ys: ISafeNumber[]) => {
 };
 
 const createInterpolantFunction =
-  (
-    xs: ISafeNumber[],
-    ys: ISafeNumber[],
-    c1s: ISafeNumber[],
-    c2s: ISafeNumber[],
-    c3s: ISafeNumber[]
-  ) =>
-  (x: ISafeNumber): ISafeNumber => {
+  (xs: number[], ys: number[], c1s: number[], c2s: number[], c3s: number[]) =>
+  (x: number): number => {
     // checking whether the argument is from the appropriate range
-    if (x.lt(xs[0]) || x.gt(xs[xs.length - 1])) {
+    if (x < xs[0] || x > xs[xs.length - 1]) {
       throw new Error(
         `The function only handles arguments in the range [${xs[0].toString()},${xs[
           xs.length - 1
@@ -244,7 +226,7 @@ const createInterpolantFunction =
     }
 
     // the rightmost point in the dataset should give an exact result
-    if (x.eq(xs[xs.length - 1])) {
+    if (x === xs[xs.length - 1]) {
       return ys[xs.length - 1];
     }
 
@@ -254,9 +236,9 @@ const createInterpolantFunction =
     while (low <= high) {
       const middle = Math.floor(0.5 * (low + high));
       const middleX = xs[middle];
-      if (middleX.lt(x)) {
+      if (middleX < x) {
         low = middle + 1;
-      } else if (middleX.gt(x)) {
+      } else if (middleX > x) {
         high = middle - 1;
       } else {
         return ys[middle];
@@ -265,10 +247,6 @@ const createInterpolantFunction =
     const i = Math.max(0, high);
 
     // interpolate
-    const diff = x.sub(xs[i]),
-      diffSq = diff.mul(diff);
-    return ys[i]
-      .add(c1s[i].mul(diff))
-      .add(c2s[i].mul(diffSq))
-      .add(c3s[i].mul(diff).mul(diffSq));
+    const diff = x - xs[i];
+    return ys[i] + diff * (c1s[i] + diff * (c2s[i] + diff * c3s[i]));
   };
