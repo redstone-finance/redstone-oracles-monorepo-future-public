@@ -52,6 +52,7 @@ import ethereumUsdeSusde from "./ethereumUsdeSusde.json";
 import blastBtc from "./blastBtc.json";
 import blastEth from "./blastEth.json";
 import modeLayerBank from "./modeLayerBank.json";
+import blastUsdb from "./blastUsdb.json";
 import { OnChainRelayerManifest } from "../src";
 
 // This file contains mapping from manifest name to manifest content
@@ -69,6 +70,7 @@ export default {
   blastBtc,
   blastEth,
   blastTestnet,
+  blastUsdb,
   cadenceCantoAtom,
   cadenceCantoCanto,
   cadenceCantoCnote,
