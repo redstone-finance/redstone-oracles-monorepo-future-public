@@ -17,6 +17,7 @@ import { z } from "zod";
 
 const GET_REQUEST_TIMEOUT = 10_000;
 const WAIT_FOR_ALL_GATEWAYS_TIME = 600;
+const MILLISECONDS_IN_ONE_MINUTE = 60 * 1000;
 
 export interface DataPackagesRequestParams {
   dataServiceId: string;
@@ -78,6 +79,23 @@ export const getDataServiceIdForSigner = (
     }
   }
   throw new Error(`Data service not found for ${signerAddress}`);
+};
+
+export const calculateHistoricalPackagesTimestamp = (
+  deviationCheckOffsetInMinutes: number,
+  baseTimestamp: number = Date.now()
+) => {
+  if (deviationCheckOffsetInMinutes > 0) {
+    // We round the timestamp to full minutes for being compatible with
+    // oracle-nodes, which usually work with rounded 10s and 60s intervals
+    return (
+      Math.floor(
+        baseTimestamp / MILLISECONDS_IN_ONE_MINUTE -
+          deviationCheckOffsetInMinutes
+      ) * MILLISECONDS_IN_ONE_MINUTE
+    );
+  }
+  return undefined;
 };
 
 export const requestDataPackages = async (

@@ -1,12 +1,11 @@
 import {
+  calculateHistoricalPackagesTimestamp,
   DataPackagesRequestParams,
   DataPackagesResponse,
   requestDataPackages,
 } from "@redstone-finance/sdk";
 import { RelayerConfig } from "../types";
 import { config } from "../config";
-
-const MILLISECONDS_IN_ONE_MINUTE = 60 * 1000;
 
 export async function fetchDataPackages(
   config: RelayerConfig,
@@ -46,7 +45,7 @@ const requestHistoricalDataPackages = (
   ) {
     return requestDataPackages({
       ...requestParams,
-      historicalTimestamp: calculateOlderPackagesTimestamp(
+      historicalTimestamp: calculateHistoricalPackagesTimestamp(
         fallbackOffsetInMinutes
       ),
       urls: historicalPackagesGateways,
@@ -59,19 +58,4 @@ const requestHistoricalDataPackages = (
         historicalPackagesGateways
       )}, isArray=${Array.isArray(historicalPackagesGateways)} `
   );
-};
-
-const calculateOlderPackagesTimestamp = (
-  deviationCheckOffsetInMinutes: number
-) => {
-  if (deviationCheckOffsetInMinutes > 0) {
-    // We round the timestamp to full minutes for being compatible with
-    // oracle-nodes, which usually work with rounded 10s and 60s intervals
-    return (
-      Math.round(
-        Date.now() / MILLISECONDS_IN_ONE_MINUTE - deviationCheckOffsetInMinutes
-      ) * MILLISECONDS_IN_ONE_MINUTE
-    );
-  }
-  return undefined;
 };

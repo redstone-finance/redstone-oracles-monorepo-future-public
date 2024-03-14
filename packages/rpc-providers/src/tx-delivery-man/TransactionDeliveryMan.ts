@@ -204,13 +204,13 @@ export class TransactionDeliveryMan {
           );
         }
         this.opts.logger(
-          `Transaction ${lastAttempt.result.hash} mined nonce changed: ${lastAttempt.nonce} => ${currentNonce}`
+          `Transaction ${lastAttempt.result.hash} mined, nonce changed: ${lastAttempt.nonce} => ${currentNonce}`
         );
 
         return lastAttempt.result;
       } else {
         this.opts.logger(
-          `Transaction was not delived yet account_nonce=${currentNonce}. Trying with new fees ..`
+          `Transaction was not delivered yet, account_nonce=${currentNonce}. Trying with new fees ..`
         );
         await this.assignNewFees(contractOverrides, provider, attempt);
       }

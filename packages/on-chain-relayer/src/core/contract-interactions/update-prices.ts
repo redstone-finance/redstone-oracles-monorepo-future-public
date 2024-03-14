@@ -1,4 +1,7 @@
-import { TransactionResponse } from "@ethersproject/providers";
+import {
+  TransactionReceipt,
+  TransactionResponse,
+} from "@ethersproject/providers";
 import {
   MentoAdapterBase,
   RedstoneAdapterBase,
@@ -8,9 +11,17 @@ import { config } from "../../config";
 import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
 import { getSortedOraclesContractAtAddress } from "./get-contract";
 import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
+import { isEthersError } from "@redstone-finance/rpc-providers";
+import { RedstoneCommon } from "@redstone-finance/utils";
 
 export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
   const updateTx = await updatePriceInAdapterContract(updatePricesArgs);
+
+  // is not using await to not block the main function
+  updateTx
+    .wait()
+    .then((receipt) => console.log(getTxReceiptDesc(receipt)))
+    .catch((error) => describeTxWaitError(error, updateTx.hash));
 
   console.log(
     `Update prices tx delivered hash=${updateTx.hash} gasLimit=${String(
@@ -49,13 +60,11 @@ const updatePricesInPriceFeedsAdapter = async ({
   const wrappedContract =
     dataPackagesWrapper.overwriteEthersContract(adapterContract);
 
-  const deliveryResult = await getTxDeliveryMan().deliver(
+  return await getTxDeliveryMan().deliver(
     wrappedContract,
     "updateDataFeedsValues",
     [proposedTimestamp]
   );
-
-  return deliveryResult;
 };
 
 const updatePricesInMentoAdapter = async ({
@@ -85,10 +94,34 @@ const updatePricesInMentoAdapter = async ({
   const wrappedMentoContract =
     dataPackagesWrapper.overwriteEthersContract(mentoAdapter);
 
-  const deliveryResult = await getTxDeliveryMan().deliver(
+  return await getTxDeliveryMan().deliver(
     wrappedMentoContract,
     "updatePriceValuesAndCleanOldReports",
     [proposedTimestamp, linkedListPositions]
   );
-  return deliveryResult;
 };
+
+const getTxReceiptDesc = (receipt: TransactionReceipt) => {
+  const ONE_GIGA = 10 ** 9;
+  const gasPrice = receipt.effectiveGasPrice.toNumber() / ONE_GIGA;
+
+  return `Transaction ${receipt.transactionHash} SUCCESS(status: ${
+    receipt.status
+  }) in block #${receipt.blockNumber}[tx index: ${
+    receipt.transactionIndex
+  }]. Gas used: ${receipt.gasUsed.toString()} with price ${gasPrice} = ${
+    (receipt.gasUsed.toNumber() * gasPrice) / ONE_GIGA
+  } of total fee`;
+};
+
+function describeTxWaitError(error: unknown, hash: string) {
+  if (isEthersError(error)) {
+    console.error(`Transaction ${hash} FAILED with error: ${error.code}`);
+  } else {
+    console.error(
+      `Transaction ${hash} receipt fetching error: ${RedstoneCommon.stringifyError(
+        error
+      )}`
+    );
+  }
+}
