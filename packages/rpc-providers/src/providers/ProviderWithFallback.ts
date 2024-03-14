@@ -34,6 +34,7 @@ export const FALLBACK_DEFAULT_CONFIG: ProviderWithFallbackConfig = {
 };
 
 type EthersError = Error & { code?: ErrorCode; reason?: string };
+
 export class ProviderWithFallback
   extends ProviderWithFallbackBase
   implements Provider
@@ -66,8 +67,7 @@ export class ProviderWithFallback
       throw new Error("Please provide at least two providers");
     }
 
-    const mainProvider = providers[0];
-    this.currentProvider = mainProvider;
+    this.currentProvider = providers[0];
     this.providers = Object.freeze([...providers]);
     this.providerWithFallbackConfig = { ...FALLBACK_DEFAULT_CONFIG, ...config };
   }
@@ -174,6 +174,11 @@ export class ProviderWithFallback
     ...args: unknown[]
   ): Promise<T> {
     try {
+      const providerName = this.extractProviderName(this.providerIndex);
+      logger.debug(
+        `Executing ${fnName} with ${args.toString()} on provider: ${providerName} (retry #${alreadyRetriedCount})`
+      );
+
       return await RedstoneCommon.timeout(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
         (this.currentProvider as any)[fnName](...args),
@@ -197,8 +202,7 @@ export class ProviderWithFallback
   private useProvider(providerIndex: number) {
     this.currentProvider.removeAllListeners();
     this.providerIndex = providerIndex;
-    const newProvider = this.providers[this.providerIndex];
-    this.currentProvider = newProvider;
+    this.currentProvider = this.providers[this.providerIndex];
 
     for (const { listener, once, eventType } of this.globalListeners) {
       if (once) {
@@ -220,8 +224,6 @@ export class ProviderWithFallback
     retryNumber: number,
     lastUsedProviderIndex: number
   ): void {
-    const providerName = this.extractProviderName(this.providerIndex);
-
     if (
       error.code &&
       this.providerWithFallbackConfig.unrecoverableErrors.includes(error.code)
@@ -230,8 +232,12 @@ export class ProviderWithFallback
       throw error;
     }
 
+    const lastUsedProviderName = this.extractProviderName(
+      lastUsedProviderIndex
+    );
+
     logger.warn(
-      `Provider ${providerName} failed with error: ${error.code} ${error.message}`
+      `Provider ${lastUsedProviderName} failed with error: ${error.code} ${error.message}`
     );
 
     if (retryNumber === this.providers.length - 1) {
@@ -239,9 +245,11 @@ export class ProviderWithFallback
       throw error;
     }
 
-    // if another concurrent request already has changed provider we do nothing
     if (lastUsedProviderIndex !== this.providerIndex) {
-      return;
+      const providerName = this.extractProviderName(this.providerIndex);
+      return logger.debug(
+        `Another concurrent request already has changed provider to ${providerName}, we do nothing.`
+      );
     }
 
     const nextProviderIndex = (this.providerIndex + 1) % this.providers.length;
