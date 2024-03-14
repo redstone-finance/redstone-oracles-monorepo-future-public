@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "blast-mainnet",
+    "id": 81457
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "adapterContract": "0x3A236F67Fce401D87D7215695235e201966576E4",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "USDB-TWAP-30": "0x3A236F67Fce401D87D7215695235e201966576E4"
+  }
+}
