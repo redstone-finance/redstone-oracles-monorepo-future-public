@@ -544,7 +544,6 @@
     },
     "FRAX": {
       "source": [
-        "coingecko",
         "curve-usdc-frax-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
