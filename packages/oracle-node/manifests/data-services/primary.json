@@ -24,6 +24,7 @@
         "bitrue",
         "bitstamp",
         "coingecko",
+        "coinmarketcap",
         "curve-dai",
         "curve-usdt",
         "gate",
@@ -52,6 +53,7 @@
         "bitstamp",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "curve-dai",
         "curve-usdc",
         "kaiko",
@@ -82,6 +84,7 @@
         "bitstamp",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kaiko",
         "kaiko-v2",
@@ -100,6 +103,7 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "curve-usdc",
         "curve-usdt",
         "kraken",
@@ -125,6 +129,7 @@
         "bitmart",
         "bitrue",
         "coingecko",
+        "coinmarketcap",
         "fraxswap-on-chain-frax",
         "lbank",
         "mexc",
@@ -134,7 +139,6 @@
     },
     "FRAX": {
       "source": [
-        "coingecko",
         "curve-usdc-frax-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
@@ -162,6 +166,7 @@
         "bitstamp",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kaiko",
         "kaiko-v2",
@@ -177,6 +182,7 @@
       "source": [
         "bingx",
         "bitget",
+        "coinmarketcap",
         "curve-eth",
         "curve-frxeth",
         "curve-weth",
@@ -237,7 +243,8 @@
       "source": [
         "balancer-ethereum-usdc",
         "balancer-ethereum-usdt",
-        "coingecko"
+        "coingecko",
+        "coinmarketcap"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -255,6 +262,7 @@
         "bitfinex2",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "kaiko",
         "kaiko-v2",
         "kraken",
@@ -294,6 +302,7 @@
         "bitget",
         "bitrue",
         "gate",
+        "coinmarketcap",
         "kaiko-v2",
         "kucoin",
         "lbank",
@@ -315,13 +324,14 @@
         "bingx",
         "bitmart",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "mexc",
         "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },
     "TLOS": {
-      "source": ["gate", "mexc", "kucoin", "bitget"]
+      "source": ["coinmarketcap", "gate", "mexc", "kucoin", "bitget"]
     },
     "ETHx": {
       "source": ["balancer-ethereum-rseth", "curve-weth", "curve-wsteth"]
@@ -335,6 +345,7 @@
         "bitget",
         "binance",
         "coinbasepro",
+        "coinmarketcap",
         "gate",
         "kucoin",
         "okx",
@@ -406,6 +417,7 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kraken",
         "kucoin",
@@ -427,6 +439,7 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kucoin",
         "mexc",
@@ -446,6 +459,7 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kucoin",
         "mexc",
@@ -492,6 +506,7 @@
         "bitstamp",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "trader-joe-v2-avalanche-on-chain-usdc",
         "uniswap-v3-ethereum-on-chain-usdc-500"
       ]
@@ -510,6 +525,7 @@
         "bitstamp",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kaiko",
         "kaiko-v2",
@@ -545,6 +561,7 @@
         "bingx",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kraken",
         "kucoin",
@@ -555,7 +572,15 @@
       ]
     },
     "CANTO": {
-      "source": ["bingx", "bitget", "bitmart", "coingecko", "gate", "mexc"]
+      "source": [
+        "bingx",
+        "bitget",
+        "bitmart",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "mexc"
+      ]
     },
     "XAU": {
       "source": ["twelve-data", "finhub-usd"]
@@ -568,6 +593,7 @@
         "bitfinex2",
         "bitstamp",
         "coingecko",
+        "coinmarketcap",
         "kraken",
         "kucoin",
         "lbank",
@@ -584,6 +610,7 @@
         "bitstamp",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kraken",
         "kucoin",
@@ -608,7 +635,15 @@
       }
     },
     "XVS": {
-      "source": ["binance", "binanceusdm", "bingx", "gate", "lbank", "mexc"]
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "coinmarketcap",
+        "gate",
+        "lbank",
+        "mexc"
+      ]
     },
     "WBTC": {
       "source": [
@@ -617,6 +652,7 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "kraken",
         "mexc",
         "okx",
@@ -637,6 +673,7 @@
         "bitstamp",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kraken",
         "kucoin",
@@ -657,6 +694,7 @@
         "bitstamp",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kraken",
         "kucoin",
@@ -677,6 +715,7 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kraken",
         "kucoin",
@@ -695,6 +734,7 @@
         "bitget",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kraken",
         "kucoin",
@@ -717,6 +757,7 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kucoin",
         "lbank",
@@ -734,6 +775,7 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kraken",
         "kucoin",
@@ -759,6 +801,7 @@
         "bingx",
         "bitget",
         "bitrue",
+        "coinmarketcap",
         "gate",
         "kucoin",
         "lbank",
@@ -793,6 +836,7 @@
         "bingx",
         "bitget",
         "bitmart",
+        "coinmarketcap",
         "gate",
         "kucoin",
         "mexc",
@@ -829,6 +873,7 @@
         "bitmart",
         "bitrue",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kucoin",
         "lbank",
@@ -847,6 +892,7 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
+        "coinmarketcap",
         "gate",
         "kraken",
         "kucoin",
