@@ -1,37 +1,31 @@
 import { ethers } from "ethers";
 import { GasEstimator } from "./GasEstimator";
 import {
-  TransactionDeliveryManOpts,
+  TransactionDeliveryManOptsValidated,
   unsafeBnToNumber,
 } from "./TransactionDeliveryMan";
 
 export type AuctionModelFee = {
   gasPrice: number;
-  gasLimit: number;
 };
 
 export class AuctionModelGasEstimator implements GasEstimator<AuctionModelFee> {
-  constructor(readonly opts: Required<TransactionDeliveryManOpts>) {}
+  constructor(readonly opts: TransactionDeliveryManOptsValidated) {}
 
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getFees(
     provider: ethers.providers.JsonRpcProvider
   ): Promise<AuctionModelFee> {
     return {
       gasPrice: unsafeBnToNumber(await provider.getGasPrice()),
-      gasLimit: this.opts.gasLimit,
     };
   }
 
   scaleFees(currentFees: AuctionModelFee, attempt: number): AuctionModelFee {
-    const gasLimit = this.opts.isArbitrum
-      ? Math.round(currentFees.gasLimit * this.opts.gasLimitMultiplier)
-      : currentFees.gasLimit;
-
     const multipleBy = this.opts.multiplier ** attempt;
     const gasPrice = Math.round(currentFees.gasPrice * multipleBy);
 
     const scaledFees: AuctionModelFee = {
-      gasLimit,
       gasPrice,
     };
 

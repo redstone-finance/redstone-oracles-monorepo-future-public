@@ -59,7 +59,7 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     privateKey: RedstoneCommon.getFromEnv("PRIVATE_KEY", z.string().min(16)),
     gasLimit: RedstoneCommon.getFromEnv(
       "GAS_LIMIT",
-      z.number().positive().int()
+      z.number().positive().int().optional()
     ),
     gasMultiplier: RedstoneCommon.getFromEnv(
       "GAS_MULTIPLIER",
@@ -73,9 +73,17 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       "EXPECTED_TX_DELIVERY_TIME_IN_MS",
       z.number().int().positive()
     ),
-    isArbitrumNetwork: RedstoneCommon.getFromEnv(
+    // DEPRACTED CAN BE REMOVED AFTER IS_ARBITRUM_NETWORK IS NOT USED IN PRODUCTION
+    twoDimensionalFees: RedstoneCommon.getFromEnv(
       "IS_ARBITRUM_NETWORK",
-      z.boolean().default(false)
+      z
+        .boolean()
+        .default(() =>
+          RedstoneCommon.getFromEnv(
+            "TWO_DIMENSIONAL_FEES",
+            z.boolean().default(false)
+          )
+        )
     ),
     fallbackOffsetInMinutes: RedstoneCommon.getFromEnv(
       "FALLBACK_OFFSET_IN_MINUTES",

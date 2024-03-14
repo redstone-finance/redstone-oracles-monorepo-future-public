@@ -1,8 +1,5 @@
 import axios from "axios";
-import {
-  GasOracleFn,
-  TransactionDeliveryManOpts,
-} from "../TransactionDeliveryMan";
+import { GasOracleFn } from "../TransactionDeliveryMan";
 import { RedstoneCommon } from "@redstone-finance/utils";
 
 const ONE_GWEI = 1e9;
@@ -15,9 +12,7 @@ const getEthGasRequest = RedstoneCommon.memoize({
   ttl: 5_100,
 });
 
-export const getEthFeeFromGasOracle: GasOracleFn = async (
-  opts: TransactionDeliveryManOpts
-) => {
+export const getEthFeeFromGasOracle: GasOracleFn = async () => {
   const { data } = await getEthGasRequest();
   const { suggestBaseFee, FastGasPrice } = data.result;
 
@@ -30,6 +25,5 @@ export const getEthFeeFromGasOracle: GasOracleFn = async (
     maxPriorityFeePerGas: Math.round(
       (FastGasPrice - suggestBaseFee) * ONE_GWEI
     ),
-    gasLimit: opts.gasLimit,
   };
 };
