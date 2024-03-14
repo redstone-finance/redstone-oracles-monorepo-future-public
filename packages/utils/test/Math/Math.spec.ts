@@ -7,7 +7,6 @@ import {
   getWeightedMedian,
   logarithmicWeighting,
   NumberArg,
-  SafeZero,
 } from "../../src/ISafeNumber";
 import { filterOutliers } from "../../src/math";
 import { monotoneCubicInterpolation } from "../../src/math/monotonic-cubic-spline";
@@ -296,12 +295,7 @@ describe("filterOutliers function", () => {
 
 describe("monotonic cubic interpolation", () => {
   it("should throw for different lengths", () => {
-    expect(() =>
-      monotoneCubicInterpolation(
-        [1, 2].map(createSafeNumber),
-        [3].map(createSafeNumber)
-      )
-    ).toThrow();
+    expect(() => monotoneCubicInterpolation([1, 2], [3])).toThrow();
   });
 
   it("should throw for empty arrays", () => {
@@ -309,93 +303,65 @@ describe("monotonic cubic interpolation", () => {
   });
 
   it("should throw for one point", () => {
-    expect(() => monotoneCubicInterpolation([SafeZero], [SafeZero])).toThrow();
+    expect(() => monotoneCubicInterpolation([0], [0])).toThrow();
   });
 
   it("should throw for not monotonic", () => {
-    expect(() =>
-      monotoneCubicInterpolation(
-        [1, 2, 3].map(createSafeNumber),
-        [12, 18, 15].map(createSafeNumber)
-      )
-    ).toThrow();
-    expect(() =>
-      monotoneCubicInterpolation(
-        [1, 2, 3].map(createSafeNumber),
-        [5, 4, 4].map(createSafeNumber)
-      )
-    ).toThrow();
+    expect(() => monotoneCubicInterpolation([1, 2, 3], [12, 18, 15])).toThrow();
+    expect(() => monotoneCubicInterpolation([1, 2, 3], [5, 4, 4])).toThrow();
   });
 
   it("should match the given points", () => {
-    const xs = [1, 2, 3].map(createSafeNumber);
-    const ys = [10, 100, 1000].map(createSafeNumber);
-    const precision = createSafeNumber(0.01);
+    const xs = [1, 2, 3];
+    const ys = [10, 100, 1000];
+    const precision = 0.01;
     const interpolation = monotoneCubicInterpolation(xs, ys);
 
     expect(interpolation.forX(xs[0])).toEqual(ys[0]);
     expect(interpolation.forX(xs[1])).toEqual(ys[1]);
     expect(interpolation.forX(xs[2])).toEqual(ys[2]);
-    expect(
-      interpolation.forY(ys[0], precision).sub(xs[0]).abs().lt(precision)
-    ).toBeTruthy();
-    expect(
-      interpolation.forY(ys[1], precision).sub(xs[1]).abs().lt(precision)
-    ).toBeTruthy();
-    expect(
-      interpolation.forY(ys[2], precision).sub(xs[2]).abs().lt(precision)
-    ).toBeTruthy();
+    expect(Math.abs(interpolation.forY(ys[0], precision) - xs[0])).toBeLessThan(
+      precision
+    );
+    expect(Math.abs(interpolation.forY(ys[1], precision) - xs[1])).toBeLessThan(
+      precision
+    );
+    expect(Math.abs(interpolation.forY(ys[2], precision) - xs[2])).toBeLessThan(
+      precision
+    );
   });
 
   it("should be monotonic", () => {
-    const xs = [0, 1, 2].map(createSafeNumber);
-    const ys = [0, 1000, 1001].map(createSafeNumber);
-    const precision = createSafeNumber(0.01);
-    const half = createSafeNumber(0.5);
+    const xs = [0, 1, 2];
+    const ys = [0, 1000, 1001];
+    const precision = 0.01;
+    const half = 0.5;
     const interpolation = monotoneCubicInterpolation(xs, ys);
 
-    expect(interpolation.forX(xs[0].sub(half)).lt(ys[0])).toBeTruthy();
-    expect(interpolation.forX(xs[0].add(half)).gt(ys[0])).toBeTruthy();
-    expect(interpolation.forX(xs[0].add(half)).lt(ys[1])).toBeTruthy();
-    expect(interpolation.forX(xs[1].add(half)).gt(ys[1])).toBeTruthy();
-    expect(interpolation.forX(xs[1].add(half)).lt(ys[2])).toBeTruthy();
-    expect(interpolation.forX(xs[2].add(half)).gt(ys[2])).toBeTruthy();
+    expect(interpolation.forX(xs[0] - half)).toBeLessThan(ys[0]);
+    expect(interpolation.forX(xs[0] + half)).toBeGreaterThan(ys[0]);
+    expect(interpolation.forX(xs[0] + half)).toBeLessThan(ys[1]);
+    expect(interpolation.forX(xs[1] + half)).toBeGreaterThan(ys[1]);
+    expect(interpolation.forX(xs[1] + half)).toBeLessThan(ys[2]);
+    expect(interpolation.forX(xs[2] + half)).toBeGreaterThan(ys[2]);
 
-    expect(
-      interpolation.forY(ys[0].sub(half), precision).lt(xs[0])
-    ).toBeTruthy();
-    expect(
-      interpolation.forY(ys[0].add(half), precision).gt(xs[0])
-    ).toBeTruthy();
-    expect(
-      interpolation.forY(ys[0].add(half), precision).lt(xs[1])
-    ).toBeTruthy();
-    expect(
-      interpolation.forY(ys[1].add(half), precision).gt(xs[1])
-    ).toBeTruthy();
-    expect(
-      interpolation.forY(ys[1].add(half), precision).lt(xs[2])
-    ).toBeTruthy();
-    expect(
-      interpolation.forY(ys[2].add(half), precision).gt(xs[2])
-    ).toBeTruthy();
+    expect(interpolation.forY(ys[0] - half, precision)).toBeLessThan(xs[0]);
+    expect(interpolation.forY(ys[0] + half, precision)).toBeGreaterThan(xs[0]);
+    expect(interpolation.forY(ys[0] + half, precision)).toBeLessThan(xs[1]);
+    expect(interpolation.forY(ys[1] + half, precision)).toBeGreaterThan(xs[1]);
+    expect(interpolation.forY(ys[1] + half, precision)).toBeLessThan(xs[2]);
+    expect(interpolation.forY(ys[2] + half, precision)).toBeGreaterThan(xs[2]);
   });
 
   it("should fit a line to linear points", () => {
-    const xs = [1, 2, 4, 5].map(createSafeNumber);
-    const ys = [1, 2, 4, 5].map(createSafeNumber);
-    const precision = createSafeNumber(0.01);
+    const xs = [1, 2, 4, 5];
+    const ys = [1, 2, 4, 5];
+    const precision = 0.01;
     const interpolation = monotoneCubicInterpolation(xs, ys);
 
-    expect(interpolation.forX(createSafeNumber(3))).toEqual(
-      createSafeNumber(3)
+    expect(interpolation.forX(3)).toEqual(3);
+    expect(Math.abs(interpolation.forY(3, precision) - 3)).toBeLessThan(
+      precision
     );
-    expect(
-      interpolation
-        .forY(createSafeNumber(3), precision)
-        .sub(3)
-        .abs()
-        .lt(precision)
-    ).toBeTruthy();
   });
 });
