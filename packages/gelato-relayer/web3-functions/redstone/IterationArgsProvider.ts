@@ -30,7 +30,7 @@ const EMPTY_GELATO_ENV = {
   singleProviderOperationTimeout: NUMBER_NOT_NEEDED_FOR_GELATO,
   allProvidersOperationTimeout: NUMBER_NOT_NEEDED_FOR_GELATO,
   agreementAcceptableBlocksDiff: NUMBER_NOT_NEEDED_FOR_GELATO,
-  isArbitrumNetwork: false,
+  twoDimensionalFees: false,
   gasMultiplier: 1.125,
   isNotLazy: true,
   disableCustomGasOracle: false,

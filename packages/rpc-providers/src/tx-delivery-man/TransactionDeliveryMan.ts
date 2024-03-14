@@ -1,7 +1,10 @@
 import { ErrorCode } from "@ethersproject/logger";
-import { TransactionResponse } from "@ethersproject/providers";
+import {
+  TransactionRequest,
+  TransactionResponse,
+} from "@ethersproject/providers";
 import { RedstoneCommon } from "@redstone-finance/utils";
-import { BigNumber, Contract, providers } from "ethers";
+import { BigNumber, Contract, PopulatedTransaction, providers } from "ethers";
 import {
   AuctionModelFee,
   AuctionModelGasEstimator,
@@ -11,11 +14,13 @@ import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
 import { MultiNodeTxBroadcaster, TxBroadcaster } from "./TxBrodcaster";
 import { EthersError, isEthersError } from "../common";
+import { GasLimitEstimator } from "./GasLimitEstimator";
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
 
 export type ContractOverrides = {
   nonce: number;
+  gasLimit: number;
 } & FeeStructure;
 
 type LastDeliveryAttempt = {
@@ -24,7 +29,7 @@ type LastDeliveryAttempt = {
 };
 
 export type GasOracleFn = (
-  opts: TransactionDeliveryManOpts,
+  opts: TransactionDeliveryManOptsValidated,
   attempt: number
 ) => Promise<FeeStructure>;
 
@@ -38,13 +43,13 @@ export type TransactionDeliveryManOpts = {
   /**
    * Gas limit used by contract
    */
-  gasLimit: number;
+  gasLimit?: number;
 
   /**
    * If network support arbitrum like 2D fees should be set to true
    * more info: https://medium.com/offchainlabs/understanding-arbitrum-2-dimensional-fees-fd1d582596c9
    */
-  isArbitrum?: boolean;
+  twoDimensionalFees?: boolean;
 
   /**
    * Max number of attempts to deliver transaction
@@ -91,23 +96,32 @@ export const DEFAULT_TRANSACTION_DELIVERY_MAN_PTS = {
   isAuctionModel: false,
   maxAttempts: 10,
   multiplier: 1.125, // 112,5% => 1.125 ** 10 => 3.24 max scaler
-  gasLimitMultiplier: 1.5,
+  gasLimitMultiplier: 1.1,
   percentileOfPriorityFee: 75,
-  isArbitrum: false,
+  twoDimensionalFees: false,
   gasOracleTimeout: 5_000,
   forceDisableCustomGasOracle: false,
   logger: (text: string) => console.log(`[TransactionDeliveryMan] ${text}`),
 };
 
+export type TransactionDeliveryManOptsValidated = Omit<
+  Required<TransactionDeliveryManOpts>,
+  "gasLimit"
+> & {
+  gasLimit?: number;
+};
+
 export class TransactionDeliveryMan {
-  private readonly opts: Required<TransactionDeliveryManOpts>;
-  private readonly estimator: GasEstimator<FeeStructure>;
+  private readonly opts: TransactionDeliveryManOptsValidated;
+  private readonly feeEstimator: GasEstimator<FeeStructure>;
+  private readonly gasLimitEstimator: GasLimitEstimator;
 
   constructor(opts: TransactionDeliveryManOpts) {
     this.opts = { ...DEFAULT_TRANSACTION_DELIVERY_MAN_PTS, ...opts };
-    this.estimator = this.opts.isAuctionModel
+    this.feeEstimator = this.opts.isAuctionModel
       ? new AuctionModelGasEstimator(this.opts)
       : new Eip1559GasEstimator(this.opts);
+    this.gasLimitEstimator = new GasLimitEstimator(this.opts);
   }
 
   public async deliver<T extends Contract, M extends keyof T>(
@@ -214,7 +228,14 @@ export class TransactionDeliveryMan {
   ) {
     Object.assign(
       contractOverrides,
-      this.estimator.scaleFees(await this.getFees(provider, attempt), attempt)
+      this.feeEstimator.scaleFees(
+        await this.getFees(provider, attempt),
+        attempt
+      )
+    );
+    contractOverrides.gasLimit = this.gasLimitEstimator.scaleGasLimit(
+      contractOverrides.gasLimit,
+      attempt
     );
   }
 
@@ -228,17 +249,23 @@ export class TransactionDeliveryMan {
     contractOverrides: ContractOverrides;
   }> {
     const currentNonce = await txBroadcaster.fetchNonce();
-    const fees = await this.getFees(
-      contract.provider as providers.JsonRpcProvider,
-      0
-    );
-    const contractOverrides: ContractOverrides = {
-      nonce: currentNonce,
-      ...fees,
-    };
+    const provider = contract.provider as providers.JsonRpcProvider;
+
     const populatedTransaction = await contract.populateTransaction[
       method.toString()
     ](...params);
+
+    const fees = await this.getFees(provider, 0);
+    const gasLimit = await this.gasLimitEstimator.getGasLimit(
+      provider,
+      createEstimateGasTx(populatedTransaction)
+    );
+
+    const contractOverrides: ContractOverrides = {
+      nonce: currentNonce,
+      gasLimit,
+      ...fees,
+    };
 
     const transactionRequest = await contract.signer.populateTransaction({
       ...populatedTransaction,
@@ -298,7 +325,7 @@ export class TransactionDeliveryMan {
     try {
       return await this.getFeeFromGasOracle(provider, attempt);
     } catch (e) {
-      return await this.estimator.getFees(provider);
+      return await this.feeEstimator.getFees(provider);
     }
   }
 
@@ -341,3 +368,11 @@ const getEthersLikeErrorOrFail = (e: unknown): AggregateError | EthersError => {
 
   throw e;
 };
+
+const createEstimateGasTx = (
+  transactionRequest: TransactionRequest | PopulatedTransaction
+) => ({
+  from: transactionRequest.from as string,
+  to: transactionRequest.to as string,
+  data: transactionRequest.data as string,
+});

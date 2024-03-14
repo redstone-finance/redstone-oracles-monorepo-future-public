@@ -1,12 +1,9 @@
 import { providers } from "ethers";
 import { GasEstimator } from "./GasEstimator";
 import {
-  TransactionDeliveryManOpts,
+  TransactionDeliveryManOptsValidated,
   unsafeBnToNumber,
 } from "./TransactionDeliveryMan";
-
-// higher fee are discarded by ethers anyway in this way we can cap gasLimit
-const ASSUMED_ARB_MAX_TX_FEE = 1e18;
 
 // especially for networks where pending blocks can be empty (low blockchain usage)
 // in that cases rewards are defined as zeroes: 'All zeroes are returned if the block is empty.'
@@ -17,11 +14,10 @@ type FeeHistoryResponse = { reward: string[] };
 export type Eip1559Fee = {
   maxFeePerGas: number;
   maxPriorityFeePerGas: number;
-  gasLimit: number;
 };
 
 export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
-  constructor(readonly opts: Required<TransactionDeliveryManOpts>) {}
+  constructor(readonly opts: TransactionDeliveryManOptsValidated) {}
 
   /** this is reasonable (ether.js is not reasonable) fallback if gasOracle is not set */
   async getFees(provider: providers.JsonRpcProvider): Promise<Eip1559Fee> {
@@ -34,7 +30,6 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
     const fee: Eip1559Fee = {
       maxFeePerGas,
       maxPriorityFeePerGas,
-      gasLimit: this.opts.gasLimit,
     };
 
     this.opts.logger(`getFees result from provider ${JSON.stringify(fee)}`);
@@ -83,15 +78,9 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
     );
     const maxFeePerGas = Math.round(currentFees.maxFeePerGas * multipleBy);
 
-    const gasLimit = this.calculateGasLimit(
-      { maxPriorityFeePerGas, maxFeePerGas, gasLimit: currentFees.gasLimit },
-      attempt
-    );
-
     const scaledFees: Eip1559Fee = {
       maxPriorityFeePerGas,
       maxFeePerGas,
-      gasLimit,
     };
 
     this.opts.logger(
@@ -99,15 +88,5 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
     );
 
     return scaledFees;
-  }
-
-  calculateGasLimit(fees: Eip1559Fee, attempt: number) {
-    if (!this.opts.isArbitrum) {
-      return fees.gasLimit;
-    }
-    return Math.min(
-      Math.round(fees.gasLimit * this.opts.gasLimitMultiplier ** attempt),
-      Math.round(ASSUMED_ARB_MAX_TX_FEE / fees.maxFeePerGas)
-    );
   }
 }

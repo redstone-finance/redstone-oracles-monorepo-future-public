@@ -141,7 +141,7 @@ describe("TransactionDeliveryMan", () => {
       const deliveryMan = new TransactionDeliveryMan({
         expectedDeliveryTimeMs: 20,
         gasLimit: 210000,
-        isArbitrum: true,
+        twoDimensionalFees: true,
       });
 
       const sendStub = Sinon.stub();
@@ -164,7 +164,7 @@ describe("TransactionDeliveryMan", () => {
         nonce: 1,
         maxFeePerGas: "2671875000",
         maxPriorityFeePerGas: "1687500000",
-        gasLimit: "315000",
+        gasLimit: "231000",
       });
     });
 

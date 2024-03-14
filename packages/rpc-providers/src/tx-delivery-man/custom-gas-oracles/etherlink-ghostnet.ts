@@ -1,8 +1,5 @@
 import axios from "axios";
-import {
-  GasOracleFn,
-  TransactionDeliveryManOpts,
-} from "../TransactionDeliveryMan";
+import { GasOracleFn } from "../TransactionDeliveryMan";
 import { RedstoneCommon } from "@redstone-finance/utils";
 
 const ONE_GWEI = 1e9;
@@ -15,9 +12,7 @@ const getEtherlinkGhostnetStats = RedstoneCommon.memoize({
   ttl: 5_100,
 });
 
-export const etherlinkGhostnetGasOracle: GasOracleFn = async (
-  opts: TransactionDeliveryManOpts
-) => {
+export const etherlinkGhostnetGasOracle: GasOracleFn = async () => {
   const { data } = await getEtherlinkGhostnetStats();
   const { gas_prices } = data;
 
@@ -27,6 +22,5 @@ export const etherlinkGhostnetGasOracle: GasOracleFn = async (
 
   return {
     gasPrice: Math.round(gas_prices.fast * ONE_GWEI),
-    gasLimit: opts.gasLimit,
   };
 };
