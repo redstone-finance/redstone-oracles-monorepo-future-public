@@ -16,7 +16,6 @@ import ethereumEthxeth from "./ethereumEthxeth.json";
 import ethereumEtherfiWeeth from "./ethereumEtherfiWeeth.json";
 import ethereumEtherfiWeetheth from "./ethereumEtherfiWeetheth.json";
 import ethereumStakewiseOsetheth from "./ethereumStakewiseOsetheth.json";
-import fluidEthTestnet from "./fluidEthTestnet.json";
 import hubble from "./hubble.json";
 import hubbleAylinTestnet from "./hubbleAylinTestnet.json";
 import hubbleExchangeMainnet from "./hubbleExchangeMainnet.json";
@@ -88,7 +87,6 @@ export default {
   ethereumStakewiseOsetheth,
   ethereumUsdeSusde,
   etherlinkGhostnetTezosXtzEthBtc,
-  fluidEthTestnet,
   hubble,
   hubbleAylinTestnet,
   hubbleExchangeMainnet,
