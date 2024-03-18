@@ -123,4 +123,19 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 2_000,
   },
+  "etherlink-ghostnet": {
+    name: "Etherlink Ghostnet",
+    chainId: 128123,
+    publicRpcUrls: ["https://node.ghostnet.etherlink.com"],
+    avgBlockTimeMs: 6_000,
+  },
+  mode: {
+    name: "Mode Mainnet",
+    chainId: 34443,
+    publicRpcUrls: [
+      "https://node.ghostnet.etherlink.com",
+      "https://1rpc.io/mode",
+    ],
+    avgBlockTimeMs: 2_000,
+  },
 };
