@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "bnb",
+    "id": 56
+  },
+  "updateTriggers": {
+    "deviationPercentage": 1,
+    "timeSinceLastUpdateInMilliseconds": 43200000
+  },
+  "adapterContract": "0x3A236F67Fce401D87D7215695235e201966576E4",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ezETH/ETH": "0x3A236F67Fce401D87D7215695235e201966576E4"
+  }
+}
