@@ -327,16 +327,6 @@
       ],
       "skipSigning": true
     },
-    "BUSD": {
-      "source": ["binance", "coingecko", "coinmarketcap"],
-      "deviationCheck": {
-        "deviationWithRecentValues": {
-          "maxPercent": 5,
-          "maxDelayMilliseconds": 300000
-        }
-      },
-      "skipSigning": true
-    },
     "JOE": {
       "source": [
         "binance",

@@ -261,16 +261,6 @@
         "xt"
       ]
     },
-    "BUSD": {
-      "source": ["binance", "coingecko", "coinmarketcap"],
-      "deviationCheck": {
-        "deviationWithRecentValues": {
-          "maxPercent": 5,
-          "maxDelayMilliseconds": 300000
-        }
-      },
-      "skipSigning": true
-    },
     "YY_GLP": {
       "source": ["avalanche-evm-fetcher"]
     },

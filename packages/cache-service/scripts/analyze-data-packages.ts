@@ -18,7 +18,6 @@ const MIN_DEVIATION_PERCENTAGE_TO_LOG = 0.1;
 const EXPECTED_DATA_FEEDS = [
   "AVAX",
   "BTC",
-  "BUSD",
   "DAI",
   "ETH",
   "GLP",

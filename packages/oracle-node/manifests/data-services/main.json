@@ -185,9 +185,6 @@
         "okx"
       ]
     },
-    "BUSD": {
-      "source": ["binance", "coingecko"]
-    },
     "SOL": {
       "source": [
         "binance",
