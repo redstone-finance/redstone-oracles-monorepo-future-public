@@ -579,7 +579,9 @@
         "coingecko",
         "coinmarketcap",
         "gate",
-        "mexc"
+        "canto-dex-note",
+        "canto-dex-atom",
+        "canto-dex-eth"
       ]
     },
     "XAU": {
