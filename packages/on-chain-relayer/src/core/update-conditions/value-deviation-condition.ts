@@ -45,16 +45,17 @@ export const performValueDeviationConditionChecks = async (
     Date.now() - lastUpdateTimestampInMs <
       (config.fallbackOffsetInMinutes ?? 0) * 60 * 1000;
 
-  const skipFallbackErrorMessage = skipFallbackUpdate
-    ? `. Update skipped: less than ${config.fallbackOffsetInMinutes} minutes passed since last update`
-    : "";
+  const shouldUpdatePricesNoSkip =
+    shouldUpdatePrices && historicalShouldUpdatePrices;
+  const skipFallbackMessage =
+    shouldUpdatePricesNoSkip && skipFallbackUpdate
+      ? `Update skipped: less than ${config.fallbackOffsetInMinutes} minutes passed since last update. `
+      : "";
+  const prefix = isFallback ? "Deviation in fallback mode: " : "";
 
   return {
-    shouldUpdatePrices:
-      shouldUpdatePrices && historicalShouldUpdatePrices && !skipFallbackUpdate,
-    warningMessage: `${
-      isFallback ? "Deviation in fallback mode: " : ""
-    }${warningMessage}${historicalWarningMessage}${skipFallbackErrorMessage}`,
+    shouldUpdatePrices: shouldUpdatePricesNoSkip && !skipFallbackUpdate,
+    warningMessage: `${prefix}${skipFallbackMessage}${warningMessage}${historicalWarningMessage}`,
   };
 };
 
