@@ -51,6 +51,7 @@ import blastBtc from "./blastBtc.json";
 import blastEth from "./blastEth.json";
 import modeLayerBank from "./modeLayerBank.json";
 import blastUsdb from "./blastUsdb.json";
+import bnbEzetheth from "./bnbEzetheth.json";
 import { OnChainRelayerManifest } from "../src";
 
 // This file contains mapping from manifest name to manifest content
@@ -65,6 +66,7 @@ export default {
   arbitrumAngleAgeur,
   arbitrumWeetheth,
   arbitrumWeethfundamental,
+  bnbEzetheth,
   blastBtc,
   blastEth,
   blastTestnet,
