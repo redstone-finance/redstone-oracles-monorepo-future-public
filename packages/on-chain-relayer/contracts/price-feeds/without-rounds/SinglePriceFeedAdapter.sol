@@ -51,8 +51,9 @@ abstract contract SinglePriceFeedAdapter is PriceFeedsAdapterBase {
   function getDataFeedIndex(bytes32 dataFeedId) public virtual view override returns(uint256) {
     if (dataFeedId == getDataFeedId()) {
       return 0;
+    } else {
+      revert DataFeedIdNotFound(dataFeedId);
     }
-    revert DataFeedIdNotFound(dataFeedId);
   }
 
   /**
@@ -80,7 +81,7 @@ abstract contract SinglePriceFeedAdapter is PriceFeedsAdapterBase {
     assembly {
       dataFeedValueCompressed := sload(DATA_FROM_LATEST_UPDATE_STORAGE_LOCATION)
     }
-    return uint256(dataFeedValueCompressed);
+    return dataFeedValueCompressed;
   }
 
   /**

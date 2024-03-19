@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.12;
+pragma solidity ^0.8.14;
 
 import {IERC7412} from './IERC7412.sol';
 import {MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd} from '../price-feeds/data-services/MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd.sol';
@@ -14,6 +14,8 @@ import {MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd} from '../price-fee
  */
  abstract contract RedstonePrimaryProdWithoutRoundsERC7412 is IERC7412, MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd {
     bytes32 constant ORACLE_ID = bytes32("REDSTONE");
+    uint256 constant MAX_DATA_AHEAD_SECONDS = 120;
+    uint256 constant MAX_DATA_DELAY_SECONDS = 120;
 
     function getTTL() view internal virtual returns (uint256);
    
@@ -22,8 +24,7 @@ import {MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd} from '../price-fee
     }
 
     function getAllowedTimestampDiffsInSeconds() public view override virtual returns (uint256 maxDataAheadSeconds, uint256 maxDataDelaySeconds) {
-        maxDataAheadSeconds = 120;
-        maxDataDelaySeconds = 120;
+        return (MAX_DATA_AHEAD_SECONDS, MAX_DATA_DELAY_SECONDS);
     }
 
     function validateDataFeedValueOnRead(bytes32 dataFeedId, uint256 valueForDataFeedId) public view override virtual {
