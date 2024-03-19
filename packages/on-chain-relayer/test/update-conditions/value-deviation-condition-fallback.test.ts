@@ -80,12 +80,8 @@ describe("value-deviation-condition fallback mode tests", () => {
 
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
-      /Deviation in fallback mode: Value has deviated enough to be/
+      /Deviation in fallback mode:.*Update skipped: less than.*Value has deviated enough to be.*Historical Value has deviated enough to be/
     );
-    expect(warningMessage).to.match(
-      /Historical Value has deviated enough to be/
-    );
-    expect(warningMessage).to.match(/Update skipped: less than/);
   });
 
   it("should return true if skip frequent updates enabled and enough time passed since last update", async () => {
