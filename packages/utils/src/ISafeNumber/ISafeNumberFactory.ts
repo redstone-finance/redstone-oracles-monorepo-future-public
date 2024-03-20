@@ -6,3 +6,4 @@ export const createSafeNumber = (numberLike: NumberArg) =>
   JsNativeSafeNumber.from(numberLike);
 
 export const SafeZero = createSafeNumber(0);
+export const SafeOne = createSafeNumber(1);
