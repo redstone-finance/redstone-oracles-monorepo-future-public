@@ -12,7 +12,7 @@ export const getWeightedMedian = (
     throw new Error("Cannot get weighted median value of an empty array");
   }
 
-  const sortedValues: WeightedValue[] = weightedValues.sort((a, b) =>
+  const sortedValues: WeightedValue[] = [...weightedValues].sort((a, b) =>
     a.value.lt(b.value) ? -1 : 1
   );
 
@@ -43,5 +43,15 @@ export const logarithmicWeighting = (
   return weightedValues.map((weightedValue) => ({
     value: weightedValue.value,
     weight: weightedValue.weight.div(medianWeight).add(1).log2(),
+  }));
+};
+
+export const normalizeWeightedValues = (
+  weightedValues: WeightedValue[]
+): WeightedValue[] => {
+  const sum = calculateSum(weightedValues.map((value) => value.weight));
+  return weightedValues.map((weightedValue) => ({
+    value: weightedValue.value,
+    weight: weightedValue.weight.div(sum),
   }));
 };
