@@ -6439,6 +6439,7 @@ __metadata:
     "@redstone-finance/sdk": "npm:^0.3.6"
     aws-lambda: "npm:^1.0.7"
     dotenv: "npm:^16.0.3"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
