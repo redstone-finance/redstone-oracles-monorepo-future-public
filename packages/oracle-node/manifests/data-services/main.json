@@ -1223,9 +1223,6 @@
     "USDB-TWAP-30": {
       "source": ["twap-cache-service-minute-redstone-main-demo"]
     },
-    "USDB_FUNDAMENTAL": {
-      "source": ["blast-evm-fetcher"]
-    },
     "sfrxETH": {
       "source": ["ethereum-evm-fetcher"]
     },
