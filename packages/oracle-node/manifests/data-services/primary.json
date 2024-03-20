@@ -955,19 +955,40 @@
         "curve-frax",
         "curve-usdc",
         "uniswap-v3-ethereum-on-chain-usdt-100"
-      ]
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "sUSDe": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "USDB": {
-      "source": ["ring-swap-weth", "thruster-weth", "ambient-eth"]
+      "source": ["ring-swap-weth", "thruster-weth", "ambient-eth"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "USDB-TWAP-30": {
-      "source": ["twap-cache-service-minute-redstone-primary-prod"]
-    },
-    "USDB_FUNDAMENTAL": {
-      "source": ["blast-evm-fetcher"]
+      "source": ["twap-cache-service-minute-redstone-primary-prod"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "rswETH": {
       "source": [
