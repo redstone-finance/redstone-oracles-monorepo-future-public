@@ -575,12 +575,7 @@
     },
     "CANTO": {
       "source": [
-        "bingx",
-        "bitget",
-        "bitmart",
         "coingecko",
-        "coinmarketcap",
-        "gate",
         "canto-dex-note",
         "canto-dex-atom",
         "canto-dex-eth"
