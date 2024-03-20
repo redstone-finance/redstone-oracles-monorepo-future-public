@@ -1303,7 +1303,8 @@
         "twelve-data",
         "ecb",
         "kraken",
-        "bitfinex2"
+        "bitfinex2",
+        "financialmodelingprep-usd"
       ]
     },
     "EUR": {
@@ -1390,7 +1391,7 @@
       "source": ["twelve-data", "yf-unofficial"]
     },
     "XAU": {
-      "source": ["twelve-data", "finhub-usd"]
+      "source": ["twelve-data", "finhub-usd", "financialmodelingprep-usd"]
     },
     "SILVER": {
       "source": ["twelve-data", "yf-unofficial"]
