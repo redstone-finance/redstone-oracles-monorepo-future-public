@@ -582,7 +582,7 @@
       ]
     },
     "XAU": {
-      "source": ["twelve-data", "finhub-usd"]
+      "source": ["twelve-data", "finhub-usd", "financialmodelingprep-usd"]
     },
     "XRP": {
       "source": [
@@ -907,7 +907,8 @@
         "twelve-data",
         "ecb",
         "kraken",
-        "bitfinex2"
+        "bitfinex2",
+        "financialmodelingprep-usd"
       ]
     },
     "sfrxETH": {
