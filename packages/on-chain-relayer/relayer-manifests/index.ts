@@ -53,6 +53,8 @@ import modeLayerBank from "./modeLayerBank.json";
 import blastUsdb from "./blastUsdb.json";
 import bnbEzetheth from "./bnbEzetheth.json";
 import ethereumRswethRswetheth from "./ethereumRswethRswetheth.json";
+import realXau from "./realXau.json";
+import realGbp from "./realGbp.json";
 import { OnChainRelayerManifest } from "../src";
 
 // This file contains mapping from manifest name to manifest content
@@ -103,6 +105,8 @@ export default {
   mentoBaklavaMultisig,
   mentoCeloMainnet,
   modeLayerBank,
+  realGbp,
+  realXau,
   sepoliaAngleAgeur,
   sepoliaVegaBtc,
   sepoliaVegaEth,
