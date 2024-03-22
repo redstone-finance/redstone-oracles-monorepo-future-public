@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "real",
+    "id": 111188
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.15,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0x100c8e61aB3BeA812A42976199Fc3daFbcDD7272",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "GBP": "0x100c8e61aB3BeA812A42976199Fc3daFbcDD7272"
+  }
+}
