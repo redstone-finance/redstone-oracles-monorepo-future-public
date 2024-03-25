@@ -52,9 +52,9 @@ import blastEth from "./blastEth.json";
 import modeLayerBank from "./modeLayerBank.json";
 import blastUsdb from "./blastUsdb.json";
 import bnbEzetheth from "./bnbEzetheth.json";
-import ethereumRswethRswetheth from "./ethereumRswethRswetheth.json";
 import realXau from "./realXau.json";
 import realGbp from "./realGbp.json";
+import ethereumRswetheth from "./ethereumRswetheth.json";
 import { OnChainRelayerManifest } from "../src";
 
 // This file contains mapping from manifest name to manifest content
@@ -89,7 +89,7 @@ export default {
   ethereumEtherfiWeetheth,
   ethereumEzetheth,
   ethereumRsetheth,
-  ethereumRswethRswetheth,
+  ethereumRswetheth,
   ethereumStakewiseOsetheth,
   ethereumUsdeSusde,
   etherlinkGhostnetTezosXtzEthBtc,
