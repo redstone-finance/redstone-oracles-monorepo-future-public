@@ -184,7 +184,8 @@
         "balancer-ethereum-reth",
         "balancer-ethereum-weth",
         "curve-weth",
-        "maverick"
+        "maverick",
+        "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
     "rETH": {
@@ -250,7 +251,8 @@
       "source": [
         "balancer-ethereum-ethx",
         "curve-sfrxeth",
-        "uniswap-v3-ethereum-on-chain-ethx-3000"
+        "uniswap-v3-ethereum-on-chain-ethx-3000",
+        "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
     "ezETH": {
