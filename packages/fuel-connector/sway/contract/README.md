@@ -104,21 +104,21 @@ That's just a `#[storage(read)]` function - it consumes GAS but doesn't modify t
 ## 📖 Sample payload
 
 The sample data passed to the contract deployed for the showroom/sample can be fetched by using:
-https://d33trozg86ya9x.cloudfront.net/data-packages/payload?data-packages/payload?unique-signers-count=1&data-service-id=redstone-rapid-demo&format=hex
+https://d33trozg86ya9x.cloudfront.net/data-packages/payload?unique-signers-count=1&data-service-id=redstone-rapid-demo&format=hex
 That's an example endpoint for `redstone-rapid-demo` data-service id, also for the sample value of the signer-address
 that can be used for the initializer (`0xf786a909D559F5Dee2dc6706d8e5A81728a39aE9`)
 
 Then the hex response is needed to be split to single bytes, for example by using `Array.from(arrayify(payloadHex))`
 functions of ```ethers``` or ```starknet``` node packages.
 
-📟 You can use: [Makefile](../../../protocol/scripts/payload-generator/Makefile) by
+📟 You can use: [Makefile](../../../sdk/scripts/payload-generator/Makefile) by
 invoking ```make DATA_NAME=[name] prepare_data``` or
-directly from the [payload-generator](../../../protocol/scripts/payload-generator/) environment directory where `[name]`
+directly from the [payload-generator](../../../sdk/scripts/payload-generator) environment directory where `[name]`
 is a string you wish.
 
 📖 See: [README.md](../README.md) to see the environment possibilities and sample scripts invoking the functions.
 
-[//]: # (You can fetch also the utf-encoded raw-bytes format of the payload by using: https://d33trozg86ya9x.cloudfront.net/data-packages/payload?data-packages/payload?unique-signers-count=1&data-service-id=redstone-rapid-demo&format=raw)
+[//]: # (You can fetch also the utf-encoded raw-bytes format of the payload by using: https://d33trozg86ya9x.cloudfront.net/data-packages/payload?unique-signers-count=1&data-service-id=redstone-rapid-demo&format=raw)
 
 To have defined your custom data-service id and signers, [contact us](#contact).
 
@@ -140,4 +140,4 @@ To have defined your custom data-service id and signers, [contact us](#contact).
 
 ## 🙋‍Contact
 
-Please feel free to contact us on [Discord](https://redstone.finance/discord) or send email to core@redstone.finance
+Please feel free to contact us on [Discord](https://redstone.finance/discord) or email to core@redstone.finance

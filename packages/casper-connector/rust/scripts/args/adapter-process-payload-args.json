@@ -1,0 +1,19 @@
+[
+  {
+    "name": "feed_ids",
+    "type": {
+      "List": "U256"
+    },
+    "value": [
+      4543560,
+      4346947
+    ]
+  },
+  {
+    "name": "payload",
+    "type": {
+      "List": "U8"
+    },
+    "value": "#PAYLOAD#"
+  }
+]

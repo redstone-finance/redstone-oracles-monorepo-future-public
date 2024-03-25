@@ -51,14 +51,14 @@ First, you need to import the connector code to your project
 
 ```ts
 // Typescript
-import { FuelPricesContractConnector } from "@redstone-finance/fuel-connector";
-import { ContractParamsProvider } from "@redstone-finance/sdk";
+import {FuelPricesContractConnector} from "@redstone-finance/fuel-connector";
+import {ContractParamsProvider} from "@redstone-finance/sdk";
 
 // Javascript
 const {
   FuelPricesContractConnector,
 } = require("@redstone-finance/fuel-connector");
-const { ContractParamsProvider } = require("@redstone-finance/sdk");
+const {ContractParamsProvider} = require("@redstone-finance/sdk");
 ```
 
 Then you can invoke the contract methods described above pointing to the

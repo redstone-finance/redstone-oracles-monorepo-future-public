@@ -38,7 +38,7 @@ run a local Fuel node (with or without state persistence), as described [here](h
       __including__ the local network
       1) the faucet for `beta-3` network is <https://faucet-beta-3.fuel.network/>
       1) for the local network you can transfer the ETH assets from one of the origin accounts by
-         running  [transfer.spec.ts](..%2Ftest%2Fprices%2Ftransfer.spec.ts), passing there one of the account
+         running  [transfer.spec.ts](../test/prices/transfer.spec.ts), passing there one of the account
          private-keys listed above.
 
 ### Preparing sample data
@@ -48,7 +48,7 @@ the data follow the steps:
 
 1. execute `make prepare_data`. The files are saved in the `../../data-generator/data` directory
    * the base name of files is defined as `DATA_NAME` variable in
-     the [Makefile](../../protocol/scripts/payload-generator/Makefile) in the `/data-generator` directory
+     the [Makefile](../../sdk/scripts/payload-generator/Makefile) in the `/data-generator` directory
 
 ### Using the contract
 

@@ -267,6 +267,7 @@ export const getDecimalsForDataFeedId = (
 
 export const requestRedstonePayload = async (
   reqParams: DataPackagesRequestParams,
+  format = "hex",
   unsignedMetadataMsg?: string
 ): Promise<string> => {
   const signedDataPackagesResponse = await requestDataPackages(reqParams);
@@ -274,7 +275,19 @@ export const requestRedstonePayload = async (
     signedDataPackagesResponse
   ).flat() as SignedDataPackage[];
 
-  return RedstonePayload.prepare(signedDataPackages, unsignedMetadataMsg || "");
+  const payload = new RedstonePayload(
+    signedDataPackages,
+    unsignedMetadataMsg ?? ""
+  );
+
+  switch (format) {
+    case "json":
+      return JSON.stringify(payload.toObj(), null, 2);
+    case "bytes":
+      return JSON.stringify(Array.from(payload.toBytes()));
+    default:
+      return payload.toBytesHexWithout0xPrefix();
+  }
 };
 
 export const getUrlsForDataServiceId = (

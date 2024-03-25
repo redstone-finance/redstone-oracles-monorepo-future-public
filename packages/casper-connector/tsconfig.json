@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig-common.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "references": [
+    {
+      "path": "../sdk/tsconfig.build.json"
+    },
+    {
+      "path": "../utils/tsconfig.build.json"
+    }
+  ]
+}

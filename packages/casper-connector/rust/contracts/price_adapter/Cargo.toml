@@ -1,0 +1,21 @@
+[package]
+name = "price-adapter"
+version = "1.0.0"
+authors = ["RedStone <https://redstone.finance>"]
+edition = "2021"
+description = "Sample oracle contract that consumes RedStone payload"
+
+[features]
+print_debug = ["casper-contract/test-support", "redstone/print_debug"]
+
+[dependencies]
+redstone = { path = "../../redstone", features = ["crypto_secp256k1", "network_casper"] }
+casper-contract = { version = "^4.0.0", default-features = false, features = ["wee_alloc"] }
+casper-types = "^4.0.1"
+
+[[bin]]
+name = "price_adapter"
+path = "src/main.rs"
+bench = false
+doctest = false
+test = false
