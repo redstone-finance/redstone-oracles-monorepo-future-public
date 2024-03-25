@@ -19,7 +19,7 @@ CONTRACT=sway/contract
 INVOKER=sway/contract_invoker
 INITIALIZER=sway/contract_initializer
 LIBRARY=sway/redstone
-DATA_GENERATOR=../../packages/protocol/scripts/payload-generator
+DATA_GENERATOR=../../packages/sdk/scripts/payload-generator
 DATA_DIR=$(DATA_GENERATOR)/data
 
 format:
@@ -65,3 +65,5 @@ test: format
 
 prepare_data:
 	make -C $(DATA_GENERATOR) DATA_NAME=$(DATA_NAME) prepare_data
+
+#	cat $(INITIALIZER)/src/main.sw | sed -E "s|CONTRACT_ID: b256 = 0x([0-9a-f])+,|CONTRACT_ID: b256 = $(shell cat $(CONTRACT)/$(CONTRACT_ID_FILE)),|g" > tmp.sw;

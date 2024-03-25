@@ -33,7 +33,7 @@ OBJ=build/main_compiled.json
 CNT=$(SRC)/contracts/$(CONTRACT).cairo
 CNC=build/$(CONTRACT)_compiled.json
 ABI=build/$(CONTRACT)_abi.json
-DATA_DIR=../../protocol/scripts/payload-generator/data
+DATA_DIR=../../sdk/scripts/payload-generator/data
 
 SHELL := /bin/bash
 
@@ -82,7 +82,7 @@ get_prices:
 	--abi $(ABI) \
 	--address ${CONTRACT_ADDRESS} \
 	--function get_prices \
-	--inputs 2 $(BTC) $(ETH) $(shell (ls -lf $(DATA_DIR)/${DATA_NAME}.splitted | awk '{print $$5}' | awk '{print ($$1-1)/5}')) $(shell cat $(DATA_DIR)/${DATA_NAME}.splitted)
+	--inputs 2 $(BTC) $(ETH) $(shell (ls -lf $(DATA_DIR)/${DATA_NAME}.split | awk '{print $$5}' | awk '{print ($$1-1)/5}')) $(shell cat $(DATA_DIR)/${DATA_NAME}.split)
 
 #invoke: 'make CONTRACT_ADDRESS=0xabc get_price' or define the variable CONTRACT_ADDRESS above
 get_btc_price:
@@ -90,7 +90,7 @@ get_btc_price:
 	--abi $(ABI) \
 	--address ${CONTRACT_ADDRESS} \
 	--function get_price \
-	--inputs $(BTC) $(shell (ls -lf $(DATA_DIR)/${DATA_NAME}.splitted | awk '{print $$5}' | awk '{print ($$1-1)/5}')) $(shell cat $(DATA_DIR)/${DATA_NAME}.splitted)
+	--inputs $(BTC) $(shell (ls -lf $(DATA_DIR)/${DATA_NAME}.split | awk '{print $$5}' | awk '{print ($$1-1)/5}')) $(shell cat $(DATA_DIR)/${DATA_NAME}.split)
 
 #invoke: 'make CONTRACT_ADDRESS=0xabc save_prices' or define the variable CONTRACT_ADDRESS above
 save_prices:
@@ -98,7 +98,7 @@ save_prices:
 	--abi $(ABI) \
 	--address ${CONTRACT_ADDRESS} \
 	--function save_prices \
-	--inputs 1 $(ETH) $(shell (ls -lf $(DATA_DIR)/${DATA_NAME}.splitted | awk '{print $$5}' | awk '{print ($$1-1)/5}')) $(shell cat $(DATA_DIR)/${DATA_NAME}.splitted)
+	--inputs 1 $(ETH) $(shell (ls -lf $(DATA_DIR)/${DATA_NAME}.split | awk '{print $$5}' | awk '{print ($$1-1)/5}')) $(shell cat $(DATA_DIR)/${DATA_NAME}.split)
 
 #invoke: 'make CONTRACT_ADDRESS=0xabc get_saved_prices' or define the variable CONTRACT_ADDRESS above
 get_saved_prices:
@@ -149,7 +149,7 @@ write_eth_price:
 	--abi $(ABI) \
 	--address ${CONTRACT_ADDRESS} \
 	--function write_eth_price \
-	--inputs $(shell (ls -lf $(DATA_DIR)/${DATA_NAME}.splitted | awk '{print $$5}' | awk '{print ($$1-1)/5}')) $(shell cat $(DATA_DIR)/${DATA_NAME}.splitted)
+	--inputs $(shell (ls -lf $(DATA_DIR)/${DATA_NAME}.split | awk '{print $$5}' | awk '{print ($$1-1)/5}')) $(shell cat $(DATA_DIR)/${DATA_NAME}.split)
 
 latest_round_data: 
 	starknet call --account=$(ACC) --network=$(NETWORK) \
@@ -161,7 +161,7 @@ clean:
 	rm -rf build
 
 prepare_data:
-	make -C ../../protocol/scripts/payload-generator DATA_NAME=$(DATA_NAME) prepare_data
+	make -C ../../sdk/scripts/payload-generator DATA_NAME=$(DATA_NAME) prepare_data
 
 #You may have needed:
 #	python3.9 -m venv /Users/lukaszkalbarczyk/cairo_venv

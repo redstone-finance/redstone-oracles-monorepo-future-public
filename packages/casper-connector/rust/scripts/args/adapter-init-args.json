@@ -1,0 +1,22 @@
+[
+  {
+    "name": "signer_count_threshold",
+    "type": "U8",
+    "value": 1
+  },
+  {
+    "name": "signers",
+    "type": {
+      "List": {
+        "List": "U8"
+      }
+    },
+    "value": [
+      "109B4a318A4F5ddcbCA6349B45f881B4137deaFB",
+      "12470f7aba85c8b81d63137dd5925d6ee114952b",
+      "1ea62d73edf8ac05dfcea1a34b9796e937a29eff",
+      "83cba8c619fb629b81a65c2e67fe15cf3e3c9747",
+      "2c59617248994D12816EE1Fa77CE0a64eEB456BF"
+    ]
+  }
+]

@@ -29,10 +29,10 @@ which is constructed as below:
 
 ```ts   
   begin_cell()
-    .store_uint(signer_count_threshold, 8)  /// number as passed below
-    .store_uint(timestamp, TIMESTAMP_BITS)  /// initially 0 representing the epoch 0
-    .store_ref(signers)                     /// serialized tuple of values passed below
-    .end_cell();
+  .store_uint(signer_count_threshold, 8)  /// number as passed below
+  .store_uint(timestamp, TIMESTAMP_BITS)  /// initially 0 representing the epoch 0
+  .store_ref(signers)                     /// serialized tuple of values passed below
+  .end_cell();
 ```
 
 The value of ```signers``` should be passed as a serialized `tuple` of `int`s.\
@@ -64,7 +64,7 @@ and the [TON RedStone payload packing](#-ton-redstone-payload-packing) section b
 (cell) get_prices_v2(cell data_feed_ids, cell payload) method_id;
 ```
 
-The functions process on-chain the ```payload``` passed as an argument
+The function process on-chain the ```payload``` passed as an argument
 and returns a `cell` of aggregated values of each feed passed as an identifier inside ```feed_ids```.
 
 Due to HTTP GET method length limitation in TON API v4, the function is written for TON API v2.
@@ -131,11 +131,11 @@ which is constructed as below:
 
 ```ts
 beginCell()
-    .storeUint(BigInt(hexlify(toUtf8Bytes(this.feedId))), consts.DATA_FEED_ID_BS * 8)
-    .storeAddress(Address.parse(this.managerAddress))
-    .storeUint(0, consts.DEFAULT_NUM_VALUE_BS * 8)  /// initially 0 representing the epoch 0
-    .storeUint(0, consts.TIMESTAMP_BS * 8)
-    .endCell();
+  .storeUint(BigInt(hexlify(toUtf8Bytes(this.feedId))), consts.DATA_FEED_ID_BS * 8)
+  .storeAddress(Address.parse(this.managerAddress))
+  .storeUint(0, consts.DEFAULT_NUM_VALUE_BS * 8)  /// initially 0 representing the epoch 0
+  .storeUint(0, consts.TIMESTAMP_BS * 8)
+  .endCell();
 ```
 
 To define the initial (storage) data for the Price feed contract, use the predefined
@@ -172,10 +172,10 @@ to allow they carry the remaining transaction balance.
 
 ```ts
 begin_cell()
-    .store_uint(value, MAX_VALUE_SIZE_BITS)
-    .store_uint(timestamp, TIMESTAMP_BITS)
-    .store_ref(initial_payload)
-    .end_cell()
+  .store_uint(value, MAX_VALUE_SIZE_BITS)
+  .store_uint(timestamp, TIMESTAMP_BITS)
+  .store_ref(initial_payload)
+  .end_cell()
 ```
 
 That's an internal message - it consumes GAS and modifies the contract's storage, so must be paid by TONs.
@@ -188,7 +188,7 @@ That's an internal message - it consumes GAS and modifies the contract's storage
 (int, int) get_price_and_timestamp() method_id;
 ```
 
-Returns the value and timestamp of value last saved/written to the contract's storage by
+Returns the value and timestamp of the last saved/written data to the adapter's storage by
 sending `OP_REDSTONE_FETCH_DATA` message and fetching the returned value of the `OP_REDSTONE_DATA_FETCHED` message.
 
 That's just a `method_id` function - it doesn't modify the contract's storage and don't consume TONs.
@@ -204,12 +204,12 @@ which is constructed as below:
 
 ```ts   
 beginCell()
-    .storeUint(BigInt(hexlify(toUtf8Bytes(this.feedId))), consts.DATA_FEED_ID_BS * 8)
-    .storeUint(this.signerCountThreshold, SIGNER_COUNT_THRESHOLD_BITS)
-    .storeUint(0, consts.DEFAULT_NUM_VALUE_BS * 8)
-    .storeUint(0, consts.TIMESTAMP_BS * 8)
-    .storeRef(serializeTuple(createTupleItems(this.signers)))
-    .endCell();
+  .storeUint(BigInt(hexlify(toUtf8Bytes(this.feedId))), consts.DATA_FEED_ID_BS * 8)
+  .storeUint(this.signerCountThreshold, SIGNER_COUNT_THRESHOLD_BITS)
+  .storeUint(0, consts.DEFAULT_NUM_VALUE_BS * 8)
+  .storeUint(0, consts.TIMESTAMP_BS * 8)
+  .storeRef(serializeTuple(createTupleItems(this.signers)))
+  .endCell();
 ```
 
 To define the initial (storage) data for the Prices contract, use the predefined
@@ -239,8 +239,7 @@ Works as the [`get_price_and_timestamp`](#-get_price_and_timestamp) function.
 #### ∱ OP_REDSTONE_WRITE_PRICE
 
 Similar to [`OP_REDSTONE_WRITE_PRICES`](#-op_redstone_write_prices), but omitting the first (`data_feed_ids`) `cell`-ref
-as
-have it configured during the initialization.
+as have it configured during the initialization.
 
 ```
     int op = in_msg_body~load_uint(OP_NUMBER_BITS);
@@ -267,8 +266,8 @@ which is constructed as below:
 
 ```ts   
 beginCell()
-    .storeAddress(Address.parse(this.feedAddress))
-    .endCell();
+  .storeAddress(Address.parse(this.feedAddress))
+  .endCell();
 ```
 
 To define the initial (storage) data for the Prices contract, use the predefined
@@ -302,10 +301,10 @@ to allow they carry the remaining transaction balance.
 
 ```ts
 begin_cell()
-    .store_uint(value, MAX_VALUE_SIZE_BITS)
-    .store_uint(timestamp, TIMESTAMP_BITS)
-    .store_ref(initial_payload)
-    .end_cell()
+  .store_uint(value, MAX_VALUE_SIZE_BITS)
+  .store_uint(timestamp, TIMESTAMP_BITS)
+  .store_ref(initial_payload)
+  .end_cell()
 ```
 
 That's an internal message - it consumes GAS and modifies the contract's storage, so must be paid by TONs.
@@ -350,13 +349,13 @@ The image below contains data for `2` feeds times `2` unique signers:\
 ### Sample payload
 
 The sample data passed to the contract deployed for the showroom/sample can be fetched by using:
-https://d33trozg86ya9x.cloudfront.net/data-packages/payload?data-packages/payload?unique-signers-count=1&data-service-id=redstone-rapid-demo&data-feeds=ETH,BTC&format=hex
+https://d33trozg86ya9x.cloudfront.net/data-packages/payload?unique-signers-count=1&data-service-id=redstone-rapid-demo&data-feeds=ETH,BTC&format=hex
 That's an example endpoint for `redstone-rapid-demo` data-service id, also for the sample value of the signer-address
 that can be used for the initializer (`0xf786a909D559F5Dee2dc6706d8e5A81728a39aE9`)
 
-📟 You can use: [Makefile](../../protocol/scripts/payload-generator/Makefile) by
+📟 You can use: [Makefile](../../sdk/scripts/payload-generator/Makefile) by
 invoking ```make DATA_NAME=[name] prepare_data``` or
-directly from the [payload-generator](../../protocol/scripts/payload-generator) environment directory where `[name]`
+directly from the [payload-generator](../../sdk/scripts/payload-generator) environment directory where `[name]`
 is a string you wish.
 
 📖 See: [README.md](../README.md) to see the environment possibilities and sample scripts invoking the functions.
@@ -379,4 +378,4 @@ To have defined your custom data-service id and signers, [contact us](#contact).
 
 ## 🙋‍Contact
 
-Please feel free to contact us on [Discord](https://redstone.finance/discord) or send email to core@redstone.finance
+Please feel free to contact us on [Discord](https://redstone.finance/discord) or email to core@redstone.finance

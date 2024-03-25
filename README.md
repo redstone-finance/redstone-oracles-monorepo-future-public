@@ -9,7 +9,8 @@ Monorepo containing all the main components of the RedStone oracles ecosystem.
 RedStone is a data ecosystem that delivers frequently updated, reliable and
 diverse data for your dApp and smart contracts.
 
-It uses a radically different way of putting data on-chain. The data is automatically attached to a user's transaction and erased afterwards thus reducing gas fees without touching the expensive evm storage.
+It uses a radically different way of putting data on-chain. The data is automatically attached to a user's transaction
+and erased afterwards thus reducing gas fees without touching the expensive evm storage.
 
 You can learn more at https://docs.redstone.finance
 
@@ -21,11 +22,12 @@ You can learn more at https://docs.redstone.finance
 - [protocol](packages/protocol/) (@redstone-finance/protocol)
 - [sdk](packages/sdk/) (@redstone-finance/sdk)
 - [oracles-smartweave-contracts](packages/oracles-smartweave-contracts) (@redstone-finance/oracles-smartweave-contracts)
-- [eth-contracts](packages/eth-contracts/) (Implementation of RedStone token with vesting, locking, and disputes resolution protocol)
+- [eth-contracts](packages/eth-contracts/) (Implementation of RedStone token with vesting, locking, and disputes
+  resolution protocol)
 
 ## 🙋‍♂️ Contact
 
-Please feel free to contact us on [Discord](https://redstone.finance/discord) or send email to core@redstone.finance
+Please feel free to contact us on [Discord](https://redstone.finance/discord) or email to core@redstone.finance
 
 ## 📜 Licesnse
 

@@ -1,0 +1,5 @@
+rust/target/
+rust/**/wasm/
+rust/scripts/sample-data/*
+casper_keys/
+rust/scripts/DEPLOY_HASH

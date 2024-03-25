@@ -1,0 +1,21 @@
+[package]
+name = "price_relay_adapter"
+version = "1.0.0"
+authors = ["RedStone <https://redstone.finance>"]
+edition = "2021"
+description = "A proxy for the regular price adapter methods. It solves the limitation of calling get_prices method off-chain and adds a set of methods for passing the payload argument in chunks"
+
+[features]
+print_debug = ["redstone/print_debug"]
+
+[dependencies]
+redstone = { path = "../../redstone", default-features = false, features = ["network_casper"] }
+casper-contract = { version = "^4.0.0", default-features = false, features = ["wee_alloc"] }
+casper-types = "^4.0.1"
+
+[[bin]]
+name = "price_relay_adapter"
+path = "src/main.rs"
+bench = false
+doctest = false
+test = false

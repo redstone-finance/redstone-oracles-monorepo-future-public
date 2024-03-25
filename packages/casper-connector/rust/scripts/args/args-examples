@@ -1,0 +1,144 @@
+Examples for passing values via --session-arg or --payment-arg:
+"name_01:bool='false'"
+"name_02:i32='-1'"
+"name_03:i64='-2'"
+"name_04:u8='3'"
+"name_05:u32='4'"
+"name_06:u64='5'"
+"name_07:u128='6'"
+"name_08:u256='7'"
+"name_09:u512='8'"
+"name_10:unit=''"
+"name_11:string='a value'"
+"key_account_name:key='account-hash-0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20'"
+"key_hash_name:key='hash-0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20'"
+"key_uref_name:key='uref-0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20-000'"
+"account_hash_name:account_hash='account-hash-0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20'"
+"uref_name:uref='uref-0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20-007'"
+"public_key_name:public_key='0119bf44096984cdfe8541bac167dc3b96c85086aa30b6b6cb0c5c38ad703166e1'"
+"byte_list_name:byte_list='010203'"            # variable-length list of bytes, i.e. CLType::List(CLType::U8)
+"byte_array_5_name:byte_array_5='0102030405'"  # fixed-length array of bytes, in this example CLType::ByteArray(5)
+"byte_array_32_name:byte_array_32='0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20'"
+
+Optional values of all of these types can also be specified.
+Prefix the type with "opt_" and use the term "null" without quotes to specify a None value:
+"name_01:opt_bool='true'"       # Some(true)
+"name_02:opt_bool='false'"      # Some(false)
+"name_03:opt_bool=null"         # None
+"name_04:opt_i32='-1'"          # Some(-1)
+"name_05:opt_i32=null"          # None
+"name_06:opt_unit=''"           # Some(())
+"name_07:opt_unit=null"         # None
+"name_08:opt_string='a value'"  # Some("a value".to_string())
+"name_09:opt_string='null'"     # Some("null".to_string())
+"name_10:opt_string=null"       # None
+
+
+Examples for passing values via --session-args-json or --payment-args-json:
+
+The value must be a JSON Array of JSON Objects of the form
+{"name":<String>,"type":<VALUE>,"value":<VALUE>}
+
+For example, to provide the following session args:
+* The value "square" to an entry point named "shape" taking a CLType::String
+* The tuple value (100,100) to an entry point named "dimensions" taking a CLType::Tuple2<CLType::U32, CLType::U32>
+* The value "blue" to an entry point named "color" taking a CLType::Option<CLType::String>
+the following input would be used:
+'[{"name":"shape","type":"String","value":"square"},{"name":"dimensions","type":{"Tuple2":["U32","U32"]},"value":[100,100]},{"name":"color","type":{"Option":"String"},"value":"blue"}]'
+
+Details for each CLType variant:
+* CLType Bool is represented as a JSON Bool, e.g.
+  {"name":"entry_point_name","type":"Bool","value":false}
+
+* CLTypes I32, I64, U8, U32 and U64 are represented as a JSON Number, e.g.
+  {"name":"entry_point_name","type":"I32","value":-1}
+  {"name":"entry_point_name","type":"I64","value":-2}
+  {"name":"entry_point_name","type":"U8","value":1}
+  {"name":"entry_point_name","type":"U32","value":2}
+  {"name":"entry_point_name","type":"U64","value":3}
+
+* CLTypes U128, U256 and U512 are represented as a JSON String of the decimal value, or can be
+  represented as a Number if the value is not more than u64::MAX (18446744073709551615), e.g.
+  {"name":"entry_point_name","type":"U128","value":1}
+  {"name":"entry_point_name","type":"U128","value":"20000000000000000000"}
+  {"name":"entry_point_name","type":"U256","value":2}
+  {"name":"entry_point_name","type":"U256","value":"20000000000000000000"}
+  {"name":"entry_point_name","type":"U512","value":3}
+  {"name":"entry_point_name","type":"U512","value":"20000000000000000000"}
+
+* CLType Unit is represented as a JSON null, e.g.
+  {"name":"entry_point_name","type":"Unit","value":null}
+
+* CLType String is represented as a JSON String, e.g.
+  {"name":"entry_point_name","type":"String","value":"a"}
+
+* CLType Key is represented as a JSON String (where the value is a properly formatted string
+  representation of a Key) or may also be represented as a JSON Object of the form {"<KEY
+  VARIANT>":"<KEY AS FORMATTED STRING>"}, e.g.
+  {"name":"entry_point_name","type":"Key","value":"account-hash-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}
+  {"name":"entry_point_name","type":"Key","value":{"Account":"account-hash-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}}
+  {"name":"entry_point_name","type":"Key","value":"hash-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}
+  {"name":"entry_point_name","type":"Key","value":{"Hash":"hash-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}}
+  {"name":"entry_point_name","type":"Key","value":"uref-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201-000"}
+  {"name":"entry_point_name","type":"Key","value":{"URef":"uref-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201-000"}}
+  {"name":"entry_point_name","type":"Key","value":"transfer-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}
+  {"name":"entry_point_name","type":"Key","value":{"Transfer":"transfer-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}}
+  {"name":"entry_point_name","type":"Key","value":"deploy-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}
+  {"name":"entry_point_name","type":"Key","value":{"DeployInfo":"deploy-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}}
+  {"name":"entry_point_name","type":"Key","value":"era-1"}
+  {"name":"entry_point_name","type":"Key","value":{"EraInfo":"era-1"}}
+  {"name":"entry_point_name","type":"Key","value":"balance-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}
+  {"name":"entry_point_name","type":"Key","value":{"Balance":"balance-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}}
+  {"name":"entry_point_name","type":"Key","value":"bid-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}
+  {"name":"entry_point_name","type":"Key","value":{"Bid":"bid-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}}
+  {"name":"entry_point_name","type":"Key","value":"withdraw-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}
+  {"name":"entry_point_name","type":"Key","value":{"Withdraw":"withdraw-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}}
+  {"name":"entry_point_name","type":"Key","value":"unbond-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}
+  {"name":"entry_point_name","type":"Key","value":{"Unbond":"unbond-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}}
+  {"name":"entry_point_name","type":"Key","value":"dictionary-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}
+  {"name":"entry_point_name","type":"Key","value":{"Dictionary":"dictionary-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201"}}
+  {"name":"entry_point_name","type":"Key","value":"system-contract-registry-0000000000000000000000000000000000000000000000000000000000000000"}
+  {"name":"entry_point_name","type":"Key","value":{"SystemContractRegistry":"system-contract-registry-0000000000000000000000000000000000000000000000000000000000000000"}}
+  {"name":"entry_point_name","type":"Key","value":"chainspec-registry-1111111111111111111111111111111111111111111111111111111111111111"}
+  {"name":"entry_point_name","type":"Key","value":{"ChainspecRegistry":"chainspec-registry-1111111111111111111111111111111111111111111111111111111111111111"}}
+
+* CLTypes URef and PublicKey are represented as a JSON String where the value is a properly
+  formatted string representation of the respective type, e.g.
+  {"name":"entry_point_name","type":"URef","value":"uref-201f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201-007"}
+  {"name":"entry_point_name","type":"PublicKey","value":"017279ea868d185a40ed32ec076807c070de9c0fe986f5418c2aa71478f1e8ddf8"}
+  {"name":"entry_point_name","type":"PublicKey","value":"02030963b980a774f9bf4fded595007b60045ca9593fe6d47296e4e1aaa2745c90d2"}
+
+* CLType Option<T> is represented as a JSON null for None, or the JSON type appropriate for the
+  wrapped type T, e.g.
+  {"name":"entry_point_name","type":{"Option":"U64"},"value":999}
+  {"name":"entry_point_name","type":{"Option":"String"},"value":null}
+
+* CLType List<T> is represented as a JSON Array where every element has a type suitable to represent
+  T. For the special case of List<U8>, it can be represented as a hex-encoded String, e.g.
+  {"name":"entry_point_name","type":{"List":{"Option":"U256"}},"value":[1,null,"3"]}
+  {"name":"entry_point_name","type":{"List":"U8"},"value":"0102ff"}
+
+* CLType ByteArray is represented as a JSON String (hex-encoded) or more verbosely by an Array of
+  Numbers, e.g.
+  {"name":"entry_point_name","type":{"ByteArray":3},"value":"0114ff"}
+  {"name":"entry_point_name","type":{"ByteArray":3},"value":[1,20,255]}
+
+* CLType Result<T, E> is represented as a JSON Object with exactly one entry named either "Ok" or
+  "Err" where the Object's value is suitable to represent T or E respectively, e.g.
+  {"name":"entry_point_name","type":{"Result":{"ok":"Bool","err":"U8"}},"value":{"Ok":true}}
+  {"name":"entry_point_name","type":{"Result":{"ok":"Bool","err":"U8"}},"value":{"Err":1}}
+
+* CLType Map<K, V> is represented as a JSON Array of Objects of the form
+  {"key":<K-VALUE>,"value":<V-VALUE>}. For the special case where K is String or a numerical type,
+  the Map can be represented as a single JSON Object, with each entry having the name of the given
+  key as a String, e.g.
+  {"name":"entry_point_name","type":{"Map":{"key":"U8","value":"Bool"}},"value":[{"key":1,"value":true},{"key":2,"value":false}]}
+  {"name":"entry_point_name","type":{"Map":{"key":"U8","value":"Bool"}},"value":{"1":true,"2":false}}
+
+* CLTypes Tuple1, Tuple2 and Tuple3 are represented as a JSON Array, e.g.
+  {"name":"entry_point_name","type":{"Tuple1":["Bool"]},"value":[true]}
+  {"name":"entry_point_name","type":{"Tuple2":["Bool","U8"]},"value":[true,128]}
+  {"name":"entry_point_name","type":{"Tuple3":["Bool","U8","String"]},"value":[true,128,"a"]}
+
+Note that CLType Any cannot be represented as JSON.
+

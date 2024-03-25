@@ -1,0 +1,21 @@
+[package]
+name = "price_feed"
+version = "1.0.0"
+authors = ["RedStone <https://redstone.finance>"]
+edition = "2021"
+description = "Sample consumer of the data saved in Price Adapter or of its wrapped version Price Relay Adapter"
+
+[features]
+print_debug = ["casper-contract/test-support", "redstone/print_debug"]
+
+[dependencies]
+redstone = { path = "../../redstone", default-features = false, features = ["network_casper"] }
+casper-contract = { version = "^4.0.0", default-features = false, features = ["wee_alloc"] }
+casper-types = "^4.0.1"
+
+[[bin]]
+name = "price_feed"
+path = "src/main.rs"
+bench = false
+doctest = false
+test = false

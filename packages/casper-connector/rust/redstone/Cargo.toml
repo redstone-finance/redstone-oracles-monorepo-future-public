@@ -1,0 +1,42 @@
+[package]
+name = "redstone"
+version = "1.0.0"
+edition = "2021"
+authors = ["RedStone <https://redstone.finance>"]
+description = "A Rust implementation of deserializing&decrypting RedStone payload"
+
+[features]
+default = ["core", "network"]
+
+# A core functionality of the package.
+core = ["sha3/asm"]
+
+# An interface for the network to be extended.
+network = []
+
+# An extension for casper network
+network_casper = ["casper-contract/wee_alloc", "casper-types", "network"]
+
+# An extension for debug-printing of messages in the Casper extension. Not supported by Casper Contracts deployed to the network.
+print_debug = ["casper-contract/test-support"]
+
+# A variant of decrypting the message-signers using secp256k1 library. Cheaper in runtime.
+crypto_secp256k1 = ["secp256k1/recovery", "secp256k1/lowmemory", "secp256k1/alloc"]
+
+# A variant of decrypting the message-signers using k256 library. Cheaper during contract deployment.
+crypto_k256 = ["k256/alloc", "k256/sha256", "k256/ecdsa"]
+
+# A set of helpers for testing & offline usage.
+helpers = ["hex/serde", "hex/alloc", "network"]
+
+[dependencies]
+casper-contract = { version = "^4.0.0", default-features = false, features = [], optional = true }
+casper-types = { version = "^4.0.1", default-features = false, features = [], optional = true }
+sha3 = { version = "^0.10.8", default-features = false, features = [], optional = true }
+k256 = { version = "^0.13.3", default-features = false, features = [], optional = true }
+secp256k1 = { version = "^0.28.2", default-features = false, features = [], optional = true }
+hex = { version = "^0.4.3", default-features = false, features = [], optional = true }
+
+[dev-dependencies]
+itertools = { version = "^0.12.1" }
+
