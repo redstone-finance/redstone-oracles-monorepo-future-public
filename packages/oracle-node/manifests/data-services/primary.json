@@ -277,7 +277,11 @@
       ]
     },
     "C3M": {
-      "source": ["twelve-data"]
+      "source": [
+        "twelve-data",
+        "financialmodelingprep-usd",
+        "alphavantage-stock"
+      ]
     },
     "USDC.USDT": {
       "source": ["non-usd-based"],
@@ -583,7 +587,12 @@
       ]
     },
     "XAU": {
-      "source": ["twelve-data", "finhub-usd", "financialmodelingprep-usd"]
+      "source": [
+        "twelve-data",
+        "finhub-usd",
+        "alphavantage-usd",
+        "financialmodelingprep-usd"
+      ]
     },
     "XRP": {
       "source": [

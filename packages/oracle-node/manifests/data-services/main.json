@@ -1393,7 +1393,12 @@
       "source": ["twelve-data", "yf-unofficial"]
     },
     "XAU": {
-      "source": ["twelve-data", "finhub-usd", "financialmodelingprep-usd"]
+      "source": [
+        "twelve-data",
+        "finhub-usd",
+        "alphavantage-usd",
+        "financialmodelingprep-usd"
+      ]
     },
     "SILVER": {
       "source": ["twelve-data", "yf-unofficial"]
@@ -1453,7 +1458,11 @@
       "source": ["twelve-data"]
     },
     "C3M": {
-      "source": ["twelve-data"]
+      "source": [
+        "twelve-data",
+        "financialmodelingprep-usd",
+        "alphavantage-stock"
+      ]
     },
     "PEN": {
       "source": ["twelve-data"]
