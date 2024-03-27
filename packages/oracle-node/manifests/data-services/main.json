@@ -885,7 +885,6 @@
         "balancer-ethereum-rsweth",
         "curve-rsweth",
         "curve-weth",
-        "maverick",
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
@@ -1274,8 +1273,7 @@
       "source": [
         "balancer-ethereum-ezeth",
         "balancer-ethereum-weeth",
-        "curve-weeth",
-        "maverick"
+        "curve-weeth"
       ]
     },
     "rswETH/ETH": {
