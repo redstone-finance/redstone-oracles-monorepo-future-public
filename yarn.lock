@@ -6575,6 +6575,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests"
+  dependencies:
+    "@redstone-finance/redstone-monitoring": "npm:^0.3.6"
+    axios: "npm:^1.6.2"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-wallet-balance-notifier@workspace:packages/lambda-wallet-balance-notifier":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-wallet-balance-notifier@workspace:packages/lambda-wallet-balance-notifier"
