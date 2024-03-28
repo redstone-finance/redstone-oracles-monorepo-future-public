@@ -55,6 +55,7 @@ import bnbEzetheth from "./bnbEzetheth.json";
 import realXau from "./realXau.json";
 import realGbp from "./realGbp.json";
 import ethereumRswetheth from "./ethereumRswetheth.json";
+import mantleUsdt from "./mantleUsdt.json";
 import { OnChainRelayerManifest } from "../src";
 
 // This file contains mapping from manifest name to manifest content
@@ -101,6 +102,7 @@ export default {
   mantleMnt,
   mantleTest,
   mantleUsdeSusde,
+  mantleUsdt,
   mantleWstEth,
   mentoBaklavaMultisig,
   mentoCeloMainnet,
