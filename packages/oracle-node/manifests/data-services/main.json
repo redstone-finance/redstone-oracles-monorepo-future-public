@@ -1279,6 +1279,9 @@
     "rswETH/ETH": {
       "source": ["non-usd-based"]
     },
+    "sUSDe_RATE_PROVIDER": {
+      "source": ["ethereum-evm-fetcher"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
