@@ -6224,9 +6224,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/classic-updates-number-checker@workspace:packages/classic-updates-numer-checker":
+"@redstone-finance/classic-updates-number-checker@workspace:packages/classic-updates-number-checker":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/classic-updates-number-checker@workspace:packages/classic-updates-numer-checker"
+  resolution: "@redstone-finance/classic-updates-number-checker@workspace:packages/classic-updates-number-checker"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
     "@redstone-finance/lambda-common": "npm:^0.3.6"
