@@ -1,12 +1,13 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { DeviationLib } from "../../../typechain-types";
+import { SampleDeviationLib } from "../../../typechain-types";
 
 describe("DeviationLib", function () {
-  let deviationLib: DeviationLib;
+  let deviationLib: SampleDeviationLib;
 
   before(async function () {
-    const deviationLibFactory = await ethers.getContractFactory("DeviationLib");
+    const deviationLibFactory =
+      await ethers.getContractFactory("SampleDeviationLib");
     deviationLib = await deviationLibFactory.deploy();
     await deviationLib.deployed();
   });
