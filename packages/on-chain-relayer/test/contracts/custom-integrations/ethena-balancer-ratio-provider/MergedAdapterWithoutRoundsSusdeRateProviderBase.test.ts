@@ -38,16 +38,8 @@ describe("MergedAdapterWithoutRoundsSusdeRateProviderBase", () => {
   };
 
   beforeEach(async () => {
-    const deviationLibFactory = await ethers.getContractFactory("DeviationLib");
-    const deviationLib = await deviationLibFactory.deploy();
-    await deviationLib.deployed();
     const mergedAdapterSusdeFactory = await ethers.getContractFactory(
-      "MergedAdapterWithoutRoundsSusdeRateProviderMock",
-      {
-        libraries: {
-          DeviationLib: deviationLib.address,
-        },
-      }
+      "MergedAdapterWithoutRoundsSusdeRateProviderMock"
     );
     mergedAdapterSusde = await mergedAdapterSusdeFactory.deploy();
     await mergedAdapterSusde.deployed();

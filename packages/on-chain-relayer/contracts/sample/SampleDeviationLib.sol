@@ -4,12 +4,12 @@ pragma solidity ^0.8.14;
 
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 
-library DeviationLib {
+library SampleDeviationLib {
   function calculateAbsDeviation(
     uint256 proposedValue,
     uint256 originalValue,
     uint256 precision
-  ) internal pure returns (uint256) {
+  ) external pure returns (uint256) {
     int256 originalValueAsInt = SafeCast.toInt256(originalValue);
     return
       abs(
