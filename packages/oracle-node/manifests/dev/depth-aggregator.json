@@ -236,8 +236,8 @@
       "priceAggregator": "depth",
       "source": [
         "balancer-ethereum-ethx",
+        "balancer-ethereum-weth",
         "curve-sfrxeth",
-        "uniswap-v3-ethereum-on-chain-ethx-3000",
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },

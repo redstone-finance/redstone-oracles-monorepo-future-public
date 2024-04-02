@@ -1503,8 +1503,8 @@
     "rsETH": {
       "source": [
         "balancer-ethereum-ethx",
-        "curve-sfrxeth",
-        "uniswap-v3-ethereum-on-chain-ethx-3000"
+        "balancer-ethereum-weth",
+        "curve-sfrxeth"
       ]
     },
     "rsETH/ETH": {
