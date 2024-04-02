@@ -36,9 +36,7 @@
         "maverick",
         "mexc",
         "okx",
-        "uniswap-v3-ethereum-on-chain-weth-500",
-        "uniswap-v3-ethereum-on-chain-dai-100",
-        "uniswap-v3-ethereum-on-chain-weth-3000"
+        "uniswap-v3-ethereum-on-chain-dai-100"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -54,15 +52,9 @@
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
-        "curve-dai",
-        "curve-usdc",
         "kaiko",
         "kaiko-v2",
-        "kraken",
-        "okx",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
-        "uniswap-v3-ethereum-on-chain-usdc-100",
-        "uniswap-v3-ethereum-on-chain-weth-500"
+        "kraken"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -104,14 +96,10 @@
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
-        "curve-usdc",
         "curve-usdt",
         "kraken",
         "mexc",
         "okx",
-        "uniswap-v3-ethereum-on-chain-usdc-100",
-        "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
       ],
       "deviationCheck": {
@@ -130,7 +118,6 @@
         "bitrue",
         "coingecko",
         "coinmarketcap",
-        "fraxswap-on-chain-frax",
         "lbank",
         "mexc",
         "kucoin",
@@ -184,7 +171,6 @@
         "bitget",
         "coinmarketcap",
         "curve-eth",
-        "curve-frxeth",
         "curve-weth",
         "okx",
         "uniswap-v2-on-chain-weth"
@@ -340,7 +326,7 @@
       "source": ["coinmarketcap", "gate", "mexc", "kucoin", "bitget"]
     },
     "ETHx": {
-      "source": ["balancer-ethereum-rseth", "curve-weth", "curve-wsteth"]
+      "source": ["curve-weth", "curve-wsteth"]
     },
     "ETHx/ETH": {
       "source": ["non-usd-based"]
@@ -360,10 +346,7 @@
     },
     "weETH": {
       "source": [
-        "balancer-ethereum-ezeth",
         "balancer-ethereum-reth",
-        "balancer-ethereum-rsweth",
-        "curve-rsweth",
         "curve-weth",
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
@@ -859,7 +842,7 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "NOTE": {
-      "source": ["canto-dex-usdc", "canto-dex-usdt", "canto-dex-wcanto"],
+      "source": ["canto-dex-usdc", "canto-dex-usdt"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -936,7 +919,6 @@
     },
     "ezETH": {
       "source": [
-        "balancer-ethereum-rsweth",
         "balancer-ethereum-weth",
         "balancer-ethereum-weeth",
         "curve-weth",
@@ -958,7 +940,6 @@
     },
     "USDe": {
       "source": [
-        "curve-crvusd",
         "curve-dai",
         "curve-frax",
         "curve-usdc",

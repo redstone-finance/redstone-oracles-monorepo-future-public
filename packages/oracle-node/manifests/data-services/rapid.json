@@ -68,15 +68,9 @@
         "bitstamp",
         "coinbasepro",
         "coingecko",
-        "curve-dai",
-        "curve-usdc",
         "kaiko",
         "kaiko-v2",
-        "kraken",
-        "okx",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
-        "uniswap-v3-ethereum-on-chain-usdc-100",
-        "uniswap-v3-ethereum-on-chain-weth-500"
+        "kraken"
       ]
     },
     "BNB": {
@@ -184,10 +178,10 @@
       ]
     },
     "CELO/EUR": {
-      "source": ["mento"]
+      "source": ["non-usd-based", "mento"]
     },
     "CELO/BRL": {
-      "source": ["mento"]
+      "source": ["non-usd-based", "mento"]
     },
     "EUROC": {
       "source": [
@@ -199,13 +193,13 @@
       ]
     },
     "EUROC/EUR": {
-      "source": ["mento"]
+      "source": ["non-usd-based", "mento"]
     },
     "USDC/BRL": {
-      "source": ["mento"]
+      "source": ["non-usd-based", "mento"]
     },
     "USDC/EUR": {
-      "source": ["mento"]
+      "source": ["non-usd-based", "mento"]
     },
     "AVAX": {
       "source": [
@@ -249,9 +243,7 @@
         "mento",
         "mexc",
         "okx",
-        "uniswap-v3-ethereum-on-chain-weth-500",
-        "uniswap-v3-ethereum-on-chain-dai-100",
-        "uniswap-v3-ethereum-on-chain-weth-3000"
+        "uniswap-v3-ethereum-on-chain-dai-100"
       ]
     },
     "DAI": {
@@ -261,14 +253,10 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
-        "curve-usdc",
         "curve-usdt",
         "kraken",
         "mexc",
         "okx",
-        "uniswap-v3-ethereum-on-chain-usdc-100",
-        "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
       ]
     },
@@ -280,7 +268,6 @@
         "bitmart",
         "bitrue",
         "coingecko",
-        "fraxswap-on-chain-frax",
         "lbank",
         "mexc",
         "kucoin",
@@ -327,7 +314,12 @@
       ]
     },
     "ETH/USDC": {
-      "source": ["chainlink-based", "coingecko-based", "pyth-based"]
+      "source": [
+        "non-usd-based",
+        "chainlink-based",
+        "coingecko-based",
+        "pyth-based"
+      ]
     }
   }
 }

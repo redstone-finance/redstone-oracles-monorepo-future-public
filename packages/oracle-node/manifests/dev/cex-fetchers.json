@@ -88,8 +88,7 @@
         "okx-eur",
         "bitstamp",
         "coinbasepro",
-        "kraken",
-        "okx"
+        "kraken"
       ]
     },
     "BNB": {
@@ -269,7 +268,6 @@
         "bitmart-usdt",
         "bitrue-usdt",
         "coinbasepro-usd",
-        "curve-usdc",
         "curve-usdt",
         "kraken-usdt",
         "mexc-usdt",

@@ -43,15 +43,9 @@
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
-        "curve-dai",
-        "curve-usdc",
         "kaiko",
         "kaiko-v2",
-        "kraken",
-        "okx",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
-        "uniswap-v3-ethereum-on-chain-usdc-100",
-        "uniswap-v3-ethereum-on-chain-weth-500"
+        "kraken"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -157,9 +151,7 @@
         "maverick",
         "mexc",
         "okx",
-        "uniswap-v3-ethereum-on-chain-weth-500",
-        "uniswap-v3-ethereum-on-chain-dai-100",
-        "uniswap-v3-ethereum-on-chain-weth-3000"
+        "uniswap-v3-ethereum-on-chain-dai-100"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -271,14 +263,10 @@
         "bitrue",
         "coinbasepro",
         "coingecko",
-        "curve-usdc",
         "curve-usdt",
         "kraken",
         "mexc",
         "okx",
-        "uniswap-v3-ethereum-on-chain-usdc-100",
-        "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
       ],
       "deviationCheck": {
