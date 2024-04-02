@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig-common.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": [
+    "**/*",
+    "package.json",
+    "src/**/*.json",
+    "artifacts/**/*.sol/*.json"
+  ],
+  "references": [
+    {
+      "path": "../on-chain-relayer/tsconfig.build.json"
+    },
+    {
+      "path": "../sdk/tsconfig.build.json"
+    },
+    {
+      "path": "../evm-connector/tsconfig.build.json"
+    }
+  ]
+}

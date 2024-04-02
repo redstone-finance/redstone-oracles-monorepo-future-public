@@ -90,7 +90,7 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
    * It also requires each data package to have exactly the same timestamp
    * @param dataPackagesTimestamp Timestamp of each signed data package in the redstone payload
    */
-  function updateDataFeedsValues(uint256 dataPackagesTimestamp) public {
+  function updateDataFeedsValues(uint256 dataPackagesTimestamp) public virtual {
     requireAuthorisedUpdater(msg.sender);
     _assertMinIntervalBetweenUpdatesPassed();
     validateProposedDataPackagesTimestamp(dataPackagesTimestamp);

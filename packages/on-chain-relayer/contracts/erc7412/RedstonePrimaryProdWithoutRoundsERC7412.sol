@@ -27,8 +27,20 @@ import {MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd} from '../price-fee
         return (MAX_DATA_AHEAD_SECONDS, MAX_DATA_DELAY_SECONDS);
     }
 
-    function validateDataFeedValueOnRead(bytes32 dataFeedId, uint256 valueForDataFeedId) public view override virtual {
-        super.validateDataFeedValueOnRead(dataFeedId, valueForDataFeedId);
+    /**
+     * @dev If price was updated recently we return success.
+     * This allow smooth UX when two users independently tries to update price in same block 
+     */
+    function updateDataFeedsValues(uint256 dataPackagesTimestamp) override public virtual {
+        uint256 lastTimestamp = getBlockTimestampFromLatestUpdate();
+        if(block.timestamp - lastTimestamp <  MIN_INTERVAL_BETWEEN_UPDATES) {
+            return;
+        }
+
+        super.updateDataFeedsValues(dataPackagesTimestamp);
+    }
+
+    function validateDataFeedValueOnRead(bytes32 dataFeedId, uint256 value) public view override virtual {
         uint256 lastTimestamp = getBlockTimestampFromLatestUpdate();
         if (block.timestamp - lastTimestamp > getTTL()) {
             revert OracleDataRequired(
@@ -36,6 +48,8 @@ import {MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd} from '../price-fee
                 abi.encode(getDataFeedId(), getUniqueSignersThreshold(), getDataServiceId())
             );
         }
+
+        super.validateDataFeedValueOnRead(dataFeedId, value); 
     }
 
     function fulfillOracleQuery(bytes calldata signedOffchainData) payable external {

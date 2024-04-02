@@ -1,0 +1,48 @@
+{
+  "name": "@redstone-finance/erc7412",
+  "prettier": "redstone-prettier-config",
+  "version": "0.3.6",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "NODE_ENV=test hardhat test",
+    "build": "hardhat compile && rm -rf dist && yarn global:tsc --build tsconfig.build.json",
+    "preversion": "yarn build",
+    "lint": "yarn global:eslint ."
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-viem": "^2.0.0",
+    "@redstone-finance/evm-connector": "^0.3.6",
+    "@redstone-finance/on-chain-relayer": "^0.3.6",
+    "@redstone-finance/sdk": "^0.3.6",
+    "erc7412": "^0.2.3",
+    "ethers": "^5.7.2",
+    "node-gyp": "^10.0.1"
+  },
+  "devDependencies": {
+    "@ethersproject/abi": "^5.6.3",
+    "@ethersproject/providers": "^5.6.8",
+    "@nomicfoundation/hardhat-chai-matchers": "1.0.6",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.0.6",
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "@typechain/ethers-v5": "^10.2.0",
+    "@typechain/hardhat": "^6.1.2",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.14.6",
+    "chai": "^4.3.10",
+    "hardhat": "^2.17.2",
+    "hardhat-gas-reporter": "^1.0.9",
+    "typechain": "^8.1.1",
+    "typescript": "^5.2.2",
+    "viem": "^1.21.4"
+  },
+  "peerDependencies": {
+    "viem": "^1.21.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
