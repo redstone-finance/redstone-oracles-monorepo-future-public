@@ -6477,6 +6477,7 @@ __metadata:
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
     "@redstone-finance/lambda-common": "npm:^0.3.6"
+    dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
 
@@ -6551,7 +6552,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring"
   dependencies:
+    "@influxdata/influxdb-client": "npm:^1.33.2"
     "@redstone-finance/lambda-common": "npm:^0.3.6"
+    dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
 
