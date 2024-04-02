@@ -6451,6 +6451,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-all-relayers-manifests@workspace:packages/lambda-all-relayers-manifests":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-all-relayers-manifests@workspace:packages/lambda-all-relayers-manifests"
+  dependencies:
+    "@types/aws-lambda": "npm:^8.10.128"
+    axios: "npm:^1.6.2"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-common@npm:^0.3.6, @redstone-finance/lambda-common@workspace:packages/lambda-common":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-common@workspace:packages/lambda-common"
