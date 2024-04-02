@@ -15,6 +15,7 @@ interface AdapterTestsParams {
   hasOnlyOneDataFeed: boolean;
   skipTestsForPrevDataTimestamp: boolean;
   dataFeedId?: string;
+  isErc7412?: boolean;
 }
 
 interface UpdateValuesParams {
@@ -36,6 +37,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
   hasOnlyOneDataFeed,
   skipTestsForPrevDataTimestamp,
   dataFeedId = "BTC",
+  isErc7412 = false,
 }: AdapterTestsParams) => {
   let adapterContract: IRedstoneAdapter;
 
@@ -192,11 +194,23 @@ export const describeCommonPriceFeedsAdapterTests = ({
   });
 
   it("should revert if min interval hasn't passed", async () => {
-    await updateValues({ increaseBlockTimeBySeconds: 1 });
+    const { mockBlockTimestamp, mockDataTimestamp } = await updateValues({
+      increaseBlockTimeBySeconds: 1,
+    });
 
-    await expect(
-      updateValues({ increaseBlockTimeBySeconds: 2 })
-    ).to.be.revertedWith("MinIntervalBetweenUpdatesHasNotPassedYet");
+    if (isErc7412) {
+      // in case of erc7412 we don't revert but we also don't update prices
+      await updateValues({ increaseBlockTimeBySeconds: 2 });
+      await validateValuesAndTimestamps({
+        expectedLatestBlockTimestamp: mockBlockTimestamp,
+        expectedLatestDataTimestamp: mockDataTimestamp,
+        expectedValues: { [dataFeedId]: 42 },
+      });
+    } else {
+      await expect(
+        updateValues({ increaseBlockTimeBySeconds: 2 })
+      ).to.be.revertedWith("MinIntervalBetweenUpdatesHasNotPassedYet");
+    }
   });
 
   if (!skipTestsForPrevDataTimestamp) {
@@ -381,7 +395,9 @@ export const describeCommonPriceFeedsAdapterTests = ({
       adapterContract.getValueForDataFeed(
         utils.convertStringToBytes32(dataFeedId)
       )
-    ).to.be.revertedWith("DataFeedValueCannotBeZero");
+    ).to.be.revertedWith(
+      isErc7412 ? "OracleDataRequired" : "DataFeedValueCannotBeZero"
+    );
   });
 
   it("should revert trying to get a value for an unsupported data feed", async () => {
@@ -409,6 +425,8 @@ export const describeCommonPriceFeedsAdapterTests = ({
       adapterContract.getValuesForDataFeeds(
         [dataFeedId].map(utils.convertStringToBytes32)
       )
-    ).to.be.revertedWith("DataFeedValueCannotBeZero");
+    ).to.be.revertedWith(
+      isErc7412 ? "OracleDataRequired" : "DataFeedValueCannotBeZero"
+    );
   });
 };

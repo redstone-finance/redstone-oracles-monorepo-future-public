@@ -63,6 +63,7 @@ describe("RedstonePrimaryProdERC7412", () => {
     adapterContractName: contractName,
     hasOnlyOneDataFeed: true,
     skipTestsForPrevDataTimestamp: false,
+    isErc7412: true,
   });
 
   describeCommonMergedPriceFeedAdapterTests({
@@ -93,9 +94,7 @@ describe("RedstonePrimaryProdERC7412", () => {
     });
 
     it("should fail if price was not submitted yet", async () => {
-      await expect(contract.latestAnswer()).rejectedWith(
-        /DataFeedValueCannotBeZero/
-      );
+      await expect(contract.latestAnswer()).rejectedWith(/OracleDataRequired/);
     });
 
     it("should update data using fulfillOracleQuery", async () => {
