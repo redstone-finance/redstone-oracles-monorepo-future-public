@@ -19,6 +19,16 @@ export const assertWithLog = (condition: boolean, errMsg: string) => {
   }
 };
 
+const STACK_LENGTH = 200;
+
+const stringifyStack = (stack: string | undefined): string => {
+  if (!stack) {
+    return "";
+  }
+  const suffix = stack.length > STACK_LENGTH ? "..." : "";
+  return stack.substring(0, STACK_LENGTH - suffix.length) + suffix;
+};
+
 export function stringifyError(e: unknown): string {
   const error = e as
     | AggregateError
@@ -35,9 +45,9 @@ export function stringifyError(e: unknown): string {
       "; "
     )}`;
   } else if (axios.isAxiosError(error)) {
-    return JSON.stringify(error.response?.data) + " | " + error.stack;
+    return JSON.stringify(error.response?.data) + stringifyStack(error.stack);
   } else if (error instanceof Error) {
-    return error.stack ?? String(error);
+    return stringifyStack(error.stack);
   } else if (typeof error.toJSON === "function") {
     return JSON.stringify(error.toJSON());
   } else {

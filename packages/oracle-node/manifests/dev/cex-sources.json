@@ -74,13 +74,8 @@
         "kraken-eur",
         "bitstamp-usd",
         "coingecko",
-        "curve-dai",
-        "curve-usdc",
         "kaiko",
         "kaiko-v2",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
-        "uniswap-v3-ethereum-on-chain-usdc-100",
-        "uniswap-v3-ethereum-on-chain-weth-500",
         "bitfinex2"
       ]
     },
@@ -122,18 +117,7 @@
         "curve-dai",
         "kaiko",
         "maverick",
-        "uniswap-v3-ethereum-on-chain-weth-500",
         "bingx-usdt"
-      ]
-    },
-    "USDT": {
-      "source": [
-        "bitfinex2",
-        "bitstamp",
-        "coinbasepro",
-        "currencycom",
-        "kraken",
-        "okx"
       ]
     }
   }
