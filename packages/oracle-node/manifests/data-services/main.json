@@ -1282,6 +1282,12 @@
     "sUSDe_RATE_PROVIDER": {
       "source": ["ethereum-evm-fetcher"]
     },
+    "pufETH": {
+      "source": ["curve-wsteth", "uniswap-v3-ethereum-on-chain-weth-3000"]
+    },
+    "pufETH/ETH": {
+      "source": ["non-usd-based"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
