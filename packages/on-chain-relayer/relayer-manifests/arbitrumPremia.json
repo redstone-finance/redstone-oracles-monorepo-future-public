@@ -1,6 +1,6 @@
 {
   "chain": {
-    "name": "Arbitrum One",
+    "name": "arbitrumOne",
     "id": 42161
   },
   "updateTriggers": {
