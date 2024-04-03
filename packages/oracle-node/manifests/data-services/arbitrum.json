@@ -487,6 +487,103 @@
     },
     "GM_SOL_SOL_USDC": {
       "source": ["arbitrum-evm-fetcher"]
+    },
+    "rETH": {
+      "source": [
+        "uniswap-v3-ethereum-on-chain-weth-100",
+        "uniswap-v3-ethereum-on-chain-weth-500",
+        "balancer-ethereum-weth",
+        "pancake-swap-on-chain-weth-500"
+      ]
+    },
+    "ETHx": {
+      "source": ["curve-weth", "curve-wsteth"]
+    },
+    "weETH": {
+      "source": [
+        "balancer-ethereum-reth",
+        "curve-weth",
+        "uniswap-v3-ethereum-on-chain-weth-500"
+      ]
+    },
+    "rswETH": {
+      "source": [
+        "balancer-ethereum-ezeth",
+        "balancer-ethereum-weeth",
+        "curve-weeth"
+      ]
+    },
+    "rsETH": {
+      "source": [
+        "balancer-ethereum-ethx",
+        "curve-sfrxeth",
+        "uniswap-v3-ethereum-on-chain-ethx-3000",
+        "uniswap-v3-ethereum-on-chain-weth-500"
+      ]
+    },
+    "CVX": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "kraken",
+        "kucoin",
+        "mexc",
+        "okx"
+      ]
+    },
+    "stETH": {
+      "source": [
+        "bingx",
+        "bitget",
+        "coinmarketcap",
+        "curve-eth",
+        "curve-weth",
+        "okx",
+        "uniswap-v2-on-chain-weth"
+      ]
+    },
+    "frxETH": {
+      "source": [
+        "curve-cvx",
+        "curve-eth",
+        "curve-steth",
+        "curve-weth",
+        "uniswap-v3-ethereum-on-chain-frax-10000"
+      ]
+    },
+    "sfrxETH": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "ezETH": {
+      "source": [
+        "balancer-ethereum-weth",
+        "balancer-ethereum-weeth",
+        "curve-weth",
+        "uniswap-v3-ethereum-on-chain-weth-100"
+      ]
+    },
+    "PENDLE_EZ_ETH_LP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "PENDLE_SILO_WSTETH_LP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "PENDLE_RS_ETH_LP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "PENDLE_E_ETH_LP": {
+      "source": ["arbitrum-evm-fetcher"]
+    },
+    "PENDLE_WSTETH_LP": {
+      "source": ["arbitrum-evm-fetcher"]
     }
   }
 }
