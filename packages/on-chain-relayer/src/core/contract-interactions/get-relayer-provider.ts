@@ -4,28 +4,14 @@ import { config } from "../../config";
 
 let cachedProvider: providers.Provider | undefined;
 
-const electBlock = (blockNumbers: number[]): number => {
-  blockNumbers.sort((a, b) => a - b);
-  if (blockNumbers.length === 1) {
-    return blockNumbers[0];
-  } else if (
-    blockNumbers.at(-1)! - blockNumbers.at(-2)! <=
-    config().agreementAcceptableBlocksDiff
-  ) {
-    return blockNumbers.at(-1)!;
-  } else {
-    return blockNumbers.at(-2)!;
-  }
-};
+const electBlock = (blockNumbers: number[]): number =>
+  Math.max(...blockNumbers);
 
 export const getRelayerProvider = () => {
   if (cachedProvider) {
     return cachedProvider;
   }
-  const { rpcUrls, chainName, chainId, agreementAcceptableBlocksDiff } =
-    config();
-
-  const enableAgreementProvider = agreementAcceptableBlocksDiff > 0;
+  const { rpcUrls, chainName, chainId } = config();
 
   cachedProvider = new MegaProviderBuilder({
     rpcUrls,
@@ -33,20 +19,15 @@ export const getRelayerProvider = () => {
     throttleLimit: 1,
     network: { name: chainName, chainId },
   })
-    .fallback(
-      {
-        singleProviderOperationTimeout: config().singleProviderOperationTimeout,
-        allProvidersOperationTimeout: config().allProvidersOperationTimeout,
-      },
-      !enableAgreementProvider && rpcUrls.length > 1
-    )
     .agreement(
       {
         singleProviderOperationTimeout: config().singleProviderOperationTimeout,
         allProvidersOperationTimeout: config().allProvidersOperationTimeout,
         electBlockFn: electBlock,
+        ignoreAgreementOnInsufficientResponses: true,
+        enableRpcCuratedList: false,
       },
-      enableAgreementProvider && rpcUrls.length > 1
+      rpcUrls.length > 1
     )
     .build()!;
 

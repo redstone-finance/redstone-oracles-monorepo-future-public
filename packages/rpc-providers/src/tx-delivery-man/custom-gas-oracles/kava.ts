@@ -1,4 +1,4 @@
-import { GasOracleFn } from "../TransactionDeliveryMan";
+import { GasOracleFn } from "../TxDelivery";
 
 const ONE_MICRO_KAVA = 1e12;
 

@@ -1,7 +1,7 @@
 import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Deferrable } from "@ethersproject/properties";
 import { RedstoneCommon, RedstoneCrypto } from "@redstone-finance/utils";
-import { BytesLike, providers, utils } from "ethers";
+import { BigNumber, BytesLike, providers, utils } from "ethers";
 import {
   ProviderWithFallback,
   ProviderWithFallbackConfig,
@@ -9,14 +9,17 @@ import {
 import { CuratedRpcList, RpcIdentifier } from "./CuratedRpcList";
 import { convertBlockTagToNumber, getProviderNetworkInfo } from "../common";
 
-// 5 min (max multiblock used)
-const AGREED_RESULT_TTL = 300_000;
+const AGREED_RESULT_TTL = RedstoneCommon.minToMs(5);
 
 interface ProviderWithAgreementSpecificConfig {
   numberOfProvidersThatHaveToAgree: number;
   minimalProvidersCount: number;
   getBlockNumberTimeoutMS: number;
-  electBlockFn: (blocks: number[], numberOfAgreeingNodes: number) => number;
+  ignoreAgreementOnInsufficientResponses: boolean;
+  electBlockFn: (
+    blockNumbers: number[],
+    numberOfAgreeingNodes: number
+  ) => number;
   enableRpcCuratedList: boolean;
 }
 
@@ -24,9 +27,12 @@ export type ProviderWithAgreementConfig = Partial<
   ProviderWithAgreementSpecificConfig & ProviderWithFallbackConfig
 >;
 
-const DEFAULT_ELECT_BLOCK_FN = (blockNumbers: number[]): number => {
-  const mid = Math.floor(blockNumbers.length / 2);
+const DEFAULT_ELECT_BLOCK_FN = (
+  blockNumbers: number[],
+  _numberOfAgreeingNodes: number
+): number => {
   blockNumbers.sort((a, b) => a - b);
+  const mid = Math.floor(blockNumbers.length / 2);
 
   return blockNumbers.length % 2 !== 0
     ? blockNumbers[mid]
@@ -34,6 +40,7 @@ const DEFAULT_ELECT_BLOCK_FN = (blockNumbers: number[]): number => {
 };
 
 const defaultConfig: ProviderWithAgreementSpecificConfig = {
+  ignoreAgreementOnInsufficientResponses: false,
   numberOfProvidersThatHaveToAgree: 2,
   getBlockNumberTimeoutMS: 2_500,
   electBlockFn: DEFAULT_ELECT_BLOCK_FN,
@@ -50,6 +57,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
   readonly agreementConfig: ProviderWithAgreementSpecificConfig;
   readonly curatedRpcList?: CuratedRpcList;
   readonly providersWithIdentifier: readonly ProviderWithIdentifier[];
+  readonly lastBlockNumberForProvider: Record<string, number | undefined> = {};
 
   constructor(
     providers: providers.Provider[],
@@ -60,6 +68,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       ...defaultConfig,
       ...config,
     };
+
     const numberOfProvidersThatHaveToAgree =
       this.agreementConfig.numberOfProvidersThatHaveToAgree;
     if (numberOfProvidersThatHaveToAgree > this.providers.length) {
@@ -72,7 +81,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
         provider,
         identifier: getProviderNetworkInfo(provider, {
           url: index.toString(),
-          chainId: -1,
+          chainId: 1,
         }).url,
       }))
     );
@@ -85,7 +94,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
             config.minimalProvidersCount ??
             numberOfProvidersThatHaveToAgree + 1,
         },
-        getProviderNetworkInfo(this.providers[0]).chainId
+        this.chainId
       );
     }
   }
@@ -94,16 +103,11 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     if (!this.curatedRpcList) {
       return this.providersWithIdentifier;
     }
-    const choosenProviderIndentifiers = this.curatedRpcList.getBestProviders();
+    const chosenProviderIdentifiers = this.curatedRpcList.getBestProviders();
 
     return this.providersWithIdentifier.filter(({ identifier }) =>
-      choosenProviderIndentifiers.includes(identifier)
+      chosenProviderIdentifiers.includes(identifier)
     );
-  }
-
-  getChainId(): number {
-    const { chainId } = getProviderNetworkInfo(this.providers[0]);
-    return chainId;
   }
 
   updateScore(identifier: RpcIdentifier, error: boolean) {
@@ -112,36 +116,17 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     }
   }
 
-  override getBlockNumber(): Promise<number> {
-    return this.electBlockNumber();
-  }
-
-  override async call(
-    transaction: Deferrable<TransactionRequest>,
-    blockTag?: BlockTag
-  ): Promise<string> {
-    const electedBlockTag = utils.hexlify(
-      blockTag ?? (await this.electBlockNumber())
-    );
-
-    const callResult = RedstoneCommon.timeout(
-      this.executeCallWithAgreementWithCache(transaction, electedBlockTag),
-      this.providerWithFallbackConfig.allProvidersOperationTimeout,
-      `Agreement provider after ${this.providerWithFallbackConfig.allProvidersOperationTimeout} [ms] during call`
-    );
-
-    return await callResult;
-  }
-
-  private async electBlockNumber() {
-    // collect block numbers
+  override async getBlockNumber(): Promise<number> {
     const blockNumbersResults = await Promise.allSettled(
-      this.getHealthyProviders().map(({ provider }) =>
-        RedstoneCommon.timeout(
+      this.getHealthyProviders().map(async ({ provider, identifier }) => {
+        const blockNumber = await RedstoneCommon.timeout(
           provider.getBlockNumber(),
           this.agreementConfig.getBlockNumberTimeoutMS
-        )
-      )
+        );
+        this.assertValidBlockNumber(blockNumber, identifier);
+        this.lastBlockNumberForProvider[identifier] = blockNumber;
+        return blockNumber;
+      })
     );
 
     const blockNumbers = blockNumbersResults
@@ -166,6 +151,39 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     return electedBlockNumber;
   }
 
+  override async call(
+    transaction: Deferrable<TransactionRequest>,
+    blockTag?: BlockTag
+  ): Promise<string> {
+    RedstoneCommon.assert(
+      blockTag,
+      "When using providerWithAgreement, blockTag has to be passed explicitly"
+    );
+    const electedBlockTag = utils.hexlify(blockTag);
+
+    const callResult = RedstoneCommon.timeout(
+      this.executeCallWithAgreementWithCache(transaction, electedBlockTag),
+      this.providerWithFallbackConfig.allProvidersOperationTimeout,
+      `Agreement provider after ${this.providerWithFallbackConfig.allProvidersOperationTimeout} [ms] during call`
+    );
+
+    return await callResult;
+  }
+
+  override async getBalance(address: string): Promise<BigNumber> {
+    const getBalance = ({ provider }: ProviderWithIdentifier) =>
+      provider.getBalance(address).then((r) => r.toString());
+
+    const agreedResult = await this.executeWithAgreement(
+      getBalance,
+      "getBalance"
+    );
+
+    const parsedResult = BigNumber.from(agreedResult);
+
+    return parsedResult;
+  }
+
   private executeCallWithAgreementWithCache = RedstoneCommon.memoize({
     functionToMemoize: (
       transaction: Deferrable<TransactionRequest>,
@@ -175,34 +193,75 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     cacheKeyBuilder: txCacheKeyBuilder,
   });
 
-  private executeCallWithAgreement(
+  private assertValidBlockNumber(
+    blockNumber: number,
+    providerIdentifier: string
+  ) {
+    const prevBlockNumber = this.lastBlockNumberForProvider[providerIdentifier];
+    if (prevBlockNumber) {
+      RedstoneCommon.assert(
+        prevBlockNumber <= blockNumber,
+        `provider=${providerIdentifier} returned block_number=${blockNumber} previous_one=${prevBlockNumber}, block_number can't be < previous_one`
+      );
+      RedstoneCommon.assert(
+        (blockNumber - prevBlockNumber) * this.chainConfig.avgBlockTimeMs <
+          RedstoneCommon.hourToMs(24),
+        `provider=${providerIdentifier} returned block_number=${blockNumber} previous_one=${prevBlockNumber}, blockNumber can't be ahead more than 24 hours from previous one`
+      );
+    }
+  }
+
+  private async executeCallWithAgreement(
     transaction: Deferrable<TransactionRequest>,
     electedBlockTag: BlockTag
+  ): Promise<string> {
+    const electedBlockNumber = convertBlockTagToNumber(electedBlockTag);
+
+    const syncThenCall = async (
+      { provider, identifier }: ProviderWithIdentifier,
+      shouldAbort: () => boolean
+    ) => {
+      while (
+        !shouldAbort() &&
+        (await provider.getBlockNumber()) < electedBlockNumber
+      ) {
+        await RedstoneCommon.sleep(500);
+      }
+      if (shouldAbort()) {
+        throw new Error(
+          `Provider ${identifier} failed to sync to block ${electedBlockNumber}`
+        );
+      }
+
+      return await provider.call(transaction, electedBlockTag);
+    };
+
+    const agreedResult = await this.executeWithAgreement(syncThenCall, "call");
+
+    return agreedResult.toString();
+  }
+
+  private executeWithAgreement(
+    operation: (
+      provider: ProviderWithIdentifier,
+      shouldAbort: () => boolean
+    ) => Promise<string>,
+    operationName: string
   ) {
     return new Promise<string>((resolve, reject) => {
       const errors: Error[] = [];
-      const electedBlockNumber = convertBlockTagToNumber(electedBlockTag);
       const results = new Map<string, number>();
+      let globalAbort = false;
       let finishedProvidersCount = 0;
-      let stop = false;
 
-      const syncToElectedBlock = async ({
-        provider,
-        identifier,
-      }: ProviderWithIdentifier) => {
-        while (
-          !stop &&
-          (await provider.getBlockNumber()) < electedBlockNumber
-        ) {
-          await RedstoneCommon.sleep(500);
-        }
-        if (stop) {
-          throw new Error(`Provider ${identifier} failed to sync to block`);
-        }
-      };
+      const executeOperation = async (provider: ProviderWithIdentifier) => {
+        const currentResult = await this.executeOperation(
+          operation,
+          provider,
+          globalAbort,
+          operationName
+        );
 
-      const call = async ({ provider }: ProviderWithIdentifier) => {
-        const currentResult = await provider.call(transaction, electedBlockTag);
         const currentResultCount = results.get(currentResult);
 
         if (currentResultCount) {
@@ -212,7 +271,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
             currentResultCount + 1 >=
             this.agreementConfig.numberOfProvidersThatHaveToAgree
           ) {
-            stop = true;
+            globalAbort = true;
             resolve(currentResult);
           }
         } else {
@@ -223,24 +282,34 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       const handleProviderResult = () => {
         finishedProvidersCount++;
         if (finishedProvidersCount === this.providers.length) {
-          stop = true;
-          reject(
-            new AggregateError(
-              errors,
-              `Failed to find at least ${
-                this.agreementConfig.numberOfProvidersThatHaveToAgree
-              } agreeing providers. ${
-                this.providers.length - errors.length
-              } responded with success. Result map: ${mapToString(results)}`
-            )
-          );
+          globalAbort = true;
+          if (
+            this.agreementConfig.ignoreAgreementOnInsufficientResponses &&
+            results.size > 0
+          ) {
+            resolve(results.keys().next().value as string);
+          } else {
+            reject(
+              new AggregateError(
+                errors,
+                `operation=${operationName} Failed to find at least ${
+                  this.agreementConfig.numberOfProvidersThatHaveToAgree
+                } agreeing providers. ${
+                  this.providers.length - errors.length
+                } providers responded with success. Result map: ${mapToString(
+                  results
+                )}`
+              )
+            );
+          }
         }
       };
 
-      const handleProviderCall = async (rpc: ProviderWithIdentifier) => {
+      const executeOperationOnProvider = async (
+        rpc: ProviderWithIdentifier
+      ) => {
         try {
-          await syncToElectedBlock(rpc);
-          await call(rpc);
+          await executeOperation(rpc);
           this.updateScore(rpc.identifier, false);
         } catch (e) {
           errors.push(e as Error);
@@ -251,8 +320,31 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       };
 
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      this.getHealthyProviders().forEach(handleProviderCall);
+      this.getHealthyProviders().forEach(executeOperationOnProvider);
     });
+  }
+
+  private async executeOperation(
+    operation: (
+      provider: ProviderWithIdentifier,
+      shouldAbort: () => boolean
+    ) => Promise<string>,
+    provider: ProviderWithIdentifier,
+    globalAbort: boolean,
+    operationName: string
+  ) {
+    let singleProviderAbort = false;
+    const shouldAbort = () => globalAbort || singleProviderAbort;
+    try {
+      return await RedstoneCommon.timeout(
+        operation(provider, shouldAbort),
+        this.providerWithFallbackConfig.singleProviderOperationTimeout,
+        `provider=${provider.identifier} ${operationName} timeout after ${this.providerWithFallbackConfig.singleProviderOperationTimeout}`
+      );
+    } catch (e) {
+      singleProviderAbort = true;
+      throw e;
+    }
   }
 }
 
@@ -269,9 +361,9 @@ const txCacheKeyBuilder = async (
     String(await transaction.to),
     String(await transaction.from),
     await hashBytesLikeValue(transaction.data),
-    JSON.stringify(await transaction.customData) || "",
     String(blockTag),
   ].join("#");
+
 async function hashBytesLikeValue(
   data: BytesLike | undefined | Promise<BytesLike | undefined>
 ) {

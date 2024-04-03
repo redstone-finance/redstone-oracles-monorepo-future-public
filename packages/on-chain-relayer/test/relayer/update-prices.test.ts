@@ -15,6 +15,7 @@ import {
   mockEnvVariables,
 } from "../helpers";
 import { server } from "./mock-server";
+import { ProviderWithAgreement } from "@redstone-finance/rpc-providers";
 
 chai.use(chaiAsPromised);
 
@@ -40,8 +41,13 @@ describe("update-prices", () => {
     let priceFeedsAdapter: PriceFeedsAdapterWithoutRoundsMock =
       await PriceFeedsAdapterFactory.deploy();
     await priceFeedsAdapter.deployed();
+
+    const provider = new ProviderWithAgreement([
+      ethers.provider,
+      ethers.provider,
+    ]);
     priceFeedsAdapter = priceFeedsAdapter.connect(
-      new Wallet(TEST_PRIVATE_KEY).connect(ethers.provider)
+      new Wallet(TEST_PRIVATE_KEY).connect(provider)
     );
 
     // Update prices
@@ -50,14 +56,16 @@ describe("update-prices", () => {
       proposedTimestamp: chooseDataPackagesTimestamp(dataPackages),
       dataPackagesWrapper: new DataPackagesWrapper(dataPackages),
       adapterContract: priceFeedsAdapter,
+      blockTag: await provider.getBlockNumber(),
     };
 
     await updatePrices(updatePricesArgs);
 
     // Check updated values
-    const dataFeedsValues = await priceFeedsAdapter.getValuesForDataFeeds([
-      btcDataFeed,
-    ]);
+    const dataFeedsValues = await priceFeedsAdapter.getValuesForDataFeeds(
+      [btcDataFeed],
+      { blockTag: await provider.getBlockNumber() }
+    );
     expect(dataFeedsValues[0]).to.be.equal(2307768000000);
   });
 
@@ -77,8 +85,13 @@ describe("update-prices", () => {
       await ethers.getContractFactory("MentoAdapterMock");
     let mentoAdapter = await MentoAdapterFactory.deploy();
     await mentoAdapter.deployed();
+
+    const provider = new ProviderWithAgreement([
+      ethers.provider,
+      ethers.provider,
+    ]);
     mentoAdapter = mentoAdapter.connect(
-      new Wallet(TEST_PRIVATE_KEY).connect(ethers.provider)
+      new Wallet(TEST_PRIVATE_KEY).connect(provider)
     );
 
     // Setting sorted oracles contract address
@@ -89,8 +102,10 @@ describe("update-prices", () => {
     const updatePricesArgs: UpdatePricesArgs = {
       proposedTimestamp: chooseDataPackagesTimestamp(dataPackages),
       dataPackagesWrapper: new DataPackagesWrapper(dataPackages),
-      adapterContract: mentoAdapter,
+      adapterContract: mentoAdapter.connect(provider),
+      blockTag: await provider.getBlockNumber(),
     };
+
     await updatePrices(updatePricesArgs);
 
     // Check updated values in SortedOracles

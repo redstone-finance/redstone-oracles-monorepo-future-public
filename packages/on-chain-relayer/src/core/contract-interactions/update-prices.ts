@@ -11,8 +11,12 @@ import { config } from "../../config";
 import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
 import { getSortedOraclesContractAtAddress } from "./get-contract";
 import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
-import { isEthersError } from "@redstone-finance/rpc-providers";
+import {
+  isEthersError,
+  makeTxDeliveryCall,
+} from "@redstone-finance/rpc-providers";
 import { RedstoneCommon } from "@redstone-finance/utils";
+import { providers } from "ethers";
 
 export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
   const updateTx = await updatePriceInAdapterContract(updatePricesArgs);
@@ -60,21 +64,35 @@ const updatePricesInPriceFeedsAdapter = async ({
   const wrappedContract =
     dataPackagesWrapper.overwriteEthersContract(adapterContract);
 
-  return await getTxDeliveryMan().deliver(
-    wrappedContract,
-    "updateDataFeedsValues",
-    [proposedTimestamp]
+  const txCall = makeTxDeliveryCall(
+    await wrappedContract.populateTransaction["updateDataFeedsValues"](
+      proposedTimestamp
+    )
   );
+
+  const txDeliveryMan = getTxDeliveryMan(
+    wrappedContract.signer,
+    wrappedContract.provider as providers.JsonRpcProvider
+  );
+
+  return await txDeliveryMan.deliver(txCall);
 };
 
 const updatePricesInMentoAdapter = async ({
   proposedTimestamp,
   dataPackagesWrapper,
   adapterContract: mentoAdapter,
+  blockTag,
 }: UpdatePricesArgs<MentoAdapterBase>): Promise<TransactionResponse> => {
-  const sortedOraclesAddress = await mentoAdapter.getSortedOracles();
-  const sortedOracles = getSortedOraclesContractAtAddress(sortedOraclesAddress);
+  const sortedOraclesAddress = await mentoAdapter.getSortedOracles({
+    blockTag,
+  });
+  const sortedOracles = getSortedOraclesContractAtAddress(
+    sortedOraclesAddress,
+    mentoAdapter.provider
+  );
   const maxDeviationAllowed = config().mentoMaxDeviationAllowed;
+
   const linkedListPositions =
     await prepareLinkedListLocationsForMentoAdapterReport(
       {
@@ -82,6 +100,7 @@ const updatePricesInMentoAdapter = async ({
         dataPackagesWrapper,
         sortedOracles,
       },
+      blockTag,
       maxDeviationAllowed
     );
   if (!linkedListPositions) {
@@ -94,24 +113,26 @@ const updatePricesInMentoAdapter = async ({
   const wrappedMentoContract =
     dataPackagesWrapper.overwriteEthersContract(mentoAdapter);
 
-  return await getTxDeliveryMan().deliver(
-    wrappedMentoContract,
-    "updatePriceValuesAndCleanOldReports",
-    [proposedTimestamp, linkedListPositions]
+  const txCall = makeTxDeliveryCall(
+    await wrappedMentoContract.populateTransaction[
+      "updatePriceValuesAndCleanOldReports"
+    ](proposedTimestamp, linkedListPositions)
   );
+
+  const txDeliveryMan = getTxDeliveryMan(
+    wrappedMentoContract.signer,
+    wrappedMentoContract.provider as providers.JsonRpcProvider
+  );
+
+  return await txDeliveryMan.deliver(txCall);
 };
 
 const getTxReceiptDesc = (receipt: TransactionReceipt) => {
-  const ONE_GIGA = 10 ** 9;
-  const gasPrice = receipt.effectiveGasPrice.toNumber() / ONE_GIGA;
-
   return `Transaction ${receipt.transactionHash} SUCCESS(status: ${
     receipt.status
   }) in block #${receipt.blockNumber}[tx index: ${
     receipt.transactionIndex
-  }]. Gas used: ${receipt.gasUsed.toString()} with price ${gasPrice} = ${
-    (receipt.gasUsed.toNumber() * gasPrice) / ONE_GIGA
-  } of total fee`;
+  }]. gas_used=${receipt.gasUsed.toString()} effective_gas_price=${receipt.effectiveGasPrice.toString()}`;
 };
 
 function describeTxWaitError(error: unknown, hash: string) {

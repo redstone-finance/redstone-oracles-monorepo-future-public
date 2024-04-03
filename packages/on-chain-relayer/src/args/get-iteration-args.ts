@@ -23,6 +23,7 @@ export type UpdatePricesArgs<T extends Contract = Contract> = {
   proposedTimestamp: number;
   dataPackagesWrapper: BaseWrapper<T>;
   adapterContract: T;
+  blockTag: number;
 };
 
 export const getIterationArgs = async (
@@ -31,11 +32,17 @@ export const getIterationArgs = async (
   const relayerConfig = config();
   const { dataFeeds, updateConditions } = relayerConfig;
 
-  const lastUpdateTimestamps =
-    await getLastRoundParamsFromContract(adapterContract);
+  const blockTag = await adapterContract.provider.getBlockNumber();
 
-  const uniqueSignersThreshold =
-    await getUniqueSignersThresholdFromContract(adapterContract);
+  const lastUpdateTimestamps = await getLastRoundParamsFromContract(
+    adapterContract,
+    blockTag
+  );
+
+  const uniqueSignersThreshold = await getUniqueSignersThresholdFromContract(
+    adapterContract,
+    blockTag
+  );
 
   // We fetch the latest values from contract only if we want to check value deviation
   const shouldCheckValueDeviation =
@@ -44,7 +51,8 @@ export const getIterationArgs = async (
   if (shouldCheckValueDeviation) {
     valuesFromContract = await getValuesForDataFeeds(
       adapterContract,
-      dataFeeds
+      dataFeeds,
+      blockTag
     );
   }
   const dataPackages = await fetchDataPackages(
@@ -75,6 +83,7 @@ export const getIterationArgs = async (
       adapterContract,
       proposedTimestamp,
       dataPackagesWrapper,
+      blockTag,
     },
   };
 };

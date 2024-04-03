@@ -55,9 +55,11 @@ const describeMultiWrapperSuite = (
       const multicallProvider = getProvider(multicall.address, providerFabric);
       counter = counter.connect(multicallProvider);
 
+      const blockTag = await multicallProvider.getBlockNumber();
+
       const [count, countPlusOne] = await Promise.all([
-        counter.getCount(),
-        counter.getCountPlusOne(),
+        counter.getCount({ blockTag }),
+        counter.getCountPlusOne({ blockTag }),
       ]);
 
       expect(count.toNumber() + 1).to.eq(countPlusOne);
@@ -70,9 +72,11 @@ const describeMultiWrapperSuite = (
         multicallProvider
       );
 
+      const blockTag = await multicallProvider.getBlockNumber();
+
       const [count, count2] = await Promise.all([
-        counter.getCount(),
-        counter2.getCountPlusOne(),
+        counter.getCount({ blockTag }),
+        counter2.getCountPlusOne({ blockTag }),
       ]);
       expect(count).to.eq(count2);
       expect(multicallFnSpy.getCalls().length).to.eq(1);
@@ -86,7 +90,8 @@ const describeMultiWrapperSuite = (
       );
       counter = counter.connect(multicallProvider);
 
-      const [count] = await Promise.all([counter.getCount()]);
+      const blockTag = await multicallProvider.getBlockNumber();
+      const [count] = await Promise.all([counter.getCount({ blockTag })]);
 
       expect(count.toNumber()).to.eq(1);
       expect(multicallFnSpy.getCalls().length).to.eq(1);
@@ -100,9 +105,11 @@ const describeMultiWrapperSuite = (
       const multicallProvider = getProvider(multicall.address, providerFabric);
       counter = counter.connect(multicallProvider);
 
+      const blockTag = await multicallProvider.getBlockNumber();
+
       const [resultCounter, resultCounter2] = await Promise.allSettled([
-        counter.getCount(),
-        counter.fail(),
+        counter.getCount({ blockTag }),
+        counter.fail({ blockTag }),
       ]);
 
       const resolvedResultCounter =
@@ -127,9 +134,11 @@ const describeMultiWrapperSuite = (
         multicallProvider
       );
 
+      const blockTag = await multicallProvider.getBlockNumber();
+
       const [resultCounter, resultCounter2] = await Promise.allSettled([
-        counter2.getCount(),
-        counter.fail(),
+        counter2.getCount({ blockTag }),
+        counter.fail({ blockTag }),
       ]);
 
       const resolvedResultCounter =
@@ -155,9 +164,11 @@ const describeMultiWrapperSuite = (
       );
       counter = counter.connect(multicallProvider);
 
+      const blockTag = await multicallProvider.getBlockNumber();
+
       const [resultCounter, resultCounter2] = await Promise.allSettled([
-        counter.getCount(),
-        counter.getCount(),
+        counter.getCount({ blockTag }),
+        counter.getCount({ blockTag }),
       ]);
 
       expect(resultCounter.status).to.eq("rejected");
@@ -178,7 +189,7 @@ const describeMultiWrapperSuite = (
 
       const [resultCounter, resultCounter2] = await Promise.all([
         counter.getCount({ blockTag: blockNumber }),
-        counter.getCount(),
+        counter.getCount({ blockTag: blockNumber - 1 }),
       ]);
 
       expect(resultCounter).to.eq(1);
@@ -196,9 +207,11 @@ const describeMultiWrapperSuite = (
 
       counter = counter.connect(multicallProvider);
 
+      const blockTag = await multicallProvider.getBlockNumber();
+
       const [count, count2] = await Promise.all([
-        counter.getCount(),
-        counter.getCount(),
+        counter.getCount({ blockTag }),
+        counter.getCount({ blockTag }),
       ]);
       expect(count).to.eq(count2);
       expect(multicallFnSpy.getCalls().length).to.eq(1);
@@ -215,9 +228,11 @@ const describeMultiWrapperSuite = (
 
       counter = counter.connect(multicallProvider);
 
+      const blockTag = await multicallProvider.getBlockNumber();
+
       const [count, count2] = await Promise.all([
-        counter.getCountWithCallData32Bytes(1),
-        counter.getCountWithCallData32Bytes(1),
+        counter.getCountWithCallData32Bytes(1, { blockTag }),
+        counter.getCountWithCallData32Bytes(1, { blockTag }),
       ]);
 
       expect(count).to.eq(count2);
@@ -255,9 +270,11 @@ const describeMultiWrapperSuite = (
 
       counter = counter.connect(multicallProvider);
 
+      const blockTag = await multicallProvider.getBlockNumber();
+
       const [count, count2] = await Promise.allSettled([
-        counter.getCount(),
-        counter.getCount(),
+        counter.getCount({ blockTag }),
+        counter.getCount({ blockTag }),
       ]);
 
       expect(stub!.getCalls().length).eq(3);

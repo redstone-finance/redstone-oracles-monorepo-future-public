@@ -1,16 +1,13 @@
 import { ethers } from "ethers";
 import { GasEstimator } from "./GasEstimator";
-import {
-  TransactionDeliveryManOptsValidated,
-  unsafeBnToNumber,
-} from "./TransactionDeliveryMan";
+import { TxDeliveryOptsValidated, unsafeBnToNumber } from "./TxDelivery";
 
 export type AuctionModelFee = {
   gasPrice: number;
 };
 
 export class AuctionModelGasEstimator implements GasEstimator<AuctionModelFee> {
-  constructor(readonly opts: TransactionDeliveryManOptsValidated) {}
+  constructor(readonly opts: TxDeliveryOptsValidated) {}
 
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getFees(
@@ -28,10 +25,6 @@ export class AuctionModelGasEstimator implements GasEstimator<AuctionModelFee> {
     const scaledFees: AuctionModelFee = {
       gasPrice,
     };
-
-    this.opts.logger(
-      `Scaling fees (multiplier=${multipleBy}) to ${JSON.stringify(scaledFees)}`
-    );
 
     return scaledFees;
   }

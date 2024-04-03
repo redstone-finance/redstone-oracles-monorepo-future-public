@@ -6,9 +6,12 @@ export type LastRoundTimestamps = {
 };
 
 export const getLastRoundParamsFromContract = async (
-  adapterContract: IRedstoneAdapter
+  adapterContract: IRedstoneAdapter,
+  blockTag: number
 ): Promise<LastRoundTimestamps> => {
-  const timestamps = await adapterContract.getTimestampsFromLatestUpdate();
+  const timestamps = await adapterContract.getTimestampsFromLatestUpdate({
+    blockTag,
+  });
 
   return {
     lastDataPackageTimestampMS: timestamps.dataTimestamp.toNumber(),

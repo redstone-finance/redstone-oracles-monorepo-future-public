@@ -7,18 +7,21 @@ import { getSortedOraclesContractAtAddress } from "./get-contract";
 
 export const getValuesForDataFeeds = async (
   priceFeedsAdapter: IRedstoneAdapter,
-  dataFeeds: string[]
+  dataFeeds: string[],
+  blockTag: number
 ): Promise<ValuesForDataFeeds> => {
   switch (config().adapterContractType) {
     case "price-feeds":
       return await getValuesForDataFeedsInPriceFeedsAdapter(
         priceFeedsAdapter,
-        dataFeeds
+        dataFeeds,
+        blockTag
       );
     case "mento":
       return await getValuesForDataFeedsInMentoAdapter(
         priceFeedsAdapter as MentoAdapterBase,
-        dataFeeds
+        dataFeeds,
+        blockTag
       );
     default:
       throw new Error(
@@ -29,11 +32,14 @@ export const getValuesForDataFeeds = async (
 
 const getValuesForDataFeedsInPriceFeedsAdapter = async (
   priceFeedsAdapter: IRedstoneAdapter,
-  dataFeeds: string[]
+  dataFeeds: string[],
+  blockTag: number
 ): Promise<ValuesForDataFeeds> => {
   const dataFeedsAsBytes32 = dataFeeds.map(utils.formatBytes32String);
   const valuesFromContractAsBigNumber =
-    await priceFeedsAdapter.getValuesForDataFeeds(dataFeedsAsBytes32);
+    await priceFeedsAdapter.getValuesForDataFeeds(dataFeedsAsBytes32, {
+      blockTag,
+    });
   const dataFeedsValues: ValuesForDataFeeds = {};
   for (const [index, dataFeedId] of dataFeeds.entries()) {
     const currentValue = valuesFromContractAsBigNumber[index];
@@ -45,12 +51,19 @@ const getValuesForDataFeedsInPriceFeedsAdapter = async (
 
 const getValuesForDataFeedsInMentoAdapter = async (
   mentoAdapter: MentoAdapterBase,
-  dataFeeds: string[]
+  dataFeeds: string[],
+  blockTag: number
 ): Promise<ValuesForDataFeeds> => {
-  const sortedOraclesAddress = await mentoAdapter.getSortedOracles();
+  const sortedOraclesAddress = await mentoAdapter.getSortedOracles({
+    blockTag,
+  });
   return await getValuesForMentoDataFeeds(
     mentoAdapter,
-    getSortedOraclesContractAtAddress(sortedOraclesAddress),
-    dataFeeds
+    getSortedOraclesContractAtAddress(
+      sortedOraclesAddress,
+      mentoAdapter.provider
+    ),
+    dataFeeds,
+    blockTag
   );
 };

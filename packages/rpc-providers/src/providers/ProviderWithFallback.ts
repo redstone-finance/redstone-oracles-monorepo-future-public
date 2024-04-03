@@ -9,6 +9,8 @@ import {
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { ProviderWithFallbackBase } from "./ProviderWithFallbackBase";
 import { providers } from "ethers";
+import { getProviderNetworkInfo } from "../common";
+import { ChainConfig, getChainConfigByChainId } from "../chains-configs";
 
 const logger = Logger.globalLogger();
 
@@ -43,6 +45,8 @@ export class ProviderWithFallback
   protected readonly providerWithFallbackConfig: ProviderWithFallbackConfig;
   private currentProvider: Provider;
   private providerIndex = 0;
+  chainId: number;
+  chainConfig: ChainConfig;
 
   getCurrentProviderIndex(): number {
     return this.providerIndex;
@@ -70,6 +74,8 @@ export class ProviderWithFallback
     this.currentProvider = providers[0];
     this.providers = Object.freeze([...providers]);
     this.providerWithFallbackConfig = { ...FALLBACK_DEFAULT_CONFIG, ...config };
+    this.chainId = getProviderNetworkInfo(this.providers[0]).chainId;
+    this.chainConfig = getChainConfigByChainId(this.chainId);
   }
 
   override getNetwork(): Promise<Network> {

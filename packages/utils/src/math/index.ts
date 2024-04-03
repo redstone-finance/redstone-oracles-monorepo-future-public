@@ -60,11 +60,13 @@ export class PrecisionScaler {
   }
 }
 
+/** Results are soreted ascending order */
 export const filterOutliers = (
   numbers: number[],
   maxDiscrepancy: number
 ): { representativeGroup: number[]; outliers: number[] } => {
-  if (numbers.length < 2) {
+  // if we have only 2 values we can't set wchich is outlier which not, so we return two of them
+  if (numbers.length <= 2) {
     return { representativeGroup: [...numbers], outliers: [] };
   }
 

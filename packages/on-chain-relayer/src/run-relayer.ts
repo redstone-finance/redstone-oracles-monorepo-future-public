@@ -32,7 +32,9 @@ const runIteration = async () => {
   console.log(
     `Update condition ${
       iterationArgs.shouldUpdatePrices ? "" : "NOT "
-    }satisfied: ${iterationArgs.message}`
+    }satisfied: ${iterationArgs.message} block_number=${
+      iterationArgs.args.blockTag
+    }`
   );
 
   if (iterationArgs.shouldUpdatePrices) {

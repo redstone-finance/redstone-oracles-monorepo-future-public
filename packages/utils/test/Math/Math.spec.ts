@@ -252,12 +252,6 @@ describe("filterOutliers function", () => {
     expect(result.outliers).toEqual([]);
   });
 
-  it("should return one of the numbers as an outlier when two numbers are outside maxDiscrepancy", () => {
-    const result = filterOutliers([5, 150], 100);
-    expect(result.representativeGroup).toEqual([5]);
-    expect(result.outliers).toEqual([150]);
-  });
-
   it("should group numbers correctly into multiple groups based on maxDiscrepancy", () => {
     const result = filterOutliers([5, 10, 15, 200, 210, 220, 500], 100);
     expect(result.representativeGroup).toEqual([5, 10, 15]);
