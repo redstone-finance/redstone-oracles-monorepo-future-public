@@ -1,16 +1,16 @@
-import { config } from "./config";
-import {
-  RELAY_ADAPTER_ADDRESS,
-  makeContractParamsProvider,
-  FEED_ADDRESS,
-} from "./e2e-utils";
+import { BigNumber, BigNumberish } from "ethers";
 import {
   CasperConfig,
-  makeCasperConnection,
   PriceRelayAdapterCasperContractConnector,
+  makeCasperConnection,
 } from "../../src";
-import { BigNumber, BigNumberish } from "ethers";
 import { PriceFeedCasperContractConnector } from "../../src/contracts/price_feed/PriceFeedCasperContractConnector";
+import { config } from "./config";
+import {
+  FEED_ADDRESS,
+  RELAY_ADAPTER_ADDRESS,
+  makeContractParamsProvider,
+} from "./e2e-utils";
 
 async function main(config: CasperConfig) {
   const connection = await makeCasperConnection(config);

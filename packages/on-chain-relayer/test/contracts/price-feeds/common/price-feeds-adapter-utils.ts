@@ -1,14 +1,14 @@
-import chai, { expect } from "chai";
-import chaiAsPromised from "chai-as-promised";
+import { time } from "@nomicfoundation/hardhat-network-helpers";
 import {
   SimpleNumericMockConfig,
   WrapperBuilder,
 } from "@redstone-finance/evm-connector";
 import { utils } from "@redstone-finance/protocol";
+import chai, { expect } from "chai";
+import chaiAsPromised from "chai-as-promised";
+import { formatBytes32String } from "ethers/lib/utils";
 import { ethers, upgrades } from "hardhat";
 import { IRedstoneAdapter } from "../../../../typechain-types";
-import { formatBytes32String } from "ethers/lib/utils";
-import { time } from "@nomicfoundation/hardhat-network-helpers";
 
 interface AdapterTestsParams {
   adapterContractName: string;

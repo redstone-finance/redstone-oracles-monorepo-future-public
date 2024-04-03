@@ -1,10 +1,10 @@
-import { TonContractDeployer } from "../TonContractDeployer";
 import { TonPriceManager } from "../../wrappers/TonPriceManager";
+import { TonContractDeployer } from "../TonContractDeployer";
 import { PriceManagerInitData } from "./PriceManagerInitData";
 import { TonPriceManagerContractAdapter } from "./TonPriceManagerContractAdapter";
 
-import { TonNetwork } from "../network/TonNetwork";
 import { Cell } from "@ton/core";
+import { TonNetwork } from "../network/TonNetwork";
 
 export class TonPriceManagerContractDeployer extends TonContractDeployer<
   TonPriceManager,

@@ -1,9 +1,9 @@
-import { NetworkProvider } from "@ton/blueprint";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
-import { TonSingleFeedManContractConnector } from "../src/single-feed-man/TonSingleFeedManContractConnector";
+import { NetworkProvider } from "@ton/blueprint";
 import { BlueprintTonNetwork } from "../src";
 import { config } from "../src/config";
 import { loadAddress } from "../src/deploy";
+import { TonSingleFeedManContractConnector } from "../src/single-feed-man/TonSingleFeedManContractConnector";
 import { TonSingleFeedMan } from "../wrappers/TonSingleFeedMan";
 
 export async function run(provider: NetworkProvider) {

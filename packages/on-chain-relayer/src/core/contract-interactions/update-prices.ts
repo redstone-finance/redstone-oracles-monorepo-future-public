@@ -3,20 +3,20 @@ import {
   TransactionResponse,
 } from "@ethersproject/providers";
 import {
+  isEthersError,
+  makeTxDeliveryCall,
+} from "@redstone-finance/rpc-providers";
+import { RedstoneCommon } from "@redstone-finance/utils";
+import { providers } from "ethers";
+import {
   MentoAdapterBase,
   RedstoneAdapterBase,
 } from "../../../typechain-types";
 import { UpdatePricesArgs } from "../../args/get-iteration-args";
 import { config } from "../../config";
 import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
-import { getSortedOraclesContractAtAddress } from "./get-contract";
 import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
-import {
-  isEthersError,
-  makeTxDeliveryCall,
-} from "@redstone-finance/rpc-providers";
-import { RedstoneCommon } from "@redstone-finance/utils";
-import { providers } from "ethers";
+import { getSortedOraclesContractAtAddress } from "./get-contract";
 
 export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
   const updateTx = await updatePriceInAdapterContract(updatePricesArgs);

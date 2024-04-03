@@ -1,10 +1,10 @@
 import { concat, toUtf8Bytes } from "ethers/lib/utils";
+import { Serializable } from "../common/Serializable";
 import {
   DATA_PACKAGES_COUNT_BS,
   REDSTONE_MARKER_HEX,
   UNSIGNED_METADATA_BYTE_SIZE_BS,
 } from "../common/redstone-constants";
-import { Serializable } from "../common/Serializable";
 import { convertIntegerNumberToBytes } from "../common/utils";
 import { SignedDataPackage } from "../data-package/SignedDataPackage";
 import {

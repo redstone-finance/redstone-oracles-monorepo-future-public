@@ -1,9 +1,9 @@
+import { consts } from "@redstone-finance/protocol";
 import { beginCell, Cell, serializeTuple } from "@ton/core";
 import { hexlify, toUtf8Bytes } from "ethers/lib/utils";
-import { TonInitData } from "../TonInitData";
-import { consts } from "@redstone-finance/protocol";
 import { SIGNER_COUNT_THRESHOLD_BITS } from "../config/constants";
 import { createTupleItems } from "../ton-utils";
+import { TonInitData } from "../TonInitData";
 
 export class SingleFeedManInitData implements TonInitData {
   constructor(

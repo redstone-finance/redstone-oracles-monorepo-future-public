@@ -1,10 +1,10 @@
 import { Signer, Wallet } from "ethers";
 import {
+  SigningKey,
   computeAddress,
   joinSignature,
   keccak256,
   recoverPublicKey,
-  SigningKey,
   toUtf8Bytes,
   verifyMessage,
 } from "ethers/lib/utils";

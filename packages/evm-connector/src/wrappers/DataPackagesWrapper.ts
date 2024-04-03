@@ -1,8 +1,8 @@
-import { DataPackagesResponse } from "@redstone-finance/sdk";
-import { BaseWrapper } from "./BaseWrapper";
-import { version } from "../../package.json";
 import { SignedDataPackage } from "@redstone-finance/protocol";
+import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { Contract } from "ethers";
+import { version } from "../../package.json";
+import { BaseWrapper } from "./BaseWrapper";
 
 export class DataPackagesWrapper<T extends Contract> extends BaseWrapper<T> {
   constructor(private dataPackages: DataPackagesResponse) {

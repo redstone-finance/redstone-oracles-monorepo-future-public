@@ -1,6 +1,6 @@
-import { AnyTonOpenedContract } from "../network/TonNetwork";
-import { TonSingleFeedMan } from "../../wrappers/TonSingleFeedMan";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
+import { TonSingleFeedMan } from "../../wrappers/TonSingleFeedMan";
+import { AnyTonOpenedContract } from "../network/TonNetwork";
 
 export class TonSingleFeedManContractAdapter {
   constructor(

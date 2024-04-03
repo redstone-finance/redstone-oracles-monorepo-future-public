@@ -1,6 +1,6 @@
-import Sinon from "sinon";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
+import Sinon from "sinon";
 import { CuratedRpcList } from "../../src/providers/CuratedRpcList";
 
 chai.use(chaiAsPromised);

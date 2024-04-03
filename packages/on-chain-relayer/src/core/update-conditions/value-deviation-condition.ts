@@ -1,10 +1,10 @@
-import { RelayerConfig } from "../../types";
 import {
   DataPackagesResponse,
   ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
-import { checkValueDeviationCondition } from "./check-value-deviation-condition";
+import { RelayerConfig } from "../../types";
 import { fetchDataPackages } from "../fetch-data-packages";
+import { checkValueDeviationCondition } from "./check-value-deviation-condition";
 
 export const performValueDeviationConditionChecks = async (
   latestDataPackages: DataPackagesResponse,

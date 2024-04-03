@@ -2,9 +2,9 @@ import { HardhatUserConfig } from "hardhat/config";
 
 // PLUGINS
 import "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
-import "@typechain/hardhat";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
+import "@typechain/hardhat";
 import "hardhat-deploy";
 
 // ================================= TASKS =========================================

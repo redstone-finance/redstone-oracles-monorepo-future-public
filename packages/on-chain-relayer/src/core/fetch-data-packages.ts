@@ -4,8 +4,8 @@ import {
   DataPackagesResponse,
   requestDataPackages,
 } from "@redstone-finance/sdk";
-import { RelayerConfig } from "../types";
 import { config } from "../config";
+import { RelayerConfig } from "../types";
 
 export async function fetchDataPackages(
   config: RelayerConfig,

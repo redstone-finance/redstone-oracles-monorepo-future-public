@@ -1,7 +1,7 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { expect } from "chai";
 import { config, timelyOverrideSinceLastUpdate } from "../../src/config";
 import { mockEnvVariables } from "../helpers";
-import { RedstoneCommon } from "@redstone-finance/utils";
 
 describe("timely override time condition", () => {
   it("should temporary set update interval when time conditions exists", async () => {

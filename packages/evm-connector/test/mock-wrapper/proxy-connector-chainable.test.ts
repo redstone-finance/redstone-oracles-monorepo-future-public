@@ -1,21 +1,21 @@
-import { ethers } from "hardhat";
+import { utils } from "@redstone-finance/protocol";
 import { expect } from "chai";
+import { ethers } from "hardhat";
+import { WrapperBuilder } from "../../src";
+import {
+  MockSignerIndex,
+  getMockNumericPackage,
+  getRange,
+} from "../../src/helpers/test-utils";
 import {
   SampleChainableProxyConnector,
   SampleProxyConnectorConsumer,
 } from "../../typechain-types";
-import { WrapperBuilder } from "../../src";
-import { utils } from "@redstone-finance/protocol";
 import {
+  NUMBER_OF_MOCK_NUMERIC_SIGNERS,
   expectedNumericValues,
   mockNumericPackages,
-  NUMBER_OF_MOCK_NUMERIC_SIGNERS,
 } from "../tests-common";
-import {
-  getMockNumericPackage,
-  getRange,
-  MockSignerIndex,
-} from "../../src/helpers/test-utils";
 
 const dataPoints = [
   { dataFeedId: "ETH", value: 4000 },

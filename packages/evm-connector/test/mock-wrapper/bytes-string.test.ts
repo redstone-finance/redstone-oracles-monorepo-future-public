@@ -1,10 +1,10 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 import {
-  getMockPackageWithOneBytesDataPoint,
-  getRange,
   DEFAULT_DATA_FEED_ID_BYTES_32,
   MockSignerIndex,
+  getMockPackageWithOneBytesDataPoint,
+  getRange,
 } from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
 import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";

@@ -1,12 +1,8 @@
+import { RuntimeArgs } from "casper-js-sdk";
+import { BigNumber } from "ethers";
 import { ICasperConnection } from "../../src/casper/ICasperConnection";
-import {
-  callEntrypointMock,
-  contractDataMock,
-  contractDictionaryMock,
-  makeContractParamsProviderMock,
-  MOCK_PAYLOAD_HASH,
-  MOCK_PAYLOAD_HEX,
-} from "../mock-utils";
+import { decodeHex, decodeStringCLList } from "../../src/casper/utils";
+import { CasperContractAdapter } from "../../src/contracts/CasperContractAdapter";
 import {
   ARG_NAME_FEED_IDS,
   ARG_NAME_PAYLOAD,
@@ -14,12 +10,16 @@ import {
   STORAGE_KEY_TIMESTAMP,
   STORAGE_KEY_VALUES,
 } from "../../src/contracts/constants";
-import { BigNumber } from "ethers";
-import { CasperContractAdapter } from "../../src/contracts/CasperContractAdapter";
 import { PriceAdapterCasperContractAdapter } from "../../src/contracts/price_adapter/PriceAdapterCasperContractAdapter";
-import { decodeHex, decodeStringCLList } from "../../src/casper/utils";
-import { RuntimeArgs } from "casper-js-sdk";
 import { PriceRelayAdapterCasperContractAdapter } from "../../src/contracts/price_relay_adapter/PriceRelayAdapterCasperContractAdapter";
+import {
+  MOCK_PAYLOAD_HASH,
+  MOCK_PAYLOAD_HEX,
+  callEntrypointMock,
+  contractDataMock,
+  contractDictionaryMock,
+  makeContractParamsProviderMock,
+} from "../mock-utils";
 
 export async function testReadPricesFromContract(
   connection: jest.Mocked<ICasperConnection>,

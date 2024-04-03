@@ -1,6 +1,6 @@
+import { utils } from "@redstone-finance/protocol";
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { utils } from "@redstone-finance/protocol";
 import {
   DEFAULT_TIMESTAMP_FOR_TESTS,
   getMockNumericPackage,
@@ -9,11 +9,11 @@ import { WrapperBuilder } from "../../src/index";
 import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
 import { SampleRedstoneConsumerNumericMock } from "../../typechain-types";
 import {
+  NUMBER_OF_MOCK_NUMERIC_SIGNERS,
+  UNAUTHORISED_SIGNER_INDEX,
   expectedNumericValues,
   mockNumericPackageConfigs,
   mockNumericPackages,
-  NUMBER_OF_MOCK_NUMERIC_SIGNERS,
-  UNAUTHORISED_SIGNER_INDEX,
 } from "../tests-common";
 
 describe("SampleRedstoneConsumerNumericMock", function () {

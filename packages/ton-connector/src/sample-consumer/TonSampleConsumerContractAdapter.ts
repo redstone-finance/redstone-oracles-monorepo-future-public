@@ -1,5 +1,5 @@
-import { AnyTonOpenedContract } from "../network/TonNetwork";
 import { TonSampleConsumer } from "../../wrappers/TonSampleConsumer";
+import { AnyTonOpenedContract } from "../network/TonNetwork";
 
 export class TonSampleConsumerContractAdapter {
   constructor(

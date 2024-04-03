@@ -1,12 +1,12 @@
-import { TonContract } from "./TonContract";
-import { AnyTonOpenedContract, TonNetwork } from "./network/TonNetwork";
-import { TonContractDeployer } from "./TonContractDeployer";
-import { compile, NetworkProvider } from "@ton/blueprint";
+import { NetworkProvider, compile } from "@ton/blueprint";
 import { Address, Cell } from "@ton/core";
-import { BlueprintTonNetwork } from "./network/BlueprintTonNetwork";
-import { config } from "./config";
-import { TonContractError } from "./TonContractError";
 import fs from "fs";
+import { TonContract } from "./TonContract";
+import { TonContractDeployer } from "./TonContractDeployer";
+import { TonContractError } from "./TonContractError";
+import { config } from "./config";
+import { BlueprintTonNetwork } from "./network/BlueprintTonNetwork";
+import { AnyTonOpenedContract, TonNetwork } from "./network/TonNetwork";
 
 export async function deploy<
   C extends TonContract,

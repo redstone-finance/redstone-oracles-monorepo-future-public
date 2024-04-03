@@ -9,11 +9,11 @@ import {
   SignedDataPackage,
   SignedDataPackagePlainObj,
 } from "@redstone-finance/protocol";
+import { MathUtils, RedstoneCommon, SafeNumber } from "@redstone-finance/utils";
 import axios from "axios";
 import { BigNumber } from "ethers";
-import { resolveDataServiceUrls } from "./data-services-urls";
-import { MathUtils, RedstoneCommon, SafeNumber } from "@redstone-finance/utils";
 import { z } from "zod";
+import { resolveDataServiceUrls } from "./data-services-urls";
 
 const GET_REQUEST_TIMEOUT = 10_000;
 const WAIT_FOR_ALL_GATEWAYS_TIME = 600;

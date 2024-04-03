@@ -1,12 +1,12 @@
+import { utils } from "@redstone-finance/protocol";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { ethers } from "hardhat";
-import { utils } from "@redstone-finance/protocol";
 import { WrapperBuilder } from "../../src/index";
+import { DataServiceWrapper } from "../../src/wrappers/DataServiceWrapper";
 import { SampleRedstoneConsumerNumericMockManyDataFeeds } from "../../typechain-types";
 import { expectedNumericValues } from "../tests-common";
 import { server } from "./mock-server";
-import { DataServiceWrapper } from "../../src/wrappers/DataServiceWrapper";
 
 chai.use(chaiAsPromised);
 

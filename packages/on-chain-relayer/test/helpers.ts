@@ -1,4 +1,3 @@
-import { BigNumber, Contract, Signer } from "ethers";
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import {
@@ -7,11 +6,12 @@ import {
   NumericDataPoint,
 } from "@redstone-finance/protocol";
 import { DataPackagesResponse } from "@redstone-finance/sdk";
+import { BigNumber, Contract, Signer } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
-import { setConfigProvider, RelayerConfig } from "../src";
 import { ethers } from "hardhat";
-import { MS_IN_ONE_MINUTE } from "../src/make-config-provider";
 import { FactoryOptions } from "hardhat/types";
+import { RelayerConfig, setConfigProvider } from "../src";
+import { MS_IN_ONE_MINUTE } from "../src/make-config-provider";
 import { MockSortedOracles } from "../typechain-types";
 
 export const ethDataFeed = formatBytes32String("ETH");

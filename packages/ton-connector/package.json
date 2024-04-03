@@ -1,6 +1,5 @@
 {
   "name": "@redstone-finance/ton-connector",
-  "prettier": "redstone-prettier-config",
   "description": "A tool to inject RedStone data into TON compatible smart contracts",
   "version": "0.3.6",
   "main": "dist/src/index.js",

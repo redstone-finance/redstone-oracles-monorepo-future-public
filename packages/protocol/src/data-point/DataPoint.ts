@@ -1,6 +1,6 @@
 import { base64, concat } from "ethers/lib/utils";
 import { Serializable } from "../common/Serializable";
-import { convertStringToBytes32, ConvertibleToBytes32 } from "../common/utils";
+import { ConvertibleToBytes32, convertStringToBytes32 } from "../common/utils";
 import { INumericDataPoint } from "./NumericDataPoint";
 
 export interface IStandardDataPoint {

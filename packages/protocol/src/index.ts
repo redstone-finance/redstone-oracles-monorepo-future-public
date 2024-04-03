@@ -13,8 +13,8 @@ export * from "./UniversalSigner";
 
 export { Serializable } from "./common/Serializable";
 
-export * as utils from "./common/utils";
 export * as consts from "./common/redstone-constants";
 export * from "./common/types";
+export * as utils from "./common/utils";
 
 export * from "./on-demand";

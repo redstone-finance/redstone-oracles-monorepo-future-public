@@ -1,22 +1,22 @@
-import { ethers } from "hardhat";
-import { expect } from "chai";
-import { SampleProxyConnector } from "../../typechain-types";
-import { WrapperBuilder } from "../../src";
 import { utils } from "@redstone-finance/protocol";
-import {
-  expectedNumericValues,
-  mockNumericPackages,
-  mockNumericPackageConfigs,
-  NUMBER_OF_MOCK_NUMERIC_SIGNERS,
-  UNAUTHORISED_SIGNER_INDEX,
-} from "../tests-common";
-import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
+import { expect } from "chai";
+import { ethers } from "hardhat";
+import { WrapperBuilder } from "../../src";
 import {
   DEFAULT_TIMESTAMP_FOR_TESTS,
+  MockSignerIndex,
   getMockNumericPackage,
   getRange,
-  MockSignerIndex,
 } from "../../src/helpers/test-utils";
+import { MockDataPackageConfig } from "../../src/wrappers/MockWrapper";
+import { SampleProxyConnector } from "../../typechain-types";
+import {
+  NUMBER_OF_MOCK_NUMERIC_SIGNERS,
+  UNAUTHORISED_SIGNER_INDEX,
+  expectedNumericValues,
+  mockNumericPackageConfigs,
+  mockNumericPackages,
+} from "../tests-common";
 
 describe("SampleProxyConnector", function () {
   let contract: SampleProxyConnector;

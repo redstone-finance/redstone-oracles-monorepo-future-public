@@ -1,14 +1,22 @@
 module.exports = {
   extends: [
     "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:prettier/recommended",
     "plugin:workspaces/recommended",
   ],
   parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint", "workspaces"],
+  plugins: ["@typescript-eslint", "workspaces", "eslint-plugin-import"],
   // for some reason eslint hangs on "artifacts" directory
   ignorePatterns: ["artifacts", "dist", "*.js"],
+  settings: {
+    "import/resolver": {
+      typescript: true,
+      node: true,
+    },
+  },
   rules: {
     "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
@@ -35,7 +43,24 @@ module.exports = {
     "@typescript-eslint/unbound-method": ["error", { ignoreStatic: true }],
     "no-throw-literal": "off",
     "@typescript-eslint/no-throw-literal": "error",
-    "prefer-promise-reject-errors": "error"
+    "prefer-promise-reject-errors": "error",
+    "import/no-named-as-default": ["off"],
+    "import/no-unresolved": [
+      "error",
+      {
+        commonjs: true,
+        ignore: ["warp-contracts/lib/types/contract/testing/Testing"],
+      },
+    ],
+    "import/order": [
+      "off",
+      {
+        alphabetize: { order: "asc" },
+        groups: [["builtin", "external"], "parent", "sibling", "index"],
+        "newlines-between": "never",
+      },
+    ],
+    "import/namespace": "off",
   },
   root: true,
 };

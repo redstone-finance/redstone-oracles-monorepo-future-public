@@ -3,18 +3,18 @@ export {
   getIterationArgs,
   type UpdatePricesArgs,
 } from "./args/get-iteration-args";
-export { getAbiForAdapter } from "./core/contract-interactions/get-contract";
 export { setConfigProvider } from "./config";
+export { getAbiForAdapter } from "./core/contract-interactions/get-contract";
+export { makeConfigProvider } from "./make-config-provider";
 export {
+  OnChainRelayerManifestSchema,
+  UpdateTriggersSchema,
   type ConfigProvider,
-  type RelayerConfig,
   type OnChainRelayerEnv,
   type OnChainRelayerManifest,
-  OnChainRelayerManifestSchema,
+  type RelayerConfig,
   type UpdateTriggers,
-  UpdateTriggersSchema,
 } from "./types";
-export { makeConfigProvider } from "./make-config-provider";
+export { manifests };
 
 import manifests from "../relayer-manifests";
-export { manifests };

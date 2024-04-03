@@ -1,9 +1,9 @@
+import { BlockTag } from "@ethersproject/providers";
 import { BaseWrapper } from "@redstone-finance/evm-connector";
 import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 import { MathUtils } from "@redstone-finance/utils";
 import { BigNumber, ethers } from "ethers";
 import { ISortedOracles, MentoAdapterBase } from "../../../typechain-types";
-import { BlockTag } from "@ethersproject/providers";
 
 export interface MentoContracts {
   mentoAdapter: MentoAdapterBase;

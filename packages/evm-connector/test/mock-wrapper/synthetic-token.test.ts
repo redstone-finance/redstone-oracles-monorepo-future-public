@@ -1,15 +1,15 @@
-import { ethers } from "hardhat";
-import { WrapperBuilder } from "../../src/index";
-import { SampleSyntheticToken } from "../../typechain-types";
+import { utils } from "@redstone-finance/protocol";
 import { expect } from "chai";
 import { Signer } from "ethers";
-import { NUMBER_OF_MOCK_NUMERIC_SIGNERS } from "../tests-common";
-import { utils } from "@redstone-finance/protocol";
+import { ethers } from "hardhat";
 import {
   getMockNumericPackage,
   getRange,
   MockSignerIndex,
 } from "../../src/helpers/test-utils";
+import { WrapperBuilder } from "../../src/index";
+import { SampleSyntheticToken } from "../../typechain-types";
+import { NUMBER_OF_MOCK_NUMERIC_SIGNERS } from "../tests-common";
 
 // TODO audit: measure how many bytes do we add to the consumer contracts
 

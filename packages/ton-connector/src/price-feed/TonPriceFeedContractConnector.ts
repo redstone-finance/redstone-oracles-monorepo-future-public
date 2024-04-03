@@ -1,6 +1,6 @@
-import { TonPriceFeedContractAdapter } from "./TonPriceFeedContractAdapter";
 import { TonPriceFeed } from "../../wrappers/TonPriceFeed";
 import { TonContractConnector } from "../TonContractConnector";
+import { TonPriceFeedContractAdapter } from "./TonPriceFeedContractAdapter";
 
 import { TonNetwork } from "../network/TonNetwork";
 

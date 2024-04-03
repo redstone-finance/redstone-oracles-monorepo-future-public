@@ -1,10 +1,12 @@
+import { expect } from "chai";
 import { ethers } from "hardhat";
+import {
+  DEFAULT_TIMESTAMP_FOR_TESTS,
+  getMockNumericPackage,
+} from "../../src/helpers/test-utils";
 import { WrapperBuilder } from "../../src/index";
 import { SampleRedstoneConsumerNumericMock } from "../../typechain-types";
-import { expect } from "chai";
 import { mockNumericPackages } from "../tests-common";
-import { DEFAULT_TIMESTAMP_FOR_TESTS } from "../../src/helpers/test-utils";
-import { getMockNumericPackage } from "../../src/helpers/test-utils";
 
 const getSimpleTestPackageWithTimestamp = (timestamp: number) =>
   getMockNumericPackage({

@@ -1,21 +1,21 @@
 import { Web3FunctionUserArgs } from "@gelatonetwork/web3-functions-sdk";
-import { Contract, providers } from "ethers";
 import {
-  getAbiForAdapter,
-  getIterationArgs,
-  makeConfigProvider,
   OnChainRelayerEnv,
   OnChainRelayerManifestSchema,
   RedstoneAdapterBase,
-  setConfigProvider,
   UpdatePricesArgs,
+  getAbiForAdapter,
+  getIterationArgs,
+  makeConfigProvider,
+  setConfigProvider,
 } from "@redstone-finance/on-chain-relayer";
+import axios from "axios";
+import { Contract, providers } from "ethers";
 import {
   IterationArgs,
   IterationArgsProviderEnv,
   IterationArgsProviderInterface,
 } from "../IterationArgsProviderInterface";
-import axios from "axios";
 
 const NOT_NEEDED_FOR_GELATO = "Not needed for Gelato";
 const NUMBER_NOT_NEEDED_FOR_GELATO = 0;

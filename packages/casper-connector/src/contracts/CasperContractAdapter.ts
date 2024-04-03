@@ -1,8 +1,8 @@
 import { Contracts, RuntimeArgs } from "casper-js-sdk";
-import { VersionedCasperContract } from "./VersionedCasperContract";
 import { hexlify } from "ethers/lib/utils";
-import { ICasperConnection } from "../casper/ICasperConnection";
 import assert from "node:assert";
+import { ICasperConnection } from "../casper/ICasperConnection";
+import { VersionedCasperContract } from "./VersionedCasperContract";
 
 export class CasperContractAdapter {
   constructor(

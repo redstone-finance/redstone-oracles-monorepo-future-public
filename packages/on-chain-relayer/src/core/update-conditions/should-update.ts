@@ -1,14 +1,14 @@
-import { timeUpdateCondition } from "./time-condition";
 import {
   ConditionCheckNames,
   ConditionCheckResponse,
   Context,
   RelayerConfig,
 } from "../../types";
-import { valueDeviationCondition } from "./value-deviation-condition";
-import { checkIfDataPackageTimestampIsNewer } from "./data-packages-timestamp";
 import { cronCondition } from "./cron-condition";
 import { checkIfDataPackagesDecimalsAreAcceptable } from "./data-packages-decimals";
+import { checkIfDataPackageTimestampIsNewer } from "./data-packages-timestamp";
+import { timeUpdateCondition } from "./time-condition";
+import { valueDeviationCondition } from "./value-deviation-condition";
 
 export const shouldUpdate = async (
   context: Context,

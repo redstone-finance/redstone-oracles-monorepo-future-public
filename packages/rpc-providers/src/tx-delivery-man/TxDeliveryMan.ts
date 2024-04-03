@@ -1,14 +1,14 @@
-import { ethers, providers } from "ethers";
-import {
-  TxDelivery,
-  TxDeliveryOpts,
-  TxDeliverySigner,
-  TxDeliveryCall,
-} from "./TxDelivery";
 import { TransactionResponse } from "@ethersproject/providers";
+import { ethers, providers } from "ethers";
+import { getProviderNetworkInfo } from "../common";
 import { ProviderWithAgreement } from "../providers/ProviderWithAgreement";
 import { ProviderWithFallback } from "../providers/ProviderWithFallback";
-import { getProviderNetworkInfo } from "../common";
+import {
+  TxDelivery,
+  TxDeliveryCall,
+  TxDeliveryOpts,
+  TxDeliverySigner,
+} from "./TxDelivery";
 
 export type TxDeliveryManSupportedProviders =
   | providers.JsonRpcProvider

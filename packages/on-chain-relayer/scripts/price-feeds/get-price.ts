@@ -1,6 +1,6 @@
 import { Contract, utils } from "ethers";
-import { getRelayerProvider } from "../../src/core/contract-interactions/get-relayer-provider";
 import { abi } from "../../artifacts/contracts/price-feeds/interfaces/IPriceFeed.sol/IPriceFeed.json";
+import { getRelayerProvider } from "../../src/core/contract-interactions/get-relayer-provider";
 import { PriceFeedBase } from "../../typechain-types";
 
 // Usage: yarn run-script src/scripts/price-feeds/get-price.ts

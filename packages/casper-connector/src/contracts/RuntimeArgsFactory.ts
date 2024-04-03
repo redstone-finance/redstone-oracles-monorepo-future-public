@@ -1,11 +1,11 @@
 import { CLValue, CLValueBuilder, RuntimeArgs } from "casper-js-sdk";
+import { encodeByteCLList, encodeCLU256 } from "../casper/utils";
 import {
-  ARG_NAME_FEED_IDS,
   ARG_NAME_CHUNK_INDEX,
+  ARG_NAME_FEED_IDS,
   ARG_NAME_HASH,
   ARG_NAME_PAYLOAD,
 } from "./constants";
-import { encodeByteCLList, encodeCLU256 } from "../casper/utils";
 
 export class RuntimeArgsFactory {
   public static CHUNK_SIZE_BYTES = 875;

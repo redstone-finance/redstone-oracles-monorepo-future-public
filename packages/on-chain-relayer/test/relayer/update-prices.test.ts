@@ -1,4 +1,5 @@
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
+import { ProviderWithAgreement } from "@redstone-finance/rpc-providers";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { Wallet } from "ethers";
@@ -15,7 +16,6 @@ import {
   mockEnvVariables,
 } from "../helpers";
 import { server } from "./mock-server";
-import { ProviderWithAgreement } from "@redstone-finance/rpc-providers";
 
 chai.use(chaiAsPromised);
 

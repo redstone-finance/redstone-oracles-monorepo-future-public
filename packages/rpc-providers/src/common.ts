@@ -1,7 +1,7 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
 import { ErrorCode } from "@ethersproject/logger";
-import { providers } from "ethers";
 import { Point } from "@influxdata/influxdb-client";
+import { providers } from "ethers";
 
 export type ReportMetricFn = (message: Point) => void;
 export type ContractCallOverrides = { blockTag: BlockTag };

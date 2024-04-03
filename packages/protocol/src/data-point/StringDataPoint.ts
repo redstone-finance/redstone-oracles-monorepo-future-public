@@ -1,5 +1,5 @@
-import { ConvertibleToBytes32 } from "../common/utils";
 import { toUtf8Bytes } from "ethers/lib/utils";
+import { ConvertibleToBytes32 } from "../common/utils";
 import { DataPoint } from "./DataPoint";
 
 export interface IStringDataPoint {

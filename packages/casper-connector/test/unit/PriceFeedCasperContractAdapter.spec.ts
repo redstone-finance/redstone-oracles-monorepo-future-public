@@ -1,18 +1,18 @@
+import { BigNumber } from "ethers";
 import { ICasperConnection } from "../../src/casper/ICasperConnection";
-import { PriceFeedCasperContractConnector } from "../../src/contracts/price_feed/PriceFeedCasperContractConnector";
+import {
+  ENTRY_POINT_GET_PRICE_AND_TIMESTAMP,
+  STORAGE_KEY_TIMESTAMP,
+  STORAGE_KEY_VALUE,
+} from "../../src/contracts/constants";
 import { PriceFeedCasperContractAdapter } from "../../src/contracts/price_feed/PriceFeedCasperContractAdapter";
+import { PriceFeedCasperContractConnector } from "../../src/contracts/price_feed/PriceFeedCasperContractConnector";
 import {
   callEntrypointMock,
   contractDataMock,
   getMockCasperConnection,
   mockStateRootHashImplementations,
 } from "../mock-utils";
-import {
-  ENTRY_POINT_GET_PRICE_AND_TIMESTAMP,
-  STORAGE_KEY_TIMESTAMP,
-  STORAGE_KEY_VALUE,
-} from "../../src/contracts/constants";
-import { BigNumber } from "ethers";
 
 /* eslint-disable @typescript-eslint/unbound-method */
 describe("PriceFeedCasperContractAdapter tests", () => {

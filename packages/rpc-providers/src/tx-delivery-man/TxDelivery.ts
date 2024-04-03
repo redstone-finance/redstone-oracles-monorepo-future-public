@@ -5,6 +5,7 @@ import {
 } from "@ethersproject/providers";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { BigNumber, PopulatedTransaction, providers } from "ethers";
+import { EthersError, isEthersError } from "../common";
 import {
   AuctionModelFee,
   AuctionModelGasEstimator,
@@ -12,7 +13,6 @@ import {
 import { CHAIN_ID_TO_GAS_ORACLE } from "./CustomGasOracles";
 import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
-import { EthersError, isEthersError } from "../common";
 import { GasLimitEstimator } from "./GasLimitEstimator";
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;

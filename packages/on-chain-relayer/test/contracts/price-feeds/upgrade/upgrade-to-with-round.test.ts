@@ -2,6 +2,7 @@ import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
+import { BigNumber } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
 import { ethers, upgrades } from "hardhat";
 import {
@@ -10,7 +11,6 @@ import {
   PriceFeedWithoutRoundsMock,
   PriceFeedsAdapterWithRoundsMock,
 } from "../../../../typechain-types";
-import { BigNumber } from "ethers";
 import { DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS } from "../../../helpers";
 
 chai.use(chaiAsPromised);

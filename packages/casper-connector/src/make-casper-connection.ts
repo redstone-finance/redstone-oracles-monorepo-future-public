@@ -1,9 +1,9 @@
-import { CasperClient, Keys } from "casper-js-sdk";
-import path from "node:path";
 import axios from "axios";
+import { CasperClient, Keys } from "casper-js-sdk";
 import assert from "node:assert";
-import { CasperConnection } from "./casper/CasperConnection";
+import path from "node:path";
 import { CasperConfig } from "./casper/CasperConfig";
+import { CasperConnection } from "./casper/CasperConnection";
 
 export async function makeCasperConnection(config: CasperConfig) {
   const casperClient = new CasperClient(config.nodeUrl);

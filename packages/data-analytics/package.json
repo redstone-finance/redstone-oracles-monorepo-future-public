@@ -1,7 +1,6 @@
 {
   "name": "@redstone-finance/data-analytics",
   "version": "0.3.6",
-  "prettier": "redstone-prettier-config",
   "main": "index.js",
   "private": true,
   "license": "MIT",

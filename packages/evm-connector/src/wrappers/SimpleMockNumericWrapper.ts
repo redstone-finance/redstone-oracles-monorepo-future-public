@@ -1,17 +1,17 @@
 import {
-  INumericDataPoint,
   DataPackage,
+  INumericDataPoint,
   NumericDataPoint,
 } from "@redstone-finance/protocol";
-import {
-  MAX_MOCK_SIGNERS_COUNT,
-  getMockSignerAddress,
-  MockSignerIndex,
-  DEFAULT_TIMESTAMP_FOR_TESTS,
-} from "../helpers/test-utils";
-import { version } from "../../package.json";
-import { MockDataPackageConfig, MockWrapper } from "./MockWrapper";
 import { Contract } from "ethers";
+import { version } from "../../package.json";
+import {
+  DEFAULT_TIMESTAMP_FOR_TESTS,
+  MAX_MOCK_SIGNERS_COUNT,
+  MockSignerIndex,
+  getMockSignerAddress,
+} from "../helpers/test-utils";
+import { MockDataPackageConfig, MockWrapper } from "./MockWrapper";
 
 export interface SimpleNumericMockConfig {
   mockSignersCount: number;

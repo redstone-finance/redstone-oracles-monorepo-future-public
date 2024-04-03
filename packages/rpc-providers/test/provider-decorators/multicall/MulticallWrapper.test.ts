@@ -4,12 +4,12 @@ import { BigNumber, Contract, Wallet, ethers } from "ethers";
 import * as hardhat from "hardhat";
 import Sinon from "sinon";
 import {
+  MulticallDecorator,
   ProviderWithAgreement,
   ProviderWithFallback,
-  MulticallDecorator,
 } from "../../../src";
-import { Counter } from "../../../typechain-types";
 import * as multicallUtils from "../../../src/provider-decorators/multicall/Multicall3Caller";
+import { Counter } from "../../../typechain-types";
 import { deployCounter } from "../../helpers";
 
 chai.use(chaiAsPromised);

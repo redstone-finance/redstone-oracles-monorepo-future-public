@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import { config } from "../../src/config";
+import { cronCondition } from "../../src/core/update-conditions/cron-condition";
 import {
   dateStrToMilliseconds,
   mockEnvVariables,
   restoreOriginalSystemTime,
   setCurrentSystemTime,
 } from "../helpers";
-import { cronCondition } from "../../src/core/update-conditions/cron-condition";
 
 describe("fallback-cron-condition", () => {
   before(() => {

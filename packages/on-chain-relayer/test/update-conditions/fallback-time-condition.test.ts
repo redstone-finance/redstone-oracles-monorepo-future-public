@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { config } from "../../src/config";
-import { mockEnvVariables } from "../helpers";
 import { timeUpdateCondition } from "../../src/core/update-conditions/time-condition";
+import { mockEnvVariables } from "../helpers";
 
 describe("fallback-time-condition", () => {
   before(() => {

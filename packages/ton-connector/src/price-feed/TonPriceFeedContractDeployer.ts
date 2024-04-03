@@ -1,10 +1,10 @@
-import { TonContractDeployer } from "../TonContractDeployer";
 import { TonPriceFeed } from "../../wrappers/TonPriceFeed";
-import { TonPriceFeedContractAdapter } from "./TonPriceFeedContractAdapter";
+import { TonContractDeployer } from "../TonContractDeployer";
 import { PriceFeedInitData } from "./PriceFeedInitData";
+import { TonPriceFeedContractAdapter } from "./TonPriceFeedContractAdapter";
 
-import { TonNetwork } from "../network/TonNetwork";
 import { Cell } from "@ton/core";
+import { TonNetwork } from "../network/TonNetwork";
 
 export class TonPriceFeedContractDeployer extends TonContractDeployer<
   TonPriceFeed,

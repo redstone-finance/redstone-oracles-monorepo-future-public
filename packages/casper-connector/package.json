@@ -1,6 +1,5 @@
 {
   "name": "@redstone-finance/casper-connector",
-  "prettier": "redstone-prettier-config",
   "version": "0.3.6",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",

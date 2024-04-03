@@ -1,6 +1,6 @@
-import { TonClient, TonClient4 } from "@ton/ton";
-import { Address, Contract, Sender } from "@ton/core";
 import { NetworkProvider } from "@ton/blueprint";
+import { Address, Contract, Sender } from "@ton/core";
+import { TonClient, TonClient4 } from "@ton/ton";
 import { AnyTonOpenedContract, TonApiV2Config, TonNetwork } from "./TonNetwork";
 
 export class BlueprintTonNetwork implements TonNetwork {

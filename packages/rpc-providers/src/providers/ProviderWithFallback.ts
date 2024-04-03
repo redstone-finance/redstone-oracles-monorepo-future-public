@@ -7,10 +7,10 @@ import {
   TransactionReceipt,
 } from "@ethersproject/providers";
 import { RedstoneCommon } from "@redstone-finance/utils";
-import { ProviderWithFallbackBase } from "./ProviderWithFallbackBase";
 import { providers } from "ethers";
-import { getProviderNetworkInfo } from "../common";
 import { ChainConfig, getChainConfigByChainId } from "../chains-configs";
+import { getProviderNetworkInfo } from "../common";
+import { ProviderWithFallbackBase } from "./ProviderWithFallbackBase";
 
 const logger = Logger.globalLogger();
 
