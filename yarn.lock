@@ -1964,6 +1964,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.15.4":
+  version: 7.24.1
+  resolution: "@babel/runtime@npm:7.24.1"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 500c6a99ddd84f37c7bc5dbc84777af47b1372b20e879941670451d55484faf18a673c5ebee9ca2b0f36208a729417873b35b1b92e76f811620f6adf7b8cb0f1
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.17.2, @babel/runtime@npm:^7.22.6":
   version: 7.22.10
   resolution: "@babel/runtime@npm:7.22.10"
@@ -6170,6 +6179,45 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pythnetwork/price-service-client@npm:*":
+  version: 1.9.0
+  resolution: "@pythnetwork/price-service-client@npm:1.9.0"
+  dependencies:
+    "@pythnetwork/price-service-sdk": "npm:*"
+    "@types/ws": "npm:^8.5.3"
+    axios: "npm:^1.5.1"
+    axios-retry: "npm:^3.8.0"
+    isomorphic-ws: "npm:^4.0.1"
+    ts-log: "npm:^2.2.4"
+    ws: "npm:^8.6.0"
+  checksum: 0349616282fa101d1287be0562bed08dbcb048adf3baf70de77b52a2dc773a64cb50d973afc83eaf159881715c838f8137abd3aa17304057b5c5626d8f524e65
+  languageName: node
+  linkType: hard
+
+"@pythnetwork/price-service-sdk@npm:*":
+  version: 1.6.0
+  resolution: "@pythnetwork/price-service-sdk@npm:1.6.0"
+  checksum: c088803f4f2b92da0d78f445e917715582761d1c9fddad08763db339008bf592a1a22202c2870c066cea970ada4a4046ee8ef4a8507748602d17d3a1f0a08a23
+  languageName: node
+  linkType: hard
+
+"@pythnetwork/pyth-evm-js@npm:^1.25.0":
+  version: 1.38.0
+  resolution: "@pythnetwork/pyth-evm-js@npm:1.38.0"
+  dependencies:
+    "@pythnetwork/price-service-client": "npm:*"
+    buffer: "npm:^6.0.3"
+  checksum: 4d69a2732df5c48a6e55175c7e94e0e9fbe02546e95c47e81717f0dfcb418b8f17d012d658bf76402ac457b68068669b91a35fa47633af3e62a1901cab268484
+  languageName: node
+  linkType: hard
+
+"@pythnetwork/pyth-sdk-solidity@npm:^2.2.1":
+  version: 2.4.1
+  resolution: "@pythnetwork/pyth-sdk-solidity@npm:2.4.1"
+  checksum: 404dfc1c61efc66aa0aa52b9fbe16914e6c42c93c64aa275f19c2bc531969589fce6c90194fc938b905ae2b59936207a344ae2e5b41525c89679ad98c689923f
+  languageName: node
+  linkType: hard
+
 "@randlabs/communication-bridge@npm:1.0.1":
   version: 1.0.1
   resolution: "@randlabs/communication-bridge@npm:1.0.1"
@@ -6343,11 +6391,14 @@ __metadata:
     "@nomicfoundation/hardhat-viem": "npm:^2.0.0"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
+    "@pythnetwork/pyth-evm-js": "npm:^1.25.0"
+    "@pythnetwork/pyth-sdk-solidity": "npm:^2.2.1"
     "@redstone-finance/evm-connector": "npm:^0.3.6"
     "@redstone-finance/on-chain-relayer": "npm:^0.3.6"
     "@redstone-finance/sdk": "npm:^0.3.6"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
+    "@types/chai": "npm:^4.3.4"
     "@types/mocha": "npm:^10.0.1"
     "@types/node": "npm:^18.14.6"
     chai: "npm:^4.3.10"
@@ -6356,6 +6407,8 @@ __metadata:
     hardhat: "npm:^2.17.2"
     hardhat-gas-reporter: "npm:^1.0.9"
     node-gyp: "npm:^10.0.1"
+    solidity-coverage: "npm:^0.8.5"
+    ts-node: "npm:^10.9.1"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.2.2"
     viem: "npm:^1.21.4"
@@ -6953,12 +7006,12 @@ __metadata:
     "@redstone-finance/utils": "npm:^0.3.6"
     "@ton-community/func-js": "npm:0.6.3"
     "@ton-community/func-js-bin": "npm:^0.4.5-tvmbeta.3"
-    "@ton/blueprint": "npm:^0.15.0"
-    "@ton/core": "npm:^0.54.0"
+    "@ton/blueprint": "npm:^0.19.0"
+    "@ton/core": "npm:^0.56.3"
     "@ton/crypto": "npm:^3.2.0"
-    "@ton/sandbox": "npm:^0.16.0-tvmbeta.3"
+    "@ton/sandbox": "npm:^0.17.0"
     "@ton/test-utils": "npm:^0.4.2"
-    "@ton/ton": "npm:^13.10.0"
+    "@ton/ton": "npm:^13.11.1"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
   languageName: unknown
@@ -8355,9 +8408,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tact-lang/compiler@npm:^1.1.5":
-  version: 1.1.5
-  resolution: "@tact-lang/compiler@npm:1.1.5"
+"@tact-lang/compiler@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@tact-lang/compiler@npm:1.2.0"
   dependencies:
     "@ipld/dag-pb": "npm:2.1.18"
     "@tact-lang/opcode": "npm:^0.0.14"
@@ -8373,10 +8426,10 @@ __metadata:
     path-normalize: "npm:^6.0.10"
     prando: "npm:^6.0.1"
     qs: "npm:^6.11.0"
-    zod: "npm:^3.20.2"
+    zod: "npm:^3.22.4"
   bin:
     tact: bin/tact
-  checksum: f9ca4af0e6434ffbed231f9a520b8dd792019b4760a8128575885ccde62fa1ec3b7d12a86397cd0bdfe6cf1fe2382a26333d35471b7cb0eaea456265b0ced2da
+  checksum: 0df389d07cd5d94947a07e513993226382a4581fb76b70f3dfa44030bd8898f0be0fff5e944283f541af5b970e8c5f3a58520daea0b82262448d9e8156a809c3
   languageName: node
   linkType: hard
 
@@ -8397,6 +8450,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ton-community/func-js-bin@npm:0.4.4-newops.1":
+  version: 0.4.4-newops.1
+  resolution: "@ton-community/func-js-bin@npm:0.4.4-newops.1"
+  checksum: 78efb70631a95afc9463a844360d19378c6a704b521de29200d99d248f6cd1ac0b6f18e72da3005ad460c66fc1b24ef8cb6ef1fb7a7b95c4d9dbf47646c70733
+  languageName: node
+  linkType: hard
+
 "@ton-community/func-js-bin@npm:^0.4.5-tvmbeta.3":
   version: 0.4.5-tvmbeta.3
   resolution: "@ton-community/func-js-bin@npm:0.4.5-tvmbeta.3"
@@ -8404,7 +8464,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ton-community/func-js@npm:0.6.3, @ton-community/func-js@npm:^0.6.3":
+"@ton-community/func-js@npm:0.6.3":
   version: 0.6.3
   resolution: "@ton-community/func-js@npm:0.6.3"
   dependencies:
@@ -8416,14 +8476,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ton/blueprint@npm:^0.15.0":
-  version: 0.15.0
-  resolution: "@ton/blueprint@npm:0.15.0"
+"@ton-community/func-js@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@ton-community/func-js@npm:0.7.0"
+  dependencies:
+    "@ton-community/func-js-bin": "npm:0.4.4-newops.1"
+    arg: "npm:^5.0.2"
+  bin:
+    func-js: dist/cli.js
+  checksum: e37fa7e7ee3be73646396b885865bf78df81f35957363166efb54bc5dff5afd33a2864ad44fc0c4ba122fb47d745f712f64fca80395e7d8363a706403258aced
+  languageName: node
+  linkType: hard
+
+"@ton/blueprint@npm:^0.19.0":
+  version: 0.19.0
+  resolution: "@ton/blueprint@npm:0.19.0"
   dependencies:
     "@orbs-network/ton-access": "npm:^2.3.3"
-    "@tact-lang/compiler": "npm:^1.1.5"
-    "@ton-community/func-js": "npm:^0.6.3"
-    "@tonconnect/sdk": "npm:^2.1.3"
+    "@tact-lang/compiler": "npm:^1.2.0"
+    "@ton-community/func-js": "npm:^0.7.0"
+    "@tonconnect/sdk": "npm:^2.2.0"
     arg: "npm:^5.0.2"
     chalk: "npm:^4.1.0"
     dotenv: "npm:^16.1.4"
@@ -8432,12 +8504,12 @@ __metadata:
     ton-x: "npm:^2.1.0"
     ts-node: "npm:^10.9.1"
   peerDependencies:
-    "@ton/core": ">=0.49.2"
+    "@ton/core": ">=0.56.0"
     "@ton/crypto": ">=3.2.0"
-    "@ton/ton": ">=13.4.1"
+    "@ton/ton": ">=13.11.0"
   bin:
     blueprint: ./dist/cli/cli.js
-  checksum: 8318280dfdd1b3f6fc7d0656c416292cc10a485edcd586c510c4534bca44a29610385930219a43ebb4c5e9495619773f6a610bc34488bc47c3d16fef7f6340ae
+  checksum: 7853f469e293b7b33d53d0ee36d4e195116aa43aeeca7996958bdee1da798ef707d04afe1ee9c54bf333477e03b8a0471d01b938dadaca73c0587bfbf9714686
   languageName: node
   linkType: hard
 
@@ -8452,14 +8524,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ton/core@npm:^0.54.0":
-  version: 0.54.0
-  resolution: "@ton/core@npm:0.54.0"
+"@ton/core@npm:^0.56.3":
+  version: 0.56.3
+  resolution: "@ton/core@npm:0.56.3"
   dependencies:
     symbol.inspect: "npm:1.0.1"
   peerDependencies:
     "@ton/crypto": ">=3.2.0"
-  checksum: 1014503fdfdb5a020dc84a32f83753b6fdb79d20fb894c21442ef99608fc92b783fea358a2e701106c786f84bb21cac617d00900d85a8a1d5d97e47f2cb3579c
+  checksum: a419fc154fb09cbc89f0577809ad01814a33fbaacba138fca276ca119ebb7ec2a72b330aea10859f0534f7f8f30ddf9099c3c82d2cfdfebaf9ea574f824e510c
   languageName: node
   linkType: hard
 
@@ -8483,13 +8555,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ton/sandbox@npm:^0.16.0-tvmbeta.3":
-  version: 0.16.0
-  resolution: "@ton/sandbox@npm:0.16.0"
+"@ton/sandbox@npm:^0.17.0":
+  version: 0.17.0
+  resolution: "@ton/sandbox@npm:0.17.0"
   peerDependencies:
     "@ton/core": ">=0.56.0"
     "@ton/crypto": ">=3.2.0"
-  checksum: 2d9e2a6f15ca1d6bfc816eba5d21c90982c11ef7928a054980cb3e94b72e85318b574a847820b39a0a37c65f92fa6a3780c170742085e3a9f7782ec2fb9b14a2
+  checksum: 086586a7f3efd13410640239700c0fbe3b2942a4fe91b095d097f88b3d826ca0f4a481fe7f2cb263e6a8d18f681dce9de7ecb0616d7477e4f146a1fad151683d
   languageName: node
   linkType: hard
 
@@ -8511,7 +8583,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ton/ton@npm:^13.10.0":
+"@ton/ton@npm:^13.11.1":
   version: 13.11.1
   resolution: "@ton/ton@npm:13.11.1"
   dependencies:
@@ -8555,7 +8627,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tonconnect/sdk@npm:^2.1.3":
+"@tonconnect/sdk@npm:^2.2.0":
   version: 2.2.0
   resolution: "@tonconnect/sdk@npm:2.2.0"
   dependencies:
@@ -9637,7 +9709,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ws@npm:^8.2.2":
+"@types/ws@npm:^8.2.2, @types/ws@npm:^8.5.3":
   version: 8.5.10
   resolution: "@types/ws@npm:8.5.10"
   dependencies:
@@ -11241,6 +11313,16 @@ __metadata:
   version: 1.12.0
   resolution: "aws4@npm:1.12.0"
   checksum: 1e39c266f53b04daf88e112de93a6006375b386a1b7ab6197260886e39abd012aa90bdd87949c3bf9c30754846031f6d5d8ac4f8676628097c11065b5d39847a
+  languageName: node
+  linkType: hard
+
+"axios-retry@npm:^3.8.0":
+  version: 3.9.1
+  resolution: "axios-retry@npm:3.9.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.15.4"
+    is-retry-allowed: "npm:^2.2.0"
+  checksum: 2360e59b241509b821cb6fee43bcbe0c41be4af3c50a58fa94c7b76d4705d334fa1e30160ee3be3db638e518c84c70e8ca20fb1a62987db2a415fff51c6bf5a9
   languageName: node
   linkType: hard
 
@@ -19891,11 +19973,13 @@ __metadata:
     "@redstone-finance/on-chain-relayer": "npm:^0.3.6"
     "@redstone-finance/utils": "npm:^0.3.6"
     "@types/aws-lambda": "npm:^8.10.128"
+    "@types/node": "npm:^18.14.6"
     axios: "npm:^1.6.2"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
     prompts: "npm:^2.4.2"
     ts-node: "npm:^10.9.1"
+    typescript: "npm:^5.2.2"
   languageName: unknown
   linkType: soft
 
@@ -27240,6 +27324,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ts-log@npm:^2.2.4":
+  version: 2.2.5
+  resolution: "ts-log@npm:2.2.5"
+  checksum: bbc45faa97d47238b896e85e9e0fc12e3d2d72b56755fba305290489532319c83bae82e282b92a5469f432f2dfa365da7ee0469d6d528ce04cd9dd75d4e2a147
+  languageName: node
+  linkType: hard
+
 "ts-node@npm:^10.9.1":
   version: 10.9.1
   resolution: "ts-node@npm:10.9.1"
@@ -29151,6 +29242,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ws@npm:^8.6.0":
+  version: 8.16.0
+  resolution: "ws@npm:8.16.0"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ">=5.0.2"
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: a7783bb421c648b1e622b423409cb2a58ac5839521d2f689e84bc9dc41d59379c692dd405b15a997ea1d4c0c2e5314ad707332d0c558f15232d2bc07c0b4618a
+  languageName: node
+  linkType: hard
+
 "xhr2-cookies@npm:1.1.0":
   version: 1.1.0
   resolution: "xhr2-cookies@npm:1.1.0"
@@ -29434,16 +29540,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.20.2, zod@npm:^3.22.4":
-  version: 3.22.4
-  resolution: "zod@npm:3.22.4"
-  checksum: 7578ab283dac0eee66a0ad0fc4a7f28c43e6745aadb3a529f59a4b851aa10872b3890398b3160f257f4b6817b4ce643debdda4fb21a2c040adda7862cab0a587
-  languageName: node
-  linkType: hard
-
 "zod@npm:^3.21.4":
   version: 3.21.4
   resolution: "zod@npm:3.21.4"
   checksum: 161e8cf7aea38a99244d65da4a9477d9d966f6a533e503feaa20ff7968a9691065c38c6f1eab5cbbdc8374142fff4a05c9cacb8479803ab50ab6a6ca80e5d624
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.22.4":
+  version: 3.22.4
+  resolution: "zod@npm:3.22.4"
+  checksum: 7578ab283dac0eee66a0ad0fc4a7f28c43e6745aadb3a529f59a4b851aa10872b3890398b3160f257f4b6817b4ce643debdda4fb21a2c040adda7862cab0a587
   languageName: node
   linkType: hard
