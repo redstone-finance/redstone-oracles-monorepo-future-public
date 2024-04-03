@@ -44,10 +44,6 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       RedstoneCommon.getFromEnv("RELAYER_ITERATION_INTERVAL", z.number())
     ),
     rpcUrls: RedstoneCommon.getFromEnv("RPC_URLS", z.array(z.string().url())),
-    agreementAcceptableBlocksDiff: RedstoneCommon.getFromEnv(
-      "AGREEMENT_ACCEPTABLE_BLOCKS_DIFF",
-      z.number().default(-1)
-    ),
     singleProviderOperationTimeout: RedstoneCommon.getFromEnv(
       "SINGLE_PROVIDER_OPERATION_TIMEOUT",
       z.number().default(5_000)

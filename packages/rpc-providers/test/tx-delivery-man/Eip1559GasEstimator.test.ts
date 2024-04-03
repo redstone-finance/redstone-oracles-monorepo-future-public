@@ -1,8 +1,5 @@
 import { expect } from "chai";
-import {
-  DEFAULT_TRANSACTION_DELIVERY_MAN_PTS,
-  TransactionDeliveryManOpts,
-} from "../../src";
+import { DEFAULT_TX_DELIVERY_OPTS, TxDeliveryOpts } from "../../src";
 import {
   Eip1559Fee,
   Eip1559GasEstimator,
@@ -12,9 +9,9 @@ describe("Eip1559GasEstimator", () => {
   describe("scaleFees", () => {
     it("should scale according to attempt", () => {
       const opts = {
-        ...DEFAULT_TRANSACTION_DELIVERY_MAN_PTS,
+        ...DEFAULT_TX_DELIVERY_OPTS,
         multiplier: 2,
-      } as unknown as Required<TransactionDeliveryManOpts>;
+      } as unknown as Required<TxDeliveryOpts>;
       const scaler = new Eip1559GasEstimator(opts);
 
       const inputFees: Eip1559Fee = {
@@ -48,11 +45,11 @@ describe("Eip1559GasEstimator", () => {
 
     it("should scale for 2d", () => {
       const opts = {
-        ...DEFAULT_TRANSACTION_DELIVERY_MAN_PTS,
+        ...DEFAULT_TX_DELIVERY_OPTS,
         twoDimensionalFees: true,
         multiplier: 2,
         gasLimitMultiplier: 2,
-      } as unknown as Required<TransactionDeliveryManOpts>;
+      } as unknown as Required<TxDeliveryOpts>;
       const scaler = new Eip1559GasEstimator(opts);
 
       expect(

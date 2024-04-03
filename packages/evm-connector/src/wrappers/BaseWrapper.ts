@@ -1,6 +1,7 @@
 import { Contract, Signer } from "ethers";
 import { addContractWait } from "../helpers/add-contract-wait";
 import { RedstonePayload, SignedDataPackage } from "@redstone-finance/protocol";
+import { FunctionFragment } from "@ethersproject/abi";
 
 interface OverwriteFunctionArgs<T extends Contract> {
   wrappedContract: T;
@@ -118,11 +119,18 @@ export abstract class BaseWrapper<T extends Contract> {
     contract,
     functionName,
   }: OverwriteFunctionArgs<T>) {
-    const isCall = contract.interface.getFunction(functionName).constant;
+    const functionFragment = contract.interface.getFunction(functionName);
+    const isCall = functionFragment.constant;
     const isDryRun = functionName.endsWith("DryRun");
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
     (wrappedContract as any)[functionName] = async (...args: unknown[]) => {
+      // this is copied from node_modules/@ethersproject/contracts/src.ts/index.ts
+      const blockTag = BaseWrapper.handleContractOverrides(
+        args,
+        functionFragment
+      );
+
       const tx = await wrappedContract.populateTransaction[functionName](
         ...args
       );
@@ -130,8 +138,9 @@ export abstract class BaseWrapper<T extends Contract> {
       if (isCall || isDryRun) {
         const shouldUseSigner = Signer.isSigner(contract.signer);
 
-        const result =
-          await contract[shouldUseSigner ? "signer" : "provider"].call(tx);
+        const result = await contract[
+          shouldUseSigner ? "signer" : "provider"
+        ].call(tx, blockTag);
 
         const decoded = contract.interface.decodeFunctionResult(
           functionName,
@@ -148,6 +157,24 @@ export abstract class BaseWrapper<T extends Contract> {
         return sentTx;
       }
     };
+  }
+
+  /** Removes contractOverrides. Returns blockTag if passed in contract overrides */
+  private static handleContractOverrides(
+    args: unknown[],
+    functionFragment: FunctionFragment
+  ) {
+    let blockTag: number | undefined = undefined;
+    if (
+      args.length === functionFragment.inputs.length + 1 &&
+      typeof args[args.length - 1] === "object"
+    ) {
+      const overrides = { ...(args.pop() as { blockTag?: number }) };
+      blockTag = overrides.blockTag;
+      delete overrides.blockTag;
+      args.push(overrides);
+    }
+    return blockTag;
   }
 
   setMetadataTimestamp(timestamp: number) {

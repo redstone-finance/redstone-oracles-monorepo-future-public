@@ -1,3 +1,4 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { z } from "zod";
 
 export const ChainConfigSchema = z.object({
@@ -9,7 +10,19 @@ export const ChainConfigSchema = z.object({
 
 export type ChainConfig = z.infer<typeof ChainConfigSchema>;
 
+export const getChainConfigByChainId = (chainId: number) =>
+  RedstoneCommon.assertThenReturn(
+    Object.values(ChainConfigs).find((c) => c.chainId === chainId),
+    `Failed to getChainConfigByChainId chainConfig not defined for ${chainId}`
+  );
+
 export const ChainConfigs = {
+  hardhat: {
+    name: "hardhat",
+    chainId: 31337,
+    publicRpcUrls: ["http://localhost:1337"],
+    avgBlockTimeMs: 10,
+  },
   ethereum: {
     name: "Ethereum Mainnet",
     chainId: 1,

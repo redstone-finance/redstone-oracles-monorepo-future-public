@@ -1,9 +1,6 @@
 import { providers } from "ethers";
 import { GasEstimator } from "./GasEstimator";
-import {
-  TransactionDeliveryManOptsValidated,
-  unsafeBnToNumber,
-} from "./TransactionDeliveryMan";
+import { TxDeliveryOptsValidated, unsafeBnToNumber } from "./TxDelivery";
 
 // especially for networks where pending blocks can be empty (low blockchain usage)
 // in that cases rewards are defined as zeroes: 'All zeroes are returned if the block is empty.'
@@ -17,7 +14,7 @@ export type Eip1559Fee = {
 };
 
 export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
-  constructor(readonly opts: TransactionDeliveryManOptsValidated) {}
+  constructor(readonly opts: TxDeliveryOptsValidated) {}
 
   /** this is reasonable (ether.js is not reasonable) fallback if gasOracle is not set */
   async getFees(provider: providers.JsonRpcProvider): Promise<Eip1559Fee> {
@@ -31,8 +28,6 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
       maxFeePerGas,
       maxPriorityFeePerGas,
     };
-
-    this.opts.logger(`getFees result from provider ${JSON.stringify(fee)}`);
 
     return fee;
   }

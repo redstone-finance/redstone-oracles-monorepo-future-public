@@ -73,7 +73,6 @@ export interface RelayerConfig {
   mentoMaxDeviationAllowed?: number;
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
-  agreementAcceptableBlocksDiff: number;
   isNotLazy: boolean;
   fallbackSkipDeviationBasedFrequentUpdates: boolean;
   disableCustomGasOracle: boolean;
@@ -96,7 +95,6 @@ export type OnChainRelayerEnv = {
   mentoMaxDeviationAllowed?: number;
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
-  agreementAcceptableBlocksDiff: number;
   isNotLazy: boolean;
   fallbackSkipDeviationBasedFrequentUpdates: boolean;
   disableCustomGasOracle: boolean;

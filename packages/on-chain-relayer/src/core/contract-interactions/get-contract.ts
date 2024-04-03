@@ -1,4 +1,4 @@
-import { Contract, ContractInterface, Wallet } from "ethers";
+import { Contract, ContractInterface, Wallet, providers } from "ethers";
 import { abi as redstoneAdapterABI } from "../../../artifacts/contracts/core/RedstoneAdapterBase.sol/RedstoneAdapterBase.json";
 import { abi as mentoAdapterABI } from "../../../artifacts/contracts/custom-integrations/mento/MentoAdapterBase.sol/MentoAdapterBase.json";
 import { abi as sortedOraclesABI } from "../../../artifacts/contracts/custom-integrations/mento/ISortedOracles.sol/ISortedOracles.json";
@@ -19,12 +19,13 @@ export const getAdapterContract = () => {
 };
 
 export const getSortedOraclesContractAtAddress = (
-  sortedOraclesMentoContractAddress: string
+  sortedOraclesMentoContractAddress: string,
+  provider: providers.Provider
 ) => {
   return new Contract(
     sortedOraclesMentoContractAddress,
     sortedOraclesABI,
-    getRelayerProvider()
+    provider
   ) as ISortedOracles;
 };
 

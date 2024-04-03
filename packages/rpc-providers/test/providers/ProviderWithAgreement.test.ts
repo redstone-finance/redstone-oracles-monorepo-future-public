@@ -1,4 +1,3 @@
-import { TransactionRequest } from "@ethersproject/providers";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { providers, Signer, Wallet } from "ethers";
@@ -9,6 +8,9 @@ import { Counter } from "../../typechain-types";
 import { deployCounter } from "../helpers";
 
 chai.use(chaiAsPromised);
+
+// adding method here generates agreement logic tests for it
+const operationsWithAgreement = ["call", "getBalance"] as const;
 
 const TEST_PRIV_KEY =
   "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
@@ -24,8 +26,6 @@ describe("ProviderWithAgreement", () => {
     contract = await deployCounter(hardhat.ethers.provider);
   });
 
-  afterEach(() => {});
-
   describe("with 3 same providers", () => {
     let providerWithAgreement: ProviderWithAgreement;
     let counter: Counter;
@@ -40,7 +40,11 @@ describe("ProviderWithAgreement", () => {
     });
 
     it("should read from contract", async () => {
-      expect(await counter.getCount()).to.eq(0);
+      expect(
+        await counter.getCount({
+          blockTag: await providerWithAgreement.getBlockNumber(),
+        })
+      ).to.eq(0);
     });
 
     it("should write to contract", async () => {
@@ -163,7 +167,11 @@ describe("ProviderWithAgreement", () => {
     });
 
     it("should read from contract", async () => {
-      expect(await counter.getCount()).to.eq(0);
+      expect(
+        await counter.getCount({
+          blockTag: await providerWithAgreement.getBlockNumber(),
+        })
+      ).to.eq(0);
     });
 
     it("should write to contract", async () => {
@@ -180,7 +188,11 @@ describe("ProviderWithAgreement", () => {
       const tx = await counter.inc();
       await tx.wait();
       expect(await counter.getCount({ blockTag: blockNumber })).to.eq(0);
-      expect(await counter.getCount()).to.eq(1);
+      expect(
+        await counter.getCount({
+          blockTag: await providerWithAgreement.getBlockNumber(),
+        })
+      ).to.eq(1);
     });
   });
 
@@ -208,9 +220,11 @@ describe("ProviderWithAgreement", () => {
     });
 
     it("should read from contract", async () => {
-      await expect(counter.getCount()).rejectedWith(
-        `Failed to find at least 2 agreeing providers.`
-      );
+      await expect(
+        counter.getCount({
+          blockTag: await providerWithAgreement.getBlockNumber(),
+        })
+      ).rejectedWith(`Failed to find at least 2 agreeing providers.`);
     });
 
     it("should write to contract", async () => {
@@ -237,9 +251,11 @@ describe("ProviderWithAgreement", () => {
     });
 
     it("should read from contract", async () => {
-      await expect(counter.getCount()).rejectedWith(
-        `Failed to find at least 2 agreeing providers.`
-      );
+      await expect(
+        counter.getCount({
+          blockTag: await providerWithAgreement.getBlockNumber(),
+        })
+      ).rejectedWith(`Failed to find at least 2 agreeing providers.`);
     });
 
     it("should write to contract", async () => {
@@ -252,76 +268,115 @@ describe("ProviderWithAgreement", () => {
     });
   });
 
-  describe("call resolution algorithm", () => {
-    it("should should return 2 when results from providers are [1,2,2]", async () => {
-      await testCallResolutionAlgo(["1", "2", "2"], "2");
-    });
+  it("should respect getBlockNumber timeout", async () => {
+    const firstProvider = new providers.StaticJsonRpcProvider(
+      "http://blabla.xd"
+    );
 
-    describe("when 3 providers have to agree", () => {
-      it("should should return 2 when results from providers are [2,2,2]", async () => {
-        await testCallResolutionAlgo(["2", "2", "2"], "2", 3);
-      });
+    firstProvider.getBlockNumber = () =>
+      new Promise((resolve) => setTimeout(() => resolve(0), 22));
 
-      it("should should return 2 when results from providers are [2,2,1]", async () => {
-        await expect(
-          testCallResolutionAlgo(["2", "2", "1"], "2", 3)
-        ).rejectedWith("Failed to find at least 3 agreeing providers.");
-      });
-    });
+    const providerWithAgreement = new ProviderWithAgreement(
+      [firstProvider, hardhat.ethers.provider],
+      { getBlockNumberTimeoutMS: 20, minimalProvidersCount: 2 }
+    );
 
-    it("should respect getBlockNumber timeout", async () => {
-      const firstProvider = new providers.StaticJsonRpcProvider(
-        "http://blabla.xd"
-      );
-
-      firstProvider.getBlockNumber = () =>
-        new Promise((resolve) => setTimeout(() => resolve(0), 22));
-
-      const providerWithAgreement = new ProviderWithAgreement(
-        [firstProvider, hardhat.ethers.provider],
-        { getBlockNumberTimeoutMS: 20, minimalProvidersCount: 2 }
-      );
-
-      expect(await providerWithAgreement.getBlockNumber()).to.eq(
-        await hardhat.ethers.provider.getBlockNumber()
-      );
-    });
-
-    it("should should return 2 when results from providers are [2,2,1]", async () => {
-      await testCallResolutionAlgo(["2", "2", "1"], "2");
-    });
-
-    it("should should return 5 when results from providers are [5,3,5,3,2,4,2,2]", async () => {
-      await testCallResolutionAlgo(
-        ["5", "3", "5", "3", "2", "4", "2", "2"],
-        "5"
-      );
-    });
-
-    it('should should return 2 when results from providers are ["5", "3", "8", "7", "1", "4", "2", "2"]', async () => {
-      await testCallResolutionAlgo(
-        ["5", "3", "8", "7", "1", "4", "2", "2"],
-        "2"
-      );
-    });
-
-    it("should fail on [1,2]", async () => {
-      await expect(testCallResolutionAlgo(["1", "2"], "")).rejectedWith(
-        "Failed to find at least 2 agreeing providers."
-      );
-    });
-
-    it("should fail on [1,2,3,4,5,6,7,8,9]", async () => {
-      await expect(
-        testCallResolutionAlgo(
-          ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
-          ""
-        )
-      ).rejectedWith("Failed to find at least 2 agreeing providers.");
-    });
+    expect(await providerWithAgreement.getBlockNumber()).to.eq(
+      await hardhat.ethers.provider.getBlockNumber()
+    );
   });
 
-  describe("With cureated list enabled", () => {
+  const describeAgreementAlgorithmFor = (
+    operation: (typeof operationsWithAgreement)[number]
+  ) =>
+    describe("agreement algorithm", () => {
+      it("should return 2 when results from providers are [1,2,2]", async () => {
+        await testAgreementAlgo(["1", "2", "2"], "2", 2, operation);
+      });
+
+      it("should return 2 when results from providers are [error,2,2]", async () => {
+        await testAgreementAlgo(["error", "2", "2"], "2", 2, operation);
+      });
+
+      it("should return 2 when results from providers are [2,2,error]", async () => {
+        await testAgreementAlgo(["2", "2", "error"], "2", 2, operation);
+      });
+
+      describe("when 3 providers have to agree", () => {
+        it("should return 2 when results from providers are [2,2,2]", async () => {
+          await testAgreementAlgo(["2", "2", "2"], "2", 3, operation);
+        });
+
+        it("should return 2 when results from providers are [2,2,1]", async () => {
+          await expect(
+            testAgreementAlgo(["2", "2", "1"], "2", 3, operation)
+          ).rejectedWith("Failed to find at least 3 agreeing providers.");
+        });
+
+        it("should NOT fail on [error,2], when ignoreAgreementOnInsufficientResponses", async () => {
+          await testAgreementAlgo(["2", "2", "error"], "2", 3, operation, true);
+        });
+      });
+
+      it("should return 2 when results from providers are [2,2,1]", async () => {
+        await testAgreementAlgo(["2", "2", "1"], "2", 2, operation);
+      });
+
+      it("should return 5 when results from providers are [5,3,5,3,2,4,2,2]", async () => {
+        await testAgreementAlgo(
+          ["5", "3", "5", "3", "2", "4", "2", "2"],
+          "5",
+          2,
+          operation
+        );
+      });
+
+      it('should return 2 when results from providers are ["5", "3", "8", "7", "1", "4", "2", "2"]', async () => {
+        await testAgreementAlgo(
+          ["5", "3", "8", "7", "1", "4", "2", "2"],
+          "2",
+          2,
+          operation
+        );
+      });
+
+      it("should NOT fail on [error,2], when ignoreAgreementOnInsufficientResponses", async () => {
+        await testAgreementAlgo(
+          ["2", "error", "error"],
+          "2",
+          2,
+          operation,
+          true
+        );
+      });
+
+      it("should fail on [error,2]", async () => {
+        await expect(
+          testAgreementAlgo(["error", "2"], "", 2, operation)
+        ).rejectedWith("Failed to find at least 2 agreeing providers.");
+      });
+
+      it("should fail on [1,2]", async () => {
+        await expect(
+          testAgreementAlgo(["1", "2"], "", 2, operation)
+        ).rejectedWith("Failed to find at least 2 agreeing providers.");
+      });
+
+      it("should fail on [1,2,3,4,5,6,7,8,9]", async () => {
+        await expect(
+          testAgreementAlgo(
+            ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+            "",
+            2,
+            operation
+          )
+        ).rejectedWith("Failed to find at least 2 agreeing providers.");
+      });
+    });
+
+  operationsWithAgreement.forEach(describeAgreementAlgorithmFor);
+
+  describe("With curated list enabled", () => {
     it("should work", async () => {
       const firstProvider = hardhat.ethers.provider;
       const secondProvider = hardhat.ethers.provider;
@@ -340,56 +395,154 @@ describe("ProviderWithAgreement", () => {
         }
       );
 
-      const result = await agreementProvider.call({
-        to: contract.address,
-        data: "0x00",
-      });
+      const result = await agreementProvider.call(
+        {
+          to: contract.address,
+          data: "0x00",
+        },
+        await agreementProvider.getBlockNumber()
+      );
       expect(result).to.eq("0x");
       expect(callSpy.callCount).to.eq(1);
 
       // put to qurantine after error
       agreementProvider.curatedRpcList?.evaluateRpcScore("2");
 
-      await agreementProvider.call({
-        to: contract.address,
-        data: "0x01",
-      });
+      await agreementProvider.call(
+        {
+          to: contract.address,
+          data: "0x01",
+        },
+        await agreementProvider.getBlockNumber()
+      );
       expect(callSpy.callCount).to.eq(1);
 
       // free broken provider from qurantine and use it again
       agreementProvider.curatedRpcList?.freeOneRpcFromQuarantine();
 
-      await agreementProvider.call({
-        to: contract.address,
-        data: "0x02",
-      });
+      await agreementProvider.call(
+        {
+          to: contract.address,
+          data: "0x02",
+        },
+        await agreementProvider.getBlockNumber()
+      );
       expect(callSpy.callCount).to.eq(2);
+    });
+  });
+
+  describe("getBlockNumber", () => {
+    it("works when at least single success response", async () => {
+      await testGetBlockNumber([["error", 1, "error"]], [1]);
+    });
+
+    it("throws on all errors", async () => {
+      await expect(
+        testGetBlockNumber([["error", "error", "error"]], [0])
+      ).rejectedWith(/Failed to getBlockNumber from at least one/);
+    });
+
+    it("picks median", async () => {
+      await testGetBlockNumber([[1, "error", 2]], [2]);
+      await testGetBlockNumber([[1, 6, "error", 2]], [2]);
+      await testGetBlockNumber([[3, 4, 1]], [3]);
+      await testGetBlockNumber([[3, "error", "error", 8, 100]], [8]);
+    });
+
+    it("reject smaller block number", async () => {
+      await testGetBlockNumber(
+        [
+          [100, "error", 200],
+          [99, 2, 190],
+        ],
+        [150, 2]
+      );
+    });
+
+    it("reject block number ahead more then 24 hours", async () => {
+      const twentyFiveHoursInEthBlocks = (25 * 3600) / 12;
+      await testGetBlockNumber(
+        [
+          [100, "error", 200],
+          [100 + twentyFiveHoursInEthBlocks, 2, 200],
+        ],
+        [150, 101]
+      );
     });
   });
 });
 
-const testCallResolutionAlgo = async (
+const testGetBlockNumber = async (
+  providerResponsesPerRound: (number | "error")[][],
+  expectedResults: number[]
+) => {
+  const mockProviders: providers.StaticJsonRpcProvider[] = [];
+
+  for (let i = 0; i < providerResponsesPerRound[0].length; i++) {
+    const mockProvider = new providers.StaticJsonRpcProvider(
+      `http://${i}.mock`
+    );
+    const stubOperation = sinon.stub(mockProvider, "getBlockNumber");
+
+    for (let j = 0; j < providerResponsesPerRound.length; j++) {
+      const response = providerResponsesPerRound[j][i];
+      if (response === "error") {
+        stubOperation.onCall(j).rejects(response);
+      } else {
+        stubOperation.onCall(j).resolves(response);
+      }
+    }
+
+    mockProviders.push(mockProvider);
+  }
+
+  const agreementProvider = new ProviderWithAgreement(mockProviders);
+
+  for (const expected of expectedResults) {
+    const result = await agreementProvider.getBlockNumber();
+    expect(result.toString()).to.eq(expected.toString());
+  }
+};
+
+const testAgreementAlgo = async (
   providerResponses: string[],
   expected: string,
-  requiredNumberOfProvidersToAgree = 2
+  requiredNumberOfProvidersToAgree: number,
+  operation: (typeof operationsWithAgreement)[number],
+  ignoreAgreementOnInsufficientResponses = false
 ) => {
   const mockProvider = new providers.StaticJsonRpcProvider("http://blabla.xd");
-  const stubCall = sinon.stub(mockProvider, "call");
+  const stubOperation = sinon.stub(mockProvider, operation);
 
+  const blockNumber = 1;
   const stubBlockNumber = sinon.stub(mockProvider, "getBlockNumber");
-  stubBlockNumber.resolves(1);
+  stubBlockNumber.resolves(blockNumber);
 
   const agreementProvider = new ProviderWithAgreement(
     new Array<typeof mockProvider>(providerResponses.length).fill(mockProvider),
-    { numberOfProvidersThatHaveToAgree: requiredNumberOfProvidersToAgree }
+    {
+      numberOfProvidersThatHaveToAgree: requiredNumberOfProvidersToAgree,
+      ignoreAgreementOnInsufficientResponses,
+    }
   );
 
   for (let i = 0; i < providerResponses.length; i++) {
-    stubCall.onCall(i).resolves(providerResponses[i]);
+    if (providerResponses[i] === "error") {
+      stubOperation.onCall(i).rejects(providerResponses[i]);
+    } else {
+      stubOperation.onCall(i).resolves(providerResponses[i]);
+    }
   }
 
-  const result = await agreementProvider.call(
-    "" as unknown as TransactionRequest
-  );
-  expect(result).to.eq(expected);
+  let result: { toString(): string };
+  switch (operation) {
+    case "call":
+      result = await agreementProvider.call({}, blockNumber);
+      break;
+    case "getBalance":
+      result = await agreementProvider.getBalance("0x");
+      break;
+  }
+
+  expect(result.toString()).to.eq(expected.toString());
 };

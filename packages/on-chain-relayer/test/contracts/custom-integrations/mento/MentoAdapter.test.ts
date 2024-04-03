@@ -109,13 +109,13 @@ describe("MentoAdapter", () => {
           dataPackagesWrapper,
           sortedOracles,
         },
+        await adapterToTest.provider.getBlockNumber(),
         maxAllowedDeviation
       );
 
     if (!locationsInSortedLinkedLists) {
       return;
-    }
-    // Updating oracle values
+    } // Updating oracle values
     await wrapContract(adapterToTest).updatePriceValues(
       proposedTimestamp,
       locationsModifierFn(locationsInSortedLinkedLists)
@@ -309,7 +309,11 @@ describe("MentoAdapter", () => {
 
   it("Should properly read redstone values reported to sorted oracles", async () => {
     await reportWithAdapter(1, 2, mentoAdapter);
-    const values = await getValuesForDataFeeds(mentoAdapter, ["BTC", "ETH"]);
+    const values = await getValuesForDataFeeds(
+      mentoAdapter,
+      ["BTC", "ETH"],
+      await mentoAdapter.provider.getBlockNumber()
+    );
     expect(values).to.eql({
       BTC: BigNumber.from(1 * 10 ** 8),
       ETH: BigNumber.from(2 * 10 ** 8),

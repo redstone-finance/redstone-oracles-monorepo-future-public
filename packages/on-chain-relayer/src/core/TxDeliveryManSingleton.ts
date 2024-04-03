@@ -1,11 +1,18 @@
-import { TransactionDeliveryMan } from "@redstone-finance/rpc-providers";
+import {
+  TxDeliveryMan,
+  TxDeliveryManSupportedProviders,
+  TxDeliverySigner,
+} from "@redstone-finance/rpc-providers";
 import { config } from "../config";
 
-let deliveryMan: TransactionDeliveryMan | undefined = undefined;
-export const getTxDeliveryMan = () => {
+let deliveryMan: TxDeliveryMan | undefined = undefined;
+export const getTxDeliveryMan = (
+  signer: TxDeliverySigner,
+  provider: TxDeliveryManSupportedProviders
+) => {
   deliveryMan =
     deliveryMan ??
-    new TransactionDeliveryMan({
+    new TxDeliveryMan(provider, signer, {
       expectedDeliveryTimeMs: config().expectedTxDeliveryTimeInMS,
       gasLimit: config().gasLimit,
       twoDimensionalFees: config().twoDimensionalFees,

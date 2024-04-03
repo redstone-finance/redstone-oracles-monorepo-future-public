@@ -3,6 +3,7 @@ import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 import { MathUtils } from "@redstone-finance/utils";
 import { BigNumber, ethers } from "ethers";
 import { ISortedOracles, MentoAdapterBase } from "../../../typechain-types";
+import { BlockTag } from "@ethersproject/providers";
 
 export interface MentoContracts {
   mentoAdapter: MentoAdapterBase;
@@ -79,9 +80,10 @@ export const calculateLinkedListPosition = (
 
 export const prepareLinkedListLocationsForMentoAdapterReport = async (
   { mentoAdapter, dataPackagesWrapper, sortedOracles }: MentoContracts,
+  blockTag: number,
   maxDeviationAllowedInPercent?: number
 ) => {
-  const dataFeeds = await mentoAdapter.getDataFeeds();
+  const dataFeeds = await mentoAdapter.getDataFeeds({ blockTag });
   const dataFeedIds = dataFeeds.map((df) => df.dataFeedId);
   const locationsInSortedLinkedLists = [];
 
@@ -90,11 +92,13 @@ export const prepareLinkedListLocationsForMentoAdapterReport = async (
     mentoAdapter.connect(ZERO_ADDRESS)
   );
   const proposedValuesNormalized =
-    await wrappedContract.getNormalizedOracleValuesFromTxCalldata(dataFeedIds);
+    await wrappedContract.getNormalizedOracleValuesFromTxCalldata(dataFeedIds, {
+      blockTag,
+    });
 
   // Fetching current values and oracle addresses
   const ratesPerToken = await Promise.all(
-    dataFeeds.map((df) => sortedOracles.getRates(df.tokenAddress))
+    dataFeeds.map((df) => sortedOracles.getRates(df.tokenAddress, { blockTag }))
   );
 
   // Filling the `locationsInSortedLinkedLists` array
@@ -124,9 +128,10 @@ export const prepareLinkedListLocationsForMentoAdapterReport = async (
 const tokenAddressToValue = async (
   tokenAddress: string,
   sortedOracles: ISortedOracles,
-  mentoAdapter: MentoAdapterBase
+  mentoAdapter: MentoAdapterBase,
+  blockTag: BlockTag
 ) => {
-  const rates = await sortedOracles.getRates(tokenAddress);
+  const rates = await sortedOracles.getRates(tokenAddress, { blockTag });
   const redstoneOracleIndex = rates[0].findIndex((address) =>
     addressesAreEqual(address, mentoAdapter.address)
   );
@@ -152,9 +157,10 @@ const dataFeedToTokenAddress = (
 export const getValuesForMentoDataFeeds = async (
   mentoAdapter: MentoAdapterBase,
   sortedOracles: ISortedOracles,
-  dataFeeds: string[]
+  dataFeeds: string[],
+  blockTag: number
 ): Promise<ValuesForDataFeeds> => {
-  const dataFeedsFromContract = await mentoAdapter.getDataFeeds();
+  const dataFeedsFromContract = await mentoAdapter.getDataFeeds({ blockTag });
   const promises = dataFeeds.map(async (dataFeedId) => {
     const tokenAddress = dataFeedToTokenAddress(
       dataFeedId,
@@ -162,7 +168,12 @@ export const getValuesForMentoDataFeeds = async (
     );
     return [
       dataFeedId,
-      await tokenAddressToValue(tokenAddress, sortedOracles, mentoAdapter),
+      await tokenAddressToValue(
+        tokenAddress,
+        sortedOracles,
+        mentoAdapter,
+        blockTag
+      ),
     ] as const;
   });
   return Object.fromEntries(await Promise.all(promises));
