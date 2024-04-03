@@ -1,6 +1,6 @@
-import { readdirSync, promises } from "fs";
-import { OnChainRelayerManifest } from "../src";
+import { promises, readdirSync } from "fs";
 import path from "path";
+import { OnChainRelayerManifest } from "../src";
 
 async function main() {
   const dir = readdirSync("./relayer-manifests");

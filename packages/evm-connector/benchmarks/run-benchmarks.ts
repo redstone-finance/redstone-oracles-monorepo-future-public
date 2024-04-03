@@ -1,9 +1,12 @@
-import { ethers } from "hardhat";
-import { DataPackage, NumericDataPoint } from "@redstone-finance/protocol";
-import { utils } from "@redstone-finance/protocol";
 import {
-  MOCK_SIGNERS,
+  DataPackage,
+  NumericDataPoint,
+  utils,
+} from "@redstone-finance/protocol";
+import { ethers } from "hardhat";
+import {
   DEFAULT_TIMESTAMP_FOR_TESTS,
+  MOCK_SIGNERS,
   MockSignerAddress,
 } from "../src/helpers/test-utils";
 import { WrapperBuilder } from "../src/index";

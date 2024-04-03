@@ -1,7 +1,7 @@
-import { TonPriceManagerContractAdapter } from "./TonPriceManagerContractAdapter";
+import { IPricesContractAdapter } from "@redstone-finance/sdk";
 import { TonPriceManager } from "../../wrappers/TonPriceManager";
 import { TonContractConnector } from "../TonContractConnector";
-import { IPricesContractAdapter } from "@redstone-finance/sdk";
+import { TonPriceManagerContractAdapter } from "./TonPriceManagerContractAdapter";
 
 import { TonNetwork } from "../network/TonNetwork";
 

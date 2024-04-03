@@ -1,13 +1,13 @@
 import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { providers } from "ethers";
 import { Deferrable } from "ethers/lib/utils";
+import { z } from "zod";
 import {
   MULTICALL3_DETERMINISTIC_ADDRESS,
   multicall3,
 } from "./Multicall3Caller";
 import { MulticallBuffer } from "./MulticallBuffer";
-import { RedstoneCommon } from "@redstone-finance/utils";
-import { z } from "zod";
 
 async function prepareMulticall3Request(tx: Deferrable<TransactionRequest>) {
   return {

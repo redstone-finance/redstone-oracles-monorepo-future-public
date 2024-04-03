@@ -1,10 +1,10 @@
 import { NetworkProvider } from "@ton/blueprint";
-import { TonNetwork } from "../src";
-import { TonSingleFeedManContractDeployer } from "../src/single-feed-man/TonSingleFeedManContractDeployer";
-import { SingleFeedManInitData } from "../src/single-feed-man/SingleFeedManInitData";
-import { deploy } from "../src/deploy";
-import { TonSingleFeedMan } from "../wrappers/TonSingleFeedMan";
 import { Cell } from "@ton/core";
+import { TonNetwork } from "../src";
+import { deploy } from "../src/deploy";
+import { SingleFeedManInitData } from "../src/single-feed-man/SingleFeedManInitData";
+import { TonSingleFeedManContractDeployer } from "../src/single-feed-man/TonSingleFeedManContractDeployer";
+import { TonSingleFeedMan } from "../wrappers/TonSingleFeedMan";
 
 export async function run(provider: NetworkProvider) {
   await deploy(

@@ -1,7 +1,7 @@
-import { Address, beginCell, Cell } from "@ton/core";
-import { TonInitData } from "../TonInitData";
 import { consts } from "@redstone-finance/protocol";
+import { Address, beginCell, Cell } from "@ton/core";
 import { toBigInt } from "../ton-utils";
+import { TonInitData } from "../TonInitData";
 
 export class PriceFeedInitData implements TonInitData {
   constructor(

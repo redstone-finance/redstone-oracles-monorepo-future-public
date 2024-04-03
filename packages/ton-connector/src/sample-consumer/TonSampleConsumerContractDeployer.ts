@@ -1,10 +1,10 @@
 import { TonContractDeployer } from "../TonContractDeployer";
 import { TonSampleConsumerContractAdapter } from "./TonSampleConsumerContractAdapter";
 
-import { TonNetwork } from "../network/TonNetwork";
 import { Cell } from "@ton/core";
-import { SampleConsumerInitData } from "./SampleConsumerInitData";
 import { TonSampleConsumer } from "../../wrappers/TonSampleConsumer";
+import { TonNetwork } from "../network/TonNetwork";
+import { SampleConsumerInitData } from "./SampleConsumerInitData";
 
 export class TonSampleConsumerContractDeployer extends TonContractDeployer<
   TonSampleConsumer,

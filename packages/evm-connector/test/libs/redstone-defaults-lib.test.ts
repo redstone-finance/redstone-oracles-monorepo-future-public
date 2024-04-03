@@ -1,7 +1,7 @@
-import { ethers } from "hardhat";
-import { SampleRedstoneDefaultsLib } from "../../typechain-types";
 import { expect } from "chai";
 import { BigNumber } from "ethers";
+import { ethers } from "hardhat";
+import { SampleRedstoneDefaultsLib } from "../../typechain-types";
 import { getBlockTimestampMilliseconds } from "../tests-common";
 
 const MILLISECONDS_IN_MINUTE = 60 * 1000;

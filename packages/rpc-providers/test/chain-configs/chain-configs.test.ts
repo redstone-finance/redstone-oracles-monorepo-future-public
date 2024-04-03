@@ -1,6 +1,6 @@
-import { ChainConfigSchema, ChainConfigs } from "../../src";
+import { describe, test } from "mocha";
 import { z } from "zod";
-import { test, describe } from "mocha";
+import { ChainConfigSchema, ChainConfigs } from "../../src";
 
 describe("Validate chain config schema", () => {
   test("Scheme should be valid", () => {

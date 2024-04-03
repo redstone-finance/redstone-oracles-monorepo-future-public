@@ -1,14 +1,14 @@
-import axios from "axios";
-import { Contract, Signer } from "ethers";
 import {
+  ScoreType,
   SignedDataPackage,
   SignedDataPackagePlainObj,
-  ScoreType,
   UniversalSigner,
   prepareMessageToSign,
 } from "@redstone-finance/protocol";
-import { BaseWrapper } from "./BaseWrapper";
+import axios from "axios";
+import { Contract, Signer } from "ethers";
 import { version } from "../../package.json";
+import { BaseWrapper } from "./BaseWrapper";
 
 export interface OnDemandRequestParams {
   signer: Signer;

@@ -1,6 +1,6 @@
-import { Contract } from "ethers";
 import { ScoreType } from "@redstone-finance/protocol";
 import { DataPackagesResponse } from "@redstone-finance/sdk";
+import { Contract } from "ethers";
 import { DataPackagesWrapper } from "./wrappers/DataPackagesWrapper";
 import {
   DataPackagesRequestInput,

@@ -1,6 +1,6 @@
 import { deployments, getNamedAccounts } from "hardhat";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 const func: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
   if (hre.network.name !== "hardhat") {

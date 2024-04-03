@@ -1,6 +1,6 @@
+import { expect } from "chai";
 import fs from "fs";
 import path from "path";
-import { expect } from "chai";
 import {
   OnChainRelayerManifest,
   OnChainRelayerManifestSchema,

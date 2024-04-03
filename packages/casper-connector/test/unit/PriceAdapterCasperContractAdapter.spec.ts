@@ -1,8 +1,8 @@
-import { PriceAdapterCasperContractConnector } from "../../src/contracts/price_adapter/PriceAdapterCasperContractConnector";
-import { ICasperConnection } from "../../src/casper/ICasperConnection";
 import { BigNumber } from "ethers";
+import { ICasperConnection } from "../../src/casper/ICasperConnection";
 import { STORAGE_KEY_VALUES } from "../../src/contracts/constants";
 import { PriceAdapterCasperContractAdapter } from "../../src/contracts/price_adapter/PriceAdapterCasperContractAdapter";
+import { PriceAdapterCasperContractConnector } from "../../src/contracts/price_adapter/PriceAdapterCasperContractConnector";
 import {
   contractDictionaryMock,
   getMockCasperConnection,

@@ -1,9 +1,9 @@
+import { IContractConnector } from "@redstone-finance/sdk";
+import { hexlify } from "ethers/lib/utils";
+import { sleep } from "./Ton";
 import { TonContract } from "./TonContract";
 import { TonContractFactory } from "./TonContractFactory";
 import { AnyTonOpenedContract, TonNetwork } from "./network/TonNetwork";
-import { IContractConnector } from "@redstone-finance/sdk";
-import { sleep } from "./Ton";
-import { hexlify } from "ethers/lib/utils";
 
 export abstract class TonContractConnector<
   Contract extends TonContract,

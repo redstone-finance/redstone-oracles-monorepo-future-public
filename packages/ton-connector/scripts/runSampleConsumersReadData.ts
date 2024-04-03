@@ -1,10 +1,10 @@
 import { NetworkProvider } from "@ton/blueprint";
-import { TonSampleConsumerContractConnector } from "../src/sample-consumer/TonSampleConsumerContractConnector";
 import { BlueprintTonNetwork, TonPriceFeed } from "../src";
 import { config } from "../src/config";
-import { TonSingleFeedMan } from "../wrappers/TonSingleFeedMan";
 import { loadAddress } from "../src/deploy";
+import { TonSampleConsumerContractConnector } from "../src/sample-consumer/TonSampleConsumerContractConnector";
 import { TonSampleConsumer } from "../wrappers/TonSampleConsumer";
+import { TonSingleFeedMan } from "../wrappers/TonSingleFeedMan";
 
 export async function run(provider: NetworkProvider) {
   const names = [TonPriceFeed.getName(), TonSingleFeedMan.getName()];

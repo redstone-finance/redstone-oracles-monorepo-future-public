@@ -1,8 +1,8 @@
-import { ethers } from "hardhat";
-import { SampleNumericArrayLib } from "../../typechain-types";
 import { expect } from "chai";
 import { BigNumber } from "ethers";
+import { ethers } from "hardhat";
 import { getRange } from "../../src/helpers/test-utils";
+import { SampleNumericArrayLib } from "../../typechain-types";
 
 describe("SampleNumericArrayLib", function () {
   let contract: SampleNumericArrayLib;

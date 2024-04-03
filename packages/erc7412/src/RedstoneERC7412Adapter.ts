@@ -1,10 +1,10 @@
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
-import * as viem from "viem";
-import { Adapter } from "erc7412";
 import {
   DataPackagesResponse,
   requestDataPackages,
 } from "@redstone-finance/sdk";
+import { Adapter } from "erc7412";
+import * as viem from "viem";
 
 export class RedstoneAdapter implements Adapter {
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this

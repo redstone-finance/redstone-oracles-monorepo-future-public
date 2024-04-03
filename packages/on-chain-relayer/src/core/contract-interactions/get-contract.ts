@@ -1,10 +1,10 @@
 import { Contract, ContractInterface, Wallet, providers } from "ethers";
 import { abi as redstoneAdapterABI } from "../../../artifacts/contracts/core/RedstoneAdapterBase.sol/RedstoneAdapterBase.json";
-import { abi as mentoAdapterABI } from "../../../artifacts/contracts/custom-integrations/mento/MentoAdapterBase.sol/MentoAdapterBase.json";
 import { abi as sortedOraclesABI } from "../../../artifacts/contracts/custom-integrations/mento/ISortedOracles.sol/ISortedOracles.json";
+import { abi as mentoAdapterABI } from "../../../artifacts/contracts/custom-integrations/mento/MentoAdapterBase.sol/MentoAdapterBase.json";
+import { ISortedOracles, RedstoneAdapterBase } from "../../../typechain-types";
 import { config } from "../../config";
 import { getRelayerProvider } from "./get-relayer-provider";
-import { ISortedOracles, RedstoneAdapterBase } from "../../../typechain-types";
 
 export const getAdapterContract = () => {
   const { privateKey, adapterContractAddress } = config();

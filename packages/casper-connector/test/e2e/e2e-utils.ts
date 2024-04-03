@@ -1,7 +1,7 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
+import { BigNumber, BigNumberish } from "ethers";
 import fs from "fs";
 import path from "node:path";
-import { BigNumber, BigNumberish } from "ethers";
 
 const DATA_SERVICE_ID = "redstone-avalanche-prod";
 const DATA_FEEDS = ["ETH", "BTC", "AVAX"];

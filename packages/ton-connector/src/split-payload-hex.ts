@@ -1,6 +1,6 @@
-import { BigNumber } from "ethers";
-import { equal } from "assert";
 import { consts } from "@redstone-finance/protocol";
+import { equal } from "assert";
+import { BigNumber } from "ethers";
 
 export function splitPayloadHex(payloadHex: string) {
   //TODO: assert value size == 32;

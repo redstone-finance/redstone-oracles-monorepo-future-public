@@ -1,26 +1,14 @@
-import { ICasperConnection } from "../../src/casper/ICasperConnection";
+import { RuntimeArgs } from "casper-js-sdk";
 import {
-  callEntrypointMock,
-  contractDataMock,
-  getMockCasperConnection,
-  makeContractParamsProviderMock,
-  MOCK_PAYLOAD_HASH,
-  MOCK_PAYLOAD_HEX,
-  mockStateRootHashImplementations,
-} from "../mock-utils";
-import {
-  PriceRelayAdapterCasperContractConnector,
-  PriceRelayAdapterCasperContractAdapter,
-  PriceAdapterCasperContractConnector,
   PriceAdapterCasperContractAdapter,
+  PriceAdapterCasperContractConnector,
+  PriceRelayAdapterCasperContractAdapter,
+  PriceRelayAdapterCasperContractConnector,
 } from "../../src";
-import {
-  checkPayloadRuntimeArgs,
-  testGetPricesFromPayload,
-  testReadPricesFromContract,
-  testReadTimestampFromContract,
-  testWriteProcesFromPayloadToContract,
-} from "./common-test-methods";
+import { ICasperConnection } from "../../src/casper/ICasperConnection";
+import { decodeHex, decodeNumber } from "../../src/casper/utils";
+import { RunMode } from "../../src/contracts/RunMode";
+import { RuntimeArgsFactory } from "../../src/contracts/RuntimeArgsFactory";
 import {
   ARG_NAME_CHUNK_INDEX,
   ARG_NAME_HASH,
@@ -29,10 +17,22 @@ import {
   ENTRY_POINT_WRITE_PRICES_CHUNK,
   STORAGE_KEY_ADAPTER_ADDRESS,
 } from "../../src/contracts/constants";
-import { RuntimeArgsFactory } from "../../src/contracts/RuntimeArgsFactory";
-import { RuntimeArgs } from "casper-js-sdk";
-import { decodeHex, decodeNumber } from "../../src/casper/utils";
-import { RunMode } from "../../src/contracts/RunMode";
+import {
+  MOCK_PAYLOAD_HASH,
+  MOCK_PAYLOAD_HEX,
+  callEntrypointMock,
+  contractDataMock,
+  getMockCasperConnection,
+  makeContractParamsProviderMock,
+  mockStateRootHashImplementations,
+} from "../mock-utils";
+import {
+  checkPayloadRuntimeArgs,
+  testGetPricesFromPayload,
+  testReadPricesFromContract,
+  testReadTimestampFromContract,
+  testWriteProcesFromPayloadToContract,
+} from "./common-test-methods";
 
 /* eslint-disable @typescript-eslint/unbound-method */
 describe("PriceRelayAdapterCasperContractAdapter", () => {

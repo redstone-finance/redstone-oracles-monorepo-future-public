@@ -7,7 +7,7 @@ import { BigNumber, BytesLike, Transaction, ethers } from "ethers";
 import * as hardhat from "hardhat";
 import _ from "lodash";
 import Sinon from "sinon";
-import { TxDeliveryOpts, TxDelivery, makeTxDeliveryCall } from "../../src";
+import { TxDelivery, TxDeliveryOpts, makeTxDeliveryCall } from "../../src";
 import { Counter } from "../../typechain-types";
 import { HardhatProviderMocker, deployCounter } from "../helpers";
 

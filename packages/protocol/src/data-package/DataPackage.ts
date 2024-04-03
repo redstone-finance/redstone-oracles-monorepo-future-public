@@ -6,8 +6,8 @@ import {
   SigningKey,
 } from "ethers/lib/utils";
 import {
-  DATA_POINTS_COUNT_BS,
   DATA_POINT_VALUE_BYTE_SIZE_BS,
+  DATA_POINTS_COUNT_BS,
   TIMESTAMP_BS,
 } from "../common/redstone-constants";
 import { Serializable } from "../common/Serializable";

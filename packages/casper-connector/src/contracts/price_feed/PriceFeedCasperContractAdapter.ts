@@ -1,9 +1,9 @@
-import { CasperContractAdapter } from "../CasperContractAdapter";
 import { BigNumber, BigNumberish } from "ethers";
+import { CasperContractAdapter } from "../CasperContractAdapter";
 import {
   ENTRY_POINT_GET_PRICE_AND_TIMESTAMP,
-  STORAGE_KEY_VALUE,
   STORAGE_KEY_TIMESTAMP,
+  STORAGE_KEY_VALUE,
 } from "../constants";
 
 export class PriceFeedCasperContractAdapter extends CasperContractAdapter {

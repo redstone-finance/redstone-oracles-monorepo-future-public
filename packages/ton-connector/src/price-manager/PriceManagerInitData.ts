@@ -1,8 +1,8 @@
+import { consts } from "@redstone-finance/protocol";
 import { beginCell, Cell, serializeTuple } from "@ton/core";
+import { SIGNER_COUNT_THRESHOLD_BITS } from "../config/constants";
 import { createTupleItems } from "../ton-utils";
 import { TonInitData } from "../TonInitData";
-import { consts } from "@redstone-finance/protocol";
-import { SIGNER_COUNT_THRESHOLD_BITS } from "../config/constants";
 
 export class PriceManagerInitData implements TonInitData {
   constructor(

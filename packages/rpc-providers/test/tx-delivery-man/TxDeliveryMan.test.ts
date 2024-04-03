@@ -4,12 +4,11 @@ import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { ethers } from "ethers";
 import * as hardhat from "hardhat";
-import _ from "lodash";
 import Sinon from "sinon";
 import { ProviderWithFallback, makeTxDeliveryCall } from "../../src";
+import { TxDeliveryMan } from "../../src/tx-delivery-man/TxDeliveryMan";
 import { Counter } from "../../typechain-types";
 import { HardhatProviderMocker, deployCounter } from "../helpers";
-import { TxDeliveryMan } from "../../src/tx-delivery-man/TxDeliveryMan";
 
 chai.use(chaiAsPromised);
 

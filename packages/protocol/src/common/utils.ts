@@ -1,14 +1,14 @@
 import { BigNumber } from "ethers";
 import {
-  arrayify,
   BytesLike,
+  arrayify,
   formatBytes32String,
   hexlify,
+  isHexString,
   keccak256,
   parseUnits,
   toUtf8Bytes,
   zeroPad,
-  isHexString,
 } from "ethers/lib/utils";
 
 const ZERO_EX_PREFIX_LENGTH = 2; // length of string "0x"

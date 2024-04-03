@@ -1,18 +1,18 @@
-import { PriceAdapterCasperContractAdapter } from "../price_adapter/PriceAdapterCasperContractAdapter";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
+import { RuntimeArgs } from "casper-js-sdk";
 import { BigNumber, BigNumberish } from "ethers";
+import assert from "node:assert";
+import { casperBlake2b } from "../../casper/casper-blake2b";
+import { RunMode } from "../RunMode";
+import { RuntimeArgsFactory } from "../RuntimeArgsFactory";
 import {
   ENTRY_POINT_GET_PRICES_CHUNK,
   ENTRY_POINT_WRITE_PRICES_CHUNK,
   STORAGE_KEY_ADAPTER_ADDRESS,
   STORAGE_KEY_VALUES,
 } from "../constants";
-import { RuntimeArgs } from "casper-js-sdk";
-import { RuntimeArgsFactory } from "../RuntimeArgsFactory";
-import { casperBlake2b } from "../../casper/casper-blake2b";
+import { PriceAdapterCasperContractAdapter } from "../price_adapter/PriceAdapterCasperContractAdapter";
 import { ComputedValue, computedValueDecoder } from "./ComputedValue";
-import { RunMode } from "../RunMode";
-import assert from "node:assert";
 
 export class PriceRelayAdapterCasperContractAdapter extends PriceAdapterCasperContractAdapter {
   static PROCESS_CHUNK_CSPR = 1.5;

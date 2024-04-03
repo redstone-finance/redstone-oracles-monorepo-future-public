@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { ethers } from "hardhat";
-import { DataPackage, NumericDataPoint } from "@redstone-finance/protocol";
-import { utils } from "@redstone-finance/protocol";
 import {
-  MOCK_SIGNERS,
+  DataPackage,
+  NumericDataPoint,
+  utils,
+} from "@redstone-finance/protocol";
+import { ContractTransaction } from "ethers";
+import { ethers } from "hardhat";
+import {
   DEFAULT_TIMESTAMP_FOR_TESTS,
+  MOCK_SIGNERS,
   MockSignerAddress,
 } from "../src/helpers/test-utils";
 import { WrapperBuilder } from "../src/index";
 import { MockDataPackageConfig } from "../src/wrappers/MockWrapper";
-import { StorageStructureModel, HashCalldataModel } from "../typechain-types";
-import { ContractTransaction } from "ethers";
+import { HashCalldataModel, StorageStructureModel } from "../typechain-types";
 
 interface BenchmarkTestCaseParams {
   passedArgumentsCount: number;

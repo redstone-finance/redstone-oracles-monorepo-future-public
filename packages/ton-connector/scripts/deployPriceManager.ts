@@ -1,8 +1,8 @@
 import { NetworkProvider } from "@ton/blueprint";
-import { PriceManagerInitData } from "../src/price-manager/PriceManagerInitData";
-import { TonPriceManagerContractDeployer } from "../src/price-manager/TonPriceManagerContractDeployer";
 import { TonPriceManager } from "../src";
 import { deploy } from "../src/deploy";
+import { PriceManagerInitData } from "../src/price-manager/PriceManagerInitData";
+import { TonPriceManagerContractDeployer } from "../src/price-manager/TonPriceManagerContractDeployer";
 
 export async function run(provider: NetworkProvider) {
   return await deploy(TonPriceManager.getName(), provider, (network, code) => {

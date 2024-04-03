@@ -1,5 +1,5 @@
-import { expect } from "chai";
 import { ValuesForDataFeeds } from "@redstone-finance/sdk";
+import { expect } from "chai";
 import { config } from "../../src/config";
 import { shouldUpdate } from "../../src/core/update-conditions/should-update";
 import {

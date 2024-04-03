@@ -1,7 +1,7 @@
-import { Contracts, RuntimeArgs } from "casper-js-sdk";
 import { ContractParamsProviderMock } from "@redstone-finance/sdk";
-import { CasperContractAdapter } from "../src/contracts/CasperContractAdapter";
+import { Contracts, RuntimeArgs } from "casper-js-sdk";
 import { ICasperConnection } from "../src/casper/ICasperConnection";
+import { CasperContractAdapter } from "../src/contracts/CasperContractAdapter";
 
 export function getMockCasperConnection() {
   return {

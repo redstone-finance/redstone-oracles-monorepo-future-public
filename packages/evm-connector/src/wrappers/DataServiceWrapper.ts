@@ -1,13 +1,13 @@
+import { SignedDataPackage } from "@redstone-finance/protocol";
 import {
   DataPackagesRequestParams,
   requestDataPackages,
+  resolveDataServiceUrls,
 } from "@redstone-finance/sdk";
-import { BaseWrapper } from "./BaseWrapper";
-import { version } from "../../package.json";
-import { resolveDataServiceUrls } from "@redstone-finance/sdk";
-import { SignedDataPackage } from "@redstone-finance/protocol";
-import { Contract } from "ethers";
 import { RedstoneCommon } from "@redstone-finance/utils";
+import { Contract } from "ethers";
+import { version } from "../../package.json";
+import { BaseWrapper } from "./BaseWrapper";
 
 export type DataPackagesRequestInput = Partial<DataPackagesRequestParams>;
 

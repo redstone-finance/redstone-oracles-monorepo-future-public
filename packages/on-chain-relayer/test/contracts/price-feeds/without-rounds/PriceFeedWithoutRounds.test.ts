@@ -1,7 +1,7 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { describeCommonPriceFeedTests } from "../common/price-feed-utils";
 import { DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS } from "../../../helpers";
+import { describeCommonPriceFeedTests } from "../common/price-feed-utils";
 
 chai.use(chaiAsPromised);
 

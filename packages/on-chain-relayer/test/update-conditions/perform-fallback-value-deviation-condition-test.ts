@@ -1,8 +1,8 @@
 import { INumericDataPoint } from "@redstone-finance/protocol";
-import { createNumberFromContract, getDataPackagesResponse } from "../helpers";
 import { ValuesForDataFeeds } from "@redstone-finance/sdk";
-import { performValueDeviationConditionChecks } from "../../src/core/update-conditions/value-deviation-condition";
 import { config } from "../../src/config";
+import { performValueDeviationConditionChecks } from "../../src/core/update-conditions/value-deviation-condition";
+import { createNumberFromContract, getDataPackagesResponse } from "../helpers";
 
 export const HISTORICAL_DATA_POINTS = [
   { dataFeedId: "ETH", value: 1660.99 },

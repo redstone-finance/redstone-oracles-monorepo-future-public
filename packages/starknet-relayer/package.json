@@ -1,6 +1,5 @@
 {
   "name": "@redstone-finance/starknet-relayer",
-  "prettier": "redstone-prettier-config",
   "version": "0.3.6",
   "types": "dist/index.d.ts",
   "license": "MIT",

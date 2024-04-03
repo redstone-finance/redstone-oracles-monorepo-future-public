@@ -1,6 +1,6 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import axios from "axios";
 import { GasOracleFn } from "../TxDelivery";
-import { RedstoneCommon } from "@redstone-finance/utils";
 
 const ONE_GWEI = 1e9;
 

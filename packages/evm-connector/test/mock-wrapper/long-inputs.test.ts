@@ -1,13 +1,13 @@
-import { ethers } from "hardhat";
 import { expect } from "chai";
-import { SampleRedstoneConsumerBytesMockStrings } from "../../typechain-types";
+import { ethers } from "hardhat";
+import { WrapperBuilder } from "../../src";
 import {
   DEFAULT_DATA_FEED_ID_BYTES_32,
   getMockPackageWithOneBytesDataPoint,
   getRange,
   MockSignerIndex,
 } from "../../src/helpers/test-utils";
-import { WrapperBuilder } from "../../src";
+import { SampleRedstoneConsumerBytesMockStrings } from "../../typechain-types";
 
 describe("Long Inputs", function () {
   let contract: SampleRedstoneConsumerBytesMockStrings;

@@ -1,4 +1,4 @@
-import cronParser from "cron-parser";
+import { parseExpression } from "cron-parser";
 import { RelayerConfig } from "../../types";
 
 export const cronCondition = (
@@ -33,7 +33,7 @@ const checkCronCondition = (
   lastUpdateTimestamp: number,
   config: RelayerConfig
 ) => {
-  const interval = cronParser.parseExpression(cronExpression, {
+  const interval = parseExpression(cronExpression, {
     // We move current time a bit back for the case with fallback
     currentDate: new Date(currentTimestamp - config.fallbackOffsetInMS),
     utc: true,

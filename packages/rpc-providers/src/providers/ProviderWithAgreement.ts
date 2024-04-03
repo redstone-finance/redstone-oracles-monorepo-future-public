@@ -2,12 +2,12 @@ import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Deferrable } from "@ethersproject/properties";
 import { RedstoneCommon, RedstoneCrypto } from "@redstone-finance/utils";
 import { BigNumber, BytesLike, providers, utils } from "ethers";
+import { convertBlockTagToNumber, getProviderNetworkInfo } from "../common";
+import { CuratedRpcList, RpcIdentifier } from "./CuratedRpcList";
 import {
   ProviderWithFallback,
   ProviderWithFallbackConfig,
 } from "./ProviderWithFallback";
-import { CuratedRpcList, RpcIdentifier } from "./CuratedRpcList";
-import { convertBlockTagToNumber, getProviderNetworkInfo } from "../common";
 
 const AGREED_RESULT_TTL = RedstoneCommon.minToMs(5);
 

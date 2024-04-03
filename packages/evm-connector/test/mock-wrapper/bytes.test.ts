@@ -1,6 +1,6 @@
+import { utils } from "@redstone-finance/protocol";
 import { expect } from "chai";
 import { ethers } from "hardhat";
-import { utils } from "@redstone-finance/protocol";
 import {
   DEFAULT_DATA_FEED_ID_BYTES_32,
   DEFAULT_TIMESTAMP_FOR_TESTS,

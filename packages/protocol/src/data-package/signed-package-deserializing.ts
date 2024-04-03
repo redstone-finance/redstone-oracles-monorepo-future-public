@@ -1,3 +1,4 @@
+import { Signature } from "ethers";
 import {
   arrayify,
   base64,
@@ -7,7 +8,6 @@ import {
 } from "ethers/lib/utils";
 import { DataPackage } from "./DataPackage";
 import { SignedDataPackagePlainObj } from "./SignedDataPackage";
-import { Signature } from "ethers";
 
 export interface SignedDataPackageLike {
   signature: Signature;

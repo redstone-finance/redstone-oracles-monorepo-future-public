@@ -1,5 +1,5 @@
-import { BigNumberish } from "ethers";
 import { CLList, CLTuple3, CLU256 } from "casper-js-sdk";
+import { BigNumberish } from "ethers";
 import {
   decodeCLList,
   decodeNumber,

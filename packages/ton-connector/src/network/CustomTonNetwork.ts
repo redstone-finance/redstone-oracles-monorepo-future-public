@@ -1,3 +1,5 @@
+import { getHttpV4Endpoint } from "@orbs-network/ton-access";
+import { KeyPair } from "@ton/crypto/dist/primitives/nacl";
 import {
   Address,
   Contract,
@@ -7,9 +9,7 @@ import {
   TonClient4,
   WalletContractV4,
 } from "@ton/ton";
-import { KeyPair } from "@ton/crypto/dist/primitives/nacl";
 import assert from "assert";
-import { getHttpV4Endpoint } from "@orbs-network/ton-access";
 import { AnyTonOpenedContract, TonApiV2Config, TonNetwork } from "./TonNetwork";
 
 export class CustomTonNetwork implements TonNetwork {

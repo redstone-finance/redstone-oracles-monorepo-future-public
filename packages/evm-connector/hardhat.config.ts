@@ -1,7 +1,7 @@
-import "hardhat-gas-reporter";
-import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
+import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
+import "hardhat-gas-reporter";
 import { HardhatUserConfig } from "hardhat/config";
 
 // You need to export an object to set up your config

@@ -1,11 +1,11 @@
-import { expect } from "chai";
-import { ethers } from "hardhat";
 import { utils } from "@redstone-finance/protocol";
+import { expect } from "chai";
+import { Contract } from "ethers";
+import { ethers } from "hardhat";
 import { WrapperBuilder } from "../../src/index";
 import { BaseWrapper } from "../../src/wrappers/BaseWrapper";
 import { SampleRedstoneConsumerNumericMockManyDataFeeds } from "../../typechain-types";
 import { expectedNumericValues, mockNumericPackages } from "../tests-common";
-import { Contract } from "ethers";
 
 class CustomPayloadWrapper<T extends Contract> extends BaseWrapper<T> {
   constructor(private customRedstonePayload: string) {

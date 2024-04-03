@@ -1,5 +1,4 @@
 import { arrayify } from "@ethersproject/bytes";
-import { ethers } from "ethers";
 import {
   DataPackage,
   DataPoint,
@@ -10,6 +9,7 @@ import {
   StringDataPoint,
   utils,
 } from "@redstone-finance/protocol";
+import { ethers } from "ethers";
 import { MockDataPackageConfig } from "../wrappers/MockWrapper";
 
 export const MAX_MOCK_SIGNERS_COUNT = 19;

@@ -1,4 +1,4 @@
-import { ICasperConnection } from "../../src/casper/ICasperConnection";
+import { BigNumber } from "ethers";
 import {
   makeCasperConnection,
   PriceAdapterCasperContractAdapter,
@@ -6,6 +6,9 @@ import {
   PriceRelayAdapterCasperContractAdapter,
   PriceRelayAdapterCasperContractConnector,
 } from "../../src";
+import { ICasperConnection } from "../../src/casper/ICasperConnection";
+import { PriceFeedCasperContractAdapter } from "../../src/contracts/price_feed/PriceFeedCasperContractAdapter";
+import { PriceFeedCasperContractConnector } from "../../src/contracts/price_feed/PriceFeedCasperContractConnector";
 import {
   ADAPTER_ADDRESS,
   FEED_ADDRESS,
@@ -13,9 +16,6 @@ import {
   RELAY_ADAPTER_ADDRESS,
   verifyReturnedValues,
 } from "./e2e-utils";
-import { PriceFeedCasperContractConnector } from "../../src/contracts/price_feed/PriceFeedCasperContractConnector";
-import { PriceFeedCasperContractAdapter } from "../../src/contracts/price_feed/PriceFeedCasperContractAdapter";
-import { BigNumber } from "ethers";
 
 jest.setTimeout(120_000);
 

@@ -1,11 +1,11 @@
+import { time } from "@nomicfoundation/hardhat-network-helpers";
+import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
+import { ContractTransaction } from "ethers";
+import { formatBytes32String } from "ethers/lib/utils";
 import { ethers, upgrades } from "hardhat";
 import { IRedstoneAdapter, PriceFeedBase } from "../../../../typechain-types";
-import { formatBytes32String } from "ethers/lib/utils";
-import { WrapperBuilder } from "@redstone-finance/evm-connector";
-import { time } from "@nomicfoundation/hardhat-network-helpers";
-import { ContractTransaction } from "ethers";
 
 interface PriceFeedTestsParams {
   priceFeedContractName: string;

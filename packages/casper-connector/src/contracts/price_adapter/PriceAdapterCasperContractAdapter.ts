@@ -1,9 +1,9 @@
-import { CasperContractAdapter } from "../CasperContractAdapter";
 import {
   ContractParamsProvider,
   IPricesContractAdapter,
 } from "@redstone-finance/sdk";
 import { BigNumber, BigNumberish } from "ethers";
+import { CasperContractAdapter } from "../CasperContractAdapter";
 import {
   ENTRY_POINT_GET_PRICES,
   ENTRY_POINT_WRITE_PRICES,
@@ -13,9 +13,9 @@ import {
 
 import assert from "node:assert";
 
-import { RuntimeArgsFactory } from "../RuntimeArgsFactory";
 import { casperBlake2b } from "../../casper/casper-blake2b";
 import { RunMode } from "../RunMode";
+import { RuntimeArgsFactory } from "../RuntimeArgsFactory";
 
 export class PriceAdapterCasperContractAdapter
   extends CasperContractAdapter
