@@ -35,15 +35,15 @@
     "@redstone-finance/utils": "^0.3.6",
     "@ton-community/func-js": "0.6.3",
     "@ton-community/func-js-bin": "^0.4.5-tvmbeta.3",
-    "@ton/core": "^0.54.0",
+    "@ton/core": "^0.56.3",
     "@ton/crypto": "^3.2.0",
-    "@ton/ton": "^13.10.0",
+    "@ton/ton": "^13.11.1",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2"
   },
   "devDependencies": {
-    "@ton/blueprint": "^0.15.0",
-    "@ton/sandbox": "^0.16.0-tvmbeta.3",
+    "@ton/blueprint": "^0.19.0",
+    "@ton/sandbox": "^0.17.0",
     "@ton/test-utils": "^0.4.2"
   },
   "references": [
