@@ -45,6 +45,7 @@ module.exports = {
     "@typescript-eslint/no-throw-literal": "error",
     "prefer-promise-reject-errors": "error",
     "import/no-named-as-default": ["off"],
+    "import/no-named-as-default-member": ["off"],
     "import/no-unresolved": [
       "error",
       {
@@ -52,14 +53,7 @@ module.exports = {
         ignore: ["warp-contracts/lib/types/contract/testing/Testing"],
       },
     ],
-    "import/order": [
-      "off",
-      {
-        alphabetize: { order: "asc" },
-        groups: [["builtin", "external"], "parent", "sibling", "index"],
-        "newlines-between": "never",
-      },
-    ],
+    "import/order": ["off"],
     "import/namespace": "off",
   },
   root: true,
