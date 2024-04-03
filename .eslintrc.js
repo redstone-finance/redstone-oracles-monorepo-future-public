@@ -7,7 +7,8 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "workspaces"],
-  ignorePatterns: ["dist", "*.js"],
+  // for some reason eslint hangs on "artifacts" directory
+  ignorePatterns: ["artifacts", "dist", "*.js"],
   rules: {
     "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
