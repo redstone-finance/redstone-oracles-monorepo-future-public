@@ -6747,7 +6747,6 @@ __metadata:
     arweave: "npm:^1.12.2"
     axios: "npm:^1.6.2"
     ccxt: "npm:4.1.100"
-    consola: "npm:^2.15.3"
     cors: "npm:^2.8.5"
     dateformat: "npm:^4.5.1"
     decimal.js: "npm:^10.4.3"
@@ -6989,6 +6988,7 @@ __metadata:
   resolution: "@redstone-finance/utils@workspace:packages/utils"
   dependencies:
     axios: "npm:^1.6.2"
+    consola: "npm:^2.15.3"
     decimal.js: "npm:^10.4.3"
     ethers: "npm:^5.7.2"
     zod: "npm:^3.22.4"
