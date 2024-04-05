@@ -1,7 +1,6 @@
 import { hexlify } from "@ethersproject/bytes";
 import { toUtf8Bytes } from "@ethersproject/strings/lib/utf8";
 import { arrayify } from "ethers/lib/utils";
-
 import { DataPackagesRequestParams, requestRedstonePayload } from "../index";
 
 export class ContractParamsProvider {
@@ -21,7 +20,7 @@ export class ContractParamsProvider {
     return this.getDataFeedIds().map((feed) => hexlify(toUtf8Bytes(feed)));
   }
 
-  protected getDataFeedIds(): string[] {
+  getDataFeedIds(): string[] {
     if (!this.requestParams.dataFeeds) {
       throw new Error("That invocation requires non-empty dataFeeds");
     }

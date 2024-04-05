@@ -1,0 +1,85 @@
+[
+  {
+    "name": "constructor",
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "signer_count_threshold",
+        "type": "core::felt252"
+      },
+      {
+        "name": "signer_addresses",
+        "type": "core::array::Array::<core::felt252>"
+      }
+    ]
+  },
+  {
+    "name": "get_prices",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "feed_ids",
+        "type": "core::array::Array::<core::felt252>"
+      },
+      {
+        "name": "payload_bytes",
+        "type": "core::array::Array::<core::integer::u8>"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "core::array::Array::<core::felt252>"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "read_timestamp",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "core::felt252"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "read_prices",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "feed_ids",
+        "type": "core::array::Array::<core::felt252>"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "core::array::Array::<core::felt252>"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "write_prices",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "feed_ids",
+        "type": "core::array::Array::<core::felt252>"
+      },
+      {
+        "name": "payload_bytes",
+        "type": "core::array::Array::<core::integer::u8>"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "kind": "enum",
+    "name": "price_adapter::price_adapter::PriceAdapter::Event",
+    "type": "event",
+    "variants": []
+  }
+]

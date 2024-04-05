@@ -1,10 +1,4 @@
-import { VERSION } from "./index";
-
-export const priceFeedAddresses: {
-  [key in VERSION]: { BTC: string; ETH: string };
-} = {
-  "0": {
-    BTC: "0x0712a25055cf4fcd1616f79540aa82c5d947f55e06ea2c6ca8fe9fcf97eb5c8b",
-    ETH: "0x03a51e049f6f51382d6bef8f77179f8d1b907818e8c485905e1a90f7eac0754c",
-  },
+export const priceFeedAddresses = {
+  BTC: "0x02819d82ac4d3b305c2d449873a2ccafae6c06ca6c5916e4bea5e0f07d5911f4",
+  ETH: "0x02602664fe5ea8e190ebe5df1247b46f283041cf38a6458282640197c27b9df1",
 };

@@ -70,7 +70,7 @@ clippy: prepare
         (cd $(REDSTONE_DIR) && $(CLIPPY) --all-targets --features=$$features -- -D warnings); \
     done
 
-	$(call run_in_dirs,$(ALL_TARGET_DIRS),${CLIPPY} --all-targets -- -D warnings )
+	$(call run_in_dirs,$(ALL_TARGET_DIRS),${CLIPPY} --all-targets -- -D warnings)
 	$(call run_in_dirs,$(CONTRACT_DIRS),${CLIPPY} --target wasm32-unknown-unknown $(RUN_FEATURES) -- -D warnings)
 
 check-lint: clippy

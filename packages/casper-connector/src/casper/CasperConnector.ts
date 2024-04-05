@@ -12,7 +12,7 @@ export abstract class CasperConnector<Adapter>
 
   abstract getAdapter(): Promise<Adapter>;
 
-  async getBlockNumber(_rpcUrl?: string): Promise<number> {
+  async getBlockNumber(): Promise<number> {
     return await this.connection.getBlockHeight();
   }
 

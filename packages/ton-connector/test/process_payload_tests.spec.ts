@@ -1,12 +1,11 @@
 import "@ton/test-utils";
-import { TonTesterContractAdapter } from "./tester/TonTesterContractAdapter";
-
 import {
   createContractParamsProviderMock,
   createTesterContractEnv,
   SAMPLE_PACKAGES_TIMESTAMP,
   SIGNERS,
 } from "./helpers/test_helpers";
+import { TonTesterContractAdapter } from "./tester/TonTesterContractAdapter";
 import { TonTesterContractDeployer } from "./tester/TonTesterContractDeployer";
 
 jest.setTimeout(10000);

@@ -1,0 +1,135 @@
+[
+  {
+    "name": "constructor",
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "owner_address",
+        "type": "core::felt252"
+      },
+      {
+        "name": "signer_count_threshold",
+        "type": "core::felt252"
+      },
+      {
+        "name": "signer_addresses",
+        "type": "core::array::Array::<core::felt252>"
+      }
+    ]
+  },
+  {
+    "name": "read_price",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "feed_id",
+        "type": "core::felt252"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "core::felt252"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "interface::round_data::RoundData",
+    "type": "struct",
+    "members": [
+      {
+        "name": "round_number",
+        "type": "core::integer::u64"
+      },
+      {
+        "name": "payload_timestamp",
+        "type": "core::integer::u64"
+      },
+      {
+        "name": "block_number",
+        "type": "core::integer::u64"
+      },
+      {
+        "name": "block_timestamp",
+        "type": "core::integer::u64"
+      }
+    ]
+  },
+  {
+    "name": "read_round_data",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "interface::round_data::RoundData"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "read_round_data_and_price",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "feed_id",
+        "type": "core::felt252"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "(interface::round_data::RoundData, core::felt252)"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "name": "write_prices",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "round_number",
+        "type": "core::felt252"
+      },
+      {
+        "name": "feed_ids",
+        "type": "core::array::Array::<core::felt252>"
+      },
+      {
+        "name": "payload_bytes",
+        "type": "core::array::Array::<core::integer::u8>"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "name": "write_price_values",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "round_number",
+        "type": "core::felt252"
+      },
+      {
+        "name": "feed_ids",
+        "type": "core::array::Array::<core::felt252>"
+      },
+      {
+        "name": "prices",
+        "type": "core::array::Array::<core::felt252>"
+      },
+      {
+        "name": "payload_timestamp",
+        "type": "core::felt252"
+      }
+    ],
+    "outputs": [],
+    "state_mutability": "external"
+  },
+  {
+    "kind": "enum",
+    "name": "price_rounds_adapter::price_rounds_adapter::PriceRoundsAdapter::Event",
+    "type": "event",
+    "variants": []
+  }
+]

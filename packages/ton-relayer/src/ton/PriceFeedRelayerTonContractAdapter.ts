@@ -1,5 +1,5 @@
 import {
-  IPriceFeedContractAdapter,
+  IPriceRoundsFeedContractAdapter,
   PriceFeedRoundData,
 } from "@redstone-finance/sdk";
 import {
@@ -10,7 +10,7 @@ import {
 
 export class PriceFeedRelayerTonContractAdapter
   extends TonPriceFeedContractAdapter
-  implements IPriceFeedContractAdapter
+  implements IPriceRoundsFeedContractAdapter
 {
   constructor(contract: AnyTonOpenedContract<TonPriceFeed>) {
     super(contract);

@@ -1,9 +1,8 @@
 import { Address, Cell, contractAddress } from "@ton/core";
 import { TonContract } from "./TonContract";
-import { TonInitData } from "./TonInitData";
-
-import { TonNetwork } from "./network/TonNetwork";
 import { TonContractError } from "./TonContractError";
+import { TonInitData } from "./TonInitData";
+import { TonNetwork } from "./network/TonNetwork";
 
 export class TonContractFactory {
   constructor(private contractType: typeof TonContract) {}

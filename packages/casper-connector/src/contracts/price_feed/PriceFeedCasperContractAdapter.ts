@@ -1,3 +1,7 @@
+import {
+  IPriceFeedContractAdapter,
+  PriceAndTimestamp,
+} from "@redstone-finance/sdk";
 import { BigNumber, BigNumberish } from "ethers";
 import { CasperContractAdapter } from "../CasperContractAdapter";
 import {
@@ -6,10 +10,13 @@ import {
   STORAGE_KEY_VALUE,
 } from "../constants";
 
-export class PriceFeedCasperContractAdapter extends CasperContractAdapter {
+export class PriceFeedCasperContractAdapter
+  extends CasperContractAdapter
+  implements IPriceFeedContractAdapter
+{
   private static GET_PRICE_AND_TIMESTAMP_CSPR = 1;
 
-  async getPriceAndTimestamp() {
+  async getPriceAndTimestamp(): Promise<PriceAndTimestamp> {
     const deployId = await this.callEntrypoint(
       ENTRY_POINT_GET_PRICE_AND_TIMESTAMP,
       PriceFeedCasperContractAdapter.GET_PRICE_AND_TIMESTAMP_CSPR

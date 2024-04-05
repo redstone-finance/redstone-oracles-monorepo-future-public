@@ -1,0 +1,119 @@
+[
+  {
+    "name": "NameRegistry",
+    "type": "impl",
+    "interface_name": "price_rounds_feed::price_rounds_feed::IPriceRoundsFeed"
+  },
+  {
+    "name": "price_rounds_feed::round::Round",
+    "type": "struct",
+    "members": [
+      {
+        "name": "round_id",
+        "type": "core::felt252"
+      },
+      {
+        "name": "answer",
+        "type": "core::felt252"
+      },
+      {
+        "name": "block_num",
+        "type": "core::felt252"
+      },
+      {
+        "name": "started_at",
+        "type": "core::felt252"
+      },
+      {
+        "name": "updated_at",
+        "type": "core::felt252"
+      }
+    ]
+  },
+  {
+    "name": "price_rounds_feed::price_rounds_feed::IPriceRoundsFeed",
+    "type": "interface",
+    "items": [
+      {
+        "name": "latest_round_data",
+        "type": "function",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "price_rounds_feed::round::Round"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "name": "round_data",
+        "type": "function",
+        "inputs": [
+          {
+            "name": "round_id",
+            "type": "core::felt252"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "price_rounds_feed::round::Round"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "name": "description",
+        "type": "function",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::felt252"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "name": "decimals",
+        "type": "function",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::felt252"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "name": "type_and_version",
+        "type": "function",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::felt252"
+          }
+        ],
+        "state_mutability": "view"
+      }
+    ]
+  },
+  {
+    "name": "constructor",
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "manager_address",
+        "type": "core::felt252"
+      },
+      {
+        "name": "feed_id",
+        "type": "core::felt252"
+      }
+    ]
+  },
+  {
+    "kind": "enum",
+    "name": "price_rounds_feed::price_rounds_feed::PriceRoundsFeed::Event",
+    "type": "event",
+    "variants": []
+  }
+]

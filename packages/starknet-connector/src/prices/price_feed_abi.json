@@ -1,0 +1,33 @@
+[
+  {
+    "name": "constructor",
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "manager_address",
+        "type": "core::felt252"
+      },
+      {
+        "name": "feed_id",
+        "type": "core::felt252"
+      }
+    ]
+  },
+  {
+    "name": "read_price_and_timestamp",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "(core::felt252, core::felt252)"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "kind": "enum",
+    "name": "price_feed::price_feed::PriceFeed::Event",
+    "type": "event",
+    "variants": []
+  }
+]

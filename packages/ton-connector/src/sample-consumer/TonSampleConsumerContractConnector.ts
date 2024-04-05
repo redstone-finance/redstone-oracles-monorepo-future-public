@@ -1,8 +1,7 @@
-import { TonContractConnector } from "../TonContractConnector";
-import { TonSampleConsumerContractAdapter } from "./TonSampleConsumerContractAdapter";
-
 import { TonSampleConsumer } from "../../wrappers/TonSampleConsumer";
+import { TonContractConnector } from "../TonContractConnector";
 import { TonNetwork } from "../network/TonNetwork";
+import { TonSampleConsumerContractAdapter } from "./TonSampleConsumerContractAdapter";
 
 export class TonSampleConsumerContractConnector extends TonContractConnector<
   TonSampleConsumer,

@@ -1,0 +1,24 @@
+[package]
+name = "price_feed"
+version = "0.1.0"
+edition = "2023_11"
+
+[cairo]
+sierra-replace-ids = true
+
+[dependencies]
+interface = { path = "../interface" }
+starknet = ">=2.5.4"
+
+[[target.starknet-contract]]
+
+[tool.fmt]
+sort-module-level-items = true
+
+[scripts]
+declare = "starkli declare -w target/dev/price_feed_PriceFeed.contract_class.json | tee /dev/tty | awk 'END{print}' > CLASS.hex"
+deploy_eth = "starkli deploy -w $(cat CLASS.hex) $(cat ../price_adapter/CONTRACT.hex) 4543560 | tee /dev/tty | awk 'END{print}' > CONTRACT_ETH.hex"
+deploy_btc = "starkli deploy -w $(cat CLASS.hex) $(cat ../price_adapter/CONTRACT.hex) 4346947 | tee /dev/tty | awk 'END{print}' > CONTRACT_BTC.hex"
+
+read_eth_price_and_timestamp = "starkli call $(cat CONTRACT_ETH.hex) read_price_and_timestamp"
+read_btc_price_and_timestamp = "starkli call $(cat CONTRACT_BTC.hex) read_price_and_timestamp"

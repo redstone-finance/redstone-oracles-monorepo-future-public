@@ -1,26 +1,43 @@
 import {
+  ContractParamsProvider,
   IContractConnector,
-  IPriceFeedContractAdapter,
   IPriceManagerContractAdapter,
+  IPriceRoundsFeedContractAdapter,
 } from "@redstone-finance/sdk";
+import {
+  PriceRoundsAdapterStarknetContractConnector,
+  PriceRoundsFeedStarknetContractConnector,
+  StarknetContractConnector,
+  getAccount,
+} from "@redstone-finance/starknet-connector";
 import { config } from "../config";
-import { PriceFeedContractConnector } from "./cairo0/PriceFeedContractConnector";
-import { PriceManagerContractConnector } from "./cairo0/PriceManagerContractConnector";
+import {
+  DATA_FEEDS,
+  DATA_SERVICE_ID,
+  UNIQUE_SIGNER_COUNT,
+} from "../config/data-service-parameters";
 
 export class ContractConnectorFactory {
-  static makePriceManagerContractConnector(): IContractConnector<IPriceManagerContractAdapter> {
-    switch (config.priceManagerVersion) {
-      case "0":
-        return new PriceManagerContractConnector(config);
-    }
+  static makePriceManagerContractConnector(): IContractConnector<IPriceManagerContractAdapter> &
+    StarknetContractConnector<IPriceManagerContractAdapter> {
+    return new PriceRoundsAdapterStarknetContractConnector(
+      getAccount(config),
+      config.priceAdapterAddress,
+      new ContractParamsProvider({
+        dataServiceId: DATA_SERVICE_ID,
+        uniqueSignersCount: UNIQUE_SIGNER_COUNT,
+        dataFeeds: DATA_FEEDS,
+      }),
+      config.maxEthFee
+    );
   }
 
   static makePriceFeedContractConnector(
     feedAddress: string
-  ): IContractConnector<IPriceFeedContractAdapter> {
-    switch (config.priceManagerVersion) {
-      case "0":
-        return new PriceFeedContractConnector(config, feedAddress);
-    }
+  ): IContractConnector<IPriceRoundsFeedContractAdapter> {
+    return new PriceRoundsFeedStarknetContractConnector(
+      getAccount(config),
+      feedAddress
+    );
   }
 }
