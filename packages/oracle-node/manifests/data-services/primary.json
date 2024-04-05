@@ -309,7 +309,7 @@
       ]
     },
     "PREMIA-TWAP-60": {
-      "source": ["twap-cache-service-minute-redstone-primary-prod"]
+      "source": ["twap-local-redstone-primary-prod"]
     },
     "MNT": {
       "source": [
@@ -971,7 +971,7 @@
       }
     },
     "USDB-TWAP-30": {
-      "source": ["twap-cache-service-minute-redstone-primary-prod"],
+      "source": ["twap-local-redstone-primary-prod"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
