@@ -310,10 +310,12 @@ export default {
 export * from "./contracts/ContractParamsProvider";
 export * from "./contracts/ContractParamsProviderMock";
 export * from "./contracts/IContractConnector";
+export * from "./contracts/prices/IPriceFeedContractAdapter";
 export * from "./contracts/prices/IPricesContractAdapter";
+export * from "./contracts/prices/sample-run";
 export * from "./data-feed-values";
 export * from "./data-services-urls";
 export * from "./fetch-data-packages";
-export * from "./simple-relayer/IPriceFeedContractAdapter";
 export * from "./simple-relayer/IPriceManagerContractAdapter";
+export * from "./simple-relayer/IPriceRoundsFeedContractAdapter";
 export * from "./simple-relayer/start-simple-relayer";

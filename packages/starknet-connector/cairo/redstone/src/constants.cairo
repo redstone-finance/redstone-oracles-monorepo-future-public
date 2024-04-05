@@ -1,0 +1,9 @@
+pub(crate) const REDSTONE_MARKER: felt252 = 0x000002ed57011e0000;
+pub(crate) const REDSTONE_MARKER_BS: usize = 9_usize;
+pub(crate) const UNSIGNED_METADATA_BYTE_SIZE_BS: usize = 3_usize;
+pub(crate) const DATA_PACKAGES_COUNT_BS: usize = 2_usize;
+pub(crate) const SIGNATURE_BS: usize = 65_usize;
+pub(crate) const DATA_POINTS_COUNT_BS: usize = 3_usize;
+pub(crate) const DATA_POINT_VALUE_BYTE_SIZE_BS: usize = 4_usize;
+pub(crate) const TIMESTAMP_BS: usize = 6_usize;
+pub(crate) const DATA_FEED_ID_BS: usize = 32_usize;

@@ -1,5 +1,4 @@
 import { IContractConnector } from "@redstone-finance/sdk";
-
 import { TonPriceFeedContractConnector } from "@redstone-finance/ton-connector";
 import { PriceFeedRelayerTonContractAdapter } from "./PriceFeedRelayerTonContractAdapter";
 

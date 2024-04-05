@@ -4,7 +4,6 @@ import {
   IPriceManagerContractAdapter,
   IPricesContractAdapter,
 } from "@redstone-finance/sdk";
-
 import {
   TonNetwork,
   TonPricesContractConnector,

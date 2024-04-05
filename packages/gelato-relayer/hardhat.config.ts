@@ -93,7 +93,7 @@ const config: HardhatUserConfig = {
     },
     goerli: {
       chainId: 5,
-      url: `https://eth-goerli.g.alchemy.com/v2/${ALCHEMY_ID}`,
+      url: `https://gateway.tenderly.co/public/goerli`,
       accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
     },
     mumbai: {

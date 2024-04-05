@@ -7,7 +7,7 @@
   "scripts": {
     "test": "yarn global:jest:cov",
     "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
-    "run": "yarn global:ts-node test/e2e/_run.ts",
+    "sample-run": "yarn global:ts-node test/e2e/sample-run.ts",
     "preversion": "yarn build",
     "pack-package": "yarn build && cd dist && npm pack",
     "lint": "yarn global:eslint ."

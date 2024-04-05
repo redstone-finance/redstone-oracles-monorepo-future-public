@@ -1,5 +1,4 @@
 import { TonPriceFeed } from "../../wrappers/TonPriceFeed";
-
 import { AnyTonOpenedContract } from "../network/TonNetwork";
 
 export class TonPriceFeedContractAdapter {

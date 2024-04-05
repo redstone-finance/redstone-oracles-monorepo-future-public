@@ -1,0 +1,30 @@
+[package]
+name = "price_adapter"
+version = "0.1.0"
+edition = "2023_11"
+
+[cairo]
+sierra-replace-ids = true
+
+[dependencies]
+utils = { path = "../utils" }
+interface = { path = "../interface" }
+redstone = { path = "../../redstone" }
+starknet = ">=2.5.4"
+
+[[target.starknet-contract]]
+
+[tool.fmt]
+sort-module-level-items = true
+
+[scripts]
+declare = "starkli declare -w target/dev/price_adapter_PriceAdapter.contract_class.json | tee /dev/tty | awk 'END{print}' > CLASS.hex"
+deploy = "starkli deploy -w $(cat CLASS.hex) $(cat constructor.args) | tee /dev/tty | awk 'END{print}' > CONTRACT.hex"
+
+prepare_data = "make -C ../.. prepare_data"
+
+write_prices = "starkli invoke -w $(cat CONTRACT.hex) write_prices 2 4346947 4543560 $(ls -lf ../../sample-data/test.split | awk '{print $5}' | awk '{print ($1-1)/5}') $(cat ../../sample-data/test.split)"
+get_prices = "starkli call $(cat CONTRACT.hex) get_prices 2 4346947 4543560 $(ls -lf ../../sample-data/test.split | awk '{print $5}' | awk '{print ($1-1)/5}') $(cat ../../sample-data/test.split)"
+read_timestamp = "starkli call $(cat CONTRACT.hex) read_timestamp"
+read_btc_price = "starkli call $(cat CONTRACT.hex) read_prices 1 4346947"
+read_eth_price = "starkli call $(cat CONTRACT.hex) read_prices 1 4543560"

@@ -31,7 +31,7 @@ export abstract class TonContractConnector<
 
   abstract getAdapter(): Promise<Adapter>;
 
-  async getBlockNumber(_: string): Promise<number> {
+  async getBlockNumber(): Promise<number> {
     return (await this.network.api!.getLastBlock()).last.seqno;
   }
 

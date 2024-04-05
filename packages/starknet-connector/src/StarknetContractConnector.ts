@@ -1,34 +1,22 @@
 import { IContractConnector } from "@redstone-finance/sdk";
-import axios from "axios";
 import {
   Abi,
-  AccountInterface,
+  BlockTag,
   Contract,
-  Provider,
+  ProviderInterface,
   TransactionFinalityStatus,
 } from "starknet";
 
-export enum NetworkName {
-  SN_MAIN = "SN_MAIN",
-  SN_GOERLI = "SN_GOERLI",
-  SN_GOERLI2 = "SN_GOERLI2",
-}
 export const FEE_MULTIPLIER = 1000000000000000000;
 
 export abstract class StarknetContractConnector<Adapter>
   implements IContractConnector<Adapter>
 {
-  provider: AccountInterface | Provider;
-
   protected constructor(
-    account: AccountInterface | undefined,
+    protected provider: ProviderInterface,
     private contractAddress: string,
-    private abi: Abi,
-    private network: NetworkName = NetworkName.SN_GOERLI
-  ) {
-    this.provider =
-      account || new Provider({ sequencer: { network: this.network } });
-  }
+    private abi: Abi
+  ) {}
 
   abstract getAdapter(): Promise<Adapter>;
 
@@ -38,18 +26,24 @@ export abstract class StarknetContractConnector<Adapter>
       successStates: [successState],
     });
 
-    let logText = `Transaction ${txHash} finished with status: ${result.status}`;
-    const anyResult = result as { actual_fee?: string };
+    const acceptedResult = result as unknown as {
+      execution_status: string;
+      actual_fee: { amount: string; unit: "WEI" };
+      revert_reason?: string;
+    };
 
-    if (anyResult.actual_fee) {
-      logText += `, fee: ${
-        parseInt(anyResult.actual_fee) / FEE_MULTIPLIER
-      } ETH`;
+    let logText = `Transaction ${txHash} finished with status: ${acceptedResult.execution_status}`;
+    if (acceptedResult.revert_reason) {
+      logText += acceptedResult.revert_reason;
     }
+
+    logText += `, fee: ${
+      parseInt(acceptedResult.actual_fee.amount) / FEE_MULTIPLIER
+    } ETH`;
 
     console.log(logText);
 
-    return result.status?.toString() === successState.toString();
+    return acceptedResult.execution_status === successState.toString();
   }
 
   getContract(): Contract {
@@ -57,15 +51,7 @@ export abstract class StarknetContractConnector<Adapter>
   }
 
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this -- Interface requirement
-  async getBlockNumber(rpcUrl: string): Promise<number> {
-    const response = await axios.post(rpcUrl, {
-      jsonrpc: "2.0",
-      method: "starknet_blockNumber",
-      params: [],
-      id: 1,
-    });
-
-    // eslint-disable-next-line
-    return response.data.result;
+  async getBlockNumber(): Promise<number> {
+    return (await this.provider.getBlock(BlockTag.latest)).block_number;
   }
 }

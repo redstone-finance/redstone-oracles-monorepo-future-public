@@ -1,0 +1,24 @@
+[package]
+name = "price_rounds_feed"
+version = "0.1.0"
+edition = "2023_11"
+
+[cairo]
+sierra-replace-ids = true
+
+[dependencies]
+interface = { path = "../interface" }
+starknet = ">=2.5.4"
+
+[[target.starknet-contract]]
+
+[tool.fmt]
+sort-module-level-items = true
+
+[scripts]
+declare = "starkli declare -w target/dev/price_rounds_feed_PriceRoundsFeed.contract_class.json | tee /dev/tty | awk 'END{print}' > CLASS.hex"
+deploy_eth = "starkli deploy --max-fee=0.0002 -w $(cat CLASS.hex) $(cat ../price_rounds_adapter/CONTRACT.hex) 4543560 | tee /dev/tty | awk 'END{print}' > CONTRACT_ETH.hex"
+deploy_btc = "starkli deploy --max-fee=0.0002 -w $(cat CLASS.hex) $(cat ../price_rounds_adapter/CONTRACT.hex) 4346947 | tee /dev/tty | awk 'END{print}' > CONTRACT_BTC.hex"
+
+read_eth_latest_round_data = "starkli call $(cat CONTRACT_ETH.hex) latest_round_data"
+read_btc_latest_round_data = "starkli call $(cat CONTRACT_BTC.hex) latest_round_data"

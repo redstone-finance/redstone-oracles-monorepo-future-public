@@ -1,8 +1,7 @@
-import { TonContractConnector } from "../TonContractConnector";
-import { TonSingleFeedManContractAdapter } from "./TonSingleFeedManContractAdapter";
-
 import { TonSingleFeedMan } from "../../wrappers/TonSingleFeedMan";
+import { TonContractConnector } from "../TonContractConnector";
 import { TonNetwork } from "../network/TonNetwork";
+import { TonSingleFeedManContractAdapter } from "./TonSingleFeedManContractAdapter";
 
 export class TonSingleFeedManContractConnector extends TonContractConnector<
   TonSingleFeedMan,

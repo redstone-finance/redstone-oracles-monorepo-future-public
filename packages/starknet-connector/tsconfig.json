@@ -3,7 +3,10 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["**/*", "src/prices/prices_abi.json"],
+  "include": [
+    "**/*",
+    "src/**/*_abi.json"
+  ],
   "references": [
     {
       "path": "../protocol/tsconfig.build.json"

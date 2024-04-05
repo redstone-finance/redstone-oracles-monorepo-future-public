@@ -3,19 +3,17 @@ import {
   IPricesContractAdapter,
 } from "@redstone-finance/sdk";
 import { BigNumber, BigNumberish } from "ethers";
+import assert from "node:assert";
+import { casperBlake2b } from "../../casper/casper-blake2b";
 import { CasperContractAdapter } from "../CasperContractAdapter";
+import { RunMode } from "../RunMode";
+import { RuntimeArgsFactory } from "../RuntimeArgsFactory";
 import {
   ENTRY_POINT_GET_PRICES,
   ENTRY_POINT_WRITE_PRICES,
   STORAGE_KEY_TIMESTAMP,
   STORAGE_KEY_VALUES,
 } from "../constants";
-
-import assert from "node:assert";
-
-import { casperBlake2b } from "../../casper/casper-blake2b";
-import { RunMode } from "../RunMode";
-import { RuntimeArgsFactory } from "../RuntimeArgsFactory";
 
 export class PriceAdapterCasperContractAdapter
   extends CasperContractAdapter
