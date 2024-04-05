@@ -8,6 +8,7 @@ import arbitrumWeetheth from "./arbitrumWeetheth.json";
 import arbitrumWeethfundamental from "./arbitrumWeethfundamental.json";
 import blastBtc from "./blastBtc.json";
 import blastEth from "./blastEth.json";
+import blastLrts from "./blastLrts.json";
 import blastTestnet from "./blastTestnet.json";
 import blastUsdb from "./blastUsdb.json";
 import bnbEzetheth from "./bnbEzetheth.json";
@@ -77,6 +78,7 @@ export default {
   bnbEzetheth,
   blastBtc,
   blastEth,
+  blastLrts,
   blastTestnet,
   blastUsdb,
   cadenceCantoAtom,
