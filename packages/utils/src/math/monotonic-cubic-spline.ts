@@ -110,7 +110,7 @@ const createInterpolant = (
   const [sortedXs, sortedYs] = sortPoints(xs, ys);
 
   // monotonicity check
-  if (!isStrictlyMonotonic(sortedYs)) {
+  if (!isMonotonic(sortedYs)) {
     throw new Error("The given points are not monotonic");
   }
 
@@ -177,9 +177,9 @@ const sortPoints = (xs: number[], ys: number[]): [number[], number[]] => {
 };
 
 /**
- * Whether the given list of values is strictly monotonic.
+ * Whether the given list of values is monotonic.
  */
-const isStrictlyMonotonic = (ys: number[]) => {
+const isMonotonic = (ys: number[]) => {
   if (ys.length < 2) {
     return true;
   }
@@ -202,9 +202,6 @@ const isStrictlyMonotonic = (ys: number[]) => {
         return false;
       }
       direction = "decreasing";
-    } else {
-      // equality, no strict monotonicity
-      return false;
     }
 
     previous = current;
@@ -231,20 +228,14 @@ const createInterpolantFunction =
     }
 
     // search for the interval x is in, returning the corresponding y if x is one of the original xs
-    let low = 0,
-      high = c3s.length - 1;
-    while (low <= high) {
-      const middle = Math.floor(0.5 * (low + high));
-      const middleX = xs[middle];
-      if (middleX < x) {
-        low = middle + 1;
-      } else if (middleX > x) {
-        high = middle - 1;
-      } else {
-        return ys[middle];
+    let i;
+    for (i = 0; i < xs.length - 1; i++) {
+      if (xs[i] === x) {
+        return ys[i];
+      } else if (xs[i] < x && x < xs[i + 1]) {
+        break;
       }
     }
-    const i = Math.max(0, high);
 
     // interpolate
     const diff = x - xs[i];

@@ -302,7 +302,7 @@ describe("monotonic cubic interpolation", () => {
 
   it("should throw for not monotonic", () => {
     expect(() => monotoneCubicInterpolation([1, 2, 3], [12, 18, 15])).toThrow();
-    expect(() => monotoneCubicInterpolation([1, 2, 3], [5, 4, 4])).toThrow();
+    expect(() => monotoneCubicInterpolation([1, 2, 3], [5, 3, 4])).toThrow();
   });
 
   it("should match the given points", () => {
