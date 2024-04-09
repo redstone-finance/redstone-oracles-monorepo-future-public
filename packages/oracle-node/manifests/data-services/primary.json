@@ -998,6 +998,23 @@
     },
     "pufETH/ETH": {
       "source": ["non-usd-based"]
+    },
+    "BNB": {
+      "source": [
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bitget",
+        "bitmart",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "kucoin",
+        "mexc",
+        "lbank",
+        "okx",
+        "xt"
+      ]
     }
   }
 }
