@@ -5,6 +5,7 @@ export type CallEntry = {
   callData: string;
   target: string;
   allowFailure: boolean;
+  gasLimit?: number;
   blockTag?: BlockTag;
   resolve: (value: string) => void;
   reject: (reason: unknown) => void;

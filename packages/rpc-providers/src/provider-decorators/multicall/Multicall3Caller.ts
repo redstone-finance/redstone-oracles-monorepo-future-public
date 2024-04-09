@@ -1,27 +1,20 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
 import { RedstoneCommon } from "@redstone-finance/utils";
-import { BytesLike, Contract, providers } from "ethers";
-import { abi } from "./Multicall3.abi.json";
+import { Contract, providers } from "ethers";
+import { getChainConfigByChainId } from "../../chains-configs";
+import { getMulticall3, getNetworkName } from "../../chains-configs/helpers";
 
-export const MULTICALL3_DETERMINISTIC_ADDRESS =
-  "0xcA11bde05977b3631167028862bE2a173976CA11";
-
-// https://github.com/mds1/multicall#batch-contract-reads
 export type Multicall3Request = {
   target: string;
   allowFailure: boolean;
-  callData: BytesLike;
+  callData: string;
+  gasLimit?: number;
 };
 
 export type Multicall3Result = {
   returnData: string;
   fallbackRejectReason?: unknown;
 };
-
-const DEFAULT_MULTICALL3_CONTRACT = new Contract(
-  MULTICALL3_DETERMINISTIC_ADDRESS,
-  abi
-);
 
 function rawMulticall3(
   multicall3Contract: Contract,
@@ -39,9 +32,11 @@ export async function multicall3(
   blockTag?: BlockTag,
   multicallAddress?: string
 ): Promise<Multicall3Result[]> {
-  const multicall3Contract = multicallAddress
-    ? new Contract(multicallAddress, abi)
-    : DEFAULT_MULTICALL3_CONTRACT;
+  const chainId = (await provider.getNetwork()).chainId;
+  const multicall3Contract = getMulticall3(
+    getNetworkName(chainId),
+    multicallAddress
+  );
 
   try {
     return await rawMulticall3(
@@ -52,23 +47,31 @@ export async function multicall3(
   } catch (e) {
     // if multicall failed fallback to normal execution model (1 call = 1 request)
     console.log(
-      `[multicall3] failed. Will fallback to ${
+      `[multicall3] chainId=${chainId} failed. Will fallback to ${
         call3s.length
       } separate calls. Error: ${RedstoneCommon.stringifyError(e)}`
     );
+
+    const chainConfig = getChainConfigByChainId(chainId);
+    const gasLimit =
+      chainConfig.multicall3.type === "RedstoneMulticall3"
+        ? chainConfig.multicall3.gasLimitPerCall
+        : undefined;
+
     return await Promise.all(
-      call3s.map((call3) => fallbackCall(provider, call3, blockTag))
+      call3s.map((call3) => fallbackCall(provider, call3, blockTag, gasLimit))
     );
   }
 }
 async function fallbackCall(
   provider: providers.Provider,
   call3: Multicall3Request,
-  blockTag: BlockTag | undefined
+  blockTag: BlockTag | undefined,
+  gasLimit?: number
 ) {
   try {
     const callResult = await provider.call(
-      { to: call3.target, data: call3.callData },
+      { to: call3.target, data: call3.callData, gasLimit },
       blockTag
     );
     return {

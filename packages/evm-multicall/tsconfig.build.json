@@ -4,15 +4,13 @@
     "node_modules",
     "dist",
     "test",
-    "artifacts/**/*.sol/*.json",
-    "hardhat.config.ts"
+    "scripts",
+    "hardhat.config.ts",
+    "artifacts/build-info"
   ],
   "references": [
     {
       "path": "../utils/tsconfig.build.json"
-    },
-    {
-      "path": "../evm-multicall/tsconfig.build.json"
     }
   ]
 }

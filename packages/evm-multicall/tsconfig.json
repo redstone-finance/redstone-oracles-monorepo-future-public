@@ -12,9 +12,6 @@
   "references": [
     {
       "path": "../utils/tsconfig.build.json"
-    },
-    {
-      "path": "../evm-multicall/tsconfig.build.json"
     }
   ]
 }

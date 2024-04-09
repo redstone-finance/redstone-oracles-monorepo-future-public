@@ -3,18 +3,27 @@ import { RedstoneCommon } from "@redstone-finance/utils";
 import { providers } from "ethers";
 import { Deferrable } from "ethers/lib/utils";
 import { z } from "zod";
-import {
-  MULTICALL3_DETERMINISTIC_ADDRESS,
-  multicall3,
-} from "./Multicall3Caller";
+import { getChainConfig, getNetworkName } from "../../chains-configs/helpers";
+import { Multicall3Request, multicall3 } from "./Multicall3Caller";
 import { MulticallBuffer } from "./MulticallBuffer";
 
-async function prepareMulticall3Request(tx: Deferrable<TransactionRequest>) {
-  return {
+async function prepareMulticall3Request(
+  tx: Deferrable<TransactionRequest>,
+  chainId: number
+) {
+  const call: Multicall3Request = {
     callData: (await tx["data"]) as string,
     target: (await tx["to"]) as string,
     allowFailure: true,
   };
+
+  const multicall3Info = getChainConfig(getNetworkName(chainId)).multicall3;
+
+  if (multicall3Info.type === "RedstoneMulticall3") {
+    call.gasLimit = multicall3Info.gasLimitPerCall;
+  }
+
+  return call;
 }
 
 const DEFAULT_LOG = (msg: string) => console.log(`[MulticallProvider] ${msg}`);
@@ -28,15 +37,13 @@ export type MulticallDecoratorOptions = {
   log?: (msg: string) => void;
 };
 
-const parseMulticallConfig = (
-  opts: MulticallDecoratorOptions
-): Required<MulticallDecoratorOptions> => {
+const parseMulticallConfig = (opts: MulticallDecoratorOptions) => {
   return {
     multicallAddress:
       opts.multicallAddress ??
       RedstoneCommon.getFromEnv(
         "MULTICALL_CONTRACT_ADDRESS",
-        z.string().default(MULTICALL3_DETERMINISTIC_ADDRESS)
+        z.string().optional()
       ),
     autoResolveInterval:
       opts.autoResolveInterval ??
@@ -72,12 +79,15 @@ export function MulticallDecorator<T extends providers.Provider>(
     config.maxCallDataSize
   );
 
+  let chainId: number | undefined = undefined;
+  const chainIdPromise = originalProvider.getNetwork().then((n) => n.chainId);
+
   const executeCallsFromQueue = (blockTag: BlockTag | undefined) => {
     const callDataSize = queue.callDataSize(blockTag);
     const callEntries = queue.flush(blockTag);
 
     config.log(
-      `resolveMulticall: executing multicall3 request blockTag=${blockTag} callsCount=${callEntries.length} callDataSize=${callDataSize} [bytes]`
+      `[multicall3] executing request chainId=${chainId} blockTag=${blockTag} callsCount=${callEntries.length} callDataSize=${callDataSize} [bytes]`
     );
 
     multicall3(originalProvider, callEntries, blockTag, config.multicallAddress)
@@ -106,10 +116,14 @@ export function MulticallDecorator<T extends providers.Provider>(
     transaction: Deferrable<TransactionRequest>,
     blockTag?: BlockTag | Promise<BlockTag>
   ): Promise<string> => {
-    const multicall3Request = await prepareMulticall3Request(transaction);
+    chainId = await chainIdPromise;
+    const multicall3Request = await prepareMulticall3Request(
+      transaction,
+      chainId
+    );
     const resolvedBlockTag = await blockTag;
 
-    const { promise, resolve, reject } = createDeferedPromise<string>();
+    const { promise, resolve, reject } = createDeferredPromise<string>();
     const entry = {
       ...multicall3Request,
       blockTag: resolvedBlockTag,
@@ -150,7 +164,7 @@ export function MulticallDecorator<T extends providers.Provider>(
   return () => modifiedProvider;
 }
 
-function createDeferedPromise<T>() {
+function createDeferredPromise<T>() {
   let resolve: (data: T) => void;
   let reject: (reason?: unknown) => void;
 

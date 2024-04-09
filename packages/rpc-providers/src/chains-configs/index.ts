@@ -6,34 +6,63 @@ export const ChainConfigSchema = z.object({
   name: z.string(),
   publicRpcUrls: z.string().url().array().readonly(),
   avgBlockTimeMs: z.number(),
+  multicall3: z
+    .object({
+      address: z.string(),
+      type: z.literal("Multicall3"),
+    })
+    .or(
+      z.object({
+        address: z.string(),
+        type: z.literal("RedstoneMulticall3"),
+        gasLimitPerCall: z.number().positive(),
+      })
+    ),
 });
 
 export type ChainConfig = z.infer<typeof ChainConfigSchema>;
+export type SupportedNetworkNames = keyof typeof ChainConfigs;
+
+const STANDARD_MULTICALL3 = {
+  address: "0xcA11bde05977b3631167028862bE2a173976CA11",
+  type: "Multicall3",
+} as const;
+
+const REDSTONE_MULTICALL3 = {
+  address: "0xC070fF3B13B5276D468591e0ef0e836D6c8dDDdc",
+  type: "RedstoneMulticall3",
+  gasLimitPerCall: RedstoneCommon.getFromEnv(
+    "GAS_LIMIT_PER_MULTICALL_CALL",
+    z.coerce.number().default(1_000_000)
+  ),
+} as const;
 
 export const getChainConfigByChainId = (chainId: number) =>
   RedstoneCommon.assertThenReturn(
     Object.values(ChainConfigs).find((c) => c.chainId === chainId),
     `Failed to getChainConfigByChainId chainConfig not defined for ${chainId}`
-  );
+  ) as ChainConfig;
 
 export const ChainConfigs = {
   hardhat: {
     name: "hardhat",
     chainId: 31337,
     publicRpcUrls: ["http://localhost:1337"],
-    avgBlockTimeMs: 10,
+    avgBlockTimeMs: 12_000,
+    multicall3: { ...REDSTONE_MULTICALL3, gasLimitPerCall: 100_000 },
   },
   ethereum: {
     name: "Ethereum Mainnet",
     chainId: 1,
     publicRpcUrls: [
+      "https://ethereum.publicnode.com",
       "https://rpc.ankr.com/eth",
       "https://eth.llamarpc.com",
       "https://eth-mainnet.public.blastapi.io",
       "https://endpoints.omniatech.io/v1/eth/mainnet/public",
-      "https://ethereum.publicnode.com",
     ],
     avgBlockTimeMs: 12_000,
+    multicall3: REDSTONE_MULTICALL3,
   },
   arbitrumOne: {
     name: "Arbitrum One",
@@ -46,6 +75,7 @@ export const ChainConfigs = {
       "https://1rpc.io/arb",
     ],
     avgBlockTimeMs: 250,
+    multicall3: REDSTONE_MULTICALL3,
   },
   avalanche: {
     name: "Avalanche Network",
@@ -58,6 +88,7 @@ export const ChainConfigs = {
       "https://avalanche-c-chain.publicnode.com",
     ],
     avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   optimism: {
     name: "Optimism",
@@ -71,6 +102,7 @@ export const ChainConfigs = {
       "https://optimism.blockpi.network/v1/rpc/public",
     ],
     avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   polygon: {
     name: "Polygon Mainnet",
@@ -83,12 +115,14 @@ export const ChainConfigs = {
       "https://rpc-mainnet.matic.quiknode.pro",
     ],
     avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   celo: {
     name: "Celo Mainnet",
     chainId: 42220,
     publicRpcUrls: ["https://forno.celo.org"],
     avgBlockTimeMs: 5_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   base: {
     name: "Base Mainnet",
@@ -100,6 +134,7 @@ export const ChainConfigs = {
       "https://mainnet.base.org",
     ],
     avgBlockTimeMs: 5_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   canto: {
     name: "Canto",
@@ -112,6 +147,7 @@ export const ChainConfigs = {
       "https://canto.dexvaults.com",
     ],
     avgBlockTimeMs: 6_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   manta: {
     name: "Manta Pacific Mainnet",
@@ -123,6 +159,7 @@ export const ChainConfigs = {
       "https://manta-pacific-gascap.calderachain.xyz/http",
     ],
     avgBlockTimeMs: 10_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   blast: {
     name: "Blast Mainnet",
@@ -135,12 +172,14 @@ export const ChainConfigs = {
       "https://blast.blockpi.network/v1/rpc/public",
     ],
     avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   "etherlink-ghostnet": {
     name: "Etherlink Ghostnet",
     chainId: 128123,
     publicRpcUrls: ["https://node.ghostnet.etherlink.com"],
     avgBlockTimeMs: 6_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   mode: {
     name: "Mode Mainnet",
@@ -150,6 +189,7 @@ export const ChainConfigs = {
       "https://1rpc.io/mode",
     ],
     avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   mantle: {
     name: "Mantle",
@@ -163,6 +203,7 @@ export const ChainConfigs = {
       "https://rpc.mantle.xyz",
     ],
     avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   "ethereum-sepolia": {
     name: "Ethereum Sepolia",
@@ -174,6 +215,7 @@ export const ChainConfigs = {
       "https://1rpc.io/sepolia",
     ],
     avgBlockTimeMs: 12_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   bnb: {
     name: "Binance chain",
@@ -187,6 +229,7 @@ export const ChainConfigs = {
       "https://1rpc.io/bnb",
     ],
     avgBlockTimeMs: 3_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   "bnb-testnet": {
     name: "Binance chain testnet",
@@ -198,24 +241,28 @@ export const ChainConfigs = {
       "https://bsc-testnet.blockpi.network/v1/rpc/public",
     ],
     avgBlockTimeMs: 3_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   "blast-testnet": {
     name: "Blast Testnet",
     chainId: 23888,
     publicRpcUrls: ["http://testnet-rpc.blastblockchain.com"],
     avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   "celo-baklava": {
     name: "Celo baklava",
     chainId: 62320,
     publicRpcUrls: ["https://baklava-forno.celo-testnet.org"],
     avgBlockTimeMs: 5_000,
+    multicall3: STANDARD_MULTICALL3,
   },
   hubble: {
     name: "Hubble",
     chainId: 1992,
     publicRpcUrls: ["https://rpc.hubble.exchange"],
     avgBlockTimeMs: 1_500,
+    multicall3: STANDARD_MULTICALL3,
   },
   kava: {
     name: "Kava",
@@ -229,5 +276,6 @@ export const ChainConfigs = {
       "https://kava.drpc.org",
     ],
     avgBlockTimeMs: 6_000,
+    multicall3: STANDARD_MULTICALL3,
   },
 };

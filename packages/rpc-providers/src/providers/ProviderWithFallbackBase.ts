@@ -20,7 +20,6 @@ export abstract class ProviderWithFallbackBase implements Provider {
     fnName: string,
     ...args: unknown[]
   ): Promise<T>;
-  abstract getNetwork(): Promise<Network>;
   abstract on(eventName: EventType, listener: Listener): Provider;
   abstract once(eventName: EventType, listener: Listener): Provider;
   abstract emit(eventName: EventType, ...args: unknown[]): boolean;
@@ -35,6 +34,7 @@ export abstract class ProviderWithFallbackBase implements Provider {
     confirmations?: number,
     timeout?: number
   ): Promise<TransactionReceipt>;
+  abstract getNetwork(): Promise<Network>;
 
   sendTransaction(...args: unknown[]): Promise<TransactionResponse> {
     return this.executeWithFallback("sendTransaction", ...args);

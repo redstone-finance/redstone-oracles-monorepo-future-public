@@ -1,6 +1,10 @@
+import {
+  RedstoneMulticall3Abi,
+  RedstoneMulticall3ByteCode,
+} from "@redstone-finance/evm-multicall";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-import { BigNumber, Contract, Wallet, ethers } from "ethers";
+import { BigNumber, Contract, ContractFactory, Wallet, ethers } from "ethers";
 import * as hardhat from "hardhat";
 import Sinon from "sinon";
 import {
@@ -177,7 +181,6 @@ const describeMultiWrapperSuite = (
     });
 
     it("should group by blockTag", async () => {
-      // we provide wrong multicall address to simulate rpc error
       const multicallProvider = getProvider(
         multicall.address,
         providerFabric,
@@ -195,6 +198,38 @@ const describeMultiWrapperSuite = (
       expect(resultCounter).to.eq(1);
       expect(resultCounter2).to.eq(1);
 
+      expect(multicallFnSpy.getCalls().length).to.eq(2);
+    });
+
+    it("should fail for infiniteLoop call, but succeed for proper call", async () => {
+      const contractFactory = new ContractFactory(
+        RedstoneMulticall3Abi,
+        RedstoneMulticall3ByteCode,
+        (await hardhat.ethers.getSigners())[0]
+      );
+
+      const multicall3 = await contractFactory.deploy();
+
+      const multicallProvider = getProvider(
+        multicall3.address,
+        providerFabric,
+        1
+      );
+      counter = counter.connect(multicallProvider);
+
+      const blockNumber = await multicallProvider.getBlockNumber();
+
+      const [resultCounter, resultCounter2] = await Promise.allSettled([
+        counter.getCount({ blockTag: blockNumber }),
+        counter.infiniteLoop({ blockTag: blockNumber - 1 }),
+      ]);
+
+      expect(resultCounter.status).to.eq("fulfilled");
+      expect((resultCounter as PromiseFulfilledResult<BigNumber>).value).to.eq(
+        1
+      );
+
+      expect(resultCounter2.status).to.eq("rejected");
       expect(multicallFnSpy.getCalls().length).to.eq(2);
     });
 

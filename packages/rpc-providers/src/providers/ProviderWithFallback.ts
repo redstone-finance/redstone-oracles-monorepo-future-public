@@ -2,7 +2,6 @@ import { ErrorCode, Logger } from "@ethersproject/logger";
 import {
   EventType,
   Listener,
-  Network,
   Provider,
   TransactionReceipt,
 } from "@ethersproject/providers";
@@ -78,8 +77,11 @@ export class ProviderWithFallback
     this.chainConfig = getChainConfigByChainId(this.chainId);
   }
 
-  override getNetwork(): Promise<Network> {
-    return this.currentProvider.getNetwork();
+  override getNetwork(): Promise<providers.Network> {
+    return Promise.resolve({
+      chainId: this.chainId,
+      name: this.chainConfig.name,
+    });
   }
 
   override on(eventName: EventType, listener: Listener): Provider {
