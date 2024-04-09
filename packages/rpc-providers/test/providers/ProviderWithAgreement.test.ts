@@ -449,7 +449,7 @@ describe("ProviderWithAgreement", () => {
       await testGetBlockNumber([[3, "error", "error", 8, 100]], [8]);
     });
 
-    it("reject smaller block number", async () => {
+    it("reject smaller block number, than previous one", async () => {
       await testGetBlockNumber(
         [
           [100, "error", 200],
@@ -459,12 +459,12 @@ describe("ProviderWithAgreement", () => {
       );
     });
 
-    it("reject block number ahead more then 24 hours", async () => {
-      const twentyFiveHoursInEthBlocks = (25 * 3600) / 12;
+    it("reject block number ahead more then 73 hours", async () => {
+      const seventyThreeHoursInEthBlocks = (73 * 3600) / 12;
       await testGetBlockNumber(
         [
           [100, "error", 200],
-          [100 + twentyFiveHoursInEthBlocks, 2, 200],
+          [100 + seventyThreeHoursInEthBlocks, 2, 200],
         ],
         [150, 101]
       );

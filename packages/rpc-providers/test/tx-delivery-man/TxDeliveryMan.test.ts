@@ -79,6 +79,35 @@ describe("TxDeliveryMan", () => {
       await assertTxWillBeDelivered(deliveryMan, counter);
     });
 
+    it("should skip for provider which is still delivering old tx", async () => {
+      const getNonceStub = Sinon.stub().callsFake(
+        hardhat.ethers.provider.getTransactionCount
+      );
+
+      const providerWithOldNonceMock = new HardhatProviderMocker(
+        hardhat.ethers.provider,
+        { getTransactionCount: getNonceStub }
+      );
+      const fallbackProvider = new ProviderWithFallback([
+        hardhat.ethers.provider,
+        providerWithOldNonceMock.provider,
+      ]);
+      const deliveryMan = new TxDeliveryMan(fallbackProvider, counter.signer, {
+        expectedDeliveryTimeMs: 20,
+        gasLimit: 210000,
+      });
+
+      connectProvider(fallbackProvider);
+
+      await Promise.allSettled([
+        assertTxWillBeDelivered(deliveryMan, counter),
+        assertTxWillBeDelivered(deliveryMan, counter),
+      ]);
+
+      // assert that only one transaction was delivered
+      await assertTxWillBeDelivered(deliveryMan, counter, 2);
+    });
+
     it("provider broadcast same transaction to every provider", async () => {
       const firstProviderSendStub = Sinon.stub().callsFake(
         hardhat.ethers.provider.sendTransaction

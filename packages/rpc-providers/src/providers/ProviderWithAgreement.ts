@@ -10,6 +10,7 @@ import {
 } from "./ProviderWithFallback";
 
 const AGREED_RESULT_TTL = RedstoneCommon.minToMs(5);
+const MAX_BLOCK_TIME_AHEAD_HOURS = 72;
 
 interface ProviderWithAgreementSpecificConfig {
   numberOfProvidersThatHaveToAgree: number;
@@ -205,8 +206,8 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       );
       RedstoneCommon.assert(
         (blockNumber - prevBlockNumber) * this.chainConfig.avgBlockTimeMs <
-          RedstoneCommon.hourToMs(24),
-        `provider=${providerIdentifier} returned block_number=${blockNumber} previous_one=${prevBlockNumber}, blockNumber can't be ahead more than 24 hours from previous one`
+          RedstoneCommon.hourToMs(MAX_BLOCK_TIME_AHEAD_HOURS),
+        `provider=${providerIdentifier} returned block_number=${blockNumber} previous_one=${prevBlockNumber}, blockNumber can't be ahead more than ${MAX_BLOCK_TIME_AHEAD_HOURS} hours from previous one`
       );
     }
   }
