@@ -17,6 +17,7 @@ export type TxDeliveryManSupportedProviders =
 
 export class TxDeliveryMan {
   private providers: readonly providers.JsonRpcProvider[];
+  private isProviderBusy = new Map<providers.JsonRpcProvider, boolean>();
 
   constructor(
     provider: TxDeliveryManSupportedProviders,
@@ -30,9 +31,20 @@ export class TxDeliveryMan {
     const deliveryPromises = [];
 
     for (const provider of this.providers) {
+      if (this.isProviderBusy.get(provider)) {
+        console.log(
+          `[TxDeliveryMan] provider=${
+            getProviderNetworkInfo(provider).url
+          } is still delivering old transaction, skipping delivery by this provider`
+        );
+        continue;
+      }
       const txDelivery = createTxDelivery(provider, this.signer, this.opts);
 
-      const deliveryPromise = txDelivery.deliver(txDeliveryCall);
+      this.isProviderBusy.set(provider, true);
+      const deliveryPromise = txDelivery
+        .deliver(txDeliveryCall)
+        .finally(() => this.isProviderBusy.set(provider, false));
 
       deliveryPromises.push(deliveryPromise);
     }
