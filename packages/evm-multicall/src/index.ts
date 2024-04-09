@@ -7,4 +7,4 @@ export const Multicall3ByteCode = multicall3.bytecode;
 export const RedstoneMulticall3Abi = redstoneMulticall3.abi;
 export const RedstoneMulticall3ByteCode = redstoneMulticall3.bytecode;
 
-export type * as EvmMulticallTypes from "../typechain-types";
+export type * as EvmMulticallTypes from "./types";
