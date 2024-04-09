@@ -1,5 +1,6 @@
 {
-  "name": "@redstone-finance/rpc-providers",
+  "name": "@redstone-finance/evm-multicall",
+  "prettier": "redstone-prettier-config",
   "version": "0.3.6",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -11,10 +12,6 @@
     "lint": "yarn global:eslint ."
   },
   "dependencies": {
-    "@influxdata/influxdb-client": "^1.33.2",
-    "@redstone-finance/evm-multicall": "^0.3.6",
-    "@redstone-finance/utils": "^0.3.6",
-    "axios": "^1.6.2",
     "ethers": "^5.7.2"
   },
   "devDependencies": {

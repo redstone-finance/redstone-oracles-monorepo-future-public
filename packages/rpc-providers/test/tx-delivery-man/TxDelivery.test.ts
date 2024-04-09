@@ -167,14 +167,14 @@ describe("TxDelivery", () => {
         nonce: 1,
         maxFeePerGas: "2375000000",
         maxPriorityFeePerGas: "1500000000",
-        gasLimit: "49271",
+        gasLimit: "49295",
       });
 
       expect(parseTxForComparison(sendStub.secondCall.args[0])).to.deep.equal({
         nonce: 1,
         maxFeePerGas: "2671875000",
         maxPriorityFeePerGas: "1687500000",
-        gasLimit: "54198",
+        gasLimit: "54225",
       });
     });
 
@@ -202,7 +202,7 @@ describe("TxDelivery", () => {
       ).to.deep.equal({
         nonce: 1,
         gasLimit: "210000",
-        gasPrice: "1767328378",
+        gasPrice: "1767619658",
       });
 
       expect(
@@ -214,7 +214,7 @@ describe("TxDelivery", () => {
       ).to.deep.equal({
         nonce: 1,
         gasLimit: "210000",
-        gasPrice: "1988244425",
+        gasPrice: "1988572115",
       });
     });
   });

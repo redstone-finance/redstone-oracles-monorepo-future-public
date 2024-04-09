@@ -27,6 +27,19 @@ contract Counter {
     return count + 1;
   }
 
+  function infiniteLoop() public view returns (uint256) {
+    uint256 counter = 0;
+    uint256 x;
+    for(uint256 i =0; i < 100_000; i++) {
+      assembly {
+        x := sload(counter)
+      }
+      counter = counter + x;
+    }
+
+    return counter;
+  }
+
   function getCountWithCallData32Bytes(uint256 param) public view returns (uint256) {
     return param;
   }

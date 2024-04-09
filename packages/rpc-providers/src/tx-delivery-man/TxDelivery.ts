@@ -190,6 +190,11 @@ export class TxDelivery {
             // skip sleeping
             continue;
           default:
+            this.opts.logger(
+              `Failed to delivery transaction with unknown error. Aborting delivery. error=${RedstoneCommon.stringifyError(
+                ethersError
+              )}`
+            );
             throw ethersError;
         }
       }

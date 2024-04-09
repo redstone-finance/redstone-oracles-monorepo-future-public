@@ -6443,6 +6443,36 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/evm-multicall@npm:^0.3.6, @redstone-finance/evm-multicall@workspace:packages/evm-multicall":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/evm-multicall@workspace:packages/evm-multicall"
+  dependencies:
+    "@ethersproject/abi": "npm:^5.6.3"
+    "@ethersproject/providers": "npm:^5.6.8"
+    "@nomicfoundation/hardhat-chai-matchers": "npm:1.0.6"
+    "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.9"
+    "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
+    "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
+    "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
+    "@typechain/ethers-v5": "npm:^10.2.0"
+    "@typechain/hardhat": "npm:^6.1.2"
+    "@types/chai": "npm:^4.3.4"
+    "@types/lodash": "npm:^4.14.195"
+    "@types/mocha": "npm:^10.0.1"
+    "@types/node": "npm:^18.14.6"
+    "@types/sinon": "npm:^10.0.15"
+    chai: "npm:^4.3.10"
+    ethers: "npm:^5.7.2"
+    hardhat: "npm:^2.17.2"
+    hardhat-gas-reporter: "npm:^1.0.9"
+    sinon: "npm:^15.0.3"
+    solidity-coverage: "npm:^0.8.5"
+    ts-node: "npm:^10.9.1"
+    typechain: "npm:^8.1.1"
+    typescript: "npm:^5.2.2"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/fuel-connector@workspace:packages/fuel-connector":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/fuel-connector@workspace:packages/fuel-connector"
@@ -6902,6 +6932,7 @@ __metadata:
     "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
+    "@redstone-finance/evm-multicall": "npm:^0.3.6"
     "@redstone-finance/utils": "npm:^0.3.6"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"

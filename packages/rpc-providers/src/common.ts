@@ -29,7 +29,7 @@ export const isEthersError = (e: unknown): e is EthersError => {
 
 export function getProviderNetworkInfo(
   provider: providers.Provider,
-  defaultVal = { chainId: 1, url: "unknown" }
+  defaultVal = { chainId: 31337, url: "unknown" }
 ) {
   try {
     if (provider instanceof providers.JsonRpcProvider) {
