@@ -32,6 +32,7 @@ import ethereumRswetheth from "./ethereumRswetheth.json";
 import ethereumStakewiseOsetheth from "./ethereumStakewiseOsetheth.json";
 import ethereumUsdeSusde from "./ethereumUsdeSusde.json";
 import etherlinkGhostnetTezosXtzEthBtc from "./etherlinkGhostnetTezosXtzEthBtc.json";
+import fraxtalPackage from "./fraxtalPackage.json";
 import hubble from "./hubble.json";
 import hubbleAylinTestnet from "./hubbleAylinTestnet.json";
 import hubbleExchangeMainnet from "./hubbleExchangeMainnet.json";
@@ -101,6 +102,7 @@ export default {
   ethereumStakewiseOsetheth,
   ethereumUsdeSusde,
   etherlinkGhostnetTezosXtzEthBtc,
+  fraxtalPackage,
   hubble,
   hubbleAylinTestnet,
   hubbleExchangeMainnet,

@@ -278,4 +278,11 @@ export const ChainConfigs = {
     avgBlockTimeMs: 6_000,
     multicall3: STANDARD_MULTICALL3,
   },
+  fraxtal: {
+    name: "Fraxtal Mainnet",
+    chainId: 252,
+    publicRpcUrls: ["https://rpc.frax.com"],
+    avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
+  },
 };
