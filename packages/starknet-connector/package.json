@@ -18,7 +18,9 @@
     "ethers": "^5.7.2",
     "starknet": "^6.6.6"
   },
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "publishConfig": {
     "access": "public"
   }

@@ -43,7 +43,10 @@
     "typechain": "^8.1.1",
     "typescript": "^5.2.2"
   },
-  "files": ["dist/**/*", "contracts/**/*"],
+  "files": [
+    "dist/**/*",
+    "contracts/**/*"
+  ],
   "publishConfig": {
     "access": "public"
   }

@@ -4,7 +4,6 @@ export {
   type UpdatePricesArgs,
 } from "./args/get-iteration-args";
 export { setConfigProvider } from "./config";
-export { getAbiForAdapter } from "./core/contract-interactions/get-contract";
 export { makeConfigProvider } from "./make-config-provider";
 export {
   OnChainRelayerManifestSchema,
@@ -16,5 +15,6 @@ export {
   type UpdateTriggers,
 } from "./types";
 export { manifests };
+export { getAbiForAdapter } from "./core/contract-interactions/get-abi-for-adapter";
 
 import manifests from "../relayer-manifests";

@@ -45,7 +45,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@gelatonetwork/automate-sdk": "^2.14.0",
     "@gelatonetwork/web3-functions-sdk": "^2.1.7",
     "@redstone-finance/on-chain-relayer": "^0.4.0"
   }

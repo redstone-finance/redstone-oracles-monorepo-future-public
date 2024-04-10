@@ -16,7 +16,8 @@ import { UpdatePricesArgs } from "../../args/get-iteration-args";
 import { config } from "../../config";
 import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
 import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
-import { getSortedOraclesContractAtAddress } from "./get-contract";
+
+import { getSortedOraclesContractAtAddress } from "./get-sorted-oracles-contract-at-address";
 
 export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
   const updateTx = await updatePriceInAdapterContract(updatePricesArgs);

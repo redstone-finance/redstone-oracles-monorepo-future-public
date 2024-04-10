@@ -53,7 +53,10 @@
       "path": "../sdk"
     }
   ],
-  "files": ["src/**/*", "wrappers/**/*"],
+  "files": [
+    "src/**/*",
+    "wrappers/**/*"
+  ],
   "publishConfig": {
     "access": "public"
   }
