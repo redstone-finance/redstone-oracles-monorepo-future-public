@@ -7,7 +7,6 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test yarn global:jest",
     "cli": "yarn global:ts-node src/main.ts"
   },
   "dependencies": {
