@@ -370,7 +370,6 @@
       "source": ["non-usd-based"]
     },
     "osETH": {
-      "priceAggregator": "depth",
       "source": [
         "balancer-ethereum-weth",
         "uniswap-v3-ethereum-on-chain-usdc-500",
