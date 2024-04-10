@@ -1,6 +1,7 @@
 {
   "name": "@redstone-finance/starknet-relayer",
-  "version": "0.3.6",
+  "prettier": "redstone-prettier-config",
+  "version": "0.4.0",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "private": true,
@@ -12,9 +13,9 @@
     "lint": "yarn global:eslint ."
   },
   "dependencies": {
-    "@redstone-finance/sdk": "^0.3.6",
-    "@redstone-finance/starknet-connector": "^0.3.6",
-    "@redstone-finance/utils": "^0.3.6",
+    "@redstone-finance/sdk": "^0.4.0",
+    "@redstone-finance/starknet-connector": "^0.4.0",
+    "@redstone-finance/utils": "^0.4.0",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2"
   }
