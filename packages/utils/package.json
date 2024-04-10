@@ -1,6 +1,7 @@
 {
   "name": "@redstone-finance/utils",
-  "version": "0.3.6",
+  "prettier": "redstone-prettier-config",
+  "version": "0.4.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",

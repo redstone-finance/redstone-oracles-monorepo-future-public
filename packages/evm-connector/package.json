@@ -1,6 +1,7 @@
 {
   "name": "@redstone-finance/evm-connector",
-  "version": "0.3.6",
+  "version": "0.4.0",
+  "prettier": "redstone-prettier-config",
   "description": "A tool to inject RedStone data into EVM compatible smart contracts",
   "main": "dist/src/index.js",
   "license": "MIT",
@@ -15,8 +16,8 @@
   "dependencies": {
     "@chainlink/contracts": "^0.6.1",
     "@openzeppelin/contracts": "^4.8.1",
-    "@redstone-finance/protocol": "^0.3.6",
-    "@redstone-finance/sdk": "^0.3.6",
+    "@redstone-finance/protocol": "^0.4.0",
+    "@redstone-finance/sdk": "^0.4.0",
     "axios": "^1.6.2",
     "ethers": "^5.7.2"
   },
@@ -42,10 +43,7 @@
     "typechain": "^8.1.1",
     "typescript": "^5.2.2"
   },
-  "files": [
-    "dist/**/*",
-    "contracts/**/*"
-  ],
+  "files": ["dist/**/*", "contracts/**/*"],
   "publishConfig": {
     "access": "public"
   }
