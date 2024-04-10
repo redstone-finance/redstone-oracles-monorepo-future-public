@@ -7,7 +7,7 @@ import {
   setConfigProvider,
   timelyOverrideSinceLastUpdate,
 } from "./config";
-import { getAdapterContract } from "./core/contract-interactions/get-contract";
+import { getAdapterContract } from "./core/contract-interactions/get-adapter-contract";
 import { updatePrices } from "./core/contract-interactions/update-prices";
 
 setConfigProvider(fileSystemConfigProvider);

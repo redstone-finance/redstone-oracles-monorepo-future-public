@@ -1,5 +1,7 @@
-import { Web3FunctionContext } from "@gelatonetwork/web3-functions-sdk";
-import { Web3FunctionResult } from "@gelatonetwork/web3-functions-sdk/dist/lib/types/Web3FunctionResult";
+import {
+  Web3FunctionContext,
+  Web3FunctionResult,
+} from "@gelatonetwork/web3-functions-sdk";
 import { providers } from "ethers";
 import {
   IterationArgs,
