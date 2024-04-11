@@ -1,4 +1,8 @@
-import { RedstoneCommon, sendHealthcheckPing } from "@redstone-finance/utils";
+import {
+  RedstoneCommon,
+  loggerFactory,
+  sendHealthcheckPing,
+} from "@redstone-finance/utils";
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
 import { fileSystemConfigProvider } from "./FilesystemConfigProvider";
 import { getIterationArgs } from "./args/get-iteration-args";
@@ -13,7 +17,9 @@ import { updatePrices } from "./core/contract-interactions/update-prices";
 setConfigProvider(fileSystemConfigProvider);
 const relayerConfig = config();
 
-console.log(
+const logger = loggerFactory("relayer/run");
+
+logger.log(
   `Starting contract prices updater with relayer config ${JSON.stringify({
     ...relayerConfig,
     privateKey: "********",
@@ -29,7 +35,7 @@ const runIteration = async () => {
   const iterationArgs = await getIterationArgs(adapterContract);
 
   void sendHealthcheckPing(relayerConfig.healthcheckPingUrl);
-  console.log(
+  logger.log(
     `Update condition ${
       iterationArgs.shouldUpdatePrices ? "" : "NOT "
     }satisfied: ${iterationArgs.message} block_number=${
@@ -43,7 +49,7 @@ const runIteration = async () => {
 };
 
 const task = new AsyncTask("Relayer task", runIteration, (error) =>
-  console.log(
+  logger.log(
     "Unhandled error occurred during iteration:",
     RedstoneCommon.stringifyError(error)
   )

@@ -1,4 +1,5 @@
 import { z, ZodDefault, ZodOptional, ZodType, ZodTypeDef } from "zod";
+import { isNodeRuntime } from "./runtime";
 
 type GetFromEnvType = {
   /** JSON.parse is used by default before passing the env variable to schema.parse */
@@ -20,7 +21,7 @@ export const getFromEnv: GetFromEnvType = <T = string>(
   schema?: ZodType<T, ZodTypeDef, T | undefined>,
   parseAsJSON = !!schema
 ) => {
-  const envValue = process.env[name];
+  const envValue = isNodeRuntime() ? process.env[name] : undefined;
   let envValueParsed: unknown = envValue;
   if (parseAsJSON && envValue) {
     try {
@@ -32,7 +33,8 @@ export const getFromEnv: GetFromEnvType = <T = string>(
   try {
     return (schema ?? z.string()).parse(envValueParsed);
   } catch (e) {
-    console.log(`failed to parse ${name} env variable, value ${envValue}`);
+    // eslint-disable-next-line no-console -- we cannot use logger here to avoid cyclic dependency between logger and env modules
+    console.error(`failed to parse ${name} env variable, value ${envValue}`);
     throw new Error(`failed to parse ${name} env variable`, { cause: e });
   }
 };

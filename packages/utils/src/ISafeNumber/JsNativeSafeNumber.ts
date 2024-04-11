@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/class-methods-use-this */
+import { loggerFactory } from "../logger";
 import { ISafeNumber, NumberArg } from "./ISafeNumber";
 
 export enum NumberValidationResult {
@@ -14,6 +15,8 @@ export type NumberValidationError = Exclude<
   NumberValidationResult.isOk
 >;
 
+const logger = loggerFactory("JsNativeSafeNumber");
+
 export const JsNativeSafeNumberConfig = {
   MAX_NUMBER: Number.MAX_SAFE_INTEGER,
   MIN_NUMBER: 1e-14,
@@ -26,7 +29,7 @@ export const JsNativeSafeNumberConfig = {
     [NumberValidationResult.isNotFinite]: (msg) => {
       throw new Error(msg);
     },
-    [NumberValidationResult.isOverflow]: console.error,
+    [NumberValidationResult.isOverflow]: logger.error.bind(logger),
     [NumberValidationResult.isUnderflow]: () => {},
   } as Record<NumberValidationError, (msg: string) => unknown>,
   EPSILON: 1e-14,

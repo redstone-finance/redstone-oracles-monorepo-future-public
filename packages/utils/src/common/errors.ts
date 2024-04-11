@@ -1,4 +1,9 @@
 import axios, { AxiosError } from "axios";
+import { z } from "zod";
+import { loggerFactory } from "../logger";
+import { getFromEnv } from "./env";
+
+const logger = loggerFactory("utils/errors");
 
 export function assert(value: unknown, errMsg: string): asserts value {
   if (!value) {
@@ -15,15 +20,25 @@ export function assertThenReturn<T>(value: T | undefined, errMsg: string): T {
 
 export const assertWithLog = (condition: boolean, errMsg: string) => {
   if (!condition) {
-    console.error(`Assertion failed: ${errMsg}`);
+    logger.error(`Assertion failed: ${errMsg}`);
   }
 };
+
+const STACK_LENGTH = 200;
+
+let debug: boolean | undefined;
 
 const stringifyStack = (stack: string | undefined): string => {
   if (!stack) {
     return "";
   }
-  return stack;
+  debug ??= getFromEnv("DEBUG", z.boolean().default(false));
+
+  if (debug) {
+    return stack;
+  }
+  const suffix = stack.length > STACK_LENGTH ? "..." : "";
+  return stack.substring(0, STACK_LENGTH - suffix.length) + suffix;
 };
 
 export function stringifyError(e: unknown): string {

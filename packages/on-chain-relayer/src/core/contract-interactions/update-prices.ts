@@ -6,7 +6,7 @@ import {
   isEthersError,
   makeTxDeliveryCall,
 } from "@redstone-finance/rpc-providers";
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { providers } from "ethers";
 import {
   MentoAdapterBase,
@@ -19,16 +19,18 @@ import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
 
 import { getSortedOraclesContractAtAddress } from "./get-sorted-oracles-contract-at-address";
 
+const logger = loggerFactory("updatePrices");
+
 export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
   const updateTx = await updatePriceInAdapterContract(updatePricesArgs);
 
   // is not using await to not block the main function
   updateTx
     .wait()
-    .then((receipt) => console.log(getTxReceiptDesc(receipt)))
+    .then((receipt) => logger.log(getTxReceiptDesc(receipt)))
     .catch((error) => describeTxWaitError(error, updateTx.hash));
 
-  console.log(
+  logger.log(
     `Update prices tx delivered hash=${updateTx.hash} gasLimit=${String(
       updateTx.gasLimit
     )} gasPrice=${updateTx.gasPrice?.toString()} maxFeePerGas=${String(
@@ -138,9 +140,9 @@ const getTxReceiptDesc = (receipt: TransactionReceipt) => {
 
 function describeTxWaitError(error: unknown, hash: string) {
   if (isEthersError(error)) {
-    console.error(`Transaction ${hash} FAILED with error: ${error.code}`);
+    logger.error(`Transaction ${hash} FAILED with error: ${error.code}`);
   } else {
-    console.error(
+    logger.error(
       `Transaction ${hash} receipt fetching error: ${RedstoneCommon.stringifyError(
         error
       )}`

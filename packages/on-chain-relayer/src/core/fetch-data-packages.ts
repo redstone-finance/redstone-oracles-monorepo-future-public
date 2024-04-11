@@ -4,8 +4,11 @@ import {
   DataPackagesResponse,
   requestDataPackages,
 } from "@redstone-finance/sdk";
+import { loggerFactory } from "@redstone-finance/utils";
 import { config } from "../config";
 import { RelayerConfig } from "../types";
+
+const logger = loggerFactory("fetch-data-packages");
 
 export async function fetchDataPackages(
   config: RelayerConfig,
@@ -26,8 +29,7 @@ export async function fetchDataPackages(
       ? await requestHistoricalDataPackages(requestParams)
       : await requestDataPackages(requestParams);
   } catch (e) {
-    console.error((e as Error).message); // Do not remove - to have the full message visible as the Gelato web3FunctionLogs log entry.
-
+    logger.error((e as Error).message); // Do not remove - to have the full message visible as the Gelato web3FunctionLogs log entry.
     throw e;
   }
 }

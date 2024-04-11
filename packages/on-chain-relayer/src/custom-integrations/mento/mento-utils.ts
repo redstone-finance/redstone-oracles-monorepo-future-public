@@ -1,7 +1,7 @@
 import { BlockTag } from "@ethersproject/providers";
 import { BaseWrapper } from "@redstone-finance/evm-connector";
 import { ValuesForDataFeeds } from "@redstone-finance/sdk";
-import { MathUtils } from "@redstone-finance/utils";
+import { MathUtils, loggerFactory } from "@redstone-finance/utils";
 import { BigNumber, ethers } from "ethers";
 import { ISortedOracles, MentoAdapterBase } from "../../../typechain-types";
 
@@ -16,6 +16,8 @@ const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 const addressesAreEqual = (addr1: string, addr2: string) => {
   return addr1.toLowerCase() === addr2.toLowerCase();
 };
+
+const logger = loggerFactory("mento-utils");
 
 const safelyGetAddressOrZero = (
   oracleAddresses: string[],
@@ -53,7 +55,7 @@ export const calculateLinkedListPosition = (
       deviatedValue: valueToInsert,
     });
     if (deviation > maxDeviationAllowedInPercent) {
-      console.log(
+      logger.log(
         `deviation ${deviation} is higher than max acceptable deviation ${maxDeviationAllowedInPercent}. Sorted oracles median price: ${currentMedian}. RedStone price:${valueToInsert.toString()}`
       );
       return undefined;
@@ -114,7 +116,7 @@ export const prepareLinkedListLocationsForMentoAdapterReport = async (
       maxDeviationAllowedInPercent
     );
     if (!locationInSortedLinkedList) {
-      console.log(
+      logger.log(
         `price for ${dataFeeds[dataFeedIndex].dataFeedId} deviates too much`
       );
       return undefined;

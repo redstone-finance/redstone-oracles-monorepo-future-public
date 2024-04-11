@@ -1,3 +1,4 @@
+import { loggerFactory } from "../logger";
 import { stringifyError } from "./errors";
 import { sleep } from "./time";
 
@@ -11,6 +12,8 @@ export type RetryConfig<T extends (...args: unknown[]) => Promise<unknown>> = {
     backOffBase: number;
   };
 };
+
+const logger = loggerFactory("retry");
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function retry<T extends (...args: any[]) => Promise<unknown>>(
@@ -33,7 +36,7 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
       } catch (e) {
         error.errors.push(e);
         if (!config.disableLog) {
-          console.log(
+          logger.log(
             `Retry ${i + 1}/${config.maxRetries}; Function ${fnName} failed.`,
             stringifyError(e)
           );
@@ -46,7 +49,7 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
             : 1;
           const sleepTime = config.waitBetweenMs * sleepTimeBackOffMultiplier;
           if (!config.disableLog) {
-            console.log(`Waiting ${sleepTime / 1000} s. for the next retry...`);
+            logger.log(`Waiting ${sleepTime / 1000} s. for the next retry...`);
           }
           await sleep(sleepTime);
         }
