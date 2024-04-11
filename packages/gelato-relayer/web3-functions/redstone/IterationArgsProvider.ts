@@ -1,13 +1,13 @@
 import { Web3FunctionUserArgs } from "@gelatonetwork/web3-functions-sdk";
 import {
-  OnChainRelayerEnv,
-  OnChainRelayerManifestSchema,
-  RedstoneAdapterBase,
-  UpdatePricesArgs,
   getAbiForAdapter,
   getIterationArgs,
   makeConfigProvider,
+  OnChainRelayerEnv,
+  OnChainRelayerManifestSchema,
+  RedstoneAdapterBase,
   setConfigProvider,
+  UpdatePricesArgs,
 } from "@redstone-finance/on-chain-relayer";
 import axios from "axios";
 import { Contract, providers } from "ethers";
@@ -88,7 +88,7 @@ export class IterationArgsProvider
     try {
       manifestData = (await axios.get(manifestUrl)).data;
     } catch (e) {
-      console.log(`Error fetching manifest from url: ${manifestUrl}`);
+      console.error(`Error fetching manifest from url: ${manifestUrl}`);
       throw e;
     }
 

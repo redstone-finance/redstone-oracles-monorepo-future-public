@@ -4,7 +4,6 @@ import {
 } from "@gelatonetwork/web3-functions-sdk";
 import { providers } from "ethers";
 import {
-  IterationArgs,
   IterationArgsProviderEnv,
   IterationArgsProviderInterface,
 } from "../IterationArgsProviderInterface";
@@ -14,6 +13,17 @@ export class IterationArgsProcessor<Args> {
     private context: Web3FunctionContext,
     private argsProvider: IterationArgsProviderInterface<Args>
   ) {}
+
+  private static shouldNotExec(
+    argsMessage?: string,
+    alternativeMessage = "Unknown reason"
+  ): Web3FunctionResult {
+    const message = argsMessage || alternativeMessage;
+
+    console.log(message); // Do not remove - to have the full message visible as the Gelato web3FunctionLogs log entry.
+
+    return { canExec: false, message };
+  }
 
   async processArgs(
     provider: providers.StaticJsonRpcProvider
@@ -28,14 +38,17 @@ export class IterationArgsProcessor<Args> {
 
     if (iterationArgs.shouldUpdatePrices) {
       if (!iterationArgs.args) {
-        return this.shouldNotExec(iterationArgs, "Args are empty");
+        return IterationArgsProcessor.shouldNotExec(
+          iterationArgs.message,
+          "Args are empty"
+        );
       } else {
         const data = await this.argsProvider.getTransactionData(
           iterationArgs.args
         );
 
         if (!!data && data != "0x") {
-          return this.canExec(data);
+          return this.canExec(data, iterationArgs.message);
         } else {
           return {
             canExec: false,
@@ -44,23 +57,16 @@ export class IterationArgsProcessor<Args> {
         }
       }
     } else {
-      return this.shouldNotExec(iterationArgs, "Skipping");
+      return IterationArgsProcessor.shouldNotExec(
+        iterationArgs.message,
+        "Skipping"
+      );
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
-  private shouldNotExec(
-    iterationArgs: IterationArgs<Args>,
-    alternativeMessage = "Unknown reason"
-  ): Web3FunctionResult {
-    const message = iterationArgs.message || alternativeMessage;
-
+  private canExec(data: string, message?: string): Web3FunctionResult {
     console.log(message); // Do not remove - to have the full message visible as the Gelato web3FunctionLogs log entry.
 
-    return { canExec: false, message };
-  }
-
-  private canExec(data: string): Web3FunctionResult {
     if (this.argsProvider.adapterContractAddress) {
       return {
         canExec: true,
