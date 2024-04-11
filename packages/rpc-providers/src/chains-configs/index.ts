@@ -184,10 +184,7 @@ export const ChainConfigs = {
   mode: {
     name: "Mode Mainnet",
     chainId: 34443,
-    publicRpcUrls: [
-      "https://node.ghostnet.etherlink.com",
-      "https://1rpc.io/mode",
-    ],
+    publicRpcUrls: ["https://mainnet.mode.network/", "https://1rpc.io/mode"],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
   },
