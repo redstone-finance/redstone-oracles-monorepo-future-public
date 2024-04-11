@@ -11,6 +11,8 @@ import blastEth from "./blastEth.json";
 import blastLrts from "./blastLrts.json";
 import blastTestnet from "./blastTestnet.json";
 import blastUsdb from "./blastUsdb.json";
+import bnbBnb from "./bnbBnb.json";
+import bnbBtc from "./bnbBtc.json";
 import bnbEzetheth from "./bnbEzetheth.json";
 import cadenceCantoAtom from "./cadenceCantoAtom.json";
 import cadenceCantoCanto from "./cadenceCantoCanto.json";
@@ -76,6 +78,8 @@ export default {
   arbitrumSusdeRateProvider,
   arbitrumWeetheth,
   arbitrumWeethfundamental,
+  bnbBnb,
+  bnbBtc,
   bnbEzetheth,
   blastBtc,
   blastEth,
