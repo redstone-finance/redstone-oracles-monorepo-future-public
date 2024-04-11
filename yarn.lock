@@ -3681,9 +3681,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gelatonetwork/web3-functions-sdk@npm:^2.1.7":
-  version: 2.1.7
-  resolution: "@gelatonetwork/web3-functions-sdk@npm:2.1.7"
+"@gelatonetwork/web3-functions-sdk@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "@gelatonetwork/web3-functions-sdk@npm:2.4.1"
   dependencies:
     "@ethersproject/address": "npm:^5.7.0"
     "@ethersproject/contracts": "npm:^5.7.0"
@@ -3691,7 +3691,7 @@ __metadata:
     "@ethersproject/units": "npm:^5.7.0"
     "@types/dockerode": "npm:^3.3.11"
     ajv: "npm:^8.11.0"
-    axios: "npm:1.1.2"
+    axios: "npm:^1.6.8"
     body-parser: "npm:^1.20.1"
     colors: "npm:^1.4.0"
     deep-object-diff: "npm:^1.1.9"
@@ -3707,9 +3707,10 @@ __metadata:
     semver: "npm:^7.5.0"
     signal-exit: "npm:^3.0.7"
     tar: "npm:^6.1.12"
+    undici: "npm:^6.6.2"
   bin:
     w3f: dist/bin/index.js
-  checksum: 10c0/4a074a5c0b2be60c9e7bb9e5361043d3e923f1eebebab7c5ee61eae8bcaed9d7466708de4b9ee77a3c26e812e93a25a654882d4e5ffaf37cf07e78db7cf30291
+  checksum: 10c0/e482526901e4458d8158f001bba24b9601944f656922dd3928233d0a765eea3df9e6f48e5699fa6c2d9f2d8dac2cec47b8f3621cf4d6e8562e5a9945a986eb90
   languageName: node
   linkType: hard
 
@@ -6480,7 +6481,7 @@ __metadata:
   dependencies:
     "@ethersproject/abi": "npm:^5.6.3"
     "@ethersproject/providers": "npm:^5.6.8"
-    "@gelatonetwork/web3-functions-sdk": "npm:^2.1.7"
+    "@gelatonetwork/web3-functions-sdk": "npm:^2.4.1"
     "@nomicfoundation/hardhat-chai-matchers": "npm:1.0.6"
     "@nomicfoundation/hardhat-ethers": "npm:^3.0.4"
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.9"
@@ -11407,17 +11408,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.1.2":
-  version: 1.1.2
-  resolution: "axios@npm:1.1.2"
-  dependencies:
-    follow-redirects: "npm:^1.15.0"
-    form-data: "npm:^4.0.0"
-    proxy-from-env: "npm:^1.1.0"
-  checksum: 10c0/85a3eb96164b00b34d7c0d4516fe77b505b4baecd85c5eadb8d59ea573f06d592bcc13e9db9d1f51af08138a4c069fd1f619ae84f6828b5489a2b9a40219085e
-  languageName: node
-  linkType: hard
-
 "axios@npm:^0.21.1, axios@npm:^0.21.2, axios@npm:^0.21.3":
   version: 0.21.4
   resolution: "axios@npm:0.21.4"
@@ -11487,6 +11477,17 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: 10c0/131bf8e62eee48ca4bd84e6101f211961bf6a21a33b95e5dfb3983d5a2fe50d9fffde0b57668d7ce6f65063d3dc10f2212cbcb554f75cfca99da1c73b210358d
+  languageName: node
+  linkType: hard
+
+"axios@npm:^1.6.8":
+  version: 1.6.8
+  resolution: "axios@npm:1.6.8"
+  dependencies:
+    follow-redirects: "npm:^1.15.6"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 10c0/0f22da6f490335479a89878bc7d5a1419484fbb437b564a80c34888fc36759ae4f56ea28d55a191695e5ed327f0bad56e7ff60fb6770c14d1be6501505d47ab9
   languageName: node
   linkType: hard
 
@@ -16539,6 +16540,16 @@ __metadata:
     debug:
       optional: true
   checksum: 10c0/418d71688ceaf109dfd6f85f747a0c75de30afe43a294caa211def77f02ef19865b547dfb73fde82b751e1cc507c06c754120b848fe5a7400b0a669766df7615
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.6":
+  version: 1.15.6
+  resolution: "follow-redirects@npm:1.15.6"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 10c0/9ff767f0d7be6aa6870c82ac79cf0368cd73e01bbc00e9eb1c2a16fbb198ec105e3c9b6628bb98e9f3ac66fe29a957b9645bcb9a490bb7aa0d35f908b6b85071
   languageName: node
   linkType: hard
 
@@ -28725,6 +28736,13 @@ __metadata:
   dependencies:
     busboy: "npm:^1.6.0"
   checksum: 10c0/43a6ecddb30733adc33bc7a922fa7609c3e75f6555beab05e26c50f4be20ed893d7e9ac4332b332320961252dbc89c865955a5b5dbc3bcd2197ca4f015e7ad97
+  languageName: node
+  linkType: hard
+
+"undici@npm:^6.6.2":
+  version: 6.12.0
+  resolution: "undici@npm:6.12.0"
+  checksum: 10c0/5bbfd261ea20c8ed6bb3a22703acdae80cb40b1de0595a1c4df46f6602db78d7a387174c292c5640e339422acb1bfd1d2e0987ec086c057ccc24806edfd4688b
   languageName: node
   linkType: hard
 

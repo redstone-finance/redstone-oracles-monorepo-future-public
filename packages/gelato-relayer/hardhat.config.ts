@@ -24,7 +24,7 @@ const config: HardhatUserConfig = {
   w3f: {
     rootDir: "./web3-functions",
     debug: true,
-    networks: ["goerli"], //(multiChainProvider) injects provider for these networks
+    networks: ["sepolia"], //(multiChainProvider) injects provider for these networks
   },
 
   namedAccounts: {
@@ -33,7 +33,7 @@ const config: HardhatUserConfig = {
     },
   },
 
-  defaultNetwork: "goerli",
+  defaultNetwork: "sepolia",
 
   networks: {
     hardhat: {
@@ -91,9 +91,9 @@ const config: HardhatUserConfig = {
       url: `https://arb-goerli.g.alchemy.com/v2/${ALCHEMY_ID}`,
       accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
     },
-    goerli: {
-      chainId: 5,
-      url: `https://gateway.tenderly.co/public/goerli`,
+    sepolia: {
+      chainId: 11155111,
+      url: `https://ethereum-sepolia-rpc.publicnode.com`,
       accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
     },
     mumbai: {
