@@ -1,5 +1,5 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { Contract, providers } from "ethers";
 import { getChainConfigByChainId } from "../../chains-configs";
 import { getMulticall3, getNetworkName } from "../../chains-configs/helpers";
@@ -26,6 +26,8 @@ function rawMulticall3(
   }) as Promise<Multicall3Result[]>;
 }
 
+const logger = loggerFactory("multicall3");
+
 export async function multicall3(
   provider: providers.Provider,
   call3s: Multicall3Request[],
@@ -46,8 +48,8 @@ export async function multicall3(
     );
   } catch (e) {
     // if multicall failed fallback to normal execution model (1 call = 1 request)
-    console.log(
-      `[multicall3] chainId=${chainId} failed. Will fallback to ${
+    logger.log(
+      `multicall3 chainId=${chainId} failed. Will fallback to ${
         call3s.length
       } separate calls. Error: ${RedstoneCommon.stringifyError(e)}`
     );
@@ -78,7 +80,7 @@ async function fallbackCall(
       returnData: callResult,
     };
   } catch (e) {
-    console.log("[multicall3] Fallback call failed");
+    logger.log("multicall3 fallback call failed");
     return {
       returnData: "0x",
       fallbackRejectReason: e,

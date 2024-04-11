@@ -1,4 +1,8 @@
-import { MathUtils, RedstoneCommon } from "@redstone-finance/utils";
+import {
+  MathUtils,
+  RedstoneCommon,
+  loggerFactory,
+} from "@redstone-finance/utils";
 import { z } from "zod";
 
 type Score = {
@@ -43,10 +47,11 @@ export type CuratedRpcListConfig = z.input<typeof CuratedRpcListConfigSchema>;
 
 export type RpcIdentifier = string;
 
+const logger = loggerFactory("CuratedRpcList");
 export class CuratedRpcList {
   config: Required<CuratedRpcListConfig>;
   state: { [rpcIdentifier: RpcIdentifier]: Score } = {};
-  logger: (msg: string) => void;
+  log: (msg: string) => void;
 
   constructor(config: CuratedRpcListConfig, chainId: number) {
     this.config = CuratedRpcListConfigSchema.parse(config);
@@ -55,8 +60,8 @@ export class CuratedRpcList {
       `A minimalProvidersCount can't be bigger than supplied rpcs list length`
     );
 
-    this.logger = (msg: string) =>
-      console.log(`[CuratedRpcList chainId=${chainId}] ${msg}`);
+    this.log = (msg: string) =>
+      logger.log(`[CuratedRpcList chainId=${chainId}] ${msg}`);
 
     for (const rpc of config.rpcIdentifiers) {
       RedstoneCommon.assert(
@@ -92,7 +97,7 @@ export class CuratedRpcList {
     if (errorRate > this.config.maxErrorRate) {
       stats.inQuarantine = true;
       stats.quarantineCounter += 1;
-      this.logger(
+      this.log(
         `Sending provider with identifier=${rpc} to quarantine errorRate=${errorRate.toFixed(
           2
         )}`
@@ -108,7 +113,7 @@ export class CuratedRpcList {
       .map(([rpc]) => rpc);
 
     if (healthyProviders.length < this.config.minimalProvidersCount) {
-      this.logger(
+      this.log(
         `Not enough healty providers, have to release one from quarantine`
       );
       this.freeOneRpcFromQuarantine();
@@ -129,7 +134,7 @@ export class CuratedRpcList {
 
     if (index >= 0) {
       providersInQurantine[index][1].inQuarantine = false;
-      this.logger(
+      this.log(
         `Releasing provider identifier=${providersInQurantine[index][0]} from quarantine`
       );
     }

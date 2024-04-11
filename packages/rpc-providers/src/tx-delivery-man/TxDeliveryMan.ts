@@ -1,4 +1,5 @@
 import { TransactionResponse } from "@ethersproject/providers";
+import { loggerFactory } from "@redstone-finance/utils";
 import { ethers, providers } from "ethers";
 import { getProviderNetworkInfo } from "../common";
 import { ProviderWithAgreement } from "../providers/ProviderWithAgreement";
@@ -14,6 +15,8 @@ export type TxDeliveryManSupportedProviders =
   | providers.JsonRpcProvider
   | ProviderWithAgreement
   | ProviderWithFallback;
+
+const logger = loggerFactory("TxDeliveryMan");
 
 export class TxDeliveryMan {
   private providers: readonly providers.JsonRpcProvider[];
@@ -32,7 +35,7 @@ export class TxDeliveryMan {
 
     for (const provider of this.providers) {
       if (this.isProviderBusy.get(provider)) {
-        console.log(
+        logger.log(
           `[TxDeliveryMan] provider=${
             getProviderNetworkInfo(provider).url
           } is still delivering old transaction, skipping delivery by this provider`
@@ -77,7 +80,7 @@ function createTxDelivery(
   return new TxDelivery(
     {
       ...opts,
-      logger: (msg) => console.log(`[TxDelivery rpcUrl=${rpcUrl}] ${msg}`),
+      logger: (msg) => logger.log(`RpcUrl=${rpcUrl}, ${msg}`),
     },
     signer,
     provider

@@ -1,4 +1,4 @@
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { ConfigProvider, RelayerConfig } from "./types";
 
 let configProvider: ConfigProvider | undefined = undefined;
@@ -24,6 +24,8 @@ export const config = () => {
 
   return relayerConfig;
 };
+
+const logger = loggerFactory("relayer/config");
 
 export const setConfigProvider = (provider: ConfigProvider) => {
   relayerConfig = undefined;
@@ -51,7 +53,7 @@ export const timelyOverrideSinceLastUpdate = (
   const temporaryUpdateDuration = Math.floor(
     temporaryUpdatePriceInterval * 1.5
   );
-  console.log(
+  logger.log(
     `Timely overriding updatePriceInterval to ${RedstoneCommon.msToMin(
       temporaryUpdatePriceInterval
     ).toFixed(2)} [min] for ${RedstoneCommon.msToMin(
@@ -62,7 +64,7 @@ export const timelyOverrideSinceLastUpdate = (
   setTimeout(() => {
     relayerConfig!.updatePriceInterval = oldUpdatePriceInterval;
     relayerConfig!.updateConditions = oldConditions;
-    console.log(
+    logger.log(
       `Reverting updatePriceInterval to ${oldUpdatePriceInterval} [min]`
     );
   }, temporaryUpdateDuration);

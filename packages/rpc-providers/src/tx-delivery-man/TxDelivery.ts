@@ -3,7 +3,7 @@ import {
   TransactionRequest,
   TransactionResponse,
 } from "@ethersproject/providers";
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { BigNumber, PopulatedTransaction, providers } from "ethers";
 import { EthersError, isEthersError } from "../common";
 import {
@@ -115,6 +115,8 @@ export type TxDeliveryOpts = {
 
 export const unsafeBnToNumber = (bn: BigNumber) => Number(bn.toString());
 
+const logger = loggerFactory("TxDelivery");
+
 export const DEFAULT_TX_DELIVERY_OPTS = {
   isAuctionModel: false,
   maxAttempts: 10,
@@ -124,7 +126,7 @@ export const DEFAULT_TX_DELIVERY_OPTS = {
   twoDimensionalFees: false,
   gasOracleTimeout: 5_000,
   forceDisableCustomGasOracle: false,
-  logger: (text: string) => console.log(`[TxDelivery] ${text}`),
+  logger: logger.log.bind(logger),
 };
 
 export type TxDeliveryOptsValidated = Omit<

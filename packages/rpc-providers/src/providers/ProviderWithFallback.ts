@@ -1,17 +1,17 @@
-import { ErrorCode, Logger } from "@ethersproject/logger";
+import { ErrorCode } from "@ethersproject/logger";
 import {
   EventType,
   Listener,
   Provider,
   TransactionReceipt,
 } from "@ethersproject/providers";
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { providers } from "ethers";
 import { ChainConfig, getChainConfigByChainId } from "../chains-configs";
 import { getProviderNetworkInfo } from "../common";
 import { ProviderWithFallbackBase } from "./ProviderWithFallbackBase";
 
-const logger = Logger.globalLogger();
+const logger = loggerFactory("ProviderWithFallback");
 
 export type ProviderWithFallbackConfig = {
   unrecoverableErrors: ErrorCode[];

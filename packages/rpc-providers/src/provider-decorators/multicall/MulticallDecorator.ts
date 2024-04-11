@@ -1,5 +1,5 @@
 import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { providers } from "ethers";
 import { Deferrable } from "ethers/lib/utils";
 import { z } from "zod";
@@ -26,7 +26,7 @@ async function prepareMulticall3Request(
   return call;
 }
 
-const DEFAULT_LOG = (msg: string) => console.log(`[MulticallProvider] ${msg}`);
+const logger = loggerFactory("MulticallProvider");
 
 export type MulticallDecoratorOptions = {
   maxCallsCount?: number;
@@ -34,7 +34,6 @@ export type MulticallDecoratorOptions = {
   /** If set to -1 auto resolve is disabled */
   autoResolveInterval?: number;
   multicallAddress?: string;
-  log?: (msg: string) => void;
 };
 
 const parseMulticallConfig = (opts: MulticallDecoratorOptions) => {
@@ -51,7 +50,6 @@ const parseMulticallConfig = (opts: MulticallDecoratorOptions) => {
         "MULTICALL_AUTO_RESOLVE_INTERVAL",
         z.number().default(100)
       ),
-    log: opts.log ?? DEFAULT_LOG,
     maxCallsCount:
       opts.maxCallsCount ??
       RedstoneCommon.getFromEnv(
@@ -86,8 +84,8 @@ export function MulticallDecorator<T extends providers.Provider>(
     const callDataSize = queue.callDataSize(blockTag);
     const callEntries = queue.flush(blockTag);
 
-    config.log(
-      `[multicall3] executing request chainId=${chainId} blockTag=${blockTag} callsCount=${callEntries.length} callDataSize=${callDataSize} [bytes]`
+    logger.log(
+      `Executing request chainId=${chainId} blockTag=${blockTag} callsCount=${callEntries.length} callDataSize=${callDataSize} [bytes]`
     );
 
     multicall3(originalProvider, callEntries, blockTag, config.multicallAddress)
@@ -102,7 +100,7 @@ export function MulticallDecorator<T extends providers.Provider>(
         }
       })
       .catch((e) => {
-        config.log(
+        logger.log(
           `call failed rejecting ${callEntries.length} bounded promises`
         );
         // if multicall fails we have to reject all promises bounded to it

@@ -1,8 +1,10 @@
 import { Provider } from "@ethersproject/providers";
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { ChainConfig } from "./chains-configs";
 
 type ProviderWithChainCoinfg = { provider: Provider; chainConfig: ChainConfig };
+
+const logger = loggerFactory("SageOfChains");
 
 export class SageOfChains {
   chainIdToProvider: Partial<Record<number, ProviderWithChainCoinfg>> = {};
@@ -36,13 +38,13 @@ export class SageOfChains {
     const chainIdToBlockTuples = chainIdToBlockTuplesResults
       .map((result, index) => {
         if (result.status === "fulfilled") {
-          console.log(
-            `[SageOfChains] fetched blockNumber=${result.value[1]} for chainId=${result.value[0]}`
+          logger.log(
+            `Fetched blockNumber=${result.value[1]} for chainId=${result.value[0]}`
           );
           return result.value;
         }
-        console.log(
-          `[SageOfChains] failed to fetch blockNumber for chainId=${
+        logger.log(
+          `Failed to fetch blockNumber for chainId=${
             this.providersWithConfig[index].chainConfig.chainId
           } after 5 retries: ${RedstoneCommon.stringifyError(result.reason)}`
         );
@@ -54,7 +56,7 @@ export class SageOfChains {
       Object.fromEntries(chainIdToBlockTuples),
       (p) =>
         new Error(
-          `[SageOfChains] Tried to access blockNumber for chainId=${p} which is not defined. Either it wasn't fetched at the beginning of iteration or it is not configured.`
+          `Tried to access blockNumber for chainId=${p} which is not defined. Either it wasn't fetched at the beginning of iteration or it is not configured.`
         )
     );
   }

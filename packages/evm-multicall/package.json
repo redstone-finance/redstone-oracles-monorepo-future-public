@@ -1,6 +1,5 @@
 {
   "name": "@redstone-finance/evm-multicall",
-  "prettier": "redstone-prettier-config",
   "version": "0.4.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
