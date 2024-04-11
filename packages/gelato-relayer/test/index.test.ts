@@ -2,9 +2,14 @@ import hre from "hardhat";
 import { expect } from "chai";
 import { before } from "mocha";
 import { Web3FunctionHardhat } from "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
+// @ts-ignore
 import * as args from "../web3-functions/redstone-mock/userArgs.json";
 
-import { Web3FunctionResultCallData } from "@gelatonetwork/web3-functions-sdk";
+import {
+  Web3FunctionResultCallData,
+  Web3FunctionResultV1,
+  Web3FunctionResultV2,
+} from "@gelatonetwork/web3-functions-sdk";
 
 const { w3f } = hre;
 
@@ -22,7 +27,7 @@ describe("RedStone Gelato w3f Tests", function () {
     userArgs.shouldUpdatePrices = true;
     userArgs.args = "0x0512341435321111a";
 
-    const { result } = await redstoneW3f.run({ userArgs });
+    const { result } = await redstoneW3f.run("onRun", { userArgs });
     expect(result.canExec).to.equal(true);
 
     const callData = (
@@ -42,7 +47,7 @@ describe("RedStone Gelato w3f Tests", function () {
     userArgs.shouldUpdatePrices = false;
     userArgs.message = "Update not needed";
 
-    const { result } = await redstoneW3f.run({ userArgs });
+    const { result } = await redstoneW3f.run("onRun", { userArgs });
 
     checkCanNotExec(result, "Update not needed");
   });
@@ -51,22 +56,16 @@ describe("RedStone Gelato w3f Tests", function () {
     const userArgs: any = { ...args };
     userArgs.shouldUpdatePrices = true;
 
-    const { result } = await redstoneW3f.run({ userArgs });
+    const { result } = await redstoneW3f.run("onRun", { userArgs });
 
     checkCanNotExec(result, "Args are empty");
   });
 
   function checkCanNotExec(
-    result:
-      | { canExec: true; callData: string }
-      | { canExec: false; message: string }
-      | {
-          canExec: true;
-          callData: Web3FunctionResultCallData[];
-        },
+    result: Web3FunctionResultV1 | Web3FunctionResultV2 | undefined,
     message: string
   ) {
-    expect(result.canExec).to.equal(false);
+    expect(result?.canExec).to.equal(false);
     expect(
       (
         result as {
