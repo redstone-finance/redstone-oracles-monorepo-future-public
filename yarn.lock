@@ -6853,6 +6853,7 @@ __metadata:
     javascript-obfuscator: "npm:^4.1.0"
     jest: "npm:^29.7.0"
     lerna: "npm:^7.3.0"
+    lockfile-lint: "npm:^4.13.2"
     prettier: "npm:^3.0.3"
     prettier-plugin-organize-imports: "npm:^3.2.4"
     redstone-prettier-config: "npm:^1.0.0"
@@ -10087,6 +10088,16 @@ __metadata:
     js-yaml: "npm:^3.10.0"
     tslib: "npm:^2.4.0"
   checksum: 10c0/c7f421c6885142f351459031c093fb2e79abcce6f4a89765a10e600bb7ab122949c54bcea2b23de9572a2b34ba29f822b17831c1c43ba50373ceb8cb5b336667
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/parsers@npm:^3.0.0-rc.48.1":
+  version: 3.0.0
+  resolution: "@yarnpkg/parsers@npm:3.0.0"
+  dependencies:
+    js-yaml: "npm:^3.10.0"
+    tslib: "npm:^2.4.0"
+  checksum: 10c0/cec2c6dd6e7f926e9f7de6c2d8551261fece40295f2bb2b333f47c88559094aead266750f4963809f7fded3bd9f642f194b4e0bb87a847e191761004a790533a
   languageName: node
   linkType: hard
 
@@ -21023,6 +21034,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lockfile-lint-api@npm:^5.9.1":
+  version: 5.9.1
+  resolution: "lockfile-lint-api@npm:5.9.1"
+  dependencies:
+    "@yarnpkg/parsers": "npm:^3.0.0-rc.48.1"
+    debug: "npm:^4.3.4"
+    object-hash: "npm:^3.0.0"
+  checksum: 10c0/e7390d998776cc63c17a30cb766b28031db6820aaf0531f58d48ae167ec7f71c84b35b645640c1989048b4fab76a484be74b453e852c01a06e07e937a11f0203
+  languageName: node
+  linkType: hard
+
+"lockfile-lint@npm:^4.13.2":
+  version: 4.13.2
+  resolution: "lockfile-lint@npm:4.13.2"
+  dependencies:
+    cosmiconfig: "npm:^8.2.0"
+    debug: "npm:^4.3.4"
+    fast-glob: "npm:^3.3.1"
+    lockfile-lint-api: "npm:^5.9.1"
+    yargs: "npm:^17.7.2"
+  bin:
+    lockfile-lint: bin/lockfile-lint.js
+  checksum: 10c0/253cc65ddaa62b5a2915a15b01f7d46775309d63be0c9279eb36331b26af992735cf79f07e70f707337d70531d0c3859742db646b07fb2be1d093136fad91cf4
+  languageName: node
+  linkType: hard
+
 "lodash.assign@npm:^4.0.3, lodash.assign@npm:^4.0.6":
   version: 4.2.0
   resolution: "lodash.assign@npm:4.2.0"
@@ -23366,6 +23403,13 @@ __metadata:
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
   checksum: 10c0/1f4df9945120325d041ccf7b86f31e8bcc14e73d29171e37a7903050e96b81323784ec59f93f102ec635bcf6fa8034ba3ea0a8c7e69fa202b87ae3b6cec5a414
+  languageName: node
+  linkType: hard
+
+"object-hash@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "object-hash@npm:3.0.0"
+  checksum: 10c0/a06844537107b960c1c8b96cd2ac8592a265186bfa0f6ccafe0d34eabdb526f6fa81da1f37c43df7ed13b12a4ae3457a16071603bcd39d8beddb5f08c37b0f47
   languageName: node
   linkType: hard
 
