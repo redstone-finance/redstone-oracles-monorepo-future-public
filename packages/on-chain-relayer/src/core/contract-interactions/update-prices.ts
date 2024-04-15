@@ -140,7 +140,9 @@ const getTxReceiptDesc = (receipt: TransactionReceipt) => {
 
 function describeTxWaitError(error: unknown, hash: string) {
   if (isEthersError(error)) {
-    logger.error(`Transaction ${hash} FAILED with error: ${error.code}`);
+    logger.error(
+      `Transaction ${hash} FAILED with error: ${error.code}, message: ${error.message}`
+    );
   } else {
     logger.error(
       `Transaction ${hash} receipt fetching error: ${RedstoneCommon.stringifyError(
