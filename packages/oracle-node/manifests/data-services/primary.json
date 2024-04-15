@@ -493,7 +493,6 @@
     },
     "EUROC": {
       "source": [
-        "bitstamp",
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
