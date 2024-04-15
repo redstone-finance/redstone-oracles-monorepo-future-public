@@ -22,6 +22,7 @@ const MILLISECONDS_IN_ONE_MINUTE = 60 * 1000;
 export interface DataPackagesRequestParams {
   dataServiceId: string;
   uniqueSignersCount: number;
+  authorizedSigners?: string[];
   dataFeeds?: string[];
   urls?: string[];
   historicalTimestamp?: number;
@@ -181,11 +182,13 @@ const prepareDataPackagePromises = (
         [url.replace(/\/+$/, "")].concat(pathComponents).join("/"),
         { timeout: GET_REQUEST_TIMEOUT }
       )
-      .then((response) => parseDataPackagesResponse(response.data, reqParams))
+      .then((response) =>
+        parseAndValidateDataPackagesResponse(response.data, reqParams)
+      )
   );
 };
 
-export const parseDataPackagesResponse = (
+export const parseAndValidateDataPackagesResponse = (
   responseData: unknown,
   reqParams: DataPackagesRequestParams
 ): DataPackagesResponse => {
@@ -196,12 +199,23 @@ export const parseDataPackagesResponse = (
   const requestedDataFeedIds = reqParams.dataFeeds ?? [consts.ALL_FEEDS_KEY];
 
   for (const dataFeedId of requestedDataFeedIds) {
-    const dataFeedPackages = responseData[dataFeedId];
+    let dataFeedPackages = responseData[dataFeedId];
 
     if (!dataFeedPackages) {
       throw new Error(
         `Requested data feed id is not included in response: ${dataFeedId}`
       );
+    }
+
+    // filter out packages with not expected signers
+    if (reqParams.authorizedSigners) {
+      dataFeedPackages = dataFeedPackages.filter((dp) => {
+        const signer = maybeGetSigner(dp);
+        if (!signer) {
+          return false;
+        }
+        return reqParams.authorizedSigners!.includes(signer);
+      });
     }
 
     if (dataFeedPackages.length < reqParams.uniqueSignersCount) {
@@ -233,6 +247,14 @@ const pickDataFeedPackagesClosestToMedian = (
     .map((diff) => SignedDataPackage.fromObj(diff.dp))
     .slice(0, count);
 };
+
+function maybeGetSigner(dp: SignedDataPackagePlainObj) {
+  try {
+    return SignedDataPackage.fromObj(dp).recoverSignerAddress();
+  } catch {
+    return undefined;
+  }
+}
 
 function sortByDistanceFromMedian(
   dataFeedPackages: SignedDataPackagePlainObj[],

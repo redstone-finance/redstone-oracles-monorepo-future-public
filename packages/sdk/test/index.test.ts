@@ -1,4 +1,6 @@
+import { DataPackage } from "@redstone-finance/protocol";
 import axios from "axios";
+import { ethers } from "ethers";
 import {
   DataPackagesRequestParams,
   getOracleRegistryState,
@@ -7,6 +9,8 @@ import {
 } from "../src";
 import { mockSignedDataPackages } from "./mocks/mock-packages";
 import { server } from "./mocks/server";
+
+const MOCK_WALLET = ethers.Wallet.createRandom();
 
 const getReqParams = (urls?: string[]): DataPackagesRequestParams => {
   return {
@@ -192,6 +196,103 @@ describe("SDK tests", () => {
     expect(dataPackages["ETH"]![0].dataPackage.timestampMilliseconds).toBe(
       1654353400000 + 420
     );
+  });
+
+  test("Should omit packages signed by not authorized", async () => {
+    const axiosGetSpy = jest.spyOn(axios, "get");
+    const dataPackage = DataPackage.fromObj({
+      dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
+      timestampMilliseconds: 1654353400000,
+    }).sign(MOCK_WALLET.privateKey);
+
+    axiosGetSpy.mockResolvedValueOnce({
+      data: {
+        ETH: [
+          {
+            dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
+            timestampMilliseconds: 1654353400000,
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            signerAddress: "0x2",
+            signature: dataPackage.toObj().signature,
+          },
+        ],
+      },
+    });
+
+    await expect(
+      requestDataPackages({
+        ...getReqParams(),
+        uniqueSignersCount: 1,
+        dataFeeds: ["ETH"],
+        authorizedSigners: [],
+      })
+    ).rejects.toThrowError(/Too few unique signers/);
+  });
+
+  test("Should omit packages signed by not authorized signers, but pass through correctly signed", async () => {
+    const axiosGetSpy = jest.spyOn(axios, "get");
+    const signedDataPackageByAuthorizedSigner = DataPackage.fromObj({
+      dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
+      timestampMilliseconds: 1654353400000,
+    }).sign(MOCK_WALLET.privateKey);
+
+    const mockWallet2 = ethers.Wallet.createRandom();
+    const signedDataPackageByNOTAuthorizedSigner = DataPackage.fromObj({
+      dataPoints: [{ dataFeedId: "BTC", value: 30000 }],
+      timestampMilliseconds: 1654353400000,
+    }).sign(mockWallet2.privateKey);
+
+    axiosGetSpy.mockResolvedValue({
+      data: {
+        ETH: [
+          {
+            dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
+            timestampMilliseconds: 1654353400000,
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            signerAddress: "0x2",
+            signature: signedDataPackageByAuthorizedSigner.toObj().signature,
+          },
+          {
+            dataPoints: [{ dataFeedId: "BTC", value: 40000 }],
+            timestampMilliseconds: 1654353400000,
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            signerAddress: "0x2",
+            // invalid signature should be also rejected
+            signature: "0x0",
+          },
+          {
+            dataPoints: [{ dataFeedId: "BTC", value: 30000 }],
+            timestampMilliseconds: 1654353400000,
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            signerAddress: "0x2",
+            signature: signedDataPackageByNOTAuthorizedSigner.toObj().signature,
+          },
+        ],
+      },
+    });
+    const result = await requestDataPackages({
+      ...getReqParams(),
+      uniqueSignersCount: 1,
+      dataFeeds: ["ETH"],
+      authorizedSigners: [MOCK_WALLET.address],
+    });
+
+    expect(result["ETH"]![0].dataPackage.dataPoints[0].toObj().value).toEqual(
+      20_000
+    );
+
+    await expect(
+      requestDataPackages({
+        ...getReqParams(),
+        uniqueSignersCount: 2,
+        dataFeeds: ["ETH"],
+        authorizedSigners: [MOCK_WALLET.address],
+      })
+    ).rejects.toThrowError(/Too few unique signers/);
   });
 
   test("Should reject when payload does not follow schema", async () => {
