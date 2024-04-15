@@ -1,7 +1,7 @@
 import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Deferrable } from "@ethersproject/properties";
-import { RedstoneCommon, RedstoneCrypto } from "@redstone-finance/utils";
-import { BigNumber, BytesLike, providers, utils } from "ethers";
+import { RedstoneCommon } from "@redstone-finance/utils";
+import { BigNumber, providers, utils } from "ethers";
 import { convertBlockTagToNumber, getProviderNetworkInfo } from "../common";
 import { CuratedRpcList, RpcIdentifier } from "./CuratedRpcList";
 import {
@@ -9,7 +9,6 @@ import {
   ProviderWithFallbackConfig,
 } from "./ProviderWithFallback";
 
-const AGREED_RESULT_TTL = RedstoneCommon.minToMs(5);
 const MAX_BLOCK_TIME_AHEAD_HOURS = 72;
 
 interface ProviderWithAgreementSpecificConfig {
@@ -163,7 +162,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     const electedBlockTag = utils.hexlify(blockTag);
 
     const callResult = RedstoneCommon.timeout(
-      this.executeCallWithAgreementWithCache(transaction, electedBlockTag),
+      this.executeCallWithAgreement(transaction, electedBlockTag),
       this.providerWithFallbackConfig.allProvidersOperationTimeout,
       `Agreement provider after ${this.providerWithFallbackConfig.allProvidersOperationTimeout} [ms] during call`
     );
@@ -184,15 +183,6 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
     return parsedResult;
   }
-
-  private executeCallWithAgreementWithCache = RedstoneCommon.memoize({
-    functionToMemoize: (
-      transaction: Deferrable<TransactionRequest>,
-      electedBlockTag: BlockTag
-    ) => this.executeCallWithAgreement(transaction, electedBlockTag),
-    ttl: AGREED_RESULT_TTL,
-    cacheKeyBuilder: txCacheKeyBuilder,
-  });
 
   private assertValidBlockNumber(
     blockNumber: number,
@@ -347,32 +337,6 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       throw e;
     }
   }
-}
-
-/**
- * It takes fields of transaction which might have change output
- * of call method
- */
-const txCacheKeyBuilder = async (
-  transaction: Deferrable<TransactionRequest>,
-  blockTag: BlockTag
-) =>
-  [
-    String(await transaction.chainId),
-    String(await transaction.to),
-    String(await transaction.from),
-    await hashBytesLikeValue(transaction.data),
-    String(blockTag),
-  ].join("#");
-
-async function hashBytesLikeValue(
-  data: BytesLike | undefined | Promise<BytesLike | undefined>
-) {
-  const awaitedData = await data;
-  if (awaitedData) {
-    return RedstoneCrypto.sha256ToHex(awaitedData);
-  }
-  return "";
 }
 
 const mapToString = (map: Map<unknown, unknown>) =>

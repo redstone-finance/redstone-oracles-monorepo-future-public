@@ -9,6 +9,7 @@ type MemoizeArgs<F extends (...args: unknown[]) => Promise<unknown>> = {
   functionToMemoize: F;
   ttl: number;
   cacheKeyBuilder?: (...args: Parameters<F>) => string | Promise<string>;
+  cacheReporter?: (isMiss: boolean) => void;
 };
 
 /**
@@ -22,6 +23,7 @@ export function memoize<
   functionToMemoize,
   ttl,
   cacheKeyBuilder = (...args: unknown[]) => JSON.stringify(args),
+  cacheReporter = () => {},
 }: MemoizeArgs<F>): F {
   const cache: Partial<Record<string, MemoizeCache<R>>> = {};
 
@@ -37,7 +39,10 @@ export function memoize<
     cleanStaleCacheEntries(cache, ttl);
 
     // we don't check ttl because it is cleared here: cleanStaleCacheEntries
-    if (!cache[cacheKey] || Date.now() - cache[cacheKey]!.lastSet > ttl) {
+    const isMiss =
+      !cache[cacheKey] || Date.now() - cache[cacheKey]!.lastSet > ttl;
+
+    if (isMiss) {
       cache[cacheKey] = {
         lastSet: Date.now(),
         promise: functionToMemoize(...args).catch((err: unknown) => {
@@ -47,6 +52,9 @@ export function memoize<
         }) as Promise<R>,
       };
     }
+
+    cacheReporter(isMiss);
+
     return await cache[cacheKey]!.promise;
   }) as F;
 }
