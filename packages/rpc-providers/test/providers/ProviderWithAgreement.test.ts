@@ -6,6 +6,7 @@ import Sinon, * as sinon from "sinon";
 import { ProviderWithAgreement } from "../../src/providers/ProviderWithAgreement";
 import { Counter } from "../../typechain-types";
 import { deployCounter } from "../helpers";
+import { CallCacheDecorator } from "../../src/provider-decorators/CacheCallDecorator";
 
 chai.use(chaiAsPromised);
 
@@ -57,15 +58,19 @@ describe("ProviderWithAgreement", () => {
     });
   });
 
-  describe("call cache", () => {
+  describe("CallCacheDecorator", () => {
     let providerWithAgreement: ProviderWithAgreement;
     let counter: Counter;
 
     beforeEach(async () => {
-      providerWithAgreement = createAgreementProvider([
-        hardhat.ethers.provider,
-        hardhat.ethers.provider,
-      ]);
+      providerWithAgreement = CallCacheDecorator(
+        () =>
+          createAgreementProvider([
+            hardhat.ethers.provider,
+            hardhat.ethers.provider,
+          ]),
+        { ttl: 50_000 }
+      )() as ProviderWithAgreement;
       const contract = await deployCounter(hardhat.ethers.provider);
       counter = contract.connect(signer.connect(providerWithAgreement));
     });

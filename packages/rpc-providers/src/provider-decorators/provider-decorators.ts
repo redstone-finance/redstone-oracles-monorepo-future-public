@@ -1,3 +1,4 @@
+export { CallCacheDecorator } from "./CacheCallDecorator";
 export {
   CallMetricDecorator,
   GetBlockNumberMetricDecorator,
