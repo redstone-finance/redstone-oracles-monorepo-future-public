@@ -220,5 +220,133 @@ describe("JsNativePreciseNumber", () => {
         ).toBe("110000000000000.02");
       });
     });
+    describe("abs", () => {
+      it("should work for zero", () => {
+        const result = JsNativeSafeNumber.from(0).abs();
+        expect(result.toString()).toBe("0");
+      });
+
+      it("should work for big negative integers", () => {
+        const result = JsNativeSafeNumber.from(
+          -JsNativeSafeNumberConfig.MAX_NUMBER
+        ).abs();
+        expect(result.toString()).toBe(
+          JsNativeSafeNumberConfig.MAX_NUMBER.toString()
+        );
+      });
+      it("should work for big positive integers", () => {
+        const result = JsNativeSafeNumber.from(
+          JsNativeSafeNumberConfig.MAX_NUMBER
+        ).abs();
+        expect(result.toString()).toBe(
+          JsNativeSafeNumberConfig.MAX_NUMBER.toString()
+        );
+      });
+      it("should work for small negative numbers", () => {
+        const result = JsNativeSafeNumber.from(
+          -JsNativeSafeNumberConfig.MIN_NUMBER
+        ).abs();
+        expect(result.toString()).toBe(
+          JsNativeSafeNumberConfig.MIN_NUMBER.toString()
+        );
+      });
+      it("should work for small positive numbers", () => {
+        const result = JsNativeSafeNumber.from(
+          JsNativeSafeNumberConfig.MIN_NUMBER
+        ).abs();
+        expect(result.toString()).toBe(
+          JsNativeSafeNumberConfig.MIN_NUMBER.toString()
+        );
+      });
+    });
+    describe("log2", () => {
+      it("should throw for zero", () => {
+        expect(() => JsNativeSafeNumber.from(0).log2()).toThrowError();
+      });
+      it("should work for one", () => {
+        const result = JsNativeSafeNumber.from(1).log2();
+        expect(result.toString()).toBe("0");
+      });
+      it("should work for big integers", () => {
+        const result = JsNativeSafeNumber.from(
+          JsNativeSafeNumberConfig.MAX_NUMBER
+        ).log2();
+        expect(result.toString()).toBe("53");
+      });
+      it("should work for small numbers", () => {
+        const result = JsNativeSafeNumber.from(2 ** -46).log2();
+        expect(result.toString()).toBe("-46");
+      });
+    });
+    describe("mod", () => {
+      it("should work for zero", () => {
+        const result = JsNativeSafeNumber.from(0).mod(123);
+        expect(result.toString()).toBe("0");
+      });
+      it("should work for remainder", () => {
+        const result = JsNativeSafeNumber.from(100).mod(123);
+        expect(result.toString()).toBe("100");
+      });
+      it("should work for same numbers", () => {
+        const result = JsNativeSafeNumber.from(123).mod(123);
+        expect(result.toString()).toBe("0");
+      });
+      it("should work for multiple", () => {
+        const result = JsNativeSafeNumber.from(123 * 123).mod(123);
+        expect(result.toString()).toBe("0");
+      });
+      it("should work for big numbers", () => {
+        const result = JsNativeSafeNumber.from(
+          JsNativeSafeNumberConfig.MIN_NUMBER
+        ).mod(JsNativeSafeNumberConfig.MAX_NUMBER);
+        expect(result.toString()).toBe(
+          JsNativeSafeNumberConfig.MIN_NUMBER.toString()
+        );
+      });
+      it("should fail on underflow", () => {
+        expect(() =>
+          JsNativeSafeNumber.from(1).mod(JsNativeSafeNumberConfig.MIN_NUMBER)
+        ).toThrowError();
+      });
+    });
+    describe("round", () => {
+      it("should work for small integers", () => {
+        let result = JsNativeSafeNumber.from(0).round();
+        expect(result.toString()).toBe("0");
+
+        result = JsNativeSafeNumber.from(1).round();
+        expect(result.toString()).toBe("1");
+      });
+      it("should work for big integers", () => {
+        const result0 = JsNativeSafeNumber.from(
+          JsNativeSafeNumberConfig.MAX_NUMBER
+        ).round();
+        expect(result0.toString()).toBe(
+          JsNativeSafeNumberConfig.MAX_NUMBER.toString()
+        );
+      });
+      it("should work for fractions", () => {
+        let result = JsNativeSafeNumber.from(0.3).round();
+        expect(result.toString()).toBe("0");
+        result = JsNativeSafeNumber.from(0.5).round();
+        expect(result.toString()).toBe("1");
+        result = JsNativeSafeNumber.from(0.9).round();
+        expect(result.toString()).toBe("1");
+      });
+      it("should work for negative fractions", () => {
+        let result = JsNativeSafeNumber.from(-0.3).round();
+        expect(result.toString()).toBe("0");
+        result = JsNativeSafeNumber.from(-0.5).round();
+        expect(result.toString()).toBe("0");
+        result = JsNativeSafeNumber.from(-0.9).round();
+        expect(result.toString()).toBe("-1");
+      });
+      it("should work for small numbers", () => {
+        const result = JsNativeSafeNumber.from(
+          JsNativeSafeNumberConfig.MIN_NUMBER
+        ).round();
+        expect(result.toString()).toBe("0");
+      });
+    });
   });
 });

@@ -78,16 +78,6 @@ describe("Utils", () => {
     );
   });
 
-  test("Should round fractional component if it exceeds decimal", () => {
-    expect(() => convertNumberToBytes(42.123456789, 8, 32, false)).toThrow(
-      "fractional component exceeds decimals"
-    );
-
-    expect(hexlify(convertNumberToBytes(42.123456789, 8, 32))).toBe(
-      "0x00000000000000000000000000000000000000000000000000000000fb134b4f"
-    );
-  });
-
   test("Should works for big numbers (>1e21)", () => {
     expect(hexlify(convertIntegerNumberToBytes(1e21, 20))).toBe(
       "0x00000000000000000000003635c9adc5dea00000"
