@@ -37,21 +37,9 @@ export const convertStringToBytes32 = (str: string): Uint8Array => {
 export const convertNumberToBytes = (
   value: NumberLike,
   decimals: number,
-  byteSize: number,
-  roundFractionalComponentIfExceedsDecimals: boolean = true
+  byteSize: number
 ): Uint8Array => {
-  let stringifiedNumber = roundFractionalComponentIfExceedsDecimals
-    ? Number(value).toFixed(decimals)
-    : String(value);
-
-  // js for numbers >1e20 uses scientific notation,
-  // which is not supported by BigNumber.js
-  if (stringifiedNumber.includes("e")) {
-    stringifiedNumber = Number(stringifiedNumber).toLocaleString("fullwide", {
-      useGrouping: false,
-    });
-  }
-
+  const stringifiedNumber = convertNumberToString(value, decimals);
   const bigNumberValue = parseUnits(stringifiedNumber, decimals);
   const bytesValue = arrayify(bigNumberValue.toHexString());
 
@@ -65,6 +53,22 @@ export const convertNumberToBytes = (
   } else {
     return zeroPad(bytesValue, byteSize);
   }
+};
+
+export const convertNumberToString = (
+  value: NumberLike,
+  decimals: number
+): string => {
+  const stringifiedNumber = Number(value).toFixed(decimals);
+
+  if (!stringifiedNumber.includes("e")) {
+    return stringifiedNumber;
+  }
+  // js for numbers >1e20 uses scientific notation,
+  // which is not supported by BigNumber.js
+  return Number(stringifiedNumber).toLocaleString("fullwide", {
+    useGrouping: false,
+  });
 };
 
 export const convertIntegerNumberToBytes = (

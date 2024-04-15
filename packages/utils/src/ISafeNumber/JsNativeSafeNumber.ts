@@ -82,6 +82,18 @@ export class JsNativeSafeNumber implements ISafeNumber {
     return this.produceNewSafeNumber(result);
   }
 
+  mod(divisor: NumberArg): JsNativeSafeNumber {
+    const result =
+      this._value % JsNativeSafeNumber.from(divisor).unsafeToNumber();
+    return this.produceNewSafeNumber(result);
+  }
+
+  round(): JsNativeSafeNumber {
+    const result = Math.round(this._value);
+    // no validation needed
+    return new JsNativeSafeNumber(result);
+  }
+
   add(numberLike: NumberArg): JsNativeSafeNumber {
     const result =
       this._value + JsNativeSafeNumber.from(numberLike).unsafeToNumber();
