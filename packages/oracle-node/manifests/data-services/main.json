@@ -641,7 +641,6 @@
     },
     "EUROC": {
       "source": [
-        "bitstamp",
         "coinbasepro",
         "coingecko",
         "trader-joe-v2-avalanche-on-chain-usdc",
