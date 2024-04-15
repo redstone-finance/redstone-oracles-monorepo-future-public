@@ -75,7 +75,7 @@ export const ChainConfigs = {
       "https://1rpc.io/arb",
     ],
     avgBlockTimeMs: 250,
-    multicall3: REDSTONE_MULTICALL3,
+    multicall3: STANDARD_MULTICALL3,
   },
   avalanche: {
     name: "Avalanche Network",
