@@ -2,12 +2,14 @@
 import { assertWithLog } from "./errors";
 
 type MemoizeCache<T> = { promise: Promise<T>; lastSet: number };
-const EXPECTED_MAX_CACHE_ENTRIES_PER_FN = 10_000;
+const EXPECTED_MAX_CACHE_ENTRIES_PER_FN = 100_000;
 const EXPECTED_MAX_CACHE_KEY_LENGTH_PER_FN = 10_000;
+const CLEAN_EVERY_N_ITERATION_DEFAULT = 1;
 
 type MemoizeArgs<F extends (...args: unknown[]) => Promise<unknown>> = {
   functionToMemoize: F;
   ttl: number;
+  cleanEveryNIteration?: number;
   cacheKeyBuilder?: (...args: Parameters<F>) => string | Promise<string>;
   cacheReporter?: (isMiss: boolean) => void;
 };
@@ -24,8 +26,10 @@ export function memoize<
   ttl,
   cacheKeyBuilder = (...args: unknown[]) => JSON.stringify(args),
   cacheReporter = () => {},
+  cleanEveryNIteration = CLEAN_EVERY_N_ITERATION_DEFAULT,
 }: MemoizeArgs<F>): F {
   const cache: Partial<Record<string, MemoizeCache<R>>> = {};
+  let iterationCounter = 0;
 
   return (async (...args: Parameters<F>) => {
     const cacheKey = await cacheKeyBuilder(...args);
@@ -36,7 +40,10 @@ export function memoize<
     );
 
     // to avoid caching results forever
-    cleanStaleCacheEntries(cache, ttl);
+    iterationCounter = (iterationCounter + 1) % cleanEveryNIteration;
+    if (iterationCounter == 0) {
+      cleanStaleCacheEntries(cache, ttl);
+    }
 
     // we don't check ttl because it is cleared here: cleanStaleCacheEntries
     const isMiss =
@@ -72,12 +79,9 @@ const cleanStaleCacheEntries = <T>(
     `Assumed cache key space will not grow over ${EXPECTED_MAX_CACHE_ENTRIES_PER_FN} but is ${cacheKeys.length}`
   );
 
-  // to avoid trigerring gc too often
-  if (cacheKeys.length > 1_000) {
-    for (const key of cacheKeys) {
-      if (now - cache[key]!.lastSet > ttl) {
-        delete cache[key];
-      }
+  for (const key of cacheKeys) {
+    if (now - cache[key]!.lastSet > ttl) {
+      delete cache[key];
     }
   }
 };

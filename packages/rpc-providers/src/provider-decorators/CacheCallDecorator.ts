@@ -19,6 +19,7 @@ export function CallCacheDecorator(
       functionToMemoize: oldCall,
       ttl: config.ttl,
       cacheKeyBuilder: txCacheKeyBuilder,
+      cleanEveryNIteration: 1_000,
     });
 
     provider.call = async function (
