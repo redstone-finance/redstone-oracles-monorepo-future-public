@@ -46,4 +46,36 @@ describe("check-value-deviation-condition", () => {
     expect(warningMessage).to.match(/Value has deviated enough to be/);
     expect(warningMessage).not.to.match(/Deviation in fallback mode:/);
   });
+
+  it("should return true if value diff for specific data feed bigger than expected", async () => {
+    const dataPackages = await getDataPackagesResponse();
+    const biggerValueDiff: ValuesForDataFeeds = {
+      ETH: createNumberFromContract(1580.99),
+      BTC: createNumberFromContract(23011.68),
+    };
+    const { shouldUpdatePrices, warningMessage } = checkValueDeviationCondition(
+      dataPackages,
+      biggerValueDiff,
+      { ...config(), priceFeedsDeviationOverrides: { ETH: 5 } }
+    );
+    expect(shouldUpdatePrices).to.be.true;
+    expect(warningMessage).to.match(/Value has deviated enough to be/);
+    expect(warningMessage).not.to.match(/Deviation in fallback mode:/);
+  });
+
+  it("should return true if value diff for specific data feed bigger than expected when both feeds have deviation overridden", async () => {
+    const dataPackages = await getDataPackagesResponse();
+    const biggerValueDiff: ValuesForDataFeeds = {
+      ETH: createNumberFromContract(1580.99),
+      BTC: createNumberFromContract(23011.68),
+    };
+    const { shouldUpdatePrices, warningMessage } = checkValueDeviationCondition(
+      dataPackages,
+      biggerValueDiff,
+      { ...config(), priceFeedsDeviationOverrides: { ETH: 5, BTC: 10 } }
+    );
+    expect(shouldUpdatePrices).to.be.true;
+    expect(warningMessage).to.match(/Value has deviated enough to be/);
+    expect(warningMessage).not.to.match(/Deviation in fallback mode:/);
+  });
 });

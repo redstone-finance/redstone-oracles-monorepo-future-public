@@ -18,6 +18,7 @@ export const checkValueDeviationCondition = (
   const logTrace = new ValueDeviationLogTrace();
 
   let maxDeviation = 0;
+  let shouldUpdatePrices = false;
   for (const dataFeedId of dataFeedsIds) {
     const valueFromContract =
       valuesFromContract[dataFeedId] ?? BigNumber.from(0);
@@ -44,13 +45,25 @@ export const checkValueDeviationCondition = (
           dataPointObj.value,
           valueFromContractAsDecimal
         );
-        maxDeviation = Math.max(currentDeviation, maxDeviation);
+
+        if (config.priceFeedsDeviationOverrides?.[dataFeedId]) {
+          shouldUpdatePrices ||=
+            currentDeviation >=
+            config.priceFeedsDeviationOverrides[dataFeedId]!;
+          logTrace.addDeviationInfo(
+            currentDeviation,
+            config.priceFeedsDeviationOverrides[dataFeedId]!,
+            dataFeedId
+          );
+        } else {
+          maxDeviation = Math.max(currentDeviation, maxDeviation);
+        }
       }
     }
   }
 
   const { minDeviationPercentage } = config;
-  const shouldUpdatePrices = maxDeviation >= minDeviationPercentage!;
+  shouldUpdatePrices ||= maxDeviation >= minDeviationPercentage!;
   logTrace.addDeviationInfo(maxDeviation, minDeviationPercentage!);
 
   return {
@@ -82,8 +95,11 @@ class ValueDeviationLogTrace {
       }
     | undefined
   > = {};
-  private maxDeviation!: string;
-  private thresholdDeviation!: string;
+  private deviationLogs: {
+    maxDeviation: string;
+    thresholdDeviation: string;
+    dataFeedId?: string;
+  }[] = [];
 
   addPerDataFeedLog(
     timestamp: number,
@@ -105,16 +121,22 @@ class ValueDeviationLogTrace {
     }
   }
 
-  addDeviationInfo(maxDeviation: number, thresholdDeviation: number) {
-    this.maxDeviation = maxDeviation.toFixed(4);
-    this.thresholdDeviation = thresholdDeviation.toFixed(4);
+  addDeviationInfo(
+    maxDeviation: number,
+    thresholdDeviation: number,
+    dataFeedId?: string
+  ) {
+    this.deviationLogs.push({
+      maxDeviation: maxDeviation.toFixed(4),
+      thresholdDeviation: thresholdDeviation.toFixed(4),
+      dataFeedId,
+    });
   }
 
   toString(): string {
     return JSON.stringify({
       ...this.perDataFeedId,
-      maxDeviation: this.maxDeviation,
-      thresholdDeviation: this.thresholdDeviation,
+      ...this.deviationLogs,
     });
   }
 }

@@ -26,13 +26,16 @@ export const UpdateTriggersSchema = z.object({
   cron: z.array(z.string()).optional(),
   deviationPercentage: z.number().optional(),
   timeSinceLastUpdateInMilliseconds: z.number().optional(),
+  priceFeedsDeviationOverrides: z.record(z.string(), z.number()).optional(),
+});
+
+export const ChainSchema = z.object({
+  name: z.string(),
+  id: z.number(),
 });
 
 export const OnChainRelayerManifestSchema = z.object({
-  chain: z.object({
-    name: z.string(),
-    id: z.number(),
-  }),
+  chain: ChainSchema,
   updateTriggers: UpdateTriggersSchema,
   adapterContract: z.string(),
   adapterContractType: AdapterTypesEnum.default(PRICE_FEEDS).optional(),
@@ -77,6 +80,7 @@ export interface RelayerConfig {
   fallbackSkipDeviationBasedFrequentUpdates: boolean;
   disableCustomGasOracle: boolean;
   temporaryUpdatePriceInterval: number;
+  priceFeedsDeviationOverrides?: Record<string, number>;
 }
 
 export type OnChainRelayerEnv = {
