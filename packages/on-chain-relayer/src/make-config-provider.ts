@@ -12,8 +12,12 @@ export const makeConfigProvider = (
   manifest: OnChainRelayerManifest,
   env: OnChainRelayerEnv
 ): RelayerConfig => {
-  const { timeSinceLastUpdateInMilliseconds, deviationPercentage, cron } =
-    manifest.updateTriggers;
+  const {
+    timeSinceLastUpdateInMilliseconds,
+    deviationPercentage,
+    cron,
+    priceFeedsDeviationOverrides,
+  } = manifest.updateTriggers;
   const updateConditions = [] as ConditionCheckNames[];
 
   if (deviationPercentage) {
@@ -38,6 +42,7 @@ export const makeConfigProvider = (
     dataFeeds: Object.keys(manifest.priceFeeds),
     updateConditions,
     minDeviationPercentage: deviationPercentage,
+    priceFeedsDeviationOverrides: priceFeedsDeviationOverrides,
     adapterContractType:
       manifest.adapterContractType ?? DEFAULT_ADAPTER_CONTRACT_TYPE,
     fallbackOffsetInMS: env.fallbackOffsetInMinutes * MS_IN_ONE_MINUTE,

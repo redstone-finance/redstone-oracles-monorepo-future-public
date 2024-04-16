@@ -8,6 +8,7 @@ export { makeConfigProvider } from "./make-config-provider";
 export {
   OnChainRelayerManifestSchema,
   UpdateTriggersSchema,
+  ChainSchema,
   type ConfigProvider,
   type OnChainRelayerEnv,
   type OnChainRelayerManifest,
