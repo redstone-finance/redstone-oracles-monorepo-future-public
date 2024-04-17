@@ -1,10 +1,14 @@
 import {
-  calculateHistoricalPackagesTimestamp,
+  DataServiceIds,
+  getSignersForDataServiceId,
+} from "@redstone-finance/oracles-smartweave-contracts";
+import {
   DataPackagesRequestParams,
   DataPackagesResponse,
+  calculateHistoricalPackagesTimestamp,
   requestDataPackages,
 } from "@redstone-finance/sdk";
-import { loggerFactory } from "@redstone-finance/utils";
+import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { config } from "../config";
 import { RelayerConfig } from "../types";
 
@@ -22,6 +26,10 @@ export async function fetchDataPackages(
     uniqueSignersCount: uniqueSignersThreshold,
     dataFeeds,
     urls: cacheServiceUrls,
+    maxTimestampDeviationMS: RedstoneCommon.minToMs(3),
+    authorizedSigners: getSignersForDataServiceId(
+      dataServiceId as DataServiceIds
+    ),
   };
 
   try {

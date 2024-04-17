@@ -22,6 +22,7 @@ const MILLISECONDS_IN_ONE_MINUTE = 60 * 1000;
 export interface DataPackagesRequestParams {
   dataServiceId: string;
   uniqueSignersCount: number;
+  maxTimestampDeviationMS?: number;
   authorizedSigners?: string[];
   dataFeeds?: string[];
   urls?: string[];
@@ -215,6 +216,16 @@ export const parseAndValidateDataPackagesResponse = (
         }
         return reqParams.authorizedSigners!.includes(signer);
       });
+    }
+
+    // filter out package with deviated timestamps
+    if (reqParams.maxTimestampDeviationMS) {
+      const now = Date.now();
+      dataFeedPackages = dataFeedPackages.filter(
+        (dp) =>
+          Math.abs(now - dp.timestampMilliseconds) <
+          reqParams.maxTimestampDeviationMS!
+      );
     }
 
     if (dataFeedPackages.length < reqParams.uniqueSignersCount) {
