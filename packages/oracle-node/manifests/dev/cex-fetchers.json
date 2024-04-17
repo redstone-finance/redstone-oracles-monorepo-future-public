@@ -14,7 +14,6 @@
     "ETH": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -49,7 +48,6 @@
     "BTC": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -94,7 +92,6 @@
     "BNB": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -150,7 +147,6 @@
     "XRP": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitstamp-usdt",
@@ -172,7 +168,6 @@
     "ADA": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
@@ -195,7 +190,6 @@
     "DOGE": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
@@ -227,7 +221,6 @@
     "DOT": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
@@ -277,7 +270,6 @@
     "LTC": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
@@ -306,7 +298,6 @@
     "UNI": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -372,7 +363,6 @@
     "ETC": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
@@ -394,7 +384,6 @@
     "FIL": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
@@ -407,7 +396,6 @@
     "BCH": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
@@ -422,7 +410,6 @@
     "XLM": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
@@ -455,7 +442,6 @@
     "EOS": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
@@ -595,7 +581,6 @@
     "OP": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -743,7 +728,6 @@
     "APE": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usdt",
         "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",

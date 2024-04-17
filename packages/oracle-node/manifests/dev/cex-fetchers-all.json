@@ -27,7 +27,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "band",
         "bingx",
         "coingecko",
@@ -52,7 +51,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "band",
         "bingx",
         "coingecko",
@@ -90,7 +88,6 @@
         "bitmart-usdt",
         "lbank-usdt",
         "bitrue-usdt",
-        "binancecoinm-usd",
         "coingecko",
         "xt",
         "bingx-usdt"
@@ -138,7 +135,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "coingecko",
         "bingx-usdt"
       ]
@@ -159,7 +155,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "coingecko",
         "bingx-usdt"
       ]
@@ -179,7 +174,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "coingecko",
         "bingx-usdt"
       ]
@@ -198,7 +192,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bitfinex2",
         "coingecko",
         "kraken",
@@ -224,7 +217,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx",
         "coingecko",
         "xt",
@@ -247,7 +239,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "coingecko",
         "bingx-usdt"
       ]
@@ -285,7 +276,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitfinex2-usd",
-        "binancecoinm-usd",
         "kaiko-v2",
         "bingx-usdt"
       ]
@@ -326,7 +316,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "coingecko",
         "bingx-usdt"
       ]
@@ -346,7 +335,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx",
         "bitfinex2",
         "coingecko",
@@ -370,7 +358,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx",
         "coingecko",
         "uniswap-v3-ethereum-on-chain-weth-3000",
@@ -411,7 +398,6 @@
         "kraken-usd",
         "lbank-usdt",
         "bitrue-usdt",
-        "binancecoinm-usd",
         "bitfinex2",
         "bingx",
         "coingecko",
@@ -434,7 +420,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx",
         "bitfinex2",
         "coingecko",
@@ -480,7 +465,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitfinex2-usd",
-        "binancecoinm-usd",
         "coingecko",
         "kraken",
         "bingx-usdt"
@@ -514,7 +498,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitfinex2-usd",
-        "binancecoinm-usd",
         "coingecko",
         "bingx-usdt"
       ]
@@ -534,7 +517,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bitfinex2",
         "coingecko",
         "bingx-usdt"
@@ -555,7 +537,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitfinex2-usd",
-        "binancecoinm-usd",
         "coingecko",
         "bingx-usdt"
       ]
@@ -575,7 +556,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "coingecko",
         "kraken",
         "bingx-usdt"
@@ -596,7 +576,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bitfinex2",
         "coingecko",
         "bingx-usdt"
@@ -634,7 +613,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "coingecko",
         "bingx-usdt"
       ]
@@ -654,7 +632,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitfinex2-usd",
-        "binancecoinm-usd",
         "coingecko",
         "bingx-usdt"
       ]
@@ -674,7 +651,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bitfinex2",
         "coingecko",
         "kaiko",
@@ -1011,7 +987,6 @@
         "kraken-usd",
         "lbank-usdt",
         "bitrue-usdt",
-        "binancecoinm-usd",
         "coingecko",
         "xt",
         "uniswap-v3-optimism-on-chain-weth-3000",
@@ -1354,7 +1329,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx",
         "coingecko",
         "xt",
@@ -2306,7 +2280,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitfinex2-usd",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -2410,7 +2383,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -2474,7 +2446,6 @@
         "kraken-usd",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -2530,7 +2501,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -2667,7 +2637,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -2686,7 +2655,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -2784,7 +2752,6 @@
         "bitrue-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -2869,7 +2836,6 @@
         "binanceusdm-usdt",
         "kraken-usd",
         "lbank-usdt",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -2925,7 +2891,6 @@
         "binanceusdm-usdt",
         "kraken-usd",
         "bitrue-usdt",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -3068,7 +3033,6 @@
         "binanceusdm-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -3581,7 +3545,6 @@
         "binanceusdm-usdt",
         "kraken-usd",
         "bitrue-usdt",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -3950,7 +3913,6 @@
         "binanceusdm-usdt",
         "lbank-usdt",
         "bitrue-usdt",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -5285,7 +5247,6 @@
         "kraken-usd",
         "lbank-usdt",
         "bitrue-usdt",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
@@ -6954,7 +6915,6 @@
         "lbank-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "binancecoinm-usd",
         "bingx-usdt"
       ]
     },
