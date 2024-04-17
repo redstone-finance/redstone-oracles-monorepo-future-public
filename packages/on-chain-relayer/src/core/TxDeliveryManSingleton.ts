@@ -17,6 +17,7 @@ export const getTxDeliveryMan = (
       gasLimit: config().gasLimit,
       twoDimensionalFees: config().twoDimensionalFees,
       multiplier: config().gasMultiplier,
+      maxAttempts: config().maxTxSendAttempts,
       isAuctionModel: config().isAuctionModel,
     });
   return deliveryMan;

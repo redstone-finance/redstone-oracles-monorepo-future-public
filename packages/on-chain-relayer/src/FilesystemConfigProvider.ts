@@ -59,7 +59,11 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     ),
     gasMultiplier: RedstoneCommon.getFromEnv(
       "GAS_MULTIPLIER",
-      z.number().default(1.125)
+      z.number().optional()
+    ),
+    maxTxSendAttempts: RedstoneCommon.getFromEnv(
+      "MAX_TX_SEND_ATTEMPTS",
+      z.number().optional()
     ),
     healthcheckPingUrl: RedstoneCommon.getFromEnv(
       "HEALTHCHECK_PING_URL",

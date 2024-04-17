@@ -61,7 +61,8 @@ export interface RelayerConfig {
   dataServiceId: string;
   dataFeeds: string[];
   gasLimit?: number;
-  gasMultiplier: number;
+  gasMultiplier?: number;
+  maxTxSendAttempts?: number;
   updateConditions: ConditionCheckNames[];
   minDeviationPercentage?: number;
   healthcheckPingUrl?: string;
@@ -94,7 +95,8 @@ export type OnChainRelayerEnv = {
   fallbackOffsetInMinutes: number;
   cacheServiceUrls?: string[];
   historicalPackagesGateways?: string[];
-  gasMultiplier: number;
+  gasMultiplier?: number;
+  maxTxSendAttempts?: number;
   isAuctionModel?: boolean;
   mentoMaxDeviationAllowed?: number;
   singleProviderOperationTimeout: number;
