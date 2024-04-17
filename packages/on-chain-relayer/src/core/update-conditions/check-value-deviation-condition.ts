@@ -48,11 +48,10 @@ export const checkValueDeviationCondition = (
 
         if (config.priceFeedsDeviationOverrides?.[dataFeedId]) {
           shouldUpdatePrices ||=
-            currentDeviation >=
-            config.priceFeedsDeviationOverrides[dataFeedId]!;
+            currentDeviation >= config.priceFeedsDeviationOverrides[dataFeedId];
           logTrace.addDeviationInfo(
             currentDeviation,
-            config.priceFeedsDeviationOverrides[dataFeedId]!,
+            config.priceFeedsDeviationOverrides[dataFeedId],
             dataFeedId
           );
         } else {

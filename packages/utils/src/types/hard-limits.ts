@@ -1,4 +1,4 @@
-export const LAST_UPDATED_TIMESTAMP_SYMBOL = "__lastUpdatedTimestamp" as const;
+export const LAST_UPDATED_TIMESTAMP_SYMBOL = "__lastUpdatedTimestamp";
 
 type TimestampInHardLimits = {
   [LAST_UPDATED_TIMESTAMP_SYMBOL]: number;

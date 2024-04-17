@@ -178,10 +178,9 @@ const prepareDataPackagePromises = (
 
   return urls.map((url) =>
     axios
-      .get<Record<string, SignedDataPackagePlainObj[]>>(
-        [url.replace(/\/+$/, "")].concat(pathComponents).join("/"),
-        { timeout: GET_REQUEST_TIMEOUT }
-      )
+      .get<
+        Record<string, SignedDataPackagePlainObj[]>
+      >([url.replace(/\/+$/, "")].concat(pathComponents).join("/"), { timeout: GET_REQUEST_TIMEOUT })
       .then((response) =>
         parseAndValidateDataPackagesResponse(response.data, reqParams)
       )

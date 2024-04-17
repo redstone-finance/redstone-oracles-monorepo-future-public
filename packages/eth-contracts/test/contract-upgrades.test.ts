@@ -14,9 +14,8 @@ describe("Contract upgrades tests", () => {
     signers = await ethers.getSigners();
 
     // Deploy RedStone token
-    const TokenContractFactory = await ethers.getContractFactory(
-      "RedstoneToken"
-    );
+    const TokenContractFactory =
+      await ethers.getContractFactory("RedstoneToken");
     token = await TokenContractFactory.deploy(1000);
     await token.deployed();
 
@@ -52,9 +51,8 @@ describe("Contract upgrades tests", () => {
     });
 
     it("Should properly upgrade", async () => {
-      const LockingRegistryV2 = await ethers.getContractFactory(
-        "LockingRegistryV2"
-      );
+      const LockingRegistryV2 =
+        await ethers.getContractFactory("LockingRegistryV2");
       const lockingRegistryV2 = await upgrades.upgradeProxy(
         lockingRegistry.address,
         LockingRegistryV2
@@ -88,9 +86,8 @@ describe("Contract upgrades tests", () => {
     });
 
     it("Should properly upgrade", async () => {
-      const VestingWalletV2 = await ethers.getContractFactory(
-        "VestingWalletV2"
-      );
+      const VestingWalletV2 =
+        await ethers.getContractFactory("VestingWalletV2");
       const vestingWalletV2 = await upgrades.upgradeProxy(
         vestingWallet.address,
         VestingWalletV2

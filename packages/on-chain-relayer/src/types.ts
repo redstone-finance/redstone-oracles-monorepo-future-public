@@ -17,8 +17,8 @@ export interface ConditionCheckResponse {
   warningMessage: string;
 }
 
-const PRICE_FEEDS = "price-feeds" as const;
-const MENTO = "mento" as const;
+const PRICE_FEEDS = "price-feeds";
+const MENTO = "mento";
 const AdapterTypesEnum = z.enum([PRICE_FEEDS, MENTO]);
 type AdapterType = z.infer<typeof AdapterTypesEnum>;
 
