@@ -1,10 +1,16 @@
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
+  DataServiceIds,
+  getSignersForDataServiceId,
+} from "@redstone-finance/oracles-smartweave-contracts";
+import {
   DataPackagesResponse,
   requestDataPackages,
 } from "@redstone-finance/sdk";
 import { Adapter } from "erc7412";
 import * as viem from "viem";
+
+const MAX_TIMESTAMP_DEVIATION = 180_000;
 
 export class RedstoneAdapter implements Adapter {
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this
@@ -28,6 +34,10 @@ export class RedstoneAdapter implements Adapter {
       dataFeeds: [bytes32ToString(feedId)],
       dataServiceId,
       uniqueSignersCount,
+      maxTimestampDeviationMS: MAX_TIMESTAMP_DEVIATION,
+      authorizedSigners: getSignersForDataServiceId(
+        dataServiceId as DataServiceIds
+      ),
     });
 
     const signedRedstonePayload = await new DataPackagesWrapper(

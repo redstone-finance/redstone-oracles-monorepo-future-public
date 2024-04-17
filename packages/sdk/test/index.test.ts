@@ -198,6 +198,58 @@ describe("SDK tests", () => {
     );
   });
 
+  test("Should omit packages with deviated timestamp", async () => {
+    const axiosGetSpy = jest.spyOn(axios, "get");
+    const now = Date.now();
+    const dataPackage = DataPackage.fromObj({
+      dataPoints: [{ dataFeedId: "ETH", value: 20000 }],
+      timestampMilliseconds: now,
+    }).sign(MOCK_WALLET.privateKey);
+
+    axiosGetSpy.mockResolvedValue({
+      data: {
+        ETH: [
+          {
+            dataPoints: [{ dataFeedId: "ETH", value: 20000 }],
+            timestampMilliseconds: now,
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            signerAddress: "0x2",
+            signature: dataPackage.toObj().signature,
+          },
+          {
+            dataPoints: [{ dataFeedId: "ETH", value: 10000 }],
+            timestampMilliseconds: now - 30_000,
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            signerAddress: "0x3",
+            signature: dataPackage.toObj().signature,
+          },
+        ],
+      },
+    });
+
+    await expect(
+      requestDataPackages({
+        ...getReqParams(),
+        uniqueSignersCount: 2,
+        dataFeeds: ["ETH"],
+        maxTimestampDeviationMS: 20_000,
+      })
+    ).rejects.toThrowError(/Too few unique signers/);
+
+    const result = await requestDataPackages({
+      ...getReqParams(),
+      uniqueSignersCount: 1,
+      dataFeeds: ["ETH"],
+      maxTimestampDeviationMS: 20_000,
+    });
+
+    expect(result["ETH"]![0].dataPackage.dataPoints[0].toObj().value).toEqual(
+      20_000
+    );
+  });
+
   test("Should omit packages signed by not authorized", async () => {
     const axiosGetSpy = jest.spyOn(axios, "get");
     const dataPackage = DataPackage.fromObj({
