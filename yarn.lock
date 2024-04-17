@@ -6958,6 +6958,7 @@ __metadata:
     ethers: "npm:^5.7.2"
     hardhat: "npm:^2.17.2"
     hardhat-gas-reporter: "npm:^1.0.9"
+    lodash: "npm:^4.17.21"
     sinon: "npm:^15.0.3"
     solidity-coverage: "npm:^0.8.5"
     ts-node: "npm:^10.9.1"
