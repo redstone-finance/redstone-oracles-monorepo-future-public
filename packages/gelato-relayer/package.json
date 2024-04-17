@@ -1,7 +1,6 @@
 {
   "name": "@redstone-finance/gelato-relayer",
   "version": "0.4.0",
-  "prettier": "redstone-prettier-config",
   "description": "RedStone Relayer based on Gelato Web3 Functions",
   "repository": "https://github.com/redstone-finance/redstone-oracles-monorepo",
   "private": true,

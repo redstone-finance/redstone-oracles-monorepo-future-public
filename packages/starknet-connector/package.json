@@ -1,6 +1,5 @@
 {
   "name": "@redstone-finance/starknet-connector",
-  "prettier": "redstone-prettier-config",
   "version": "0.4.0",
   "description": "A tool to inject RedStone data into Starknet compatible smart contracts",
   "license": "MIT",

@@ -1,7 +1,7 @@
 import { ContractInterface } from "ethers";
-import { config } from "../../config";
 import { abi as redstoneAdapterABI } from "../../../artifacts/contracts/core/RedstoneAdapterBase.sol/RedstoneAdapterBase.json";
 import { abi as mentoAdapterABI } from "../../../artifacts/contracts/custom-integrations/mento/MentoAdapterBase.sol/MentoAdapterBase.json";
+import { config } from "../../config";
 
 export const getAbiForAdapter = (): ContractInterface => {
   switch (config().adapterContractType) {

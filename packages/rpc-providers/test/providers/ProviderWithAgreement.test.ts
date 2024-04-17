@@ -3,10 +3,10 @@ import chaiAsPromised from "chai-as-promised";
 import { providers, Signer, Wallet } from "ethers";
 import * as hardhat from "hardhat";
 import Sinon, * as sinon from "sinon";
+import { CallCacheDecorator } from "../../src/provider-decorators/CacheCallDecorator";
 import { ProviderWithAgreement } from "../../src/providers/ProviderWithAgreement";
 import { Counter } from "../../typechain-types";
 import { deployCounter } from "../helpers";
-import { CallCacheDecorator } from "../../src/provider-decorators/CacheCallDecorator";
 
 chai.use(chaiAsPromised);
 
