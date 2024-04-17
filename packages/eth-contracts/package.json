@@ -1,7 +1,6 @@
 {
   "name": "@redstone-finance/eth-contracts",
   "version": "0.4.0",
-  "prettier": "redstone-prettier-config",
   "description": "RedStone ethereum contracts",
   "main": "dist/src/index.js",
   "private": true,

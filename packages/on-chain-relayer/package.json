@@ -1,7 +1,6 @@
 {
   "name": "@redstone-finance/on-chain-relayer",
   "version": "0.4.0",
-  "prettier": "redstone-prettier-config",
   "types": "dist/src/index.d.ts",
   "main": "dist/src/index.js",
   "license": "MIT",
