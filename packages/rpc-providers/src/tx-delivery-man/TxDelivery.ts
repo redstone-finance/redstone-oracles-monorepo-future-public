@@ -5,6 +5,7 @@ import {
 } from "@ethersproject/providers";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { BigNumber, PopulatedTransaction, providers } from "ethers";
+import _ from "lodash";
 import { EthersError, isEthersError } from "../common";
 import {
   AuctionModelFee,
@@ -119,9 +120,9 @@ const logger = loggerFactory("TxDelivery");
 
 export const DEFAULT_TX_DELIVERY_OPTS = {
   isAuctionModel: false,
-  maxAttempts: 10,
-  multiplier: 1.125, // 112,5% => 1.125 ** 10 => 3.24 max scaler
-  gasLimitMultiplier: 1.1,
+  maxAttempts: 5,
+  multiplier: 1.4, //  1.4 ** 5 => 5.24 max scaler
+  gasLimitMultiplier: 1.2,
   percentileOfPriorityFee: 75,
   twoDimensionalFees: false,
   gasOracleTimeout: 5_000,
@@ -158,7 +159,7 @@ export class TxDelivery {
     private readonly signer: TxDeliverySigner,
     private readonly provider: providers.JsonRpcProvider
   ) {
-    this.opts = { ...DEFAULT_TX_DELIVERY_OPTS, ...opts };
+    this.opts = _.merge({ ...DEFAULT_TX_DELIVERY_OPTS }, opts);
     this.feeEstimator = this.opts.isAuctionModel
       ? new AuctionModelGasEstimator(this.opts)
       : new Eip1559GasEstimator(this.opts);

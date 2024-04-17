@@ -57,7 +57,12 @@ describe("TxDelivery", () => {
 
     const createTxDelivery = (opts: TxDeliveryOpts) =>
       new TxDelivery(
-        opts,
+        {
+          maxAttempts: 10,
+          multiplier: 1.125,
+          gasLimitMultiplier: 1.1,
+          ...opts,
+        },
         counter.signer,
         counter.provider as ethers.providers.JsonRpcProvider
       );
