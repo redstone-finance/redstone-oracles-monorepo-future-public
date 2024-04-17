@@ -4,7 +4,8 @@
     "id": 42220
   },
   "updateTriggers": {
-    "timeSinceLastUpdateInMilliseconds": 250000
+    "timeSinceLastUpdateInMilliseconds": 250000,
+    "deviationPercentage": 0.2
   },
   "adapterContract": "0x6490a3FFAD86CA14FF84Be380D5639Fb8fBD311B",
   "adapterContractType": "mento",
