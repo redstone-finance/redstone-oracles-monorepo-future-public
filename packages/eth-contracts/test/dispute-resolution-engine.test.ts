@@ -222,9 +222,8 @@ describe("Dispute resolution engine", () => {
 
   const deployContracts = async () => {
     // Deploy token contract
-    const TokenContractFactory = await ethers.getContractFactory(
-      "RedstoneToken"
-    );
+    const TokenContractFactory =
+      await ethers.getContractFactory("RedstoneToken");
     token = await TokenContractFactory.deploy(toBigNum(TOTAL_SUPPLY));
     await token.deployed();
 
@@ -239,9 +238,8 @@ describe("Dispute resolution engine", () => {
     // Attachig locking registry (which was created by dispute resolution engine)
     const lockingRegistryAddress =
       await disputeResolutionEngine.getLockingRegistryAddress();
-    const LockingRegistryFactory = await ethers.getContractFactory(
-      "LockingRegistry"
-    );
+    const LockingRegistryFactory =
+      await ethers.getContractFactory("LockingRegistry");
     locking = LockingRegistryFactory.attach(lockingRegistryAddress);
   };
 
@@ -304,9 +302,8 @@ describe("Dispute resolution engine", () => {
 
     // Checking each dispute
     for (let disputeId = 0; disputeId < expectedDisputes.length; disputeId++) {
-      const disputeDetails = await disputeResolutionEngine.getDisputeDetails(
-        disputeId
-      );
+      const disputeDetails =
+        await disputeResolutionEngine.getDisputeDetails(disputeId);
       const expectedDispute = expectedDisputes[disputeId];
       expect(disputeDetails.verdict).to.eql(expectedDispute.expectedVerdict);
       expect(disputeDetails.rewardPoolTokensAmount).to.eql(

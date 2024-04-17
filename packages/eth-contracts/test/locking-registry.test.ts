@@ -17,16 +17,14 @@ describe("Locking registry", () => {
     authorisedSlasher = signers[3];
 
     // Deploy token contract
-    const TokenContractFactory = await ethers.getContractFactory(
-      "RedstoneToken"
-    );
+    const TokenContractFactory =
+      await ethers.getContractFactory("RedstoneToken");
     token = await TokenContractFactory.deploy(1000);
     await token.deployed();
 
     // Deploy locking contract
-    const LockingRegistryFactory = await ethers.getContractFactory(
-      "LockingRegistry"
-    );
+    const LockingRegistryFactory =
+      await ethers.getContractFactory("LockingRegistry");
     locking = await upgrades.deployProxy(LockingRegistryFactory, [
       token.address,
       await authorisedSlasher.getAddress(),

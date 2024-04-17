@@ -44,7 +44,7 @@ export function groupDataPackagesByField(
     if (!groupedBySigner[dataPackage[field]]) {
       groupedBySigner[dataPackage[field]] = [];
     }
-    groupedBySigner[dataPackage[field]]!.push(dataPackage);
+    groupedBySigner[dataPackage[field]].push(dataPackage);
   }
 
   return groupedBySigner;

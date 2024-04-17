@@ -6,6 +6,7 @@
     "test",
     "scripts",
     "**/*spec.ts",
+    ".jest",
     "jest.config.ts"
   ],
   "references": [

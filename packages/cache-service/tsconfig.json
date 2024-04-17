@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "dist"
   },
+  "include": ["**/*", ".jest/*"],
   "references": [
     {
       "path": "../protocol/tsconfig.build.json"

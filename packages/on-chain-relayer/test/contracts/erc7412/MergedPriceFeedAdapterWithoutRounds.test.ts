@@ -13,7 +13,7 @@ import { describeCommonPriceFeedsAdapterTests } from "../price-feeds/common/pric
 
 chai.use(chaiAsPromised);
 
-const contractName = "RedstonePrimaryProdERC7412Mock" as const;
+const contractName = "RedstonePrimaryProdERC7412Mock";
 
 const TTL_FROM_CONTRACT = 60;
 
