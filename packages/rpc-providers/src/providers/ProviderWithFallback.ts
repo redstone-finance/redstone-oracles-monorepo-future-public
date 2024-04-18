@@ -264,7 +264,7 @@ export class ProviderWithFallback
     const nextProviderName = this.extractProviderName(nextProviderIndex);
 
     logger.info(
-      `Fallback in to next provider ${nextProviderName} (${nextProviderIndex}/${this.providers.length}).`
+      `Fallback into next provider ${nextProviderName} (${nextProviderIndex}/${this.providers.length}).`
     );
 
     this.useProvider(nextProviderIndex);
