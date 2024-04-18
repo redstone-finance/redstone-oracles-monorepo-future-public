@@ -320,6 +320,9 @@
         "coingecko-based",
         "pyth-based"
       ]
+    },
+    "3Crv": {
+      "source": ["ethereum-evm-fetcher"]
     }
   }
 }
