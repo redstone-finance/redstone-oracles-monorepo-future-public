@@ -275,6 +275,7 @@
     },
     "FRAX": {
       "source": [
+        "curve-3crv",
         "curve-usdc-frax-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
