@@ -1389,25 +1389,25 @@
       ]
     },
     "SPY": {
-      "source": ["twelve-data", "yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "QQQ": {
-      "source": ["twelve-data", "yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "IWM": {
-      "source": ["twelve-data", "yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "DIA.ETF": {
-      "source": ["twelve-data", "yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "SPX": {
-      "source": ["twelve-data", "yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "EUROSTOXX50": {
       "source": ["twelve-data"]
     },
     "NASDAQ": {
-      "source": ["twelve-data", "yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "XAU": {
       "source": [
@@ -1417,13 +1417,10 @@
       ]
     },
     "SILVER": {
-      "source": ["twelve-data", "yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "CRUDE": {
-      "source": ["twelve-data", "yf-unofficial"]
-    },
-    "COPPER": {
-      "source": ["yf-unofficial"]
+      "source": ["twelve-data"]
     },
     "IBM": {
       "source": ["twelve-data"]
@@ -1611,66 +1608,6 @@
     },
     "USDCf": {
       "source": ["twelve-data-etf-uk"]
-    },
-    "ZC=F": {
-      "source": ["yf-unofficial"]
-    },
-    "ZS=F": {
-      "source": ["yf-unofficial"]
-    },
-    "ZM=F": {
-      "source": ["yf-unofficial"]
-    },
-    "ZW=F": {
-      "source": ["yf-unofficial"]
-    },
-    "KE=F": {
-      "source": ["yf-unofficial"]
-    },
-    "ZO=F": {
-      "source": ["yf-unofficial"]
-    },
-    "ZR=F": {
-      "source": ["yf-unofficial"]
-    },
-    "RB=F": {
-      "source": ["yf-unofficial"]
-    },
-    "NG=F": {
-      "source": ["yf-unofficial"]
-    },
-    "EH=F": {
-      "source": ["yf-unofficial"]
-    },
-    "PL=F": {
-      "source": ["yf-unofficial"]
-    },
-    "PA=F": {
-      "source": ["yf-unofficial"]
-    },
-    "LE=F": {
-      "source": ["yf-unofficial"]
-    },
-    "GF=F": {
-      "source": ["yf-unofficial"]
-    },
-    "HE=F": {
-      "source": ["yf-unofficial"]
-    },
-    "PRK=F": {
-      "source": ["yf-unofficial"]
-    },
-    "DC=F": {
-      "source": ["yf-unofficial"]
-    },
-    "GNF=F": {
-      "source": ["yf-unofficial"]
-    },
-    "CB=F": {
-      "source": ["yf-unofficial"]
-    },
-    "CSC=F": {
-      "source": ["yf-unofficial"]
     },
     "ENTROPY": {
       "source": ["drand"],
