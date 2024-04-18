@@ -282,4 +282,16 @@ export const ChainConfigs = {
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
   },
+  linea: {
+    name: "Linea Mainnet",
+    chainId: 59144,
+    publicRpcUrls: [
+      "https://linea.blockpi.network/v1/rpc/public",
+      "https://linea.decubate.com",
+      "https://rpc.linea.build",
+      "https://1rpc.io/linea",
+    ],
+    avgBlockTimeMs: 3_000,
+    multicall3: STANDARD_MULTICALL3,
+  },
 };
