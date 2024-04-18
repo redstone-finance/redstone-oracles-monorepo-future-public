@@ -266,6 +266,74 @@
         "maverick",
         "pancake-swap-on-chain-weth-500"
       ]
+    },
+    "3Crv": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "AAVE": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bitget",
+        "bitmart",
+        "bitfinex2",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "kaiko",
+        "kaiko-v2",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx",
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "xt"
+      ]
+    },
+    "crvUSD": {
+      "source": [
+        "curve-crv",
+        "curve-frax",
+        "curve-usdc",
+        "curve-usde",
+        "curve-usdt",
+        "curve-weth"
+      ]
+    },
+    "USDe": {
+      "source": [
+        "curve-dai",
+        "curve-frax",
+        "curve-usdc",
+        "uniswap-v3-ethereum-on-chain-usdt-100"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "CRV": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx",
+        "xt"
+      ]
     }
   }
 }
