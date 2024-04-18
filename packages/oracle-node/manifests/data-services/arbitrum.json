@@ -178,6 +178,7 @@
     },
     "FRAX": {
       "source": [
+        "curve-3crv",
         "curve-usdc-frax-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
@@ -284,6 +285,7 @@
     "wstETH": {
       "source": [
         "balancer-arbitrum-weth",
+        "balancer-ethereum-aave",
         "balancer-ethereum-weth",
         "coinmarketcap",
         "maverick",
@@ -494,6 +496,8 @@
         "uniswap-v3-ethereum-on-chain-weth-100",
         "uniswap-v3-ethereum-on-chain-weth-500",
         "balancer-ethereum-weth",
+        "balancer-ethereum-wsteth",
+        "curve-wsteth",
         "pancake-swap-on-chain-weth-500"
       ]
     },
@@ -504,14 +508,17 @@
       "source": [
         "balancer-ethereum-reth",
         "curve-weth",
-        "uniswap-v3-ethereum-on-chain-weth-500"
+        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "uniswap-v3-ethereum-on-chain-weth-500",
+        "uniswap-v3-ethereum-on-chain-wsteth-500"
       ]
     },
     "rswETH": {
       "source": [
         "balancer-ethereum-ezeth",
         "balancer-ethereum-weeth",
-        "curve-weeth"
+        "curve-weeth",
+        "pancake-swap-on-chain-weth-500"
       ]
     },
     "rsETH": {
@@ -553,6 +560,7 @@
     },
     "frxETH": {
       "source": [
+        "curve-crvusd",
         "curve-cvx",
         "curve-eth",
         "curve-steth",
