@@ -167,6 +167,9 @@ const getTheMostRecentDataPackages = (
 const prepareDataPackagePromises = (
   reqParams: DataPackagesRequestParams
 ): Promise<DataPackagesResponse>[] => {
+  if (reqParams.authorizedSigners && reqParams.authorizedSigners.length == 0) {
+    throw new Error("authorizer signers array, if provided, cannot be empty");
+  }
   const urls = getUrlsForDataServiceId(reqParams);
   const pathComponents = [
     "data-packages",

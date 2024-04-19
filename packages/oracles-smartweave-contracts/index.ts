@@ -4,9 +4,10 @@ export type DataServiceIds =
   keyof (typeof redstoneOraclesInitialState)["dataServices"];
 
 export function getSignersForDataServiceId(dataServiceId: DataServiceIds) {
-  return Object.values(redstoneOraclesInitialState.nodes)
+  const signers = Object.values(redstoneOraclesInitialState.nodes)
     .filter((node) => node.dataServiceId === dataServiceId)
     .map((node) => node.evmAddress);
+  return signers.length > 0 ? signers : undefined;
 }
 
 export * from "./src/contracts/redstone-oracle-registry/types";

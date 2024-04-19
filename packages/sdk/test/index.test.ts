@@ -277,7 +277,7 @@ describe("SDK tests", () => {
         ...getReqParams(),
         uniqueSignersCount: 1,
         dataFeeds: ["ETH"],
-        authorizedSigners: [],
+        authorizedSigners: ["fake_signer"],
       })
     ).rejects.toThrowError(/Too few unique signers/);
   });
