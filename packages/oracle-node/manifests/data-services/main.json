@@ -1159,7 +1159,6 @@
     },
     "ETH+": {
       "source": [
-        "curve-eusd",
         "curve-pxeth",
         "curve-rsr",
         "curve-weth",
