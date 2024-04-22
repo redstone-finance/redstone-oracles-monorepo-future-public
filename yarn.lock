@@ -6723,9 +6723,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-wallets-balances-for-visualization@workspace:packages/lambda-wallets-balances-for-visualization":
+"@redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-wallets-balances-for-visualization@workspace:packages/lambda-wallets-balances-for-visualization"
+  resolution: "@redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier"
   dependencies:
     "@redstone-finance/lambda-common": "npm:^0.4.0"
     "@redstone-finance/on-chain-relayer": "npm:^0.4.0"
