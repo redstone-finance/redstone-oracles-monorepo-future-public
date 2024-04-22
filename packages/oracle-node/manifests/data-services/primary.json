@@ -576,11 +576,7 @@
       ]
     },
     "XAU": {
-      "source": [
-        "twelve-data",
-        "finhub-usd",
-        "financialmodelingprep-usd"
-      ]
+      "source": ["twelve-data", "finhub-usd", "financialmodelingprep-usd"]
     },
     "XRP": {
       "source": [
@@ -843,7 +839,16 @@
       ]
     },
     "ETH+": {
-      "source": ["curve-weth", "uniswap-v3-ethereum-on-chain-weth-500"]
+      "source": [
+        "curve-eusd",
+        "curve-pxeth",
+        "curve-rsr",
+        "curve-weth",
+        "uniswap-v3-ethereum-on-chain-weth-500"
+      ]
+    },
+    "ETH+/ETH": {
+      "source": ["non-usd-based"]
     },
     "sDAI": {
       "source": ["ethereum-evm-fetcher"]
