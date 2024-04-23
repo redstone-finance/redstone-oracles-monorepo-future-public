@@ -314,7 +314,7 @@
         "mexc",
         "okx"
       ],
-      "skipSigning": true
+      "skipBroadcasting": true
     },
     "JOE": {
       "source": [

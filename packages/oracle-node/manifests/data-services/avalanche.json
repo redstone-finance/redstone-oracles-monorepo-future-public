@@ -99,7 +99,7 @@
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
       ],
-      "skipSigning": true
+      "skipBroadcasting": true
     },
     "BTC": {
       "source": [
@@ -214,11 +214,11 @@
     },
     "XAVA": {
       "source": ["coingecko", "coinmarketcap", "gate", "kucoin", "mexc"],
-      "skipSigning": true
+      "skipBroadcasting": true
     },
     "YYAV3SA1": {
       "source": ["avalanche-evm-fetcher"],
-      "skipSigning": true
+      "skipBroadcasting": true
     },
     "GMX": {
       "source": [
@@ -275,7 +275,7 @@
           "maxDelayMilliseconds": 300000
         }
       },
-      "skipSigning": true
+      "skipBroadcasting": true
     },
     "SHLB_AVAX-USDC_B": {
       "source": ["avalanche-evm-fetcher"]
@@ -318,7 +318,7 @@
     },
     "TJ_AVAX_USDC_AUTO": {
       "source": ["avalanche-evm-fetcher"],
-      "skipSigning": true
+      "skipBroadcasting": true
     },
     "CRV": {
       "source": [

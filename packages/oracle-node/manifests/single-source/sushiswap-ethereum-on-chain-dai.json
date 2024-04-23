@@ -12,7 +12,7 @@
   "tokens": {
     "OHM": {},
     "OHM_sushiswap-on-chain-dai_liquidity": {
-      "skipSigning": true
+      "skipBroadcasting": true
     }
   }
 }

@@ -1963,7 +1963,7 @@
     },
     "XAVA": {
       "source": ["coingecko", "coinmarketcap", "gate", "kucoin", "mexc"],
-      "skipSigning": true
+      "skipBroadcasting": true
     },
     "QI": {
       "source": ["binance", "coingecko", "coinmarketcap", "kucoin", "xt"]
