@@ -6730,6 +6730,7 @@ __metadata:
     "@redstone-finance/lambda-common": "npm:^0.4.0"
     "@redstone-finance/on-chain-relayer": "npm:^0.4.0"
     "@redstone-finance/redstone-monitoring": "npm:^0.4.0"
+    "@redstone-finance/rpc-providers": "npm:^0.4.0"
     "@redstone-finance/utils": "npm:^0.4.0"
     axios: "npm:^1.6.2"
     ethers: "npm:^5.7.2"
