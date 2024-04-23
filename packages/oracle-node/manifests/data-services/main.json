@@ -1294,7 +1294,7 @@
     "PENDLE_EZ_ETH_LP": {
       "source": ["arbitrum-evm-fetcher"]
     },
-    "PENDLE_SILO_WSTETH_LP": {
+    "PENDLE_SILO_ETH_WSTETH_LP": {
       "source": ["arbitrum-evm-fetcher"]
     },
     "PENDLE_RS_ETH_LP": {
