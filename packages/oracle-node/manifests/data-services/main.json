@@ -1220,7 +1220,8 @@
         "ambient-eth",
         "ring-swap-weth",
         "thruster-weth",
-        "thruster-v3-weth-3000"
+        "thruster-v3-weth-3000",
+        "thruster-v3-weth-500"
       ]
     },
     "USDB-TWAP-30": {
