@@ -19,8 +19,8 @@ export interface MetadataPerSource {
   /** Defined for all sources. If source failed value will be = "error"  */
   value?: string;
 
-  /** Info about current bid and ask prices. Defined only for sources that allow retrieval of this data */
-  bidAskInfo?: BidAskData;
+  /** Info about current bid, ask prices and volume. Defined only for sources that allow retrieval of this data */
+  tradeInfo?: TradeData;
 }
 
 export interface SlippageData {
@@ -29,9 +29,11 @@ export interface SlippageData {
   simulationValueInUsd: string;
 }
 
-export interface BidAskData {
-  bidPrice: number;
-  askPrice: number;
+export interface TradeData {
+  bidPrice?: number;
+  askPrice?: number;
+  /** 24-hour trading volume in USD */
+  volumeInUsd?: number;
 }
 
 export enum TradeDirection {
