@@ -1962,8 +1962,7 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "XAVA": {
-      "source": ["coingecko", "coinmarketcap", "gate", "kucoin", "mexc"],
-      "skipBroadcasting": true
+      "source": ["coingecko", "coinmarketcap", "gate", "kucoin", "mexc"]
     },
     "QI": {
       "source": ["binance", "coingecko", "coinmarketcap", "kucoin", "xt"]
