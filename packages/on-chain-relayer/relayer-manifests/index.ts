@@ -14,6 +14,7 @@ import blastUsdb from "./blastUsdb.json";
 import bnbBnb from "./bnbBnb.json";
 import bnbBtc from "./bnbBtc.json";
 import bnbEzetheth from "./bnbEzetheth.json";
+import bnbWeethfundamental from "./bnbWeethfundamental.json";
 import cadenceCantoAtom from "./cadenceCantoAtom.json";
 import cadenceCantoCanto from "./cadenceCantoCanto.json";
 import cadenceCantoCnote from "./cadenceCantoCnote.json";
@@ -87,6 +88,7 @@ export default {
   blastLrts,
   blastTestnet,
   blastUsdb,
+  bnbWeethfundamental,
   cadenceCantoAtom,
   cadenceCantoCanto,
   cadenceCantoCnote,
