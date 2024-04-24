@@ -10,9 +10,6 @@
     }
   },
   "tokens": {
-    "OHM": {},
-    "OHM_sushiswap-on-chain-dai_liquidity": {
-      "skipBroadcasting": true
-    }
+    "OHM": {}
   }
 }

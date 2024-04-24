@@ -98,8 +98,7 @@
         "okx",
         "uniswap-v3-ethereum-on-chain-weth-3000",
         "xt"
-      ],
-      "skipBroadcasting": true
+      ]
     },
     "BTC": {
       "source": [
@@ -213,12 +212,10 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "XAVA": {
-      "source": ["coingecko", "coinmarketcap", "gate", "kucoin", "mexc"],
-      "skipBroadcasting": true
+      "source": ["coingecko", "coinmarketcap", "gate", "kucoin", "mexc"]
     },
     "YYAV3SA1": {
-      "source": ["avalanche-evm-fetcher"],
-      "skipBroadcasting": true
+      "source": ["avalanche-evm-fetcher"]
     },
     "GMX": {
       "source": [
@@ -274,8 +271,7 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      },
-      "skipBroadcasting": true
+      }
     },
     "SHLB_AVAX-USDC_B": {
       "source": ["avalanche-evm-fetcher"]
@@ -317,8 +313,7 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "TJ_AVAX_USDC_AUTO": {
-      "source": ["avalanche-evm-fetcher"],
-      "skipBroadcasting": true
+      "source": ["avalanche-evm-fetcher"]
     },
     "CRV": {
       "source": [

@@ -313,8 +313,7 @@
         "lbank",
         "mexc",
         "okx"
-      ],
-      "skipBroadcasting": true
+      ]
     },
     "JOE": {
       "source": [
