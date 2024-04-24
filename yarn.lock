@@ -6626,6 +6626,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-influxdb-proxy@workspace:packages/lambda-influxdb-proxy":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-influxdb-proxy@workspace:packages/lambda-influxdb-proxy"
+  dependencies:
+    "@aws-sdk/client-ssm": "npm:^3.485.0"
+    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@redstone-finance/utils": "npm:^0.4.0"
+    aws-lambda: "npm:^1.0.7"
+    dotenv: "npm:^16.0.3"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-layerbank-influx-synchronizer@workspace:packages/lambda-layerbank-influx-synchronizer":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-layerbank-influx-synchronizer@workspace:packages/lambda-layerbank-influx-synchronizer"
