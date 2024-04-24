@@ -1216,7 +1216,12 @@
       ]
     },
     "USDB": {
-      "source": ["ring-swap-weth", "thruster-weth", "ambient-eth"]
+      "source": [
+        "ambient-eth",
+        "ring-swap-weth",
+        "thruster-weth",
+        "thruster-v3-weth-3000"
+      ]
     },
     "USDB-TWAP-30": {
       "source": ["twap-local-redstone-main-demo"]
@@ -1240,11 +1245,16 @@
         "balancer-ethereum-weth",
         "balancer-ethereum-weeth",
         "curve-weth",
+        "thruster-v3-weth-3000",
+        "thruster-v3-weth-500",
         "uniswap-v3-ethereum-on-chain-weth-100"
       ]
     },
     "ezETH/ETH": {
       "source": ["non-usd-based"]
+    },
+    "ezETH-TWAP-60": {
+      "source": ["twap-local-redstone-primary-prod"]
     },
     "crvUSD": {
       "source": [

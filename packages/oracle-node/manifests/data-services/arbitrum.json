@@ -575,6 +575,8 @@
         "balancer-ethereum-weth",
         "balancer-ethereum-weeth",
         "curve-weth",
+        "thruster-v3-weth-3000",
+        "thruster-v3-weth-500",
         "uniswap-v3-ethereum-on-chain-weth-100"
       ]
     },
