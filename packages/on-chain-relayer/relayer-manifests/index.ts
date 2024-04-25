@@ -27,6 +27,7 @@ import ethereumApxetheth from "./ethereumApxetheth.json";
 import ethereumC3m from "./ethereumC3m.json";
 import ethereumEtherfiWeeth from "./ethereumEtherfiWeeth.json";
 import ethereumEtherfiWeetheth from "./ethereumEtherfiWeetheth.json";
+import ethereumEthpluseth from "./ethereumEthpluseth.json";
 import ethereumEthxeth from "./ethereumEthxeth.json";
 import ethereumEusd from "./ethereumEusd.json";
 import ethereumEzetheth from "./ethereumEzetheth.json";
@@ -104,6 +105,7 @@ export default {
   ethereumEthxeth,
   ethereumEtherfiWeeth,
   ethereumEtherfiWeetheth,
+  ethereumEthpluseth,
   ethereumEzetheth,
   ethereumPufetheth,
   ethereumRsetheth,
