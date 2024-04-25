@@ -46,7 +46,7 @@ export const shouldUpdate = async (
 
   return {
     shouldUpdatePrices,
-    warningMessage: JSON.stringify(warningMessages),
+    warningMessage: warningMessages.join("; "),
   };
 };
 
