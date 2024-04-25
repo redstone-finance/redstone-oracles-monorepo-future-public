@@ -33,11 +33,11 @@ describe("should-update", () => {
       config()
     );
     expect(shouldUpdatePrices).to.be.false;
-    expect((JSON.parse(warningMessage) as string[])[0]).to.match(
+    expect(warningMessage.split("; ")[0]).to.match(
       /Not enough time has passed to update prices/
     );
 
-    expect((JSON.parse(warningMessage) as string[])[1]).to.match(
+    expect(warningMessage.split("; ")[1]).to.match(
       /Value has not deviated enough to/
     );
   });
@@ -63,7 +63,7 @@ describe("should-update", () => {
       config()
     );
     expect(shouldUpdatePrices).to.be.true;
-    expect(JSON.parse(warningMessage)).to.match(
+    expect(warningMessage).to.match(
       /Not enough time has passed to update prices/
     );
   });
@@ -88,7 +88,7 @@ describe("should-update", () => {
       config()
     );
     expect(shouldUpdatePrices).to.be.true;
-    expect(JSON.parse(warningMessage)).to.match(
+    expect(warningMessage).to.match(
       /Value has not deviated enough to be updated/
     );
   });
