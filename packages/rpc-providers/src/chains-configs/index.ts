@@ -294,4 +294,11 @@ export const ChainConfigs = {
     avgBlockTimeMs: 3_000,
     multicall3: STANDARD_MULTICALL3,
   },
+  b2: {
+    name: "B2 Mainnet",
+    chainId: 223,
+    publicRpcUrls: ["https://rpc.bsquared.network"],
+    avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
+  },
 };

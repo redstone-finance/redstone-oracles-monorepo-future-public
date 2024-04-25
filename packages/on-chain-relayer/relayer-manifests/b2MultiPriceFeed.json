@@ -1,0 +1,20 @@
+{
+  "chain": {
+    "name": "b2",
+    "id": 223
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000,
+    "priceFeedsDeviationOverrides": {
+      "USDT": 0.2
+    }
+  },
+  "adapterContract": "0xfcd454d19f9B8806F8908e99d85b8eA17b3c7346",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "BTC": "__NO_FEED__",
+    "USDT": "__NO_FEED__",
+    "STONE": "__NO_FEED__"
+  }
+}
