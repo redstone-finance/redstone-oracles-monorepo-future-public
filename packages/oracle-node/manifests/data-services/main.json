@@ -1317,6 +1317,24 @@
     "PENDLE_WSTETH_LP": {
       "source": ["arbitrum-evm-fetcher"]
     },
+    "LDO": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coinbasepro",
+        "coingecko",
+        "gate",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx"
+      ]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
@@ -2659,7 +2677,6 @@
     "CORE": {},
     "UBT": {},
     "APY": {},
-    "LDO": {},
     "LUNC": {},
     "AGIX": {},
     "FEI": {},

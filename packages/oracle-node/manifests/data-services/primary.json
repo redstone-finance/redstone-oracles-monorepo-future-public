@@ -1041,6 +1041,25 @@
         "okx",
         "xt"
       ]
+    },
+    "LDO": {
+      "source": [
+        "binance",
+        "binanceusdm",
+        "bingx",
+        "bitget",
+        "bitmart",
+        "bitrue",
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "kraken",
+        "kucoin",
+        "lbank",
+        "mexc",
+        "okx"
+      ]
     }
   }
 }
