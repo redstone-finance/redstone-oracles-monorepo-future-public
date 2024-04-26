@@ -583,10 +583,7 @@
       "source": ["binance", "binanceusdm", "kraken"]
     },
     "UFT": {
-      "source": ["binance", "bitrue", "coingecko", "gate", "mexc"]
-    },
-    "JGLP": {
-      "source": ["camelot-usdc"]
+      "source": ["bitrue", "coingecko", "gate", "mexc"]
     },
     "stETH": {
       "source": [
@@ -619,7 +616,7 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "PLS": {
-      "source": ["bitget", "coingecko", "camelot-weth"]
+      "source": ["coingecko", "camelot-weth"]
     },
     "CMP": {
       "source": ["coingecko", "xt"]
@@ -848,7 +845,7 @@
       "source": ["arbitrum-evm-fetcher"]
     },
     "TLOS": {
-      "source": ["gate", "mexc", "kucoin", "bitget"]
+      "source": ["bitget", "gate", "mexc", "kucoin"]
     },
     "ETHx": {
       "source": ["curve-weth", "curve-wsteth"]
@@ -1343,9 +1340,6 @@
     "STAMP": {
       "source": ["permaswap"]
     },
-    "ACNH": {
-      "source": ["permaswap"]
-    },
     "ANS": {
       "source": ["permaswap"]
     },
@@ -1671,210 +1665,7 @@
     "META": {
       "source": ["twelve-data"]
     },
-    "lensprotocol": {
-      "source": ["lens"]
-    },
-    "aaveaave.lens": {
-      "source": ["lens"]
-    },
-    "aavegrants.lens": {
-      "source": ["lens"]
-    },
-    "letsraave.lens": {
-      "source": ["lens"]
-    },
-    "stani.lens": {
-      "source": ["lens"]
-    },
-    "wagmi.lens": {
-      "source": ["lens"]
-    },
-    "wassim.lens": {
-      "source": ["lens"]
-    },
-    "donosonaumczuk.lens": {
-      "source": ["lens"]
-    },
-    "nicolo.lens": {
-      "source": ["lens"]
-    },
-    "jouni.lens": {
-      "source": ["lens"]
-    },
-    "zer0dot.lens": {
-      "source": ["lens"]
-    },
-    "lenster.lens": {
-      "source": ["lens"]
-    },
-    "yoginth.lens": {
-      "source": ["lens"]
-    },
-    "peter.lens": {
-      "source": ["lens"]
-    },
-    "franky.lens": {
-      "source": ["lens"]
-    },
-    "damarnez.lens": {
-      "source": ["lens"]
-    },
-    "absis.lens": {
-      "source": ["lens"]
-    },
-    "zannis.lens": {
-      "source": ["lens"]
-    },
-    "nikita.lens": {
-      "source": ["lens"]
-    },
-    "devops.lens": {
-      "source": ["lens"]
-    },
-    "magikarp.lens": {
-      "source": ["lens"]
-    },
-    "davidev.lens": {
-      "source": ["lens"]
-    },
-    "lasavess.lens": {
-      "source": ["lens"]
-    },
-    "xone_hd.lens": {
-      "source": ["lens"]
-    },
-    "satsgas.lens": {
-      "source": ["lens"]
-    },
-    "hazbobo1.lens": {
-      "source": ["lens"]
-    },
-    "lorisxiv.lens": {
-      "source": ["lens"]
-    },
-    "jcha63641346.lens": {
-      "source": ["lens"]
-    },
-    "capitalisttofu.lens": {
-      "source": ["lens"]
-    },
-    "maticpolygon.lens": {
-      "source": ["lens"]
-    },
-    "kalimerosky.lens": {
-      "source": ["lens"]
-    },
-    "brocketh.lens": {
-      "source": ["lens"]
-    },
-    "tomhamalainen.lens": {
-      "source": ["lens"]
-    },
-    "wh41th.lens": {
-      "source": ["lens"]
-    },
-    "ivovtw.lens": {
-      "source": ["lens"]
-    },
-    "bradorbradley.lens": {
-      "source": ["lens"]
-    },
-    "annisazikra94.lens": {
-      "source": ["lens"]
-    },
-    "iamprasadkumkar.lens": {
-      "source": ["lens"]
-    },
-    "0xjim.lens": {
-      "source": ["lens"]
-    },
-    "tabish.lens": {
-      "source": ["lens"]
-    },
-    "visualfire.lens": {
-      "source": ["lens"]
-    },
-    "saskasandholm.lens": {
-      "source": ["lens"]
-    },
-    "gareth.lens": {
-      "source": ["lens"]
-    },
-    "jessica.lens": {
-      "source": ["lens"]
-    },
-    "sasicodes.lens": {
-      "source": ["lens"]
-    },
-    "julprd.lens": {
-      "source": ["lens"]
-    },
-    "mikeb.lens": {
-      "source": ["lens"]
-    },
-    "alexis_3290.lens": {
-      "source": ["lens"]
-    },
-    "mariariivari.lens": {
-      "source": ["lens"]
-    },
-    "modene.lens": {
-      "source": ["lens"]
-    },
-    "wenyuan.lens": {
-      "source": ["lens"]
-    },
-    "98775.lens": {
-      "source": ["lens"]
-    },
-    "sdogboy.lens": {
-      "source": ["lens"]
-    },
-    "xiaom666.lens": {
-      "source": ["lens"]
-    },
-    "sunvo.lens": {
-      "source": ["lens"]
-    },
-    "xiaom.lens": {
-      "source": ["lens"]
-    },
-    "intro711.lens": {
-      "source": ["lens"]
-    },
-    "1xbtc.lens": {
-      "source": ["lens"]
-    },
-    "hulei121.lens": {
-      "source": ["lens"]
-    },
-    "zhuangzhu.lens": {
-      "source": ["lens"]
-    },
-    "egwuatue.lens": {
-      "source": ["lens"]
-    },
-    "spzooky.lens": {
-      "source": ["lens"]
-    },
-    "lina1314121.lens": {
-      "source": ["lens"]
-    },
-    "willyampangestu.lens": {
-      "source": ["lens"]
-    },
-    "jianai.lens": {
-      "source": ["lens"]
-    },
-    "justawhile.lens": {
-      "source": ["lens"]
-    },
-    "rahulkr.lens": {
-      "source": ["lens"]
-    },
-    "shuishui21.lens": {
-      "source": ["lens"]
-    },
+
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"]
     },
@@ -2531,7 +2322,6 @@
     "KOGE": {},
     "ONIT": {},
     "SBD": {},
-    "LEND": {},
     "PSG": {},
     "RAMP": {},
     "NSBT": {},
