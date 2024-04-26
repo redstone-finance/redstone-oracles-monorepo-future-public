@@ -73,7 +73,7 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       "EXPECTED_TX_DELIVERY_TIME_IN_MS",
       z.number().int().positive()
     ),
-    // DEPRACTED CAN BE REMOVED AFTER IS_ARBITRUM_NETWORK IS NOT USED IN PRODUCTION
+    // DEPRECATED - CAN BE REMOVED AFTER IS_ARBITRUM_NETWORK IS NOT USED IN PRODUCTION
     twoDimensionalFees: RedstoneCommon.getFromEnv(
       "IS_ARBITRUM_NETWORK",
       z
@@ -100,6 +100,10 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     isAuctionModel: RedstoneCommon.getFromEnv(
       "IS_AUCTION_MODEL",
       z.boolean().default(false)
+    ),
+    defaultMaxPriorityFeePerGas: RedstoneCommon.getFromEnv(
+      "DEFAULT_MAX_PRIORITY_FEE_PER_GAS",
+      z.number().optional()
     ),
     mentoMaxDeviationAllowed: RedstoneCommon.getFromEnv(
       "MENTO_MAX_DEVIATION_ALLOWED",

@@ -105,6 +105,13 @@ export type TxDeliveryOpts = {
   isAuctionModel?: boolean;
 
   /**
+   * Default gas tip, important when the transaction is marked as UNDERPRICED.
+   * Needed especially for networks where pending blocks can be empty (low blockchain usage) -
+   * in these cases rewards are defined as zeroes: 'All zeroes are returned if the block is empty.'
+   */
+  defaultMaxPriorityFeePerGas?: number;
+
+  /**
    * Forcefully disable custom gas oracle if defined
    */
   forceDisableCustomGasOracle?: boolean;
@@ -126,6 +133,7 @@ export const DEFAULT_TX_DELIVERY_OPTS = {
   percentileOfPriorityFee: 75,
   twoDimensionalFees: false,
   gasOracleTimeout: 5_000,
+  defaultMaxPriorityFeePerGas: 10 ** 9,
   forceDisableCustomGasOracle: false,
   logger: logger.log.bind(logger),
 };
@@ -152,7 +160,6 @@ export class TxDelivery {
   private readonly opts: TxDeliveryOptsValidated;
   private readonly feeEstimator: GasEstimator<FeeStructure>;
   private readonly gasLimitEstimator: GasLimitEstimator;
-  private shouldAbort = false;
 
   constructor(
     opts: TxDeliveryOpts,
