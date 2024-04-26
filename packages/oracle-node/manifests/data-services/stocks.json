@@ -84,11 +84,7 @@
       "source": ["twelve-data"]
     },
     "XAU": {
-      "source": [
-        "twelve-data",
-        "finhub-usd",
-        "financialmodelingprep-usd"
-      ]
+      "source": ["twelve-data", "finhub-usd", "financialmodelingprep-usd"]
     },
     "SILVER": {
       "source": ["twelve-data"]
@@ -219,9 +215,6 @@
     "SWTX": {
       "source": ["twelve-data"]
     },
-    "ICPT": {
-      "source": ["twelve-data"]
-    },
     "LCID": {
       "source": ["twelve-data"]
     },
@@ -244,9 +237,6 @@
       "source": ["twelve-data"]
     },
     "KPTI": {
-      "source": ["twelve-data"]
-    },
-    "SDC": {
       "source": ["twelve-data"]
     },
     "DNMR": {
