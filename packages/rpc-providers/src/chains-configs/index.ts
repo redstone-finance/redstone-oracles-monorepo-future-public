@@ -59,7 +59,6 @@ export const ChainConfigs = {
       "https://rpc.ankr.com/eth",
       "https://eth.llamarpc.com",
       "https://eth-mainnet.public.blastapi.io",
-      "https://endpoints.omniatech.io/v1/eth/mainnet/public",
     ],
     avgBlockTimeMs: 12_000,
     multicall3: REDSTONE_MULTICALL3,
@@ -144,7 +143,6 @@ export const ChainConfigs = {
       "https://canto.gravitychain.io",
       "https://mainnode.plexnode.org:8545",
       "https://canto-rpc.ansybl.io",
-      "https://canto.dexvaults.com",
     ],
     avgBlockTimeMs: 6_000,
     multicall3: STANDARD_MULTICALL3,
@@ -218,8 +216,8 @@ export const ChainConfigs = {
     name: "Binance chain",
     chainId: 56,
     publicRpcUrls: [
-      "https://binance.llamarpc.com",
       "https://bsc-dataseed.bnbchain.org",
+      "https://binance.llamarpc.com",
       "https://bsc-pokt.nodies.app",
       "https://bscrpc.com",
       "https://binance.nodereal.io",
@@ -232,7 +230,6 @@ export const ChainConfigs = {
     name: "Binance chain testnet",
     chainId: 97,
     publicRpcUrls: [
-      "https://bsctestapi.terminet.io/rpc",
       "https://bsc-testnet.public.blastapi.io",
       "https://bsc-testnet-rpc.publicnode.com",
       "https://bsc-testnet.blockpi.network/v1/rpc/public",
@@ -243,7 +240,7 @@ export const ChainConfigs = {
   "blast-testnet": {
     name: "Blast Testnet",
     chainId: 23888,
-    publicRpcUrls: ["http://testnet-rpc.blastblockchain.com"],
+    publicRpcUrls: [],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
   },
@@ -297,8 +294,12 @@ export const ChainConfigs = {
   b2: {
     name: "B2 Mainnet",
     chainId: 223,
-    publicRpcUrls: ["https://rpc.bsquared.network"],
-    avgBlockTimeMs: 2_000,
+    publicRpcUrls: [
+      "https://rpc.bsquared.network",
+      "https://rpc.ankr.com/b2",
+      "https://b2-mainnet.alt.technology",
+    ],
+    avgBlockTimeMs: 2_500,
     multicall3: STANDARD_MULTICALL3,
   },
 };
