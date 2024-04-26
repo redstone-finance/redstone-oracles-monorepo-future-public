@@ -73,6 +73,7 @@ export interface RelayerConfig {
   fallbackOffsetInMS: number;
   cacheServiceUrls?: string[];
   isAuctionModel?: boolean;
+  defaultMaxPriorityFeePerGas?: number;
   historicalPackagesGateways?: string[];
   mentoMaxDeviationAllowed?: number;
   singleProviderOperationTimeout: number;
@@ -98,6 +99,7 @@ export type OnChainRelayerEnv = {
   gasMultiplier?: number;
   maxTxSendAttempts?: number;
   isAuctionModel?: boolean;
+  defaultMaxPriorityFeePerGas?: number;
   mentoMaxDeviationAllowed?: number;
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;

@@ -19,6 +19,7 @@ export const getTxDeliveryMan = (
       multiplier: config().gasMultiplier,
       maxAttempts: config().maxTxSendAttempts,
       isAuctionModel: config().isAuctionModel,
+      defaultMaxPriorityFeePerGas: config().defaultMaxPriorityFeePerGas,
     });
   return deliveryMan;
 };
