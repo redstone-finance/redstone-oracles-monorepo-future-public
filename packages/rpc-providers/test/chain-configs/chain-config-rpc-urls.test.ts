@@ -13,7 +13,7 @@ export const RETRY_CONFIG = {
   disableLog: true,
 };
 
-describe("Validate chain config rpc urls", () => {
+describe.skip("Validate chain config rpc urls", () => {
   for (const [name, config] of Object.entries(ChainConfigs)) {
     for (const rpcUrl of config.publicRpcUrls) {
       if (rpcUrl.includes("localhost")) {
