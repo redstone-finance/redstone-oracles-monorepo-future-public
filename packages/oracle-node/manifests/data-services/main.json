@@ -1581,9 +1581,6 @@
     "SWTX": {
       "source": ["twelve-data"]
     },
-    "ICPT": {
-      "source": ["twelve-data"]
-    },
     "LCID": {
       "source": ["twelve-data"]
     },
@@ -1606,9 +1603,6 @@
       "source": ["twelve-data"]
     },
     "KPTI": {
-      "source": ["twelve-data"]
-    },
-    "SDC": {
       "source": ["twelve-data"]
     },
     "DNMR": {
