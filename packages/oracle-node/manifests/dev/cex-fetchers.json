@@ -18,9 +18,8 @@
         "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
-        "bitrue-usdt",
-        "bitstamp-usdt",
-        "coinbasepro-usdt",
+        "bitstamp-usd",
+        "coinbasepro-usd",
         "gate-usdt",
         "kraken-usdt",
         "kucoin-usdt",
@@ -53,10 +52,9 @@
         "bitget-usdt",
         "bitrue-usdt",
         "bitmart-usdt",
-        "bitstamp-usdt",
-        "coinbasepro-usdt",
+        "bitstamp-usd",
+        "coinbasepro-usd",
         "gate-usdt",
-        "kraken-usdt",
         "kucoin-usdt",
         "lbank-usdt",
         "mexc-usdt",
@@ -82,8 +80,6 @@
       "source": [
         "bitstamp-usd",
         "coinbasepro-usd",
-        "kraken-usd",
-        "okx-eur",
         "bitstamp",
         "coinbasepro",
         "kraken"
@@ -117,11 +113,10 @@
       "source": [
         "binance-usdt",
         "binanceusdm-usdt",
-        "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
-        "bitstamp-usdt",
+        "bitstamp-usd",
         "curve-usdt",
         "gate-usdt",
         "kraken-usdt",
@@ -149,7 +144,7 @@
         "binance-usdt",
         "binanceusdm-usdt",
         "bitfinex2-usd",
-        "bitstamp-usdt",
+        "bitstamp-usd",
         "kraken-usdt",
         "kucoin-usdt",
         "lbank-usdt",
@@ -193,7 +188,6 @@
         "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
-        "kraken-usdt",
         "kucoin-usdt",
         "lbank-usdt",
         "okx-usdt"
@@ -324,7 +318,6 @@
       "source": [
         "binance-usdt",
         "binanceusdm-usdt",
-        "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
@@ -397,7 +390,6 @@
       "source": [
         "binance-usdt",
         "binanceusdm-usdt",
-        "bitfinex2-usd",
         "coinbasepro-usd",
         "kraken-usdt",
         "kucoin-usdt",
@@ -518,9 +510,6 @@
     "UFT": {
       "source": ["binance-usdt", "bitrue-usdt", "gate-usdt", "mexc-usdt"]
     },
-    "PLS": {
-      "source": ["bitget-usdt"]
-    },
     "JOE": {
       "source": [
         "binance-usdt",
@@ -617,7 +606,7 @@
       ]
     },
     "DPX": {
-      "source": ["bitget-usdt", "mexc-usdt"]
+      "source": ["mexc-usdt"]
     },
     "BAL": {
       "source": [
@@ -732,7 +721,7 @@
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
-        "coinbasepro-usdt",
+        "coinbasepro-usd",
         "gate-usdt",
         "kucoin-usdt",
         "lbank-usdt",
@@ -782,7 +771,6 @@
         "bitrue-usdt",
         "gate-usdt",
         "kucoin-usdt",
-        "lbank-usdt",
         "mexc-usdt",
         "okx-usdt"
       ]
