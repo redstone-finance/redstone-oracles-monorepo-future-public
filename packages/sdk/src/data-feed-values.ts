@@ -35,7 +35,7 @@ export const getDataFeedValues = async (
       .filter((dp) => dp.dataPoints.length === 1)
       .map((dp) => Number(dp.dataPoints[0].value));
 
-    // case for ___ALL_FEEDS___
+    // case for multi-point data packages
     if (plainValues.length === 0) {
       continue;
     }

@@ -402,7 +402,9 @@ export class DataPackagesService {
       signerAddress,
       isSignatureValid,
     };
-    if (receivedDataPackage.dataPoints.length === 1) {
+    if (receivedDataPackage.dataFeedId) {
+      cachedDataPackage.dataFeedId = receivedDataPackage.dataFeedId;
+    } else if (receivedDataPackage.dataPoints.length === 1) {
       cachedDataPackage.dataFeedId =
         receivedDataPackage.dataPoints[0].dataFeedId;
     } else {

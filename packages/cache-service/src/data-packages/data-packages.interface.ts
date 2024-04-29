@@ -29,6 +29,9 @@ export class ReceivedDataPackage implements SignedDataPackagePlainObj {
 
   @IsOptional()
   sources?: Record<string, string | number>;
+
+  @IsOptional()
+  dataFeedId?: string;
 }
 
 export class ReceivedDataPoint {
