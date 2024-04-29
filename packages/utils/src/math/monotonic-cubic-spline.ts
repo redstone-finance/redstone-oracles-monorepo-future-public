@@ -3,10 +3,8 @@
  */
 export class CubicInterpolation {
   constructor(
-    private firstX: number,
-    private lastX: number,
-    private firstY: number,
-    private lastY: number,
+    private xs: number[],
+    private ys: number[],
     private firstSlope: number,
     private lastSlope: number,
     private fun: (x: number) => number
@@ -17,10 +15,13 @@ export class CubicInterpolation {
    */
   public forX(x: number): number {
     // queries outside the range of points are matched by linear interpolation
-    if (x < this.firstX) {
-      return this.firstY - this.firstSlope * (this.firstX - x);
-    } else if (x > this.lastX) {
-      return this.lastY + this.lastSlope * (x - this.lastX);
+    if (x < this.xs[0]) {
+      return this.ys[0] - this.firstSlope * (this.xs[0] - x);
+    } else if (x > this.xs[this.xs.length - 1]) {
+      return (
+        this.ys[this.ys.length - 1] +
+        this.lastSlope * (x - this.xs[this.xs.length - 1])
+      );
     } else {
       // we use the calculated cubic interpolation
       return this.fun(x);
@@ -32,14 +33,23 @@ export class CubicInterpolation {
    */
   public forY(y: number, precision: number): number {
     // queries outside the range of points are matched by linear interpolation
-    if (y < this.firstY) {
-      return this.firstX - (this.firstY - y) / this.firstSlope;
-    } else if (y > this.lastY) {
-      return this.lastX + (y - this.lastY) / this.lastSlope;
+    if (y < this.ys[0]) {
+      return this.xs[0] - (this.ys[0] - y) / this.firstSlope;
+    } else if (y > this.ys[this.ys.length - 1]) {
+      return (
+        this.xs[this.xs.length - 1] +
+        (y - this.ys[this.ys.length - 1]) / this.lastSlope
+      );
     } else {
+      // search for the interval y is in, returning the corresponding x if y is one of the original ys
+      const i = findIntervalIndex(y, this.ys);
+      if (y === this.ys[i]) {
+        return this.xs[i];
+      }
+
       // binary search for X for which Y is within the given precision
-      let lowX = this.firstX;
-      let highX = this.lastX;
+      let lowX = this.xs[i];
+      let highX = this.xs[i + 1];
       let tries = 50;
       while (lowX <= highX && tries > 0) {
         const midX = (lowX + highX) / 2;
@@ -76,15 +86,7 @@ export const monotoneCubicInterpolation = (
   ys: number[]
 ): CubicInterpolation => {
   const { fun, firstSlope, lastSlope } = createInterpolant(xs, ys);
-  return new CubicInterpolation(
-    xs[0],
-    xs[xs.length - 1],
-    ys[0],
-    ys[ys.length - 1],
-    firstSlope,
-    lastSlope,
-    fun
-  );
+  return new CubicInterpolation(xs, ys, firstSlope, lastSlope, fun);
 };
 
 const createInterpolant = (
@@ -222,22 +224,27 @@ const createInterpolantFunction =
       );
     }
 
-    // the rightmost point in the dataset should give an exact result
-    if (x === xs[xs.length - 1]) {
-      return ys[xs.length - 1];
-    }
-
     // search for the interval x is in, returning the corresponding y if x is one of the original xs
-    let i;
-    for (i = 0; i < xs.length - 1; i++) {
-      if (xs[i] === x) {
-        return ys[i];
-      } else if (xs[i] < x && x < xs[i + 1]) {
-        break;
-      }
+    const i = findIntervalIndex(x, xs);
+    if (x === xs[i]) {
+      return ys[i];
     }
 
     // interpolate
     const diff = x - xs[i];
     return ys[i] + diff * (c1s[i] + diff * (c2s[i] + diff * c3s[i]));
   };
+
+const findIntervalIndex = (point: number, points: number[]) => {
+  for (let i = 0; i < points.length - 1; i++) {
+    if (points[i] <= point && point < points[i + 1]) {
+      return i;
+    }
+  }
+  if (point === points[points.length - 1]) {
+    return points.length - 1;
+  }
+  throw new Error(
+    `The point (${point}) is outside the point list [${points.join(",")}]`
+  );
+};
