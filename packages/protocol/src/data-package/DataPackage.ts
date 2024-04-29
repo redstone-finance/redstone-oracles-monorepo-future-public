@@ -19,12 +19,14 @@ import { SignedDataPackage } from "./SignedDataPackage";
 export interface DataPackagePlainObj {
   dataPoints: DataPointPlainObj[];
   timestampMilliseconds: number;
+  dataFeedId?: string;
 }
 
 export class DataPackage extends Serializable {
   constructor(
     public readonly dataPoints: DataPoint[],
-    public readonly timestampMilliseconds: number
+    public readonly timestampMilliseconds: number,
+    public readonly dataFeedId?: string
   ) {
     super();
 
@@ -60,12 +62,17 @@ export class DataPackage extends Serializable {
     return {
       dataPoints: this.dataPoints.map((dataPoint) => dataPoint.toObj()),
       timestampMilliseconds: this.timestampMilliseconds,
+      dataFeedId: this.dataFeedId,
     };
   }
 
   public static fromObj(plainObject: DataPackagePlainObj): DataPackage {
     const dataPoints = plainObject.dataPoints.map(deserializeDataPointFromObj);
-    return new DataPackage(dataPoints, plainObject.timestampMilliseconds);
+    return new DataPackage(
+      dataPoints,
+      plainObject.timestampMilliseconds,
+      plainObject.dataFeedId
+    );
   }
 
   getSignableHash(): Uint8Array {

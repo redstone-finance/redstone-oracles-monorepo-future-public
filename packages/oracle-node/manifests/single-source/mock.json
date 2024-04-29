@@ -13,5 +13,8 @@
     "ETH": {},
     "BTC": {},
     "AAVE": {}
+  },
+  "multiPointPackages": {
+    "___COOL_TOKENS___": ["ETH", "BTC"]
   }
 }

@@ -1,6 +1,5 @@
 import { RedstoneOraclesState } from "@redstone-finance/oracles-smartweave-contracts";
 import {
-  consts,
   SignedDataPackage,
   SignedDataPackagePlainObj,
 } from "@redstone-finance/protocol";
@@ -182,7 +181,7 @@ const prepareDataPackagePromises = (
   );
 };
 
-export const parseAndValidateDataPackagesResponse = (
+const parseAndValidateDataPackagesResponse = (
   responseData: unknown,
   reqParams: DataPackagesRequestParams
 ): DataPackagesResponse => {
@@ -190,7 +189,7 @@ export const parseAndValidateDataPackagesResponse = (
 
   RedstoneCommon.zodAssert<GwResponse>(GwResponseSchema, responseData);
 
-  const requestedDataFeedIds = reqParams.dataFeeds ?? [consts.ALL_FEEDS_KEY];
+  const requestedDataFeedIds = reqParams.dataFeeds ?? Object.keys(responseData);
 
   for (const dataFeedId of requestedDataFeedIds) {
     let dataFeedPackages = responseData[dataFeedId];
@@ -292,7 +291,7 @@ function sortByDistanceFromMedian(
     .sort((first, second) => first.diff.sub(second.diff).unsafeToNumber());
 }
 
-export const getUrlsForDataServiceId = (
+const getUrlsForDataServiceId = (
   reqParams: DataPackagesRequestParams
 ): string[] => {
   if (reqParams.urls) {
