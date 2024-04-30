@@ -352,7 +352,6 @@
       "source": [
         "balancer-ethereum-reth",
         "curve-weth",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
         "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-wsteth-500"
       ]
@@ -618,8 +617,7 @@
       "source": [
         "curve-euroc",
         "uniswap-v3-ethereum-on-chain-weth-500",
-        "uniswap-v3-ethereum-on-chain-usdc-100",
-        "uniswap-v3-polygon-on-chain-usdc-100"
+        "uniswap-v3-ethereum-on-chain-usdc-3000"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
