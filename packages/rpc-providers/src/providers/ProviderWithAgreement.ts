@@ -26,6 +26,7 @@ interface ProviderWithAgreementSpecificConfig {
     chainId: number
   ) => number;
   enableRpcCuratedList: boolean;
+  requireExplicitBlockTag: boolean;
 }
 
 export type ProviderWithAgreementConfig = Partial<
@@ -48,6 +49,7 @@ const defaultConfig: ProviderWithAgreementSpecificConfig = {
   electBlockFn: DEFAULT_ELECT_BLOCK_FN,
   enableRpcCuratedList: false,
   minimalProvidersCount: 3,
+  requireExplicitBlockTag: true,
 };
 
 type ProviderWithIdentifier = {
@@ -171,9 +173,10 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     blockTag?: BlockTag
   ): Promise<string> {
     RedstoneCommon.assert(
-      blockTag,
+      blockTag || !this.agreementConfig.requireExplicitBlockTag,
       "When using providerWithAgreement, blockTag has to be passed explicitly"
     );
+    blockTag ??= await this.getBlockNumber();
     const electedBlockTag = utils.hexlify(blockTag);
 
     const callResult = RedstoneCommon.timeout(
@@ -264,7 +267,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
         const currentResult = await this.executeOperation(
           operation,
           provider,
-          globalAbort,
+          () => globalAbort,
           operationName
         );
 
@@ -340,11 +343,11 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       shouldAbort: () => boolean
     ) => Promise<string>,
     provider: ProviderWithIdentifier,
-    globalAbort: boolean,
+    globalAbort: () => boolean,
     operationName: string
   ) {
     let singleProviderAbort = false;
-    const shouldAbort = () => globalAbort || singleProviderAbort;
+    const shouldAbort = () => globalAbort() || singleProviderAbort;
     try {
       return await RedstoneCommon.timeout(
         operation(provider, shouldAbort),
