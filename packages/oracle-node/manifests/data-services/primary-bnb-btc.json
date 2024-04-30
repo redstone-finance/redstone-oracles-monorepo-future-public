@@ -1,5 +1,5 @@
 {
-  "interval": 2500,
+  "interval": 2000,
   "priceAggregator": "median",
   "defaultSource": ["coingecko"],
   "sourceTimeout": 2000,
