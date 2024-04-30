@@ -41,6 +41,7 @@ import fraxtalPackage from "./fraxtalPackage.json";
 import hubble from "./hubble.json";
 import hubbleAylinTestnet from "./hubbleAylinTestnet.json";
 import hubbleExchangeMainnet from "./hubbleExchangeMainnet.json";
+import lineaEzetheth from "./lineaEzetheth.json";
 import lineaWeethfundamental from "./lineaWeethfundamental.json";
 import mantaLayerBank from "./mantaLayerBank.json";
 import mantleEth from "./mantleEth.json";
@@ -117,6 +118,7 @@ export default {
   hubble,
   hubbleAylinTestnet,
   hubbleExchangeMainnet,
+  lineaEzetheth,
   lineaWeethfundamental,
   mantleEth,
   mantaLayerBank,
