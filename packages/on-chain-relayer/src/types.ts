@@ -83,6 +83,8 @@ export interface RelayerConfig {
   disableCustomGasOracle: boolean;
   temporaryUpdatePriceInterval: number;
   priceFeedsDeviationOverrides?: Record<string, number>;
+  getBlockNumberTimeout?: number;
+  enableMulticall?: boolean;
 }
 
 export type OnChainRelayerEnv = {
@@ -107,6 +109,8 @@ export type OnChainRelayerEnv = {
   fallbackSkipDeviationBasedFrequentUpdates: boolean;
   disableCustomGasOracle: boolean;
   temporaryUpdatePriceInterval: number;
+  getBlockNumberTimeout?: number;
+  enableMulticall?: boolean;
 };
 
 export type ConfigProvider = () => RelayerConfig;

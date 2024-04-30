@@ -208,12 +208,7 @@ describe("ProviderWithAgreement", () => {
     const brokenProvider = new providers.StaticJsonRpcProvider(
       "http://blabla.xd"
     );
-
-    // return bad result - should be 0
-    sinon
-      .stub(brokenProvider, "call")
-      .onFirstCall()
-      .returns(Promise.resolve(`0x${"0".repeat(31)}9`));
+    const stub = sinon.stub(brokenProvider, "call");
 
     beforeEach(() => {
       providerWithAgreement = createAgreementProvider([
@@ -221,6 +216,10 @@ describe("ProviderWithAgreement", () => {
         new providers.StaticJsonRpcProvider("http://blabla.xd"),
         hardhat.ethers.provider,
       ]);
+
+      // return bad result - should be 0
+      stub.onFirstCall().returns(Promise.resolve(`0x${"0".repeat(31)}9`));
+
       counter = contract.connect(signer.connect(providerWithAgreement));
     });
 
@@ -289,6 +288,28 @@ describe("ProviderWithAgreement", () => {
     expect(await providerWithAgreement.getBlockNumber()).to.eq(
       await hardhat.ethers.provider.getBlockNumber()
     );
+  });
+
+  describe("Treat0xAsErrorDecorator", () => {
+    it("should treat 0x as error", async () => {
+      const firstProvider = new providers.StaticJsonRpcProvider(
+        "http://blabla.xd"
+      );
+
+      const blockTag = await hardhat.ethers.provider.getBlockNumber();
+
+      firstProvider.call = () => Promise.resolve("0x");
+      const providerWithAgreement = new ProviderWithAgreement([
+        firstProvider,
+        hardhat.ethers.provider,
+      ]);
+
+      const counter = contract.connect(signer.connect(providerWithAgreement));
+
+      await expect(counter.getCountPlusOne({ blockTag })).rejectedWith(
+        /Failed to find at least 2 agreeing providers/
+      );
+    });
   });
 
   const describeAgreementAlgorithmFor = (

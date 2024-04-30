@@ -31,6 +31,7 @@ if (relayerConfig.temporaryUpdatePriceInterval !== -1) {
 }
 
 const runIteration = async () => {
+  const iterationStart = performance.now();
   const adapterContract = getAdapterContract();
   const iterationArgs = await getIterationArgs(adapterContract);
 
@@ -40,7 +41,7 @@ const runIteration = async () => {
       iterationArgs.shouldUpdatePrices ? "" : "NOT "
     }satisfied: ${iterationArgs.message} block_number=${
       iterationArgs.args.blockTag
-    }`
+    } iteration_duration=${performance.now() - iterationStart}`
   );
 
   if (iterationArgs.shouldUpdatePrices) {

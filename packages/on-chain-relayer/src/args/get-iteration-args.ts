@@ -2,7 +2,7 @@ import {
   BaseWrapper,
   DataPackagesWrapper,
 } from "@redstone-finance/evm-connector";
-import { ValuesForDataFeeds } from "@redstone-finance/sdk";
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { Contract } from "ethers";
 import { RedstoneAdapterBase } from "../../typechain-types";
 import { config } from "../config";
@@ -33,28 +33,25 @@ export const getIterationArgs = async (
   const { dataFeeds, updateConditions } = relayerConfig;
 
   const blockTag = await adapterContract.provider.getBlockNumber();
-
-  const lastUpdateTimestamps = await getLastRoundParamsFromContract(
-    adapterContract,
-    blockTag
-  );
-
-  const uniqueSignersThreshold = await getUniqueSignersThresholdFromContract(
-    adapterContract,
-    blockTag
-  );
-
   // We fetch the latest values from contract only if we want to check value deviation
   const shouldCheckValueDeviation =
     updateConditions.includes("value-deviation");
-  let valuesFromContract: ValuesForDataFeeds = {};
-  if (shouldCheckValueDeviation) {
-    valuesFromContract = await getValuesForDataFeeds(
-      adapterContract,
-      dataFeeds,
-      blockTag
-    );
-  }
+
+  const { lastUpdateTimestamps, uniqueSignersThreshold, valuesFromContract } =
+    await RedstoneCommon.waitForAllRecord({
+      lastUpdateTimestamps: getLastRoundParamsFromContract(
+        adapterContract,
+        blockTag
+      ),
+      uniqueSignersThreshold: getUniqueSignersThresholdFromContract(
+        adapterContract,
+        blockTag
+      ),
+      valuesFromContract: shouldCheckValueDeviation
+        ? getValuesForDataFeeds(adapterContract, dataFeeds, blockTag)
+        : Promise.resolve({}),
+    });
+
   const dataPackages = await fetchDataPackages(
     relayerConfig,
     uniqueSignersThreshold

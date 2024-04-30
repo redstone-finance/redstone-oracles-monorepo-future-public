@@ -1,11 +1,19 @@
-import consola, { FancyReporter, JSONReporter } from "consola";
+import consola, {
+  Consola,
+  FancyReporter,
+  JSONReporter,
+  LogLevel,
+} from "consola";
 import { z } from "zod";
 import { getFromEnv } from "../common/env";
 import { isNodeRuntime } from "../common/runtime";
 
 const DEFAULT_ENABLE_JSON_LOGS = true;
+const DEFAULT_LOG_LEVEL = LogLevel.Info;
 
-export const loggerFactory = (moduleName: string) => {
+export type RedstoneLogger = Consola | Console;
+
+export const loggerFactory = (moduleName: string): RedstoneLogger => {
   if (isNodeRuntime()) {
     const enableJsonLogs = getFromEnv(
       "ENABLE_JSON_LOGS",
@@ -18,9 +26,17 @@ export const loggerFactory = (moduleName: string) => {
     return consola
       .create({
         reporters: [mainReporter],
+        level: getLogLevel(),
       })
       .withTag(moduleName);
   } else {
     return console;
   }
+};
+
+export const getLogLevel = () => {
+  return getFromEnv(
+    "LOG_LEVEL",
+    z.nativeEnum(LogLevel).default(DEFAULT_LOG_LEVEL)
+  );
 };

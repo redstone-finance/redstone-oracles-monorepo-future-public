@@ -1,6 +1,10 @@
 import { BlockTag, TransactionRequest } from "@ethersproject/abstract-provider";
 import { Deferrable } from "@ethersproject/properties";
-import { RedstoneCommon } from "@redstone-finance/utils";
+import {
+  RedstoneCommon,
+  RedstoneLogger,
+  loggerFactory,
+} from "@redstone-finance/utils";
 import { BigNumber, providers, utils } from "ethers";
 import { convertBlockTagToNumber, getProviderNetworkInfo } from "../common";
 import { CuratedRpcList, RpcIdentifier } from "./CuratedRpcList";
@@ -18,7 +22,8 @@ interface ProviderWithAgreementSpecificConfig {
   ignoreAgreementOnInsufficientResponses: boolean;
   electBlockFn: (
     blockNumbers: number[],
-    numberOfAgreeingNodes: number
+    numberOfAgreeingNodes: number,
+    chainId: number
   ) => number;
   enableRpcCuratedList: boolean;
 }
@@ -27,10 +32,7 @@ export type ProviderWithAgreementConfig = Partial<
   ProviderWithAgreementSpecificConfig & ProviderWithFallbackConfig
 >;
 
-const DEFAULT_ELECT_BLOCK_FN = (
-  blockNumbers: number[],
-  _numberOfAgreeingNodes: number
-): number => {
+const DEFAULT_ELECT_BLOCK_FN = (blockNumbers: number[]): number => {
   blockNumbers.sort((a, b) => a - b);
   const mid = Math.floor(blockNumbers.length / 2);
 
@@ -42,7 +44,7 @@ const DEFAULT_ELECT_BLOCK_FN = (
 const defaultConfig: ProviderWithAgreementSpecificConfig = {
   ignoreAgreementOnInsufficientResponses: false,
   numberOfProvidersThatHaveToAgree: 2,
-  getBlockNumberTimeoutMS: 2_500,
+  getBlockNumberTimeoutMS: 1_500,
   electBlockFn: DEFAULT_ELECT_BLOCK_FN,
   enableRpcCuratedList: false,
   minimalProvidersCount: 3,
@@ -58,6 +60,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
   readonly curatedRpcList?: CuratedRpcList;
   readonly providersWithIdentifier: readonly ProviderWithIdentifier[];
   readonly lastBlockNumberForProvider: Record<string, number | undefined> = {};
+  readonly logger: RedstoneLogger;
 
   constructor(
     providers: providers.Provider[],
@@ -97,6 +100,8 @@ export class ProviderWithAgreement extends ProviderWithFallback {
         this.chainId
       );
     }
+
+    this.logger = loggerFactory(`ProviderWithAgreement-${this.chainId}`);
   }
 
   getHealthyProviders(): readonly ProviderWithIdentifier[] {
@@ -120,7 +125,11 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     const blockNumbersResults = await Promise.allSettled(
       this.getHealthyProviders().map(async ({ provider, identifier }) => {
         const blockNumber = await RedstoneCommon.timeout(
-          provider.getBlockNumber(),
+          withDebugLog(provider.getBlockNumber(), {
+            description: `rpc=${identifier} identifier=${identifier} op=getBlockNumber`,
+            logValue: true,
+            logger: this.logger,
+          }),
           this.agreementConfig.getBlockNumberTimeoutMS
         );
         this.assertValidBlockNumber(blockNumber, identifier);
@@ -145,8 +154,14 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
     const electedBlockNumber = this.agreementConfig.electBlockFn(
       blockNumbers,
-      this.providers.length
+      this.providers.length,
+      this.chainId
     );
+
+    this.logger.debug("block number election", {
+      blockNumbers,
+      electedBlockNumber,
+    });
 
     return electedBlockNumber;
   }
@@ -300,7 +315,11 @@ export class ProviderWithAgreement extends ProviderWithFallback {
         rpc: ProviderWithIdentifier
       ) => {
         try {
-          await executeOperation(rpc);
+          await withDebugLog(executeOperation(rpc), {
+            description: `rpc=${rpc.identifier} op=${operationName}`,
+            logger: this.logger,
+            logValue: false,
+          });
           this.updateScore(rpc.identifier, false);
         } catch (e) {
           errors.push(e as Error);
@@ -341,3 +360,23 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
 const mapToString = (map: Map<unknown, unknown>) =>
   JSON.stringify(Object.fromEntries(map.entries()));
+
+async function withDebugLog<T>(
+  promise: Promise<T>,
+  opts = {
+    logValue: false,
+    description: "",
+    logger: loggerFactory("defaultLogger"),
+  }
+) {
+  const start = performance.now();
+
+  const result = await promise;
+
+  opts.logger.debug(`${opts.description}`, {
+    duration: performance.now() - start,
+    value: opts.logValue ? result : "hidden",
+  });
+
+  return result;
+}

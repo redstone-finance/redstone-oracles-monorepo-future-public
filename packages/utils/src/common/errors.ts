@@ -1,7 +1,6 @@
 import axios, { AxiosError } from "axios";
-import { z } from "zod";
-import { loggerFactory } from "../logger";
-import { getFromEnv } from "./env";
+import { LogLevel } from "consola";
+import { getLogLevel, loggerFactory } from "../logger";
 
 const logger = loggerFactory("utils/errors");
 
@@ -32,7 +31,7 @@ const stringifyStack = (stack: string | undefined): string => {
   if (!stack) {
     return "";
   }
-  debug ??= getFromEnv("DEBUG", z.boolean().default(false));
+  debug ??= getLogLevel() >= LogLevel.Debug;
 
   if (debug) {
     return stack;

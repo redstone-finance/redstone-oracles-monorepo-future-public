@@ -1,11 +1,37 @@
-import { MegaProviderBuilder } from "@redstone-finance/rpc-providers";
+import {
+  MegaProviderBuilder,
+  ProviderDecorators,
+  getChainConfig,
+  getNetworkName,
+} from "@redstone-finance/rpc-providers";
 import { providers } from "ethers";
 import { config } from "../../config";
 
 let cachedProvider: providers.Provider | undefined;
 
-const electBlock = (blockNumbers: number[]): number =>
-  Math.max(...blockNumbers);
+const ACCEPTABLE_BLOCK_DIFF_IN_MS = 10_000;
+const electBlock = (
+  blockNumbers: number[],
+  _: number,
+  chainId: number
+): number => {
+  const sortedBlockNumber = [...blockNumbers].sort((a, b) => b - a);
+  const firstBlockNumber = sortedBlockNumber.at(-1)!;
+  const secondBlockNumber = sortedBlockNumber.at(-2);
+
+  const { avgBlockTimeMs } = getChainConfig(getNetworkName(chainId));
+  const acceptableBlockDiff = Math.ceil(
+    ACCEPTABLE_BLOCK_DIFF_IN_MS / avgBlockTimeMs
+  );
+
+  if (!secondBlockNumber) {
+    return firstBlockNumber;
+  } else if (firstBlockNumber - secondBlockNumber > acceptableBlockDiff) {
+    return firstBlockNumber;
+  } else {
+    return secondBlockNumber;
+  }
+};
 
 export const getRelayerProvider = () => {
   if (cachedProvider) {
@@ -23,12 +49,21 @@ export const getRelayerProvider = () => {
       {
         singleProviderOperationTimeout: config().singleProviderOperationTimeout,
         allProvidersOperationTimeout: config().allProvidersOperationTimeout,
+        getBlockNumberTimeoutMS: config().getBlockNumberTimeout,
         electBlockFn: electBlock,
         ignoreAgreementOnInsufficientResponses: true,
-        enableRpcCuratedList: false,
       },
       rpcUrls.length > 1
     )
+    .addDecorator(
+      (factory) =>
+        ProviderDecorators.MulticallDecorator(factory, {
+          maxCallsCount: 3,
+          autoResolveInterval: 100,
+        }),
+      config().enableMulticall
+    )
+    .addDecorator(ProviderDecorators.Treat0xAsErrorDecorator)
     .build()!;
 
   return cachedProvider;
