@@ -302,4 +302,22 @@ export const ChainConfigs = {
     avgBlockTimeMs: 2_500,
     multicall3: STANDARD_MULTICALL3,
   },
+  "blast-sepolia": {
+    name: "Blast sepolia",
+    chainId: 168587773,
+    publicRpcUrls: [
+      "https://sepolia.blast.io",
+      "https://blast-sepolia.blockpi.network/v1/rpc/public",
+      "https://blast-sepolia.drpc.org",
+    ],
+    avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
+  },
+  "re.al": {
+    name: "re.al",
+    chainId: 111188,
+    publicRpcUrls: ["https://real.drpc.org"],
+    avgBlockTimeMs: 2_000,
+    multicall3: STANDARD_MULTICALL3,
+  },
 };
