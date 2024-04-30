@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "linea",
+    "id": 59144
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0x97c19d3Ae8e4d74e25EF3AFf3a277fB614ed76D4",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ezETH/ETH": "0x97c19d3Ae8e4d74e25EF3AFf3a277fB614ed76D4"
+  }
+}
