@@ -121,6 +121,14 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       "TEMPORARY_UPDATE_PRICE_INTERVAL",
       z.number().default(RedstoneCommon.minToMs(5))
     ),
+    getBlockNumberTimeout: RedstoneCommon.getFromEnv(
+      "BLOCK_NUMBER_TIMEOUT",
+      z.number().default(1_000)
+    ),
+    enableMulticall: RedstoneCommon.getFromEnv(
+      "ENABLE_MUTLICALL",
+      z.boolean().default(true)
+    ),
   };
 
   return makeConfigProvider(manifest, env);
