@@ -188,9 +188,17 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     return await callResult;
   }
 
-  override async getBalance(address: string): Promise<BigNumber> {
+  override async getBalance(
+    address: string,
+    blockTag?: BlockTag
+  ): Promise<BigNumber> {
+    RedstoneCommon.assert(
+      blockTag || !this.agreementConfig.requireExplicitBlockTag,
+      "When using providerWithAgreement, blockTag has to be passed explicitly"
+    );
+    blockTag ??= await this.getBlockNumber();
     const getBalance = ({ provider }: ProviderWithIdentifier) =>
-      provider.getBalance(address).then((r) => r.toString());
+      provider.getBalance(address, blockTag).then((r) => r.toString());
 
     const agreedResult = await this.executeWithAgreement(
       getBalance,
