@@ -566,7 +566,7 @@ const testAgreementAlgo = async (
       result = await agreementProvider.call({}, blockNumber);
       break;
     case "getBalance":
-      result = await agreementProvider.getBalance("0x");
+      result = await agreementProvider.getBalance("0x", blockNumber);
       break;
   }
 
