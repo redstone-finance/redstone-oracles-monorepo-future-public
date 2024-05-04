@@ -5,7 +5,7 @@
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test hardhat test",
+    "test": "LOG_LEVEL=0 NODE_ENV=test hardhat test",
     "test:chain-configs": "NODE_ENV=test hardhat test test/chain-configs/chain-config-rpc-urls.test.ts",
     "build": "hardhat compile && rm -rf dist && yarn global:tsc --build tsconfig.build.json",
     "preversion": "yarn build",
