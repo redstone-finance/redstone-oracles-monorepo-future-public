@@ -13,7 +13,7 @@ export const RETRY_CONFIG = {
   disableLog: true,
 };
 
-describe.skip("Validate chain config rpc urls", () => {
+describe("Validate chain config rpc urls", function () {
   for (const [name, config] of Object.entries(ChainConfigs)) {
     for (const rpcUrl of config.publicRpcUrls) {
       if (rpcUrl.includes("localhost")) {
@@ -21,6 +21,9 @@ describe.skip("Validate chain config rpc urls", () => {
       }
 
       test(`Test '${name}' rpc url: ${rpcUrl}`, async () => {
+        if (process.env.RUN_RPC_URLS_TESTS !== "true") {
+          this.ctx.skip();
+        }
         const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
         const chainId = await RedstoneCommon.retry({
           fn: async () => (await provider.getNetwork()).chainId,
