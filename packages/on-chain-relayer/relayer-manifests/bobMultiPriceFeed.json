@@ -1,0 +1,24 @@
+{
+  "chain": {
+    "name": "bob",
+    "id": 60808
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000,
+    "priceFeedsDeviationOverrides": {
+      "USDT": 0.2,
+      "USDC": 0.2
+    }
+  },
+  "adapterContract": "0x2d484E029b8Ae5cA6335DAe11fC726B232bE87D1",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "BTC": "__NO_FEED__",
+    "ETH": "__NO_FEED__",
+    "USDC": "__NO_FEED__",
+    "USDT": "__NO_FEED__",
+    "STONE": "__NO_FEED__",
+    "wstETH": "__NO_FEED__"
+  }
+}
