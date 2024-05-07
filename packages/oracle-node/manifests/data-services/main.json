@@ -1329,6 +1329,9 @@
         "okx"
       ]
     },
+    "MODE": {
+      "source": ["bitfinex2", "bitget", "bybit", "gate", "mexc"]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
