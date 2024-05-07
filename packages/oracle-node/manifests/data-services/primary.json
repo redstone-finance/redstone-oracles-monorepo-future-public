@@ -1041,6 +1041,9 @@
         "mexc",
         "okx"
       ]
+    },
+    "MODE": {
+      "source": ["bitfinex2", "bitget", "bybit", "gate", "mexc"]
     }
   }
 }
