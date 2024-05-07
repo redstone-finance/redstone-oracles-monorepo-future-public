@@ -63,6 +63,23 @@
         }
       }
     },
+    "BNB": {
+      "source": [
+        "binance",
+        "binancecoinm",
+        "binanceusdm",
+        "bitget",
+        "bitmart",
+        "coingecko",
+        "coinmarketcap",
+        "gate",
+        "kucoin",
+        "mexc",
+        "lbank",
+        "okx",
+        "xt"
+      ]
+    },
     "BTC": {
       "source": [
         "binance",
@@ -86,8 +103,7 @@
         "mexc",
         "okx",
         "xt"
-      ],
-      "skipBroadcasting": true
+      ]
     },
     "DAI": {
       "source": [
