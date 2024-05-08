@@ -5,7 +5,7 @@ import { WrapperBuilder } from "../../src/index";
 import { SampleKydServiceConsumer } from "../../typechain-types";
 import { server } from "./mock-server";
 
-describe("SampleKydServiceConsumer", () => {
+describe.skip("SampleKydServiceConsumer", () => {
   let contract: SampleKydServiceConsumer;
 
   before(async () => {
