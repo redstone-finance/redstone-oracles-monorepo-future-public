@@ -54,6 +54,7 @@ import mantleWstEth from "./mantleWstEth.json";
 import mentoBaklavaMultisig from "./mentoBaklavaMultisig.json";
 import mentoCeloMainnet from "./mentoCeloMainnet.json";
 import modeLayerBank from "./modeLayerBank.json";
+import modeMode from "./modeMode.json";
 import realGbp from "./realGbp.json";
 import realXau from "./realXau.json";
 import sepoliaAngleAgeur from "./sepoliaAngleAgeur.json";
@@ -131,6 +132,7 @@ export default {
   mantleWstEth,
   mentoBaklavaMultisig,
   mentoCeloMainnet,
+  modeMode,
   modeLayerBank,
   realGbp,
   realXau,

@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "mode-mainnet",
+    "id": 34443
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0x8dd2D85C7c28F43F965AE4d9545189C7D022ED0e",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "MODE": "0x8dd2D85C7c28F43F965AE4d9545189C7D022ED0e"
+  }
+}
