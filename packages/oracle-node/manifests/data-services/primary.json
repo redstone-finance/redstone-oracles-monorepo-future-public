@@ -1060,6 +1060,18 @@
     },
     "MODE": {
       "source": ["bitfinex2", "bitget", "bybit", "gate", "mexc"]
+    },
+    "rsETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "rswETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "pufETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher"]
+    },
+    "ezETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher"]
     }
   }
 }
