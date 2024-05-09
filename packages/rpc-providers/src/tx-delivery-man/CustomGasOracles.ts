@@ -1,10 +1,14 @@
 import { GasOracleFn } from "./TxDelivery";
+import { blockscoutStatsGasOracle } from "./custom-gas-oracles/blockscout-stats-gas-oracle";
 import { getEthFeeFromGasOracle } from "./custom-gas-oracles/ethereum";
-import { etherlinkGhostnetGasOracle } from "./custom-gas-oracles/etherlink-ghostnet";
 import { kavaGasOracle } from "./custom-gas-oracles/kava";
+
+const ETHERLINK_GHOSTNET_BLOCKSCOUT_EXPLORER_BASE_URL = `https://testnet-explorer.etherlink.com`;
 
 export const CHAIN_ID_TO_GAS_ORACLE = {
   1: getEthFeeFromGasOracle,
   2222: kavaGasOracle,
-  128123: etherlinkGhostnetGasOracle,
+  128123: blockscoutStatsGasOracle(
+    ETHERLINK_GHOSTNET_BLOCKSCOUT_EXPLORER_BASE_URL
+  ),
 } as Record<number, GasOracleFn | undefined>;

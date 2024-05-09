@@ -465,7 +465,7 @@ describe("ProviderWithAgreement", () => {
     it("throws on all errors", async () => {
       await expect(
         testGetBlockNumber([["error", "error", "error"]], [0])
-      ).rejectedWith(/Failed to getBlockNumber from at least one/);
+      ).rejectedWith(/All providers failed to fetch 'getBlockNumber'/);
     });
 
     it("picks median", async () => {
