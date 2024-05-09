@@ -10,7 +10,7 @@
   "adapterContract": "0x7C1DAAE7BB0688C9bfE3A918A4224041c7177256",
   "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {
-    "ETH": "__NO_FEED__",
+    "ETH": "0x100c8e61aB3BeA812A42976199Fc3daFbcDD7272",
     "BTC": "__NO_FEED__",
     "USDC": "__NO_FEED__",
     "USDT": "__NO_FEED__",
