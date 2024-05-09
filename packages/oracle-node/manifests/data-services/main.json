@@ -923,7 +923,7 @@
       "source": ["arbitrum-evm-fetcher"]
     },
     "LVL": {
-      "source": ["bitget", "coingecko", "mexc"]
+      "source": ["coingecko", "mexc"]
     },
     "CELO/EUR": {
       "source": ["non-usd-based"]
