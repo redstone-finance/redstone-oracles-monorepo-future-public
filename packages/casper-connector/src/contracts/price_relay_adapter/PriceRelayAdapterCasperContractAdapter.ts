@@ -1,7 +1,6 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { RuntimeArgs } from "casper-js-sdk";
 import { BigNumber, BigNumberish } from "ethers";
-import assert from "node:assert";
 import { casperBlake2b } from "../../casper/casper-blake2b";
 import { RunMode } from "../RunMode";
 import { RuntimeArgsFactory } from "../RuntimeArgsFactory";
@@ -38,12 +37,6 @@ export class PriceRelayAdapterCasperContractAdapter extends PriceAdapterCasperCo
   override async getPricesFromPayload(
     paramsProvider: ContractParamsProvider
   ): Promise<BigNumberish[]> {
-    assert(
-      paramsProvider.requestParams.dataFeeds &&
-        paramsProvider.requestParams.dataFeeds.length > 0,
-      "`dataFeeds` must not be empty"
-    );
-
     const payloadHex = await paramsProvider.getPayloadHex(false);
     const feedIds = paramsProvider.getHexlifiedFeedIds();
 

@@ -38,7 +38,7 @@ export class TonPriceManager extends TonContract {
     return await this.internalMessage(
       provider,
       (1 +
-        paramsProvider.requestParams.dataFeeds!.length *
+        paramsProvider.requestParams.dataFeeds.length *
           paramsProvider.requestParams.uniqueSignersCount) *
         0.025,
       body
