@@ -377,7 +377,7 @@
       "source": ["arbitrum-evm-fetcher"]
     },
     "LVL": {
-      "source": ["bitget", "coingecko", "coinmarketcap", "mexc"]
+      "source": ["coingecko", "coinmarketcap", "mexc"]
     },
     "MAGIC": {
       "source": [
