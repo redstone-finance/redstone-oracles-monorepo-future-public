@@ -24,12 +24,6 @@ export class PriceAdapterCasperContractAdapter
   async writePricesFromPayloadToContract(
     paramsProvider: ContractParamsProvider
   ): Promise<string | BigNumberish[]> {
-    assert(
-      paramsProvider.requestParams.dataFeeds &&
-        paramsProvider.requestParams.dataFeeds.length > 0,
-      "`dataFeeds` must not be empty"
-    );
-
     const payloadHex = await paramsProvider.getPayloadHex(false);
     const feedIds = paramsProvider.getHexlifiedFeedIds();
 
@@ -62,12 +56,6 @@ export class PriceAdapterCasperContractAdapter
   async readPricesFromContract(
     paramsProvider: ContractParamsProvider
   ): Promise<BigNumberish[]> {
-    assert(
-      paramsProvider.requestParams.dataFeeds &&
-        paramsProvider.requestParams.dataFeeds.length > 0,
-      "`dataFeeds` must not be empty"
-    );
-
     const results = await Promise.allSettled(
       paramsProvider.requestParams.dataFeeds.map((feedId) =>
         this.readPriceValue(feedId)

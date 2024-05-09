@@ -9,7 +9,9 @@ import { Contract } from "ethers";
 import { version } from "../../package.json";
 import { BaseWrapper } from "./BaseWrapper";
 
-export type DataPackagesRequestInput = Partial<DataPackagesRequestParams>;
+export type DataPackagesRequestInput = Partial<DataPackagesRequestParams> & {
+  dataFeeds: string[];
+};
 
 export class DataServiceWrapper<T extends Contract> extends BaseWrapper<T> {
   constructor(

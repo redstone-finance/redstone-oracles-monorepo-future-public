@@ -21,10 +21,6 @@ export class ContractParamsProvider {
   }
 
   getDataFeedIds(): string[] {
-    if (!this.requestParams.dataFeeds) {
-      throw new Error("That invocation requires non-empty dataFeeds");
-    }
-
     return this.requestParams.dataFeeds;
   }
 

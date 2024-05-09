@@ -19,7 +19,7 @@ export interface DataPackagesRequestParams {
   waitForAllGatewaysTimeMs?: number;
   maxTimestampDeviationMS?: number;
   authorizedSigners?: string[];
-  dataFeeds?: string[];
+  dataFeeds: string[];
   urls?: string[];
   historicalTimestamp?: number;
 }
@@ -93,6 +93,9 @@ export const calculateHistoricalPackagesTimestamp = (
 export const requestDataPackages = async (
   reqParams: DataPackagesRequestParams
 ): Promise<DataPackagesResponse> => {
+  if (reqParams.dataFeeds.length < 1) {
+    throw new Error("Please provide at least one dataFeed");
+  }
   try {
     const promises = prepareDataPackagePromises(reqParams);
 
@@ -189,7 +192,7 @@ const parseAndValidateDataPackagesResponse = (
 
   RedstoneCommon.zodAssert<GwResponse>(GwResponseSchema, responseData);
 
-  const requestedDataFeedIds = reqParams.dataFeeds ?? Object.keys(responseData);
+  const requestedDataFeedIds = reqParams.dataFeeds;
 
   for (const dataFeedId of requestedDataFeedIds) {
     let dataFeedPackages = responseData[dataFeedId];
@@ -256,17 +259,18 @@ function sendRequestToGateway(
   pathComponents: string[],
   reqParams: DataPackagesRequestParams
 ) {
-  return axios.get<Record<string, SignedDataPackagePlainObj[]>>(
-    [url.replace(/\/+$/, "")].concat(pathComponents).join("/"),
-    {
-      timeout: GET_REQUEST_TIMEOUT,
-      params: {
-        dataFeedIds: reqParams.dataFeeds,
-        minimalSignersCount: reqParams.uniqueSignersCount,
-      },
-      paramsSerializer: { indexes: null },
-    }
-  );
+  const sanitizedUrl = [url.replace(/\/+$/, "")]
+    .concat(pathComponents)
+    .join("/");
+
+  return axios.get<Record<string, SignedDataPackagePlainObj[]>>(sanitizedUrl, {
+    timeout: GET_REQUEST_TIMEOUT,
+    params: {
+      dataFeedIds: reqParams.dataFeeds,
+      minimalSignersCount: reqParams.uniqueSignersCount,
+    },
+    paramsSerializer: { indexes: null },
+  });
 }
 
 function maybeGetSigner(dp: SignedDataPackagePlainObj) {
