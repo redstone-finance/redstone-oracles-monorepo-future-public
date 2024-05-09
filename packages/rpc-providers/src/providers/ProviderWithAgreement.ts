@@ -124,8 +124,10 @@ export class ProviderWithAgreement extends ProviderWithFallback {
   }
 
   override async getBlockNumber(): Promise<number> {
+    const healthyProviders = this.getHealthyProviders();
+
     const blockNumbersResults = await Promise.allSettled(
-      this.getHealthyProviders().map(async ({ provider, identifier }) => {
+      healthyProviders.map(async ({ provider, identifier }) => {
         const blockNumber = await RedstoneCommon.timeout(
           withDebugLog(provider.getBlockNumber(), {
             description: `rpc=${identifier} identifier=${identifier} op=getBlockNumber`,
@@ -147,10 +149,12 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     if (blockNumbers.length === 0) {
       throw new AggregateError(
         blockNumbersResults.map(
-          (result) =>
-            new Error(String((result as PromiseRejectedResult).reason))
+          (result, index) =>
+            new Error(
+              `${healthyProviders[index].identifier}: ${String((result as PromiseRejectedResult).reason)}`
+            )
         ),
-        `Failed to getBlockNumber from at least one provider`
+        `All providers failed to fetch 'getBlockNumber'`
       );
     }
 

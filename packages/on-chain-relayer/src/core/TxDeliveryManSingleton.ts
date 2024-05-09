@@ -20,6 +20,7 @@ export const getTxDeliveryMan = (
       maxAttempts: config().maxTxSendAttempts,
       isAuctionModel: config().isAuctionModel,
       defaultMaxPriorityFeePerGas: config().defaultMaxPriorityFeePerGas,
+      forceDisableCustomGasOracle: config().disableCustomGasOracle,
     });
   return deliveryMan;
 };
