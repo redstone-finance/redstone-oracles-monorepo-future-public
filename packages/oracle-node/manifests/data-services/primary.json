@@ -1086,5 +1086,19 @@
         "xt"
       ]
     }
+  },
+  "multiPointPackages": {
+    "__SWELL__": ["SWETH", "SWETH/ETH"],
+    "__LAYER_BANK__": [
+      "ETH",
+      "BTC",
+      "USDC",
+      "USDT",
+      "weETH",
+      "ezETH",
+      "STONE",
+      "rsETH",
+      "weETH_FUNDAMENTAL"
+    ]
   }
 }

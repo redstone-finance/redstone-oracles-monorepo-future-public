@@ -19,5 +19,6 @@
     "STONE": "__NO_FEED__",
     "rsETH": "__NO_FEED__",
     "weETH_FUNDAMENTAL": "__NO_FEED__"
-  }
+  },
+  "packages": ["__LAYER_BANK__"]
 }
