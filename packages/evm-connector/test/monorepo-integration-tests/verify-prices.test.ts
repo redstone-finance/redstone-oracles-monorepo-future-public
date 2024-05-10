@@ -16,7 +16,7 @@ const getCacheServiceUrls = (): string[] => {
   }
 };
 
-// This test is used in monorepo intergration tests
+// This test is used in monorepo integration tests
 dynamicDescribe("verify prices test", function () {
   let contract: SampleForLocalhostMockTest;
   const pricesToVerify = JSON.parse(process.env.PRICES_TO_CHECK ?? "[]") as {
@@ -25,7 +25,7 @@ dynamicDescribe("verify prices test", function () {
   const bytes32Symbols = Object.keys(pricesToVerify).map(formatBytes32String);
   const expectedPrices = Object.values(pricesToVerify);
 
-  const testShouldPass = async (dataFeedIds?: string[]) => {
+  const testShouldPass = async (dataFeedIds: string[]) => {
     const wrappedContract = WrapperBuilder.wrap(contract).usingDataService({
       dataServiceId: "mock-data-service",
       uniqueSignersCount: 1,
@@ -63,7 +63,7 @@ dynamicDescribe("verify prices test", function () {
     await testShouldPass(["ETH", "BTC", "AAVE"]);
   });
 
-  it("Should properly extract prices with big data packages", async () => {
-    await testShouldPass();
+  it("Should properly extract prices with multi point package", async () => {
+    await testShouldPass(["___COOL_TOKENS___"]);
   });
 });
