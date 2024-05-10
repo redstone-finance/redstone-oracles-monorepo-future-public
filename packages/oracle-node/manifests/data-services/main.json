@@ -1344,6 +1344,19 @@
     "ezETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher"]
     },
+    "MERL": {
+      "source": [
+        "bitget",
+        "bingx",
+        "bitmart",
+        "bybit",
+        "gate",
+        "kucoin",
+        "mexc",
+        "okx",
+        "xt"
+      ]
+    },
     "ARDRIVE": {
       "source": ["permaswap"]
     },
