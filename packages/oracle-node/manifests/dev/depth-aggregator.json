@@ -148,6 +148,7 @@
         "balancer-arbitrumone-weth",
         "balancer-ethereum-aave",
         "balancer-ethereum-weth",
+        "curve-crvusd",
         "maverick",
         "uniswap-v3-arbitrum-on-chain-weth-100",
         "uniswap-v3-ethereum-on-chain-weth-100",
@@ -207,6 +208,7 @@
         "balancer-ethereum-frxeth",
         "curve-steth",
         "curve-frxeth",
+        "curve-weth",
         "uniswap-v3-ethereum-on-chain-weth-100",
         "pancake-swap-on-chain-weth-100"
       ]
