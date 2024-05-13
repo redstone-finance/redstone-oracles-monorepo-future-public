@@ -322,6 +322,9 @@
         "uniswap-v3-arbitrum-on-chain-weth-500"
       ]
     },
+    "ETH/USDC": {
+      "source": ["non-usd-based"]
+    },
     "ATOM": {
       "source": [
         "binance",
@@ -610,6 +613,12 @@
         "uniswap-v3-optimism-on-chain-weth-100"
       ]
     },
+    "wstETH/ETH": {
+      "source": ["non-usd-based"]
+    },
+    "ETHx/ETH": {
+      "source": ["non-usd-based"]
+    },
     "wstETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher"]
     },
@@ -866,6 +875,9 @@
         "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-wsteth-500"
       ]
+    },
+    "weETH/ETH": {
+      "source": ["non-usd-based"]
     },
     "weETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher"]

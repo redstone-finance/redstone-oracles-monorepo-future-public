@@ -315,10 +315,7 @@
     },
     "ETH/USDC": {
       "source": [
-        "non-usd-based",
-        "chainlink-based",
-        "coingecko-based",
-        "pyth-based"
+        "non-usd-based"
       ]
     },
     "3Crv": {
