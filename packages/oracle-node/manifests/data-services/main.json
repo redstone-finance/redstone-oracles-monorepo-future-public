@@ -1288,6 +1288,7 @@
     },
     "pufETH": {
       "source": [
+        "balancer-ethereum-wsteth",
         "curve-wsteth",
         "curve-wsteth-secondary",
         "uniswap-v3-ethereum-on-chain-weth-3000"
