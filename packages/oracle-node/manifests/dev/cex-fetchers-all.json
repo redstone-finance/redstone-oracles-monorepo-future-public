@@ -828,7 +828,7 @@
     },
     "wstETH": {
       "source": [
-        "balancer-arbitrum-weth",
+        "balancer-arbitrumone-weth",
         "maverick",
         "uniswap-v3-arbitrum-on-chain-weth-100"
       ]
@@ -1033,7 +1033,7 @@
     },
     "PREMIA": {
       "source": [
-        "camelot-v3-weth",
+        "camelot-v3-arbitrumone-weth",
         "sushiswap-ethereum-on-chain-weth",
         "uniswap-v3-arbitrum-on-chain-weth-3000"
       ]
@@ -1140,6 +1140,7 @@
         "uniswap-v3-ethereum-on-chain-weth-100",
         "balancer-ethereum-weth",
         "balancer-ethereum-wsteth",
+        "balancer-ethereum-wsteth-2",
         "curve-wsteth",
         "pancake-swap-on-chain-weth-500"
       ]

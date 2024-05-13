@@ -1,6 +1,7 @@
 export * from "./MegaProviderBuilder";
 export * from "./SageOfChains";
 export * from "./chains-configs";
+export * from "./chains-configs/geckoTerminalConfigs";
 export * from "./chains-configs/helpers";
 export * from "./common";
 export * from "./provider-decorators/MetricDecorator";
