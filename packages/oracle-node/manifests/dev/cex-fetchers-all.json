@@ -883,9 +883,6 @@
         "uniswap-v3-ethereum-on-chain-usdc-500"
       ]
     },
-    "SHLB_EUROC-USDC_V2_1_B": {
-      "source": ["avalanche-evm-fetcher"]
-    },
     "TJ_AVAX_USDC_AUTO": {
       "source": ["avalanche-evm-fetcher"]
     },
@@ -1841,9 +1838,6 @@
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"]
     },
-    "YY_PTP_sAVAX": {
-      "source": ["fixed-value"]
-    },
     "PNG_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"]
     },
@@ -1853,34 +1847,10 @@
     "PNG_AVAX_ETH_LP": {
       "source": ["avalanche-evm-fetcher"]
     },
-    "TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "TJ_AVAX_USDT_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "TJ_AVAX_ETH_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "TJ_AVAX_BTC_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "TJ_AVAX_sAVAX_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "MOO_TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
     "YY_PNG_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"]
     },
     "YY_PNG_AVAX_ETH_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "YY_TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "YY_TJ_AVAX_ETH_LP": {
       "source": ["avalanche-evm-fetcher"]
     },
     "YYAV3SA1": {
@@ -1893,15 +1863,6 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "YY_GLP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "SHLB_AVAX-USDC_B": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "SHLB_BTC.b-AVAX_B": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "SHLB_JOE-AVAX_B": {
       "source": ["avalanche-evm-fetcher"]
     },
     "SWETH": {
@@ -3249,9 +3210,6 @@
         "bitstamp-usd",
         "bingx-usdt"
       ]
-    },
-    "PTP": {
-      "source": ["mexc-usdt", "bitrue-usdt"]
     },
     "GLM": {
       "source": [

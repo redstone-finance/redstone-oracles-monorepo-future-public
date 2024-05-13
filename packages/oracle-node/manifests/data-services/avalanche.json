@@ -162,15 +162,8 @@
     "sAVAX": {
       "source": ["avalanche-evm-fetcher"]
     },
-    "PTP": {
-      "source": ["coingecko", "coinmarketcap", "mexc"]
-    },
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"]
-    },
-    "YY_PTP_sAVAX": {
-      "source": ["fixed-value"],
-      "fixedValue": 10.9
     },
     "PNG_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"]
@@ -181,34 +174,10 @@
     "PNG_AVAX_ETH_LP": {
       "source": ["avalanche-evm-fetcher"]
     },
-    "TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "TJ_AVAX_USDT_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "TJ_AVAX_ETH_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "TJ_AVAX_BTC_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "TJ_AVAX_sAVAX_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "MOO_TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
     "YY_PNG_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher"]
     },
     "YY_PNG_AVAX_ETH_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "YY_TJ_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "YY_TJ_AVAX_ETH_LP": {
       "source": ["avalanche-evm-fetcher"]
     },
     "XAVA": {
@@ -273,15 +242,6 @@
         }
       }
     },
-    "SHLB_AVAX-USDC_B": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "SHLB_BTC.b-AVAX_B": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "SHLB_JOE-AVAX_B": {
-      "source": ["avalanche-evm-fetcher"]
-    },
     "gmdUSDC": {
       "source": ["avalanche-evm-fetcher"]
     },
@@ -308,9 +268,6 @@
           "maxDelayMilliseconds": 300000
         }
       }
-    },
-    "SHLB_EUROC-USDC_V2_1_B": {
-      "source": ["avalanche-evm-fetcher"]
     },
     "TJ_AVAX_USDC_AUTO": {
       "source": ["avalanche-evm-fetcher"]
@@ -449,25 +406,14 @@
       "IB01.L",
       "JOE",
       "LINK",
-      "MOO_TJ_AVAX_USDC_LP",
       "PNG",
       "PNG_AVAX_ETH_LP",
       "PNG_AVAX_USDC_LP",
       "PNG_AVAX_USDT_LP",
-      "PTP",
       "QI",
-      "SHLB_AVAX-USDC_B",
-      "SHLB_BTC.b-AVAX_B",
-      "SHLB_EUROC-USDC_V2_1_B",
       "SHLB_GMX-AVAX_B",
-      "SHLB_JOE-AVAX_B",
       "SOL",
-      "TJ_AVAX_BTC_LP",
-      "TJ_AVAX_ETH_LP",
       "TJ_AVAX_USDC_AUTO",
-      "TJ_AVAX_USDC_LP",
-      "TJ_AVAX_USDT_LP",
-      "TJ_AVAX_sAVAX_LP",
       "USDC",
       "USDT",
       "WOMBAT_ggAVAX_AVAX_LP_AVAX",
@@ -480,9 +426,6 @@
       "YY_GLP",
       "YY_PNG_AVAX_ETH_LP",
       "YY_PNG_AVAX_USDC_LP",
-      "YY_PTP_sAVAX",
-      "YY_TJ_AVAX_ETH_LP",
-      "YY_TJ_AVAX_USDC_LP",
       "crvUSDBTCETH",
       "ggAVAX",
       "gmdAVAX",
