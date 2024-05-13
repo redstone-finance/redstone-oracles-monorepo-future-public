@@ -1859,7 +1859,14 @@
     "GTC": {},
     "RNDR": {},
     "GLM": {},
-    "PNG": {},
+    "PNG": {
+      "source": [
+        "coinbasepro",
+        "coingecko",
+        "coinmarketcap",
+        "gate"
+      ]
+    },
     "RUNE": {},
     "LINA": {},
     "CKB": {},
