@@ -9,9 +9,7 @@
       "maxDelayMilliseconds": 300000
     }
   },
-  "defaultSource": [
-    "coingecko"
-  ],
+  "defaultSource": ["coingecko"],
   "tokens": {
     "ETH": {
       "source": [
@@ -374,18 +372,10 @@
       ]
     },
     "LEO": {
-      "source": [
-        "bitfinex2",
-        "coingecko",
-        "okx"
-      ]
+      "source": ["bitfinex2", "coingecko", "okx"]
     },
     "OKB": {
-      "source": [
-        "coingecko",
-        "lbank",
-        "okx"
-      ]
+      "source": ["coingecko", "lbank", "okx"]
     },
     "ETC": {
       "source": [
@@ -439,11 +429,7 @@
       ]
     },
     "APT": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "coingecko"
-      ]
+      "source": ["binance", "binanceusdm", "coingecko"]
     },
     "XLM": {
       "source": [
@@ -469,12 +455,7 @@
       ]
     },
     "STX": {
-      "source": [
-        "binance",
-        "coinbasepro",
-        "kucoin",
-        "okx"
-      ]
+      "source": ["binance", "coinbasepro", "kucoin", "okx"]
     },
     "FTM": {
       "source": [
@@ -574,9 +555,7 @@
       ]
     },
     "VST": {
-      "source": [
-        "curve-frax-vst-multi-block"
-      ]
+      "source": ["curve-frax-vst-multi-block"]
     },
     "OHM": {
       "source": [
@@ -619,20 +598,10 @@
       ]
     },
     "KAVA": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "kraken"
-      ]
+      "source": ["binance", "binanceusdm", "kraken"]
     },
     "UFT": {
-      "source": [
-        "bitrue",
-        "bitrue-usdt",
-        "coingecko",
-        "gate",
-        "mexc"
-      ]
+      "source": ["bitrue", "bitrue-usdt", "coingecko", "gate", "mexc"]
     },
     "stETH": {
       "source": [
@@ -645,9 +614,7 @@
       ]
     },
     "stETH/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "wstETH": {
       "source": [
@@ -661,31 +628,19 @@
       ]
     },
     "wstETH_FUNDAMENTAL": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "wstETH/stETH": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "PLS": {
-      "source": [
-        "coingecko",
-        "camelot-weth"
-      ]
+      "source": ["coingecko", "camelot-weth"]
     },
     "CMP": {
-      "source": [
-        "coingecko",
-        "xt"
-      ]
+      "source": ["coingecko", "xt"]
     },
     "VST/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "JOE": {
       "source": [
@@ -709,15 +664,8 @@
         "uniswap-v3-ethereum-on-chain-usdc-500"
       ]
     },
-    "SHLB_EUROC-USDC_V2_1_B": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
     "TJ_AVAX_USDC_AUTO": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "CRV": {
       "source": [
@@ -740,15 +688,11 @@
       ]
     },
     "USDf": {
-      "source": [
-        "fixed-value"
-      ],
+      "source": ["fixed-value"],
       "fixedValue": 1
     },
     "3Crv": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "LUSD": {
       "source": [
@@ -768,15 +712,11 @@
       ]
     },
     "USDC.USDT": {
-      "source": [
-        "non-usd-based"
-      ],
+      "source": ["non-usd-based"],
       "decimals": 14
     },
     "USDC.DAI": {
-      "source": [
-        "non-usd-based"
-      ],
+      "source": ["non-usd-based"],
       "decimals": 14
     },
     "PEPE": {
@@ -868,9 +808,7 @@
       ]
     },
     "AURA": {
-      "source": [
-        "balancer-ethereum-weth"
-      ]
+      "source": ["balancer-ethereum-weth"]
     },
     "PREMIA": {
       "source": [
@@ -880,37 +818,22 @@
       ]
     },
     "PREMIA-TWAP-60": {
-      "source": [
-        "twap-local-redstone-main-demo"
-      ]
+      "source": ["twap-local-redstone-main-demo"]
     },
     "MOO_GMX": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "DPX": {
-      "source": [
-        "bingx",
-        "bitget",
-        "coingecko",
-        "mexc"
-      ]
+      "source": ["bingx", "bitget", "coingecko", "mexc"]
     },
     "YY_WOMBEX_USDT": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "YY_WOMBEX_USDC.e": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "YY_WOMBEX_GLP": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "BAL": {
       "source": [
@@ -940,23 +863,13 @@
       ]
     },
     "YY_WOMBEX_DAI": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "TLOS": {
-      "source": [
-        "bitget",
-        "gate",
-        "mexc",
-        "kucoin"
-      ]
+      "source": ["bitget", "gate", "mexc", "kucoin"]
     },
     "ETHx": {
-      "source": [
-        "curve-weth",
-        "curve-wsteth"
-      ]
+      "source": ["curve-weth", "curve-wsteth"]
     },
     "TIA": {
       "source": [
@@ -980,9 +893,7 @@
       ]
     },
     "weETH_FUNDAMENTAL": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "rETH": {
       "source": [
@@ -995,9 +906,7 @@
       ]
     },
     "rETH/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "osETH": {
       "source": [
@@ -1007,9 +916,7 @@
       ]
     },
     "osETH/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "pxETH": {
       "source": [
@@ -1021,88 +928,49 @@
       ]
     },
     "pxETH/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "apxETH": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "apxETH/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "arbJnrLLP": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "arbMzeLLP": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "arbSnrLLP": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "LVL": {
-      "source": [
-        "bitget",
-        "coingecko",
-        "mexc"
-      ]
+      "source": ["bitget", "coingecko", "mexc"]
     },
     "CELO/EUR": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "CELO/BRL": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "USDC/EUR": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "USDC/BRL": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "EUROC/EUR": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "crvFRAX": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "ALUSD": {
-      "source": [
-        "curve-3crv",
-        "curve-crvfrax",
-        "velodrome-on-chain-usdc"
-      ]
+      "source": ["curve-3crv", "curve-crvfrax", "velodrome-on-chain-usdc"]
     },
     "XVS": {
-      "source": [
-        "binance",
-        "binanceusdm",
-        "bingx",
-        "gate",
-        "lbank",
-        "mexc"
-      ]
+      "source": ["binance", "binanceusdm", "bingx", "gate", "lbank", "mexc"]
     },
     "MAGIC": {
       "source": [
@@ -1224,75 +1092,46 @@
       ]
     },
     "GM_ETH_WETH_USDC": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "GM_BTC_WBTC_USDC": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "GM_LINK_LINK_USDC": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "GM_UNI_UNI_USDC": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "GM_ARB_ARB_USDC": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "GM_SOL_SOL_USDC": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "GM_ETH_WETHe_USDC": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "GM_BTC_BTCb_USDC": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "GM_AVAX_WAVAX_USDC": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "BAL_ggAVAX_AVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "BAL_yyAVAX_AVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "BAL_sAVAX_AVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "USDM": {
-      "source": [
-        "curve-3crv",
-        "curve-sdai"
-      ]
+      "source": ["curve-3crv", "curve-sdai"]
     },
     "wUSDM": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "MANTA": {
       "source": [
@@ -1308,14 +1147,10 @@
       ]
     },
     "CAI": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "STONE": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "frxETH": {
       "source": [
@@ -1328,12 +1163,7 @@
       ]
     },
     "eUSD": {
-      "source": [
-        "aerodrome-usdc",
-        "curve-crvfrax",
-        "curve-eth+",
-        "curve-rsr"
-      ]
+      "source": ["aerodrome-usdc", "curve-crvfrax", "curve-eth+", "curve-rsr"]
     },
     "RSR": {
       "source": [
@@ -1358,30 +1188,19 @@
       ]
     },
     "ETH+/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "sDAI": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "NOTE": {
-      "source": [
-        "canto-dex-usdc",
-        "canto-dex-usdt"
-      ]
+      "source": ["canto-dex-usdc", "canto-dex-usdt"]
     },
     "cNOTE": {
-      "source": [
-        "canto-evm-fetcher"
-      ]
+      "source": ["canto-evm-fetcher"]
     },
     "LAB.m": {
-      "source": [
-        "aperture-swap-weth-500"
-      ]
+      "source": ["aperture-swap-weth-500"]
     },
     "TON": {
       "source": [
@@ -1429,14 +1248,10 @@
       ]
     },
     "USDB-TWAP-30": {
-      "source": [
-        "twap-local-redstone-main-demo"
-      ]
+      "source": ["twap-local-redstone-main-demo"]
     },
     "sfrxETH": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "rsETH": {
       "source": [
@@ -1447,9 +1262,7 @@
       ]
     },
     "rsETH/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "ezETH": {
       "source": [
@@ -1462,14 +1275,10 @@
       ]
     },
     "ezETH/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "ezETH-TWAP-60": {
-      "source": [
-        "twap-local-redstone-primary-prod"
-      ]
+      "source": ["twap-local-redstone-primary-prod"]
     },
     "crvUSD": {
       "source": [
@@ -1490,9 +1299,7 @@
       ]
     },
     "sUSDe": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "rswETH": {
       "source": [
@@ -1503,14 +1310,10 @@
       ]
     },
     "rswETH/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "sUSDe_RATE_PROVIDER": {
-      "source": [
-        "ethereum-evm-fetcher"
-      ]
+      "source": ["ethereum-evm-fetcher"]
     },
     "pufETH": {
       "source": [
@@ -1520,34 +1323,22 @@
       ]
     },
     "pufETH/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "PENDLE_EZ_ETH_LP": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "PENDLE_SILO_ETH_WSTETH_LP": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "PENDLE_RS_ETH_LP": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "PENDLE_E_ETH_LP": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "PENDLE_WSTETH_LP": {
-      "source": [
-        "arbitrum-evm-fetcher"
-      ]
+      "source": ["arbitrum-evm-fetcher"]
     },
     "LDO": {
       "source": [
@@ -1569,31 +1360,19 @@
       ]
     },
     "ARDRIVE": {
-      "source": [
-        "permaswap"
-      ]
+      "source": ["permaswap"]
     },
     "U": {
-      "source": [
-        "permaswap"
-      ]
+      "source": ["permaswap"]
     },
     "STAMP": {
-      "source": [
-        "permaswap"
-      ]
+      "source": ["permaswap"]
     },
     "ANS": {
-      "source": [
-        "permaswap"
-      ]
+      "source": ["permaswap"]
     },
     "AUD": {
-      "source": [
-        "ecb",
-        "kraken",
-        "twelve-data"
-      ]
+      "source": ["ecb", "kraken", "twelve-data"]
     },
     "GBP": {
       "source": [
@@ -1619,75 +1398,43 @@
       ]
     },
     "JPY": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "CHF": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "NOK": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "MXN": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "NZD": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "CAD": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "CNH": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "SGD": {
-      "source": [
-        "ecb",
-        "twelve-data"
-      ]
+      "source": ["ecb", "twelve-data"]
     },
     "SEK": {
-      "source": [
-        "ecb",
-        "twelve-data"
-      ]
+      "source": ["ecb", "twelve-data"]
     },
     "ZAR": {
-      "source": [
-        "ecb",
-        "twelve-data"
-      ]
+      "source": ["ecb", "twelve-data"]
     },
     "TRY": {
-      "source": [
-        "ecb",
-        "twelve-data"
-      ]
+      "source": ["ecb", "twelve-data"]
     },
     "PLN": {
-      "source": [
-        "ecb",
-        "twelve-data"
-      ]
+      "source": ["ecb", "twelve-data"]
     },
     "HUF": {
-      "source": [
-        "ecb",
-        "twelve-data"
-      ]
+      "source": ["ecb", "twelve-data"]
     },
     "BRL": {
       "source": [
@@ -1700,136 +1447,82 @@
       ]
     },
     "SPY": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "QQQ": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "IWM": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "DIA.ETF": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "SPX": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "EUROSTOXX50": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "NASDAQ": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "XAU": {
-      "source": [
-        "twelve-data",
-        "finhub-usd",
-        "financialmodelingprep-usd"
-      ]
+      "source": ["twelve-data", "finhub-usd", "financialmodelingprep-usd"]
     },
     "SILVER": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "CRUDE": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "IBM": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "GOOG": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "COST": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "DIS": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "MA": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "MSFT": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "NKE": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "PINS": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "SHOP": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "SPOT": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "TDOC": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "ONEQ": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "EFA": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "VGK": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "INDA": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "RSX": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "C3M": {
       "source": [
@@ -1839,219 +1532,133 @@
       ]
     },
     "PEN": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "ARS": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "COP": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "BBBY": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "UPST": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "BIG": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "MSTR": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "HRTX": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "EVGO": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "BGFV": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "FUBO": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "CVNA": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "NKLA": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "W": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "BLNK": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "SRG": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "HYZN": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "MVIS": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "PETS": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "IBRX": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "VUZI": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "SPCE": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "RIDE": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "FUV": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "WKHS": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "SWTX": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "LCID": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "JWN": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "FFIE": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "SFT": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "OCGN": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "REI": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "BKKT": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "KPTI": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "DNMR": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "GDRX": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "IGMS": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "AMC": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "CSPX.L": {
-      "source": [
-        "twelve-data-etf-uk"
-      ]
+      "source": ["twelve-data-etf-uk"]
     },
     "IB01.L": {
-      "source": [
-        "twelve-data-etf-uk"
-      ]
+      "source": ["twelve-data-etf-uk"]
     },
     "IBTA.L": {
-      "source": [
-        "twelve-data-etf-uk"
-      ]
+      "source": ["twelve-data-etf-uk"]
     },
     "USDCf": {
-      "source": [
-        "twelve-data-etf-uk"
-      ]
+      "source": ["twelve-data-etf-uk"]
     },
     "ENTROPY": {
-      "source": [
-        "drand"
-      ],
+      "source": ["drand"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 9007199254740991,
@@ -2060,150 +1667,55 @@
       }
     },
     "AAPL": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "AMZN": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "BYND": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "GME": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "NFLX": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "TSLA": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "META": {
-      "source": [
-        "twelve-data"
-      ]
+      "source": ["twelve-data"]
     },
     "YY_AAVE_AVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "YY_PTP_sAVAX": {
-      "source": [
-        "fixed-value"
-      ],
-      "fixedValue": 10.9
+      "source": ["avalanche-evm-fetcher"]
     },
     "PNG_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "PNG_AVAX_USDT_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "PNG_AVAX_ETH_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "TJ_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "TJ_AVAX_USDT_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "TJ_AVAX_ETH_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "TJ_AVAX_BTC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "TJ_AVAX_sAVAX_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "MOO_TJ_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "YY_PNG_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "YY_PNG_AVAX_ETH_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "YY_TJ_AVAX_USDC_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "YY_TJ_AVAX_ETH_LP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "YYAV3SA1": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "sAVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "GLP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "YY_GLP": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "SHLB_AVAX-USDC_B": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "SHLB_BTC.b-AVAX_B": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
-    },
-    "SHLB_JOE-AVAX_B": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "SWETH": {
       "source": [
@@ -2214,87 +1726,49 @@
       ]
     },
     "SWETH/ETH": {
-      "source": [
-        "non-usd-based"
-      ]
+      "source": ["non-usd-based"]
     },
     "gmdUSDC": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "gmdAVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "gmdBTC": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "gmdETH": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "crvUSDBTCETH": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "SHLB_GMX-AVAX_B": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "ggAVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "yyAVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "WOMBAT_ggAVAX_AVAX_LP_AVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "WOMBAT_ggAVAX_AVAX_LP_ggAVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "WOMBAT_sAVAX_AVAX_LP_AVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "WOMBAT_sAVAX_AVAX_LP_sAVAX": {
-      "source": [
-        "avalanche-evm-fetcher"
-      ]
+      "source": ["avalanche-evm-fetcher"]
     },
     "XAVA": {
-      "source": [
-        "coingecko",
-        "coinmarketcap",
-        "gate",
-        "kucoin",
-        "mexc"
-      ]
+      "source": ["coingecko", "coinmarketcap", "gate", "kucoin", "mexc"]
     },
     "QI": {
-      "source": [
-        "binance",
-        "coingecko",
-        "coinmarketcap",
-        "kucoin",
-        "xt"
-      ]
+      "source": ["binance", "coingecko", "coinmarketcap", "kucoin", "xt"]
     },
     "BAT": {},
     "COMP": {},
@@ -2383,7 +1857,6 @@
     "MASK": {},
     "GTC": {},
     "RNDR": {},
-    "PTP": {},
     "GLM": {},
     "PNG": {},
     "RUNE": {},

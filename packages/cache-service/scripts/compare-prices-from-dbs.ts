@@ -33,9 +33,6 @@ const MIN_DEVIATION_PERCENTAGE_TO_LOG = 1;
 
 const TOKENS_ONLY_IN_ONE_DB = [
   "stETH",
-  "SHLB_AVAX-USDC_B",
-  "SHLB_BTC.b-AVAX_B",
-  "SHLB_USDT.e-USDt_C",
   "USDT.e",
   "YAK",
   "gmdUSDC",
@@ -43,7 +40,6 @@ const TOKENS_ONLY_IN_ONE_DB = [
   "gmdBTC",
   "gmdETH",
   "EUROC",
-  "SHLB_EUROC-USDC_V2_1_B",
   "TJ_AVAX_USDC_AUTO",
   "CRV",
   "crvUSDBTCETH",
