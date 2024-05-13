@@ -61,8 +61,9 @@ export class RedstonePayloadParser {
       length: this.bytesData.length - negativeOffset,
     });
 
+    signedDataPackages.reverse(); // reversing, because we read from the end
     return {
-      signedDataPackages: signedDataPackages.reverse(), // reversing, because we read from the end
+      signedDataPackages,
       unsignedMetadata,
       remainderPrefix,
     };
