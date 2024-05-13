@@ -5,8 +5,9 @@ import {
 } from "@redstone-finance/evm-multicall";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { Contract } from "ethers";
-import { MegaProviderBuilder } from "../MegaProviderBuilder";
+
 import { ChainConfig, ChainConfigs, SupportedNetworkNames } from "../index";
+import { MegaProviderBuilder } from "../MegaProviderBuilder";
 import { ProviderWithAgreement } from "../providers/ProviderWithAgreement";
 
 export function getChainConfig(networkName: SupportedNetworkNames) {
@@ -14,6 +15,10 @@ export function getChainConfig(networkName: SupportedNetworkNames) {
     ChainConfigs[networkName],
     `Couldn't find chain config for ${networkName}`
   ) as ChainConfig;
+}
+
+export function getChainId(networkName: SupportedNetworkNames): number {
+  return getChainConfig(networkName).chainId;
 }
 
 export function getNetworkName(chainId: number) {
