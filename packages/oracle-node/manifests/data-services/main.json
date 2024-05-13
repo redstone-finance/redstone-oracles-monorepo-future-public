@@ -603,6 +603,7 @@
         "balancer-arbitrumone-weth",
         "balancer-ethereum-aave",
         "balancer-ethereum-weth",
+        "curve-crvusd",
         "maverick",
         "uniswap-v3-arbitrum-on-chain-weth-100",
         "uniswap-v3-ethereum-on-chain-weth-100",
@@ -898,6 +899,7 @@
         "balancer-ethereum-frxeth",
         "curve-steth-pxeth-multi-block",
         "curve-frxeth",
+        "curve-weth",
         "uniswap-v3-ethereum-on-chain-weth-100-multi-block",
         "pancake-swap-on-chain-weth-100"
       ]
@@ -1287,6 +1289,7 @@
     "pufETH": {
       "source": [
         "balancer-ethereum-wsteth",
+        "curve-weth",
         "curve-wsteth",
         "curve-wsteth-secondary",
         "uniswap-v3-ethereum-on-chain-weth-3000"
