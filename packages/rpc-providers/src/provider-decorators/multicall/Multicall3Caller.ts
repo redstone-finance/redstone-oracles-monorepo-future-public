@@ -1,8 +1,11 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { Contract, providers } from "ethers";
-import { getChainConfigByChainId } from "../../chains-configs";
-import { getMulticall3, getNetworkName } from "../../chains-configs/helpers";
+import {
+  getChainConfigByChainId,
+  getMulticall3,
+  getNetworkName,
+} from "../../chains-configs/helpers";
 
 export type Multicall3Request = {
   target: string;

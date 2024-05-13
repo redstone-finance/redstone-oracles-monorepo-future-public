@@ -6,6 +6,8 @@ export const ChainConfigSchema = z.object({
   name: z.string(),
   publicRpcUrls: z.string().url().array().readonly(),
   avgBlockTimeMs: z.number(),
+  isAuctionModel: z.boolean(),
+  twoDimensionalFees: z.boolean(),
   multicall3: z
     .object({
       address: z.string(),
@@ -37,12 +39,6 @@ const REDSTONE_MULTICALL3 = {
   ),
 } as const;
 
-export const getChainConfigByChainId = (chainId: number) =>
-  RedstoneCommon.assertThenReturn(
-    Object.values(ChainConfigs).find((c) => c.chainId === chainId),
-    `Failed to getChainConfigByChainId chainConfig not defined for ${chainId}`
-  ) as ChainConfig;
-
 export const ChainConfigs = {
   hardhat: {
     name: "hardhat",
@@ -50,6 +46,8 @@ export const ChainConfigs = {
     publicRpcUrls: ["http://localhost:1337"],
     avgBlockTimeMs: 12_000,
     multicall3: { ...REDSTONE_MULTICALL3, gasLimitPerCall: 100_000 },
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   ethereum: {
     name: "Ethereum Mainnet",
@@ -62,6 +60,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 12_000,
     multicall3: REDSTONE_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   arbitrumOne: {
     name: "Arbitrum One",
@@ -75,6 +75,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 250,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: true,
   },
   avalanche: {
     name: "Avalanche Network",
@@ -88,6 +90,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   optimism: {
     name: "Optimism",
@@ -102,6 +106,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   polygon: {
     name: "Polygon Mainnet",
@@ -115,6 +121,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   celo: {
     name: "Celo Mainnet",
@@ -122,6 +130,8 @@ export const ChainConfigs = {
     publicRpcUrls: ["https://forno.celo.org"],
     avgBlockTimeMs: 5_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: true,
+    twoDimensionalFees: false,
   },
   base: {
     name: "Base Mainnet",
@@ -134,6 +144,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 5_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   canto: {
     name: "Canto",
@@ -146,6 +158,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 6_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   manta: {
     name: "Manta Pacific Mainnet",
@@ -158,6 +172,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 10_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   blast: {
     name: "Blast Mainnet",
@@ -171,6 +187,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   "etherlink-ghostnet": {
     name: "Etherlink Ghostnet",
@@ -178,6 +196,8 @@ export const ChainConfigs = {
     publicRpcUrls: ["https://node.ghostnet.etherlink.com"],
     avgBlockTimeMs: 6_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: true,
+    twoDimensionalFees: true,
   },
   mode: {
     name: "Mode Mainnet",
@@ -185,6 +205,8 @@ export const ChainConfigs = {
     publicRpcUrls: ["https://mainnet.mode.network/", "https://1rpc.io/mode"],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   mantle: {
     name: "Mantle",
@@ -199,6 +221,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: true,
+    twoDimensionalFees: true,
   },
   "ethereum-sepolia": {
     name: "Ethereum Sepolia",
@@ -211,6 +235,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 12_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   bnb: {
     name: "Binance chain",
@@ -225,6 +251,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 3_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: true,
+    twoDimensionalFees: false,
   },
   "bnb-testnet": {
     name: "Binance chain testnet",
@@ -236,6 +264,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 3_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   "blast-testnet": {
     name: "Blast Testnet",
@@ -243,6 +273,8 @@ export const ChainConfigs = {
     publicRpcUrls: [],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   "celo-baklava": {
     name: "Celo baklava",
@@ -250,6 +282,8 @@ export const ChainConfigs = {
     publicRpcUrls: ["https://baklava-forno.celo-testnet.org"],
     avgBlockTimeMs: 5_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: true,
+    twoDimensionalFees: false,
   },
   hubble: {
     name: "Hubble",
@@ -257,6 +291,8 @@ export const ChainConfigs = {
     publicRpcUrls: ["https://rpc.hubble.exchange"],
     avgBlockTimeMs: 1_500,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   kava: {
     name: "Kava",
@@ -271,6 +307,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 6_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: true,
+    twoDimensionalFees: false,
   },
   fraxtal: {
     name: "Fraxtal Mainnet",
@@ -278,6 +316,8 @@ export const ChainConfigs = {
     publicRpcUrls: ["https://rpc.frax.com"],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   linea: {
     name: "Linea Mainnet",
@@ -290,6 +330,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 3_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   b2: {
     name: "B2 Mainnet",
@@ -302,6 +344,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 2_500,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: true,
+    twoDimensionalFees: false,
   },
   bob: {
     name: "BOB Mainnet",
@@ -309,6 +353,8 @@ export const ChainConfigs = {
     publicRpcUrls: ["https://rpc.gobob.xyz"],
     avgBlockTimeMs: 2_500,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   "blast-sepolia": {
     name: "Blast sepolia",
@@ -320,6 +366,8 @@ export const ChainConfigs = {
     ],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
   "re.al": {
     name: "re.al",
@@ -327,5 +375,7 @@ export const ChainConfigs = {
     publicRpcUrls: ["https://real.drpc.org"],
     avgBlockTimeMs: 2_000,
     multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
   },
 };

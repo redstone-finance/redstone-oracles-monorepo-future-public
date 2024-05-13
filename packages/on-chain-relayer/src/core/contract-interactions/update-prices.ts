@@ -4,7 +4,7 @@ import {
 } from "@ethersproject/providers";
 import {
   isEthersError,
-  makeTxDeliveryCall,
+  makeGasEstimateTx,
 } from "@redstone-finance/rpc-providers";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { providers } from "ethers";
@@ -67,7 +67,7 @@ const updatePricesInPriceFeedsAdapter = async ({
   const wrappedContract =
     dataPackagesWrapper.overwriteEthersContract(adapterContract);
 
-  const txCall = makeTxDeliveryCall(
+  const txCall = makeGasEstimateTx(
     await wrappedContract.populateTransaction["updateDataFeedsValues"](
       proposedTimestamp
     )
@@ -116,7 +116,7 @@ const updatePricesInMentoAdapter = async ({
   const wrappedMentoContract =
     dataPackagesWrapper.overwriteEthersContract(mentoAdapter);
 
-  const txCall = makeTxDeliveryCall(
+  const txCall = makeGasEstimateTx(
     await wrappedMentoContract.populateTransaction[
       "updatePriceValuesAndCleanOldReports"
     ](proposedTimestamp, linkedListPositions)

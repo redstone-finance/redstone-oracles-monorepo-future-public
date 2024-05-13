@@ -7,7 +7,8 @@ import { BigNumber, BytesLike, Transaction, ethers } from "ethers";
 import * as hardhat from "hardhat";
 import _ from "lodash";
 import Sinon from "sinon";
-import { TxDelivery, TxDeliveryOpts, makeTxDeliveryCall } from "../../src";
+import { TxDelivery, TxDeliveryOpts } from "../../src";
+import { makeGasEstimateTx } from "../../src/tx-delivery-man/GasLimitEstimator";
 import { Counter } from "../../typechain-types";
 import { HardhatProviderMocker, deployCounter } from "../helpers";
 
@@ -146,7 +147,7 @@ describe("TxDelivery", () => {
       sendStub.onSecondCall().rejects(underpricedError);
       providerMocker.set({ sendTransaction: sendStub });
 
-      const call = makeTxDeliveryCall(
+      const call = makeGasEstimateTx(
         await counter.populateTransaction["inc"]()
       );
 
@@ -230,7 +231,7 @@ async function assertTxWillBeDelivered(
   counter: Counter,
   expectedCounterValue = 1
 ) {
-  const call = makeTxDeliveryCall(await counter.populateTransaction["inc"]());
+  const call = makeGasEstimateTx(await counter.populateTransaction["inc"]());
   const tx = await deliveryMan.deliver(call);
   await tx.wait();
   expect(await counter.getCount()).to.eq(expectedCounterValue);

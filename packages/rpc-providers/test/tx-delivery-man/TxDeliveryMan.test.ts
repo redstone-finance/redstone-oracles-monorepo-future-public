@@ -5,7 +5,8 @@ import chaiAsPromised from "chai-as-promised";
 import { ethers } from "ethers";
 import * as hardhat from "hardhat";
 import Sinon from "sinon";
-import { ProviderWithFallback, makeTxDeliveryCall } from "../../src";
+import { ProviderWithFallback } from "../../src";
+import { makeGasEstimateTx } from "../../src/tx-delivery-man/GasLimitEstimator";
 import { TxDeliveryMan } from "../../src/tx-delivery-man/TxDeliveryMan";
 import { Counter } from "../../typechain-types";
 import { HardhatProviderMocker, deployCounter } from "../helpers";
@@ -17,7 +18,7 @@ async function assertTxWillBeDelivered(
   counter: Counter,
   expectedCounterValue = 1
 ) {
-  const call = makeTxDeliveryCall(await counter.populateTransaction["inc"]());
+  const call = makeGasEstimateTx(await counter.populateTransaction["inc"]());
   const tx = await deliveryMan.deliver(call);
   await tx.wait();
   expect(await counter.getCount()).to.eq(expectedCounterValue);

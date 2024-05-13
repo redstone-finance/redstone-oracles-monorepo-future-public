@@ -7,7 +7,8 @@ import {
 } from "@ethersproject/providers";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { providers } from "ethers";
-import { ChainConfig, getChainConfigByChainId } from "../chains-configs";
+import { ChainConfig } from "../chains-configs";
+import { getChainConfigByChainId } from "../chains-configs/helpers";
 import { getProviderNetworkInfo } from "../common";
 import { ProviderWithFallbackBase } from "./ProviderWithFallbackBase";
 

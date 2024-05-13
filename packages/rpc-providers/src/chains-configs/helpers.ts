@@ -27,6 +27,12 @@ export function getNetworkName(chainId: number) {
   return networkName as SupportedNetworkNames;
 }
 
+export const getChainConfigByChainId = (chainId: number) =>
+  RedstoneCommon.assertThenReturn(
+    Object.values(ChainConfigs).find((c) => c.chainId === chainId),
+    `Failed to getChainConfigByChainId chainConfig not defined for ${chainId}`
+  ) as ChainConfig;
+
 export function getDefaultProvider(
   networkName: SupportedNetworkNames
 ): ProviderWithAgreement {

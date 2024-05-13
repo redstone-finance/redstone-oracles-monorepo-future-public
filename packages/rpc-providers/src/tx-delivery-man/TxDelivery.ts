@@ -4,7 +4,7 @@ import {
   TransactionResponse,
 } from "@ethersproject/providers";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
-import { BigNumber, PopulatedTransaction, providers } from "ethers";
+import { BigNumber, providers, utils } from "ethers";
 import _ from "lodash";
 import { EthersError, isEthersError } from "../common";
 import {
@@ -14,7 +14,7 @@ import {
 import { CHAIN_ID_TO_GAS_ORACLE } from "./CustomGasOracles";
 import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
-import { GasLimitEstimator } from "./GasLimitEstimator";
+import { GasLimitEstimator, makeGasEstimateTx } from "./GasLimitEstimator";
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
 
@@ -145,10 +145,14 @@ export type TxDeliveryOptsValidated = Omit<
   gasLimit?: number;
 };
 
+/**
+ * All values has to be hex values
+ */
 export type TxDeliveryCall = {
   from: string;
   to: string;
   data: string;
+  value?: string;
 };
 
 export type TxDeliverySigner = {
@@ -324,7 +328,7 @@ export class TxDelivery {
     tx.gasLimit = this.gasLimitEstimator.scaleGasLimit(
       await this.gasLimitEstimator.getGasLimit(
         this.provider,
-        makeTxDeliveryCall(tx)
+        makeGasEstimateTx(tx)
       ),
       attempt
     );
@@ -339,7 +343,7 @@ export class TxDelivery {
     const fees = await this.getFees(0);
     const gasLimit = await this.gasLimitEstimator.getGasLimit(
       this.provider,
-      call
+      makeGasEstimateTx(call)
     );
 
     const { chainId } = await this.provider.getNetwork();
@@ -351,6 +355,7 @@ export class TxDelivery {
       gasLimit,
       ...fees,
       type: Reflect.has(fees, "gasPrice") ? 0 : 2,
+      value: call.value ?? utils.parseEther("0").toHexString(),
     };
 
     return transactionRequest as DeliveryManTx;
@@ -407,11 +412,3 @@ export class TxDelivery {
     return fee;
   }
 }
-
-export const makeTxDeliveryCall = (
-  transactionRequest: TransactionRequest | PopulatedTransaction
-): TxDeliveryCall => ({
-  from: transactionRequest.from as string,
-  to: transactionRequest.to as string,
-  data: transactionRequest.data as string,
-});
