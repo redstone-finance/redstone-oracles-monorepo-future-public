@@ -6698,6 +6698,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-multi-top-up@workspace:packages/lambda-multi-top-up":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-multi-top-up@workspace:packages/lambda-multi-top-up"
+  dependencies:
+    "@redstone-finance/lambda-common": "npm:^0.4.0"
+    "@redstone-finance/lambda-wallets-balances-notifier": "npm:^0.4.0"
+    "@redstone-finance/rpc-providers": "npm:^0.4.0"
+    "@redstone-finance/utils": "npm:^0.4.0"
+    "@types/inquirer": "npm:^9.0.7"
+    axios: "npm:^1.6.2"
+    dotenv: "npm:^16.0.3"
+    ethereum-waffle: "npm:^4.0.10"
+    ethers: "npm:^5.7.2"
+    inquirer: "npm:^8.2.6"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests"
@@ -6737,7 +6755,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier":
+"@redstone-finance/lambda-wallets-balances-notifier@npm:^0.4.0, @redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier"
   dependencies:
@@ -9093,6 +9111,16 @@ __metadata:
     "@types/through": "npm:*"
     rxjs: "npm:^7.2.0"
   checksum: 10c0/9880538763bb1dc33eb6998555ec7bcaac247b6ada32ce171f019c05d8a99b356c1e880f7db9b70e5b2d96e421acb8f73d2c9d5ea4b37fcf5ae1a76870f5d9cb
+  languageName: node
+  linkType: hard
+
+"@types/inquirer@npm:^9.0.7":
+  version: 9.0.7
+  resolution: "@types/inquirer@npm:9.0.7"
+  dependencies:
+    "@types/through": "npm:*"
+    rxjs: "npm:^7.2.0"
+  checksum: 10c0/b7138af41226c0457b99ff9b179da4a82078bc1674762e812d3cc3e3276936d7326b9fa6b98212b8eb055b2b6aaebe3c20359eebe176a6ca71061f4e08ce3a0f
   languageName: node
   linkType: hard
 
@@ -18378,7 +18406,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^8.2.0, inquirer@npm:^8.2.4, inquirer@npm:^8.2.5":
+"inquirer@npm:^8.2.0, inquirer@npm:^8.2.4, inquirer@npm:^8.2.5, inquirer@npm:^8.2.6":
   version: 8.2.6
   resolution: "inquirer@npm:8.2.6"
   dependencies:

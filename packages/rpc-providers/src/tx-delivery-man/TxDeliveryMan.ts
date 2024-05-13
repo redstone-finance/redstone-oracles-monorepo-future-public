@@ -30,6 +30,7 @@ export class TxDeliveryMan {
     this.providers = extractProviders(provider);
   }
 
+  /** All values of txDeliveryCall has to be hex values */
   async deliver(txDeliveryCall: TxDeliveryCall): Promise<TransactionResponse> {
     const deliveryPromises = [];
 

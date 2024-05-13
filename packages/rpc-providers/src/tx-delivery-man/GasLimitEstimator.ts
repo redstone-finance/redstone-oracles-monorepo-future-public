@@ -1,5 +1,6 @@
+import { TransactionRequest } from "@ethersproject/providers";
 import { RedstoneCommon } from "@redstone-finance/utils";
-import { BigNumber, providers } from "ethers";
+import { BigNumber, PopulatedTransaction, providers } from "ethers";
 import { TxDeliveryOptsValidated } from "./TxDelivery";
 
 export type GasEstimateTx = {
@@ -42,3 +43,11 @@ export class GasLimitEstimator {
     return Math.round(gasLimit * this.opts.gasLimitMultiplier ** attempt);
   }
 }
+
+export const makeGasEstimateTx = (
+  transactionRequest: TransactionRequest | PopulatedTransaction
+): GasEstimateTx => ({
+  from: transactionRequest.from as string,
+  to: transactionRequest.to as string,
+  data: transactionRequest.data as string,
+});
