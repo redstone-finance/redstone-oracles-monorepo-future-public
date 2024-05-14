@@ -285,6 +285,15 @@ export const ChainConfigs = {
     isAuctionModel: true,
     twoDimensionalFees: false,
   },
+  "canto-testnet": {
+    name: "Canto Testnet",
+    chainId: 7701,
+    publicRpcUrls: ["https://canto-testnet.plexnode.wtf"],
+    avgBlockTimeMs: 6_000,
+    multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
+  },
   hubble: {
     name: "Hubble",
     chainId: 1992,
