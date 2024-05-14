@@ -16,7 +16,7 @@ export type RedstoneLogger = Consola | Console;
 export const loggerFactory = (moduleName: string): RedstoneLogger => {
   if (isNodeRuntime()) {
     const enableJsonLogs = getFromEnv(
-      "ENABLE_JSON_LOGS",
+      "REDSTONE_FINANCE_ENABLE_JSON_LOGS",
       z.boolean().default(DEFAULT_ENABLE_JSON_LOGS)
     );
     const mainReporter = enableJsonLogs
@@ -36,7 +36,7 @@ export const loggerFactory = (moduleName: string): RedstoneLogger => {
 
 export const getLogLevel = () => {
   return getFromEnv(
-    "LOG_LEVEL",
+    "REDSTONE_FINANCE_LOG_LEVEL",
     z.nativeEnum(LogLevel).default(DEFAULT_LOG_LEVEL)
   );
 };

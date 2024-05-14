@@ -1,4 +1,4 @@
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import chai from "chai";
 import { ethers } from "ethers";
 import { describe, test } from "mocha";
@@ -12,6 +12,7 @@ export const RETRY_CONFIG = {
   },
   disableLog: true,
 };
+const logger = loggerFactory("chain-config/rpc-urls");
 
 describe("Validate chain config rpc urls", function () {
   for (const [name, config] of Object.entries(ChainConfigs)) {
@@ -29,6 +30,7 @@ describe("Validate chain config rpc urls", function () {
           fn: async () => (await provider.getNetwork()).chainId,
           fnName: "provider.getNetwork()",
           ...RETRY_CONFIG,
+          logger: logger.log,
         })();
 
         chai.expect(chainId, `Wrong chainId`).to.eq(config.chainId);

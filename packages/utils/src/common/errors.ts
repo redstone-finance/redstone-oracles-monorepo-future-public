@@ -2,8 +2,6 @@ import axios, { AxiosError } from "axios";
 import { LogLevel } from "consola";
 import { getLogLevel, loggerFactory } from "../logger";
 
-const logger = loggerFactory("utils/errors");
-
 export function assert(value: unknown, errMsg: string): asserts value {
   if (!value) {
     throw new Error(`Assertion failed: ${errMsg}`);
@@ -18,6 +16,8 @@ export function assertThenReturn<T>(value: T | undefined, errMsg: string): T {
 }
 
 export const assertWithLog = (condition: boolean, errMsg: string) => {
+  const logger = loggerFactory("utils/errors");
+
   if (!condition) {
     logger.error(`Assertion failed: ${errMsg}`);
   }

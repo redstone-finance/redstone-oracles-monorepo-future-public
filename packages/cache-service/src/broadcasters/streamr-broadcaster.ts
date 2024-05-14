@@ -126,6 +126,7 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
       backOff: {
         backOffBase: 2,
       },
+      logger: this.logger.log.bind(this),
     })();
 
     this.logger.log(`Stream created: ${streamId}`);
@@ -141,6 +142,7 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
       backOff: {
         backOffBase: 2,
       },
+      logger: this.logger.log.bind(this),
     })();
 
     this.logger.log(
