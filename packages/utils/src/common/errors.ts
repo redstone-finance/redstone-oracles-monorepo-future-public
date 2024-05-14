@@ -67,3 +67,26 @@ export function stringifyError(e: unknown): string {
     )}`;
   }
 }
+
+export function simplifyErrorMessage(error: unknown) {
+  if (error instanceof AggregateError) {
+    const errorMessages: Set<string> = new Set();
+    for (const err of error.errors) {
+      const errorString = String(err);
+
+      const startIndex =
+        errorString.indexOf("Original error: AggregateError: , errors:") +
+        "Original error: AggregateError: , errors:".length;
+      const endIndex = errorString.indexOf("\n", startIndex);
+
+      const shortenedError = errorString.substring(startIndex, endIndex).trim();
+
+      if (!errorMessages.has(shortenedError)) {
+        errorMessages.add(shortenedError);
+      }
+    }
+    return Array.from(errorMessages).join("\n");
+  } else {
+    return stringifyError(error);
+  }
+}
