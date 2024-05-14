@@ -66,6 +66,6 @@ const getBlockNumberWithRetries = (provider: Provider): Promise<number> =>
   RedstoneCommon.retry({
     waitBetweenMs: 50,
     maxRetries: 5,
-    disableLog: true,
     fn: () => provider.getBlockNumber(),
+    logger: logger.log,
   })();
