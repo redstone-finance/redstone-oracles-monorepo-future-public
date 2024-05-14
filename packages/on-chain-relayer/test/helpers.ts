@@ -124,6 +124,32 @@ export const getDataPackagesResponse = async (
   return signedDataPackages;
 };
 
+export const getMultiPointDataPackagesResponse = async (
+  dataPackageId: string,
+  dataPoints: INumericDataPoint[] = DEFAULT_DATA_POINTS
+) => {
+  const timestampMilliseconds = (await time.latest()) * 1000;
+
+  const signedDataPackages: DataPackagesResponse = {};
+
+  for (const mockWallet of mockWallets) {
+    const mockDataPackage = {
+      signer: mockWallet.address,
+      dataPackage: new DataPackage(
+        dataPoints.map((dp) => new NumericDataPoint(dp)),
+        timestampMilliseconds
+      ),
+    };
+    const privateKey = mockWallet.privateKey;
+    const signedDataPackage = mockDataPackage.dataPackage.sign(privateKey);
+    if (!signedDataPackages[dataPackageId]) {
+      signedDataPackages[dataPackageId] = [];
+    }
+    signedDataPackages[dataPackageId]!.push(signedDataPackage);
+  }
+  return signedDataPackages;
+};
+
 export const deployMockSortedOracles = async (
   signer?: Signer
 ): Promise<MockSortedOracles> => {

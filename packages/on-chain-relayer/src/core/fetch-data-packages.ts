@@ -19,12 +19,13 @@ export async function fetchDataPackages(
   uniqueSignersThreshold: number,
   isHistorical: boolean = false
 ) {
-  const { dataServiceId, dataFeeds, cacheServiceUrls } = config;
+  const { dataServiceId, dataFeeds, dataPackagesNames, cacheServiceUrls } =
+    config;
 
   const requestParams: DataPackagesRequestParams = {
     dataServiceId,
     uniqueSignersCount: uniqueSignersThreshold,
-    dataFeeds,
+    dataFeeds: dataPackagesNames ?? dataFeeds,
     urls: cacheServiceUrls,
     maxTimestampDeviationMS: RedstoneCommon.minToMs(3),
     authorizedSigners: getSignersForDataServiceId(
