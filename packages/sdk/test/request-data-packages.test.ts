@@ -392,8 +392,10 @@ describe("request-data-packages", () => {
 
     it("two gateways respond immediately with successes one fails immediately", async () => {
       const axiosGetSpy = jest.spyOn(axios, "get");
-      axiosGetSpy.mockResolvedValue(SAMPLE_RESPONSE);
-      axiosGetSpy.mockRejectedValueOnce(new Error("gw error"));
+      axiosGetSpy
+        .mockRejectedValueOnce(new Error("gw error"))
+        .mockResolvedValueOnce(SAMPLE_RESPONSE)
+        .mockResolvedValueOnce(SAMPLE_RESPONSE);
 
       const start = performance.now();
       await requestDataPackages({
@@ -409,10 +411,12 @@ describe("request-data-packages", () => {
 
     it("two gateways respond immediately one timeouts", async () => {
       const axiosGetSpy = jest.spyOn(axios, "get");
-      axiosGetSpy.mockResolvedValue(SAMPLE_RESPONSE);
-      axiosGetSpy.mockImplementationOnce(
-        () => new Promise((_, reject) => setTimeout(reject, 20_000))
-      );
+      axiosGetSpy
+        .mockImplementationOnce(
+          () => new Promise((_, reject) => setTimeout(reject, 20_000))
+        )
+        .mockImplementationOnce(() => Promise.resolve(SAMPLE_RESPONSE))
+        .mockImplementationOnce(() => Promise.resolve(SAMPLE_RESPONSE));
 
       const start = performance.now();
       void jest.advanceTimersByTimeAsync(650);
@@ -429,10 +433,14 @@ describe("request-data-packages", () => {
 
     it("two gateways timeouts one respond", async () => {
       const axiosGetSpy = jest.spyOn(axios, "get");
-      axiosGetSpy.mockResolvedValueOnce(SAMPLE_RESPONSE);
-      axiosGetSpy.mockImplementation(
-        () => new Promise((_, reject) => setTimeout(reject, 20_000))
-      );
+      axiosGetSpy
+        .mockResolvedValueOnce(SAMPLE_RESPONSE)
+        .mockImplementationOnce(
+          () => new Promise((_, reject) => setTimeout(reject, 20_000))
+        )
+        .mockImplementationOnce(
+          () => new Promise((_, reject) => setTimeout(reject, 20_000))
+        );
 
       const start = performance.now();
       void jest.advanceTimersByTimeAsync(650);
@@ -470,21 +478,28 @@ describe("request-data-packages", () => {
       expect(timePassed).toBe(20_000);
     });
 
-    it("two gateways timeout last respond after ", async () => {
+    it("two gateways timeout last respond after wait for all gateways", async () => {
       const axiosGetSpy = jest.spyOn(axios, "get");
 
-      axiosGetSpy.mockImplementation(
-        () =>
-          new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("timeout")), 20_000)
-          )
-      );
-      axiosGetSpy.mockImplementationOnce(
-        () =>
-          new Promise((resolve, _) =>
-            setTimeout(() => resolve(SAMPLE_RESPONSE), 20_000)
-          )
-      );
+      axiosGetSpy
+        .mockImplementationOnce(
+          () =>
+            new Promise((resolve, _) =>
+              setTimeout(() => resolve(SAMPLE_RESPONSE), 20_000)
+            )
+        )
+        .mockImplementationOnce(
+          () =>
+            new Promise((_, reject) =>
+              setTimeout(() => reject(new Error("timeout")), 20_000)
+            )
+        )
+        .mockImplementationOnce(
+          () =>
+            new Promise((_, reject) =>
+              setTimeout(() => reject(new Error("timeout")), 20_000)
+            )
+        );
 
       const start = performance.now();
       void jest.advanceTimersByTimeAsync(21_000);
