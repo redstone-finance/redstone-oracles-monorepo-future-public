@@ -4,7 +4,7 @@
     "outDir": "dist",
     "downlevelIteration": true
   },
-  "include": ["**/*", "**/.json"],
+  "include": ["**/*", "**/*.json"],
   "references": [
     {
       "path": "../on-chain-relayer/tsconfig.build.json"

@@ -20,6 +20,7 @@
     "global:ts-node": "cd $INIT_CWD && ts-node",
     "global:tsc": "cd $INIT_CWD && tsc",
     "global:lambda-build": "cd $INIT_CWD && tsc --build tsconfig.build.json && esbuild $INDEX_PATH --bundle --minify --sourcemap --platform=node --target=es2022 --outfile=lambda-dist/index.js",
+    "global:lambda-build-dev": "cd $INIT_CWD && tsc --build tsconfig.json",
     "global:lambda-zip": "cd $INIT_CWD && cd lambda-dist && zip -r build.zip index.js*",
     "global:lambda-pushToBucket": "cd $INIT_CWD && aws s3api put-object --bucket $BUCKET_NAME --key $PACKAGE_NAME.$(git log -1 --format=%h --abbrev=8).zip --body ./lambda-dist/build.zip  && echo \"S3 object: $PACKAGE_NAME.$(git log -1 --format=%h --abbrev=8).zip\"",
     "global:lambda-pushDevIreland": "cd $INIT_CWD && BUCKET_NAME=redstone-lambdas-eu-west-1 yarn global:lambda-pushToBucket",
