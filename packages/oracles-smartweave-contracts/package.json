@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && yarn global:tsc && node ./scripts/build.js",
+    "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json && node ./scripts/build.js",
+    "build-dev": "rm -rf dist && yarn global:tsc --build tsconfig.json && node ./scripts/build.js",
     "test": "yarn build && NODE_ENV=test yarn global:jest",
     "preversion": "yarn build",
     "lint": "yarn global:eslint ."

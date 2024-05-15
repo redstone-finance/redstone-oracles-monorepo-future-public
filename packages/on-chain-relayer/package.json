@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && yarn compile && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "rm -rf dist && yarn compile && yarn global:tsc --build tsconfig.json",
     "bundle": "ENTRYPOINT=src/run-relayer.ts yarn global:rollup -c ../../rollup.config.mjs",
     "start": "node dist/src/run-relayer.js",
     "start:dev": "yarn global:ts-node src/run-relayer.ts",

@@ -1,11 +1,10 @@
 import "@nomiclabs/hardhat-ethers";
-import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import { HardhatUserConfig } from "hardhat/config";
 
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
+// import order matters here, having this upper in import list breaks type HardhatUserConfig somehow
+import "@nomiclabs/hardhat-waffle";
 
 const config: HardhatUserConfig = {
   solidity: {
