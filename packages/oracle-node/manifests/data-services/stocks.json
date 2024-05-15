@@ -94,26 +94,25 @@
         "alphavantage-usd",
         "twelve-data",
         "ecb",
-        "kraken",
-        "bitfinex2",
+        "kraken-usd",
         "financialmodelingprep-usd"
       ]
     },
     "AUD": {
-      "source": ["ecb", "twelve-data", "kraken"]
+      "source": ["ecb", "twelve-data", "kraken-usd"]
     },
     "CHF": {
       "source": ["twelve-data"]
     },
     "EUR": {
       "source": [
-        "binance",
+        "binance-usdt",
         "bitstamp-api",
         "coinbase-api",
         "ecb",
         "kaiko",
         "kaiko-v2",
-        "kraken",
+        "kraken-usd",
         "kucoin-api",
         "twelve-data"
       ]
@@ -272,75 +271,74 @@
     "USDT": {
       "source": [
         "bitfinex2",
-        "bitstamp",
+        "bitstamp-usd",
         "coinbasepro",
         "coingecko",
         "kaiko",
-        "kaiko-v2",
-        "kraken"
+        "kaiko-v2"
       ]
     },
     "USDC": {
       "source": [
-        "binance",
-        "binanceusdm",
+        "binance-usdt",
+        "binanceusdm-usdt",
         "bitfinex2",
-        "bitget",
+        "bitget-usdt",
         "bitmart",
-        "bitrue",
-        "bitstamp",
+        "bitrue-usdt",
+        "bitstamp-usd",
         "coingecko",
         "curve-dai",
         "curve-usdt",
-        "gate",
+        "gate-usdt",
         "kaiko",
         "kaiko-v2",
         "kraken",
-        "kucoin",
-        "lbank",
+        "kucoin-usdt",
+        "lbank-usdt",
         "maverick",
-        "mexc",
-        "okx",
+        "mexc-usdt",
+        "okx-usdt",
         "uniswap-v3-ethereum-on-chain-dai-100"
       ]
     },
     "DAI": {
       "source": [
-        "bitget",
+        "bitget-usdt",
         "bitmart",
-        "bitrue",
+        "bitrue-usdt",
         "coinbasepro",
         "coingecko",
         "curve-usdt",
-        "kraken",
-        "mexc",
-        "okx",
+        "kraken-usd",
+        "mexc-usdt",
+        "okx-usdt",
         "xt"
       ]
     },
     "ETH": {
       "source": [
         "band",
-        "binance",
-        "binancecoinm",
-        "binanceusdm",
+        "binance-usdt",
+        "binancecoinm-usd",
+        "binanceusdm-usdt",
         "bitfinex2",
-        "bitget",
+        "bitget-usdt",
         "bitmart",
-        "bingx",
-        "bitrue",
-        "bitstamp",
+        "bingx-usdt",
+        "bitrue-usdt",
+        "bitstamp-usd",
         "coinbasepro",
         "coingecko",
         "dia",
-        "gate",
+        "gate-usdt",
         "kaiko",
         "kaiko-v2",
         "kraken",
-        "kucoin",
-        "lbank",
-        "mexc",
-        "okx",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "mexc-usdt",
+        "okx-usdt",
         "xt"
       ]
     }
