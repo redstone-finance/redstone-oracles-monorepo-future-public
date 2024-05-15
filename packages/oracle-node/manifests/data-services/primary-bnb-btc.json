@@ -51,8 +51,7 @@
         "coingecko",
         "coinmarketcap",
         "kaiko",
-        "kaiko-v2",
-        "kraken-eur"
+        "kaiko-v2"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
