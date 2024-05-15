@@ -1096,6 +1096,25 @@
       ]
     }
   },
+  "SolvBTC": {
+    "source": ["merlinswap-merlin-btc"],
+    "valueCapConfig": {
+      "upper": {
+        "token": "BTC"
+      }
+    }
+  },
+  "SolvBTC/BTC": {
+    "source": ["non-usd-based"],
+    "valueCapConfig": {
+      "upper": {
+        "value": 1
+      }
+    }
+  },
+  "SolvBTC/BTC-TWAP-60": {
+    "source": ["twap-local-redstone-primary-prod"]
+  },
   "multiPointPackages": {
     "__SWELL__": ["SWETH", "SWETH/ETH"],
     "__LAYER_BANK__": [
