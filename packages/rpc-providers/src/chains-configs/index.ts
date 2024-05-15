@@ -387,4 +387,13 @@ export const ChainConfigs = {
     isAuctionModel: false,
     twoDimensionalFees: false,
   },
+  merlin: {
+    name: "Merlin Mainnet",
+    chainId: 4200,
+    publicRpcUrls: ["https://merlin.blockpi.network/v1/rpc/public"],
+    avgBlockTimeMs: 2_650,
+    multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
+  },
 };
