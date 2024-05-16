@@ -67,6 +67,15 @@
         }
       }
     },
+    "sUSDe": {
+      "source": ["ethereum-evm-fetcher"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
     "USDC.e": {
       "source": [
         "uniswap-v3-arbitrum-on-chain-weth-500",
@@ -291,7 +300,8 @@
         "maverick",
         "uniswap-v3-arbitrum-on-chain-weth-100",
         "uniswap-v3-ethereum-on-chain-weth-100",
-        "uniswap-v3-optimism-on-chain-weth-100"
+        "uniswap-v3-optimism-on-chain-weth-100",
+        "uniswap-v3-ethereum-on-chain-susde-10000"
       ]
     },
     "AVAX": {
@@ -684,6 +694,7 @@
       "UNI",
       "USDC",
       "USDC.e",
+      "sUSDe",
       "USDT",
       "USDe",
       "WOO",
