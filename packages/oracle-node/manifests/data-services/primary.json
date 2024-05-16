@@ -938,6 +938,9 @@
     "sfrxETH": {
       "source": ["ethereum-evm-fetcher"]
     },
+    "sfrxETH/ETH": {
+      "source": ["non-usd-based"]
+    },
     "rsETH": {
       "source": [
         "balancer-ethereum-ethx",
