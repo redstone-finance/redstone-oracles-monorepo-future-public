@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/rpc-providers",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@influxdata/influxdb-client": "^1.33.2",
-    "@redstone-finance/evm-multicall": "^0.4.0",
-    "@redstone-finance/utils": "^0.4.0",
+    "@redstone-finance/evm-multicall": "^0.5.1",
+    "@redstone-finance/utils": "^0.5.1",
     "axios": "^1.6.2",
     "ethers": "^5.7.2",
     "lodash": "^4.17.21"
