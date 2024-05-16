@@ -50,6 +50,7 @@ const expectedSavedDataPackages = [
     dataServiceId: MOCK_DATA_SERVICE_ID,
     isSignatureValid: true,
     dataFeedId: consts.ALL_FEEDS_KEY,
+    dataPackageId: consts.ALL_FEEDS_KEY,
   },
 ];
 

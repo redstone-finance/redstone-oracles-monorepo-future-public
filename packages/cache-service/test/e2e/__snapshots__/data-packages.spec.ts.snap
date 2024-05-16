@@ -4,6 +4,7 @@ exports[`Data packages (e2e) /data-packages/historical/mock-data-service-1 (GET)
 [
   {
     "dataFeedId": "___ALL_FEEDS___",
+    "dataPackageId": "___ALL_FEEDS___",
     "dataPoints": [
       {
         "dataFeedId": "XD",
@@ -34,6 +35,7 @@ exports[`Data packages (e2e) /data-packages/historical/mock-data-service-1 (GET)
   },
   {
     "dataFeedId": "___ALL_FEEDS___",
+    "dataPackageId": "___ALL_FEEDS___",
     "dataPoints": [
       {
         "dataFeedId": "XD",
@@ -64,6 +66,7 @@ exports[`Data packages (e2e) /data-packages/historical/mock-data-service-1 (GET)
   },
   {
     "dataFeedId": "___ALL_FEEDS___",
+    "dataPackageId": "___ALL_FEEDS___",
     "dataPoints": [
       {
         "dataFeedId": "XD",
@@ -94,6 +97,7 @@ exports[`Data packages (e2e) /data-packages/historical/mock-data-service-1 (GET)
   },
   {
     "dataFeedId": "___ALL_FEEDS___",
+    "dataPackageId": "___ALL_FEEDS___",
     "dataPoints": [
       {
         "dataFeedId": "XD",
@@ -124,6 +128,7 @@ exports[`Data packages (e2e) /data-packages/historical/mock-data-service-1 (GET)
   },
   {
     "dataFeedId": "___ALL_FEEDS___",
+    "dataPackageId": "___ALL_FEEDS___",
     "dataPoints": [
       {
         "dataFeedId": "XD",

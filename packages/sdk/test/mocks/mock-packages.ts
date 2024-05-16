@@ -1,4 +1,9 @@
-const signedDataPackagesObjects = [
+import type { SignedDataPackagePlainObj } from "@redstone-finance/protocol";
+
+const signedDataPackagesObjects: (SignedDataPackagePlainObj & {
+  dataServiceId: string;
+  signerAddress: string;
+})[] = [
   {
     dataPoints: [
       { dataFeedId: "ETH", value: 1000 },
@@ -9,7 +14,7 @@ const signedDataPackagesObjects = [
       "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
     dataServiceId: "service-1",
     dataFeedId: "ETH",
-    sources: null,
+    dataPackageId: "ETH",
     signerAddress: "0x1",
   },
   {
@@ -22,7 +27,7 @@ const signedDataPackagesObjects = [
       "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
     dataServiceId: "service-1",
     dataFeedId: "ETH",
-    sources: null,
+    dataPackageId: "ETH",
     signerAddress: "0x2",
   },
   {
@@ -35,7 +40,7 @@ const signedDataPackagesObjects = [
       "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
     dataServiceId: "service-1",
     dataFeedId: "ETH",
-    sources: null,
+    dataPackageId: "ETH",
     signerAddress: "0x2",
   },
   {
@@ -48,7 +53,7 @@ const signedDataPackagesObjects = [
       "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
     dataServiceId: "service-1",
     dataFeedId: "ETH",
-    sources: null,
+    dataPackageId: "ETH",
     signerAddress: "0x2",
   },
 ];

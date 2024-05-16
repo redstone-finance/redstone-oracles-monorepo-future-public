@@ -132,6 +132,7 @@ export class DataPackagesService {
             dataPoints: { $first: "$dataPoints" },
             dataServiceId: { $first: "$dataServiceId" },
             dataFeedId: { $first: "$dataFeedId" },
+            dataPackageId: { $first: "$dataPackageId" },
             isSignatureValid: { $first: "$isSignatureValid" },
           },
         },
@@ -151,15 +152,14 @@ export class DataPackagesService {
     for (const dataPackage of groupedDataPackages) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { _id, ...rest } = dataPackage;
-      const dataFeedId = _id.dataFeedId;
-      if (!fetchedPackagesPerDataFeed[dataFeedId]) {
-        fetchedPackagesPerDataFeed[dataFeedId] = [];
+      const dataPackageId = _id.dataFeedId;
+      if (!fetchedPackagesPerDataFeed[dataPackageId]) {
+        fetchedPackagesPerDataFeed[dataPackageId] = [];
       }
 
-      fetchedPackagesPerDataFeed[dataFeedId]!.push({
+      fetchedPackagesPerDataFeed[dataPackageId]!.push({
         ...rest,
         timestampMilliseconds: rest.timestampMilliseconds.getTime(),
-        dataFeedId,
         signerAddress: _id.signerAddress,
       });
     }
@@ -201,6 +201,7 @@ export class DataPackagesService {
             signatures: { $push: "$signature" },
             dataPoints: { $push: "$dataPoints" },
             dataFeedIds: { $push: "$dataFeedId" },
+            dataPackageIds: { $push: "$dataPackageId" },
             signerAddress: { $push: "$signerAddress" },
             isSignatureValid: { $push: "$isSignatureValid" },
           },
@@ -233,7 +234,7 @@ export class DataPackagesService {
         dataServiceId,
         i
       );
-      const dataFeedId = candidatePackage.dataFeedId!;
+      const dataPackageId = candidatePackage.dataFeedId!;
       DataPackagesService.updateBigPackageInResponseIfBetter(
         fetchedPackagesPerDataFeed,
         candidatePackage
@@ -241,26 +242,26 @@ export class DataPackagesService {
       if (
         DataPackagesService.isSignerAddressAlreadyInDbResponseForDataFeed(
           candidatePackage.signerAddress,
-          fetchedPackagesPerDataFeed[dataFeedId]
+          fetchedPackagesPerDataFeed[dataPackageId]
         )
       ) {
         continue;
       }
 
-      if (!fetchedPackagesPerDataFeed[dataFeedId]) {
-        fetchedPackagesPerDataFeed[dataFeedId] = [];
+      if (!fetchedPackagesPerDataFeed[dataPackageId]) {
+        fetchedPackagesPerDataFeed[dataPackageId] = [];
       }
 
-      fetchedPackagesPerDataFeed[dataFeedId]!.push(candidatePackage);
+      fetchedPackagesPerDataFeed[dataPackageId]!.push(candidatePackage);
     }
 
     return fetchedPackagesPerDataFeed;
   }
 
-  static updateBigPackageInResponseIfBetter = (
+  static updateBigPackageInResponseIfBetter(
     fetchedPackagesResponse: DataPackagesResponse,
     candidatePackage: CachedDataPackage
-  ) => {
+  ) {
     if (candidatePackage.dataFeedId !== consts.ALL_FEEDS_KEY) {
       return;
     }
@@ -277,14 +278,15 @@ export class DataPackagesService {
         }
       }
     }
-  };
+  }
 
-  static createCachedDataPackage = (
+  static createCachedDataPackage(
     aggregate: DataPackageDocumentAggregated,
     dataServiceId: string,
     i: number
-  ): CachedDataPackage => {
+  ): CachedDataPackage {
     const dataFeedId = aggregate.dataFeedIds[i];
+    const dataPackageId = aggregate.dataPackageIds[i];
     const signerAddress = aggregate.signerAddress[i];
     const dataPoints = aggregate.dataPoints[i];
     const signature = aggregate.signatures[i];
@@ -297,9 +299,10 @@ export class DataPackagesService {
       dataPoints,
       dataServiceId,
       dataFeedId,
+      dataPackageId,
       signerAddress,
     };
-  };
+  }
 
   // Filtering unique signers addresses
   static isSignerAddressAlreadyInDbResponseForDataFeed(
@@ -402,14 +405,16 @@ export class DataPackagesService {
       signerAddress,
       isSignatureValid,
     };
-    if (receivedDataPackage.dataFeedId) {
-      cachedDataPackage.dataFeedId = receivedDataPackage.dataFeedId;
+    if (receivedDataPackage.dataFeedId || receivedDataPackage.dataPackageId) {
+      cachedDataPackage.dataFeedId =
+        receivedDataPackage.dataPackageId ?? receivedDataPackage.dataFeedId;
     } else if (receivedDataPackage.dataPoints.length === 1) {
       cachedDataPackage.dataFeedId =
         receivedDataPackage.dataPoints[0].dataFeedId;
     } else {
       cachedDataPackage.dataFeedId = consts.ALL_FEEDS_KEY;
     }
+    cachedDataPackage.dataPackageId = cachedDataPackage.dataFeedId;
     return cachedDataPackage;
   }
 

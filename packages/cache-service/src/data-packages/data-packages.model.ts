@@ -15,6 +15,7 @@ export type DataPackageDocumentMostRecentAggregated = {
   dataPoints: DataPointPlainObj[];
   dataServiceId: string;
   dataFeedId: string;
+  dataPackageId: string;
   isSignatureValid: boolean;
 };
 
@@ -24,6 +25,7 @@ export type DataPackageDocumentAggregated = {
   signatures: string[];
   dataPoints: DataPointPlainObj[][];
   dataFeedIds: string[];
+  dataPackageIds: string[];
   signerAddress: string[];
   isSignatureValid: boolean[];
 };
@@ -60,8 +62,8 @@ export class CachedDataPackage {
   @Prop({ required: false })
   dataFeedId?: string;
 
-  @Prop({ type: Types.Mixed, required: false })
-  sources?: object;
+  @Prop({ required: false })
+  dataPackageId?: string;
 }
 
 export const DataPackageSchema =
@@ -71,6 +73,7 @@ export const DataPackageSchema =
 DataPackageSchema.index({
   dataServiceId: 1,
   dataFeedId: 1,
+  dataPackageId: 1,
   signerAddress: 1,
   timestampMilliseconds: -1,
 });

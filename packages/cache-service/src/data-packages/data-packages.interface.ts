@@ -31,6 +31,9 @@ export class ReceivedDataPackage implements SignedDataPackagePlainObj {
   sources?: Record<string, string | number>;
 
   @IsOptional()
+  dataPackageId?: string;
+
+  @IsOptional()
   dataFeedId?: string;
 }
 
@@ -77,7 +80,7 @@ export class GetDataPackagesStatsQuery {
 }
 
 export interface DataPackagesResponse {
-  [dataFeedId: string]: CachedDataPackage[] | undefined;
+  [dataPackageId: string]: CachedDataPackage[] | undefined;
 }
 
 export interface DataPackagesStatsResponse {
