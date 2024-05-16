@@ -1443,6 +1443,28 @@
         "twelve-data"
       ]
     },
+    "KES": {
+      "source": ["alphavantage-usd", "twelve-data", "financialmodelingprep-usd"]
+    },
+    "PHP": {
+      "source": [
+        "alphavantage-usd",
+        "twelve-data",
+        "ecb",
+        "financialmodelingprep-usd"
+      ]
+    },
+    "COP": {
+      "source": ["alphavantage-usd", "twelve-data", "financialmodelingprep-usd"]
+    },
+    "INR": {
+      "source": [
+        "alphavantage-usd",
+        "twelve-data",
+        "ecb",
+        "financialmodelingprep-usd"
+      ]
+    },
     "JPY": {
       "source": ["twelve-data"]
     },
@@ -1581,9 +1603,6 @@
       "source": ["twelve-data"]
     },
     "ARS": {
-      "source": ["twelve-data"]
-    },
-    "COP": {
       "source": ["twelve-data"]
     },
     "BBBY": {

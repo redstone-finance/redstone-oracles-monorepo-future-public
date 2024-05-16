@@ -140,7 +140,7 @@
       ]
     },
     "COP": {
-      "source": ["twelve-data"]
+      "source": ["alphavantage-usd", "twelve-data", "financialmodelingprep-usd"]
     },
     "BBBY": {
       "source": ["twelve-data"]

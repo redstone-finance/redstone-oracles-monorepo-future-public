@@ -1117,6 +1117,28 @@
     },
     "SolvBTC/BTC-TWAP-60": {
       "source": ["twap-local-redstone-primary-prod"]
+    },
+    "KES": {
+      "source": ["alphavantage-usd", "twelve-data", "financialmodelingprep-usd"]
+    },
+    "PHP": {
+      "source": [
+        "alphavantage-usd",
+        "twelve-data",
+        "ecb",
+        "financialmodelingprep-usd"
+      ]
+    },
+    "COP": {
+      "source": ["alphavantage-usd", "twelve-data", "financialmodelingprep-usd"]
+    },
+    "INR": {
+      "source": [
+        "alphavantage-usd",
+        "twelve-data",
+        "ecb",
+        "financialmodelingprep-usd"
+      ]
     }
   },
   "multiPointPackages": {
