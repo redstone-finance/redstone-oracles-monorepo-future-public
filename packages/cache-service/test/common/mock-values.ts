@@ -55,23 +55,31 @@ export const MOCK_SIGNATURE =
 
 export const produceMockDataPackage = (
   dataPoints: DataPoint[],
+  dataPackageName: string,
   timestamp = 1654353400000,
   privateKey = MOCK_PRIVATE_KEY
 ) => {
-  const dataPackage = new DataPackage(dataPoints, timestamp).sign(privateKey);
+  const dataPackage = new DataPackage(
+    dataPoints,
+    timestamp,
+    dataPackageName
+  ).sign(privateKey);
 
   return dataPackage.toObj();
 };
 
 export const getMockDataPackages = () => [
-  produceMockDataPackage([
-    new NumericDataPoint({ dataFeedId: "mock-data-feed-id-1", value: 42 }),
-    new NumericDataPoint({ dataFeedId: "mock-data-feed-id-2", value: 123 }),
-    new DataPoint("XD", utils.convertNumberToBytes(1.2, 8, 32), {
-      type: "HEX_BIG_INT",
-      sources: { exchange_1: "1.19", exchange_2: "1.20", exchange_3: "1.21" },
-    }),
-  ]),
+  produceMockDataPackage(
+    [
+      new NumericDataPoint({ dataFeedId: "mock-data-feed-id-1", value: 42 }),
+      new NumericDataPoint({ dataFeedId: "mock-data-feed-id-2", value: 123 }),
+      new DataPoint("XD", utils.convertNumberToBytes(1.2, 8, 32), {
+        type: "HEX_BIG_INT",
+        sources: { exchange_1: "1.19", exchange_2: "1.20", exchange_3: "1.21" },
+      }),
+    ],
+    "___ALL_FEEDS___"
+  ),
 ];
 
 export const mockDataPackagesForUniqueSigners = [

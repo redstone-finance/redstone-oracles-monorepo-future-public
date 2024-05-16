@@ -55,6 +55,7 @@ const getExpectedDataPackagesInDB = (
     dataServiceId: MOCK_DATA_SERVICE_ID,
     isSignatureValid: true,
     dataFeedId: ALL_FEEDS_KEY,
+    dataPackageId: ALL_FEEDS_KEY,
   }));
 
 const mockSigners = [MOCK_SIGNER_ADDRESS, "0x2", "0x3", "0x4", "0x5"];
@@ -97,6 +98,7 @@ describe("Data packages (e2e)", () => {
               timestampMilliseconds,
               isSignatureValid: true,
               dataFeedId,
+              dataPackageId: dataFeedId,
               dataServiceId,
               signerAddress,
             });
@@ -115,10 +117,13 @@ describe("Data packages (e2e)", () => {
 
   it("/data-packages/bulk (POST) - should accept data packages where prices are strings", async () => {
     const dataPackagesToSent = [
-      produceMockDataPackage([
-        new DataPoint("BTC", Buffer.from("3000", "utf-8")),
-        new DataPoint("ETH", Buffer.from("1000", "utf-8")),
-      ]),
+      produceMockDataPackage(
+        [
+          new DataPoint("BTC", Buffer.from("3000", "utf-8")),
+          new DataPoint("ETH", Buffer.from("1000", "utf-8")),
+        ],
+        "___ALL_FEEDS___"
+      ),
     ];
     const requestSignature = signByMockSigner(dataPackagesToSent);
 

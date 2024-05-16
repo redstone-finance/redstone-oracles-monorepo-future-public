@@ -55,7 +55,8 @@ const GwResponseSchema = z.record(
         .min(1),
       timestampMilliseconds: z.number(),
       signature: z.string(),
-      dataFeedId: z.string(),
+      dataFeedId: z.string().optional(),
+      dataPackageId: z.string().optional(),
     })
   )
 );
@@ -267,6 +268,7 @@ function sendRequestToGateway(
     timeout: GET_REQUEST_TIMEOUT,
     params: {
       dataFeedIds: reqParams.dataFeeds,
+      dataPackagesIds: reqParams.dataFeeds,
       minimalSignersCount: reqParams.uniqueSignersCount,
     },
     paramsSerializer: { indexes: null },
