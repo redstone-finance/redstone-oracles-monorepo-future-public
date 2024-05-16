@@ -392,7 +392,7 @@ export const ChainConfigs = {
     chainId: 4200,
     publicRpcUrls: ["https://rpc.merlinchain.io"],
     avgBlockTimeMs: 2_650,
-    multicall3: STANDARD_MULTICALL3,
+    multicall3: REDSTONE_MULTICALL3,
     isAuctionModel: false,
     twoDimensionalFees: false,
   },
