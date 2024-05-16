@@ -41,6 +41,15 @@
         }
       }
     },
+    "sUSDe": {
+      "source": ["ethereum-evm-fetcher"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
     "USDT": {
       "source": [
         "bitfinex2",
@@ -152,7 +161,8 @@
         "maverick",
         "uniswap-v3-arbitrum-on-chain-weth-100",
         "uniswap-v3-ethereum-on-chain-weth-100",
-        "uniswap-v3-optimism-on-chain-weth-100"
+        "uniswap-v3-optimism-on-chain-weth-100",
+        "uniswap-v3-ethereum-on-chain-susde-10000"
       ]
     },
     "SWETH": {

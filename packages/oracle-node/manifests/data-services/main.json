@@ -615,7 +615,8 @@
         "maverick",
         "uniswap-v3-arbitrum-on-chain-weth-100",
         "uniswap-v3-ethereum-on-chain-weth-100",
-        "uniswap-v3-optimism-on-chain-weth-100"
+        "uniswap-v3-optimism-on-chain-weth-100",
+        "uniswap-v3-ethereum-on-chain-susde-10000"
       ]
     },
     "wstETH/ETH": {
