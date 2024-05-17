@@ -33,7 +33,7 @@
     "@redstone-finance/protocol": "^0.5.1",
     "@redstone-finance/sdk": "^0.5.1",
     "@redstone-finance/utils": "^0.5.1",
-    "arweave": "^1.12.2",
+    "arweave": "^1.14.4",
     "cache-manager": "^5.1.4",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
