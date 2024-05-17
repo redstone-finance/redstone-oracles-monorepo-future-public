@@ -19,7 +19,7 @@ export interface DataPackagesRequestParams {
   waitForAllGatewaysTimeMs?: number;
   maxTimestampDeviationMS?: number;
   authorizedSigners?: string[];
-  dataFeeds: string[];
+  dataPackagesIds: string[];
   urls?: string[];
   historicalTimestamp?: number;
 }
@@ -94,7 +94,7 @@ export const calculateHistoricalPackagesTimestamp = (
 export const requestDataPackages = async (
   reqParams: DataPackagesRequestParams
 ): Promise<DataPackagesResponse> => {
-  if (reqParams.dataFeeds.length < 1) {
+  if (reqParams.dataPackagesIds.length < 1) {
     throw new Error("Please provide at least one dataFeed");
   }
   try {
@@ -178,11 +178,10 @@ const prepareDataPackagePromises = (
     pathComponents.push(`${reqParams.historicalTimestamp}`);
   }
 
-  return urls.map((url) =>
-    sendRequestToGateway(url, pathComponents, reqParams).then((response) =>
-      parseAndValidateDataPackagesResponse(response.data, reqParams)
-    )
-  );
+  return urls.map(async (url) => {
+    const response = await sendRequestToGateway(url, pathComponents, reqParams);
+    return parseAndValidateDataPackagesResponse(response.data, reqParams);
+  });
 };
 
 const parseAndValidateDataPackagesResponse = (
@@ -193,7 +192,7 @@ const parseAndValidateDataPackagesResponse = (
 
   RedstoneCommon.zodAssert<GwResponse>(GwResponseSchema, responseData);
 
-  const requestedDataFeedIds = reqParams.dataFeeds;
+  const requestedDataFeedIds = reqParams.dataPackagesIds;
 
   for (const dataFeedId of requestedDataFeedIds) {
     let dataFeedPackages = responseData[dataFeedId];
@@ -267,8 +266,8 @@ function sendRequestToGateway(
   return axios.get<Record<string, SignedDataPackagePlainObj[]>>(sanitizedUrl, {
     timeout: GET_REQUEST_TIMEOUT,
     params: {
-      dataFeedIds: reqParams.dataFeeds,
-      dataPackagesIds: reqParams.dataFeeds,
+      dataFeedIds: reqParams.dataPackagesIds,
+      dataPackagesIds: reqParams.dataPackagesIds,
       minimalSignersCount: reqParams.uniqueSignersCount,
     },
     paramsSerializer: { indexes: null },

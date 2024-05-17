@@ -25,11 +25,11 @@ dynamicDescribe("verify prices test", function () {
   const bytes32Symbols = Object.keys(pricesToVerify).map(formatBytes32String);
   const expectedPrices = Object.values(pricesToVerify);
 
-  const testShouldPass = async (dataFeedIds: string[]) => {
+  const testShouldPass = async (dataPackagesIds: string[]) => {
     const wrappedContract = WrapperBuilder.wrap(contract).usingDataService({
       dataServiceId: "mock-data-service",
       uniqueSignersCount: 1,
-      dataFeeds: dataFeedIds,
+      dataPackagesIds,
       urls: getCacheServiceUrls(),
     });
     const oracleValues =

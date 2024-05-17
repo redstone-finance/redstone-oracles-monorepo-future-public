@@ -21,7 +21,7 @@ export class ContractParamsProvider {
   }
 
   getDataFeedIds(): string[] {
-    return this.requestParams.dataFeeds;
+    return this.requestParams.dataPackagesIds;
   }
 
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this

@@ -11,7 +11,7 @@ async function main(config: StarknetConfig) {
   const paramsProvider = new ContractParamsProvider({
     dataServiceId: "redstone-avalanche-prod",
     uniqueSignersCount: 1,
-    dataFeeds: ["ETH", "BTC"],
+    dataPackagesIds: ["ETH", "BTC"],
   });
   const account = getAccount(config);
   const pricesConnector = new PriceAdapterStarknetContractConnector(

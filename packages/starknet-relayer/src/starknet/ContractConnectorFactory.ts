@@ -26,7 +26,7 @@ export class ContractConnectorFactory {
       new ContractParamsProvider({
         dataServiceId: DATA_SERVICE_ID,
         uniqueSignersCount: UNIQUE_SIGNER_COUNT,
-        dataFeeds: DATA_FEEDS,
+        dataPackagesIds: DATA_FEEDS,
       }),
       config.maxEthFee
     );

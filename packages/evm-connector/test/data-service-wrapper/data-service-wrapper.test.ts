@@ -38,7 +38,7 @@ const runTest = async (
   const wrappedContract = WrapperBuilder.wrap(contract).usingDataService({
     dataServiceId,
     uniqueSignersCount,
-    dataFeeds: ["ETH", "BTC"],
+    dataPackagesIds: ["ETH", "BTC"],
     urls,
   });
 
@@ -123,7 +123,7 @@ describe("DataServiceWrapper", () => {
       const wrapper = new DataServiceWrapper({
         dataServiceId: "mock-data-service-tests",
         uniqueSignersCount: 10,
-        dataFeeds: ["ETH", "BTC"],
+        dataPackagesIds: ["ETH", "BTC"],
         urls: ["http://valid-cache.com"],
       });
       const payload = await wrapper.getRedstonePayloadForManualUsage(contract);
@@ -172,7 +172,7 @@ describe("DataServiceWrapper", () => {
 
     it("Should work with manual payload without passed params", async () => {
       const wrapper = new DataServiceWrapper({
-        dataFeeds: ["ETH", "BTC"],
+        dataPackagesIds: ["ETH", "BTC"],
       });
       const payload = await wrapper.getRedstonePayloadForManualUsage(contract);
       await runTestWithManualPayload(contract, payload);

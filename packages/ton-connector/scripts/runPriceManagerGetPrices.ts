@@ -14,7 +14,7 @@ export async function run(provider: NetworkProvider) {
   const paramsProvider = new ContractParamsProvider({
     dataServiceId: "redstone-rapid-demo",
     uniqueSignersCount: 1,
-    dataFeeds: ["BTC", "ETH", "BNB", "AR", "AVAX", "CELO"],
+    dataPackagesIds: ["BTC", "ETH", "BNB", "AR", "AVAX", "CELO"],
   });
 
   console.log(await contract.getPricesFromPayload(paramsProvider));

@@ -61,7 +61,10 @@ describe.skip("E2E tests", () => {
     );
     const values =
       await pricesRelayAdapter.getPricesFromPayload(paramsProvider);
-    verifyReturnedValues(values, paramsProvider.requestParams.dataFeeds.length);
+    verifyReturnedValues(
+      values,
+      paramsProvider.requestParams.dataPackagesIds.length
+    );
   });
 
   it("PriceRelayAdapter.writePricesFromPayload should write prices that can be read", async () => {
@@ -97,7 +100,7 @@ describe.skip("E2E tests", () => {
 
     verifyReturnedValues(
       values,
-      paramsProvider.requestParams.dataFeeds.length,
+      paramsProvider.requestParams.dataPackagesIds.length,
       timestamp
     );
 

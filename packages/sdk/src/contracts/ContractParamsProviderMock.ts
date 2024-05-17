@@ -11,7 +11,11 @@ export class ContractParamsProviderMock extends ContractParamsProvider {
     private filePath: string,
     private fileReader: (filePath: string) => Buffer
   ) {
-    super({ uniqueSignersCount: 0, dataServiceId: "", dataFeeds });
+    super({
+      uniqueSignersCount: 0,
+      dataServiceId: "",
+      dataPackagesIds: dataFeeds,
+    });
   }
 
   protected override requestPayload(

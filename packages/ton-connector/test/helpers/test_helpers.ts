@@ -48,7 +48,7 @@ export function getContractParamsProvider(
   return new ContractParamsProvider({
     dataServiceId: "redstone-avalanche-prod",
     uniqueSignersCount: 4,
-    dataFeeds,
+    dataPackagesIds: dataFeeds,
   });
 }
 

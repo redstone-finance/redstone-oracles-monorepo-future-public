@@ -17,7 +17,7 @@ export function makeContractParamsProvider(
   return new ContractParamsProvider({
     dataServiceId: DATA_SERVICE_ID,
     uniqueSignersCount: uniqueSignerCount,
-    dataFeeds: dataFeeds,
+    dataPackagesIds: dataFeeds,
   });
 }
 
