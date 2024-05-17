@@ -1161,6 +1161,7 @@
     "pxETH": {
       "source": [
         "balancer-ethereum-frxeth",
+        "balancer-ethereum-weth",
         "curve-steth-pxeth-multi-block",
         "uniswap-v3-ethereum-on-chain-weth-100-multi-block"
       ]
