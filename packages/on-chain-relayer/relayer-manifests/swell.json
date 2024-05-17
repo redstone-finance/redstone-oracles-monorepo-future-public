@@ -13,5 +13,5 @@
     "SWETH": "0x0704eEc81ea7CF98Aa4A400c65DC4ED5933bddf7",
     "SWETH/ETH": "0x061bB36F8b67bB922937C102092498dcF4619F86"
   },
-  "packages": ["__SWELL__"]
+  "dataPacakgesNames": ["__SWELL__"]
 }

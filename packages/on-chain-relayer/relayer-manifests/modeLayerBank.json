@@ -20,5 +20,5 @@
     "rsETH": "__NO_FEED__",
     "weETH_FUNDAMENTAL": "__NO_FEED__"
   },
-  "packages": ["__LAYER_BANK__"]
+  "dataPacakgesNames": ["__LAYER_BANK__"]
 }
