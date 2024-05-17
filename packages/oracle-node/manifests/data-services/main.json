@@ -1388,7 +1388,7 @@
         "xt"
       ]
     },
-    "SolvBTC": {
+    "SolvBTC_MERLIN": {
       "source": ["merlinswap-merlin-btc"],
       "valueCapConfig": {
         "upper": {
@@ -1396,7 +1396,7 @@
         }
       }
     },
-    "SolvBTC/BTC": {
+    "SolvBTC_MERLIN/BTC": {
       "source": ["non-usd-based"],
       "valueCapConfig": {
         "upper": {
@@ -1404,7 +1404,7 @@
         }
       }
     },
-    "SolvBTC/BTC-TWAP-60": {
+    "SolvBTC_MERLIN/BTC-TWAP-60": {
       "source": ["twap-local-redstone-main-demo"]
     },
     "ARDRIVE": {
