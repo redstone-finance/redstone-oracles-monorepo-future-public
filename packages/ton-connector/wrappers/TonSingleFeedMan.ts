@@ -27,7 +27,7 @@ export class TonSingleFeedMan extends TonContract {
 
     return await this.internalMessage(
       provider,
-      paramsProvider.requestParams.dataFeeds.length *
+      paramsProvider.requestParams.dataPackagesIds.length *
         paramsProvider.requestParams.uniqueSignersCount *
         0.05,
       body

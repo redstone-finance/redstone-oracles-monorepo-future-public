@@ -18,7 +18,7 @@ describe("Integrated and initialized prices contract", () => {
     const paramsProvider = new ContractParamsProvider({
       dataServiceId: "redstone-avalanche-prod",
       uniqueSignersCount: 2,
-      dataFeeds: ["ETH", "BTC"],
+      dataPackagesIds: ["ETH", "BTC"],
     });
 
     await adapter.writePricesFromPayloadToContract(paramsProvider);

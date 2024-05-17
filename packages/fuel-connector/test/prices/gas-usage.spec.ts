@@ -51,7 +51,7 @@ describe("Gas Usage of integrated and initialized prices contract", () => {
     const paramsProvider = new ContractParamsProvider({
       dataServiceId: "redstone-avalanche-prod",
       uniqueSignersCount: uniqueSignerCount,
-      dataFeeds: dataFeeds,
+      dataPackagesIds: dataFeeds,
     });
 
     let gasUsage = await adapter.getPricesFromPayload(paramsProvider);

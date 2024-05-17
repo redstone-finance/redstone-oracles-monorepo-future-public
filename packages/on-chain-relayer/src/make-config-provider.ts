@@ -40,6 +40,7 @@ export const makeConfigProvider = (
     adapterContractAddress: manifest.adapterContract,
     dataServiceId: manifest.dataServiceId,
     dataFeeds: Object.keys(manifest.priceFeeds),
+    dataPackagesNames: manifest.dataPacakgesNames,
     updateConditions,
     minDeviationPercentage: deviationPercentage,
     priceFeedsDeviationOverrides: priceFeedsDeviationOverrides,

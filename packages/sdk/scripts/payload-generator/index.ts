@@ -8,7 +8,7 @@ const scriptArgs = process.argv.slice(2);
 
 requestRedstonePayload(
   {
-    dataFeeds: DATA_FEEDS,
+    dataPackagesIds: DATA_FEEDS,
     dataServiceId: DATA_SERVICE_ID,
     uniqueSignersCount: UNIQUE_SIGNER_COUNT,
   },

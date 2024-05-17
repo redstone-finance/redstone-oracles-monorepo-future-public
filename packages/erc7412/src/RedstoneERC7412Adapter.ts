@@ -31,7 +31,7 @@ export class RedstoneAdapter implements Adapter {
       ) as [string, number, string];
 
     const dataPackages = await requestDataPackages({
-      dataFeeds: [bytes32ToString(feedId)],
+      dataPackagesIds: [bytes32ToString(feedId)],
       dataServiceId,
       uniqueSignersCount,
       maxTimestampDeviationMS: MAX_TIMESTAMP_DEVIATION,
