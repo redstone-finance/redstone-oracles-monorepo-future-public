@@ -413,6 +413,7 @@
     "pxETH": {
       "source": [
         "balancer-ethereum-frxeth",
+        "balancer-ethereum-weth",
         "curve-steth-pxeth-multi-block",
         "curve-frxeth",
         "curve-weth",
