@@ -234,7 +234,7 @@ export class DataPackagesService {
         dataServiceId,
         i
       );
-      const dataPackageId = candidatePackage.dataFeedId!;
+      const dataPackageId = candidatePackage.dataPackageId!;
       DataPackagesService.updateBigPackageInResponseIfBetter(
         fetchedPackagesPerDataFeed,
         candidatePackage
@@ -324,7 +324,7 @@ export class DataPackagesService {
 
     if (toTimestamp - fromTimestamp > 7_200_000) {
       throw new BadRequestException(
-        "Too big search period. Can not be bigger than 7_200_000"
+        "Too big search period. Can not be bigger than 7_200_000 ms"
       );
     }
 
@@ -406,15 +406,15 @@ export class DataPackagesService {
       isSignatureValid,
     };
     if (receivedDataPackage.dataFeedId || receivedDataPackage.dataPackageId) {
-      cachedDataPackage.dataFeedId =
+      cachedDataPackage.dataPackageId =
         receivedDataPackage.dataPackageId ?? receivedDataPackage.dataFeedId;
     } else if (receivedDataPackage.dataPoints.length === 1) {
-      cachedDataPackage.dataFeedId =
+      cachedDataPackage.dataPackageId =
         receivedDataPackage.dataPoints[0].dataFeedId;
     } else {
-      cachedDataPackage.dataFeedId = consts.ALL_FEEDS_KEY;
+      cachedDataPackage.dataPackageId = consts.ALL_FEEDS_KEY;
     }
-    cachedDataPackage.dataPackageId = cachedDataPackage.dataFeedId;
+    cachedDataPackage.dataFeedId = cachedDataPackage.dataPackageId;
     return cachedDataPackage;
   }
 

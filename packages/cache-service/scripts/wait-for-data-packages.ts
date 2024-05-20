@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 import config from "../src/config";
 import { DataPackage } from "../src/data-packages/data-packages.model";
 
-// USAGE: yarn run-ts scripts/wait-for-data-packages.ts <expected-count> <data-feed-id>
+// USAGE: yarn run-ts scripts/wait-for-data-packages.ts <expected-count> <data-package-id>
 
 // Note! This script is used only in monorepo integration tests
 
 const INTERVAL_MILLISECONDS = 5000; // 5 seconds
-const DATA_FEED_ID = process.argv[3] || consts.ALL_FEEDS_KEY;
+const DATA_PACKAGE_ID = process.argv[3] || consts.ALL_FEEDS_KEY;
 const EXPECTED_COUNT = parseInt(process.argv[2]);
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -25,7 +25,7 @@ async function main() {
 }
 
 async function checkDataPackagesCount() {
-  const dataPackagesCount = await queryDataPackages(DATA_FEED_ID);
+  const dataPackagesCount = await queryDataPackages(DATA_PACKAGE_ID);
   console.log(`Fetched data packages count: ${dataPackagesCount}`);
   if (dataPackagesCount >= EXPECTED_COUNT) {
     console.log(
@@ -35,7 +35,7 @@ async function checkDataPackagesCount() {
   }
 }
 
-async function queryDataPackages(dataFeedId: string) {
-  const dataPackages = await DataPackage.find({ dataFeedId });
+async function queryDataPackages(dataPackageId: string) {
+  const dataPackages = await DataPackage.find({ dataPackageId });
   return dataPackages.length;
 }

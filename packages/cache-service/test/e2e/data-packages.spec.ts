@@ -44,7 +44,7 @@ jest.mock("@redstone-finance/sdk", () => ({
 }));
 
 const ALL_FEEDS_KEY = consts.ALL_FEEDS_KEY;
-const dataFeedIds = [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"];
+const dataPackagesIds = [ALL_FEEDS_KEY, "ETH", "AAVE", "BTC"];
 
 const getExpectedDataPackagesInDB = (
   dataPackages: SignedDataPackagePlainObj[]
@@ -91,14 +91,14 @@ describe("Data packages (e2e)", () => {
         mockDataPackage.timestampMilliseconds - 1000,
         mockDataPackage.timestampMilliseconds,
       ]) {
-        for (const dataFeedId of dataFeedIds) {
+        for (const dataPackageId of dataPackagesIds) {
           for (const signerAddress of mockSigners) {
             dataPackagesToInsert.push({
               ...mockDataPackage,
               timestampMilliseconds,
               isSignatureValid: true,
-              dataFeedId,
-              dataPackageId: dataFeedId,
+              dataFeedId: dataPackageId,
+              dataPackageId,
               dataServiceId,
               signerAddress,
             });
@@ -133,7 +133,7 @@ describe("Data packages (e2e)", () => {
       .expect(201);
 
     const dataPackagesInDB = await DataPackage.find().sort({
-      dataFeedId: 1,
+      dataPackageId: 1,
     });
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
       const { _id, __v, ...rest } = dp.toJSON() as any;
@@ -155,7 +155,7 @@ describe("Data packages (e2e)", () => {
       .expect(201);
 
     const dataPackagesInDB = await DataPackage.find().sort({
-      dataFeedId: 1,
+      dataPackageId: 1,
     });
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
       const { _id, __v, ...rest } = dp.toJSON() as any;
@@ -197,6 +197,7 @@ describe("Data packages (e2e)", () => {
         timestampMilliseconds: mockDataPackage.timestampMilliseconds - 1000,
         isSignatureValid: true,
         dataFeedId: "BTC",
+        dataPackageId: "BTC",
         dataServiceId: "mock-data-service-1",
         signerAddress: "0x1",
       },
@@ -220,6 +221,7 @@ describe("Data packages (e2e)", () => {
         timestampMilliseconds: mockDataPackage.timestampMilliseconds,
         isSignatureValid: true,
         dataFeedId: "BTC",
+        dataPackageId: "BTC",
         dataServiceId: "mock-data-service-1",
         signerAddress: "0x2",
       },
@@ -228,6 +230,7 @@ describe("Data packages (e2e)", () => {
         timestampMilliseconds: mockDataPackage.timestampMilliseconds,
         isSignatureValid: true,
         dataFeedId: "ETH",
+        dataPackageId: "ETH",
         dataServiceId: "mock-data-service-1",
         signerAddress: "0x2",
       },
@@ -236,6 +239,7 @@ describe("Data packages (e2e)", () => {
         timestampMilliseconds: mockDataPackage.timestampMilliseconds - 1000,
         isSignatureValid: true,
         dataFeedId: "BTC",
+        dataPackageId: "BTC",
         dataServiceId: "mock-data-service-1",
         signerAddress: "0x1",
       },
@@ -275,14 +279,14 @@ describe("Data packages (e2e)", () => {
 
   it("/data-packages/bulk (POST) - should fail for invalid signature", async () => {
     const initialDpCount = await DataPackage.countDocuments();
-    const requestSignature = signByMockSigner(mockDataPackages);
-    const newDataPackages = getMockDataPackages();
-    newDataPackages[0].dataPoints[0].value = 43;
+    const manipulatedDataPackages = getMockDataPackages();
+    const requestSignature = signByMockSigner(manipulatedDataPackages);
+    manipulatedDataPackages[0].dataPoints[0].value = 43;
     await request(httpServer)
       .post("/data-packages/bulk")
       .send({
         requestSignature,
-        mockDataPackages,
+        dataPackages: manipulatedDataPackages,
       })
       .expect(500);
 
@@ -296,11 +300,12 @@ describe("Data packages (e2e)", () => {
       .get("/data-packages/latest/mock-data-service-1")
       .expect(200);
 
-    for (const dataFeedId of dataFeedIds) {
-      expect(testResponse.body[dataFeedId].length).toBe(5);
+    for (const dataPackageId of dataPackagesIds) {
+      expect(testResponse.body[dataPackageId].length).toBe(5);
       const signers = [];
-      for (const dataPackage of testResponse.body[dataFeedId]) {
-        expect(dataPackage).toHaveProperty("dataFeedId", dataFeedId);
+      for (const dataPackage of testResponse.body[dataPackageId]) {
+        expect(dataPackage).toHaveProperty("dataFeedId", dataPackageId);
+        expect(dataPackage).toHaveProperty("dataPackageId", dataPackageId);
         expect(dataPackage).toHaveProperty("signature", MOCK_SIGNATURE);
         signers.push(dataPackage.signerAddress);
       }
@@ -318,8 +323,8 @@ describe("Data packages (e2e)", () => {
       )
       .expect(200);
 
-    for (const dataFeedId of dataFeedIds) {
-      expect(testResponse.body[dataFeedId][0].timestampMilliseconds).toBe(
+    for (const dataPackageId of dataPackagesIds) {
+      expect(testResponse.body[dataPackageId][0].timestampMilliseconds).toBe(
         historicalTimestamp
       );
     }
@@ -350,6 +355,7 @@ describe("Data packages (e2e)", () => {
         timestampMilliseconds: Date.now(),
         isSignatureValid: true,
         dataFeedId: "BTC",
+        dataPackageId: "BTC",
         dataServiceId: "mock-data-service-1",
         signerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       },
@@ -358,6 +364,7 @@ describe("Data packages (e2e)", () => {
         timestampMilliseconds: Date.now(),
         isSignatureValid: true,
         dataFeedId: "BTC",
+        dataPackageId: "BTC",
         dataServiceId: "mock-data-service-1",
         signerAddress: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
       },
