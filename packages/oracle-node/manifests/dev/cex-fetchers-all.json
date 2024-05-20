@@ -1510,9 +1510,6 @@
     "U": {
       "source": ["mexc-usdt", "bitrue-usdt", "permaswap"]
     },
-    "STAMP": {
-      "source": ["permaswap"]
-    },
     "ACNH": {
       "source": ["permaswap"]
     },
