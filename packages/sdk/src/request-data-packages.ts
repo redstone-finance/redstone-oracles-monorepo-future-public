@@ -6,6 +6,7 @@ import {
 import { MathUtils, RedstoneCommon, SafeNumber } from "@redstone-finance/utils";
 import axios from "axios";
 import { BigNumber } from "ethers";
+import _ from "lodash";
 import { z } from "zod";
 import { resolveDataServiceUrls } from "./data-services-urls";
 
@@ -241,15 +242,27 @@ const parseAndValidateDataPackagesResponse = (
   return parsedResponse;
 };
 
+const getAllValues = (dataPackages: SignedDataPackagePlainObj[]) => {
+  const allValues: Partial<Record<string, number[]>> = {};
+  for (const dataPackage of dataPackages) {
+    for (const dataPoint of dataPackage.dataPoints) {
+      if (!allValues[dataPoint.dataFeedId]) {
+        allValues[dataPoint.dataFeedId] = [];
+      }
+      allValues[dataPoint.dataFeedId]!.push(Number(dataPoint.value));
+    }
+  }
+  return allValues;
+};
+
 const pickDataFeedPackagesClosestToMedian = (
   dataFeedPackages: SignedDataPackagePlainObj[],
   count: number
 ): SignedDataPackage[] => {
-  const median = MathUtils.getMedian(
-    dataFeedPackages.map((dp) => dp.dataPoints[0].value)
-  );
+  const allValues = getAllValues(dataFeedPackages) as Record<string, number[]>;
+  const allMedians = _.mapValues(allValues, MathUtils.getMedian);
 
-  return sortByDistanceFromMedian(dataFeedPackages, median)
+  return sortByDistanceFromMedian(dataFeedPackages, allMedians)
     .map((diff) => SignedDataPackage.fromObj(diff.dp))
     .slice(0, count);
 };
@@ -282,18 +295,33 @@ function maybeGetSigner(dp: SignedDataPackagePlainObj) {
   }
 }
 
+const getMaxDistanceFromMedian = (
+  dataPackage: SignedDataPackagePlainObj,
+  medians: Record<string, number>
+) => {
+  let maxDistanceFromMedian = 0;
+  for (const dataPoint of dataPackage.dataPoints) {
+    maxDistanceFromMedian = Math.max(
+      maxDistanceFromMedian,
+      SafeNumber.createSafeNumber(dataPoint.value)
+        .sub(medians[dataPoint.dataFeedId])
+        .abs()
+        .unsafeToNumber()
+    );
+  }
+  return maxDistanceFromMedian;
+};
+
 function sortByDistanceFromMedian(
   dataFeedPackages: SignedDataPackagePlainObj[],
-  median: number
+  medians: Record<string, number>
 ) {
   return dataFeedPackages
     .map((dp) => ({
       dp: dp,
-      diff: SafeNumber.createSafeNumber(dp.dataPoints[0].value)
-        .sub(median)
-        .abs(),
+      diff: getMaxDistanceFromMedian(dp, medians),
     }))
-    .sort((first, second) => first.diff.sub(second.diff).unsafeToNumber());
+    .sort((first, second) => first.diff - second.diff);
 }
 
 const getUrlsForDataServiceId = (
