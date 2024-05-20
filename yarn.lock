@@ -7400,8 +7400,10 @@ __metadata:
     "@redstone-finance/oracles-smartweave-contracts": "npm:^0.5.1"
     "@redstone-finance/protocol": "npm:^0.5.1"
     "@redstone-finance/utils": "npm:^0.5.1"
+    "@types/lodash": "npm:^4.14.195"
     axios: "npm:^1.6.2"
     ethers: "npm:^5.7.2"
+    lodash: "npm:^4.17.21"
     msw: "npm:^1.2.3"
   languageName: unknown
   linkType: soft
