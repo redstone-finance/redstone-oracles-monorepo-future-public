@@ -6,6 +6,7 @@ import arbitrumPremia from "./arbitrumPremia.json";
 import arbitrumSusdeRateProvider from "./arbitrumSusdeRateProvider.json";
 import arbitrumWeetheth from "./arbitrumWeetheth.json";
 import arbitrumWeethfundamental from "./arbitrumWeethfundamental.json";
+import arbitrumXvs from "./arbitrumXvs.json";
 import b2MultiPriceFeed from "./b2MultiPriceFeed.json";
 import blastBtc from "./blastBtc.json";
 import blastEth from "./blastEth.json";
@@ -85,6 +86,7 @@ export default {
   arbitrumSusdeRateProvider,
   arbitrumWeetheth,
   arbitrumWeethfundamental,
+  arbitrumXvs,
   b2MultiPriceFeed,
   bnbBnb,
   bnbBtc,
