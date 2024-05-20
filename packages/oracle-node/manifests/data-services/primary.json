@@ -252,8 +252,7 @@
         "balancer-ethereum-usdt",
         "coingecko",
         "coinmarketcap",
-        "curve-usde",
-        "maverick"
+        "curve-usde"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {

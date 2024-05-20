@@ -704,8 +704,7 @@
         "balancer-ethereum-usdc",
         "balancer-ethereum-usdt",
         "coingecko",
-        "curve-usde",
-        "maverick"
+        "curve-usde"
       ]
     },
     "USDC.USDT": {
