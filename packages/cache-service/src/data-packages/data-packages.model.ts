@@ -59,6 +59,9 @@ export class CachedDataPackage {
   @Prop({ required: true })
   signerAddress!: string;
 
+  /**
+   * @deprecated use {@link CachedDataPackage#dataPackageId} instead
+   */
   @Prop({ required: false })
   dataFeedId?: string;
 
