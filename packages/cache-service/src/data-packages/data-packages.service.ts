@@ -235,7 +235,7 @@ export class DataPackagesService {
         i
       );
       const dataPackageId = candidatePackage.dataPackageId!;
-      DataPackagesService.updateBigPackageInResponseIfBetter(
+      DataPackagesService.updateMediumPackageInResponseIfBetter(
         fetchedPackagesPerDataFeed,
         candidatePackage
       );
@@ -258,23 +258,25 @@ export class DataPackagesService {
     return fetchedPackagesPerDataFeed;
   }
 
-  static updateBigPackageInResponseIfBetter(
+  static updateMediumPackageInResponseIfBetter(
     fetchedPackagesResponse: DataPackagesResponse,
     candidatePackage: CachedDataPackage
   ) {
-    if (candidatePackage.dataFeedId !== consts.ALL_FEEDS_KEY) {
+    if (candidatePackage.dataPoints.length === 1) {
       return;
     }
-    const bigPackages = fetchedPackagesResponse[candidatePackage.dataFeedId];
-    if (!bigPackages) {
+    const mediumPackages =
+      fetchedPackagesResponse[candidatePackage.dataPackageId!];
+    if (!mediumPackages) {
       return;
     }
-    for (let i = 0; i < bigPackages.length; ++i) {
-      if (bigPackages[i].signerAddress === candidatePackage.signerAddress) {
+    for (let i = 0; i < mediumPackages.length; ++i) {
+      if (mediumPackages[i].signerAddress === candidatePackage.signerAddress) {
         if (
-          bigPackages[i].dataPoints.length < candidatePackage.dataPoints.length
+          mediumPackages[i].dataPoints.length <
+          candidatePackage.dataPoints.length
         ) {
-          bigPackages[i] = candidatePackage;
+          mediumPackages[i] = candidatePackage;
         }
       }
     }
