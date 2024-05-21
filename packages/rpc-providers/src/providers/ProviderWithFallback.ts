@@ -185,7 +185,7 @@ export class ProviderWithFallback
     try {
       const providerName = this.extractProviderName(this.providerIndex);
       logger.debug(
-        `Executing ${fnName} with ${args.toString()} on provider: ${providerName} (retry #${alreadyRetriedCount})`
+        `Executing ${fnName} with ${JSON.stringify(args)} on provider: ${providerName} (retry #${alreadyRetriedCount})`
       );
 
       return await RedstoneCommon.timeout(
