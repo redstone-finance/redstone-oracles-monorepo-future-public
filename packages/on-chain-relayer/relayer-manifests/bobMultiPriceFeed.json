@@ -5,7 +5,7 @@
   },
   "updateTriggers": {
     "deviationPercentage": 0.5,
-    "timeSinceLastUpdateInMilliseconds": 86400000,
+    "timeSinceLastUpdateInMilliseconds": 3600000,
     "priceFeedsDeviationOverrides": {
       "USDT": 0.2,
       "USDC": 0.2
