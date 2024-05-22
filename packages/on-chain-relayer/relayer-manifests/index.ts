@@ -36,6 +36,7 @@ import ethereumEzetheth from "./ethereumEzetheth.json";
 import ethereumPufetheth from "./ethereumPufetheth.json";
 import ethereumRsetheth from "./ethereumRsetheth.json";
 import ethereumRswetheth from "./ethereumRswetheth.json";
+import ethereumSfrxetheth from "./ethereumSfrxetheth.json";
 import ethereumStakewiseOsetheth from "./ethereumStakewiseOsetheth.json";
 import ethereumUsdeSusde from "./ethereumUsdeSusde.json";
 import etherlinkGhostnetTezosXtzEthBtc from "./etherlinkGhostnetTezosXtzEthBtc.json";
@@ -117,6 +118,7 @@ export default {
   ethereumRsetheth,
   ethereumRswetheth,
   ethereumStakewiseOsetheth,
+  ethereumSfrxetheth,
   ethereumUsdeSusde,
   etherlinkGhostnetTezosXtzEthBtc,
   fraxtalPackage,
