@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["curve-crvfrax"],
+  "defaultSource": ["curve-ethereum-crvfrax"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {

@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["curve-3crv"],
+  "defaultSource": ["curve-ethereum-3crv"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
