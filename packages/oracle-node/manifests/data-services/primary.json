@@ -12,7 +12,7 @@
   },
   "tokens": {
     "VST": {
-      "source": ["curve-frax-vst-multi-block"]
+      "source": ["curve-arbitrumone-frax-multi-block"]
     },
     "USDC": {
       "source": [
@@ -25,8 +25,8 @@
         "bitstamp-usd",
         "coingecko",
         "coinmarketcap",
-        "curve-dai",
-        "curve-usdt",
+        "curve-ethereum-dai",
+        "curve-ethereum-usdt",
         "gate-usdt",
         "kaiko",
         "kaiko-v2",
@@ -112,7 +112,7 @@
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
-        "curve-usdt",
+        "curve-ethereum-usdt",
         "kraken-usd",
         "mexc-usdt",
         "okx-usdt",
@@ -142,8 +142,8 @@
     },
     "FRAX": {
       "source": [
-        "curve-3crv",
-        "curve-usdc-frax-multi-block",
+        "curve-ethereum-3crv",
+        "curve-ethereum-usdc-multi-block",
         "fraxswap-on-chain-fxs",
         "fraxswap-on-chain-weth",
         "uniswap-v3-ethereum-on-chain-fxs-10000",
@@ -187,8 +187,9 @@
         "bingx",
         "bitget-usdt",
         "coinmarketcap",
-        "curve-eth",
-        "curve-weth",
+        "curve-ethereum-eth",
+        "curve-ethereum-eth-2",
+        "curve-ethereum-weth",
         "okx-eth",
         "uniswap-v2-on-chain-weth"
       ]
@@ -201,7 +202,7 @@
         "balancer-arbitrumone-weth",
         "balancer-ethereum-aave",
         "balancer-ethereum-weth",
-        "curve-crvusd",
+        "curve-ethereum-crvusd",
         "maverick",
         "uniswap-v3-arbitrum-on-chain-weth-100",
         "uniswap-v3-ethereum-on-chain-weth-100",
@@ -234,7 +235,7 @@
     },
     "LUSD": {
       "source": [
-        "curve-3crv",
+        "curve-ethereum-3crv",
         "maverick",
         "uniswap-v3-ethereum-on-chain-usdc-500",
         "velodrome-on-chain-usdc"
@@ -252,7 +253,7 @@
         "balancer-ethereum-usdt",
         "coingecko",
         "coinmarketcap",
-        "curve-usde"
+        "curve-ethereum-usde"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -352,7 +353,7 @@
       ]
     },
     "ETHx": {
-      "source": ["curve-weth", "curve-wsteth"]
+      "source": ["curve-ethereum-eth", "curve-ethereum-wsteth"]
     },
     "ETHx/ETH": {
       "source": ["non-usd-based"]
@@ -373,7 +374,7 @@
     "weETH": {
       "source": [
         "balancer-ethereum-reth",
-        "curve-weth",
+        "curve-ethereum-weth",
         "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-wsteth-500"
       ]
@@ -391,7 +392,7 @@
         "balancer-ethereum-weth",
         "balancer-ethereum-wsteth",
         "balancer-ethereum-wsteth-2",
-        "curve-wsteth",
+        "curve-ethereum-wsteth",
         "pancake-swap-on-chain-weth-500"
       ]
     },
@@ -403,7 +404,7 @@
       "source": [
         "balancer-ethereum-weth",
         "uniswap-v3-ethereum-on-chain-usdc-500",
-        "curve-reth"
+        "curve-ethereum-reth"
       ]
     },
     "osETH/ETH": {
@@ -413,9 +414,9 @@
       "source": [
         "balancer-ethereum-frxeth",
         "balancer-ethereum-weth",
-        "curve-steth-pxeth-multi-block",
-        "curve-frxeth",
-        "curve-weth",
+        "curve-ethereum-steth-multi-block",
+        "curve-ethereum-frxeth",
+        "curve-ethereum-weth",
         "uniswap-v3-ethereum-on-chain-weth-100-multi-block",
         "pancake-swap-on-chain-weth-100"
       ]
@@ -560,7 +561,11 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "ALUSD": {
-      "source": ["curve-3crv", "curve-crvfrax", "velodrome-on-chain-usdc"],
+      "source": [
+        "curve-ethereum-3crv",
+        "curve-ethereum-crvfrax",
+        "velodrome-on-chain-usdc"
+      ],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -640,7 +645,7 @@
     },
     "agEUR": {
       "source": [
-        "curve-euroc",
+        "curve-ethereum-euroc",
         "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-usdc-3000"
       ],
@@ -801,7 +806,7 @@
       ]
     },
     "USDM": {
-      "source": ["curve-3crv", "curve-sdai"],
+      "source": ["curve-ethereum-3crv", "curve-ethereum-sdai"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -830,16 +835,21 @@
     },
     "frxETH": {
       "source": [
-        "curve-crvusd",
-        "curve-cvx",
-        "curve-eth",
-        "curve-steth",
-        "curve-weth",
+        "curve-ethereum-crvusd",
+        "curve-ethereum-cvx",
+        "curve-ethereum-eth",
+        "curve-ethereum-steth",
+        "curve-ethereum-weth",
         "uniswap-v3-ethereum-on-chain-frax-10000"
       ]
     },
     "eUSD": {
-      "source": ["aerodrome-usdc", "curve-crvfrax", "curve-eth+", "curve-rsr"],
+      "source": [
+        "aerodrome-usdc",
+        "curve-ethereum-crvfrax",
+        "curve-ethereum-eth+",
+        "curve-ethereum-rsr"
+      ],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -864,9 +874,9 @@
     },
     "ETH+": {
       "source": [
-        "curve-pxeth",
-        "curve-rsr",
-        "curve-weth",
+        "curve-ethereum-pxeth",
+        "curve-ethereum-rsr",
+        "curve-ethereum-weth",
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
@@ -946,7 +956,7 @@
       "source": [
         "balancer-ethereum-ethx",
         "balancer-ethereum-weth",
-        "curve-sfrxeth",
+        "curve-ethereum-sfrxeth",
         "uniswap-v3-ethereum-on-chain-weth-500"
       ]
     },
@@ -957,7 +967,7 @@
       "source": [
         "balancer-ethereum-weth",
         "balancer-ethereum-weeth",
-        "curve-weth",
+        "curve-ethereum-weth",
         "thruster-v3-weth-3000",
         "thruster-v3-weth-500",
         "uniswap-v3-ethereum-on-chain-weth-100"
@@ -971,19 +981,19 @@
     },
     "crvUSD": {
       "source": [
-        "curve-crv",
-        "curve-frax",
-        "curve-usdc",
-        "curve-usde",
-        "curve-usdt",
-        "curve-weth"
+        "curve-ethereum-crv",
+        "curve-ethereum-frax",
+        "curve-ethereum-usdc",
+        "curve-ethereum-usde",
+        "curve-ethereum-usdt",
+        "curve-ethereum-weth"
       ]
     },
     "USDe": {
       "source": [
-        "curve-dai",
-        "curve-frax",
-        "curve-usdc",
+        "curve-ethereum-dai",
+        "curve-ethereum-frax",
+        "curve-ethereum-usdc",
         "uniswap-v3-ethereum-on-chain-usdt-100"
       ],
       "deviationCheck": {
@@ -1030,7 +1040,7 @@
       "source": [
         "balancer-ethereum-ezeth",
         "balancer-ethereum-weeth",
-        "curve-weeth",
+        "curve-ethereum-weeth",
         "pancake-swap-on-chain-weth-500"
       ]
     },
@@ -1043,9 +1053,9 @@
     "pufETH": {
       "source": [
         "balancer-ethereum-wsteth",
-        "curve-weth",
-        "curve-wsteth",
-        "curve-wsteth-secondary",
+        "curve-ethereum-weth",
+        "curve-ethereum-wsteth",
+        "curve-ethereum-wsteth-2",
         "uniswap-v3-ethereum-on-chain-weth-3000"
       ]
     },

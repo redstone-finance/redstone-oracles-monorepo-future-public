@@ -117,7 +117,7 @@
         "bitmart-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
-        "curve-usdt",
+        "curve-ethereum-usdt",
         "gate-usdt",
         "kraken-usdt",
         "kucoin-usdt",
@@ -255,7 +255,7 @@
         "bitmart-usdt",
         "bitrue-usdt",
         "coinbasepro-usd",
-        "curve-usdt",
+        "curve-ethereum-usdt",
         "kraken-usdt",
         "mexc-usdt",
         "okx-usdt"
