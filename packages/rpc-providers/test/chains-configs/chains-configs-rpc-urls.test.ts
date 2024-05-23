@@ -22,7 +22,7 @@ describe("Validate chain config rpc urls", function () {
       }
 
       test(`Test '${name}' rpc url: ${rpcUrl}`, async () => {
-        if (process.env.RUN_RPC_URLS_TESTS !== "true") {
+        if (process.env.IS_CI !== "true") {
           this.ctx.skip();
         }
         const provider = new ethers.providers.JsonRpcProvider(rpcUrl);

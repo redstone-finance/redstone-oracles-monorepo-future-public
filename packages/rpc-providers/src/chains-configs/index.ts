@@ -276,15 +276,6 @@ export const ChainConfigs = {
     isAuctionModel: false,
     twoDimensionalFees: false,
   },
-  "blast-testnet": {
-    name: "Blast Testnet",
-    chainId: 23888,
-    publicRpcUrls: [],
-    avgBlockTimeMs: 2_000,
-    multicall3: STANDARD_MULTICALL3,
-    isAuctionModel: false,
-    twoDimensionalFees: false,
-  },
   "celo-baklava": {
     name: "Celo baklava",
     chainId: 62320,
@@ -307,6 +298,17 @@ export const ChainConfigs = {
     name: "Hubble",
     chainId: 1992,
     publicRpcUrls: ["https://rpc.hubble.exchange"],
+    avgBlockTimeMs: 1_500,
+    multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: false,
+    twoDimensionalFees: false,
+  },
+  "hubble-aylin-testnet": {
+    name: "Hubble Aylin Testnet",
+    chainId: 486,
+    publicRpcUrls: [
+      "https://aylin-rpc.hubble.exchange/ext/bc/2qR64ZGVHTJjTZTzEnQTDoD1oMVQMYFVaBtN5tDoYaDKfVY5Xz/rpc",
+    ],
     avgBlockTimeMs: 1_500,
     multicall3: STANDARD_MULTICALL3,
     isAuctionModel: false,
