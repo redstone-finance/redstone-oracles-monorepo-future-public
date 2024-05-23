@@ -23,6 +23,9 @@ const config: HardhatUserConfig = {
     avalanche: {
       url: "https://api.avax.network/ext/bc/C/rpc",
     },
+    merlin: {
+      url: "https://rpc.merlinchain.io",
+    },
   },
 };
 

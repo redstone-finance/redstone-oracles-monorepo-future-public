@@ -1,10 +1,14 @@
+import { getSSMParameterValue } from "@redstone-finance/lambda-common";
 import assert from "assert";
 import { ethers } from "ethers";
 import * as hre from "hardhat";
 
+const SSM_MULTICALL_PRIVATE_KEY_NAME =
+  "arn:aws:ssm:eu-west-1:272838863926:parameter/prod/multicall-deployer/private-key/good-one";
+
 async function deployRedstoneMulticall() {
-  const privKey = process.env["PRIVATE_KEY"];
-  assert.ok(privKey, "env PRIVATE_KEY has to be defined");
+  const privKey = await getSSMParameterValue(SSM_MULTICALL_PRIVATE_KEY_NAME);
+  assert.ok(privKey, "Failed to fetch SSM_MULTICALL_PRIVATE_KEY_NAME");
 
   const wallet = new ethers.Wallet(privKey).connect(hre.ethers.provider);
 
@@ -14,6 +18,7 @@ async function deployRedstoneMulticall() {
     wallet
   );
 
+  await deployed.deployTransaction.wait();
   console.log(`address=${deployed.address}`);
 
   console.log(`deploy_tx=${JSON.stringify(deployed.deployTransaction)}`);
