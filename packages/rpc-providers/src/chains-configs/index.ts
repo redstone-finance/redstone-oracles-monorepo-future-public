@@ -31,7 +31,7 @@ const STANDARD_MULTICALL3 = {
 } as const;
 
 const REDSTONE_MULTICALL3 = {
-  address: "0xC070fF3B13B5276D468591e0ef0e836D6c8dDDdc",
+  address: "0xad6cc5a465e5c8284a49ec9ed10efe275460678c",
   type: "RedstoneMulticall3",
   gasLimitPerCall: RedstoneCommon.getFromEnv(
     "GAS_LIMIT_PER_MULTICALL_CALL",
@@ -74,7 +74,7 @@ export const ChainConfigs = {
       "https://1rpc.io/arb",
     ],
     avgBlockTimeMs: 250,
-    multicall3: STANDARD_MULTICALL3,
+    multicall3: REDSTONE_MULTICALL3,
     isAuctionModel: false,
     twoDimensionalFees: true,
   },
