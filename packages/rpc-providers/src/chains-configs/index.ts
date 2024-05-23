@@ -281,7 +281,7 @@ export const ChainConfigs = {
     chainId: 62320,
     publicRpcUrls: ["https://baklava-forno.celo-testnet.org"],
     avgBlockTimeMs: 5_000,
-    multicall3: STANDARD_MULTICALL3,
+    multicall3: REDSTONE_MULTICALL3,
     isAuctionModel: true,
     twoDimensionalFees: false,
   },
