@@ -1153,16 +1153,12 @@
   },
   "multiPointPackages": {
     "__SWELL__": ["SWETH", "SWETH/ETH"],
-    "__LAYER_BANK__": [
-      "ETH",
+    "__FRAXTAL__": [
       "BTC",
-      "USDC",
-      "USDT",
-      "weETH",
-      "ezETH",
-      "STONE",
-      "rsETH",
-      "weETH_FUNDAMENTAL"
+      "CRV",
+      "ETH",
+      "FRAX",
+      "FXS"
     ]
   }
 }

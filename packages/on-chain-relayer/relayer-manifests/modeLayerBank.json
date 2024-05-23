@@ -19,6 +19,5 @@
     "STONE": "__NO_FEED__",
     "rsETH": "__NO_FEED__",
     "weETH_FUNDAMENTAL": "__NO_FEED__"
-  },
-  "dataPacakgesNames": ["__LAYER_BANK__"]
+  }
 }
