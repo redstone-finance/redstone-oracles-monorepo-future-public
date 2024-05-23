@@ -6901,6 +6901,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-aggregator-influx-synchronizer@workspace:packages/lambda-aggregator-influx-synchronizer":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-aggregator-influx-synchronizer@workspace:packages/lambda-aggregator-influx-synchronizer"
+  dependencies:
+    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@redstone-finance/lambda-common": "npm:^0.5.1"
+    "@redstone-finance/utils": "npm:^0.5.1"
+    ethers: "npm:^5.7.2"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-alarm-notifier@workspace:packages/lambda-alarm-notifier":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-alarm-notifier@workspace:packages/lambda-alarm-notifier"
@@ -7039,16 +7050,6 @@ __metadata:
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
     "@redstone-finance/lambda-common": "npm:^0.5.1"
-  languageName: unknown
-  linkType: soft
-
-"@redstone-finance/lambda-lst-influx-synchronizer@workspace:packages/lambda-lst-influx-synchronizer":
-  version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-lst-influx-synchronizer@workspace:packages/lambda-lst-influx-synchronizer"
-  dependencies:
-    "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:^0.5.1"
-    ethers: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
 
