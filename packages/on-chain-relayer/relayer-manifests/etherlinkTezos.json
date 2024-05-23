@@ -1,0 +1,16 @@
+{
+  "chain": {
+    "name": "etherlink",
+    "id": 42793
+  },
+  "updateTriggers": {
+    "timeSinceLastUpdateInMilliseconds": 10000
+  },
+  "adapterContract": "0xA2cCa359C43839040cF3D230DeB1689AB8db2dac",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH": "0xF0F22f4b9e49a0d6ade134A9d71D37cc0117951F",
+    "BTC": "0x7e5a7D5d603d53d6681BdDBd1B743796956cdF17",
+    "XTZ": "0xe92c00BC72dD12e26E61212c04E8D93aa09624F2"
+  }
+}
