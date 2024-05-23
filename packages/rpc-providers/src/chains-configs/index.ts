@@ -199,6 +199,15 @@ export const ChainConfigs = {
     isAuctionModel: true,
     twoDimensionalFees: true,
   },
+  etherlink: {
+    name: "Etherlink Mainnet",
+    chainId: 42793,
+    publicRpcUrls: ["https://node.mainnet.etherlink.com"],
+    avgBlockTimeMs: 6_000,
+    multicall3: STANDARD_MULTICALL3,
+    isAuctionModel: true,
+    twoDimensionalFees: true,
+  },
   mode: {
     name: "Mode Mainnet",
     chainId: 34443,
