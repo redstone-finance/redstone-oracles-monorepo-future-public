@@ -1513,17 +1513,8 @@
     "sUSDe": {
       "source": ["ethereum-evm-fetcher"]
     },
-    "ARDRIVE": {
-      "source": ["permaswap"]
-    },
     "U": {
-      "source": ["mexc-usdt", "bitrue-usdt", "permaswap"]
-    },
-    "ACNH": {
-      "source": ["permaswap"]
-    },
-    "ANS": {
-      "source": ["permaswap"]
+      "source": ["mexc-usdt", "bitrue-usdt"]
     },
     "AUD": {
       "source": ["binance-usdt", "kraken-usd", "ecb", "twelve-data"]

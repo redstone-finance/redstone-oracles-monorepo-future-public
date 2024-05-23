@@ -1416,15 +1416,6 @@
     "SolvBTC_MERLIN/BTC-TWAP-60": {
       "source": ["twap-local-redstone-main-demo"]
     },
-    "ARDRIVE": {
-      "source": ["permaswap"]
-    },
-    "U": {
-      "source": ["permaswap"]
-    },
-    "ANS": {
-      "source": ["permaswap"]
-    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
