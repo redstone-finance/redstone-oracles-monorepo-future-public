@@ -15,5 +15,6 @@
     "ETH": "0x89e60b56efD70a1D4FBBaE947bC33cae41e37A72",
     "FRAX": "0xa41107f9259bB835275eaCaAd8048307B80D7c00",
     "FXS": "0xbf228a9131AB3BB8ca8C7a4Ad574932253D99Cd1"
-  }
+  },
+  "dataPacakgesNames": ["__FRAXTAL__"]
 }
