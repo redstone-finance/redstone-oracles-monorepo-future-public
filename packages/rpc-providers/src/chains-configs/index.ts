@@ -390,10 +390,14 @@ export const ChainConfigs = {
   merlin: {
     name: "Merlin Mainnet",
     chainId: 4200,
-    publicRpcUrls: ["https://rpc.merlinchain.io"],
-    avgBlockTimeMs: 2_650,
+    publicRpcUrls: [
+      "https://rpc.merlinchain.io",
+      "https://merlin.blockpi.network/v1/rpc/public",
+      "https://rpc-merlin.rockx.com",
+    ],
+    avgBlockTimeMs: 1_000,
     multicall3: REDSTONE_MULTICALL3,
-    isAuctionModel: false,
+    isAuctionModel: true,
     twoDimensionalFees: false,
   },
 };

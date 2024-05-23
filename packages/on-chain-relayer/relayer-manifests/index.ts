@@ -55,6 +55,7 @@ import mantleUsdt from "./mantleUsdt.json";
 import mantleWstEth from "./mantleWstEth.json";
 import mentoBaklavaMultisig from "./mentoBaklavaMultisig.json";
 import mentoCeloMainnet from "./mentoCeloMainnet.json";
+import merlinMultiPriceFeed from "./merlinMultiPriceFeed.json";
 import modeLayerBank from "./modeLayerBank.json";
 import modeMode from "./modeMode.json";
 import realGbp from "./realGbp.json";
@@ -136,6 +137,7 @@ export default {
   mantleWstEth,
   mentoBaklavaMultisig,
   mentoCeloMainnet,
+  merlinMultiPriceFeed,
   modeMode,
   modeLayerBank,
   realGbp,
