@@ -6,7 +6,7 @@ import {
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { Contract } from "ethers";
 
-import { ChainConfig, ChainConfigs, SupportedNetworkNames } from "../index";
+import { ChainConfigs, SupportedNetworkNames } from "../index";
 import { MegaProviderBuilder } from "../MegaProviderBuilder";
 import { ProviderWithAgreement } from "../providers/ProviderWithAgreement";
 
@@ -14,7 +14,7 @@ export function getChainConfig(networkName: SupportedNetworkNames) {
   return RedstoneCommon.assertThenReturn(
     ChainConfigs[networkName],
     `Couldn't find chain config for ${networkName}`
-  ) as ChainConfig;
+  );
 }
 
 export function getChainId(networkName: SupportedNetworkNames): number {
@@ -29,14 +29,14 @@ export function getNetworkName(chainId: number) {
     networkName,
     `Couldn't find network for chain_id=${chainId}`
   );
-  return networkName as SupportedNetworkNames;
+  return networkName;
 }
 
 export const getChainConfigByChainId = (chainId: number) =>
   RedstoneCommon.assertThenReturn(
     Object.values(ChainConfigs).find((c) => c.chainId === chainId),
     `Failed to getChainConfigByChainId chainConfig not defined for ${chainId}`
-  ) as ChainConfig;
+  );
 
 export function getDefaultProvider(
   networkName: SupportedNetworkNames
@@ -61,7 +61,7 @@ export function getMulticall3(
   networkName: SupportedNetworkNames,
   overrideAddress?: string
 ): EvmMulticallTypes.Multicall3 | EvmMulticallTypes.RedstoneMulticall3 {
-  const { multicall3 } = ChainConfigs[networkName] as ChainConfig;
+  const { multicall3 } = ChainConfigs[networkName];
 
   const address = overrideAddress ?? multicall3.address;
 

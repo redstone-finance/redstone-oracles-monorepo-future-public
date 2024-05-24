@@ -6,6 +6,8 @@ import {
   ChainConfigSchema,
   ChainConfigs,
   MegaProviderBuilder,
+  REDSTONE_MULTICALL3_ADDRESS,
+  STANDARD_MULTICALL3_ADDRESS,
 } from "../../src";
 
 const SINGLE_RPC_TIMEOUT_MILLISECONDS = 10_000;
@@ -47,6 +49,32 @@ describe("Validate chains configs", () => {
 });
 
 describe("Validate multicall3", () => {
+  test(`Each redstone multicall3 should have the same address`, function () {
+    for (const chainConfig of Object.values(ChainConfigs)) {
+      if (chainConfig.multicall3.type === "RedstoneMulticall3") {
+        chai
+          .expect(
+            chainConfig.multicall3.address,
+            `Multicall3 address for chain ${chainConfig.name} doesn't match REDSTONE_MULTICALL3_ADDRESS`
+          )
+          .eq(REDSTONE_MULTICALL3_ADDRESS);
+      }
+    }
+  });
+
+  test(`Each standard multicall3 should have the same address`, function () {
+    for (const chainConfig of Object.values(ChainConfigs)) {
+      if (chainConfig.multicall3.type === "Multicall3") {
+        chai
+          .expect(
+            chainConfig.multicall3.address,
+            `Multicall3 address for chain ${chainConfig.name} doesn't match STANDARD_MULTICALL3_ADDRESS`
+          )
+          .eq(STANDARD_MULTICALL3_ADDRESS);
+      }
+    }
+  });
+
   for (const chainConfig of Object.values(ChainConfigs)) {
     if (
       chainConfig.publicRpcUrls.length === 0 ||
