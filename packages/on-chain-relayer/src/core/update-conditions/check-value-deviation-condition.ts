@@ -27,7 +27,10 @@ const verifyDataPackagesAreDisjoint = (dataPackages: DataPackagesResponse) => {
         dataPackage!.dataPackage.dataPackageId ??
         dataPackage!.dataPackage.dataFeedId!;
 
-      if (!dataPackagesPerDataFeedId[dataFeedId]) {
+      if (
+        !dataPackagesPerDataFeedId[dataFeedId] ||
+        dataPackagesPerDataFeedId[dataFeedId] === dataPackageName
+      ) {
         dataPackagesPerDataFeedId[dataFeedId] = dataPackageName;
       } else {
         warnings.push(
