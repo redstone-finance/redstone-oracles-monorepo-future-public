@@ -1416,6 +1416,14 @@
     "SolvBTC_MERLIN/BTC-TWAP-60": {
       "source": ["twap-local-redstone-main-demo"]
     },
+    "mwstETH-WPUNKS:20": {
+      "source": [
+        "curve-ethereum-wsteth",
+        "thruster-v3-weth-500",
+        "thruster-v3-weth-3000",
+        "uniswap-v3-ethereum-on-chain-wsteth-3000"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
