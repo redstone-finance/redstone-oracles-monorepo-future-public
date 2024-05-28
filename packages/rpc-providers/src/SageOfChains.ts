@@ -38,9 +38,6 @@ export class SageOfChains {
     const chainIdToBlockTuples = chainIdToBlockTuplesResults
       .map((result, index) => {
         if (result.status === "fulfilled") {
-          logger.log(
-            `Fetched blockNumber=${result.value[1]} for chainId=${result.value[0]}`
-          );
           return result.value;
         }
         logger.log(
