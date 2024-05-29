@@ -1,3 +1,4 @@
+import { hardhatNetworksConfig } from "@redstone-finance/rpc-providers/src/hardhat-network-configs";
 import { HardhatUserConfig } from "hardhat/config";
 
 // PLUGINS
@@ -36,70 +37,12 @@ const config: HardhatUserConfig = {
   defaultNetwork: "sepolia",
 
   networks: {
+    ...hardhatNetworksConfig(PRIVATE_KEY ? [PRIVATE_KEY] : []),
     hardhat: {
       forking: {
         url: `https://eth-goerli.g.alchemy.com/v2/${ALCHEMY_ID}`,
         blockNumber: 8664000,
       },
-    },
-
-    // Prod
-    avalanche: {
-      url: "https://api.avax.network/ext/bc/C/rpc",
-      chainId: 43114,
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
-    },
-    arbitrum: {
-      chainId: 42161,
-      url: "https://arb1.arbitrum.io/rpc",
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
-    },
-    baseGoerli: {
-      chainId: 84531,
-      url: "https://goerli.base.org",
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
-    },
-    bsc: {
-      chainId: 56,
-      url: "https://bsc-dataseed.binance.org/",
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
-    },
-    ethereum: {
-      chainId: 1,
-      url: `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_ID}`,
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
-    },
-    fantom: {
-      chainId: 250,
-      url: `https://rpcapi.fantom.network/`,
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
-    },
-    optimism: {
-      chainId: 10,
-      url: "https://mainnet.optimism.io",
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
-    },
-    polygon: {
-      chainId: 137,
-      url: "https://rpc-mainnet.maticvigil.com",
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
-    },
-
-    // Staging
-    arbgoerli: {
-      chainId: 421613,
-      url: `https://arb-goerli.g.alchemy.com/v2/${ALCHEMY_ID}`,
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
-    },
-    sepolia: {
-      chainId: 11155111,
-      url: `https://ethereum-sepolia-rpc.publicnode.com`,
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
-    },
-    mumbai: {
-      chainId: 80001,
-      url: `https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_ID}`,
-      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
     },
   },
 

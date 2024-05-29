@@ -8,6 +8,7 @@ export const ChainConfigSchema = z.object({
   avgBlockTimeMs: z.number(),
   isAuctionModel: z.boolean(),
   twoDimensionalFees: z.boolean(),
+  etherScanApi: z.string().url().optional(),
   multicall3: z
     .object({
       address: z.string(),
