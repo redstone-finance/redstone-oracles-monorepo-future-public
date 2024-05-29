@@ -24,7 +24,7 @@ export const ChainConfigSchema = z.object({
 });
 
 export type ChainConfig = z.infer<typeof ChainConfigSchema>;
-export type SupportedNetworkNames = keyof typeof ChainConfigs;
+export type SupportedNetworkNames = keyof typeof config;
 
 export const STANDARD_MULTICALL3_ADDRESS =
   "0xcA11bde05977b3631167028862bE2a173976CA11";
