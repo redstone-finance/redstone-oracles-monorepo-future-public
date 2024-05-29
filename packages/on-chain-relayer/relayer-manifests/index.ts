@@ -43,9 +43,6 @@ import ethereumUsdeSusde from "./ethereumUsdeSusde.json";
 import etherlinkGhostnetTezosXtzEthBtc from "./etherlinkGhostnetTezosXtzEthBtc.json";
 import etherlinkTezos from "./etherlinkTezos.json";
 import fraxtalPackage from "./fraxtalPackage.json";
-import hubble from "./hubble.json";
-import hubbleAylinTestnet from "./hubbleAylinTestnet.json";
-import hubbleExchangeMainnet from "./hubbleExchangeMainnet.json";
 import lineaEzetheth from "./lineaEzetheth.json";
 import lineaWeethfundamental from "./lineaWeethfundamental.json";
 import mantaLayerBank from "./mantaLayerBank.json";
@@ -63,11 +60,6 @@ import modeMode from "./modeMode.json";
 import realGbp from "./realGbp.json";
 import realXau from "./realXau.json";
 import sepoliaAngleAgeur from "./sepoliaAngleAgeur.json";
-import sepoliaVegaBtc from "./sepoliaVegaBtc.json";
-import sepoliaVegaEth from "./sepoliaVegaEth.json";
-import sepoliaVegaSol from "./sepoliaVegaSol.json";
-import sepoliaVegaXau from "./sepoliaVegaXau.json";
-import sepoliaVegaXrp from "./sepoliaVegaXrp.json";
 import sepoliaVenusXvs from "./sepoliaVenusXvs.json";
 import staderEthx from "./staderEthx.json";
 import swell from "./swell.json";
@@ -127,9 +119,6 @@ export default {
   etherlinkTezos,
   etherlinkGhostnetTezosXtzEthBtc,
   fraxtalPackage,
-  hubble,
-  hubbleAylinTestnet,
-  hubbleExchangeMainnet,
   lineaEzetheth,
   lineaWeethfundamental,
   mantleEth,
@@ -147,11 +136,6 @@ export default {
   realGbp,
   realXau,
   sepoliaAngleAgeur,
-  sepoliaVegaBtc,
-  sepoliaVegaEth,
-  sepoliaVegaSol,
-  sepoliaVegaXau,
-  sepoliaVegaXrp,
   sepoliaVenusXvs,
   staderEthx,
   swell,

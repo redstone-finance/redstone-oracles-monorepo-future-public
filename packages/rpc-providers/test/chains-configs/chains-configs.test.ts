@@ -84,14 +84,6 @@ describe("Validate multicall3", () => {
     }
 
     test(`Chains config for chain ${chainConfig.name} (${chainConfig.chainId}) should have a valid multicall3 address`, async function () {
-      // Hubble chain is shutting down, skip it's chains till we remove hubble relayers
-      if (
-        chainConfig.chainId === 1992 ||
-        chainConfig.chainId === 486 ||
-        chainConfig.chainId === 321123
-      ) {
-        this.skip();
-      }
       if (process.env.IS_CI !== "true") {
         this.skip();
       }
