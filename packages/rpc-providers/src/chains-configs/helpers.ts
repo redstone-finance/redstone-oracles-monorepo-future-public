@@ -21,10 +21,10 @@ export function getChainId(networkName: SupportedNetworkNames): number {
   return getChainConfig(networkName).chainId;
 }
 
-export function getNetworkName(chainId: number) {
+export function getNetworkName(chainId: number): SupportedNetworkNames {
   const networkName = Object.entries(ChainConfigs).find(
     ([_, v]) => v.chainId === chainId
-  )?.[0];
+  )?.[0] as SupportedNetworkNames | undefined;
   RedstoneCommon.assert(
     networkName,
     `Couldn't find network for chain_id=${chainId}`
