@@ -1,5 +1,5 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
-import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { Contract, providers } from "ethers";
 import {
   getChainConfigByChainId,
@@ -68,6 +68,7 @@ export async function multicall3(
     );
   }
 }
+
 async function fallbackCall(
   provider: providers.Provider,
   call3: Multicall3Request,

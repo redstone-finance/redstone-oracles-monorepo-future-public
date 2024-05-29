@@ -16,6 +16,10 @@
     "w3f-deploy": "yarn build && npx hardhat w3f-deploy redstone | tee /dev/tty | ts-node save-deploy-cid.ts",
     "lint": "yarn global:eslint ."
   },
+  "dependencies": {
+    "@gelatonetwork/web3-functions-sdk": "^2.4.1",
+    "@redstone-finance/on-chain-relayer": "^0.5.1"
+  },
   "license": "MIT",
   "devDependencies": {
     "@ethersproject/abi": "^5.6.3",
@@ -26,6 +30,7 @@
     "@nomiclabs/hardhat-ethers": "^2.0.6",
     "@nomiclabs/hardhat-waffle": "^2.0.5",
     "@openzeppelin/contracts": "^4.8.1",
+    "@redstone-finance/rpc-providers": "^0.5.1",
     "@tsconfig/recommended": "1.0.2",
     "@typechain/ethers-v5": "^10.2.0",
     "@typechain/hardhat": "^6.1.2",
@@ -43,9 +48,5 @@
     "ts-generator": "0.1.1",
     "typechain": "^8.1.1",
     "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "@gelatonetwork/web3-functions-sdk": "^2.4.1",
-    "@redstone-finance/on-chain-relayer": "^0.5.1"
   }
 }

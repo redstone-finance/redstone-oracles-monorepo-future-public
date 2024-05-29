@@ -1,5 +1,5 @@
 import { Provider } from "@ethersproject/providers";
-import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { ChainConfig } from "./chains-configs";
 
 type ProviderWithChainCoinfg = { provider: Provider; chainConfig: ChainConfig };

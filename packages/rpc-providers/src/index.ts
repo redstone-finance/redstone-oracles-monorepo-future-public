@@ -4,6 +4,7 @@ export * from "./chains-configs";
 export * from "./chains-configs/geckoTerminalConfigs";
 export * from "./chains-configs/helpers";
 export * from "./common";
+export * from "./hardhat-network-configs";
 export * from "./provider-decorators/MetricDecorator";
 export * from "./provider-decorators/multicall/Multicall3Caller";
 export * from "./provider-decorators/multicall/MulticallDecorator";
