@@ -97,7 +97,6 @@
       "https://polygon.llamarpc.com",
       "https://polygon.blockpi.network/v1/rpc/public",
       "https://polygon-mainnet.public.blastapi.io",
-      "https://polygon.rpc.blxrbdn.com",
       "https://rpc-mainnet.matic.quiknode.pro"
     ],
     "avgBlockTimeMs": 2000,
