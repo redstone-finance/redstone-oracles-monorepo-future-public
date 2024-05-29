@@ -7,5 +7,6 @@ export * from "./fetch-with-fallback";
 export * from "./js-utils";
 export * from "./memoize";
 export * from "./retry";
+export * from "./simple-cache";
 export * from "./time";
 export * from "./zod-helpers";
