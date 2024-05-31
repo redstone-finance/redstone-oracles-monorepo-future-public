@@ -6,6 +6,7 @@ import {
   loggerFactory,
 } from "@redstone-finance/utils";
 import { BigNumber, providers, utils } from "ethers";
+import _ from "lodash";
 import { convertBlockTagToNumber, getProviderNetworkInfo } from "../common";
 import { CuratedRpcList, RpcIdentifier } from "./CuratedRpcList";
 import {
@@ -22,7 +23,7 @@ interface ProviderWithAgreementSpecificConfig {
   ignoreAgreementOnInsufficientResponses: boolean;
   electBlockFn: (
     blockNumbers: number[],
-    numberOfAgreeingNodes: number,
+    healthyProvidersCount: number,
     chainId: number
   ) => number;
   enableRpcCuratedList: boolean;
@@ -76,11 +77,9 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
     const numberOfProvidersThatHaveToAgree =
       this.agreementConfig.numberOfProvidersThatHaveToAgree;
-    if (numberOfProvidersThatHaveToAgree > this.providers.length) {
-      throw new Error(
-        "numberOfProvidersWhichHaveToAgree should be >= 2 and > then supplied providers count"
-      );
-    }
+
+    this.validateProvidersCount(numberOfProvidersThatHaveToAgree, providers);
+
     this.providersWithIdentifier = Object.freeze(
       this.providers.map((provider, index) => ({
         provider,
@@ -106,9 +105,25 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     this.logger = loggerFactory(`ProviderWithAgreement-${this.chainId}`);
   }
 
+  private validateProvidersCount(
+    numberOfProvidersThatHaveToAgree: number,
+    providers: providers.Provider[]
+  ) {
+    if (providers.length < 2) {
+      throw new Error("Please provide at least two providers");
+    }
+
+    if (numberOfProvidersThatHaveToAgree > this.providers.length) {
+      throw new Error(
+        "numberOfProvidersWhichHaveToAgree should be greater then supplied providers count"
+      );
+    }
+  }
+
+  /** MUST always return shallow copy */
   getHealthyProviders(): readonly ProviderWithIdentifier[] {
     if (!this.curatedRpcList) {
-      return this.providersWithIdentifier;
+      return [...this.providersWithIdentifier];
     }
     const chosenProviderIdentifiers = this.curatedRpcList.getBestProviders();
 
@@ -129,7 +144,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     const blockNumbersResults = await Promise.allSettled(
       healthyProviders.map(async ({ provider, identifier }) => {
         const blockNumber = await RedstoneCommon.timeout(
-          withDebugLog(provider.getBlockNumber(), {
+          withDebugLog(() => provider.getBlockNumber(), {
             description: `rpc=${identifier} identifier=${identifier} op=getBlockNumber`,
             logValue: true,
             logger: this.logger,
@@ -160,7 +175,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
     const electedBlockNumber = this.agreementConfig.electBlockFn(
       blockNumbers,
-      this.providers.length,
+      healthyProviders.length,
       this.chainId
     );
 
@@ -275,6 +290,8 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       let globalAbort = false;
       let finishedProvidersCount = 0;
 
+      const healthyProviders = this.getHealthyProviders();
+
       const executeOperation = async (provider: ProviderWithIdentifier) => {
         const currentResult = await this.executeOperation(
           operation,
@@ -302,13 +319,13 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
       const handleProviderResult = () => {
         finishedProvidersCount++;
-        if (finishedProvidersCount === this.providers.length) {
+        if (finishedProvidersCount === healthyProviders.length) {
           globalAbort = true;
           if (
             this.agreementConfig.ignoreAgreementOnInsufficientResponses &&
             results.size > 0
           ) {
-            resolve(results.keys().next().value as string);
+            resolve(pickResponseWithMostVotes(results));
           } else {
             reject(
               new AggregateError(
@@ -316,7 +333,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
                 `operation=${operationName} Failed to find at least ${
                   this.agreementConfig.numberOfProvidersThatHaveToAgree
                 } agreeing providers. ${
-                  this.providers.length - errors.length
+                  healthyProviders.length - errors.length
                 } providers responded with success. Result map: ${mapToString(
                   results
                 )}`
@@ -330,7 +347,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
         rpc: ProviderWithIdentifier
       ) => {
         try {
-          await withDebugLog(executeOperation(rpc), {
+          await withDebugLog(() => executeOperation(rpc), {
             description: `rpc=${rpc.identifier} op=${operationName}`,
             logger: this.logger,
             logValue: false,
@@ -345,7 +362,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       };
 
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      this.getHealthyProviders().forEach(executeOperationOnProvider);
+      healthyProviders.forEach(executeOperationOnProvider);
     });
   }
 
@@ -376,8 +393,9 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 const mapToString = (map: Map<unknown, unknown>) =>
   JSON.stringify(Object.fromEntries(map.entries()));
 
+// We are passing op as function instead of promise to measure also synchronous operation time
 async function withDebugLog<T>(
-  promise: Promise<T>,
+  op: () => Promise<T>,
   opts = {
     logValue: false,
     description: "",
@@ -386,7 +404,7 @@ async function withDebugLog<T>(
 ) {
   const start = performance.now();
 
-  const result = await promise;
+  const result = await op();
 
   opts.logger.debug(`${opts.description}`, {
     duration: performance.now() - start,
@@ -394,4 +412,16 @@ async function withDebugLog<T>(
   });
 
   return result;
+}
+
+function pickResponseWithMostVotes(dataToVotes: Map<string, number>): string {
+  const best = _.maxBy(
+    [...dataToVotes.entries()],
+    ([_data, voteCount]) => voteCount
+  );
+
+  return RedstoneCommon.assertThenReturn(
+    best?.[0],
+    "pickResponseWithMostVotes expect as least one entry in map"
+  );
 }

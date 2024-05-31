@@ -366,11 +366,21 @@ describe("ProviderWithAgreement", () => {
         );
       });
 
-      it("should NOT fail on [error,2], when ignoreAgreementOnInsufficientResponses", async () => {
+      it("should NOT fail on [2 error error], when ignoreAgreementOnInsufficientResponses", async () => {
         await testAgreementAlgo(
           ["2", "error", "error"],
           "2",
           2,
+          operation,
+          true
+        );
+      });
+
+      it("should NOT fail on [2 error error 1 1] and pick response with most votes when ignoreAgreementOnInsufficientResponses", async () => {
+        await testAgreementAlgo(
+          ["2", "1", "error", "error", "1"],
+          "1",
+          3,
           operation,
           true
         );
