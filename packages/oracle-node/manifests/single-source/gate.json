@@ -1,8 +1,8 @@
 {
-  "interval": 60000,
+  "interval": 3000,
   "priceAggregator": "median",
-  "defaultSource": ["gate"],
-  "sourceTimeout": 50000,
+  "defaultSource": ["gate-usdt"],
+  "sourceTimeout": 3000,
   "deviationCheck": {
     "deviationWithRecentValues": {
       "maxPercent": 25,
@@ -10,14 +10,9 @@
     }
   },
   "tokens": {
-    "PNG": {},
-    "XAVA": {},
-    "GMX": {},
-    "JOE": {},
     "MNT": {},
     "CANTO": {},
-    "UFT": {},
     "BNB": {},
-    "CRV": {}
+    "USDT": { "source": ["coingecko"] }
   }
 }
