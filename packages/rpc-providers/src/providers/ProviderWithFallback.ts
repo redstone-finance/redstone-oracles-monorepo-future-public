@@ -7,6 +7,7 @@ import {
 } from "@ethersproject/providers";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { providers } from "ethers";
+import _ from "lodash";
 import { ChainConfig } from "../chains-configs";
 import { getChainConfigByChainId } from "../chains-configs/helpers";
 import { getProviderNetworkInfo } from "../common";
@@ -43,6 +44,7 @@ export class ProviderWithFallback
 {
   public providers: readonly Provider[];
   protected readonly providerWithFallbackConfig: ProviderWithFallbackConfig;
+  private lastErrorTimestamp: Record<number, number> = {};
   private currentProvider: Provider;
   private providerIndex = 0;
   chainId: number;
@@ -76,6 +78,16 @@ export class ProviderWithFallback
     this.providerWithFallbackConfig = { ...FALLBACK_DEFAULT_CONFIG, ...config };
     this.chainId = getProviderNetworkInfo(this.providers[0]).chainId;
     this.chainConfig = getChainConfigByChainId(this.chainId);
+
+    // assign begin values to have deterministic behavior
+    for (
+      let providerIndex = 0;
+      providerIndex < this.providers.length;
+      providerIndex++
+    ) {
+      this.lastErrorTimestamp[providerIndex] =
+        performance.now() - providerIndex;
+    }
   }
 
   override getNetwork(): Promise<providers.Network> {
@@ -91,7 +103,7 @@ export class ProviderWithFallback
   }
 
   override once(eventName: EventType, listener: Listener): Provider {
-    this.saveGlobalListener(eventName, listener);
+    this.saveGlobalListener(eventName, listener, true);
     return this.currentProvider.once(eventName, listener);
   }
 
@@ -158,11 +170,10 @@ export class ProviderWithFallback
    */
   private updateGlobalListenerAfterRemoval() {
     const allCurrentListeners = this.currentProvider.listeners();
-    for (let i = 0; i < this.globalListeners.length; i++) {
-      if (!allCurrentListeners.includes(this.globalListeners[i].listener)) {
-        this.globalListeners.splice(i, 1);
-      }
-    }
+
+    this.globalListeners = this.globalListeners.filter((listener) =>
+      allCurrentListeners.includes(listener.listener)
+    );
   }
 
   protected override executeWithFallback<T = unknown>(
@@ -170,7 +181,7 @@ export class ProviderWithFallback
     ...args: unknown[]
   ): Promise<T> {
     return RedstoneCommon.timeout<T>(
-      this.doExecuteWithFallback<T>(0, this.providerIndex, fnName, ...args),
+      this.doExecuteWithFallback<T>(0, fnName, ...args),
       this.providerWithFallbackConfig.allProvidersOperationTimeout,
       `executeWithFallback(${fnName}) timeout after ${this.providerWithFallbackConfig.allProvidersOperationTimeout}`
     );
@@ -178,10 +189,10 @@ export class ProviderWithFallback
 
   private async doExecuteWithFallback<T = unknown>(
     alreadyRetriedCount: number,
-    lastProviderUsedIndex: number,
     fnName: string,
     ...args: unknown[]
   ): Promise<T> {
+    const providerIndexForThisAttempt = this.providerIndex;
     try {
       const providerName = this.extractProviderName(this.providerIndex);
       logger.debug(
@@ -197,11 +208,10 @@ export class ProviderWithFallback
       this.electNewProviderOrFail(
         error as EthersError,
         alreadyRetriedCount,
-        lastProviderUsedIndex
+        providerIndexForThisAttempt
       );
       return await this.doExecuteWithFallback(
         alreadyRetriedCount + 1,
-        this.providerIndex,
         fnName,
         ...args
       );
@@ -254,18 +264,22 @@ export class ProviderWithFallback
       throw error;
     }
 
-    if (lastUsedProviderIndex !== this.providerIndex) {
-      const providerName = this.extractProviderName(this.providerIndex);
-      return logger.debug(
-        `Another concurrent request already has changed provider to ${providerName}, we do nothing.`
-      );
-    }
+    this.lastErrorTimestamp[lastUsedProviderIndex] = performance.now();
 
-    const nextProviderIndex = (this.providerIndex + 1) % this.providers.length;
+    // as next provider we choose the one which haven't failed for the longest period
+    const nextProviderIndex = parseInt(
+      (
+        _.minBy(
+          Object.entries(this.lastErrorTimestamp),
+          ([_provider, timestamp]) => timestamp
+        ) as [string, number]
+      )[0]
+    );
+
     const nextProviderName = this.extractProviderName(nextProviderIndex);
 
     logger.info(
-      `Fallback into next provider ${nextProviderName} (${nextProviderIndex}/${this.providers.length}).`
+      `Fallback into next provider ${nextProviderName} (${retryNumber}/${this.providers.length}).`
     );
 
     this.useProvider(nextProviderIndex);
