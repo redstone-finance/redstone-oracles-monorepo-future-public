@@ -61,7 +61,7 @@ export const getRelayerProvider = () => {
           maxCallsCount: 3,
           autoResolveInterval: 100,
         }),
-      config().enableMulticall
+      config().useMulticallProvider
     )
     .addDecorator(ProviderDecorators.Treat0xAsErrorDecorator)
     .build()!;
