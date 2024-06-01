@@ -125,8 +125,8 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       "BLOCK_NUMBER_TIMEOUT",
       z.number().default(1_000)
     ),
-    enableMulticall: RedstoneCommon.getFromEnv(
-      "ENABLE_MUTLICALL",
+    useMulticallProvider: RedstoneCommon.getFromEnv(
+      "USE_MULTICALL_PROVIDER",
       z.boolean().default(true)
     ),
   };

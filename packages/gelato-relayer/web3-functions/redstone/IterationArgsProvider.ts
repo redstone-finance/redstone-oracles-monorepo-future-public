@@ -20,7 +20,7 @@ import {
 const NOT_NEEDED_FOR_GELATO = "Not needed for Gelato";
 const NUMBER_NOT_NEEDED_FOR_GELATO = 0;
 
-const EMPTY_GELATO_ENV = {
+const EMPTY_GELATO_ENV: OnChainRelayerEnv = {
   relayerIterationInterval: NUMBER_NOT_NEEDED_FOR_GELATO,
   rpcUrls: [NOT_NEEDED_FOR_GELATO],
   privateKey: NOT_NEEDED_FOR_GELATO,
@@ -29,13 +29,14 @@ const EMPTY_GELATO_ENV = {
   expectedTxDeliveryTimeInMS: NUMBER_NOT_NEEDED_FOR_GELATO,
   singleProviderOperationTimeout: NUMBER_NOT_NEEDED_FOR_GELATO,
   allProvidersOperationTimeout: NUMBER_NOT_NEEDED_FOR_GELATO,
-  agreementAcceptableBlocksDiff: NUMBER_NOT_NEEDED_FOR_GELATO,
   twoDimensionalFees: false,
   gasMultiplier: 1.125,
   isNotLazy: true,
   disableCustomGasOracle: false,
   fallbackSkipDeviationBasedFrequentUpdates: false,
   temporaryUpdatePriceInterval: -1,
+  fallbackOffsetInMinutes: 2,
+  useMulticallProvider: true,
 };
 
 export class IterationArgsProvider
