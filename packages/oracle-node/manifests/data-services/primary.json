@@ -893,7 +893,7 @@
       }
     },
     "cNOTE": {
-      "source": ["canto-evm-fetcher"]
+      "source": ["canto-evm-fetcher-cnote"]
     },
     "LAB.m": {
       "source": ["aperture-swap-weth-500"]
