@@ -224,7 +224,7 @@
         "mexc-usdt",
         "okx-usdt",
         "trader-joe-on-chain-wavax",
-        "trader-joe-v2-avalanche-on-chain-wavax",
+        "trader-joe-v2-avalanche-wavax",
         "xt"
       ]
     },
@@ -268,7 +268,7 @@
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
-        "trader-joe-v2-avalanche-on-chain-usdc",
+        "trader-joe-v2-avalanche-usdc",
         "uniswap-v3-ethereum-on-chain-usdc-500"
       ],
       "deviationCheck": {

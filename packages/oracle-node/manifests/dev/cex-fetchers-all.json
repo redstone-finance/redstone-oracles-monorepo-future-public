@@ -879,7 +879,7 @@
         "kraken-usd",
         "bitstamp-eur",
         "coingecko",
-        "trader-joe-v2-avalanche-on-chain-usdc",
+        "trader-joe-v2-avalanche-usdc",
         "uniswap-v3-ethereum-on-chain-usdc-500"
       ]
     },
@@ -919,7 +919,7 @@
         "curve-ethereum-3crv",
         "maverick",
         "uniswap-v3-ethereum-on-chain-usdc-500",
-        "velodrome-on-chain-usdc"
+        "velodrome-optimism-usdc"
       ]
     },
     "GHO": {
@@ -1209,7 +1209,7 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "ALUSD": {
-      "source": ["curve-ethereum-3crv", "velodrome-on-chain-usdc"]
+      "source": ["curve-ethereum-3crv", "velodrome-optimism-usdc"]
     },
     "XVS": {
       "source": [
@@ -1429,7 +1429,7 @@
       ]
     },
     "eUSD": {
-      "source": ["aerodrome-usdc", "curve-ethereum-crvfrax"]
+      "source": ["aerodrome-base-usdc", "curve-ethereum-crvfrax"]
     },
     "RSR": {
       "source": [
@@ -1451,7 +1451,7 @@
       "source": ["curve-ethereum-weth", "uniswap-v3-ethereum-on-chain-weth-500"]
     },
     "NOTE": {
-      "source": ["canto-dex-usdc"]
+      "source": ["canto-canto-usdc"]
     },
     "cNOTE": {
       "source": ["canto-evm-fetcher-cnote"]

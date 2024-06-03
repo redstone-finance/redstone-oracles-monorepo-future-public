@@ -15,6 +15,8 @@ export function mapNetworkNameToGeckoTerminalNetworkName(
       return "optimism";
     case "canto":
       return "canto";
+    case "base":
+      return "base";
     default:
       return undefined;
   }

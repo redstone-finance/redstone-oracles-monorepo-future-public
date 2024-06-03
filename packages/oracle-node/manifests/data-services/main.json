@@ -555,9 +555,9 @@
     "CANTO": {
       "source": [
         "coingecko",
-        "canto-dex-note",
-        "canto-dex-atom",
-        "canto-dex-eth"
+        "canto-canto-note",
+        "canto-canto-atom",
+        "canto-canto-eth"
       ]
     },
     "GMX": {
@@ -648,7 +648,7 @@
         "mexc-usdt",
         "okx-usdt",
         "trader-joe-on-chain-wavax",
-        "trader-joe-v2-avalanche-on-chain-wavax",
+        "trader-joe-v2-avalanche-wavax",
         "xt"
       ]
     },
@@ -656,7 +656,7 @@
       "source": [
         "coinbasepro",
         "coingecko",
-        "trader-joe-v2-avalanche-on-chain-usdc",
+        "trader-joe-v2-avalanche-usdc",
         "uniswap-v3-ethereum-on-chain-usdc-500"
       ]
     },
@@ -694,7 +694,7 @@
         "curve-ethereum-3crv",
         "maverick",
         "uniswap-v3-ethereum-on-chain-usdc-500",
-        "velodrome-on-chain-usdc"
+        "velodrome-optimism-usdc"
       ]
     },
     "GHO": {
@@ -963,7 +963,7 @@
       "source": [
         "curve-ethereum-3crv",
         "curve-ethereum-crvfrax",
-        "velodrome-on-chain-usdc"
+        "velodrome-optimism-usdc"
       ]
     },
     "XVS": {
@@ -1164,7 +1164,7 @@
     },
     "eUSD": {
       "source": [
-        "aerodrome-usdc",
+        "aerodrome-base-usdc",
         "curve-ethereum-crvfrax",
         "curve-ethereum-eth+",
         "curve-ethereum-rsr"
@@ -1199,7 +1199,7 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "NOTE": {
-      "source": ["canto-dex-usdc", "canto-dex-usdt"]
+      "source": ["canto-canto-usdc", "canto-canto-usdt"]
     },
     "cNOTE": {
       "source": ["canto-evm-fetcher-cnote"]

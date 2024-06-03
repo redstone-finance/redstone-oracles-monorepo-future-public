@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["velodrome-on-chain-weth"],
+  "defaultSource": ["velodrome-optimism-usdc"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -10,6 +10,8 @@
     }
   },
   "tokens": {
-    "ALETH": {}
+    "USDC": { "source": ["coingecko"] },
+    "ALUSD": {},
+    "OP": {}
   }
 }
