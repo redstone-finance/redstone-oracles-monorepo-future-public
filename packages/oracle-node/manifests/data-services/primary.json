@@ -235,7 +235,7 @@
         "curve-ethereum-3crv",
         "maverick",
         "uniswap-v3-ethereum-on-chain-usdc-500",
-        "velodrome-on-chain-usdc"
+        "velodrome-optimism-usdc"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -526,7 +526,7 @@
         "coinbasepro",
         "coingecko",
         "coinmarketcap",
-        "trader-joe-v2-avalanche-on-chain-usdc",
+        "trader-joe-v2-avalanche-usdc",
         "uniswap-v3-ethereum-on-chain-usdc-500"
       ]
     },
@@ -561,7 +561,7 @@
       "source": [
         "curve-ethereum-3crv",
         "curve-ethereum-crvfrax",
-        "velodrome-on-chain-usdc"
+        "velodrome-optimism-usdc"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -597,9 +597,9 @@
     "CANTO": {
       "source": [
         "coingecko",
-        "canto-dex-note",
-        "canto-dex-atom",
-        "canto-dex-eth"
+        "canto-canto-note",
+        "canto-canto-atom",
+        "canto-canto-eth"
       ]
     },
     "XAU": {
@@ -842,7 +842,7 @@
     },
     "eUSD": {
       "source": [
-        "aerodrome-usdc",
+        "aerodrome-base-usdc",
         "curve-ethereum-crvfrax",
         "curve-ethereum-eth+",
         "curve-ethereum-rsr"
@@ -884,7 +884,7 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "NOTE": {
-      "source": ["canto-dex-usdc", "canto-dex-usdt"],
+      "source": ["canto-canto-usdc", "canto-canto-usdt"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
