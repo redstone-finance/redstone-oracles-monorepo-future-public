@@ -1,7 +1,7 @@
 {
   "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": ["maverick"],
+  "defaultSource": ["maverick-ethereum-weth"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
@@ -12,7 +12,6 @@
   "tokens": {
     "SWETH": {},
     "ETH": { "source": ["coingecko"] },
-    "LUSD": {},
     "wstETH": {}
   }
 }
