@@ -1,0 +1,23 @@
+{
+  "chain": {
+    "name": "sei",
+    "id": 1329
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000,
+    "priceFeedsDeviationOverrides": {
+      "USDT": 0.2,
+      "USDC": 0.2
+    }
+  },
+  "adapterContract": "0x7C1DAAE7BB0688C9bfE3A918A4224041c7177256",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH": "0xEFc092F9D1Fd756D6788C5E8c1043Ed7a7F423Df",
+    "BTC": "0x49973FA847Fd57d879f48E4B8Fd5F968DafD5774",
+    "USDT": "0xfBB68fC1445F73cc3296fb6Cef316EdAC53967b6",
+    "USDC": "0x2eE9A7d22482905e7bb5E0aD832Be0DdB4d5582f",
+    "weETH_FUNDAMENTAL": "0x46fd38D7C751427acd66F6E6ffb95C79952e33e6"
+  }
+}

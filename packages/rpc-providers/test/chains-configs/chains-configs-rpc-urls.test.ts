@@ -1,4 +1,4 @@
-import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import chai from "chai";
 import { ethers } from "ethers";
 import { describe, test } from "mocha";
@@ -15,7 +15,7 @@ export const RETRY_CONFIG = {
 const logger = loggerFactory("chain-config/rpc-urls");
 
 describe("Validate chain config rpc urls", function () {
-  for (const [name, config] of Object.entries(ChainConfigs)) {
+  for (const [name, config] of Object.entries(ChainConfigs).reverse()) {
     for (const rpcUrl of config.publicRpcUrls) {
       if (rpcUrl.includes("localhost")) {
         continue;
