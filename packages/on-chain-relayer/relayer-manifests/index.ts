@@ -60,6 +60,7 @@ import modeLayerBank from "./modeLayerBank.json";
 import modeMode from "./modeMode.json";
 import realGbp from "./realGbp.json";
 import realXau from "./realXau.json";
+import seiMultiAdapter from "./seiMultiAdapter.json";
 import sepoliaAngleAgeur from "./sepoliaAngleAgeur.json";
 import sepoliaVenusXvs from "./sepoliaVenusXvs.json";
 import staderEthx from "./staderEthx.json";
@@ -137,6 +138,7 @@ export default {
   modeLayerBank,
   realGbp,
   realXau,
+  seiMultiAdapter,
   sepoliaAngleAgeur,
   sepoliaVenusXvs,
   staderEthx,
