@@ -8,6 +8,7 @@
     "test": "hardhat test",
     "build": "rm -rf dist && yarn compile && yarn global:tsc --build tsconfig.build.json",
     "build-dev": "rm -rf dist && yarn compile && yarn global:tsc --build tsconfig.json",
+    "test-browser-compatibility": "yarn build --force && esbuild test-browser-compatibility/test-script.js --outfile=test-browser-compatibility/browser-bundle.js --format=esm --bundle=true && http-server test-browser-compatibility",
     "benchmark": "hardhat test benchmarks/run-benchmarks.ts",
     "compile": "hardhat compile",
     "preversion": "yarn build",
