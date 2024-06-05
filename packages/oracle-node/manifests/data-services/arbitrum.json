@@ -359,7 +359,7 @@
       ]
     },
     "MOO_GMX": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-beefy"]
     },
     "YY_WOMBEX_USDT": {
       "source": ["arbitrum-evm-fetcher"],
@@ -376,13 +376,13 @@
       "source": ["arbitrum-evm-fetcher"]
     },
     "arbJnrLLP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-level-finance"]
     },
     "arbMzeLLP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-level-finance"]
     },
     "arbSnrLLP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-level-finance"]
     },
     "LVL": {
       "source": ["coingecko", "coinmarketcap", "mexc-usdt"]
@@ -590,19 +590,19 @@
       ]
     },
     "PENDLE_EZ_ETH_LP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-pendle"]
     },
     "PENDLE_SILO_ETH_WSTETH_LP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-pendle"]
     },
     "PENDLE_RS_ETH_LP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-pendle"]
     },
     "PENDLE_E_ETH_LP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-pendle"]
     },
     "PENDLE_WSTETH_LP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-pendle"]
     },
     "3Crv": {
       "source": ["ethereum-evm-fetcher"]
