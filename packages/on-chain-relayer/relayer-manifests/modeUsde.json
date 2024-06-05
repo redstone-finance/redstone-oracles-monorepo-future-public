@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "mode",
+    "id": 34443
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.2,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0x1bB8f2dF000553E5Af2AEd5c42FEd3a73cd5144b",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "USDe": "0x1bB8f2dF000553E5Af2AEd5c42FEd3a73cd5144b"
+  }
+}

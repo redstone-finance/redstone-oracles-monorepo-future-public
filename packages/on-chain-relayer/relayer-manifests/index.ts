@@ -58,6 +58,7 @@ import mentoCeloMainnet from "./mentoCeloMainnet.json";
 import merlinMultiPriceFeed from "./merlinMultiPriceFeed.json";
 import modeLayerBank from "./modeLayerBank.json";
 import modeMode from "./modeMode.json";
+import modeUsde from "./modeUsde.json";
 import realGbp from "./realGbp.json";
 import realXau from "./realXau.json";
 import seiMultiAdapter from "./seiMultiAdapter.json";
@@ -134,8 +135,9 @@ export default {
   mentoBaklavaMultisig,
   mentoCeloMainnet,
   merlinMultiPriceFeed,
-  modeMode,
   modeLayerBank,
+  modeMode,
+  modeUsde,
   realGbp,
   realXau,
   seiMultiAdapter,
