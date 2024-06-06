@@ -1348,6 +1348,18 @@
     "PENDLE_WSTETH_LP": {
       "source": ["arbitrum-evm-fetcher-pendle"]
     },
+    "PENDLE_EZ_ETH_26_09_24": {
+      "source": ["arbitrum-evm-fetcher-pendle"]
+    },
+    "PENDLE_RS_ETH_26_09_24": {
+      "source": ["arbitrum-evm-fetcher-pendle"]
+    },
+    "PENDLE_E_ETH_26_09_24": {
+      "source": ["arbitrum-evm-fetcher-pendle"]
+    },
+    "PENDLE_WSTETH_26_06_25": {
+      "source": ["arbitrum-evm-fetcher-pendle"]
+    },
     "LDO": {
       "source": [
         "binance-usdt",
