@@ -7,6 +7,7 @@ export type GasEstimateTx = {
   from: string;
   to: string;
   data: string;
+  value?: string;
 };
 
 export class GasLimitEstimator {
@@ -50,4 +51,8 @@ export const makeGasEstimateTx = (
   from: transactionRequest.from as string,
   to: transactionRequest.to as string,
   data: transactionRequest.data as string,
+  value:
+    (transactionRequest.value as string) === "0x00"
+      ? undefined
+      : (transactionRequest.value as string),
 });

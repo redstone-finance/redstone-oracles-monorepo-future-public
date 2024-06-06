@@ -6,6 +6,13 @@ export interface Call3 {
   callData: string;
 }
 
+export interface Call3Value {
+  target: string;
+  allowFailure: boolean;
+  value: string;
+  callData: string;
+}
+
 export interface Result {
   success: boolean;
   returnData: string;

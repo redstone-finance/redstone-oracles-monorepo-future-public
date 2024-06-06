@@ -38,10 +38,10 @@ export async function multicall3(
   multicallAddress?: string
 ): Promise<Multicall3Result[]> {
   const chainId = (await provider.getNetwork()).chainId;
-  const multicall3Contract = getMulticall3(
-    getNetworkName(chainId),
-    multicallAddress
-  );
+  const multicall3Contract = getMulticall3({
+    networkName: getNetworkName(chainId),
+    overrideAddress: multicallAddress,
+  });
 
   try {
     return await rawMulticall3(

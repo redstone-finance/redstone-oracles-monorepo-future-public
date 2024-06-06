@@ -7107,6 +7107,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-multi-top-up@workspace:packages/lambda-multi-top-up"
   dependencies:
+    "@redstone-finance/evm-multicall": "npm:^0.5.1"
     "@redstone-finance/lambda-common": "npm:^0.5.1"
     "@redstone-finance/lambda-wallets-balances-notifier": "npm:^0.5.1"
     "@redstone-finance/rpc-providers": "npm:^0.5.1"
