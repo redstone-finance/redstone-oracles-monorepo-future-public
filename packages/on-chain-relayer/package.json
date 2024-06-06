@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/on-chain-relayer",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "types": "dist/src/index.d.ts",
   "main": "dist/src/index.js",
   "license": "MIT",
@@ -19,11 +19,11 @@
     "preversion": "yarn build"
   },
   "dependencies": {
-    "@redstone-finance/evm-connector": "^0.5.1",
-    "@redstone-finance/protocol": "^0.5.1",
-    "@redstone-finance/rpc-providers": "^0.5.1",
-    "@redstone-finance/sdk": "^0.5.1",
-    "@redstone-finance/utils": "^0.5.1",
+    "@redstone-finance/evm-connector": "^0.5.2",
+    "@redstone-finance/protocol": "^0.5.2",
+    "@redstone-finance/rpc-providers": "^0.5.2",
+    "@redstone-finance/sdk": "^0.5.2",
+    "@redstone-finance/utils": "^0.5.2",
     "cron-parser": "^4.8.1",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
