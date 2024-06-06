@@ -12,6 +12,7 @@ import basePufetheth from "./basePufetheth.json";
 import blastBtc from "./blastBtc.json";
 import blastEth from "./blastEth.json";
 import blastLrts from "./blastLrts.json";
+import blastMwstethWpunks20 from "./blastMwstethWpunks20.json";
 import blastTestnet from "./blastTestnet.json";
 import blastUsdb from "./blastUsdb.json";
 import bnbBnb from "./bnbBnb.json";
@@ -95,6 +96,7 @@ export default {
   blastBtc,
   blastEth,
   blastLrts,
+  blastMwstethWpunks20,
   blastTestnet,
   blastUsdb,
   bnbWeethfundamental,
