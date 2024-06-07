@@ -661,7 +661,7 @@
       ]
     },
     "TJ_AVAX_USDC_AUTO": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-trader-joe"]
     },
     "CRV": {
       "source": [
@@ -1120,13 +1120,13 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "BAL_ggAVAX_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-balancer"]
     },
     "BAL_yyAVAX_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-balancer"]
     },
     "BAL_sAVAX_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-balancer"]
     },
     "USDM": {
       "source": ["curve-ethereum-3crv", "curve-ethereum-sdai"]
@@ -1147,7 +1147,7 @@
       ]
     },
     "CAI": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-cai"]
     },
     "STONE": {
       "source": ["ethereum-evm-fetcher"]
@@ -1789,7 +1789,7 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "sAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-oracle-adapter"]
     },
     "GLP": {
       "source": ["avalanche-evm-fetcher"]
@@ -1809,40 +1809,40 @@
       "source": ["non-usd-based"]
     },
     "gmdUSDC": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmd"]
     },
     "gmdAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmd"]
     },
     "gmdBTC": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmd"]
     },
     "gmdETH": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmd"]
     },
     "crvUSDBTCETH": {
       "source": ["avalanche-evm-fetcher"]
     },
     "SHLB_GMX-AVAX_B": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-steak-hut"]
     },
     "ggAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-oracle-adapter"]
     },
     "yyAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-oracle-adapter"]
     },
     "WOMBAT_ggAVAX_AVAX_LP_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-wombat"]
     },
     "WOMBAT_ggAVAX_AVAX_LP_ggAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-wombat"]
     },
     "WOMBAT_sAVAX_AVAX_LP_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-wombat"]
     },
     "WOMBAT_sAVAX_AVAX_LP_sAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-wombat"]
     },
     "XAVA": {
       "source": [
