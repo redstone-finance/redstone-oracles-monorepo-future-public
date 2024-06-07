@@ -5,16 +5,12 @@
   },
   "updateTriggers": {
     "deviationPercentage": 0.5,
-    "timeSinceLastUpdateInMilliseconds": 86400000,
-    "priceFeedsDeviationOverrides": {
-      "MERL": 1.0
-    }
+    "timeSinceLastUpdateInMilliseconds": 86400000
   },
   "adapterContract": "0x7C1DAAE7BB0688C9bfE3A918A4224041c7177256",
   "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {
     "BTC": "__NO_FEED__",
-    "SolvBTC_MERLIN/BTC-TWAP-60": "__NO_FEED__",
-    "MERL": "__NO_FEED__"
+    "SolvBTC_MERLIN/BTC-TWAP-60": "__NO_FEED__"
   }
 }
