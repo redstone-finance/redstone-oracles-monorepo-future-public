@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "merlin",
+    "id": 4200
+  },
+  "updateTriggers": {
+    "deviationPercentage": 1,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0x815178f0781e300cbB49EEda1617DB0b83277379",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "MERL": "0x815178f0781e300cbB49EEda1617DB0b83277379"
+  }
+}
