@@ -56,6 +56,7 @@ import mantleUsdt from "./mantleUsdt.json";
 import mantleWstEth from "./mantleWstEth.json";
 import mentoBaklavaMultisig from "./mentoBaklavaMultisig.json";
 import mentoCeloMainnet from "./mentoCeloMainnet.json";
+import merlinMerl from "./merlinMerl.json";
 import merlinMultiPriceFeed from "./merlinMultiPriceFeed.json";
 import modeLayerBank from "./modeLayerBank.json";
 import modeMode from "./modeMode.json";
@@ -136,6 +137,7 @@ export default {
   mantleWstEth,
   mentoBaklavaMultisig,
   mentoCeloMainnet,
+  merlinMerl,
   merlinMultiPriceFeed,
   modeLayerBank,
   modeMode,
