@@ -163,7 +163,7 @@
       }
     },
     "sAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-oracle-adapter"]
     },
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher"]
@@ -252,16 +252,16 @@
       }
     },
     "gmdUSDC": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmd"]
     },
     "gmdAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmd"]
     },
     "gmdBTC": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmd"]
     },
     "gmdETH": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmd"]
     },
     "EUROC": {
       "source": [
@@ -279,7 +279,7 @@
       }
     },
     "TJ_AVAX_USDC_AUTO": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-trader-joe"]
     },
     "CRV": {
       "source": [
@@ -328,13 +328,13 @@
       "source": ["twelve-data-etf-uk"]
     },
     "SHLB_GMX-AVAX_B": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-steak-hut"]
     },
     "ggAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-oracle-adapter"]
     },
     "yyAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-oracle-adapter"]
     },
     "GM_ETH_WETHe_USDC": {
       "source": ["avalanche-evm-fetcher"]
@@ -349,13 +349,13 @@
       "source": ["avalanche-evm-fetcher"]
     },
     "BAL_ggAVAX_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-balancer"]
     },
     "BAL_yyAVAX_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-balancer"]
     },
     "BAL_sAVAX_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-balancer"]
     },
     "BAL": {
       "source": [
@@ -378,19 +378,19 @@
       ]
     },
     "CAI": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-cai"]
     },
     "WOMBAT_ggAVAX_AVAX_LP_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-wombat"]
     },
     "WOMBAT_ggAVAX_AVAX_LP_ggAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-wombat"]
     },
     "WOMBAT_sAVAX_AVAX_LP_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-wombat"]
     },
     "WOMBAT_sAVAX_AVAX_LP_sAVAX": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-wombat"]
     }
   },
   "multiPointPackages": {
