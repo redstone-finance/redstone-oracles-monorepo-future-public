@@ -23,9 +23,9 @@ const contractWrapped = builder.usingDataService({
 
 async function populateTx() {
   const tx = await contractWrapped.populateTransaction.updateDataFeedsValues(0);
-  console.log({ tx });
-
-  document.getElementById("code").textContent = JSON.stringify(tx, null, 4);
+  const txJson = JSON.stringify(tx, null, 4);
+  console.log(txJson);
+  document.getElementById("code").textContent = txJson;
 }
 
 populateTx();
