@@ -7,6 +7,15 @@ const CHAIN_NAME_TO_HARDHAT_NETWORK_NAME: {
   [key: ChainName]: string | undefined;
 } = { ethereum: "mainnet", "ethereum-sepolia": "sepolia", "re.al": "real" };
 
+const HARDHAT_NETWORK_NAME_TO_CHAIN_NAME = Object.fromEntries(
+  Object.entries(CHAIN_NAME_TO_HARDHAT_NETWORK_NAME).map(([key, value]) => [
+    value,
+    key,
+  ])
+) as {
+  [key: string]: ChainName | undefined;
+};
+
 type NetworkUserConfig = {
   name: string;
   chainId: number;
@@ -45,3 +54,11 @@ export const hardhatNetworksConfig = (
 
   return networks;
 };
+
+export function convertHardhatNetworkNameToChainName(
+  hardhatNetworkName: string
+) {
+  return (
+    HARDHAT_NETWORK_NAME_TO_CHAIN_NAME[hardhatNetworkName] ?? hardhatNetworkName
+  );
+}
