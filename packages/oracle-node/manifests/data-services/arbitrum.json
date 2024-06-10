@@ -186,8 +186,8 @@
       "source": [
         "curve-ethereum-3crv",
         "curve-ethereum-usdc-multi-block",
-        "fraxswap-on-chain-fxs",
-        "fraxswap-on-chain-weth",
+        "fraxswap-ethereum-fxs",
+        "fraxswap-ethereum-weth",
         "uniswap-v3-ethereum-on-chain-fxs-10000",
         "uniswap-v3-ethereum-on-chain-usdc-500",
         "uniswap-v3-ethereum-on-chain-dai-500"
@@ -333,7 +333,7 @@
         "gate-usdt",
         "mexc-usdt",
         "okx-usdt",
-        "trader-joe-on-chain-wavax",
+        "trader-joe-v1-avalanche-wavax",
         "trader-joe-v2-avalanche-wavax",
         "xt"
       ]
@@ -563,7 +563,7 @@
         "curve-ethereum-eth-2",
         "curve-ethereum-weth",
         "okx-eth",
-        "uniswap-v2-on-chain-weth"
+        "uniswap-v2-ethereum-weth"
       ]
     },
     "frxETH": {

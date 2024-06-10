@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["camelot-weth"],
+  "defaultSource": ["camelot-arbitrumone-weth"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {

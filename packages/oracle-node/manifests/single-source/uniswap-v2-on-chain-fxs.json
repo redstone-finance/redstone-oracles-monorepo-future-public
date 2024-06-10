@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["uniswap-v2-on-chain-fxs"],
+  "defaultSource": ["uniswap-v2-ethereum-fxs"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {

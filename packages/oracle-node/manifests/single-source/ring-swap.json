@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["ring-swap-weth"],
+  "defaultSource": ["ringswap-blast-fwweth"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
