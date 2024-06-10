@@ -382,6 +382,7 @@ export class TxDelivery {
   }
 
   private async getFees(attempt: number): Promise<FeeStructure> {
+    // some gas oracles relies on this fallback mechanism
     try {
       return await this.getFeeFromGasOracle(this.provider, attempt);
     } catch (e) {
