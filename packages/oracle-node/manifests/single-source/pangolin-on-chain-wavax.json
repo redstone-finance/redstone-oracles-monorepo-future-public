@@ -1,7 +1,7 @@
 {
   "interval": 60000,
   "priceAggregator": "median",
-  "defaultSource": ["pangolin-on-chain-wavax"],
+  "defaultSource": ["pangolin-avalanche-wavax"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {

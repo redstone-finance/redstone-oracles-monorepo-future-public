@@ -105,8 +105,8 @@
       "source": [
         "curve-ethereum-3crv",
         "curve-ethereum-usdc",
-        "fraxswap-on-chain-fxs",
-        "fraxswap-on-chain-weth",
+        "fraxswap-ethereum-fxs",
+        "fraxswap-ethereum-weth",
         "uniswap-v3-ethereum-on-chain-fxs-10000",
         "uniswap-v3-ethereum-on-chain-usdc-500",
         "uniswap-v3-ethereum-on-chain-dai-500"
@@ -150,7 +150,7 @@
         "curve-ethereum-eth-2",
         "curve-ethereum-weth",
         "okx",
-        "uniswap-v2-on-chain-weth"
+        "uniswap-v2-ethereum-weth"
       ]
     },
     "wstETH": {

@@ -718,7 +718,7 @@
         "bitrue-usdt",
         "coingecko",
         "curve-ethereum-usdc-multi-block",
-        "fraxswap-on-chain-fxs",
+        "fraxswap-ethereum-fxs",
         "uniswap-v3-ethereum-on-chain-fxs-10000"
       ]
     },
@@ -812,7 +812,7 @@
       "source": ["newyorkfed"]
     },
     "JGLP": {
-      "source": ["camelot-usdc"]
+      "source": ["camelot-arbitrumone-usdc.e"]
     },
     "stETH": {
       "source": [
@@ -820,7 +820,7 @@
         "bitget",
         "curve-ethereum-eth",
         "okx",
-        "uniswap-v2-on-chain-weth"
+        "uniswap-v2-ethereum-weth"
       ]
     },
     "stETH/ETH": {
@@ -840,7 +840,12 @@
       "source": ["ethereum-evm-fetcher"]
     },
     "PLS": {
-      "source": ["bitget-usdt", "bitrue-usdt", "coingecko", "camelot-weth"]
+      "source": [
+        "bitget-usdt",
+        "bitrue-usdt",
+        "coingecko",
+        "camelot-arbitrumone-weth"
+      ]
     },
     "CMP": {
       "source": [
@@ -868,7 +873,7 @@
         "bitrue-usdt",
         "bingx",
         "coingecko",
-        "trader-joe-on-chain-wavax",
+        "trader-joe-v1-avalanche-wavax",
         "xt",
         "bingx-usdt"
       ]
@@ -1034,7 +1039,7 @@
     "PREMIA": {
       "source": [
         "camelot-v3-arbitrumone-weth",
-        "sushiswap-ethereum-on-chain-weth",
+        "sushiswap-ethereum-weth",
         "uniswap-v3-arbitrum-on-chain-weth-3000"
       ]
     },
