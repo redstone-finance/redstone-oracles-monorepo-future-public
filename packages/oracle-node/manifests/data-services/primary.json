@@ -1155,6 +1155,13 @@
         "thruster-v3-weth-3000",
         "uniswap-v3-ethereum-on-chain-wsteth-3000"
       ]
+    },
+    "bsdETH": {
+      "source": [
+        "aerodrome-base-rsr",
+        "aerodrome-base-weth",
+        "aerodrome-cl-base-weth-3000"
+      ]
     }
   },
   "multiPointPackages": {
