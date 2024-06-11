@@ -7,7 +7,7 @@
     ],
     "avgBlockTimeMs": 12000,
     "multicall3": {
-      "address": "0xad6cc5a465e5c8284a49ec9ed10efe275460678c",
+      "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
       "type": "RedstoneMulticall3",
       "gasLimitPerCall": 100000
     },
@@ -26,7 +26,7 @@
     "etherScanApi": "https://api.etherscan.io",
     "avgBlockTimeMs": 12000,
     "multicall3": {
-      "address": "0xad6cc5a465e5c8284a49ec9ed10efe275460678c",
+      "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
       "type": "RedstoneMulticall3",
       "gasLimitPerCall": 1000000
     },
@@ -315,7 +315,7 @@
     ],
     "avgBlockTimeMs": 5000,
     "multicall3": {
-      "address": "0xad6cc5a465e5c8284a49ec9ed10efe275460678c",
+      "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
       "type": "RedstoneMulticall3",
       "gasLimitPerCall": 1000000
     },
@@ -457,7 +457,7 @@
     ],
     "avgBlockTimeMs": 1000,
     "multicall3": {
-      "address": "0xad6cc5a465e5c8284a49ec9ed10efe275460678c",
+      "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
       "type": "RedstoneMulticall3",
       "gasLimitPerCall": 1000000
     },
@@ -477,5 +477,20 @@
     },
     "isAuctionModel": true,
     "twoDimensionalFees": false
-  }
+  },
+ "berachain-testnet": {
+   "name": "Berachain Testnet",
+   "chainId": 80084,
+   "publicRpcUrls": [
+     "https://bartio.rpc.berachain.com"
+   ],
+   "avgBlockTimeMs": 4000,
+   "multicall3": {
+     "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
+     "type": "RedstoneMulticall3",
+     "gasLimitPerCall": 1000000
+   },
+   "isAuctionModel": true,
+   "twoDimensionalFees": false
+ }
 }

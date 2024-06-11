@@ -9,6 +9,7 @@ import arbitrumWeethfundamental from "./arbitrumWeethfundamental.json";
 import arbitrumXvs from "./arbitrumXvs.json";
 import b2MultiPriceFeed from "./b2MultiPriceFeed.json";
 import basePufetheth from "./basePufetheth.json";
+import berachainTestnetEth from "./berachainTestnetEth.json";
 import blastBtc from "./blastBtc.json";
 import blastEth from "./blastEth.json";
 import blastLrts from "./blastLrts.json";
@@ -88,8 +89,9 @@ export default {
   arbitrumWeetheth,
   arbitrumWeethfundamental,
   arbitrumXvs,
-  basePufetheth,
   b2MultiPriceFeed,
+  basePufetheth,
+  berachainTestnetEth,
   bnbBnb,
   bnbBtc,
   bnbEzetheth,

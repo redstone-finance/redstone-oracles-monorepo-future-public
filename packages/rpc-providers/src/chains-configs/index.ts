@@ -29,6 +29,6 @@ export type SupportedNetworkNames = keyof typeof config;
 export const STANDARD_MULTICALL3_ADDRESS =
   "0xcA11bde05977b3631167028862bE2a173976CA11";
 export const REDSTONE_MULTICALL3_ADDRESS =
-  "0xad6cc5a465e5c8284a49ec9ed10efe275460678c";
+  "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c";
 
 export const ChainConfigs = z.record(ChainConfigSchema).parse(config);
