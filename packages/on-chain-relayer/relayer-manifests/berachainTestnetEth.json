@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "berachain-testnet",
+    "id": 80084
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0x11B714817cBC92D402383cFd3f1037B122dcf69A",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH": "0x11B714817cBC92D402383cFd3f1037B122dcf69A"
+  }
+}
