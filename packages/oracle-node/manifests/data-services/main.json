@@ -1433,6 +1433,13 @@
         "uniswap-v3-ethereum-on-chain-wsteth-3000"
       ]
     },
+    "bsdETH": {
+      "source": [
+        "aerodrome-base-rsr",
+        "aerodrome-base-weth",
+        "aerodrome-cl-base-weth-3000"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
