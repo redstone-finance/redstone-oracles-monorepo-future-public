@@ -119,6 +119,9 @@
         "okx-usdt",
         "xt"
       ]
+    },
+    "ezETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher"]
     }
   }
 }
