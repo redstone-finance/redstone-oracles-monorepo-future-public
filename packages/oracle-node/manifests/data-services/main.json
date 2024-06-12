@@ -619,10 +619,10 @@
       "source": ["non-usd-based"]
     },
     "wstETH_FUNDAMENTAL": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-lido"]
     },
     "wstETH/stETH": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-lido"]
     },
     "PLS": {
       "source": ["coingecko", "camelot-arbitrumone-weth"]
@@ -878,7 +878,7 @@
       "source": ["non-usd-based"]
     },
     "weETH_FUNDAMENTAL": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-etherfi"]
     },
     "rETH": {
       "source": [
@@ -1145,7 +1145,7 @@
       "source": ["avalanche-evm-fetcher-cai"]
     },
     "STONE": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-stake-stone"]
     },
     "frxETH": {
       "source": [
@@ -1313,7 +1313,7 @@
       "source": ["non-usd-based"]
     },
     "sUSDe_RATE_PROVIDER": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-balancer-rate-provider"]
     },
     "pufETH": {
       "source": [
@@ -1382,16 +1382,16 @@
       ]
     },
     "rsETH_FUNDAMENTAL": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-kelp"]
     },
     "rswETH_FUNDAMENTAL": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-swell"]
     },
     "pufETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher"]
     },
     "ezETH_FUNDAMENTAL": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-renzo"]
     },
     "MERL": {
       "source": [
