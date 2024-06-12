@@ -121,7 +121,7 @@
       ]
     },
     "ezETH_FUNDAMENTAL": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-renzo"]
     }
   }
 }

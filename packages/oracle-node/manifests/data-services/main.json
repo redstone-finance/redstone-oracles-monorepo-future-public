@@ -1440,6 +1440,9 @@
         "aerodrome-cl-base-weth-3000"
       ]
     },
+    "bsdETH/ETH": {
+      "source": ["non-usd-based"]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
