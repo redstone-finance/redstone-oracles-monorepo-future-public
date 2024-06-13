@@ -64,8 +64,10 @@ constants.
 ### [Price Adapter](price_adapter)
 
 Sample oracle contract that consumes *RedStone Oracles* data, written in Rust.
+The example-testnet address of the implementation is exposed in the [DEPLOYED.hex](price_adapter/DEPLOYED.hex) file.
 
-☔ Due to method calling limitations in TypeScript, see also the [Price Relay Adapter](#price-relay-adapter).
+☔ Due to the method calling limitations in the TypeScript Casper SDK,
+see also the [Price Relay Adapter](#price-relay-adapter).
 
 #### ⨐ init
 
@@ -172,11 +174,14 @@ The method doesn't modify the contract's storage.
 
 ### [Price *Relay Adapter*](price_relay_adapter)
 
+The example-testnet address of the implementation is exposed in the [DEPLOYED.hex](price_relay_adapter/DEPLOYED.hex)
+file.
+
 ##### ⛔ JsonRPC Casper API limitations
 
 * The current version of JsonRpc Casper API has a limit of 1024 bytes for a total length of the serialized function
   parameters.
-* The latest (`2.15.4`) version of
+* The latest (`2.15.5`) version of
   TypeScript [`casper-js-sdk`](https://github.com/casper-ecosystem/casper-js-sdk/tree/release-2.15.4) library is a
   wrapper for the JsonRpc method of interacting with Casper.
 * This means, in the off-chain way of calling contracts, the payload size must have been limited to 875 bytes in a
@@ -256,7 +261,7 @@ of the returned values on the end of the list (in case on superset, intersects i
 
 ```
 write_prices_chunk(feed_ids: List[U256], payload: List[U8], 
-                   hash: List[U8], chunk_index: U8): Unit     // Group([GROUP_NAME_OWNER])/Contract
+                   hash: List[U8], chunk_index: U8): Unit     // Public/Contract
 ```
 
 The function temporarily saves the chunk of `payload` to a contract storage, taking into account the `chunk_index` and
@@ -268,24 +273,21 @@ The max number of chunks is 8. Also, the previously saved `payload` can be reuse
 chunk as the `payload` and any `chunk_index` greater than the number of chunks, to not have overwritten the previously
 saved chunk with the empty chunk.
 
-The function must be executed by the contract creator in the Contract context and only once.
-
 #### ∯ get_prices_chunk
 
 ```
 get_prices_chunk(feed_ids: List[U256], payload: List[U8], 
-                   hash: List[U8], chunk_index: U8): Unit     // Group([GROUP_NAME_OWNER])/Contract
+                   hash: List[U8], chunk_index: U8): Unit     // Public/Contract
 ```
 
 The function works as the [`write_prices_chunk`](#-write_prices_chunk) function, but also saves the result as
 the [`get_prices`](#-get_prices-1) function.
 
-The function must be executed by the contract creator.
-
 ### [Price Feed](price_feed)
 
 Sample consumer of the data saved in [Price Adapter](#price-adapter) or of its wrapped
 version [Price Relay Adapter](#price-relay-adapter)
+The example-testnet address of the implementation is exposed in the [DEPLOYED.hex](price_feed/DEPLOYED.hex) file.
 
 #### ⨐ init
 

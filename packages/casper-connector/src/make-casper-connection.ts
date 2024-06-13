@@ -1,12 +1,11 @@
 import axios from "axios";
-import { CasperClient, Keys } from "casper-js-sdk";
+import { Keys } from "casper-js-sdk";
 import assert from "node:assert";
 import path from "node:path";
 import { CasperConfig } from "./casper/CasperConfig";
 import { CasperConnection } from "./casper/CasperConnection";
 
 export async function makeCasperConnection(config: CasperConfig) {
-  const casperClient = new CasperClient(config.nodeUrl);
   const folder = path.join(config.keysPath);
   const signKeyPair = Keys.Ed25519.parseKeyFiles(
     folder + `/public_key.pem`,
@@ -22,5 +21,9 @@ export async function makeCasperConnection(config: CasperConfig) {
     .chainspec_name;
   assert(networkName === config.networkName);
 
-  return new CasperConnection(casperClient, signKeyPair, networkName);
+  return CasperConnection.makeWithKeyPair(
+    config.nodeUrl,
+    config.networkName,
+    signKeyPair
+  );
 }
