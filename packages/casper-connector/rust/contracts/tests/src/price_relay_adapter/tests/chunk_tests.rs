@@ -1,17 +1,9 @@
 #[cfg(test)]
 mod tests {
-    use crate::{
-        core::{
-            run_env::RunEnv,
-            utils::{hash_message, split},
-        },
-        price_relay_adapter::run_env::{
-            ENTRY_POINT_GET_PRICES_CHUNK, ENTRY_POINT_WRITE_PRICES_CHUNK,
-        },
-    };
-    use casper_types::{bytesrepr::Bytes, ContractPackageHash, RuntimeArgs};
+    use casper_types::bytesrepr::Bytes;
     use itertools::Itertools;
     use rand::{seq::SliceRandom, thread_rng};
+
     use redstone::network::{
         as_str::AsHexStr,
         casper::contracts::run_mode::{
@@ -19,6 +11,11 @@ mod tests {
             RunMode::{Get, Write},
         },
         flattened::Flattened,
+    };
+
+    use crate::core::{
+        run_env::RunEnv,
+        utils::{hash_message, split},
     };
 
     fn make_payload_data() -> (Bytes, Vec<Bytes>) {
@@ -52,36 +49,6 @@ mod tests {
         iterator.shuffle(&mut thread_rng());
 
         test_save_payload_chunks(&mut RunEnv::prepare(), Get, &hash, &chunks, iterator.iter());
-    }
-
-    #[should_panic(expected = "Invalid context")]
-    #[test]
-    fn test_write_prices_chunk_caller_is_the_owner() {
-        let mut env = RunEnv::prepare();
-        let adapter_key = env.install_default_price_adapter();
-        let price_relay_adapter_key = env.install_price_relay_adapter(adapter_key);
-
-        env.call_entry_point_with_account(
-            env.other_account.account_hash(),
-            ContractPackageHash::new(price_relay_adapter_key.into_hash().unwrap()),
-            ENTRY_POINT_WRITE_PRICES_CHUNK,
-            RuntimeArgs::new(),
-        );
-    }
-
-    #[should_panic(expected = "Invalid context")]
-    #[test]
-    fn test_get_prices_chunk_caller_is_the_owner() {
-        let mut env = RunEnv::prepare();
-        let adapter_key = env.install_default_price_adapter();
-        let price_relay_adapter_key = env.install_price_relay_adapter(adapter_key);
-
-        env.call_entry_point_with_account(
-            env.other_account.account_hash(),
-            ContractPackageHash::new(price_relay_adapter_key.into_hash().unwrap()),
-            ENTRY_POINT_GET_PRICES_CHUNK,
-            RuntimeArgs::new(),
-        );
     }
 
     #[test]

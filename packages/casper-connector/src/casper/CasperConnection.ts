@@ -1,10 +1,12 @@
 import {
   CasperClient,
   Contracts,
+  DeployUtil,
   GetDeployResult,
   Keys,
   RuntimeArgs,
 } from "casper-js-sdk";
+import { CasperNetworkName } from "./CasperConfig";
 import { ICasperConnection } from "./ICasperConnection";
 
 export const CSPR_MOTE = 10 ** 9;
@@ -16,9 +18,19 @@ export class CasperConnection implements ICasperConnection {
 
   constructor(
     protected casperClient: CasperClient,
-    protected signKeyPair: Keys.AsymmetricKey,
-    protected networkName: "casper" | "casper-test"
+    public networkName: CasperNetworkName,
+    protected signKeyPair?: Keys.AsymmetricKey
   ) {}
+
+  static makeWithKeyPair(
+    nodeUrl: string,
+    networkName: CasperNetworkName = "casper-test",
+    signKeyPair?: Keys.AsymmetricKey
+  ) {
+    const casperClient = new CasperClient(nodeUrl);
+
+    return new CasperConnection(casperClient, networkName, signKeyPair);
+  }
 
   async getBlockHeight() {
     const blockInfo = (await this.casperClient.nodeClient.getLatestBlockInfo())
@@ -103,6 +115,15 @@ export class CasperConnection implements ICasperConnection {
     );
   }
 
+  getPublicKey() {
+    return Promise.resolve(this.signKeyPair!.publicKey);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
+  async signDeploy(deploy: DeployUtil.Deploy) {
+    return await Promise.resolve(deploy);
+  }
+
   async callEntrypoint(
     contract: Contracts.Contract,
     entryPoint: string,
@@ -112,13 +133,15 @@ export class CasperConnection implements ICasperConnection {
     const deploy = contract.callEntrypoint(
       entryPoint,
       runtimeArgs,
-      this.signKeyPair.publicKey,
+      await this.getPublicKey(),
       this.networkName,
       CasperConnection.makePaymentAmount(csprAmount),
-      [this.signKeyPair]
+      this.signKeyPair ? [this.signKeyPair] : undefined
     );
 
-    return await this.casperClient.putDeploy(deploy);
+    const signedDeploy = await this.signDeploy(deploy);
+
+    return await this.casperClient.putDeploy(signedDeploy);
   }
 
   private static makePaymentAmount(csprAmount: number) {

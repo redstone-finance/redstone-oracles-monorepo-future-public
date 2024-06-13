@@ -1,6 +1,6 @@
 include ./scripts/defs.mk
 
-CONTRACT=$(PRICE_RELAY_ADAPTER)
+CONTRACT=$(PRICE_ADAPTER)
 SECRET_KEY=~/casper-keys/secret_key.pem
 
 ifeq ($(CONTRACT), $(PRICE_FEED))
