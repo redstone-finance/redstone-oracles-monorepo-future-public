@@ -29,6 +29,9 @@ const config: HardhatUserConfig = {
     merlin: {
       url: "https://rpc.merlinchain.io",
     },
+    cyber: {
+      url: "https://cyber.alt.technology",
+    },
   },
 };
 
