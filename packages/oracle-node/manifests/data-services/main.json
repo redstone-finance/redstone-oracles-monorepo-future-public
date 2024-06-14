@@ -681,8 +681,11 @@
       "source": ["fixed-value"],
       "fixedValue": 1
     },
+    "crvFRAX": {
+      "source": ["ethereum-evm-fetcher-curve"]
+    },
     "3Crv": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-curve"]
     },
     "LUSD": {
       "source": [
@@ -811,13 +814,18 @@
       "source": ["bingx-usdt", "coingecko"]
     },
     "YY_WOMBEX_USDT": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-yield-yak"],
+      "decimals": 20
     },
     "YY_WOMBEX_USDC.e": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-yield-yak"],
+      "decimals": 20
     },
     "YY_WOMBEX_GLP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-yield-yak"]
+    },
+    "YY_WOMBEX_DAI": {
+      "source": ["arbitrum-evm-fetcher-yield-yak"]
     },
     "BAL": {
       "source": [
@@ -844,9 +852,6 @@
         "uniswap-v3-ethereum-on-chain-weth-500",
         "uniswap-v3-ethereum-on-chain-usdc-3000"
       ]
-    },
-    "YY_WOMBEX_DAI": {
-      "source": ["arbitrum-evm-fetcher"]
     },
     "TLOS": {
       "source": ["bitget-usdt", "gate-usdt", "mexc-usdt", "kucoin-usdt"]
@@ -919,7 +924,7 @@
       "source": ["non-usd-based"]
     },
     "apxETH": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-redacted"]
     },
     "apxETH/ETH": {
       "source": ["non-usd-based"]
@@ -950,9 +955,6 @@
     },
     "EUROC/EUR": {
       "source": ["non-usd-based"]
-    },
-    "crvFRAX": {
-      "source": ["ethereum-evm-fetcher"]
     },
     "ALUSD": {
       "source": [
@@ -1088,31 +1090,31 @@
       ]
     },
     "GM_ETH_WETH_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_BTC_WBTC_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_LINK_LINK_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_UNI_UNI_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_ARB_ARB_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_SOL_SOL_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_ETH_WETHe_USDC": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmx"]
     },
     "GM_BTC_BTCb_USDC": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmx"]
     },
     "GM_AVAX_WAVAX_USDC": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-gmx"]
     },
     "BAL_ggAVAX_AVAX": {
       "source": ["avalanche-evm-fetcher-balancer"]
@@ -1127,7 +1129,7 @@
       "source": ["curve-ethereum-3crv", "curve-ethereum-sdai"]
     },
     "wUSDM": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-mountain-protocol"]
     },
     "MANTA": {
       "source": [
@@ -1191,7 +1193,7 @@
       "source": ["non-usd-based"]
     },
     "sDAI": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-savings-dai"]
     },
     "NOTE": {
       "source": ["canto-canto-usdc", "canto-canto-usdt"]
@@ -1248,7 +1250,7 @@
       "source": ["twap-local-redstone-main-demo"]
     },
     "sfrxETH": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-frax"]
     },
     "sfrxETH/ETH": {
       "source": ["non-usd-based"]
@@ -1299,7 +1301,7 @@
       ]
     },
     "sUSDe": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-ethena"]
     },
     "rswETH": {
       "source": [
@@ -1388,7 +1390,7 @@
       "source": ["ethereum-evm-fetcher-swell"]
     },
     "pufETH_FUNDAMENTAL": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-puffer"]
     },
     "ezETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-renzo"]
@@ -1778,34 +1780,34 @@
       "source": ["twelve-data"]
     },
     "YY_AAVE_AVAX": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "PNG_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "PNG_AVAX_USDT_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "PNG_AVAX_ETH_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "YY_PNG_AVAX_USDC_LP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "YY_PNG_AVAX_ETH_LP": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-yield-yak"]
     },
     "YYAV3SA1": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-yield-yak"]
+    },
+    "YY_PNG_AVAX_USDC_LP": {
+      "source": ["avalanche-evm-fetcher-yield-yak"]
+    },
+    "YY_PNG_AVAX_ETH_LP": {
+      "source": ["avalanche-evm-fetcher-yield-yak"]
+    },
+    "YY_GLP": {
+      "source": ["avalanche-evm-fetcher-yield-yak"]
+    },
+    "PNG_AVAX_USDC_LP": {
+      "source": ["avalanche-evm-fetcher-dex-lp"]
+    },
+    "PNG_AVAX_USDT_LP": {
+      "source": ["avalanche-evm-fetcher-dex-lp"]
+    },
+    "PNG_AVAX_ETH_LP": {
+      "source": ["avalanche-evm-fetcher-dex-lp"]
     },
     "sAVAX": {
       "source": ["avalanche-evm-fetcher-oracle-adapter"]
     },
     "GLP": {
-      "source": ["avalanche-evm-fetcher"]
-    },
-    "YY_GLP": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-glp-manager"]
     },
     "SWETH": {
       "source": [
@@ -1831,7 +1833,7 @@
       "source": ["avalanche-evm-fetcher-gmd"]
     },
     "crvUSDBTCETH": {
-      "source": ["avalanche-evm-fetcher"]
+      "source": ["avalanche-evm-fetcher-curve"]
     },
     "SHLB_GMX-AVAX_B": {
       "source": ["avalanche-evm-fetcher-steak-hut"]

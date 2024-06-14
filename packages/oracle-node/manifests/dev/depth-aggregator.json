@@ -42,7 +42,7 @@
       }
     },
     "sUSDe": {
-      "source": ["ethereum-evm-fetcher"],
+      "source": ["ethereum-evm-fetcher-ethena"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -252,7 +252,7 @@
       ]
     },
     "sfrxETH": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-frax"]
     },
     "rsETH": {
       "priceAggregator": "depth",
@@ -282,7 +282,7 @@
       ]
     },
     "3Crv": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-curve"]
     },
     "AAVE": {
       "source": [

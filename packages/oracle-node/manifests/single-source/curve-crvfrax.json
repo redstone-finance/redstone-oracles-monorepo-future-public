@@ -12,7 +12,7 @@
   "tokens": {
     "ALUSD": {},
     "crvFRAX": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-curve"]
     },
     "FRAX": {
       "source": ["coingecko"]

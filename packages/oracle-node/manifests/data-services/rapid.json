@@ -316,7 +316,7 @@
       "source": ["non-usd-based"]
     },
     "3Crv": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-curve"]
     }
   }
 }
