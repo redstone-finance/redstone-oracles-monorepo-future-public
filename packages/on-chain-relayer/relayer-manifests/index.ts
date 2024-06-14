@@ -30,6 +30,7 @@ import cadenceCantoEth from "./cadenceCantoEth.json";
 import cadenceCantoTestnet from "./cadenceCantoTestnet.json";
 import cadenceCantoUsdc from "./cadenceCantoUsdc.json";
 import cadenceCantoUsdt from "./cadenceCantoUsdt.json";
+import cyberEth from "./cyberEth.json";
 import ethereumApxetheth from "./ethereumApxetheth.json";
 import ethereumC3m from "./ethereumC3m.json";
 import ethereumEtherfiWeeth from "./ethereumEtherfiWeeth.json";
@@ -113,6 +114,7 @@ export default {
   cadenceCantoTestnet,
   cadenceCantoUsdc,
   cadenceCantoUsdt,
+  cyberEth,
   ethereumApxetheth,
   ethereumC3m,
   ethereumEusd,
