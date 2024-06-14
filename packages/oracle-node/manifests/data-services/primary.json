@@ -225,8 +225,11 @@
     "SWETH/ETH": {
       "source": ["non-usd-based"]
     },
+    "crvFRAX": {
+      "source": ["ethereum-evm-fetcher-curve"]
+    },
     "3Crv": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-curve"]
     },
     "LUSD": {
       "source": [
@@ -420,7 +423,7 @@
       "source": ["non-usd-based"]
     },
     "apxETH": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-redacted"]
     },
     "apxETH/ETH": {
       "source": ["non-usd-based"]
@@ -550,9 +553,6 @@
         "mexc-usdt",
         "okx-usdt"
       ]
-    },
-    "crvFRAX": {
-      "source": ["ethereum-evm-fetcher"]
     },
     "ALUSD": {
       "source": [
@@ -808,7 +808,7 @@
       }
     },
     "wUSDM": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-mountain-protocol"]
     },
     "MANTA": {
       "source": [
@@ -877,7 +877,7 @@
       "source": ["non-usd-based"]
     },
     "sDAI": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-savings-dai"]
     },
     "NOTE": {
       "source": ["canto-canto-usdc", "canto-canto-usdt"],
@@ -939,7 +939,7 @@
       ]
     },
     "sfrxETH": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-frax"]
     },
     "sfrxETH/ETH": {
       "source": ["non-usd-based"]
@@ -996,7 +996,7 @@
       }
     },
     "sUSDe": {
-      "source": ["ethereum-evm-fetcher"],
+      "source": ["ethereum-evm-fetcher-ethena"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -1089,7 +1089,7 @@
       "source": ["ethereum-evm-fetcher-swell"]
     },
     "pufETH_FUNDAMENTAL": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-puffer"]
     },
     "ezETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-renzo"]

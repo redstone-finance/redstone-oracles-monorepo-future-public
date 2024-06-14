@@ -66,7 +66,7 @@
       }
     },
     "sUSDe": {
-      "source": ["ethereum-evm-fetcher"],
+      "source": ["ethereum-evm-fetcher-ethena"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -284,7 +284,7 @@
       ]
     },
     "GLP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-glp-manager"]
     },
     "wstETH": {
       "source": [
@@ -360,18 +360,18 @@
       "source": ["arbitrum-evm-fetcher-beefy"]
     },
     "YY_WOMBEX_USDT": {
-      "source": ["arbitrum-evm-fetcher"],
+      "source": ["arbitrum-evm-fetcher-yield-yak"],
       "decimals": 20
     },
     "YY_WOMBEX_USDC.e": {
-      "source": ["arbitrum-evm-fetcher"],
+      "source": ["arbitrum-evm-fetcher-yield-yak"],
       "decimals": 20
     },
     "YY_WOMBEX_GLP": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-yield-yak"]
     },
     "YY_WOMBEX_DAI": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-yield-yak"]
     },
     "arbJnrLLP": {
       "source": ["arbitrum-evm-fetcher-level-finance"]
@@ -479,22 +479,22 @@
       ]
     },
     "GM_ETH_WETH_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_BTC_WBTC_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_LINK_LINK_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_UNI_UNI_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_ARB_ARB_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "GM_SOL_SOL_USDC": {
-      "source": ["arbitrum-evm-fetcher"]
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "rETH": {
       "source": [
@@ -575,7 +575,7 @@
       ]
     },
     "sfrxETH": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-frax"]
     },
     "ezETH": {
       "source": [
@@ -615,7 +615,7 @@
       "source": ["arbitrum-evm-fetcher-pendle"]
     },
     "3Crv": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-curve"]
     },
     "AAVE": {
       "source": [

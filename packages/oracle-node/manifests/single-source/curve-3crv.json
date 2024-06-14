@@ -13,7 +13,7 @@
     "ALUSD": {},
     "LUSD": {},
     "3Crv": {
-      "source": ["ethereum-evm-fetcher"]
+      "source": ["ethereum-evm-fetcher-curve"]
     },
     "DAI": {
       "source": ["coingecko"]
