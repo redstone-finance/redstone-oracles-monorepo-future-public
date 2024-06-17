@@ -189,7 +189,7 @@
         "coinbasepro-usd",
         "coingecko",
         "trader-joe-v2-avalanche-usdc",
-        "uniswap-v3-ethereum-on-chain-usdc-500"
+        "uniswap-v3-ethereum-usdc-500"
       ]
     },
     "EUROC/EUR": {
@@ -241,7 +241,7 @@
         "mento",
         "mexc-usdt",
         "okx-usdt",
-        "uniswap-v3-ethereum-on-chain-dai-100"
+        "uniswap-v3-ethereum-dai-100"
       ]
     },
     "DAI": {
@@ -278,9 +278,9 @@
         "curve-ethereum-usdc-multi-block",
         "fraxswap-ethereum-fxs",
         "fraxswap-ethereum-weth",
-        "uniswap-v3-ethereum-on-chain-fxs-10000",
-        "uniswap-v3-ethereum-on-chain-usdc-500",
-        "uniswap-v3-ethereum-on-chain-dai-500"
+        "uniswap-v3-ethereum-fxs-10000",
+        "uniswap-v3-ethereum-usdc-500",
+        "uniswap-v3-ethereum-dai-500"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {

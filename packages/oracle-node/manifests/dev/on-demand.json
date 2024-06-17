@@ -38,10 +38,10 @@
         "lbank",
         "maverick-ethereum-usdt",
         "okx",
-        "uniswap-v3-ethereum-on-chain-dai-100",
-        "uniswap-v3-ethereum-on-chain-usdt-100",
-        "uniswap-v3-ethereum-on-chain-dai-500",
-        "uniswap-v3-ethereum-on-chain-usdt-500"
+        "uniswap-v3-ethereum-dai-100",
+        "uniswap-v3-ethereum-usdt-100",
+        "uniswap-v3-ethereum-dai-500",
+        "uniswap-v3-ethereum-usdt-500"
       ]
     }
   }

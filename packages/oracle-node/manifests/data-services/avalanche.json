@@ -94,7 +94,7 @@
         "lbank-usdt",
         "mexc-usdt",
         "okx-usdt",
-        "uniswap-v3-ethereum-on-chain-weth-3000",
+        "uniswap-v3-ethereum-weth-3000",
         "xt"
       ]
     },
@@ -151,7 +151,7 @@
         "maverick-ethereum-usdt",
         "mexc-usdt",
         "okx-usdt",
-        "uniswap-v3-ethereum-on-chain-dai-100"
+        "uniswap-v3-ethereum-dai-100"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -267,7 +267,7 @@
         "coingecko",
         "coinmarketcap",
         "trader-joe-v2-avalanche-usdc",
-        "uniswap-v3-ethereum-on-chain-usdc-500"
+        "uniswap-v3-ethereum-usdc-500"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {

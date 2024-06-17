@@ -1,7 +1,7 @@
 {
   "interval": 15000,
   "priceAggregator": "median",
-  "defaultSource": ["uniswap-v3-ethereum-on-chain-weth-500"],
+  "defaultSource": ["uniswap-v3-ethereum-weth-500"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {
