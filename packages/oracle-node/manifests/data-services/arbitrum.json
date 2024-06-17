@@ -259,8 +259,7 @@
         "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-arbitrumone-weth-500",
-        "uniswap-v3-arbitrumone-weth-3000",
-        "uniswap-v3-arbitrumone-usdc-500"
+        "uniswap-v3-arbitrumone-weth-3000"
       ]
     },
     "CRV": {
@@ -295,6 +294,7 @@
         "coinmarketcap",
         "curve-ethereum-crvusd",
         "maverick-ethereum-weth",
+        "pancake-swap-ethereum-weth-100",
         "uniswap-v3-arbitrumone-weth-100",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-optimism-weth-100",
@@ -532,7 +532,8 @@
         "balancer-ethereum-ethx",
         "balancer-ethereum-weth",
         "curve-ethereum-sfrxeth",
-        "uniswap-v3-ethereum-weth-500"
+        "uniswap-v3-ethereum-weth-500",
+        "uniswap-v3-ethereum-wsteth-500"
       ]
     },
     "CVX": {
