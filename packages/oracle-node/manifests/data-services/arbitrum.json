@@ -291,6 +291,7 @@
         "balancer-arbitrumone-weth",
         "balancer-ethereum-aave",
         "balancer-ethereum-weth",
+        "balancer-ethereum-weth-2",
         "coinmarketcap",
         "curve-ethereum-crvusd",
         "maverick-ethereum-weth",

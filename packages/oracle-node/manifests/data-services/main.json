@@ -604,6 +604,7 @@
         "balancer-arbitrumone-weth",
         "balancer-ethereum-aave",
         "balancer-ethereum-weth",
+        "balancer-ethereum-weth-2",
         "curve-ethereum-crvusd",
         "maverick-ethereum-weth",
         "uniswap-v3-arbitrumone-weth-100",
@@ -700,6 +701,7 @@
         "balancer-ethereum-usdc",
         "balancer-ethereum-usdt",
         "coingecko",
+        "curve-ethereum-crvusd",
         "curve-ethereum-usde"
       ]
     },
@@ -1164,7 +1166,8 @@
         "aerodrome-base-usdc",
         "curve-ethereum-crvfrax",
         "curve-ethereum-eth+",
-        "curve-ethereum-rsr"
+        "curve-ethereum-rsr",
+        "curve-ethereum-usdc"
       ]
     },
     "RSR": {
