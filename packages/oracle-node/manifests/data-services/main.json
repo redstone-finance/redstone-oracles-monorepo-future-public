@@ -1449,6 +1449,17 @@
     "bsdETH/ETH": {
       "source": ["non-usd-based"]
     },
+    "ZK": {
+      "source": [
+        "binance-usdt",
+        "binanceusdm-usdt",
+        "bybit-usdt",
+        "bybit-usdc",
+        "gate-usdt",
+        "kucoin-usdt",
+        "mexc-usdt"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
