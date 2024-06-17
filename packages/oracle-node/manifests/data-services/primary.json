@@ -1169,6 +1169,17 @@
     },
     "bsdETH/ETH": {
       "source": ["non-usd-based"]
+    },
+    "ZK": {
+      "source": [
+        "binance-usdt",
+        "binanceusdm-usdt",
+        "bybit-usdt",
+        "bybit-usdc",
+        "gate-usdt",
+        "kucoin-usdt",
+        "mexc-usdt"
+      ]
     }
   },
   "multiPointPackages": {
