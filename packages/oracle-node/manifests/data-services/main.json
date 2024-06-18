@@ -1453,11 +1453,16 @@
       "source": [
         "binance-usdt",
         "binanceusdm-usdt",
+        "bingx-usdt",
+        "bitmart-usdt",
         "bybit-usdt",
         "bybit-usdc",
         "gate-usdt",
         "kucoin-usdt",
-        "mexc-usdt"
+        "lbank-usdt",
+        "mexc-usdt",
+        "okx-usdt",
+        "xt"
       ]
     },
     "AUD": {
