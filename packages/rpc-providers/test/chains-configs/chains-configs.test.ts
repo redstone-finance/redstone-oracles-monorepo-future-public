@@ -8,6 +8,7 @@ import {
   MegaProviderBuilder,
   REDSTONE_MULTICALL3_ADDRESS,
   STANDARD_MULTICALL3_ADDRESS,
+  ZKSYNC_MULTICALL3_ADDRESS,
 } from "../../src";
 
 const SINGLE_RPC_TIMEOUT_MILLISECONDS = 10_000;
@@ -71,6 +72,13 @@ describe("Validate multicall3", () => {
             `Multicall3 address for chain ${chainConfig.name} doesn't match STANDARD_MULTICALL3_ADDRESS`
           )
           .eq(STANDARD_MULTICALL3_ADDRESS);
+      } else if (chainConfig.multicall3.type === "zkSyncMulticall3") {
+        chai
+          .expect(
+            chainConfig.multicall3.address,
+            `Multicall3 address for chain ${chainConfig.name} doesn't match REDSTONE_MULTICALL3_ADDRESS`
+          )
+          .eq(ZKSYNC_MULTICALL3_ADDRESS);
       }
     }
   });

@@ -20,6 +20,12 @@ export const ChainConfigSchema = z.object({
         type: z.literal("RedstoneMulticall3"),
         gasLimitPerCall: z.number().positive(),
       })
+    )
+    .or(
+      z.object({
+        address: z.string(),
+        type: z.literal("zkSyncMulticall3"),
+      })
     ),
 });
 
@@ -30,5 +36,7 @@ export const STANDARD_MULTICALL3_ADDRESS =
   "0xcA11bde05977b3631167028862bE2a173976CA11";
 export const REDSTONE_MULTICALL3_ADDRESS =
   "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c";
+export const ZKSYNC_MULTICALL3_ADDRESS =
+  "0xF9cda624FBC7e059355ce98a31693d299FACd963";
 
 export const ChainConfigs = z.record(ChainConfigSchema).parse(config);
