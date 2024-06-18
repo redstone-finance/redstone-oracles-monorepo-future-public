@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "zkSyncMainnet",
+    "id": 324
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0x5efDb74da192584746c96EcCe138681Ec1501218",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ZK": "0x5efDb74da192584746c96EcCe138681Ec1501218"
+  }
+}

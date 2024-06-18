@@ -480,5 +480,23 @@
     },
     "isAuctionModel": false,
     "twoDimensionalFees": false
+  },
+  "zksync": {
+    "name": "zkSync",
+    "chainId": 324,
+    "publicRpcUrls": [
+      "https://mainnet.era.zksync.io",
+      "https://zksync.drpc.org",
+      "https://1rpc.io/zksync2-era",
+      "https://zksync-era.blockpi.network/v1/rpc/public",
+      "https://endpoints.omniatech.io/v1/zksync-era/mainnet/public"
+    ],
+    "avgBlockTimeMs": 1200,
+    "multicall3": {
+      "address": "0xF9cda624FBC7e059355ce98a31693d299FACd963",
+      "type": "zkSyncMulticall3"
+    },
+    "isAuctionModel": false,
+    "twoDimensionalFees": false
   }
 }

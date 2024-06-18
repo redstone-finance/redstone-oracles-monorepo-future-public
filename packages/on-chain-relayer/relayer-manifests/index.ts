@@ -74,6 +74,7 @@ import swell from "./swell.json";
 import venusBnbTestnet from "./venusBnbTestnet.json";
 import venusBnbTrx from "./venusBnbTrx.json";
 import venusMainnetXvs from "./venusMainnetXvs.json";
+import zksyncZk from "./zksyncZk.json";
 
 import { OnChainRelayerManifest } from "../src";
 
@@ -158,4 +159,5 @@ export default {
   venusBnbTestnet,
   venusBnbTrx,
   venusMainnetXvs,
+  zksyncZk,
 } as Record<string, OnChainRelayerManifest>;
