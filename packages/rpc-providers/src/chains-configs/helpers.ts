@@ -82,7 +82,10 @@ export function getMulticall3(
 
   const address = options.overrideAddress ?? multicall3.address;
 
-  if (multicall3.type === "Multicall3") {
+  if (
+    multicall3.type === "Multicall3" ||
+    multicall3.type === "zkSyncMulticall3"
+  ) {
     return new Contract(
       address,
       Multicall3Abi,
