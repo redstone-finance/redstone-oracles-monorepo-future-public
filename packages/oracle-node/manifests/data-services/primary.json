@@ -1185,6 +1185,13 @@
         "okx-usdt",
         "xt"
       ]
+    },
+    "USD+": {
+      "source": [
+        "aerodrome-base-eusd",
+        "aerodrome-cl-base-usdc-100",
+        "aerodrome-cl-base-weth-400"
+      ]
     }
   },
   "multiPointPackages": {
