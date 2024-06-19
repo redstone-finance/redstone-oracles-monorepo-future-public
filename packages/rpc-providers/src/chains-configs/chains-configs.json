@@ -488,8 +488,7 @@
       "https://mainnet.era.zksync.io",
       "https://zksync.drpc.org",
       "https://1rpc.io/zksync2-era",
-      "https://zksync-era.blockpi.network/v1/rpc/public",
-      "https://endpoints.omniatech.io/v1/zksync-era/mainnet/public"
+      "https://zksync-era.blockpi.network/v1/rpc/public"
     ],
     "avgBlockTimeMs": 1200,
     "multicall3": {
