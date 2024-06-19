@@ -1,7 +1,4 @@
-import {
-  BaseWrapper,
-  DataPackagesWrapper,
-} from "@redstone-finance/evm-connector";
+import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { Contract } from "ethers";
 import { RedstoneAdapterBase } from "../../typechain-types";
@@ -10,7 +7,6 @@ import { getLastRoundParamsFromContract } from "../core/contract-interactions/ge
 import { getUniqueSignersThresholdFromContract } from "../core/contract-interactions/get-unique-signers-threshold";
 import { getValuesForDataFeeds } from "../core/contract-interactions/get-values-for-data-feeds";
 import { fetchDataPackages } from "../core/fetch-data-packages";
-import { chooseDataPackagesTimestamp } from "../core/update-conditions/data-packages-timestamp";
 import { shouldUpdate } from "../core/update-conditions/should-update";
 
 type IterationArgs<T extends Contract> = {
@@ -20,10 +16,9 @@ type IterationArgs<T extends Contract> = {
 };
 
 export type UpdatePricesArgs<T extends Contract = Contract> = {
-  proposedTimestamp: number;
-  dataPackagesWrapper: BaseWrapper<T>;
   adapterContract: T;
   blockTag: number;
+  fetchDataPackages: () => Promise<DataPackagesResponse>;
 };
 
 export const getIterationArgs = async (
@@ -67,20 +62,14 @@ export const getIterationArgs = async (
     relayerConfig
   );
 
-  const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
-
-  const dataPackagesWrapper = new DataPackagesWrapper<RedstoneAdapterBase>(
-    dataPackages
-  );
-
   return {
     shouldUpdatePrices,
     message: warningMessage,
     args: {
       adapterContract,
-      proposedTimestamp,
-      dataPackagesWrapper,
       blockTag,
+      fetchDataPackages: () =>
+        fetchDataPackages(relayerConfig, uniqueSignersThreshold),
     },
   };
 };

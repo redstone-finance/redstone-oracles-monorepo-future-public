@@ -1,4 +1,3 @@
-import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import { ProviderWithAgreement } from "@redstone-finance/rpc-providers";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
@@ -7,7 +6,6 @@ import { parseUnits } from "ethers/lib/utils";
 import { ethers } from "hardhat";
 import { UpdatePricesArgs } from "../../src";
 import { updatePrices } from "../../src/core/contract-interactions/update-prices";
-import { chooseDataPackagesTimestamp } from "../../src/core/update-conditions/data-packages-timestamp";
 import { PriceFeedsAdapterWithoutRoundsMock } from "../../typechain-types";
 import {
   btcDataFeed,
@@ -51,19 +49,13 @@ describe("update-prices", () => {
     );
 
     // Update prices
-    const dataPackages = await getDataPackagesResponse();
     const updatePricesArgs: UpdatePricesArgs = {
-      proposedTimestamp: chooseDataPackagesTimestamp(dataPackages),
-      dataPackagesWrapper: new DataPackagesWrapper(dataPackages),
       adapterContract: priceFeedsAdapter,
       blockTag: await provider.getBlockNumber(),
+      fetchDataPackages: getDataPackagesResponse,
     };
 
-    try {
-      await updatePrices(updatePricesArgs);
-    } catch (e) {
-      console.log(e);
-    }
+    await updatePrices(updatePricesArgs);
 
     // Check updated values
     const dataFeedsValues = await priceFeedsAdapter.getValuesForDataFeeds(
@@ -102,12 +94,10 @@ describe("update-prices", () => {
     await mentoAdapter.setSortedOraclesAddress(sortedOracles.address);
 
     // Update prices
-    const dataPackages = await getDataPackagesResponse();
     const updatePricesArgs: UpdatePricesArgs = {
-      proposedTimestamp: chooseDataPackagesTimestamp(dataPackages),
-      dataPackagesWrapper: new DataPackagesWrapper(dataPackages),
       adapterContract: mentoAdapter.connect(provider),
       blockTag: await provider.getBlockNumber(),
+      fetchDataPackages: getDataPackagesResponse,
     };
 
     await updatePrices(updatePricesArgs);

@@ -7,8 +7,7 @@ import { BigNumber, BytesLike, Transaction, ethers } from "ethers";
 import * as hardhat from "hardhat";
 import _ from "lodash";
 import Sinon from "sinon";
-import { TxDelivery, TxDeliveryOpts } from "../../src";
-import { makeGasEstimateTx } from "../../src/tx-delivery-man/GasLimitEstimator";
+import { TxDelivery, TxDeliveryOpts, convertToTxDeliveryCall } from "../../src";
 import { Counter } from "../../typechain-types";
 import { HardhatProviderMocker, deployCounter } from "../helpers";
 
@@ -69,16 +68,91 @@ describe("TxDelivery", () => {
       );
 
     it("should deliver transaction", async () => {
-      const deliveryMan = createTxDelivery({
+      const delivery = createTxDelivery({
         expectedDeliveryTimeMs: 20,
         gasLimit: 210000,
       });
 
-      await assertTxWillBeDelivered(deliveryMan, counter);
+      await assertTxWillBeDelivered(delivery, counter);
+    });
+
+    it("should deliver transaction with deferred callData", async () => {
+      let count = 1;
+
+      const delivery = new TxDelivery(
+        {
+          maxAttempts: 10,
+          multiplier: 1.125,
+          gasLimitMultiplier: 1.1,
+          expectedDeliveryTimeMs: 20,
+          gasLimit: 210000,
+        },
+        counter.signer,
+        counter.provider as ethers.providers.JsonRpcProvider,
+        () =>
+          counter.populateTransaction["incBy"](count++).then(
+            (call) => call.data as string
+          )
+      );
+
+      const call = convertToTxDeliveryCall(
+        await counter.populateTransaction["incBy"](count)
+      );
+      await delivery.deliver(call);
+
+      expect(await counter.getCount()).to.eq(1);
+    });
+
+    it("should deliver transaction with deferred callData", async () => {
+      const count = 8;
+
+      const delivery = new TxDelivery(
+        {
+          maxAttempts: 10,
+          multiplier: 1.125,
+          gasLimitMultiplier: 1.1,
+          expectedDeliveryTimeMs: 20,
+          gasLimit: 210000,
+        },
+        counter.signer,
+        counter.provider as ethers.providers.JsonRpcProvider,
+        () =>
+          counter.populateTransaction["incBy"](count + 1).then(
+            (call) => call.data as string
+          )
+      );
+      // to enforce sending two transactions
+      const getNonceStub = Sinon.stub()
+        .onFirstCall()
+        .returns(1)
+        .onSecondCall()
+        .returns(1);
+
+      const sendTransactionStub = Sinon.stub();
+      sendTransactionStub.callsFake(hardhat.ethers.provider.sendTransaction);
+
+      providerMocker.set({
+        getTransactionCount: getNonceStub,
+        sendTransaction: sendTransactionStub,
+      });
+
+      const call = convertToTxDeliveryCall(
+        await counter.populateTransaction["incBy"](count)
+      );
+
+      await delivery.deliver(call);
+
+      // on position 161 is placed count param in transaction
+      expect((sendTransactionStub.getCalls()[0].firstArg as string)[161]).to.eq(
+        "8"
+      );
+      expect((sendTransactionStub.getCalls()[1].firstArg as string)[161]).to.eq(
+        "9"
+      );
     });
 
     it("should increase maxGas if transaction failed", async () => {
-      const deliveryMan = createTxDelivery({
+      const delivery = createTxDelivery({
         expectedDeliveryTimeMs: 20,
         gasLimit: 210000,
       });
@@ -90,7 +164,7 @@ describe("TxDelivery", () => {
         .callsFake(hardhat.ethers.provider.sendTransaction);
       providerMocker.set({ sendTransaction: sendStub });
 
-      await assertTxWillBeDelivered(deliveryMan, counter);
+      await assertTxWillBeDelivered(delivery, counter);
 
       expect(parseTxForComparison(sendStub.firstCall.args[0])).to.deep.equal({
         nonce: 1,
@@ -125,18 +199,18 @@ describe("TxDelivery", () => {
         getTransactionCount: getNonceStub,
       });
 
-      const deliveryMan = createTxDelivery({
+      const delivery = createTxDelivery({
         expectedDeliveryTimeMs: 20,
         gasLimit: 210000,
       });
 
-      await assertTxWillBeDelivered(deliveryMan, counter);
+      await assertTxWillBeDelivered(delivery, counter);
 
       expect(sendStub.getCalls().length).to.eq(2);
     });
 
     it("should error after max attempts", async () => {
-      const deliveryMan = createTxDelivery({
+      const delivery = createTxDelivery({
         expectedDeliveryTimeMs: 20,
         gasLimit: 210000,
         maxAttempts: 2,
@@ -147,15 +221,15 @@ describe("TxDelivery", () => {
       sendStub.onSecondCall().rejects(underpricedError);
       providerMocker.set({ sendTransaction: sendStub });
 
-      const call = makeGasEstimateTx(
+      const call = convertToTxDeliveryCall(
         await counter.populateTransaction["inc"]()
       );
 
-      await expect(deliveryMan.deliver(call)).rejectedWith();
+      await expect(delivery.deliver(call)).rejectedWith();
     });
 
     it("should increase gas limit for 2d prices", async () => {
-      const deliveryMan = createTxDelivery({
+      const delivery = createTxDelivery({
         expectedDeliveryTimeMs: 20,
         twoDimensionalFees: true,
       });
@@ -167,25 +241,25 @@ describe("TxDelivery", () => {
         .callsFake(hardhat.ethers.provider.sendTransaction);
       providerMocker.set({ sendTransaction: sendStub });
 
-      await assertTxWillBeDelivered(deliveryMan, counter);
+      await assertTxWillBeDelivered(delivery, counter);
 
       expect(parseTxForComparison(sendStub.firstCall.args[0])).to.deep.equal({
         nonce: 1,
         maxFeePerGas: "2375000000",
         maxPriorityFeePerGas: "1500000000",
-        gasLimit: "49295",
+        gasLimit: "49321",
       });
 
       expect(parseTxForComparison(sendStub.secondCall.args[0])).to.deep.equal({
         nonce: 1,
         maxFeePerGas: "2671875000",
         maxPriorityFeePerGas: "1687500000",
-        gasLimit: "54225",
+        gasLimit: "54253",
       });
     });
 
     it("should work with auction model", async () => {
-      const deliveryMan = createTxDelivery({
+      const delivery = createTxDelivery({
         expectedDeliveryTimeMs: 20,
         gasLimit: 210000,
         isAuctionModel: true,
@@ -198,7 +272,7 @@ describe("TxDelivery", () => {
         .callsFake(hardhat.ethers.provider.sendTransaction);
       providerMocker.set({ sendTransaction: sendStub });
 
-      await assertTxWillBeDelivered(deliveryMan, counter);
+      await assertTxWillBeDelivered(delivery, counter);
       expect(
         _.pick(parseTransaction(sendStub.firstCall.args[0]), [
           "nonce",
@@ -208,7 +282,7 @@ describe("TxDelivery", () => {
       ).to.deep.equal({
         nonce: 1,
         gasLimit: "210000",
-        gasPrice: "1767619658",
+        gasPrice: "1767838481",
       });
 
       expect(
@@ -220,19 +294,20 @@ describe("TxDelivery", () => {
       ).to.deep.equal({
         nonce: 1,
         gasLimit: "210000",
-        gasPrice: "1988572115",
+        gasPrice: "1988818291",
       });
     });
   });
 });
 
 async function assertTxWillBeDelivered(
-  deliveryMan: TxDelivery,
+  delivery: TxDelivery,
   counter: Counter,
   expectedCounterValue = 1
 ) {
-  const call = makeGasEstimateTx(await counter.populateTransaction["inc"]());
-  const tx = await deliveryMan.deliver(call);
-  await tx.wait();
+  const call = convertToTxDeliveryCall(
+    await counter.populateTransaction["inc"]()
+  );
+  await delivery.deliver(call);
   expect(await counter.getCount()).to.eq(expectedCounterValue);
 }

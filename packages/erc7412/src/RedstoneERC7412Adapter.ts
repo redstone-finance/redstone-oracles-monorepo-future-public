@@ -1,12 +1,10 @@
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
+import { chooseDataPackagesTimestamp } from "@redstone-finance/on-chain-relayer";
 import {
   DataServiceIds,
   getSignersForDataServiceId,
 } from "@redstone-finance/oracles-smartweave-contracts";
-import {
-  DataPackagesResponse,
-  requestDataPackages,
-} from "@redstone-finance/sdk";
+import { requestDataPackages } from "@redstone-finance/sdk";
 import { Adapter } from "erc7412";
 import * as viem from "viem";
 
@@ -62,16 +60,4 @@ const bytes32ToString = (bytes32: string) => {
   }
 
   return Buffer.from(arrayOfChars.join(""), "hex").toString();
-};
-
-export const chooseDataPackagesTimestamp = (
-  dataPackages: DataPackagesResponse
-) => {
-  const dataPackageTimestamps = Object.values(dataPackages).flatMap(
-    (dataPackages) =>
-      dataPackages!.map(
-        (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
-      )
-  );
-  return Math.min(...dataPackageTimestamps);
 };

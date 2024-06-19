@@ -5,6 +5,7 @@ export {
 } from "./args/get-iteration-args";
 export { setConfigProvider } from "./config";
 export { getAbiForAdapter } from "./core/contract-interactions/get-abi-for-adapter";
+export { chooseDataPackagesTimestamp } from "./core/update-conditions/data-packages-timestamp";
 export { makeConfigProvider } from "./make-config-provider";
 export {
   ChainSchema,

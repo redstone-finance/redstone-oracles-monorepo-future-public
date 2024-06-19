@@ -5,8 +5,7 @@ import chaiAsPromised from "chai-as-promised";
 import { ethers } from "ethers";
 import * as hardhat from "hardhat";
 import Sinon from "sinon";
-import { ProviderWithFallback } from "../../src";
-import { makeGasEstimateTx } from "../../src/tx-delivery-man/GasLimitEstimator";
+import { ProviderWithFallback, convertToTxDeliveryCall } from "../../src";
 import { TxDeliveryMan } from "../../src/tx-delivery-man/TxDeliveryMan";
 import { Counter } from "../../typechain-types";
 import { HardhatProviderMocker, deployCounter } from "../helpers";
@@ -18,9 +17,10 @@ async function assertTxWillBeDelivered(
   counter: Counter,
   expectedCounterValue = 1
 ) {
-  const call = makeGasEstimateTx(await counter.populateTransaction["inc"]());
-  const tx = await deliveryMan.deliver(call);
-  await tx.wait();
+  const call = convertToTxDeliveryCall(
+    await counter.populateTransaction["inc"]()
+  );
+  await deliveryMan.deliver(call);
   expect(await counter.getCount()).to.eq(expectedCounterValue);
 }
 
@@ -78,35 +78,6 @@ describe("TxDeliveryMan", () => {
 
       connectProvider(fallbackProvider);
       await assertTxWillBeDelivered(deliveryMan, counter);
-    });
-
-    it("should skip for provider which is still delivering old tx", async () => {
-      const getNonceStub = Sinon.stub().callsFake(
-        hardhat.ethers.provider.getTransactionCount
-      );
-
-      const providerWithOldNonceMock = new HardhatProviderMocker(
-        hardhat.ethers.provider,
-        { getTransactionCount: getNonceStub }
-      );
-      const fallbackProvider = new ProviderWithFallback([
-        hardhat.ethers.provider,
-        providerWithOldNonceMock.provider,
-      ]);
-      const deliveryMan = new TxDeliveryMan(fallbackProvider, counter.signer, {
-        expectedDeliveryTimeMs: 20,
-        gasLimit: 210000,
-      });
-
-      connectProvider(fallbackProvider);
-
-      await Promise.allSettled([
-        assertTxWillBeDelivered(deliveryMan, counter),
-        assertTxWillBeDelivered(deliveryMan, counter),
-      ]);
-
-      // assert that only one transaction was delivered
-      await assertTxWillBeDelivered(deliveryMan, counter, 2);
     });
 
     it("provider broadcast same transaction to every provider", async () => {
@@ -284,6 +255,67 @@ describe("TxDeliveryMan", () => {
       ]);
       connectProvider(fallbackProviderDiffOrder);
       await assertTxWillBeDelivered(deliveryMan, counter, 2);
+    });
+
+    it("should cancel current delivery start new one", async () => {
+      const deliveryMan = new TxDeliveryMan(
+        hardhat.ethers.provider,
+        counter.signer,
+        {
+          expectedDeliveryTimeMs: 20,
+          gasLimit: 210000,
+        }
+      );
+
+      connectProvider(hardhat.ethers.provider);
+
+      await Promise.allSettled([
+        assertTxWillBeDelivered(deliveryMan, counter),
+        assertTxWillBeDelivered(deliveryMan, counter),
+      ]);
+
+      await assertTxWillBeDelivered(deliveryMan, counter, 2);
+    });
+
+    it("should called deferred callData function if passed", async () => {
+      const getNonceStub = Sinon.stub()
+        .onFirstCall()
+        .resolves(1)
+        .onSecondCall()
+        .resolves(1)
+        .onThirdCall()
+        .resolves(2);
+
+      const provider = new HardhatProviderMocker(hardhat.ethers.provider, {
+        getTransactionCount: getNonceStub,
+        sendTransaction: () => ({ hash: "mock_hash" }),
+      }).provider;
+
+      const deliveryMan = new TxDeliveryMan(provider, counter.signer, {
+        expectedDeliveryTimeMs: 20,
+        gasLimit: 210000,
+        maxAttempts: 2,
+      });
+
+      connectProvider(provider);
+
+      const deferredSpy = Sinon.stub().callsFake(() =>
+        counter.populateTransaction["inc"]().then((tx) => tx.data!)
+      );
+
+      try {
+        await deliveryMan.deliver(
+          await counter.populateTransaction["inc"]().then((req) =>
+            convertToTxDeliveryCall(req)
+          ),
+          deferredSpy
+        );
+      } catch (e) {
+        console.log(e);
+      }
+
+      expect(getNonceStub.getCalls().length).to.eq(3);
+      expect(deferredSpy.getCalls().length).to.eq(1);
     });
   });
 });
