@@ -1,5 +1,7 @@
 import { Web3FunctionUserArgs } from "@gelatonetwork/web3-functions-sdk";
+import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
+  chooseDataPackagesTimestamp,
   getAbiForAdapter,
   getIterationArgs,
   makeConfigProvider,
@@ -69,9 +71,12 @@ export class IterationArgsProvider
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getTransactionData({
     adapterContract,
-    dataPackagesWrapper,
-    proposedTimestamp,
+    fetchDataPackages,
   }: UpdatePricesArgs): Promise<string | undefined> {
+    const dataPackages = await fetchDataPackages();
+    const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
+    const dataPackagesWrapper = new DataPackagesWrapper(dataPackages);
+
     const wrappedContract =
       dataPackagesWrapper.overwriteEthersContract(adapterContract);
 

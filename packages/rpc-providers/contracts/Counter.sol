@@ -15,6 +15,11 @@ contract Counter {
     emit Inc(count);
   }
 
+  function incBy(uint256 by) external {
+    count += by;
+    emit Inc(count);
+  }
+
   function fail() external pure {
     revert("This functions always reverts.");
   }

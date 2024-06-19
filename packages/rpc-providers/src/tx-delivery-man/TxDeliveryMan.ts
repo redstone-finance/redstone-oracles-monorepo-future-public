@@ -1,5 +1,8 @@
-import { TransactionResponse } from "@ethersproject/providers";
-import { loggerFactory } from "@redstone-finance/utils";
+import {
+  TransactionReceipt,
+  TransactionResponse,
+} from "@ethersproject/providers";
+import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { ethers, providers } from "ethers";
 import { getProviderNetworkInfo } from "../common";
 import { ProviderWithAgreement } from "../providers/ProviderWithAgreement";
@@ -20,7 +23,10 @@ const logger = loggerFactory("TxDeliveryMan");
 
 export class TxDeliveryMan {
   private providers: readonly providers.JsonRpcProvider[];
-  private isProviderBusy = new Map<providers.JsonRpcProvider, boolean>();
+  private txDeliveriesInProgress = new Map<
+    providers.JsonRpcProvider,
+    boolean
+  >();
 
   constructor(
     provider: TxDeliveryManSupportedProviders,
@@ -30,38 +36,70 @@ export class TxDeliveryMan {
     this.providers = extractProviders(provider);
   }
 
-  /** All values of txDeliveryCall has to be hex values */
-  async deliver(txDeliveryCall: TxDeliveryCall): Promise<TransactionResponse> {
-    const deliveryPromises = [];
+  /**
+   *
+   * @param txDeliveryCall {TxDeliveryCall} - all values has to be hex values starting with 0x
+   * @param deferredCallData {() => Promise<string>} - if passed is called first time on second attempt.
+   * During first attempt callData from txDeliveryCall is used.
+   * @returns {TransactionResponse}
+   * Because we are sending concurrently many requests
+   * returned transaction response doesn't have to be transaction which is actually included in chain.
+   * When transaction returns it means that it was mined, however could have still reverted. Use `.wait` to
+   * get more context.
+   */
+  async deliver(
+    txDeliveryCall: TxDeliveryCall,
+    deferredCallData?: () => Promise<string>
+  ): Promise<TransactionResponse> {
+    const deliveryPromises = this.providers.map(async (provider) => {
+      const deliveryInProgress = this.txDeliveriesInProgress.get(provider);
 
-    for (const provider of this.providers) {
-      if (this.isProviderBusy.get(provider)) {
-        logger.log(
-          `[TxDeliveryMan] provider=${
-            getProviderNetworkInfo(provider).url
-          } is still delivering old transaction, skipping delivery by this provider`
+      if (!deliveryInProgress) {
+        return await this.createAndDeliverNewPackage(
+          provider,
+          txDeliveryCall,
+          deferredCallData
         );
-        continue;
+      } else {
+        // we are okay with skipping current delivery, because we are passing
+        // dynamically fetched calldata
+        // This approach allows to better separate providers errors
+        const rpcUrl = getProviderNetworkInfo(provider).url;
+        const message = `RpcUrl=${rpcUrl} Delivery in progress; Skipping`;
+        logger.log(message);
+        throw new Error(message);
       }
-      const txDelivery = createTxDelivery(provider, this.signer, this.opts);
+    });
 
-      this.isProviderBusy.set(provider, true);
-      const deliveryPromise = txDelivery
-        .deliver(txDeliveryCall)
-        .finally(() => this.isProviderBusy.set(provider, false));
+    const fastestDelivery = await Promise.any(deliveryPromises);
 
-      deliveryPromises.push(deliveryPromise);
-    }
+    return { ...fastestDelivery, wait: buildWaitFn(deliveryPromises) };
+  }
 
-    return await Promise.any(deliveryPromises);
+  private createAndDeliverNewPackage(
+    provider: providers.JsonRpcProvider,
+    txDeliveryCall: TxDeliveryCall,
+    deferredCallData?: () => Promise<string>
+  ) {
+    const txDelivery = createTxDelivery(
+      provider,
+      this.signer,
+      this.opts,
+      deferredCallData
+    );
+
+    const deliveryPromise = txDelivery
+      .deliver(txDeliveryCall)
+      .finally(() => this.txDeliveriesInProgress.set(provider, false));
+
+    this.txDeliveriesInProgress.set(provider, true);
+
+    return deliveryPromise;
   }
 }
 
 export function extractProviders(
-  provider:
-    | providers.JsonRpcProvider
-    | ProviderWithFallback
-    | ProviderWithAgreement
+  provider: TxDeliveryManSupportedProviders
 ): readonly ethers.providers.JsonRpcProvider[] {
   if (
     provider instanceof ProviderWithFallback ||
@@ -75,7 +113,8 @@ export function extractProviders(
 function createTxDelivery(
   provider: providers.JsonRpcProvider,
   signer: TxDeliverySigner,
-  opts: TxDeliveryOpts
+  opts: TxDeliveryOpts,
+  deferredCallData?: () => Promise<string>
 ): TxDelivery {
   const rpcUrl = getProviderNetworkInfo(provider).url;
   return new TxDelivery(
@@ -84,6 +123,38 @@ function createTxDelivery(
       logger: (msg) => logger.log(`RpcUrl=${rpcUrl}, ${msg}`),
     },
     signer,
-    provider
+    provider,
+    deferredCallData
   );
+}
+
+function buildWaitFn(deliveryPromises: Promise<TransactionResponse>[]) {
+  return async (confirmations?: number) => {
+    const receipts = (
+      await Promise.allSettled(
+        deliveryPromises.map((txResponse) =>
+          txResponse.then((txResponse) =>
+            RedstoneCommon.timeout(txResponse.wait(confirmations), 10_000)
+          )
+        )
+      )
+    )
+      .filter((result) => result.status === "fulfilled")
+      .map(
+        (result) => (result as PromiseFulfilledResult<TransactionReceipt>).value
+      );
+
+    if (receipts.length > 1) {
+      const hashes = receipts.map((r) => r.transactionHash).join(", ");
+      throw new Error(
+        `Network between rpcs is forked - received more then one successful receipts (${receipts.length}). Possible transactions: ${hashes}`
+      );
+    } else if (receipts.length === 0) {
+      throw new Error(
+        "Transaction was mined but reverted with error OR we failed to fetch it"
+      );
+    } else {
+      return receipts[0];
+    }
+  };
 }

@@ -14,27 +14,26 @@ export const RETRY_CONFIG = {
 };
 const logger = loggerFactory("chain-config/rpc-urls");
 
-describe("Validate chain config rpc urls", function () {
-  for (const [name, config] of Object.entries(ChainConfigs).reverse()) {
-    for (const rpcUrl of config.publicRpcUrls) {
-      if (rpcUrl.includes("localhost")) {
-        continue;
-      }
-
-      test(`Test '${name}' rpc url: ${rpcUrl}`, async () => {
-        if (process.env.IS_CI !== "true") {
-          this.ctx.skip();
+if (process.env.IS_CI === "true") {
+  describe("Validate chain config rpc urls", function () {
+    for (const [name, config] of Object.entries(ChainConfigs)) {
+      for (const rpcUrl of config.publicRpcUrls) {
+        if (rpcUrl.includes("localhost")) {
+          continue;
         }
-        const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
-        const chainId = await RedstoneCommon.retry({
-          fn: async () => (await provider.getNetwork()).chainId,
-          fnName: "provider.getNetwork()",
-          ...RETRY_CONFIG,
-          logger: logger.log,
-        })();
 
-        chai.expect(chainId, `Wrong chainId`).to.eq(config.chainId);
-      });
+        test(`Test '${name}' rpc url: ${rpcUrl}`, async () => {
+          const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
+          const chainId = await RedstoneCommon.retry({
+            fn: async () => (await provider.getNetwork()).chainId,
+            fnName: "provider.getNetwork()",
+            ...RETRY_CONFIG,
+            logger: logger.log,
+          })();
+
+          chai.expect(chainId, `Wrong chainId`).to.eq(config.chainId);
+        });
+      }
     }
-  }
-});
+  });
+}

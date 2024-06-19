@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { ErrorCode } from "@ethersproject/logger";
 import {
   TransactionRequest,
   TransactionResponse,
 } from "@ethersproject/providers";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
-import { BigNumber, providers, utils } from "ethers";
+import { BigNumber, PopulatedTransaction, providers, utils } from "ethers";
 import _ from "lodash";
 import { EthersError, isEthersError } from "../common";
 import {
@@ -14,7 +15,7 @@ import {
 import { CHAIN_ID_TO_GAS_ORACLE } from "./CustomGasOracles";
 import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
-import { GasLimitEstimator, makeGasEstimateTx } from "./GasLimitEstimator";
+import { GasLimitEstimator } from "./GasLimitEstimator";
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
 
@@ -127,7 +128,7 @@ const logger = loggerFactory("TxDelivery");
 
 export const DEFAULT_TX_DELIVERY_OPTS = {
   isAuctionModel: false,
-  maxAttempts: 5,
+  maxAttempts: 8,
   multiplier: 1.4, //  1.4 ** 5 => 5.24 max scaler
   gasLimitMultiplier: 1.2,
   percentileOfPriorityFee: 75,
@@ -146,7 +147,7 @@ export type TxDeliveryOptsValidated = Omit<
 };
 
 /**
- * All values has to be hex values
+ * All values has to resolve to hex values
  */
 export type TxDeliveryCall = {
   from: string;
@@ -164,11 +165,13 @@ export class TxDelivery {
   private readonly opts: TxDeliveryOptsValidated;
   private readonly feeEstimator: GasEstimator<FeeStructure>;
   private readonly gasLimitEstimator: GasLimitEstimator;
+  attempt = 1;
 
   constructor(
     opts: TxDeliveryOpts,
     private readonly signer: TxDeliverySigner,
-    private readonly provider: providers.JsonRpcProvider
+    private readonly provider: providers.JsonRpcProvider,
+    private readonly deferredCallData?: () => Promise<string>
   ) {
     this.opts = _.merge({ ...DEFAULT_TX_DELIVERY_OPTS }, opts);
     this.feeEstimator = this.opts.isAuctionModel
@@ -178,29 +181,34 @@ export class TxDelivery {
   }
 
   public async deliver(call: TxDeliveryCall): Promise<TransactionResponse> {
-    const tx = await this.prepareTransactionRequest(call);
-
-    const txNonce = tx.nonce;
-
+    RedstoneCommon.assert(
+      this.attempt === 1,
+      "TxDelivery.deliver can be called only once per instance"
+    );
+    let tx = await this.prepareTransactionRequest(call);
     let result: TransactionResponse | undefined = undefined;
 
-    for (let i = 0; i < this.opts.maxAttempts; i++) {
-      const attempt = i + 1;
+    for (
+      this.attempt = 1;
+      this.attempt <= this.opts.maxAttempts;
+      this.attempt++
+    ) {
       try {
-        this.logCurrentAttempt(attempt, txNonce, tx);
+        this.logCurrentAttempt(tx);
+
         result = await this.signAndSendTx(tx);
       } catch (ethersError) {
         const broadcastErrorResult = this.handleTransactionBroadcastError(
           ethersError,
           result,
-          txNonce
+          tx.nonce
         );
 
         switch (broadcastErrorResult) {
           case TransactionBroadcastErrorResult.AlreadyDelivered:
             return result!;
           case TransactionBroadcastErrorResult.Underpriced:
-            await this.assignNewFees(tx, attempt);
+            tx = await this.updateTxParamsForNextAttempt(tx);
             // skip sleeping
             continue;
           default:
@@ -214,11 +222,12 @@ export class TxDelivery {
       }
 
       await this.waitForTxMining();
-
-      const wasDelivered = await this.handleAttempt(tx, result, attempt);
+      const wasDelivered = await this.isDelivered(tx, result);
 
       if (wasDelivered) {
         return result;
+      } else {
+        tx = await this.updateTxParamsForNextAttempt(tx);
       }
     }
 
@@ -227,11 +236,7 @@ export class TxDelivery {
     );
   }
 
-  private logCurrentAttempt(
-    attempt: number,
-    txNonce: number,
-    tx: DeliveryManTx
-  ) {
+  private logCurrentAttempt(tx: DeliveryManTx) {
     let feesInfo: string;
     if (tx.type == 0) {
       feesInfo = `gasPrice=${tx.gasPrice}`;
@@ -239,7 +244,7 @@ export class TxDelivery {
       feesInfo = `maxFeePerGas=${tx.maxFeePerGas} maxPriorityFeePerGas=${tx.maxPriorityFeePerGas}`;
     }
     this.opts.logger(
-      `Trying to delivery transaction attempt=${attempt}/${this.opts.maxAttempts} nonce=${txNonce} gasLimit=${tx.gasLimit} ${feesInfo}`
+      `Trying to delivery transaction attempt=${this.attempt}/${this.opts.maxAttempts} txNonce=${tx.nonce} gasLimit=${tx.gasLimit} ${feesInfo}`
     );
   }
 
@@ -250,20 +255,15 @@ export class TxDelivery {
     return result;
   }
 
-  private async handleAttempt(
+  private async isDelivered(
     tx: DeliveryManTx,
-    result: TransactionResponse | undefined,
-    attempt: number
+    result: TransactionResponse
   ): Promise<boolean> {
     const address = await this.signer.getAddress();
     const currentNonce = await this.provider.getTransactionCount(address);
+
     if (currentNonce > tx.nonce) {
       // transaction was already delivered because nonce increased
-      if (!result) {
-        throw new Error(
-          `Transaction with same nonce ${tx.nonce} was delivered by someone else`
-        );
-      }
       this.opts.logger(
         `Transaction ${result.hash} mined, nonce changed: ${tx.nonce} => ${currentNonce}`
       );
@@ -273,7 +273,6 @@ export class TxDelivery {
       this.opts.logger(
         `Transaction was not delivered yet, account_nonce=${currentNonce}. Trying with new fees ..`
       );
-      await this.assignNewFees(tx, attempt);
       return false;
     }
   }
@@ -305,7 +304,7 @@ export class TxDelivery {
         // it means that in meantime between check if transaction is delivered and sending new transaction
         // previous transaction was already delivered by (maybe) us
         this.opts.logger(
-          `Transaction hash=${result.hash} nonce=${nonce} mined`
+          `Nonce expired error: Transaction hash=${result.hash} nonce=${nonce} mined`
         );
         return TransactionBroadcastErrorResult.AlreadyDelivered;
       }
@@ -320,18 +319,22 @@ export class TxDelivery {
     return TransactionBroadcastErrorResult.UnknownError;
   }
 
-  private async assignNewFees(tx: TransactionRequest, attempt: number) {
-    Object.assign(
-      tx,
-      this.feeEstimator.scaleFees(await this.getFees(attempt), attempt)
-    );
-    tx.gasLimit = this.gasLimitEstimator.scaleGasLimit(
-      await this.gasLimitEstimator.getGasLimit(
-        this.provider,
-        makeGasEstimateTx(tx)
-      ),
-      attempt
-    );
+  private async updateTxParamsForNextAttempt(
+    tx: DeliveryManTx
+  ): Promise<DeliveryManTx> {
+    const gasEstimateTx = convertToTxDeliveryCall(tx);
+    const [newFees, newGasLimit, newCalldata] = await Promise.all([
+      this.getFees(),
+      this.gasLimitEstimator.getGasLimit(this.provider, gasEstimateTx),
+      this.resolveTxDeliveryCallData(gasEstimateTx),
+    ]);
+
+    return {
+      ...tx,
+      ...this.feeEstimator.scaleFees(newFees, this.attempt),
+      gasLimit: this.gasLimitEstimator.scaleGasLimit(newGasLimit, this.attempt),
+      data: newCalldata,
+    };
   }
 
   async prepareTransactionRequest(
@@ -340,10 +343,10 @@ export class TxDelivery {
     const address = await this.signer.getAddress();
     const currentNonce = await this.provider.getTransactionCount(address);
 
-    const fees = await this.getFees(0);
+    const fees = await this.getFees();
     const gasLimit = await this.gasLimitEstimator.getGasLimit(
       this.provider,
-      makeGasEstimateTx(call)
+      convertToTxDeliveryCall(call)
     );
 
     const { chainId } = await this.provider.getNetwork();
@@ -381,18 +384,17 @@ export class TxDelivery {
     );
   }
 
-  private async getFees(attempt: number): Promise<FeeStructure> {
+  private async getFees(): Promise<FeeStructure> {
     // some gas oracles relies on this fallback mechanism
     try {
-      return await this.getFeeFromGasOracle(this.provider, attempt);
+      return await this.getFeeFromGasOracle(this.provider);
     } catch (e) {
       return await this.feeEstimator.getFees(this.provider);
     }
   }
 
   private async getFeeFromGasOracle(
-    provider: providers.JsonRpcProvider,
-    attempt: number
+    provider: providers.JsonRpcProvider
   ): Promise<FeeStructure> {
     const { chainId } = await provider.getNetwork();
     const gasOracle = CHAIN_ID_TO_GAS_ORACLE[chainId];
@@ -405,11 +407,26 @@ export class TxDelivery {
     }
 
     const fee = await RedstoneCommon.timeout(
-      gasOracle(this.opts, attempt),
+      gasOracle(this.opts, this.attempt),
       this.opts.gasOracleTimeout,
       `Custom gas oracle timeout after ${this.opts.gasOracleTimeout}`
     );
 
     return fee;
   }
+
+  async resolveTxDeliveryCallData(tx: TxDeliveryCall): Promise<string> {
+    if (this.deferredCallData) {
+      return await this.deferredCallData();
+    }
+    return tx.data;
+  }
 }
+
+export const convertToTxDeliveryCall = (
+  transactionRequest: TransactionRequest | PopulatedTransaction
+): TxDeliveryCall => ({
+  from: transactionRequest.from as string,
+  to: transactionRequest.to as string,
+  data: transactionRequest.data as string,
+});
