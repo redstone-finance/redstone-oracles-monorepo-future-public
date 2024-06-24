@@ -9,6 +9,7 @@ import arbitrumWeethfundamental from "./arbitrumWeethfundamental.json";
 import arbitrumXvs from "./arbitrumXvs.json";
 import b2MultiPriceFeed from "./b2MultiPriceFeed.json";
 import baseBsdetheth from "./baseBsdetheth.json";
+import baseEusd from "./baseEusd.json";
 import basePufetheth from "./basePufetheth.json";
 import baseUsdplus from "./baseUsdplus.json";
 import berachainTestnetEth from "./berachainTestnetEth.json";
@@ -96,6 +97,7 @@ export default {
   b2MultiPriceFeed,
   baseUsdplus,
   baseBsdetheth,
+  baseEusd,
   basePufetheth,
   berachainTestnetEth,
   bnbBnb,
