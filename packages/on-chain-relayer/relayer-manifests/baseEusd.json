@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "base",
+    "id": 8453
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "adapterContract": "0x9b2C948dbA5952A1f5Ab6fA16101c1392b8da1ab",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "eUSD": "0x9b2C948dbA5952A1f5Ab6fA16101c1392b8da1ab"
+  }
+}
