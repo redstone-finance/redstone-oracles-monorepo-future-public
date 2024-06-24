@@ -186,7 +186,6 @@
     },
     "EUROC": {
       "source": [
-        "coinbasepro-usd",
         "coingecko",
         "trader-joe-v2-avalanche-usdc",
         "uniswap-v3-ethereum-usdc-500"

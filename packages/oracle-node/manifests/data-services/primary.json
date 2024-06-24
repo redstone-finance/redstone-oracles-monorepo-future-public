@@ -525,7 +525,6 @@
     },
     "EUROC": {
       "source": [
-        "coinbasepro-usd",
         "coingecko",
         "coinmarketcap",
         "trader-joe-v2-avalanche-usdc",
