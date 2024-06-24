@@ -842,7 +842,6 @@
       "source": [
         "aerodrome-base-usdc",
         "curve-ethereum-crvfrax",
-        "curve-ethereum-eth+",
         "curve-ethereum-rsr",
         "curve-ethereum-usdc"
       ],
@@ -870,7 +869,7 @@
     },
     "ETH+": {
       "source": [
-        "curve-ethereum-pxeth",
+        "curve-ethereum-eusd",
         "curve-ethereum-rsr",
         "curve-ethereum-weth",
         "uniswap-v3-ethereum-weth-500"
