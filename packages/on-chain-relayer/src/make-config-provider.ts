@@ -5,7 +5,6 @@ import {
   RelayerConfig,
 } from "./types";
 
-const DEFAULT_ADAPTER_CONTRACT_TYPE = "price-feeds";
 export const MS_IN_ONE_MINUTE = 60000;
 
 export const makeConfigProvider = (
@@ -44,8 +43,7 @@ export const makeConfigProvider = (
     updateConditions,
     minDeviationPercentage: deviationPercentage,
     priceFeedsDeviationOverrides: priceFeedsDeviationOverrides,
-    adapterContractType:
-      manifest.adapterContractType ?? DEFAULT_ADAPTER_CONTRACT_TYPE,
+    adapterContractType: manifest.adapterContractType,
     fallbackOffsetInMS: env.fallbackOffsetInMinutes * MS_IN_ONE_MINUTE,
     ...env,
   };

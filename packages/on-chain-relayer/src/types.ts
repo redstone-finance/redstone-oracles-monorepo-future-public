@@ -38,7 +38,7 @@ export const OnChainRelayerManifestSchema = z.object({
   chain: ChainSchema,
   updateTriggers: UpdateTriggersSchema,
   adapterContract: z.string(),
-  adapterContractType: AdapterTypesEnum.default(PRICE_FEEDS).optional(),
+  adapterContractType: AdapterTypesEnum.default(PRICE_FEEDS),
   dataServiceId: z.string(),
   priceFeeds: z.record(z.string(), z.string()),
   dataPacakgesNames: z.array(z.string()).optional(),
@@ -47,6 +47,10 @@ export const OnChainRelayerManifestSchema = z.object({
 export type UpdateTriggers = z.infer<typeof UpdateTriggersSchema>;
 
 export type OnChainRelayerManifest = z.infer<
+  typeof OnChainRelayerManifestSchema
+>;
+
+export type OnChainRelayerManifestInput = z.input<
   typeof OnChainRelayerManifestSchema
 >;
 

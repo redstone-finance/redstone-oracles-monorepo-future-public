@@ -1,7 +1,11 @@
 import { stringifyError } from "./errors";
 import { sleep } from "./time";
 
-export type RetryConfig<T extends (...args: unknown[]) => Promise<unknown>> = {
+export type RetryConfig<
+  T extends (...args: unknown[]) => Promise<unknown> = (
+    ...args: unknown[]
+  ) => Promise<unknown>,
+> = {
   fn: T;
   fnName?: string;
   maxRetries: number;
@@ -33,11 +37,9 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
       } catch (e) {
         error.errors.push(e);
 
-        if (config.logger) {
-          config.logger(
-            `Retry ${i + 1}/${config.maxRetries}; Function ${fnName} failed. ${stringifyError(e)}`
-          );
-        }
+        config.logger?.(
+          `Retry ${i + 1}/${config.maxRetries}; Function ${fnName} failed. ${stringifyError(e)}`
+        );
 
         // don't wait in the last iteration
         if (config.waitBetweenMs && i !== config.maxRetries - 1) {
@@ -45,11 +47,9 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
             ? Math.pow(config.backOff.backOffBase, i)
             : 1;
           const sleepTime = config.waitBetweenMs * sleepTimeBackOffMultiplier;
-          if (config.logger) {
-            config.logger(
-              `Waiting ${sleepTime / 1000} s. for the next retry...`
-            );
-          }
+          config.logger?.(
+            `Waiting ${sleepTime / 1000} s. for the next retry...`
+          );
 
           await sleep(sleepTime);
         }

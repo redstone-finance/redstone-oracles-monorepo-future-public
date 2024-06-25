@@ -1,11 +1,7 @@
 import { expect } from "chai";
 import fs from "fs";
 import path from "path";
-import {
-  OnChainRelayerManifest,
-  OnChainRelayerManifestSchema,
-  manifests,
-} from "../../src/";
+import { OnChainRelayerManifestSchema, manifests } from "../../src/";
 
 const RELAYER_MANIFESTS_FOLDER = "./relayer-manifests";
 
@@ -22,12 +18,12 @@ describe("exported-manifests", () => {
           path.join(RELAYER_MANIFESTS_FOLDER, file),
           "utf8"
         );
-        const parsedManfiest = JSON.parse(
-          fileContent
-        ) as OnChainRelayerManifest;
-        const exportedManifest = manifests[relayerName];
-        expect(exportedManifest).to.deep.equal(parsedManfiest);
-        OnChainRelayerManifestSchema.parse(exportedManifest);
+        const parsedManifest = OnChainRelayerManifestSchema.parse(
+          JSON.parse(fileContent)
+        );
+        const exportedManifest =
+          manifests[relayerName as keyof typeof manifests];
+        expect(exportedManifest).to.deep.equal(parsedManifest);
       });
     }
   }

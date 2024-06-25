@@ -78,13 +78,15 @@ import venusBnbTrx from "./venusBnbTrx.json";
 import venusMainnetXvs from "./venusMainnetXvs.json";
 import zksyncZk from "./zksyncZk.json";
 
-import { OnChainRelayerManifest } from "../src";
+import _ from "lodash";
+import { OnChainRelayerManifestSchema } from "../src";
 
 // This file contains mapping from manifest name to manifest content
 // Which can be very useful as a source of truth, and can be easily use
 // in JS/TS code. We export it as an object for being able to iterate
 // through it and e.g. identify relayer name by an adapter address
-export default {
+
+const allRelayersManifests = {
   abracadabraKavaBtc,
   abracadabraKavaEth,
   abracadabraKavaUsdt,
@@ -164,4 +166,10 @@ export default {
   venusBnbTrx,
   venusMainnetXvs,
   zksyncZk,
-} as Record<string, OnChainRelayerManifest>;
+};
+
+const allRelayersParsedManifests = _.mapValues(
+  allRelayersManifests,
+  (manifest) => OnChainRelayerManifestSchema.parse(manifest)
+);
+export default allRelayersParsedManifests;

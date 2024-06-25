@@ -110,7 +110,7 @@ export const requestDataPackages = async (
       reqParams.waitForAllGatewaysTimeMs
     );
   } catch (e) {
-    const errMessage = `Request failed ${JSON.stringify({
+    const errMessage = `Request failed: ${JSON.stringify({
       reqParams,
     })}, Original error: ${RedstoneCommon.stringifyError(e)}`;
     throw new Error(errMessage);

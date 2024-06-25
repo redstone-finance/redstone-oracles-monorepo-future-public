@@ -14,6 +14,7 @@ export {
   type ConfigProvider,
   type OnChainRelayerEnv,
   type OnChainRelayerManifest,
+  type OnChainRelayerManifestInput,
   type RelayerConfig,
   type UpdateTriggers,
 } from "./types";

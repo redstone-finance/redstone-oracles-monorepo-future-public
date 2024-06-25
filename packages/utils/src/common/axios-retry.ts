@@ -3,21 +3,20 @@ import { RetryConfig, retry } from "./retry";
 
 export type AxiosGetWithRetriesConfig = {
   timeout?: number;
-  maxRetries: number;
   headers?: RawAxiosRequestHeaders;
-} & Partial<RetryConfig<(...args: unknown[]) => Promise<unknown>>>;
+} & Omit<RetryConfig, "fn">;
 
 export async function axiosGetWithRetries<T>(
   url: string,
   config: AxiosGetWithRetriesConfig
 ): Promise<AxiosResponse<T>> {
   return await retry({
-    ...config,
+    fnName: config.fnName ?? "axios.get",
     fn: async () =>
       await axios.get<T>(url, {
         timeout: config.timeout,
         headers: config.headers,
       }),
-    fnName: `axios.get`,
+    ...config,
   })();
 }
