@@ -7595,8 +7595,8 @@ __metadata:
   resolution: "@redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier"
   dependencies:
     "@redstone-finance/lambda-common": "npm:^0.5.2"
+    "@redstone-finance/monitoring-manifests": "npm:^0.5.2"
     "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
-    "@redstone-finance/redstone-monitoring": "npm:^0.5.2"
     "@redstone-finance/rpc-providers": "npm:^0.5.2"
     "@redstone-finance/utils": "npm:^0.5.2"
     axios: "npm:^1.6.2"
