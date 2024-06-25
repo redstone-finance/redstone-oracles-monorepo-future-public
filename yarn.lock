@@ -7489,6 +7489,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-gas-fee-comparator@workspace:packages/lambda-gas-fee-comparator":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-gas-fee-comparator@workspace:packages/lambda-gas-fee-comparator"
+  dependencies:
+    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@redstone-finance/rpc-providers": "npm:^0.5.2"
+    "@redstone-finance/sdk": "npm:^0.5.2"
+    "@redstone-finance/utils": "npm:^0.5.2"
+    dotenv: "npm:^16.0.3"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda-gw-metrics":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda-gw-metrics"

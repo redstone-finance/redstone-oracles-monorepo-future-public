@@ -11,5 +11,7 @@ export * from "./provider-decorators/multicall/MulticallDecorator";
 export * as ProviderDecorators from "./provider-decorators/provider-decorators";
 export * from "./providers/ProviderWithAgreement";
 export * from "./providers/ProviderWithFallback";
+export * from "./tx-delivery-man/CustomGasOracles";
+export * from "./tx-delivery-man/Eip1559GasEstimator";
 export * from "./tx-delivery-man/TxDelivery";
 export * from "./tx-delivery-man/TxDeliveryMan";
