@@ -52,11 +52,12 @@ export function stringifyError(e: unknown): string {
     return "undefined";
   } else if (error instanceof AggregateError) {
     const errorMessages: string[] = error.errors.map(stringifyError);
-    return `AggregateError: ${error.message}, errors: ${errorMessages.join(
+    return `AggregateError: ${error.message ? error.message : "<no message>"}, errors: ${errorMessages.join(
       "; "
     )}`;
-  } else if (axios.isAxiosError(error)) {
-    return JSON.stringify(error.response?.data) + stringifyStack(error.stack);
+  } else if (axios.isAxiosError<unknown>(error)) {
+    const data = error.response?.data;
+    return (data ? JSON.stringify(data) : "") + stringifyStack(error.stack);
   } else if (error instanceof Error) {
     return stringifyStack(error.stack);
   } else if (typeof error.toJSON === "function") {

@@ -13,11 +13,11 @@ async function main() {
     )
   );
 
-  const manfiests = manifestsContent.map(
+  const manifests = manifestsContent.map(
     (c) => JSON.parse(c) as OnChainRelayerManifest
   );
 
-  const manfiestInfo = manfiests.map((m, i) => {
+  const manifestInfo = manifests.map((m, i) => {
     const priceFeeds = Object.keys(m.priceFeeds).join(",");
     return `
 ${dir[i].replaceAll(".json", "")}
@@ -26,8 +26,8 @@ ${dir[i].replaceAll(".json", "")}
   - dataServiceId: ${m.dataServiceId}`;
   });
 
-  console.log(manfiestInfo.join("\n"));
-  console.log({ count: manfiestInfo.length });
+  console.log(manifestInfo.join("\n"));
+  console.log({ count: manifestInfo.length });
 }
 
 void main();
