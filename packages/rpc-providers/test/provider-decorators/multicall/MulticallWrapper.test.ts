@@ -18,9 +18,9 @@ import { deployCounter } from "../../helpers";
 
 chai.use(chaiAsPromised);
 
-const multicallFnSpy = Sinon.spy(multicallUtils.multicall3);
+const multicallFnSpy = Sinon.spy(multicallUtils.executeMulticall3);
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-(multicallUtils as any).multicall3 = multicallFnSpy;
+(multicallUtils as any).executeMulticall3 = multicallFnSpy;
 
 function getProvider(
   multicallAddress: string,
@@ -49,10 +49,11 @@ const describeMultiWrapperSuite = (
 
     beforeEach(async () => {
       await hardhat.ethers.provider.send("hardhat_reset", []);
-      counter = await deployCounter(hardhat.ethers.provider);
-      await counter.inc().then((tx) => tx.wait());
       multicall = await hardhat.ethers.deployContract("Multicall3");
       multicallFnSpy.resetHistory();
+
+      counter = await deployCounter(hardhat.ethers.provider);
+      await counter.inc().then((tx) => tx.wait());
     });
 
     it("should group 2 calls to same contract", async () => {
@@ -101,7 +102,7 @@ const describeMultiWrapperSuite = (
       expect(multicallFnSpy.getCalls().length).to.eq(1);
     });
 
-    it("should throw error on fail (error should match with ethers error), with same contract", async () => {
+    it("should throw error on fail (error should match with ethers error), with one contract", async () => {
       const [ethersProviderResult] = await Promise.allSettled([
         counter.connect(hardhat.ethers.provider).fail(),
       ]);
@@ -196,7 +197,7 @@ const describeMultiWrapperSuite = (
       ]);
 
       expect(resultCounter).to.eq(1);
-      expect(resultCounter2).to.eq(1);
+      expect(resultCounter2).to.eq(0);
 
       expect(multicallFnSpy.getCalls().length).to.eq(2);
     });
@@ -213,7 +214,7 @@ const describeMultiWrapperSuite = (
       const multicallProvider = getProvider(
         multicall3.address,
         providerFabric,
-        1
+        2
       );
       counter = counter.connect(multicallProvider);
 
@@ -221,7 +222,7 @@ const describeMultiWrapperSuite = (
 
       const [resultCounter, resultCounter2] = await Promise.allSettled([
         counter.getCount({ blockTag: blockNumber }),
-        counter.infiniteLoop({ blockTag: blockNumber - 1 }),
+        counter.infiniteLoop({ blockTag: blockNumber }),
       ]);
 
       expect(resultCounter.status).to.eq("fulfilled");
@@ -229,10 +230,9 @@ const describeMultiWrapperSuite = (
         1
       );
 
-      expect(resultCounter2.status).to.eq("rejected");
-      expect(multicallFnSpy.getCalls().length).to.eq(2);
+      expect(resultCounter2.status).to.eq("fulfilled");
+      expect(multicallFnSpy.getCalls().length).to.eq(1);
     });
-
     it("it should fallback to provider.call when multicall fails", async () => {
       const multicallProvider = getProvider(
         NOT_MULTICALL_ADDRESS,
@@ -246,6 +246,25 @@ const describeMultiWrapperSuite = (
 
       const [count, count2] = await Promise.all([
         counter.getCount({ blockTag }),
+        counter.getCount({ blockTag }),
+      ]);
+      expect(count).to.eq(count2);
+      expect(multicallFnSpy.getCalls().length).to.eq(1);
+    });
+
+    it("it should fallback to provider.call when single call in multicall fails", async () => {
+      const multicallProvider = getProvider(
+        NOT_MULTICALL_ADDRESS,
+        providerFabric,
+        2
+      );
+
+      counter = counter.connect(multicallProvider);
+
+      const blockTag = await multicallProvider.getBlockNumber();
+
+      const [count, count2] = await Promise.all([
+        counter.returnCountIfNotMulticall({ blockTag }),
         counter.getCount({ blockTag }),
       ]);
       expect(count).to.eq(count2);

@@ -5,8 +5,12 @@ pragma solidity ^0.8.4;
 contract Counter {
   event Inc(uint256 count);
   uint256 count;
+  address multicallAddress;
 
-  constructor() {
+  mapping(uint256 => uint256) gasBurnerMap;
+
+  constructor(address _multicallAddress) {
+    multicallAddress = _multicallAddress;
     count = 0;
   }
 
@@ -24,6 +28,14 @@ contract Counter {
     revert("This functions always reverts.");
   }
 
+  function returnCountIfNotMulticall() external view returns (uint256) {
+    if(msg.sender == multicallAddress) {
+      revert("This functions always reverts.");
+    }
+    
+    return count;
+  }
+
   function getCount() public view returns (uint256) {
     return count;
   }
@@ -33,16 +45,14 @@ contract Counter {
   }
 
   function infiniteLoop() public view returns (uint256) {
+    // counter will always equal 0
     uint256 counter = 0;
-    uint256 x;
-    for(uint256 i =0; i < 100_000; i++) {
-      assembly {
-        x := sload(counter)
-      }
-      counter = counter + x;
+    // shoud consume > 200k gas
+    for(uint256 i =0; i < 100; i++) {
+      counter += gasBurnerMap[i];
     }
 
-    return counter;
+    return count + counter;
   }
 
   function getCountWithCallData32Bytes(uint256 param) public view returns (uint256) {

@@ -56,13 +56,14 @@ export class HardhatProviderMocker {
 }
 
 export async function deployCounter(
-  provider: providers.Provider
+  provider: providers.Provider,
+  multicall3Address = "0x" + "0".repeat(40)
 ): Promise<Counter> {
   let contractFactory = await hardhat.ethers.getContractFactory("Counter");
 
   const wallet = new Wallet(TEST_PRIVATE_KEY).connect(provider);
   contractFactory = contractFactory.connect(wallet);
-  const contract = await contractFactory.deploy();
+  const contract = await contractFactory.deploy(multicall3Address);
   await contract.deployed();
 
   return new Contract(contract.address, contract.interface, wallet) as Counter;
