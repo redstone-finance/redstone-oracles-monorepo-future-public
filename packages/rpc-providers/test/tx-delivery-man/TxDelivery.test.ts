@@ -282,7 +282,7 @@ describe("TxDelivery", () => {
       ).to.deep.equal({
         nonce: 1,
         gasLimit: "210000",
-        gasPrice: "1767838481",
+        gasPrice: "1768221993",
       });
 
       expect(
@@ -294,7 +294,7 @@ describe("TxDelivery", () => {
       ).to.deep.equal({
         nonce: 1,
         gasLimit: "210000",
-        gasPrice: "1988818291",
+        gasPrice: "1989249742",
       });
     });
   });

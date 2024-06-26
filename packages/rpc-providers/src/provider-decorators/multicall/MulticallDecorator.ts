@@ -4,7 +4,7 @@ import { providers } from "ethers";
 import { Deferrable } from "ethers/lib/utils";
 import { z } from "zod";
 import { getChainConfig, getNetworkName } from "../../chains-configs/helpers";
-import { Multicall3Request, multicall3 } from "./Multicall3Caller";
+import { Multicall3Request, executeMulticall3 } from "./Multicall3Caller";
 import { MulticallBuffer } from "./MulticallBuffer";
 
 async function prepareMulticall3Request(
@@ -88,7 +88,12 @@ export function MulticallDecorator<T extends providers.Provider>(
       `Executing request chainId=${chainId} blockTag=${blockTag} callsCount=${callEntries.length} callDataSize=${callDataSize} [bytes]`
     );
 
-    multicall3(originalProvider, callEntries, blockTag, config.multicallAddress)
+    executeMulticall3(
+      originalProvider,
+      callEntries,
+      blockTag,
+      config.multicallAddress
+    )
       .then((result3s) => {
         for (let i = 0; i < result3s.length; i++) {
           // we should handle fallback specially because the can fail partially

@@ -1,11 +1,7 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { Contract, providers } from "ethers";
-import {
-  getChainConfigByChainId,
-  getMulticall3,
-  getNetworkName,
-} from "../../chains-configs/helpers";
+import { getMulticall3, getNetworkName } from "../../chains-configs/helpers";
 
 export type Multicall3Request = {
   target: string;
@@ -17,6 +13,7 @@ export type Multicall3Request = {
 export type Multicall3Result = {
   returnData: string;
   fallbackRejectReason?: unknown;
+  success: boolean;
 };
 
 function rawMulticall3(
@@ -31,7 +28,7 @@ function rawMulticall3(
 
 const logger = loggerFactory("multicall3");
 
-export async function multicall3(
+export async function executeMulticall3(
   provider: providers.Provider,
   call3s: Multicall3Request[],
   blockTag?: BlockTag,
@@ -44,50 +41,66 @@ export async function multicall3(
   });
 
   try {
-    return await rawMulticall3(
+    const results = await rawMulticall3(
       multicall3Contract.connect(provider),
       call3s,
       blockTag
     );
+
+    // we add single retry per single call
+    return await Promise.all(
+      results.map((result, index) => {
+        if (!result.success) {
+          logger.log(
+            `Single call from multicall failed chainId=${chainId}. Will fallback to single call. This is business logic/gas limit error: ${RedstoneCommon.stringifyError(result.fallbackRejectReason)}`
+          );
+          return safeFallbackCall(provider, call3s[index], blockTag);
+        }
+        return result;
+      })
+    );
   } catch (e) {
-    // if multicall failed fallback to normal execution model (1 call = 1 request)
+    // if whole multicall failed fallback to normal execution model (1 call = 1 request)
     logger.log(
-      `multicall3 chainId=${chainId} failed. Will fallback to ${
+      `Whole multicall3 chainId=${chainId} failed. Will fallback to ${
         call3s.length
       } separate calls. Error: ${RedstoneCommon.stringifyError(e)}`
     );
 
-    const chainConfig = getChainConfigByChainId(chainId);
-    const gasLimit =
-      chainConfig.multicall3.type === "RedstoneMulticall3"
-        ? chainConfig.multicall3.gasLimitPerCall
-        : undefined;
-
     return await Promise.all(
-      call3s.map((call3) => fallbackCall(provider, call3, blockTag, gasLimit))
+      call3s.map((call3) => safeFallbackCall(provider, call3, blockTag))
     );
   }
 }
 
-async function fallbackCall(
+/* we intentionally ignore gasLimit,
+ * because if call failed on RedstoneMulticall3 it was probably caused by gasLimit
+ */
+async function safeFallbackCall(
   provider: providers.Provider,
   call3: Multicall3Request,
-  blockTag: BlockTag | undefined,
-  gasLimit?: number
+  blockTag: BlockTag | undefined
 ) {
   try {
     const callResult = await provider.call(
-      { to: call3.target, data: call3.callData, gasLimit },
+      { to: call3.target, data: call3.callData },
       blockTag
+    );
+    logger.debug(
+      `fallback call succeeded to=${call3.target} data=${call3.callData} blockTag=${blockTag}`
     );
     return {
       returnData: callResult,
+      success: true,
     };
   } catch (e) {
-    logger.log("multicall3 fallback call failed");
+    logger.log(
+      `fallback call failed to=${call3.target} data=${call3.callData} blockTag=${blockTag}`
+    );
     return {
       returnData: "0x",
       fallbackRejectReason: e,
+      success: false,
     };
   }
 }
