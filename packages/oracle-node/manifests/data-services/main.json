@@ -1470,6 +1470,20 @@
         "aerodrome-cl-base-weth-400"
       ]
     },
+    "SolvBTC_BNB": {
+      "source": ["pancake-swap-bnb-btcb-500", "thena-bnb-btcb"]
+    },
+    "SolvBTC_BNB/BTC": {
+      "source": ["non-usd-based"],
+      "valueCapConfig": {
+        "upper": {
+          "value": 1
+        }
+      }
+    },
+    "SolvBTC_BNB/BTC-TWAP-60": {
+      "source": ["twap-local-redstone-primary-prod"]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
