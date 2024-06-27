@@ -9,6 +9,13 @@ export const ChainConfigSchema = z.object({
   isAuctionModel: z.boolean(),
   twoDimensionalFees: z.boolean(),
   etherScanApi: z.string().url().optional(),
+  /**
+   * Some blockchains don't have empty blocks, thus eth_feeHistory returns 0, but they have
+   * minimal maxPriorityFeePerGas requirement.
+   * In such a case we can use eth_maxPriorityFeePerGas rpc call to obtain this minimal value.
+   * Be aware that some of the chains accepts 0 as tip if blocks are empty or don't use tips at all and always returns 0 from eth_feeHistory - in such a cases this value should be left to default
+   */
+  fallbackToEthMaxPriorityFeePerGas: z.boolean().default(false),
   multicall3: z
     .object({
       address: z.string(),

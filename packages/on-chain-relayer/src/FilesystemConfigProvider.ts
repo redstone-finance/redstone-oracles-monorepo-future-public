@@ -101,10 +101,6 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
       "IS_AUCTION_MODEL",
       z.boolean().default(false)
     ),
-    defaultMaxPriorityFeePerGas: RedstoneCommon.getFromEnv(
-      "DEFAULT_MAX_PRIORITY_FEE_PER_GAS",
-      z.number().optional()
-    ),
     mentoMaxDeviationAllowed: RedstoneCommon.getFromEnv(
       "MENTO_MAX_DEVIATION_ALLOWED",
       z.number().gt(0).optional()

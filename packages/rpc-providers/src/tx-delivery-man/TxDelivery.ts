@@ -95,22 +95,20 @@ export type TxDeliveryOpts = {
    * If we want to take rewards from the last block we can achieve is using percentiles
    * 75 percentile we will receive reward which was given by 75% of users and 25% of them has given bigger reward
    * the bigger the value the higher priority fee
-   * If you want to prioritize speed over cost choose number between 75-95
+   * If you want to prioritize speed over cost choose number between 50-95
    * If you want to prioritize cost over speed choose numbers between 1-50
    */
   percentileOfPriorityFee?: number;
 
   /**
+   * How many blocks to use in eth_feeHistory
+   */
+  numberOfBlocksForFeeHistory?: number;
+
+  /**
    * Should be set to true if chain doesn't support EIP1559
    */
   isAuctionModel?: boolean;
-
-  /**
-   * Default gas tip, important when the transaction is marked as UNDERPRICED.
-   * Needed especially for networks where pending blocks can be empty (low blockchain usage) -
-   * in these cases rewards are defined as zeroes: 'All zeroes are returned if the block is empty.'
-   */
-  defaultMaxPriorityFeePerGas?: number;
 
   /**
    * Forcefully disable custom gas oracle if defined
@@ -131,11 +129,11 @@ export const DEFAULT_TX_DELIVERY_OPTS = {
   maxAttempts: 8,
   multiplier: 1.4, //  1.4 ** 5 => 5.24 max scaler
   gasLimitMultiplier: 1.2,
-  percentileOfPriorityFee: 75,
+  percentileOfPriorityFee: 50,
   twoDimensionalFees: false,
   gasOracleTimeout: 5_000,
-  defaultMaxPriorityFeePerGas: 10 ** 9,
   forceDisableCustomGasOracle: false,
+  numberOfBlocksForFeeHistory: 2,
   logger: logger.log.bind(logger),
 };
 
