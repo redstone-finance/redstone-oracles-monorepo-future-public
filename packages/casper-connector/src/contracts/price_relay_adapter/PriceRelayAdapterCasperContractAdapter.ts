@@ -18,7 +18,6 @@ export class PriceRelayAdapterCasperContractAdapter extends PriceAdapterCasperCo
   static PROCESS_CHUNK_BASE_CSPR = 2;
   public wrappedContractAdapter?: PriceAdapterCasperContractAdapter;
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   override async readPricesFromContract(
     paramsProvider: ContractParamsProvider
   ): Promise<BigNumberish[]> {
@@ -27,7 +26,6 @@ export class PriceRelayAdapterCasperContractAdapter extends PriceAdapterCasperCo
     ).readPricesFromContract(paramsProvider);
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   override async readTimestampFromContract(): Promise<number> {
     return await (
       await this.getWrappedContractAdapter()

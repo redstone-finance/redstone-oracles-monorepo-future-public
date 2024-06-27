@@ -14,7 +14,6 @@ import {
   testWriteProcesFromPayloadToContract,
 } from "./common-test-methods";
 
-/* eslint-disable @typescript-eslint/unbound-method */
 describe("PriceAdapterCasperContractAdapter tests", () => {
   let connection: jest.Mocked<ICasperConnection>;
   let connector: PriceAdapterCasperContractConnector;

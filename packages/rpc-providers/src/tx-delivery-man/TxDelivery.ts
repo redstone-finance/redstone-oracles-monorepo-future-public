@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { ErrorCode } from "@ethersproject/logger";
 import {
   TransactionRequest,

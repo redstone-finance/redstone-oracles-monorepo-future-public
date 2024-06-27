@@ -8,8 +8,7 @@ import { PriceFeedBase } from "../../typechain-types";
 
 const PRICE_FEED_ADDRESS = "";
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-(async () => {
+void (async () => {
   const provider = getRelayerProvider();
   const priceFeedContract = new Contract(
     PRICE_FEED_ADDRESS,

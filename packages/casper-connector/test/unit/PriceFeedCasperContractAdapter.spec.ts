@@ -14,7 +14,6 @@ import {
   mockStateRootHashImplementations,
 } from "../mock-utils";
 
-/* eslint-disable @typescript-eslint/unbound-method */
 describe("PriceFeedCasperContractAdapter tests", () => {
   let connection: jest.Mocked<ICasperConnection>;
   let connector: PriceFeedCasperContractConnector;
