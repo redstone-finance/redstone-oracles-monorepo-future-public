@@ -1,9 +1,11 @@
 import {
   DEFAULT_NUM_VALUE_BS,
   DEFAULT_NUM_VALUE_DECIMALS,
+  MAX_NUM_VALUE_BS,
 } from "../common/redstone-constants";
 import {
   ConvertibleToBytes32,
+  assert,
   convertNumberToBytes,
   useDefaultIfUndefined,
 } from "../common/utils";
@@ -32,6 +34,11 @@ export class NumericDataPoint extends DataPoint {
       numericDataPointArgs.valueByteSize,
       DEFAULT_NUM_VALUE_BS
     );
+    assert(
+      valueByteSize <= MAX_NUM_VALUE_BS,
+      `The byte size of the numeric value cannot be greater than ${MAX_NUM_VALUE_BS}`
+    );
+
     const valueBytes = convertNumberToBytes(
       numericDataPointArgs.value,
       decimals,

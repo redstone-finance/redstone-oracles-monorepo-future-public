@@ -30,6 +30,30 @@ describe("Data package", () => {
     dataPackage = new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
   });
 
+  test("Should throw an error for data package without data points", () => {
+    expect(() => new DataPackage([], TIMESTAMP_FOR_TESTS)).toThrow(
+      "Can not create a data package with no data points"
+    );
+  });
+
+  test("Should throw an error for data package with data points of different size", () => {
+    const dataPoints = [
+      new NumericDataPoint({
+        dataFeedId: "BTC",
+        value: 42000,
+        valueByteSize: 32,
+      }),
+      new NumericDataPoint({
+        dataFeedId: "ETH",
+        value: 2000,
+        valueByteSize: 16,
+      }),
+    ];
+    expect(() => new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS)).toThrow(
+      "Assertion failed: Values of all data points in a DataPackage must have the same number of bytes"
+    );
+  });
+
   test("Should serialize data package", () => {
     expect(dataPackage.toBytesHex()).toBe(
       EXPECTED_SERIALIZED_UNSIGNED_DATA_PACKAGE

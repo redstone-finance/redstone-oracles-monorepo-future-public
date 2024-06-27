@@ -101,6 +101,20 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
   });
 
   it("Should revert for too old timestamp", async () => {
+    const newMockPackages = mockBytesPackageConfigs.map((config) =>
+      getMockStringPackage({
+        ...config,
+        timestampMilliseconds: DEFAULT_TIMESTAMP_FOR_TESTS - 1,
+      })
+    );
+    await testShouldRevertWith(
+      newMockPackages,
+      ["BTC", "ETH"],
+      "TimestampIsNotValid"
+    );
+  });
+
+  it("Should revert for different timestamps", async () => {
     const newMockPackages = [...mockBytesPackages];
     newMockPackages[1] = getMockStringPackage({
       ...mockBytesPackageConfigs[1],
@@ -109,7 +123,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
     await testShouldRevertWith(
       newMockPackages,
       ["BTC", "ETH"],
-      "TimestampIsNotValid"
+      "TimestampsMustBeEqual"
     );
   });
 

@@ -49,4 +49,6 @@ contract RedstoneConstants {
   error InvalidCalldataPointer();
   error CalldataMustHaveValidPayload();
   error SignerNotAuthorised(address receivedSigner);
+  error DataTimestampCannotBeZero();
+  error TimestampsMustBeEqual();
 }

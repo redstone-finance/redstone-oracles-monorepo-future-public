@@ -98,8 +98,8 @@ contract ProxyConnector is RedstoneConstants, CalldataExtractor {
 
   function _getRedstonePayloadByteSize() private pure returns (uint256) {
     uint256 calldataNegativeOffset = _extractByteSizeOfUnsignedMetadata();
-    uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata(calldataNegativeOffset);
-    calldataNegativeOffset += DATA_PACKAGES_COUNT_BS;
+    uint256 dataPackagesCount;
+    (dataPackagesCount, calldataNegativeOffset) = _extractDataPackagesCountFromCalldata(calldataNegativeOffset);
     for (uint256 dataPackageIndex = 0; dataPackageIndex < dataPackagesCount; dataPackageIndex++) {
       uint256 dataPackageByteSize = _getDataPackageByteSize(calldataNegativeOffset);
       calldataNegativeOffset += dataPackageByteSize;

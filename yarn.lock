@@ -7703,6 +7703,7 @@ __metadata:
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.9"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
+    "@nomiclabs/hardhat-waffle": "npm:^2.0.5"
     "@openzeppelin/hardhat-upgrades": "npm:^1.26.0"
     "@redstone-finance/evm-connector": "npm:^0.5.2"
     "@redstone-finance/protocol": "npm:^0.5.2"
@@ -7843,6 +7844,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/protocol@workspace:packages/protocol"
   dependencies:
+    decimal.js: "npm:^10.4.3"
     ethers: "npm:^5.7.2"
   languageName: unknown
   linkType: soft

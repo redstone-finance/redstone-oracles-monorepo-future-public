@@ -2,8 +2,6 @@
 
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-
 import "./RedstoneConstants.sol";
 import "./RedstoneDefaultsLib.sol";
 import "./CalldataExtractor.sol";
@@ -17,7 +15,6 @@ import "../libs/SignatureLib.sol";
  * look at `RedstoneConsumerNumericBase` and `RedstoneConsumerBytesBase` instead
  */
 abstract contract RedstoneConsumerBase is CalldataExtractor {
-  using SafeMath for uint256;
 
   error GetDataServiceIdNotImplemented();
 
@@ -77,8 +74,9 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
    * @dev This is an internal helpful function for secure extraction oracle values
    * from the tx calldata. Security is achieved by signatures verification, timestamp
    * validation, and aggregating values from different authorised signers into a
-   * single numeric value. If any of the required conditions (e.g. too old timestamp or
-   * insufficient number of authorised signers) do not match, the function will revert.
+   * single numeric value. If any of the required conditions (e.g. packages with different 
+   * timestamps or insufficient number of authorised signers) do not match, the function 
+   * will revert.
    *
    * Note! You should not call this function in a consumer contract. You can use
    * `getOracleNumericValuesFromTxMsg` or `getOracleNumericValueFromTxMsg` instead.
@@ -86,27 +84,31 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
    * @param dataFeedIds An array of unique data feed identifiers
    * @return An array of the extracted and verified oracle values in the same order
    * as they are requested in dataFeedIds array
+   * @return dataPackagesTimestamp timestamp equal for all data packages
    */
-  function _securelyExtractOracleValuesFromTxMsg(bytes32[] memory dataFeedIds)
+  function _securelyExtractOracleValuesAndTimestampFromTxMsg(bytes32[] memory dataFeedIds)
     internal
     view
-    returns (uint256[] memory)
+    returns (uint256[] memory, uint256 dataPackagesTimestamp)
   {
     // Initializing helpful variables and allocating memory
     uint256[] memory uniqueSignerCountForDataFeedIds = new uint256[](dataFeedIds.length);
     uint256[] memory signersBitmapForDataFeedIds = new uint256[](dataFeedIds.length);
     uint256[][] memory valuesForDataFeeds = new uint256[][](dataFeedIds.length);
-    for (uint256 i = 0; i < dataFeedIds.length; i++) {
+    for (uint256 i = 0; i < dataFeedIds.length;) {
       // The line below is commented because newly allocated arrays are filled with zeros
       // But we left it for better readability
       // signersBitmapForDataFeedIds[i] = 0; // <- setting to an empty bitmap
       valuesForDataFeeds[i] = new uint256[](getUniqueSignersThreshold());
+      unchecked {
+        i++;
+      }
     }
 
     // Extracting the number of data packages from calldata
     uint256 calldataNegativeOffset = _extractByteSizeOfUnsignedMetadata();
-    uint256 dataPackagesCount = _extractDataPackagesCountFromCalldata(calldataNegativeOffset);
-    calldataNegativeOffset += DATA_PACKAGES_COUNT_BS;
+    uint256 dataPackagesCount;
+    (dataPackagesCount, calldataNegativeOffset) = _extractDataPackagesCountFromCalldata(calldataNegativeOffset);
 
     // Saving current free memory pointer
     uint256 freeMemPtr;
@@ -115,25 +117,38 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
     }
 
     // Data packages extraction in a loop
-    for (uint256 dataPackageIndex = 0; dataPackageIndex < dataPackagesCount; dataPackageIndex++) {
+    for (uint256 dataPackageIndex = 0; dataPackageIndex < dataPackagesCount;) {
       // Extract data package details and update calldata offset
-      uint256 dataPackageByteSize = _extractDataPackage(
+      uint256 dataPackageTimestamp;
+      (calldataNegativeOffset, dataPackageTimestamp) = _extractDataPackage(
         dataFeedIds,
         uniqueSignerCountForDataFeedIds,
         signersBitmapForDataFeedIds,
         valuesForDataFeeds,
         calldataNegativeOffset
       );
-      calldataNegativeOffset += dataPackageByteSize;
+
+      if (dataPackageTimestamp == 0) {
+        revert DataTimestampCannotBeZero();
+      }
+
+      if (dataPackageTimestamp != dataPackagesTimestamp && dataPackagesTimestamp != 0) {
+        revert TimestampsMustBeEqual();
+      }
+
+      dataPackagesTimestamp = dataPackageTimestamp;
 
       // Shifting memory pointer back to the "safe" value
       assembly {
         mstore(FREE_MEMORY_PTR, freeMemPtr)
       }
+      unchecked {
+        dataPackageIndex++;
+      }
     }
 
     // Validating numbers of unique signers and calculating aggregated values for each dataFeedId
-    return _getAggregatedValues(valuesForDataFeeds, uniqueSignerCountForDataFeedIds);
+    return (_getAggregatedValues(valuesForDataFeeds, uniqueSignerCountForDataFeedIds), dataPackagesTimestamp);
   }
 
   /**
@@ -149,7 +164,8 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
    * j-th value for the i-th data feed
    * @param calldataNegativeOffset negative calldata offset for the given data package
    *
-   * @return An array of the aggregated values
+   * @return nextCalldataNegativeOffset negative calldata offset for the next data package
+   * @return dataPackageTimestamp data package timestamp
    */
   function _extractDataPackage(
     bytes32[] memory dataFeedIds,
@@ -157,7 +173,7 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
     uint256[] memory signersBitmapForDataFeedIds,
     uint256[][] memory valuesForDataFeeds,
     uint256 calldataNegativeOffset
-  ) private view returns (uint256) {
+  ) private view returns (uint256 nextCalldataNegativeOffset, uint256 dataPackageTimestamp) {
     uint256 signerIndex;
 
     (
@@ -167,20 +183,20 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
 
     // We use scopes to resolve problem with too deep stack
     {
-      uint48 extractedTimestamp;
       address signerAddress;
       bytes32 signedHash;
       bytes memory signedMessage;
       uint256 signedMessageBytesCount;
+      uint48 extractedTimestamp;
 
-      signedMessageBytesCount = dataPointsCount.mul(eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS)
+      signedMessageBytesCount = dataPointsCount * (eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS)
         + DATA_PACKAGE_WITHOUT_DATA_POINTS_AND_SIG_BS; //DATA_POINT_VALUE_BYTE_SIZE_BS + TIMESTAMP_BS + DATA_POINTS_COUNT_BS
 
-      uint256 timestampCalldataOffset = msg.data.length.sub(
-        calldataNegativeOffset + TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE_WITH_STANDARD_SLOT_BS);
+      uint256 timestampCalldataOffset = msg.data.length - 
+        (calldataNegativeOffset + TIMESTAMP_NEGATIVE_OFFSET_IN_DATA_PACKAGE_WITH_STANDARD_SLOT_BS);
 
-      uint256 signedMessageCalldataOffset = msg.data.length.sub(
-        calldataNegativeOffset + SIG_BS + signedMessageBytesCount);
+      uint256 signedMessageCalldataOffset = msg.data.length - 
+        (calldataNegativeOffset + SIG_BS + signedMessageBytesCount);
 
       assembly {
         // Extracting the signed message
@@ -213,8 +229,7 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
         }
       }
 
-      // Validating timestamp
-      validateTimestamp(extractedTimestamp);
+      dataPackageTimestamp = extractedTimestamp;
 
       // Verifying the off-chain signature against on-chain hashed data
       signerAddress = SignatureLib.recoverSignerAddress(
@@ -226,20 +241,20 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
 
     // Updating helpful arrays
     {
+      calldataNegativeOffset = calldataNegativeOffset + DATA_PACKAGE_WITHOUT_DATA_POINTS_BS;
       bytes32 dataPointDataFeedId;
       uint256 dataPointValue;
-      for (uint256 dataPointIndex = 0; dataPointIndex < dataPointsCount; dataPointIndex++) {
+      for (uint256 dataPointIndex = 0; dataPointIndex < dataPointsCount;) {
+        calldataNegativeOffset = calldataNegativeOffset + eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS;
         // Extracting data feed id and value for the current data point
         (dataPointDataFeedId, dataPointValue) = _extractDataPointValueAndDataFeedId(
           calldataNegativeOffset,
-          eachDataPointValueByteSize,
-          dataPointIndex
+          eachDataPointValueByteSize
         );
 
         for (
           uint256 dataFeedIdIndex = 0;
           dataFeedIdIndex < dataFeedIds.length;
-          dataFeedIdIndex++
         ) {
           if (dataPointDataFeedId == dataFeedIds[dataFeedIdIndex]) {
             uint256 bitmapSignersForDataFeedId = signersBitmapForDataFeedIds[dataFeedIdIndex];
@@ -248,13 +263,11 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
               !BitmapLib.getBitFromBitmap(bitmapSignersForDataFeedId, signerIndex) && /* current signer was not counted for current dataFeedId */
               uniqueSignerCountForDataFeedIds[dataFeedIdIndex] < getUniqueSignersThreshold()
             ) {
+              // Add new value
+              valuesForDataFeeds[dataFeedIdIndex][uniqueSignerCountForDataFeedIds[dataFeedIdIndex]] = dataPointValue;
+
               // Increase unique signer counter
               uniqueSignerCountForDataFeedIds[dataFeedIdIndex]++;
-
-              // Add new value
-              valuesForDataFeeds[dataFeedIdIndex][
-                uniqueSignerCountForDataFeedIds[dataFeedIdIndex] - 1
-              ] = dataPointValue;
 
               // Update signers bitmap
               signersBitmapForDataFeedIds[dataFeedIdIndex] = BitmapLib.setBitInBitmap(
@@ -266,15 +279,17 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
             // Breaking, as there couldn't be several indexes for the same feed ID
             break;
           }
+          unchecked {
+            dataFeedIdIndex++;
+          }
+        }
+        unchecked {
+           dataPointIndex++;
         }
       }
     }
 
-    // Return total data package byte size
-    return
-      DATA_PACKAGE_WITHOUT_DATA_POINTS_BS +
-      (eachDataPointValueByteSize + DATA_POINT_SYMBOL_BS) *
-      dataPointsCount;
+    return (calldataNegativeOffset, dataPackageTimestamp);
   }
 
   /**

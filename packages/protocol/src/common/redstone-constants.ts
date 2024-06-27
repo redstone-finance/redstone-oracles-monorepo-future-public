@@ -10,6 +10,9 @@ export const DATA_POINTS_COUNT_BS = 3;
 // Number of bytes reserved to store datapoints byte size
 export const DATA_POINT_VALUE_BYTE_SIZE_BS = 4;
 
+// Maximum numeric value byte size
+export const MAX_NUM_VALUE_BS = 32;
+
 // Default value byte size for numeric values
 export const DEFAULT_NUM_VALUE_BS = 32;
 

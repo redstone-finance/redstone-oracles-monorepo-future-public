@@ -46,6 +46,66 @@ describe("Simple Mock Numeric Wrapper", function () {
     );
   });
 
+  it("Should properly execute on contract wrapped with smaller value byte size", async () => {
+    const dataPointsWithValueByteSize = [
+      { dataFeedId: "ETH", value: 42, valueByteSize: 32 },
+      { dataFeedId: "BTC", value: 400, valueByteSize: 8 },
+    ];
+
+    const wrappedContract = WrapperBuilder.wrap(
+      contract
+    ).usingSimpleNumericMock({
+      mockSignersCount: 10,
+      dataPoints: dataPointsWithValueByteSize,
+    });
+
+    const tx = await wrappedContract.save2ValuesInStorage([
+      utils.convertStringToBytes32(dataPointsWithValueByteSize[0].dataFeedId),
+      utils.convertStringToBytes32(dataPointsWithValueByteSize[1].dataFeedId),
+    ]);
+    await tx.wait();
+
+    const firstValueFromContract = await contract.firstValue();
+    const secondValueFromContract = await contract.secondValue();
+
+    expect(firstValueFromContract.toNumber()).to.be.equal(
+      dataPointsWithValueByteSize[0].value * 10 ** 8
+    );
+    expect(secondValueFromContract.toNumber()).to.be.equal(
+      dataPointsWithValueByteSize[1].value * 10 ** 8
+    );
+  });
+
+  it("Should properly execute on contract wrapped with smaller value byte size in one data point", async () => {
+    const dataPointsWithValueByteSize = [
+      { dataFeedId: "ETH", value: 42, valueByteSize: 13 },
+      { dataFeedId: "BTC", value: 400 },
+    ];
+
+    const wrappedContract = WrapperBuilder.wrap(
+      contract
+    ).usingSimpleNumericMock({
+      mockSignersCount: 10,
+      dataPoints: dataPointsWithValueByteSize,
+    });
+
+    const tx = await wrappedContract.save2ValuesInStorage([
+      utils.convertStringToBytes32(dataPointsWithValueByteSize[0].dataFeedId),
+      utils.convertStringToBytes32(dataPointsWithValueByteSize[1].dataFeedId),
+    ]);
+    await tx.wait();
+
+    const firstValueFromContract = await contract.firstValue();
+    const secondValueFromContract = await contract.secondValue();
+
+    expect(firstValueFromContract.toNumber()).to.be.equal(
+      dataPointsWithValueByteSize[0].value * 10 ** 8
+    );
+    expect(secondValueFromContract.toNumber()).to.be.equal(
+      dataPointsWithValueByteSize[1].value * 10 ** 8
+    );
+  });
+
   it("Should revert for too few signers", async () => {
     const wrappedContract = WrapperBuilder.wrap(
       contract
@@ -81,5 +141,32 @@ describe("Simple Mock Numeric Wrapper", function () {
     )
       .to.be.revertedWith("TimestampIsNotValid")
       .withArgs();
+  });
+
+  it("Should test getting data with timestamp", async () => {
+    const wrappedContract = WrapperBuilder.wrap(
+      contract
+    ).usingSimpleNumericMock({
+      mockSignersCount: 10,
+      dataPoints,
+    });
+
+    const tx = await wrappedContract.save2ValuesAndTimestampInStorage([
+      utils.convertStringToBytes32(dataPoints[0].dataFeedId),
+      utils.convertStringToBytes32(dataPoints[1].dataFeedId),
+    ]);
+    await tx.wait();
+
+    const firstValueFromContract = await contract.firstValue();
+    const secondValueFromContract = await contract.secondValue();
+    const timestampFromContract = await contract.timestampFromData();
+
+    expect(firstValueFromContract.toNumber()).to.be.equal(
+      dataPoints[0].value * 10 ** 8
+    );
+    expect(secondValueFromContract.toNumber()).to.be.equal(
+      dataPoints[1].value * 10 ** 8
+    );
+    expect(timestampFromContract.toNumber()).to.be.equal(1654353400000);
   });
 });

@@ -52,7 +52,32 @@ abstract contract RedstoneConsumerNumericBase is RedstoneConsumerBase {
     virtual
     returns (uint256[] memory)
   {
-    return _securelyExtractOracleValuesFromTxMsg(dataFeedIds);
+    (uint256[] memory values, uint256 timestamp) = _securelyExtractOracleValuesAndTimestampFromTxMsg(dataFeedIds);
+    validateTimestamp(timestamp);
+    return values;
+  }
+
+  /**
+   * @dev This function can be used in a consumer contract to securely extract several
+   * numeric oracle values for a given array of data feed ids. Security is achieved by
+   * signatures verification and aggregating values from different authorised signers 
+   * into a single numeric value. If any of the required conditions do not match, 
+   * the function will revert.
+   * Note! This function returns the timestamp of the packages (it requires it to be 
+   * the same for all), but does not validate this timestamp.
+   * Note! This function expects that tx calldata contains redstone payload in the end
+   * Learn more about redstone payload here: https://github.com/redstone-finance/redstone-oracles-monorepo/tree/main/packages/evm-connector#readme
+   * @param dataFeedIds An array of unique data feed identifiers
+   * @return An array of the extracted and verified oracle values in the same order
+   * as they are requested in the dataFeedIds array and data packages timestamp
+   */
+   function getOracleNumericValuesAndTimestampFromTxMsg(bytes32[] memory dataFeedIds)
+    internal
+    view
+    virtual
+    returns (uint256[] memory, uint256)
+  {
+    return _securelyExtractOracleValuesAndTimestampFromTxMsg(dataFeedIds);
   }
 
   /**
@@ -94,7 +119,8 @@ abstract contract RedstoneConsumerNumericBase is RedstoneConsumerBase {
     }
 
     // Requesting oracle values (without duplicates)
-    uint256[] memory valuesWithoutDuplicates = getOracleNumericValuesFromTxMsg(dataFeedIdsWithoutDuplicates);
+    (uint256[] memory valuesWithoutDuplicates, uint256 timestamp) = _securelyExtractOracleValuesAndTimestampFromTxMsg(dataFeedIdsWithoutDuplicates);
+    validateTimestamp(timestamp);
 
     // Preparing result values array
     uint256[] memory valuesWithDuplicates = new uint256[](dataFeedIdsWithDuplicates.length);

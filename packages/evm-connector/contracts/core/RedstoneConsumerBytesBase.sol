@@ -2,8 +2,6 @@
 
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-
 import "./RedstoneConsumerBase.sol";
 
 /**
@@ -35,7 +33,6 @@ import "./RedstoneConsumerBase.sol";
  * integration with the Redstone protocol
  */
 abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
-  using SafeMath for uint256;
 
   uint256 constant BITS_COUNT_IN_16_BYTES = 128;
 
@@ -138,7 +135,8 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
   {
     // The `_securelyExtractOracleValuesFromTxMsg` function contains the main logic
     // for the data extraction and validation
-    uint256[] memory arrayOfExtractedValues = _securelyExtractOracleValuesFromTxMsg(dataFeedIds);
+    (uint256[] memory arrayOfExtractedValues, uint256 timestamp) = _securelyExtractOracleValuesAndTimestampFromTxMsg(dataFeedIds);
+    validateTimestamp(timestamp);
     assembly {
       arrayOfMemoryPointers := arrayOfExtractedValues
     }
@@ -176,22 +174,17 @@ abstract contract RedstoneConsumerBytesBase is RedstoneConsumerBase {
    * @dev This function extracts details for a given data point and returns its dataFeedId,
    * and a "tricky" calldata pointer for its value
    *
-   * @param calldataNegativeOffsetForDataPackage Calldata offset for the requested data package
+   * @param dataPointNegativeOffset Calldata offset for the requested data point
    * @param dataPointValueByteSize Expected number of bytes for the requested data point value
-   * @param dataPointIndex Index of the requested data point
    *
    * @return dataPointDataFeedId a data feed identifier for the extracted data point
    * @return dataPointValue a "tricky" calldata pointer for the extracted value
    */
   function _extractDataPointValueAndDataFeedId(
-    uint256 calldataNegativeOffsetForDataPackage,
-    uint256 dataPointValueByteSize,
-    uint256 dataPointIndex
+    uint256 dataPointNegativeOffset,
+    uint256 dataPointValueByteSize
   ) internal pure override returns (bytes32 dataPointDataFeedId, uint256 dataPointValue) {
-    uint256 negativeOffsetToDataPoints = calldataNegativeOffsetForDataPackage + DATA_PACKAGE_WITHOUT_DATA_POINTS_BS;
-    uint256 dataPointNegativeOffset = negativeOffsetToDataPoints
-      + (1 + dataPointIndex).mul(dataPointValueByteSize + DATA_POINT_SYMBOL_BS);
-    uint256 dataPointCalldataOffset = msg.data.length.sub(dataPointNegativeOffset);
+    uint256 dataPointCalldataOffset = msg.data.length - dataPointNegativeOffset;
     assembly {
       dataPointDataFeedId := calldataload(dataPointCalldataOffset)
       dataPointValue := prepareTrickyCalldataPointer(
