@@ -150,7 +150,6 @@ export class DataPackagesService {
 
     // Parse DB response
     for (const dataPackage of groupedDataPackages) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { _id, ...rest } = dataPackage;
       const dataPackageId = _id.dataFeedId;
       if (!fetchedPackagesPerDataFeed[dataPackageId]) {

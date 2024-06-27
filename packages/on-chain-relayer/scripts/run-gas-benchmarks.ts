@@ -12,8 +12,7 @@ const contractNames = [
   "SinglePriceFeedAdapterWithClearingBenchmark",
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-main();
+void main();
 
 async function main() {
   for (const contractName of contractNames) {

@@ -8,7 +8,6 @@ import { DataPackagesBroadcaster } from "./data-packages-broadcaster";
 
 @Injectable()
 export class MongoBroadcaster implements DataPackagesBroadcaster {
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   private readonly logger = new Logger(MongoBroadcaster.name);
 
   async broadcast(
