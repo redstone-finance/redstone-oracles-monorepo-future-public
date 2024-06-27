@@ -75,16 +75,13 @@ export function simplifyErrorMessage(error: unknown) {
     for (const err of error.errors) {
       const errorString = String(err);
 
-      const startIndex =
-        errorString.indexOf("Original error: AggregateError: , errors:") +
-        "Original error: AggregateError: , errors:".length;
+      const pattern = "Original error: AggregateError: <no message>, errors:";
+      const patternPos = errorString.indexOf(pattern);
+      const startIndex = patternPos !== -1 ? patternPos + pattern.length : 0;
       const endIndex = errorString.indexOf("\n", startIndex);
-
       const shortenedError = errorString.substring(startIndex, endIndex).trim();
 
-      if (!errorMessages.has(shortenedError)) {
-        errorMessages.add(shortenedError);
-      }
+      errorMessages.add(shortenedError);
     }
     return Array.from(errorMessages).join("\n");
   } else {

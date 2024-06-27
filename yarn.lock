@@ -7169,6 +7169,7 @@ __metadata:
     ts-node: "npm:^10.9.1"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.2.2"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -7293,6 +7294,7 @@ __metadata:
     "@types/chai-as-promised": "npm:^7.1.5"
     "@types/http-server": "npm:^0.12.4"
     "@types/mocha": "npm:^10.0.1"
+    "@types/node": "npm:^18.14.6"
     "@types/puppeteer": "npm:^7.0.4"
     "@types/sinon-chai": "npm:^3.2.12"
     axios: "npm:^1.6.2"
@@ -7689,6 +7691,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/monitoring-manifests@workspace:packages/monitoring-manifests"
   dependencies:
+    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
     "@redstone-finance/utils": "npm:^0.5.2"
     zod: "npm:^3.22.4"
   languageName: unknown
