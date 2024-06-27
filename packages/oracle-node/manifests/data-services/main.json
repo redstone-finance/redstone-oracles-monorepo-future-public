@@ -491,10 +491,18 @@
     "AR": {
       "source": [
         "binance-usdt",
+        "binance-btc",
         "bingx-usdt",
         "bitget-usdt",
+        "bitmart-usdt",
         "bitrue-usdt",
-        "coingecko"
+        "bybit-usdt",
+        "gate-usdt",
+        "mexc-usdt",
+        "kucoin-usdt",
+        "okx-usdt",
+        "coingecko",
+        "xt"
       ]
     },
     "CELO": {

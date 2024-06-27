@@ -1209,6 +1209,23 @@
     },
     "SolvBTC_BNB/BTC-TWAP-60": {
       "source": ["twap-local-redstone-primary-prod"]
+    },
+    "AR": {
+      "source": [
+        "binance-usdt",
+        "binance-btc",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "gate-usdt",
+        "mexc-usdt",
+        "kucoin-usdt",
+        "okx-usdt",
+        "coingecko",
+        "xt"
+      ]
     }
   },
   "multiPointPackages": {
