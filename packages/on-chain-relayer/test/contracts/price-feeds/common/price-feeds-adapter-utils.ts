@@ -267,7 +267,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       updateValues({
         increaseBlockTimeBySeconds: 1,
         mockWrapperConfig: {
-          dataPoints: [{ dataFeedId: "NON-BTC", value: 42 }],
+          dataPoints: [{ dataFeedId, value: 42 }],
           mockSignersCount: 2,
           timestampMilliseconds: latestBlockTimestamp * 1000,
         },

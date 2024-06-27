@@ -94,12 +94,22 @@ describe("SampleRedstoneConsumerNumericMock", function () {
   });
 
   it("Should revert for too old timestamp", async () => {
+    const newMockPackages = mockNumericPackageConfigs.map((config) =>
+      getMockNumericPackage({
+        ...config,
+        timestampMilliseconds: DEFAULT_TIMESTAMP_FOR_TESTS - 1,
+      })
+    );
+    await testShouldRevertWith(newMockPackages, "BTC", "TimestampIsNotValid");
+  });
+
+  it("Should revert for different timestamps", async () => {
     const newMockPackages = [...mockNumericPackages];
     newMockPackages[1] = getMockNumericPackage({
       ...mockNumericPackageConfigs[1],
       timestampMilliseconds: DEFAULT_TIMESTAMP_FOR_TESTS - 1,
     });
-    await testShouldRevertWith(newMockPackages, "BTC", "TimestampIsNotValid");
+    await testShouldRevertWith(newMockPackages, "BTC", "TimestampsMustBeEqual");
   });
 
   it("Should revert for an unauthorised signer", async () => {

@@ -1,3 +1,4 @@
+import Decimal from "decimal.js";
 import { BigNumber } from "ethers";
 import {
   BytesLike,
@@ -59,16 +60,8 @@ export const convertNumberToString = (
   value: NumberLike,
   decimals: number
 ): string => {
-  const stringifiedNumber = Number(value).toFixed(decimals);
-
-  if (!stringifiedNumber.includes("e")) {
-    return stringifiedNumber;
-  }
-  // js for numbers >1e20 uses scientific notation,
-  // which is not supported by BigNumber.js
-  return Number(stringifiedNumber).toLocaleString("fullwide", {
-    useGrouping: false,
-  });
+  const decimalValue = new Decimal(value);
+  return decimalValue.toFixed(decimals);
 };
 
 export const convertIntegerNumberToBytes = (

@@ -5,16 +5,21 @@ import chaiAsPromised from "chai-as-promised";
 import { ContractTransaction } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
 import { ethers, upgrades } from "hardhat";
-import { IRedstoneAdapter, PriceFeedBase } from "../../../../typechain-types";
+import {
+  IRedstoneAdapter,
+  MultiFeedAdapterWithoutRoundsMock,
+  PriceFeedBase,
+} from "../../../../typechain-types";
 
 interface PriceFeedTestsParams {
   priceFeedContractName: string;
   adapterContractName: string;
   expectedRoundIdAfterTwoUpdates: number;
+  isMultiFeedAdapter?: boolean;
 }
 
 interface PriceFeedTestsContracts {
-  adapter: IRedstoneAdapter;
+  adapter: IRedstoneAdapter | MultiFeedAdapterWithoutRoundsMock;
   priceFeed: PriceFeedBase;
 }
 
@@ -24,6 +29,7 @@ export const describeCommonPriceFeedTests = ({
   priceFeedContractName,
   adapterContractName,
   expectedRoundIdAfterTwoUpdates,
+  isMultiFeedAdapter,
 }: PriceFeedTestsParams) => {
   const deployAll = async () => {
     const adapterFactory = await ethers.getContractFactory(adapterContractName);
@@ -107,8 +113,17 @@ export const describeCommonPriceFeedTests = ({
         dataPoints: [{ dataFeedId: "BTC", value: 42 }],
       });
 
-      const tx = await wrappedContract.updateDataFeedsValues(mockDataTimestamp);
-      await tx.wait();
+      if (isMultiFeedAdapter) {
+        const tx = await (
+          wrappedContract as MultiFeedAdapterWithoutRoundsMock
+        ).updateDataFeedsValuesPartial([formatBytes32String("BTC")]);
+        await tx.wait();
+      } else {
+        const tx = await (
+          wrappedContract as IRedstoneAdapter
+        ).updateDataFeedsValues(mockDataTimestamp);
+        await tx.wait();
+      }
     };
 
     beforeEach(async () => {

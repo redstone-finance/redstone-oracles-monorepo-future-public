@@ -128,6 +128,16 @@ describe("SampleRedstoneConsumerBytesMock", function () {
   });
 
   it("Should revert for too old timestamp", async () => {
+    const newMockPackages = mockBytesPackageConfigs.map((config) =>
+      getMockPackageWithOneBytesDataPoint({
+        ...config,
+        timestampMilliseconds: DEFAULT_TIMESTAMP_FOR_TESTS - 1,
+      })
+    );
+    await testShouldRevertWith(newMockPackages, "TimestampIsNotValid");
+  });
+
+  it("Should revert for different timestamps", async () => {
     const newMockPackages = [
       mockBytesPackages[0],
       mockBytesPackages[1],
@@ -136,7 +146,7 @@ describe("SampleRedstoneConsumerBytesMock", function () {
         timestampMilliseconds: DEFAULT_TIMESTAMP_FOR_TESTS - 1,
       }),
     ];
-    await testShouldRevertWith(newMockPackages, "TimestampIsNotValid");
+    await testShouldRevertWith(newMockPackages, "TimestampsMustBeEqual");
   });
 
   it("Should revert is data feed id not found", async () => {

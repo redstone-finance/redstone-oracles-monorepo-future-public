@@ -12,6 +12,7 @@
     "lint": "yarn global:eslint ."
   },
   "dependencies": {
+    "decimal.js": "^10.4.3",
     "ethers": "^5.7.2"
   },
   "publishConfig": {

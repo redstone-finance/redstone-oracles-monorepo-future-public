@@ -2,8 +2,6 @@
 
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-
 library NumericArrayLib {
   // This function sort array in memory using bubble sort algorithm,
   // which performs even better than quick sort for small arrays
@@ -21,7 +19,7 @@ library NumericArrayLib {
     sort(arr);
     uint256 middleIndex = arr.length / 2;
     if (arr.length % 2 == 0) {
-      uint256 sum = SafeMath.add(arr[middleIndex - 1], arr[middleIndex]);
+      uint256 sum = arr[middleIndex - 1] + arr[middleIndex];
       return sum / 2;
     } else {
       return arr[middleIndex];

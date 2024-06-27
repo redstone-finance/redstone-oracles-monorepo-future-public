@@ -115,6 +115,20 @@ describe("SampleProxyConnector", function () {
   });
 
   it("Should fail with correct message (timestamp invalid)", async () => {
+    const newMockPackages = mockNumericPackageConfigs.map((config) =>
+      getMockNumericPackage({
+        ...config,
+        timestampMilliseconds: DEFAULT_TIMESTAMP_FOR_TESTS - 1,
+      })
+    );
+    await testShouldRevertWith(
+      newMockPackages,
+      "ProxyCalldataFailedWithCustomError",
+      "0x355b8743"
+    );
+  });
+
+  it("Should fail with correct message (different timestamps)", async () => {
     const newMockPackages = [...mockNumericPackages];
     newMockPackages[1] = getMockNumericPackage({
       ...mockNumericPackageConfigs[1],
@@ -123,7 +137,7 @@ describe("SampleProxyConnector", function () {
     await testShouldRevertWith(
       newMockPackages,
       "ProxyCalldataFailedWithCustomError",
-      "0x355b8743"
+      "0x4cbc4742"
     );
   });
 
