@@ -230,7 +230,7 @@ const describeMultiWrapperSuite = (
         1
       );
 
-      expect(resultCounter2.status).to.eq("fulfilled");
+      expect(resultCounter2.status).to.eq("rejected");
       expect(multicallFnSpy.getCalls().length).to.eq(1);
     });
     it("it should fallback to provider.call when multicall fails", async () => {
