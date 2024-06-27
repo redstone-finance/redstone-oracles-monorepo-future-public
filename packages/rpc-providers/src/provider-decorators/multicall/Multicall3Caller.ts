@@ -41,23 +41,10 @@ export async function executeMulticall3(
   });
 
   try {
-    const results = await rawMulticall3(
+    return await rawMulticall3(
       multicall3Contract.connect(provider),
       call3s,
       blockTag
-    );
-
-    // we add single retry per single call
-    return await Promise.all(
-      results.map((result, index) => {
-        if (!result.success) {
-          logger.log(
-            `Single call from multicall failed chainId=${chainId}. Will fallback to single call. This is business logic/gas limit error: ${RedstoneCommon.stringifyError(result.fallbackRejectReason)}`
-          );
-          return safeFallbackCall(provider, call3s[index], blockTag);
-        }
-        return result;
-      })
     );
   } catch (e) {
     // if whole multicall failed fallback to normal execution model (1 call = 1 request)
