@@ -1,8 +1,7 @@
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
 import { MockSignerAddress } from "@redstone-finance/evm-connector/src/helpers/test-utils";
-import { DataPackage, DataPoint } from "@redstone-finance/protocol";
-import { convertNumberToBytes } from "@redstone-finance/protocol/src/common/utils";
+import { DataPackage, DataPoint, utils } from "@redstone-finance/protocol";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { formatBytes32String } from "ethers/lib/utils";
@@ -44,7 +43,10 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
 
       const dataPoints = Object.entries(opts.prices).map(
         ([dataFeedId, value]) => {
-          return new DataPoint(dataFeedId, convertNumberToBytes(value, 0, 32));
+          return new DataPoint(
+            dataFeedId,
+            utils.convertNumberToBytes(value, 0, 32)
+          );
         }
       );
       const dataPackage = new DataPackage(dataPoints, mockDataTimestamp);
