@@ -19,8 +19,9 @@ export interface ConditionCheckResponse {
 
 const PRICE_FEEDS = "price-feeds";
 const MENTO = "mento";
-const AdapterTypesEnum = z.enum([PRICE_FEEDS, MENTO]);
-type AdapterType = z.infer<typeof AdapterTypesEnum>;
+const MULTI_FEED = "multi-feed";
+export const AdapterTypesEnum = z.enum([PRICE_FEEDS, MENTO, MULTI_FEED]);
+export type AdapterType = z.infer<typeof AdapterTypesEnum>;
 
 export const UpdateTriggersSchema = z.object({
   cron: z.array(z.string()).optional(),
@@ -42,6 +43,21 @@ export const OnChainRelayerManifestSchema = z.object({
   dataServiceId: z.string(),
   priceFeeds: z.record(z.string(), z.string()),
   dataPacakgesNames: z.array(z.string()).optional(),
+});
+
+const PriceFeedConfigSchema = z.object({
+  updateTriggers: UpdateTriggersSchema.optional(),
+  priceFeedAddress: z.string().optional(),
+});
+
+export const NewOnChainRelayerManifestSchema = z.object({
+  chain: ChainSchema,
+  defaultUpdateTriggers: UpdateTriggersSchema,
+  adapterContract: z.string(),
+  adapterContractType: AdapterTypesEnum.default(PRICE_FEEDS),
+  dataServiceId: z.string(),
+  priceFeeds: z.record(PriceFeedConfigSchema),
+  dataPackagesNames: z.array(z.string()).optional(),
 });
 
 export type UpdateTriggers = z.infer<typeof UpdateTriggersSchema>;
