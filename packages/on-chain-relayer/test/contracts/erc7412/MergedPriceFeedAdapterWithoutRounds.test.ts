@@ -1,6 +1,6 @@
 import { time } from "@nomicfoundation/hardhat-network-helpers";
 import { SimpleNumericMockWrapper } from "@redstone-finance/evm-connector";
-import { convertStringToBytes32 } from "@redstone-finance/protocol/src/common/utils";
+import { utils as protocolUtils } from "@redstone-finance/protocol";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { utils } from "ethers";
@@ -82,12 +82,16 @@ describe("RedstonePrimaryProdERC7412", () => {
     });
 
     it("returns oracleId", async () => {
-      const redstoneInHex = utils.hexlify(convertStringToBytes32("REDSTONE"));
+      const redstoneInHex = utils.hexlify(
+        protocolUtils.convertStringToBytes32("REDSTONE")
+      );
       expect(await contract.oracleId()).to.equal(redstoneInHex);
     });
 
     it("should return same value for getDataFeedId and getDataFeedId", async () => {
-      const btcInHex = utils.hexlify(convertStringToBytes32("BTC"));
+      const btcInHex = utils.hexlify(
+        protocolUtils.convertStringToBytes32("BTC")
+      );
 
       expect(await contract.getDataFeedId()).to.equal(btcInHex);
       expect(await contract.getDataFeedId()).to.equal(btcInHex);
