@@ -20,9 +20,12 @@ export { getAbiForAdapter } from "./core/contract-interactions/get-abi-for-adapt
 export { chooseDataPackagesTimestamp } from "./core/update-conditions/data-packages-timestamp";
 export { makeConfigProvider } from "./make-config-provider";
 export {
+  AdapterTypesEnum,
   ChainSchema,
+  NewOnChainRelayerManifestSchema,
   OnChainRelayerManifestSchema,
   UpdateTriggersSchema,
+  type AdapterType,
   type ConfigProvider,
   type OnChainRelayerEnv,
   type OnChainRelayerManifest,
