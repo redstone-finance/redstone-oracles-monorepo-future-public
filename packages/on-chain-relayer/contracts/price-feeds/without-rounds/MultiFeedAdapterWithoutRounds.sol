@@ -28,7 +28,7 @@ import {ILToken} from "../../custom-integrations/layerbank/ILToken.sol";
 abstract contract MultiFeedAdapterWithoutRounds is RedstoneConsumerNumericBase, IMultiFeedAdapter, IPriceCalculator {
   bytes32 internal constant DATA_FEEDS_STORAGE_LOCATION = 0x5e9fb4cb0eb3c2583734d3394f30bb14b241acb9b3a034f7e7ba1a62db4370f1; // keccak256("RedStone.MultiFeedAdapterWithoutRounds.dataFeeds");
   bytes32 internal constant ETH_DATA_FEED_ID = bytes32("ETH");
-  uint256 internal constant MAX_DATA_STALENESS = 7 days;
+  uint256 internal constant MAX_DATA_STALENESS = 30 hours;
   uint256 internal constant DEFAULT_DECIMAL_SCALER_LAYERBANK = 1e10;
 
   error DataTimestampTooLarge(uint256 dataTimestamp);
