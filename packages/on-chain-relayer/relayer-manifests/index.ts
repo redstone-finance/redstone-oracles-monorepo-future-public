@@ -66,6 +66,7 @@ import merlinMultiPriceFeed from "./merlinMultiPriceFeed.json";
 import modeLayerBank from "./modeLayerBank.json";
 import modeMode from "./modeMode.json";
 import modeUsde from "./modeUsde.json";
+import optimismApxetheth from "./optimismApxetheth.json";
 import realGbp from "./realGbp.json";
 import realXau from "./realXau.json";
 import seiMultiAdapter from "./seiMultiAdapter.json";
@@ -155,6 +156,7 @@ const allRelayersManifests = {
   modeLayerBank,
   modeMode,
   modeUsde,
+  optimismApxetheth,
   realGbp,
   realXau,
   seiMultiAdapter,
