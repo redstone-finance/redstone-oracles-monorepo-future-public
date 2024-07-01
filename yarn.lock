@@ -7116,6 +7116,7 @@ __metadata:
     "@openzeppelin/contracts": "npm:^4.8.1"
     "@openzeppelin/contracts-upgradeable": "npm:^4.8.3"
     "@openzeppelin/upgrades-core": "npm:^1.34.0"
+    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
     "@types/chai": "npm:^4.3.4"
     "@types/mocha": "npm:^10.0.1"
     "@types/node": "npm:^18.14.6"
