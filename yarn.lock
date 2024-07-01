@@ -7406,6 +7406,7 @@ __metadata:
     "@redstone-finance/sdk": "npm:^0.5.2"
     "@redstone-finance/utils": "npm:^0.5.2"
     axios: "npm:^1.6.2"
+    axios-retry: "npm:^4.4.0"
     ethers: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
@@ -12756,6 +12757,17 @@ __metadata:
   peerDependencies:
     axios: 0.x || 1.x
   checksum: 10c0/090e023e3cd353094f30359136d777bb6bb2e9f130791d6127df289130385152024c693ad845a1b7de55770fe5ded05d52969c4b1809e3cc0120ca57f6cf0a88
+  languageName: node
+  linkType: hard
+
+"axios-retry@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "axios-retry@npm:4.4.0"
+  dependencies:
+    is-retry-allowed: "npm:^2.2.0"
+  peerDependencies:
+    axios: 0.x || 1.x
+  checksum: 10c0/583361dc56d8d0514c08ad89b5d267413dc31d6cbeb12712e0068496a0bd024ba0dfcbff0a7ba6b355311db7b6d90f1d1e05015e3cdda1246969c9ef17f66bcf
   languageName: node
   linkType: hard
 
