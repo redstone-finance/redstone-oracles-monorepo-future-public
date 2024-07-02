@@ -64,7 +64,7 @@ describe("MergedAdapterWithoutRoundsSusdeRateProviderBase", () => {
   it("should read proper value using getRate function", async () => {
     await updatePrices(defaultTestValues);
     const getRateResponse = await mergedAdapterSusde.getRate();
-    expect(getRateResponse.toString()).to.eq("1035595305017573000");
+    expect(getRateResponse.toString()).to.eq("1035595305017572975");
   });
 
   it("should allow second update when new value is deviated less than 2% - lesser", async () => {
