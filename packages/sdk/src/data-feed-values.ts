@@ -28,23 +28,25 @@ export const getDataFeedValues = async (
 
   const result: GetDataFeedValuesOutput = {};
 
-  for (const [dataFeedId, dataPackages] of Object.entries(
+  for (const [dataPackageId, dataPackages] of Object.entries(
     dataPackagesPerFeed
   )) {
-    const plainValues = dataPackages!
-      .filter((dp) => dp.dataPoints.length === 1)
-      .map((dp) => Number(dp.dataPoints[0].value));
-
-    // case for multi-point data packages
-    if (plainValues.length === 0) {
+    if (isMultiPointDataPackageId(dataPackageId)) {
       continue;
     }
+    const dataFeedId = dataPackageId;
+    const plainValues = dataPackages!.map((dp) =>
+      Number(dp.dataPoints[0].value)
+    );
 
     result[dataFeedId] = aggregateValues(plainValues, aggregationAlgorithm);
   }
 
   return result;
 };
+
+const isMultiPointDataPackageId = (dataPackageId: string) =>
+  dataPackageId.startsWith("__") && dataPackageId.endsWith("__");
 
 const getDataPackagesFromGateway = async (
   url: string,
