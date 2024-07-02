@@ -10,6 +10,8 @@
     "bundle": "ENTRYPOINT=src/run-relayer.ts yarn global:rollup -c ../../rollup.config.mjs",
     "start": "node dist/src/run-relayer.js",
     "start:dev": "yarn global:ts-node src/run-relayer.ts",
+    "start-multi-feed": "node dist/src/multi-feed/run-relayer.js",
+    "start-multi-feed:dev": "yarn global:ts-node src/multi-feed/run-relayer.ts",
     "compile": "hardhat compile",
     "lint": "yarn global:eslint .",
     "run-script": "hardhat run",

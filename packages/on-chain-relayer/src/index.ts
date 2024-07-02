@@ -19,14 +19,18 @@ export { setConfigProvider } from "./config";
 export { getAbiForAdapter } from "./core/contract-interactions/get-abi-for-adapter";
 export { chooseDataPackagesTimestamp } from "./core/update-conditions/data-packages-timestamp";
 export { makeConfigProvider } from "./make-config-provider";
+export * as MultiFeed from "./multi-feed/index";
 export {
   AdapterTypesEnum,
+  AnyOnChainRelayerManifestSchema,
   ChainSchema,
-  NewOnChainRelayerManifestSchema,
+  MultiFeedOnChainRelayerManifestSchema,
   OnChainRelayerManifestSchema,
   UpdateTriggersSchema,
   type AdapterType,
   type ConfigProvider,
+  type MultiFeedOnChainRelayerManifest,
+  type MultiFeedOnChainRelayerManifestInput,
   type OnChainRelayerEnv,
   type OnChainRelayerManifest,
   type OnChainRelayerManifestInput,

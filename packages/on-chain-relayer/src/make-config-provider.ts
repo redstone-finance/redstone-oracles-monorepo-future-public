@@ -42,7 +42,7 @@ export const makeConfigProvider = (
     dataPackagesNames: manifest.dataPacakgesNames,
     updateConditions,
     minDeviationPercentage: deviationPercentage,
-    priceFeedsDeviationOverrides: priceFeedsDeviationOverrides,
+    priceFeedsDeviationOverrides,
     adapterContractType: manifest.adapterContractType,
     fallbackOffsetInMS: env.fallbackOffsetInMinutes * MS_IN_ONE_MINUTE,
     ...env,

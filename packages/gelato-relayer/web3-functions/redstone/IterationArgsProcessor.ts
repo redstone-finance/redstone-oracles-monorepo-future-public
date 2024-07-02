@@ -9,9 +9,13 @@ import {
 } from "../IterationArgsProviderInterface";
 
 export class IterationArgsProcessor<Args> {
+  protected argsProvider!: IterationArgsProviderInterface<Args>;
+
   constructor(
     private context: Web3FunctionContext,
-    private argsProvider: IterationArgsProviderInterface<Args>
+    private argsProviderFactory: (
+      env: IterationArgsProviderEnv
+    ) => Promise<IterationArgsProviderInterface<Args>>
   ) {}
 
   private static shouldNotExec(
@@ -29,6 +33,8 @@ export class IterationArgsProcessor<Args> {
     provider: providers.StaticJsonRpcProvider
   ): Promise<Web3FunctionResult> {
     const env = await this.getEnvParams();
+
+    this.argsProvider = await this.argsProviderFactory(env);
 
     const iterationArgs = await this.argsProvider.getArgs(
       this.context.userArgs,
