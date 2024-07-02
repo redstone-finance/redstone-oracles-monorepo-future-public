@@ -10,6 +10,7 @@ import {
   StringDataPoint,
 } from "../src";
 import { deserializeDataPointFromObj } from "../src/data-point/data-point-deserializer";
+import primaryProdDataPackages from "./primary-prod-data-packages.json";
 
 const TIMESTAMP_FOR_TESTS = 1654353400000;
 const PRIVATE_KEY_FOR_TESTS_1 =
@@ -154,5 +155,20 @@ describe("Fixed size data package", () => {
       ) as SignedDataPackagePlainObj
     ).toBytesHex();
     expect(deserializedSignedDataPackage).toBe(signedDataPackage.toBytesHex());
+  });
+
+  // This test has been added to ensure we are compatible with current serialization and signing logic
+  describe("Signatures should match with currently deployed primary-prod data", () => {
+    const entries = Object.entries(primaryProdDataPackages);
+    for (const [dataFeedId, dataPackages] of entries) {
+      it(`Signatures should match for ${dataFeedId}`, () => {
+        for (const dataPackage of dataPackages) {
+          const { signerAddress } = dataPackage;
+          const signedDataPackage = SignedDataPackage.fromObj(dataPackage);
+          const recoveredAddress = signedDataPackage.recoverSignerAddress();
+          expect(signerAddress).toBe(recoveredAddress);
+        }
+      });
+    }
   });
 });

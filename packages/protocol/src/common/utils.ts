@@ -60,8 +60,24 @@ export const convertNumberToString = (
   value: NumberLike,
   decimals: number
 ): string => {
-  const decimalValue = new Decimal(value);
-  return decimalValue.toFixed(decimals);
+  if (typeof value === "string") {
+    // It would be ideal to have this implementation
+    // for all types, but implementing it would break
+    // compatibility with existing clients
+    const decimalValue = new Decimal(value);
+    return decimalValue.toFixed(decimals);
+  }
+
+  const stringifiedNumber = Number(value).toFixed(decimals);
+
+  if (!stringifiedNumber.includes("e")) {
+    return stringifiedNumber;
+  }
+  // js for numbers >1e20 uses scientific notation,
+  // which is not supported by BigNumber.js
+  return Number(stringifiedNumber).toLocaleString("fullwide", {
+    useGrouping: false,
+  });
 };
 
 export const convertIntegerNumberToBytes = (
