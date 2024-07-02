@@ -102,6 +102,14 @@ export class IterationArgsProcessor<Args> {
       ) as boolean,
     };
 
+    if (!this.context.gelatoArgs.taskId) {
+      console.log(
+        "Overriding secrets by userArgs variables. That means we're not in the Gelato environment but local."
+      );
+
+      env.manifestUrl = this.context.userArgs["manifestUrl"] as string;
+    }
+
     return env;
   }
 }
