@@ -3830,9 +3830,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gelatonetwork/web3-functions-sdk@npm:^2.4.1":
-  version: 2.4.1
-  resolution: "@gelatonetwork/web3-functions-sdk@npm:2.4.1"
+"@gelatonetwork/web3-functions-sdk@npm:^2.4.3":
+  version: 2.4.3
+  resolution: "@gelatonetwork/web3-functions-sdk@npm:2.4.3"
   dependencies:
     "@ethersproject/address": "npm:^5.7.0"
     "@ethersproject/contracts": "npm:^5.7.0"
@@ -3859,7 +3859,7 @@ __metadata:
     undici: "npm:^6.6.2"
   bin:
     w3f: dist/bin/index.js
-  checksum: 10c0/e482526901e4458d8158f001bba24b9601944f656922dd3928233d0a765eea3df9e6f48e5699fa6c2d9f2d8dac2cec47b8f3621cf4d6e8562e5a9945a986eb90
+  checksum: 10c0/f33959d56d2f30bd744b1ebc87192f59c8e60e6ed1601107c6dcfe51a22f1a8cc822b7733bd05cbc1ea23c0de58fc284ff9c78a01a05718f97e99f1c5a339679
   languageName: node
   linkType: hard
 
@@ -7365,7 +7365,7 @@ __metadata:
   dependencies:
     "@ethersproject/abi": "npm:^5.6.3"
     "@ethersproject/providers": "npm:^5.6.8"
-    "@gelatonetwork/web3-functions-sdk": "npm:^2.4.1"
+    "@gelatonetwork/web3-functions-sdk": "npm:^2.4.3"
     "@nomicfoundation/hardhat-chai-matchers": "npm:1.0.6"
     "@nomicfoundation/hardhat-ethers": "npm:^3.0.4"
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.9"

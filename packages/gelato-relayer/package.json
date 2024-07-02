@@ -17,7 +17,7 @@
     "lint": "yarn global:eslint ."
   },
   "dependencies": {
-    "@gelatonetwork/web3-functions-sdk": "^2.4.1",
+    "@gelatonetwork/web3-functions-sdk": "^2.4.3",
     "@redstone-finance/on-chain-relayer": "^0.5.2"
   },
   "license": "MIT",

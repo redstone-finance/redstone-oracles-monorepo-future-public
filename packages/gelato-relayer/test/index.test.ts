@@ -1,7 +1,6 @@
-import hre from "hardhat";
-import { expect } from "chai";
-import { before } from "mocha";
 import { Web3FunctionHardhat } from "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
+import { expect } from "chai";
+import hre from "hardhat";
 // @ts-ignore
 import * as args from "../web3-functions/redstone-mock/userArgs.json";
 
@@ -18,7 +17,7 @@ describe("RedStone Gelato w3f Tests", function () {
 
   let redstoneW3f: Web3FunctionHardhat;
 
-  before(async function () {
+  beforeEach(async function () {
     redstoneW3f = w3f.get("redstone-mock");
   });
 
