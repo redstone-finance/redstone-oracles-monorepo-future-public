@@ -12,8 +12,7 @@ Web3Function.onRun(async (context: Web3FunctionContext) => {
     context.userArgs.adapterContractAddress as unknown as string
   );
 
-  return await new IterationArgsProcessor(
-    context,
-    iterationArgsProvider
+  return await new IterationArgsProcessor(context, () =>
+    Promise.resolve(iterationArgsProvider)
   ).processArgs(provider);
 });

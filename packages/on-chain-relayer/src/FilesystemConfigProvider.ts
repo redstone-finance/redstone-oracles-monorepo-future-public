@@ -4,9 +4,9 @@ import fs from "fs";
 import { z } from "zod";
 import { makeConfigProvider } from "./make-config-provider";
 import {
-  ConfigProvider,
+  AnyOnChainRelayerManifestSchema,
   OnChainRelayerEnv,
-  OnChainRelayerManifestSchema,
+  OnChainRelayerManifest,
 } from "./types";
 
 // copy of method from oracle-node. Probably should be moved to some common package
@@ -22,17 +22,17 @@ const readJSON = <T>(path: string): T => {
 const readManifest = () => {
   const overriddenManifest = RedstoneCommon.getFromEnv(
     "MANIFEST_OVERRIDE",
-    OnChainRelayerManifestSchema.optional()
+    AnyOnChainRelayerManifestSchema.optional()
   );
   if (overriddenManifest) {
     return overriddenManifest;
   }
   const manifestPath = RedstoneCommon.getFromEnv("MANIFEST_FILE", z.string());
   const manifestObject = readJSON(manifestPath);
-  return OnChainRelayerManifestSchema.parse(manifestObject);
+  return AnyOnChainRelayerManifestSchema.parse(manifestObject);
 };
 
-export const fileSystemConfigProvider: ConfigProvider = () => {
+export const readManifestAndEnv = () => {
   const manifest = readManifest();
 
   const env: OnChainRelayerEnv = {
@@ -127,5 +127,11 @@ export const fileSystemConfigProvider: ConfigProvider = () => {
     ),
   };
 
-  return makeConfigProvider(manifest, env);
+  return { manifest, env };
+};
+
+export const fileSystemConfigProvider = () => {
+  const { manifest, env } = readManifestAndEnv();
+
+  return makeConfigProvider(manifest as OnChainRelayerManifest, env);
 };

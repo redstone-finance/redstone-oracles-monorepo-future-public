@@ -20,7 +20,13 @@ export interface ConditionCheckResponse {
 const PRICE_FEEDS = "price-feeds";
 const MENTO = "mento";
 const MULTI_FEED = "multi-feed";
-export const AdapterTypesEnum = z.enum([PRICE_FEEDS, MENTO, MULTI_FEED]);
+export const BaseAdapterTypesEnum = z.enum([PRICE_FEEDS, MENTO]);
+export const MultiFeedAdapterTypesEnum = z.enum([MULTI_FEED]);
+export const AdapterTypesEnum = z.enum([
+  ...BaseAdapterTypesEnum.options,
+  ...MultiFeedAdapterTypesEnum.options,
+]);
+
 export type AdapterType = z.infer<typeof AdapterTypesEnum>;
 
 export const UpdateTriggersSchema = z.object({
@@ -35,30 +41,45 @@ export const ChainSchema = z.object({
   id: z.number(),
 });
 
-export const OnChainRelayerManifestSchema = z.object({
-  chain: ChainSchema,
-  updateTriggers: UpdateTriggersSchema,
-  adapterContract: z.string(),
-  adapterContractType: AdapterTypesEnum.default(PRICE_FEEDS),
-  dataServiceId: z.string(),
-  priceFeeds: z.record(z.string(), z.string()),
-  dataPacakgesNames: z.array(z.string()).optional(),
-});
-
 const PriceFeedConfigSchema = z.object({
-  updateTriggers: UpdateTriggersSchema.optional(),
+  updateTriggersOverrides: UpdateTriggersSchema.optional(),
   priceFeedAddress: z.string().optional(),
 });
 
-export const NewOnChainRelayerManifestSchema = z.object({
+const CommonManifestSchema = {
   chain: ChainSchema,
-  defaultUpdateTriggers: UpdateTriggersSchema,
+  updateTriggers: UpdateTriggersSchema,
   adapterContract: z.string(),
-  adapterContractType: AdapterTypesEnum.default(PRICE_FEEDS),
   dataServiceId: z.string(),
-  priceFeeds: z.record(PriceFeedConfigSchema),
-  dataPackagesNames: z.array(z.string()).optional(),
+  dataPacakgesNames: z.array(z.string()).optional(),
+};
+
+export const OnChainRelayerManifestSchema = z.object({
+  ...CommonManifestSchema,
+  adapterContractType: BaseAdapterTypesEnum.default(PRICE_FEEDS),
+  priceFeeds: z.record(z.string(), z.string()),
 });
+
+export const MultiFeedOnChainRelayerManifestSchema = z.object({
+  ...CommonManifestSchema,
+  adapterContractType: MultiFeedAdapterTypesEnum.default(MULTI_FEED),
+  priceFeeds: z.record(z.string(), PriceFeedConfigSchema),
+});
+
+export const AnyOnChainRelayerManifestSchema = z.union([
+  OnChainRelayerManifestSchema,
+  MultiFeedOnChainRelayerManifestSchema,
+]);
+
+export type PriceFeedConfig = z.infer<typeof PriceFeedConfigSchema>;
+
+export type MultiFeedOnChainRelayerManifest = z.infer<
+  typeof MultiFeedOnChainRelayerManifestSchema
+>;
+
+export type MultiFeedOnChainRelayerManifestInput = z.input<
+  typeof MultiFeedOnChainRelayerManifestSchema
+>;
 
 export type UpdateTriggers = z.infer<typeof UpdateTriggersSchema>;
 
@@ -68,6 +89,14 @@ export type OnChainRelayerManifest = z.infer<
 
 export type OnChainRelayerManifestInput = z.input<
   typeof OnChainRelayerManifestSchema
+>;
+
+export type AnyOnChainRelayerManifest = z.infer<
+  typeof AnyOnChainRelayerManifestSchema
+>;
+
+export type AnyOnChainRelayerManifestInput = z.input<
+  typeof AnyOnChainRelayerManifestSchema
 >;
 
 export interface RelayerConfig {

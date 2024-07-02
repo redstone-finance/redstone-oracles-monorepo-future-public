@@ -1,28 +1,22 @@
 import { Web3FunctionUserArgs } from "@gelatonetwork/web3-functions-sdk";
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
-  chooseDataPackagesTimestamp,
-  getAbiForAdapter,
-  getIterationArgs,
-  makeConfigProvider,
+  MultiFeed,
+  MultiFeedOnChainRelayerManifest,
   OnChainRelayerEnv,
-  OnChainRelayerManifest,
-  RedstoneAdapterBase,
-  setConfigProvider,
-  UpdatePricesArgs,
 } from "@redstone-finance/on-chain-relayer";
-import { Contract, providers } from "ethers";
+import { Contract, providers, utils } from "ethers";
 import {
   IterationArgs,
   IterationArgsProviderEnv,
   IterationArgsProviderInterface,
 } from "../IterationArgsProviderInterface";
 
-export class IterationArgsProvider
-  implements IterationArgsProviderInterface<UpdatePricesArgs>
+export class MultiFeedIterationArgsProvider
+  implements IterationArgsProviderInterface<MultiFeed.UpdatePricesArgs>
 {
   constructor(
-    protected manifest: OnChainRelayerManifest,
+    protected manifest: MultiFeedOnChainRelayerManifest,
     protected relayerEnv: OnChainRelayerEnv
   ) {}
 
@@ -32,10 +26,10 @@ export class IterationArgsProvider
     userArgs: Web3FunctionUserArgs,
     env: IterationArgsProviderEnv,
     provider: providers.StaticJsonRpcProvider
-  ): Promise<IterationArgs<UpdatePricesArgs>> {
+  ): Promise<IterationArgs<MultiFeed.UpdatePricesArgs>> {
     this.setUp();
 
-    const abi = getAbiForAdapter();
+    const abi = MultiFeed.getAbiForAdapter();
 
     if (!this.adapterContractAddress) {
       throw new Error("Unknown adapterContractAddress");
@@ -45,26 +39,28 @@ export class IterationArgsProvider
       this.adapterContractAddress,
       abi,
       provider
-    ) as RedstoneAdapterBase;
+    ) as MultiFeed.MultiFeedAdapterWithoutRounds;
 
-    return await getIterationArgs(adapterContract);
+    await MultiFeed.updateBlockTag(adapterContract);
+    return await MultiFeed.getIterationArgs(adapterContract);
   }
 
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getTransactionData({
     adapterContract,
+    dataFeedsToUpdate,
     fetchDataPackages,
-  }: UpdatePricesArgs): Promise<string | undefined> {
+  }: MultiFeed.UpdatePricesArgs): Promise<string | undefined> {
     const dataPackages = await fetchDataPackages();
-    const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
     const dataPackagesWrapper = new DataPackagesWrapper(dataPackages);
+    const dataFeedsAsBytes32 = dataFeedsToUpdate.map(utils.formatBytes32String);
 
     const wrappedContract =
       dataPackagesWrapper.overwriteEthersContract(adapterContract);
 
     const { data } =
-      await wrappedContract.populateTransaction.updateDataFeedsValues(
-        proposedTimestamp
+      await wrappedContract.populateTransaction.updateDataFeedsValuesPartial(
+        dataFeedsAsBytes32
       );
 
     return data;
@@ -72,6 +68,8 @@ export class IterationArgsProvider
 
   private setUp() {
     this.adapterContractAddress = this.manifest.adapterContract;
-    setConfigProvider(() => makeConfigProvider(this.manifest, this.relayerEnv));
+    MultiFeed.setConfigProvider(() =>
+      MultiFeed.makeConfigProvider(this.manifest, this.relayerEnv)
+    );
   }
 }
