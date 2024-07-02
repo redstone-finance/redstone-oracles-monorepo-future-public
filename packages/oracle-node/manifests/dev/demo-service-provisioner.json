@@ -1,0 +1,56 @@
+{
+  "interval": 10000,
+  "priceAggregator": "median",
+  "defaultSource": ["kaiko"],
+  "sourceTimeout": 7000,
+  "minValidSourcesPercentage": 1,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 30,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "USDC": {
+      "source": ["kaiko", "kaiko-v2"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "USDT": {
+      "source": ["kaiko", "kaiko-v2"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+
+    "BTC": {
+      "source": ["kaiko", "kaiko-v2"]
+    },
+    "ETH": {
+      "source": ["kaiko", "kaiko-v2"]
+    },
+
+    "AAVE": {
+      "source": ["kaiko", "kaiko-v2"]
+    },
+
+    "TRX": {
+      "source": ["kaiko-v2"]
+    },
+
+    "EUR": {
+      "source": ["kaiko", "kaiko-v2"]
+    },
+
+    "AVAX": {
+      "source": ["kaiko", "kaiko-v2"]
+    }
+  }
+}

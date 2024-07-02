@@ -1,0 +1,450 @@
+{
+  "interval": 10000,
+  "priceAggregator": "median",
+  "defaultSource": ["coingecko"],
+  "sourceTimeout": 7000,
+  "minValidSourcesPercentage": 1,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 30,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "VST": {
+      "source": ["curve-arbitrumone-frax-multi-block"]
+    },
+    "USDC": {
+      "source": ["maverick-ethereum-usdt", "uniswap-v3-ethereum-dai-100"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+
+    "DAI": {
+      "source": ["curve-ethereum-usdt"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+
+    "FRAX": {
+      "source": [
+        "curve-ethereum-3crv",
+        "curve-ethereum-usdc-multi-block",
+        "fraxswap-ethereum-fxs",
+        "fraxswap-ethereum-weth",
+        "uniswap-v3-ethereum-fxs-10000",
+        "uniswap-v3-ethereum-usdc-500",
+        "uniswap-v3-ethereum-dai-500"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "stETH": {
+      "source": [
+        "curve-ethereum-eth",
+        "curve-ethereum-eth-2",
+        "curve-ethereum-weth",
+        "uniswap-v2-ethereum-weth"
+      ]
+    },
+    "wstETH": {
+      "source": [
+        "balancer-arbitrumone-weth",
+        "balancer-ethereum-aave",
+        "balancer-ethereum-weth",
+        "balancer-ethereum-weth-2",
+        "curve-ethereum-crvusd",
+        "maverick-ethereum-weth",
+        "pancake-swap-ethereum-weth-100",
+        "uniswap-v3-arbitrumone-weth-100",
+        "uniswap-v3-ethereum-weth-100",
+        "uniswap-v3-optimism-weth-100",
+        "uniswap-v3-ethereum-susde-10000"
+      ]
+    },
+    "wstETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-lido"]
+    },
+    "wstETH/stETH": {
+      "source": ["ethereum-evm-fetcher-lido"]
+    },
+    "SWETH": {
+      "source": [
+        "balancer-ethereum-weth-multi-block",
+        "maverick-ethereum-weth-multi-block",
+        "pancake-swap-ethereum-weth-500",
+        "uniswap-v3-ethereum-weth-500-multi-block"
+      ]
+    },
+    "crvFRAX": {
+      "source": ["ethereum-evm-fetcher-curve"]
+    },
+    "3Crv": {
+      "source": ["ethereum-evm-fetcher-curve"]
+    },
+    "LUSD": {
+      "source": [
+        "curve-ethereum-3crv",
+        "maverick-ethereum-usdc",
+        "uniswap-v3-ethereum-usdc-500",
+        "velodrome-optimism-usdc"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "GHO": {
+      "source": [
+        "balancer-ethereum-usdc",
+        "balancer-ethereum-usdt",
+        "curve-ethereum-crvusd",
+        "curve-ethereum-usde"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "AAVE": {
+      "source": ["uniswap-v3-ethereum-weth-3000"]
+    },
+    "PREMIA": {
+      "source": [
+        "camelot-v3-arbitrumone-weth",
+        "sushiswap-ethereum-weth",
+        "uniswap-v3-arbitrumone-weth-3000"
+      ]
+    },
+    "MNT": {
+      "source": ["uniswap-v3-ethereum-weth-3000"]
+    },
+    "ETHx": {
+      "source": ["curve-ethereum-eth", "curve-ethereum-wsteth"]
+    },
+    "weETH": {
+      "source": [
+        "balancer-ethereum-reth",
+        "curve-ethereum-weth",
+        "uniswap-v3-ethereum-weth-500",
+        "uniswap-v3-ethereum-wsteth-500"
+      ]
+    },
+    "weETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-etherfi"]
+    },
+    "rETH": {
+      "source": [
+        "uniswap-v3-ethereum-weth-100",
+        "uniswap-v3-ethereum-weth-500",
+        "balancer-ethereum-weth",
+        "balancer-ethereum-wsteth",
+        "balancer-ethereum-wsteth-2",
+        "curve-ethereum-wsteth",
+        "pancake-swap-ethereum-weth-500"
+      ]
+    },
+    "osETH": {
+      "priceAggregator": "depth",
+      "source": [
+        "balancer-ethereum-weth",
+        "uniswap-v3-ethereum-usdc-500",
+        "curve-ethereum-reth"
+      ]
+    },
+    "pxETH": {
+      "source": [
+        "balancer-ethereum-frxeth",
+        "balancer-ethereum-weth",
+        "curve-ethereum-steth-multi-block",
+        "curve-ethereum-frxeth",
+        "curve-ethereum-weth",
+        "uniswap-v3-ethereum-weth-100-multi-block",
+        "pancake-swap-ethereum-weth-100"
+      ]
+    },
+    "apxETH": {
+      "source": ["ethereum-evm-fetcher-redacted"]
+    },
+    "ARB": {
+      "source": [
+        "uniswap-v3-arbitrumone-weth-500",
+        "uniswap-v3-arbitrumone-weth-3000"
+      ]
+    },
+    "OP": {
+      "source": [
+        "uniswap-v3-optimism-weth-3000",
+        "uniswap-v3-optimism-usdc-3000"
+      ]
+    },
+    "EUROC": {
+      "source": ["trader-joe-v2-avalanche-usdc", "uniswap-v3-ethereum-usdc-500"]
+    },
+    "EUROC/EUR": {
+      "source": ["non-usd-based"]
+    },
+    "ALUSD": {
+      "source": [
+        "curve-ethereum-3crv",
+        "curve-ethereum-crvfrax",
+        "velodrome-optimism-usdc"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "CANTO": {
+      "source": ["canto-canto-note", "canto-canto-atom", "canto-canto-eth"]
+    },
+    "agEUR": {
+      "source": [
+        "curve-ethereum-euroc",
+        "uniswap-v3-ethereum-weth-500",
+        "uniswap-v3-ethereum-usdc-3000"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+
+    "WBTC": {
+      "source": [
+        "uniswap-v3-ethereum-weth-3000",
+        "uniswap-v3-ethereum-weth-500",
+        "uniswap-v3-arbitrumone-weth-500"
+      ]
+    },
+    "UNI": {
+      "source": ["uniswap-v3-ethereum-weth-3000"]
+    },
+    "LINK": {
+      "source": ["uniswap-v3-ethereum-weth-3000"]
+    },
+    "MKR": {
+      "source": [
+        "uniswap-v3-ethereum-weth-3000",
+        "uniswap-v3-ethereum-weth-10000"
+      ]
+    },
+    "wUSDM": {
+      "source": ["ethereum-evm-fetcher-mountain-protocol"]
+    },
+    "STONE": {
+      "source": ["ethereum-evm-fetcher-stake-stone"]
+    },
+    "frxETH": {
+      "source": [
+        "curve-ethereum-crvusd",
+        "curve-ethereum-cvx",
+        "curve-ethereum-eth",
+        "curve-ethereum-steth",
+        "curve-ethereum-weth",
+        "uniswap-v3-ethereum-frax-10000"
+      ]
+    },
+    "eUSD": {
+      "source": [
+        "aerodrome-base-usdc",
+        "curve-ethereum-crvfrax",
+        "curve-ethereum-rsr",
+        "curve-ethereum-usdc"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "ETH+": {
+      "source": [
+        "curve-ethereum-eusd",
+        "curve-ethereum-rsr",
+        "curve-ethereum-weth",
+        "uniswap-v3-ethereum-weth-500"
+      ]
+    },
+    "sDAI": {
+      "source": ["ethereum-evm-fetcher-savings-dai"]
+    },
+    "NOTE": {
+      "source": ["canto-canto-usdc", "canto-canto-usdt"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "cNOTE": {
+      "source": ["canto-evm-fetcher-cnote"]
+    },
+    "LAB.m": {
+      "source": ["aperture-swap-manta-weth-500"]
+    },
+    "sfrxETH": {
+      "source": ["ethereum-evm-fetcher-frax"]
+    },
+    "rsETH": {
+      "source": [
+        "balancer-ethereum-ethx",
+        "balancer-ethereum-weth",
+        "curve-ethereum-sfrxeth",
+        "uniswap-v3-ethereum-weth-500",
+        "uniswap-v3-ethereum-wsteth-500"
+      ]
+    },
+    "ezETH": {
+      "source": [
+        "balancer-ethereum-weth",
+        "balancer-ethereum-weeth",
+        "curve-ethereum-weth",
+        "thruster-v3-blast-weth-3000",
+        "thruster-v3-blast-weth-500",
+        "uniswap-v3-ethereum-weth-100"
+      ]
+    },
+    "crvUSD": {
+      "source": [
+        "curve-ethereum-crv",
+        "curve-ethereum-frax",
+        "curve-ethereum-usdc",
+        "curve-ethereum-usde",
+        "curve-ethereum-usdt",
+        "curve-ethereum-weth"
+      ]
+    },
+    "USDe": {
+      "source": [
+        "curve-ethereum-dai",
+        "curve-ethereum-frax",
+        "curve-ethereum-usdc",
+        "uniswap-v3-ethereum-usdt-100"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "sUSDe": {
+      "source": ["ethereum-evm-fetcher-ethena"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "USDB": {
+      "source": [
+        "ambient-blast-eth",
+        "ringswap-blast-fwweth",
+        "thruster-blast-weth",
+        "thruster-v3-blast-weth-3000",
+        "thruster-v3-blast-weth-500"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "rswETH": {
+      "source": [
+        "balancer-ethereum-ezeth",
+        "balancer-ethereum-weeth",
+        "curve-ethereum-weeth",
+        "pancake-swap-ethereum-weth-500"
+      ]
+    },
+    "sUSDe_RATE_PROVIDER": {
+      "source": ["ethereum-evm-fetcher-balancer-rate-provider"]
+    },
+    "pufETH": {
+      "source": [
+        "balancer-ethereum-wsteth",
+        "curve-ethereum-weth",
+        "curve-ethereum-wsteth",
+        "curve-ethereum-wsteth-2",
+        "uniswap-v3-ethereum-weth-3000"
+      ]
+    },
+    "rsETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-kelp"]
+    },
+    "rswETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-swell"]
+    },
+    "pufETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-puffer"]
+    },
+    "ezETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-renzo"]
+    },
+    "SolvBTC_MERLIN": {
+      "source": ["merlinswap-merlin-btc"],
+      "valueCapConfig": {
+        "upper": {
+          "token": "BTC"
+        }
+      }
+    },
+    "mwstETH-WPUNKS:20": {
+      "source": [
+        "curve-ethereum-wsteth",
+        "thruster-v3-blast-weth-500",
+        "thruster-v3-blast-weth-3000",
+        "uniswap-v3-ethereum-wsteth-3000"
+      ]
+    },
+    "bsdETH": {
+      "source": [
+        "aerodrome-base-rsr",
+        "aerodrome-base-weth",
+        "aerodrome-cl-base-weth-3000"
+      ]
+    },
+
+    "USD+": {
+      "source": [
+        "aerodrome-base-eusd",
+        "aerodrome-cl-base-usdc-100",
+        "aerodrome-cl-base-weth-400"
+      ]
+    },
+    "SolvBTC_BNB": {
+      "source": ["pancake-swap-bnb-btcb-500", "thena-bnb-btcb"],
+      "valueCapConfig": {
+        "upper": {
+          "token": "BTC"
+        }
+      }
+    }
+  }
+}
