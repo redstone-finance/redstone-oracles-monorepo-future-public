@@ -1494,6 +1494,25 @@
     "SolvBTC_BNB/BTC-TWAP-60": {
       "source": ["twap-local-redstone-primary-prod"]
     },
+    "SolvBTC.ENA": {
+      "source": ["pancake-swap-bnb-solvbtc_bnb-500"],
+      "valueCapConfig": {
+        "upper": {
+          "token": "BTC"
+        }
+      }
+    },
+    "SolvBTC.ENA/BTC": {
+      "source": ["non-usd-based"],
+      "valueCapConfig": {
+        "upper": {
+          "value": 1
+        }
+      }
+    },
+    "SolvBTC.ENA/BTC-TWAP-60": {
+      "source": ["twap-local-redstone-primary-prod"]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
