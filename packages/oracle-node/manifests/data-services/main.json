@@ -902,6 +902,7 @@
         "balancer-ethereum-wsteth",
         "balancer-ethereum-wsteth-2",
         "curve-ethereum-wsteth",
+        "curve-ethereum-wsteth-2",
         "pancake-swap-ethereum-weth-500"
       ]
     },
@@ -1283,7 +1284,8 @@
         "curve-ethereum-weth",
         "thruster-v3-blast-weth-3000",
         "thruster-v3-blast-weth-500",
-        "uniswap-v3-ethereum-weth-100"
+        "uniswap-v3-ethereum-weth-100",
+        "uniswap-v3-ethereum-wsteth-500"
       ]
     },
     "ezETH/ETH": {
