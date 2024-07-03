@@ -1,0 +1,27 @@
+{
+  "interval": 10000,
+  "priceAggregator": "median",
+  "defaultSource": [],
+  "sourceTimeout": 7000,
+  "minValidSourcesPercentage": 1,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 30,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "bench_ETH_CLE": {
+      "source": ["puffer-oracle"]
+    },
+    "bench_ETH_ELE": {
+      "source": ["puffer-oracle"]
+    },
+    "ETH_CLE": {
+      "source": ["rated-network", "beaconchain-api"]
+    },
+    "ETH_ELE": {
+      "source": ["flashbots-data-api", "beaconchain-api"]
+    }
+  }
+}

@@ -10,7 +10,7 @@ export type RetryConfig<
   fnName?: string;
   maxRetries: number;
   waitBetweenMs?: number;
-  logger?: (msg: string) => void;
+  logger?: (message: string) => void;
   backOff?: {
     backOffBase: number;
   };

@@ -6,6 +6,7 @@ export * from "./errors";
 export * from "./fetch-with-fallback";
 export * from "./js-utils";
 export * from "./memoize";
+export * from "./p-throttle";
 export * from "./retry";
 export * from "./simple-cache";
 export * from "./time";
