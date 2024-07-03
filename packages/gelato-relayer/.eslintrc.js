@@ -4,5 +4,4 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: "module",
   },
-  ignorePatterns: ["dist", "*.js", "tools", "test"],
 };

@@ -12,7 +12,7 @@ describe("RedStone Gelato w3f: On-chain Relayer & remote manifest e2e Tests", fu
 
   let redstoneW3f: Web3FunctionHardhat;
 
-  beforeEach(async function () {
+  beforeEach(function () {
     redstoneW3f = w3f.get("redstone");
   });
 
