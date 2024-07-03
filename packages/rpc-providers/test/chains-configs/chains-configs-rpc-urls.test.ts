@@ -5,8 +5,8 @@ import { describe, test } from "mocha";
 import { ChainConfigs } from "../../src";
 
 export const RETRY_CONFIG = {
-  maxRetries: 3,
-  waitBetweenMs: 1000,
+  maxRetries: 5,
+  waitBetweenMs: 3000,
   backOff: {
     backOffBase: 2,
   },
@@ -16,6 +16,7 @@ const logger = loggerFactory("chain-config/rpc-urls");
 
 if (process.env.IS_CI === "true") {
   describe("Validate chain config rpc urls", function () {
+    this.timeout(45_000);
     for (const [name, config] of Object.entries(ChainConfigs)) {
       for (const rpcUrl of config.publicRpcUrls) {
         if (rpcUrl.includes("localhost")) {
