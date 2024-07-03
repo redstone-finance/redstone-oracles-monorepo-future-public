@@ -1,7 +1,6 @@
 import { Web3FunctionHardhat } from "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
 import { expect } from "chai";
 import hre from "hardhat";
-// @ts-ignore
 import * as args from "../web3-functions/redstone-mock/userArgs.json";
 
 import {
@@ -17,12 +16,12 @@ describe("RedStone Gelato w3f Tests", function () {
 
   let redstoneW3f: Web3FunctionHardhat;
 
-  beforeEach(async function () {
+  beforeEach(function () {
     redstoneW3f = w3f.get("redstone-mock");
   });
 
   it("Return canExec: true when update is needed", async () => {
-    const userArgs: any = { ...args };
+    const userArgs = { ...args };
     userArgs.shouldUpdatePrices = true;
     userArgs.args = "0x0512341435321111a";
 
@@ -42,7 +41,7 @@ describe("RedStone Gelato w3f Tests", function () {
   });
 
   it("Return canExec: false (Skipping) when update is not needed", async () => {
-    const userArgs: any = { ...args };
+    const userArgs = { ...args };
     userArgs.shouldUpdatePrices = false;
     userArgs.message = "Update not needed";
 
@@ -52,7 +51,7 @@ describe("RedStone Gelato w3f Tests", function () {
   });
 
   it("Return canExec: false (Args are empty) when update is needed but no args", async () => {
-    const userArgs: any = { ...args };
+    const userArgs = { ...args };
     userArgs.shouldUpdatePrices = true;
 
     const { result } = await redstoneW3f.run("onRun", { userArgs });
