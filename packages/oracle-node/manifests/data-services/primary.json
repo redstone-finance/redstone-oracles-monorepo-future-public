@@ -1229,6 +1229,12 @@
         "xt"
       ]
     },
+    "ETH_CLE": {
+      "source": ["rated-network", "beaconchain-api"]
+    },
+    "ETH_ELE": {
+      "source": ["flashbots-data-api", "beaconchain-api"]
+    },
     "SolvBTC.ENA": {
       "source": ["pancake-swap-bnb-solvbtc_bnb-500"],
       "valueCapConfig": {

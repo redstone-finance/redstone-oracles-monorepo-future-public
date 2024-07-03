@@ -26,5 +26,14 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["bundlr", "Multicalls", "SEPOLIA", "Streamr", "typechain"]
+  "cSpell.words": [
+    "bundlr",
+    "Multicalls",
+    "Ratelimit",
+    "SEPOLIA",
+    "Streamr",
+    "typechain",
+    "Winsorization",
+    "winsorize"
+  ]
 }
