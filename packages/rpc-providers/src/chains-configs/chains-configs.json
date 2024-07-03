@@ -432,8 +432,7 @@
     "chainId": 4200,
     "publicRpcUrls": [
       "https://rpc.merlinchain.io",
-      "https://merlin.blockpi.network/v1/rpc/public",
-      "https://rpc-merlin.rockx.com"
+      "https://merlin.blockpi.network/v1/rpc/public"
     ],
     "avgBlockTimeMs": 1000,
     "multicall3": {
