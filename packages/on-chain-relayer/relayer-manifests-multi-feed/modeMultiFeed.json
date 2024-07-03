@@ -6,7 +6,7 @@
   "adapterContract": "0xF5F641fF3c7E39876A76e77E84041C300DFa4550",
   "adapterContractType": "multi-feed",
   "dataServiceId": "redstone-primary-prod",
-  "defaultUpdateTriggers": {
+  "updateTriggers": {
     "deviationPercentage": 0.5,
     "timeSinceLastUpdateInMilliseconds": 21600000
   },
