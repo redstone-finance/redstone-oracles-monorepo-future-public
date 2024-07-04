@@ -1,14 +1,14 @@
 import {
+  AnyOnChainRelayerManifest,
   ConditionCheckNames,
   OnChainRelayerEnv,
-  OnChainRelayerManifest,
   RelayerConfig,
 } from "./types";
 
 export const MS_IN_ONE_MINUTE = 60000;
 
 export const makeConfigProvider = (
-  manifest: OnChainRelayerManifest,
+  manifest: AnyOnChainRelayerManifest,
   env: OnChainRelayerEnv
 ): RelayerConfig => {
   const {
