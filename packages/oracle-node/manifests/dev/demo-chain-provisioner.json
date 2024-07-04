@@ -15,7 +15,7 @@
       "source": ["curve-arbitrumone-frax-multi-block"]
     },
     "USDC": {
-      "source": ["maverick-ethereum-usdt", "uniswap-v3-ethereum-dai-100"],
+      "source": ["curve-ethereum-usdt", "uniswap-v3-ethereum-dai-100"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,

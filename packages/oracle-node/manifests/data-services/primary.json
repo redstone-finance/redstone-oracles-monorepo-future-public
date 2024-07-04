@@ -31,7 +31,6 @@
         "kraken-usdt",
         "kucoin-usdt",
         "lbank-usdt",
-        "maverick-ethereum-usdt",
         "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-ethereum-dai-100"
@@ -765,7 +764,6 @@
     "APE": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
         "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
