@@ -266,6 +266,26 @@
       "description": "Very frequent updates from the fastest sources",
       "evmAddress": "0x69f70Aa9828Ed876d49e83Ee006b9d333BB406d8",
       "ecdsaPublicKey": "0x04d048bea3bcf01b82162703a7f59cf51d91a95a8fd3921b5a858a8ff1c1b858dd337918cb7969c695711f590779ffb9a1028d0205074f11d9fd40e905f6670d0a"
+    },
+    "WPrl0TkGtc2zEfa-SmpDd4sh0AkyMHMGZ9rxATyDTN0": {
+      "url": "https://redstone.finance",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "external-service-provider-demo",
+      "ipAddress": "0.0.0.0",
+      "dataServiceId": "external-service-provider-demo",
+      "description": "Data feeds from external providers, staging node",
+      "evmAddress": "0xDb42dB28554a39B5252997C2f289F39D08E4610f",
+      "ecdsaPublicKey": "0x04c30adbf99b499172c6e36a827496375bc0a4c20b8e01543e3835dfee680d0d002bd499aced3ccfe0bce580627ea4dd3d45eca364f37eac9de3a76207f2e2a6d7"
+    },
+    "HJTZ-0JAX-FrM1Lh6v-jNUWJQu6BSN8jFffI4ipqefI": {
+      "url": "https://redstone.finance",
+      "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
+      "name": "external-chain-provider-demo",
+      "ipAddress": "0.0.0.0",
+      "dataServiceId": "external-chain-provider-demo",
+      "description": "Data feeds from external providers, staging node",
+      "evmAddress": "0xd2F9F230de4E63eAdE2801eFAE8cbe35Fd9BeA3C",
+      "ecdsaPublicKey": "0x047db9775a40152ca8ea6eefe253150612608b7907ccf471ec8cacf56d0b9d5cd18b22ea03f3682d8d4226cfb90d304e480f15dda20ad0c974055ca1763904996e"
     }
   },
   "evolve": null,
