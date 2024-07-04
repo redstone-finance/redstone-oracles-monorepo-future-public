@@ -454,8 +454,7 @@
     "SWETH": {
       "source": [
         "balancer-ethereum-weth-multi-block",
-        "maverick-ethereum-weth-multi-block",
-        "pancake-swap-ethereum-weth-500",
+        "pancake-swap-ethereum-weth-500-multi-block",
         "uniswap-v3-ethereum-weth-500-multi-block"
       ]
     },
