@@ -7776,7 +7776,6 @@ __metadata:
     ar-gql: "npm:^0.0.11"
     arweave: "npm:^1.14.4"
     axios: "npm:^1.6.2"
-    ccxt: "npm:4.1.100"
     cors: "npm:^2.8.5"
     dateformat: "npm:^4.5.1"
     decimal.js: "npm:^10.4.3"
@@ -14031,15 +14030,6 @@ __metadata:
   dependencies:
     nofilter: "npm:^3.1.0"
   checksum: 10c0/7a5148d31f24d47cf1a85b3de8e5b5d7beec60811f8fb448afe960c163c45b4c887be43d617c2d7ced776b485d313ff2828bfde06f99c5c30041912aa4bde444
-  languageName: node
-  linkType: hard
-
-"ccxt@npm:4.1.100":
-  version: 4.1.100
-  resolution: "ccxt@npm:4.1.100"
-  dependencies:
-    ws: "npm:^8.8.1"
-  checksum: 10c0/54837933d1ca4602718cadbff1086b556ef00c05fbf095f4acbc154c36bc53a2ce9c9dea19087eb451e2bc251e68e7b2618beeda1999d35c3bfa38f8998d32a5
   languageName: node
   linkType: hard
 
