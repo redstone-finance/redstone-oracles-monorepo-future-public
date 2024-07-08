@@ -1,14 +1,16 @@
 import { abi as ISortedOraclesAbi } from "../artifacts/contracts/custom-integrations/mento/ISortedOracles.sol/ISortedOracles.json";
 import { abi as MentoAdapterBaseAbi } from "../artifacts/contracts/custom-integrations/mento/MentoAdapterBase.sol/MentoAdapterBase.json";
-import { abi as PriceFeedsAdapterWithRoundsAbi } from "../artifacts/contracts/price-feeds/with-rounds/PriceFeedsAdapterWithRounds.sol/PriceFeedsAdapterWithRounds.json";
 import { abi as PriceFeedWithRoundsAbi } from "../artifacts/contracts/price-feeds/with-rounds/PriceFeedWithRounds.sol/PriceFeedWithRounds.json";
+import { abi as PriceFeedsAdapterWithRoundsAbi } from "../artifacts/contracts/price-feeds/with-rounds/PriceFeedsAdapterWithRounds.sol/PriceFeedsAdapterWithRounds.json";
+import { abi as MultiFeedAdapterWithoutRoundsAbi } from "../artifacts/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol/MultiFeedAdapterWithoutRounds.json";
 import manifests from "../relayer-manifests";
 
 export type {
   ISortedOracles,
   MentoAdapterBase,
-  PriceFeedsAdapterWithRounds,
+  MultiFeedAdapterWithoutRounds,
   PriceFeedWithRounds,
+  PriceFeedsAdapterWithRounds,
   RedstoneAdapterBase,
 } from "../typechain-types";
 export {
@@ -39,8 +41,9 @@ export {
 } from "./types";
 export {
   ISortedOraclesAbi,
-  manifests,
   MentoAdapterBaseAbi,
-  PriceFeedsAdapterWithRoundsAbi,
+  MultiFeedAdapterWithoutRoundsAbi,
   PriceFeedWithRoundsAbi,
+  PriceFeedsAdapterWithRoundsAbi,
+  manifests,
 };

@@ -7591,6 +7591,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-monitoring-multi-feed-relayers@workspace:packages/lambda-monitoring-multi-feed-relayers":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-monitoring-multi-feed-relayers@workspace:packages/lambda-monitoring-multi-feed-relayers"
+  dependencies:
+    "@aws-sdk/client-lambda": "npm:^3.485.0"
+    "@redstone-finance/monitoring-manifests": "npm:^0.5.2"
+    "@redstone-finance/rpc-providers": "npm:^0.5.2"
+    "@redstone-finance/sdk": "npm:^0.5.2"
+    "@redstone-finance/utils": "npm:^0.5.2"
+    "@types/aws-lambda": "npm:^8.10.128"
+    axios: "npm:^1.6.2"
+    dotenv: "npm:^16.0.3"
+    ethers: "npm:^5.7.2"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-monitoring-relayer-last-update@workspace:packages/lambda-monitoring-relayer-last-update":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-monitoring-relayer-last-update@workspace:packages/lambda-monitoring-relayer-last-update"
