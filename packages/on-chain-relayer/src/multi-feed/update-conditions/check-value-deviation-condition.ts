@@ -87,6 +87,7 @@ export const checkValueDeviationCondition = (
 
   return {
     shouldUpdatePrices,
+    maxDeviationRatio: maxDeviation / minDeviationPercentage!,
     warningMessage: shouldUpdatePrices
       ? `Value has deviated enough to be updated. ${logTrace.toString()}`
       : `Value has not deviated enough to be updated. ${logTrace.toString()}`,

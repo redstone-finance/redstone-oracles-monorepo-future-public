@@ -121,6 +121,14 @@ export const readManifestAndEnv = () => {
       "USE_MULTICALL_PROVIDER",
       z.boolean().default(true)
     ),
+    multiFeedAdditionalUpdatesDeviationThreshold: RedstoneCommon.getFromEnv(
+      "MULTI_FEED_EXTRA_UPDATE_DEVIATION",
+      z.number().optional()
+    ),
+    multiFeedSyncHeartbeats: RedstoneCommon.getFromEnv(
+      "MULTI_FEED_SYNC_HEARTBEATS",
+      z.boolean().default(true)
+    ),
   };
 
   return { manifest, env };

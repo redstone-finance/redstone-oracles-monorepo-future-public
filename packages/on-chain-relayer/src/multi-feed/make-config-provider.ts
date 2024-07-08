@@ -22,15 +22,17 @@ export const makeConfigProvider = (
     updateConditions[dataFeedId] = [];
     updateTriggers[dataFeedId] = {};
 
-    const deviationPercentage =
-      dataFeedUpdateTriggers?.deviationPercentage ??
-      manifest.updateTriggers.deviationPercentage;
+    const deviationPercentage = dataFeedUpdateTriggers
+      ? dataFeedUpdateTriggers.deviationPercentage
+      : manifest.updateTriggers.deviationPercentage;
 
-    const timeSinceLastUpdateInMilliseconds =
-      dataFeedUpdateTriggers?.timeSinceLastUpdateInMilliseconds ??
-      manifest.updateTriggers.timeSinceLastUpdateInMilliseconds;
+    const timeSinceLastUpdateInMilliseconds = dataFeedUpdateTriggers
+      ? dataFeedUpdateTriggers.timeSinceLastUpdateInMilliseconds
+      : manifest.updateTriggers.timeSinceLastUpdateInMilliseconds;
 
-    const cron = dataFeedUpdateTriggers?.cron ?? manifest.updateTriggers.cron;
+    const cron = dataFeedUpdateTriggers
+      ? dataFeedUpdateTriggers.cron
+      : manifest.updateTriggers.cron;
 
     if (deviationPercentage) {
       updateConditions[dataFeedId].push("value-deviation");

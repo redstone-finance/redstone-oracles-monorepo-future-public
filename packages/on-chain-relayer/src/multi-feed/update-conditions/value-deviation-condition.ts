@@ -12,22 +12,25 @@ export const performValueDeviationConditionChecks = async (
   config: RelayerConfig,
   historicalDataPackagesFetchCallback: () => Promise<DataPackagesResponse>
 ) => {
-  const { shouldUpdatePrices, warningMessage } = checkValueDeviationCondition(
-    dataFeedId,
-    latestDataPackages,
-    valuesFromContract,
-    config
-  );
+  const { shouldUpdatePrices, maxDeviationRatio, warningMessage } =
+    checkValueDeviationCondition(
+      dataFeedId,
+      latestDataPackages,
+      valuesFromContract,
+      config
+    );
 
   const isFallback = (config.fallbackOffsetInMinutes ?? 0) > 0;
   let historicalShouldUpdatePrices = true;
   let historicalWarningMessage = "";
+  let historicalMaxDeviation = 0;
 
   if ((shouldUpdatePrices || config.isNotLazy) && isFallback) {
     const historicalDataPackages = await historicalDataPackagesFetchCallback();
 
     const {
       shouldUpdatePrices: historicalShouldUpdatePricesTmp,
+      maxDeviationRatio: historicalMaxDeviationTmp,
       warningMessage: historicalWarningMessageTmp,
     } = checkValueDeviationCondition(
       dataFeedId,
@@ -37,6 +40,7 @@ export const performValueDeviationConditionChecks = async (
     );
 
     historicalShouldUpdatePrices = historicalShouldUpdatePricesTmp;
+    historicalMaxDeviation = historicalMaxDeviationTmp;
     historicalWarningMessage = ` AND Historical ${historicalWarningMessageTmp}`;
   }
 
@@ -56,6 +60,7 @@ export const performValueDeviationConditionChecks = async (
 
   return {
     shouldUpdatePrices: shouldUpdatePricesNoSkip && !skipFallbackUpdate,
+    maxDeviationRatio: Math.max(maxDeviationRatio, historicalMaxDeviation),
     warningMessage: `${prefix}${skipFallbackMessage}${warningMessage}${historicalWarningMessage}`,
   };
 };

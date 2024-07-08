@@ -11,6 +11,7 @@ import { config, setConfigProvider } from "./config";
 import { getAdapterContract } from "./contract-interactions/get-adapter-contract";
 import { updateBlockTag } from "./contract-interactions/get-block-tag";
 import { updatePrices } from "./contract-interactions/update-prices";
+import { getExtraFeeds } from "./gas-optimazation/get-extra-feeds";
 import { makeConfigProvider } from "./make-config-provider";
 
 setConfigProvider(() => {
@@ -44,10 +45,12 @@ const runIteration = async () => {
     }satisfied: ${message} block_number=${blockTag} iteration_duration=${performance.now() - iterationStart}`
   );
 
-  logger.log("Data feeds to be updated:", dataFeedsToUpdate);
+  logger.log("Data feeds that require update:", dataFeedsToUpdate);
 
   if (shouldUpdatePrices) {
-    // TODO: strategy to add feeds that dont require update yet
+    logger.log(getExtraFeeds(args));
+
+    logger.log("Data feeds to be updated:", dataFeedsToUpdate);
 
     await updatePrices(
       adapterContract,

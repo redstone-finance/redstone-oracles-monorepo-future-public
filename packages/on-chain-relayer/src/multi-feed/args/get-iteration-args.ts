@@ -11,7 +11,7 @@ import {
 } from "./fetch-data-from-contract";
 import { fetchDataPackages } from "./fetch-data-packages-from-gateway";
 
-type IterationArgs<T extends Contract> = {
+export type IterationArgs<T extends Contract> = {
   shouldUpdatePrices: boolean;
   args: UpdatePricesArgs<T>;
   message?: string;
@@ -19,6 +19,8 @@ type IterationArgs<T extends Contract> = {
 
 export type UpdatePricesArgs<T extends Contract = Contract> = {
   dataFeedsToUpdate: string[];
+  dataFeedsDeviationRatios: Record<string, number>;
+  heartbeatUpdates: number[];
   adapterContract: T;
   blockTag: number;
   fetchDataPackages: () => Promise<DataPackagesResponse>;
@@ -55,7 +57,7 @@ const chooseDataFeedsToUpdate = async (
     adapterContract!
   );
 
-  const { dataFeedsToUpdate, warningMessage } = await shouldUpdate(
+  return await shouldUpdate(
     {
       dataPackages,
       dataFromContract,
@@ -63,8 +65,6 @@ const chooseDataFeedsToUpdate = async (
     },
     relayerConfig
   );
-
-  return { dataFeedsToUpdate, warningMessage };
 };
 
 export const getIterationArgs = async (
@@ -74,14 +74,20 @@ export const getIterationArgs = async (
   const { gatewayData, fetchDataPackages } = await getDataFromGateways();
   const contractData = await getDataFromContract();
 
-  const { dataFeedsToUpdate, warningMessage: message } =
-    await chooseDataFeedsToUpdate(gatewayData, contractData);
+  const {
+    dataFeedsToUpdate,
+    dataFeedsDeviationRatios,
+    heartbeatUpdates,
+    warningMessage: message,
+  } = await chooseDataFeedsToUpdate(gatewayData, contractData);
 
   return {
     shouldUpdatePrices: dataFeedsToUpdate.length > 0,
     args: {
       adapterContract,
       dataFeedsToUpdate,
+      dataFeedsDeviationRatios,
+      heartbeatUpdates,
       blockTag: getBlockTag(),
       fetchDataPackages: () => fetchDataPackages(dataFeedsToUpdate),
     },

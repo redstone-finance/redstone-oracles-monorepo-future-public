@@ -10,6 +10,8 @@ export interface Context {
 
 export interface ShouldUpdateResponse {
   dataFeedsToUpdate: string[];
+  dataFeedsDeviationRatios: Record<string, number>;
+  heartbeatUpdates: number[];
   warningMessage: string;
 }
 
@@ -45,6 +47,8 @@ export interface RelayerConfig {
   disableCustomGasOracle: boolean;
   getBlockNumberTimeout?: number;
   useMulticallProvider: boolean;
+  multiFeedAdditionalUpdatesDeviationThreshold?: number;
+  multiFeedSyncHeartbeats?: boolean;
 }
 
 export type ConfigProvider = () => RelayerConfig;
