@@ -11,6 +11,8 @@ export const shouldUpdate = async (
 ): Promise<ShouldUpdateResponse> => {
   const dataFeedsToUpdate: string[] = [];
   const warningMessages: string[] = [];
+  const dataFeedsDeviationRatios: Record<string, number> = {};
+  const heartbeatUpdates: Set<number> = new Set();
   for (const [dataFeedId, updateConditions] of Object.entries(
     config.updateConditions
   )) {
@@ -25,6 +27,14 @@ export const shouldUpdate = async (
       shouldUpdatePrices ||= conditionCheck.shouldUpdatePrices;
       if (conditionCheck.warningMessage.length > 0) {
         warningMessages.push(conditionCheck.warningMessage);
+      }
+      if (conditionCheck.maxDeviationRatio) {
+        dataFeedsDeviationRatios[dataFeedId] = conditionCheck.maxDeviationRatio;
+      }
+      if (conditionCheck.shouldUpdatePrices && conditionName === "time") {
+        heartbeatUpdates.add(
+          config.updateTriggers[dataFeedId].timeSinceLastUpdateInMilliseconds!
+        );
       }
     }
 
@@ -42,6 +52,8 @@ export const shouldUpdate = async (
 
   return {
     dataFeedsToUpdate,
+    dataFeedsDeviationRatios,
+    heartbeatUpdates: Array.from(heartbeatUpdates),
     warningMessage: warningMessages.join("; "),
   };
 };

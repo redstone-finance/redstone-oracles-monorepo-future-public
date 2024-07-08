@@ -15,6 +15,7 @@ export interface Context {
 export interface ConditionCheckResponse {
   shouldUpdatePrices: boolean;
   warningMessage: string;
+  maxDeviationRatio?: number;
 }
 
 const PRICE_FEEDS = "price-feeds";
@@ -135,6 +136,8 @@ export interface RelayerConfig {
   priceFeedsDeviationOverrides?: Record<string, number>;
   getBlockNumberTimeout?: number;
   useMulticallProvider: boolean;
+  multiFeedAdditionalUpdatesDeviationThreshold?: number;
+  multiFeedSyncHeartbeats?: boolean;
 }
 
 export type OnChainRelayerEnv = {
@@ -160,6 +163,8 @@ export type OnChainRelayerEnv = {
   temporaryUpdatePriceInterval: number;
   getBlockNumberTimeout?: number;
   useMulticallProvider: boolean;
+  multiFeedAdditionalUpdatesDeviationThreshold?: number;
+  multiFeedSyncHeartbeats?: boolean;
 };
 
 export type ConfigProvider = () => RelayerConfig;
