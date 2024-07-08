@@ -7649,6 +7649,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-new-sources-monitoring@workspace:packages/lambda-new-sources-monitoring":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-new-sources-monitoring@workspace:packages/lambda-new-sources-monitoring"
+  dependencies:
+    "@redstone-finance/lambda-common": "npm:^0.5.2"
+    axios: "npm:^1.6.2"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests"
