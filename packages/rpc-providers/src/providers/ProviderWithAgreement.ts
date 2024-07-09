@@ -145,7 +145,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       healthyProviders.map(async ({ provider, identifier }) => {
         const blockNumber = await RedstoneCommon.timeout(
           withDebugLog(() => provider.getBlockNumber(), {
-            description: `rpc=${identifier} identifier=${identifier} op=getBlockNumber`,
+            description: `rpc=${identifier} op=getBlockNumber`,
             logValue: true,
             logger: this.logger,
           }),
@@ -404,14 +404,20 @@ async function withDebugLog<T>(
 ) {
   const start = performance.now();
 
-  const result = await op();
-
-  opts.logger.debug(`${opts.description}`, {
-    duration: performance.now() - start,
-    value: opts.logValue ? result : "hidden",
-  });
-
-  return result;
+  try {
+    const result = await op();
+    opts.logger.debug(`${opts.description}`, {
+      duration: performance.now() - start,
+      value: opts.logValue ? result : "hidden",
+    });
+    return result;
+  } catch (e) {
+    opts.logger.debug(`${opts.description}`, {
+      duration: performance.now() - start,
+      error: "error",
+    });
+    throw e;
+  }
 }
 
 function pickResponseWithMostVotes(dataToVotes: Map<string, number>): string {
