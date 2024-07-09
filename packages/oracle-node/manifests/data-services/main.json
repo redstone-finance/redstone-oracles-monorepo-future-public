@@ -1511,6 +1511,15 @@
     "SolvBTC.ENA/BTC-TWAP-60": {
       "source": ["twap-local-redstone-primary-prod"]
     },
+    "GM_AVAX_WAVAX": {
+      "source": ["avalanche-evm-fetcher-gmx"]
+    },
+    "GM_BTC_BTCb": {
+      "source": ["avalanche-evm-fetcher-gmx"]
+    },
+    "GM_ETH_WETHe": {
+      "source": ["avalanche-evm-fetcher-gmx"]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
