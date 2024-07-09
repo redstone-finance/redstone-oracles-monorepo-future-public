@@ -1386,11 +1386,12 @@
     },
     "MODE": {
       "source": [
-        "bitfinex2-usd",
         "bitget-usdt",
+        "bitmart-usdt",
         "bybit-usdt",
         "gate-usdt",
-        "mexc-usdt"
+        "mexc-usdt",
+        "xt"
       ]
     },
     "rsETH_FUNDAMENTAL": {
