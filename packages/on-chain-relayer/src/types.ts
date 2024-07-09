@@ -47,25 +47,24 @@ const PriceFeedConfigSchema = z.object({
   priceFeedAddress: z.string().optional(),
 });
 
-const CommonManifestSchema = {
+export const CommonManifestSchema = z.object({
   chain: ChainSchema,
   updateTriggers: UpdateTriggersSchema,
   adapterContract: z.string(),
   dataServiceId: z.string(),
   dataPacakgesNames: z.array(z.string()).optional(),
-};
+});
 
-export const OnChainRelayerManifestSchema = z.object({
-  ...CommonManifestSchema,
+export const OnChainRelayerManifestSchema = CommonManifestSchema.extend({
   adapterContractType: BaseAdapterTypesEnum.default(PRICE_FEEDS),
   priceFeeds: z.record(z.string(), z.string()),
 });
 
-export const MultiFeedOnChainRelayerManifestSchema = z.object({
-  ...CommonManifestSchema,
-  adapterContractType: MultiFeedAdapterTypesEnum.default(MULTI_FEED),
-  priceFeeds: z.record(z.string(), PriceFeedConfigSchema),
-});
+export const MultiFeedOnChainRelayerManifestSchema =
+  CommonManifestSchema.extend({
+    adapterContractType: MultiFeedAdapterTypesEnum.default(MULTI_FEED),
+    priceFeeds: z.record(z.string(), PriceFeedConfigSchema),
+  });
 
 export const AnyOnChainRelayerManifestSchema = z.union([
   OnChainRelayerManifestSchema,
@@ -91,6 +90,8 @@ export type OnChainRelayerManifest = z.infer<
 export type OnChainRelayerManifestInput = z.input<
   typeof OnChainRelayerManifestSchema
 >;
+
+export type CommonRelayerManifest = z.infer<typeof CommonManifestSchema>;
 
 export type AnyOnChainRelayerManifest = z.infer<
   typeof AnyOnChainRelayerManifestSchema
