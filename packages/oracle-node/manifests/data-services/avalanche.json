@@ -387,6 +387,15 @@
     },
     "WOMBAT_sAVAX_AVAX_LP_sAVAX": {
       "source": ["avalanche-evm-fetcher-wombat"]
+    },
+    "GM_AVAX_WAVAX": {
+      "source": ["avalanche-evm-fetcher-gmx"]
+    },
+    "GM_BTC_BTCb": {
+      "source": ["avalanche-evm-fetcher-gmx"]
+    },
+    "GM_ETH_WETHe": {
+      "source": ["avalanche-evm-fetcher-gmx"]
     }
   },
   "multiPointPackages": {
@@ -404,8 +413,11 @@
       "EUROC",
       "GLP",
       "GMX",
+      "GM_AVAX_WAVAX",
       "GM_AVAX_WAVAX_USDC",
+      "GM_BTC_BTCb",
       "GM_BTC_BTCb_USDC",
+      "GM_ETH_WETHe",
       "GM_ETH_WETHe_USDC",
       "GM_SOL_SOL_USDC",
       "IB01.L",
