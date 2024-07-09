@@ -30,6 +30,7 @@ export {
   OnChainRelayerManifestSchema,
   UpdateTriggersSchema,
   type AdapterType,
+  type CommonRelayerManifest,
   type ConfigProvider,
   type MultiFeedOnChainRelayerManifest,
   type MultiFeedOnChainRelayerManifestInput,

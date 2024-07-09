@@ -7439,6 +7439,7 @@ __metadata:
     "@redstone-finance/utils": "npm:^0.5.2"
     "@types/aws-lambda": "npm:^8.10.128"
     axios: "npm:^1.6.2"
+    dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
 
