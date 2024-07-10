@@ -31,6 +31,7 @@ const logger = loggerFactory("multicall3");
 export async function executeMulticall3(
   provider: providers.Provider,
   call3s: Multicall3Request[],
+  retryBySingleCalls: boolean,
   blockTag?: BlockTag,
   multicallAddress?: string
 ): Promise<Multicall3Result[]> {
@@ -47,16 +48,23 @@ export async function executeMulticall3(
       blockTag
     );
   } catch (e) {
-    // if whole multicall failed fallback to normal execution model (1 call = 1 request)
-    logger.log(
-      `Whole multicall3 chainId=${chainId} failed. Will fallback to ${
-        call3s.length
-      } separate calls. Error: ${RedstoneCommon.stringifyError(e)}`
-    );
+    if (retryBySingleCalls) {
+      // if whole multicall failed & retryBySingleCalls is disabled, fallback to normal execution model (1 call = 1 request)
+      logger.log(
+        `Whole multicall3 chainId=${chainId} failed. Will fallback to ${
+          call3s.length
+        } separate calls. Error: ${RedstoneCommon.stringifyError(e)}`
+      );
 
-    return await Promise.all(
-      call3s.map((call3) => safeFallbackCall(provider, call3, blockTag))
-    );
+      return await Promise.all(
+        call3s.map((call3) => safeFallbackCall(provider, call3, blockTag))
+      );
+    } else {
+      logger.log(
+        `Whole multicall3 chainId=${chainId} failed. Will not fallback.`
+      );
+      throw e;
+    }
   }
 }
 

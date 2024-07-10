@@ -34,6 +34,7 @@ export type MulticallDecoratorOptions = {
   /** If set to -1 auto resolve is disabled */
   autoResolveInterval?: number;
   multicallAddress?: string;
+  retryBySingleCalls?: boolean;
 };
 
 const parseMulticallConfig = (opts: MulticallDecoratorOptions) => {
@@ -62,6 +63,12 @@ const parseMulticallConfig = (opts: MulticallDecoratorOptions) => {
         "MULTICALL_MAX_CALL_DATA_SIZE",
         z.number().default(50_000)
       ), // 0.05MB
+    retryBySingleCalls:
+      opts.retryBySingleCalls ??
+      RedstoneCommon.getFromEnv(
+        "MULTICALL_RETRY_BY_SINGLE_CALLS",
+        z.boolean().default(true)
+      ),
   };
 };
 
@@ -91,6 +98,7 @@ export function MulticallDecorator<T extends providers.Provider>(
     executeMulticall3(
       originalProvider,
       callEntries,
+      config.retryBySingleCalls,
       blockTag,
       config.multicallAddress
     )

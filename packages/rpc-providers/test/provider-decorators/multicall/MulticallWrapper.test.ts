@@ -27,13 +27,15 @@ function getProvider(
   providerFabric: () => ethers.providers.Provider,
   bufferSize = 2,
   maxCallDataSize = 100000000,
-  autoResolveInterval = -1
+  autoResolveInterval = -1,
+  retryBySingleCalls = true
 ) {
   return MulticallDecorator(providerFabric, {
     autoResolveInterval: autoResolveInterval,
     maxCallsCount: bufferSize,
     maxCallDataSize: maxCallDataSize,
     multicallAddress,
+    retryBySingleCalls,
   })();
 }
 
@@ -249,6 +251,29 @@ const describeMultiWrapperSuite = (
         counter.getCount({ blockTag }),
       ]);
       expect(count).to.eq(count2);
+      expect(multicallFnSpy.getCalls().length).to.eq(1);
+    });
+
+    it("it should not fallback to provider.call when multicall fails and retryBySingleCalls disabled", async () => {
+      const multicallProvider = getProvider(
+        NOT_MULTICALL_ADDRESS,
+        providerFabric,
+        2,
+        100000000,
+        -1,
+        false
+      );
+
+      counter = counter.connect(multicallProvider);
+
+      const blockTag = await multicallProvider.getBlockNumber();
+
+      const [count, count2] = await Promise.allSettled([
+        counter.getCount({ blockTag }),
+        counter.getCount({ blockTag }),
+      ]);
+      expect(count.status).to.eq("rejected");
+      expect(count2.status).to.eq("rejected");
       expect(multicallFnSpy.getCalls().length).to.eq(1);
     });
 
