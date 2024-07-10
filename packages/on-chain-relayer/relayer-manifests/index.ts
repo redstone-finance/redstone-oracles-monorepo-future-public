@@ -41,6 +41,7 @@ import ethereumEthpluseth from "./ethereumEthpluseth.json";
 import ethereumEthxeth from "./ethereumEthxeth.json";
 import ethereumEusd from "./ethereumEusd.json";
 import ethereumEzetheth from "./ethereumEzetheth.json";
+import ethereumPufStaking from "./ethereumPufStaking.json";
 import ethereumPufetheth from "./ethereumPufetheth.json";
 import ethereumRsetheth from "./ethereumRsetheth.json";
 import ethereumRswetheth from "./ethereumRswetheth.json";
@@ -168,6 +169,7 @@ const allRelayersManifests = {
   venusBnbTrx,
   venusMainnetXvs,
   zksyncZk,
+  ethereumPufStaking,
 };
 
 const allRelayersParsedManifests = _.mapValues(
