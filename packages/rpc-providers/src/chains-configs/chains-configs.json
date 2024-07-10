@@ -16,10 +16,10 @@
     "name": "Ethereum Mainnet",
     "chainId": 1,
     "publicRpcUrls": [
-      "https://ethereum.publicnode.com",
+      "https://eth-mainnet.public.blastapi.io",
       "https://rpc.ankr.com/eth",
-      "https://eth.llamarpc.com",
-      "https://eth-mainnet.public.blastapi.io"
+      "https://ethereum.publicnode.com",
+      "https://eth.llamarpc.com"
     ],
     "etherScanApi": "https://api.etherscan.io",
     "avgBlockTimeMs": 12000,
