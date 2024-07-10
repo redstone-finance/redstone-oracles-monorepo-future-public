@@ -13,6 +13,9 @@ library NumericArrayLib {
 
   // This function modifies the array
   function pickMedian(uint256[] memory arr) internal pure returns (uint256) {
+    if (arr.length == 2) {
+      return (arr[0] + arr[1]) / 2;
+    }
     if (arr.length == 0) {
       revert CanNotPickMedianOfEmptyArray();
     }
