@@ -39,7 +39,7 @@ export class SimpleNumericMockWrapper<
       for (const dataPointObj of simpleNumericMockConfig.dataPoints) {
         const dataPoint = new NumericDataPoint(dataPointObj);
         const timestampMilliseconds =
-          simpleNumericMockConfig.timestampMilliseconds ||
+          simpleNumericMockConfig.timestampMilliseconds ??
           DEFAULT_TIMESTAMP_FOR_TESTS;
         const mockDataPackage: MockDataPackageConfig = {
           signer: getMockSignerAddress(signerIndex as MockSignerIndex),
