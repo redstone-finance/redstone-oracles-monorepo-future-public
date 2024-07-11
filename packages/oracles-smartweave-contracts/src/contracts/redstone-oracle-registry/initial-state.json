@@ -274,8 +274,8 @@
       "ipAddress": "0.0.0.0",
       "dataServiceId": "redstone-external-demo-1",
       "description": "Data feeds from external providers, staging node",
-      "evmAddress": "0xDb42dB28554a39B5252997C2f289F39D08E4610f",
-      "ecdsaPublicKey": "0x04c30adbf99b499172c6e36a827496375bc0a4c20b8e01543e3835dfee680d0d002bd499aced3ccfe0bce580627ea4dd3d45eca364f37eac9de3a76207f2e2a6d7"
+      "evmAddress": "0x8e959CBA422cC14AAE2b1d36970293E955a05fA8",
+      "ecdsaPublicKey": "0x04910c377ce317764b79b05769d5a911caa2e513485f64b261a38f7e6107d5368d41c346c8e3d6fd9ea0158e91e6df622721413820f760e7031dab4aef544f2de5"
     },
     "HJTZ-0JAX-FrM1Lh6v-jNUWJQu6BSN8jFffI4ipqefI": {
       "url": "https://redstone.finance",
@@ -284,8 +284,8 @@
       "ipAddress": "0.0.0.0",
       "dataServiceId": "redstone-external-demo-2",
       "description": "Data feeds from external providers, staging node",
-      "evmAddress": "0xd2F9F230de4E63eAdE2801eFAE8cbe35Fd9BeA3C",
-      "ecdsaPublicKey": "0x047db9775a40152ca8ea6eefe253150612608b7907ccf471ec8cacf56d0b9d5cd18b22ea03f3682d8d4226cfb90d304e480f15dda20ad0c974055ca1763904996e"
+      "evmAddress": "0x1f9D87e3aE042B2A3311D72eC6f44A89B24CEed8",
+      "ecdsaPublicKey": "0x0494635bf9e9841d5d4fb5fe62c7da5786d519b4e63cbbde9092b3d4555f480547abbf0ba4bc5dcfd97d22b5b154ae969110b662bbfb700447d7e6f9ee8f86cd69"
     }
   },
   "evolve": null,
