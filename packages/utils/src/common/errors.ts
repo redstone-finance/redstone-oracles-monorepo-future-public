@@ -56,8 +56,9 @@ export function stringifyError(e: unknown): string {
       "; "
     )}`;
   } else if (axios.isAxiosError<unknown>(error)) {
-    const data = error.response?.data;
-    return (data ? JSON.stringify(data) : "") + stringifyStack(error.stack);
+    const urlAsString = `url: ${JSON.stringify(error.config?.url)}`;
+    const dataAsString = `data: ${JSON.stringify(error.response?.data)}`;
+    return `${urlAsString}, ${dataAsString}, ` + stringifyStack(error.stack);
   } else if (error instanceof Error) {
     return stringifyStack(error.stack);
   } else if (typeof error.toJSON === "function") {
