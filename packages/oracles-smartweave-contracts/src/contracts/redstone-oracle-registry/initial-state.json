@@ -295,7 +295,7 @@
       "dataServiceId": "bwarelabs-demo-1",
       "description": "Data feeds provided by Bware Labs",
       "evmAddress": "0x4564a9FdB414c320C74C908f60c204e486eC1e2a",
-      "ecdsaPublicKey": "0x020da4fe87038cf59484ec5a183c8da8e04d4ab31a3a73f4a72c1ce3b0ff9048a4"
+      "ecdsaPublicKey": "0x040da4fe87038cf59484ec5a183c8da8e04d4ab31a3a73f4a72c1ce3b0ff9048a4e53dc954cff85d986881b8c8066e0281661eae1b8393cfc342c241233fa11616"
     }
   },
   "evolve": null,
