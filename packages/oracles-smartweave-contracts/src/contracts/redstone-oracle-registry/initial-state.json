@@ -289,6 +289,7 @@
     },
     "DKWS99CPmosyDcejUMVs-QlhuOV4i8bL1D9A6TeZipQ": {
       "url": "https://bwarelabs.com/",
+      "logo": "https://raw.githubusercontent.com/bwarelabs/brand-assets/main/infra-token/svg/infra-token-circle.svg",
       "name": "bwarelabs-demo-1",
       "ipAddress": "0.0.0.0",
       "dataServiceId": "bwarelabs-demo-1",
@@ -378,6 +379,7 @@
     },
     "bwarelabs-demo-1": {
       "name": "Bware Labs Demo",
+      "logo": "https://raw.githubusercontent.com/bwarelabs/brand-assets/main/infra-token/svg/infra-token-circle.svg",
       "description": "Data feeds provided by Bware Labs"
     }
   },
