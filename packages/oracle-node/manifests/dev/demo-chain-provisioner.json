@@ -111,6 +111,7 @@
     "GHO": {
       "source": [
         "balancer-ethereum-usdc",
+        "balancer-ethereum-usdc-2",
         "balancer-ethereum-usdt",
         "curve-ethereum-crvusd",
         "curve-ethereum-usde"
@@ -142,6 +143,7 @@
       "source": [
         "balancer-ethereum-reth",
         "curve-ethereum-weth",
+        "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-ethereum-weth-500",
         "uniswap-v3-ethereum-wsteth-500"
       ]
