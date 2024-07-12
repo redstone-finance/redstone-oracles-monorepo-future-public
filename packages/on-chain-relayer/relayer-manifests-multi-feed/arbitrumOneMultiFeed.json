@@ -7,13 +7,15 @@
   "adapterContractType": "multi-feed",
   "dataServiceId": "redstone-primary-prod",
   "updateTriggers": {
-    "deviationPercentage": 0.2,
+    "deviationPercentage": 0.5,
     "timeSinceLastUpdateInMilliseconds": 86400000
   },
   "priceFeeds": {
     "eUSD": {
       "priceFeedAddress": "0xa41107f9259bB835275eaCaAd8048307B80D7c00"
     },
-    "USD+": { "priceFeedAddress": "0xbf228a9131AB3BB8ca8C7a4Ad574932253D99Cd1" }
+    "ETH+/ETH": {
+      "priceFeedAddress": "0xCfd39de761508A7aCb8C931b959127a1D9d0B3D4"
+    }
   }
 }
