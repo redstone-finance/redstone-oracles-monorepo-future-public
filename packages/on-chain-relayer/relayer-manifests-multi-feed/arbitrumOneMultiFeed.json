@@ -1,0 +1,19 @@
+{
+  "chain": {
+    "name": "arbitrumOne",
+    "id": 42161
+  },
+  "adapterContract": "0x89e60b56efD70a1D4FBBaE947bC33cae41e37A72",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.2,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "priceFeeds": {
+    "eUSD": {
+      "priceFeedAddress": "0xa41107f9259bB835275eaCaAd8048307B80D7c00"
+    },
+    "USD+": { "priceFeedAddress": "0xbf228a9131AB3BB8ca8C7a4Ad574932253D99Cd1" }
+  }
+}
