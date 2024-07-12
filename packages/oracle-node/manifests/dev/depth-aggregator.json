@@ -187,6 +187,7 @@
         "balancer-ethereum-weth",
         "curve-ethereum-weth",
         "maverick-ethereum-weth",
+        "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-ethereum-weth-3000",
         "uniswap-v3-ethereum-weth-500",
         "uniswap-v3-ethereum-wsteth-500"
