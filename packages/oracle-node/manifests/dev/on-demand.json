@@ -29,6 +29,7 @@
     },
     "USDC": {
       "source": [
+        "balancer-ethereum-usdt",
         "binance",
         "binanceusdm",
         "bitfinex2",

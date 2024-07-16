@@ -13,6 +13,7 @@
   "tokens": {
     "USDC": {
       "source": [
+        "balancer-ethereum-usdt",
         "binance",
         "binanceusdm",
         "bitfinex2",
@@ -255,7 +256,9 @@
       ]
     },
     "sfrxETH": {
-      "source": ["ethereum-evm-fetcher-frax"]
+      "source": [
+        "ethereum-evm-fetcher-frax"
+      ]
     },
     "rsETH": {
       "priceAggregator": "depth",
