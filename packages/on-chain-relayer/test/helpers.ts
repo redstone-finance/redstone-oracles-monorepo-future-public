@@ -109,7 +109,11 @@ export const getDataPackagesResponse = async (
       const dataPoint = new NumericDataPoint(dataPointObj);
       const mockDataPackage = {
         signer: mockWallet.address,
-        dataPackage: new DataPackage([dataPoint], timestampMilliseconds),
+        dataPackage: new DataPackage(
+          [dataPoint],
+          timestampMilliseconds,
+          dataPoint.dataFeedId
+        ),
       };
       const privateKey = mockWallet.privateKey;
       const signedDataPackage = mockDataPackage.dataPackage.sign(privateKey);
@@ -137,7 +141,8 @@ export const getMultiPointDataPackagesResponse = async (
       signer: mockWallet.address,
       dataPackage: new DataPackage(
         dataPoints.map((dp) => new NumericDataPoint(dp)),
-        timestampMilliseconds
+        timestampMilliseconds,
+        dataPackageId
       ),
     };
     const privateKey = mockWallet.privateKey;

@@ -74,6 +74,9 @@ describe("Streamr Listener (e2e)", () => {
     const dataPackagesInDB = await DataPackage.find<DataPackageDocument>();
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
       const { _id, __v, ...rest } = dp.toJSON();
+      // temporary for backward compatibility
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      rest.dataFeedId = rest.dataPackageId;
       return rest;
     });
 

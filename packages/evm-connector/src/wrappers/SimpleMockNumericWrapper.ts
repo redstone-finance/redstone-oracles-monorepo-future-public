@@ -43,7 +43,11 @@ export class SimpleNumericMockWrapper<
           DEFAULT_TIMESTAMP_FOR_TESTS;
         const mockDataPackage: MockDataPackageConfig = {
           signer: getMockSignerAddress(signerIndex as MockSignerIndex),
-          dataPackage: new DataPackage([dataPoint], timestampMilliseconds),
+          dataPackage: new DataPackage(
+            [dataPoint],
+            timestampMilliseconds,
+            "__MOCK__"
+          ),
         };
         mockDataPackages.push(mockDataPackage);
       }

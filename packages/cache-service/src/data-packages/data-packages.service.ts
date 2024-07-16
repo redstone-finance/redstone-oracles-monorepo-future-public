@@ -7,7 +7,6 @@ import {
 } from "@nestjs/common";
 import {
   UniversalSigner,
-  consts,
   recoverDeserializedSignerAddress,
 } from "@redstone-finance/protocol";
 import { getDataServiceIdForSigner } from "@redstone-finance/sdk";
@@ -125,13 +124,12 @@ export class DataPackagesService {
           $group: {
             _id: {
               signerAddress: "$signerAddress",
-              dataFeedId: "$dataFeedId",
+              dataPackageId: "$dataPackageId",
             },
             timestampMilliseconds: { $first: "$timestampMilliseconds" },
             signature: { $first: "$signature" },
             dataPoints: { $first: "$dataPoints" },
             dataServiceId: { $first: "$dataServiceId" },
-            dataFeedId: { $first: "$dataFeedId" },
             dataPackageId: { $first: "$dataPackageId" },
             isSignatureValid: { $first: "$isSignatureValid" },
           },
@@ -151,7 +149,7 @@ export class DataPackagesService {
     // Parse DB response
     for (const dataPackage of groupedDataPackages) {
       const { _id, ...rest } = dataPackage;
-      const dataPackageId = _id.dataFeedId;
+      const dataPackageId = _id.dataPackageId;
       if (!fetchedPackagesPerDataFeed[dataPackageId]) {
         fetchedPackagesPerDataFeed[dataPackageId] = [];
       }
@@ -161,6 +159,12 @@ export class DataPackagesService {
         timestampMilliseconds: rest.timestampMilliseconds.getTime(),
         signerAddress: _id.signerAddress,
       });
+      // temporary for backward compatibility
+      (
+        fetchedPackagesPerDataFeed[dataPackageId]?.at(-1) as unknown as {
+          dataFeedId: string;
+        }
+      ).dataFeedId = dataPackageId;
     }
 
     return fetchedPackagesPerDataFeed;
@@ -192,14 +196,13 @@ export class DataPackagesService {
             },
             uniqueFeedSignerPairs: {
               $addToSet: {
-                dataFeedId: "$dataFeedId",
+                dataPackageId: "$dataPackageId",
                 signerAddress: "$signerAddress",
               },
             },
             count: { $count: {} },
             signatures: { $push: "$signature" },
             dataPoints: { $push: "$dataPoints" },
-            dataFeedIds: { $push: "$dataFeedId" },
             dataPackageIds: { $push: "$dataPackageId" },
             signerAddress: { $push: "$signerAddress" },
             isSignatureValid: { $push: "$isSignatureValid" },
@@ -233,7 +236,10 @@ export class DataPackagesService {
         dataServiceId,
         i
       );
-      const dataPackageId = candidatePackage.dataPackageId!;
+      const dataPackageId = candidatePackage.dataPackageId;
+      // temporary for backward compatibility
+      (candidatePackage as unknown as { dataFeedId: string }).dataFeedId =
+        dataPackageId;
       DataPackagesService.updateMediumPackageInResponseIfBetter(
         fetchedPackagesPerDataFeed,
         candidatePackage
@@ -265,7 +271,7 @@ export class DataPackagesService {
       return;
     }
     const mediumPackages =
-      fetchedPackagesResponse[candidatePackage.dataPackageId!];
+      fetchedPackagesResponse[candidatePackage.dataPackageId];
     if (!mediumPackages) {
       return;
     }
@@ -286,7 +292,6 @@ export class DataPackagesService {
     dataServiceId: string,
     i: number
   ): CachedDataPackage {
-    const dataFeedId = aggregate.dataFeedIds[i];
     const dataPackageId = aggregate.dataPackageIds[i];
     const signerAddress = aggregate.signerAddress[i];
     const dataPoints = aggregate.dataPoints[i];
@@ -299,7 +304,6 @@ export class DataPackagesService {
       isSignatureValid,
       dataPoints,
       dataServiceId,
-      dataFeedId,
       dataPackageId,
       signerAddress,
     };
@@ -406,16 +410,7 @@ export class DataPackagesService {
       signerAddress,
       isSignatureValid,
     };
-    if (receivedDataPackage.dataFeedId || receivedDataPackage.dataPackageId) {
-      cachedDataPackage.dataPackageId =
-        receivedDataPackage.dataPackageId ?? receivedDataPackage.dataFeedId;
-    } else if (receivedDataPackage.dataPoints.length === 1) {
-      cachedDataPackage.dataPackageId =
-        receivedDataPackage.dataPoints[0].dataFeedId;
-    } else {
-      cachedDataPackage.dataPackageId = consts.ALL_FEEDS_KEY;
-    }
-    cachedDataPackage.dataFeedId = cachedDataPackage.dataPackageId;
+    cachedDataPackage.dataPackageId = receivedDataPackage.dataPackageId;
     return cachedDataPackage;
   }
 

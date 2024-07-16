@@ -6,15 +6,14 @@ import config from "../config";
 const { Types } = mongoose.Schema;
 
 export type DataPackageDocument = CachedDataPackage &
-  Document<{ dataFeedId: string; signerAddress: string }>;
+  Document<{ dataPackageId: string; signerAddress: string }>;
 
 export type DataPackageDocumentMostRecentAggregated = {
-  _id: { signerAddress: string; dataFeedId: string };
+  _id: { signerAddress: string; dataPackageId: string };
   timestampMilliseconds: Date;
   signature: string;
   dataPoints: DataPointPlainObj[];
   dataServiceId: string;
-  dataFeedId: string;
   dataPackageId: string;
   isSignatureValid: boolean;
 };
@@ -24,7 +23,6 @@ export type DataPackageDocumentAggregated = {
   _id: { timestampMilliseconds: Date };
   signatures: string[];
   dataPoints: DataPointPlainObj[][];
-  dataFeedIds: string[];
   dataPackageIds: string[];
   signerAddress: string[];
   isSignatureValid: boolean[];
@@ -59,14 +57,8 @@ export class CachedDataPackage {
   @Prop({ required: true })
   signerAddress!: string;
 
-  /**
-   * @deprecated use {@link CachedDataPackage#dataPackageId} instead
-   */
   @Prop({ required: false })
-  dataFeedId?: string;
-
-  @Prop({ required: false })
-  dataPackageId?: string;
+  dataPackageId!: string;
 }
 
 export const DataPackageSchema =
@@ -75,7 +67,6 @@ export const DataPackageSchema =
 // Creating a compound mongoDB index to improve performance of the queries
 DataPackageSchema.index({
   dataServiceId: 1,
-  dataFeedId: 1,
   dataPackageId: 1,
   signerAddress: 1,
   timestampMilliseconds: -1,

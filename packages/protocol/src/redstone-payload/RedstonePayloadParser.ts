@@ -125,6 +125,7 @@ export class RedstonePayloadParser {
     // Extracting all data points
     negativeOffset += TIMESTAMP_BS;
     const dataPoints: DataPoint[] = [];
+    let dataPackageId: string | undefined;
     for (let i = 0; i < dataPointsCount; i++) {
       // Extracting data point value
       const dataPointValue = this.slice({
@@ -148,13 +149,23 @@ export class RedstonePayloadParser {
         dataPointValue
       );
 
+      if (!dataPackageId) {
+        dataPackageId = dataPoint.dataFeedId;
+      } else if (dataPackageId !== dataPoint.dataFeedId) {
+        dataPackageId = "__MULTI_POINT__";
+      }
+
       // Collecting data point
       // Using `unshift` instead of `push` because we read from the end
       dataPoints.unshift(dataPoint);
     }
 
+    if (!dataPackageId) {
+      dataPackageId = "__EMPTY__";
+    }
+
     return new SignedDataPackage(
-      new DataPackage(dataPoints, timestamp),
+      new DataPackage(dataPoints, timestamp, dataPackageId),
       hexlify(signature)
     );
   }

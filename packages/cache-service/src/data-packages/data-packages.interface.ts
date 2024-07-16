@@ -31,10 +31,7 @@ export class ReceivedDataPackage implements SignedDataPackagePlainObj {
   sources?: Record<string, string | number>;
 
   @IsOptional()
-  dataPackageId?: string;
-
-  @IsOptional()
-  dataFeedId?: string;
+  dataPackageId!: string;
 }
 
 export class ReceivedDataPoint {

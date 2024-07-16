@@ -79,6 +79,7 @@ export class StreamrBroadcaster implements DataPackagesBroadcaster {
         timestampMilliseconds: dp.timestampMilliseconds,
         dataPoints: dp.dataPoints,
         signature: dp.signature,
+        dataPackageId: dp.dataPackageId,
       })
     );
 

@@ -19,7 +19,11 @@ const PRIVATE_KEY_FOR_TESTS_1 =
 const prepareSignedDataPackageForTests = (
   dataPoints: DataPoint[]
 ): SignedDataPackage => {
-  const dataPackage = new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
+  const dataPackage = new DataPackage(
+    dataPoints,
+    TIMESTAMP_FOR_TESTS,
+    "__RANDOM_NAME__"
+  );
   return dataPackage.sign(PRIVATE_KEY_FOR_TESTS_1);
 };
 
@@ -95,6 +99,7 @@ describe("Fixed size data package", () => {
     const serializedPlainObj = signedDataPackage.toObj();
     expect(serializedPlainObj).toEqual({
       dataPoints,
+      dataPackageId: "__RANDOM_NAME__",
       timestampMilliseconds: TIMESTAMP_FOR_TESTS,
       signature:
         "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
@@ -145,6 +150,7 @@ describe("Fixed size data package", () => {
           value: "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm1xd2VydHk=",
         },
       ],
+      dataPackageId: "__RANDOM_NAME__",
       timestampMilliseconds: TIMESTAMP_FOR_TESTS,
       signature:
         "WJ+EFIe6pSwzCRcjKWIYMWyhmtKJP+tN2aI55+Ip5w4osIGH0ngUEjTO4b7sAPBGd5MIv11qbPaFxWReppbGDRs=",

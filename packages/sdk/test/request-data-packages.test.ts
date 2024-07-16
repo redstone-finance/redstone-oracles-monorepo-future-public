@@ -29,6 +29,7 @@ const SAMPLE_RESPONSE = {
         signature:
           "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
         dataFeedId: "ETH",
+        dataPackageId: "ETH",
         signerAddress: "0x2",
       },
     ],
@@ -143,6 +144,7 @@ describe("request-data-packages", () => {
               "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
             dataServiceId: "service-1",
             dataFeedId: "ETH",
+            dataPackageId: "ETH",
             signerAddress: "0x2",
           },
         ],
@@ -158,6 +160,7 @@ describe("request-data-packages", () => {
               "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
             dataServiceId: "service-1",
             dataFeedId: "ETH",
+            dataPackageId: "ETH",
             signerAddress: "0x2",
           },
         ],
@@ -173,6 +176,7 @@ describe("request-data-packages", () => {
               "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
             dataServiceId: "service-1",
             dataFeedId: "ETH",
+            dataPackageId: "ETH",
             signerAddress: "0x2",
           },
         ],
@@ -197,6 +201,7 @@ describe("request-data-packages", () => {
     const dataPackage = DataPackage.fromObj({
       dataPoints: [{ dataFeedId: "ETH", value: 20000 }],
       timestampMilliseconds: now,
+      dataPackageId: "ETH",
     }).sign(MOCK_WALLET.privateKey);
 
     axiosGetSpy.mockResolvedValue({
@@ -207,6 +212,7 @@ describe("request-data-packages", () => {
             timestampMilliseconds: now,
             dataServiceId: "service-1",
             dataFeedId: "ETH",
+            dataPackageId: "ETH",
             signerAddress: "0x2",
             signature: dataPackage.toObj().signature,
           },
@@ -215,6 +221,7 @@ describe("request-data-packages", () => {
             timestampMilliseconds: now - 30_000,
             dataServiceId: "service-1",
             dataFeedId: "ETH",
+            dataPackageId: "ETH",
             signerAddress: "0x3",
             signature: dataPackage.toObj().signature,
           },
@@ -248,6 +255,7 @@ describe("request-data-packages", () => {
     const dataPackage = DataPackage.fromObj({
       dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
       timestampMilliseconds: 1654353400000,
+      dataPackageId: "BTC",
     }).sign(MOCK_WALLET.privateKey);
 
     axiosGetSpy.mockResolvedValueOnce({
@@ -258,6 +266,7 @@ describe("request-data-packages", () => {
             timestampMilliseconds: 1654353400000,
             dataServiceId: "service-1",
             dataFeedId: "ETH",
+            dataPackageId: "ETH",
             signerAddress: "0x2",
             signature: dataPackage.toObj().signature,
           },
@@ -280,12 +289,14 @@ describe("request-data-packages", () => {
     const signedDataPackageByAuthorizedSigner = DataPackage.fromObj({
       dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
       timestampMilliseconds: 1654353400000,
+      dataPackageId: "BTC",
     }).sign(MOCK_WALLET.privateKey);
 
     const mockWallet2 = ethers.Wallet.createRandom();
     const signedDataPackageByNOTAuthorizedSigner = DataPackage.fromObj({
       dataPoints: [{ dataFeedId: "BTC", value: 30000 }],
       timestampMilliseconds: 1654353400000,
+      dataPackageId: "BTC",
     }).sign(mockWallet2.privateKey);
 
     axiosGetSpy.mockResolvedValue({
@@ -296,6 +307,7 @@ describe("request-data-packages", () => {
             timestampMilliseconds: 1654353400000,
             dataServiceId: "service-1",
             dataFeedId: "ETH",
+            dataPackageId: "ETH",
             signerAddress: "0x2",
             signature: signedDataPackageByAuthorizedSigner.toObj().signature,
           },
@@ -304,6 +316,7 @@ describe("request-data-packages", () => {
             timestampMilliseconds: 1654353400000,
             dataServiceId: "service-1",
             dataFeedId: "ETH",
+            dataPackageId: "ETH",
             signerAddress: "0x2",
             // invalid signature should be also rejected
             signature: "0x0",
@@ -313,6 +326,7 @@ describe("request-data-packages", () => {
             timestampMilliseconds: 1654353400000,
             dataServiceId: "service-1",
             dataFeedId: "ETH",
+            dataPackageId: "ETH",
             signerAddress: "0x2",
             signature: signedDataPackageByNOTAuthorizedSigner.toObj().signature,
           },
@@ -351,6 +365,7 @@ describe("request-data-packages", () => {
             timestampMilliseconds: 1654353400000,
             dataServiceId: "service-1",
             dataFeedId: "ETH",
+            dataPackageId: "ETH",
             signerAddress: "0x2",
           },
         ],

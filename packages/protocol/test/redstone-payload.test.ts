@@ -36,7 +36,11 @@ describe("Fixed size data package", () => {
     );
 
     // Prepare unsigned data package
-    dataPackage = new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
+    dataPackage = new DataPackage(
+      dataPoints,
+      TIMESTAMP_FOR_TESTS,
+      "__BTC_ETH__"
+    );
 
     // Prepare signed data packages
     signedDataPackages = [

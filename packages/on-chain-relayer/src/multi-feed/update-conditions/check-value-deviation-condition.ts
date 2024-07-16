@@ -20,9 +20,7 @@ const verifyDataPackagesAreDisjoint = (dataPackages: DataPackagesResponse) => {
   for (const dataPackage of Object.values(dataPackages).flat()) {
     for (const dataPoint of dataPackage!.dataPackage.dataPoints) {
       const dataFeedId = dataPoint.dataFeedId;
-      const dataPackageName =
-        dataPackage!.dataPackage.dataPackageId ??
-        dataPackage!.dataPackage.dataFeedId!;
+      const dataPackageName = dataPackage!.dataPackage.dataPackageId;
 
       if (
         !dataPackagesPerDataFeedId[dataFeedId] ||

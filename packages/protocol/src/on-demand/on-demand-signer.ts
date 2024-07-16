@@ -13,7 +13,7 @@ export const signOnDemandDataPackage = (
     decimals: 0,
   });
 
-  const dataPackage = new DataPackage([dataPoint], timestamp);
+  const dataPackage = new DataPackage([dataPoint], timestamp, address);
   return dataPackage.sign(privateKey);
 };
 

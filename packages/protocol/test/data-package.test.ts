@@ -27,11 +27,15 @@ describe("Data package", () => {
       { dataFeedId: "BTC", value: 42000 },
       { dataFeedId: "ETH", value: 2000 },
     ].map((dpArgs) => new NumericDataPoint(dpArgs));
-    dataPackage = new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS);
+    dataPackage = new DataPackage(
+      dataPoints,
+      TIMESTAMP_FOR_TESTS,
+      "__BTC_ETH__"
+    );
   });
 
   test("Should throw an error for data package without data points", () => {
-    expect(() => new DataPackage([], TIMESTAMP_FOR_TESTS)).toThrow(
+    expect(() => new DataPackage([], TIMESTAMP_FOR_TESTS, "BTC")).toThrow(
       "Can not create a data package with no data points"
     );
   });
@@ -49,7 +53,9 @@ describe("Data package", () => {
         valueByteSize: 16,
       }),
     ];
-    expect(() => new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS)).toThrow(
+    expect(
+      () => new DataPackage(dataPoints, TIMESTAMP_FOR_TESTS, "__BTC_ETH__")
+    ).toThrow(
       "Assertion failed: Values of all data points in a DataPackage must have the same number of bytes"
     );
   });

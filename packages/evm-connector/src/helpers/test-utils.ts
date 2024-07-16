@@ -206,7 +206,7 @@ export const getMockPackage = (
     opts.timestampMilliseconds || DEFAULT_TIMESTAMP_FOR_TESTS;
   return {
     signer: MOCK_SIGNERS[opts.mockSignerIndex].address as MockSignerAddress,
-    dataPackage: new DataPackage(dataPoints, timestampMilliseconds),
+    dataPackage: new DataPackage(dataPoints, timestampMilliseconds, "__TEST__"),
   };
 };
 

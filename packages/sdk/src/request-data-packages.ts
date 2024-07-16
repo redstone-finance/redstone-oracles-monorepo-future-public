@@ -56,8 +56,7 @@ const GwResponseSchema = z.record(
         .min(1),
       timestampMilliseconds: z.number(),
       signature: z.string(),
-      dataFeedId: z.string().optional(),
-      dataPackageId: z.string().optional(),
+      dataPackageId: z.string(),
     })
   )
 );
