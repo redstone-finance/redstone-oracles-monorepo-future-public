@@ -13,7 +13,6 @@ const signedDataPackagesObjects: (SignedDataPackagePlainObj & {
     signature:
       "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
     dataServiceId: "service-1",
-    dataFeedId: "ETH",
     dataPackageId: "ETH",
     signerAddress: "0x1",
   },
@@ -26,7 +25,6 @@ const signedDataPackagesObjects: (SignedDataPackagePlainObj & {
     signature:
       "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
     dataServiceId: "service-1",
-    dataFeedId: "ETH",
     dataPackageId: "ETH",
     signerAddress: "0x2",
   },
@@ -39,7 +37,6 @@ const signedDataPackagesObjects: (SignedDataPackagePlainObj & {
     signature:
       "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
     dataServiceId: "service-1",
-    dataFeedId: "ETH",
     dataPackageId: "ETH",
     signerAddress: "0x2",
   },
@@ -52,7 +49,6 @@ const signedDataPackagesObjects: (SignedDataPackagePlainObj & {
     signature:
       "NX5yd/Cs8HzVdNchrM59uOoSst7n9KK5Ou9pA6S5GTM0RwghGlFjA0S+SVfb85ipg4HzUTKATBZSqPXlWldEEhw=",
     dataServiceId: "service-1",
-    dataFeedId: "ETH",
     dataPackageId: "ETH",
     signerAddress: "0x2",
   },

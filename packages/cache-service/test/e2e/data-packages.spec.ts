@@ -137,6 +137,9 @@ describe("Data packages (e2e)", () => {
     });
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
       const { _id, __v, ...rest } = dp.toJSON() as any;
+      // temporary for backward compatibility
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      rest.dataFeedId = rest.dataPackageId;
       return rest;
     });
     expect(dataPackagesInDBCleaned).toEqual(
@@ -159,6 +162,9 @@ describe("Data packages (e2e)", () => {
     });
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
       const { _id, __v, ...rest } = dp.toJSON() as any;
+      // temporary for backward compatibility
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      rest.dataFeedId = rest.dataPackageId;
       return rest;
     });
     expect(dataPackagesInDBCleaned).toEqual(

@@ -88,7 +88,11 @@ describe("Benchmark", function () {
           }),
         ];
         mockDataPackages.push({
-          dataPackage: new DataPackage(dataPoints, DEFAULT_TIMESTAMP_FOR_TESTS),
+          dataPackage: new DataPackage(
+            dataPoints,
+            DEFAULT_TIMESTAMP_FOR_TESTS,
+            "__TEST__"
+          ),
           signer: MOCK_SIGNERS[signerIndex].address as MockSignerAddress,
         });
       }

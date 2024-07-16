@@ -1,5 +1,5 @@
 export interface DataPackageFromGatewayResponse {
-  [dataFeedId: string]: DataPackageFromGateway[] | undefined;
+  [dataPackageId: string]: DataPackageFromGateway[] | undefined;
 }
 
 export interface DataPackageFromGateway {
@@ -11,7 +11,7 @@ export interface DataPackageFromGateway {
     metadata: Record<string, unknown>;
   }[];
   dataServiceId: string;
-  dataFeedId: string;
+  dataPackageId: string;
   isSignatureValid: boolean;
   signerAddress: string;
 }

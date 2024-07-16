@@ -19,19 +19,16 @@ import { SignedDataPackage } from "./SignedDataPackage";
 export interface DataPackagePlainObj {
   dataPoints: DataPointPlainObj[];
   timestampMilliseconds: number;
-  dataPackageId?: string; // temporarly we need both to avoid simultaneous updates of whole infrastructure
-  dataFeedId?: string;
+  dataPackageId: string;
 }
 
 export class DataPackage extends Serializable {
-  public dataFeedId?: string;
   constructor(
     public readonly dataPoints: DataPoint[],
     public readonly timestampMilliseconds: number,
-    public readonly dataPackageId?: string
+    public readonly dataPackageId: string
   ) {
     super();
-    this.dataFeedId = this.dataPackageId;
 
     if (dataPoints.length === 0) {
       throw new Error("Can not create a data package with no data points");
@@ -65,7 +62,7 @@ export class DataPackage extends Serializable {
     return {
       dataPoints: this.dataPoints.map((dataPoint) => dataPoint.toObj()),
       timestampMilliseconds: this.timestampMilliseconds,
-      dataFeedId: this.dataFeedId,
+      dataPackageId: this.dataPackageId,
     };
   }
 

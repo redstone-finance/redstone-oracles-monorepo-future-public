@@ -49,7 +49,11 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
           );
         }
       );
-      const dataPackage = new DataPackage(dataPoints, mockDataTimestamp);
+      const dataPackage = new DataPackage(
+        dataPoints,
+        mockDataTimestamp,
+        "__MOCK__"
+      );
       const wrappedAdapter = WrapperBuilder.wrap(
         multiAdapter
       ).usingMockDataPackages(
