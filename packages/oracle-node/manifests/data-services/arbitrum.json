@@ -38,6 +38,7 @@
     },
     "USDC": {
       "source": [
+        "balancer-ethereum-usdt",
         "binance-usdt",
         "binanceusdm-usdt",
         "bitget-usdt",
@@ -576,7 +577,9 @@
       ]
     },
     "sfrxETH": {
-      "source": ["ethereum-evm-fetcher-frax"]
+      "source": [
+        "ethereum-evm-fetcher-frax"
+      ]
     },
     "ezETH": {
       "source": [

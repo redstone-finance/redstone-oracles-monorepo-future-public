@@ -87,6 +87,7 @@
     },
     "USDC": {
       "source": [
+        "balancer-ethereum-usdt",
         "binance-usdt",
         "binanceusdm-usdt",
         "bitget-usdt",
@@ -1259,7 +1260,9 @@
       "source": ["twap-local-redstone-main-demo"]
     },
     "sfrxETH": {
-      "source": ["ethereum-evm-fetcher-frax"]
+      "source": [
+        "ethereum-evm-fetcher-frax"
+      ]
     },
     "sfrxETH/ETH": {
       "source": ["non-usd-based"]
