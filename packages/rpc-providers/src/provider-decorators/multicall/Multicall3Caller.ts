@@ -28,20 +28,21 @@ function rawMulticall3(
 
 const logger = loggerFactory("multicall3");
 
-export async function executeMulticall3(
+/** [TURBO IMPORTANT] this function MUST NOT throw errors event in try catch */
+export async function safeExecuteMulticall3(
   provider: providers.Provider,
   call3s: Multicall3Request[],
   retryBySingleCalls: boolean,
   blockTag?: BlockTag,
   multicallAddress?: string
 ): Promise<Multicall3Result[]> {
-  const chainId = (await provider.getNetwork()).chainId;
-  const multicall3Contract = getMulticall3({
-    networkName: getNetworkName(chainId),
-    overrideAddress: multicallAddress,
-  });
-
+  let chainId = -1;
   try {
+    chainId = (await provider.getNetwork()).chainId;
+    const multicall3Contract = getMulticall3({
+      networkName: getNetworkName(chainId),
+      overrideAddress: multicallAddress,
+    });
     return await rawMulticall3(
       multicall3Contract.connect(provider),
       call3s,
@@ -61,9 +62,14 @@ export async function executeMulticall3(
       );
     } else {
       logger.log(
-        `Whole multicall3 chainId=${chainId} failed. Will not fallback.`
+        `Whole multicall3 chainId=${chainId} failed. Will not fallback. Error: ${RedstoneCommon.stringifyError(e)}`
       );
-      throw e;
+
+      return call3s.map(() => ({
+        returnData: "0x",
+        fallbackRejectReason: `Whole multicall3 chainId=${chainId} failed. Will not fallback.`,
+        success: false,
+      }));
     }
   }
 }

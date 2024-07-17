@@ -18,9 +18,9 @@ import { deployCounter } from "../../helpers";
 
 chai.use(chaiAsPromised);
 
-const multicallFnSpy = Sinon.spy(multicallUtils.executeMulticall3);
+const multicallFnSpy = Sinon.spy(multicallUtils.safeExecuteMulticall3);
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-(multicallUtils as any).executeMulticall3 = multicallFnSpy;
+(multicallUtils as any).safeExecuteMulticall3 = multicallFnSpy;
 
 function getProvider(
   multicallAddress: string,
