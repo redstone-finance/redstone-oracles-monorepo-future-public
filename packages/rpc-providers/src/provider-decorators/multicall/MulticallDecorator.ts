@@ -4,7 +4,7 @@ import { providers } from "ethers";
 import { Deferrable } from "ethers/lib/utils";
 import { z } from "zod";
 import { getChainConfig, getNetworkName } from "../../chains-configs/helpers";
-import { Multicall3Request, executeMulticall3 } from "./Multicall3Caller";
+import { Multicall3Request, safeExecuteMulticall3 } from "./Multicall3Caller";
 import { MulticallBuffer } from "./MulticallBuffer";
 
 async function prepareMulticall3Request(
@@ -95,7 +95,7 @@ export function MulticallDecorator<T extends providers.Provider>(
       `Executing request chainId=${chainId} blockTag=${blockTag} callsCount=${callEntries.length} callDataSize=${callDataSize} [bytes]`
     );
 
-    executeMulticall3(
+    safeExecuteMulticall3(
       originalProvider,
       callEntries,
       config.retryBySingleCalls,
