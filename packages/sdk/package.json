@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/sdk",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -14,9 +14,9 @@
     "lint": "yarn global:eslint ."
   },
   "dependencies": {
-    "@redstone-finance/oracles-smartweave-contracts": "^0.5.2",
-    "@redstone-finance/protocol": "^0.5.2",
-    "@redstone-finance/utils": "^0.5.2",
+    "@redstone-finance/oracles-smartweave-contracts": "0.6.0",
+    "@redstone-finance/protocol": "0.6.0",
+    "@redstone-finance/utils": "0.6.0",
     "@types/lodash": "^4.14.195",
     "axios": "^1.6.2",
     "ethers": "^5.7.2",
