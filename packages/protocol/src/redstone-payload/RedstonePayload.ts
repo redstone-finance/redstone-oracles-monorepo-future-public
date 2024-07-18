@@ -1,4 +1,4 @@
-import { concat, toUtf8Bytes } from "ethers/lib/utils";
+import { BytesLike, concat, isBytes, toUtf8Bytes } from "ethers/lib/utils";
 import { Serializable } from "../common/Serializable";
 import {
   DATA_PACKAGES_COUNT_BS,
@@ -15,14 +15,14 @@ import {
 export class RedstonePayload extends Serializable {
   constructor(
     public readonly signedDataPackages: SignedDataPackage[],
-    public readonly unsignedMetadata: string
+    public readonly unsignedMetadata: BytesLike
   ) {
     super();
   }
 
   public static prepare(
     signedDataPackages: SignedDataPackage[],
-    unsignedMetadata: string
+    unsignedMetadata: BytesLike
   ): string {
     return new RedstonePayload(
       signedDataPackages,
@@ -48,7 +48,9 @@ export class RedstonePayload extends Serializable {
   }
 
   serializeUnsignedMetadata(): Uint8Array {
-    const unsignedMetadataBytes = toUtf8Bytes(this.unsignedMetadata);
+    const unsignedMetadataBytes = isBytes(this.unsignedMetadata)
+      ? this.unsignedMetadata
+      : toUtf8Bytes(this.unsignedMetadata);
     const unsignedMetadataByteSizeBytes = convertIntegerNumberToBytes(
       unsignedMetadataBytes.length,
       UNSIGNED_METADATA_BYTE_SIZE_BS

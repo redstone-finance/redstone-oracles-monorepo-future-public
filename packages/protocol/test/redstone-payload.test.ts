@@ -67,6 +67,24 @@ describe("Fixed size data package", () => {
     );
   });
 
+  test("Should correctly serialize unsigned metadata in bytes", () => {
+    const serializedHex = RedstonePayload.prepare(
+      signedDataPackages,
+      toUtf8Bytes(UNSIGNED_METADATA)
+    );
+
+    expect(serializedHex).toBe(
+      EXPECTED_SERIALIZED_DATA_PACKAGE +
+        EXPECTED_SIGNATURES[0] +
+        EXPECTED_SERIALIZED_DATA_PACKAGE +
+        EXPECTED_SIGNATURES[1] +
+        "0002" + // data packages count
+        hexlifyWithout0xPrefix(toUtf8Bytes(UNSIGNED_METADATA)) +
+        EXPECTED_UNSIGNED_METADATA_BYTE_SIZE +
+        REDSTONE_MARKER
+    );
+  });
+
   test("Should correctly parse redstone payload", () => {
     const remainderPrefixHex = "0x1234";
     const redstonePayloadHex = RedstonePayload.prepare(
