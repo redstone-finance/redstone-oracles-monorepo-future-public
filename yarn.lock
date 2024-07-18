@@ -7023,7 +7023,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redstone-finance/cache-service@npm:^0.5.2, @redstone-finance/cache-service@workspace:packages/cache-service":
+"@redstone-finance/cache-service@npm:0.6.0, @redstone-finance/cache-service@workspace:packages/cache-service":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/cache-service@workspace:packages/cache-service"
   dependencies:
@@ -7035,9 +7035,9 @@ __metadata:
     "@nestjs/schedule": "npm:^2.1.0"
     "@nestjs/schematics": "npm:^9.0.0"
     "@nestjs/testing": "npm:^9.0.0"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/express": "npm:^4.17.14"
     "@types/pako": "npm:^2.0.3"
     "@types/supertest": "npm:^2.0.12"
@@ -7072,7 +7072,7 @@ __metadata:
   resolution: "@redstone-finance/casper-connector@workspace:packages/casper-connector"
   dependencies:
     "@noble/hashes": "npm:^1.3.3"
-    "@redstone-finance/sdk": "npm:^0.5.2"
+    "@redstone-finance/sdk": "npm:0.6.0"
     axios: "npm:^1.6.2"
     casper-js-sdk: "npm:^2.15.5"
     ethers: "npm:^5.7.2"
@@ -7085,7 +7085,7 @@ __metadata:
   resolution: "@redstone-finance/classic-updates-number-checker@workspace:packages/classic-updates-number-checker"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
   languageName: unknown
   linkType: soft
 
@@ -7118,7 +7118,7 @@ __metadata:
     "@openzeppelin/contracts": "npm:^4.8.1"
     "@openzeppelin/contracts-upgradeable": "npm:^4.8.3"
     "@openzeppelin/upgrades-core": "npm:^1.34.0"
-    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
+    "@redstone-finance/on-chain-relayer": "npm:0.6.0"
     "@types/chai": "npm:^4.3.4"
     "@types/mocha": "npm:^10.0.1"
     "@types/node": "npm:^18.14.6"
@@ -7153,10 +7153,10 @@ __metadata:
     "@openzeppelin/contracts-upgradeable": "npm:^4.8.3"
     "@openzeppelin/hardhat-defender": "npm:^1.8.2"
     "@openzeppelin/hardhat-upgrades": "npm:^1.26.0"
-    "@redstone-finance/evm-connector": "npm:^0.5.2"
-    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
+    "@redstone-finance/evm-connector": "npm:0.6.0"
+    "@redstone-finance/on-chain-relayer": "npm:0.6.0"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
@@ -7195,9 +7195,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/db-less-gateway@workspace:packages/db-less-gateway"
   dependencies:
-    "@redstone-finance/oracles-smartweave-contracts": "npm:^0.5.2"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.0"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/autocannon": "npm:^7.12.5"
     autocannon: "npm:^7.15.0"
     esbuild: "npm:^0.19.9"
@@ -7218,10 +7218,10 @@ __metadata:
     "@nomicfoundation/hardhat-viem": "npm:^2.0.0"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
-    "@redstone-finance/evm-connector": "npm:^0.5.2"
-    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
-    "@redstone-finance/oracles-smartweave-contracts": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
+    "@redstone-finance/evm-connector": "npm:0.6.0"
+    "@redstone-finance/on-chain-relayer": "npm:0.6.0"
+    "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
@@ -7277,7 +7277,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/evm-connector@npm:^0.5.2, @redstone-finance/evm-connector@workspace:packages/evm-connector":
+"@redstone-finance/evm-connector@npm:0.6.0, @redstone-finance/evm-connector@workspace:packages/evm-connector":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/evm-connector@workspace:packages/evm-connector"
   dependencies:
@@ -7289,8 +7289,8 @@ __metadata:
     "@nomiclabs/hardhat-waffle": "npm:^2.0.5"
     "@openzeppelin/contracts": "npm:^4.8.1"
     "@openzeppelin/contracts-upgradeable": "npm:^4.8.3"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
@@ -7317,7 +7317,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/evm-multicall@npm:^0.5.2, @redstone-finance/evm-multicall@workspace:packages/evm-multicall":
+"@redstone-finance/evm-multicall@npm:0.6.0, @redstone-finance/evm-multicall@workspace:packages/evm-multicall":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/evm-multicall@workspace:packages/evm-multicall"
   dependencies:
@@ -7328,7 +7328,7 @@ __metadata:
     "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
@@ -7354,7 +7354,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:^7.23.2"
     "@babel/preset-typescript": "npm:^7.23.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
+    "@redstone-finance/sdk": "npm:0.6.0"
     arraybuffer-to-buffer: "npm:^0.0.7"
     fuels: "npm:^0.42.0"
     redstone-api: "npm:^0.4.11"
@@ -7374,8 +7374,8 @@ __metadata:
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-waffle": "npm:^2.0.5"
     "@openzeppelin/contracts": "npm:^4.8.1"
-    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
-    "@redstone-finance/rpc-providers": "npm:^0.5.2"
+    "@redstone-finance/on-chain-relayer": "npm:0.6.0"
+    "@redstone-finance/rpc-providers": "npm:0.6.0"
     "@tsconfig/recommended": "npm:1.0.2"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
@@ -7400,13 +7400,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/integration-tests@workspace:packages/integration"
   dependencies:
-    "@redstone-finance/cache-service": "npm:^0.5.2"
-    "@redstone-finance/evm-connector": "npm:^0.5.2"
-    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
-    "@redstone-finance/oracle-node": "npm:^0.5.2"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/cache-service": "npm:0.6.0"
+    "@redstone-finance/evm-connector": "npm:0.6.0"
+    "@redstone-finance/on-chain-relayer": "npm:0.6.0"
+    "@redstone-finance/oracle-node": "npm:0.6.0"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     axios: "npm:^1.6.2"
     axios-retry: "npm:^4.4.0"
     ethers: "npm:^5.7.2"
@@ -7418,8 +7418,8 @@ __metadata:
   resolution: "@redstone-finance/lambda-aggregator-influx-synchronizer@workspace:packages/lambda-aggregator-influx-synchronizer"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     ethers: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
@@ -7428,7 +7428,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-alarm-notifier@workspace:packages/lambda-alarm-notifier"
   dependencies:
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/aws-lambda": "npm:^8.10.128"
     axios: "npm:^1.6.2"
   languageName: unknown
@@ -7438,7 +7438,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-all-relayers-manifests@workspace:packages/lambda-all-relayers-manifests"
   dependencies:
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/aws-lambda": "npm:^8.10.128"
     axios: "npm:^1.6.2"
     dotenv: "npm:^16.0.3"
@@ -7452,8 +7452,8 @@ __metadata:
     "@ardrive/turbo-sdk": "npm:^1.2.0"
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@irys/sdk": "npm:^0.2.0"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
     arweave: "npm:^1.14.4"
     aws-lambda: "npm:^1.0.7"
     axios: "npm:^1.6.2"
@@ -7467,14 +7467,14 @@ __metadata:
   resolution: "@redstone-finance/lambda-chainlink-influx-synchronizer@workspace:packages/lambda-chainlink-influx-synchronizer"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     ethers: "npm:^5.7.2"
     lodash: "npm:^4.17.21"
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-common@npm:^0.5.2, @redstone-finance/lambda-common@workspace:packages/lambda-common":
+"@redstone-finance/lambda-common@npm:0.6.0, @redstone-finance/lambda-common@workspace:packages/lambda-common":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-common@workspace:packages/lambda-common"
   dependencies:
@@ -7482,7 +7482,7 @@ __metadata:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@aws-sdk/client-s3": "npm:^3.485.0"
     "@aws-sdk/client-ssm": "npm:^3.485.0"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/utils": "npm:0.6.0"
   languageName: unknown
   linkType: soft
 
@@ -7491,7 +7491,7 @@ __metadata:
   resolution: "@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda-deviation-monitoring"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
     dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
@@ -7501,9 +7501,9 @@ __metadata:
   resolution: "@redstone-finance/lambda-gas-fee-comparator@workspace:packages/lambda-gas-fee-comparator"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/rpc-providers": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/rpc-providers": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
@@ -7513,8 +7513,8 @@ __metadata:
   resolution: "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda-gw-metrics"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
@@ -7524,9 +7524,9 @@ __metadata:
   resolution: "@redstone-finance/lambda-hard-limits-monitoring@workspace:packages/lambda-hard-limits-monitoring"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     aws-lambda: "npm:^1.0.7"
     axios: "npm:^1.6.2"
     dotenv: "npm:^16.0.3"
@@ -7540,7 +7540,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-cloudwatch": "npm:^3.485.0"
     "@aws-sdk/client-s3": "npm:^3.485.0"
-    "@redstone-finance/sdk": "npm:^0.5.2"
+    "@redstone-finance/sdk": "npm:0.6.0"
     aws-lambda: "npm:^1.0.7"
     dotenv: "npm:^16.0.3"
     zod: "npm:^3.22.4"
@@ -7562,7 +7562,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/utils": "npm:0.6.0"
     aws-lambda: "npm:^1.0.7"
     dotenv: "npm:^16.0.3"
     zod: "npm:^3.22.4"
@@ -7574,7 +7574,7 @@ __metadata:
   resolution: "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
     dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
@@ -7585,8 +7585,8 @@ __metadata:
   dependencies:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
-    "@redstone-finance/protocol": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/protocol": "npm:0.6.0"
     aws-lambda: "npm:^1.0.7"
     lodash: "npm:^4.17.21"
     mongodb: "npm:^5.9.0"
@@ -7599,10 +7599,10 @@ __metadata:
   resolution: "@redstone-finance/lambda-monitoring-multi-feed-relayers@workspace:packages/lambda-monitoring-multi-feed-relayers"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
-    "@redstone-finance/monitoring-manifests": "npm:^0.5.2"
-    "@redstone-finance/rpc-providers": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/monitoring-manifests": "npm:0.6.0"
+    "@redstone-finance/rpc-providers": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/aws-lambda": "npm:^8.10.128"
     axios: "npm:^1.6.2"
     dotenv: "npm:^16.0.3"
@@ -7617,8 +7617,8 @@ __metadata:
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@aws-sdk/client-s3": "npm:^3.485.0"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
-    "@redstone-finance/redstone-monitoring": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/redstone-monitoring": "npm:0.6.0"
     "@types/aws-lambda": "npm:^8.10.128"
   languageName: unknown
   linkType: soft
@@ -7628,11 +7628,11 @@ __metadata:
   resolution: "@redstone-finance/lambda-monitoring@workspace:packages/lambda-monitoring"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
-    "@redstone-finance/evm-connector": "npm:^0.5.2"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
-    "@redstone-finance/rpc-providers": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/evm-connector": "npm:0.6.0"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/rpc-providers": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/aws-lambda": "npm:^8.10.128"
     axios: "npm:^1.6.2"
     dotenv: "npm:^16.0.3"
@@ -7645,11 +7645,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-multi-top-up@workspace:packages/lambda-multi-top-up"
   dependencies:
-    "@redstone-finance/evm-multicall": "npm:^0.5.2"
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
-    "@redstone-finance/lambda-wallets-balances-notifier": "npm:^0.5.2"
-    "@redstone-finance/rpc-providers": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/evm-multicall": "npm:0.6.0"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/lambda-wallets-balances-notifier": "npm:0.6.0"
+    "@redstone-finance/rpc-providers": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/inquirer": "npm:^9.0.7"
     axios: "npm:^1.6.2"
     dotenv: "npm:^16.0.3"
@@ -7664,9 +7664,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-new-sources-monitoring@workspace:packages/lambda-new-sources-monitoring"
   dependencies:
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
-    "@redstone-finance/oracle-node": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/oracle-node": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/jest": "npm:^29.5.4"
     "@types/node": "npm:^18.14.6"
     aws-lambda: "npm:^1.0.7"
@@ -7683,7 +7683,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests"
   dependencies:
-    "@redstone-finance/redstone-monitoring": "npm:^0.5.2"
+    "@redstone-finance/redstone-monitoring": "npm:0.6.0"
     axios: "npm:^1.6.2"
   languageName: unknown
   linkType: soft
@@ -7694,9 +7694,9 @@ __metadata:
   dependencies:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
-    "@redstone-finance/rpc-providers": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/on-chain-relayer": "npm:0.6.0"
+    "@redstone-finance/rpc-providers": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/aws-lambda": "npm:^8.10.128"
     "@types/node": "npm:^18.14.6"
     axios: "npm:^1.6.2"
@@ -7712,39 +7712,39 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-wallet-balances@workspace:packages/lambda-wallet-balances"
   dependencies:
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     axios: "npm:^1.6.2"
     ethers: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-wallets-balances-notifier@npm:^0.5.2, @redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier":
+"@redstone-finance/lambda-wallets-balances-notifier@npm:0.6.0, @redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier"
   dependencies:
-    "@redstone-finance/lambda-common": "npm:^0.5.2"
-    "@redstone-finance/monitoring-manifests": "npm:^0.5.2"
-    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
-    "@redstone-finance/rpc-providers": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/monitoring-manifests": "npm:0.6.0"
+    "@redstone-finance/on-chain-relayer": "npm:0.6.0"
+    "@redstone-finance/rpc-providers": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     axios: "npm:^1.6.2"
     ethers: "npm:^5.7.2"
     zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/monitoring-manifests@npm:^0.5.2, @redstone-finance/monitoring-manifests@workspace:packages/monitoring-manifests":
+"@redstone-finance/monitoring-manifests@npm:0.6.0, @redstone-finance/monitoring-manifests@workspace:packages/monitoring-manifests":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/monitoring-manifests@workspace:packages/monitoring-manifests"
   dependencies:
-    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/on-chain-relayer": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/on-chain-relayer@npm:^0.5.2, @redstone-finance/on-chain-relayer@workspace:packages/on-chain-relayer":
+"@redstone-finance/on-chain-relayer@npm:0.6.0, @redstone-finance/on-chain-relayer@workspace:packages/on-chain-relayer":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/on-chain-relayer@workspace:packages/on-chain-relayer"
   dependencies:
@@ -7755,11 +7755,11 @@ __metadata:
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
     "@nomiclabs/hardhat-waffle": "npm:^2.0.5"
     "@openzeppelin/hardhat-upgrades": "npm:^1.26.0"
-    "@redstone-finance/evm-connector": "npm:^0.5.2"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/rpc-providers": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/evm-connector": "npm:0.6.0"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/rpc-providers": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
@@ -7779,7 +7779,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/oracle-node@npm:^0.5.2, @redstone-finance/oracle-node@workspace:packages/oracle-node":
+"@redstone-finance/oracle-node@npm:0.6.0, @redstone-finance/oracle-node@workspace:packages/oracle-node":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/oracle-node@workspace:packages/oracle-node"
   dependencies:
@@ -7787,11 +7787,11 @@ __metadata:
     "@bundlr-network/client": "npm:^0.8.4"
     "@influxdata/influxdb-client": "npm:^1.33.2"
     "@metamask/eth-sig-util": "npm:^4.0.1"
-    "@redstone-finance/oracles-smartweave-contracts": "npm:^0.5.2"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/rpc-providers": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.0"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/rpc-providers": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/cors": "npm:^2.8.12"
     "@types/exchange-rates-api": "npm:^1.0.0"
     "@types/express": "npm:^4.17.14"
@@ -7874,7 +7874,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/oracles-smartweave-contracts@npm:^0.5.2, @redstone-finance/oracles-smartweave-contracts@workspace:packages/oracles-smartweave-contracts":
+"@redstone-finance/oracles-smartweave-contracts@npm:0.6.0, @redstone-finance/oracles-smartweave-contracts@workspace:packages/oracles-smartweave-contracts":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/oracles-smartweave-contracts@workspace:packages/oracles-smartweave-contracts"
   dependencies:
@@ -7889,7 +7889,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/protocol@npm:^0.5.2, @redstone-finance/protocol@workspace:packages/protocol":
+"@redstone-finance/protocol@npm:0.6.0, @redstone-finance/protocol@workspace:packages/protocol":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/protocol@workspace:packages/protocol"
   dependencies:
@@ -7898,7 +7898,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/redstone-monitoring@npm:^0.5.2, @redstone-finance/redstone-monitoring@workspace:packages/monitoring":
+"@redstone-finance/redstone-monitoring@npm:0.6.0, @redstone-finance/redstone-monitoring@workspace:packages/monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/redstone-monitoring@workspace:packages/monitoring"
   dependencies:
@@ -7909,14 +7909,14 @@ __metadata:
     "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
-    "@redstone-finance/evm-connector": "npm:^0.5.2"
-    "@redstone-finance/monitoring-manifests": "npm:^0.5.2"
-    "@redstone-finance/on-chain-relayer": "npm:^0.5.2"
-    "@redstone-finance/oracles-smartweave-contracts": "npm:^0.5.2"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/rpc-providers": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/evm-connector": "npm:0.6.0"
+    "@redstone-finance/monitoring-manifests": "npm:0.6.0"
+    "@redstone-finance/on-chain-relayer": "npm:0.6.0"
+    "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.0"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/rpc-providers": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
@@ -7940,7 +7940,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/rpc-providers@npm:^0.5.2, @redstone-finance/rpc-providers@workspace:packages/rpc-providers":
+"@redstone-finance/rpc-providers@npm:0.6.0, @redstone-finance/rpc-providers@workspace:packages/rpc-providers":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/rpc-providers@workspace:packages/rpc-providers"
   dependencies:
@@ -7952,8 +7952,8 @@ __metadata:
     "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
-    "@redstone-finance/evm-multicall": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/evm-multicall": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
@@ -7975,13 +7975,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/sdk@npm:^0.5.2, @redstone-finance/sdk@workspace:packages/sdk":
+"@redstone-finance/sdk@npm:0.6.0, @redstone-finance/sdk@workspace:packages/sdk":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/sdk@workspace:packages/sdk"
   dependencies:
-    "@redstone-finance/oracles-smartweave-contracts": "npm:^0.5.2"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.0"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@types/lodash": "npm:^4.14.195"
     axios: "npm:^1.6.2"
     ethers: "npm:^5.7.2"
@@ -7990,11 +7990,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/starknet-connector@npm:^0.5.2, @redstone-finance/starknet-connector@workspace:packages/starknet-connector":
+"@redstone-finance/starknet-connector@npm:0.6.0, @redstone-finance/starknet-connector@workspace:packages/starknet-connector":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/starknet-connector@workspace:packages/starknet-connector"
   dependencies:
-    "@redstone-finance/sdk": "npm:^0.5.2"
+    "@redstone-finance/sdk": "npm:0.6.0"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
     starknet: "npm:^6.6.6"
@@ -8005,22 +8005,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/starknet-relayer@workspace:packages/starknet-relayer"
   dependencies:
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/starknet-connector": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/starknet-connector": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/ton-connector@npm:^0.5.2, @redstone-finance/ton-connector@workspace:packages/ton-connector":
+"@redstone-finance/ton-connector@npm:0.6.0, @redstone-finance/ton-connector@workspace:packages/ton-connector":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/ton-connector@workspace:packages/ton-connector"
   dependencies:
     "@orbs-network/ton-access": "npm:^2.3.3"
-    "@redstone-finance/protocol": "npm:^0.5.2"
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/protocol": "npm:0.6.0"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     "@ton-community/func-js": "npm:0.6.3"
     "@ton-community/func-js-bin": "npm:^0.4.5-tvmbeta.3"
     "@ton/blueprint": "npm:^0.19.0"
@@ -8038,15 +8038,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/ton-relayer@workspace:packages/ton-relayer"
   dependencies:
-    "@redstone-finance/sdk": "npm:^0.5.2"
-    "@redstone-finance/ton-connector": "npm:^0.5.2"
-    "@redstone-finance/utils": "npm:^0.5.2"
+    "@redstone-finance/sdk": "npm:0.6.0"
+    "@redstone-finance/ton-connector": "npm:0.6.0"
+    "@redstone-finance/utils": "npm:0.6.0"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/utils@npm:^0.5.2, @redstone-finance/utils@workspace:packages/utils":
+"@redstone-finance/utils@npm:0.6.0, @redstone-finance/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/utils@workspace:packages/utils"
   dependencies:

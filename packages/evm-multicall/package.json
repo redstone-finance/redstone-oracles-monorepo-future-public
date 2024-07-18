@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/evm-multicall",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "@nomiclabs/hardhat-ethers": "^2.0.6",
     "@nomiclabs/hardhat-etherscan": "^3.1.7",
-    "@redstone-finance/lambda-common": "^0.5.2",
+    "@redstone-finance/lambda-common": "0.6.0",
     "@typechain/ethers-v5": "^10.2.0",
     "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.4",
