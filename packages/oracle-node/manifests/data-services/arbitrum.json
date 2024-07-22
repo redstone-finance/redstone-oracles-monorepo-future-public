@@ -577,9 +577,7 @@
       ]
     },
     "sfrxETH": {
-      "source": [
-        "ethereum-evm-fetcher-frax"
-      ]
+      "source": ["ethereum-evm-fetcher-frax"]
     },
     "ezETH": {
       "source": [
@@ -667,6 +665,12 @@
           "maxDelayMilliseconds": 300000
         }
       }
+    },
+    "PRIME": {
+      "source": [
+        "trader-joe-v2-avalanche-wavax",
+        "uniswap-v3-arbitrumone-weth-3000"
+      ]
     }
   },
   "multiPointPackages": {
@@ -707,6 +711,7 @@
       "PENDLE_RS_ETH_26_09_24",
       "PENDLE_E_ETH_26_09_24",
       "PENDLE_WSTETH_26_06_25",
+      "PRIME",
       "SOL",
       "STG",
       "SWETH",

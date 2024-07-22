@@ -1260,9 +1260,7 @@
       "source": ["twap-local-redstone-main-demo"]
     },
     "sfrxETH": {
-      "source": [
-        "ethereum-evm-fetcher-frax"
-      ]
+      "source": ["ethereum-evm-fetcher-frax"]
     },
     "sfrxETH/ETH": {
       "source": ["non-usd-based"]
@@ -1525,6 +1523,12 @@
     },
     "GM_ETH_WETHe": {
       "source": ["avalanche-evm-fetcher-gmx"]
+    },
+    "PRIME": {
+      "source": [
+        "trader-joe-v2-avalanche-wavax",
+        "uniswap-v3-arbitrumone-weth-3000"
+      ]
     },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]

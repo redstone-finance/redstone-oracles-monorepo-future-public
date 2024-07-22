@@ -397,6 +397,12 @@
     },
     "GM_ETH_WETHe": {
       "source": ["avalanche-evm-fetcher-gmx"]
+    },
+    "PRIME": {
+      "source": [
+        "trader-joe-v2-avalanche-wavax",
+        "uniswap-v3-arbitrumone-weth-3000"
+      ]
     }
   },
   "multiPointPackages": {
@@ -428,6 +434,7 @@
       "PNG_AVAX_ETH_LP",
       "PNG_AVAX_USDC_LP",
       "PNG_AVAX_USDT_LP",
+      "PRIME",
       "QI",
       "SHLB_GMX-AVAX_B",
       "SOL",
