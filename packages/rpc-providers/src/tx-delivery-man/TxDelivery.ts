@@ -403,13 +403,18 @@ export class TxDelivery {
       throw new Error(`Gas oracle was forcefully disabled`);
     }
 
-    const fee = await RedstoneCommon.timeout(
-      gasOracle(this.opts, this.attempt),
-      this.opts.gasOracleTimeout,
-      `Custom gas oracle timeout after ${this.opts.gasOracleTimeout}`
-    );
-
-    return fee;
+    try {
+      return await RedstoneCommon.timeout(
+        gasOracle(this.opts, this.attempt),
+        this.opts.gasOracleTimeout,
+        `Custom gas oracle timeout after ${this.opts.gasOracleTimeout}`
+      );
+    } catch (e) {
+      logger.error(
+        `Custom gas oracle failed. Will fallback to feeEstimator. error=${RedstoneCommon.stringifyError(e)}`
+      );
+      throw e;
+    }
   }
 
   async resolveTxDeliveryCallData(tx: TxDeliveryCall): Promise<string> {
