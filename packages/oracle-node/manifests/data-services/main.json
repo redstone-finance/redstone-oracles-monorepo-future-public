@@ -1524,6 +1524,15 @@
     "GM_ETH_WETHe": {
       "source": ["avalanche-evm-fetcher-gmx"]
     },
+    "YY_STG_S*USDC": {
+      "source": ["arbitrum-evm-fetcher-yield-yak"]
+    },
+    "YY_STG_S*USDT": {
+      "source": ["arbitrum-evm-fetcher-yield-yak"]
+    },
+    "YY_STG_S*ETH": {
+      "source": ["arbitrum-evm-fetcher-yield-yak"]
+    },
     "PRIME": {
       "source": [
         "trader-joe-v2-avalanche-wavax",
