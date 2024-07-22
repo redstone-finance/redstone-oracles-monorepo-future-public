@@ -11,7 +11,11 @@ import {
 describe("fallback-cron-condition", () => {
   before(() => {
     mockEnvVariables({
-      cronExpressions: ["0 * * * *"], // every hour at 0th minute
+      updateTriggers: {
+        ETH: {
+          cron: ["0 * * * *"], // every hour at 0th minute
+        },
+      },
       fallbackOffsetInMinutes: 1,
     });
   });
@@ -24,6 +28,7 @@ describe("fallback-cron-condition", () => {
     setCurrentSystemTime("2023-08-16T00:01:00");
     const lastUpdateTimestamp = dateStrToMilliseconds("2023-08-16T00:00:30");
     const { shouldUpdatePrices, warningMessage } = cronCondition(
+      "ETH",
       lastUpdateTimestamp,
       config()
     );
@@ -37,6 +42,7 @@ describe("fallback-cron-condition", () => {
     setCurrentSystemTime("2023-08-16T00:01:00");
     const lastUpdateTimestamp = dateStrToMilliseconds("2023-08-15T23:00:01");
     const { shouldUpdatePrices, warningMessage } = cronCondition(
+      "ETH",
       lastUpdateTimestamp,
       config()
     );
@@ -50,6 +56,7 @@ describe("fallback-cron-condition", () => {
     setCurrentSystemTime("2023-08-16T00:02:01");
     const lastUpdateTimestamp = dateStrToMilliseconds("2023-08-15T23:59:59");
     const { shouldUpdatePrices, warningMessage } = cronCondition(
+      "ETH",
       lastUpdateTimestamp,
       config()
     );

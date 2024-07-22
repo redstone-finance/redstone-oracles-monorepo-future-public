@@ -1,85 +1,63 @@
-import { DataPackagesResponse } from "@redstone-finance/sdk";
-import { Contract } from "ethers";
 import { MultiFeedAdapterWithoutRounds } from "../../../typechain-types";
-import { config } from "../config";
-import { getBlockTag } from "../contract-interactions/get-block-tag";
-import { getUniqueSignersThresholdFromContract } from "../contract-interactions/get-unique-signers-threshold";
-import { shouldUpdate } from "../update-conditions/should-update";
-import {
-  ContractData,
-  fetchDataFromContract,
-} from "./fetch-data-from-contract";
-import { fetchDataPackages } from "./fetch-data-packages-from-gateway";
+import { config } from "../../config";
+import { getUniqueSignersThresholdFromContract } from "../../core/contract-interactions/get-unique-signers-threshold";
+import { fetchDataPackages } from "../../core/fetch-data-packages";
+import { IterationArgs, RelayerConfig } from "../../types";
+import { shouldUpdate } from "../should-update";
+import { getLastRoundParamsFromContract } from "./get-last-round-params";
 
-export type IterationArgs<T extends Contract> = {
-  shouldUpdatePrices: boolean;
-  args: UpdatePricesArgs<T>;
-  message?: string;
-};
-
-export type UpdatePricesArgs<T extends Contract = Contract> = {
-  dataFeedsToUpdate: string[];
-  dataFeedsDeviationRatios: Record<string, number>;
-  heartbeatUpdates: number[];
-  adapterContract: T;
-  blockTag: number;
-  fetchDataPackages: () => Promise<DataPackagesResponse>;
-};
-
-let adapterContract: undefined | MultiFeedAdapterWithoutRounds = undefined;
-
-const getDataFromContract = async () => {
-  return await fetchDataFromContract(adapterContract!);
-};
-
-const getDataFromGateways = async () => {
-  const relayerConfig = config();
-  const uniqueSignersThreshold = await getUniqueSignersThresholdFromContract(
-    adapterContract!
-  );
+const getDataFromGateways = async (
+  relayerConfig: RelayerConfig,
+  uniqueSignersThreshold: number
+) => {
   return {
     gatewayData: await fetchDataPackages(
-      relayerConfig.dataFeeds,
       relayerConfig,
-      uniqueSignersThreshold
+      uniqueSignersThreshold,
+      false,
+      relayerConfig.dataFeeds
     ),
     fetchDataPackages: (dataFeedIds: string[]) =>
-      fetchDataPackages(dataFeedIds, relayerConfig, uniqueSignersThreshold),
+      fetchDataPackages(
+        relayerConfig,
+        uniqueSignersThreshold,
+        false,
+        dataFeedIds
+      ),
   };
 };
 
-const chooseDataFeedsToUpdate = async (
-  dataPackages: DataPackagesResponse,
-  dataFromContract: ContractData
-) => {
-  const relayerConfig = config();
-  const uniqueSignersThreshold = await getUniqueSignersThresholdFromContract(
-    adapterContract!
-  );
-
-  return await shouldUpdate(
-    {
-      dataPackages,
-      dataFromContract,
-      uniqueSignersThreshold,
-    },
-    relayerConfig
-  );
-};
-
 export const getIterationArgs = async (
-  _adapterContract: MultiFeedAdapterWithoutRounds
+  adapterContract: MultiFeedAdapterWithoutRounds
 ): Promise<IterationArgs<MultiFeedAdapterWithoutRounds>> => {
-  adapterContract = _adapterContract;
-  const { gatewayData, fetchDataPackages } = await getDataFromGateways();
-  const contractData = await getDataFromContract();
+  const relayerConfig = config();
+  const blockTag = await adapterContract.provider.getBlockNumber();
+  const uniqueSignersThreshold = await getUniqueSignersThresholdFromContract(
+    adapterContract,
+    blockTag
+  );
+  const { gatewayData, fetchDataPackages } = await getDataFromGateways(
+    relayerConfig,
+    uniqueSignersThreshold
+  );
+  const contractData = await getLastRoundParamsFromContract(
+    adapterContract,
+    blockTag
+  );
 
   const {
     dataFeedsToUpdate,
     dataFeedsDeviationRatios,
     heartbeatUpdates,
     warningMessage: message,
-  } = await chooseDataFeedsToUpdate(gatewayData, contractData);
+  } = await shouldUpdate(
+    {
+      dataPackages: gatewayData,
+      dataFromContract: contractData,
+      uniqueSignersThreshold,
+    },
+    relayerConfig
+  );
 
   return {
     shouldUpdatePrices: dataFeedsToUpdate.length > 0,
@@ -88,7 +66,7 @@ export const getIterationArgs = async (
       dataFeedsToUpdate,
       dataFeedsDeviationRatios,
       heartbeatUpdates,
-      blockTag: getBlockTag(),
+      blockTag,
       fetchDataPackages: () => fetchDataPackages(dataFeedsToUpdate),
     },
     message,

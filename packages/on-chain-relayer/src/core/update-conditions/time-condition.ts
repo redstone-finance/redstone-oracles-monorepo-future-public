@@ -1,12 +1,14 @@
 import { RelayerConfig } from "../../types";
 
 export const timeUpdateCondition = (
+  dataFeedId: string,
   lastUpdateTimestamp: number,
   config: RelayerConfig
 ) => {
   const { fallbackOffsetInMS } = config;
   const isFallback = fallbackOffsetInMS > 0;
-  let updatePriceInterval = config.updatePriceInterval;
+  let updatePriceInterval =
+    config.updateTriggers[dataFeedId].timeSinceLastUpdateInMilliseconds;
 
   if (!updatePriceInterval) {
     throw new Error("Update price interval must be defined");

@@ -1,7 +1,10 @@
-import { RedstoneAdapterBase } from "../../../typechain-types";
+import {
+  MultiFeedAdapterWithoutRounds,
+  RedstoneAdapterBase,
+} from "../../../typechain-types";
 
 export const getUniqueSignersThresholdFromContract = async (
-  adapterContract: RedstoneAdapterBase,
+  adapterContract: RedstoneAdapterBase | MultiFeedAdapterWithoutRounds,
   blockTag: number
 ) => {
   return await adapterContract.getUniqueSignersThreshold({ blockTag });

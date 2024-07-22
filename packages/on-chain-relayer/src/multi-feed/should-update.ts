@@ -1,9 +1,6 @@
-import { ConditionCheckNames, ConditionCheckResponse } from "../../types";
+import { checkConditionByName } from "../core/update-conditions/check-condition-by-name";
+import { checkIfDataPackageTimestampIsNewer } from "../core/update-conditions/data-packages-timestamp";
 import { Context, RelayerConfig, ShouldUpdateResponse } from "../types";
-import { cronCondition } from "./cron-condition";
-import { checkIfDataPackageTimestampIsNewer } from "./data-packages-timestamp";
-import { timeUpdateCondition } from "./time-condition";
-import { valueDeviationCondition } from "./value-deviation-condition";
 
 export const shouldUpdate = async (
   context: Context,
@@ -39,7 +36,7 @@ export const shouldUpdate = async (
     }
 
     const { shouldNotUpdatePrice, message } =
-      checkIfDataPackageTimestampIsNewer(dataFeedId, context);
+      checkIfDataPackageTimestampIsNewer(context, dataFeedId);
     if (shouldNotUpdatePrice) {
       shouldUpdatePrices = false;
       warningMessages.push(message!);
@@ -56,37 +53,4 @@ export const shouldUpdate = async (
     heartbeatUpdates: Array.from(heartbeatUpdates),
     warningMessage: warningMessages.join("; "),
   };
-};
-
-const checkConditionByName = async (
-  name: ConditionCheckNames,
-  dataFeedId: string,
-  context: Context,
-  config: RelayerConfig
-): Promise<ConditionCheckResponse> => {
-  switch (name) {
-    case "time":
-      return timeUpdateCondition(
-        dataFeedId,
-        context.dataFromContract[dataFeedId].lastBlockTimestamp,
-        config
-      );
-
-    case "cron":
-      return cronCondition(
-        dataFeedId,
-        context.dataFromContract[dataFeedId].lastBlockTimestamp,
-        config
-      );
-
-    case "value-deviation":
-      return await valueDeviationCondition(
-        dataFeedId,
-        context.dataPackages,
-        context.uniqueSignersThreshold,
-        context.dataFromContract[dataFeedId].lastValue,
-        context.dataFromContract[dataFeedId].lastBlockTimestamp,
-        config
-      );
-  }
 };

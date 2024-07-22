@@ -1,15 +1,29 @@
-import {
-  DataPackagesResponse,
-  ValuesForDataFeeds,
-} from "@redstone-finance/sdk";
+import { DataPackagesResponse } from "@redstone-finance/sdk";
+import { BigNumber, Contract } from "ethers";
 import { z } from "zod";
-import { LastRoundTimestamps } from "./core/contract-interactions/get-last-round-params";
+import { MultiFeedAdapterWithoutRounds } from "../typechain-types";
+
+export type LastRoundDetails = {
+  lastDataPackageTimestampMS: number;
+  lastBlockTimestampMS: number;
+  lastValue: BigNumber;
+};
+
+export type ContractData = {
+  [dataFeedsId: string]: LastRoundDetails;
+};
 
 export interface Context {
   dataPackages: DataPackagesResponse;
-  valuesFromContract: ValuesForDataFeeds;
-  lastUpdateTimestamps: LastRoundTimestamps;
+  dataFromContract: ContractData;
   uniqueSignersThreshold: number;
+}
+
+export interface ShouldUpdateResponse {
+  dataFeedsToUpdate: string[];
+  dataFeedsDeviationRatios: Record<string, number>;
+  heartbeatUpdates: number[];
+  warningMessage: string;
 }
 
 export interface ConditionCheckResponse {
@@ -17,6 +31,30 @@ export interface ConditionCheckResponse {
   warningMessage: string;
   maxDeviationRatio?: number;
 }
+
+export type IterationArgs<T extends Contract> = {
+  shouldUpdatePrices: boolean;
+  args: UpdatePricesArgs<T>;
+  message?: string;
+};
+
+export type UpdatePricesArgsBase<T extends Contract = Contract> = {
+  adapterContract: T;
+  blockTag: number;
+  fetchDataPackages: () => Promise<DataPackagesResponse>;
+};
+
+export type UpdatePricesMultiFeedFields = {
+  dataFeedsToUpdate: string[];
+  dataFeedsDeviationRatios: Record<string, number>;
+  heartbeatUpdates: number[];
+};
+
+export type UpdatePricesArgs<T extends Contract = Contract> =
+  UpdatePricesArgsBase<T> &
+    (T extends MultiFeedAdapterWithoutRounds
+      ? UpdatePricesMultiFeedFields
+      : object);
 
 const PRICE_FEEDS = "price-feeds";
 const MENTO = "mento";
@@ -103,8 +141,6 @@ export type AnyOnChainRelayerManifestInput = z.input<
 
 export interface RelayerConfig {
   relayerIterationInterval: number;
-  updatePriceInterval?: number;
-  cronExpressions?: string[];
   rpcUrls: string[];
   chainName: string;
   chainId: number;
@@ -116,8 +152,8 @@ export interface RelayerConfig {
   gasLimit?: number;
   gasMultiplier?: number;
   maxTxSendAttempts?: number;
-  updateConditions: ConditionCheckNames[];
-  minDeviationPercentage?: number;
+  updateTriggers: Record<string, UpdateTriggers>;
+  updateConditions: Record<string, ConditionCheckNames[]>;
   healthcheckPingUrl?: string;
   adapterContractType: AdapterType;
   expectedTxDeliveryTimeInMS: number;
@@ -134,7 +170,6 @@ export interface RelayerConfig {
   fallbackSkipDeviationBasedFrequentUpdates: boolean;
   disableCustomGasOracle: boolean;
   temporaryUpdatePriceInterval: number;
-  priceFeedsDeviationOverrides?: Record<string, number>;
   getBlockNumberTimeout?: number;
   useMulticallProvider: boolean;
   multiFeedAdditionalUpdatesDeviationThreshold?: number;

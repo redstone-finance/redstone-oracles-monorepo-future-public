@@ -1,7 +1,7 @@
 import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 import { expect } from "chai";
 import { config } from "../../src/config";
-import { shouldUpdate } from "../../src/core/update-conditions/should-update";
+import { shouldUpdate } from "../../src/price-feeds/should-update";
 import {
   createNumberFromContract,
   getDataPackagesResponse,
@@ -23,10 +23,17 @@ describe("should-update", () => {
     const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
       {
         dataPackages,
-        valuesFromContract: smallerValueDiff,
-        lastUpdateTimestamps: {
-          lastBlockTimestampMS: lastUpdateTimestamp,
-          lastDataPackageTimestampMS: lastUpdateTimestamp,
+        dataFromContract: {
+          ETH: {
+            lastBlockTimestampMS: lastUpdateTimestamp,
+            lastDataPackageTimestampMS: lastUpdateTimestamp,
+            lastValue: smallerValueDiff.ETH!,
+          },
+          BTC: {
+            lastBlockTimestampMS: lastUpdateTimestamp,
+            lastDataPackageTimestampMS: lastUpdateTimestamp,
+            lastValue: smallerValueDiff.BTC!,
+          },
         },
         uniqueSignersThreshold: 2,
       },
@@ -52,16 +59,23 @@ describe("should-update", () => {
     const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
       {
         dataPackages,
-        valuesFromContract: biggerValueDiff,
-        lastUpdateTimestamps: {
-          lastBlockTimestampMS: lastUpdateTimestamp,
-          // this timestamp should not be taken into account here
-          lastDataPackageTimestampMS: Date.now() - 1000000,
+        dataFromContract: {
+          ETH: {
+            lastBlockTimestampMS: lastUpdateTimestamp,
+            lastDataPackageTimestampMS: Date.now() - 1000000,
+            lastValue: biggerValueDiff.ETH!,
+          },
+          BTC: {
+            lastBlockTimestampMS: lastUpdateTimestamp,
+            lastDataPackageTimestampMS: Date.now() - 1000000,
+            lastValue: biggerValueDiff.BTC!,
+          },
         },
         uniqueSignersThreshold: 2,
       },
       config()
     );
+    console.log(warningMessage);
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(
       /Not enough time has passed to update prices/
@@ -78,10 +92,17 @@ describe("should-update", () => {
     const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
       {
         dataPackages,
-        valuesFromContract: smallerValueDiff,
-        lastUpdateTimestamps: {
-          lastBlockTimestampMS: lastUpdateTimestamp,
-          lastDataPackageTimestampMS: lastUpdateTimestamp,
+        dataFromContract: {
+          ETH: {
+            lastBlockTimestampMS: lastUpdateTimestamp,
+            lastDataPackageTimestampMS: lastUpdateTimestamp,
+            lastValue: smallerValueDiff.ETH!,
+          },
+          BTC: {
+            lastBlockTimestampMS: lastUpdateTimestamp,
+            lastDataPackageTimestampMS: lastUpdateTimestamp,
+            lastValue: smallerValueDiff.BTC!,
+          },
         },
         uniqueSignersThreshold: 2,
       },
@@ -95,23 +116,30 @@ describe("should-update", () => {
 
   it("should return true for same value when data packages contains custom decimals", async () => {
     const dataPackages = await getDataPackagesResponse([
-      { value: 124567, dataFeedId: "timestamp", decimals: 0 },
-      { value: 1247, dataFeedId: "timestamp2", decimals: 2 },
+      { value: 124567, dataFeedId: "ETH", decimals: 0 },
+      { value: 1247, dataFeedId: "BTC", decimals: 2 },
     ]);
 
     const sameValue: ValuesForDataFeeds = {
-      timestamp: createNumberFromContract(124567, 0),
-      timestamp2: createNumberFromContract(1247, 2),
+      ETH: createNumberFromContract(124567, 0),
+      BTC: createNumberFromContract(1247, 2),
     };
 
     const lastUpdateTimestamp = Date.now() - 100000;
     const { warningMessage } = await shouldUpdate(
       {
         dataPackages,
-        valuesFromContract: sameValue,
-        lastUpdateTimestamps: {
-          lastBlockTimestampMS: lastUpdateTimestamp,
-          lastDataPackageTimestampMS: lastUpdateTimestamp,
+        dataFromContract: {
+          ETH: {
+            lastBlockTimestampMS: lastUpdateTimestamp,
+            lastDataPackageTimestampMS: lastUpdateTimestamp,
+            lastValue: sameValue.ETH!,
+          },
+          BTC: {
+            lastBlockTimestampMS: lastUpdateTimestamp,
+            lastDataPackageTimestampMS: lastUpdateTimestamp,
+            lastValue: sameValue.BTC!,
+          },
         },
         uniqueSignersThreshold: 2,
       },
@@ -123,23 +151,27 @@ describe("should-update", () => {
   });
 
   it("should return true for smaller value when data packages contains custom decimals", async () => {
+    mockEnvVariables({
+      dataFeeds: ["ETH"],
+    });
     const dataPackages = await getDataPackagesResponse([
-      { value: 124567, dataFeedId: "timestamp", decimals: 0 },
+      { value: 124567, dataFeedId: "ETH", decimals: 0 },
     ]);
 
     const sameValue: ValuesForDataFeeds = {
-      timestamp: createNumberFromContract(Math.floor(124567 * 0.8), 0),
+      ETH: createNumberFromContract(Math.floor(124567 * 0.8), 0),
     };
 
     const lastUpdateTimestamp = Date.now() - 100000;
     const { warningMessage } = await shouldUpdate(
       {
         dataPackages,
-        valuesFromContract: sameValue,
-        lastUpdateTimestamps: {
-          lastBlockTimestampMS: lastUpdateTimestamp,
-          // this timestamp should not be taken into account here
-          lastDataPackageTimestampMS: Date.now() + 100000,
+        dataFromContract: {
+          ETH: {
+            lastBlockTimestampMS: lastUpdateTimestamp,
+            lastDataPackageTimestampMS: Date.now() + 100000,
+            lastValue: sameValue.ETH!,
+          },
         },
         uniqueSignersThreshold: 2,
       },

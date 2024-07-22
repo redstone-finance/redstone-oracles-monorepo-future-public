@@ -1,41 +1,46 @@
-import {
-  DataPackagesResponse,
-  ValuesForDataFeeds,
-} from "@redstone-finance/sdk";
+import { DataPackagesResponse } from "@redstone-finance/sdk";
+import { BigNumber } from "ethers";
 import { RelayerConfig } from "../../types";
 import { fetchDataPackages } from "../fetch-data-packages";
 import { checkValueDeviationCondition } from "./check-value-deviation-condition";
 
 export const performValueDeviationConditionChecks = async (
+  dataFeedId: string,
   latestDataPackages: DataPackagesResponse,
-  valuesFromContract: ValuesForDataFeeds,
+  valuesFromContract: BigNumber,
   lastUpdateTimestampInMs: number,
   config: RelayerConfig,
   historicalDataPackagesFetchCallback: () => Promise<DataPackagesResponse>
 ) => {
-  const { shouldUpdatePrices, warningMessage } = checkValueDeviationCondition(
-    latestDataPackages,
-    valuesFromContract,
-    config
-  );
+  const { shouldUpdatePrices, maxDeviationRatio, warningMessage } =
+    checkValueDeviationCondition(
+      dataFeedId,
+      latestDataPackages,
+      valuesFromContract,
+      config
+    );
 
   const isFallback = (config.fallbackOffsetInMinutes ?? 0) > 0;
   let historicalShouldUpdatePrices = true;
   let historicalWarningMessage = "";
+  let historicalMaxDeviation = 0;
 
   if ((shouldUpdatePrices || config.isNotLazy) && isFallback) {
     const historicalDataPackages = await historicalDataPackagesFetchCallback();
 
     const {
       shouldUpdatePrices: historicalShouldUpdatePricesTmp,
+      maxDeviationRatio: historicalMaxDeviationTmp,
       warningMessage: historicalWarningMessageTmp,
     } = checkValueDeviationCondition(
+      dataFeedId,
       historicalDataPackages,
       valuesFromContract,
       config
     );
 
     historicalShouldUpdatePrices = historicalShouldUpdatePricesTmp;
+    historicalMaxDeviation = historicalMaxDeviationTmp;
     historicalWarningMessage = ` AND Historical ${historicalWarningMessageTmp}`;
   }
 
@@ -55,14 +60,16 @@ export const performValueDeviationConditionChecks = async (
 
   return {
     shouldUpdatePrices: shouldUpdatePricesNoSkip && !skipFallbackUpdate,
+    maxDeviationRatio: Math.max(maxDeviationRatio, historicalMaxDeviation),
     warningMessage: `${prefix}${skipFallbackMessage}${warningMessage}${historicalWarningMessage}`,
   };
 };
 
 export const valueDeviationCondition = async (
+  dataFeedId: string,
   latestDataPackages: DataPackagesResponse,
   uniqueSignersThreshold: number,
-  valuesFromContract: ValuesForDataFeeds,
+  valueFromContract: BigNumber,
   lastUpdateTimestampInMs: number,
   config: RelayerConfig
 ) => {
@@ -71,8 +78,9 @@ export const valueDeviationCondition = async (
   };
 
   return await performValueDeviationConditionChecks(
+    dataFeedId,
     latestDataPackages,
-    valuesFromContract,
+    valueFromContract,
     lastUpdateTimestampInMs,
     config,
     olderDataPackagesFetchCallback

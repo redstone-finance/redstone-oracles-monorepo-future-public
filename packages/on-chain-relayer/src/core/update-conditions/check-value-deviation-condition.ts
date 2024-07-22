@@ -1,8 +1,5 @@
 import { consts, INumericDataPoint } from "@redstone-finance/protocol";
-import {
-  DataPackagesResponse,
-  ValuesForDataFeeds,
-} from "@redstone-finance/sdk";
+import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { MathUtils } from "@redstone-finance/utils";
 import { BigNumber, utils } from "ethers";
 import { RelayerConfig } from "../../types";
@@ -41,8 +38,9 @@ const verifyDataPackagesAreDisjoint = (dataPackages: DataPackagesResponse) => {
 };
 
 export const checkValueDeviationCondition = (
+  dataFeedId: string,
   dataPackages: DataPackagesResponse,
-  valuesFromContract: ValuesForDataFeeds,
+  valueFromContract: BigNumber,
   config: RelayerConfig
 ) => {
   const logTrace = new ValueDeviationLogTrace();
@@ -51,52 +49,43 @@ export const checkValueDeviationCondition = (
   let shouldUpdatePrices = false;
   const warnings = verifyDataPackagesAreDisjoint(dataPackages);
   logTrace.addWarnings(warnings);
-  const timestampMilliseconds = chooseDataPackagesTimestamp(dataPackages);
-  for (const dataFeedId of config.dataFeeds) {
-    const valueFromContract =
-      valuesFromContract[dataFeedId] ?? BigNumber.from(0);
-    const dataPoints = getDataPointsForDataFeedId(dataPackages, dataFeedId);
-    for (const dataPoint of dataPoints) {
-      const dataPointObj = dataPoint.toObj() as INumericDataPoint;
+  const timestampMilliseconds = chooseDataPackagesTimestamp(
+    dataPackages,
+    dataFeedId
+  );
+  const dataPoints = getDataPointsForDataFeedId(dataPackages, dataFeedId);
+  for (const dataPoint of dataPoints) {
+    const dataPointObj = dataPoint.toObj() as INumericDataPoint;
 
-      const valueFromContractAsDecimal = Number(
-        utils.formatUnits(
-          valueFromContract.toString(),
-          dataPointObj.decimals ?? consts.DEFAULT_NUM_VALUE_DECIMALS
-        )
-      );
+    const valueFromContractAsDecimal = Number(
+      utils.formatUnits(
+        valueFromContract.toString(),
+        dataPointObj.decimals ?? consts.DEFAULT_NUM_VALUE_DECIMALS
+      )
+    );
 
-      logTrace.addPerDataFeedLog(
-        timestampMilliseconds,
-        valueFromContractAsDecimal,
-        dataPointObj
-      );
+    logTrace.addPerDataFeedLog(
+      timestampMilliseconds,
+      valueFromContractAsDecimal,
+      dataPointObj
+    );
 
-      const currentDeviation = calculateDeviation(
-        dataPointObj.value,
-        valueFromContractAsDecimal
-      );
+    const currentDeviation = calculateDeviation(
+      dataPointObj.value,
+      valueFromContractAsDecimal
+    );
 
-      if (config.priceFeedsDeviationOverrides?.[dataFeedId]) {
-        shouldUpdatePrices ||=
-          currentDeviation >= config.priceFeedsDeviationOverrides[dataFeedId];
-        logTrace.addDeviationInfo(
-          currentDeviation,
-          config.priceFeedsDeviationOverrides[dataFeedId],
-          dataFeedId
-        );
-      } else {
-        maxDeviation = Math.max(currentDeviation, maxDeviation);
-      }
-    }
+    maxDeviation = Math.max(currentDeviation, maxDeviation);
   }
 
-  const { minDeviationPercentage } = config;
+  const minDeviationPercentage =
+    config.updateTriggers[dataFeedId].deviationPercentage;
   shouldUpdatePrices ||= maxDeviation >= minDeviationPercentage!;
   logTrace.addDeviationInfo(maxDeviation, minDeviationPercentage!);
 
   return {
     shouldUpdatePrices,
+    maxDeviationRatio: maxDeviation / minDeviationPercentage!,
     warningMessage: shouldUpdatePrices
       ? `Value has deviated enough to be updated. ${logTrace.toString()}`
       : `Value has not deviated enough to be updated. ${logTrace.toString()}`,

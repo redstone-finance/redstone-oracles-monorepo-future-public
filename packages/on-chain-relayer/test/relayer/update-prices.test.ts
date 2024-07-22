@@ -69,7 +69,10 @@ describe("update-prices", () => {
     // Mocking config
     const overrideMockConfig = {
       adapterContractType: "mento",
-      updateConditions: ["time"],
+      updateConditions: {
+        ETH: ["time"],
+        BTC: ["time"],
+      },
     };
     mockEnvVariables(overrideMockConfig);
 

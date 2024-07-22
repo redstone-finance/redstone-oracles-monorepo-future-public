@@ -13,6 +13,7 @@ describe("fallback-time-condition", () => {
   it("should return false if time diff smaller than interval", () => {
     const lastUpdateTimestamp = Date.now() - 1;
     const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
+      "ETH",
       lastUpdateTimestamp,
       config()
     );
@@ -25,6 +26,7 @@ describe("fallback-time-condition", () => {
   it("should return false if time diff bigger than interval but less than interval increased by offset", () => {
     const lastUpdateTimestamp = Date.now() - 60999;
     const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
+      "ETH",
       lastUpdateTimestamp,
       config()
     );
@@ -37,6 +39,7 @@ describe("fallback-time-condition", () => {
   it("should return true if time diff bigger than interval increased by offset", () => {
     const lastUpdateTimestamp = Date.now() - 61000;
     const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
+      "ETH",
       lastUpdateTimestamp,
       config()
     );

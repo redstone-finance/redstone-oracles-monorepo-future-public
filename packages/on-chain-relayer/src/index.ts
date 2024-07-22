@@ -13,15 +13,12 @@ export type {
   PriceFeedsAdapterWithRounds,
   RedstoneAdapterBase,
 } from "../typechain-types";
-export {
-  getIterationArgs,
-  type UpdatePricesArgs,
-} from "./args/get-iteration-args";
 export { setConfigProvider } from "./config";
 export { getAbiForAdapter } from "./core/contract-interactions/get-abi-for-adapter";
 export { chooseDataPackagesTimestamp } from "./core/update-conditions/data-packages-timestamp";
 export { makeConfigProvider } from "./make-config-provider";
-export * as MultiFeed from "./multi-feed/index";
+export { getIterationArgs as getMultiFeedIterationArgs } from "./multi-feed/args/get-iteration-args";
+export { getIterationArgs as getPriceFeedsIterationArgs } from "./price-feeds/args/get-iteration-args";
 export {
   AdapterTypesEnum,
   AnyOnChainRelayerManifestSchema,
@@ -38,6 +35,7 @@ export {
   type OnChainRelayerManifest,
   type OnChainRelayerManifestInput,
   type RelayerConfig,
+  type UpdatePricesArgs,
   type UpdateTriggers,
 } from "./types";
 export {

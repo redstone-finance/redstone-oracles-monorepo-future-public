@@ -1,9 +1,14 @@
 import { Web3FunctionUserArgs } from "@gelatonetwork/web3-functions-sdk";
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
-  MultiFeed,
+  getAbiForAdapter,
+  getMultiFeedIterationArgs,
+  makeConfigProvider,
+  MultiFeedAdapterWithoutRounds,
   MultiFeedOnChainRelayerManifest,
   OnChainRelayerEnv,
+  setConfigProvider,
+  UpdatePricesArgs,
 } from "@redstone-finance/on-chain-relayer";
 import { Contract, providers, utils } from "ethers";
 import {
@@ -13,7 +18,7 @@ import {
 } from "../IterationArgsProviderInterface";
 
 export class MultiFeedIterationArgsProvider
-  implements IterationArgsProviderInterface<MultiFeed.UpdatePricesArgs>
+  implements IterationArgsProviderInterface<UpdatePricesArgs>
 {
   constructor(
     protected manifest: MultiFeedOnChainRelayerManifest,
@@ -26,10 +31,10 @@ export class MultiFeedIterationArgsProvider
     userArgs: Web3FunctionUserArgs,
     env: IterationArgsProviderEnv,
     provider: providers.StaticJsonRpcProvider
-  ): Promise<IterationArgs<MultiFeed.UpdatePricesArgs>> {
+  ): Promise<IterationArgs<UpdatePricesArgs>> {
     this.setUp();
 
-    const abi = MultiFeed.getAbiForAdapter();
+    const abi = getAbiForAdapter();
 
     if (!this.adapterContractAddress) {
       throw new Error("Unknown adapterContractAddress");
@@ -39,10 +44,9 @@ export class MultiFeedIterationArgsProvider
       this.adapterContractAddress,
       abi,
       provider
-    ) as MultiFeed.MultiFeedAdapterWithoutRounds;
+    ) as MultiFeedAdapterWithoutRounds;
 
-    await MultiFeed.updateBlockTag(adapterContract);
-    return await MultiFeed.getIterationArgs(adapterContract);
+    return await getMultiFeedIterationArgs(adapterContract);
   }
 
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this
@@ -50,7 +54,9 @@ export class MultiFeedIterationArgsProvider
     adapterContract,
     dataFeedsToUpdate,
     fetchDataPackages,
-  }: MultiFeed.UpdatePricesArgs): Promise<string | undefined> {
+  }: UpdatePricesArgs<MultiFeedAdapterWithoutRounds>): Promise<
+    string | undefined
+  > {
     const dataPackages = await fetchDataPackages();
     const dataPackagesWrapper = new DataPackagesWrapper(dataPackages);
     const dataFeedsAsBytes32 = dataFeedsToUpdate.map(utils.formatBytes32String);
@@ -68,8 +74,6 @@ export class MultiFeedIterationArgsProvider
 
   private setUp() {
     this.adapterContractAddress = this.manifest.adapterContract;
-    MultiFeed.setConfigProvider(() =>
-      MultiFeed.makeConfigProvider(this.manifest, this.relayerEnv)
-    );
+    setConfigProvider(() => makeConfigProvider(this.manifest, this.relayerEnv));
   }
 }
