@@ -666,6 +666,15 @@
         }
       }
     },
+    "YY_STG_S*USDC": {
+      "source": ["arbitrum-evm-fetcher-yield-yak"]
+    },
+    "YY_STG_S*USDT": {
+      "source": ["arbitrum-evm-fetcher-yield-yak"]
+    },
+    "YY_STG_S*ETH": {
+      "source": ["arbitrum-evm-fetcher-yield-yak"]
+    },
     "PRIME": {
       "source": [
         "trader-joe-v2-avalanche-wavax",
@@ -722,6 +731,9 @@
       "USDT",
       "USDe",
       "WOO",
+      "YY_STG_S*USDC",
+      "YY_STG_S*USDT",
+      "YY_STG_S*ETH",
       "YY_WOMBEX_DAI",
       "YY_WOMBEX_GLP",
       "YY_WOMBEX_USDC.e",
