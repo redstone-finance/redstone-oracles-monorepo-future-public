@@ -3,7 +3,8 @@
   "exclude": [
     "node_modules",
     "dist",
-    "tests",
+    "test",
+    "coverage",
     "**/*spec.ts",
     "scripts",
     "jest.config.ts"

@@ -44,7 +44,7 @@ Blueprint is a development environment for TON blockchain for writing, testing, 
       execute the methods described [here](contracts/README.md#price_feedfc)
 - [src](src) - TypeScript classes, useful for establishing a connection between TypeScript and TON layers.
     - See [below](#-connecting-to-the-contract), how to connect to the contract.
-- [tests](tests) - TypeScript test suite for all contracts (relying on Sandbox for in-process tests):
+- [test](test) - TypeScript test suite for all contracts (relying on Sandbox for in-process tests):
     - ![TODO](assets/to-do-list.png) TBD
 
 ## 🔥 Connecting to the contract
@@ -70,12 +70,13 @@ const prices = new TonPricesContractConnector(network, yourContractAddress);
 const paramsProvider = new ContractParamsProvider({
     dataServiceId: "redstone-main-demo",
     uniqueSignersCount: 1,
-    dataFeeds: ["ETH", "BTC"]
+    dataPackagesIds: ["ETH", "BTC"]
 });
 ```
 
 The `network` param is needed to be passed because of different ways of configuring TON network access.
-If you're using Blueprint or have another custom way, just define the `network` param as below:
+If you're using Blueprint or have another custom way, just define the `network` param as below.
+Note: the `@ton/blueprint` is not a dependency of the library, so you need to add to your project manually.
 
 ```ts
 const blueprintNetwork = new BlueprintTonNetwork(networkProvider, apiV2Config);
@@ -117,4 +118,3 @@ cases and is helping hundreds of builders to battle-test their skills and knowle
 ## 📄 License
 
 RedStone ton connector is an open-source and free software released under the BUSL-1.1 License.
-
