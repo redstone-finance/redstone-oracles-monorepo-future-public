@@ -12,11 +12,11 @@ import { parseUnits } from "ethers/lib/utils";
 import { ethers, upgrades, waffle } from "hardhat";
 import Sinon from "sinon";
 import * as get_provider from "../../../../src/core/contract-interactions/get-relayer-provider";
-import { getValuesForDataFeeds } from "../../../../src/core/contract-interactions/get-values-for-data-feeds";
 import {
   calculateLinkedListPosition,
   prepareLinkedListLocationsForMentoAdapterReport,
 } from "../../../../src/custom-integrations/mento/mento-utils";
+import { getValuesForDataFeeds } from "../../../../src/price-feeds/args/get-values-for-data-feeds";
 import {
   MentoAdapterBase,
   MentoAdapterMock,

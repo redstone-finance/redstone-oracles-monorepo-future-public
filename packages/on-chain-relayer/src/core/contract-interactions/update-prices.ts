@@ -4,19 +4,20 @@ import {
   convertToTxDeliveryCall,
 } from "@redstone-finance/rpc-providers";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
-import { providers } from "ethers";
+import { providers, utils } from "ethers";
 import {
   MentoAdapterBase,
+  MultiFeedAdapterWithoutRounds,
   RedstoneAdapterBase,
 } from "../../../typechain-types";
-import { UpdatePricesArgs } from "../../args/get-iteration-args";
 import { config } from "../../config";
 import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
 import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
 
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
+import { getSortedOraclesContractAtAddress } from "../../custom-integrations/mento/get-sorted-oracles-contract-at-address";
+import { UpdatePricesArgs } from "../../types";
 import { chooseDataPackagesTimestamp } from "../update-conditions/data-packages-timestamp";
-import { getSortedOraclesContractAtAddress } from "./get-sorted-oracles-contract-at-address";
 
 const logger = loggerFactory("updatePrices");
 
@@ -59,6 +60,10 @@ const makeUpdateTx = async (
       return await makePriceFeedUpdateTx(
         args as UpdatePricesArgs<RedstoneAdapterBase>
       );
+    case "multi-feed":
+      return await makeMultiFeedUpdateTx(
+        args as UpdatePricesArgs<MultiFeedAdapterWithoutRounds>
+      );
     case "mento":
       return await makeMentoUpdateTx(
         args as UpdatePricesArgs<MentoAdapterBase>
@@ -87,6 +92,29 @@ const makePriceFeedUpdateTx = async ({
   const txCall = convertToTxDeliveryCall(
     await wrappedContract.populateTransaction["updateDataFeedsValues"](
       proposedTimestamp
+    )
+  );
+
+  return txCall;
+};
+
+const makeMultiFeedUpdateTx = async ({
+  adapterContract,
+  dataFeedsToUpdate,
+  fetchDataPackages,
+}: UpdatePricesArgs<MultiFeedAdapterWithoutRounds>): Promise<TxDeliveryCall> => {
+  const dataFeedsAsBytes32 = dataFeedsToUpdate.map(utils.formatBytes32String);
+  const dataPackages = await fetchDataPackages();
+  const dataPackagesWrapper =
+    new DataPackagesWrapper<MultiFeedAdapterWithoutRounds>(dataPackages);
+
+  dataPackagesWrapper.setMetadataTimestamp(Date.now());
+  const wrappedContract =
+    dataPackagesWrapper.overwriteEthersContract(adapterContract);
+
+  const txCall = convertToTxDeliveryCall(
+    await wrappedContract.populateTransaction["updateDataFeedsValuesPartial"](
+      dataFeedsAsBytes32
     )
   );
 

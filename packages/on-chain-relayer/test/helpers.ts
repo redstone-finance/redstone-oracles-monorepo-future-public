@@ -56,7 +56,6 @@ export const mockEnvVariables = (
   setConfigProvider(() => {
     return {
       relayerIterationInterval: "10",
-      updatePriceInterval: 1000,
       rpcUrl: "http://127.0.0.1:8545",
       chainName: "HardhatNetwork",
       chainId: "31337",
@@ -66,8 +65,20 @@ export const mockEnvVariables = (
       dataServiceId: "redstone-main-demo",
       dataFeeds: ["ETH", "BTC"],
       gasLimit: 1000000,
-      updateConditions: ["time", "value-deviation"],
-      minDeviationPercentage: 10,
+      updateConditions: {
+        ETH: ["time", "value-deviation"],
+        BTC: ["time", "value-deviation"],
+      },
+      updateTriggers: {
+        ETH: {
+          deviationPercentage: 10,
+          timeSinceLastUpdateInMilliseconds: 1000,
+        },
+        BTC: {
+          deviationPercentage: 10,
+          timeSinceLastUpdateInMilliseconds: 1000,
+        },
+      },
       adapterContractType: "price-feeds",
       fallbackOffsetInMS:
         ((overrideMockConfig.fallbackOffsetInMinutes as number | undefined) ??

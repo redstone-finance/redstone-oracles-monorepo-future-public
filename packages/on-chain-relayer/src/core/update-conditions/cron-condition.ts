@@ -2,13 +2,14 @@ import { parseExpression } from "cron-parser";
 import { RelayerConfig } from "../../types";
 
 export const cronCondition = (
+  dataFeedId: string,
   lastUpdateTimestamp: number,
   config: RelayerConfig
 ) => {
   const currentTimestamp = Date.now();
   const warningMessages: string[] = [];
   let shouldUpdatePrices = false;
-  for (const cronExpression of config.cronExpressions ?? []) {
+  for (const cronExpression of config.updateTriggers[dataFeedId].cron ?? []) {
     const cronCheck = checkCronCondition(
       cronExpression,
       currentTimestamp,

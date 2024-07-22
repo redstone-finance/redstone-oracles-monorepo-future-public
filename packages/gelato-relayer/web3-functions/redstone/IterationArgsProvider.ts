@@ -3,7 +3,7 @@ import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
   chooseDataPackagesTimestamp,
   getAbiForAdapter,
-  getIterationArgs,
+  getPriceFeedsIterationArgs,
   makeConfigProvider,
   OnChainRelayerEnv,
   OnChainRelayerManifest,
@@ -47,7 +47,7 @@ export class IterationArgsProvider
       provider
     ) as RedstoneAdapterBase;
 
-    return await getIterationArgs(adapterContract);
+    return await getPriceFeedsIterationArgs(adapterContract);
   }
 
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this

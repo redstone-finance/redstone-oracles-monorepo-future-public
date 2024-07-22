@@ -17,7 +17,8 @@ const logger = loggerFactory("fetch-data-packages");
 export async function fetchDataPackages(
   config: RelayerConfig,
   uniqueSignersThreshold: number,
-  isHistorical: boolean = false
+  isHistorical: boolean = false,
+  dataFeedIds?: string[]
 ) {
   const { dataServiceId, dataFeeds, dataPackagesNames, cacheServiceUrls } =
     config;
@@ -25,7 +26,7 @@ export async function fetchDataPackages(
   const requestParams: DataPackagesRequestParams = {
     dataServiceId,
     uniqueSignersCount: uniqueSignersThreshold,
-    dataPackagesIds: dataPackagesNames ?? dataFeeds,
+    dataPackagesIds: dataFeedIds ?? dataPackagesNames ?? dataFeeds,
     urls: cacheServiceUrls,
     maxTimestampDeviationMS: RedstoneCommon.minToMs(3),
     authorizedSigners: getSignersForDataServiceId(

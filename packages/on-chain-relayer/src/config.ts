@@ -1,4 +1,5 @@
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
+import _ from "lodash";
 import { ConfigProvider, RelayerConfig } from "./types";
 
 let configProvider: ConfigProvider | undefined = undefined;
@@ -16,7 +17,11 @@ export const config = () => {
   relayerConfig = configProvider();
 
   // Validating adapter contract type
-  if (!["mento", "price-feeds"].includes(relayerConfig.adapterContractType)) {
+  if (
+    !["mento", "price-feeds", "multi-feed"].includes(
+      relayerConfig.adapterContractType
+    )
+  ) {
     throw new Error(
       `Adapter contract type not supported: ${relayerConfig.adapterContractType}`
     );
@@ -39,15 +44,19 @@ export const timelyOverrideSinceLastUpdate = (
     relayerConfig,
     "[BUG] It should never happen. Fix code..."
   );
-  const oldUpdatePriceInterval = relayerConfig.updatePriceInterval;
-  relayerConfig.updatePriceInterval = Math.min(
-    temporaryUpdatePriceInterval,
-    oldUpdatePriceInterval ?? temporaryUpdatePriceInterval
-  );
+  const oldUpdateConditions = _.cloneDeep(relayerConfig.updateConditions);
+  const oldUpdateTriggers = _.cloneDeep(relayerConfig.updateTriggers);
 
-  const oldConditions = [...relayerConfig.updateConditions];
-  if (!relayerConfig.updateConditions.includes("time")) {
-    relayerConfig.updateConditions.push("time");
+  for (const dataFeedId of relayerConfig.dataFeeds) {
+    relayerConfig.updateTriggers[dataFeedId].timeSinceLastUpdateInMilliseconds =
+      Math.min(
+        temporaryUpdatePriceInterval,
+        relayerConfig.updateTriggers[dataFeedId]
+          .timeSinceLastUpdateInMilliseconds ?? temporaryUpdatePriceInterval
+      );
+    if (!relayerConfig.updateConditions[dataFeedId].includes("time")) {
+      relayerConfig.updateConditions[dataFeedId].push("time");
+    }
   }
 
   const temporaryUpdateDuration = Math.floor(
@@ -62,10 +71,8 @@ export const timelyOverrideSinceLastUpdate = (
   );
 
   setTimeout(() => {
-    relayerConfig!.updatePriceInterval = oldUpdatePriceInterval;
-    relayerConfig!.updateConditions = oldConditions;
-    logger.log(
-      `Reverting updatePriceInterval to ${oldUpdatePriceInterval} [min]`
-    );
+    relayerConfig!.updateTriggers = oldUpdateTriggers;
+    relayerConfig!.updateConditions = oldUpdateConditions;
+    logger.log(`Reverting updatePriceIntervals`);
   }, temporaryUpdateDuration);
 };

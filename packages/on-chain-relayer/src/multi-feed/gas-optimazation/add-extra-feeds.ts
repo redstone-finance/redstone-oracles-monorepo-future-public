@@ -1,10 +1,10 @@
 import { MultiFeedAdapterWithoutRounds } from "../../../typechain-types";
-import { UpdatePricesArgs } from "../args/get-iteration-args";
-import { config } from "../config";
+import { config } from "../../config";
+import { UpdatePricesArgs } from "../../types";
 import { includeFeedsCloseToDeviation } from "./feeds-close-to-devation";
 import { includeSynchronizedHeartbeatUpdates } from "./heartbeat-sync";
 
-export const getExtraFeeds = (
+export const addExtraFeedsToUpdateParams = (
   args: UpdatePricesArgs<MultiFeedAdapterWithoutRounds>
 ) => {
   const relayerConfig = config();

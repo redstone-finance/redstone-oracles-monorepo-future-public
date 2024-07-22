@@ -11,6 +11,7 @@ describe("time-condition", () => {
   it("should return false if time diff smaller than interval", () => {
     const lastUpdateTimestamp = Date.now() - 1;
     const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
+      "ETH",
       lastUpdateTimestamp,
       config()
     );
@@ -23,6 +24,7 @@ describe("time-condition", () => {
   it("should return true if time diff bigger than interval", () => {
     const lastUpdateTimestamp = Date.now() - 100000;
     const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
+      "ETH",
       lastUpdateTimestamp,
       config()
     );

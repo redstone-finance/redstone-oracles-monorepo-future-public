@@ -1,5 +1,4 @@
 import { INumericDataPoint } from "@redstone-finance/protocol";
-import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 import { config } from "../../src/config";
 import { performValueDeviationConditionChecks } from "../../src/core/update-conditions/value-deviation-condition";
 import { createNumberFromContract, getDataPackagesResponse } from "../helpers";
@@ -22,17 +21,29 @@ export const performFallbackValueDeviationConditionTest = async (
   const dataPackages = await getDataPackagesResponse();
   const olderDataPackagesFetchCallback = () =>
     getDataPackagesResponse(dataPoints);
-  const valueDiff: ValuesForDataFeeds = {
-    ETH: createNumberFromContract(ethPrice),
-    BTC: createNumberFromContract(btcPrice),
-  };
-  const { shouldUpdatePrices, warningMessage } =
+  const ethValue = createNumberFromContract(ethPrice);
+  const btcValue = createNumberFromContract(btcPrice);
+  let { shouldUpdatePrices, warningMessage } =
     await performValueDeviationConditionChecks(
+      "ETH",
       dataPackages,
-      valueDiff,
+      ethValue,
       lastUpdateTimestamp,
       config(),
       olderDataPackagesFetchCallback
     );
+  const {
+    shouldUpdatePrices: shouldUpdatePrices2,
+    warningMessage: warningMessage2,
+  } = await performValueDeviationConditionChecks(
+    "BTC",
+    dataPackages,
+    btcValue,
+    lastUpdateTimestamp,
+    config(),
+    olderDataPackagesFetchCallback
+  );
+  shouldUpdatePrices ||= shouldUpdatePrices2;
+  warningMessage = warningMessage.concat(warningMessage2);
   return { shouldUpdatePrices, warningMessage };
 };

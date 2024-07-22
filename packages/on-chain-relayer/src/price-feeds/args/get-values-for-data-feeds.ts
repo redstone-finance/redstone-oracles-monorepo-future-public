@@ -4,7 +4,7 @@ import { IRedstoneAdapter, MentoAdapterBase } from "../../../typechain-types";
 import { config } from "../../config";
 import { getValuesForMentoDataFeeds } from "../../custom-integrations/mento/mento-utils";
 
-import { getSortedOraclesContractAtAddress } from "./get-sorted-oracles-contract-at-address";
+import { getSortedOraclesContractAtAddress } from "../../custom-integrations/mento/get-sorted-oracles-contract-at-address";
 
 export const getValuesForDataFeeds = async (
   priceFeedsAdapter: IRedstoneAdapter,
