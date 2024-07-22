@@ -3,6 +3,7 @@
   "description": "A tool to inject RedStone data into TON compatible smart contracts",
   "version": "0.6.0",
   "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
     "run-script": "npx blueprint run --testnet --mnemonic",
@@ -23,7 +24,7 @@
     "write-prices": "yarn run-script runPriceManagerWritePrices",
     "write-price": "yarn run-script runSingleFeedManWritePrice",
     "consume-data": "yarn run-script runSampleConsumersReadData",
-    "pack-package": "yarn build && cd dist && npm pack",
+    "pack-package": "yarn build && npm pack",
     "lint": "yarn global:eslint .",
     "preversion": "yarn build",
     "test": "yarn global:jest:cov"
@@ -46,18 +47,8 @@
     "@ton/sandbox": "^0.17.0",
     "@ton/test-utils": "^0.4.2"
   },
-  "references": [
-    {
-      "path": "../protocol"
-    },
-    {
-      "path": "../sdk"
-    }
-  ],
-  "files": [
-    "src/**/*",
-    "wrappers/**/*"
-  ],
+  "files":
+    ["dist/src/**/*", "dist/wrappers/**/*"],
   "publishConfig": {
     "access": "public"
   }
