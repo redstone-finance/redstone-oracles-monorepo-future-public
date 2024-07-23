@@ -4,6 +4,7 @@
   "description": "A tool to inject RedStone data into Starknet compatible smart contracts",
   "license": "MIT",
   "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
     "build-dev": "rm -rf dist && yarn global:tsc --build tsconfig.json",
@@ -19,7 +20,7 @@
     "starknet": "^6.6.6"
   },
   "files": [
-    "dist/**/*"
+    "dist/src/**/*"
   ],
   "publishConfig": {
     "access": "public"

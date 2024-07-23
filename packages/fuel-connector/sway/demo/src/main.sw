@@ -8,18 +8,16 @@ use std::{
         tx_script_data_length,
         tx_script_data_start_pointer,
     },
-    u256::U256,
 };
+use redstone::core::{config::Config, processor::process_input};
 
-use redstone::{config::Config, processor::process_input};
-
-const AVAX = U256::from((0, 0, 0, 0x41564158));
-const BTC = U256::from((0, 0, 0, 0x425443));
-const ETH = U256::from((0, 0, 0, 0x455448));
+// const AVAX = 0x41564158u256;
+const BTC = 0x425443u256;
+const ETH = 0x455448u256;
 
 fn main() {
-    let mut feed_ids: Vec<U256> = Vec::with_capacity(3);
-    feed_ids.push(AVAX);
+    let mut feed_ids: Vec<u256> = Vec::with_capacity(3);
+    // feed_ids.push(AVAX);
     feed_ids.push(BTC);
     feed_ids.push(ETH);
 
@@ -41,7 +39,7 @@ fn main() {
     let (aggregated_values, _) = process_input(tx_data_bytes(), config);
 
     let mut i = 0;
-    while (i < aggregated_values.len) {
+    while (i < aggregated_values.len()) {
         log(aggregated_values.get(i).unwrap());
         i += 1;
     }
@@ -49,9 +47,16 @@ fn main() {
 
 pub fn tx_data_bytes() -> Bytes {
     let input_length = tx_script_data_length();
-    let mut bytes = Bytes::with_capacity(input_length);
-    bytes.len = input_length;
-    tx_script_data_start_pointer().copy_bytes_to(bytes.buf.ptr, input_length);
+    let mut bytes = Bytes::new();
+    let mut i = 0;
 
-    return bytes;
+    while (i < input_length) {
+        bytes.push(0u8);
+        i += 1;
+    }
+
+    let ptr = tx_script_data_start_pointer();
+    ptr.copy_bytes_to(bytes.ptr(), input_length);
+
+    bytes
 }

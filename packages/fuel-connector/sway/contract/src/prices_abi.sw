@@ -1,73 +1,20 @@
-library prices_abi;
+library;
 
-use std::{bytes::Bytes, u256::U256, vec::Vec};
+use std::{bytes::Bytes, vec::Vec};
 
 abi Prices {
-    #[storage(read, write)]
-    fn init(signers: Vec<b256>, signer_count_threshold: u64, skip_setting_owner: u64);
+    #[storage(write)]
+    fn init(signers: Vec<b256>, signer_count_threshold: u64);
 
     #[storage(read)]
-    fn get_prices(feed_ids: Vec<U256>, payload: Vec<u64>) -> [U256; 50];
+    fn get_prices(feed_ids: Vec<u256>, payload: Bytes) -> Vec<u256>;
 
     #[storage(read)]
     fn read_timestamp() -> u64;
 
     #[storage(read)]
-    fn read_prices(feed_ids: Vec<U256>) -> [U256; 50];
+    fn read_prices(feed_ids: Vec<u256>) -> Vec<u256>;
 
-    #[storage(write, read)]
-    fn write_prices(feed_ids: Vec<U256>, payload: Vec<u64>) -> [U256; 50];
+    #[storage(write)]
+    fn write_prices(feed_ids: Vec<u256>, payload: Bytes) -> Vec<u256>;
 }
-
-pub const empty_result: [U256; 50] = [
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-    U256::new(),
-];

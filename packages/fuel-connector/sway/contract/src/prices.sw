@@ -1,131 +1,144 @@
 contract;
 
-dep prices_abi;
-dep config;
+mod prices_abi;
+mod config;
+// mod sample;
 
 use std::{
     auth::msg_sender,
     bytes::Bytes,
-    inputs::input_count,
-    logging::log,
-    storage::StorageVec,
-    u256::U256,
+    constants::ZERO_U256,
+    hash::*,
+    storage::{
+        storage_api::{
+            read,
+            write,
+        },
+        storage_vec::*,
+    },
     vec::Vec,
 };
-use redstone::{config::Config, processor::process_input};
-
-use prices_abi::{empty_result, Prices};
+use redstone::{core::{config::Config, processor::process_input}, utils::vec::*};
+use prices_abi::Prices;
 use config::*;
 
 storage {
-    owner: Option<Identity> = Option::None,
+    owner: Option<Identity> = None,
     signer_count_threshold: u64 = 1,
-    signers: StorageVec<b256> = StorageVec {},
-    prices: StorageMap<U256, U256> = StorageMap {},
+    signers: StorageVec<b256> = StorageVec::<b256> {},
+    feed_ids: StorageVec<u256> = StorageVec::<u256> {},
+    prices: StorageMap<u256, u256> = StorageMap {},
     timestamp: u64 = 0,
 }
 
 impl Prices for Contract {
-    #[storage(read, write)]
-    fn init(
-        signers: Vec<b256>,
-        signer_count_threshold: u64,
-        skip_setting_owner: u64,
-    ) {
-        log(SALT); // tech purposes
-        assert(storage.owner.is_none() || storage.owner.unwrap() == msg_sender().unwrap());
-        if (skip_setting_owner == 0) {
-            storage.owner = Option::Some(msg_sender().unwrap());
-        }
-        storage.signer_count_threshold = signer_count_threshold;
-        storage.signers.clear();
+    #[storage(write)]
+    fn init(signers: Vec<b256>, signer_count_threshold: u64) {
+        assert(signers.len() >= signer_count_threshold);
 
-        let mut i = 0;
-        while (i < signers.len) {
-            storage.signers.push(signers.get(i).unwrap());
-            i += 1;
-        }
+        let storage_owner = storage.owner.read();
+        assert(storage_owner.is_none() || (storage_owner.unwrap() == msg_sender().unwrap()));
+
+        storage.owner.write(Some(msg_sender().unwrap()));
+        storage.signer_count_threshold.write(signer_count_threshold);
+        storage.signers.store_vec(signers);
     }
 
     #[storage(read)]
-    fn get_prices(feed_ids: Vec<U256>, payload: Vec<u64>) -> [U256; 50] {
-        let (prices, _) = get_prices(feed_ids, payload);
+    fn get_prices(feed_ids: Vec<u256>, payload: Bytes) -> Vec<u256> {
+        let (prices, _) = process_payload(feed_ids, payload);
 
-        return prices;
+        prices
     }
 
     #[storage(read)]
     fn read_timestamp() -> u64 {
-        return storage.timestamp;
+        storage.timestamp.read()
     }
 
     #[storage(read)]
-    fn read_prices(feed_ids: Vec<U256>) -> [U256; 50] {
-        let mut result = empty_result;
-
+    fn read_prices(feed_ids: Vec<u256>) -> Vec<u256> {
+        let mut result = Vec::new();
         let mut i = 0;
-        while (i < feed_ids.len) {
+        while (i < feed_ids.len()) {
             let feed_id = feed_ids.get(i).unwrap();
-            let price = storage.prices.get(feed_id);
-            match price {
-                Option::Some(value) => {
-                    result[i] = value;
-                },
-                Option::None => {}
-            }
-
+            let price = storage.prices.get(feed_id).try_read().unwrap_or(ZERO_U256);
+            result.push(price);
             i += 1;
         }
 
-        return result;
+        result
     }
 
-    #[storage(read, write)]
-    fn write_prices(feed_ids: Vec<U256>, payload: Vec<u64>) -> [U256; 50] {
-        let (aggregated_values, block_timestamp) = get_prices(feed_ids, payload);
-        let mut i = 0;
-        while (i < feed_ids.len) {
-            let feed_id = feed_ids.get(i).unwrap();
-            let price = aggregated_values[i];
-            storage.prices.insert(feed_id, price);
+    #[storage(write)]
+    fn write_prices(feed_ids: Vec<u256>, payload: Bytes) -> Vec<u256> {
+        let (aggregated_values, timestamp) = process_payload(feed_ids, payload);
+        overwrite_prices(feed_ids, aggregated_values, timestamp);
 
-            i += 1;
-        }
-
-        storage.timestamp = block_timestamp;
-
-        return aggregated_values;
+        aggregated_values
     }
 }
 
+#[storage(write)]
+fn overwrite_prices(
+    feed_ids: Vec<u256>,
+    aggregated_values: Vec<u256>,
+    timestamp: u64,
+) {
+    assert(timestamp > storage.timestamp.read());
+
+    let mut i = 0;
+    while (i < storage.feed_ids.len()) {
+        let feed_id = storage.feed_ids.get(i).unwrap().read();
+        if (feed_ids.index_of(feed_id) == None) {
+            let _ = storage.prices.remove(feed_id);
+        }
+
+        i += 1;
+    }
+
+    let mut i = 0;
+    while (i < feed_ids.len()) {
+        let feed_id = feed_ids.get(i).unwrap();
+        let price = aggregated_values.get(i).unwrap();
+        storage.prices.insert(feed_id, price);
+
+        i += 1;
+    }
+
+    storage.feed_ids.store_vec(feed_ids);
+    storage.timestamp.write(timestamp);
+}
+
 #[storage(read)]
-fn get_prices(feed_ids: Vec<U256>, payload: Vec<u64>) -> ([U256; 50], u64) {
-    let mut signers: Vec<b256> = Vec::new();
-    let mut i = 0;
-    while (i < storage.signers.len()) {
-        signers.push(storage.signers.get(i).unwrap());
+fn process_payload(feed_ids: Vec<u256>, payload_bytes: Bytes) -> (Vec<u256>, u64) {
+    let config = Config::base(
+        feed_ids,
+        storage
+            .signers
+            .load_vec(),
+        storage
+            .signer_count_threshold
+            .read(),
+    );
 
-        i += 1;
-    }
+    process_input(payload_bytes, config)
+}
 
-    let config = Config::base(feed_ids, signers, storage.signer_count_threshold);
+#[test]
+fn test_init() {
+    let prices = abi(Prices, CONTRACT_ID);
 
-    let mut payload_bytes = Bytes::new();
-    let mut i = 0;
-    while (i < payload.len) {
-        payload_bytes.push(payload.get(i).unwrap());
+    prices.init(
+        Vec::new()
+            .with(0x00000000000000000000000012470f7aba85c8b81d63137dd5925d6ee114952b),
+        1,
+    );
+}
 
-        i += 1;
-    }
-    let (aggregated_values, timestamp) = process_input(payload_bytes, config);
+#[test(should_revert)]
+fn test_init_should_revert_on_wrong_signer_count() {
+    let prices = abi(Prices, CONTRACT_ID);
 
-    let mut prices = empty_result;
-
-    let mut i = 0;
-    while (i < aggregated_values.len) {
-        prices[i] = aggregated_values.get(i).unwrap();
-
-        i += 1;
-    }
-    return (prices, timestamp);
+    prices.init(Vec::new(), 1);
 }

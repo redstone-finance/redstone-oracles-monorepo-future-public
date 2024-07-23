@@ -84,7 +84,7 @@ const blueprintNetwork = new BlueprintTonNetwork(networkProvider, apiV2Config);
 // or
 
 const customNetwork = new CustomTonNetwork(() => {
-    return null /* return your wallet KeyPair here */
+  return null /* return your wallet KeyPair here */
 }, apiV2Config);
 ```
 

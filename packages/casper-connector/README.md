@@ -78,12 +78,12 @@ yourWalletOrProvider,
 const paramsProvider = new ContractParamsProvider({
   dataServiceId: "redstone-main-demo",
   uniqueSignersCount: 1,
-  dataFeeds: ["ETH", "BTC"],
+  dataPackagesIds: ["ETH", "BTC"],
 });
 ```
 
 The `yourConfig` param is required. The example value can be found in
-the [test/_run/config.ts](./test/_run/config.ts) file.
+the [test/e2e/config.ts](./test/e2e/config.ts) file.
 
 Now you can access any of the contract's methods by invoking the code:
 

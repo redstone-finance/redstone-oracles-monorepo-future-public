@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const FUEL_BASE_GAS_LIMIT = 500000000;
+export const FUEL_BASE_GAS_LIMIT = 1000000;
 
 export interface Block {
   height: string;
@@ -8,10 +8,11 @@ export interface Block {
 }
 
 export class FuelConnector {
-  constructor(protected providerUrl: string | undefined) {}
+  constructor(protected providerUrl?: string) {}
 
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   getGasLimit(): number {
-    return this.providerUrl?.indexOf("127.0.0.1") ? 0 : FUEL_BASE_GAS_LIMIT;
+    return FUEL_BASE_GAS_LIMIT;
   }
 
   async getBlockNumber(): Promise<number> {

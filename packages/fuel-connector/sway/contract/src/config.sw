@@ -1,34 +1,33 @@
-library config;
+library;
 
 use std::{
-    b256::*,
     block::timestamp,
     bytes::Bytes,
     logging::log,
+    primitive_conversions::u64::*,
     storage::{
-        get,
-        StorageVec,
+        storage_api::read,
+        storage_vec::*,
     },
-    u256::U256,
     vec::Vec,
 };
-use redstone::config::Config;
+use redstone::core::config::Config;
+
+const FAKE_TIMESTAMP_KEY = 0x00000000000000000000000000000000000066616b655f74696d657374616d70;
 
 impl Config {
     #[storage(read)]
     pub fn base(
-        feed_ids: Vec<U256>,
+        feed_ids: Vec<u256>,
         signers: Vec<b256>,
         signer_count_threshold: u64,
     ) -> Config {
-        let config = Config {
+        Self {
             feed_ids,
             signers,
             signer_count_threshold,
             block_timestamp: get_timestamp(),
-        };
-
-        return config;
+        }
     }
 }
 
@@ -36,16 +35,16 @@ impl Config {
 fn get_timestamp() -> u64 {
     let block_timestamp = timestamp() - (10 + (1 << 62));
 
-    return get_u64(FAKE_TIMESTAMP_KEY, block_timestamp);
+    get_u64(FAKE_TIMESTAMP_KEY, block_timestamp)
 }
 
 #[storage(read)]
 fn get_u64(key: b256, or_value: u64) -> u64 {
-    let value = get(key).unwrap_or(U256::new());
-    let mut config_value = value.d;
+    let value = read(key, 0).unwrap_or(0x00u256);
+    let mut config_value = u64::try_from(value).unwrap();
     if (config_value == 0) {
         config_value = or_value;
     }
 
-    return config_value;
+    config_value
 }

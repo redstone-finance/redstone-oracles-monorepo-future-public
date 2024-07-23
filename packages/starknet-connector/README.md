@@ -54,8 +54,8 @@ import {StarknetPricesContractConnector, StarknetContractParamsProvider} from "@
 
 // Javascript
 const {
-    StarknetPricesContractConnector,
-    StarknetContractParamsProvider
+  StarknetPricesContractConnector,
+  StarknetContractParamsProvider
 } = require("@redstone-finance/starknet-connector");
 ```
 
@@ -68,7 +68,7 @@ const prices = new StarknetPricesContractConnector(account, yourContractAddress,
 const paramsProvider = new StarknetContractParamsProvider({
     dataServiceId: "avalanche-main-data-service",
     uniqueSignersCount: 1,
-    dataFeeds: ["ETH", "AVAX", "BTC"]
+    dataPackagesIds: ["ETH", "AVAX", "BTC"]
 });
 
 ```

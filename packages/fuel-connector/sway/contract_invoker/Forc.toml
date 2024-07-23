@@ -1,10 +1,7 @@
 [project]
 authors = ["Łukasz Kalbarczyk"]
 entry = "main.sw"
-forc-version = "0.35.0"
+forc-version = "0.61.2"
 license = "Apache-2.0"
-name = "redstone"
+name = "contract_invoker"
 organization = "RedStone"
-
-[constants]
-CONTRACT_ID = { type = "b256", value = "0x8fdae6cb766121b5382977e98dc948dbdc95812a3e60c2cf2c0dfff06e877989" }
