@@ -9,10 +9,11 @@ export class ContractParamsProviderMock extends ContractParamsProvider {
   constructor(
     dataFeeds: string[],
     private filePath: string,
-    private fileReader: (filePath: string) => Buffer
+    private fileReader: (filePath: string) => Buffer,
+    uniqueSignersCount = 0
   ) {
     super({
-      uniqueSignersCount: 0,
+      uniqueSignersCount,
       dataServiceId: "",
       dataPackagesIds: dataFeeds,
     });

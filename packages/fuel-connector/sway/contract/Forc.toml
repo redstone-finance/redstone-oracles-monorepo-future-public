@@ -1,14 +1,10 @@
 [project]
 authors = ["Łukasz Kalbarczyk"]
 entry = "prices.sw"
-forc-version = "0.35.0"
+forc-version = "0.61.2"
 license = "Apache-2.0"
 name = "prices"
 organization = "RedStone"
 
 [dependencies]
-redstone = { path = "../redstone" }
-
-[constants]
-FAKE_TIMESTAMP_KEY = { type = "b256", value = "0x00000000000000000000000000000000000066616b655f74696d657374616d70" }
-SALT = { type = "b256", value = "0x0000000000000000000000000000000000000000000000000000000000000001" }
+redstone = { path = "../redstone-fuel-sdk" }

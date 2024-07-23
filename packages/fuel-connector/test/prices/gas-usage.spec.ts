@@ -1,25 +1,25 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { BigNumberish } from "ethers";
-import { Provider } from "fuels";
+import { sleep } from "fuels";
+import { provider } from "../common/provider";
+import { readDeployedHex } from "../common/read-deployed-hex";
 import { connectPricesContract } from "./prices-contract-test-utils";
 
 jest.setTimeout(10 * 60000);
 
-const IS_LOCAL = true as boolean;
-
-// For the beta-2 node the 'fuels' version must not be greater than 0.32.0
-const provider = IS_LOCAL
-  ? undefined
-  : new Provider("https://beta-3.fuel.network/graphql");
-
 describe("Gas Usage of integrated and initialized prices contract", () => {
-  it("write_prices should write the price data that can be read then", async () => {
-    await performGasUsageTests(1, ["ETH"]);
+  it("gas usage tests", async () => {
+    if (process.env.IS_CI === "true") {
+      return console.log("Skipping in CI env");
+    }
+
+    await performGasUsageTests(1, ["ETH", "BTC", "AVAX"]);
+    await waitForNewData();
     await performGasUsageTests(4, ["ETH", "BTC", "AVAX"]);
 
-    // c + p = a_1
+    // c + m * p = a_m
     // c + n * p = a_n,
-    // so... p = (a_n - a_1) / ( n - 1), c = a_1 - p
+    // so... p = (a_n - a_m) / (n - m), c = a_n - n * p
 
     for (const obj of [
       { func: "get_prices", num: 12, subject: "packages" },
@@ -28,12 +28,12 @@ describe("Gas Usage of integrated and initialized prices contract", () => {
       { func: "read_timestamp", num: 12, subject: "packages" },
     ]) {
       const maxGasUsage = results[`${obj.func}:4:3`];
-      const minGasUsage = results[`${obj.func}:1:1`];
+      const minGasUsage = results[`${obj.func}:1:3`];
 
       const perSubject = Math.round(
-        (maxGasUsage - minGasUsage) / (obj.num - 1)
+        (maxGasUsage - minGasUsage) / (obj.num - 3)
       );
-      const perSubjectConst = minGasUsage - perSubject;
+      const perSubjectConst = minGasUsage - perSubject * 3;
 
       console.log(
         `${obj.func} costs: ${perSubjectConst} + ${perSubject} * #${obj.subject}`
@@ -47,7 +47,9 @@ describe("Gas Usage of integrated and initialized prices contract", () => {
     uniqueSignerCount: number,
     dataFeeds: string[]
   ) {
-    const adapter = await connectPricesContract(provider, true);
+    const adapter = await (
+      await connectPricesContract(readDeployedHex(), true, await provider())
+    ).getAdapter();
     const paramsProvider = new ContractParamsProvider({
       dataServiceId: "redstone-avalanche-prod",
       uniqueSignersCount: uniqueSignerCount,
@@ -105,5 +107,12 @@ describe("Gas Usage of integrated and initialized prices contract", () => {
 
     results[`${method}:${uniqueSignerCount}:${dataFeeds.length}`] =
       Number(gasUsage);
+  }
+
+  async function waitForNewData() {
+    for (let i = 0; i < 6; i++) {
+      console.log(`waiting for new data... (${5 * (6 - i)} sec. to go)`);
+      await sleep(5000);
+    }
   }
 });

@@ -1,21 +1,21 @@
 [[package]]
-name = 'core'
-source = 'path+from-root-2C66FC65A00ECA96'
+name = "core"
+source = "path+from-root-CC22FE9C5CBB0084"
 
 [[package]]
-name = 'redstone'
-source = 'member'
+name = "demo"
+source = "member"
 dependencies = [
-    'redstone path+from-root-C86A43FDD626737D',
-    'std',
+    "redstone",
+    "std",
 ]
 
 [[package]]
-name = 'redstone'
-source = 'path+from-root-C86A43FDD626737D'
-dependencies = ['std']
+name = "redstone"
+source = "path+from-root-8DCDDB12F2CC83CD"
+dependencies = ["std"]
 
 [[package]]
-name = 'std'
-source = 'git+https://github.com/fuellabs/sway?tag=v0.35.5#49eae2dd93a1957e2a2c2fb3f51b11eb3791fc24'
-dependencies = ['core']
+name = "std"
+source = "git+https://github.com/fuellabs/sway?tag=v0.61.2#e1b1c2bee73e0ba825e07736cefa6c0abd079595"
+dependencies = ["core"]

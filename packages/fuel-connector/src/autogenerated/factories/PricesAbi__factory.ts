@@ -4,16 +4,17 @@
 /* eslint-disable */
 
 /*
-  Fuels version: 0.42.0
-  Forc version: 0.35.5
-  Fuel-Core version: 0.17.3
+  Fuels version: 0.92.0
+  Forc version: 0.61.2
+  Fuel-Core version: 0.31.0
 */
 
-import { Interface, Contract } from "fuels";
-import type { Provider, Account, AbstractAddress } from "fuels";
+import { Interface, Contract, ContractFactory } from "fuels";
+import type { Provider, Account, AbstractAddress, BytesLike, DeployContractOptions, StorageSlot, DeployContractResult } from "fuels";
 import type { PricesAbi, PricesAbiInterface } from "../PricesAbi";
 
 const _abi = {
+  "encoding": "1",
   "types": [
     {
       "typeId": 0,
@@ -23,79 +24,74 @@ const _abi = {
     },
     {
       "typeId": 1,
-      "type": "[_; 50]",
-      "components": [
-        {
-          "name": "__array_element",
-          "type": 6,
-          "typeArguments": null
-        }
-      ],
-      "typeParameters": null
-    },
-    {
-      "typeId": 2,
       "type": "b256",
       "components": null,
       "typeParameters": null
     },
     {
-      "typeId": 3,
+      "typeId": 2,
       "type": "generic T",
       "components": null,
       "typeParameters": null
     },
     {
-      "typeId": 4,
+      "typeId": 3,
       "type": "raw untyped ptr",
       "components": null,
       "typeParameters": null
     },
     {
-      "typeId": 5,
-      "type": "struct RawVec",
+      "typeId": 4,
+      "type": "struct Bytes",
       "components": [
         {
-          "name": "ptr",
-          "type": 4,
+          "name": "buf",
+          "type": 5,
           "typeArguments": null
         },
         {
-          "name": "cap",
-          "type": 8,
-          "typeArguments": null
-        }
-      ],
-      "typeParameters": [
-        3
-      ]
-    },
-    {
-      "typeId": 6,
-      "type": "struct U256",
-      "components": [
-        {
-          "name": "a",
-          "type": 8,
-          "typeArguments": null
-        },
-        {
-          "name": "b",
-          "type": 8,
-          "typeArguments": null
-        },
-        {
-          "name": "c",
-          "type": 8,
-          "typeArguments": null
-        },
-        {
-          "name": "d",
-          "type": 8,
+          "name": "len",
+          "type": 9,
           "typeArguments": null
         }
       ],
       "typeParameters": null
+    },
+    {
+      "typeId": 5,
+      "type": "struct RawBytes",
+      "components": [
+        {
+          "name": "ptr",
+          "type": 3,
+          "typeArguments": null
+        },
+        {
+          "name": "cap",
+          "type": 9,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 6,
+      "type": "struct RawVec",
+      "components": [
+        {
+          "name": "ptr",
+          "type": 3,
+          "typeArguments": null
+        },
+        {
+          "name": "cap",
+          "type": 9,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": [
+        2
+      ]
     },
     {
       "typeId": 7,
@@ -103,27 +99,33 @@ const _abi = {
       "components": [
         {
           "name": "buf",
-          "type": 5,
+          "type": 6,
           "typeArguments": [
             {
               "name": "",
-              "type": 3,
+              "type": 2,
               "typeArguments": null
             }
           ]
         },
         {
           "name": "len",
-          "type": 8,
+          "type": 9,
           "typeArguments": null
         }
       ],
       "typeParameters": [
-        3
+        2
       ]
     },
     {
       "typeId": 8,
+      "type": "u256",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 9,
       "type": "u64",
       "components": null,
       "typeParameters": null
@@ -138,28 +140,28 @@ const _abi = {
           "typeArguments": [
             {
               "name": "",
-              "type": 6,
+              "type": 8,
               "typeArguments": null
             }
           ]
         },
         {
           "name": "payload",
-          "type": 7,
-          "typeArguments": [
-            {
-              "name": "",
-              "type": 8,
-              "typeArguments": null
-            }
-          ]
+          "type": 4,
+          "typeArguments": null
         }
       ],
       "name": "get_prices",
       "output": {
         "name": "",
-        "type": 1,
-        "typeArguments": null
+        "type": 7,
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 8,
+            "typeArguments": null
+          }
+        ]
       },
       "attributes": [
         {
@@ -178,19 +180,14 @@ const _abi = {
           "typeArguments": [
             {
               "name": "",
-              "type": 2,
+              "type": 1,
               "typeArguments": null
             }
           ]
         },
         {
           "name": "signer_count_threshold",
-          "type": 8,
-          "typeArguments": null
-        },
-        {
-          "name": "skip_setting_owner",
-          "type": 8,
+          "type": 9,
           "typeArguments": null
         }
       ],
@@ -204,7 +201,6 @@ const _abi = {
         {
           "name": "storage",
           "arguments": [
-            "read",
             "write"
           ]
         }
@@ -218,7 +214,7 @@ const _abi = {
           "typeArguments": [
             {
               "name": "",
-              "type": 6,
+              "type": 8,
               "typeArguments": null
             }
           ]
@@ -227,8 +223,14 @@ const _abi = {
       "name": "read_prices",
       "output": {
         "name": "",
-        "type": 1,
-        "typeArguments": null
+        "type": 7,
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 8,
+            "typeArguments": null
+          }
+        ]
       },
       "attributes": [
         {
@@ -244,7 +246,7 @@ const _abi = {
       "name": "read_timestamp",
       "output": {
         "name": "",
-        "type": 8,
+        "type": 9,
         "typeArguments": null
       },
       "attributes": [
@@ -264,34 +266,33 @@ const _abi = {
           "typeArguments": [
             {
               "name": "",
-              "type": 6,
+              "type": 8,
               "typeArguments": null
             }
           ]
         },
         {
           "name": "payload",
-          "type": 7,
-          "typeArguments": [
-            {
-              "name": "",
-              "type": 8,
-              "typeArguments": null
-            }
-          ]
+          "type": 4,
+          "typeArguments": null
         }
       ],
       "name": "write_prices",
       "output": {
         "name": "",
-        "type": 1,
-        "typeArguments": null
+        "type": 7,
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 8,
+            "typeArguments": null
+          }
+        ]
       },
       "attributes": [
         {
           "name": "storage",
           "arguments": [
-            "read",
             "write"
           ]
         }
@@ -300,123 +301,71 @@ const _abi = {
   ],
   "loggedTypes": [
     {
-      "logId": 0,
+      "logId": "1515152261580153489",
       "loggedType": {
         "name": "",
-        "type": 8,
+        "type": 9,
         "typeArguments": null
       }
     },
     {
-      "logId": 1,
+      "logId": "8961848586872524460",
       "loggedType": {
         "name": "",
-        "type": 8,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 2,
-      "loggedType": {
-        "name": "",
-        "type": 8,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 3,
-      "loggedType": {
-        "name": "",
-        "type": 8,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 4,
-      "loggedType": {
-        "name": "",
-        "type": 2,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 5,
-      "loggedType": {
-        "name": "",
-        "type": 8,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 6,
-      "loggedType": {
-        "name": "",
-        "type": 2,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 7,
-      "loggedType": {
-        "name": "",
-        "type": 8,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 8,
-      "loggedType": {
-        "name": "",
-        "type": 8,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 9,
-      "loggedType": {
-        "name": "",
-        "type": 8,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 10,
-      "loggedType": {
-        "name": "",
-        "type": 8,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 11,
-      "loggedType": {
-        "name": "",
-        "type": 2,
-        "typeArguments": null
-      }
-    },
-    {
-      "logId": 12,
-      "loggedType": {
-        "name": "",
-        "type": 8,
+        "type": 1,
         "typeArguments": null
       }
     }
   ],
   "messagesTypes": [],
   "configurables": []
-}
+};
 
-export class PricesAbi__factory {
-  static readonly abi = _abi
-  static createInterface(): PricesAbiInterface {
-    return new Interface(_abi) as unknown as PricesAbiInterface
+const _storageSlots: StorageSlot[] = [
+  {
+    "key": "1d63cc2495bbf5570c9a6d7f632018dc033107e7f4452405c44601bb771a4a5d",
+    "value": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  {
+    "key": "1d63cc2495bbf5570c9a6d7f632018dc033107e7f4452405c44601bb771a4a5e",
+    "value": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  {
+    "key": "60a0cdbce8a98b77f7787d61707e34e49f07e63db625fa49150884c367ce6fb5",
+    "value": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  {
+    "key": "b1f36b0490303e8c214a62a62730609944f99bc5be24dc586b2361d992bd3853",
+    "value": "0000000000000001000000000000000000000000000000000000000000000000"
   }
-  static connect(
+];
+
+export const PricesAbi__factory = {
+  abi: _abi,
+
+  storageSlots: _storageSlots,
+
+  createInterface(): PricesAbiInterface {
+    return new Interface(_abi) as unknown as PricesAbiInterface
+  },
+
+  connect(
     id: string | AbstractAddress,
     accountOrProvider: Account | Provider
   ): PricesAbi {
     return new Contract(id, _abi, accountOrProvider) as unknown as PricesAbi
-  }
+  },
+
+  async deployContract(
+    bytecode: BytesLike,
+    wallet: Account,
+    options: DeployContractOptions = {}
+  ): Promise<DeployContractResult<PricesAbi>> {
+    const factory = new ContractFactory(bytecode, _abi, wallet);
+
+    return factory.deployContract<PricesAbi>({
+      storageSlots: _storageSlots,
+      ...options,
+    });
+  },
 }

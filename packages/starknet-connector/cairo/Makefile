@@ -12,10 +12,9 @@ DIRS := $(REDSTONE_DIR) $(CONTRACT_DIRS)
 
 define run_in_dirs
     for dir in $(1); do \
-        (cd $$dir && $(2)); \
+        (cd $$dir && $(2)) || exit 1; \
     done
 endef
-
 
 prepare:
 	@echo ""

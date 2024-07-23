@@ -8,8 +8,7 @@ Proudly supported by:
 
 RedStone proposes a completely new modular design where data is first put into a data availability layer and then
 fetched on-chain. This allows us to broadcast a large number of assets at high frequency to a cheaper layer and put it
-on
-chain only when required by the protocol.
+on chain only when required by the protocol.
 
 The `@redstone-finance/fuel-connector` module implements an alternative design of providing oracle data to smart
 contracts. Instead of constantly persisting data on the Fuel network storage (by data providers), the information is
@@ -42,8 +41,6 @@ the [whole RedStone Oracle model](https://docs.redstone.finance/docs/introductio
     - [gas usage tests](test/prices/gas-usage.spec.ts) - to be used for checking the gas costs of particular
       operations in various configurations and also
       the summary of the single item costs.
-    - [a piece of code](test/prices/transfer.spec.ts) for transferring ETHs from genesis accounts on the local
-      network
 
 ## 🔥 Connecting to the contract
 
@@ -73,11 +70,11 @@ const prices = new FuelPricesContractConnector(
 const paramsProvider = new ContractParamsProvider({
   dataServiceId: "redstone-main-demo",
   uniqueSignersCount: 1,
-  dataFeeds: ["ETH", "BTC"],
+  dataPackagesIds: ["ETH", "BTC"],
 });
 ```
 
-The `yourWalletOrProvider` param is needed to be passed for testnet usage. For the local network it can remain
+The `yourWalletOrProvider` param is needed to be passed for testnet usage. For the local network, it can remain
 undefined.
 
 Now you can access any of the contract's methods by invoking the code:

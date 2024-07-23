@@ -21,27 +21,6 @@ describe("Prices contract", () => {
     expect(result).toBe(0);
   });
 
-  const createContractParamsProviderMock = (
-    dataFeeds: string[],
-    filename: string = "2sig_ETH_BTC"
-  ) => {
-    const filePath = path.join(__dirname, `../sample-data/${filename}.hex`);
-
-    return new ContractParamsProviderMock(dataFeeds, filePath, fs.readFileSync);
-  };
-
-  const performPayloadTest = async (
-    callback: (
-      adapter: IPricesContractAdapter,
-      paramsProvider: ContractParamsProvider
-    ) => Promise<BigNumberish[]>
-  ): Promise<BigNumberish[]> => {
-    const adapter = await deployPricesContract();
-    const paramsProvider = createContractParamsProviderMock(["ETH", "BTC"]);
-
-    return await callback(adapter, paramsProvider);
-  };
-
   it("get_prices should return the price data", async () => {
     const values = await performPayloadTest(
       async (
@@ -52,23 +31,19 @@ describe("Prices contract", () => {
       }
     );
 
-    expect(values[0]).toBe(156962499984);
-    expect(values[1]).toBe(2242266554738);
+    expect(values[0]).toBe(341899770128n);
+    expect(values[1]).toBe(6371750000000n);
   });
 
   it("write_prices should write the price data that can be read then", async () => {
     const values = await performPayloadTest(
       async (
         adapter: IPricesContractAdapter,
-        paramsProvider: ContractParamsProvider
+        paramsProvider: ContractParamsProviderMock
       ) => {
         await adapter.writePricesFromPayloadToContract(paramsProvider);
 
-        (paramsProvider as ContractParamsProviderMock).overriddenFeedIds = [
-          "ETH",
-          "AVAX",
-          "BTC",
-        ];
+        paramsProvider.overriddenFeedIds = ["ETH", "AVAX", "BTC"];
 
         const results = await Promise.all([
           adapter.readPricesFromContract(paramsProvider),
@@ -83,23 +58,91 @@ describe("Prices contract", () => {
       }
     );
 
-    expect(values[0]).toBe(156962499984);
-    expect(values[1]).toBe(0);
-    expect(values[2]).toBe(2242266554738);
+    expect(values[0]).toBe(341899770128n);
+    expect(values[1]).toBe(0n);
+    expect(values[2]).toBe(6371750000000n);
+  });
+
+  it("write_prices should overwrite prices", async () => {
+    const values = await performPayloadTest(
+      async (
+        adapter: IPricesContractAdapter,
+        paramsProvider: ContractParamsProviderMock
+      ) => {
+        await adapter.writePricesFromPayloadToContract(paramsProvider);
+
+        const newParamsPovider =
+          createContractParamsProviderMock("3sig_ETH_BTC_newer");
+        newParamsPovider.overriddenFeedIds = ["BTC"];
+
+        await adapter.writePricesFromPayloadToContract(newParamsPovider);
+        return await adapter.readPricesFromContract(paramsProvider);
+      }
+    );
+
+    expect(values[0]).toBe(0n);
+    expect(values[1]).toBe(6379275977691n);
+  });
+
+  it("write_prices should not write the same price data twice", async () => {
+    await expect(
+      performPayloadTest(
+        async (
+          adapter: IPricesContractAdapter,
+          paramsProvider: ContractParamsProviderMock
+        ) => {
+          await adapter.writePricesFromPayloadToContract(paramsProvider);
+
+          return (await adapter.writePricesFromPayloadToContract(
+            paramsProvider
+          )) as BigNumberish[];
+        }
+      )
+    ).rejects.toThrow();
   });
 
   it("get_prices should panic with insufficient number of signers", async () => {
-    const adapter = await deployPricesContract();
-    const paramsProvider = createContractParamsProviderMock([
-      "ETH",
-      "BTC",
-      "AVAX",
-    ]);
-
-    try {
-      await adapter.getPricesFromPayload(paramsProvider);
-    } catch (e) {
-      expect(e).not.toBeNull();
-    }
+    await expect(
+      performPayloadTest(
+        async (
+          adapter: IPricesContractAdapter,
+          paramsProvider: ContractParamsProviderMock
+        ) => {
+          return await adapter.getPricesFromPayload(paramsProvider);
+        },
+        ["ETH", "BTC", "AVAX"]
+      )
+    ).rejects.toThrow();
   });
+
+  const createContractParamsProviderMock = (
+    filename: string,
+    dataFeeds: string[] = ["ETH", "BTC"]
+  ) => {
+    const filePath = path.join(__dirname, `../sample-data/${filename}.hex`);
+
+    return new ContractParamsProviderMock(
+      dataFeeds,
+      filePath,
+      fs.readFileSync,
+      3
+    );
+  };
+
+  const performPayloadTest = async (
+    callback: (
+      adapter: IPricesContractAdapter,
+      paramsProvider: ContractParamsProviderMock
+    ) => Promise<BigNumberish[]>,
+    dataFeeds = ["ETH", "BTC"],
+    filename = "3sig_ETH_BTC"
+  ): Promise<BigNumberish[]> => {
+    const adapter = await deployPricesContract();
+    const paramsProvider = createContractParamsProviderMock(
+      filename,
+      dataFeeds
+    );
+
+    return await callback(adapter, paramsProvider);
+  };
 });

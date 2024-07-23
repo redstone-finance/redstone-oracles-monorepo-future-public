@@ -1,10 +1,10 @@
 [project]
 authors = ["Łukasz Kalbarczyk"]
 entry = "main.sw"
-forc-version = "0.35.0"
+forc-version = "0.61.2"
 license = "Apache-2.0"
-name = "redstone"
+name = "demo"
 organization = "RedStone"
 
 [dependencies]
-redstone = { path = "../redstone" }
+redstone = { path = "../redstone-fuel-sdk" }

@@ -1,20 +1,20 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
-import { Provider } from "fuels";
 import redstone from "redstone-api";
+import { provider } from "../common/provider";
+import { readDeployedHex } from "../common/read-deployed-hex";
 import { connectPricesContract } from "./prices-contract-test-utils";
 
 jest.setTimeout(10 * 60000);
 
-const IS_LOCAL = true as boolean;
-
-// For the beta-2 node the 'fuels' version must not be greater than 0.32.0
-const provider = IS_LOCAL
-  ? undefined
-  : new Provider("https://beta-3.fuel.network/graphql");
-
 describe("Integrated and initialized prices contract", () => {
   it("write_prices should write the price data that can be read then", async () => {
-    const adapter = await connectPricesContract(provider);
+    if (process.env.IS_CI === "true") {
+      return console.log("Skipping in CI env");
+    }
+
+    const adapter = await (
+      await connectPricesContract(readDeployedHex(), false, await provider())
+    ).getAdapter();
     const paramsProvider = new ContractParamsProvider({
       dataServiceId: "redstone-avalanche-prod",
       uniqueSignersCount: 2,

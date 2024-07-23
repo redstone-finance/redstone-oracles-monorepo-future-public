@@ -47,8 +47,10 @@
     "@ton/sandbox": "^0.17.0",
     "@ton/test-utils": "^0.4.2"
   },
-  "files":
-    ["dist/src/**/*", "dist/wrappers/**/*"],
+  "files": [
+    "dist/src/**/*",
+    "dist/wrappers/**/*"
+  ],
   "publishConfig": {
     "access": "public"
   }

@@ -1,13 +1,15 @@
 import { IPricesContractAdapter } from "@redstone-finance/sdk";
-import { InvocationResult } from "fuels";
+import { BigNumberish } from "ethers";
+import { BN } from "fuels";
 import {
   FuelPricesContractAdapter,
   FuelPricesContractConnector,
+  InvocationResult,
 } from "../../src";
 
 export class GasUsageFuelPricesContractConnector extends FuelPricesContractConnector {
-  override getAdapter(): Promise<IPricesContractAdapter> {
-    return Promise.resolve(
+  override async getAdapter(): Promise<IPricesContractAdapter> {
+    return await Promise.resolve(
       new GasUsageFuelPricesContractAdapter(
         this.getContract(),
         this.getGasLimit()
@@ -23,7 +25,9 @@ class GasUsageFuelPricesContractAdapter extends FuelPricesContractAdapter {
     ).gasUsed.toNumber();
   }
 
-  protected static override extractNumbers(result: InvocationResult): number[] {
+  protected override extractNumbers(
+    result: InvocationResult<BN[]>
+  ): BigNumberish[] {
     return [result.gasUsed.toNumber()];
   }
 }
