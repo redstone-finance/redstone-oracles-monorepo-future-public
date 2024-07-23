@@ -1539,6 +1539,24 @@
         "uniswap-v3-arbitrumone-weth-3000"
       ]
     },
+    "SEI": {
+      "source": [
+        "binance-usdt",
+        "binanceusdm-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "gate-usdt",
+        "kraken-usd",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "mexc-usdt",
+        "xt"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
