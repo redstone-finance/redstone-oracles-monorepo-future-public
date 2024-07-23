@@ -126,3 +126,15 @@ export const weightedRandom = (weights: number[]): number => {
 
   return weights.length - 1;
 };
+
+export const sumBy = <T>(array: T[], extract: (item: T) => number) => {
+  const numbers = array.map(extract);
+
+  if (numbers.some((number) => typeof number !== "number")) {
+    throw new Error(
+      "Can't sumBy because after extraction at least one of elements is not number"
+    );
+  }
+
+  return numbers.reduce((acc, curr) => acc + curr, 0);
+};
