@@ -941,9 +941,7 @@
       ]
     },
     "sfrxETH": {
-      "source": [
-        "ethereum-evm-fetcher-frax"
-      ]
+      "source": ["ethereum-evm-fetcher-frax"]
     },
     "sfrxETH/ETH": {
       "source": ["non-usd-based"]
@@ -1257,6 +1255,24 @@
     },
     "SolvBTC.ENA/BTC-TWAP-60": {
       "source": ["twap-local-redstone-primary-prod"]
+    },
+    "SEI": {
+      "source": [
+        "binance-usdt",
+        "binanceusdm-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "gate-usdt",
+        "kraken-usd",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "mexc-usdt",
+        "xt"
+      ]
     }
   },
   "multiPointPackages": {
