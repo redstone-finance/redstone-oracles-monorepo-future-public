@@ -13,7 +13,7 @@
       "path": "../utils/tsconfig.build.json"
     },
     {
-      "path": "../lambda-common/tsconfig.build.json"
+      "path": "../internal-utils/tsconfig.build.json"
     }
   ]
 }

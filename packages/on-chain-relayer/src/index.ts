@@ -4,6 +4,7 @@ import { abi as PriceFeedWithRoundsAbi } from "../artifacts/contracts/price-feed
 import { abi as PriceFeedsAdapterWithRoundsAbi } from "../artifacts/contracts/price-feeds/with-rounds/PriceFeedsAdapterWithRounds.sol/PriceFeedsAdapterWithRounds.json";
 import { abi as MultiFeedAdapterWithoutRoundsAbi } from "../artifacts/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol/MultiFeedAdapterWithoutRounds.json";
 import manifests from "../relayer-manifests";
+import multiFeedManifests from "../relayer-manifests-multi-feed";
 
 export type {
   ISortedOracles,
@@ -27,16 +28,19 @@ export {
   OnChainRelayerManifestSchema,
   UpdateTriggersSchema,
   type AdapterType,
+  type AnyOnChainRelayerManifest,
   type CommonRelayerManifest,
-  type ConfigProvider,
   type MultiFeedOnChainRelayerManifest,
   type MultiFeedOnChainRelayerManifestInput,
-  type OnChainRelayerEnv,
   type OnChainRelayerManifest,
   type OnChainRelayerManifestInput,
+  type UpdateTriggers,
+} from "./schemas";
+export {
+  type ConfigProvider,
+  type OnChainRelayerEnv,
   type RelayerConfig,
   type UpdatePricesArgs,
-  type UpdateTriggers,
 } from "./types";
 export {
   ISortedOraclesAbi,
@@ -45,4 +49,5 @@ export {
   PriceFeedWithRoundsAbi,
   PriceFeedsAdapterWithRoundsAbi,
   manifests,
+  multiFeedManifests,
 };

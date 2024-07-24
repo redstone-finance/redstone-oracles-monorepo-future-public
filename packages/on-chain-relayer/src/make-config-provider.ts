@@ -1,12 +1,10 @@
 import {
   AnyOnChainRelayerManifest,
-  ConditionCheckNames,
   MultiFeedOnChainRelayerManifest,
-  OnChainRelayerEnv,
   OnChainRelayerManifest,
-  RelayerConfig,
   UpdateTriggers,
-} from "./types";
+} from "./schemas";
+import { ConditionCheckNames, OnChainRelayerEnv, RelayerConfig } from "./types";
 
 export const MS_IN_ONE_MINUTE = 60000;
 

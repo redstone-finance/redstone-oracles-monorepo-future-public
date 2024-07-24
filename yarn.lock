@@ -7144,7 +7144,7 @@ __metadata:
   resolution: "@redstone-finance/classic-updates-number-checker@workspace:packages/classic-updates-number-checker"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
   languageName: unknown
   linkType: soft
 
@@ -7387,7 +7387,7 @@ __metadata:
     "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
@@ -7471,12 +7471,25 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/internal-utils@npm:0.6.0, @redstone-finance/internal-utils@workspace:packages/internal-utils":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/internal-utils@workspace:packages/internal-utils"
+  dependencies:
+    "@aws-sdk/client-cloudwatch": "npm:^3.485.0"
+    "@aws-sdk/client-lambda": "npm:^3.485.0"
+    "@aws-sdk/client-s3": "npm:^3.485.0"
+    "@aws-sdk/client-ssm": "npm:^3.485.0"
+    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@redstone-finance/utils": "npm:0.6.0"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-aggregator-influx-synchronizer@workspace:packages/lambda-aggregator-influx-synchronizer":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-aggregator-influx-synchronizer@workspace:packages/lambda-aggregator-influx-synchronizer"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/utils": "npm:0.6.0"
     ethers: "npm:^5.7.2"
   languageName: unknown
@@ -7525,22 +7538,10 @@ __metadata:
   resolution: "@redstone-finance/lambda-chainlink-influx-synchronizer@workspace:packages/lambda-chainlink-influx-synchronizer"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/utils": "npm:0.6.0"
     ethers: "npm:^5.7.2"
     lodash: "npm:^4.17.21"
-  languageName: unknown
-  linkType: soft
-
-"@redstone-finance/lambda-common@npm:0.6.0, @redstone-finance/lambda-common@workspace:packages/lambda-common":
-  version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-common@workspace:packages/lambda-common"
-  dependencies:
-    "@aws-sdk/client-cloudwatch": "npm:^3.485.0"
-    "@aws-sdk/client-lambda": "npm:^3.485.0"
-    "@aws-sdk/client-s3": "npm:^3.485.0"
-    "@aws-sdk/client-ssm": "npm:^3.485.0"
-    "@redstone-finance/utils": "npm:0.6.0"
   languageName: unknown
   linkType: soft
 
@@ -7549,7 +7550,7 @@ __metadata:
   resolution: "@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda-deviation-monitoring"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
@@ -7582,7 +7583,7 @@ __metadata:
   resolution: "@redstone-finance/lambda-hard-limits-monitoring@workspace:packages/lambda-hard-limits-monitoring"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/sdk": "npm:0.6.0"
     "@redstone-finance/utils": "npm:0.6.0"
     aws-lambda: "npm:^1.0.7"
@@ -7632,7 +7633,7 @@ __metadata:
   resolution: "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
@@ -7643,7 +7644,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.33.2"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/protocol": "npm:0.6.0"
     aws-lambda: "npm:^1.0.7"
     lodash: "npm:^4.17.21"
@@ -7675,7 +7676,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@aws-sdk/client-s3": "npm:^3.485.0"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/redstone-monitoring": "npm:0.6.0"
     "@types/aws-lambda": "npm:^8.10.128"
   languageName: unknown
@@ -7687,7 +7688,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@redstone-finance/evm-connector": "npm:0.6.0"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/rpc-providers": "npm:0.6.0"
     "@redstone-finance/sdk": "npm:0.6.0"
     "@redstone-finance/utils": "npm:0.6.0"
@@ -7704,7 +7705,7 @@ __metadata:
   resolution: "@redstone-finance/lambda-multi-top-up@workspace:packages/lambda-multi-top-up"
   dependencies:
     "@redstone-finance/evm-multicall": "npm:0.6.0"
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/lambda-wallets-balances-notifier": "npm:0.6.0"
     "@redstone-finance/rpc-providers": "npm:0.6.0"
     "@redstone-finance/utils": "npm:0.6.0"
@@ -7722,7 +7723,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-new-sources-monitoring@workspace:packages/lambda-new-sources-monitoring"
   dependencies:
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/oracle-node": "npm:0.6.0"
     "@redstone-finance/utils": "npm:0.6.0"
     "@types/jest": "npm:^29.5.4"
@@ -7752,7 +7753,9 @@ __metadata:
   dependencies:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/on-chain-relayer": "npm:0.6.0"
+    "@redstone-finance/protocol": "npm:0.6.0"
     "@redstone-finance/rpc-providers": "npm:0.6.0"
     "@redstone-finance/utils": "npm:0.6.0"
     "@types/aws-lambda": "npm:^8.10.128"
@@ -7770,7 +7773,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-wallet-balances@workspace:packages/lambda-wallet-balances"
   dependencies:
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/utils": "npm:0.6.0"
     axios: "npm:^1.6.2"
     ethers: "npm:^5.7.2"
@@ -7781,7 +7784,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier"
   dependencies:
-    "@redstone-finance/lambda-common": "npm:0.6.0"
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/monitoring-manifests": "npm:0.6.0"
     "@redstone-finance/on-chain-relayer": "npm:0.6.0"
     "@redstone-finance/rpc-providers": "npm:0.6.0"
@@ -7796,8 +7799,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/monitoring-manifests@workspace:packages/monitoring-manifests"
   dependencies:
+    "@redstone-finance/internal-utils": "npm:0.6.0"
     "@redstone-finance/on-chain-relayer": "npm:0.6.0"
     "@redstone-finance/utils": "npm:0.6.0"
+    dayjs: "npm:^1.11.12"
+    lodash: "npm:^4.17.21"
     zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
@@ -7984,7 +7990,7 @@ __metadata:
     "@types/node": "npm:^18.14.6"
     axios: "npm:^1.6.2"
     axios-debug-log: "npm:^1.0.0"
-    dayjs: "npm:^1.11.9"
+    dayjs: "npm:^1.11.12"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
     hardhat: "npm:^2.17.2"
@@ -15605,10 +15611,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.9":
-  version: 1.11.11
-  resolution: "dayjs@npm:1.11.11"
-  checksum: 10c0/0131d10516b9945f05a57e13f4af49a6814de5573a494824e103131a3bbe4cc470b1aefe8e17e51f9a478a22cd116084be1ee5725cedb66ec4c3f9091202dc4b
+"dayjs@npm:^1.11.12":
+  version: 1.11.12
+  resolution: "dayjs@npm:1.11.12"
+  checksum: 10c0/9673d37f3f9ad8a91caaeae9b3fea9a0010c81c7f58599fb9d860bc3359b86632fbff8eb7dddc86c2acaab01c5e6860bc672952f17b58c9286140c52b077c8e4
   languageName: node
   linkType: hard
 

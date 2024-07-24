@@ -81,7 +81,7 @@ import venusMainnetXvs from "./venusMainnetXvs.json";
 import zksyncZk from "./zksyncZk.json";
 
 import _ from "lodash";
-import { OnChainRelayerManifestSchema } from "../src/types";
+import { OnChainRelayerManifestSchema } from "../src/schemas";
 
 // This file contains mapping from manifest name to manifest content
 // Which can be very useful as a source of truth, and can be easily use

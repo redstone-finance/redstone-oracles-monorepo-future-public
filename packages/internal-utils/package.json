@@ -1,0 +1,24 @@
+{
+  "name": "@redstone-finance/internal-utils",
+  "version": "0.6.0",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "rm -rf dist && yarn global:tsc --build tsconfig.json",
+    "preversion": "yarn build",
+    "lint": "yarn global:eslint .",
+    "push-config-json": "FILENAME=../../terraform/config/$KEY_NAME && yarn global:object-pushToBucket",
+    "push-wallets-to-monitor-json": "BUCKET_NAME=redstone-configuration-eu-west-1 && KEY_NAME=wallets-to-monitor.json && yarn push-config-json"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch": "^3.485.0",
+    "@aws-sdk/client-lambda": "^3.485.0",
+    "@aws-sdk/client-s3": "^3.485.0",
+    "@aws-sdk/client-ssm": "^3.485.0",
+    "@influxdata/influxdb-client": "^1.33.2",
+    "@redstone-finance/utils": "0.6.0"
+  }
+}

@@ -1,4 +1,4 @@
-import { getSSMParameterValue } from "@redstone-finance/lambda-common";
+import { getSSMParameterValue } from "@redstone-finance/internal-utils";
 import assert from "assert";
 import { ethers } from "ethers";
 import * as hre from "hardhat";
