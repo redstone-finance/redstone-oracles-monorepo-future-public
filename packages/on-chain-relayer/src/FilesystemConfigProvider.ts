@@ -3,7 +3,8 @@ import "dotenv/config";
 import fs from "fs";
 import { z } from "zod";
 import { makeConfigProvider } from "./make-config-provider";
-import { AnyOnChainRelayerManifestSchema, OnChainRelayerEnv } from "./types";
+import { AnyOnChainRelayerManifestSchema } from "./schemas";
+import { OnChainRelayerEnv } from "./types";
 
 // copy of method from oracle-node. Probably should be moved to some common package
 const readJSON = <T>(path: string): T => {
