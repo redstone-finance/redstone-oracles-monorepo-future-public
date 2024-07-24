@@ -435,10 +435,16 @@
       "source": [
         "binance-usdt",
         "binanceusdm-usdt",
-        "bitfinex2-usd",
-        "coingecko",
+        "bitget-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "gate-usdt",
+        "okx-usdt",
+        "kraken-usd",
         "kucoin-usdt",
-        "okx-usdt"
+        "mexc-usdt",
+        "xt"
       ]
     },
     "STX": {
@@ -1538,6 +1544,21 @@
         "trader-joe-v2-avalanche-wavax",
         "uniswap-v3-arbitrumone-weth-3000"
       ]
+    },
+    "GM_ATOM_WETH_USDC": {
+      "source": ["arbitrum-evm-fetcher-gmx"]
+    },
+    "GM_NEAR_WETH_USDC": {
+      "source": ["arbitrum-evm-fetcher-gmx"]
+    },
+    "GM_BTC_WBTC": {
+      "source": ["arbitrum-evm-fetcher-gmx"]
+    },
+    "GM_ETH_WETH": {
+      "source": ["arbitrum-evm-fetcher-gmx"]
+    },
+    "GM_GMX_GMX_USDC": {
+      "source": ["arbitrum-evm-fetcher-gmx"]
     },
     "SEI": {
       "source": [
