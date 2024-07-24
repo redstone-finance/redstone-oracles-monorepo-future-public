@@ -11,7 +11,7 @@
     "lint-all": "yarn g:run-all lint",
     "lint-all-configs": "yarn global:prettier **/.eslintrc.js **/package.json **/tsconfig*.json lerna.json .prettierrc.mjs",
     "test-all": "yarn workspaces foreach -Ap --topological-dev --exclude '[@redstone-finance/oracles-smartweave-contracts,@redstone-finance/fuel-connector]' run test",
-    "version:all": "lerna version --force-publish",
+    "version:all": "lerna version --force-publish --exact",
     "publish:all": "lerna publish",
     "syncpack:fix-mismatches": "syncpack fix-mismatches --types !local",
     "syncpack:list": "syncpack list-mismatches --types !local",

@@ -1,7 +1,7 @@
 {
   "name": "@redstone-finance/ton-connector",
   "description": "A tool to inject RedStone data into TON compatible smart contracts",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "@orbs-network/ton-access": "^2.3.3",
-    "@redstone-finance/protocol": "0.6.0",
-    "@redstone-finance/sdk": "0.6.0",
-    "@redstone-finance/utils": "0.6.0",
+    "@redstone-finance/protocol": "0.6.1",
+    "@redstone-finance/sdk": "0.6.1",
+    "@redstone-finance/utils": "0.6.1",
     "@ton-community/func-js": "0.6.3",
     "@ton-community/func-js-bin": "^0.4.5-tvmbeta.3",
     "@ton/core": "^0.56.3",

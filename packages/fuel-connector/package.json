@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/fuel-connector",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A tool to inject RedStone data into Fuel compatible smart contracts",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -19,7 +19,7 @@
     "lint": "yarn global:eslint ."
   },
   "dependencies": {
-    "@redstone-finance/sdk": "0.6.0",
+    "@redstone-finance/sdk": "0.6.1",
     "fuels": "^0.92.0"
   },
   "devDependencies": {
