@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/casper-connector",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@noble/hashes": "^1.3.3",
-    "@redstone-finance/sdk": "0.6.0",
+    "@redstone-finance/sdk": "0.6.1",
     "axios": "^1.6.2",
     "casper-js-sdk": "^2.15.5",
     "ethers": "^5.7.2"
