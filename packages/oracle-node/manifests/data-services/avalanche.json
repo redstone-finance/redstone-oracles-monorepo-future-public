@@ -31,7 +31,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "xt"
       ]
@@ -117,7 +116,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "xt"
       ]
@@ -149,7 +147,6 @@
         "kraken-usdt",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-ethereum-dai-100"
       ],
@@ -293,7 +290,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "xt"
       ]
