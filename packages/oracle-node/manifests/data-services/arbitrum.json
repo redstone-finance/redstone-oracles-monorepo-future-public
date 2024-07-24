@@ -680,6 +680,57 @@
         "trader-joe-v2-avalanche-wavax",
         "uniswap-v3-arbitrumone-weth-3000"
       ]
+    },
+    "ATOM": {
+      "source": [
+        "binance-usdt",
+        "binanceusdm-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
+        "bingx-usdt",
+        "coinbasepro-usd",
+        "coingecko",
+        "coinmarketcap",
+        "gate-usdt",
+        "kraken-usd",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "mexc-usdt",
+        "okx-usdt",
+        "xt"
+      ]
+    },
+    "NEAR": {
+      "source": [
+        "binance-usdt",
+        "binanceusdm-usdt",
+        "bitget-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "gate-usdt",
+        "okx-usdt",
+        "kraken-usd",
+        "kucoin-usdt",
+        "mexc-usdt",
+        "xt"
+      ]
+    },
+    "GM_ATOM_WETH_USDC": {
+      "source": ["arbitrum-evm-fetcher-gmx"]
+    },
+    "GM_NEAR_WETH_USDC": {
+      "source": ["arbitrum-evm-fetcher-gmx"]
+    },
+    "GM_BTC_WBTC": {
+      "source": ["arbitrum-evm-fetcher-gmx"]
+    },
+    "GM_ETH_WETH": {
+      "source": ["arbitrum-evm-fetcher-gmx"]
+    },
+    "GM_GMX_GMX_USDC": {
+      "source": ["arbitrum-evm-fetcher-gmx"]
     }
   },
   "multiPointPackages": {
@@ -687,6 +738,7 @@
       "3Crv",
       "AAVE",
       "ARB",
+      "ATOM",
       "AVAX",
       "BAL",
       "BTC",
@@ -700,9 +752,14 @@
       "GLP",
       "GMX",
       "GM_ARB_ARB_USDC",
+      "GM_ATOM_WETH_USDC",
+      "GM_BTC_WBTC",
       "GM_BTC_WBTC_USDC",
+      "GM_ETH_WETH",
       "GM_ETH_WETH_USDC",
+      "GM_GMX_GMX_USDC",
       "GM_LINK_LINK_USDC",
+      "GM_NEAR_WETH_USDC",
       "GM_SOL_SOL_USDC",
       "GM_UNI_UNI_USDC",
       "GRAIL",
@@ -711,6 +768,7 @@
       "LVL",
       "MAGIC",
       "MOO_GMX",
+      "NEAR",
       "PENDLE_EZ_ETH_LP",
       "PENDLE_E_ETH_LP",
       "PENDLE_RS_ETH_LP",
