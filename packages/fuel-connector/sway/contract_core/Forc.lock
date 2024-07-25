@@ -1,0 +1,21 @@
+[[package]]
+name = "core"
+source = "path+from-root-CC22FE9C5CBB0084"
+
+[[package]]
+name = "prices"
+source = "member"
+dependencies = [
+    "redstone",
+    "std",
+]
+
+[[package]]
+name = "redstone"
+source = "git+https://github.com/redstone-finance/redstone-fuel-sdk?tag=testnet-0.61.2#8de1bce5fea4009f6a61cd9607934ef2c8ce8a14"
+dependencies = ["std"]
+
+[[package]]
+name = "std"
+source = "git+https://github.com/fuellabs/sway?tag=v0.61.2#e1b1c2bee73e0ba825e07736cefa6c0abd079595"
+dependencies = ["core"]

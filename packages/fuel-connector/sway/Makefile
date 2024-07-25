@@ -15,17 +15,20 @@ else
 	GAS_PRICE=0
 endif
 
+SUFFIX=#_core
 DEMO=demo
-CONTRACT=contract
-INVOKER=contract_invoker
+CONTRACT=contract$(SUFFIX)
+CONTRACT_PRICES=contract
+CONTRACT_CORE=contract_core
+INVOKER=contract_invoker$(SUFFIX)
 INITIALIZER=contract_initializer
 LIBRARY=redstone-fuel-sdk
 DATA_GENERATOR=../../../packages/sdk/scripts/payload-generator
 DATA_DIR=$(DATA_GENERATOR)/data
 CONTRACT_ID_FILE=./$(CONTRACT)/CONTRACT_ID
 CONTRACT_ID=$(shell cat $(CONTRACT_ID_FILE))
-TEST_DIRS = $(LIBRARY) $(CONTRACT)
-DIRS = $(TEST_DIRS) $(INVOKER) $(INITIALIZER) $(DEMO)
+TEST_DIRS = $(LIBRARY) $(CONTRACT) $(CONTRACT_PRICES) $(CONTRACT_CORE)
+DIRS = $(TEST_DIRS) $(INVOKER) $(INITIALIZER) $(DEMO) $(CONTRACT_PRICES) $(CONTRACT_CORE)
 
 
 define run_in_dirs

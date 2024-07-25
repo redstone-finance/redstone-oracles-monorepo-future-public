@@ -1,0 +1,10 @@
+[project]
+authors = ["Łukasz Kalbarczyk"]
+entry = "redstone_core.sw"
+forc-version = "0.61.2"
+license = "Apache-2.0"
+name = "redstone_core"
+organization = "RedStone"
+
+[dependencies]
+redstone = { git = "https://github.com/redstone-finance/redstone-fuel-sdk", tag = "testnet-0.61.2" }
