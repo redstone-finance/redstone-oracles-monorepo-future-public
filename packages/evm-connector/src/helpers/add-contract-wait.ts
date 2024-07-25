@@ -24,7 +24,7 @@ export const addContractWait = (
           event.args = parsed.args;
           event.decode = (data: BytesLike, topics?: Array<string>) => {
             return contract.interface.decodeEventLog(
-              parsed!.eventFragment,
+              parsed.eventFragment,
               data,
               topics
             );

@@ -24,7 +24,7 @@ export const includeSynchronizedHeartbeatUpdates = (
     for (const heartbeat of heartbeatUpdates) {
       if (
         heartbeat %
-          updateTriggers[dataFeedId].timeSinceLastUpdateInMilliseconds! ===
+          updateTriggers[dataFeedId].timeSinceLastUpdateInMilliseconds ===
         0
       ) {
         messages.push(

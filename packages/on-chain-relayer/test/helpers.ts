@@ -161,7 +161,7 @@ export const getMultiPointDataPackagesResponse = async (
     if (!signedDataPackages[dataPackageId]) {
       signedDataPackages[dataPackageId] = [];
     }
-    signedDataPackages[dataPackageId]!.push(signedDataPackage);
+    signedDataPackages[dataPackageId].push(signedDataPackage);
   }
   return signedDataPackages;
 };

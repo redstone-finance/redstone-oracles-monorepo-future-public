@@ -154,14 +154,14 @@ export class DataPackagesService {
         fetchedPackagesPerDataFeed[dataPackageId] = [];
       }
 
-      fetchedPackagesPerDataFeed[dataPackageId]!.push({
+      fetchedPackagesPerDataFeed[dataPackageId].push({
         ...rest,
         timestampMilliseconds: rest.timestampMilliseconds.getTime(),
         signerAddress: _id.signerAddress,
       });
       // temporary for backward compatibility
       (
-        fetchedPackagesPerDataFeed[dataPackageId]?.at(-1) as unknown as {
+        fetchedPackagesPerDataFeed[dataPackageId].at(-1) as unknown as {
           dataFeedId: string;
         }
       ).dataFeedId = dataPackageId;
@@ -257,7 +257,7 @@ export class DataPackagesService {
         fetchedPackagesPerDataFeed[dataPackageId] = [];
       }
 
-      fetchedPackagesPerDataFeed[dataPackageId]!.push(candidatePackage);
+      fetchedPackagesPerDataFeed[dataPackageId].push(candidatePackage);
     }
 
     return fetchedPackagesPerDataFeed;

@@ -47,7 +47,7 @@ export function memoize<
 
     // we don't check ttl because it is cleared here: cleanStaleCacheEntries
     const isMiss =
-      !cache[cacheKey] || Date.now() - cache[cacheKey]!.lastSet > ttl;
+      !cache[cacheKey] || Date.now() - cache[cacheKey].lastSet > ttl;
 
     if (isMiss) {
       cache[cacheKey] = {

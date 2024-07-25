@@ -18,7 +18,7 @@
     "jest-mock-extended": "^3.0.4",
     "prompts": "^2.4.2",
     "replace-in-file": "^6.3.5",
-    "typescript": "^5.2.2",
+    "typescript": "^5.5.4",
     "warp-contracts": "^1.2.47"
   },
   "publishConfig": {
