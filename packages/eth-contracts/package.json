@@ -38,6 +38,6 @@
     "hardhat": "^2.17.2",
     "hardhat-gas-reporter": "^1.0.9",
     "typechain": "^8.1.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.5.4"
   }
 }

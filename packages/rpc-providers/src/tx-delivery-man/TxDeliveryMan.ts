@@ -1,7 +1,4 @@
-import {
-  TransactionReceipt,
-  TransactionResponse,
-} from "@ethersproject/providers";
+import { TransactionResponse } from "@ethersproject/providers";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { ethers, providers } from "ethers";
 import { getProviderNetworkInfo } from "../common";
@@ -140,9 +137,7 @@ function buildWaitFn(deliveryPromises: Promise<TransactionResponse>[]) {
       )
     )
       .filter((result) => result.status === "fulfilled")
-      .map(
-        (result) => (result as PromiseFulfilledResult<TransactionReceipt>).value
-      );
+      .map((result) => result.value);
 
     if (receipts.length > 1) {
       const hashes = receipts.map((r) => r.transactionHash).join(", ");

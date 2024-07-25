@@ -10,8 +10,8 @@ export type {
   ISortedOracles,
   MentoAdapterBase,
   MultiFeedAdapterWithoutRounds,
-  PriceFeedWithRounds,
   PriceFeedsAdapterWithRounds,
+  PriceFeedWithRounds,
   RedstoneAdapterBase,
 } from "../typechain-types";
 export { setConfigProvider } from "./config";
@@ -44,10 +44,10 @@ export {
 } from "./types";
 export {
   ISortedOraclesAbi,
+  manifests,
   MentoAdapterBaseAbi,
   MultiFeedAdapterWithoutRoundsAbi,
-  PriceFeedWithRoundsAbi,
-  PriceFeedsAdapterWithRoundsAbi,
-  manifests,
   multiFeedManifests,
+  PriceFeedsAdapterWithRoundsAbi,
+  PriceFeedWithRoundsAbi,
 };

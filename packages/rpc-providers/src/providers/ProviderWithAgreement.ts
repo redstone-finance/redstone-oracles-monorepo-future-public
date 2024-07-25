@@ -159,7 +159,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
     const blockNumbers = blockNumbersResults
       .filter((result) => result.status === "fulfilled")
-      .map((result) => (result as PromiseFulfilledResult<number>).value);
+      .map((result) => result.value);
 
     if (blockNumbers.length === 0) {
       throw new AggregateError(

@@ -1,6 +1,6 @@
 export * from "./data-package/DataPackage";
-export * from "./data-package/SignedDataPackage";
 export * from "./data-package/signed-package-deserializing";
+export * from "./data-package/SignedDataPackage";
 
 export * from "./data-point/DataPoint";
 export * from "./data-point/NumericDataPoint";

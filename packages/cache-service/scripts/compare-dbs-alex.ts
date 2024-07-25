@@ -236,7 +236,7 @@ function extractValuesForDataFeed(
     return {};
   } else {
     for (const [signer, dataPackages] of Object.entries(
-      dataPackagesForManyFeeds[dataFeedId]!
+      dataPackagesForManyFeeds[dataFeedId]
     )) {
       valuesPerSigner[signer] = dataPackages!.map((dp) => dp.value);
     }
@@ -278,15 +278,15 @@ function groupDataPackages(
 
     for (const dataPoint of dataPackage.dataPoints) {
       const { dataFeedId, value } = dataPoint;
-      if (!result[timestampMilliseconds]![dataFeedId]) {
-        result[timestampMilliseconds]![dataFeedId] = {};
+      if (!result[timestampMilliseconds][dataFeedId]) {
+        result[timestampMilliseconds][dataFeedId] = {};
       }
 
-      if (!result[timestampMilliseconds]![dataFeedId]![signerAddress]) {
-        result[timestampMilliseconds]![dataFeedId]![signerAddress] = [];
+      if (!result[timestampMilliseconds][dataFeedId][signerAddress]) {
+        result[timestampMilliseconds][dataFeedId][signerAddress] = [];
       }
 
-      result[timestampMilliseconds]![dataFeedId]![signerAddress]!.push({
+      result[timestampMilliseconds][dataFeedId][signerAddress].push({
         value: value as number,
       });
     }
