@@ -1250,6 +1250,21 @@
         "mexc-usdt",
         "xt"
       ]
+    },
+    "ZKL": {
+      "source": [
+        "bingx-usdt",
+        "bitmart-usdt",
+        "bitget-usdt",
+        "bybit-usdt",
+        "coingecko",
+        "coinmarketcap",
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "mexc-usdt",
+        "xt"
+      ]
     }
   },
   "multiPointPackages": {

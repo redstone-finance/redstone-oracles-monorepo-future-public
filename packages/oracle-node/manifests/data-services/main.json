@@ -1555,6 +1555,20 @@
         "xt"
       ]
     },
+    "ZKL": {
+      "source": [
+        "bingx-usdt",
+        "bitmart-usdt",
+        "bitget-usdt",
+        "bybit-usdt",
+        "coingecko",
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "mexc-usdt",
+        "xt"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
