@@ -13,9 +13,9 @@ To learn more about RedStone oracles design go to the [RedStone docs](https://do
 
 ## 📄 Smart Contracts
 
-### Prices.sway
+### RedStoneCore
 
-- Sample oracle contract that consumes *RedStone Oracles* data [prices.sw](src/prices.sw) written in sway version
+- Sample oracle contract that consumes *RedStone Oracles* data [redstone_core.sw](src/redstone_core.sw) written in sway version
   0.61.2.
 
 #### ⨐ initializer
@@ -56,43 +56,6 @@ fn get_prices(feed_ids: Vec<u256>, payload: Vec<u64>) -> Vec<u256>
 
 The function processes on-chain the `payload` passed as an argument
 and returns an array of aggregated values of each feed passed as an identifier inside `feed_ids`.
-
-That's just a `#[storage(read)]` function - it consumes GAS but doesn't modify the contract's storage.
-
-#### ⨒ write_prices
-
-```rust
-fn write_prices(feed_ids: Vec<u256>, payload: Vec<u64>) -> Vec<u256>
-```
-
-Regardless of the on-fly processing, there also exists a function for processing the `payload` on-chain, but
-saving/writing the aggregated values to the contract's storage and then returning them as an array.
-The values persist in the contract's storage and then can be read by using `read_prices` function.
-The timestamp of data last saved/written to the contract is able to read by using the `read_timestamp` function.
-That's a `#[storage(write)]` function - it consumes GAS and modifies the contract's storage, so must be paid by ETHs.
-
-📖 See how it works on: https://fuel-showroom.redstone.finance/
-
-#### ⨗ read_prices
-
-```rust
-fn read_prices(feed_ids: Vec<u256>) -> Vec<u256>
-```
-
-The function reads the values persisting in the contract's storage and returns an array corresponding to the
-passed `feed_ids`.
-The function doesn't modify the storage and can read only aggregated values of the `feed_ids` saved by
-using `write_prices` function.
-
-That's just a `#[storage(read)]` function - it consumes GAS but doesn't modify the contract's storage.
-
-#### ∮ read_timestamp
-
-```rust
-fn read_timestamp() -> u64 
-```
-
-Returns the timestamp of data last saved/written to the contract's storage by using `write_prices` function.
 
 That's just a `#[storage(read)]` function - it consumes GAS but doesn't modify the contract's storage.
 
