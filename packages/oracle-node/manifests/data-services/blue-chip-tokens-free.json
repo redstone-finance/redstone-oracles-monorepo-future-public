@@ -55,12 +55,7 @@
       ]
     },
     "USDT": {
-      "source": [
-        "bitstamp-usd",
-        "coinbasepro-usd",
-        "kaiko",
-        "kaiko-v2"
-      ],
+      "source": ["bitstamp-usd", "coinbasepro-usd", "kaiko", "kaiko-v2"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
