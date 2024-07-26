@@ -11,7 +11,7 @@
     "start": "node dist/src/run-relayer.js",
     "start:dev": "yarn global:ts-node src/run-relayer.ts",
     "compile": "hardhat compile",
-    "lint": "yarn global:eslint .",
+    "lint": "yarn global:eslint . && yarn global:prettier -c relayer-manifests{,-multi-feed}/**/*.json",
     "run-script": "hardhat run",
     "start-node": "hardhat node",
     "test": "NODE_ENV=test hardhat test",

@@ -256,9 +256,7 @@
       ]
     },
     "sfrxETH": {
-      "source": [
-        "ethereum-evm-fetcher-frax"
-      ]
+      "source": ["ethereum-evm-fetcher-frax"]
     },
     "rsETH": {
       "priceAggregator": "depth",
