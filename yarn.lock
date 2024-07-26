@@ -7464,14 +7464,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-mongodb-influx-synchronizer@workspace:packages/lambda-mongodb-influx-synchronizer"
   dependencies:
+    "@aws-sdk/client-s3": "npm:^3.485.0"
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.33.2"
     "@redstone-finance/internal-utils": "npm:0.6.1"
     "@redstone-finance/protocol": "npm:0.6.1"
+    "@redstone-finance/utils": "npm:0.6.1"
     aws-lambda: "npm:^1.0.7"
+    dotenv: "npm:^16.0.3"
+    fflate: "npm:^0.8.2"
     lodash: "npm:^4.17.21"
     mongodb: "npm:^5.9.0"
     p-limit: "npm:^4.0.0"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -18031,6 +18036,13 @@ __metadata:
     set-cookie-parser: "npm:^2.4.8"
     tough-cookie: "npm:^4.0.0"
   checksum: 10c0/1ba75fc1d4b5705aef90c3bfe52bb74a371a28d36bb1cc0e17ffe07c751060574be0e3508104d0da96e3ebe7bb21ae419a9bbdbfc4ea157577827129aefa62cb
+  languageName: node
+  linkType: hard
+
+"fflate@npm:^0.8.2":
+  version: 0.8.2
+  resolution: "fflate@npm:0.8.2"
+  checksum: 10c0/03448d630c0a583abea594835a9fdb2aaf7d67787055a761515bf4ed862913cfd693b4c4ffd5c3f3b355a70cf1e19033e9ae5aedcca103188aaff91b8bd6e293
   languageName: node
   linkType: hard
 
