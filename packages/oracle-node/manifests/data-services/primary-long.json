@@ -1,0 +1,29 @@
+{
+  "interval": 10000,
+  "priceAggregator": "median",
+  "defaultSource": ["coingecko"],
+  "sourceTimeout": 7000,
+  "minValidSourcesPercentage": 1,
+  "deviationCheck": {
+    "deviationWithRecentValues": {
+      "maxPercent": 30,
+      "maxDelayMilliseconds": 300000
+    }
+  },
+  "tokens": {
+    "LBTC_FUNDAMENTAL_1": {
+      "source": ["lbtc-1"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 10,
+          "maxDelayMilliseconds": 6000000
+        }
+      },
+      "valueCapConfig": {
+        "upper": {
+          "value": 1
+        }
+      }
+    }
+  }
+}
