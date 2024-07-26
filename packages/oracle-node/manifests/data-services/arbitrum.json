@@ -702,6 +702,8 @@
         "bitrue-usdt",
         "bybit-usdt",
         "coinbasepro-usd",
+        "coingecko",
+        "coinmarketcap",
         "gate-usdt",
         "okx-usdt",
         "kraken-usd",
