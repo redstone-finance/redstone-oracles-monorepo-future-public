@@ -194,3 +194,12 @@ export const pThrottle = ({
     return throttled;
   };
 };
+
+export function withRateLimiter<T extends AnyFunction>(
+  fn: T,
+  pThrottleOpts: Options
+): T {
+  const limiter = pThrottle(pThrottleOpts);
+
+  return limiter(fn);
+}
