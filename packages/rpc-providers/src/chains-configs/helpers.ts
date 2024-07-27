@@ -84,7 +84,8 @@ export function getMulticall3(
 
   if (
     multicall3.type === "Multicall3" ||
-    multicall3.type === "zkSyncMulticall3"
+    multicall3.type === "zkSyncMulticall3" ||
+    multicall3.type === "zkLinkMulticall3"
   ) {
     return new Contract(
       address,

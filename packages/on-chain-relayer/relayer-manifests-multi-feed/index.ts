@@ -1,6 +1,7 @@
 import arbitrumOneMultiFeed from "./arbitrumOneMultiFeed.json";
 import modeMultiFeed from "./modeMultiFeed.json";
 import sepoliaMultiFeed from "./sepoliaMultiFeed.json";
+import zkLinkMultiFeed from "./zkLinkMultiFeed.json";
 
 import _ from "lodash";
 import { MultiFeedOnChainRelayerManifestSchema } from "../src/schemas";
@@ -14,6 +15,7 @@ const allMultiFeedRelayersManifests = {
   arbitrumOneMultiFeed,
   modeMultiFeed,
   sepoliaMultiFeed,
+  zkLinkMultiFeed,
 };
 
 const allMultiFeedRelayersParsedManifests = _.mapValues(

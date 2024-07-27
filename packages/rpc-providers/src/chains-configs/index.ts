@@ -33,6 +33,12 @@ export const ChainConfigSchema = z.object({
         address: z.string(),
         type: z.literal("zkSyncMulticall3"),
       })
+    )
+    .or(
+      z.object({
+        address: z.string(),
+        type: z.literal("zkLinkMulticall3"),
+      })
     ),
 });
 
@@ -45,5 +51,7 @@ export const REDSTONE_MULTICALL3_ADDRESS =
   "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c";
 export const ZKSYNC_MULTICALL3_ADDRESS =
   "0xF9cda624FBC7e059355ce98a31693d299FACd963";
+export const ZKLINK_MULTICALL3_ADDRESS =
+  "0x70D5eB52Bf15808C240194bD003e8052F5666c9C";
 
 export const ChainConfigs = z.record(ChainConfigSchema).parse(config);
