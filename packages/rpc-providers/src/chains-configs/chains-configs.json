@@ -496,6 +496,18 @@
       "type": "zkSyncMulticall3"
     },
     "isAuctionModel": false,
-    "twoDimensionalFees": false
+    "twoDimensionalFees": true
+  },
+  "zkLink": {
+    "name": "zkLink",
+    "chainId": 810180,
+    "publicRpcUrls": ["https://rpc.zklink.io"],
+    "avgBlockTimeMs": 1000,
+    "multicall3": {
+      "address": "0x70D5eB52Bf15808C240194bD003e8052F5666c9C",
+      "type": "zkLinkMulticall3"
+    },
+    "isAuctionModel": false,
+    "twoDimensionalFees": true
   }
 }
