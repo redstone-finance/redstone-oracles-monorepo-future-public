@@ -10,7 +10,14 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["@typescript-eslint", "workspaces", "eslint-plugin-import"],
   // for some reason eslint hangs on "artifacts" directory
-  ignorePatterns: ["artifacts", "dist", "*.js", "*.mjs", "!.jest"],
+  ignorePatterns: [
+    "artifacts",
+    "typechain-types",
+    "dist",
+    "*.js",
+    "*.mjs",
+    "!.jest",
+  ],
   settings: {
     "import/resolver": {
       typescript: true,
