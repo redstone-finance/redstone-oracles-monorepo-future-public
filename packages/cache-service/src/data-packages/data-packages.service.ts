@@ -410,7 +410,6 @@ export class DataPackagesService {
       signerAddress,
       isSignatureValid,
     };
-    cachedDataPackage.dataPackageId = receivedDataPackage.dataPackageId;
     return cachedDataPackage;
   }
 
