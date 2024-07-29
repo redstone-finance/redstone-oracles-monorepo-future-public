@@ -504,7 +504,7 @@
     "publicRpcUrls": ["https://rpc.zklink.io"],
     "avgBlockTimeMs": 1000,
     "multicall3": {
-      "address": "0x70D5eB52Bf15808C240194bD003e8052F5666c9C",
+      "address": "0x825267E0fA5CAe92F98540828a54198dcB3Eaeb5",
       "type": "zkLinkMulticall3"
     },
     "isAuctionModel": false,
