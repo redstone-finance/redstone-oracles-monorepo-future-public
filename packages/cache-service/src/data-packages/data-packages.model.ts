@@ -57,7 +57,7 @@ export class CachedDataPackage {
   @Prop({ required: true })
   signerAddress!: string;
 
-  @Prop({ required: false })
+  @Prop({ required: true })
   dataPackageId!: string;
 }
 
