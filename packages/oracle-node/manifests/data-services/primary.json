@@ -1274,6 +1274,9 @@
         "mexc-usdt",
         "xt"
       ]
+    },
+    "mETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-mantle-lsp-staking"]
     }
   },
   "multiPointPackages": {
