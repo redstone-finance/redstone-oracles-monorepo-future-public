@@ -52,6 +52,6 @@ export const REDSTONE_MULTICALL3_ADDRESS =
 export const ZKSYNC_MULTICALL3_ADDRESS =
   "0xF9cda624FBC7e059355ce98a31693d299FACd963";
 export const ZKLINK_MULTICALL3_ADDRESS =
-  "0x70D5eB52Bf15808C240194bD003e8052F5666c9C";
+  "0x825267E0fA5CAe92F98540828a54198dcB3Eaeb5";
 
 export const ChainConfigs = z.record(ChainConfigSchema).parse(config);
