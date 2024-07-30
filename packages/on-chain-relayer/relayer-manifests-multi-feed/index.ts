@@ -1,4 +1,5 @@
 import arbitrumOneMultiFeed from "./arbitrumOneMultiFeed.json";
+import mantleMultiFeed from "./mantleMultiFeed.json";
 import modeMultiFeed from "./modeMultiFeed.json";
 import optimismDevMultiFeed from "./optimismDevMultiFeed.json";
 import sepoliaMultiFeed from "./sepoliaMultiFeed.json";
@@ -18,6 +19,7 @@ const allMultiFeedRelayersManifests = {
   sepoliaMultiFeed,
   optimismDevMultiFeed,
   zkLinkMultiFeed,
+  mantleMultiFeed,
 };
 
 const allMultiFeedRelayersParsedManifests = _.mapValues(

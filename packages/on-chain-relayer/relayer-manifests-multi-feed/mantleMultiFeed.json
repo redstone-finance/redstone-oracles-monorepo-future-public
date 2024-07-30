@@ -1,0 +1,24 @@
+{
+  "chain": {
+    "name": "mantle",
+    "id": 5000
+  },
+  "adapterContract": "0xd9a66Ff1D660aD943F48e9c606D09eA672f312E8",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "priceFeeds": {
+    "mETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0x9b2C948dbA5952A1f5Ab6fA16101c1392b8da1ab"
+    },
+    "USDC": {
+      "priceFeedAddress": "0x1bB8f2dF000553E5Af2AEd5c42FEd3a73cd5144b"
+    },
+    "WBTC": {
+      "priceFeedAddress": "0x76A495b0bFfb53ef3F0E94ef0763e03cE410835C"
+    }
+  }
+}

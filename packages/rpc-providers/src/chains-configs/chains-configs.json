@@ -227,12 +227,12 @@
     "name": "Mantle",
     "chainId": 5000,
     "publicRpcUrls": [
+      "https://rpc.mantle.xyz",
       "https://mantle-rpc.publicnode.com",
       "https://mantle-mainnet.public.blastapi.io",
       "https://mantle.drpc.org",
       "https://rpc.ankr.com/mantle",
-      "https://1rpc.io/mantle",
-      "https://rpc.mantle.xyz"
+      "https://1rpc.io/mantle"
     ],
     "avgBlockTimeMs": 2000,
     "multicall3": {
