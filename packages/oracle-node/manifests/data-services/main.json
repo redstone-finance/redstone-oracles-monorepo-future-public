@@ -1578,6 +1578,14 @@
     "mETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-mantle-lsp-staking"]
     },
+    "ISEI": {
+      "source": [
+        "dragonswap-sei-wsei",
+        "jellyverse-sei-wsei",
+        "xei-sei-wsei-100",
+        "xei-sei-wsei-500"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },

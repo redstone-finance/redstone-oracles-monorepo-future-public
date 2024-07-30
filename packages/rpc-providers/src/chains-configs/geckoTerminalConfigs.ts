@@ -19,6 +19,8 @@ export function mapNetworkNameToGeckoTerminalNetworkName(
       return "base";
     case "bnb":
       return "bsc";
+    case "sei":
+      return "sei-evm";
     default:
       return undefined;
   }
