@@ -1,5 +1,6 @@
 import arbitrumOneMultiFeed from "./arbitrumOneMultiFeed.json";
 import modeMultiFeed from "./modeMultiFeed.json";
+import optimismDevMultiFeed from "./optimismDevMultiFeed.json";
 import sepoliaMultiFeed from "./sepoliaMultiFeed.json";
 import zkLinkMultiFeed from "./zkLinkMultiFeed.json";
 
@@ -15,6 +16,7 @@ const allMultiFeedRelayersManifests = {
   arbitrumOneMultiFeed,
   modeMultiFeed,
   sepoliaMultiFeed,
+  optimismDevMultiFeed,
   zkLinkMultiFeed,
 };
 
