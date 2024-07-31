@@ -1,4 +1,5 @@
 export * from "./aws";
+export * from "./batch-promises";
 export * from "./classic-model-feeds-fetcher";
 export * from "./cloudwatch";
 export * from "./data-services-fetcher";
