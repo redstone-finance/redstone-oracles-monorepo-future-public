@@ -1,0 +1,16 @@
+{
+  "chain": {
+    "name": "mainnet",
+    "id": 1
+  },
+  "adapterContract": "0xd72a6BA4a87DDB33e801b3f1c7750b2d0911fC6C",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "priceFeeds": {
+    "LBTC_FUNDAMENTAL_1": {}
+  }
+}

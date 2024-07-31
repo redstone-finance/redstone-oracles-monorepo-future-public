@@ -1,4 +1,5 @@
 import arbitrumOneMultiFeed from "./arbitrumOneMultiFeed.json";
+import ethereumMultiFeed from "./ethereumMultiFeed.json";
 import mantleMultiFeed from "./mantleMultiFeed.json";
 import modeMultiFeed from "./modeMultiFeed.json";
 import optimismDevMultiFeed from "./optimismDevMultiFeed.json";
@@ -15,6 +16,7 @@ import { MultiFeedOnChainRelayerManifestSchema } from "../src/schemas";
 
 const allMultiFeedRelayersManifests = {
   arbitrumOneMultiFeed,
+  ethereumMultiFeed,
   modeMultiFeed,
   sepoliaMultiFeed,
   optimismDevMultiFeed,
