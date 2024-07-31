@@ -5344,8 +5344,7 @@
       "source": [
         "binance-usdt",
         "coinbasepro-usd",
-        "kraken-usd",
-        "bitfinex2-usd"
+        "kraken-usd"
       ]
     },
     "SNOB": {},

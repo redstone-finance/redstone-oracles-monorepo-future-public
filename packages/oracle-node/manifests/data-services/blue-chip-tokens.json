@@ -1,7 +1,9 @@
 {
   "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": ["coingecko"],
+  "defaultSource": [
+    "coingecko"
+  ],
   "sourceTimeout": 7000,
   "minValidSourcesPercentage": 1,
   "deviationCheck": {
@@ -60,12 +62,15 @@
     },
     "USDT": {
       "source": [
+        "bitfinex2-usd",
         "bitstamp-usd",
         "coinbasepro-usd",
         "coingecko",
         "coinmarketcap",
+        "gate-usd",
         "kaiko",
-        "kaiko-v2"
+        "kaiko-v2",
+        "kraken-usd"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {

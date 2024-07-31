@@ -1,7 +1,9 @@
 {
   "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": ["binance-usdt"],
+  "defaultSource": [
+    "binance-usdt"
+  ],
   "sourceTimeout": 7000,
   "minValidSourcesPercentage": 1,
   "deviationCheck": {
@@ -24,8 +26,6 @@
         "bitstamp-usd",
         "coinbasepro-usd",
         "gate-usdt",
-        "kaiko",
-        "kaiko-v2",
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
@@ -45,8 +45,6 @@
         "bitmart-usdt",
         "bitstamp-usd",
         "coinbasepro-usd",
-        "kaiko",
-        "kaiko-v2",
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
@@ -55,7 +53,13 @@
       ]
     },
     "USDT": {
-      "source": ["bitstamp-usd", "coinbasepro-usd", "kaiko", "kaiko-v2"],
+      "source": [
+        "bitfinex2-usd",
+        "bitstamp-usd",
+        "coinbasepro-usd",
+        "gate-usd",
+        "kraken-usd"
+      ],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -74,8 +78,6 @@
         "bitstamp-usd",
         "curve-ethereum-dai",
         "curve-ethereum-usdt",
-        "kaiko",
-        "kaiko-v2",
         "kraken-usdt",
         "kucoin-usdt",
         "lbank-usdt",
@@ -134,7 +136,6 @@
         "bitget-usdt",
         "bitrue-usdt",
         "gate-usdt",
-        "kaiko-v2",
         "kucoin-usdt",
         "lbank-usdt"
       ]
