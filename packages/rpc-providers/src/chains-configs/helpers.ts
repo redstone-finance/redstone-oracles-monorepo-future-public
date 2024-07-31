@@ -6,6 +6,7 @@ import {
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { Contract, Wallet } from "ethers";
 
+import axios from "axios";
 import { ChainConfig, ChainConfigs, SupportedNetworkNames } from "../index";
 import { MegaProviderBuilder } from "../MegaProviderBuilder";
 import { ProviderWithAgreement } from "../providers/ProviderWithAgreement";
@@ -25,6 +26,29 @@ export function getNetworkName(chainId: number): SupportedNetworkNames {
   const networkName = Object.entries(ChainConfigs).find(
     ([_, v]) => v.chainId === chainId
   )?.[0] as SupportedNetworkNames | undefined;
+  RedstoneCommon.assert(
+    networkName,
+    `Couldn't find network for chain_id=${chainId}`
+  );
+  return networkName;
+}
+
+type ChainConfigsRemote = {
+  [chain: string]: {
+    chainId: number;
+    name: string;
+  };
+};
+
+export async function getNetworkNameRemote(chainId: number): Promise<string> {
+  const chainConfigsUrl =
+    "https://d3cu28sut4ahjk.cloudfront.net/redstone-finance/redstone-monorepo-priv/main/packages/rpc-providers/src/chains-configs/chains-configs.json";
+  const chainConfigsRemote = (
+    await axios.get<ChainConfigsRemote>(chainConfigsUrl)
+  ).data;
+  const networkName = Object.entries(chainConfigsRemote).find(
+    ([_, v]) => v.chainId === chainId
+  )?.[0];
   RedstoneCommon.assert(
     networkName,
     `Couldn't find network for chain_id=${chainId}`
