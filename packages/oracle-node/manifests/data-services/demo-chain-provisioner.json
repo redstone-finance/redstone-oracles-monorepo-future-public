@@ -153,13 +153,15 @@
     },
     "rETH": {
       "source": [
-        "uniswap-v3-ethereum-weth-100",
-        "uniswap-v3-ethereum-weth-500",
         "balancer-ethereum-weth",
         "balancer-ethereum-wsteth",
         "balancer-ethereum-wsteth-2",
         "curve-ethereum-wsteth",
-        "pancake-swap-ethereum-weth-500"
+        "curve-ethereum-wsteth-2",
+        "pancake-swap-ethereum-weth-500",
+        "uniswap-v3-ethereum-weth-100",
+        "uniswap-v3-ethereum-weth-500",
+        "uniswap-v3-ethereum-wsteth-500"
       ]
     },
     "osETH": {
@@ -272,7 +274,8 @@
         "aerodrome-base-usdc",
         "curve-ethereum-crvfrax",
         "curve-ethereum-rsr",
-        "curve-ethereum-usdc"
+        "curve-ethereum-usdc",
+        "curve-ethereum-usdc-2"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -315,6 +318,7 @@
         "balancer-ethereum-ethx",
         "balancer-ethereum-weth",
         "curve-ethereum-sfrxeth",
+        "curve-ethereum-weeth",
         "uniswap-v3-ethereum-weth-500",
         "uniswap-v3-ethereum-wsteth-500"
       ]
