@@ -11,7 +11,8 @@
     "sample-run": "yarn global:ts-node test/e2e/sample-run.ts",
     "preversion": "yarn build",
     "pack-package": "yarn build && cd dist && npm pack",
-    "lint": "yarn global:eslint ."
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix ."
   },
   "dependencies": {
     "@noble/hashes": "^1.3.3",

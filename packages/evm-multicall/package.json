@@ -9,7 +9,8 @@
     "build": "hardhat compile && rm -rf dist && yarn global:tsc --build tsconfig.build.json",
     "build-dev": "hardhat compile && rm -rf dist && yarn global:tsc --build tsconfig.json",
     "preversion": "yarn build",
-    "lint": "yarn global:eslint ."
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix ."
   },
   "dependencies": {
     "ethers": "^5.7.2"

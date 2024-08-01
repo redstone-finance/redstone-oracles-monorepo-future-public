@@ -10,6 +10,7 @@
     "build-dev": "rm -rf dist && yarn global:tsc --build tsconfig.json",
     "preversion": "yarn build",
     "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix .",
     "push-config-json": "FILENAME=../../terraform/config/$KEY_NAME && yarn global:object-pushToBucket",
     "push-wallets-to-monitor-json": "BUCKET_NAME=redstone-configuration-eu-west-1 && KEY_NAME=wallets-to-monitor.json && yarn push-config-json"
   },

@@ -26,6 +26,7 @@
     "consume-data": "yarn run-script runSampleConsumersReadData",
     "pack-package": "yarn build && npm pack",
     "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix .",
     "preversion": "yarn build",
     "test": "yarn global:jest:cov"
   },

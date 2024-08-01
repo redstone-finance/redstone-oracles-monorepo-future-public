@@ -14,7 +14,8 @@
     "benchmark": "hardhat test benchmarks/run-benchmarks.ts",
     "compile": "hardhat compile",
     "preversion": "yarn build",
-    "lint": "yarn global:eslint ."
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix ."
   },
   "dependencies": {
     "@chainlink/contracts": "^0.6.1",
