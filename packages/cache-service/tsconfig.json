@@ -1,8 +1,5 @@
 {
   "extends": "../../tsconfig-common.json",
-  "compilerOptions": {
-    "outDir": "dist"
-  },
   "include": ["**/*", ".jest/*"],
   "references": [
     {

@@ -1,8 +1,5 @@
 {
   "extends": "../../tsconfig-common.json",
-  "compilerOptions": {
-    "outDir": "dist"
-  },
   "references": [
     {
       "path": "../protocol/tsconfig.build.json"

@@ -15,6 +15,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
+    "outDir": "${configDir}/dist",
     "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
