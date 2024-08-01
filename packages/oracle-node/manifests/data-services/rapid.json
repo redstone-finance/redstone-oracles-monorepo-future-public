@@ -61,11 +61,14 @@
     },
     "USDT": {
       "source": [
+        "bitfinex2-usd",
         "bitstamp-usd",
         "coinbasepro-usd",
         "coingecko",
+        "gate-usd",
         "kaiko",
-        "kaiko-v2"
+        "kaiko-v2",
+        "kraken-usd"
       ]
     },
     "BNB": {
