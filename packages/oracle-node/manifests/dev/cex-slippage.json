@@ -5341,11 +5341,7 @@
     },
     "CHSB": {},
     "UST": {
-      "source": [
-        "binance-usdt",
-        "coinbasepro-usd",
-        "kraken-usd"
-      ]
+      "source": ["binance-usdt", "coinbasepro-usd", "kraken-usd"]
     },
     "SNOB": {},
     "DYP": {
