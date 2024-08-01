@@ -11,7 +11,8 @@
     "build-dev": "yarn clean && yarn global:tsc --build tsconfig.json",
     "preversion": "yarn build",
     "pack-package": "yarn build && cd dist && npm pack",
-    "lint": "yarn global:eslint ."
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix ."
   },
   "dependencies": {
     "@redstone-finance/oracles-smartweave-contracts": "0.6.1",

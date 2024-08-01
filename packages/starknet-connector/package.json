@@ -11,7 +11,8 @@
     "sample-run": "yarn global:ts-node test/sample-run.ts",
     "preversion": "yarn build",
     "pack-package": "yarn build && cd dist && npm pack",
-    "lint": "yarn global:eslint ."
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix ."
   },
   "dependencies": {
     "@redstone-finance/sdk": "0.6.1",
