@@ -1,4 +1,4 @@
-import { hardhatNetworksConfig } from "@redstone-finance/rpc-providers/src/hardhat-network-configs";
+import { hardhatNetworksConfig } from "@redstone-finance/rpc-providers";
 import { HardhatUserConfig } from "hardhat/config";
 
 // PLUGINS

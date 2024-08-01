@@ -8,7 +8,7 @@
     "clean": "rm -rf dist && rm -rf .tmp && rm -rf artifacts",
     "build": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.build.json",
     "build-dev": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.json",
-    "compile": "cd ../on-chain-relayer && hardhat compile && cd ../gelato-relayer && hardhat compile",
+    "compile": "yarn --cwd ../on-chain-relayer compile && yarn --cwd ../rpc-providers build && hardhat compile",
     "sample-contract-compile": "npx hardhat compile --force",
     "sample-contract-deploy": "npx hardhat deploy",
     "test": "npx hardhat test",
