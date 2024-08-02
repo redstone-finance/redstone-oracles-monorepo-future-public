@@ -5,8 +5,8 @@ import { describe, test } from "mocha";
 import { ChainConfigs } from "../../src";
 
 export const RETRY_CONFIG = {
-  maxRetries: 5,
-  waitBetweenMs: 3000,
+  maxRetries: 4,
+  waitBetweenMs: 1000,
   backOff: {
     backOffBase: 2,
   },

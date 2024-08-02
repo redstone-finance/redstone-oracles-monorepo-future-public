@@ -374,9 +374,9 @@
     "chainId": 223,
     "publicRpcUrls": [
       "https://rpc.bsquared.network",
+      "https://mainnet.b2-rpc.com",
       "https://rpc.ankr.com/b2",
-      "https://b2-mainnet.alt.technology",
-      "https://b2-mainnet-public.s.chainbase.com"
+      "https://b2-mainnet.alt.technology"
     ],
     "avgBlockTimeMs": 2500,
     "multicall3": {
