@@ -1,9 +1,7 @@
 {
   "interval": 10000,
   "priceAggregator": "median",
-  "defaultSource": [
-    "kaiko"
-  ],
+  "defaultSource": ["kaiko"],
   "sourceTimeout": 7000,
   "minValidSourcesPercentage": 1,
   "deviationCheck": {
@@ -14,22 +12,13 @@
   },
   "tokens": {
     "ETH": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ]
+      "source": ["kaiko", "kaiko-v2"]
     },
     "BTC": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ]
+      "source": ["kaiko", "kaiko-v2"]
     },
     "USDT": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ],
+      "source": ["kaiko", "kaiko-v2"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -38,10 +27,7 @@
       }
     },
     "USDC": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ],
+      "source": ["kaiko", "kaiko-v2"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -50,58 +36,31 @@
       }
     },
     "AVAX": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ]
+      "source": ["kaiko", "kaiko-v2"]
     },
     "BNB": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ]
+      "source": ["kaiko", "kaiko-v2"]
     },
     "XTZ": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ]
+      "source": ["kaiko", "kaiko-v2"]
     },
     "TRX": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ]
+      "source": ["kaiko", "kaiko-v2"]
     },
     "ATOM": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ]
+      "source": ["kaiko", "kaiko-v2"]
     },
     "CELO": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ]
+      "source": ["kaiko", "kaiko-v2"]
     },
     "TIA": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ]
+      "source": ["kaiko", "kaiko-v2"]
     },
     "FXS": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ]
+      "source": ["kaiko", "kaiko-v2"]
     },
     "DAI": {
-      "source": [
-        "kaiko",
-        "kaiko-v2"
-      ],
+      "source": ["kaiko", "kaiko-v2"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
