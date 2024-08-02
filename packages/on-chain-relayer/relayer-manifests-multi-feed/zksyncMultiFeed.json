@@ -1,0 +1,18 @@
+{
+  "chain": {
+    "name": "zksync",
+    "id": 324
+  },
+  "adapterContract": "0xBAdD9ADb835Fb4813cd8D8c87d8FCD2F123fd4B0",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 1,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "priceFeeds": {
+    "XVS": {
+      "priceFeedAddress": "0xca4793Eeb7a837E30884279b3D557970E444EBDe"
+    }
+  }
+}
