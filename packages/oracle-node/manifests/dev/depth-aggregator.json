@@ -109,7 +109,8 @@
         "fraxswap-ethereum-weth",
         "uniswap-v3-ethereum-fxs-10000",
         "uniswap-v3-ethereum-usdc-500",
-        "uniswap-v3-ethereum-dai-500"
+        "uniswap-v3-ethereum-dai-500",
+        "fraxswap-arbitrumone-weth"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -165,7 +166,10 @@
         "uniswap-v3-arbitrumone-weth-100",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-optimism-weth-100",
-        "uniswap-v3-ethereum-susde-10000"
+        "uniswap-v3-ethereum-susde-10000",
+        "camelot-v3-arbitrumone-weth",
+        "balancer-arbitrumone-weth-2",
+        "velodrome-optimism-weth"
       ]
     },
     "SWETH": {
@@ -191,7 +195,8 @@
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-ethereum-weth-3000",
         "uniswap-v3-ethereum-weth-500",
-        "uniswap-v3-ethereum-wsteth-500"
+        "uniswap-v3-ethereum-wsteth-500",
+        "balancer-arbitrumone-wsteth"
       ]
     },
     "rETH": {
@@ -204,7 +209,8 @@
         "pancake-swap-ethereum-weth-500",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-ethereum-weth-500",
-        "uniswap-v3-ethereum-wsteth-500"
+        "uniswap-v3-ethereum-wsteth-500",
+        "balancer-arbitrumone-wsteth"
       ]
     },
     "rETH/ETH": {
@@ -267,7 +273,8 @@
         "curve-ethereum-sfrxeth",
         "curve-ethereum-weeth",
         "uniswap-v3-ethereum-weth-500",
-        "uniswap-v3-ethereum-wsteth-500"
+        "uniswap-v3-ethereum-wsteth-500",
+        "uniswap-v3-arbitrumone-wsteth-500"
       ]
     },
     "ezETH": {
@@ -278,7 +285,8 @@
         "curve-ethereum-weth",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-ethereum-weth-500",
-        "uniswap-v3-ethereum-wsteth-500"
+        "uniswap-v3-ethereum-wsteth-500",
+        "balancer-arbitrumone-wsteth"
       ]
     },
     "rswETH": {
