@@ -76,7 +76,8 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/*",
+      "packages/avs/*"
     ]
   },
   "packageManager": "yarn@4.3.1"

@@ -6904,6 +6904,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redstone-finance/avs-contracts@workspace:packages/avs/avs-contracts":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/avs-contracts@workspace:packages/avs/avs-contracts"
+  dependencies:
+    "@ethersproject/abi": "npm:^5.6.3"
+    "@ethersproject/providers": "npm:^5.6.8"
+    "@nomicfoundation/hardhat-verify": "npm:^1.0.0"
+    "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
+    "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
+    "@nomiclabs/hardhat-waffle": "npm:^2.0.5"
+    "@openzeppelin/contracts": "npm:^4.8.1"
+    "@openzeppelin/hardhat-upgrades": "npm:^1.26.0"
+    "@redstone-finance/utils": "npm:0.6.1"
+    "@typechain/ethers-v5": "npm:^10.2.0"
+    "@typechain/hardhat": "npm:^6.1.2"
+    "@types/chai": "npm:^4.3.4"
+    "@types/sinon-chai": "npm:^3.2.12"
+    chai: "npm:^4.3.10"
+    dotenv: "npm:^16.0.3"
+    ethereum-waffle: "npm:^4.0.10"
+    ethers: "npm:^5.7.2"
+    hardhat: "npm:^2.17.2"
+    typechain: "npm:^8.1.1"
+    typescript: "npm:^5.5.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/cache-service@npm:0.6.1, @redstone-finance/cache-service@workspace:packages/cache-service":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/cache-service@workspace:packages/cache-service"
@@ -7908,6 +7935,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/task-performer@workspace:packages/avs/task-performer":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/task-performer@workspace:packages/avs/task-performer"
+  dependencies:
+    "@redstone-finance/protocol": "npm:0.6.1"
+    "@redstone-finance/sdk": "npm:0.6.1"
+    "@redstone-finance/utils": "npm:0.6.1"
+    "@types/node-schedule": "npm:^2.1.0"
+    dotenv: "npm:^16.0.3"
+    ethers: "npm:^5.7.2"
+    node-schedule: "npm:^2.1.1"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/ton-connector@npm:0.6.1, @redstone-finance/ton-connector@workspace:packages/ton-connector":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/ton-connector@workspace:packages/ton-connector"
@@ -7950,6 +7991,20 @@ __metadata:
     decimal.js: "npm:^10.4.3"
     ethers: "npm:^5.7.2"
     zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
+"@redstone-finance/validation-api@workspace:packages/avs/validation-api":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/validation-api@workspace:packages/avs/validation-api"
+  dependencies:
+    "@redstone-finance/protocol": "npm:0.6.1"
+    "@redstone-finance/sdk": "npm:0.6.1"
+    "@types/cors": "npm:^2.8.12"
+    cors: "npm:^2.8.5"
+    dotenv: "npm:^16.0.3"
+    ethers: "npm:^5.7.2"
+    express: "npm:^4.18.1"
   languageName: unknown
   linkType: soft
 
@@ -14925,6 +14980,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: 10c0/f2318b31af7a31b4ddb4a678d024514df5e705f9be5909a192d7f116cfb6d45cbacf96a473fa733faa95050e7cff26e7832bb3ef94751592f1387b71c8956686
+  languageName: node
+  linkType: hard
+
 "cookie@npm:^0.4.1, cookie@npm:^0.4.2":
   version: 0.4.2
   resolution: "cookie@npm:0.4.2"
@@ -17704,6 +17766,45 @@ __metadata:
     utils-merge: "npm:1.0.1"
     vary: "npm:~1.1.2"
   checksum: 10c0/75af556306b9241bc1d7bdd40c9744b516c38ce50ae3210658efcbf96e3aed4ab83b3432f06215eae5610c123bc4136957dc06e50dfc50b7d4d775af56c4c59c
+  languageName: node
+  linkType: hard
+
+"express@npm:^4.18.1":
+  version: 4.19.2
+  resolution: "express@npm:4.19.2"
+  dependencies:
+    accepts: "npm:~1.3.8"
+    array-flatten: "npm:1.1.1"
+    body-parser: "npm:1.20.2"
+    content-disposition: "npm:0.5.4"
+    content-type: "npm:~1.0.4"
+    cookie: "npm:0.6.0"
+    cookie-signature: "npm:1.0.6"
+    debug: "npm:2.6.9"
+    depd: "npm:2.0.0"
+    encodeurl: "npm:~1.0.2"
+    escape-html: "npm:~1.0.3"
+    etag: "npm:~1.8.1"
+    finalhandler: "npm:1.2.0"
+    fresh: "npm:0.5.2"
+    http-errors: "npm:2.0.0"
+    merge-descriptors: "npm:1.0.1"
+    methods: "npm:~1.1.2"
+    on-finished: "npm:2.4.1"
+    parseurl: "npm:~1.3.3"
+    path-to-regexp: "npm:0.1.7"
+    proxy-addr: "npm:~2.0.7"
+    qs: "npm:6.11.0"
+    range-parser: "npm:~1.2.1"
+    safe-buffer: "npm:5.2.1"
+    send: "npm:0.18.0"
+    serve-static: "npm:1.15.0"
+    setprototypeof: "npm:1.2.0"
+    statuses: "npm:2.0.1"
+    type-is: "npm:~1.6.18"
+    utils-merge: "npm:1.0.1"
+    vary: "npm:~1.1.2"
+  checksum: 10c0/e82e2662ea9971c1407aea9fc3c16d6b963e55e3830cd0ef5e00b533feda8b770af4e3be630488ef8a752d7c75c4fcefb15892868eeaafe7353cb9e3e269fdcb
   languageName: node
   linkType: hard
 
