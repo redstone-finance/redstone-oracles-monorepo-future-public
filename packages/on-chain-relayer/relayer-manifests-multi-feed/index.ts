@@ -5,6 +5,7 @@ import modeMultiFeed from "./modeMultiFeed.json";
 import optimismDevMultiFeed from "./optimismDevMultiFeed.json";
 import sepoliaMultiFeed from "./sepoliaMultiFeed.json";
 import zkLinkMultiFeed from "./zkLinkMultiFeed.json";
+import zksyncMultiFeed from "./zksyncMultiFeed.json";
 
 import _ from "lodash";
 import { MultiFeedOnChainRelayerManifestSchema } from "../src/schemas";
@@ -22,6 +23,7 @@ const allMultiFeedRelayersManifests = {
   optimismDevMultiFeed,
   zkLinkMultiFeed,
   mantleMultiFeed,
+  zksyncMultiFeed,
 };
 
 const allMultiFeedRelayersParsedManifests = _.mapValues(
