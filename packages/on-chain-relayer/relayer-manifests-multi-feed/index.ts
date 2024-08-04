@@ -3,6 +3,7 @@ import ethereumMultiFeed from "./ethereumMultiFeed.json";
 import mantleMultiFeed from "./mantleMultiFeed.json";
 import modeMultiFeed from "./modeMultiFeed.json";
 import optimismDevMultiFeed from "./optimismDevMultiFeed.json";
+import seiMultiFeed from "./seiMultiFeed.json";
 import sepoliaMultiFeed from "./sepoliaMultiFeed.json";
 import zkLinkMultiFeed from "./zkLinkMultiFeed.json";
 import zksyncMultiFeed from "./zksyncMultiFeed.json";
@@ -24,6 +25,7 @@ const allMultiFeedRelayersManifests = {
   zkLinkMultiFeed,
   mantleMultiFeed,
   zksyncMultiFeed,
+  seiMultiFeed,
 };
 
 const allMultiFeedRelayersParsedManifests = _.mapValues(
