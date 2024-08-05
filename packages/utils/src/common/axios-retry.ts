@@ -1,21 +1,24 @@
-import axios, { AxiosResponse, RawAxiosRequestHeaders } from "axios";
-import { RetryConfig, retry } from "./retry";
+import axios, { Axios, AxiosResponse, RawAxiosRequestHeaders } from "axios";
+import { retry, RetryConfig } from "./retry";
 
 export type AxiosGetWithRetriesConfig = {
   timeout?: number;
   headers?: RawAxiosRequestHeaders;
+  params?: unknown;
 } & Omit<RetryConfig, "fn">;
 
 export async function axiosGetWithRetries<T>(
   url: string,
-  config: AxiosGetWithRetriesConfig
+  config: AxiosGetWithRetriesConfig,
+  axiosInstance: Axios = axios
 ): Promise<AxiosResponse<T>> {
   return await retry({
     fnName: config.fnName ?? "axios.get",
     fn: async () =>
-      await axios.get<T>(url, {
+      await axiosInstance.get<T>(url, {
         timeout: config.timeout,
         headers: config.headers,
+        params: config.params,
       }),
     ...config,
   })();
