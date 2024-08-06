@@ -541,6 +541,7 @@
       "source": [
         "curve-ethereum-3crv",
         "curve-ethereum-usdc-multi-block",
+        "curve-ethereum-sdai",
         "fraxswap-ethereum-fxs",
         "fraxswap-ethereum-weth",
         "uniswap-v3-ethereum-fxs-10000",
@@ -616,6 +617,7 @@
         "balancer-ethereum-aave",
         "balancer-ethereum-weth",
         "balancer-ethereum-weth-2",
+        "balancer-ethereum-weth-3",
         "curve-ethereum-crvusd",
         "maverick-ethereum-weth",
         "pancake-swap-ethereum-weth-100",
@@ -888,6 +890,8 @@
     },
     "weETH": {
       "source": [
+        "camelot-v3-arbitrumone-weth",
+        "uniswap-v3-arbitrumone-weth-3000",
         "balancer-ethereum-reth",
         "curve-ethereum-weth",
         "uniswap-v3-ethereum-weth-100",
@@ -904,6 +908,8 @@
     },
     "rETH": {
       "source": [
+        "balancer-arbitrumone-weth",
+        "uniswap-v3-arbitrumone-weth-500",
         "balancer-ethereum-weth",
         "balancer-ethereum-wsteth",
         "balancer-ethereum-wsteth-2",
@@ -1274,6 +1280,8 @@
     },
     "rsETH": {
       "source": [
+        "balancer-arbitrumone-weth",
+        "camelot-v3-arbitrumone-weth",
         "balancer-ethereum-ethx",
         "balancer-ethereum-weth",
         "curve-ethereum-sfrxeth",
@@ -1307,6 +1315,7 @@
     },
     "crvUSD": {
       "source": [
+        "curve-arbitrumone-frax",
         "curve-ethereum-crv",
         "curve-ethereum-frax",
         "curve-ethereum-usdc",

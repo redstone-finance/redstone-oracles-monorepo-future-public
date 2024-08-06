@@ -365,6 +365,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x4186bfc76e2e237523cbc30fd220fe055156b41f",
       decimals: 18,
     },
+    crvUSD: {
+      address: "0x498bf2b1e120fed3ad3d42ea2165e9b73f99c1e5",
+      decimals: 18,
+    },
   },
   avalanche: {
     USDC: {
