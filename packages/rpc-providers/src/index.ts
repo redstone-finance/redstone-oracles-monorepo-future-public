@@ -1,6 +1,7 @@
 export * from "./chains-configs";
 export * from "./chains-configs/geckoTerminalConfigs";
 export * from "./chains-configs/helpers";
+export * from "./chains-configs/Tokens";
 export * from "./common";
 export * from "./hardhat-network-configs";
 export * from "./MegaProviderBuilder";
