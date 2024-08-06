@@ -280,6 +280,7 @@
       "source": [
         "curve-ethereum-3crv",
         "curve-ethereum-usdc-multi-block",
+        "curve-ethereum-sdai",
         "fraxswap-ethereum-fxs",
         "fraxswap-ethereum-weth",
         "uniswap-v3-ethereum-fxs-10000",
