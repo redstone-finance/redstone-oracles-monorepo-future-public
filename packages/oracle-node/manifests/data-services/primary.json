@@ -1303,7 +1303,6 @@
     }
   },
   "multiPointPackages": {
-    "__SWELL__": ["SWETH", "SWETH/ETH"],
     "__FRAXTAL__": ["BTC", "CRV", "ETH", "FRAX", "FXS"]
   }
 }
