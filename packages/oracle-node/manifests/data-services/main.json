@@ -1495,7 +1495,7 @@
       ]
     },
     "SolvBTC_BNB": {
-      "source": ["pancake-swap-bnb-btcb-500", "thena-bnb-btcb"]
+      "source": ["dodoex-bnb-btcb"]
     },
     "SolvBTC_BNB/BTC": {
       "source": ["non-usd-based"],
@@ -1509,7 +1509,7 @@
       "source": ["twap-local-redstone-primary-prod"]
     },
     "SolvBTC.ENA": {
-      "source": ["pancake-swap-bnb-solvbtc_bnb-500"],
+      "source": ["dodoex-bnb-solvbtc_bnb"],
       "valueCapConfig": {
         "upper": {
           "token": "BTC"
