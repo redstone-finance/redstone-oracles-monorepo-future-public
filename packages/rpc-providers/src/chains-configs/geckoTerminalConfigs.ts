@@ -1,27 +1,22 @@
 import { SupportedNetworkNames } from ".";
 
+const networkNameMappingGecko: { [key in SupportedNetworkNames]?: string } = {
+  ethereum: "eth",
+  arbitrumOne: "arbitrum",
+  avalanche: "avax",
+  optimism: "optimism",
+  canto: "canto",
+  base: "base",
+  bnb: "bsc",
+  manta: "manta-pacific",
+  sei: "sei-evm",
+};
+
 export function mapNetworkNameToGeckoTerminalNetworkName(
   networkName: SupportedNetworkNames
 ): string | undefined {
-  // https://api.geckoterminal.com/api/v2/networks?page=1'
-  switch (networkName) {
-    case "ethereum":
-      return "eth";
-    case "arbitrumOne":
-      return "arbitrum";
-    case "avalanche":
-      return "avax";
-    case "optimism":
-      return "optimism";
-    case "canto":
-      return "canto";
-    case "base":
-      return "base";
-    case "bnb":
-      return "bsc";
-    case "sei":
-      return "sei-evm";
-    default:
-      return undefined;
-  }
+  return networkNameMappingGecko[networkName];
 }
+
+export const allGeckoSupportedNetworkNames: SupportedNetworkNames[] =
+  Object.keys(networkNameMappingGecko) as SupportedNetworkNames[];
