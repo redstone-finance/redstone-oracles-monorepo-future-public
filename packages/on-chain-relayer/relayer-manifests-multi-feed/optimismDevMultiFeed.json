@@ -15,11 +15,16 @@
     "BTC": {},
     "BNB": {
       "updateTriggersOverrides": {
-        "deviationPercentage": 0.2,
+        "deviationPercentage": 0.4,
         "timeSinceLastUpdateInMilliseconds": 10800000
       }
     },
-    "USDC": {},
+    "USDC": {
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 10800000
+      }
+    },
     "USDT": {},
     "weETH": {},
     "apxETH/ETH": {}

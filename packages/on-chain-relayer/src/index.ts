@@ -3,8 +3,6 @@ import { abi as MentoAdapterBaseAbi } from "../artifacts/contracts/custom-integr
 import { abi as PriceFeedWithRoundsAbi } from "../artifacts/contracts/price-feeds/with-rounds/PriceFeedWithRounds.sol/PriceFeedWithRounds.json";
 import { abi as PriceFeedsAdapterWithRoundsAbi } from "../artifacts/contracts/price-feeds/with-rounds/PriceFeedsAdapterWithRounds.sol/PriceFeedsAdapterWithRounds.json";
 import { abi as MultiFeedAdapterWithoutRoundsAbi } from "../artifacts/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol/MultiFeedAdapterWithoutRounds.json";
-import manifests from "../relayer-manifests";
-import multiFeedManifests from "../relayer-manifests-multi-feed";
 
 export type {
   ISortedOracles,
@@ -44,10 +42,8 @@ export {
 } from "./types";
 export {
   ISortedOraclesAbi,
-  manifests,
   MentoAdapterBaseAbi,
   MultiFeedAdapterWithoutRoundsAbi,
-  multiFeedManifests,
   PriceFeedsAdapterWithRoundsAbi,
   PriceFeedWithRoundsAbi,
 };
