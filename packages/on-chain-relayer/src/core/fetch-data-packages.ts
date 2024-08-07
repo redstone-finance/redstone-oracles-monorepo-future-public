@@ -32,6 +32,7 @@ export async function fetchDataPackages(
     authorizedSigners: getSignersForDataServiceId(
       dataServiceId as DataServiceIds
     ),
+    ignoreMissingFeed: true,
   };
 
   try {

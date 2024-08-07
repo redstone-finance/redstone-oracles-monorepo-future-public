@@ -13,6 +13,12 @@ export const shouldUpdate = async (
   for (const [dataFeedId, updateConditions] of Object.entries(
     config.updateConditions
   )) {
+    if (!Object.keys(context.dataPackages).includes(dataFeedId)) {
+      warningMessages.push(
+        `⛔Data feed: ${dataFeedId} couldn't be fetched from gateway.⛔`
+      );
+      continue;
+    }
     let shouldUpdatePrices = false;
     for (const conditionName of updateConditions) {
       const conditionCheck = await checkConditionByName(
