@@ -748,6 +748,9 @@
     },
     "GM_GMX_GMX_USDC": {
       "source": ["arbitrum-evm-fetcher-gmx"]
+    },
+    "sDAI": {
+      "source": ["ethereum-evm-fetcher-savings-dai"]
     }
   },
   "multiPointPackages": {
@@ -825,7 +828,8 @@
       "sfrxETH",
       "stETH",
       "weETH",
-      "wstETH"
+      "wstETH",
+      "sDAI"
     ]
   }
 }
