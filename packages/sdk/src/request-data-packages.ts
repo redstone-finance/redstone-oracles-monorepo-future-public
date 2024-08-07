@@ -23,6 +23,7 @@ export interface DataPackagesRequestParams {
   dataPackagesIds: string[];
   urls?: string[];
   historicalTimestamp?: number;
+  ignoreMissingFeed?: boolean;
 }
 
 export interface DataPackagesResponse {
@@ -198,6 +199,9 @@ const parseAndValidateDataPackagesResponse = (
     let dataFeedPackages = responseData[dataFeedId];
 
     if (!dataFeedPackages) {
+      if (reqParams.ignoreMissingFeed) {
+        continue;
+      }
       throw new Error(
         `Requested data feed id is not included in response: ${dataFeedId}`
       );

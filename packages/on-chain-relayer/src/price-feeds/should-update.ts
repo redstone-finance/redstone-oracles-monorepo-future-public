@@ -3,7 +3,6 @@ import { checkIfDataPackageTimestampIsNewer } from "../core/update-conditions/da
 import { checkIfDataPackagesDecimalsAreAcceptable } from "../custom-integrations/mento/data-packages-decimals";
 import { ConditionCheckResponse, Context, RelayerConfig } from "../types";
 
-// Could merge with shouldUpdate in multifeed but it would be messy
 export const shouldUpdate = async (
   context: Context,
   config: RelayerConfig

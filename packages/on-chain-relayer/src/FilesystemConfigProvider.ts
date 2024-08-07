@@ -124,7 +124,7 @@ export const readManifestAndEnv = () => {
     ),
     multiFeedAdditionalUpdatesDeviationThreshold: RedstoneCommon.getFromEnv(
       "MULTI_FEED_EXTRA_UPDATE_DEVIATION",
-      z.number().optional()
+      z.number().default(0.7)
     ),
     multiFeedSyncHeartbeats: RedstoneCommon.getFromEnv(
       "MULTI_FEED_SYNC_HEARTBEATS",
