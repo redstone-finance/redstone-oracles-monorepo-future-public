@@ -1,0 +1,45 @@
+{
+  "chain": {
+    "name": "zircuit",
+    "id": 48900
+  },
+  "adapterContract": "0xa41107f9259bB835275eaCaAd8048307B80D7c00",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "priceFeeds": {
+    "ETH": {
+      "priceFeedAddress": "0x72266eFcdd0EC7110b44576e5413EF383950EEc2"
+    },
+    "BTC": {
+      "priceFeedAddress": "0xCfd39de761508A7aCb8C931b959127a1D9d0B3D4"
+    },
+    "USDC": {
+      "priceFeedAddress": "0x9cF19D284862A66378c304ACAcB0E857EBc3F856"
+    },
+    "ezETH": {
+      "priceFeedAddress": "0xeA2511205b959548459A01e358E0A30424dc0B70"
+    },
+    "USDe": {
+      "priceFeedAddress": "0xf57bA29437C130e155Ca4b65128630777638F05D"
+    },
+    "weETH": {
+      "priceFeedAddress": "0xF5F641fF3c7E39876A76e77E84041C300DFa4550"
+    },
+    "pufETH": {
+      "priceFeedAddress": "0xE7e734789954e6CffD8C295CBD0916A0A5747D27"
+    },
+    "wstETH": {
+      "priceFeedAddress": "0x05C70f0a77c02CDB50a146D95EfE826A6B02F631"
+    },
+    "rsETH": {
+      "priceFeedAddress": "0xcD96262Df56127f298b452FA40759632868A472a"
+    },
+    "USDT": {
+      "priceFeedAddress": "0x6bc42F8Ee8cD9BEA7d5CfF0934Ce73eCD2c11e99"
+    }
+  }
+}
