@@ -7888,6 +7888,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@redstone-finance/internal-utils": "npm:0.6.1"
+    "@redstone-finance/monitoring-manifests": "npm:0.6.1"
     "@redstone-finance/sdk": "npm:0.6.1"
     "@redstone-finance/utils": "npm:0.6.1"
     aws-lambda: "npm:^1.0.7"
