@@ -7461,6 +7461,7 @@ __metadata:
     "@openzeppelin/contracts": "npm:^4.8.1"
     "@openzeppelin/contracts-upgradeable": "npm:^4.8.3"
     "@openzeppelin/upgrades-core": "npm:^1.34.0"
+    "@redstone-finance/contract-deployments": "npm:0.6.1"
     "@redstone-finance/on-chain-relayer": "npm:0.6.1"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
@@ -7479,7 +7480,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/contract-deployments@workspace:packages/contract-deployments":
+"@redstone-finance/contract-deployments@npm:0.6.1, @redstone-finance/contract-deployments@workspace:packages/contract-deployments":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/contract-deployments@workspace:packages/contract-deployments"
   dependencies:
