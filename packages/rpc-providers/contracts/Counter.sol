@@ -29,10 +29,10 @@ contract Counter {
   }
 
   function returnCountIfNotMulticall() external view returns (uint256) {
-    if(msg.sender == multicallAddress) {
+    if (msg.sender == multicallAddress) {
       revert("This functions always reverts.");
     }
-    
+
     return count;
   }
 
@@ -48,14 +48,16 @@ contract Counter {
     // counter will always equal 0
     uint256 counter = 0;
     // shoud consume > 200k gas
-    for(uint256 i =0; i < 100; i++) {
+    for (uint256 i = 0; i < 100; i++) {
       counter += gasBurnerMap[i];
     }
 
     return count + counter;
   }
 
-  function getCountWithCallData32Bytes(uint256 param) public view returns (uint256) {
+  function getCountWithCallData32Bytes(
+    uint256 param
+  ) public pure returns (uint256) {
     return param;
   }
 }
