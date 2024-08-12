@@ -369,6 +369,14 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x498bf2b1e120fed3ad3d42ea2165e9b73f99c1e5",
       decimals: 18,
     },
+    SolvBTC_BNB: {
+      address: "0x3647c54c4c2C65bC7a2D63c0Da2809B399DBBDC0",
+      decimals: 18,
+    },
+    "SolvBTC.ENA": {
+      address: "0xaFAfd68AFe3fe65d376eEC9Eab1802616cFacCb8",
+      decimals: 18,
+    },
   },
   avalanche: {
     USDC: {
