@@ -6,8 +6,10 @@
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=test hardhat test",
-    "build": "hardhat compile && rm -rf dist && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "hardhat compile && rm -rf dist && yarn global:tsc --build tsconfig.json",
+    "clean": "hardhat clean && rm -rf dist",
+    "build": "yarn compile && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn compile && yarn global:tsc --build tsconfig.json",
+    "compile": "hardhat compile",
     "preversion": "yarn build",
     "lint": "yarn global:eslint .",
     "lint:fix": "yarn global:eslint --fix ."

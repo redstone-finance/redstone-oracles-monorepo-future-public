@@ -6,9 +6,10 @@
   "license": "MIT",
   "scripts": {
     "test": "hardhat test",
-    "build": "rm -rf dist && yarn compile && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "rm -rf dist && yarn compile && yarn global:tsc --build tsconfig.json",
-    "build-esm": "yarn build --force && esbuild test-browser-compatibility/test-script.js --outfile=test-browser-compatibility/browser-bundle.js --format=esm --bundle=true",
+    "clean": "hardhat clean && rm -rf dist",
+    "build": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.json",
+    "build-esm": "yarn clean && yarn build && esbuild test-browser-compatibility/test-script.js --outfile=test-browser-compatibility/browser-bundle.js --format=esm --bundle=true",
     "run-in-browser": "yarn build-esm && http-server test-browser-compatibility",
     "test-browser-compatibility": "yarn build-esm && ts-node test-browser-compatibility.ts",
     "benchmark": "hardhat test benchmarks/run-benchmarks.ts",

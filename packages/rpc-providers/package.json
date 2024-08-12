@@ -8,8 +8,11 @@
     "test": "REDSTONE_FINANCE_LOG_LEVEL=0 NODE_ENV=test hardhat test",
     "test:rpc-urls": "NODE_ENV=test IS_CI=true hardhat test test/chains-configs/chains-configs-rpc-urls.test.ts",
     "test:chains-configs": "NODE_ENV=test IS_CI=true hardhat test test/chains-configs/chains-configs.test.ts",
-    "build": "hardhat compile && rm -rf dist && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "hardhat compile && rm -rf dist && yarn global:tsc --build tsconfig.json",
+    "build": "yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.json",
+    "build-deps": "yarn --cwd ../evm-multicall build",
+    "compile": "hardhat compile",
+    "clean": "hardhat clean && rm -rf dist",
     "preversion": "yarn build",
     "lint": "yarn global:eslint . && yarn global:prettier --check src/**/*.json",
     "lint:fix": "yarn global:eslint --fix . && yarn global:prettier --write src/**/*.json"

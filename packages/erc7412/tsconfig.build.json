@@ -6,5 +6,19 @@
     "test",
     "artifacts/**/*.sol/*.json",
     "hardhat.config.ts"
+  ],
+  "references": [
+    {
+      "path": "../on-chain-relayer/tsconfig.build.json"
+    },
+    {
+      "path": "../sdk/tsconfig.build.json"
+    },
+    {
+      "path": "../evm-connector/tsconfig.build.json"
+    },
+    {
+      "path": "../oracles-smartweave-contracts/tsconfig.build.json"
+    }
   ]
 }
