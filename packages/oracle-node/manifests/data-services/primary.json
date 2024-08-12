@@ -1202,7 +1202,7 @@
       ]
     },
     "SolvBTC_BNB": {
-      "source": ["dodoex-bnb-btcb"],
+      "source": ["dodoex-arbitrumone-wbtc", "dodoex-bnb-btcb"],
       "valueCapConfig": {
         "upper": {
           "token": "BTC"
@@ -1246,7 +1246,7 @@
       "source": ["flashbots-data-api", "beaconchain-api"]
     },
     "SolvBTC.ENA": {
-      "source": ["dodoex-bnb-solvbtc_bnb"],
+      "source": ["dodoex-arbitrumone-solvbtc_bnb", "dodoex-bnb-solvbtc_bnb"],
       "valueCapConfig": {
         "upper": {
           "token": "BTC"

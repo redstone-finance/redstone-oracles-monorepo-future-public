@@ -1495,7 +1495,7 @@
       ]
     },
     "SolvBTC_BNB": {
-      "source": ["dodoex-bnb-btcb"]
+      "source": ["dodoex-arbitrumone-wbtc", "dodoex-bnb-btcb"]
     },
     "SolvBTC_BNB/BTC": {
       "source": ["non-usd-based"],
@@ -1509,7 +1509,7 @@
       "source": ["twap-local-redstone-primary-prod"]
     },
     "SolvBTC.ENA": {
-      "source": ["dodoex-bnb-solvbtc_bnb"],
+      "source": ["dodoex-arbitrumone-solvbtc_bnb", "dodoex-bnb-solvbtc_bnb"],
       "valueCapConfig": {
         "upper": {
           "token": "BTC"
