@@ -1,0 +1,45 @@
+{
+  "chain": {
+    "name": "scroll",
+    "id": 534352
+  },
+  "adapterContract": "0x4aaf2844c5420BF979d5bC2Cf883EF02Db07e590",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "priceFeeds": {
+    "pufETH": {
+      "priceFeedAddress": "0xC49F0Dd98F38C525A7ce15E73E60675456F3a161"
+    },
+    "STONE": {
+      "priceFeedAddress": "0xd9a66Ff1D660aD943F48e9c606D09eA672f312E8"
+    },
+    "rsETH": {
+      "priceFeedAddress": "0x9b2C948dbA5952A1f5Ab6fA16101c1392b8da1ab"
+    },
+    "ETH": {
+      "priceFeedAddress": "0x1bB8f2dF000553E5Af2AEd5c42FEd3a73cd5144b"
+    },
+    "SolvBTC_BNB": {
+      "priceFeedAddress": "0x76A495b0bFfb53ef3F0E94ef0763e03cE410835C"
+    },
+    "weETH": {
+      "priceFeedAddress": "0x97c19d3Ae8e4d74e25EF3AFf3a277fB614ed76D4"
+    },
+    "USDC": {
+      "priceFeedAddress": "0xd58c002e26205914cFA28Ade90ccEdAd012B187b"
+    },
+    "USDT": {
+      "priceFeedAddress": "0x767619674cC4758cf64BF19dE46964DaC8fb7b11"
+    },
+    "WBTC": {
+      "priceFeedAddress": "0x025f4e1B951D14b69e83BA6f6F069D5538C86491"
+    },
+    "wstETH": {
+      "priceFeedAddress": "0x2dDFA9B00d2989798186321dA38dfDD1C6e33568"
+    }
+  }
+}
