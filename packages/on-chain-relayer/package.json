@@ -5,8 +5,10 @@
   "main": "dist/src/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && yarn compile && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "rm -rf dist && yarn compile && yarn global:tsc --build tsconfig.json",
+    "build": "yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn clean && yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.json",
+    "build-deps": "yarn --cwd ../rpc-providers build",
+    "clean": "hardhat clean && rm -rf dist",
     "bundle": "ENTRYPOINT=src/run-relayer.ts yarn global:rollup -c ../../rollup.config.mjs",
     "start": "node dist/src/run-relayer.js",
     "start:dev": "yarn global:ts-node src/run-relayer.ts",
