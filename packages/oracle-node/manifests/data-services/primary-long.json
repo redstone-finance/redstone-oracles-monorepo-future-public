@@ -11,8 +11,8 @@
     }
   },
   "tokens": {
-    "LBTC_FUNDAMENTAL_1": {
-      "source": ["lbtc-1"],
+    "LBTC_FUNDAMENTAL": {
+      "source": ["lbtc"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 10,
