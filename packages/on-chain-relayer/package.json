@@ -20,11 +20,16 @@
     "preversion": "yarn build"
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.6.1",
+    "@openzeppelin/contracts": "^4.8.1",
+    "@openzeppelin/contracts-upgradeable": "^4.8.3",
     "@redstone-finance/evm-connector": "0.6.1",
+    "@redstone-finance/oracles-smartweave-contracts": "0.6.1",
     "@redstone-finance/protocol": "0.6.1",
     "@redstone-finance/rpc-providers": "0.6.1",
     "@redstone-finance/sdk": "0.6.1",
     "@redstone-finance/utils": "0.6.1",
+    "@types/lodash": "^4.14.195",
     "cron-parser": "^4.8.1",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
