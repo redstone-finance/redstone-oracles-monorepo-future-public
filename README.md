@@ -27,7 +27,7 @@ You can learn more at https://docs.redstone.finance
 
 ## 🙋‍♂️ Contact
 
-Please feel free to contact us on [Discord](https://redstone.finance/discord) or email to core@redstone.finance
+Please feel free to contact us on [Discord](https://redstone.finance/discord) or email to core@redstone.finance.
 
 ## 📜 Licesnse
 
