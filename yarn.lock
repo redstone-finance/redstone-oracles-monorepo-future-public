@@ -4923,7 +4923,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/types@npm:^29.6.3":
+"@jest/types@npm:^29.5.4, @jest/types@npm:^29.6.3":
   version: 29.6.3
   resolution: "@jest/types@npm:29.6.3"
   dependencies:
@@ -7638,6 +7638,7 @@ __metadata:
     "@openzeppelin/contracts-upgradeable": "npm:^4.8.3"
     "@redstone-finance/protocol": "npm:0.6.1"
     "@redstone-finance/sdk": "npm:0.6.1"
+    "@redstone-finance/utils": "npm:0.6.1"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
@@ -7769,6 +7770,7 @@ __metadata:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.33.2"
     "@redstone-finance/utils": "npm:0.6.1"
+    axios: "npm:^1.6.2"
   languageName: unknown
   linkType: soft
 
@@ -8121,14 +8123,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/on-chain-relayer@workspace:packages/on-chain-relayer"
   dependencies:
+    "@chainlink/contracts": "npm:^0.6.1"
     "@ethersproject/abi": "npm:^5.6.3"
     "@ethersproject/providers": "npm:^5.6.8"
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.9"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
     "@nomiclabs/hardhat-waffle": "npm:^2.0.5"
+    "@openzeppelin/contracts": "npm:^4.8.1"
+    "@openzeppelin/contracts-upgradeable": "npm:^4.8.3"
     "@openzeppelin/hardhat-upgrades": "npm:^1.26.0"
     "@redstone-finance/evm-connector": "npm:0.6.1"
+    "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.1"
     "@redstone-finance/protocol": "npm:0.6.1"
     "@redstone-finance/rpc-providers": "npm:0.6.1"
     "@redstone-finance/sdk": "npm:0.6.1"
@@ -8136,6 +8142,7 @@ __metadata:
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
     "@types/chai": "npm:^4.3.4"
+    "@types/lodash": "npm:^4.14.195"
     "@types/mocha": "npm:^10.0.1"
     chai: "npm:^4.3.10"
     cron-parser: "npm:^4.8.1"
@@ -8217,6 +8224,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/oracles-monorepo@workspace:."
   dependencies:
+    "@jest/types": "npm:^29.5.4"
     "@rollup/plugin-commonjs": "npm:^25.0.4"
     "@rollup/plugin-json": "npm:^6.0.0"
     "@rollup/plugin-node-resolve": "npm:^15.2.3"
@@ -8253,6 +8261,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/oracles-smartweave-contracts@workspace:packages/oracles-smartweave-contracts"
   dependencies:
+    "@jest/types": "npm:^29.5.4"
     "@types/prompts": "npm:^2.4.2"
     arlocal: "npm:^1.1.60"
     jest: "npm:^29.7.0"
@@ -8321,6 +8330,9 @@ __metadata:
   resolution: "@redstone-finance/rpc-providers@workspace:packages/rpc-providers"
   dependencies:
     "@ethersproject/abi": "npm:^5.6.3"
+    "@ethersproject/abstract-provider": "npm:^5.7.0"
+    "@ethersproject/logger": "npm:^5.7.0"
+    "@ethersproject/properties": "npm:^5.7.0"
     "@ethersproject/providers": "npm:^5.6.8"
     "@influxdata/influxdb-client": "npm:^1.33.2"
     "@nomicfoundation/hardhat-chai-matchers": "npm:1.0.6"
@@ -8348,6 +8360,7 @@ __metadata:
     ts-node: "npm:^10.9.2"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.5.4"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
@@ -8355,6 +8368,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/sdk@workspace:packages/sdk"
   dependencies:
+    "@ethersproject/bytes": "npm:^5.6.1"
+    "@ethersproject/strings": "npm:^5.7.0"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.1"
     "@redstone-finance/protocol": "npm:0.6.1"
     "@redstone-finance/utils": "npm:0.6.1"
@@ -8363,6 +8378,7 @@ __metadata:
     ethers: "npm:^5.7.2"
     lodash: "npm:^4.17.21"
     msw: "npm:^1.2.3"
+    zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
 
