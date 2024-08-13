@@ -307,7 +307,6 @@
         "coinbasepro-usd",
         "coingecko",
         "kraken-usd",
-        "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-ethereum-weth-3000",
         "uniswap-v3-ethereum-weth-500",
@@ -757,7 +756,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-arbitrumone-weth-500",
         "uniswap-v3-arbitrumone-weth-3000"
@@ -939,7 +937,6 @@
         "balancer-ethereum-frxeth",
         "balancer-ethereum-weth",
         "curve-ethereum-steth-multi-block",
-        "curve-ethereum-frxeth",
         "curve-ethereum-weth",
         "uniswap-v3-ethereum-weth-100-multi-block",
         "pancake-swap-ethereum-weth-100"
@@ -1594,7 +1591,6 @@
         "gate-usdt",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "xt"
       ]
     },
