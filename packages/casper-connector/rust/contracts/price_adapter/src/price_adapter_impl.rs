@@ -1,12 +1,14 @@
-use crate::price_adapter::PriceAdapter;
+extern crate alloc;
 use alloc::vec::Vec;
+
 use casper_types::{bytesrepr::Bytes, U256};
-use redstone::network::casper::contracts::{
+
+use redstone_casper::contracts::{
     price_adapter_trait::PriceAdapterTrait,
     run_mode::RunMode::{Get, Write},
 };
 
-extern crate alloc;
+use crate::price_adapter::PriceAdapter;
 
 impl PriceAdapterTrait for PriceAdapter {
     #[inline]

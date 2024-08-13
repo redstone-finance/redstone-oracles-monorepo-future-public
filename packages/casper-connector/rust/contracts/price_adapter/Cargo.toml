@@ -9,7 +9,8 @@ description = "Sample oracle contract that consumes RedStone payload"
 print_debug = ["casper-contract/test-support", "redstone/print_debug"]
 
 [dependencies]
-redstone = { path = "../../redstone", features = ["crypto_secp256k1", "network_casper"] }
+redstone = { path = "../../rust-sdk", features = ["crypto_secp256k1", "network_casper"] }
+redstone_casper = { path = "../../redstone_casper" }
 casper-contract = { version = "^4.0.0", default-features = false, features = ["wee_alloc"] }
 casper-types = "^4.0.1"
 

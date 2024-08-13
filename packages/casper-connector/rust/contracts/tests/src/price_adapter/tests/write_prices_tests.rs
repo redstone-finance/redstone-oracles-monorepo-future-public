@@ -1,5 +1,8 @@
 #[cfg(test)]
 mod tests {
+    use redstone::network::specific::U256;
+    use redstone_casper::contracts::run_mode::RunMode::Write;
+
     use crate::{
         core::{
             run_env::RunEnv,
@@ -9,7 +12,6 @@ mod tests {
         },
         hashmap,
     };
-    use redstone::network::{casper::contracts::run_mode::RunMode::Write, specific::U256};
 
     #[test]
     fn test_write_prices() {

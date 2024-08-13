@@ -1,18 +1,17 @@
 #![no_std]
 #![no_main]
 
-#[cfg(not(target_arch = "wasm32"))]
-compile_error!("target arch should be wasm32: compile with '--target wasm32-unknown-unknown'");
-
 extern crate alloc;
-
 use price_adapter::PriceAdapter;
-use redstone::network::casper::contracts::{
+use redstone_casper::contracts::{
     contract::{contract_install, Contract},
     price_adapter_trait::{
         adapter_get_prices, adapter_read_prices, adapter_read_timestamp, adapter_write_prices,
     },
 };
+
+#[cfg(not(target_arch = "wasm32"))]
+compile_error!("target arch should be wasm32: compile with '--target wasm32-unknown-unknown'");
 
 mod config_preparator;
 mod price_adapter;

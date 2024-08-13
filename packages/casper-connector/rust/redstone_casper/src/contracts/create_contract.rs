@@ -1,19 +1,19 @@
-use crate::network::casper::contracts::constants::GROUP_NAME_OWNER;
-use casper_contract::{
-    contract_api::{runtime, storage},
-    unwrap_or_revert::UnwrapOrRevert,
-};
+extern crate alloc;
 use std::collections::BTreeSet;
 
-use casper_contract::contract_api::storage::{
-    add_contract_version, create_contract_package_at_hash,
+use casper_contract::{
+    contract_api::{
+        runtime, storage,
+        storage::{add_contract_version, create_contract_package_at_hash},
+    },
+    unwrap_or_revert::UnwrapOrRevert,
 };
 use casper_types::{
     contracts::NamedKeys, ContractHash, ContractPackageHash, ContractVersion, EntryPoints, Key,
     URef,
 };
 
-extern crate alloc;
+use crate::contracts::constants::GROUP_NAME_OWNER;
 
 pub fn create_contract(
     entry_points: EntryPoints,

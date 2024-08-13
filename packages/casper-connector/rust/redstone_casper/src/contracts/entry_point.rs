@@ -83,9 +83,6 @@ pub fn cltype_values() -> CLType {
 
 #[cfg(test)]
 mod test {
-    use crate::network::casper::contracts::entry_point::{
-        cltype_bytes, cltype_values, ToEntryPoint,
-    };
     use casper_types::{
         CLType::{List, U256, U8},
         EntryPoint,
@@ -93,6 +90,8 @@ mod test {
         EntryPointType::Contract,
         Group, Parameter,
     };
+
+    use crate::contracts::entry_point::{cltype_bytes, cltype_values, ToEntryPoint};
 
     #[test]
     fn test_entry_point_no_params() {

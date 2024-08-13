@@ -1,13 +1,13 @@
 #[cfg(test)]
 mod tests {
-    use crate::core::{run_env::RunEnv, utils::hash_message};
     use casper_types::{bytesrepr::Bytes, ContractHash, ContractPackageHash, Key, RuntimeArgs};
-    use redstone::network::{
-        as_str::AsHexStr,
-        casper::contracts::constants::{
-            ENTRY_POINT_INIT, STORAGE_KEY_ADAPTER_ADDRESS, STORAGE_KEY_VALUES,
-        },
+
+    use redstone::network::as_str::AsHexStr;
+    use redstone_casper::contracts::constants::{
+        ENTRY_POINT_INIT, STORAGE_KEY_ADAPTER_ADDRESS, STORAGE_KEY_VALUES,
     };
+
+    use crate::core::{run_env::RunEnv, utils::hash_message};
 
     #[test]
     fn test_init() {

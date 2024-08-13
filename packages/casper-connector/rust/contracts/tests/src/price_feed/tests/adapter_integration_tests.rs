@@ -1,12 +1,11 @@
 #[cfg(test)]
 mod tests {
+    use redstone::helpers::iter_into::{IterInto, IterIntoOpt};
+    use redstone_casper::contracts::run_mode::RunMode::Write;
+
     use crate::core::{
         run_env::RunEnv,
         sample::{sample_eth_btc_avax_5sig, SAMPLE_SYSTEM_TIMESTAMP},
-    };
-    use redstone::{
-        helpers::iter_into::{IterInto, IterIntoOpt},
-        network::casper::contracts::run_mode::RunMode::Write,
     };
 
     #[test]

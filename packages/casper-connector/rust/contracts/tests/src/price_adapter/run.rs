@@ -1,18 +1,19 @@
 extern crate alloc;
 
-use crate::core::run_env::RunEnv;
 use alloc::vec;
+
 use casper_types::{runtime_args, runtime_args::RuntimeArgs};
+
 use redstone::{
     helpers::hex::{make_feed_id, read_payload_bytes},
-    network::{
-        as_str::AsAsciiStr,
-        casper::contracts::{
-            constants::{ARG_NAME_FEED_ID, ENTRY_POINT_READ_PRICE_AND_TIMESTAMP},
-            run_mode::RunMode::*,
-        },
-    },
+    network::as_str::AsAsciiStr,
 };
+use redstone_casper::contracts::{
+    constants::{ARG_NAME_FEED_ID, ENTRY_POINT_READ_PRICE_AND_TIMESTAMP},
+    run_mode::RunMode::*,
+};
+
+use crate::core::run_env::RunEnv;
 
 pub fn run() {
     let mut env = RunEnv::prepare();

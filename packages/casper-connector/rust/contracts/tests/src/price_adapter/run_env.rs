@@ -1,16 +1,15 @@
-use crate::core::{run_env::RunEnv, utils::get_system_timestamp};
 use casper_types::{bytesrepr::Bytes, runtime_args, runtime_args::RuntimeArgs, U256};
-use redstone::{
-    helpers::hex::make_feed_ids,
-    network::casper::contracts::{
-        constants::{
-            ARG_NAME_CURRENT_TIMESTAMP, ARG_NAME_FEED_IDS, ARG_NAME_PAYLOAD,
-            ENTRY_POINT_GET_PRICES, ENTRY_POINT_WRITE_PRICES, STORAGE_KEY_TIMESTAMP,
-            STORAGE_KEY_VALUES,
-        },
-        run_mode::{RunMode, RunMode::*},
+
+use redstone::helpers::hex::make_feed_ids;
+use redstone_casper::contracts::{
+    constants::{
+        ARG_NAME_CURRENT_TIMESTAMP, ARG_NAME_FEED_IDS, ARG_NAME_PAYLOAD, ENTRY_POINT_GET_PRICES,
+        ENTRY_POINT_WRITE_PRICES, STORAGE_KEY_TIMESTAMP, STORAGE_KEY_VALUES,
     },
+    run_mode::{RunMode, RunMode::*},
 };
+
+use crate::core::{run_env::RunEnv, utils::get_system_timestamp};
 
 impl RunEnv {
     pub(crate) fn price_adapter_process_payload(

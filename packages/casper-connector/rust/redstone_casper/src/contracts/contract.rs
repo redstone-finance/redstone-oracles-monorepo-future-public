@@ -1,9 +1,10 @@
-use crate::network::casper::contracts::{
+use casper_contract::contract_api::{runtime, storage, storage::add_contract_version};
+use casper_types::{contracts::NamedKeys, ContractPackageHash, EntryPoints};
+
+use crate::contracts::{
     constants::ARG_NAME_CONTRACT_PACKAGE_HASH, create_contract,
     runtime::get_named_contract_package_hash_opt,
 };
-use casper_contract::contract_api::{runtime, storage, storage::add_contract_version};
-use casper_types::{contracts::NamedKeys, ContractPackageHash, EntryPoints};
 
 const CONTRACT_VERSION_KEY: &str = "version";
 

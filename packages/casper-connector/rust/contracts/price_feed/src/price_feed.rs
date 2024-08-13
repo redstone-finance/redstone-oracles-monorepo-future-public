@@ -1,6 +1,7 @@
 use casper_contract::contract_api::{runtime, storage};
 use casper_types::{runtime_args, runtime_args::RuntimeArgs, U256};
-use redstone::network::casper::contracts::{
+
+use redstone_casper::contracts::{
     constants::{
         ARG_NAME_FEED_ID, ENTRY_POINT_READ_PRICE_AND_TIMESTAMP, STORAGE_KEY_ADAPTER_ADDRESS,
         STORAGE_KEY_TIMESTAMP, STORAGE_KEY_VALUE,

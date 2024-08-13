@@ -1,7 +1,9 @@
-use crate::core::run_env::RunEnv;
 use casper_execution_engine::core::engine_state::execution_result::ExecutionResult;
 use casper_types::{runtime_args, Key, RuntimeArgs};
-use redstone::network::casper::contracts::constants::{ARG_NAME_ADAPTER_ADDRESS, ENTRY_POINT_INIT};
+
+use redstone_casper::contracts::constants::{ARG_NAME_ADAPTER_ADDRESS, ENTRY_POINT_INIT};
+
+use crate::core::run_env::RunEnv;
 
 impl RunEnv {
     pub(crate) const PRICE_RELAY_ADAPTER_KEY: &'static str = "price_relay_adapter";

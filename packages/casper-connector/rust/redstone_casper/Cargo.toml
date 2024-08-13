@@ -1,0 +1,10 @@
+[package]
+name = "redstone_casper"
+version = "1.0.0"
+edition = "2021"
+authors = ["RedStone <https://redstone.finance>"]
+description = "A RedStone helper for casper"
+
+[dependencies]
+casper-contract = { version = "^4.0.0", default-features = false, features = ["wee_alloc"] }
+casper-types = { version = "^4.0.1", default-features = false, features = [] }

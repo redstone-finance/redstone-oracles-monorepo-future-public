@@ -9,7 +9,8 @@ description = "A proxy for the regular price adapter methods. It solves the limi
 print_debug = ["redstone/print_debug"]
 
 [dependencies]
-redstone = { path = "../../redstone", default-features = false, features = ["network_casper"] }
+redstone = { path = "../../rust-sdk", default-features = false, features = ["network_casper"] }
+redstone_casper = { path = "../../redstone_casper" }
 casper-contract = { version = "^4.0.0", default-features = false, features = ["wee_alloc"] }
 casper-types = "^4.0.1"
 

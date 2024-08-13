@@ -1,5 +1,5 @@
-use crate::{price_adapter::PriceAdapter, price_adapter_error::PriceAdapterError};
 use alloc::{vec, vec::Vec};
+
 use casper_contract::contract_api::{runtime, runtime::revert};
 use casper_types::{
     bytesrepr::Bytes,
@@ -7,20 +7,21 @@ use casper_types::{
     CLType::{List, Unit, U256, U64, U8},
     EntryPoints, Parameter,
 };
-use redstone::network::{
-    casper::contracts::{
-        constants::{
-            ARG_NAME_FEED_ID, ARG_NAME_SIGNERS, ARG_NAME_SIGNER_COUNT_THRESHOLD, ENTRY_POINT_INIT,
-            ENTRY_POINT_READ_PRICE_AND_TIMESTAMP, GROUP_NAME_OWNER, STORAGE_KEY_TIMESTAMP,
-            STORAGE_KEY_VALUES,
-        },
-        contract::Contract,
-        entry_point::{cltype_bytes, ToEntryPoint},
-        price_adapter_trait::adapter_entry_points,
-        runtime::{set_up_dictionary_key, set_up_uref_key},
+
+use redstone::network::error::Error;
+use redstone_casper::contracts::{
+    constants::{
+        ARG_NAME_FEED_ID, ARG_NAME_SIGNERS, ARG_NAME_SIGNER_COUNT_THRESHOLD, ENTRY_POINT_INIT,
+        ENTRY_POINT_READ_PRICE_AND_TIMESTAMP, GROUP_NAME_OWNER, STORAGE_KEY_TIMESTAMP,
+        STORAGE_KEY_VALUES,
     },
-    error::Error,
+    contract::Contract,
+    entry_point::{cltype_bytes, ToEntryPoint},
+    price_adapter_trait::adapter_entry_points,
+    runtime::{set_up_dictionary_key, set_up_uref_key},
 };
+
+use crate::{price_adapter::PriceAdapter, price_adapter_error::PriceAdapterError};
 
 impl Contract for PriceAdapter {
     const CONTRACT_KEY: &'static str = "price_adapter";

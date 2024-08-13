@@ -1,9 +1,9 @@
 extern crate alloc;
 
+use redstone::helpers::hex::read_payload_bytes;
+use redstone_casper::contracts::run_mode::RunMode::Write;
+
 use crate::core::run_env::RunEnv;
-use redstone::{
-    helpers::hex::read_payload_bytes, network::casper::contracts::run_mode::RunMode::*,
-};
 
 pub fn run() {
     let mut env = RunEnv::prepare();

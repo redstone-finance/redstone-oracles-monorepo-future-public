@@ -1,7 +1,8 @@
 [workspace]
 
 members = [
-    "redstone",
+    "rust-sdk",
+    "redstone_casper",
     "contracts/price_adapter",
     "contracts/price_relay_adapter",
     "contracts/price_feed",

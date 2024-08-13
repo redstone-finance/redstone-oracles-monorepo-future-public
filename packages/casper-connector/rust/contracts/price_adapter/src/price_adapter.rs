@@ -1,30 +1,29 @@
-use crate::{config_preparator::ConfigPreparator, price_adapter_error::PriceAdapterError};
 use alloc::{format, vec, vec::Vec};
+
 use casper_contract::{
     contract_api::{runtime, storage},
     unwrap_or_revert::UnwrapOrRevert,
 };
 use casper_types::{bytesrepr::Bytes, ApiError, U256};
+
 use redstone::{
     core::{
         config::Config, processor::process_payload as redstone_process_payload,
         processor_result::ProcessorResult,
     },
-    network::{
-        as_str::AsAsciiStr,
-        assert::Assert,
-        casper::contracts::{
-            constants::{
-                ARG_NAME_FEED_ID, ARG_NAME_FEED_IDS, ARG_NAME_SIGNERS,
-                ARG_NAME_SIGNER_COUNT_THRESHOLD, STORAGE_KEY_TIMESTAMP, STORAGE_KEY_VALUES,
-            },
-            run_mode::{RunMode, RunMode::Write},
-            runtime::{get_ref, read_key_value, read_uref_key, return_value},
-        },
-        error::Error,
-    },
+    network::{as_str::AsAsciiStr, assert::Assert, error::Error},
     print_debug,
 };
+use redstone_casper::contracts::{
+    constants::{
+        ARG_NAME_FEED_ID, ARG_NAME_FEED_IDS, ARG_NAME_SIGNERS, ARG_NAME_SIGNER_COUNT_THRESHOLD,
+        STORAGE_KEY_TIMESTAMP, STORAGE_KEY_VALUES,
+    },
+    run_mode::{RunMode, RunMode::Write},
+    runtime::{get_ref, read_key_value, read_uref_key, return_value},
+};
+
+use crate::{config_preparator::ConfigPreparator, price_adapter_error::PriceAdapterError};
 
 pub(crate) struct PriceAdapter;
 

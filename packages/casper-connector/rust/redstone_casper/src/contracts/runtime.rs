@@ -1,4 +1,4 @@
-use crate::network::casper::contracts::contract_error::ContractError;
+extern crate alloc;
 use casper_contract::{
     contract_api::{runtime, storage},
     unwrap_or_revert::UnwrapOrRevert,
@@ -9,7 +9,7 @@ use casper_types::{
     ApiError, CLTyped, CLValue, ContractHash, ContractPackageHash, Key, URef,
 };
 
-extern crate alloc;
+use crate::contracts::contract_error::ContractError;
 
 #[inline]
 pub fn set_up_uref_key<T: CLTyped + ToBytes>(key_name: &str, value: T, is_readonly: bool) {

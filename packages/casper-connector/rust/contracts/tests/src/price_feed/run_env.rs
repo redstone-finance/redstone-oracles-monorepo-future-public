@@ -1,6 +1,8 @@
-use crate::core::run_env::RunEnv;
 use casper_types::{RuntimeArgs, U256};
-use redstone::network::casper::contracts::constants::{STORAGE_KEY_TIMESTAMP, STORAGE_KEY_VALUE};
+
+use redstone_casper::contracts::constants::{STORAGE_KEY_TIMESTAMP, STORAGE_KEY_VALUE};
+
+use crate::core::run_env::RunEnv;
 
 impl RunEnv {
     const ENTRY_POINT_GET_PRICE_AND_TIMESTAMP: &'static str = "get_price_and_timestamp";

@@ -5,7 +5,7 @@ use casper_types::{
     EntryPoints, Parameter,
 };
 
-use redstone::network::casper::contracts::{
+use redstone_casper::contracts::{
     constants::{
         ARG_NAME_ADAPTER_ADDRESS, ARG_NAME_FEED_IDS, ARG_NAME_PAYLOAD, ENTRY_POINT_INIT,
         GROUP_NAME_OWNER, STORAGE_KEY_ADAPTER_ADDRESS, STORAGE_KEY_VALUES,
