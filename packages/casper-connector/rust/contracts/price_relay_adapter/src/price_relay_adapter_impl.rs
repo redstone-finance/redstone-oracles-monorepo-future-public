@@ -1,8 +1,9 @@
-use crate::price_relay_adapter::PriceRelayAdapter;
 use alloc::vec::Vec;
+
 use casper_contract::contract_api::runtime;
 use casper_types::{bytesrepr::Bytes, runtime_args, runtime_args::RuntimeArgs, U256};
-use redstone::network::casper::contracts::{
+
+use redstone_casper::contracts::{
     constants::{
         ARG_NAME_CURRENT_TIMESTAMP, ARG_NAME_FEED_IDS, ARG_NAME_PAYLOAD, ENTRY_POINT_GET_PRICES,
         ENTRY_POINT_READ_PRICES, ENTRY_POINT_READ_TIMESTAMP, ENTRY_POINT_WRITE_PRICES,
@@ -11,6 +12,8 @@ use redstone::network::casper::contracts::{
     price_adapter_trait::PriceAdapterTrait,
     runtime::read_key_value,
 };
+
+use crate::price_relay_adapter::PriceRelayAdapter;
 
 impl PriceAdapterTrait for PriceRelayAdapter {
     fn write_prices(feed_ids: Vec<U256>, payload: Bytes) -> (u64, Vec<U256>) {

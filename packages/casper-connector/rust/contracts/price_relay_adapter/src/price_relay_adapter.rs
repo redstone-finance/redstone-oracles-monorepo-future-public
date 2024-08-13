@@ -1,18 +1,17 @@
 use alloc::{string::String, vec, vec::Vec};
+
 use casper_contract::contract_api::{runtime, runtime::revert, storage};
 use casper_types::{bytesrepr::Bytes, U256};
-use redstone::network::{
-    as_str::AsHexStr,
-    casper::contracts::{
-        computed_value::ComputedValue,
-        constants::{ARG_NAME_FEED_IDS, STORAGE_KEY_VALUES},
-        contract_error::ContractError,
-        hashed::Hashed,
-        price_adapter_trait::PriceAdapterTrait,
-        run_mode::{RunMode, RunMode::Get},
-        runtime::{read_dictionary_key, return_value},
-    },
-    flattened::Flattened,
+
+use redstone::network::{as_str::AsHexStr, flattened::Flattened};
+use redstone_casper::contracts::{
+    computed_value::ComputedValue,
+    constants::{ARG_NAME_FEED_IDS, STORAGE_KEY_VALUES},
+    contract_error::ContractError,
+    hashed::Hashed,
+    price_adapter_trait::PriceAdapterTrait,
+    run_mode::{RunMode, RunMode::Get},
+    runtime::{read_dictionary_key, return_value},
 };
 
 const MAX_CHUNK_NUMBER: usize = 8;

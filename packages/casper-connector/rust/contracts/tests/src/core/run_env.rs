@@ -1,21 +1,23 @@
+use std::path::PathBuf;
+
 use casper_engine_test_support::{
     DeployItemBuilder, ExecuteRequestBuilder, InMemoryWasmTestBuilder, ARG_AMOUNT,
     DEFAULT_ACCOUNT_INITIAL_BALANCE, DEFAULT_CHAINSPEC_REGISTRY, DEFAULT_GENESIS_CONFIG,
     DEFAULT_GENESIS_CONFIG_HASH, DEFAULT_PAYMENT,
 };
-use casper_execution_engine::core::engine_state::{
-    run_genesis_request::RunGenesisRequest, ExecuteRequest, GenesisAccount,
+use casper_execution_engine::{
+    core::engine_state::{
+        execution_result::ExecutionResult, run_genesis_request::RunGenesisRequest, ExecuteRequest,
+        GenesisAccount,
+    },
+    shared::transform::Transform,
 };
 use casper_types::{
     account::AccountHash, bytesrepr::FromBytes, runtime_args, CLTyped, Contract, Key, Motes,
     PublicKey, RuntimeArgs, SecretKey, StoredValue, U512,
 };
 
-use casper_execution_engine::{
-    core::engine_state::execution_result::ExecutionResult, shared::transform::Transform,
-};
-use redstone::network::casper::contracts::constants::ARG_NAME_CONTRACT_PACKAGE_HASH;
-use std::path::PathBuf;
+use redstone_casper::contracts::constants::ARG_NAME_CONTRACT_PACKAGE_HASH;
 
 pub(crate) struct RunEnv {
     pub(crate) builder: InMemoryWasmTestBuilder,

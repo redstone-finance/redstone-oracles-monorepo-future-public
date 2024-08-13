@@ -1,11 +1,10 @@
-use crate::core::sample::Sample;
-use redstone::{
-    helpers::{
-        hex::make_feed_ids,
-        iter_into::{IterInto, IterIntoOpt},
-    },
-    network::casper::contracts::computed_value::ComputedValue,
+use redstone::helpers::{
+    hex::make_feed_ids,
+    iter_into::{IterInto, IterIntoOpt},
 };
+use redstone_casper::contracts::computed_value::ComputedValue;
+
+use crate::core::sample::Sample;
 
 impl Sample {
     pub(crate) fn verify_computed_value(

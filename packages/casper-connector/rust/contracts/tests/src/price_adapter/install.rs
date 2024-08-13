@@ -1,11 +1,11 @@
-use crate::core::run_env::RunEnv;
 use casper_types::{runtime_args, Key, RuntimeArgs};
-use redstone::{
-    helpers::hex::make_bytes,
-    network::casper::contracts::constants::{
-        ARG_NAME_SIGNERS, ARG_NAME_SIGNER_COUNT_THRESHOLD, ENTRY_POINT_INIT,
-    },
+
+use redstone::helpers::hex::make_bytes;
+use redstone_casper::contracts::constants::{
+    ARG_NAME_SIGNERS, ARG_NAME_SIGNER_COUNT_THRESHOLD, ENTRY_POINT_INIT,
 };
+
+use crate::core::run_env::RunEnv;
 
 impl RunEnv {
     pub(crate) const PRICE_ADAPTER_KEY: &'static str = "price_adapter";

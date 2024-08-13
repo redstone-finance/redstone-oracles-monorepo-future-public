@@ -1,10 +1,11 @@
 #[cfg(test)]
 mod tests {
+    use redstone_casper::contracts::run_mode::RunMode::Get;
+
     use crate::core::{
         run_env::RunEnv,
         sample::{sample_eth_btc_avax_5sig, sample_eth_btc_avax_5sig_2, SAMPLE_SYSTEM_TIMESTAMP},
     };
-    use redstone::network::casper::contracts::run_mode::RunMode::Get;
 
     #[test]
     fn test_get_prices() {

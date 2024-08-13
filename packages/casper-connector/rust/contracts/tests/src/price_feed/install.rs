@@ -1,12 +1,12 @@
-use crate::core::run_env::RunEnv;
 use casper_execution_engine::core::engine_state::execution_result::ExecutionResult;
 use casper_types::{runtime_args, Key, RuntimeArgs};
-use redstone::{
-    helpers::hex::make_feed_id,
-    network::casper::contracts::constants::{
-        ARG_NAME_ADAPTER_ADDRESS, ARG_NAME_FEED_ID, ENTRY_POINT_INIT,
-    },
+
+use redstone::helpers::hex::make_feed_id;
+use redstone_casper::contracts::constants::{
+    ARG_NAME_ADAPTER_ADDRESS, ARG_NAME_FEED_ID, ENTRY_POINT_INIT,
 };
+
+use crate::core::run_env::RunEnv;
 
 impl RunEnv {
     pub(crate) const PRICE_FEED_KEY: &'static str = "price_feed";

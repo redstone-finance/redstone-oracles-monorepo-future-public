@@ -1,11 +1,10 @@
-use crate::core::{run_env::RunEnv, sample::Sample};
 use redstone::{
     helpers::iter_into::{IterInto, IterIntoOpt},
-    network::{
-        casper::contracts::run_mode::RunMode::{Get, Write},
-        specific::U256,
-    },
+    network::specific::U256,
 };
+use redstone_casper::contracts::run_mode::RunMode::{Get, Write};
+
+use crate::core::{run_env::RunEnv, sample::Sample};
 
 impl Sample {
     pub(crate) fn env_test_write_prices(

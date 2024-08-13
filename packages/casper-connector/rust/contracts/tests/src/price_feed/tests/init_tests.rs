@@ -1,11 +1,11 @@
 #[cfg(test)]
 mod tests {
-    use crate::core::run_env::RunEnv;
     use casper_types::{ContractHash, ContractPackageHash, Key, RuntimeArgs, U256};
-    use redstone::{
-        helpers::hex::make_feed_id,
-        network::casper::contracts::constants::{ENTRY_POINT_INIT, STORAGE_KEY_ADAPTER_ADDRESS},
-    };
+
+    use redstone::helpers::hex::make_feed_id;
+    use redstone_casper::contracts::constants::{ENTRY_POINT_INIT, STORAGE_KEY_ADAPTER_ADDRESS};
+
+    use crate::core::run_env::RunEnv;
 
     #[test]
     fn test_init() {

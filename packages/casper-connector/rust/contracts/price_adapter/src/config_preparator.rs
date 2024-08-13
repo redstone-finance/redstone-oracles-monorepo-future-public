@@ -1,11 +1,12 @@
-use crate::price_adapter::PriceAdapter;
 use alloc::vec::Vec;
+
 use casper_contract::contract_api::runtime;
 use casper_types::U256;
-use redstone::{
-    core::config::Config,
-    network::casper::contracts::{constants::ARG_NAME_CURRENT_TIMESTAMP, runtime::read_key_value},
-};
+
+use redstone::core::config::Config;
+use redstone_casper::contracts::{constants::ARG_NAME_CURRENT_TIMESTAMP, runtime::read_key_value};
+
+use crate::price_adapter::PriceAdapter;
 
 pub trait ConfigPreparator {
     fn prepare_with(feed_ids: Vec<U256>) -> Config;

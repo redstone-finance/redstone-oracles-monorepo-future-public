@@ -1,12 +1,12 @@
-use crate::price_feed::PriceFeed;
 use alloc::vec;
+
 use casper_contract::contract_api::runtime;
 use casper_types::{
     CLType::{Key as CLKey, Tuple2, Unit, U256 as CLU256, U64},
     EntryPoints, Parameter, U256,
 };
 
-use redstone::network::casper::contracts::{
+use redstone_casper::contracts::{
     constants::{
         ARG_NAME_ADAPTER_ADDRESS, ARG_NAME_FEED_ID, ENTRY_POINT_INIT, GROUP_NAME_OWNER,
         STORAGE_KEY_ADAPTER_ADDRESS, STORAGE_KEY_TIMESTAMP, STORAGE_KEY_VALUE,
@@ -15,6 +15,8 @@ use redstone::network::casper::contracts::{
     entry_point::ToEntryPoint,
     runtime::{get_named_contract_package_hash, set_up_uref_key},
 };
+
+use crate::price_feed::PriceFeed;
 
 impl Contract for PriceFeed {
     const CONTRACT_KEY: &'static str = "price_feed";

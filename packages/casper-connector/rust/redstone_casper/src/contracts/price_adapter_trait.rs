@@ -1,4 +1,11 @@
-use crate::network::casper::contracts::{
+use casper_contract::contract_api::runtime;
+use casper_types::{
+    bytesrepr::Bytes,
+    CLType::{List, Tuple2, U256 as CLU256, U64},
+    EntryPoints, Parameter, U256,
+};
+
+use crate::contracts::{
     constants::{
         ARG_NAME_FEED_IDS, ARG_NAME_PAYLOAD, ENTRY_POINT_GET_PRICES, ENTRY_POINT_READ_PRICES,
         ENTRY_POINT_READ_TIMESTAMP, ENTRY_POINT_WRITE_PRICES,
@@ -6,12 +13,6 @@ use crate::network::casper::contracts::{
     contract::Contract,
     entry_point::{cltype_bytes, cltype_values, ToEntryPoint},
     runtime::return_value,
-};
-use casper_contract::contract_api::runtime;
-use casper_types::{
-    bytesrepr::Bytes,
-    CLType::{List, Tuple2, U256 as CLU256, U64},
-    EntryPoints, Parameter, U256,
 };
 
 pub trait PriceAdapterTrait: Contract {

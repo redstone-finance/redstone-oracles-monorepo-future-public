@@ -4,7 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-redstone = { path = "../../redstone", default-features = false, features = ["helpers", "network_casper"] }
+redstone = { path = "../../rust-sdk", default-features = false, features = ["helpers", "network_casper"] }
+redstone_casper = { path = "../../redstone_casper" }
 casper-engine-test-support = "^7.0.1"
 casper-contract = { version = "^4.0.0", default-features = false, features = ["test-support"] }
 casper-execution-engine = "^7.0.1"

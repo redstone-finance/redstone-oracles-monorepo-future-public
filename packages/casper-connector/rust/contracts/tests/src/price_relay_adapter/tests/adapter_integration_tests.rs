@@ -1,24 +1,21 @@
 #[cfg(test)]
 mod tests {
+    use casper_types::bytesrepr::Bytes;
+    use rand::random;
+
+    use redstone::{helpers::hex::make_feed_ids, network::as_str::AsHexStr};
+    use redstone_casper::contracts::{
+        computed_value::ComputedValue,
+        run_mode::{
+            RunMode,
+            RunMode::{Get, Write},
+        },
+    };
+
     use crate::core::{
         run_env::RunEnv,
         sample::{sample_eth_btc_avax_5sig, Sample, SAMPLE_SYSTEM_TIMESTAMP},
         utils::hash_message,
-    };
-    use casper_types::bytesrepr::Bytes;
-    use rand::random;
-    use redstone::{
-        helpers::hex::make_feed_ids,
-        network::{
-            as_str::AsHexStr,
-            casper::contracts::{
-                computed_value::ComputedValue,
-                run_mode::{
-                    RunMode,
-                    RunMode::{Get, Write},
-                },
-            },
-        },
     };
 
     #[test]

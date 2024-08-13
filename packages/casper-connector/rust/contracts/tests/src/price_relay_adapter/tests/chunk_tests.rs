@@ -4,13 +4,10 @@ mod tests {
     use itertools::Itertools;
     use rand::{seq::SliceRandom, thread_rng};
 
-    use redstone::network::{
-        as_str::AsHexStr,
-        casper::contracts::run_mode::{
-            RunMode,
-            RunMode::{Get, Write},
-        },
-        flattened::Flattened,
+    use redstone::network::{as_str::AsHexStr, flattened::Flattened};
+    use redstone_casper::contracts::run_mode::{
+        RunMode,
+        RunMode::{Get, Write},
     };
 
     use crate::core::{
