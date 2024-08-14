@@ -15,6 +15,24 @@ export function assertThenReturn<T>(value: T | undefined, errMsg: string): T {
   return value;
 }
 
+export function assertThenReturnOrFail<T>(
+  value: T,
+  errors: Error[],
+  errMsg: string,
+  failOnError: boolean
+): T {
+  if (errors.length > 0) {
+    const error = new AggregateError(errors, errMsg);
+    if (failOnError) {
+      throw error;
+    } else {
+      assertWithLog(false, stringifyError(error));
+    }
+  }
+
+  return value;
+}
+
 export const assertWithLog = (condition: boolean, errMsg: string) => {
   const logger = loggerFactory("utils/errors");
 

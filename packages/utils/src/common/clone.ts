@@ -1,5 +1,5 @@
 /**
- * It is not guranteed to work in every case.
+ * It is not guaranteed to work in every case.
  **/
 export function cloneClassInstance<T>(instance: T): T {
   return Object.assign(

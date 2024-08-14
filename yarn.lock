@@ -7969,7 +7969,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-monitoring-classic-relayers@workspace:packages/lambda-monitoring-classic-relayers"
   dependencies:
-    "@redstone-finance/internal-utils": "npm:0.6.1"
     "@redstone-finance/monitoring-manifests": "npm:0.6.1"
     "@redstone-finance/redstone-monitoring": "npm:0.6.1"
     "@redstone-finance/utils": "npm:0.6.1"
@@ -8001,7 +8000,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-monitoring-multi-feed-relayers@workspace:packages/lambda-monitoring-multi-feed-relayers"
   dependencies:
-    "@redstone-finance/internal-utils": "npm:0.6.1"
     "@redstone-finance/monitoring-manifests": "npm:0.6.1"
     "@redstone-finance/redstone-monitoring": "npm:0.6.1"
     "@redstone-finance/utils": "npm:0.6.1"
