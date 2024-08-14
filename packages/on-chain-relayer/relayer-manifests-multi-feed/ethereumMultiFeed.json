@@ -11,6 +11,8 @@
     "timeSinceLastUpdateInMilliseconds": 86400000
   },
   "priceFeeds": {
-    "LBTC_FUNDAMENTAL": {}
+    "LBTC_FUNDAMENTAL": {
+      "priceFeedAddress": "0xb415eAA355D8440ac7eCB602D3fb67ccC1f0bc81"
+    }
   }
 }
