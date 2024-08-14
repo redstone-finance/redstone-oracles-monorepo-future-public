@@ -1304,6 +1304,9 @@
         "xei-sei-wsei-100",
         "xei-sei-wsei-500"
       ]
+    },
+    "pzETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-renzo"]
     }
   },
   "multiPointPackages": {
