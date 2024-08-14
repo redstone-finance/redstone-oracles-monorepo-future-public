@@ -1,5 +1,5 @@
 import { InfluxDB, Point } from "@influxdata/influxdb-client";
-import { getSSMParameterValue } from "./params";
+import { getSSMParameterValue } from "../aws/params";
 
 export const INFLUXDB_ORG = "redstone";
 export const INFLUXDB_BUCKET = "redstone";

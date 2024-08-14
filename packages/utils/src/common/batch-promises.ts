@@ -1,8 +1,5 @@
-import { RedstoneCommon } from "@redstone-finance/utils";
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+import { assertThenReturnOrFail } from "./errors";
+import { sleep } from "./time";
 
 export async function batchPromises<T>(
   batchSize: number,
@@ -27,17 +24,11 @@ export async function batchPromises<T>(
     );
     errors.push(...filteredErrors.map((r) => r.reason as Error));
   }
-  if (errors.length > 0) {
-    if (failOnError) {
-      throw new AggregateError(errors, "batch operation failed");
-    } else {
-      console.log(
-        RedstoneCommon.stringifyError(
-          new AggregateError(errors, "batch operation failed")
-        )
-      );
-    }
-  }
 
-  return results;
+  return assertThenReturnOrFail(
+    results,
+    errors,
+    "batch operation failed",
+    failOnError
+  );
 }
