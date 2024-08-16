@@ -23,6 +23,7 @@ export class InfluxService {
     this.influx = new InfluxDB({
       token: this.authParams.token,
       url: this.authParams.url,
+      timeout: 30000,
     });
   }
 

@@ -21,7 +21,7 @@
     "@ethersproject/abstract-provider": "^5.7.0",
     "@ethersproject/logger": "^5.7.0",
     "@ethersproject/properties": "^5.7.0",
-    "@influxdata/influxdb-client": "^1.33.2",
+    "@influxdata/influxdb-client": "^1.34.0",
     "@redstone-finance/evm-multicall": "0.6.1",
     "@redstone-finance/utils": "0.6.1",
     "axios": "^1.6.2",
