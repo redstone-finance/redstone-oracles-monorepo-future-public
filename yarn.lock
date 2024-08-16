@@ -4561,10 +4561,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@influxdata/influxdb-client@npm:^1.33.2":
-  version: 1.33.2
-  resolution: "@influxdata/influxdb-client@npm:1.33.2"
-  checksum: 10c0/1d425e0dab231ee2f7554b8743d063421d224c7be67e7f73f8b241b3c4c3a9fd9a4fd0110b94925a22baa165b97bfbcbd105237cbc0151e03437e3a58dd67b37
+"@influxdata/influxdb-client@npm:^1.34.0":
+  version: 1.34.0
+  resolution: "@influxdata/influxdb-client@npm:1.34.0"
+  checksum: 10c0/f491a827858bae8a0e174619944e1ec80fbb600d55c5c7a01701ec975b05fb5205a7470212acfca78c634aaa254499bca8946384f9da3ef3056fb3eb60992a75
   languageName: node
   linkType: hard
 
@@ -7427,7 +7427,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/classic-updates-number-checker@workspace:packages/classic-updates-number-checker"
   dependencies:
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/internal-utils": "npm:0.6.1"
   languageName: unknown
   linkType: soft
@@ -7768,7 +7768,7 @@ __metadata:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@aws-sdk/client-s3": "npm:^3.485.0"
     "@aws-sdk/client-ssm": "npm:^3.485.0"
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/utils": "npm:0.6.1"
     axios: "npm:^1.6.2"
   languageName: unknown
@@ -7778,7 +7778,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-aggregator-influx-synchronizer@workspace:packages/lambda-aggregator-influx-synchronizer"
   dependencies:
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/internal-utils": "npm:0.6.1"
     "@redstone-finance/utils": "npm:0.6.1"
     ethers: "npm:^5.7.2"
@@ -7827,7 +7827,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-chainlink-influx-synchronizer@workspace:packages/lambda-chainlink-influx-synchronizer"
   dependencies:
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/internal-utils": "npm:0.6.1"
     "@redstone-finance/utils": "npm:0.6.1"
     ethers: "npm:^5.7.2"
@@ -7839,7 +7839,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda-deviation-monitoring"
   dependencies:
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/internal-utils": "npm:0.6.1"
     dotenv: "npm:^16.0.3"
   languageName: unknown
@@ -7865,7 +7865,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-gas-fee-comparator@workspace:packages/lambda-gas-fee-comparator"
   dependencies:
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/rpc-providers": "npm:0.6.1"
     "@redstone-finance/sdk": "npm:0.6.1"
     "@redstone-finance/utils": "npm:0.6.1"
@@ -7877,7 +7877,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda-gw-metrics"
   dependencies:
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/sdk": "npm:0.6.1"
     "@redstone-finance/utils": "npm:0.6.1"
     dotenv: "npm:^16.0.3"
@@ -7927,7 +7927,7 @@ __metadata:
   resolution: "@redstone-finance/lambda-influxdb-proxy@workspace:packages/lambda-influxdb-proxy"
   dependencies:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/utils": "npm:0.6.1"
     aws-lambda: "npm:^1.0.7"
     dotenv: "npm:^16.0.3"
@@ -7939,7 +7939,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring"
   dependencies:
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/internal-utils": "npm:0.6.1"
     dotenv: "npm:^16.0.3"
   languageName: unknown
@@ -7951,7 +7951,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": "npm:^3.485.0"
     "@aws-sdk/client-ssm": "npm:^3.485.0"
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/internal-utils": "npm:0.6.1"
     "@redstone-finance/protocol": "npm:0.6.1"
     "@redstone-finance/utils": "npm:0.6.1"
@@ -8061,7 +8061,7 @@ __metadata:
   resolution: "@redstone-finance/lambda-redstone-txs-indexer@workspace:packages/lambda-redstone-txs-indexer"
   dependencies:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@redstone-finance/internal-utils": "npm:0.6.1"
     "@redstone-finance/on-chain-relayer": "npm:0.6.1"
     "@redstone-finance/protocol": "npm:0.6.1"
@@ -8164,7 +8164,7 @@ __metadata:
   dependencies:
     "@balancer-labs/sdk": "npm:^1.1.5"
     "@bundlr-network/client": "npm:^0.8.4"
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@metamask/eth-sig-util": "npm:^4.0.1"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.1"
     "@redstone-finance/protocol": "npm:0.6.1"
@@ -8332,7 +8332,7 @@ __metadata:
     "@ethersproject/logger": "npm:^5.7.0"
     "@ethersproject/properties": "npm:^5.7.0"
     "@ethersproject/providers": "npm:^5.6.8"
-    "@influxdata/influxdb-client": "npm:^1.33.2"
+    "@influxdata/influxdb-client": "npm:^1.34.0"
     "@nomicfoundation/hardhat-chai-matchers": "npm:1.0.6"
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.9"
     "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
