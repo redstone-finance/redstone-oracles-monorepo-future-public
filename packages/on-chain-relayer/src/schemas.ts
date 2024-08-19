@@ -35,7 +35,9 @@ export const CommonManifestSchema = z.object({
   chain: ChainSchema,
   updateTriggers: UpdateTriggersSchema,
   adapterContract: z.string(),
+  adapterContractType: AdapterTypesEnum,
   dataServiceId: z.string(),
+  priceFeeds: z.record(z.string(), z.any()),
   dataPacakgesNames: z.array(z.string()).optional(),
 });
 
