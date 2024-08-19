@@ -7965,18 +7965,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-monitoring-classic-relayers@workspace:packages/lambda-monitoring-classic-relayers":
-  version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-monitoring-classic-relayers@workspace:packages/lambda-monitoring-classic-relayers"
-  dependencies:
-    "@redstone-finance/monitoring-manifests": "npm:0.6.1"
-    "@redstone-finance/redstone-monitoring": "npm:0.6.1"
-    "@redstone-finance/utils": "npm:0.6.1"
-    dotenv: "npm:^16.0.3"
-    zod: "npm:^3.22.4"
-  languageName: unknown
-  linkType: soft
-
 "@redstone-finance/lambda-monitoring-core@workspace:packages/lambda-monitoring-core":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-monitoring-core@workspace:packages/lambda-monitoring-core"
@@ -7996,9 +7984,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-monitoring-multi-feed-relayers@workspace:packages/lambda-monitoring-multi-feed-relayers":
+"@redstone-finance/lambda-monitoring-relayers@workspace:packages/lambda-monitoring-relayers":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-monitoring-multi-feed-relayers@workspace:packages/lambda-monitoring-multi-feed-relayers"
+  resolution: "@redstone-finance/lambda-monitoring-relayers@workspace:packages/lambda-monitoring-relayers"
   dependencies:
     "@redstone-finance/monitoring-manifests": "npm:0.6.1"
     "@redstone-finance/redstone-monitoring": "npm:0.6.1"

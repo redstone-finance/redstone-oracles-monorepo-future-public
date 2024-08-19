@@ -1,11 +1,13 @@
 import * as fs from "fs";
 import * as path from "path";
 import {
+  CommonRelayerManifest,
   MultiFeedOnChainRelayerManifest,
   MultiFeedOnChainRelayerManifestSchema,
   OnChainRelayerManifest,
   OnChainRelayerManifestSchema,
 } from "../src";
+import { CommonManifestSchema } from "../src/schemas";
 
 const removeFileExtension = (fileName: string): string => {
   return path.basename(fileName, path.extname(fileName));
@@ -46,4 +48,23 @@ export const readMultiFeedManifests = (): Record<
       MultiFeedOnChainRelayerManifestSchema.parse(JSON.parse(data.toString()));
   }
   return manifests;
+};
+
+export const readAllManifestsAsCommon = (): Record<
+  string,
+  CommonRelayerManifest
+> => {
+  const allManifests: Record<string, CommonRelayerManifest> = {};
+
+  const classicManifests = readClassicManifests();
+  for (const [name, manifest] of Object.entries(classicManifests)) {
+    allManifests[name] = CommonManifestSchema.parse(manifest);
+  }
+
+  const multiFeedManifests = readMultiFeedManifests();
+  for (const [name, manifest] of Object.entries(multiFeedManifests)) {
+    allManifests[name] = CommonManifestSchema.parse(manifest);
+  }
+
+  return allManifests;
 };
