@@ -1608,6 +1608,15 @@
     "pzETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-renzo"]
     },
+    "USD3": {
+      "source": [
+        "curve-ethereum-eth+",
+        "curve-ethereum-eusd",
+        "curve-ethereum-sdai",
+        "curve-ethereum-susde",
+        "curve-ethereum-usdm"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
