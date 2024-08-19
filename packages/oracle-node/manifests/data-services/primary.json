@@ -881,7 +881,13 @@
       "source": ["non-usd-based"]
     },
     "sDAI": {
-      "source": ["ethereum-evm-fetcher-savings-dai"]
+      "source": ["ethereum-evm-fetcher-savings-dai"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "NOTE": {
       "source": ["canto-canto-usdc", "canto-canto-usdt"],
@@ -1307,6 +1313,21 @@
     },
     "pzETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-renzo"]
+    },
+    "USD3": {
+      "source": [
+        "curve-ethereum-eth+",
+        "curve-ethereum-eusd",
+        "curve-ethereum-sdai",
+        "curve-ethereum-susde",
+        "curve-ethereum-usdm"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     }
   },
   "multiPointPackages": {
