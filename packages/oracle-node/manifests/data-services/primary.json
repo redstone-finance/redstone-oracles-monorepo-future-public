@@ -1314,6 +1314,13 @@
     "pzETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-renzo"]
     },
+    "pzETH": {
+      "source": [
+        "curve-ethereum-ezeth",
+        "curve-ethereum-wsteth",
+        "uniswap-v3-ethereum-wsteth-100"
+      ]
+    },
     "USD3": {
       "source": [
         "curve-ethereum-eth+",
