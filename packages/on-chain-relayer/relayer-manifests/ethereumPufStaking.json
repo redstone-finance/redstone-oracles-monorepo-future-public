@@ -13,7 +13,7 @@
   "adapterContract": "0xf9dfBF71F2d9C8A4e565e1346aEb2C3e1dC765De",
   "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {
-    "ETH_CLE": "0xf9dfBF71F2d9C8A4e565e1346aEb2C3e1dC765De",
-    "ETH_ELE": "0xf9dfBF71F2d9C8A4e565e1346aEb2C3e1dC765De"
+    "ETH_CLE": "__NO_FEED__",
+    "ETH_ELE": "__NO_FEED__"
   }
 }

@@ -19,6 +19,7 @@
     "start-node": "hardhat node",
     "test": "NODE_ENV=test hardhat test",
     "test:chain-config-presence": "NODE_ENV=test hardhat test test/relayer-manifests/chain-config-presence.test.ts",
+    "test:price-feed-validation": "NODE_ENV=test hardhat test test/relayer-manifests/price-feed-validation.test.ts",
     "preversion": "yarn build"
   },
   "dependencies": {
