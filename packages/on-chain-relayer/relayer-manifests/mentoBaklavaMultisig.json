@@ -11,12 +11,12 @@
   "adapterContractType": "mento",
   "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {
-    "CELO": "",
-    "CELO/EUR": "",
-    "CELO/BRL": "",
-    "USDC": "",
-    "USDC/EUR": "",
-    "USDC/BRL": "",
-    "EUROC/EUR": ""
+    "CELO": "__NO_FEED__",
+    "CELO/EUR": "__NO_FEED__",
+    "CELO/BRL": "__NO_FEED__",
+    "USDC": "__NO_FEED__",
+    "USDC/EUR": "__NO_FEED__",
+    "USDC/BRL": "__NO_FEED__",
+    "EUROC/EUR": "__NO_FEED__"
   }
 }
