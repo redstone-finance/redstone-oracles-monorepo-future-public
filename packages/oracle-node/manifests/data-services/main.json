@@ -1624,6 +1624,13 @@
         "curve-ethereum-usdm"
       ]
     },
+    "deUSD": {
+      "source": [
+        "curve-ethereum-dai",
+        "curve-ethereum-usdc",
+        "curve-ethereum-usdt"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
