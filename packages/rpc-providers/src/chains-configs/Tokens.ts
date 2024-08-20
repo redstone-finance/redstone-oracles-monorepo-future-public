@@ -257,6 +257,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x0d86883FAf4FfD7aEb116390af37746F45b6f378",
       decimals: 18,
     },
+    pzETH: {
+      address: "0x8c9532a60E0E7C6BbD2B2c1303F63aCE1c3E9811",
+      decimals: 18,
+    },
   },
   blast: {
     ETH: {
