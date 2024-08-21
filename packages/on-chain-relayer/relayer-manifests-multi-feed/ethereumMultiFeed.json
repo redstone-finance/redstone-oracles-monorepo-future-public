@@ -7,12 +7,32 @@
   "adapterContractType": "multi-feed",
   "dataServiceId": "redstone-primary-prod",
   "updateTriggers": {
-    "deviationPercentage": 1,
+    "deviationPercentage": 0.5,
     "timeSinceLastUpdateInMilliseconds": 86400000
   },
   "priceFeeds": {
     "LBTC_FUNDAMENTAL": {
-      "priceFeedAddress": "0xb415eAA355D8440ac7eCB602D3fb67ccC1f0bc81"
+      "priceFeedAddress": "0xb415eAA355D8440ac7eCB602D3fb67ccC1f0bc81",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 1,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "pzETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0x70773ffcE3903a99c9Ed7AC48e110C3540d8cc3c"
+    },
+    "pzETH": {
+      "priceFeedAddress": "0x414F8f961969A8131AbE53294600c6C515E68f81"
+    },
+    "USD3": {
+      "priceFeedAddress": "0x0eD6b13775777318145B93589A34e9B2f5A6b0D4"
+    },
+    "deUSD": {
+      "priceFeedAddress": "0xa76dB2Cb356ba111cCB5a7Ca369D17E1592f42Dd",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.1,
+        "timeSinceLastUpdateInMilliseconds": 43200000
+      }
     }
   }
 }
