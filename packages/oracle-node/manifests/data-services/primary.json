@@ -1321,6 +1321,9 @@
         "uniswap-v3-ethereum-wsteth-100"
       ]
     },
+    "pzETH/ETH": {
+      "source": ["non-usd-based"]
+    },
     "USD3": {
       "source": [
         "curve-ethereum-eth+",
