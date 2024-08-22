@@ -292,15 +292,13 @@
         "balancer-ethereum-weth-2",
         "balancer-ethereum-weth-3",
         "coinmarketcap",
-        "curve-ethereum-crvusd",
         "maverick-ethereum-weth",
         "pancake-swap-ethereum-weth-100",
         "uniswap-v3-arbitrumone-weth-100",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-optimism-weth-100",
         "camelot-v3-arbitrumone-weth",
-        "balancer-arbitrumone-weth-2",
-        "velodrome-optimism-weth"
+        "balancer-arbitrumone-weth-2"
       ]
     },
     "AVAX": {
