@@ -18,17 +18,17 @@
         "timeSinceLastUpdateInMilliseconds": 86400000
       }
     },
-    "pzETH_FUNDAMENTAL": {
-      "priceFeedAddress": "0x70773ffcE3903a99c9Ed7AC48e110C3540d8cc3c"
+    "pzETH/ETH": {
+      "priceFeedAddress": "0x0B6c5C37215B27C944497D2d7011cBD366b0870A"
     },
-    "pzETH": {
-      "priceFeedAddress": "0x414F8f961969A8131AbE53294600c6C515E68f81"
+    "pzETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0x0d7697a15bce933cE8671Ba3D60ab062dA216C60"
     },
     "USD3": {
-      "priceFeedAddress": "0x0eD6b13775777318145B93589A34e9B2f5A6b0D4"
+      "priceFeedAddress": "0xB39339B82DdCF89d12d987d1D4Db33aFdd40B6AA"
     },
     "deUSD": {
-      "priceFeedAddress": "0xa76dB2Cb356ba111cCB5a7Ca369D17E1592f42Dd",
+      "priceFeedAddress": "0x89F48f6671Ec1B1C4f6abE964EBdd21F4eb7076f",
       "updateTriggersOverrides": {
         "deviationPercentage": 0.1,
         "timeSinceLastUpdateInMilliseconds": 43200000
