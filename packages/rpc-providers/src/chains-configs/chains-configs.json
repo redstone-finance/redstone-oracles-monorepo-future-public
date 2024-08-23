@@ -493,7 +493,7 @@
     "avgBlockTimeMs": 1200,
     "multicall3": {
       "address": "0xF9cda624FBC7e059355ce98a31693d299FACd963",
-      "type": "zkSyncMulticall3"
+      "type": "Multicall3"
     },
     "isAuctionModel": false,
     "twoDimensionalFees": true
@@ -505,7 +505,7 @@
     "avgBlockTimeMs": 1000,
     "multicall3": {
       "address": "0x825267E0fA5CAe92F98540828a54198dcB3Eaeb5",
-      "type": "zkLinkMulticall3"
+      "type": "Multicall3"
     },
     "isAuctionModel": false,
     "twoDimensionalFees": true
@@ -539,6 +539,18 @@
     "avgBlockTimeMs": 3000,
     "multicall3": {
       "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
+      "type": "Multicall3"
+    },
+    "isAuctionModel": false,
+    "twoDimensionalFees": false
+  },
+  "haven1Testnet": {
+    "name": "Haven1 Testnet",
+    "chainId": 810,
+    "publicRpcUrls": ["https://testnet-rpc.haven1.org"],
+    "avgBlockTimeMs": 6000,
+    "multicall3": {
+      "address": "0x34E53CC3D178Cf10BDF40bf94144444c246003CB",
       "type": "Multicall3"
     },
     "isAuctionModel": false,

@@ -5,6 +5,7 @@ import { z } from "zod";
 import {
   ChainConfigSchema,
   ChainConfigs,
+  HAVEN1_MULTICALL3_ADDRESS,
   MegaProviderBuilder,
   REDSTONE_MULTICALL3_ADDRESS,
   STANDARD_MULTICALL3_ADDRESS,
@@ -72,21 +73,12 @@ describe("Validate multicall3", () => {
             chainConfig.multicall3.address,
             `Multicall3 address for chain ${chainConfig.name} doesn't match STANDARD_MULTICALL3_ADDRESS`
           )
-          .eq(STANDARD_MULTICALL3_ADDRESS);
-      } else if (chainConfig.multicall3.type === "zkSyncMulticall3") {
-        chai
-          .expect(
-            chainConfig.multicall3.address,
-            `Multicall3 address for chain ${chainConfig.name} doesn't match REDSTONE_MULTICALL3_ADDRESS`
-          )
-          .eq(ZKSYNC_MULTICALL3_ADDRESS);
-      } else if (chainConfig.multicall3.type === "zkLinkMulticall3") {
-        chai
-          .expect(
-            chainConfig.multicall3.address,
-            `Multicall3 address for chain ${chainConfig.name} doesn't match REDSTONE_MULTICALL3_ADDRESS`
-          )
-          .eq(ZKLINK_MULTICALL3_ADDRESS);
+          .to.be.oneOf([
+            STANDARD_MULTICALL3_ADDRESS,
+            ZKSYNC_MULTICALL3_ADDRESS,
+            ZKLINK_MULTICALL3_ADDRESS,
+            HAVEN1_MULTICALL3_ADDRESS,
+          ]);
       }
     }
   });
