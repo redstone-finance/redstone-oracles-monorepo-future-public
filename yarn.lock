@@ -7937,6 +7937,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-influxdb-state-metrics@workspace:packages/lambda-influxdb-state-metrics":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-influxdb-state-metrics@workspace:packages/lambda-influxdb-state-metrics"
+  dependencies:
+    "@influxdata/influxdb-client": "npm:^1.34.0"
+    "@redstone-finance/internal-utils": "npm:0.6.1"
+    "@redstone-finance/utils": "npm:0.6.1"
+    dotenv: "npm:^16.0.3"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring"
