@@ -284,7 +284,7 @@
         "curve-ethereum-rsr",
         "curve-ethereum-usdc",
         "curve-ethereum-usdc-2",
-        "aerodrome-cl-base-usdc-3000"
+        "aerodrome-cl-base-usdc-100"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -449,7 +449,7 @@
       "source": [
         "aerodrome-base-rsr",
         "aerodrome-base-weth",
-        "aerodrome-cl-base-weth-3000"
+        "aerodrome-cl-base-weth-100"
       ]
     },
 
