@@ -52,7 +52,7 @@ export async function checkWalletTransactions(
       wallet,
       manifest,
       txStatsInfluxService,
-      [UpdaterType.main, UpdaterType.fallback].includes(type),
+      type === UpdaterType.main,
       prefix
     );
 
