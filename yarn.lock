@@ -7473,6 +7473,7 @@ __metadata:
     ethers: "npm:^5.7.2"
     hardhat: "npm:^2.17.2"
     mocha: "npm:^10.2.0"
+    solidity-coverage: "npm:^0.8.12"
     ts-node: "npm:^10.9.2"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.5.4"
@@ -7515,7 +7516,7 @@ __metadata:
     ethers: "npm:^5.7.2"
     hardhat: "npm:^2.17.2"
     hardhat-gas-reporter: "npm:^1.0.9"
-    solidity-coverage: "npm:^0.8.5"
+    solidity-coverage: "npm:^0.8.12"
     ts-node: "npm:^10.9.2"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.5.4"
@@ -7580,7 +7581,7 @@ __metadata:
     hardhat: "npm:^2.17.2"
     hardhat-gas-reporter: "npm:^1.0.9"
     node-gyp: "npm:^10.0.1"
-    solidity-coverage: "npm:^0.8.5"
+    solidity-coverage: "npm:^0.8.12"
     ts-node: "npm:^10.9.2"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.5.4"
@@ -7659,6 +7660,7 @@ __metadata:
     http-server: "npm:^14.1.1"
     msw: "npm:^1.2.3"
     puppeteer: "npm:^22.10.0"
+    solidity-coverage: "npm:^0.8.12"
     ts-node: "npm:^10.9.2"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.5.4"
@@ -7689,7 +7691,7 @@ __metadata:
     hardhat: "npm:^2.17.2"
     hardhat-gas-reporter: "npm:^1.0.9"
     sinon: "npm:^15.0.3"
-    solidity-coverage: "npm:^0.8.5"
+    solidity-coverage: "npm:^0.8.12"
     ts-node: "npm:^10.9.2"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.5.4"
@@ -8138,7 +8140,7 @@ __metadata:
     hardhat-gas-reporter: "npm:^1.0.9"
     lodash: "npm:^4.17.21"
     msw: "npm:^1.2.3"
-    solidity-coverage: "npm:^0.8.5"
+    solidity-coverage: "npm:^0.8.12"
     toad-scheduler: "npm:^2.2.0"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.5.4"
@@ -8303,7 +8305,7 @@ __metadata:
     hardhat-gas-reporter: "npm:^1.0.9"
     lodash: "npm:^4.17.21"
     redstone-api: "npm:^0.4.11"
-    solidity-coverage: "npm:^0.8.5"
+    solidity-coverage: "npm:^0.8.12"
     ts-node: "npm:^10.9.2"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.5.4"
@@ -8342,7 +8344,7 @@ __metadata:
     hardhat-gas-reporter: "npm:^1.0.9"
     lodash: "npm:^4.17.21"
     sinon: "npm:^15.0.3"
-    solidity-coverage: "npm:^0.8.5"
+    solidity-coverage: "npm:^0.8.12"
     ts-node: "npm:^10.9.2"
     typechain: "npm:^8.1.1"
     typescript: "npm:^5.5.4"
@@ -10160,19 +10162,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@solidity-parser/parser@npm:^0.16.0":
-  version: 0.16.1
-  resolution: "@solidity-parser/parser@npm:0.16.1"
-  dependencies:
-    antlr4ts: "npm:^0.5.0-alpha.4"
-  checksum: 10c0/bac40c00daab0cb1008ae3b3db77afdbaff2c06211d98c27c783618d3615f7a9d95c64b92c61893f45da88e336ded2ae8cb1e69e249a92ca5f342cb7ce8141f3
-  languageName: node
-  linkType: hard
-
 "@solidity-parser/parser@npm:^0.17.0":
   version: 0.17.0
   resolution: "@solidity-parser/parser@npm:0.17.0"
   checksum: 10c0/de606abd2f603b8056828c772de3f26b0d92913d0e8ebe4f2c149485f548e1b7af308c54c569542b3fc8e03d3219a9fb0a318f56b92b3042074c8074c1da53f2
+  languageName: node
+  linkType: hard
+
+"@solidity-parser/parser@npm:^0.18.0":
+  version: 0.18.0
+  resolution: "@solidity-parser/parser@npm:0.18.0"
+  checksum: 10c0/c54b4c9ba10e1fd1cd45894040135a39b9bc527f0ac40bec732d8628b0c0c7cb7ec2b7e816b408d613ab1d71c04f9555111ccc83b6dbaed2e39ff4ef7d000e25
   languageName: node
   linkType: hard
 
@@ -12395,13 +12395,6 @@ __metadata:
   version: 1.0.0
   resolution: "add-stream@npm:1.0.0"
   checksum: 10c0/985014a14e76ca4cb24e0fc58bb1556794cf38c5c8937de335a10584f50a371dc48e1c34a59391c7eb9c1fc908b4b86764df5d2756f701df6ba95d1ca2f63ddc
-  languageName: node
-  linkType: hard
-
-"address@npm:^1.0.1":
-  version: 1.2.2
-  resolution: "address@npm:1.2.2"
-  checksum: 10c0/1c8056b77fb124456997b78ed682ecc19d2fd7ea8bd5850a2aa8c3e3134c913847c57bcae418622efd32ba858fa1e242a40a251ac31da0515664fc0ac03a047d
   languageName: node
   linkType: hard
 
@@ -16773,19 +16766,6 @@ __metadata:
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
   checksum: 10c0/c38cfc8eeb9fda09febb44bcd85e467c970d4e3bf526095394e5a4f18bc26dd0cf6b22c69c1fa9969261521c593836db335c2795218f6d781a512aea2fb8209d
-  languageName: node
-  linkType: hard
-
-"detect-port@npm:^1.3.0":
-  version: 1.5.1
-  resolution: "detect-port@npm:1.5.1"
-  dependencies:
-    address: "npm:^1.0.1"
-    debug: "npm:4"
-  bin:
-    detect: bin/detect-port.js
-    detect-port: bin/detect-port.js
-  checksum: 10c0/f2b204ad3a9f8e8b53fea35fcc97469f31a8e3e786a2f59fbc886397e33b5f130c5f964bf001b9a64d990047c3824f6a439308461ff19801df04ab48a754639e
   languageName: node
   linkType: hard
 
@@ -25268,7 +25248,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mocha@npm:10.2.0, mocha@npm:^10.0.0, mocha@npm:^10.2.0":
+"mocha@npm:^10.0.0, mocha@npm:^10.2.0":
   version: 10.2.0
   resolution: "mocha@npm:10.2.0"
   dependencies:
@@ -30025,23 +30005,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solidity-coverage@npm:^0.8.5":
-  version: 0.8.5
-  resolution: "solidity-coverage@npm:0.8.5"
+"solidity-coverage@npm:^0.8.12":
+  version: 0.8.12
+  resolution: "solidity-coverage@npm:0.8.12"
   dependencies:
     "@ethersproject/abi": "npm:^5.0.9"
-    "@solidity-parser/parser": "npm:^0.16.0"
+    "@solidity-parser/parser": "npm:^0.18.0"
     chalk: "npm:^2.4.2"
     death: "npm:^1.1.0"
-    detect-port: "npm:^1.3.0"
     difflib: "npm:^0.2.4"
     fs-extra: "npm:^8.1.0"
     ghost-testrpc: "npm:^0.0.2"
     global-modules: "npm:^2.0.0"
     globby: "npm:^10.0.1"
     jsonschema: "npm:^1.2.4"
-    lodash: "npm:^4.17.15"
-    mocha: "npm:10.2.0"
+    lodash: "npm:^4.17.21"
+    mocha: "npm:^10.2.0"
     node-emoji: "npm:^1.10.0"
     pify: "npm:^4.0.1"
     recursive-readdir: "npm:^2.2.2"
@@ -30053,7 +30032,7 @@ __metadata:
     hardhat: ^2.11.0
   bin:
     solidity-coverage: plugins/bin.js
-  checksum: 10c0/df8939a7499ad6599104152f3d10d93bb691f1b5713ed02e429a3c891ee3d2e1ed0ee1514399ac6df8c49c49db749b59cc81016540ed682f6b2a1e17f15de613
+  checksum: 10c0/500de00ca5d0ff9531bcfc54040591e90bb281714c5ad810bc6aa77bb6ab696f15a141f6bcb1a47547dca68d10e717e1705741d4cf660d7dce8700fa97e6bfaf
   languageName: node
   linkType: hard
 
