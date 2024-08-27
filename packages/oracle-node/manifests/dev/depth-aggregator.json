@@ -389,7 +389,7 @@
       "source": ["non-usd-based"]
     },
     "weETH_FUNDAMENTAL": {
-      "source": ["ethereum-evm-fetcher-etherfi"]
+      "source": ["ethereum-evm-fetcher-etherfi-liquidity-pool"]
     },
     "rETH": {
       "source": [
