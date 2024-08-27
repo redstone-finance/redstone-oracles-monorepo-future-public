@@ -52,6 +52,7 @@
     "http-server": "^14.1.1",
     "msw": "^1.2.3",
     "puppeteer": "^22.10.0",
+    "solidity-coverage": "^0.8.12",
     "ts-node": "^10.9.2",
     "typechain": "^8.1.1",
     "typescript": "^5.5.4"

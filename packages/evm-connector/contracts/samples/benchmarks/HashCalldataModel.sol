@@ -33,6 +33,7 @@ contract HashCalldataModel is RedstoneConsumerNumericMock {
     return requestHash;
   }
 
+/** too many arguments - does not compile without optimizer enabled
   function sendRequestWith10Args(
     bytes32 arg1,
     bytes32 arg2,
@@ -64,6 +65,7 @@ contract HashCalldataModel is RedstoneConsumerNumericMock {
     requests[requestHash] = true;
     return requestHash;
   }
+*/
 
   function executeRequestWith3ArgsWithPrices(
     uint256 blockNumber,
@@ -109,6 +111,7 @@ contract HashCalldataModel is RedstoneConsumerNumericMock {
     }
   }
 
+/** too many arguments - does not compile without optimizer enabled
   function executeRequestWith10ArgsWithPrices(
     uint256 blockNumber,
     address sender,
@@ -150,6 +153,7 @@ contract HashCalldataModel is RedstoneConsumerNumericMock {
       revert("Request not found");
     }
   }
+*/
 
   function getUniqueSignersThreshold() public pure override returns (uint8) {
     return 3;

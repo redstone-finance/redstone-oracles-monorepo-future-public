@@ -193,6 +193,7 @@ describe("Benchmark", function () {
           executeHashRequestFunction =
             wrappedHashCalldataModel.executeRequestWith5ArgsWithPrices as typeof executeHashRequestFunction;
           break;
+        /** too many arguments - does not compile without optimizer enabled
         case 10:
           sendStructRequestFunction =
             wrappedStorageStructureModel.sendRequestWith10Args as typeof sendStructRequestFunction;
@@ -203,6 +204,7 @@ describe("Benchmark", function () {
           executeHashRequestFunction =
             wrappedHashCalldataModel.executeRequestWith10ArgsWithPrices as typeof executeHashRequestFunction;
           break;
+          */
         default:
           throw new Error("Unsupported passed arguments count");
       }

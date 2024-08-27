@@ -1,5 +1,6 @@
 import "@nomicfoundation/hardhat-toolbox";
 import { HardhatUserConfig } from "hardhat/config";
+import "solidity-coverage";
 import { hardhatNetworksConfig } from "./src/hardhat-network-configs";
 
 const config: HardhatUserConfig = {

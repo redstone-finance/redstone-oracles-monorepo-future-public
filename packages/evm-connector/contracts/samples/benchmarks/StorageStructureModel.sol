@@ -76,6 +76,7 @@ contract StorageStructureModel is RedstoneConsumerNumericMock {
     return counter;
   }
 
+/** too many arguments - does not compile without optimizer enabled
   function sendRequestWith10Args(
     bytes32 arg1,
     bytes32 arg2,
@@ -105,6 +106,7 @@ contract StorageStructureModel is RedstoneConsumerNumericMock {
     );
     return counter;
   }
+*/
 
   function executeRequestWith3ArgsWithPrices(uint256 requestId) public {
     RequestWith3Args storage request = requestsWith3Args[requestId];
