@@ -229,6 +229,9 @@ const parseAndValidateDataPackagesResponse = (
     }
 
     if (dataFeedPackages.length < reqParams.uniqueSignersCount) {
+      if (reqParams.ignoreMissingFeed) {
+        continue;
+      }
       throw new Error(
         `Too few unique signers for the data feed: ${dataFeedId}. ` +
           `Expected: ${reqParams.uniqueSignersCount}. ` +
