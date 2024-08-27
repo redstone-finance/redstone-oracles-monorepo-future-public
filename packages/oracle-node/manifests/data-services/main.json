@@ -899,7 +899,7 @@
       "source": ["non-usd-based"]
     },
     "weETH_FUNDAMENTAL": {
-      "source": ["ethereum-evm-fetcher-etherfi"]
+      "source": ["ethereum-evm-fetcher-etherfi-liquidity-pool"]
     },
     "rETH": {
       "source": [
@@ -947,6 +947,9 @@
     },
     "apxETH/ETH": {
       "source": ["non-usd-based"]
+    },
+    "eBTC/WBTC": {
+      "source": ["ethereum-evm-fetcher-etherfi-rate-provider"]
     },
     "arbJnrLLP": {
       "source": ["arbitrum-evm-fetcher-level-finance"]
