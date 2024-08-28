@@ -555,5 +555,17 @@
     },
     "isAuctionModel": false,
     "twoDimensionalFees": false
+  },
+  "bounceBit": {
+    "name": "BounceBit Mainnet",
+    "chainId": 6001,
+    "publicRpcUrls": ["https://fullnode-mainnet.bouncebitapi.com"],
+    "avgBlockTimeMs": 3500,
+    "multicall3": {
+      "address": "",
+      "type": "Multicall3"
+    },
+    "isAuctionModel": false,
+    "twoDimensionalFees": false
   }
 }

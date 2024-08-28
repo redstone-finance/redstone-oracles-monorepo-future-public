@@ -1351,6 +1351,12 @@
           "maxDelayMilliseconds": 300000
         }
       }
+    },
+    "BBUSD": {
+      "source": ["bouncebit-evm-fetcher-bouncebit"]
+    },
+    "BBTC": {
+      "source": ["bouncebit-evm-fetcher-bouncebit"]
     }
   },
   "multiPointPackages": {

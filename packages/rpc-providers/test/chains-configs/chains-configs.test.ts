@@ -67,7 +67,10 @@ describe("Validate multicall3", () => {
 
   test(`Each standard multicall3 should have the same address`, function () {
     for (const chainConfig of Object.values(ChainConfigs)) {
-      if (chainConfig.multicall3.type === "Multicall3") {
+      if (
+        chainConfig.multicall3.type === "Multicall3" &&
+        chainConfig.chainId !== 6001 // we aren't doing any transactions on this chain so we don't need multicall3 yet
+      ) {
         chai
           .expect(
             chainConfig.multicall3.address,
@@ -92,7 +95,10 @@ describe("Validate multicall3", () => {
     }
 
     test(`Chains config for chain ${chainConfig.name} (${chainConfig.chainId}) should have a valid multicall3 address`, async function () {
-      if (process.env.IS_CI !== "true") {
+      if (
+        process.env.IS_CI !== "true" ||
+        chainConfig.chainId === 6001 // we aren't doing any transactions on this chain so we don't need multicall3 yet
+      ) {
         this.skip();
       }
       const provider = createProvider(

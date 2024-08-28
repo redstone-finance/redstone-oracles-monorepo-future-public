@@ -1618,6 +1618,12 @@
     "pzETH/ETH": {
       "source": ["non-usd-based"]
     },
+    "BBUSD": {
+      "source": ["bouncebit-evm-fetcher-bouncebit"]
+    },
+    "BBTC": {
+      "source": ["bouncebit-evm-fetcher-bouncebit"]
+    },
     "USD3": {
       "source": [
         "curve-ethereum-eth+",
