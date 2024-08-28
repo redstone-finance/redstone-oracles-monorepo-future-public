@@ -50,7 +50,6 @@ export class IterationArgsProvider
     return await getPriceFeedsIterationArgs(adapterContract);
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getTransactionData({
     adapterContract,
     fetchDataPackages,

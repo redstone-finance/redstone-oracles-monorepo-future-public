@@ -29,7 +29,6 @@ export class BlueprintTonNetwork implements TonNetwork {
     return this.networkProvider.isContractDeployed(address);
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this -- Interface conformance
   async setUp() {
     // nop;
   }

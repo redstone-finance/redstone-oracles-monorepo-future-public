@@ -36,7 +36,6 @@ export class PriceAdapterCasperContractAdapter
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this -- Required by protocol
   getPricesFromPayload(
     _paramsProvider: ContractParamsProvider
   ): Promise<BigNumberish[]> {

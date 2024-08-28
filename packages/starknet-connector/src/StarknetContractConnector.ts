@@ -50,7 +50,6 @@ export abstract class StarknetContractConnector<Adapter>
     return new Contract(this.abi, this.contractAddress, this.provider);
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this -- Interface requirement
   async getBlockNumber(): Promise<number> {
     return (await this.provider.getBlock(BlockTag.latest)).block_number;
   }

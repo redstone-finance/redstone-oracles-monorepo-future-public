@@ -36,6 +36,7 @@ module.exports = {
       "error",
       {
         ignoreOverrideMethods: true,
+        ignoreClassesThatImplementAnInterface: true,
       },
     ],
     "@typescript-eslint/return-await": ["error", "always"],

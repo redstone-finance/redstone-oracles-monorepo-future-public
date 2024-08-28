@@ -70,7 +70,6 @@ export class FuelPricesContractAdapter implements IPricesContractAdapter {
     );
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   protected async call<TArgs extends Array<unknown>, TReturn>(
     functionInvocationScope: FunctionInvocationScope<TArgs, TReturn>,
     gasLimit?: number
@@ -84,12 +83,10 @@ export class FuelPricesContractAdapter implements IPricesContractAdapter {
     return await waitForResult();
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   protected extractNumbers(result: InvocationResult<Vec<BN>>): BigNumberish[] {
     return result.value.map((num) => BigInt(num.toString("hex")));
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   private getGasLimit(dataFeedIdCount: number, uniqueSignersCount: number) {
     return (
       dataFeedIdCount * uniqueSignersCount * 65000 +

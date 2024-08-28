@@ -11,7 +11,7 @@ export class MockIterationArgsProvider
 {
   constructor(public adapterContractAddress?: string) {}
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this, @typescript-eslint/require-await
+  // eslint-disable-next-line @typescript-eslint/require-await
   async getArgs(
     userArgs: Web3FunctionUserArgs,
     _env: IterationArgsProviderEnv,
@@ -32,7 +32,6 @@ export class MockIterationArgsProvider
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   getTransactionData(args: string | undefined): Promise<string | undefined> {
     return Promise.resolve(args);
   }

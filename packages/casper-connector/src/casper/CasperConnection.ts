@@ -119,7 +119,6 @@ export class CasperConnection implements ICasperConnection {
     return Promise.resolve(this.signKeyPair!.publicKey);
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async signDeploy(deploy: DeployUtil.Deploy) {
     return await Promise.resolve(deploy);
   }
