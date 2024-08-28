@@ -24,7 +24,6 @@ export class SandboxTonNetwork implements TonNetwork {
     return Promise.resolve(address === this.walletAddress);
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this -- Interface conformance
   async setUp() {
     // nop
   }

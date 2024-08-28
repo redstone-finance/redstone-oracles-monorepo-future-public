@@ -12,7 +12,6 @@ export abstract class FuelContractConnector<Adapter>
 
   abstract getAdapter(): Promise<Adapter>;
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   waitForTransaction(_txId: string): Promise<boolean> {
     return Promise.resolve(true);
   }

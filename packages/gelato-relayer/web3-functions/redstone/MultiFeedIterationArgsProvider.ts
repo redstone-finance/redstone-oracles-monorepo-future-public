@@ -49,7 +49,6 @@ export class MultiFeedIterationArgsProvider
     return await getMultiFeedIterationArgs(adapterContract);
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getTransactionData({
     adapterContract,
     dataFeedsToUpdate,

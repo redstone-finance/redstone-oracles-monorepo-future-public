@@ -9,7 +9,6 @@ export type AuctionModelFee = {
 export class AuctionModelGasEstimator implements GasEstimator<AuctionModelFee> {
   constructor(readonly opts: TxDeliveryOptsValidated) {}
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getFees(
     provider: ethers.providers.JsonRpcProvider
   ): Promise<AuctionModelFee> {

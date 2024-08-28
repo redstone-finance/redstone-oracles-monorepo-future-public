@@ -11,12 +11,10 @@ import * as viem from "viem";
 const MAX_TIMESTAMP_DEVIATION = 180_000;
 
 export class RedstoneAdapter implements Adapter {
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   getOracleId(): string {
     return "REDSTONE";
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async fetchOffchainData(
     _client: unknown,
     requester: viem.Address,
