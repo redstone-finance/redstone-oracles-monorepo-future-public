@@ -33,6 +33,9 @@ const config: HardhatUserConfig = {
     cyber: {
       url: "https://cyber.alt.technology",
     },
+    bounceBit: {
+      url: "https://fullnode-mainnet.bouncebitapi.com",
+    },
   },
 };
 
