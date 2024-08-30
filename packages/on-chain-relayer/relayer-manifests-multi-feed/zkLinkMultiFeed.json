@@ -46,6 +46,20 @@
     },
     "ZKL": {
       "priceFeedAddress": "0x5B88B0fa676fE763110322e766C2DBB5d6d99d6D"
+    },
+    "BBUSD": {
+      "priceFeedAddress": "0xEDDBdC16ba4492C6d930d9e9B85F203E02f7b293",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "BBTC": {
+      "priceFeedAddress": "0xCb183d277a6DAEf1e76534f8AEb1a9355042f6ff",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     }
   }
 }
