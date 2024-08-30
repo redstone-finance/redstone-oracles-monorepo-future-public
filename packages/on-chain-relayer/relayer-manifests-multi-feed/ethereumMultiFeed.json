@@ -33,6 +33,9 @@
         "deviationPercentage": 0.1,
         "timeSinceLastUpdateInMilliseconds": 43200000
       }
+    },
+    "eBTC/WBTC": {
+      "priceFeedAddress": "0xe5867B1d421f0b52697F16e2ac437e87d66D5fbF"
     }
   }
 }
