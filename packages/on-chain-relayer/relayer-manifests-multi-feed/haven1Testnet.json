@@ -18,13 +18,15 @@
     "USDC": {
       "priceFeedAddress": "0xa64c65916dBAa8cA6d51FE9E27ff5eA36463C113",
       "updateTriggersOverrides": {
-        "deviationPercentage": 0.2
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 21600000
       }
     },
     "USDT": {
       "priceFeedAddress": "0xEE7aDF78a6dDCcBFBfA01f1132f3fa2160aF83a2",
       "updateTriggersOverrides": {
-        "deviationPercentage": 0.2
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 21600000
       }
     }
   }
