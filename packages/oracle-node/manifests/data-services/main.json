@@ -1417,6 +1417,9 @@
     "ezETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-renzo"]
     },
+    "uniETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-bedrock"]
+    },
     "MERL": {
       "source": [
         "bitget-usdt",
