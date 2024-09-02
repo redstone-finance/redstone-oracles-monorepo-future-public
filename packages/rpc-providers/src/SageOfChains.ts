@@ -49,13 +49,13 @@ export class SageOfChains {
       })
       .filter((r) => !!r) as [number, number][];
 
-    return RedstoneCommon.toSafeRecord(
-      Object.fromEntries(chainIdToBlockTuples),
-      (p) =>
-        new Error(
-          `Tried to access blockNumber for chainId=${p} which is not defined. Either it wasn't fetched at the beginning of iteration or it is not configured.`
-        )
-    );
+    return Object.fromEntries(chainIdToBlockTuples);
+    //RedstoneCommon.toSafeRecord(
+    //   (p) =>
+    //     new Error(
+    //       `Tried to access blockNumber for chainId=${p} which is not defined. Either it wasn't fetched at the beginning of iteration or it is not configured.`
+    //     )
+    // );
   }
 }
 
