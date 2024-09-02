@@ -55,7 +55,7 @@ const parseMulticallConfig = (opts: MulticallDecoratorOptions) => {
       opts.maxCallsCount ??
       RedstoneCommon.getFromEnv(
         "MULTICALL_MAX_CALLS_COUNT",
-        z.number().default(30)
+        z.number().default(15)
       ),
     maxCallDataSize:
       opts.maxCallDataSize ??

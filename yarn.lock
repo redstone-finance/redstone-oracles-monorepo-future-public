@@ -7698,6 +7698,53 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/fetchers@npm:0.6.1, @redstone-finance/fetchers@workspace:packages/fetchers":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/fetchers@workspace:packages/fetchers"
+  dependencies:
+    "@balancer-labs/sdk": "npm:^1.1.5"
+    "@redstone-finance/node-commons": "npm:0.6.1"
+    "@redstone-finance/rpc-providers": "npm:0.6.1"
+    "@redstone-finance/utils": "npm:0.6.1"
+    "@types/exchange-rates-api": "npm:^1.0.0"
+    "@types/isomorphic-fetch": "npm:^0.0.35"
+    "@types/jsonpath": "npm:^0.2.0"
+    "@types/lodash": "npm:^4.14.195"
+    "@types/luxon": "npm:^3.3.0"
+    "@types/node-schedule": "npm:^2.1.0"
+    "@types/prompts": "npm:^2.4.2"
+    "@types/supertest": "npm:^2.0.12"
+    "@types/uuid": "npm:^8.3.0"
+    ar-gql: "npm:^0.0.11"
+    arweave: "npm:^1.14.4"
+    axios: "npm:^1.6.2"
+    dateformat: "npm:^4.5.1"
+    decimal.js: "npm:^10.4.3"
+    deep-sort-object: "npm:^1.0.2"
+    download: "npm:^8.0.0"
+    ecb-euro-exchange-rates: "npm:^2.0.0"
+    ethereum-multicall: "npm:^2.21.0"
+    ethereum-waffle: "npm:^4.0.10"
+    ethereumjs-util: "npm:^7.0.10"
+    ethers: "npm:^5.7.2"
+    jest: "npm:^29.7.0"
+    jest-mock-extended: "npm:^3.0.4"
+    jsonpath: "npm:^1.1.1"
+    lodash: "npm:^4.17.21"
+    luxon: "npm:^3.3.0"
+    msw: "npm:^1.2.3"
+    open: "npm:^8.0.4"
+    plotly: "npm:^1.0.6"
+    poolifier: "npm:^4.0.15"
+    prompts: "npm:^2.4.2"
+    replace-in-file: "npm:^6.3.5"
+    supertest: "npm:^6.2.3"
+    typed-binary-json: "npm:^1.17.4"
+    typescript: "npm:^5.5.4"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/fuel-connector@workspace:packages/fuel-connector":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/fuel-connector@workspace:packages/fuel-connector"
@@ -7751,6 +7798,7 @@ __metadata:
   dependencies:
     "@redstone-finance/cache-service": "npm:0.6.1"
     "@redstone-finance/evm-connector": "npm:0.6.1"
+    "@redstone-finance/node-commons": "npm:0.6.1"
     "@redstone-finance/on-chain-relayer": "npm:0.6.1"
     "@redstone-finance/oracle-node": "npm:0.6.1"
     "@redstone-finance/protocol": "npm:0.6.1"
@@ -8119,6 +8167,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/node-commons@npm:0.6.1, @redstone-finance/node-commons@workspace:packages/node-commons":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/node-commons@workspace:packages/node-commons"
+  dependencies:
+    "@redstone-finance/rpc-providers": "npm:0.6.1"
+    "@redstone-finance/utils": "npm:0.6.1"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/on-chain-relayer@npm:0.6.1, @redstone-finance/on-chain-relayer@workspace:packages/on-chain-relayer":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/on-chain-relayer@workspace:packages/on-chain-relayer"
@@ -8168,6 +8226,8 @@ __metadata:
     "@bundlr-network/client": "npm:^0.8.4"
     "@influxdata/influxdb-client": "npm:^1.34.0"
     "@metamask/eth-sig-util": "npm:^4.0.1"
+    "@redstone-finance/fetchers": "npm:0.6.1"
+    "@redstone-finance/node-commons": "npm:0.6.1"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.1"
     "@redstone-finance/protocol": "npm:0.6.1"
     "@redstone-finance/rpc-providers": "npm:0.6.1"
@@ -8208,6 +8268,7 @@ __metadata:
     node-schedule: "npm:^2.1.1"
     open: "npm:^8.0.4"
     plotly: "npm:^1.0.6"
+    poolifier: "npm:^4.0.15"
     prompts: "npm:^2.4.2"
     redstone-api: "npm:^0.4.11"
     replace-in-file: "npm:^6.3.5"
@@ -27707,6 +27768,13 @@ __metadata:
   version: 8.0.0
   resolution: "pluralize@npm:8.0.0"
   checksum: 10c0/2044cfc34b2e8c88b73379ea4a36fc577db04f651c2909041b054c981cd863dd5373ebd030123ab058d194ae615d3a97cfdac653991e499d10caf592e8b3dc33
+  languageName: node
+  linkType: hard
+
+"poolifier@npm:^4.0.15":
+  version: 4.2.7
+  resolution: "poolifier@npm:4.2.7"
+  checksum: 10c0/14f34f87c985bfba9dc79b01b4cafb32f00810dabac54fc9afcc3ff96a52ad46b886db1f973e72366d97724e1dcda24f46e362630b3204cdcc84230c3745b36d
   languageName: node
   linkType: hard
 
