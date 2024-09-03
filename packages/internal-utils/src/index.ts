@@ -8,6 +8,5 @@ export * from "./data-services-fetcher";
 export * from "./influx/influxdb-config";
 export * from "./influx/InfluxService";
 export * from "./monorepo-fetcher";
-export * from "./resolve-manifest-with-expiration-updates";
 export * from "./signer-addresses-fetcher";
 export * from "./timestamp-utils";

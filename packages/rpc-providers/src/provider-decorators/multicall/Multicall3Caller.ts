@@ -1,7 +1,7 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
-import { getMulticall3 } from "@redstone-finance/chain-configs";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { Contract, providers } from "ethers";
+import { getMulticall3, getNetworkName } from "../../chains-configs/helpers";
 
 export type Multicall3Request = {
   target: string;
@@ -39,8 +39,8 @@ export async function safeExecuteMulticall3(
   let chainId = -1;
   try {
     chainId = (await provider.getNetwork()).chainId;
-    const multicall3Contract = await getMulticall3({
-      chainId: chainId,
+    const multicall3Contract = getMulticall3({
+      networkName: getNetworkName(chainId),
       overrideAddress: multicallAddress,
     });
     return await rawMulticall3(
