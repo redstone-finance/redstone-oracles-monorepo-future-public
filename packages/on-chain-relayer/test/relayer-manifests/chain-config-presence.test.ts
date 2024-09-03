@@ -1,4 +1,4 @@
-import { getChainConfigByChainId } from "@redstone-finance/rpc-providers";
+import { getLocalChainConfigByChainId } from "@redstone-finance/chain-configs";
 import { describe, test } from "mocha";
 import {
   readClassicManifests,
@@ -20,7 +20,7 @@ describe("Chain config presence", () => {
     }
 
     for (const chainId of Array.from(chainIds)) {
-      getChainConfigByChainId(chainId);
+      getLocalChainConfigByChainId(chainId);
     }
   });
 });
