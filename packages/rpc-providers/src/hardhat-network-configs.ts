@@ -1,6 +1,5 @@
-import { getLocalChainConfigs } from "@redstone-finance/chain-configs";
+import { ChainConfigs } from "./chains-configs";
 
-const ChainConfigs = getLocalChainConfigs();
 const chainNames = Object.keys(ChainConfigs);
 type ChainName = (typeof chainNames)[number];
 

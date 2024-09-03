@@ -5,13 +5,11 @@ import {
   Provider,
   TransactionReceipt,
 } from "@ethersproject/providers";
-import {
-  ChainConfig,
-  getLocalChainConfigByChainId,
-} from "@redstone-finance/chain-configs";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import { providers } from "ethers";
 import _ from "lodash";
+import { ChainConfig } from "../chains-configs";
+import { getChainConfigByChainId } from "../chains-configs/helpers";
 import { getProviderNetworkInfo } from "../common";
 import { ProviderWithFallbackBase } from "./ProviderWithFallbackBase";
 
@@ -22,7 +20,6 @@ export type ProviderWithFallbackConfig = {
   providerNames?: string[];
   singleProviderOperationTimeout: number;
   allProvidersOperationTimeout: number;
-  chainConfig?: ChainConfig;
   reportMetric: (msg: string) => void;
 };
 
@@ -80,8 +77,7 @@ export class ProviderWithFallback
     this.providers = Object.freeze([...providers]);
     this.providerWithFallbackConfig = { ...FALLBACK_DEFAULT_CONFIG, ...config };
     this.chainId = getProviderNetworkInfo(this.providers[0]).chainId;
-    this.chainConfig =
-      config.chainConfig ?? getLocalChainConfigByChainId(this.chainId);
+    this.chainConfig = getChainConfigByChainId(this.chainId);
 
     // assign begin values to have deterministic behavior
     for (

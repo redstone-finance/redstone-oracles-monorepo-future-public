@@ -23,9 +23,6 @@
     },
     {
       "path": "../rpc-providers/tsconfig.build.json"
-    },
-    {
-      "path": "../chain-configs/tsconfig.build.json"
     }
   ]
 }

@@ -13,9 +13,6 @@
     },
     {
       "path": "../evm-multicall/tsconfig.build.json"
-    },
-    {
-      "path": "../chain-configs/tsconfig.build.json"
     }
   ]
 }

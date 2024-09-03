@@ -26,7 +26,6 @@
     "@chainlink/contracts": "^0.6.1",
     "@openzeppelin/contracts": "^4.8.1",
     "@openzeppelin/contracts-upgradeable": "^4.8.3",
-    "@redstone-finance/chain-configs": "0.6.1",
     "@redstone-finance/evm-connector": "0.6.1",
     "@redstone-finance/oracles-smartweave-contracts": "0.6.1",
     "@redstone-finance/protocol": "0.6.1",
