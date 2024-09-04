@@ -10,6 +10,7 @@
     "build-deps": "yarn --cwd ../rpc-providers build",
     "clean": "hardhat clean && rm -rf dist",
     "bundle": "ENTRYPOINT=src/run-relayer.ts yarn global:rollup -c ../../rollup.config.mjs",
+    "run-ts": "yarn global:ts-node",
     "start": "node dist/src/run-relayer.js",
     "start:dev": "yarn global:ts-node src/run-relayer.ts",
     "compile": "hardhat compile",

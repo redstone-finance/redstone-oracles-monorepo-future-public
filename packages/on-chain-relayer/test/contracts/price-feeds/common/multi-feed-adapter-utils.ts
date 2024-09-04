@@ -124,6 +124,12 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
       await expectPrice("USDC", "1234");
     });
 
+    it("should revert when trying to get details of feed that wasn't updated yet", async () => {
+      await expect(
+        multiAdapter.getLastUpdateDetails(formatBytes32String("ETH"))
+      ).to.be.revertedWith("InvalidLastUpdateDetails");
+    });
+
     it("should revert if redstone payload is not attached", async () => {
       await expect(
         multiAdapter.updateDataFeedsValuesPartial([formatBytes32String("ETH")])
