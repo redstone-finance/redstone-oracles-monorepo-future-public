@@ -1,4 +1,4 @@
-import { SupportedNetworkNames } from ".";
+import { SupportedNetworkNames } from "@redstone-finance/chain-configs";
 
 type TokenInfo = {
   symbol: string;

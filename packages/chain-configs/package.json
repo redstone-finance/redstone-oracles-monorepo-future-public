@@ -1,0 +1,35 @@
+{
+  "name": "@redstone-finance/chain-configs",
+  "version": "0.6.1",
+  "private": true,
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "run-ts": "yarn global:ts-node",
+    "clean": "rm -rf dist",
+    "build": "yarn clean && yarn build-deps && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn clean && yarn build-deps && yarn global:tsc --build tsconfig.json",
+    "build-deps": "yarn --cwd ../evm-multicall build",
+    "preversion": "yarn build",
+    "lint": "yarn global:eslint . && yarn global:prettier --check manifests/**/*.json",
+    "lint:fix": "yarn global:eslint --fix . && yarn global:prettier --write manifests/**/*.json",
+    "print": "yarn run-ts scripts/print-chains-configs.ts",
+    "test": "yarn global:jest",
+    "test:rpc-urls": "yarn test --runInBand --config=jest.ci-config.ts test/chain-configs-rpc-urls.test.ts"
+  },
+  "dependencies": {
+    "@redstone-finance/evm-multicall": "0.6.1",
+    "@redstone-finance/internal-utils": "0.6.1",
+    "@redstone-finance/utils": "0.6.1",
+    "dayjs": "^1.11.12",
+    "ethers": "^5.7.2",
+    "lodash": "^4.17.21",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0"
+  }
+}

@@ -1,45 +1,34 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import chai from "chai";
 import { providers } from "ethers";
-import { describe, test } from "mocha";
 import { z } from "zod";
 import {
   ChainConfigSchema,
-  ChainConfigs,
-  HAVEN1_MULTICALL3_ADDRESS,
-  MegaProviderBuilder,
+  getLocalChainConfigs,
   REDSTONE_MULTICALL3_ADDRESS,
   STANDARD_MULTICALL3_ADDRESS,
-  ZKLINK_MULTICALL3_ADDRESS,
-  ZKSYNC_MULTICALL3_ADDRESS,
-} from "../../src";
+} from "../src";
 
-const SINGLE_RPC_TIMEOUT_MILLISECONDS = 10_000;
+const RETRY_CONFIG = {
+  maxRetries: 4,
+  waitBetweenMs: 1000,
+  disableLog: true,
+};
+const ChainConfigs = getLocalChainConfigs();
 
-function createProvider(
-  chainId: number,
-  rpcUrls: string[]
-): providers.Provider {
-  return new MegaProviderBuilder({
-    timeout: SINGLE_RPC_TIMEOUT_MILLISECONDS,
-    throttleLimit: 1,
-    network: { name: `name-${chainId}`, chainId },
-    rpcUrls,
-  })
-    .fallback(
-      {
-        singleProviderOperationTimeout: SINGLE_RPC_TIMEOUT_MILLISECONDS,
-      },
-      rpcUrls.length > 1
-    )
-    .build();
-}
+const chainToSkipForMulticallAddressCheck = [
+  "zkSync",
+  "zkLink",
+  "Haven1 Testnet",
+  "BounceBit Mainnet",
+];
 
-describe("Validate chains configs", () => {
+describe("Validate chain configs", () => {
   test("Scheme should be valid", () => {
     z.record(ChainConfigSchema).parse(ChainConfigs);
   });
 
-  test("Each chains config should have at least one publicRpcProvider", () => {
+  test("Each chain config should have at least one publicRpcProvider", () => {
     for (const chainConfig of Object.values(ChainConfigs)) {
       chai
         .expect(
@@ -69,19 +58,14 @@ describe("Validate multicall3", () => {
     for (const chainConfig of Object.values(ChainConfigs)) {
       if (
         chainConfig.multicall3.type === "Multicall3" &&
-        chainConfig.chainId !== 6001 // we aren't doing any transactions on this chain so we don't need multicall3 yet
+        !chainToSkipForMulticallAddressCheck.includes(chainConfig.name)
       ) {
         chai
           .expect(
             chainConfig.multicall3.address,
             `Multicall3 address for chain ${chainConfig.name} doesn't match STANDARD_MULTICALL3_ADDRESS`
           )
-          .to.be.oneOf([
-            STANDARD_MULTICALL3_ADDRESS,
-            ZKSYNC_MULTICALL3_ADDRESS,
-            ZKLINK_MULTICALL3_ADDRESS,
-            HAVEN1_MULTICALL3_ADDRESS,
-          ]);
+          .eq(STANDARD_MULTICALL3_ADDRESS);
       }
     }
   });
@@ -89,26 +73,21 @@ describe("Validate multicall3", () => {
   for (const chainConfig of Object.values(ChainConfigs)) {
     if (
       chainConfig.publicRpcUrls.length === 0 ||
-      chainConfig.publicRpcUrls[0].includes("localhost")
+      chainConfig.publicRpcUrls[0].includes("localhost") ||
+      chainConfig.name === "BounceBit Mainnet" // In progress
     ) {
       continue;
     }
 
-    test(`Chains config for chain ${chainConfig.name} (${chainConfig.chainId}) should have a valid multicall3 address`, async function () {
-      if (
-        process.env.IS_CI !== "true" ||
-        chainConfig.chainId === 6001 // we aren't doing any transactions on this chain so we don't need multicall3 yet
-      ) {
-        this.skip();
-      }
-      const provider = createProvider(
-        chainConfig.chainId,
-        chainConfig.publicRpcUrls
+    test(`Chain config for chain ${chainConfig.name} (${chainConfig.chainId}) should have a valid multicall3 address`, async function () {
+      const provider = new providers.StaticJsonRpcProvider(
+        chainConfig.publicRpcUrls[0]
       );
 
-      const multicallCode = await provider.getCode(
-        chainConfig.multicall3.address
-      );
+      const multicallCode = await RedstoneCommon.retry({
+        fn: () => provider.getCode(chainConfig.multicall3.address),
+        ...RETRY_CONFIG,
+      })();
 
       chai
         .expect(multicallCode.length, "Multicall implementation missing")
