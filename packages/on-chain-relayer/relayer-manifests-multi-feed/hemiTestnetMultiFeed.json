@@ -1,0 +1,35 @@
+{
+  "chain": {
+    "name": "hemiTestnet",
+    "id": 743111
+  },
+  "adapterContract": "0x9570492C4A150c66aE7a1de3D354c9A830A01418",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {
+    "BTC": {
+      "priceFeedAddress": "0x0d7697a15bce933cE8671Ba3D60ab062dA216C60"
+    },
+    "ETH": {
+      "priceFeedAddress": "0x89F48f6671Ec1B1C4f6abE964EBdd21F4eb7076f"
+    },
+    "USDC": {
+      "priceFeedAddress": "0x42Ea045b70856c8cc20784A5B45EA35a80C8aDd9",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 21600000
+      }
+    },
+    "USDT": {
+      "priceFeedAddress": "0x2C787Db499BD7BF1f592D8DDd79ead9a72420763",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 21600000
+      }
+    }
+  }
+}

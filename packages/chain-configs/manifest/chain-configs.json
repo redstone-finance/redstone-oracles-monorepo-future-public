@@ -3,9 +3,7 @@
     "hardhat": {
       "name": "hardhat",
       "chainId": 31337,
-      "publicRpcUrls": [
-        "http://localhost:1337"
-      ],
+      "publicRpcUrls": ["http://localhost:1337"],
       "avgBlockTimeMs": 12000,
       "multicall3": {
         "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
@@ -111,9 +109,7 @@
     "celo": {
       "name": "Celo Mainnet",
       "chainId": 42220,
-      "publicRpcUrls": [
-        "https://forno.celo.org"
-      ],
+      "publicRpcUrls": ["https://forno.celo.org"],
       "etherScanApi": "https://api.celoscan.io",
       "avgBlockTimeMs": 5000,
       "multicall3": {
@@ -195,9 +191,7 @@
     "etherlink-ghostnet": {
       "name": "Etherlink Ghostnet",
       "chainId": 128123,
-      "publicRpcUrls": [
-        "https://node.ghostnet.etherlink.com"
-      ],
+      "publicRpcUrls": ["https://node.ghostnet.etherlink.com"],
       "avgBlockTimeMs": 6000,
       "multicall3": {
         "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -209,9 +203,7 @@
     "etherlink": {
       "name": "Etherlink Mainnet",
       "chainId": 42793,
-      "publicRpcUrls": [
-        "https://node.mainnet.etherlink.com"
-      ],
+      "publicRpcUrls": ["https://node.mainnet.etherlink.com"],
       "avgBlockTimeMs": 6000,
       "multicall3": {
         "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -311,9 +303,7 @@
     "celo-baklava": {
       "name": "Celo baklava",
       "chainId": 62320,
-      "publicRpcUrls": [
-        "https://baklava-forno.celo-testnet.org"
-      ],
+      "publicRpcUrls": ["https://baklava-forno.celo-testnet.org"],
       "avgBlockTimeMs": 5000,
       "multicall3": {
         "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
@@ -326,9 +316,7 @@
     "canto-testnet": {
       "name": "Canto Testnet",
       "chainId": 7701,
-      "publicRpcUrls": [
-        "https://canto-testnet.plexnode.wtf"
-      ],
+      "publicRpcUrls": ["https://canto-testnet.plexnode.wtf"],
       "avgBlockTimeMs": 6000,
       "multicall3": {
         "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -359,9 +347,7 @@
     "fraxtal": {
       "name": "Fraxtal Mainnet",
       "chainId": 252,
-      "publicRpcUrls": [
-        "https://rpc.frax.com"
-      ],
+      "publicRpcUrls": ["https://rpc.frax.com"],
       "avgBlockTimeMs": 2000,
       "multicall3": {
         "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -407,9 +393,7 @@
     "bob": {
       "name": "BOB Mainnet",
       "chainId": 60808,
-      "publicRpcUrls": [
-        "https://rpc.gobob.xyz"
-      ],
+      "publicRpcUrls": ["https://rpc.gobob.xyz"],
       "avgBlockTimeMs": 2500,
       "multicall3": {
         "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -438,9 +422,7 @@
     "re.al": {
       "name": "re.al",
       "chainId": 111188,
-      "publicRpcUrls": [
-        "https://real.drpc.org"
-      ],
+      "publicRpcUrls": ["https://real.drpc.org"],
       "avgBlockTimeMs": 2000,
       "multicall3": {
         "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -468,9 +450,7 @@
     "sei": {
       "name": "Sei Mainnet",
       "chainId": 1329,
-      "publicRpcUrls": [
-        "https://evm-rpc.sei-apis.com"
-      ],
+      "publicRpcUrls": ["https://evm-rpc.sei-apis.com"],
       "avgBlockTimeMs": 500,
       "multicall3": {
         "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -482,9 +462,7 @@
     "berachain-testnet": {
       "name": "Berachain Testnet",
       "chainId": 80084,
-      "publicRpcUrls": [
-        "https://bartio.rpc.berachain.com"
-      ],
+      "publicRpcUrls": ["https://bartio.rpc.berachain.com"],
       "avgBlockTimeMs": 4000,
       "multicall3": {
         "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
@@ -497,9 +475,7 @@
     "cyber": {
       "name": "Cyber",
       "chainId": 7560,
-      "publicRpcUrls": [
-        "https://cyber.alt.technology"
-      ],
+      "publicRpcUrls": ["https://cyber.alt.technology"],
       "avgBlockTimeMs": 2000,
       "multicall3": {
         "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
@@ -529,9 +505,7 @@
     "zkLink": {
       "name": "zkLink",
       "chainId": 810180,
-      "publicRpcUrls": [
-        "https://rpc.zklink.io"
-      ],
+      "publicRpcUrls": ["https://rpc.zklink.io"],
       "avgBlockTimeMs": 1000,
       "multicall3": {
         "address": "0x825267E0fA5CAe92F98540828a54198dcB3Eaeb5",
@@ -595,6 +569,18 @@
         "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
         "type": "RedstoneMulticall3",
         "gasLimitPerCall": 1000000
+      },
+      "isAuctionModel": false,
+      "twoDimensionalFees": false
+    },
+    "hemiTestnet": {
+      "name": "Hemi Sepolia",
+      "chainId": 743111,
+      "publicRpcUrls": ["https://testnet.rpc.hemi.network/rpc"],
+      "avgBlockTimeMs": 12000,
+      "multicall3": {
+        "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
+        "type": "Multicall3"
       },
       "isAuctionModel": false,
       "twoDimensionalFees": false
