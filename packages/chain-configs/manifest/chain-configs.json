@@ -250,7 +250,6 @@
       "name": "Ethereum Sepolia",
       "chainId": 11155111,
       "publicRpcUrls": [
-        "https://rpc.sepolia.ethpandaops.io",
         "https://rpc.sepolia.org",
         "https://ethereum-sepolia-rpc.publicnode.com",
         "https://1rpc.io/sepolia"
