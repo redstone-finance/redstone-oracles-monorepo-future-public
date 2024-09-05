@@ -1359,6 +1359,9 @@
     },
     "BBTC": {
       "source": ["bouncebit-evm-fetcher-bouncebit"]
+    },
+    "CESR": {
+      "source": ["coindesk-cesr"]
     }
   },
   "multiPointPackages": {
