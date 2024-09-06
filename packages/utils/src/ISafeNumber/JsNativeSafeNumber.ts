@@ -46,7 +46,7 @@ export class JsNativeSafeNumber implements ISafeNumber {
       return new JsNativeSafeNumber(parseToSafeNumber(numberLike));
     } else {
       throw new Error(
-        `Invalid number format: Tried to create JsNativeSafeNumber from ${String(
+        `Invalid number format: Tried to create JsNativeSafeNumber from ${JSON.stringify(
           numberLike
         )}`
       );
