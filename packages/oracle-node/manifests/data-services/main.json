@@ -1642,9 +1642,6 @@
         "curve-ethereum-usdt"
       ]
     },
-    "CESR": {
-      "source": ["coindesk-cesr"]
-    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
