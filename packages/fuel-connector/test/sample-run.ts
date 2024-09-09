@@ -1,15 +1,9 @@
 import { ContractParamsProvider, sampleRun } from "@redstone-finance/sdk";
-import { Provider } from "fuels";
+import { provider } from "./common/provider";
 import { readDeployedHex } from "./common/read-deployed-hex";
 import { connectPricesContract } from "./prices/prices-contract-test-utils";
 
 const IS_LOCAL = false as boolean;
-
-const provider = async () => {
-  return IS_LOCAL
-    ? undefined
-    : await Provider.create("https://testnet.fuel.network/v1/graphql");
-};
 
 async function main() {
   const paramsProvider = new ContractParamsProvider({
@@ -21,7 +15,7 @@ async function main() {
   const pricesConnector = await connectPricesContract(
     readDeployedHex(),
     false,
-    await provider()
+    await provider(IS_LOCAL)
   );
 
   await sampleRun(paramsProvider, pricesConnector);

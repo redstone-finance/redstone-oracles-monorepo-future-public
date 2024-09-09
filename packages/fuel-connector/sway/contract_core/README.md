@@ -16,7 +16,7 @@ To learn more about RedStone oracles design go to the [RedStone docs](https://do
 ### RedStoneCore
 
 - Sample oracle contract that consumes *RedStone Oracles* data [redstone_core.sw](src/redstone_core.sw) written in sway version
-  0.61.2.
+  0.63.x.
 
 #### ⨐ initializer
 

@@ -1,17 +1,13 @@
-import { Provider } from "fuels";
 import { FuelPricesContractAdapter } from "../src";
+import { provider } from "./common/provider";
 import { deployPricesContract } from "./prices/prices-contract-test-utils";
 
 const IS_LOCAL = false as boolean;
-
-const provider = async () => {
-  return IS_LOCAL
-    ? undefined
-    : await Provider.create("https://testnet.fuel.network/v1/graphql");
-};
+const SALT =
+  "0x0000000000000000000000000000000000000000000000000000000000000012";
 
 async function main() {
-  const adapter = (await deployPricesContract(await provider(), {
+  const adapter = (await deployPricesContract(await provider(IS_LOCAL), {
     signers: [
       "0x12470f7aba85c8b81d63137dd5925d6ee114952b",
       "0x109B4a318A4F5ddcbCA6349B45f881B4137deaFB",
@@ -21,7 +17,7 @@ async function main() {
       "0xf786a909d559f5dee2dc6706d8e5a81728a39ae9",
     ],
     signerCountThreshold: 1,
-    salt: "0x0000000000000000000000000000000000000000000000000000000000000006",
+    salt: SALT,
   })) as FuelPricesContractAdapter;
 
   console.log(`Deployed ${adapter.contract.id.toHexString()}`);

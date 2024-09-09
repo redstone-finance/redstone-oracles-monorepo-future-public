@@ -40,7 +40,7 @@ fn get_timestamp() -> u64 {
 
 #[storage(read)]
 fn get_u64(key: b256, or_value: u64) -> u64 {
-    let value = read(key, 0).unwrap_or(0x00u256);
+    let value = read::<u256>(key, 0).unwrap_or(0x00u256);
     let mut config_value = u64::try_from(value).unwrap();
     if (config_value == 0) {
         config_value = or_value;

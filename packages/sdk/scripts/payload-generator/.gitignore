@@ -1,2 +1,3 @@
-data/
+/data/*
 /.vscode/
+!/data/.gitkeep

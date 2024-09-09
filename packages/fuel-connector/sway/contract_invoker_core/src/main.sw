@@ -1,9 +1,9 @@
 script;
 
-use std::{bytes::Bytes, logging::log, tx::{tx_script_data_length, tx_script_data_start_pointer,},};
+use std::{bytes::Bytes, logging::log, tx::{tx_script_data, tx_script_data_length,},};
 
 configurable {
-    CONTRACT_ID: b256 = 0x7534d8f17f42286497f18f44173f2a63c1fe1f91019170021547428c5410e4ad,
+    CONTRACT_ID: b256 = 0x37e3f122014cfa47ae192dba172c5b87f3d3bd9fd8f46b1b11617966645d2fd6,
 }
 
 abi Prices {
@@ -32,8 +32,14 @@ fn main() {
     }
 }
 
+const GTF_SCRIPT_SCRIPT_DATA = 0x00A;
+
+fn tx_script_data_start_pointer() -> raw_ptr {
+    __gtf::<raw_ptr>(0, GTF_SCRIPT_SCRIPT_DATA)
+}
+
 fn tx_payload() -> Bytes {
-    let input_length = tx_script_data_length();
+    let input_length = tx_script_data_length().unwrap();
     let mut bytes = Bytes::new();
     let mut i = 0;
 
