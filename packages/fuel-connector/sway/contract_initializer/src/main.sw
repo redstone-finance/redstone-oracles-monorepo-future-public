@@ -3,7 +3,7 @@ script;
 use std::logging::log;
 
 configurable {
-    CONTRACT_ID: b256 = 0x517c96970a1b98fffb5eb58caec5a1b0e752b834db569c2092b495006db550ac,
+    CONTRACT_ID: b256 = 0xf3af607390d3b1a969e0d0c7b5cfaea854e9868fdb01760f78d1697127489d23,
 }
 
 abi Prices {

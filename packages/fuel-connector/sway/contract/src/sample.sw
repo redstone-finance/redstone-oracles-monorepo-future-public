@@ -8,7 +8,7 @@ fn get_timestamp() -> u64 {
 }
 
 fn process_payload(feed_ids: Vec<u256>, payload_bytes: Bytes) -> (Vec<u256>, u64) {
-    let signers = Vec::new().with(0x00000000000000000000000012470f7aba85c8b81d63137dd5925d6ee114952b); // for example, a Vec<b256> stored in the contract
+    let signers = Vec::<b256>::new().with(0x00000000000000000000000012470f7aba85c8b81d63137dd5925d6ee114952b); // for example, a Vec<b256> stored in the contract
     let signer_count_threshold = 1; // for example, a value stored in the contract
     let config = Config {
         feed_ids,

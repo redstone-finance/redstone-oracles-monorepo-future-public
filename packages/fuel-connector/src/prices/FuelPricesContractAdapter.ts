@@ -89,7 +89,7 @@ export class FuelPricesContractAdapter implements IPricesContractAdapter {
 
   private getGasLimit(dataFeedIdCount: number, uniqueSignersCount: number) {
     return (
-      dataFeedIdCount * uniqueSignersCount * 65000 +
+      dataFeedIdCount * uniqueSignersCount * 70000 +
       100000 * dataFeedIdCount +
       60000
     );

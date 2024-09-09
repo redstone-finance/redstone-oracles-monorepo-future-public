@@ -3,8 +3,8 @@
 1. Install sway & fuel toolchain as
    described [here](https://docs.fuel.network/guides/installation).
     * The version `testnet` of the toolchain should be chosen.
-    * The version of the sway language (`forc` compiler) for `testnet` (related to `fuel-core` in version `0.31.0`)
-      network must be `0.61.2`.
+    * The version of the sway language (`forc` compiler) for `testnet` (related to `fuel-core` in version `0.34.0`)
+      network must be `0.63.x`.
 1. You can use one of the nodes described [here](http://fuelbook.fuel.network/master/networks/networks.html) or
    run a local Fuel node (with or without state persistence), as
    described [here](https://docs.fuel.network/guides/running-a-node/running-a-testnet-node/#running-a-local-node).

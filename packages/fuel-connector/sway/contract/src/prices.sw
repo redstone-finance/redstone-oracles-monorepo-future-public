@@ -130,7 +130,7 @@ fn test_init() {
     let prices = abi(Prices, CONTRACT_ID);
 
     prices.init(
-        Vec::new()
+        Vec::<b256>::new()
             .with(0x00000000000000000000000012470f7aba85c8b81d63137dd5925d6ee114952b),
         1,
     );

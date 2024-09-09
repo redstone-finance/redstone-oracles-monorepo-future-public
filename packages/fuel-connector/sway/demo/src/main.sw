@@ -5,8 +5,8 @@ use std::{
     bytes::Bytes,
     logging::log,
     tx::{
+        tx_script_data,
         tx_script_data_length,
-        tx_script_data_start_pointer,
     },
 };
 use redstone::core::{config::Config, processor::process_input};
@@ -36,7 +36,7 @@ fn main() {
         block_timestamp: timestamp() - (10 + (1 << 62)),
     };
 
-    let (aggregated_values, _) = process_input(tx_data_bytes(), config);
+    let (aggregated_values, _) = process_input(tx_payload(), config);
 
     let mut i = 0;
     while (i < aggregated_values.len()) {
@@ -45,8 +45,14 @@ fn main() {
     }
 }
 
-pub fn tx_data_bytes() -> Bytes {
-    let input_length = tx_script_data_length();
+const GTF_SCRIPT_SCRIPT_DATA = 0x00A;
+
+fn tx_script_data_start_pointer() -> raw_ptr {
+    __gtf::<raw_ptr>(0, GTF_SCRIPT_SCRIPT_DATA)
+}
+
+fn tx_payload() -> Bytes {
+    let input_length = tx_script_data_length().unwrap();
     let mut bytes = Bytes::new();
     let mut i = 0;
 
@@ -55,8 +61,8 @@ pub fn tx_data_bytes() -> Bytes {
         i += 1;
     }
 
-    let ptr = tx_script_data_start_pointer();
-    ptr.copy_bytes_to(bytes.ptr(), input_length);
+    tx_script_data_start_pointer()
+        .copy_bytes_to(bytes.ptr(), input_length);
 
     bytes
 }
