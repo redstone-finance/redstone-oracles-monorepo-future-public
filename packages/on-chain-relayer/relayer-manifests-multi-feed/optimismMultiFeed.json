@@ -1,0 +1,18 @@
+{
+  "chain": {
+    "name": "optimism",
+    "id": 10
+  },
+  "adapterContract": "0x70773ffcE3903a99c9Ed7AC48e110C3540d8cc3c",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 1,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "priceFeeds": {
+    "XVS": {
+      "priceFeedAddress": "0x414F8f961969A8131AbE53294600c6C515E68f81"
+    }
+  }
+}
