@@ -36,6 +36,13 @@
     },
     "eBTC/WBTC": {
       "priceFeedAddress": "0xe5867B1d421f0b52697F16e2ac437e87d66D5fbF"
+    },
+    "CESR": {
+      "priceFeedAddress": "0x2C787Db499BD7BF1f592D8DDd79ead9a72420763",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.000001,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     }
   }
 }
