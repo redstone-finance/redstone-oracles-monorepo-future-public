@@ -4,7 +4,7 @@ source = "path+from-root-D19F39D92CA9923C"
 
 [[package]]
 name = "redstone"
-source = "path+from-root-3A2336EE93C62038"
+source = "git+https://github.com/redstone-finance/redstone-fuel-sdk?tag=testnet-0.63.1#986878962b9d03244c580af5684cfcdc1818f1f8"
 dependencies = ["std"]
 
 [[package]]
