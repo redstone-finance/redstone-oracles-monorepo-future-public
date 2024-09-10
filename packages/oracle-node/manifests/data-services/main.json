@@ -1488,9 +1488,10 @@
     },
     "USD+": {
       "source": [
-        "aerodrome-base-eusd",
         "aerodrome-cl-base-usdc-100",
-        "aerodrome-cl-base-weth-400"
+        "aerodrome-cl-base-weth-400",
+        "aerodrome-cl-base-wsteth-2500",
+        "uniswap-v3-arbitrumone-usdt-100"
       ]
     },
     "SolvBTC_BNB": {
@@ -1628,7 +1629,6 @@
     },
     "USD3": {
       "source": [
-        "curve-ethereum-eth+",
         "curve-ethereum-eusd",
         "curve-ethereum-sdai",
         "curve-ethereum-susde",

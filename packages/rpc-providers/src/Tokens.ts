@@ -389,6 +389,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0xaFAfd68AFe3fe65d376eEC9Eab1802616cFacCb8",
       decimals: 18,
     },
+    "USD+": {
+      address: "0xe80772Eaf6e2E18B651F160Bc9158b2A5caFCA65",
+      decimals: 6,
+    },
   },
   avalanche: {
     USDC: {
@@ -500,6 +504,10 @@ export const chainTokenMap: ChainTokenMap = {
     "USD+": {
       address: "0xB79DD08EA68A908A97220C76d19A6aA9cBDE4376",
       decimals: 6,
+    },
+    wstETH: {
+      address: "0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452",
+      decimals: 18,
     },
   },
   optimism: {
