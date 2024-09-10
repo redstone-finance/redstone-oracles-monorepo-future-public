@@ -7,4 +7,4 @@ name = "redstone_core"
 organization = "RedStone"
 
 [dependencies]
-redstone = { git = "https://github.com/redstone-finance/redstone-fuel-sdk", branch = "sway-0.63.1" }
+redstone = { git = "https://github.com/redstone-finance/redstone-fuel-sdk", tag = "testnet-0.63.1" }
