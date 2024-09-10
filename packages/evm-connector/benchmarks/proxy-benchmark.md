@@ -2,7 +2,7 @@
 
 A proxy contract is a type of smart contract that allows other contracts to be executed without direct interaction. In the context of obtaining oracle values on a blockchain, a proxy contract receives a RedStone payload and makes calls to other contracts, passing them the oracle values.
 
-Currently, we are testing two different implementations of a proxy: the ProxyConnector-based approach and the StorageProxy-based approach. The first approach, when making a call to other contracts, attaches the RedStone payload to the calldata and relies on the other contract to extract the values from it. The second approach extracts the values from the RedStone payload and stores them in storage. Then, the other contracts can access the values by reading them from the proxy contract's storage. 
+Currently, we are testing two different implementations of a proxy: the ProxyConnector-based approach and the StorageProxy-based approach. The first approach, when making a call to other contracts, attaches the RedStone payload to the calldata and relies on the other contract to extract the values from it. The second approach extracts the values from the RedStone payload and stores them in storage. Then, the other contracts can access the values by reading them from the proxy contract's storage.
 
 The benchmarks evaluate the performance based on the following variables:
 
@@ -12,14 +12,16 @@ The benchmarks evaluate the performance based on the following variables:
 
 In other words, the benchmark results will depend on how many assets are being handled, how many individuals need to sign off on the transaction, and how many proxy contracts are involved in the process.
 
-### Running the benchmark:
+### Running the benchmark
 
-```
+```sh
 yarn test ./benchmarks/proxy-benchmark.ts
 ```
 
-## Results and conclusion:
+## Results and conclusion
+
 Some of the benchmark results are presented below.
+
 ```js
   "3 signers, 2 symbols, 1 points, 2 proxy chain length": {
     "proxyConnectorOneAsset": 119126,

@@ -2,29 +2,10 @@
 
 This is a NestJS web app, which serves as a gateway to the data in the RedStone ecosystem.
 
-## Deploy
-
-Click the button below to deploy the app to the DigitalOcean App Platform.
-
-- [Here](../../.do/app/README.md) you can find a small tutorial on how to do it.
-- If you are not logged in, you will be prompted to log in with your DigitalOcean account.
-- The deployment may take up to 20 minutes and will be performed for the **main** branch.
-- If you need to have the deployment performed for your custom branch, you need to modify [.do/deploy.template.yaml](../../.do/deploy.template.yaml) file and the link in the button below by replacing _main_ with the name of your branch.
-
-#### Prerequisites
-
-You need to have the MongoDB setup performed as a cluster or as an external service. [Check here](../../.do/mongodb/README.md) to see how to set up the MongoDB cluster on the DigitalOcean platform.
-
-[![Deploy to DigitalOcean](https://www.deploytodo.com/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/redstone-finance/redstone-oracles-monorepo/tree/main)
-
-### or
-
-Use [the following link](https://github.com/redstone-finance/redstone-cache-service-lightsail) to deploy redstone-cache-service on AWS lightsail in 2 minutes.
-
 ## Endpoints
 
 - data-packages (main)
-  - [MAYBE] the first 2 endpoints will be replaced with graphql
+  - \[MAYBE\] the first 2 endpoints will be replaced with graphql
   - GET /data-packages/latest (query params: signerAddress, limit, dataServiceId)
   - GET /data-packages (query params: toTimestamp, signerAddress, limit, dataServiceId)
   - POST /data-packages (body = a single package)
@@ -47,5 +28,5 @@ Use [the following link](https://github.com/redstone-finance/redstone-cache-serv
   - RedStone community and partners will be able to launch cache services
   - We will use additional hosted uptime-kuma to notify developers in case of problems
     - There are 2 ways to handle this
-      - 1.  Use push monitor type with upside-down mode (push errors to the uptime-kuma service with helpful messages)
-      - 2.  Use HTTP keyword fetching, and add to cache-services some additonal `/status` endpoint
+      1. Use push monitor type with upside-down mode (push errors to the uptime-kuma service with helpful messages)
+      2. Use HTTP keyword fetching, and add to cache-services some additonal `/status` endpoint

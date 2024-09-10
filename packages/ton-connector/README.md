@@ -29,23 +29,23 @@ assumptions [described here](https://github.com/ton-org/blueprint/blob/main/READ
 Blueprint is a development environment for TON blockchain for writing, testing, and deploying smart contracts.
 
 - [contracts](contracts) - source code in FunC for all smart contracts and their imports.
-    - You can read [here](contracts/README.md) how the contracts work.
-    - [redstone](contracts/redstone) directory contains the RedStone library containing aggregation as well as full
-      data-processing written in FunC
+  - You can read [here](contracts/README.md) how the contracts work.
+  - [redstone](contracts/redstone) directory contains the RedStone library containing aggregation as well as full
+    data-processing written in FunC
 - [wrappers](wrappers) - TypeScript interface classes for all contracts (implementing Contract from @ton/core)
-  include message [de]serialization primitives, getter wrappers and compilation functions
+  include message (de)serialization primitives, getter wrappers and compilation functions
   used by the test suite and client code to interact with the contracts from TypeScript
 - [scripts](scripts) - deployment scripts to mainnet/testnet and other scripts interacting with live contracts
-    - [deployPriceFeed.ts](scripts/deployPriceFeed.ts) / [deployPriceManager.ts](scripts/deployPriceManager.ts) deploy
-      the particular contract on testnet
-    - [runPriceManagerGetPrices.ts](scripts/runPriceManagerGetPrices.ts) / [runPriceManagerReadPrices.ts](scripts/runPriceManagerReadPrices.ts) / [runPriceManagerWritePrices.ts](scripts/runPriceManagerWritePrices.ts)
-      execute the methods described [here](contracts/README.md#price_managerfc-vel-prices)
-    - [runPriceFeedFetchData.ts](scripts/runPriceFeedFetchData.ts) / [runPriceFeedGetData.ts](scripts/runPriceFeedGetData.ts)
-      execute the methods described [here](contracts/README.md#price_feedfc)
+  - [deployPriceFeed.ts](scripts/deployPriceFeed.ts) / [deployPriceManager.ts](scripts/deployPriceManager.ts) deploy
+    the particular contract on testnet
+  - [runPriceManagerGetPrices.ts](scripts/runPriceManagerGetPrices.ts) / [runPriceManagerReadPrices.ts](scripts/runPriceManagerReadPrices.ts) / [runPriceManagerWritePrices.ts](scripts/runPriceManagerWritePrices.ts)
+    execute the methods described [here](contracts/README.md#price_managerfc-vel-prices)
+  - [runPriceFeedFetchData.ts](scripts/runPriceFeedFetchData.ts) / [runPriceFeedGetData.ts](scripts/runPriceFeedGetData.ts)
+    execute the methods described [here](contracts/README.md#price_feedfc)
 - [src](src) - TypeScript classes, useful for establishing a connection between TypeScript and TON layers.
-    - See [below](#-connecting-to-the-contract), how to connect to the contract.
+  - See [below](#-connecting-to-the-contract), how to connect to the contract.
 - [test](test) - TypeScript test suite for all contracts (relying on Sandbox for in-process tests):
-    - ![TODO](assets/to-do-list.png) TBD
+  - ![TODO](assets/to-do-list.png) TBD
 
 ## 🔥 Connecting to the contract
 
@@ -53,12 +53,14 @@ First, you need to import the connector code to your project
 
 ```ts
 // Typescript
-import {TonPricesContractConnector} from "@redstone-finance/ton-connector";
-import {ContractParamsProvider} from "@redstone-finance/sdk";
+import { TonPricesContractConnector } from "@redstone-finance/ton-connector";
+import { ContractParamsProvider } from "@redstone-finance/sdk";
 
 // Javascript
-const {TonPricesContractConnector} = require("@redstone-finance/ton-connector");
-const {ContractParamsProvider} = require("@redstone-finance/sdk");
+const {
+  TonPricesContractConnector,
+} = require("@redstone-finance/ton-connector");
+const { ContractParamsProvider } = require("@redstone-finance/sdk");
 ```
 
 Then you can invoke the contract methods described above pointing to the
@@ -68,9 +70,9 @@ selected [RedStone data service](https://app.redstone.finance) and requested dat
 const prices = new TonPricesContractConnector(network, yourContractAddress);
 
 const paramsProvider = new ContractParamsProvider({
-    dataServiceId: "redstone-main-demo",
-    uniqueSignersCount: 1,
-    dataPackagesIds: ["ETH", "BTC"]
+  dataServiceId: "redstone-main-demo",
+  uniqueSignersCount: 1,
+  dataPackagesIds: ["ETH", "BTC"],
 });
 ```
 
@@ -84,7 +86,7 @@ const blueprintNetwork = new BlueprintTonNetwork(networkProvider, apiV2Config);
 // or
 
 const customNetwork = new CustomTonNetwork(() => {
-  return null /* return your wallet KeyPair here */
+  return null; /* return your wallet KeyPair here */
 }, apiV2Config);
 ```
 
@@ -99,7 +101,6 @@ Now you can access any of the contract's methods by invoking the code:
 (await prices.getAdapter()).writePricesFromPayloadToContract(paramsProvider);
 (await prices.getAdapter()).readPricesFromContract(paramsProvider);
 (await prices.getAdapter()).readTimestampFromContract();
-
 ```
 
 ### Installing the dependencies

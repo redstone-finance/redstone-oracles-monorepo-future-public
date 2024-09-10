@@ -2,23 +2,23 @@
 
 <!-- TOC -->
 
-* [RedStone oracles integration with Starknet](#redstone-oracles-integration-with-starknet)
-    * [💡 How RedStone oracles work with Starknet](#-how-redstone-oracles-work-with-starknet)
-    * [📄 Smart Contracts](#-smart-contracts)
-        * [Price adapter](#price-adapter)
-            * [⨐ constructor](#-constructor)
-            * [⨗ get_prices](#-get_prices)
-            * [⨒ write_prices](#-write_prices)
-            * [⨗ read_prices](#-read_prices)
-            * [∮ read_timestamp](#-read_timestamp)
-    * [⚠ Possible transaction failures](#-possible-transaction-failures)
-    * [🙋‍Contact](#contact)
+- [RedStone oracles integration with Starknet](#redstone-oracles-integration-with-starknet)
+  - [💡 How RedStone oracles work with Starknet](#-how-redstone-oracles-work-with-starknet)
+  - [📄 Smart Contracts](#-smart-contracts)
+    - [Price adapter](#price-adapter)
+      - [⨐ constructor](#-constructor)
+      - [⨗ get_prices](#-get_prices)
+      - [⨒ write_prices](#-write_prices)
+      - [⨗ read_prices](#-read_prices)
+      - [∮ read_timestamp](#-read_timestamp)
+  - [⚠ Possible transaction failures](#-possible-transaction-failures)
+  - [🙋‍Contact](#contact)
 
 <!-- TOC -->
 
 ## 💡 How RedStone oracles work with Starknet
 
-*RedStone Oracles* use an alternative design of providing oracle data to smart contracts. Instead of constantly
+_RedStone Oracles_ use an alternative design of providing oracle data to smart contracts. Instead of constantly
 persisting data on the contract's storage (by data providers), the information is brought on-chain only when needed
 (by end users). Until that moment data remains in the decentralized cache layer, which is powered by RedStone light
 cache gateways and streamr data broadcasting protocol. Data is transferred to the contract by end users, who should
@@ -51,7 +51,7 @@ There is also needed `signer_count_threshold` to be passed.
 
 📖
 The [sample/showroom](https://sepolia.starkscan.co/contract/0x0037b17a782f5a0134bd21faf200f35c96b436dc3af51f5534aa69fd4261bec9)
-contract deployed uses single value ```0xf786a909D559F5Dee2dc6706d8e5A81728a39aE9```
+contract deployed uses single value `0xf786a909D559F5Dee2dc6706d8e5A81728a39aE9`
 as a signer address (of the `redstone-rapid-demo` data service) and `1` as `signer_count_threshold`.
 
 In the function parameters below, each `feed_id` is a cairo-represented string, so that's a `felt252` corresponding to
@@ -113,7 +113,7 @@ using [`write_prices`](#-write_prices) function.
 
 #### ∮ read_timestamp
 
-```
+```rust
 #[external(v0)]
 fn read_timestamp(self: @ContractState) -> felt252
 ```
@@ -123,10 +123,10 @@ function.
 
 ## ⚠ Possible transaction failures
 
-* The number of signers recovered from the signatures matched with `signer_addresses` passed in the constructor
+- The number of signers recovered from the signatures matched with `signer_addresses` passed in the constructor
   must be greater or equal that the `signer_count_threshold` in the constructor, for each feed.
-* The timestamp of data-packages must be not older or never than 15 minutes in relation to the `get_block_timestamp`.
-* The [`write_prices`](#-write_prices) function consumes gas and must be paid by (sepolia)ETHers. The data are available
+- The timestamp of data-packages must be not older or never than 15 minutes in relation to the `get_block_timestamp`.
+- The [`write_prices`](#-write_prices) function consumes gas and must be paid by (sepolia)ETHers. The data are available
   on the contract just after the transaction is accepted on L2.
 
 ## 🙋‍Contact
