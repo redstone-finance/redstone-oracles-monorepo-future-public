@@ -15,7 +15,7 @@
     "lint": "yarn global:eslint . && yarn global:prettier --check manifest/**/*.json",
     "lint:fix": "yarn global:eslint --fix . && yarn global:prettier --write manifest/**/*.json",
     "print": "yarn run-ts scripts/print-chains-configs.ts",
-    "test": "yarn global:jest",
+    "test": "yarn global:jest:cov",
     "test:rpc-urls": "yarn test --runInBand --config=jest.ci-config.ts test/chain-configs-rpc-urls.test.ts"
   },
   "dependencies": {
