@@ -323,6 +323,15 @@
     },
     "3Crv": {
       "source": ["ethereum-evm-fetcher-curve"]
+    },
+    "sDAI": {
+      "source": ["ethereum-evm-fetcher-savings-dai"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     }
   }
 }
