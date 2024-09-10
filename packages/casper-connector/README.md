@@ -27,20 +27,20 @@ the [whole RedStone Oracle model](https://docs.redstone.finance/docs/introductio
 ## 👨‍💻 Code structure
 
 - [rust](rust) directory contains the casper-network on-chain libraries written in Rust `1.68.2`.
-    - You can read [here](rust/contracts/README.md) how the contracts work.
-    - [redstone](rust/redstone) directory contains the RedStone library containing aggregation as well as full
-      data-processing written in Rust
-        - There are also various tests of signature verification with the given signers, timestamp validation, value
-          aggregation as well as full data-processing tests with various configurations.
-    - [tests](rust/contracts/tests) directory contains various integration and unit tests of contracts having their
-      WASM-compiled
-      code.
+  - You can read [here](rust/contracts/README.md) how the contracts work.
+  - [redstone](rust/redstone_casper) directory contains the RedStone library containing aggregation as well as full
+    data-processing written in Rust
+    - There are also various tests of signature verification with the given signers, timestamp validation, value
+      aggregation as well as full data-processing tests with various configurations.
+  - [tests](rust/contracts/tests) directory contains various integration and unit tests of contracts having their
+    WASM-compiled
+    code.
 - [src](src) directory contains the typescript classes, useful for establishing a connection between typescript and
   casper-network layers.
-    - See [below](#-connecting-to-the-contract), how to connect to the contract.
+  - See [below](#-connecting-to-the-contract), how to connect to the contract.
 - [test](test) directory contains the TypeScript SDK tests
-    - [unit tests](test/unit) on real network
-    - [e2e contract tests](test/e2e) on real network
+  - [unit tests](test/unit) on real network
+  - [e2e contract tests](test/e2e) on real network
 
 ## 🔥 Connecting to the contract
 
@@ -48,17 +48,20 @@ First, you need to import the connector code to your project
 
 ```ts
 // Typescript
-import {PriceAdapterCasperContractConnector, makeCasperConnection} from "@redstone-finance/casper-connector";
+import {
+  PriceAdapterCasperContractConnector,
+  makeCasperConnection,
+} from "@redstone-finance/casper-connector";
 // or: import { PriceRelayAdapterCasperContractConnector } from "@redstone-finance/casper-connector";
-import {ContractParamsProvider} from "@redstone-finance/sdk";
+import { ContractParamsProvider } from "@redstone-finance/sdk";
 
 // Javascript
 const {
   PriceAdapterCasperContractConnector,
-  makeCasperConnection
+  makeCasperConnection,
   // or: PriceRelayAdapterCasperContractConnector
 } = require("@redstone-finance/casper-connector");
-const {ContractParamsProvider} = require("@redstone-finance/sdk");
+const { ContractParamsProvider } = require("@redstone-finance/sdk");
 ```
 
 Then you can invoke the contract methods described above pointing to the

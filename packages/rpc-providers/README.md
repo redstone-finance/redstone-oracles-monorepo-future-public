@@ -1,6 +1,8 @@
 # Magic providers, compatible with ethers.Provider interface
 
-**Tested only with JsonRpcProviders**
+:::info
+Tested only with JsonRpcProviders
+:::
 
 ## ProviderWithFallback
 

@@ -20,22 +20,22 @@ To learn more about RedStone oracles design go to the [RedStone docs](https://do
 #### ⨐ initial data
 
 As mentioned above, the data packages transferred to the contract are being verified by signature checking.
-To be counted to achieve the ```signer_count_threshold```, the signer signing the passed data
-should be one of the ```signers``` passed in the initial data. There is also needed ```signer_count_threshold``` to be
+To be counted to achieve the `signer_count_threshold`, the signer signing the passed data
+should be one of the `signers` passed in the initial data. There is also needed `signer_count_threshold` to be
 passed.
 
 Due to the architecture of TON contracts, the initial data must convene with the contract's storage structure,
 which is constructed as below:
 
-```ts   
-  begin_cell()
-  .store_uint(signer_count_threshold, 8)  /// number as passed below
-  .store_uint(timestamp, TIMESTAMP_BITS)  /// initially 0 representing the epoch 0
-  .store_ref(signers)                     /// serialized tuple of values passed below
+```ts
+begin_cell()
+  .store_uint(signer_count_threshold, 8) /// number as passed below
+  .store_uint(timestamp, TIMESTAMP_BITS) /// initially 0 representing the epoch 0
+  .store_ref(signers) /// serialized tuple of values passed below
   .end_cell();
 ```
 
-The value of ```signers``` should be passed as a serialized `tuple` of `int`s.\
+The value of `signers` should be passed as a serialized `tuple` of `int`s.\
 📚 See https://github.com/ton-core/ton-core/blob/main/src/tuple/tuple.ts
 
 To define the initial (storage) data for the Prices contract, use the predefined
@@ -48,10 +48,10 @@ consisting of hex-values of the particular letters in the string. For example:
 📟 You can use: `feed_id = hexlify(toUtf8Bytes(feed_string)))` to convert particular values or
 the https://cairo-utils-web.vercel.app/ endpoint<br />
 
-The value of ```feed_ids```  should be passed as a serialized `tuple` of `int`s.\
+The value of `feed_ids` should be passed as a serialized `tuple` of `int`s.\
 📚 See https://github.com/ton-core/ton-core/blob/main/src/tuple/tuple.ts
 
-The value ```payload``` is packed from an array of bytes representing the serialized RedStone payload.
+The value `payload` is packed from an array of bytes representing the serialized RedStone payload.
 <br />
 📚 See RedStone data-packing: https://docs.redstone.finance/docs/smart-contract-devs/how-it-works
 and the [TON RedStone payload packing](#-ton-redstone-payload-packing) section below.
@@ -60,12 +60,12 @@ and the [TON RedStone payload packing](#-ton-redstone-payload-packing) section b
 
 #### ⨗ get_prices
 
-```func   
+```func
 (cell) get_prices_v2(cell data_feed_ids, cell payload) method_id;
 ```
 
-The function process on-chain the ```payload``` passed as an argument
-and returns a `cell` of aggregated values of each feed passed as an identifier inside ```feed_ids```.
+The function process on-chain the `payload` passed as an argument
+and returns a `cell` of aggregated values of each feed passed as an identifier inside `feed_ids`.
 
 Due to HTTP GET method length limitation in TON API v4, the function is written for TON API v2.
 
@@ -73,19 +73,19 @@ That are just a `method_id` functions - they don't modify the contract's storage
 
 #### ⨒ OP_REDSTONE_WRITE_PRICES
 
-Regardless of the on-fly processing, there also exists a method for processing the ```payload``` on-chain, but
+Regardless of the on-fly processing, there also exists a method for processing the `payload` on-chain, but
 saving/writing the aggregated values to the contract's storage.
-The values persist in the contract's storage and then can be read by using ```read_prices``` function.
-The timestamp of data last saved/written to the contract is able to read by using the ```read_timestamp``` function.
+The values persist in the contract's storage and then can be read by using `read_prices` function.
+The timestamp of data last saved/written to the contract is able to read by using the `read_timestamp` function.
 
 The method must be invoked as a TON internal message. The arguments of the message are:
 
-* an `int` representing RedStone_Write_Prices name hashed by keccak256 as defined
+- an `int` representing RedStone_Write_Prices name hashed by keccak256 as defined
   in [constants.ts](../src/config/constants.ts)
-* a `cell`-ref representing the `data_feed_ids` as a serialized `tuple` of `int`s.\
-* a `cell`-ref representing the packed RedStone payload
+- a `cell`-ref representing the `data_feed_ids` as a serialized `tuple` of `int`s.\
+- a `cell`-ref representing the packed RedStone payload
 
-```
+```c
     int op = in_msg_body~load_uint(OP_NUMBER_BITS);
 
     if (op == OP_REDSTONE_WRITE_PRICES) {
@@ -103,14 +103,14 @@ That's an internal message - it consumes GAS and modifies the contract's storage
 
 #### ⨗ read_prices
 
-```func   
+```func
 (tuple) read_prices(tuple data_feed_ids) method_id;
 ```
 
 The function reads the values persisting in the contract's storage and returns a tuple corresponding to the
-passed ```feed_ids```.
-The function doesn't modify the storage and can read only aggregated values of the ```feed_ids``` saved by
-using ```write_prices``` function.
+passed `feed_ids`.
+The function doesn't modify the storage and can read only aggregated values of the `feed_ids` saved by
+using `write_prices` function.
 
 That's just a `method_id` function - it doesn't modify the contract's storage and don't consume TONs.
 
@@ -131,9 +131,12 @@ which is constructed as below:
 
 ```ts
 beginCell()
-  .storeUint(BigInt(hexlify(toUtf8Bytes(this.feedId))), consts.DATA_FEED_ID_BS * 8)
+  .storeUint(
+    BigInt(hexlify(toUtf8Bytes(this.feedId))),
+    consts.DATA_FEED_ID_BS * 8
+  )
   .storeAddress(Address.parse(this.managerAddress))
-  .storeUint(0, consts.DEFAULT_NUM_VALUE_BS * 8)  /// initially 0 representing the epoch 0
+  .storeUint(0, consts.DEFAULT_NUM_VALUE_BS * 8) /// initially 0 representing the epoch 0
   .storeUint(0, consts.TIMESTAMP_BS * 8)
   .endCell();
 ```
@@ -147,13 +150,13 @@ Regardless of reading the values persisting in the contract's from outside the n
 there is a possibility for fetching the value stored in the contract for a `feed_id` on-chain directly.
 There must be invoked an internal message `OP_REDSTONE_FETCH_DATA`. The arguments of the message are:
 
-* an `int` representing `RedStone_Fetch_Data` name hashed by keccak256 as defined
+- an `int` representing `RedStone_Fetch_Data` name hashed by keccak256 as defined
   in [constants.ts](../src/config/constants.ts)
-* an `int` representing the `feed_id` value.
-* a `slice` representing the `initial_sender` of the message, to allow they carried the remaining transaction balance
+- an `int` representing the `feed_id` value.
+- a `slice` representing the `initial_sender` of the message, to allow they carried the remaining transaction balance
   when the returning transaction goes.
 
-```
+```c
     int op = in_msg_body~load_uint(OP_NUMBER_BITS);
 
     if (op == OP_REDSTONE_FETCH_DATA) {
@@ -175,7 +178,7 @@ begin_cell()
   .store_uint(value, MAX_VALUE_SIZE_BITS)
   .store_uint(timestamp, TIMESTAMP_BITS)
   .store_ref(initial_payload)
-  .end_cell()
+  .end_cell();
 ```
 
 That's an internal message - it consumes GAS and modifies the contract's storage, so must be paid by TONs.
@@ -202,9 +205,12 @@ Similar to the [`prices`](#-initial-data) and [`price_feed`](#-initial-data-1) i
 Due to the architecture of TON contracts, the initial data must convene with the contract's storage structure,
 which is constructed as below:
 
-```ts   
+```ts
 beginCell()
-  .storeUint(BigInt(hexlify(toUtf8Bytes(this.feedId))), consts.DATA_FEED_ID_BS * 8)
+  .storeUint(
+    BigInt(hexlify(toUtf8Bytes(this.feedId))),
+    consts.DATA_FEED_ID_BS * 8
+  )
   .storeUint(this.signerCountThreshold, SIGNER_COUNT_THRESHOLD_BITS)
   .storeUint(0, consts.DEFAULT_NUM_VALUE_BS * 8)
   .storeUint(0, consts.TIMESTAMP_BS * 8)
@@ -241,7 +247,7 @@ Works as the [`get_price_and_timestamp`](#-get_price_and_timestamp) function.
 Similar to [`OP_REDSTONE_WRITE_PRICES`](#-op_redstone_write_prices), but omitting the first (`data_feed_ids`) `cell`-ref
 as have it configured during the initialization.
 
-```
+```c
     int op = in_msg_body~load_uint(OP_NUMBER_BITS);
 
     if (op == OP_REDSTONE_WRITE_PRICE) {
@@ -264,10 +270,8 @@ Similar to the [`price_feed`](#-initial-data-1) initial data,
 Due to the architecture of TON contracts, the initial data must convene with the contract's storage structure,
 which is constructed as below:
 
-```ts   
-beginCell()
-  .storeAddress(Address.parse(this.feedAddress))
-  .endCell();
+```ts
+beginCell().storeAddress(Address.parse(this.feedAddress)).endCell();
 ```
 
 To define the initial (storage) data for the Prices contract, use the predefined
@@ -280,10 +284,10 @@ The contract calls the single feed.
 There is a possibility for fetching the value stored in the contract for a `feed_id` on-chain directly.
 There must be invoked an internal message `OP_REDSTONE_READ_DATA`. The arguments of the message are:
 
-* a `slice` representing the `initial_sender` of the message, to allow they carried the remaining transaction balance
+- a `slice` representing the `initial_sender` of the message, to allow they carried the remaining transaction balance
   when the returning transaction goes.
 
-```
+```c
     int op = in_msg_body~load_uint(OP_NUMBER_BITS);
 
     if (op == OP_REDSTONE_READ_DATA) {
@@ -304,7 +308,7 @@ begin_cell()
   .store_uint(value, MAX_VALUE_SIZE_BITS)
   .store_uint(timestamp, TIMESTAMP_BITS)
   .store_ref(initial_payload)
-  .end_cell()
+  .end_cell();
 ```
 
 That's an internal message - it consumes GAS and modifies the contract's storage, so must be paid by TONs.
@@ -319,26 +323,26 @@ the RedStone payload data - represented as a hex string - needed to be passed to
 Having the RedStone payload as defined here https://docs.redstone.finance/img/payload.png,
 the data should be passed as a Cell built as follows.
 
-1. The main *payload* `cell` consists of:
-    1. the metadata in the **data-level bits** consisting of the parts as on the image:\
-       ![payload-metadata.png](../assets/payload-metadata.png)
-    1. a **ref** containing a `udict` indexed by consecutive natural numbers (beginning from 0) containing the list of
-       *data_package* `cell`s.
-1. Each *data-package* `cell` consists of:
-    1. the data package's signature in the **data-level bits**:\
-       ![data-package-sig.png](../assets/data-package-sig.png)
-    1. one **ref** to a `cell` containing the data of the rest of the data package on its **data-level**:\
-       ![data-package-data.png](../assets/data-package-data.png)
+1. The main _payload_ `cell` consists of:
+   1. the metadata in the **data-level bits** consisting of the parts as on the image:\
+      ![payload-metadata.png](../assets/payload-metadata.png)
+   1. a **ref** containing a `udict` indexed by consecutive natural numbers (beginning from 0) containing the list of
+      _data_package_ `cell`s.
+1. Each _data-package_ `cell` consists of:
+   1. the data package's signature in the **data-level bits**:\
+      ![data-package-sig.png](../assets/data-package-sig.png)
+   1. one **ref** to a `cell` containing the data of the rest of the data package on its **data-level**:\
+      ![data-package-data.png](../assets/data-package-data.png)
 
 #### Current implementation limitations
 
-* The RedStone payload must be fetched by explicitly defining data feeds,
+- The RedStone payload must be fetched by explicitly defining data feeds,
   which leads to **one data point** belonging to **one data package**.
-* The unsigned metadata size must not be exceeding `127 - (2 + 3 + 9) = 113` bytes.
+- The unsigned metadata size must not be exceeding `127 - (2 + 3 + 9) = 113` bytes.
 
 #### Helper
 
-The ```createPayloadCell``` method in the [create-payload-cell.ts](../src/create-payload-cell.ts) file
+The `createPayloadCell` method in the [create-payload-cell.ts](../src/create-payload-cell.ts) file
 checks the limitations and prepares the data to be sent to the contract as described above.
 
 #### Sample serialization
@@ -354,7 +358,7 @@ That's an example endpoint for `redstone-rapid-demo` data-service id, also for t
 that can be used for the initializer (`0xf786a909D559F5Dee2dc6706d8e5A81728a39aE9`)
 
 📟 You can use: [Makefile](../../sdk/scripts/payload-generator/Makefile) by
-invoking ```make DATA_NAME=[name] prepare_data``` or
+invoking `make DATA_NAME=[name] prepare_data` or
 directly from the [payload-generator](../../sdk/scripts/payload-generator) environment directory where `[name]`
 is a string you wish.
 
@@ -364,17 +368,17 @@ To have defined your custom data-service id and signers, [contact us](#contact).
 
 ## ⚠ Possible transaction failures
 
-* The number of signers recovered from the signatures matched with ```addresses``` passed in the initializer
-  must be greater or equal that the ```signer_count_threshold``` in the constructor, for each feed.
-    * Otherwise, it panics then with the `300` error, increased by the first index of the passed
-      feed which has broken the validation.
-* The timestamp of data-packages must be not older than 15 minutes in relation to the ```block_timestamp```.
-    * Otherwise, it panics then with the `200` error, increased by the first index of the payload's
-      data package which has broken the validation, increased additionally by `50` if the package's timestamp is too
-      future.
-* The internal messages consume gas and must be paid by TONs. The data are available on the contract
+- The number of signers recovered from the signatures matched with `addresses` passed in the initializer
+  must be greater or equal that the `signer_count_threshold` in the constructor, for each feed.
+  - Otherwise, it panics then with the `300` error, increased by the first index of the passed
+    feed which has broken the validation.
+- The timestamp of data-packages must be not older than 15 minutes in relation to the `block_timestamp`.
+  - Otherwise, it panics then with the `200` error, increased by the first index of the payload's
+    data package which has broken the validation, increased additionally by `50` if the package's timestamp is too
+    future.
+- The internal messages consume gas and must be paid by TONs. The data are available on the contract
   just after the transaction successes.
-* The other error codes are defined here: [constants.fc](redstone/constants.fc)
+- The other error codes are defined here: [constants.fc](redstone/constants.fc)
 
 ## 🙋‍Contact
 

@@ -76,7 +76,7 @@ The code is executed on one of the networks (`local` or `testnet`), as it's desc
 
 The output logs look similar to the following ones, so invoking the commands it's worth to use the `| grep "data"` pipe.
 
-```
+```json
 [
   {
     "LogData": {

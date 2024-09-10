@@ -2,35 +2,35 @@
 
 <!-- TOC -->
 
-* [RedStone Oracles integration with Casper](#redstone-oracles-integration-with-casper)
-    * [💡 How *RedStone Oracles* work with Casper](#-how-redstone-oracles-work-with-casper)
-    * [✨ General parameter disclaimer](#-general-parameter-disclaimer)
-    * [📄 Smart Contracts](#-smart-contracts)
-        * [Price Adapter](#price-adapter)
-            * [⨐ init](#-init)
-            * [⨗ get_prices](#-get_prices)
-            * [⨒ write_prices](#-write_prices)
-            * [⨗ read_prices](#-read_prices)
-            * [∮ read_timestamp](#-read_timestamp)
-            * [∮ read_price_and_timestamp](#-read_price_and_timestamp)
-        * [Price *Relay Adapter*](#price-relay-adapter)
-            * [⛔ JsonRPC Casper API limitations](#-jsonrpc-casper-api-limitations)
-            * [The reason for creating the *Relay Adapter*](#the-reason-for-creating-the-relay-adapter)
-            * [⨐ init](#-init-1)
-            * [⨗ get_prices](#-get_prices-1)
-            * [∯ write_prices_chunk](#-write_prices_chunk)
-            * [∯ get_prices_chunk](#-get_prices_chunk)
-        * [Price Feed](#price-feed)
-            * [⨐ init](#-init-2)
-            * [∮ get_price_and_timestamp](#-get_price_and_timestamp)
-    * [⚠ Possible transaction failures](#-possible-transaction-failures)
-    * [🙋‍Contact](#contact)
+- [RedStone Oracles integration with Casper](#redstone-oracles-integration-with-casper)
+  - [💡 How _RedStone Oracles_ work with Casper](#-how-redstone-oracles-work-with-casper)
+  - [✨ General parameter disclaimer](#-general-parameter-disclaimer)
+  - [📄 Smart Contracts](#-smart-contracts)
+    - [Price Adapter](#price-adapter)
+      - [⨐ init](#-init)
+      - [⨗ get_prices](#-get_prices)
+      - [⨒ write_prices](#-write_prices)
+      - [⨗ read_prices](#-read_prices)
+      - [∮ read_timestamp](#-read_timestamp)
+      - [∮ read_price_and_timestamp](#-read_price_and_timestamp)
+    - [Price _Relay Adapter_](#price-relay-adapter)
+      - [⛔ JsonRPC Casper API limitations](#-jsonrpc-casper-api-limitations)
+      - [The reason for creating the _Relay Adapter_](#the-reason-for-creating-the-relay-adapter)
+      - [⨐ init](#-init-1)
+      - [⨗ get_prices](#-get_prices-1)
+      - [∯ write_prices_chunk](#-write_prices_chunk)
+      - [∯ get_prices_chunk](#-get_prices_chunk)
+    - [Price Feed](#price-feed)
+      - [⨐ init](#-init-2)
+      - [∮ get_price_and_timestamp](#-get_price_and_timestamp)
+  - [⚠ Possible transaction failures](#-possible-transaction-failures)
+  - [🙋‍Contact](#contact)
 
 <!-- TOC -->
 
-## 💡 How *RedStone Oracles* work with Casper
+## 💡 How _RedStone Oracles_ work with Casper
 
-*RedStone Oracles* use an alternative design of providing oracle data to smart contracts. Instead of constantly
+_RedStone Oracles_ use an alternative design of providing oracle data to smart contracts. Instead of constantly
 persisting data on the contract's storage (by data providers), the information is brought on-chain only when needed
 (by end users). Until that moment data remains in the decentralized cache layer, which is powered by RedStone light
 cache gateways and streamr data broadcasting protocol. Data is transferred to the contract by end users, who should
@@ -48,22 +48,22 @@ consisting of hex-values of the particular letters in the string. For example:
 📟 You can use: `feed_id = hexlify(toUtf8Bytes(feed_string)))` to convert particular values or
 the https://cairo-utils-web.vercel.app/ endpoint<br />
 
-The value of ```feed_ids```  should be passed as a serialized `List` of `U256`s.\
+The value of `feed_ids` should be passed as a serialized `List` of `U256`s.\
 📚 See [Casper Client args examples](../scripts/args/args-examples)
 or [an example json](../scripts/args/adapter-init-args.json).
 
-The value ```payload``` is a serialized `List` of `U8`s representing the serialized RedStone payload.
+The value `payload` is a serialized `List` of `U8`s representing the serialized RedStone payload.
 <br />
 📚 See RedStone data-packing: https://docs.redstone.finance/docs/smart-contract-devs/how-it-works
 
-📚 See also the file [constants.fc](../redstone/src/network/casper/contracts/constants.rs), containing all needed
+📚 See also the file [constants.fc](../redstone_casper/src/contracts/constants.rs), containing all needed
 constants.
 
 ## 📄 Smart Contracts
 
 ### [Price Adapter](price_adapter)
 
-Sample oracle contract that consumes *RedStone Oracles* data, written in Rust.
+Sample oracle contract that consumes _RedStone Oracles_ data, written in Rust.
 The example-testnet address of the implementation is exposed in the [DEPLOYED.hex](price_adapter/DEPLOYED.hex) file.
 
 ☔ Due to the method calling limitations in the TypeScript Casper SDK,
@@ -71,24 +71,24 @@ see also the [Price Relay Adapter](#price-relay-adapter).
 
 #### ⨐ init
 
-```
+```rust
 init(signer_count_threshold: U8, signers: List[List[U8]]): Unit     // Group([GROUP_NAME_OWNER])/Contract
 ```
 
 As mentioned above, signature checking is verifying the data packages transferred to the contract.
-To be counted to achieve the ```signer_count_threshold```, the signer signing the passed data
-should be one of the ```signers``` passed in the parameters. There is also needed ```signer_count_threshold``` to be
+To be counted to achieve the `signer_count_threshold`, the signer signing the passed data
+should be one of the `signers` passed in the parameters. There is also needed `signer_count_threshold` to be
 passed.
 
 The `init` function must be executed by the contract creator in the Contract context.
 
-The value of ```signers``` should be passed as a serialized `List` of `U8`-`List`'.\
+The value of `signers` should be passed as a serialized `List` of `U8`-`List`'.\
 📚 See [Casper Client args examples](../scripts/args/args-examples)
 or [an example json](../scripts/args/adapter-init-args.json).
 
 To define the initial data for the contract, use for example:
 
-```rust   
+```rust
 fn price_adapter_init(signers: Vec<Bytes>, signer_count_threshold: u8) {
     let args = runtime_args! {
         ARG_NAME_SIGNERS => signers,
@@ -101,7 +101,7 @@ fn price_adapter_init(signers: Vec<Bytes>, signer_count_threshold: u8) {
 
 #### ⨗ get_prices
 
-```   
+```rust
 get_prices(feed_ids: List[U256], payload: List[U8]): Tuple2     // Public/Contract
 ```
 
@@ -115,7 +115,7 @@ the [Price Relay Adapter](#price-relay-adapter).
 
 #### ⨒ write_prices
 
-```   
+```rust
 write_prices(feed_ids: List[U256], payload: List[U8]): Tuple2     // Public/Contract
 ```
 
@@ -129,11 +129,11 @@ The method returns the `Tuple2` value as the [`get_prices`](#-get_prices) functi
 
 The method modifies the contract's storage.
 
-[//]: # (📖 See how it works on: https://casper-showroom.redstone.finance/)
+[//]: # "📖 See how it works on: https://casper-showroom.redstone.finance/"
 
 #### ⨗ read_prices
 
-```   
+```rust
 read_prices(feed_ids: List[U256]): List[U256]     // Public/Contract
 ```
 
@@ -148,7 +148,7 @@ using the `STORAGE_KEY_VALUES` dictionary with a key representing the ascii stri
 
 #### ∮ read_timestamp
 
-```
+```rust
 read_timestamp(): U64     // Public/Contract
 ```
 
@@ -162,7 +162,7 @@ using the `STORAGE_KEY_TIMESTAMP` item.
 
 #### ∮ read_price_and_timestamp
 
-```
+```rust
 read_price_and_timestamp(feed_id: U256): Tuple2     // Public/Contract
 ```
 
@@ -172,40 +172,40 @@ using [`write_prices`](#-write_prices) function
 
 The method doesn't modify the contract's storage.
 
-### [Price *Relay Adapter*](price_relay_adapter)
+### [Price _Relay Adapter_](price_relay_adapter)
 
 The example-testnet address of the implementation is exposed in the [DEPLOYED.hex](price_relay_adapter/DEPLOYED.hex)
 file.
 
 ##### ⛔ JsonRPC Casper API limitations
 
-* The current version of JsonRpc Casper API has a limit of 1024 bytes for a total length of the serialized function
+- The current version of JsonRpc Casper API has a limit of 1024 bytes for a total length of the serialized function
   parameters.
-* The latest (`2.15.5`) version of
+- The latest (`2.15.5`) version of
   TypeScript [`casper-js-sdk`](https://github.com/casper-ecosystem/casper-js-sdk/tree/release-2.15.4) library is a
   wrapper for the JsonRpc method of interacting with Casper.
-* This means, in the off-chain way of calling contracts, the payload size must have been limited to 875 bytes in a
+- This means, in the off-chain way of calling contracts, the payload size must have been limited to 875 bytes in a
   single
   `deploy` (transaction).
-* Also, there's no possibility to get the values returned by the `deploy` (transaction) in the off-chain method of
+- Also, there's no possibility to get the values returned by the `deploy` (transaction) in the off-chain method of
   interacting with the Casper contracts.
 
-##### The reason for creating the *Relay Adapter*
+##### The reason for creating the _Relay Adapter_
 
-That above is the reason for having created the Price *Relay Adapter*, which:
+That above is the reason for having created the Price _Relay Adapter_, which:
 
-* it's just a proxy for the regular price adapter methods:
-    * [`write_prices`](#-write_prices)
-    * [`read_timestamp`](#-read_timestamp)
-    * [`read_prices`](#-read_prices)
-* it solves the limitation of calling [`get_prices`](#-get_prices) method off-chain
-* it adds a set of methods for passing the `payload` argument in chunks
+- it's just a proxy for the regular price adapter methods:
+  - [`write_prices`](#-write_prices)
+  - [`read_timestamp`](#-read_timestamp)
+  - [`read_prices`](#-read_prices)
+- it solves the limitation of calling [`get_prices`](#-get_prices) method off-chain
+- it adds a set of methods for passing the `payload` argument in chunks
 
 ☕ The contract **doesn't need** to be used for **on-chain-only usage** of the environment.
 
 #### ⨐ init
 
-```
+```rust
 init(adapter_address: Key): Unit     // Group([GROUP_NAME_OWNER])/Contract
 ```
 
@@ -217,7 +217,7 @@ The `init` function must be executed by the contract creator in the Contract con
 
 To define the initial data for the contract, use for example:
 
-```rust   
+```rust
 fn price_relay_adapter_init(adapter_key: Key) {
     let args = runtime_args! {
             ARG_NAME_ADAPTER_ADDRESS => adapter_key
@@ -231,22 +231,22 @@ The function must be executed by the contract creator in the Contract context an
 
 #### ⨗ get_prices
 
-```   
+```rust
 get_prices(feed_ids: List[U256], payload: List[U8]): Tuple2     // Public/Contract
 ```
 
 To solve the impossibility to get the values returned by the `deploy` (transaction) in the off-chain method of
 interacting with the Casper contracts, the function calls the original [`get_prices`](#-get_prices) method on the
-proxied adapter and then saves the value to the *Relay Adapter*'s storage.
+proxied adapter and then saves the value to the _Relay Adapter_'s storage.
 
-To be more precise, it counts the *blake2b256* hash of the `payload` data and adds the result as
+To be more precise, it counts the _blake2b256_ hash of the `payload` data and adds the result as
 a `ComputedValue` (`Tuple3`), which contains the `timestamp`, `feed_ids` and `values`, as defined below.
 
 ```rust
 type ComputedValue = (u64, Vec<U256>, Vec<U256>);
 ```
 
-The data can be read then off-chain by using `STORAGE_KEY_VALUES` dictionary by passing the *blake2b256* hash
+The data can be read then off-chain by using `STORAGE_KEY_VALUES` dictionary by passing the _blake2b256_ hash
 of the `payload` as a key.
 The dictionary contains all previously computed values, so its every item is a `Vec<ComputedValue>`-list,
 having the lastly computed value on its end.
@@ -259,13 +259,13 @@ of the returned values on the end of the list (in case on superset, intersects i
 
 #### ∯ write_prices_chunk
 
-```
-write_prices_chunk(feed_ids: List[U256], payload: List[U8], 
+```rust
+write_prices_chunk(feed_ids: List[U256], payload: List[U8],
                    hash: List[U8], chunk_index: U8): Unit     // Public/Contract
 ```
 
 The function temporarily saves the chunk of `payload` to a contract storage, taking into account the `chunk_index` and
-the *blake2b256* `hash` of the whole `payload` to be sent (**not** the hash of the chunk).
+the _blake2b256_ `hash` of the whole `payload` to be sent (**not** the hash of the chunk).
 The chunks can be overwritten or resent when, for example, the `deploy` fails/panics. When the method detects that all
 chunks were saved, it automatically calls the original [`write_prices`](#-write_prices) method on the proxied adapter.
 
@@ -275,8 +275,8 @@ saved chunk with the empty chunk.
 
 #### ∯ get_prices_chunk
 
-```
-get_prices_chunk(feed_ids: List[U256], payload: List[U8], 
+```rust
+get_prices_chunk(feed_ids: List[U256], payload: List[U8],
                    hash: List[U8], chunk_index: U8): Unit     // Public/Contract
 ```
 
@@ -291,7 +291,7 @@ The example-testnet address of the implementation is exposed in the [DEPLOYED.he
 
 #### ⨐ init
 
-```
+```rust
 init(adapter_address: Key, feed_id: U256): Unit     // Group([GROUP_NAME_OWNER])/Contract
 ```
 
@@ -303,7 +303,7 @@ The function must be executed by the contract creator in the Contract context an
 
 #### ∮ get_price_and_timestamp
 
-```
+```rust
 get_price_and_timestamp(): Tuple2;
 ```
 
@@ -325,9 +325,9 @@ The transaction could have returned a `UserError: [code]` with one of codes defi
 
 * in the [redstone](../redstone/src/network/error.rs) library, or see
   in [docs](https://redstone-docs-git-casper-redstone-finance.vercel.app/rust/casper/redstone/crypto_secp256k1,network_casper/redstone/network/error/enum.Error.html)
-* commonly used
+- commonly used
   across [contracts](https://redstone-docs-git-casper-redstone-finance.vercel.app/rust/casper/redstone/crypto_secp256k1,network_casper/redstone/network/casper/contracts/contract_error/enum.ContractError.html)
-* Price Adapter [specific](../contracts/price_adapter/src/price_adapter_error.rs)
+- Price Adapter [specific](../contracts/price_adapter/src/price_adapter_error.rs)
 
 ## 🙋‍Contact
 

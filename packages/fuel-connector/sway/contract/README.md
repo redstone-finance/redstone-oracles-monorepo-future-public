@@ -2,7 +2,7 @@
 
 ## 💡 How RedStone Oracles work with Fuel
 
-*RedStone Oracles* use an alternative design of providing oracle data to smart contracts. Instead of constantly
+_RedStone Oracles_ use an alternative design of providing oracle data to smart contracts. Instead of constantly
 persisting
 data on the contract's storage (by data providers), the information is brought on-chain only when needed (by end users).
 Until that moment data remains in the decentralized cache layer, which is powered by RedStone light cache gateways and
@@ -15,7 +15,7 @@ To learn more about RedStone oracles design go to the [RedStone docs](https://do
 
 ### Prices.sway
 
-- Sample oracle contract that consumes *RedStone Oracles* data [prices.sw](src/prices.sw) written in sway version
+- Sample oracle contract that consumes _RedStone Oracles_ data [prices.sw](src/prices.sw) written in sway version
   0.63.x.
 
 #### ⨐ initializer
@@ -89,7 +89,7 @@ That's just a `#[storage(read)]` function - it consumes GAS but doesn't modify t
 #### ∮ read_timestamp
 
 ```rust
-fn read_timestamp() -> u64 
+fn read_timestamp() -> u64
 ```
 
 Returns the timestamp of data last saved/written to the contract's storage by using `write_prices` function.
@@ -109,18 +109,18 @@ To have defined your custom data-service id and signers, [contact us](#contact).
 
 ## ⚠ Possible transaction failures
 
-* The number of signers recovered from the signatures matched with `addresses` passed in the initializer
+- The number of signers recovered from the signatures matched with `addresses` passed in the initializer
   must be greater or equal that the `signer_count_threshold` in the constructor, for each feed.
-    * Otherwise, it panics then with the `0x2710_0000 = 655360000` error, increased by the first index of the passed
-      feed which has broken the validation.
-    * The number of signers for that data feed is presented in logs.
-* The timestamp of data-packages must be not older than 15 minutes in relation to the `block_timestamp`.
-    * Otherwise, it panics then with the `0x9C40_0000 = 2621440000` error, increased by the first index of the payload's
-      data package which has broken the validation, increased additionally by `1000` if the package is older than
-      expected
-      and `2000` if its timestamp is too future.
-    * The timestamp of that data package and `block_timestamp` are presented in logs.
-* The `init` & `write_prices` functions consume gas and must be paid by ETHers. The data are available on the contract
+  - Otherwise, it panics then with the `0x2710_0000 = 655360000` error, increased by the first index of the passed
+    feed which has broken the validation.
+  - The number of signers for that data feed is presented in logs.
+- The timestamp of data-packages must be not older than 15 minutes in relation to the `block_timestamp`.
+  - Otherwise, it panics then with the `0x9C40_0000 = 2621440000` error, increased by the first index of the payload's
+    data package which has broken the validation, increased additionally by `1000` if the package is older than
+    expected
+    and `2000` if its timestamp is too future.
+  - The timestamp of that data package and `block_timestamp` are presented in logs.
+- The `init` & `write_prices` functions consume gas and must be paid by ETHers. The data are available on the contract
   just after the transaction successes.
 
 ## 🙋‍Contact
