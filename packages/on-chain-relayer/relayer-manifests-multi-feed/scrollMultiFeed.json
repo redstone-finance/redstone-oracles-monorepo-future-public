@@ -40,6 +40,15 @@
     },
     "wstETH": {
       "priceFeedAddress": "0x2dDFA9B00d2989798186321dA38dfDD1C6e33568"
+    },
+    "USDe": {
+      "priceFeedAddress": "0x5C4c8d6f6Bf79B718F3e8399AaBdFEd01cB7e48f"
+    },
+    "uniETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0x5ED849a45B4608952161f45483F4B95BCEa7f8f0"
+    },
+    "SolvBTC_MERLIN": {
+      "priceFeedAddress": "0xc555c100DB24dF36D406243642C169CC5A937f09"
     }
   }
 }
