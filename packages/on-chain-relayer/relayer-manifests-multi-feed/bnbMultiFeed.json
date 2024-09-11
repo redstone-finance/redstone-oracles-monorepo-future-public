@@ -34,6 +34,9 @@
     },
     "pufETH_FUNDAMENTAL": {
       "priceFeedAddress": "0xCa8b247304767619fCcF5b0829D0a5AAf414BA7D"
+    },
+    "wstETH/stETH": {
+      "priceFeedAddress": "0xa76dB2Cb356ba111cCB5a7Ca369D17E1592f42Dd"
     }
   }
 }
