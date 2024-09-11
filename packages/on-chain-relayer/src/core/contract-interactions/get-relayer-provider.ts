@@ -67,3 +67,7 @@ export const getRelayerProvider = () => {
 
   return cachedProvider;
 };
+
+export const clearCachedRelayerProvider = () => {
+  cachedProvider = undefined;
+};

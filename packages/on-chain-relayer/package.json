@@ -5,6 +5,7 @@
   "main": "dist/src/index.js",
   "license": "MIT",
   "scripts": {
+    "run-ts": "yarn global:ts-node",
     "build": "yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.build.json",
     "build-dev": "yarn clean && yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.json",
     "build-deps": "yarn --cwd ../rpc-providers build",
@@ -13,6 +14,7 @@
     "run-ts": "yarn global:ts-node",
     "start": "node dist/src/run-relayer.js",
     "start:dev": "yarn global:ts-node src/run-relayer.ts",
+    "run-manual-script": "yarn run-ts scripts/master-manual-script/index.ts",
     "compile": "hardhat compile",
     "lint": "yarn global:eslint . && yarn global:prettier --check relayer-manifests{,-multi-feed}/**/*.json",
     "lint:fix": "yarn global:eslint --fix . && yarn global:prettier --write relayer-manifests{,-multi-feed}/**/*.json",
