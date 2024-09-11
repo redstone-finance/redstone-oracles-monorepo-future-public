@@ -265,6 +265,14 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x8c9532a60E0E7C6BbD2B2c1303F63aCE1c3E9811",
       decimals: 18,
     },
+    SolvBTC: {
+      address: "0x7A56E1C57C7475CCf742a1832B028F0456652F97",
+      decimals: 18,
+    },
+    "SolvBTC.BBN": {
+      address: "0xd9D920AA40f578ab794426F5C90F6C731D159DEf",
+      decimals: 18,
+    },
   },
   blast: {
     ETH: {
@@ -392,6 +400,10 @@ export const chainTokenMap: ChainTokenMap = {
     "USD+": {
       address: "0xe80772Eaf6e2E18B651F160Bc9158b2A5caFCA65",
       decimals: 6,
+    },
+    SolvBTC: {
+      address: "0x3647c54c4c2C65bC7a2D63c0Da2809B399DBBDC0",
+      decimals: 18,
     },
   },
   avalanche: {
@@ -581,6 +593,14 @@ export const chainTokenMap: ChainTokenMap = {
     },
     "SolvBTC.ENA": {
       address: "0x53E63a31fD1077f949204b94F431bCaB98F72BCE",
+      decimals: 18,
+    },
+    SolvBTC: {
+      address: "0x4aae823a6a0b376De6A78e74eCC5b079d38cBCf7",
+      decimals: 18,
+    },
+    "SolvBTC.BBN": {
+      address: "0x1346b618dC92810EC74163e4c27004c921D446a5",
       decimals: 18,
     },
   },
