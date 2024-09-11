@@ -24,6 +24,15 @@
           "value": 1
         }
       }
+    },
+    "LBENCH": {
+      "source": ["lbench"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 100,
+          "maxDelayMilliseconds": 6000000
+        }
+      }
     }
   }
 }
