@@ -23,3 +23,7 @@ export const getTxDeliveryMan = (
     });
   return deliveryMan;
 };
+
+export const clearCachedTxDeliveryMan = () => {
+  deliveryMan = undefined;
+};
