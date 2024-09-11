@@ -1642,6 +1642,27 @@
         "curve-ethereum-usdt"
       ]
     },
+    "SolvBTC": {
+      "source": [
+        "dodoex-bnb-btcb",
+        "pancake-swap-bnb-btcb-500",
+        "sushiswap-v3-arbitrumone-wbtc-500",
+        "uniswap-v3-ethereum-wbtc-500"
+      ]
+    },
+    "SolvBTC/BTC": {
+      "source": ["non-usd-based"]
+    },
+    "SolvBTC.BBN": {
+      "source": [
+        "curve-ethereum-solvbtc",
+        "dodoex-bnb-solvbtc",
+        "dodoex-ethereum-solvbtc"
+      ]
+    },
+    "SolvBTC.BBN/BTC": {
+      "source": ["non-usd-based"]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
