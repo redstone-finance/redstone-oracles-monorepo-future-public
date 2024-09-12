@@ -2932,6 +2932,29 @@
     "SOUL": {},
     "APX": {},
     "GMM": {},
-    "LAZIO": {}
+    "LAZIO": {},
+    "LBTC_FUNDAMENTAL": {
+      "source": ["lbtc"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 10,
+          "maxDelayMilliseconds": 6000000
+        }
+      },
+      "valueCapConfig": {
+        "upper": {
+          "value": 1
+        }
+      }
+    },
+    "LBENCH": {
+      "source": ["lbench"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 100,
+          "maxDelayMilliseconds": 6000000
+        }
+      }
+    }
   }
 }
