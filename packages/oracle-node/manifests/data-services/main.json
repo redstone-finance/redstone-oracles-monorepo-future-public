@@ -1663,6 +1663,9 @@
     "SolvBTC.BBN/BTC": {
       "source": ["non-usd-based"]
     },
+    "SolvBTC.BBN_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-curve-rate-provider"]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
