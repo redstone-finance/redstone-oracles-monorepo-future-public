@@ -1354,6 +1354,9 @@
         }
       }
     },
+    "deUSD_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-elixir"]
+    },
     "BBUSD": {
       "source": ["bouncebit-evm-fetcher-bouncebit"]
     },
