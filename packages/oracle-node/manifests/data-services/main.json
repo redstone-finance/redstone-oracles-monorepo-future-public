@@ -1642,6 +1642,9 @@
         "curve-ethereum-usdt"
       ]
     },
+    "deUSD_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-elixir"]
+    },
     "SolvBTC": {
       "source": [
         "dodoex-bnb-btcb",
