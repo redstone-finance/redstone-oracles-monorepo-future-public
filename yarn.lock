@@ -8064,6 +8064,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-lbtc-peg-checker@workspace:packages/lambda-lbtc-peg-checker":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-lbtc-peg-checker@workspace:packages/lambda-lbtc-peg-checker"
+  dependencies:
+    "@redstone-finance/internal-utils": "npm:0.6.1"
+    "@redstone-finance/protocol": "npm:0.6.1"
+    "@redstone-finance/sdk": "npm:0.6.1"
+    "@redstone-finance/utils": "npm:0.6.1"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring"
