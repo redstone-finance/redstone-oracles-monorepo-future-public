@@ -43,6 +43,13 @@
         "deviationPercentage": 0.000001,
         "timeSinceLastUpdateInMilliseconds": 86400000
       }
+    },
+    "deUSD_FUNDAMENTAL": {
+      "priceFeedAddress": "0x5aBf4F05029147b3BB935408DEfBD84f28737c8D",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     }
   }
 }
