@@ -19,6 +19,9 @@ export interface SignedDataPackagePlainObj extends DataPackagePlainObj {
   signature: string; // base64-encoded joined signature
 }
 
+/**
+ * represents data package created by RedStone oracle-node and returned from DDL
+ */
 export class SignedDataPackage
   extends Serializable
   implements SignedDataPackageLike

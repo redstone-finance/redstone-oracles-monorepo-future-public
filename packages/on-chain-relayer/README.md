@@ -13,7 +13,7 @@ The complete documentation can be found [here](https://docs.redstone.finance/doc
 
 1. Install dependencies - `yarn`
 2. Compile contracts - `yarn compile`
-3. Deploy contracts - [script](./scripts/price-feeds/deploy-price-feed-contract.ts) by using `yarn run-script`
+3. Deploy contracts - [script](../contract-deployments/scripts/deploy-price-feed-contract.ts) by using `yarn run-script`
 4. Put correct data to [environment variables](https://docs.redstone.finance/docs/smart-contract-devs/get-started/redstone-classic#environment-variables)
 5. Compile code - `yarn build`
 6. Start on-chain relayer - `yarn start`
