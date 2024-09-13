@@ -37,6 +37,9 @@
     },
     "wstETH/stETH": {
       "priceFeedAddress": "0xa76dB2Cb356ba111cCB5a7Ca369D17E1592f42Dd"
+    },
+    "SolvBTC.BBN": {
+      "priceFeedAddress": "0xb81131B6368b3F0a83af09dB4E39Ac23DA96C2Db"
     }
   }
 }
