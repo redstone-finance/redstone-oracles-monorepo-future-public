@@ -1,23 +1,13 @@
 import {
-  redstoneOraclesInitialState,
-  RedstoneOraclesState,
-} from "@redstone-finance/oracles-smartweave-contracts";
-import {
   INumericDataPoint,
   RedstonePayload,
   SignedDataPackage,
   SignedDataPackagePlainObj,
 } from "@redstone-finance/protocol";
-import { resolveDataServiceUrls } from "./data-services-urls";
 import {
   DataPackagesRequestParams,
   requestDataPackages,
 } from "./request-data-packages";
-
-export const getOracleRegistryState =
-  async (): Promise<RedstoneOraclesState> => {
-    return await Promise.resolve(redstoneOraclesInitialState);
-  };
 
 export const getDecimalsForDataFeedId = (
   dataPackages: SignedDataPackagePlainObj[]
@@ -61,12 +51,6 @@ export const requestRedstonePayload = async (
   }
 };
 
-export default {
-  getOracleRegistryState,
-  requestRedstonePayload,
-  resolveDataServiceUrls,
-  getDecimalsForDataFeedId,
-};
 export * from "./contracts/ContractParamsProvider";
 export * from "./contracts/ContractParamsProviderMock";
 export * from "./contracts/IContractConnector";
@@ -76,6 +60,7 @@ export * from "./contracts/prices/sample-run";
 export * from "./data-feed-values";
 export * from "./data-services-urls";
 export * from "./fetch-data-packages";
+export * from "./oracle-registry";
 export * from "./request-data-packages";
 export * from "./simple-relayer/IPriceManagerContractAdapter";
 export * from "./simple-relayer/IPriceRoundsFeedContractAdapter";

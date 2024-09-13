@@ -1,4 +1,3 @@
-import { RedstoneOraclesState } from "@redstone-finance/oracles-smartweave-contracts";
 import {
   SignedDataPackage,
   SignedDataPackagePlainObj,
@@ -14,18 +13,54 @@ const GET_REQUEST_TIMEOUT = 5_000;
 const DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME = 500;
 const MILLISECONDS_IN_ONE_MINUTE = 60 * 1000;
 
+/**
+ * defines behavior of {@link requestDataPackages} method
+ */
 export interface DataPackagesRequestParams {
+  /**
+   * for production environment most of the time "redstone-primary-prod" is appropriate
+   */
   dataServiceId: string;
-  uniqueSignersCount: number;
-  waitForAllGatewaysTimeMs?: number;
-  maxTimestampDeviationMS?: number;
-  authorizedSigners?: string[];
+  /**
+   * array of tokens to fetch
+   */
   dataPackagesIds: string[];
+  /**
+   * ensure minimum number of signers for each token
+   * - 'uniqueSignersCount' packages closest to median of all fetched packages are returned (value 2 is recommended for prod nodes)
+   * - throws if there are less signers for any token
+   */
+  uniqueSignersCount: number;
+  /**
+   * wait for responses from all the gateways for this time, then wait for at least one response and return the newest fetched packages (does not apply if 'historicalTimestamp' is provided)
+   */
+  waitForAllGatewaysTimeMs?: number;
+  /**
+   * filter out old packages
+   */
+  maxTimestampDeviationMS?: number;
+  /**
+   * accept packages only from specific signers, by default do not filter by signers
+   */
+  authorizedSigners?: string[];
+  /**
+   * fetch from specific gateways, if not provided fetch from all publicly available gateways
+   */
   urls?: string[];
+  /**
+   * fetch packages from specific moment (unix timestamp in milliseconds), most of the time this value should be multiple of 10000 (10 sec)
+   * in this mode first response is returned to the user
+   */
   historicalTimestamp?: number;
+  /**
+   * do not throw error in case of missing or filtered-out token
+   */
   ignoreMissingFeed?: boolean;
 }
 
+/**
+ * represents per-feed response from DDL
+ */
 export interface DataPackagesResponse {
   [dataFeedId: string]: SignedDataPackage[] | undefined;
 }
@@ -63,18 +98,6 @@ const GwResponseSchema = z.record(
 );
 export type GwResponse = Partial<z.infer<typeof GwResponseSchema>>;
 
-export const getDataServiceIdForSigner = (
-  oracleState: RedstoneOraclesState,
-  signerAddress: string
-) => {
-  for (const nodeDetails of Object.values(oracleState.nodes)) {
-    if (nodeDetails.evmAddress.toLowerCase() === signerAddress.toLowerCase()) {
-      return nodeDetails.dataServiceId;
-    }
-  }
-  throw new Error(`Data service not found for ${signerAddress}`);
-};
-
 export const calculateHistoricalPackagesTimestamp = (
   deviationCheckOffsetInMinutes: number,
   baseTimestamp: number = Date.now()
@@ -92,6 +115,10 @@ export const calculateHistoricalPackagesTimestamp = (
   return undefined;
 };
 
+/**
+ * fetch data packages from RedStone DDL
+ * @param {DataPackagesRequestParams} reqParams fetch config
+ */
 export const requestDataPackages = async (
   reqParams: DataPackagesRequestParams
 ): Promise<DataPackagesResponse> => {
@@ -131,6 +158,10 @@ const getTheMostRecentDataPackages = (
       checkResults();
     }, waitForAllGatewaysTimeMs);
 
+    const responseTimestamp = (response: DataPackagesResponse) =>
+      Object.values(response).at(0)?.at(0)?.dataPackage.timestampMilliseconds ??
+      0;
+
     const checkResults = () => {
       if (errors.length === promises.length) {
         clearTimeout(timer);
@@ -139,15 +170,10 @@ const getTheMostRecentDataPackages = (
         collectedResponses.length + errors.length === promises.length ||
         (!waitForAll && collectedResponses.length !== 0)
       ) {
-        const newestPackage = collectedResponses.reduce((a, b) => {
-          const aTimestamp =
-            Object.values(a).at(0)?.at(0)?.dataPackage.timestampMilliseconds ??
-            0;
-          const bTimestamp =
-            Object.values(b).at(0)?.at(0)?.dataPackage.timestampMilliseconds ??
-            0;
-          return bTimestamp > aTimestamp ? b : a;
-        });
+        const newestPackage = collectedResponses.reduce(
+          (a, b) => (responseTimestamp(b) > responseTimestamp(a) ? b : a),
+          {}
+        );
 
         clearTimeout(timer);
         resolve(newestPackage);
