@@ -13,8 +13,8 @@ export interface MetadataPerSource {
   /** Info about slippage. Defined only for sources which supports calculating slippage. */
   slippage?: SlippageData[];
 
-  /** Defined only for sources which supports fetching liquidity. */
-  liquidity?: string;
+  /** Source depth only calculated if depth median aggregator is used. */
+  depth?: DepthData[];
 
   /** Defined for all sources. If source failed value will be = "error"  */
   value?: string;
@@ -27,6 +27,12 @@ export interface SlippageData {
   slippageAsPercent: string;
   direction: TradeDirections;
   simulationValueInUsd: string;
+}
+
+export interface DepthData {
+  percentage: number;
+  direction: TradeDirections;
+  valueInUsd: number;
 }
 
 export interface TradeData {
