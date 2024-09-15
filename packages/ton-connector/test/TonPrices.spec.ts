@@ -16,13 +16,13 @@ import {
   extractSandboxLogs,
 } from "./helpers/sandbox_helpers";
 import {
-  SIGNERS,
   expectUsdtPrice,
   getContractParamsProvider,
-  waitForNewData,
+  SIGNERS,
+  waitForNewPayload,
 } from "./helpers/test_helpers";
 
-jest.setTimeout(40000);
+jest.setTimeout(60000);
 
 describe("Ton Prices Tests", () => {
   let priceManagerCode: Cell;
@@ -118,21 +118,19 @@ describe("Ton Prices Tests", () => {
   });
 
   it("should write prices twice", async () => {
-    const { prices, timestamp } = await writeAndReadPricesAndTimestamp([
-      "BTC",
-      "ETH",
-    ]);
+    const { prices, timestamp, paramsProvider } =
+      await writeAndReadPricesAndTimestamp(["BTC", "ETH"]);
 
     expect(timestamp).toBeGreaterThan(0);
     expect(prices).not.toContain(0n);
 
-    await waitForNewData();
+    await waitForNewPayload(paramsProvider, timestamp, Number(prices[0]));
 
     const { prices: prices2, timestamp: timestamp2 } =
       await writeAndReadPricesAndTimestamp();
 
     expect(timestamp2).not.toBe(timestamp);
-    expect(prices2[0] != prices[0] || prices2[1] != prices[1]).toBeTruthy();
+    expect(prices).not.toStrictEqual(prices2);
 
     expect(prices2[2]).not.toBe(0n);
     expectUsdtPrice(prices2[3]);

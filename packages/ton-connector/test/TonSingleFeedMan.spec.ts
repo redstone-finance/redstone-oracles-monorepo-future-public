@@ -13,13 +13,13 @@ import {
   extractSandboxLogs,
 } from "./helpers/sandbox_helpers";
 import {
-  SIGNERS,
   expectUsdtPrice,
   getContractParamsProvider,
-  waitForNewData,
+  SIGNERS,
+  waitForNewPayload,
 } from "./helpers/test_helpers";
 
-jest.setTimeout(40000);
+jest.setTimeout(60000);
 
 describe("Ton Single Feed Man Tests", () => {
   let singleFeedManCode: Cell;
@@ -33,12 +33,16 @@ describe("Ton Single Feed Man Tests", () => {
   });
 
   beforeEach(async () => {
+    await initialize("USDT");
+  });
+
+  async function initialize(feedId: string) {
     const network = await createTestNetwork();
 
     singleFeedMan = await new TonSingleFeedManContractDeployer(
       network,
       singleFeedManCode,
-      new SingleFeedManInitData("USDT", 1, SIGNERS)
+      new SingleFeedManInitData(feedId, 1, SIGNERS)
     ).getAdapter();
 
     sampleConsumer = await new TonSampleConsumerContractDeployer(
@@ -46,7 +50,7 @@ describe("Ton Single Feed Man Tests", () => {
       sampleConsumerCode,
       new SampleConsumerInitData(singleFeedMan.contract.address.toString())
     ).getAdapter();
-  });
+  }
 
   it("should deploy & not set any initial data", async () => {
     const { price, timestamp } =
@@ -80,21 +84,20 @@ describe("Ton Single Feed Man Tests", () => {
   });
 
   it("should write prices twice", async () => {
-    const { price, timestamp } = await writeAndReadPriceAndTimestamp([
-      "USDT",
-      "ETH",
-    ]);
+    await initialize("ETH");
+    const { price, timestamp, paramsProvider } =
+      await writeAndReadPriceAndTimestamp(["ETH"]);
 
     expect(timestamp).toBeGreaterThan(0);
-    expectUsdtPrice(price);
 
-    await waitForNewData();
+    await waitForNewPayload(paramsProvider, timestamp, Number(price));
 
     const { price: price2, timestamp: timestamp2 } =
       await writeAndReadPriceAndTimestamp();
 
     expect(timestamp2).not.toBe(timestamp);
     expect(price2).not.toBe(price);
+    expect(price2).not.toBe(0);
   });
 
   async function writeAndReadPriceAndTimestamp(
