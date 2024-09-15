@@ -1,5 +1,8 @@
+import { loggerFactory } from "../logger";
 import { stringifyError } from "./errors";
 import { sleep } from "./time";
+
+const logger = loggerFactory("retry");
 
 export type RetryConfig<
   T extends (...args: unknown[]) => Promise<unknown> = (
@@ -58,3 +61,20 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
     throw error;
   };
 }
+
+export const waitForSuccess = async (
+  cond: () => Promise<boolean>,
+  count: number,
+  errorMessage: string,
+  sleepTimeMs = 5000
+) => {
+  let waitCounter = 0;
+  while (!(await cond())) {
+    if (++waitCounter < count) {
+      logger.log(`Waiting ${sleepTimeMs} [ms]...`);
+      await sleep(sleepTimeMs);
+    } else {
+      throw new Error(errorMessage);
+    }
+  }
+};

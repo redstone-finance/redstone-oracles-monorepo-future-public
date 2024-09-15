@@ -1,8 +1,12 @@
+import { RedstonePayload } from "@redstone-finance/protocol";
 import {
   ContractParamsProvider,
   ContractParamsProviderMock,
 } from "@redstone-finance/sdk";
-import { compile, sleep } from "@ton/blueprint";
+import { MathUtils, RedstoneCommon } from "@redstone-finance/utils";
+import { compile } from "@ton/blueprint";
+import { BigNumber } from "ethers";
+import { arrayify, hexlify } from "ethers/lib/utils";
 import * as fs from "fs";
 import path from "path";
 import { createTestNetwork } from "./sandbox_helpers";
@@ -57,9 +61,38 @@ export function expectUsdtPrice(price: bigint) {
   expect(Number(price)).toBeGreaterThanOrEqual(10 ** 8 * 0.98);
 }
 
-export async function waitForNewData() {
-  for (let i = 0; i < 6; i++) {
-    console.log(`waiting for new data... (${5 * (6 - i)} sec. to go)`);
-    await sleep(5000);
-  }
+export async function waitForNewPayload(
+  paramsProvider: ContractParamsProvider,
+  previousTimestamp: number,
+  previousMedian: number
+) {
+  await RedstoneCommon.sleep(5000);
+  await RedstoneCommon.waitForSuccess(
+    async () => {
+      const { median, timestamp } = getMedianAndTimestamp(
+        await paramsProvider.getPayloadHex(true)
+      );
+
+      console.log(
+        `${median} ${previousMedian} ${timestamp} ${previousTimestamp}`
+      );
+
+      return previousMedian !== median && previousTimestamp !== timestamp;
+    },
+    11,
+    "New data not found."
+  );
+}
+
+function getMedianAndTimestamp(payloadHex: string) {
+  const payload = RedstonePayload.parse(arrayify(payloadHex));
+
+  return {
+    median: MathUtils.getMedian(
+      payload.signedDataPackages[0].dataPackage.dataPoints.map((dp) =>
+        BigNumber.from(hexlify(dp.value)).toNumber()
+      )
+    ),
+    timestamp: payload.signedDataPackages[0].dataPackage.timestampMilliseconds,
+  };
 }

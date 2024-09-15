@@ -5,8 +5,8 @@ const config: Config.InitialOptions = {
   collectCoverageFrom: ["<rootDir>/src/**/*.(t|j)s"],
   coverageDirectory: "<rootDir>/coverage",
   coverageReporters: ["html"],
-  maxWorkers: 1, // to avoid problems with bigint serialization on error
   preset: "ts-jest",
+  setupFilesAfterEnv: ["./jest.setup-after-env.js"],
 };
 
 export default config;
