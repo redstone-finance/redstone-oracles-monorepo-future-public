@@ -199,15 +199,13 @@
         "balancer-ethereum-weth",
         "balancer-ethereum-weth-2",
         "balancer-ethereum-weth-3",
-        "curve-ethereum-crvusd",
         "maverick-ethereum-weth",
         "pancake-swap-ethereum-weth-100",
         "uniswap-v3-arbitrumone-weth-100",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-optimism-weth-100",
         "camelot-v3-arbitrumone-weth",
-        "balancer-arbitrumone-weth-2",
-        "velodrome-optimism-weth"
+        "balancer-arbitrumone-weth-2"
       ]
     },
     "wstETH/ETH": {
@@ -422,10 +420,8 @@
     },
     "pxETH": {
       "source": [
-        "balancer-ethereum-frxeth",
         "balancer-ethereum-weth",
         "curve-ethereum-steth-multi-block",
-        "curve-ethereum-frxeth",
         "curve-ethereum-weth",
         "uniswap-v3-ethereum-weth-100-multi-block",
         "pancake-swap-ethereum-weth-100"
@@ -439,6 +435,9 @@
     },
     "apxETH/ETH": {
       "source": ["non-usd-based"]
+    },
+    "eBTC/WBTC": {
+      "source": ["ethereum-evm-fetcher-etherfi-rate-provider"]
     },
     "ARB": {
       "source": [
@@ -455,7 +454,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-arbitrumone-weth-500",
         "uniswap-v3-arbitrumone-weth-3000"
@@ -676,7 +674,6 @@
         "coingecko",
         "coinmarketcap",
         "kraken-usd",
-        "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-ethereum-weth-3000",
         "uniswap-v3-ethereum-weth-500",
@@ -883,7 +880,13 @@
       "source": ["non-usd-based"]
     },
     "sDAI": {
-      "source": ["ethereum-evm-fetcher-savings-dai"]
+      "source": ["ethereum-evm-fetcher-savings-dai"],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
     },
     "NOTE": {
       "source": ["canto-canto-usdc", "canto-canto-usdt"],
@@ -1102,6 +1105,9 @@
     "ezETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-renzo"]
     },
+    "uniETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-bedrock"]
+    },
     "MERL": {
       "source": [
         "bitget-usdt",
@@ -1194,13 +1200,14 @@
     },
     "USD+": {
       "source": [
-        "aerodrome-base-eusd",
         "aerodrome-cl-base-usdc-100",
-        "aerodrome-cl-base-weth-400"
+        "aerodrome-cl-base-weth-400",
+        "aerodrome-cl-base-wsteth-2500",
+        "uniswap-v3-arbitrumone-usdt-100"
       ]
     },
     "SolvBTC_BNB": {
-      "source": ["dodoex-bnb-btcb"],
+      "source": ["dodoex-arbitrumone-wbtc", "dodoex-bnb-btcb"],
       "valueCapConfig": {
         "upper": {
           "token": "BTC"
@@ -1244,7 +1251,7 @@
       "source": ["flashbots-data-api", "beaconchain-api"]
     },
     "SolvBTC.ENA": {
-      "source": ["dodoex-bnb-solvbtc_bnb"],
+      "source": ["dodoex-arbitrumone-solvbtc_bnb", "dodoex-bnb-solvbtc_bnb"],
       "valueCapConfig": {
         "upper": {
           "token": "BTC"
@@ -1278,7 +1285,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "xt"
       ]
     },
@@ -1293,7 +1299,6 @@
         "gate-usdt",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "xt"
       ]
     },
@@ -1307,6 +1312,82 @@
         "xei-sei-wsei-100",
         "xei-sei-wsei-500"
       ]
+    },
+    "pzETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-renzo"]
+    },
+    "pzETH": {
+      "source": [
+        "curve-ethereum-ezeth",
+        "curve-ethereum-wsteth",
+        "uniswap-v3-ethereum-wsteth-100"
+      ]
+    },
+    "pzETH/ETH": {
+      "source": ["non-usd-based"]
+    },
+    "USD3": {
+      "source": [
+        "curve-ethereum-eusd",
+        "curve-ethereum-sdai",
+        "curve-ethereum-susde",
+        "curve-ethereum-usdm"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "deUSD": {
+      "source": [
+        "curve-ethereum-dai",
+        "curve-ethereum-usdc",
+        "curve-ethereum-usdt"
+      ],
+      "deviationCheck": {
+        "deviationWithRecentValues": {
+          "maxPercent": 5,
+          "maxDelayMilliseconds": 300000
+        }
+      }
+    },
+    "deUSD_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-elixir"]
+    },
+    "BBUSD": {
+      "source": ["bouncebit-evm-fetcher-bouncebit"]
+    },
+    "BBTC": {
+      "source": ["bouncebit-evm-fetcher-bouncebit"]
+    },
+    "CESR": {
+      "source": ["coindesk-cesr"]
+    },
+    "SolvBTC": {
+      "source": [
+        "dodoex-bnb-btcb",
+        "pancake-swap-bnb-btcb-500",
+        "sushiswap-v3-arbitrumone-wbtc-500",
+        "uniswap-v3-ethereum-wbtc-500"
+      ]
+    },
+    "SolvBTC/BTC": {
+      "source": ["non-usd-based"]
+    },
+    "SolvBTC.BBN": {
+      "source": [
+        "curve-ethereum-solvbtc",
+        "dodoex-bnb-solvbtc",
+        "dodoex-ethereum-solvbtc"
+      ]
+    },
+    "SolvBTC.BBN/BTC": {
+      "source": ["non-usd-based"]
+    },
+    "SolvBTC.BBN_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-curve-rate-provider"]
     }
   },
   "multiPointPackages": {
