@@ -4,7 +4,7 @@ import "solidity-coverage";
 import { hardhatNetworksConfig } from "./src/hardhat-network-configs";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.18",
+  solidity: "0.8.17",
   mocha: {
     timeout: 30_000,
   },
