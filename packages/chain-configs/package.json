@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/chain-configs",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "private": true,
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -19,9 +19,9 @@
     "test:rpc-urls": "yarn test --runInBand --config=jest.ci-config.ts test/chain-configs-rpc-urls.test.ts"
   },
   "dependencies": {
-    "@redstone-finance/evm-multicall": "0.6.1",
-    "@redstone-finance/internal-utils": "0.6.1",
-    "@redstone-finance/utils": "0.6.1",
+    "@redstone-finance/evm-multicall": "0.6.2",
+    "@redstone-finance/internal-utils": "0.6.2",
+    "@redstone-finance/utils": "0.6.2",
     "dayjs": "^1.11.12",
     "ethers": "^5.7.2",
     "lodash": "^4.17.21",
