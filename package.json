@@ -7,7 +7,7 @@
     "global:run-all": "yarn workspaces foreach -vv --all --topological-dev run",
     "global:run-all-parallel": "yarn workspaces foreach -vv --parallel --all --topological-dev run",
     "build:all": "yarn global:run-all build",
-    "build-dev:all": "yarn global:run-all build-dev",
+    "build-dev:all": "yarn global:run-all-parallel build-dev",
     "compile:all": "yarn global:run-all compile",
     "lint:all": "yarn global:run-all-parallel lint",
     "lint:fix:all": "yarn global:run-all-parallel lint:fix",
