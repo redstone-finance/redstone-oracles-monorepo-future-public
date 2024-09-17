@@ -12,7 +12,7 @@
     "build-dev": "yarn compile && yarn global:tsc --build tsconfig.json",
     "build-deps": "yarn --cwd ../chain-configs build",
     "compile": "yarn build-deps && hardhat compile",
-    "clean": "hardhat clean && rm -rf dist",
+    "clean": "rm -rf dist artifacts cache typechain-types",
     "preversion": "yarn build",
     "lint": "yarn global:eslint . && yarn global:prettier --check src/**/*.json",
     "lint:fix": "yarn global:eslint --fix . && yarn global:prettier --write src/**/*.json"
