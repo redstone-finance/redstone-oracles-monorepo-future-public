@@ -20,7 +20,7 @@
     "USDT": {
       "priceFeedAddress": "0xf57bA29437C130e155Ca4b65128630777638F05D"
     },
-    "SolvBTC_BNB": {
+    "SolvBTC": {
       "priceFeedAddress": "0xF5F641fF3c7E39876A76e77E84041C300DFa4550"
     },
     "wstETH/ETH": {
