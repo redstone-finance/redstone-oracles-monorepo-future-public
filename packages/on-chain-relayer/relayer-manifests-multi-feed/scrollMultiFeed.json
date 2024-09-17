@@ -23,7 +23,7 @@
     "ETH": {
       "priceFeedAddress": "0x1bB8f2dF000553E5Af2AEd5c42FEd3a73cd5144b"
     },
-    "SolvBTC_BNB": {
+    "SolvBTC": {
       "priceFeedAddress": "0x76A495b0bFfb53ef3F0E94ef0763e03cE410835C"
     },
     "weETH": {
