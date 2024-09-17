@@ -5,9 +5,10 @@
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
+    "clean": "rm -rf dist",
     "test": "yarn global:jest:cov",
-    "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "rm -rf dist && yarn global:tsc --build tsconfig.json",
+    "build": "yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn global:tsc --build tsconfig.json",
     "preversion": "yarn build",
     "lint": "yarn global:eslint .",
     "lint:fix": "yarn global:eslint --fix ."

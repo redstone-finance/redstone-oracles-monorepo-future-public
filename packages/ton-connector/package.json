@@ -6,9 +6,10 @@
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {
+    "clean": "rm -rf dist",
     "run-script": "npx blueprint run --testnet --mnemonic",
-    "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "rm -rf dist && yarn global:tsc --build tsconfig.json",
+    "build": "yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn global:tsc --build tsconfig.json",
     "compile-price-manager": "npx func-js contracts/price_manager.fc --boc contracts/price_manager.cell",
     "compile-price-feed": "npx func-js contracts/price_feed.fc --boc contracts/price_feed.cell",
     "compile-single-feed-man": "npx func-js contracts/single_feed_man.fc --boc contracts/single_feed_man.cell",

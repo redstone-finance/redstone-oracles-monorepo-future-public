@@ -6,8 +6,9 @@
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "rm -rf dist && yarn global:tsc --build tsconfig.json",
+    "clean": "rm -rf dist",
+    "build": "yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn global:tsc --build tsconfig.json",
     "sample-run": "yarn global:ts-node test/sample-run.ts",
     "preversion": "yarn build",
     "pack-package": "yarn build && cd dist && npm pack",

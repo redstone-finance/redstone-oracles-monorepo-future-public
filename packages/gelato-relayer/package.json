@@ -5,18 +5,18 @@
   "repository": "https://github.com/redstone-finance/redstone-oracles-monorepo",
   "private": true,
   "scripts": {
-    "clean": "rm -rf dist && rm -rf .tmp && rm -rf artifacts",
-    "build": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.json",
+    "clean": "rm -rf dist cache",
+    "build": "yarn compile && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn compile && yarn global:tsc --build tsconfig.json",
     "compile": "yarn compile-deps && hardhat compile",
     "compile-deps": "yarn --cwd ../on-chain-relayer compile && yarn --cwd ../rpc-providers build",
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix .",
+    "test": "hardhat test",
     "sample-contract-compile": "hardhat compile --force",
     "sample-contract-deploy": "hardhat deploy",
-    "test": "hardhat test",
     "w3f-run": "yarn build && hardhat w3f-run redstone --debug --logs",
-    "w3f-deploy": "yarn build && hardhat w3f-deploy redstone | tee /dev/tty | ts-node save-deploy-cid.ts",
-    "lint": "yarn global:eslint .",
-    "lint:fix": "yarn global:eslint --fix ."
+    "w3f-deploy": "yarn build && hardhat w3f-deploy redstone | tee /dev/tty | ts-node save-deploy-cid.ts"
   },
   "dependencies": {
     "@gelatonetwork/web3-functions-sdk": "^2.4.3",

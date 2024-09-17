@@ -8,12 +8,12 @@
   "scripts": {
     "run-ts": "yarn global:ts-node",
     "clean": "rm -rf dist",
-    "build": "yarn clean && yarn build-deps && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "yarn clean && yarn build-deps && yarn global:tsc --build tsconfig.json",
+    "build": "yarn build-deps && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn build-deps && yarn global:tsc --build tsconfig.json",
     "build-deps": "yarn --cwd ../evm-multicall build",
-    "preversion": "yarn build",
     "lint": "yarn global:eslint . && yarn global:prettier --check manifest/**/*.json",
     "lint:fix": "yarn global:eslint --fix . && yarn global:prettier --write manifest/**/*.json",
+    "preversion": "yarn build",
     "print": "yarn run-ts scripts/print-chains-configs.ts",
     "test": "yarn global:jest:cov",
     "test:rpc-urls": "yarn test --runInBand --config=jest.ci-config.ts test/chain-configs-rpc-urls.test.ts"

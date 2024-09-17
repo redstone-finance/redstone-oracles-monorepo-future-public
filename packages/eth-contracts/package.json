@@ -8,7 +8,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "test": "hardhat test",
-    "build": "yarn clean && yarn compile && yarn global:tsc --build",
+    "build": "yarn compile && yarn global:tsc --build",
     "compile": "hardhat compile"
   },
   "dependencies": {
