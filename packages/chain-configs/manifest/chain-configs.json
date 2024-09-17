@@ -141,7 +141,6 @@
       "chainId": 7700,
       "publicRpcUrls": [
         "https://canto.slingshot.finance",
-        "https://canto.gravitychain.io",
         "https://mainnode.plexnode.org:8545",
         "https://canto-rpc.ansybl.io"
       ],
@@ -360,7 +359,6 @@
       "chainId": 59144,
       "publicRpcUrls": [
         "https://linea.blockpi.network/v1/rpc/public",
-        "https://linea.decubate.com",
         "https://rpc.linea.build",
         "https://1rpc.io/linea"
       ],
