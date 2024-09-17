@@ -18,7 +18,7 @@ contract FluidMock is FluidRedstoneAdapterReader {
         getRedstoneExchangeRate(oracleAddress);
     }
 
-    function normalGetExchangesRate() external {
+    function normalGetExchangesRate() external view {
         oracle.getExchangeRate();
    }
 
