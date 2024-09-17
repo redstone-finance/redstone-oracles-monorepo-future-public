@@ -1,7 +1,11 @@
 import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
 import { RedstoneCommon } from "@redstone-finance/utils";
+import z from "zod";
 
-const AWS_REGION = process.env["AWS_REGION"];
+const AWS_REGION = RedstoneCommon.getFromEnv(
+  "AWS_REGION",
+  z.string().default("eu-west-1")
+);
 
 const lambdaClient = new LambdaClient({ region: AWS_REGION });
 
