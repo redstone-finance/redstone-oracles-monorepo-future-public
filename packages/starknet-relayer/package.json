@@ -5,8 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "rm -rf dist && yarn global:tsc --build tsconfig.json",
+    "clean": "rm -rf dist",
+    "build": "yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn global:tsc --build tsconfig.json",
     "start": "node dist/src/start-relayer.js",
     "start:dev": "yarn build && yarn global:ts-node src/start-relayer.ts",
     "get-prices": "yarn build && yarn global:ts-node src/scripts/get-prices.ts",

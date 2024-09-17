@@ -7,9 +7,9 @@
   "scripts": {
     "run-ts": "yarn global:ts-node",
     "build": "yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "yarn clean && yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.json",
+    "build-dev": "yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.json",
     "build-deps": "yarn --cwd ../rpc-providers build",
-    "clean": "hardhat clean && rm -rf dist",
+    "clean": "rm -rf dist artifacts cache typechain-types",
     "bundle": "ENTRYPOINT=src/run-relayer.ts yarn global:rollup -c ../../rollup.config.mjs",
     "start": "node dist/src/run-relayer.js",
     "start:dev": "yarn global:ts-node src/run-relayer.ts",

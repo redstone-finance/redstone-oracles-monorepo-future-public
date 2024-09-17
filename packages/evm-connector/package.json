@@ -5,18 +5,18 @@
   "main": "dist/src/index.js",
   "license": "MIT",
   "scripts": {
-    "test": "hardhat test",
     "clean": "rm -rf dist artifacts cache typechain-types",
     "build": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.build.json",
     "build-dev": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.json",
+    "compile": "hardhat compile",
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix .",
+    "test": "hardhat test",
     "build-esm": "yarn clean && yarn build && esbuild test-browser-compatibility/test-script.js --outfile=test-browser-compatibility/browser-bundle.js --format=esm --bundle=true",
     "run-in-browser": "yarn build-esm && http-server test-browser-compatibility",
     "test-browser-compatibility": "yarn build-esm && ts-node test-browser-compatibility.ts",
     "benchmark": "hardhat test benchmarks/run-benchmarks.ts",
-    "compile": "hardhat compile",
-    "preversion": "yarn build",
-    "lint": "yarn global:eslint .",
-    "lint:fix": "yarn global:eslint --fix ."
+    "preversion": "yarn build"
   },
   "dependencies": {
     "@chainlink/contracts": "^0.6.1",

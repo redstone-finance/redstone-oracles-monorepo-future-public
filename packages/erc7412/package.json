@@ -6,14 +6,14 @@
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf dist",
-    "compile": "hardhat compile",
-    "test": "NODE_ENV=test hardhat test",
-    "build": "yarn clean && yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "yarn clean && yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.json",
+    "build": "yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn compile && yarn build-deps && yarn global:tsc --build tsconfig.json",
     "build-deps": "yarn --cwd ../on-chain-relayer build",
-    "preversion": "yarn build",
+    "compile": "hardhat compile",
     "lint": "yarn global:eslint .",
-    "lint:fix": "yarn global:eslint --fix ."
+    "lint:fix": "yarn global:eslint --fix .",
+    "test": "NODE_ENV=test hardhat test",
+    "preversion": "yarn build"
   },
   "dependencies": {
     "@nomicfoundation/hardhat-viem": "^2.0.0",

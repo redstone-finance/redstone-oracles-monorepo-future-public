@@ -6,11 +6,12 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "rm -rf dist && yarn global:tsc --build tsconfig.json",
-    "preversion": "yarn build",
+    "clean": "rm -rf dist",
+    "build": "yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn global:tsc --build tsconfig.json",
     "lint": "yarn global:eslint .",
     "lint:fix": "yarn global:eslint --fix .",
+    "preversion": "yarn build",
     "push-config-json": "FILENAME=../../terraform/config/$KEY_NAME && yarn global:object-pushToBucket",
     "push-wallets-to-monitor-json": "BUCKET_NAME=redstone-configuration-eu-west-1 && KEY_NAME=wallets-to-monitor.json && yarn push-config-json"
   },
