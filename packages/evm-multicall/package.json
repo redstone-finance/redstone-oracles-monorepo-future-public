@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=test hardhat test",
-    "clean": "hardhat clean && rm -rf dist",
+    "clean": "rm -rf dist artifacts cache typechain-types",
     "build": "yarn compile && yarn global:tsc --build tsconfig.build.json",
     "build-dev": "yarn compile && yarn global:tsc --build tsconfig.json",
     "compile": "hardhat compile",

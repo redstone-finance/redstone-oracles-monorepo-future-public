@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "hardhat test",
-    "clean": "hardhat clean && rm -rf dist",
+    "clean": "rm -rf dist artifacts cache typechain-types",
     "build": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.build.json",
     "build-dev": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.json",
     "build-esm": "yarn clean && yarn build && esbuild test-browser-compatibility/test-script.js --outfile=test-browser-compatibility/browser-bundle.js --format=esm --bundle=true",
