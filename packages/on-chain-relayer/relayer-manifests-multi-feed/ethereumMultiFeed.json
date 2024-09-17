@@ -50,6 +50,13 @@
         "deviationPercentage": 0.2,
         "timeSinceLastUpdateInMilliseconds": 86400000
       }
+    },
+    "SolvBTC": {
+      "priceFeedAddress": "0x24c8964338Deb5204B096039147B8e8C3AEa42Cc",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 21600000
+      }
     }
   }
 }
