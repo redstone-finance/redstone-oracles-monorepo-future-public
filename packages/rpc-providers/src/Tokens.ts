@@ -521,6 +521,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452",
       decimals: 18,
     },
+    fBOMB: {
+      address: "0x74ccbe53F77b08632ce0CB91D3A545bF6B8E0979",
+      decimals: 18,
+    },
   },
   optimism: {
     USDC: {
@@ -569,6 +573,10 @@ export const chainTokenMap: ChainTokenMap = {
     },
     rETH: {
       address: "0x9bcef72be871e61ed4fbbc7630889bee758eb81d",
+      decimals: 18,
+    },
+    fBOMB: {
+      address: "0x74ccbe53F77b08632ce0CB91D3A545bF6B8E0979",
       decimals: 18,
     },
   },

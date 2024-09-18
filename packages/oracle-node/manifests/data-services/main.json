@@ -1658,6 +1658,13 @@
     "SolvBTC.BBN_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-curve-rate-provider"]
     },
+    "fBOMB": {
+      "source": [
+        "aerodrome-base-weth",
+        "aerodrome-base-wsteth",
+        "velodrome-optimism-wsteth"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },

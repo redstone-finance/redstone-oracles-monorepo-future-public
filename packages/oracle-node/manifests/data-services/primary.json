@@ -1385,6 +1385,13 @@
     "pumpBTC/BTC": {
       "source": ["fixed-value"],
       "fixedValue": 1
+    },
+    "fBOMB": {
+      "source": [
+        "aerodrome-base-weth",
+        "aerodrome-base-wsteth",
+        "velodrome-optimism-wsteth"
+      ]
     }
   },
   "multiPointPackages": {
