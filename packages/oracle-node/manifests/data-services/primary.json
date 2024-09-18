@@ -1381,6 +1381,10 @@
     },
     "SolvBTC.BBN_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-curve-rate-provider"]
+    },
+    "pumpBTC/BTC": {
+      "source": ["fixed-value"],
+      "fixedValue": 1
     }
   },
   "multiPointPackages": {
