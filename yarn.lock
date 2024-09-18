@@ -8232,7 +8232,6 @@ __metadata:
     "@redstone-finance/on-chain-relayer": "npm:0.6.2"
     "@redstone-finance/rpc-providers": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
-    axios: "npm:^1.6.2"
     ethers: "npm:^5.7.2"
     zod: "npm:^3.22.4"
   languageName: unknown
@@ -8246,11 +8245,9 @@ __metadata:
     "@redstone-finance/chain-configs": "npm:0.6.2"
     "@redstone-finance/internal-utils": "npm:0.6.2"
     "@redstone-finance/monitoring-manifests": "npm:0.6.2"
-    "@redstone-finance/on-chain-relayer": "npm:0.6.2"
     "@redstone-finance/rpc-providers": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
     "@types/aws-lambda": "npm:^8.10.128"
-    axios: "npm:^1.6.2"
     dotenv: "npm:^16.0.3"
     ethers: "npm:^5.7.2"
   languageName: unknown
@@ -8263,6 +8260,7 @@ __metadata:
     "@redstone-finance/internal-utils": "npm:0.6.2"
     "@redstone-finance/on-chain-relayer": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
+    axios: "npm:^1.6.2"
     lodash: "npm:^4.17.21"
     zod: "npm:^3.22.4"
   languageName: unknown
