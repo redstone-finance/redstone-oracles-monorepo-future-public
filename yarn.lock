@@ -8129,6 +8129,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-monitoring-relayers@workspace:packages/lambda-monitoring-relayers"
   dependencies:
+    "@redstone-finance/chain-configs": "npm:0.6.2"
     "@redstone-finance/monitoring-manifests": "npm:0.6.2"
     "@redstone-finance/redstone-monitoring": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
