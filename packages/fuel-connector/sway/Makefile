@@ -1,13 +1,17 @@
 
 DATA_NAME=fuel
-IS_LOCAL=1
+IS_LOCAL=0
+IS_MAINNET=1
 
 SALT=--salt 0x0000000000000000000000000000000000000000000000000000000000000012
 #SALT=--default-salt
 
 ifeq ($(IS_LOCAL), 0)
-#	SIGNING_KEY= # forc-wallet account 0
-	NODE_URL=--target testnet
+	ifeq ($(IS_MAINNET), 1)
+		NODE_URL=--node-url https://$(API_CREDENTIALS)mainnet.fuel.network/v1/graphql
+	else
+		NODE_URL=--target testnet
+	endif
 	GAS_PRICE=1
 else
 	SIGNING_KEY=--default-signer
@@ -87,8 +91,8 @@ init: format
 	forc run --path $(INITIALIZER) --release -r \
 	$(NODE_URL) \
 	--contract $(CONTRACT_ID) \
-	--gas-price 1 \
-	--max-fee 1000000000 \
+	--gas-price $(GAS_PRICE) \
+	--max-fee 1 \
 	$(SIGNING_KEY)
 
 
