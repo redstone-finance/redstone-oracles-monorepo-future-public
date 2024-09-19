@@ -14,26 +14,9 @@ export type {
 } from "../typechain-types";
 export { setConfigProvider } from "./config";
 export { getAbiForAdapter } from "./core/contract-interactions/get-abi-for-adapter";
-export { chooseDataPackagesTimestamp } from "./core/update-conditions/data-packages-timestamp";
 export { makeConfigProvider } from "./make-config-provider";
 export { getIterationArgs as getMultiFeedIterationArgs } from "./multi-feed/args/get-iteration-args";
 export { getIterationArgs as getPriceFeedsIterationArgs } from "./price-feeds/args/get-iteration-args";
-export {
-  AdapterTypesEnum,
-  AnyOnChainRelayerManifestSchema,
-  ChainSchema,
-  MultiFeedOnChainRelayerManifestSchema,
-  OnChainRelayerManifestSchema,
-  UpdateTriggersSchema,
-  type AdapterType,
-  type AnyOnChainRelayerManifest,
-  type CommonRelayerManifest,
-  type MultiFeedOnChainRelayerManifest,
-  type MultiFeedOnChainRelayerManifestInput,
-  type OnChainRelayerManifest,
-  type OnChainRelayerManifestInput,
-  type UpdateTriggers,
-} from "./schemas";
 export {
   type ConfigProvider,
   type OnChainRelayerEnv,

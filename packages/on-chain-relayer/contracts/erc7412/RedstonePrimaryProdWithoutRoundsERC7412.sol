@@ -18,7 +18,7 @@ import {MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd} from '../price-fee
     uint256 constant MAX_DATA_DELAY_SECONDS = 120;
 
     function getTTL() view internal virtual returns (uint256);
-   
+
     function oracleId() pure external returns (bytes32) {
         return ORACLE_ID;
     }

@@ -5,11 +5,11 @@ import {
   getMultiFeedIterationArgs,
   makeConfigProvider,
   MultiFeedAdapterWithoutRounds,
-  MultiFeedOnChainRelayerManifest,
   OnChainRelayerEnv,
   setConfigProvider,
   UpdatePricesArgs,
 } from "@redstone-finance/on-chain-relayer";
+import type { MultiFeedOnChainRelayerManifest } from "@redstone-finance/on-chain-relayer-common";
 import { Contract, providers, utils } from "ethers";
 import {
   IterationArgs,

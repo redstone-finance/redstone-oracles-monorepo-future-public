@@ -1,4 +1,4 @@
-import { DataPackagesResponse } from "@redstone-finance/sdk";
+import { chooseDataPackagesTimestamp } from "@redstone-finance/sdk";
 import { Context } from "../../types";
 
 export const checkIfDataPackageTimestampIsNewer = (
@@ -25,20 +25,4 @@ export const checkIfDataPackageTimestampIsNewer = (
   }
 
   return { shouldNotUpdatePrice: false };
-};
-
-export const chooseDataPackagesTimestamp = (
-  dataPackages: DataPackagesResponse,
-  dataFeedId?: string
-) => {
-  const dataPackageTimestamps = dataFeedId
-    ? dataPackages[dataFeedId]!.flatMap(
-        (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
-      )
-    : Object.values(dataPackages).flatMap((dataPackages) =>
-        dataPackages!.map(
-          (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
-        )
-      );
-  return Math.min(...dataPackageTimestamps);
 };

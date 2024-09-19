@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf dist artifacts cache typechain-types",
-    "build": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "yarn clean && yarn compile && yarn global:tsc --build tsconfig.json",
+    "build": "yarn compile && yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn compile && yarn global:tsc --build tsconfig.json",
     "compile": "hardhat compile",
     "lint": "yarn global:eslint .",
     "lint:fix": "yarn global:eslint --fix .",

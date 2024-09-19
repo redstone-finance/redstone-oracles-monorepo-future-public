@@ -1,7 +1,7 @@
 import { getSSMParameterValue } from "@redstone-finance/internal-utils";
+import { AdapterType } from "@redstone-finance/on-chain-relayer-common";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { z } from "zod";
-import { AdapterType } from "../../src";
 import { setConfigProvider } from "../../src/config";
 import { clearCachedRelayerProvider } from "../../src/core/contract-interactions/get-relayer-provider";
 import { clearCachedTxDeliveryMan } from "../../src/core/TxDeliveryManSingleton";
