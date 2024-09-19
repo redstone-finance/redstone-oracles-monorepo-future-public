@@ -1,16 +1,16 @@
 import { Web3FunctionUserArgs } from "@gelatonetwork/web3-functions-sdk";
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
-  chooseDataPackagesTimestamp,
   getAbiForAdapter,
   getPriceFeedsIterationArgs,
   makeConfigProvider,
   OnChainRelayerEnv,
-  OnChainRelayerManifest,
   RedstoneAdapterBase,
   setConfigProvider,
   UpdatePricesArgs,
 } from "@redstone-finance/on-chain-relayer";
+import type { OnChainRelayerManifest } from "@redstone-finance/on-chain-relayer-common";
+import { chooseDataPackagesTimestamp } from "@redstone-finance/sdk";
 import { Contract, providers } from "ethers";
 import {
   IterationArgs,

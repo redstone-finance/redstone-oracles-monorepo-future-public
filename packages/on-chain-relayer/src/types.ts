@@ -1,7 +1,10 @@
+import {
+  AdapterType,
+  UpdateTriggers,
+} from "@redstone-finance/on-chain-relayer-common";
 import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { BigNumber, Contract } from "ethers";
 import { MultiFeedAdapterWithoutRounds } from "../typechain-types";
-import { AdapterType, UpdateTriggers } from "./schemas";
 
 export type LastRoundDetails = {
   lastDataPackageTimestampMS: number;

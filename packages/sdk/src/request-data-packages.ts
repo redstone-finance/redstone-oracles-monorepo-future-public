@@ -364,3 +364,19 @@ const getUrlsForDataServiceId = (
   }
   return resolveDataServiceUrls(reqParams.dataServiceId);
 };
+
+export const chooseDataPackagesTimestamp = (
+  dataPackages: DataPackagesResponse,
+  dataFeedId?: string
+) => {
+  const dataPackageTimestamps = dataFeedId
+    ? dataPackages[dataFeedId]!.flatMap(
+        (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
+      )
+    : Object.values(dataPackages).flatMap((dataPackages) =>
+        dataPackages!.map(
+          (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
+        )
+      );
+  return Math.min(...dataPackageTimestamps);
+};

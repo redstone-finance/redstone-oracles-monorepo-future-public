@@ -1,6 +1,6 @@
+import { OnChainRelayerManifest } from "@redstone-finance/on-chain-relayer-common";
 import { promises, readdirSync } from "fs";
 import path from "path";
-import { OnChainRelayerManifest } from "../src";
 
 async function main() {
   const dir = readdirSync("./relayer-manifests");

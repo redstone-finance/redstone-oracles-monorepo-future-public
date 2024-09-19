@@ -26,6 +26,9 @@
     },
     {
       "path": "../chain-configs/tsconfig.build.json"
+    },
+    {
+      "path": "../on-chain-relayer-common/tsconfig.build.json"
     }
   ]
 }

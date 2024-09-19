@@ -1,9 +1,9 @@
+import { OnChainRelayerEnv } from "@redstone-finance/on-chain-relayer";
 import {
   AnyOnChainRelayerManifestSchema,
   MultiFeedOnChainRelayerManifest,
-  OnChainRelayerEnv,
   OnChainRelayerManifest,
-} from "@redstone-finance/on-chain-relayer";
+} from "@redstone-finance/on-chain-relayer-common";
 import axios from "axios";
 import { IterationArgsProviderEnv } from "../IterationArgsProviderInterface";
 import { IterationArgsProvider } from "./IterationArgsProvider";

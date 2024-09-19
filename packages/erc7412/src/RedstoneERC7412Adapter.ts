@@ -1,10 +1,12 @@
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
-import { chooseDataPackagesTimestamp } from "@redstone-finance/on-chain-relayer";
 import {
   DataServiceIds,
   getSignersForDataServiceId,
 } from "@redstone-finance/oracles-smartweave-contracts";
-import { requestDataPackages } from "@redstone-finance/sdk";
+import {
+  chooseDataPackagesTimestamp,
+  requestDataPackages,
+} from "@redstone-finance/sdk";
 import { Adapter } from "erc7412";
 import * as viem from "viem";
 

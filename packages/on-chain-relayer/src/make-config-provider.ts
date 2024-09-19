@@ -3,7 +3,7 @@ import {
   MultiFeedOnChainRelayerManifest,
   OnChainRelayerManifest,
   UpdateTriggers,
-} from "./schemas";
+} from "@redstone-finance/on-chain-relayer-common";
 import { ConditionCheckNames, OnChainRelayerEnv, RelayerConfig } from "./types";
 
 export const MS_IN_ONE_MINUTE = 60000;

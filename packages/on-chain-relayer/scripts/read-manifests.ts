@@ -1,13 +1,13 @@
-import * as fs from "fs";
-import * as path from "path";
 import {
+  CommonManifestSchema,
   CommonRelayerManifest,
   MultiFeedOnChainRelayerManifest,
   MultiFeedOnChainRelayerManifestSchema,
   OnChainRelayerManifest,
   OnChainRelayerManifestSchema,
-} from "../src";
-import { CommonManifestSchema } from "../src/schemas";
+} from "@redstone-finance/on-chain-relayer-common";
+import * as fs from "fs";
+import * as path from "path";
 
 const removeFileExtension = (fileName: string): string => {
   return path.basename(fileName, path.extname(fileName));

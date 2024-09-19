@@ -15,9 +15,9 @@ import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-in
 import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
 
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
+import { chooseDataPackagesTimestamp } from "@redstone-finance/sdk";
 import { getSortedOraclesContractAtAddress } from "../../custom-integrations/mento/get-sorted-oracles-contract-at-address";
 import { UpdatePricesArgs } from "../../types";
-import { chooseDataPackagesTimestamp } from "../update-conditions/data-packages-timestamp";
 
 const logger = loggerFactory("updatePrices");
 

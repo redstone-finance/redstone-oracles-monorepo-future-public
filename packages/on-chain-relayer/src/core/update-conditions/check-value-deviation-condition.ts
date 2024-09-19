@@ -1,9 +1,11 @@
 import { consts, INumericDataPoint } from "@redstone-finance/protocol";
-import { DataPackagesResponse } from "@redstone-finance/sdk";
+import {
+  chooseDataPackagesTimestamp,
+  DataPackagesResponse,
+} from "@redstone-finance/sdk";
 import { MathUtils } from "@redstone-finance/utils";
 import { BigNumber, utils } from "ethers";
 import { RelayerConfig } from "../../types";
-import { chooseDataPackagesTimestamp } from "./data-packages-timestamp";
 
 const getDataPointsForDataFeedId = (
   dataPackages: DataPackagesResponse,

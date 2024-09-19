@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.12;
 
-import {RedstonePrimaryProdWithoutRoundsERC7412} from '../RedstoneERC7412.sol'; 
+import {RedstonePrimaryProdWithoutRoundsERC7412} from '../RedstoneERC7412.sol';
 
 contract BTCFeed is RedstonePrimaryProdWithoutRoundsERC7412 {
 
