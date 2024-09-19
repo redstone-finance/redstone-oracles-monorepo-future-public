@@ -15,7 +15,7 @@ describe("Validate chain config rpc urls", function () {
   jest.setTimeout(45_000);
   for (const [name, config] of Object.entries(ChainConfigs)) {
     for (const rpcUrl of config.publicRpcUrls) {
-      if (rpcUrl.includes("localhost")) {
+      if (rpcUrl.includes("localhost") || config.disabled) {
         continue;
       }
 
