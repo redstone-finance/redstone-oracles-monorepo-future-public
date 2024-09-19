@@ -23,6 +23,10 @@ export async function fetchInfluxConfig(): Promise<InfluxConfig> {
   };
 }
 
+/**
+ * @deprecated This method is deprecated.
+ * Please define an InfluxService-class instance and use "insert" method.
+ */
 export async function insertIntoInfluxDb(
   influx: InfluxDB,
   requestData: Point[]
