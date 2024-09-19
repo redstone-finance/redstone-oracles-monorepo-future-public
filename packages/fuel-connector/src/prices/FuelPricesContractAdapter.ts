@@ -12,7 +12,7 @@ import { FuelPricesContract } from "./FuelPricesContractConnector";
 export class FuelPricesContractAdapter implements IPricesContractAdapter {
   constructor(
     public contract: FuelPricesContract,
-    private gasLimit: number
+    private defaultGasLimit: number
   ) {}
 
   async getPricesFromPayload(
@@ -76,7 +76,7 @@ export class FuelPricesContractAdapter implements IPricesContractAdapter {
   ): Promise<FunctionResult<TReturn>> {
     const { waitForResult } = await functionInvocationScope
       .txParams({
-        gasLimit: gasLimit ?? this.gasLimit,
+        gasLimit,
       })
       .call();
 
@@ -87,11 +87,7 @@ export class FuelPricesContractAdapter implements IPricesContractAdapter {
     return result.value.map((num) => BigInt(num.toString("hex")));
   }
 
-  private getGasLimit(dataFeedIdCount: number, uniqueSignersCount: number) {
-    return (
-      dataFeedIdCount * uniqueSignersCount * 70000 +
-      100000 * dataFeedIdCount +
-      60000
-    );
+  protected getGasLimit(_dataFeedIdCount: number, _uniqueSignersCount: number) {
+    return undefined; // maximum available; to be overridden if needed
   }
 }
