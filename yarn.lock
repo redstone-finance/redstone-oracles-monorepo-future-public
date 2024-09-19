@@ -7764,6 +7764,7 @@ __metadata:
     arweave: "npm:^1.14.4"
     axios: "npm:^1.6.2"
     bybit-api: "npm:^3.10.18"
+    cron-parser: "npm:^4.8.1"
     dateformat: "npm:^4.5.1"
     decimal.js: "npm:^10.4.3"
     deep-sort-object: "npm:^1.0.2"
