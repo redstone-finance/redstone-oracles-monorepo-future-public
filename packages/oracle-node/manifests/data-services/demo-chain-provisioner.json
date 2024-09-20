@@ -459,14 +459,6 @@
         "aerodrome-cl-base-usdc-100",
         "aerodrome-cl-base-weth-400"
       ]
-    },
-    "SolvBTC_BNB": {
-      "source": ["pancake-swap-bnb-btcb-500", "thena-bnb-btcb"],
-      "valueCapConfig": {
-        "upper": {
-          "token": "BTC"
-        }
-      }
     }
   }
 }

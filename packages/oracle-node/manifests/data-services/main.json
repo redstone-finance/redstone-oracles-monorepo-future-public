@@ -1486,22 +1486,8 @@
         "uniswap-v3-arbitrumone-usdt-100"
       ]
     },
-    "SolvBTC_BNB": {
-      "source": ["dodoex-arbitrumone-wbtc", "dodoex-bnb-btcb"]
-    },
-    "SolvBTC_BNB/BTC": {
-      "source": ["non-usd-based"],
-      "valueCapConfig": {
-        "upper": {
-          "value": 1
-        }
-      }
-    },
-    "SolvBTC_BNB/BTC-TWAP-60": {
-      "source": ["twap-local-redstone-primary-prod"]
-    },
     "SolvBTC.ENA": {
-      "source": ["dodoex-arbitrumone-solvbtc_bnb", "dodoex-bnb-solvbtc_bnb"],
+      "source": ["dodoex-bnb-solvbtc", "pancake-swap-arbitrumone-solvbtc-500"],
       "valueCapConfig": {
         "upper": {
           "token": "BTC"
