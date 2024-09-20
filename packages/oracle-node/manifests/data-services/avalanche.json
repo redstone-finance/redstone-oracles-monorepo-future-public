@@ -74,7 +74,6 @@
         "kaiko-v2",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt"
       ]
     },
@@ -94,7 +93,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-ethereum-weth-3000",
         "xt"
@@ -193,7 +191,7 @@
         "coinmarketcap",
         "gate-usdt",
         "kucoin-usdt",
-        "mexc-usdt"
+        "bybit-usdt"
       ]
     },
     "GMX": {
@@ -207,7 +205,6 @@
         "gate-usdt",
         "kraken-usd",
         "kucoin-usdt",
-        "mexc-usdt",
         "okx-usdt"
       ]
     },
@@ -222,7 +219,6 @@
         "coingecko",
         "coinmarketcap",
         "gate-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "trader-joe-v1-avalanche-wavax",
         "trader-joe-v2-avalanche-wavax",
@@ -238,7 +234,6 @@
         "coingecko",
         "kraken-usd",
         "curve-ethereum-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "xt"
       ],
@@ -312,7 +307,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "xt"
       ]
@@ -368,7 +362,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "xt"
       ]
