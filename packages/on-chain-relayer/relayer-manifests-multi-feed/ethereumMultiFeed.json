@@ -57,6 +57,9 @@
         "deviationPercentage": 0.5,
         "timeSinceLastUpdateInMilliseconds": 21600000
       }
+    },
+    "pumpBTC/BTC": {
+      "priceFeedAddress": "0x85C4F855Bc0609D2584405819EdAEa3aDAbfE97D"
     }
   }
 }
