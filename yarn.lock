@@ -8196,6 +8196,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-node-price-deviation-monitoring@workspace:packages/lambda-node-price-deviation-monitoring":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-node-price-deviation-monitoring@workspace:packages/lambda-node-price-deviation-monitoring"
+  dependencies:
+    "@aws-sdk/client-lambda": "npm:^3.485.0"
+    "@redstone-finance/internal-utils": "npm:0.6.2"
+    "@redstone-finance/monitoring-manifests": "npm:0.6.2"
+    "@redstone-finance/sdk": "npm:0.6.2"
+    "@redstone-finance/utils": "npm:0.6.2"
+    aws-lambda: "npm:^1.0.7"
+    dotenv: "npm:^16.0.3"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests"
