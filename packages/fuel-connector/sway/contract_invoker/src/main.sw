@@ -3,7 +3,7 @@ script;
 use std::{bytes::Bytes, logging::log, tx::{tx_script_data, tx_script_data_length,},};
 
 configurable {
-    CONTRACT_ID: b256 = 0x92964ec694dee751d40ed6e2414b553a2cddd90d39607a71d46d97ae8b264a36,
+    CONTRACT_ID: b256 = 0x9b520b12d9327d26000eaaeb03de73a84ac37d509ac1cb844ea79c34d2f56b5f,
 }
 
 abi Prices {
