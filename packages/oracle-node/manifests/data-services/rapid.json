@@ -163,7 +163,6 @@
         "bitrue-usdt",
         "bybit-usdt",
         "gate-usdt",
-        "mexc-usdt",
         "kucoin-usdt",
         "okx-usdt",
         "coingecko",
@@ -223,7 +222,6 @@
         "kaiko-v2",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt"
       ]
     },
@@ -258,7 +256,6 @@
         "coingecko",
         "kraken-usd",
         "curve-ethereum-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "xt"
       ]

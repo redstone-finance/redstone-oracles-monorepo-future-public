@@ -142,7 +142,6 @@
         "gate-usdt",
         "kraken-usd",
         "kucoin-usdt",
-        "mexc-usdt",
         "okx-usdt"
       ]
     },
@@ -155,7 +154,6 @@
         "coingecko",
         "curve-ethereum-usdt",
         "kraken-usd",
-        "mexc-usdt",
         "okx-usdt",
         "xt"
       ],
@@ -236,7 +234,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-ethereum-weth-3000",
         "xt"
@@ -318,7 +315,6 @@
         "kaiko-v2",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt"
       ]
     },
@@ -330,7 +326,6 @@
         "coingecko",
         "coinmarketcap",
         "gate-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "trader-joe-v1-avalanche-wavax",
         "trader-joe-v2-avalanche-wavax",
@@ -352,7 +347,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "xt"
       ]
@@ -384,7 +378,7 @@
       "source": ["arbitrum-evm-fetcher-level-finance"]
     },
     "LVL": {
-      "source": ["coingecko", "coinmarketcap", "mexc-usdt"]
+      "source": ["coingecko", "coinmarketcap"]
     },
     "MAGIC": {
       "source": [
@@ -398,7 +392,6 @@
         "coinmarketcap",
         "gate-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-arbitrumone-weth-3000",
         "xt"
@@ -411,8 +404,7 @@
         "bitmart-usdt",
         "coingecko",
         "coinmarketcap",
-        "gate-usdt",
-        "mexc-usdt"
+        "gate-usdt"
       ]
     },
     "STG": {
@@ -429,7 +421,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "xt"
       ]
     },
@@ -446,7 +437,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt"
       ]
     },
@@ -472,7 +462,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "xt"
       ]
@@ -560,7 +549,6 @@
         "gate-usdt",
         "kraken-usd",
         "kucoin-usdt",
-        "mexc-usdt",
         "okx-usdt"
       ]
     },
@@ -647,7 +635,6 @@
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "mexc-usdt",
         "okx-usdt",
         "uniswap-v3-ethereum-weth-3000",
         "xt"
@@ -726,7 +713,6 @@
         "okx-usdt",
         "kraken-usd",
         "kucoin-usdt",
-        "mexc-usdt",
         "xt"
       ]
     },
