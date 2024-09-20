@@ -2,7 +2,7 @@ import { requestRedstonePayload } from "../../src";
 
 const DATA_SERVICE_ID = "redstone-avalanche-prod";
 const DATA_FEEDS = ["ETH", "BTC"];
-const UNIQUE_SIGNER_COUNT = 3;
+const UNIQUE_SIGNER_COUNT = 2;
 
 const scriptArgs = process.argv.slice(2);
 

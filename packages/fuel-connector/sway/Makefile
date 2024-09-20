@@ -1,9 +1,9 @@
 
 DATA_NAME=fuel
-IS_LOCAL=0
+IS_LOCAL=1
 IS_MAINNET=1
 
-SALT=--salt 0x0000000000000000000000000000000000000000000000000000000000000012
+SALT=--salt 0x0000000000000000000000000000000000000000000000000000000000000002
 #SALT=--default-salt
 
 ifeq ($(IS_LOCAL), 0)
@@ -22,18 +22,28 @@ endif
 SUFFIX=#_core
 DEMO=demo
 CONTRACT=contract$(SUFFIX)
+INVOKER=contract_invoker
+INITIALIZER=contract_initializer
+
+ifeq ($(SUFFIX),_core)
+  INVOKER=contract_invoker$(SUFFIX)
+endif
+
+ifeq ($(SUFFIX),_adapter)
+  INITIALIZER=contract_initializer$(SUFFIX)
+endif
+
+DEMO=demo
 CONTRACT_PRICES=contract
 CONTRACT_CORE=contract_core
-INVOKER=contract_invoker$(SUFFIX)
-INITIALIZER=contract_initializer
+CONTRACT_ADAPTER=contract_adapter
 LIBRARY=redstone-fuel-sdk
 DATA_GENERATOR=../../../packages/sdk/scripts/payload-generator
 DATA_DIR=$(DATA_GENERATOR)/data
 CONTRACT_ID_FILE=./$(CONTRACT)/CONTRACT_ID
 CONTRACT_ID=$(shell cat $(CONTRACT_ID_FILE))
 TEST_DIRS = $(LIBRARY) $(CONTRACT) $(CONTRACT_PRICES) $(CONTRACT_CORE)
-DIRS = $(TEST_DIRS) $(INVOKER) $(INITIALIZER) $(DEMO) $(CONTRACT_PRICES) $(CONTRACT_CORE)
-
+DIRS = $(TEST_DIRS) $(INVOKER) $(INITIALIZER) $(DEMO) $(CONTRACT_ADAPTER) $(CONTRACT_PRICES) $(CONTRACT_CORE) 
 
 define run_in_dirs
     for dir in $(1); do \
@@ -60,6 +70,7 @@ run: format
 invoke: format
 	forc run --path $(INVOKER) -r \
 	--data $(shell cat $(DATA_DIR)/$(DATA_NAME).hex) \
+	--script-gas-limit 25000000 \
 	$(NODE_URL) \
 	--contract $(CONTRACT_ID) \
 	--gas-price $(GAS_PRICE) $(SIGNING_KEY) 
@@ -70,6 +81,7 @@ contract: format
 
 # make SIGNING_KEY=5b4 invoke
 perform_deploy: format
+	@forc deploy --version
 	forc deploy --path $(CONTRACT) --terse \
 	$(SALT) \
 	$(NODE_URL) \
