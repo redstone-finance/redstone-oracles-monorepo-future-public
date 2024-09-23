@@ -1,19 +1,17 @@
 # RedStone oracles integration with Starknet
 
 <!-- TOC -->
-
-- [RedStone oracles integration with Starknet](#redstone-oracles-integration-with-starknet)
-  - [💡 How RedStone oracles work with Starknet](#-how-redstone-oracles-work-with-starknet)
+-[RedStone oracles integration with Starknet](#redstone-oracles-integration-with-starknet)
+- [💡 How RedStone oracles work with Starknet](#-how-redstone-oracles-work-with-starknet)
   - [📄 Smart Contracts](#-smart-contracts)
     - [Price adapter](#price-adapter)
-      - [⨐ constructor](#-constructor)
-      - [⨗ get_prices](#-get_prices)
-      - [⨒ write_prices](#-write_prices)
-      - [⨗ read_prices](#-read_prices)
-      - [∮ read_timestamp](#-read_timestamp)
+    - [⨐ constructor](#-constructor)
+      -[⨗ get_prices](#-get_prices)
+      -[⨒ write_prices](#-write_prices)
+      -[⨗ read_prices](#-read_prices)
+      -[∮ read_timestamp](#-read_timestamp)
   - [⚠ Possible transaction failures](#-possible-transaction-failures)
   - [🙋‍Contact](#contact)
-
 <!-- TOC -->
 
 ## 💡 How RedStone oracles work with Starknet
@@ -25,7 +23,7 @@ cache gateways and streamr data broadcasting protocol. Data is transferred to th
 attach signed data packages to their function invocations. The information integrity is verified on-chain through
 signature checking.
 
-To learn more about RedStone oracles design, go to the [RedStone docs](https://docs.redstone.finance/docs/introduction)
+To learn more about _RedStone Oracles_ design, go to the [RedStone docs](https://docs.redstone.finance/docs/introduction)
 
 ## 📄 Smart Contracts
 
@@ -44,7 +42,7 @@ fn constructor(
 )
 ```
 
-As mentioned above, the data packages transferred to the contract are being verified by signature checking.
+As mentioned above, signature checking is verifying the data packages transferred to the contract.
 To be counted to achieve the `signer_count_threshold`, the signer signing the passed data
 should be one of the `signer_addresses` passed in the constructor.
 There is also needed `signer_count_threshold` to be passed.
@@ -61,13 +59,13 @@ a number consisting of hex-values of the particular letters in the string. For e
 as `256*256*ord('E')+256*ord('T')+ord('H')`.
 <br />
 
-📟 You can use: `feed_id = hexlify(toUtf8Bytes(feed_string)))` to convert particular values or
+📟 You can use: `feed_id = hexlify(toUtf8Bytes(feed_string))` to convert particular values or
 the https://cairo-utils-web.vercel.app/ endpoint<br />
 📟 You can also use: https://cairo-utils-web.vercel.app/ to convert particular values. <br />
 
 The value `payload_data` is passed as an array of bytes representing the packed RedStone payload.
 <br />
-📚 See RedStone data-packing: https://docs.redstone.finance/docs/smart-contract-devs/how-it-works
+📚 See RedStone data-packing: https://docs.redstone.finance/img/payload.png
 
 #### ⨗ get_prices
 
@@ -89,12 +87,10 @@ That's just a @view function—it doesn't consume GAS or modify the contract's s
 fn write_prices(ref self: ContractState, feed_ids: Array<felt252>, payload_bytes: Array<u8>) {
 ```
 
-Regardless of the on-fly processing, there also exists a function for processing the `payload_data` on-chain, but
-saving/writing the aggregated values to the contract's storage instead of returning them as an array directly.
+Besides on-the-fly processing, there is also a function that processes the `payload` on-chain.
+This function saves the aggregated values to the contract's storage.
 The values persist in the contract's storage and then can be read by using [`read_prices`](#-read_prices) functions.
-The timestamp of data last saved/written to the contract is able to read by using
-the [`read_timestamp`](#-read_timestamp)
-function.
+The timestamp of the last saved data can be retrieved using the [`read_timestamp`](#-read_timestamp) function.
 The function modifies the storage and consumes GAS.
 
 📖 See how it works on: https://starknet-showroom.redstone.finance/
