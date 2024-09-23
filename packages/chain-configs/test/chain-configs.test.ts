@@ -24,11 +24,11 @@ const chainToSkipForMulticallAddressCheck = [
 ];
 
 describe("Validate chain configs", () => {
-  test("Scheme should be valid", () => {
+  it("Scheme should be valid", () => {
     z.record(ChainConfigSchema).parse(ChainConfigs);
   });
 
-  test("Each chain config should have at least one publicRpcProvider", () => {
+  it("Each chain config should have at least one publicRpcProvider", () => {
     for (const chainConfig of Object.values(ChainConfigs)) {
       chai
         .expect(
@@ -41,7 +41,7 @@ describe("Validate chain configs", () => {
 });
 
 describe("Validate multicall3", () => {
-  test(`Each redstone multicall3 should have the same address`, function () {
+  it(`Each redstone multicall3 should have the same address`, function () {
     for (const chainConfig of Object.values(ChainConfigs)) {
       if (chainConfig.multicall3.type === "RedstoneMulticall3") {
         chai
@@ -54,7 +54,7 @@ describe("Validate multicall3", () => {
     }
   });
 
-  test(`Each standard multicall3 should have the same address`, function () {
+  it(`Each standard multicall3 should have the same address`, function () {
     for (const chainConfig of Object.values(ChainConfigs)) {
       if (
         chainConfig.multicall3.type === "Multicall3" &&
@@ -79,7 +79,7 @@ describe("Validate multicall3", () => {
       continue;
     }
 
-    test(`Chain config for chain ${chainConfig.name} (${chainConfig.chainId}) should have a valid multicall3 address`, async function () {
+    it(`Chain config for chain ${chainConfig.name} (${chainConfig.chainId}) should have a valid multicall3 address`, async function () {
       const provider = new providers.StaticJsonRpcProvider(
         chainConfig.publicRpcUrls[0]
       );

@@ -14,9 +14,13 @@
     "lint": "yarn global:eslint . && yarn global:prettier --check manifest/**/*.json",
     "lint:fix": "yarn global:eslint --fix . && yarn global:prettier --write manifest/**/*.json",
     "preversion": "yarn build",
-    "print": "yarn run-ts scripts/print-chains-configs.ts",
-    "test": "yarn global:jest:cov",
-    "test:rpc-urls": "yarn test --runInBand --config=jest.ci-config.ts test/chain-configs-rpc-urls.test.ts"
+    "print:chain-configs": "yarn run-ts scripts/print-chains-configs.ts",
+    "print:ssm-rpc-urls-dev": "ENV=dev yarn run-ts scripts/print-ssm-rpc-urls.ts",
+    "print:ssm-rpc-urls-prod": "ENV=prod yarn run-ts scripts/print-ssm-rpc-urls.ts",
+    "test": "hardhat test",
+    "test:rpc-urls": "hardhat test test/rpc-urls/public-rpc-urls.test.ts",
+    "test:rpc-urls-dev": "ENV=dev TEST_RPC=T hardhat test test/rpc-urls/ssm-rpc-urls.test.ts",
+    "test:rpc-urls-prod": "ENV=prod TEST_RPC=T hardhat test test/rpc-urls/ssm-rpc-urls.test.ts"
   },
   "dependencies": {
     "@redstone-finance/evm-multicall": "0.6.2",
@@ -28,8 +32,10 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.1",
+    "@nomicfoundation/hardhat-chai-matchers": "1.0.6",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "chai": "^4.3.10",
+    "hardhat": "^2.17.2",
     "mocha": "^10.2.0"
   }
 }
