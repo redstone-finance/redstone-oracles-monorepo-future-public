@@ -3,15 +3,15 @@
 ## Stage 1 - in-depth analysis from the point of view of *RedStone Oracles* protocol
 
 <!-- TOC -->
-
-* [Available data types and language features](#available-data-types-and-language-features)
-* [Available cryptographic functions](#available-cryptographic-functions)
-* [The gas cost structure](#the-gas-cost-structure)
-  * [The mainnet chainspec extract](#the-mainnet-chainspec-extract1)
-  * [Gas cost comparison](#gas-cost-comparison)
-* [The best way of attaching *RedStone Oracles* payload](#the-best-way-of-attaching-redstone-oracles-payload)
-* [Available timestamp details in the context of transaction](#available-timestamp-details-in-the-context-of-transaction)
-
+- [*RedStone Oracles* Casper connector](#redstone-oracles-casper-connector)
+  - [Stage 1 - in-depth analysis from the point of view of *RedStone Oracles* protocol](#stage-1---in-depth-analysis-from-the-point-of-view-of-redstone-oracles-protocol)
+    - [Available data types and language features](#available-data-types-and-language-features)
+    - [Available cryptographic functions](#available-cryptographic-functions)
+    - [The gas cost structure](#the-gas-cost-structure)
+      - [The mainnet chainspec extract[^1]](#the-mainnet-chainspec-extract1)
+      - [Gas cost comparison](#gas-cost-comparison)
+    - [The best way of attaching *RedStone Oracles* payload](#the-best-way-of-attaching-redstone-oracles-payload)
+    - [Available timestamp details in the context of transaction](#available-timestamp-details-in-the-context-of-transaction)
 <!-- TOC -->
 
 ### Available data types and language features
@@ -123,4 +123,4 @@ This function gets the timestamp which will be in the block this deploy is inclu
 
 [^1]: [Taken from Casper docs](https://docs.casper.network/)
 
-[^2]: [RedStone docs](https://docs.redstone.finance/docs/smart-contract-devs/how-it-works#data-packing-off-chain-data-encoding)
+[^2]: [RedStone docs](https://docs.redstone.finance/img/payload.png)

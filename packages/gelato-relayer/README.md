@@ -12,12 +12,12 @@ documentation [here](https://docs.gelato.network/developer-services/web3-functio
 
 <!-- TOC -->
 
-* [The `redstone` function](#the-redstone-function)
-  * [Calling the function](#calling-the-function)
-  * [The configuration: use User arguments](#the-configuration-use-user-arguments)
-  * [The fallback mode: Use user secrets](#the-fallback-mode-use-user-secrets)
-  * [Use the deployed Web3Function on Gelato](#use-the-deployed-web3function-on-gelato)
-  * [Deploying an updated Web3Function on IPFS](#deploying-an-updated-web3function-on-ipfs)
+ -[The `redstone` function](#the-redstone-function)
+- [Calling the function](#calling-the-function)
+  - [The configuration: use User arguments](#the-configuration-use-user-arguments)
+  - [The fallback mode: Use user secrets](#the-fallback-mode-use-user-secrets)
+  - [Use the deployed Web3Function on Gelato](#use-the-deployed-web3function-on-gelato)
+  - [Deploying an updated Web3Function on IPFS](#deploying-an-updated-web3function-on-ipfs)
 
 <!-- TOC -->
 
@@ -117,4 +117,3 @@ The deployer will output your Web3Function IPFS CID, which you can use to create
 To create a task on Gelato, visit:
 > https://beta.app.gelato.network/new-task?cid=QmPXoejvmuSMWWAvvDyA4q9uXfZugsQFasAT3mwfL7CKCM
 ```
-

@@ -2,13 +2,14 @@
 
 ## 💡 How RedStone oracles work with TON
 
-RedStone oracles use an alternative design of providing oracle data to smart contracts. Instead of constantly persisting
-data on the contract's storage (by data providers), the information is brought on-chain only when needed (by end users).
+_RedStone Oracles_ use an alternative design of providing oracle data to smart contracts. Instead of constantly
+persisting data on the contract's storage (by data providers), the information is brought on-chain only when needed
+(by end users).
 Until that moment data remains in the decentralised cache layer, which is powered by RedStone light cache gateways and
 streamr data broadcasting protocol. Data is transferred to the contract by end users, who should attach signed data
 packages to their function invocations. The information integrity is verified on-chain through signature checking.
 
-To learn more about RedStone oracles design go to the [RedStone docs](https://docs.redstone.finance/docs/introduction)
+To learn more about _RedStone Oracles_ design, go to the [RedStone docs](https://docs.redstone.finance/docs/introduction)
 
 ## 📄 Smart Contracts
 
@@ -19,7 +20,7 @@ To learn more about RedStone oracles design go to the [RedStone docs](https://do
 
 #### ⨐ initial data
 
-As mentioned above, the data packages transferred to the contract are being verified by signature checking.
+As mentioned above, signature checking is verifying the data packages transferred to the contract.
 To be counted to achieve the `signer_count_threshold`, the signer signing the passed data
 should be one of the `signers` passed in the initial data. There is also needed `signer_count_threshold` to be
 passed.
@@ -45,7 +46,7 @@ In the function parameters below, each `feed_id` is a string encoded to `int` wh
 consisting of hex-values of the particular letters in the string. For example:
 `'ETH'` as an `int` is `0x455448` in hex or `4543560` in decimal, as `256*256*ord('E')+256*ord('T')+ord('H')`.
 <br />
-📟 You can use: `feed_id = hexlify(toUtf8Bytes(feed_string)))` to convert particular values or
+📟 You can use: `feed_id = hexlify(toUtf8Bytes(feed_string))` to convert particular values or
 the https://cairo-utils-web.vercel.app/ endpoint<br />
 
 The value of `feed_ids` should be passed as a serialized `tuple` of `int`s.\
@@ -53,10 +54,10 @@ The value of `feed_ids` should be passed as a serialized `tuple` of `int`s.\
 
 The value `payload` is packed from an array of bytes representing the serialized RedStone payload.
 <br />
-📚 See RedStone data-packing: https://docs.redstone.finance/docs/smart-contract-devs/how-it-works
+📚 See RedStone data-packing: https://docs.redstone.finance/img/payload.png
 and the [TON RedStone payload packing](#-ton-redstone-payload-packing) section below.
 
-📚 See also the file [constants.fc](redstone/constants.fc), containing all needed `int`-length constants.
+📚 See also the file [constants.fc](redstone/constants.fc), containing all necessary `int`-length constants.
 
 #### ⨗ get_prices
 
@@ -73,10 +74,10 @@ That are just a `method_id` functions - they don't modify the contract's storage
 
 #### ⨒ OP_REDSTONE_WRITE_PRICES
 
-Regardless of the on-fly processing, there also exists a method for processing the `payload` on-chain, but
-saving/writing the aggregated values to the contract's storage.
+Besides on-the-fly processing, there is also a function that processes the `payload` on-chain.
+This function saves the aggregated values to the contract's storage.
 The values persist in the contract's storage and then can be read by using `read_prices` function.
-The timestamp of data last saved/written to the contract is able to read by using the `read_timestamp` function.
+The timestamp of the last saved data can be retrieved using the `read_timestamp` function.
 
 The method must be invoked as a TON internal message. The arguments of the message are:
 

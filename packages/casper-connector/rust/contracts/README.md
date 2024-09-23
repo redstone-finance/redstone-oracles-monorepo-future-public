@@ -1,9 +1,8 @@
 # RedStone Oracles integration with Casper
 
 <!-- TOC -->
-
 - [RedStone Oracles integration with Casper](#redstone-oracles-integration-with-casper)
-  - [💡 How _RedStone Oracles_ work with Casper](#-how-redstone-oracles-work-with-casper)
+  - [💡 How RedStone Oracles work with Casper](#-how-redstone-oracles-work-with-casper)
   - [✨ General parameter disclaimer](#-general-parameter-disclaimer)
   - [📄 Smart Contracts](#-smart-contracts)
     - [Price Adapter](#price-adapter)
@@ -13,22 +12,22 @@
       - [⨗ read_prices](#-read_prices)
       - [∮ read_timestamp](#-read_timestamp)
       - [∮ read_price_and_timestamp](#-read_price_and_timestamp)
-    - [Price _Relay Adapter_](#price-relay-adapter)
+    - [Price Relay Adapter](#price-relay-adapter)
       - [⛔ JsonRPC Casper API limitations](#-jsonrpc-casper-api-limitations)
-      - [The reason for creating the _Relay Adapter_](#the-reason-for-creating-the-relay-adapter)
+      - [The reason for creating the Relay Adapter](#the-reason-for-creating-the-relay-adapter)
       - [⨐ init](#-init-1)
       - [⨗ get_prices](#-get_prices-1)
       - [∯ write_prices_chunk](#-write_prices_chunk)
       - [∯ get_prices_chunk](#-get_prices_chunk)
     - [Price Feed](#price-feed)
       - [⨐ init](#-init-2)
-      - [∮ get_price_and_timestamp](#-get_price_and_timestamp)
+    - [∮ get_price_and_timestamp](#-get_price_and_timestamp)
+    - [Sample payload](#sample-payload)
   - [⚠ Possible transaction failures](#-possible-transaction-failures)
   - [🙋‍Contact](#contact)
-
 <!-- TOC -->
 
-## 💡 How _RedStone Oracles_ work with Casper
+## 💡 How RedStone Oracles work with Casper
 
 _RedStone Oracles_ use an alternative design of providing oracle data to smart contracts. Instead of constantly
 persisting data on the contract's storage (by data providers), the information is brought on-chain only when needed
@@ -37,7 +36,7 @@ cache gateways and streamr data broadcasting protocol. Data is transferred to th
 attach signed data packages to their function invocations. The information integrity is verified on-chain through
 signature checking.
 
-To learn more about RedStone oracles design, go to the [RedStone docs](https://docs.redstone.finance/docs/introduction)
+To learn more about _RedStone Oracles_ design, go to the [RedStone docs](https://docs.redstone.finance/docs/introduction)
 
 ## ✨ General parameter disclaimer
 
@@ -45,7 +44,7 @@ In the function parameters below, each `feed_id` is a serialized `U256` which me
 consisting of hex-values of the particular letters in the string. For example:
 `'ETH'` as an `int` is `0x455448` in hex or `4543560` in decimal, as `256*256*ord('E')+256*ord('T')+ord('H')`.
 <br />
-📟 You can use: `feed_id = hexlify(toUtf8Bytes(feed_string)))` to convert particular values or
+📟 You can use: `feed_id = hexlify(toUtf8Bytes(feed_string))` to convert particular values or
 the https://cairo-utils-web.vercel.app/ endpoint<br />
 
 The value of `feed_ids` should be passed as a serialized `List` of `U256`s.\
@@ -54,9 +53,9 @@ or [an example json](../scripts/args/adapter-init-args.json).
 
 The value `payload` is a serialized `List` of `U8`s representing the serialized RedStone payload.
 <br />
-📚 See RedStone data-packing: https://docs.redstone.finance/docs/smart-contract-devs/how-it-works
+📚 See RedStone data-packing: https://docs.redstone.finance/img/payload.png
 
-📚 See also the file [constants.fc](../redstone_casper/src/contracts/constants.rs), containing all needed
+📚 See also the file [constants.fc](../redstone_casper/src/contracts/constants.rs), containing all necessary
 constants.
 
 ## 📄 Smart Contracts
@@ -119,8 +118,8 @@ the [Price Relay Adapter](#price-relay-adapter).
 write_prices(feed_ids: List[U256], payload: List[U8]): Tuple2     // Public/Contract
 ```
 
-Regardless of the on-fly processing, there also exists a method for processing the `payload` on-chain, but
-saving/writing the aggregated values to the contract's storage.
+Besides on-the-fly processing, there is also a function that processes the `payload` on-chain.
+This function saves the aggregated values to the contract's storage.
 The values persist in the contract's storage and then can be read by using [`read_prices`](#-read_prices) function.
 The timestamp of data last saved/written to the contract is able to read by using
 the [`read_timestamp`](#-read_timestamp) function.
@@ -129,7 +128,7 @@ The method returns the `Tuple2` value as the [`get_prices`](#-get_prices) functi
 
 The method modifies the contract's storage.
 
-[//]: # "📖 See how it works on: https://casper-showroom.redstone.finance/"
+[//]: "📖 See how it works on: https://casper-showroom.redstone.finance/"
 
 #### ⨗ read_prices
 
@@ -172,7 +171,7 @@ using [`write_prices`](#-write_prices) function
 
 The method doesn't modify the contract's storage.
 
-### [Price _Relay Adapter_](price_relay_adapter)
+### [Price Relay Adapter](price_relay_adapter)
 
 The example-testnet address of the implementation is exposed in the [DEPLOYED.hex](price_relay_adapter/DEPLOYED.hex)
 file.
@@ -190,7 +189,7 @@ file.
 - Also, there's no possibility to get the values returned by the `deploy` (transaction) in the off-chain method of
   interacting with the Casper contracts.
 
-##### The reason for creating the _Relay Adapter_
+##### The reason for creating the Relay Adapter
 
 That above is the reason for having created the Price _Relay Adapter_, which:
 
@@ -323,7 +322,7 @@ See [here](../README.md#preparing-sample-data).
 
 The transaction could have returned a `UserError: [code]` with one of codes defined:
 
-* in the [redstone](../redstone/src/network/error.rs) library, or see
+* in the [redstone](../rust-sdk/src/network/error.rs) library, or see
   in [docs](https://redstone-docs-git-casper-redstone-finance.vercel.app/rust/casper/redstone/crypto_secp256k1,network_casper/redstone/network/error/enum.Error.html)
 - commonly used
   across [contracts](https://redstone-docs-git-casper-redstone-finance.vercel.app/rust/casper/redstone/crypto_secp256k1,network_casper/redstone/network/casper/contracts/contract_error/enum.ContractError.html)
