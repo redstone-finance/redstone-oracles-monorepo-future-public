@@ -7469,13 +7469,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/chain-configs@workspace:packages/chain-configs"
   dependencies:
+    "@nomicfoundation/hardhat-chai-matchers": "npm:1.0.6"
+    "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
     "@redstone-finance/evm-multicall": "npm:0.6.2"
     "@redstone-finance/internal-utils": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
-    "@types/mocha": "npm:^10.0.1"
     chai: "npm:^4.3.10"
     dayjs: "npm:^1.11.12"
     ethers: "npm:^5.7.2"
+    hardhat: "npm:^2.17.2"
     lodash: "npm:^4.17.21"
     mocha: "npm:^10.2.0"
     zod: "npm:^3.22.4"
