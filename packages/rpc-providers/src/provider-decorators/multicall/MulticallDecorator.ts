@@ -91,7 +91,7 @@ export function MulticallDecorator<T extends providers.Provider>(
     const callDataSize = queue.callDataSize(blockTag);
     const callEntries = queue.flush(blockTag);
 
-    logger.log(
+    logger.debug(
       `Executing request chainId=${chainId} blockTag=${blockTag} callsCount=${callEntries.length} callDataSize=${callDataSize} [bytes]`
     );
 
