@@ -7800,7 +7800,6 @@ __metadata:
     msw: "npm:^1.2.3"
     open: "npm:^8.0.4"
     plotly: "npm:^1.0.6"
-    poolifier: "npm:^4.0.15"
     prompts: "npm:^2.4.2"
     replace-in-file: "npm:^6.3.5"
     supertest: "npm:^6.2.3"
@@ -8417,7 +8416,6 @@ __metadata:
     node-schedule: "npm:^2.1.1"
     open: "npm:^8.0.4"
     plotly: "npm:^1.0.6"
-    poolifier: "npm:^4.0.15"
     prompts: "npm:^2.4.2"
     redstone-api: "npm:^0.4.11"
     replace-in-file: "npm:^6.3.5"
@@ -28456,13 +28454,6 @@ __metadata:
   version: 8.0.0
   resolution: "pluralize@npm:8.0.0"
   checksum: 10c0/2044cfc34b2e8c88b73379ea4a36fc577db04f651c2909041b054c981cd863dd5373ebd030123ab058d194ae615d3a97cfdac653991e499d10caf592e8b3dc33
-  languageName: node
-  linkType: hard
-
-"poolifier@npm:^4.0.15":
-  version: 4.2.7
-  resolution: "poolifier@npm:4.2.7"
-  checksum: 10c0/14f34f87c985bfba9dc79b01b4cafb32f00810dabac54fc9afcc3ff96a52ad46b886db1f973e72366d97724e1dcda24f46e362630b3204cdcc84230c3745b36d
   languageName: node
   linkType: hard
 
