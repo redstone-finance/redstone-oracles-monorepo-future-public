@@ -401,6 +401,22 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x3647c54c4c2C65bC7a2D63c0Da2809B399DBBDC0",
       decimals: 18,
     },
+    GHO: {
+      address: "0x7dff72693f6a4149b17e7c6314655f6a9f7c8b33",
+      decimals: 18,
+    },
+    osETH: {
+      address: "0xf7d4e7273e5015c96728a6b02f31c505ee184603",
+      decimals: 18,
+    },
+    agEUR: {
+      address: "0xFA5Ed56A203466CbBC2430a43c66b9D8723528E7",
+      decimals: 18,
+    },
+    ETHx: {
+      address: "0xED65C5085a18Fa160Af0313E60dcc7905E944Dc7",
+      decimals: 18,
+    },
   },
   avalanche: {
     USDC: {
@@ -524,7 +540,7 @@ export const chainTokenMap: ChainTokenMap = {
   },
   optimism: {
     USDC: {
-      address: "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
+      address: "0x0b2c639c533813f4aa9d7837caf62653d097ff85",
       decimals: 6,
     },
     ALUSD: {
