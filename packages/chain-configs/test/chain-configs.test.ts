@@ -3,6 +3,7 @@ import chai from "chai";
 import { providers } from "ethers";
 import { z } from "zod";
 import {
+  ChainConfig,
   ChainConfigSchema,
   getLocalChainConfigs,
   REDSTONE_MULTICALL3_ADDRESS,
@@ -80,18 +81,31 @@ describe("Validate multicall3", () => {
     }
 
     it(`Chain config for chain ${chainConfig.name} (${chainConfig.chainId}) should have a valid multicall3 address`, async function () {
-      const provider = new providers.StaticJsonRpcProvider(
-        chainConfig.publicRpcUrls[0]
-      );
+      await verifyMulticallAddress(chainConfig);
+    });
+  }
 
-      const multicallCode = await RedstoneCommon.retry({
-        fn: () => provider.getCode(chainConfig.multicall3.address),
-        ...RETRY_CONFIG,
-      })();
+  async function verifyMulticallAddress(chainConfig: ChainConfig, index = 0) {
+    const provider = new providers.StaticJsonRpcProvider(
+      chainConfig.publicRpcUrls[index]
+    );
 
+    const multicallCode = await RedstoneCommon.retry({
+      fn: () => provider.getCode(chainConfig.multicall3.address),
+      ...RETRY_CONFIG,
+    })();
+
+    try {
       chai
         .expect(multicallCode.length, "Multicall implementation missing")
         .greaterThan(2);
-    });
+    } catch (e) {
+      if (index === chainConfig.publicRpcUrls.length - 1) {
+        throw e;
+      }
+
+      console.log(`Moving to next RPC[${index}]...`);
+      await verifyMulticallAddress(chainConfig, index + 1);
+    }
   }
 });

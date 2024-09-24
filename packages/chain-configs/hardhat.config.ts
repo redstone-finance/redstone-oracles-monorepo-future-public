@@ -5,7 +5,7 @@ import "solidity-coverage";
 const config: HardhatUserConfig = {
   solidity: "0.8.17",
   mocha: {
-    timeout: 30_000,
+    timeout: 60_000,
   },
 };
 
