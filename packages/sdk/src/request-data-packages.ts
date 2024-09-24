@@ -62,7 +62,7 @@ export interface DataPackagesRequestParams {
  * represents per-feed response from DDL
  */
 export interface DataPackagesResponse {
-  [dataFeedId: string]: SignedDataPackage[] | undefined;
+  [dataPackageId: string]: SignedDataPackage[] | undefined;
 }
 
 export interface ValuesForDataFeeds {
@@ -278,9 +278,7 @@ const getAllValues = (dataPackages: SignedDataPackagePlainObj[]) => {
   const allValues: Partial<Record<string, number[]>> = {};
   for (const dataPackage of dataPackages) {
     for (const dataPoint of dataPackage.dataPoints) {
-      if (!allValues[dataPoint.dataFeedId]) {
-        allValues[dataPoint.dataFeedId] = [];
-      }
+      allValues[dataPoint.dataFeedId] ??= [];
       allValues[dataPoint.dataFeedId]!.push(Number(dataPoint.value));
     }
   }
@@ -350,7 +348,7 @@ function sortByDistanceFromMedian(
 ) {
   return dataFeedPackages
     .map((dp) => ({
-      dp: dp,
+      dp,
       diff: getMaxDistanceFromMedian(dp, medians),
     }))
     .sort((first, second) => first.diff - second.diff);
@@ -359,10 +357,7 @@ function sortByDistanceFromMedian(
 const getUrlsForDataServiceId = (
   reqParams: DataPackagesRequestParams
 ): string[] => {
-  if (reqParams.urls) {
-    return reqParams.urls;
-  }
-  return resolveDataServiceUrls(reqParams.dataServiceId);
+  return reqParams.urls ?? resolveDataServiceUrls(reqParams.dataServiceId);
 };
 
 export const chooseDataPackagesTimestamp = (
