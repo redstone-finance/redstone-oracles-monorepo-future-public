@@ -13,6 +13,7 @@
   "tokens": {
     "USDC": {
       "source": [
+        "balancer-arbitrumone-usdt",
         "balancer-ethereum-usdt",
         "binance-usdt",
         "binanceusdm-usdt",
