@@ -5,16 +5,27 @@ import localChainConfigsManifest from "../manifest/chain-configs.json";
 import { ChainConfigs, ChainConfigsSchema } from "./schemes";
 
 const fetchChainConfigsWithAxios = async (
-  manifestsHost: string,
+  manifestsHosts: string[],
   apikey?: string,
   gitref = "main"
-) =>
-  (
-    await RedstoneCommon.axiosGetWithRetries<Manifest<ChainConfigs>>(
-      `https://${manifestsHost}/redstone-finance/redstone-monorepo-priv/${gitref}/packages/chain-configs/manifest/chain-configs.json`,
-      { maxRetries: 2, headers: { apikey } }
-    )
-  ).data;
+) => {
+  for (const manifestsHost of manifestsHosts) {
+    const manifestUrl = `https://${manifestsHost}/redstone-finance/redstone-monorepo-priv/${gitref}/packages/chain-configs/manifest/chain-configs.json`;
+    try {
+      const response = await RedstoneCommon.axiosGetWithRetries<
+        Manifest<ChainConfigs>
+      >(manifestUrl, { maxRetries: 2, headers: { apikey } });
+      return response.data;
+    } catch (e) {
+      console.log(
+        `failed to fetch chain configs from URL ${manifestUrl}, error ${RedstoneCommon.stringifyError(e)}`
+      );
+    }
+  }
+  throw new Error(
+    `failed to fetch chain configs for ${JSON.stringify({ manifestsHosts, apikey })}`
+  );
+};
 
 const fetchChainConfigs = RedstoneCommon.memoize({
   functionToMemoize: fetchChainConfigsWithAxios,
@@ -22,9 +33,9 @@ const fetchChainConfigs = RedstoneCommon.memoize({
 });
 
 export async function getChainConfigs(): Promise<ChainConfigs> {
-  const manifestsHost = RedstoneCommon.getFromEnv(
-    "MONITORING_MANIFESTS_HOSTNAME",
-    z.string().optional()
+  const manifestsHosts = RedstoneCommon.getFromEnv(
+    "MONITORING_MANIFESTS_HOSTNAMES",
+    z.array(z.string()).optional()
   );
   const manifestsApiKey = RedstoneCommon.getFromEnv(
     "MONITORING_MANIFESTS_APIKEY",
@@ -35,9 +46,9 @@ export async function getChainConfigs(): Promise<ChainConfigs> {
     z.string().default("main")
   );
   let chainConfigsManifest: Manifest;
-  if (manifestsHost) {
+  if (manifestsHosts?.length) {
     chainConfigsManifest = await fetchChainConfigs(
-      manifestsHost,
+      manifestsHosts,
       manifestsApiKey,
       manifestsGitRef
     );
