@@ -44,13 +44,6 @@
         "timeSinceLastUpdateInMilliseconds": 86400000
       }
     },
-    "deUSD_FUNDAMENTAL": {
-      "priceFeedAddress": "0x5aBf4F05029147b3BB935408DEfBD84f28737c8D",
-      "updateTriggersOverrides": {
-        "deviationPercentage": 0.2,
-        "timeSinceLastUpdateInMilliseconds": 86400000
-      }
-    },
     "SolvBTC": {
       "priceFeedAddress": "0x24c8964338Deb5204B096039147B8e8C3AEa42Cc",
       "updateTriggersOverrides": {
