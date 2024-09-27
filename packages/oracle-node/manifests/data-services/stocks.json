@@ -270,7 +270,6 @@
     },
     "USDT": {
       "source": [
-        "bitfinex2-usd",
         "bitstamp-usd",
         "coinbasepro-usd",
         "coingecko",

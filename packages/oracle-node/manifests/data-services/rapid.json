@@ -61,7 +61,6 @@
     },
     "USDT": {
       "source": [
-        "bitfinex2-usd",
         "bitstamp-usd",
         "coinbasepro-usd",
         "coingecko",
@@ -95,7 +94,7 @@
         "coingecko",
         "kraken-usd",
         "kucoin-usdt",
-        "lbank-usdc",
+        "lbank-usdt",
         "okx-usdt"
       ]
     },
