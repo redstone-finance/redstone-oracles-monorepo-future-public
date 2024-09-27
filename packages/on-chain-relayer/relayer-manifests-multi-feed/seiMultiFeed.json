@@ -16,6 +16,12 @@
     },
     "ISEI": {
       "priceFeedAddress": "0xC49F0Dd98F38C525A7ce15E73E60675456F3a161"
+    },
+    "deUSD": {
+      "priceFeedAddress": "0xBf3bA2b090188B40eF83145Be0e9F30C6ca63689"
+    },
+    "ezETH": {
+      "priceFeedAddress": "0x4BAD96DD1C7D541270a0C92e1D4e5f12EEEA7a57"
     }
   }
 }
