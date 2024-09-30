@@ -1423,7 +1423,7 @@
       ]
     },
     "SolvBTC_MERLIN": {
-      "source": ["merlinswap-merlin-btc"],
+      "source": ["merlinswap-merlin-m-btc"],
       "valueCapConfig": {
         "upper": {
           "token": "BTC"
@@ -1611,8 +1611,11 @@
     },
     "SolvBTC": {
       "source": [
+        "curve-ethereum-wbtc",
         "dodoex-bnb-btcb",
+        "merlinswap-merlin-m-btc",
         "pancake-swap-bnb-btcb-500",
+        "trader-joe-v2-avalanche-btc.b",
         "uniswap-v3-ethereum-wbtc-500"
       ]
     },

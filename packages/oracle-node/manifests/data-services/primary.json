@@ -1136,10 +1136,11 @@
       ]
     },
     "SolvBTC_MERLIN": {
-      "source": ["merlinswap-merlin-btc"],
+      "source": ["merlinswap-merlin-m-btc"],
       "valueCapConfig": {
         "upper": {
-          "token": "BTC"
+          "token": "BTC",
+          "multiplier": 1.01
         }
       }
     },
@@ -1147,7 +1148,7 @@
       "source": ["non-usd-based"],
       "valueCapConfig": {
         "upper": {
-          "value": 1
+          "value": 1.01
         }
       }
     },
@@ -1239,7 +1240,8 @@
       "source": ["dodoex-bnb-solvbtc", "pancake-swap-arbitrumone-solvbtc-500"],
       "valueCapConfig": {
         "upper": {
-          "token": "BTC"
+          "token": "BTC",
+          "multiplier": 1.01
         }
       }
     },
@@ -1247,7 +1249,7 @@
       "source": ["non-usd-based"],
       "valueCapConfig": {
         "upper": {
-          "value": 1
+          "value": 1.01
         }
       }
     },
@@ -1349,23 +1351,40 @@
     },
     "SolvBTC": {
       "source": [
+        "curve-ethereum-wbtc",
         "dodoex-bnb-btcb",
+        "merlinswap-merlin-m-btc",
         "pancake-swap-bnb-btcb-500",
+        "trader-joe-v2-avalanche-btc.b",
         "uniswap-v3-ethereum-wbtc-500"
-      ]
+      ],
+      "upper": {
+        "token": "BTC",
+        "multiplier": 1.01
+      }
     },
     "SolvBTC/BTC": {
-      "source": ["non-usd-based"]
+      "source": ["non-usd-based"],
+      "upper": {
+        "value": 1.01
+      }
     },
     "SolvBTC.BBN": {
       "source": [
         "curve-ethereum-solvbtc",
         "dodoex-bnb-solvbtc",
         "dodoex-ethereum-solvbtc"
-      ]
+      ],
+      "upper": {
+        "token": "BTC",
+        "multiplier": 1.01
+      }
     },
     "SolvBTC.BBN/BTC": {
-      "source": ["non-usd-based"]
+      "source": ["non-usd-based"],
+      "upper": {
+        "value": 1.01
+      }
     },
     "SolvBTC.BBN_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-curve-rate-provider"]
