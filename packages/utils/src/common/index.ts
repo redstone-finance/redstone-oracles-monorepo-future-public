@@ -1,5 +1,8 @@
+export * from "./array";
 export * from "./axios-retry";
+export * from "./base64";
 export * from "./batch-promises";
+export * from "./big-numbers";
 export * from "./clone";
 export * from "./conversions";
 export * from "./env";
@@ -8,6 +11,8 @@ export * from "./fetch-with-fallback";
 export * from "./js-utils";
 export * from "./memoize";
 export * from "./misc";
+export * from "./numbers";
+export * from "./objects";
 export * from "./p-throttle";
 export * from "./retry";
 export * from "./simple-cache";
