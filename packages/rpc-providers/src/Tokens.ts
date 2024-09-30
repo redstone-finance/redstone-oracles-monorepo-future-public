@@ -467,14 +467,26 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x33C8036E99082B0C395374832FECF70c42C7F298",
       decimals: 18,
     },
+    SolvBTC: {
+      address: "0xbc78D84Ba0c46dFe32cf2895a19939c86b81a777",
+      decimals: 18,
+    },
+    "BTC.b": {
+      address: "0x152b9d0FdC40C096757F570A51E494bd4b943E50",
+      decimals: 8,
+    },
   },
   merlin: {
     SolvBTC_MERLIN: {
       address: "0x41d9036454be47d3745a823c4aacd0e29cfb0f71",
       decimals: 18,
     },
-    BTC: {
+    "M-BTC": {
       address: "0xb880fd278198bd590252621d4cd071b1842e9bcd",
+      decimals: 18,
+    },
+    SolvBTC: {
+      address: "0x41D9036454BE47d3745A823C4aaCD0e29cFB0f71",
       decimals: 18,
     },
   },
