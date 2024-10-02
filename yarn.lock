@@ -2681,35 +2681,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bundlr-network/client@npm:^0.8.4":
-  version: 0.8.9
-  resolution: "@bundlr-network/client@npm:0.8.9"
-  dependencies:
-    "@solana/wallet-adapter-base": "npm:^0.9.2"
-    "@solana/web3.js": "npm:^1.36.0"
-    "@supercharge/promise-pool": "npm:^2.1.0"
-    algosdk: "npm:^1.13.1"
-    arbundles: "npm:^0.6.21"
-    arweave: "npm:^1.11.4"
-    async-retry: "npm:^1.3.3"
-    axios: "npm:^0.25.0"
-    base64url: "npm:^3.0.1"
-    bignumber.js: "npm:^9.0.1"
-    bs58: "npm:^4.0.1"
-    commander: "npm:^8.2.0"
-    csv: "npm:^6.0.5"
-    ethers: "npm:^5.5.1"
-    inquirer: "npm:^8.2.0"
-    js-sha256: "npm:^0.9.0"
-    mime-types: "npm:^2.1.34"
-    near-api-js: "npm:^0.44.2"
-    near-seed-phrase: "npm:^0.2.0"
-  bin:
-    bundlr: build/node/cli.js
-  checksum: 10c0/752bb8be1e2b7fed095c1f65dff52b79eb6b1381162624f88217073a6649d44ece1ce951fc54b9cda3c2405e2f3662e0bfc05e87ccc744ebe573bcaba62ff3f7
-  languageName: node
-  linkType: hard
-
 "@chainlink/contracts@npm:^0.6.1":
   version: 0.6.1
   resolution: "@chainlink/contracts@npm:0.6.1"
@@ -8371,7 +8342,6 @@ __metadata:
   resolution: "@redstone-finance/oracle-node@workspace:packages/oracle-node"
   dependencies:
     "@balancer-labs/sdk": "npm:^1.1.5"
-    "@bundlr-network/client": "npm:^0.8.4"
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@metamask/eth-sig-util": "npm:^4.0.1"
     "@redstone-finance/chain-configs": "npm:0.6.2"
@@ -8382,29 +8352,18 @@ __metadata:
     "@redstone-finance/rpc-providers": "npm:0.6.2"
     "@redstone-finance/sdk": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
-    "@types/cors": "npm:^2.8.12"
     "@types/exchange-rates-api": "npm:^1.0.0"
-    "@types/express": "npm:^4.17.14"
-    "@types/isomorphic-fetch": "npm:^0.0.35"
     "@types/jsonpath": "npm:^0.2.0"
     "@types/lodash": "npm:^4.14.195"
     "@types/luxon": "npm:^3.3.0"
     "@types/node-schedule": "npm:^2.1.0"
     "@types/prompts": "npm:^2.4.2"
-    "@types/supertest": "npm:^2.0.12"
-    "@types/uuid": "npm:^8.3.0"
-    ar-gql: "npm:^0.0.11"
     arweave: "npm:^1.14.4"
     axios: "npm:^1.6.2"
-    cors: "npm:^2.8.5"
-    dateformat: "npm:^4.5.1"
     decimal.js: "npm:^10.4.3"
-    deep-sort-object: "npm:^1.0.2"
     dotenv: "npm:^16.0.3"
-    download: "npm:^8.0.0"
     ecb-euro-exchange-rates: "npm:^2.0.0"
     ethereum-multicall: "npm:^2.21.0"
-    ethereum-waffle: "npm:^4.0.10"
     ethereumjs-util: "npm:^7.0.10"
     ethers: "npm:^5.7.2"
     jest: "npm:^29.7.0"
@@ -8412,19 +8371,12 @@ __metadata:
     jsonpath: "npm:^1.1.1"
     lodash: "npm:^4.17.21"
     luxon: "npm:^3.3.0"
-    mongoose: "npm:^7.6.3"
     msw: "npm:^1.2.3"
     node-schedule: "npm:^2.1.1"
     open: "npm:^8.0.4"
-    plotly: "npm:^1.0.6"
     prompts: "npm:^2.4.2"
-    redstone-api: "npm:^0.4.11"
-    replace-in-file: "npm:^6.3.5"
     sort-deep-object-arrays: "npm:^1.1.2"
-    supertest: "npm:^6.2.3"
-    typed-binary-json: "npm:^1.17.4"
     typescript: "npm:^5.5.4"
-    uuid: "npm:^9.0.0"
     zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft
@@ -10508,13 +10460,6 @@ __metadata:
     pino: "npm:^8.11.0"
     pino-pretty: "npm:^10.0.0"
   checksum: 10c0/500a59eb790da46779bf70f9bde2680726895e53cb5b362e4228e7a17ff4ffc46c0b174b9daec01bc8fef60460b3060bb6c01d528577402b51f1c29873ebdd19
-  languageName: node
-  linkType: hard
-
-"@supercharge/promise-pool@npm:^2.1.0":
-  version: 2.4.0
-  resolution: "@supercharge/promise-pool@npm:2.4.0"
-  checksum: 10c0/eb3bfae405e002a3233c01bf1f530eaf0443a5287abcffb1638385dc4a3b34067fafffea1c732d8d376c0fa5777e4bee1144d16a8f77a639c07b2063243715f2
   languageName: node
   linkType: hard
 
@@ -13316,7 +13261,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"arbundles@npm:^0.6.19, arbundles@npm:^0.6.21":
+"arbundles@npm:^0.6.19":
   version: 0.6.22
   resolution: "arbundles@npm:0.6.22"
   dependencies:
@@ -14591,17 +14536,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"borsh@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "borsh@npm:0.6.0"
-  dependencies:
-    bn.js: "npm:^5.2.0"
-    bs58: "npm:^4.0.0"
-    text-encoding-utf-8: "npm:^1.0.2"
-  checksum: 10c0/105c90dba351825214956815b50c8b1bbd68e24d9d556f909ccf8fa364e12cb910dafb99e8f3bf9b236192dae2bf37fb4262ec2496d314ef968f3822a878b85b
-  languageName: node
-  linkType: hard
-
 "borsh@npm:^0.7.0":
   version: 0.7.0
   resolution: "borsh@npm:0.7.0"
@@ -15236,13 +15170,6 @@ __metadata:
   version: 2.0.0
   resolution: "canonicalize@npm:2.0.0"
   checksum: 10c0/b14fecd0f9e498d22a550656440ed7fd7a9e59eeaba16d72691683a351626f2cd61f62fe17cca4267f39d7a851e027c3defc47b09a9e748dd2cce3ea4eda0a1f
-  languageName: node
-  linkType: hard
-
-"capability@npm:^0.2.5":
-  version: 0.2.5
-  resolution: "capability@npm:0.2.5"
-  checksum: 10c0/b11393990530223987aae03751db702b528e8c624cda96fe5e6b004edd055feea273a1c0f38164efbd7ed7bf907f58348f45c01dead85c1e1c1f5dbd1be6885e
   languageName: node
   linkType: hard
 
@@ -16689,13 +16616,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csv-generate@npm:^4.2.6":
-  version: 4.2.6
-  resolution: "csv-generate@npm:4.2.6"
-  checksum: 10c0/0fa79be4b7324c40b3b796040188807f0b0bfedc6a84d736314cb53069c5c1c13d37cc90fbfd748a73fde71cd68a47bbede9443fa836f0c2b263f2835ef87187
-  languageName: node
-  linkType: hard
-
 "csv-parse@npm:^4.16.3":
   version: 4.16.3
   resolution: "csv-parse@npm:4.16.3"
@@ -16703,24 +16623,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csv-parse@npm:^5.4.0":
-  version: 5.4.0
-  resolution: "csv-parse@npm:5.4.0"
-  checksum: 10c0/0ac1652f324c4afa850faea2d6059c9db1da6cba10f5cb1bc129c5033dffcc6b70fc00d8cb947b4959a730c85c36ad8748d5a8cdc073f4bd57641d7005dd59db
-  languageName: node
-  linkType: hard
-
 "csv-stringify@npm:^5.6.5":
   version: 5.6.5
   resolution: "csv-stringify@npm:5.6.5"
   checksum: 10c0/125194dcf24a94e9c03eb53b3bc4b79cc6611747e73fe3c0e8a342a9f385caeb4e88c0827e89a4c508b45ea99bdc64a339b487f80048a50fabcbb3a7d87ea1a9
-  languageName: node
-  linkType: hard
-
-"csv-stringify@npm:^6.4.0":
-  version: 6.4.0
-  resolution: "csv-stringify@npm:6.4.0"
-  checksum: 10c0/9f405aedbcac9b4112ade1690c3506f24695ea3d05fdd4e26ac1d55b061533fc06da32588d59b9a448898330164eb429141fb6e8d9c893e0821f19b76361e26f
   languageName: node
   linkType: hard
 
@@ -16733,18 +16639,6 @@ __metadata:
     csv-stringify: "npm:^5.6.5"
     stream-transform: "npm:^2.1.3"
   checksum: 10c0/282720e1f9f1a332c0ff2c4d48d845eab2a60c23087c974eb6ffc4d907f40c053ae0f8458819d670ad2986ec25359e57dbccc0fa3370cd5d92e7d3143e345f95
-  languageName: node
-  linkType: hard
-
-"csv@npm:^6.0.5":
-  version: 6.3.1
-  resolution: "csv@npm:6.3.1"
-  dependencies:
-    csv-generate: "npm:^4.2.6"
-    csv-parse: "npm:^5.4.0"
-    csv-stringify: "npm:^6.4.0"
-    stream-transform: "npm:^3.2.6"
-  checksum: 10c0/910dc0e7fd586906a17df6a4d01f562e8d34f4943ae3829f4ac2c7fea9355edcbd72e84328e3014575092fa7409af147ae93f9cd1a29f12ed63a6557c3288820
   languageName: node
   linkType: hard
 
@@ -17849,17 +17743,6 @@ __metadata:
   dependencies:
     is-arrayish: "npm:^0.2.1"
   checksum: 10c0/ba827f89369b4c93382cfca5a264d059dfefdaa56ecc5e338ffa58a6471f5ed93b71a20add1d52290a4873d92381174382658c885ac1a2305f7baca363ce9cce
-  languageName: node
-  linkType: hard
-
-"error-polyfill@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "error-polyfill@npm:0.1.3"
-  dependencies:
-    capability: "npm:^0.2.5"
-    o3: "npm:^1.0.3"
-    u3: "npm:^0.1.1"
-  checksum: 10c0/245ae22d781ff9e04a3b9303567cc3fdd9016d73c75c6b7e710cfdcef73e69122c1641f5a97653c5f1db03084e474f2a154730fd36244a52ca710b8316f1056d
   languageName: node
   linkType: hard
 
@@ -26440,25 +26323,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"near-api-js@npm:^0.44.2":
-  version: 0.44.2
-  resolution: "near-api-js@npm:0.44.2"
-  dependencies:
-    bn.js: "npm:5.2.0"
-    borsh: "npm:^0.6.0"
-    bs58: "npm:^4.0.0"
-    depd: "npm:^2.0.0"
-    error-polyfill: "npm:^0.1.3"
-    http-errors: "npm:^1.7.2"
-    js-sha256: "npm:^0.9.0"
-    mustache: "npm:^4.0.0"
-    node-fetch: "npm:^2.6.1"
-    text-encoding-utf-8: "npm:^1.0.2"
-    tweetnacl: "npm:^1.0.1"
-  checksum: 10c0/b8fedf4a1e3f7c7b7d0f3742a514b7ca7cfb8dccc89b1c7a06b3a087042f24bf840451c01fa54e0442bf264e768d1332b3a50df1ca256af41d19456341bb1227
-  languageName: node
-  linkType: hard
-
 "near-hd-key@npm:^1.2.1":
   version: 1.2.1
   resolution: "near-hd-key@npm:1.2.1"
@@ -27281,15 +27145,6 @@ __metadata:
   bin:
     nx: bin/nx.js
   checksum: 10c0/a1a65981054651b7a182367ffac493804dd02742b777055363a7b31204c7f1586f5454c9f607c034424c0e4d5564956fd677200f537ce586be60c7b56484f37d
-  languageName: node
-  linkType: hard
-
-"o3@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "o3@npm:1.0.3"
-  dependencies:
-    capability: "npm:^0.2.5"
-  checksum: 10c0/2aa82a2d4920a705a24cc65628072a8b80046c7ba516e89870699e4bf5395247e68db91369cb07554f40cb4776af8cb54be1d2e22273a9f8d4e001dc51bfdf1d
   languageName: node
   linkType: hard
 
@@ -31258,13 +31113,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stream-transform@npm:^3.2.6":
-  version: 3.2.6
-  resolution: "stream-transform@npm:3.2.6"
-  checksum: 10c0/86f99b0ead3a5551b3984a7bdc331db94b74a65abf1b9003a4be27e6ec598a5934fd7438e7b24120eb5811b8903dcf1bb7d3406e34187577ae22d939fb8ced20
-  languageName: node
-  linkType: hard
-
 "streaming-json-stringify@npm:3":
   version: 3.1.0
   resolution: "streaming-json-stringify@npm:3.1.0"
@@ -33244,13 +33092,6 @@ __metadata:
   version: 5.2.0
   resolution: "typical@npm:5.2.0"
   checksum: 10c0/1cceaa20d4b77a02ab8eccfe4a20500729431aecc1e1b7dc70c0e726e7966efdca3bf0b4bee285555b751647e37818fd99154ea73f74b5c29adc95d3c13f5973
-  languageName: node
-  linkType: hard
-
-"u3@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "u3@npm:0.1.1"
-  checksum: 10c0/791f702cfc7d39d0b210377ed5ca3c8417676d2d76492d775bd0ac0a1253dac980cbe8fb34c3d627aceba3fb9b0cdc10acaa49e47116a507823c67006f2fc9e3
   languageName: node
   linkType: hard
 
