@@ -1643,6 +1643,9 @@
         "velodrome-optimism-wsteth"
       ]
     },
+    "SUSDz_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-anzen"]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
