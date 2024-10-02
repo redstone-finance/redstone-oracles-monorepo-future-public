@@ -1400,6 +1400,9 @@
         "aerodrome-base-wsteth",
         "velodrome-optimism-wsteth"
       ]
+    },
+    "SUSDz_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-anzen"]
     }
   },
   "multiPointPackages": {
