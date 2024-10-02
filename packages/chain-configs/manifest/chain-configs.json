@@ -17,7 +17,6 @@
       "name": "Ethereum Mainnet",
       "chainId": 1,
       "publicRpcUrls": [
-        "https://eth-mainnet.public.blastapi.io",
         "https://rpc.ankr.com/eth",
         "https://ethereum.publicnode.com",
         "https://eth.llamarpc.com"
