@@ -4,29 +4,39 @@ import {
   OnChainRelayerManifest,
   UpdateTriggers,
 } from "@redstone-finance/on-chain-relayer-common";
-import { ConditionCheckNames, OnChainRelayerEnv, RelayerConfig } from "./types";
+import {
+  ConditionCheckNames,
+  OnChainRelayerEnv,
+  RelayerConfig,
+  type ManifestConfig,
+} from "./types";
 
 export const MS_IN_ONE_MINUTE = 60000;
 
-export const makeConfigProvider = (
-  manifest: AnyOnChainRelayerManifest,
-  env: OnChainRelayerEnv
-): RelayerConfig => {
-  const dataFeeds = Object.keys(manifest.priceFeeds);
-
+const createManifestConfig = (
+  manifest: AnyOnChainRelayerManifest
+): ManifestConfig => {
   const { updateConditions, updateTriggers } = makeUpdateConditions(manifest);
-
   return {
     chainName: manifest.chain.name,
     chainId: manifest.chain.id,
     adapterContractAddress: manifest.adapterContract,
     dataServiceId: manifest.dataServiceId,
-    dataFeeds,
+    dataFeeds: Object.keys(manifest.priceFeeds),
     dataPackagesNames: manifest.dataPacakgesNames,
     updateConditions,
     updateTriggers,
     adapterContractType: manifest.adapterContractType,
+  };
+};
+
+export const makeConfigProvider = (
+  manifest: AnyOnChainRelayerManifest,
+  env: OnChainRelayerEnv
+): RelayerConfig => {
+  return {
     fallbackOffsetInMS: env.fallbackOffsetInMinutes * MS_IN_ONE_MINUTE,
+    ...createManifestConfig(manifest),
     ...env,
   };
 };
