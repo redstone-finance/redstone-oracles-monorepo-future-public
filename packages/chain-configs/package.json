@@ -14,7 +14,7 @@
     "lint": "yarn global:eslint . && yarn global:prettier --check manifest/**/*.json",
     "lint:fix": "yarn global:eslint --fix . && yarn global:prettier --write manifest/**/*.json",
     "preversion": "yarn build",
-    "print:chain-configs": "yarn run-ts scripts/print-chains-configs.ts",
+    "print:chain-configs": "yarn run-ts scripts/print-chain-configs.ts",
     "print:ssm-rpc-urls-dev": "ENV=dev yarn run-ts scripts/print-ssm-rpc-urls.ts",
     "print:ssm-rpc-urls-prod": "ENV=prod yarn run-ts scripts/print-ssm-rpc-urls.ts",
     "test": "hardhat test",
