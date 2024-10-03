@@ -10,7 +10,6 @@ export const mockNodes = [...Array(6).keys()].reduce(
         evmAddress: "testAddress",
         ipAddress: "testIpAddress",
         ecdsaPublicKey: "testECDSAPublicKey",
-        arweavePublicKey: "testArweavePubicKey",
         url: "testUrl",
       },
     },

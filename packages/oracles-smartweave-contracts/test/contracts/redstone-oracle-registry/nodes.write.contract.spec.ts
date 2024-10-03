@@ -17,7 +17,6 @@ const testNodeDetails = {
   evmAddress: "testAddress",
   ipAddress: "testIP",
   ecdsaPublicKey: "testECDSAPublicKey",
-  arweavePublicKey: "testArweavePubicKey",
   url: "testUrl",
 };
 
@@ -101,7 +100,6 @@ describe("RedStone oracle registry contract - nodes - write", () => {
         evmAddress: "testAddress1",
         ipAddress: "testIP",
         ecdsaPublicKey: "testECDSAPublicKey",
-        arweavePublicKey: "testArweavePubicKey",
         url: "testUrl",
       };
 
@@ -113,7 +111,6 @@ describe("RedStone oracle registry contract - nodes - write", () => {
         evmAddress: "testAddress2",
         ipAddress: "testIP",
         ecdsaPublicKey: "testECDSAPublicKey",
-        arweavePublicKey: "testArweavePubicKey",
         url: "testUrl",
       };
 
@@ -201,7 +198,6 @@ describe("RedStone oracle registry contract - nodes - write", () => {
         evmAddress: "testAddress",
         ipAddress: "newTestIP",
         ecdsaPublicKey: "newTestECDSAPublicKey",
-        arweavePublicKey: "newTestArweavePubicKey",
         url: "newTestUrl",
       };
       await contract.writeInteraction<RedstoneOraclesInput>({

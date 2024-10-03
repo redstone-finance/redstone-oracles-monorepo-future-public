@@ -132,7 +132,6 @@ describe("RedStone oracle registry contract - nodes - read", () => {
         evmAddress: "testAddress",
         ipAddress: "testIpAddress",
         ecdsaPublicKey: "testECDSAPublicKey",
-        arweavePublicKey: "testArweavePubicKey",
         url: "testUrl",
       };
       expect(result).toEqual(expectedNodeDetails);
@@ -154,7 +153,6 @@ describe("RedStone oracle registry contract - nodes - read", () => {
         evmAddress: "testAddress",
         ipAddress: "testIpAddress",
         ecdsaPublicKey: "testECDSAPublicKey",
-        arweavePublicKey: "testArweavePubicKey",
         url: "testUrl",
       };
       expect(result).toEqual(expectedNodeDetails);
