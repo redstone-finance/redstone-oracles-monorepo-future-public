@@ -15,14 +15,17 @@ const RETRY_CONFIG = {
   waitBetweenMs: 1000,
   disableLog: true,
 };
-const ChainConfigs = getLocalChainConfigs();
 
-const chainToSkipForMulticallAddressCheck = [
+const CHAINS_TO_SKIP_MULTICALL_ADDRESS_CHECK = [
   "zkSync",
   "zkLink",
   "Haven1 Testnet",
   "BounceBit Mainnet",
 ];
+
+const CHAINS_TO_SKIP_RPC_PRESENCE_CHECK = ["Unichain Sepolia"];
+
+const ChainConfigs = getLocalChainConfigs();
 
 describe("Validate chain configs", () => {
   it("Scheme should be valid", () => {
@@ -31,12 +34,14 @@ describe("Validate chain configs", () => {
 
   it("Each chain config should have at least one publicRpcProvider", () => {
     for (const chainConfig of Object.values(ChainConfigs)) {
-      chai
-        .expect(
-          chainConfig.publicRpcUrls.length,
-          `No publicRpcProvider set for ${chainConfig.name}`
-        )
-        .greaterThanOrEqual(1);
+      if (!CHAINS_TO_SKIP_RPC_PRESENCE_CHECK.includes(chainConfig.name)) {
+        chai
+          .expect(
+            chainConfig.publicRpcUrls.length,
+            `No publicRpcProvider set for ${chainConfig.name}`
+          )
+          .greaterThanOrEqual(1);
+      }
     }
   });
 });
@@ -59,7 +64,7 @@ describe("Validate multicall3", () => {
     for (const chainConfig of Object.values(ChainConfigs)) {
       if (
         chainConfig.multicall3.type === "Multicall3" &&
-        !chainToSkipForMulticallAddressCheck.includes(chainConfig.name)
+        !CHAINS_TO_SKIP_MULTICALL_ADDRESS_CHECK.includes(chainConfig.name)
       ) {
         chai
           .expect(

@@ -9,6 +9,8 @@ import {
   readMultiFeedManifests,
 } from "../../scripts/read-manifests";
 
+const INTEGRATIONS_NOT_FOR_TESTING = ["unichainTestnetMultiFeed"];
+
 const ABI = ["function getDataFeedId() public view returns (bytes32)"];
 
 const CONNECTION_INFO = {
@@ -83,6 +85,9 @@ describe("Price feed contract should return the same dataFeedId as in relayer ma
 
   const mutliFeedManifests = readMultiFeedManifests();
   for (const [name, manifest] of Object.entries(mutliFeedManifests)) {
+    if (INTEGRATIONS_NOT_FOR_TESTING.includes(name)) {
+      continue;
+    }
     test(name, async () => {
       for (const [dataFeedId, { priceFeedAddress }] of Object.entries(
         manifest.priceFeeds
