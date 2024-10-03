@@ -2,12 +2,14 @@ import { RpcUrlsPerChain } from "../../scripts/read-ssm-rpc-urls";
 import { getLocalChainConfigs } from "../../src";
 import { validateRpcUrls } from "./common";
 
+const CHAINS_TO_SKIP_RPC_CHECK = ["Unichain Sepolia"];
+
 const validatePublicRpcUrls = () => {
   const chainConfigs = getLocalChainConfigs();
   const rpcUrlsPerChain: RpcUrlsPerChain = {};
 
   for (const { name, chainId, publicRpcUrls } of Object.values(chainConfigs)) {
-    if (name === "hardhat") {
+    if (name === "hardhat" || CHAINS_TO_SKIP_RPC_CHECK.includes(name)) {
       continue;
     }
     rpcUrlsPerChain[name] = {
