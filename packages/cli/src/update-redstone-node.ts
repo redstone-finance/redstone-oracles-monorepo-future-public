@@ -42,11 +42,6 @@ export const updateRedstoneNode = async () => {
     },
     {
       type: "text",
-      name: "arweavePublicKey",
-      message: "Provide Arweave public key of redstone node",
-    },
-    {
-      type: "text",
       name: "url",
       message: "Provide URL of redstone node",
     },
@@ -68,7 +63,6 @@ export const updateRedstoneNode = async () => {
     evmAddress,
     ipAddress,
     ecdsaPublicKey,
-    arweavePublicKey,
     url,
   } = response;
   const nodeDetails = {
@@ -79,7 +73,6 @@ export const updateRedstoneNode = async () => {
     ...(!!evmAddress && { evmAddress }),
     ...(!!ipAddress && { ipAddress }),
     ...(!!ecdsaPublicKey && { ecdsaPublicKey }),
-    ...(!!arweavePublicKey && { arweavePublicKey }),
     ...(!!url && { url }),
   };
   const updateNodeTransaction =

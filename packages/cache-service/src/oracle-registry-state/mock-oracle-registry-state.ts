@@ -11,7 +11,6 @@ export const mockOraclesState: RedstoneOraclesState = {
       url: "",
       ipAddress: "mock",
       ecdsaPublicKey: "mock",
-      arweavePublicKey: "mock",
     },
     "Mock arweave address 2": {
       name: "mock-node",
@@ -22,7 +21,6 @@ export const mockOraclesState: RedstoneOraclesState = {
       url: "",
       ipAddress: "mock",
       ecdsaPublicKey: "mock",
-      arweavePublicKey: "mock",
     },
     "Mock arweave address 3": {
       name: "mock-node",
@@ -33,7 +31,6 @@ export const mockOraclesState: RedstoneOraclesState = {
       url: "",
       ipAddress: "mock",
       ecdsaPublicKey: "mock",
-      arweavePublicKey: "mock",
     },
   },
   evolve: null,

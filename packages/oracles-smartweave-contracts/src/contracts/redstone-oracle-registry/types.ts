@@ -20,7 +20,6 @@ interface Node {
   evmAddress: string;
   ipAddress: string;
   ecdsaPublicKey: string;
-  arweavePublicKey?: string;
   url?: string;
 }
 

@@ -42,7 +42,6 @@ export const mockOracleRegistryState: RedstoneOraclesState = {
       evmAddress: mockSigner.address,
       ipAddress: "0.0.0.0",
       ecdsaPublicKey: "mock-ecdsa-key",
-      arweavePublicKey: "mock-arweave-public-key",
     },
   },
   contractAdmins: [],
