@@ -59,42 +59,20 @@ export type UpdatePricesArgs<T extends Contract = Contract> =
       ? UpdatePricesMultiFeedFields
       : object);
 
-export interface RelayerConfig {
-  relayerIterationInterval: number;
-  rpcUrls: string[];
+export type RelayerConfig = OnChainRelayerEnv &
+  ManifestConfig & { fallbackOffsetInMS: number };
+
+export type ManifestConfig = {
   chainName: string;
   chainId: number;
-  privateKey: string;
   adapterContractAddress: string;
   dataServiceId: string;
   dataFeeds: string[];
   dataPackagesNames?: string[];
-  gasLimit?: number;
-  gasMultiplier?: number;
-  maxTxSendAttempts?: number;
   updateTriggers: Record<string, UpdateTriggers>;
   updateConditions: Record<string, ConditionCheckNames[]>;
-  healthcheckPingUrl?: string;
   adapterContractType: AdapterType;
-  expectedTxDeliveryTimeInMS: number;
-  twoDimensionalFees: boolean;
-  fallbackOffsetInMinutes?: number;
-  fallbackOffsetInMS: number;
-  cacheServiceUrls?: string[];
-  isAuctionModel?: boolean;
-  historicalPackagesGateways?: string[];
-  mentoMaxDeviationAllowed?: number;
-  singleProviderOperationTimeout: number;
-  allProvidersOperationTimeout: number;
-  isNotLazy: boolean;
-  fallbackSkipDeviationBasedFrequentUpdates: boolean;
-  disableCustomGasOracle: boolean;
-  temporaryUpdatePriceInterval: number;
-  getBlockNumberTimeout?: number;
-  useMulticallProvider: boolean;
-  multiFeedAdditionalUpdatesDeviationThreshold?: number;
-  multiFeedSyncHeartbeats?: boolean;
-}
+};
 
 export type OnChainRelayerEnv = {
   relayerIterationInterval: number;

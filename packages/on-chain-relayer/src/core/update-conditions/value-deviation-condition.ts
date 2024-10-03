@@ -20,7 +20,7 @@ export const performValueDeviationConditionChecks = async (
       config
     );
 
-  const isFallback = (config.fallbackOffsetInMinutes ?? 0) > 0;
+  const isFallback = config.fallbackOffsetInMinutes > 0;
   let historicalShouldUpdatePrices = true;
   let historicalWarningMessage = "";
   let historicalMaxDeviation = 0;
@@ -48,7 +48,7 @@ export const performValueDeviationConditionChecks = async (
     isFallback &&
     config.fallbackSkipDeviationBasedFrequentUpdates &&
     Date.now() - lastUpdateTimestampInMs <
-      (config.fallbackOffsetInMinutes ?? 0) * 60 * 1000;
+      config.fallbackOffsetInMinutes * 60 * 1000;
 
   const shouldUpdatePricesNoSkip =
     shouldUpdatePrices && historicalShouldUpdatePrices;
