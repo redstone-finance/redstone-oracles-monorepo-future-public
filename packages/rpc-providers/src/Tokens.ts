@@ -273,6 +273,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0xd9D920AA40f578ab794426F5C90F6C731D159DEf",
       decimals: 18,
     },
+    cbBTC: {
+      address: "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+      decimals: 8,
+    },
   },
   blast: {
     ETH: {
@@ -548,6 +552,10 @@ export const chainTokenMap: ChainTokenMap = {
     fBOMB: {
       address: "0x74ccbe53F77b08632ce0CB91D3A545bF6B8E0979",
       decimals: 18,
+    },
+    cbBTC: {
+      address: "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+      decimals: 8,
     },
   },
   optimism: {

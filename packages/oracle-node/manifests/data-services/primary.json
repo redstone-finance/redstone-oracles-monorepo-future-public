@@ -1398,6 +1398,7 @@
     },
     "fBOMB": {
       "source": [
+        "aerodrome-base-cbbtc",
         "aerodrome-base-weth",
         "aerodrome-base-wsteth",
         "velodrome-optimism-wsteth"
@@ -1405,6 +1406,16 @@
     },
     "SUSDz_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-anzen"]
+    },
+    "cbBTC": {
+      "source": [
+        "aerodrome-cl-base-usdc-500",
+        "aerodrome-cl-base-weth-500",
+        "uniswap-v3-base-weth-3000",
+        "uniswap-v3-ethereum-usdc-3000",
+        "uniswap-v3-ethereum-wbtc-500",
+        "uniswap-v3-ethereum-weth-3000"
+      ]
     }
   },
   "multiPointPackages": {
