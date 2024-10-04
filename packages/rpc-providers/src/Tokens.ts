@@ -641,6 +641,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x5Cf6826140C1C56Ff49C808A1A75407Cd1DF9423",
       decimals: 6,
     },
+    USDC: {
+      address: "0x3894085Ef7Ff0f0aeDf52E2A2704928d1Ec074F1",
+      decimals: 6,
+    },
   },
 };
 
