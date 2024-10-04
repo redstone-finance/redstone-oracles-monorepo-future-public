@@ -1569,7 +1569,9 @@
     },
     "ISEI": {
       "source": [
+        "dragonswap-sei-usdc",
         "dragonswap-sei-wsei",
+        "dragonswap-v2-sei-wsei-3000",
         "jellyverse-sei-wsei",
         "xei-sei-wsei-100",
         "xei-sei-wsei-500"
