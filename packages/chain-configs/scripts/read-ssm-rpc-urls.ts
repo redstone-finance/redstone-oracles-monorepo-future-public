@@ -11,18 +11,25 @@ export type RpcUrlsPerChain = {
 };
 
 const env = RedstoneCommon.getFromEnv("ENV", z.string().default("dev"));
+const isFallback = RedstoneCommon.getFromEnv(
+  "FALLBACK",
+  z.boolean().default(false)
+);
 
 export const readSsmRpcUrls = async (): Promise<RpcUrlsPerChain> => {
   const chainConfigs = getLocalChainConfigs();
   const rpcUrlsPerChain: RpcUrlsPerChain = {};
 
+  const fallbackInfix = isFallback ? "/fallback" : "";
+  const region = isFallback ? "eu-north-1" : "eu-west-1";
   for (const { name, chainId } of Object.values(chainConfigs)) {
     if (name === "hardhat") {
       continue;
     }
     try {
       const ssmRpcUrls = await getSSMParameterValue(
-        `/${env}/rpc/${chainId}/urls`
+        `/${env}/rpc/${chainId}${fallbackInfix}/urls`,
+        region
       );
       const rpcUrls = JSON.parse(ssmRpcUrls!) as string[];
       rpcUrlsPerChain[name] = {

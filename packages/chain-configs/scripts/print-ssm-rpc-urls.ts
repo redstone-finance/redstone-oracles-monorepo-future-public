@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { readSsmRpcUrls } from "./read-ssm-rpc-urls";
 
 const printSsmRpcUrls = async () => {
