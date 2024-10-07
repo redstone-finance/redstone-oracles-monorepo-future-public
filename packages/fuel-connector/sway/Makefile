@@ -1,10 +1,10 @@
 
 DATA_NAME=fuel
 IS_LOCAL=1
-IS_MAINNET=1
+IS_MAINNET=0
 
-SALT=--salt 0x0000000000000000000000000000000000000000000000000000000000000002
-#SALT=--default-salt
+SALT_ID=0x0000000000000000000000000000000000000000000000000000000000000010
+SUFFIX=_adapter#_prices#_core#_adapter
 
 ifeq ($(IS_LOCAL), 0)
 	ifeq ($(IS_MAINNET), 1)
@@ -19,31 +19,28 @@ else
 	GAS_PRICE=0
 endif
 
-SUFFIX=#_core
-DEMO=demo
 CONTRACT=contract$(SUFFIX)
-INVOKER=contract_invoker
-INITIALIZER=contract_initializer
+INVOKER=invoker
+SALT=--salt $(SALT_ID)
 
 ifeq ($(SUFFIX),_core)
-  INVOKER=contract_invoker$(SUFFIX)
-endif
-
-ifeq ($(SUFFIX),_adapter)
-  INITIALIZER=contract_initializer$(SUFFIX)
+  INVOKER=invoker$(SUFFIX)
 endif
 
 DEMO=demo
-CONTRACT_PRICES=contract
+CONTRACT_PRICES=contract_prices
 CONTRACT_CORE=contract_core
 CONTRACT_ADAPTER=contract_adapter
+COMMON=common
 LIBRARY=redstone-fuel-sdk
 DATA_GENERATOR=../../../packages/sdk/scripts/payload-generator
 DATA_DIR=$(DATA_GENERATOR)/data
 CONTRACT_ID_FILE=./$(CONTRACT)/CONTRACT_ID
 CONTRACT_ID=$(shell cat $(CONTRACT_ID_FILE))
-TEST_DIRS = $(LIBRARY) $(CONTRACT) $(CONTRACT_PRICES) $(CONTRACT_CORE)
-DIRS = $(TEST_DIRS) $(INVOKER) $(INITIALIZER) $(DEMO) $(CONTRACT_ADAPTER) $(CONTRACT_PRICES) $(CONTRACT_CORE) 
+TEST_DIRS = $(LIBRARY)
+DIRS = $(CONTRACT) $(CONTRACT_PRICES) $(CONTRACT_CORE) $(CONTRACT_ADAPTER) $(INVOKER) $(DEMO) $(COMMON) $(TEST_DIRS) 
+TOML_FILE = ./$(CONTRACT)/Forc.toml
+PROXY_ADDRESS=$(shell grep -E '^\s*address\s*=' $(TOML_FILE) | sed -E 's/.*"0x([0-9a-fA-F]+)".*/0x\1/')
 
 define run_in_dirs
     for dir in $(1); do \
@@ -73,7 +70,8 @@ invoke: format
 	--script-gas-limit 25000000 \
 	$(NODE_URL) \
 	--contract $(CONTRACT_ID) \
-	--gas-price $(GAS_PRICE) $(SIGNING_KEY) 
+	--contract $(PROXY_ADDRESS) \
+	--gas-price $(GAS_PRICE) $(SIGNING_KEY)
 
 contract: format
 	forc --version --path $(CONTRACT)
@@ -91,24 +89,10 @@ get_contract_id:
 	forc contract-id --path $(CONTRACT) --terse --release $(SALT) | grep "Contract id:" | cut -c 20- > $(CONTRACT_ID_FILE) 
 
 contract_id: get_contract_id
-	@cat $(INITIALIZER)/src/main.sw | sed -E "s|CONTRACT_ID: b256 = (0x([0-9a-f])+)*,|CONTRACT_ID: b256 = $(shell cat $(CONTRACT_ID_FILE)),|g" > tmp.sw;
-	@mv tmp.sw $(INITIALIZER)/src/main.sw
-	@cat $(INVOKER)/src/main.sw | sed -E "s|CONTRACT_ID: b256 = (0x([0-9a-f])+)*,|CONTRACT_ID: b256 = $(shell cat $(CONTRACT_ID_FILE)),|g" > tmp.sw
+	@cat $(INVOKER)/src/main.sw | sed -E "s|CONTRACT_ID: b256 = (0x([0-9a-f])+)*,|CONTRACT_ID: b256 = $(PROXY_ADDRESS),|g" > tmp.sw
 	@mv tmp.sw $(INVOKER)/src/main.sw
 
 deploy: perform_deploy contract_id
-
-init: format
-	@forc --version
-	forc run --path $(INITIALIZER) --release -r \
-	$(NODE_URL) \
-	--contract $(CONTRACT_ID) \
-	--gas-price $(GAS_PRICE) \
-	--max-fee 1 \
-	$(SIGNING_KEY)
-
-
-deploy_and_init: deploy init
 
 test: format
 	$(call run_in_dirs,$(TEST_DIRS),forc test)

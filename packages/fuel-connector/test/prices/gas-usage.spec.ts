@@ -2,7 +2,7 @@ import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { BigNumberish } from "ethers";
 import { sleep } from "fuels";
 import { provider } from "../common/provider";
-import { readDeployedHex } from "../common/read-deployed-hex";
+import { readProxyContractId } from "../common/read-proxy-contract-id";
 import { connectPricesContract } from "./prices-contract-test-utils";
 
 jest.setTimeout(10 * 60000);
@@ -48,7 +48,7 @@ describe("Gas Usage of integrated and initialized prices contract", () => {
     dataFeeds: string[]
   ) {
     const adapter = await (
-      await connectPricesContract(readDeployedHex(), true, await provider())
+      await connectPricesContract(readProxyContractId(), true, await provider())
     ).getAdapter();
     const paramsProvider = new ContractParamsProvider({
       dataServiceId: "redstone-avalanche-prod",

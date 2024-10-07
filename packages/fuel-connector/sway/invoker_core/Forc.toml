@@ -1,0 +1,10 @@
+[project]
+authors = ["Łukasz Kalbarczyk"]
+entry = "main.sw"
+forc-version = "0.64.0"
+license = "Apache-2.0"
+name = "contract_invoker"
+organization = "RedStone"
+
+[dependencies]
+common = { path = "../common" }

@@ -1,19 +1,19 @@
 import { ContractParamsProvider, sampleRun } from "@redstone-finance/sdk";
 import { provider } from "./common/provider";
-import { readDeployedHex } from "./common/read-deployed-hex";
+import { readProxyContractId } from "./common/read-proxy-contract-id";
 import { connectPricesContract } from "./prices/prices-contract-test-utils";
 
-const IS_LOCAL = false as boolean;
+const IS_LOCAL = true as boolean;
 
 async function main() {
   const paramsProvider = new ContractParamsProvider({
-    dataServiceId: "redstone-avalanche-prod",
+    dataServiceId: "redstone-primary-prod",
     uniqueSignersCount: 1,
     dataPackagesIds: ["ETH", "BTC"],
   });
 
   const pricesConnector = await connectPricesContract(
-    readDeployedHex(),
+    readProxyContractId("contract_adapter"),
     false,
     await provider(IS_LOCAL)
   );

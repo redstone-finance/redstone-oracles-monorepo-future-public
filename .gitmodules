@@ -1,7 +1,7 @@
 [submodule "packages/fuel-connector/sway/redstone-fuel-sdk"]
 	path = packages/fuel-connector/sway/redstone-fuel-sdk
 	url = https://github.com/redstone-finance/redstone-fuel-sdk.git
-	tag = testnet-0.63.6
+	tag = testnet-0.64.0
 
 [submodule "packages/casper-connector/rust/rust-sdk"]
 	path = packages/casper-connector/rust/rust-sdk

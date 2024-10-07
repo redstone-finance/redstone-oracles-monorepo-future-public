@@ -2818,9 +2818,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/aix-ppc64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/aix-ppc64@npm:0.23.1"
+"@esbuild/aix-ppc64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/aix-ppc64@npm:0.24.0"
   conditions: os=aix & cpu=ppc64
   languageName: node
   linkType: hard
@@ -2839,9 +2839,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/android-arm64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/android-arm64@npm:0.23.1"
+"@esbuild/android-arm64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/android-arm64@npm:0.24.0"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
@@ -2860,9 +2860,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/android-arm@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/android-arm@npm:0.23.1"
+"@esbuild/android-arm@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/android-arm@npm:0.24.0"
   conditions: os=android & cpu=arm
   languageName: node
   linkType: hard
@@ -2881,9 +2881,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/android-x64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/android-x64@npm:0.23.1"
+"@esbuild/android-x64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/android-x64@npm:0.24.0"
   conditions: os=android & cpu=x64
   languageName: node
   linkType: hard
@@ -2902,9 +2902,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/darwin-arm64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/darwin-arm64@npm:0.23.1"
+"@esbuild/darwin-arm64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/darwin-arm64@npm:0.24.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
@@ -2923,9 +2923,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/darwin-x64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/darwin-x64@npm:0.23.1"
+"@esbuild/darwin-x64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/darwin-x64@npm:0.24.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -2944,9 +2944,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/freebsd-arm64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/freebsd-arm64@npm:0.23.1"
+"@esbuild/freebsd-arm64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/freebsd-arm64@npm:0.24.0"
   conditions: os=freebsd & cpu=arm64
   languageName: node
   linkType: hard
@@ -2965,9 +2965,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/freebsd-x64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/freebsd-x64@npm:0.23.1"
+"@esbuild/freebsd-x64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/freebsd-x64@npm:0.24.0"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
@@ -2986,9 +2986,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/linux-arm64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/linux-arm64@npm:0.23.1"
+"@esbuild/linux-arm64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/linux-arm64@npm:0.24.0"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
@@ -3007,9 +3007,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/linux-arm@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/linux-arm@npm:0.23.1"
+"@esbuild/linux-arm@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/linux-arm@npm:0.24.0"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
@@ -3028,9 +3028,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/linux-ia32@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/linux-ia32@npm:0.23.1"
+"@esbuild/linux-ia32@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/linux-ia32@npm:0.24.0"
   conditions: os=linux & cpu=ia32
   languageName: node
   linkType: hard
@@ -3049,9 +3049,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/linux-loong64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/linux-loong64@npm:0.23.1"
+"@esbuild/linux-loong64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/linux-loong64@npm:0.24.0"
   conditions: os=linux & cpu=loong64
   languageName: node
   linkType: hard
@@ -3070,9 +3070,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/linux-mips64el@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/linux-mips64el@npm:0.23.1"
+"@esbuild/linux-mips64el@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/linux-mips64el@npm:0.24.0"
   conditions: os=linux & cpu=mips64el
   languageName: node
   linkType: hard
@@ -3091,9 +3091,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/linux-ppc64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/linux-ppc64@npm:0.23.1"
+"@esbuild/linux-ppc64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/linux-ppc64@npm:0.24.0"
   conditions: os=linux & cpu=ppc64
   languageName: node
   linkType: hard
@@ -3112,9 +3112,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/linux-riscv64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/linux-riscv64@npm:0.23.1"
+"@esbuild/linux-riscv64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/linux-riscv64@npm:0.24.0"
   conditions: os=linux & cpu=riscv64
   languageName: node
   linkType: hard
@@ -3133,9 +3133,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/linux-s390x@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/linux-s390x@npm:0.23.1"
+"@esbuild/linux-s390x@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/linux-s390x@npm:0.24.0"
   conditions: os=linux & cpu=s390x
   languageName: node
   linkType: hard
@@ -3154,9 +3154,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/linux-x64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/linux-x64@npm:0.23.1"
+"@esbuild/linux-x64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/linux-x64@npm:0.24.0"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
@@ -3175,16 +3175,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/netbsd-x64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/netbsd-x64@npm:0.23.1"
+"@esbuild/netbsd-x64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/netbsd-x64@npm:0.24.0"
   conditions: os=netbsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@esbuild/openbsd-arm64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/openbsd-arm64@npm:0.23.1"
+"@esbuild/openbsd-arm64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/openbsd-arm64@npm:0.24.0"
   conditions: os=openbsd & cpu=arm64
   languageName: node
   linkType: hard
@@ -3203,9 +3203,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/openbsd-x64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/openbsd-x64@npm:0.23.1"
+"@esbuild/openbsd-x64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/openbsd-x64@npm:0.24.0"
   conditions: os=openbsd & cpu=x64
   languageName: node
   linkType: hard
@@ -3224,9 +3224,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/sunos-x64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/sunos-x64@npm:0.23.1"
+"@esbuild/sunos-x64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/sunos-x64@npm:0.24.0"
   conditions: os=sunos & cpu=x64
   languageName: node
   linkType: hard
@@ -3245,9 +3245,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/win32-arm64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/win32-arm64@npm:0.23.1"
+"@esbuild/win32-arm64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/win32-arm64@npm:0.24.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
@@ -3266,9 +3266,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/win32-ia32@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/win32-ia32@npm:0.23.1"
+"@esbuild/win32-ia32@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/win32-ia32@npm:0.24.0"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
@@ -3287,9 +3287,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild/win32-x64@npm:0.23.1":
-  version: 0.23.1
-  resolution: "@esbuild/win32-x64@npm:0.23.1"
+"@esbuild/win32-x64@npm:0.24.0":
+  version: 0.24.0
+  resolution: "@esbuild/win32-x64@npm:0.24.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -4012,245 +4012,244 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fuel-ts/abi-coder@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/abi-coder@npm:0.94.6"
+"@fuel-ts/abi-coder@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/abi-coder@npm:0.94.8"
   dependencies:
-    "@fuel-ts/crypto": "npm:0.94.6"
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/hasher": "npm:^0.94.6"
-    "@fuel-ts/interfaces": "npm:0.94.6"
-    "@fuel-ts/math": "npm:0.94.6"
-    "@fuel-ts/utils": "npm:0.94.6"
+    "@fuel-ts/crypto": "npm:0.94.8"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/hasher": "npm:^0.94.8"
+    "@fuel-ts/interfaces": "npm:0.94.8"
+    "@fuel-ts/math": "npm:0.94.8"
+    "@fuel-ts/utils": "npm:0.94.8"
     type-fest: "npm:^4.26.1"
-  checksum: 10c0/d9a32f7c6c34f450259c1618b3daa25f78057f86bdfe5705ce5e78a4558211948676bd15a4a7b999cf1d19b320d6620d2cf60671634c4a5862192083e4f80142
+  checksum: 10c0/c43e32f1b2012a1107ff8f705edb614d4ae30ac8a227b635e094ef880d09c66a192a6adf816eb0849b1ede960100d0bd332c2012241c4d025137a513797577c4
   languageName: node
   linkType: hard
 
-"@fuel-ts/abi-typegen@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/abi-typegen@npm:0.94.6"
+"@fuel-ts/abi-typegen@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/abi-typegen@npm:0.94.8"
   dependencies:
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/interfaces": "npm:^0.94.6"
-    "@fuel-ts/utils": "npm:0.94.6"
-    "@fuel-ts/versions": "npm:0.94.6"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/interfaces": "npm:^0.94.8"
+    "@fuel-ts/utils": "npm:0.94.8"
+    "@fuel-ts/versions": "npm:0.94.8"
     commander: "npm:12.1.0"
     glob: "npm:^10.4.5"
     handlebars: "npm:^4.7.8"
     mkdirp: "npm:^3.0.1"
     ramda: "npm:^0.30.1"
-    rimraf: "npm:^5.0.8"
+    rimraf: "npm:^5.0.10"
   bin:
     fuels-typegen: typegen.js
-  checksum: 10c0/d95664d8bdfddfd4bbf986aeda5a3194ff9a173c7f2d8414b985ef0b471f36c94eff40a26063a0f6fc8f2238555e57bcb2a7d33223b502aaa87cfaa9c1305514
+  checksum: 10c0/f1d7af6f7baca351087aec953eba6e50dc58ea96762cfbcd451adcdf68d33288a96452e7ea29c603e6d29da09bbbb8e1e31172433f1412d2a0a41acb04c1752e
   languageName: node
   linkType: hard
 
-"@fuel-ts/account@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/account@npm:0.94.6"
+"@fuel-ts/account@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/account@npm:0.94.8"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.94.6"
-    "@fuel-ts/address": "npm:0.94.6"
-    "@fuel-ts/crypto": "npm:0.94.6"
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/hasher": "npm:0.94.6"
-    "@fuel-ts/interfaces": "npm:0.94.6"
-    "@fuel-ts/math": "npm:0.94.6"
-    "@fuel-ts/merkle": "npm:0.94.6"
-    "@fuel-ts/transactions": "npm:0.94.6"
-    "@fuel-ts/utils": "npm:0.94.6"
-    "@fuel-ts/versions": "npm:0.94.6"
-    "@fuels/vm-asm": "npm:0.56.0"
+    "@fuel-ts/abi-coder": "npm:0.94.8"
+    "@fuel-ts/address": "npm:0.94.8"
+    "@fuel-ts/crypto": "npm:0.94.8"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/hasher": "npm:0.94.8"
+    "@fuel-ts/interfaces": "npm:0.94.8"
+    "@fuel-ts/math": "npm:0.94.8"
+    "@fuel-ts/merkle": "npm:0.94.8"
+    "@fuel-ts/transactions": "npm:0.94.8"
+    "@fuel-ts/utils": "npm:0.94.8"
+    "@fuel-ts/versions": "npm:0.94.8"
+    "@fuels/vm-asm": "npm:0.57.1"
     "@noble/curves": "npm:^1.6.0"
     events: "npm:^3.3.0"
     graphql: "npm:^16.9.0"
     graphql-request: "npm:5.0.0"
     graphql-tag: "npm:^2.12.6"
-    portfinder: "npm:^1.0.32"
     ramda: "npm:^0.30.1"
-  checksum: 10c0/a47a7730603da67663b816346877ea51c50444eaee0632c7c90ab397277db178773a436a1d7ec20f167b21a21eb55a6f2bcb2970cdc7bb48d6873f207ba2d062
+  checksum: 10c0/e0b62ede2e2a4397cd76d01053b8f3cb98f5b175f9757e2fa0ef499a0272baf1da0fbbda129b48885ce56b67a6e383abe0ddc8320c7ee0c9813076c03a4015a9
   languageName: node
   linkType: hard
 
-"@fuel-ts/address@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/address@npm:0.94.6"
+"@fuel-ts/address@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/address@npm:0.94.8"
   dependencies:
-    "@fuel-ts/crypto": "npm:0.94.6"
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/interfaces": "npm:0.94.6"
-    "@fuel-ts/utils": "npm:^0.94.6"
+    "@fuel-ts/crypto": "npm:0.94.8"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/interfaces": "npm:0.94.8"
+    "@fuel-ts/utils": "npm:^0.94.8"
     "@noble/hashes": "npm:^1.5.0"
     bech32: "npm:^2.0.0"
-  checksum: 10c0/a635e4e4e42ea46c868d536082750c552709e5ad843c9c8e9cccd1e8185ba315a206ccd360c0d59c0dca670f093bfebdbe13969aca664f8f2d07b6a1187b5f2b
+  checksum: 10c0/318b06332c0bf83dff9b4eb71715bba7f4a492d5b086ce22a7bf5f16ebc2f7143bec57daaba8a308d424116450d7234d557e13904809cecb9b0204f0503ac6d7
   languageName: node
   linkType: hard
 
-"@fuel-ts/contract@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/contract@npm:0.94.6"
+"@fuel-ts/contract@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/contract@npm:0.94.8"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.94.6"
-    "@fuel-ts/account": "npm:0.94.6"
-    "@fuel-ts/crypto": "npm:0.94.6"
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/hasher": "npm:0.94.6"
-    "@fuel-ts/interfaces": "npm:^0.94.6"
-    "@fuel-ts/math": "npm:^0.94.6"
-    "@fuel-ts/merkle": "npm:0.94.6"
-    "@fuel-ts/program": "npm:0.94.6"
-    "@fuel-ts/transactions": "npm:0.94.6"
-    "@fuel-ts/utils": "npm:0.94.6"
-    "@fuel-ts/versions": "npm:0.94.6"
-    "@fuels/vm-asm": "npm:0.56.0"
+    "@fuel-ts/abi-coder": "npm:0.94.8"
+    "@fuel-ts/account": "npm:0.94.8"
+    "@fuel-ts/crypto": "npm:0.94.8"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/hasher": "npm:0.94.8"
+    "@fuel-ts/interfaces": "npm:^0.94.8"
+    "@fuel-ts/math": "npm:^0.94.8"
+    "@fuel-ts/merkle": "npm:0.94.8"
+    "@fuel-ts/program": "npm:0.94.8"
+    "@fuel-ts/transactions": "npm:0.94.8"
+    "@fuel-ts/utils": "npm:0.94.8"
+    "@fuel-ts/versions": "npm:0.94.8"
+    "@fuels/vm-asm": "npm:0.57.1"
     ramda: "npm:^0.30.1"
-  checksum: 10c0/3946f5f0cbb58698e8f820c24d6b890222042d0b308acacd6ca57b78a1e506d59b6d3c67bcc2f5ebf7c111dd59528ddcfbb7478b1ba4d543091c890062c35825
+  checksum: 10c0/4e171c2bd8c139225b026091c5b62c197539decdbfac5bd0b362abb27cb04fe0e784c319ff4579a925ff39d1645a93e9200c046d189d85920e9b90f0227eae78
   languageName: node
   linkType: hard
 
-"@fuel-ts/crypto@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/crypto@npm:0.94.6"
+"@fuel-ts/crypto@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/crypto@npm:0.94.8"
   dependencies:
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/interfaces": "npm:0.94.6"
-    "@fuel-ts/math": "npm:0.94.6"
-    "@fuel-ts/utils": "npm:^0.94.6"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/interfaces": "npm:0.94.8"
+    "@fuel-ts/math": "npm:0.94.8"
+    "@fuel-ts/utils": "npm:^0.94.8"
     "@noble/hashes": "npm:^1.5.0"
-  checksum: 10c0/9138d0269b549a280cc8eabf0d6c13f70118a0a911d16bc62f0506918223897172af06ab1e932fe9f8f12eeb6e2715ea0f663340cbd5f99aa6901a3e30093227
+  checksum: 10c0/b0752dc77e2197f73546fbfc7c40ad055452eda4b2f6b8d3d7e36803e5a92da4a663aa8d7f5e5602907f8330b6b7c60b3fbe6b73c7fd5c5905ed3363d8008794
   languageName: node
   linkType: hard
 
-"@fuel-ts/errors@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/errors@npm:0.94.6"
+"@fuel-ts/errors@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/errors@npm:0.94.8"
   dependencies:
-    "@fuel-ts/versions": "npm:0.94.6"
-  checksum: 10c0/0f6c6ac15bcc4179d6b102b98207c3da435218765cd39e51d50ee036e8b19e7d0f8d8d4daeddfe9f9998b5e6e155e065df358f6d6804a8799fe074afaaebea14
+    "@fuel-ts/versions": "npm:0.94.8"
+  checksum: 10c0/a96c02eec862382bda40c2a7f52d70d0cbce71cec34126ba2f5c028885368a7baa7cdbd9a662fe4a335c132aed90482f820daa4d909b8d184173e84c5ff619a8
   languageName: node
   linkType: hard
 
-"@fuel-ts/hasher@npm:0.94.6, @fuel-ts/hasher@npm:^0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/hasher@npm:0.94.6"
+"@fuel-ts/hasher@npm:0.94.8, @fuel-ts/hasher@npm:^0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/hasher@npm:0.94.8"
   dependencies:
-    "@fuel-ts/crypto": "npm:0.94.6"
-    "@fuel-ts/interfaces": "npm:^0.94.6"
-    "@fuel-ts/utils": "npm:0.94.6"
+    "@fuel-ts/crypto": "npm:0.94.8"
+    "@fuel-ts/interfaces": "npm:^0.94.8"
+    "@fuel-ts/utils": "npm:0.94.8"
     "@noble/hashes": "npm:^1.5.0"
-  checksum: 10c0/666a10baa252d4b813cdf63136212271ac2e0b97966e657c7978861122ccd4b037aa34b52d54dc9985ddf1d29ae2d1e323276d0f782400a31c32af4f933ea259
+  checksum: 10c0/d2227e7c87187706042da4411ecfd292266dc2a42a29fa7a4b54c572eb69c5deb516770cd69af99508a00d63aa25e12d38dfaae791783c6f2cf7f4cd88524180
   languageName: node
   linkType: hard
 
-"@fuel-ts/interfaces@npm:0.94.6, @fuel-ts/interfaces@npm:^0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/interfaces@npm:0.94.6"
-  checksum: 10c0/ff3c7ae3846f7ddacf67dc1b5bb47474339fdfbce0733ce0c18ac2cbf64dc016f7b26adfa9695b066dc5060b49f682ce4055cc8f02b498dddf1776c5213c934d
+"@fuel-ts/interfaces@npm:0.94.8, @fuel-ts/interfaces@npm:^0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/interfaces@npm:0.94.8"
+  checksum: 10c0/8e55f2ebf30ded87907a29acb72d7db7b50d461749b75881fd873925d692ca87ffd93ada82c02318892cb2d7716ad222c4aa2b51c83a3cd582ed3e4f1f43a95c
   languageName: node
   linkType: hard
 
-"@fuel-ts/math@npm:0.94.6, @fuel-ts/math@npm:^0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/math@npm:0.94.6"
+"@fuel-ts/math@npm:0.94.8, @fuel-ts/math@npm:^0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/math@npm:0.94.8"
   dependencies:
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@types/bn.js": "npm:^5.1.5"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@types/bn.js": "npm:^5.1.6"
     bn.js: "npm:^5.2.1"
-  checksum: 10c0/cd286015bad48116266d8cab101f6daab2d6dc3ae56fbab656040cefa57baa84a3c48b6289ef6a5eea11db87fa2d88af8a9643b9be530cbdad9d104689c2f79c
+  checksum: 10c0/4a341fbd5d59341a827413d4373c49d1377d7b779fd2747707f3f4dfd381a3c0c1b8c591021b0354f90b26cc99233756d492b26c5fea93c1445228bfa51b22be
   languageName: node
   linkType: hard
 
-"@fuel-ts/merkle@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/merkle@npm:0.94.6"
+"@fuel-ts/merkle@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/merkle@npm:0.94.8"
   dependencies:
-    "@fuel-ts/hasher": "npm:^0.94.6"
-    "@fuel-ts/math": "npm:0.94.6"
-  checksum: 10c0/ca8d86fb1e54ff97765a3ded16ec780ee371718c01e07c203bb6e429a5050049451b5ac1f63e5cabd9568d0ae92d469be462cbb220ab99afea44c69f9996b64b
+    "@fuel-ts/hasher": "npm:^0.94.8"
+    "@fuel-ts/math": "npm:0.94.8"
+  checksum: 10c0/750aca6807a8bbdc89661d4ae2c3760a4170f6505a70e389c4f1bdfdb6f8b70c84692b6f0e3dce63b28fe5ccc302c89ce4cfe3331316541c8e38ad19e3540b20
   languageName: node
   linkType: hard
 
-"@fuel-ts/program@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/program@npm:0.94.6"
+"@fuel-ts/program@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/program@npm:0.94.8"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.94.6"
-    "@fuel-ts/account": "npm:0.94.6"
-    "@fuel-ts/address": "npm:0.94.6"
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/interfaces": "npm:0.94.6"
-    "@fuel-ts/math": "npm:0.94.6"
-    "@fuel-ts/transactions": "npm:0.94.6"
-    "@fuel-ts/utils": "npm:0.94.6"
-    "@fuels/vm-asm": "npm:0.56.0"
+    "@fuel-ts/abi-coder": "npm:0.94.8"
+    "@fuel-ts/account": "npm:0.94.8"
+    "@fuel-ts/address": "npm:0.94.8"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/interfaces": "npm:0.94.8"
+    "@fuel-ts/math": "npm:0.94.8"
+    "@fuel-ts/transactions": "npm:0.94.8"
+    "@fuel-ts/utils": "npm:0.94.8"
+    "@fuels/vm-asm": "npm:0.57.1"
     ramda: "npm:^0.30.1"
-  checksum: 10c0/44caa6db18b0a136a0656cd19711371d23e748c909ed8c92d3f928727393ba3d87147276d9fe7078f1882814a2799ca2f915db4a9818d37df12d38074cd12d31
+  checksum: 10c0/d3c81921caab4c6c94fefcc51904e3362465a94a34febe30e3246655307dd6dcd03c641c945f969efbd345db3e277862f5c3c43e2922180ad9e489b30f48b826
   languageName: node
   linkType: hard
 
-"@fuel-ts/script@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/script@npm:0.94.6"
+"@fuel-ts/script@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/script@npm:0.94.8"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.94.6"
-    "@fuel-ts/account": "npm:0.94.6"
-    "@fuel-ts/address": "npm:0.94.6"
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/interfaces": "npm:0.94.6"
-    "@fuel-ts/math": "npm:0.94.6"
-    "@fuel-ts/program": "npm:0.94.6"
-    "@fuel-ts/transactions": "npm:0.94.6"
-    "@fuel-ts/utils": "npm:0.94.6"
-  checksum: 10c0/4699c6a9fc87df291f6aa800673c4fa1bc000a094e39337bb243da55d681984d20e7914ca3dd074d5c836ec4602a75e832284895b538ee2d137748e596aaff15
+    "@fuel-ts/abi-coder": "npm:0.94.8"
+    "@fuel-ts/account": "npm:0.94.8"
+    "@fuel-ts/address": "npm:0.94.8"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/interfaces": "npm:0.94.8"
+    "@fuel-ts/math": "npm:0.94.8"
+    "@fuel-ts/program": "npm:0.94.8"
+    "@fuel-ts/transactions": "npm:0.94.8"
+    "@fuel-ts/utils": "npm:0.94.8"
+  checksum: 10c0/db0f85144c39218ff8bbc8d6a36244bc3304a5e40817c4ccaf2ef1e9973ab5a4f63b9c6aa52c9284ef9abf3b3fb2c7d063f45c83ada8e4704c1529ce26b08820
   languageName: node
   linkType: hard
 
-"@fuel-ts/transactions@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/transactions@npm:0.94.6"
+"@fuel-ts/transactions@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/transactions@npm:0.94.8"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.94.6"
-    "@fuel-ts/address": "npm:0.94.6"
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/hasher": "npm:^0.94.6"
-    "@fuel-ts/interfaces": "npm:^0.94.6"
-    "@fuel-ts/math": "npm:0.94.6"
-    "@fuel-ts/utils": "npm:0.94.6"
-  checksum: 10c0/262b4a2686c7546b7c17c62e8a5021fc9bcde39668d9e3a54895a88c91201eba29602b4b1be350283dd8e3082efe0fb1fde63900ec7bba1bda194c3d74539a6a
+    "@fuel-ts/abi-coder": "npm:0.94.8"
+    "@fuel-ts/address": "npm:0.94.8"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/hasher": "npm:^0.94.8"
+    "@fuel-ts/interfaces": "npm:^0.94.8"
+    "@fuel-ts/math": "npm:0.94.8"
+    "@fuel-ts/utils": "npm:0.94.8"
+  checksum: 10c0/2ec96896f9a49dfbdf3c29d950b9fd6eb64bbd7f925250b681b3e25326fced70881c016d2b3041ad135f76667ea544ef075d4c0ba7530eaa1dd8b1b49ca14ec0
   languageName: node
   linkType: hard
 
-"@fuel-ts/utils@npm:0.94.6, @fuel-ts/utils@npm:^0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/utils@npm:0.94.6"
+"@fuel-ts/utils@npm:0.94.8, @fuel-ts/utils@npm:^0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/utils@npm:0.94.8"
   dependencies:
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/interfaces": "npm:0.94.6"
-    "@fuel-ts/math": "npm:0.94.6"
-    "@fuel-ts/versions": "npm:0.94.6"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/interfaces": "npm:0.94.8"
+    "@fuel-ts/math": "npm:0.94.8"
+    "@fuel-ts/versions": "npm:0.94.8"
     fflate: "npm:^0.8.2"
-  checksum: 10c0/bfd70c03a5537715aebc1cd98915ec34249fc2f2e9027b5b515e223fd29f33832dd385100dae02f0ce8024f63fb40337b2ef204a22a19c84a3cf4dd56f7f5844
+  checksum: 10c0/39e12de1598ef00b933e61df2e1fd096985f7f02a081c761b9560eed70a9d6f4132933e728987001e991d525959ee104b2a4f8430b988f843e693d550fc87dff
   languageName: node
   linkType: hard
 
-"@fuel-ts/versions@npm:0.94.6":
-  version: 0.94.6
-  resolution: "@fuel-ts/versions@npm:0.94.6"
+"@fuel-ts/versions@npm:0.94.8":
+  version: 0.94.8
+  resolution: "@fuel-ts/versions@npm:0.94.8"
   dependencies:
     chalk: "npm:4"
     cli-table: "npm:^0.3.11"
   bin:
     fuels-versions: versions.js
-  checksum: 10c0/98d6e545bddfb40f00ecdf86d7bca461d296b82eeec8c4e5129a69bb5df05d1cca4803efe07b6084afbefa84adf3f940ae73fcf3b76c11b5935b069e4cc4111c
+  checksum: 10c0/90038d7b22688b3a0759e967e3be61b687d827e7fc023758966c9b847136b59ab6f7febee7b0b7f333c94c007fedb50866699304f17d3f81b7c6adaba2cd67b0
   languageName: node
   linkType: hard
 
-"@fuels/vm-asm@npm:0.56.0":
-  version: 0.56.0
-  resolution: "@fuels/vm-asm@npm:0.56.0"
-  checksum: 10c0/1cc5eb23bd0a1f9805c3111c62f0006e52a260aebef5f221be95b673da6b8e25295f86507900771bb30242b62fe4c2405c3f34ae6ab07b3bfe3bc15c31a0131d
+"@fuels/vm-asm@npm:0.57.1":
+  version: 0.57.1
+  resolution: "@fuels/vm-asm@npm:0.57.1"
+  checksum: 10c0/fb68dbe348999faf3da35dbdab7d82cc266dffff6484af77c3d13ee2244d3bb8de174ce0f12edf41c4b2577b45df57bfb8bdfbdb619e79964ea8297d2b510b67
   languageName: node
   linkType: hard
 
@@ -7789,8 +7788,9 @@ __metadata:
     "@babel/core": "npm:^7.23.2"
     "@babel/preset-typescript": "npm:^7.23.2"
     "@redstone-finance/sdk": "npm:0.6.2"
-    fuels: "npm:^0.94.6"
+    fuels: "npm:^0.94.8"
     redstone-api: "npm:^0.4.11"
+    toml: "npm:^3.0.0"
   languageName: unknown
   linkType: soft
 
@@ -10945,7 +10945,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/bn.js@npm:*, @types/bn.js@npm:^5.1.5":
+"@types/bn.js@npm:*":
   version: 5.1.5
   resolution: "@types/bn.js@npm:5.1.5"
   dependencies:
@@ -10969,6 +10969,15 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 10c0/d9186feea87a104c44fc20617c8e8fa5384db03e3a46efea53e80da7d6ece72b847b98992465bec9a1d859d685d80e0d7a8abe8309a3f1fd415847bdc4d77fbe
+  languageName: node
+  linkType: hard
+
+"@types/bn.js@npm:^5.1.6":
+  version: 5.1.6
+  resolution: "@types/bn.js@npm:5.1.6"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/073d383d87afea513a8183ce34af7bc0a7a798d057c7ae651982b7f30dd7d93f33247323bca3ba39f1f6af146b564aff547b15467bdf9fc922796c17e8426bf6
   languageName: node
   linkType: hard
 
@@ -18106,34 +18115,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.23.1":
-  version: 0.23.1
-  resolution: "esbuild@npm:0.23.1"
+"esbuild@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "esbuild@npm:0.24.0"
   dependencies:
-    "@esbuild/aix-ppc64": "npm:0.23.1"
-    "@esbuild/android-arm": "npm:0.23.1"
-    "@esbuild/android-arm64": "npm:0.23.1"
-    "@esbuild/android-x64": "npm:0.23.1"
-    "@esbuild/darwin-arm64": "npm:0.23.1"
-    "@esbuild/darwin-x64": "npm:0.23.1"
-    "@esbuild/freebsd-arm64": "npm:0.23.1"
-    "@esbuild/freebsd-x64": "npm:0.23.1"
-    "@esbuild/linux-arm": "npm:0.23.1"
-    "@esbuild/linux-arm64": "npm:0.23.1"
-    "@esbuild/linux-ia32": "npm:0.23.1"
-    "@esbuild/linux-loong64": "npm:0.23.1"
-    "@esbuild/linux-mips64el": "npm:0.23.1"
-    "@esbuild/linux-ppc64": "npm:0.23.1"
-    "@esbuild/linux-riscv64": "npm:0.23.1"
-    "@esbuild/linux-s390x": "npm:0.23.1"
-    "@esbuild/linux-x64": "npm:0.23.1"
-    "@esbuild/netbsd-x64": "npm:0.23.1"
-    "@esbuild/openbsd-arm64": "npm:0.23.1"
-    "@esbuild/openbsd-x64": "npm:0.23.1"
-    "@esbuild/sunos-x64": "npm:0.23.1"
-    "@esbuild/win32-arm64": "npm:0.23.1"
-    "@esbuild/win32-ia32": "npm:0.23.1"
-    "@esbuild/win32-x64": "npm:0.23.1"
+    "@esbuild/aix-ppc64": "npm:0.24.0"
+    "@esbuild/android-arm": "npm:0.24.0"
+    "@esbuild/android-arm64": "npm:0.24.0"
+    "@esbuild/android-x64": "npm:0.24.0"
+    "@esbuild/darwin-arm64": "npm:0.24.0"
+    "@esbuild/darwin-x64": "npm:0.24.0"
+    "@esbuild/freebsd-arm64": "npm:0.24.0"
+    "@esbuild/freebsd-x64": "npm:0.24.0"
+    "@esbuild/linux-arm": "npm:0.24.0"
+    "@esbuild/linux-arm64": "npm:0.24.0"
+    "@esbuild/linux-ia32": "npm:0.24.0"
+    "@esbuild/linux-loong64": "npm:0.24.0"
+    "@esbuild/linux-mips64el": "npm:0.24.0"
+    "@esbuild/linux-ppc64": "npm:0.24.0"
+    "@esbuild/linux-riscv64": "npm:0.24.0"
+    "@esbuild/linux-s390x": "npm:0.24.0"
+    "@esbuild/linux-x64": "npm:0.24.0"
+    "@esbuild/netbsd-x64": "npm:0.24.0"
+    "@esbuild/openbsd-arm64": "npm:0.24.0"
+    "@esbuild/openbsd-x64": "npm:0.24.0"
+    "@esbuild/sunos-x64": "npm:0.24.0"
+    "@esbuild/win32-arm64": "npm:0.24.0"
+    "@esbuild/win32-ia32": "npm:0.24.0"
+    "@esbuild/win32-x64": "npm:0.24.0"
   dependenciesMeta:
     "@esbuild/aix-ppc64":
       optional: true
@@ -18185,7 +18194,7 @@ __metadata:
       optional: true
   bin:
     esbuild: bin/esbuild
-  checksum: 10c0/08c2ed1105cc3c5e3a24a771e35532fe6089dd24a39c10097899072cef4a99f20860e41e9294e000d86380f353b04d8c50af482483d7f69f5208481cce61eec7
+  checksum: 10c0/9f1aadd8d64f3bff422ae78387e66e51a5e09de6935a6f987b6e4e189ed00fdc2d1bc03d2e33633b094008529c8b6e06c7ad1a9782fb09fec223bf95998c0683
   languageName: node
   linkType: hard
 
@@ -20132,31 +20141,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fuels@npm:^0.94.6":
-  version: 0.94.6
-  resolution: "fuels@npm:0.94.6"
+"fuels@npm:^0.94.8":
+  version: 0.94.8
+  resolution: "fuels@npm:0.94.8"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.94.6"
-    "@fuel-ts/abi-typegen": "npm:0.94.6"
-    "@fuel-ts/account": "npm:0.94.6"
-    "@fuel-ts/address": "npm:0.94.6"
-    "@fuel-ts/contract": "npm:0.94.6"
-    "@fuel-ts/crypto": "npm:0.94.6"
-    "@fuel-ts/errors": "npm:0.94.6"
-    "@fuel-ts/hasher": "npm:0.94.6"
-    "@fuel-ts/interfaces": "npm:0.94.6"
-    "@fuel-ts/math": "npm:0.94.6"
-    "@fuel-ts/merkle": "npm:0.94.6"
-    "@fuel-ts/program": "npm:0.94.6"
-    "@fuel-ts/script": "npm:0.94.6"
-    "@fuel-ts/transactions": "npm:0.94.6"
-    "@fuel-ts/utils": "npm:0.94.6"
-    "@fuel-ts/versions": "npm:0.94.6"
+    "@fuel-ts/abi-coder": "npm:0.94.8"
+    "@fuel-ts/abi-typegen": "npm:0.94.8"
+    "@fuel-ts/account": "npm:0.94.8"
+    "@fuel-ts/address": "npm:0.94.8"
+    "@fuel-ts/contract": "npm:0.94.8"
+    "@fuel-ts/crypto": "npm:0.94.8"
+    "@fuel-ts/errors": "npm:0.94.8"
+    "@fuel-ts/hasher": "npm:0.94.8"
+    "@fuel-ts/interfaces": "npm:0.94.8"
+    "@fuel-ts/math": "npm:0.94.8"
+    "@fuel-ts/merkle": "npm:0.94.8"
+    "@fuel-ts/program": "npm:0.94.8"
+    "@fuel-ts/script": "npm:0.94.8"
+    "@fuel-ts/transactions": "npm:0.94.8"
+    "@fuel-ts/utils": "npm:0.94.8"
+    "@fuel-ts/versions": "npm:0.94.8"
     bundle-require: "npm:^5.0.0"
     chalk: "npm:4"
     chokidar: "npm:^3.6.0"
     commander: "npm:12.1.0"
-    esbuild: "npm:^0.23.1"
+    esbuild: "npm:^0.24.0"
     glob: "npm:^10.4.5"
     handlebars: "npm:^4.7.8"
     joycon: "npm:^3.1.1"
@@ -20167,7 +20176,7 @@ __metadata:
     yup: "npm:^1.4.0"
   bin:
     fuels: fuels.js
-  checksum: 10c0/5f3fb1044e5b12e76daaac87dcdd39c2e76597d29388532882168bfbb595bbaa67c34d75113c38aa45062c67a11324c0d787714068278547f4915a2e48032387
+  checksum: 10c0/dc9e0fdfcce4b7dbc63d12a76d300617f916e1d826cbc259a990246cc1d3214b89a1c219e9d1644a6cfce282f8aca2ab6977637989f5efa27474ef416e6661ea
   languageName: node
   linkType: hard
 
@@ -29681,14 +29690,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^5.0.8":
-  version: 5.0.9
-  resolution: "rimraf@npm:5.0.9"
+"rimraf@npm:^5.0.10":
+  version: 5.0.10
+  resolution: "rimraf@npm:5.0.10"
   dependencies:
     glob: "npm:^10.3.7"
   bin:
     rimraf: dist/esm/bin.mjs
-  checksum: 10c0/87374682492b9e64de9c6fcbf2c8f209c7a2cd0e9749b3732eef8a62c6f859a9ed996d46f662d9ad5dd38c2c469f8e88de56b6c509026070ee3f06369cac1bc8
+  checksum: 10c0/7da4fd0e15118ee05b918359462cfa1e7fe4b1228c7765195a45b55576e8c15b95db513b8466ec89129666f4af45ad978a3057a02139afba1a63512a2d9644cc
   languageName: node
   linkType: hard
 

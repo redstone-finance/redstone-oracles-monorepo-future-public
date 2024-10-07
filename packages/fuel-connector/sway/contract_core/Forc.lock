@@ -1,21 +1,27 @@
 [[package]]
+name = "common"
+source = "path+from-root-3A2336EE93C62038"
+dependencies = ["std"]
+
+[[package]]
 name = "core"
-source = "path+from-root-C485BFF5467B6B6C"
+source = "path+from-root-4BA3A18A2D620E67"
 
 [[package]]
 name = "redstone"
-source = "git+https://github.com/redstone-finance/redstone-fuel-sdk?tag=testnet-0.63.6#dedce33b2f23db3aef701fc15f3a2d62f5ea3dc3"
+source = "git+https://github.com/redstone-finance/redstone-fuel-sdk?tag=testnet-0.64.0#9f02688f48a8cbff189e518a37e4b611e9f2df01"
 dependencies = ["std"]
 
 [[package]]
 name = "redstone_core"
 source = "member"
 dependencies = [
+    "common",
     "redstone",
     "std",
 ]
 
 [[package]]
 name = "std"
-source = "git+https://github.com/fuellabs/sway?tag=v0.63.6#cba9a005ef2a5b61e13eb02ba6e9e93ebd19a31a"
+source = "git+https://github.com/fuellabs/sway?tag=v0.64.0#2156bfbbee01ffb85bfca2aae8f185f8e7c715a4"
 dependencies = ["core"]

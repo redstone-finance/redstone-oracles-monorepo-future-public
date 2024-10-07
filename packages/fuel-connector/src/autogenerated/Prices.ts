@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 
 /*
-  Fuels version: 0.94.6
+  Fuels version: 0.94.8
 */
 
 import type {
@@ -21,7 +21,35 @@ import type {
 } from "fuels";
 import { Contract, Interface } from "fuels";
 
-import type { Vec } from "./common";
+import type { Enum, Option, Vec } from "./common";
+
+export type IdentityInput = Enum<{
+  Address: AddressInput;
+  ContractId: ContractIdInput;
+}>;
+export type IdentityOutput = Enum<{
+  Address: AddressOutput;
+  ContractId: ContractIdOutput;
+}>;
+export type RedStoneErrorInput = Enum<{
+  EmptyAllowedSigners: undefined;
+  SignerCountThresholdToSmall: undefined;
+  DuplicateSignerFound: undefined;
+  SenderIsNotTheOwner: [IdentityInput, Option<IdentityInput>];
+  TimestampMustBeGreaterThanBefore: [BigNumberish, BigNumberish];
+}>;
+export type RedStoneErrorOutput = Enum<{
+  EmptyAllowedSigners: void;
+  SignerCountThresholdToSmall: void;
+  DuplicateSignerFound: void;
+  SenderIsNotTheOwner: [IdentityOutput, Option<IdentityOutput>];
+  TimestampMustBeGreaterThanBefore: [BN, BN];
+}>;
+
+export type AddressInput = { bits: string };
+export type AddressOutput = AddressInput;
+export type ContractIdInput = { bits: string };
+export type ContractIdOutput = ContractIdInput;
 
 const abi = {
   programType: "contract",
@@ -34,30 +62,69 @@ const abi = {
         "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
     },
     {
+      type: "(struct std::vec::Vec<u256>, u64)",
+      concreteTypeId:
+        "e34c2f53d80f2667116e2b1d557ef6e30cf510868fad2bfd788d50d506cd44e0",
+      metadataTypeId: 0,
+    },
+    {
       type: "b256",
       concreteTypeId:
         "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
     },
     {
+      type: "enum common::check::RedStoneError",
+      concreteTypeId:
+        "2801e3d51186db56fbc40e85aa87d50cbb39bc26a0ed79f047fd1908d0656c4e",
+      metadataTypeId: 3,
+    },
+    {
+      type: "enum std::option::Option<u256>",
+      concreteTypeId:
+        "d601d33973e88992430b8137fe37206cc386110534c47d966d6b54014c4f1356",
+      metadataTypeId: 5,
+      typeArguments: [
+        "1b5759d94094368cfd443019e7ca5ec4074300e544e5ea993a979f5da627261e",
+      ],
+    },
+    {
+      type: "enum std::option::Option<u64>",
+      concreteTypeId:
+        "d852149004cc9ec0bbe7dc4e37bffea1d41469b759512b6136f2e865a4c06e7d",
+      metadataTypeId: 5,
+      typeArguments: [
+        "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+      ],
+    },
+    {
       type: "struct std::bytes::Bytes",
       concreteTypeId:
         "cdd87b7d12fe505416570c294c884bca819364863efe3bf539245fa18515fbbb",
-      metadataTypeId: 2,
+      metadataTypeId: 9,
     },
     {
       type: "struct std::vec::Vec<b256>",
       concreteTypeId:
         "32559685d0c9845f059bf9d472a0a38cf77d36c23dfcffe5489e86a65cdd9198",
-      metadataTypeId: 5,
+      metadataTypeId: 13,
       typeArguments: [
         "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
+      ],
+    },
+    {
+      type: "struct std::vec::Vec<enum std::option::Option<u256>>",
+      concreteTypeId:
+        "c976e1cf37e7eb4e2c7ec52fb45b98828666366f0e64e99c5b8dd1683fcf4585",
+      metadataTypeId: 13,
+      typeArguments: [
+        "d601d33973e88992430b8137fe37206cc386110534c47d966d6b54014c4f1356",
       ],
     },
     {
       type: "struct std::vec::Vec<u256>",
       concreteTypeId:
         "742d7b76206a39cfad7eaec9b457390bbd0a92fe1da596db414daa0e4964bf82",
-      metadataTypeId: 5,
+      metadataTypeId: 13,
       typeArguments: [
         "1b5759d94094368cfd443019e7ca5ec4074300e544e5ea993a979f5da627261e",
       ],
@@ -75,20 +142,148 @@ const abi = {
   ],
   metadataTypes: [
     {
-      type: "generic T",
+      type: "(_, _)",
       metadataTypeId: 0,
+      components: [
+        {
+          name: "__tuple_element",
+          typeId: 13,
+          typeArguments: [
+            {
+              name: "",
+              typeId:
+                "1b5759d94094368cfd443019e7ca5ec4074300e544e5ea993a979f5da627261e",
+            },
+          ],
+        },
+        {
+          name: "__tuple_element",
+          typeId:
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+        },
+      ],
     },
     {
-      type: "raw untyped ptr",
+      type: "(_, _)",
       metadataTypeId: 1,
+      components: [
+        {
+          name: "__tuple_element",
+          typeId: 4,
+        },
+        {
+          name: "__tuple_element",
+          typeId: 5,
+          typeArguments: [
+            {
+              name: "",
+              typeId: 4,
+            },
+          ],
+        },
+      ],
     },
     {
-      type: "struct std::bytes::Bytes",
+      type: "(_, _)",
       metadataTypeId: 2,
       components: [
         {
+          name: "__tuple_element",
+          typeId:
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+        },
+        {
+          name: "__tuple_element",
+          typeId:
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+        },
+      ],
+    },
+    {
+      type: "enum common::check::RedStoneError",
+      metadataTypeId: 3,
+      components: [
+        {
+          name: "EmptyAllowedSigners",
+          typeId:
+            "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
+        },
+        {
+          name: "SignerCountThresholdToSmall",
+          typeId:
+            "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
+        },
+        {
+          name: "DuplicateSignerFound",
+          typeId:
+            "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
+        },
+        {
+          name: "SenderIsNotTheOwner",
+          typeId: 1,
+        },
+        {
+          name: "TimestampMustBeGreaterThanBefore",
+          typeId: 2,
+        },
+      ],
+    },
+    {
+      type: "enum std::identity::Identity",
+      metadataTypeId: 4,
+      components: [
+        {
+          name: "Address",
+          typeId: 8,
+        },
+        {
+          name: "ContractId",
+          typeId: 11,
+        },
+      ],
+    },
+    {
+      type: "enum std::option::Option",
+      metadataTypeId: 5,
+      components: [
+        {
+          name: "None",
+          typeId:
+            "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
+        },
+        {
+          name: "Some",
+          typeId: 6,
+        },
+      ],
+      typeParameters: [6],
+    },
+    {
+      type: "generic T",
+      metadataTypeId: 6,
+    },
+    {
+      type: "raw untyped ptr",
+      metadataTypeId: 7,
+    },
+    {
+      type: "struct std::address::Address",
+      metadataTypeId: 8,
+      components: [
+        {
+          name: "bits",
+          typeId:
+            "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
+        },
+      ],
+    },
+    {
+      type: "struct std::bytes::Bytes",
+      metadataTypeId: 9,
+      components: [
+        {
           name: "buf",
-          typeId: 3,
+          typeId: 10,
         },
         {
           name: "len",
@@ -99,26 +294,37 @@ const abi = {
     },
     {
       type: "struct std::bytes::RawBytes",
-      metadataTypeId: 3,
+      metadataTypeId: 10,
       components: [
         {
           name: "ptr",
-          typeId: 1,
+          typeId: 7,
         },
         {
           name: "cap",
           typeId:
             "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+        },
+      ],
+    },
+    {
+      type: "struct std::contract_id::ContractId",
+      metadataTypeId: 11,
+      components: [
+        {
+          name: "bits",
+          typeId:
+            "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
         },
       ],
     },
     {
       type: "struct std::vec::RawVec",
-      metadataTypeId: 4,
+      metadataTypeId: 12,
       components: [
         {
           name: "ptr",
-          typeId: 1,
+          typeId: 7,
         },
         {
           name: "cap",
@@ -126,19 +332,19 @@ const abi = {
             "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
         },
       ],
-      typeParameters: [0],
+      typeParameters: [6],
     },
     {
       type: "struct std::vec::Vec",
-      metadataTypeId: 5,
+      metadataTypeId: 13,
       components: [
         {
           name: "buf",
-          typeId: 4,
+          typeId: 12,
           typeArguments: [
             {
               name: "",
-              typeId: 0,
+              typeId: 6,
             },
           ],
         },
@@ -148,37 +354,14 @@ const abi = {
             "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
         },
       ],
-      typeParameters: [0],
+      typeParameters: [6],
     },
   ],
   functions: [
     {
       inputs: [
         {
-          name: "feed_ids",
-          concreteTypeId:
-            "742d7b76206a39cfad7eaec9b457390bbd0a92fe1da596db414daa0e4964bf82",
-        },
-        {
-          name: "payload",
-          concreteTypeId:
-            "cdd87b7d12fe505416570c294c884bca819364863efe3bf539245fa18515fbbb",
-        },
-      ],
-      name: "get_prices",
-      output:
-        "742d7b76206a39cfad7eaec9b457390bbd0a92fe1da596db414daa0e4964bf82",
-      attributes: [
-        {
-          name: "storage",
-          arguments: ["read"],
-        },
-      ],
-    },
-    {
-      inputs: [
-        {
-          name: "signers",
+          name: "allowed_signers",
           concreteTypeId:
             "32559685d0c9845f059bf9d472a0a38cf77d36c23dfcffe5489e86a65cdd9198",
         },
@@ -205,10 +388,33 @@ const abi = {
           concreteTypeId:
             "742d7b76206a39cfad7eaec9b457390bbd0a92fe1da596db414daa0e4964bf82",
         },
+        {
+          name: "payload",
+          concreteTypeId:
+            "cdd87b7d12fe505416570c294c884bca819364863efe3bf539245fa18515fbbb",
+        },
+      ],
+      name: "get_prices",
+      output:
+        "e34c2f53d80f2667116e2b1d557ef6e30cf510868fad2bfd788d50d506cd44e0",
+      attributes: [
+        {
+          name: "storage",
+          arguments: ["read"],
+        },
+      ],
+    },
+    {
+      inputs: [
+        {
+          name: "feed_ids",
+          concreteTypeId:
+            "742d7b76206a39cfad7eaec9b457390bbd0a92fe1da596db414daa0e4964bf82",
+        },
       ],
       name: "read_prices",
       output:
-        "742d7b76206a39cfad7eaec9b457390bbd0a92fe1da596db414daa0e4964bf82",
+        "c976e1cf37e7eb4e2c7ec52fb45b98828666366f0e64e99c5b8dd1683fcf4585",
       attributes: [
         {
           name: "storage",
@@ -254,6 +460,11 @@ const abi = {
   ],
   loggedTypes: [
     {
+      logId: "2882835740755417942",
+      concreteTypeId:
+        "2801e3d51186db56fbc40e85aa87d50cbb39bc26a0ed79f047fd1908d0656c4e",
+    },
+    {
       logId: "1515152261580153489",
       concreteTypeId:
         "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
@@ -262,6 +473,11 @@ const abi = {
       logId: "8961848586872524460",
       concreteTypeId:
         "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
+    },
+    {
+      logId: "15587543869071072960",
+      concreteTypeId:
+        "d852149004cc9ec0bbe7dc4e37bffea1d41469b759512b6136f2e865a4c06e7d",
     },
   ],
   messagesTypes: [],
@@ -278,12 +494,12 @@ const storageSlots: StorageSlot[] = [
     value: "0000000000000000000000000000000000000000000000000000000000000000",
   },
   {
-    key: "60a0cdbce8a98b77f7787d61707e34e49f07e63db625fa49150884c367ce6fb5",
-    value: "0000000000000000000000000000000000000000000000000000000000000000",
+    key: "6238732d072bd5075fc386b9b4ecec370613a5c5d090822757ee1bd23e9c61f1",
+    value: "ffffffffffffffff000000000000000000000000000000000000000000000000",
   },
   {
-    key: "b1f36b0490303e8c214a62a62730609944f99bc5be24dc586b2361d992bd3853",
-    value: "0000000000000001000000000000000000000000000000000000000000000000",
+    key: "f70207fd95bebb96e4a11ad8dcc79ae69597edc049c7457d7c65a8c6a07a7f76",
+    value: "0000000000000000000000000000000000000000000000000000000000000000",
   },
 ];
 
@@ -293,8 +509,8 @@ export class PricesInterface extends Interface {
   }
 
   declare functions: {
-    get_prices: FunctionFragment;
     init: FunctionFragment;
+    get_prices: FunctionFragment;
     read_prices: FunctionFragment;
     read_timestamp: FunctionFragment;
     write_prices: FunctionFragment;
@@ -307,15 +523,15 @@ export class Prices extends Contract {
 
   declare interface: PricesInterface;
   declare functions: {
-    get_prices: InvokeFunction<
-      [feed_ids: Vec<BigNumberish>, payload: Bytes],
-      Vec<BN>
-    >;
     init: InvokeFunction<
-      [signers: Vec<string>, signer_count_threshold: BigNumberish],
+      [allowed_signers: Vec<string>, signer_count_threshold: BigNumberish],
       void
     >;
-    read_prices: InvokeFunction<[feed_ids: Vec<BigNumberish>], Vec<BN>>;
+    get_prices: InvokeFunction<
+      [feed_ids: Vec<BigNumberish>, payload: Bytes],
+      [Vec<BN>, BN]
+    >;
+    read_prices: InvokeFunction<[feed_ids: Vec<BigNumberish>], Vec<Option<BN>>>;
     read_timestamp: InvokeFunction<[], BN>;
     write_prices: InvokeFunction<
       [feed_ids: Vec<BigNumberish>, payload: Bytes],
