@@ -85,8 +85,11 @@ export const monotoneCubicInterpolation = (
   xs: number[],
   ys: number[]
 ): CubicInterpolation => {
-  const { fun, firstSlope, lastSlope } = createInterpolant(xs, ys);
-  return new CubicInterpolation(xs, ys, firstSlope, lastSlope, fun);
+  const { fun, firstSlope, lastSlope, sortedXs, sortedYs } = createInterpolant(
+    xs,
+    ys
+  );
+  return new CubicInterpolation(sortedXs, sortedYs, firstSlope, lastSlope, fun);
 };
 
 const createInterpolant = (
@@ -96,6 +99,8 @@ const createInterpolant = (
   fun: (x: number) => number;
   firstSlope: number;
   lastSlope: number;
+  sortedXs: number[];
+  sortedYs: number[];
 } => {
   // checking the initial conditions
   if (xs.length != ys.length) {
@@ -160,6 +165,8 @@ const createInterpolant = (
     fun: createInterpolantFunction(sortedXs, sortedYs, c1s, c2s, c3s),
     firstSlope: ms[0],
     lastSlope: ms[ms.length - 1],
+    sortedXs,
+    sortedYs,
   };
 };
 
