@@ -1,7 +1,7 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import redstone from "redstone-api";
 import { provider } from "../common/provider";
-import { readDeployedHex } from "../common/read-deployed-hex";
+import { readProxyContractId } from "../common/read-proxy-contract-id";
 import { connectPricesContract } from "./prices-contract-test-utils";
 
 jest.setTimeout(10 * 60000);
@@ -13,7 +13,11 @@ describe("Integrated and initialized prices contract", () => {
     }
 
     const adapter = await (
-      await connectPricesContract(readDeployedHex(), false, await provider())
+      await connectPricesContract(
+        readProxyContractId(),
+        false,
+        await provider()
+      )
     ).getAdapter();
     const paramsProvider = new ContractParamsProvider({
       dataServiceId: "redstone-avalanche-prod",

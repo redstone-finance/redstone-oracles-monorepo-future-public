@@ -3,8 +3,8 @@
 1. Install sway & fuel toolchain as
    described [here](https://docs.fuel.network/guides/installation).
     * The version `testnet` of the toolchain should be chosen.
-    * The version of the sway language (`forc` compiler) for `testnet` (related to `fuel-core` in version `0.34.0`)
-      network must be `0.63.x`.
+    * The version of the sway language (`forc` compiler) for `testnet` (related to `fuel-core` in version `0.36.0`)
+      network must be `0.64.0`.
 1. You can use one of the nodes described [here](http://fuelbook.fuel.network/master/networks/networks.html) or
    run a local Fuel node (with or without state persistence), as
    described [here](https://docs.fuel.network/guides/running-a-node/running-a-testnet-node/#running-a-local-node).
@@ -47,9 +47,9 @@ the data follow the steps:
         1. [For contract invoker](contract_invoker/src/main.sw)
     1. NOTE:
         1. all time the `make deploy` is invoked for the unchanged code the contract gets the same contract id.
-        1. the contract cannot be re-deployed, so it's needed to change the value of `SALT`
+        1. the contract cannot be re-deployed, so it's necessary to change the value of `SALT`
            constant in the [Makefile](./Makefile) to have the contract deployed once-again.
-1. There is no contract's constructor in sway, so it's needed to run `make init`/`make SIGNING_KEY=... init` to have the
+1. There is no contract's constructor in sway, so it's necessary to run `make init`/`make SIGNING_KEY=... init` to have the
    contract initialized.
 1. The contract is available for use. You can check it by exploring the
    account [here](https://app.fuel.network)

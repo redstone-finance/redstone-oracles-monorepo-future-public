@@ -26,7 +26,7 @@ the [whole RedStone Oracle model](https://docs.redstone.finance/docs/introductio
 
 ## 👨‍💻 Code structure
 
-- [sway](sway) directory contains the fuel-network on-chain libraries written in sway `0.63.x`.
+- [sway](sway) directory contains the fuel-network on-chain libraries written in sway `0.64.0`.
   - There are also various tests of signature verification with the given signers, timestamp validation, value
     aggregation as well as full data-processing tests with various configurations.
   - You can find all the possibilities [here](sway/README.md).

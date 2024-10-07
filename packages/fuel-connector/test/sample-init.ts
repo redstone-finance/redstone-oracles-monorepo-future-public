@@ -1,13 +1,13 @@
 import { FuelPricesContractAdapter } from "../src";
 import { provider } from "./common/provider";
-import { readDeployedHex } from "./common/read-deployed-hex";
+import { readProxyContractId } from "./common/read-proxy-contract-id";
 import { connectPricesContract } from "./prices/prices-contract-test-utils";
 
 const IS_LOCAL = false as boolean;
 
 async function main() {
   const pricesConnector = await connectPricesContract(
-    readDeployedHex(),
+    readProxyContractId(),
     false,
     await provider(IS_LOCAL)
   );

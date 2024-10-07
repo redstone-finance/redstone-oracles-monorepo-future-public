@@ -1,10 +1,15 @@
 [project]
 authors = ["Łukasz Kalbarczyk"]
-entry = "prices.sw"
-forc-version = "0.63.6"
+entry = "redstone_adapter.sw"
+forc-version = "0.64.0"
 license = "Apache-2.0"
-name = "prices"
+name = "redstone_adapter"
 organization = "RedStone"
 
 [dependencies]
-redstone = { git = "https://github.com/redstone-finance/redstone-fuel-sdk", tag = "testnet-0.63.6" }
+common = { path = "../common" }
+redstone = { path = "../redstone-fuel-sdk" }
+
+[proxy]
+address = "0x3c00ee6f614ae63cd94d76452c331acdbeeb857de16eeb77a616fa143bf923c9"
+enabled = true
