@@ -2,21 +2,24 @@ import { Provider } from "@ethersproject/providers";
 import { ChainConfig } from "@redstone-finance/chain-configs";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 
-type ProviderWithChainCoinfg = { provider: Provider; chainConfig: ChainConfig };
+type ProviderWithChainConfig = {
+  provider: Provider;
+  chainConfig: ChainConfig;
+};
 
 const logger = loggerFactory("SageOfChains");
 
 export class SageOfChains {
-  chainIdToProvider: Partial<Record<number, ProviderWithChainCoinfg>> = {};
+  chainIdToProvider: Partial<Record<number, ProviderWithChainConfig>> = {};
 
-  constructor(private readonly providersWithConfig: ProviderWithChainCoinfg[]) {
+  constructor(private readonly providersWithConfig: ProviderWithChainConfig[]) {
     for (const providerWithConfig of providersWithConfig) {
       this.chainIdToProvider[providerWithConfig.chainConfig.chainId] =
         providerWithConfig;
     }
   }
 
-  getProviderWithConfigByChainId(chainId: number): ProviderWithChainCoinfg {
+  getProviderWithConfigByChainId(chainId: number): ProviderWithChainConfig {
     return RedstoneCommon.assertThenReturn(
       this.chainIdToProvider[chainId],
       `SageOfChains don't have information about chainId=${chainId}`
@@ -27,11 +30,13 @@ export class SageOfChains {
     return this.getProviderWithConfigByChainId(chainId).provider;
   }
 
-  async getBlockNumbersPerChain(): Promise<Record<number, number>> {
+  async getBlockNumbersPerChain(
+    timeout: number
+  ): Promise<Record<number, number>> {
     const chainIdToBlockTuplesResults = await Promise.allSettled(
       this.providersWithConfig.map(async ({ provider, chainConfig }) => [
         chainConfig.chainId,
-        await getBlockNumberWithRetries(provider),
+        await getBlockNumberWithRetries(provider, timeout),
       ])
     );
 
@@ -43,7 +48,7 @@ export class SageOfChains {
         logger.log(
           `Failed to fetch blockNumber for chainId=${
             this.providersWithConfig[index].chainConfig.chainId
-          } after 5 retries: ${RedstoneCommon.stringifyError(result.reason)}`
+          } after 2 retries: ${RedstoneCommon.stringifyError(result.reason)}`
         );
         return false;
       })
@@ -53,10 +58,16 @@ export class SageOfChains {
   }
 }
 
-const getBlockNumberWithRetries = (provider: Provider): Promise<number> =>
-  RedstoneCommon.retry({
-    waitBetweenMs: 50,
-    maxRetries: 2,
-    fn: () => provider.getBlockNumber(),
-    logger: logger.log,
-  })();
+const getBlockNumberWithRetries = (
+  provider: Provider,
+  timeout: number
+): Promise<number> =>
+  RedstoneCommon.timeout(
+    RedstoneCommon.retry({
+      waitBetweenMs: 50,
+      maxRetries: 2,
+      fn: () => provider.getBlockNumber(),
+      logger: logger.log,
+    })(),
+    timeout
+  );
