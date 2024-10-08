@@ -81,7 +81,8 @@
         "uniswap-v3-arbitrumone-usdc-100",
         "uniswap-v3-arbitrumone-arb-3000",
         "uniswap-v3-arbitrumone-usdt-100",
-        "uniswap-v3-arbitrumone-dai-500"
+        "uniswap-v3-arbitrumone-dai-500",
+        "camelot-v3-arbitrumone-usdc"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {

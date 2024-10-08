@@ -114,7 +114,8 @@
         "uniswap-v3-arbitrumone-usdc-100",
         "uniswap-v3-arbitrumone-arb-3000",
         "uniswap-v3-arbitrumone-usdt-100",
-        "uniswap-v3-arbitrumone-dai-500"
+        "uniswap-v3-arbitrumone-dai-500",
+        "camelot-v3-arbitrumone-usdc"
       ]
     },
     "XRP": {
@@ -1472,7 +1473,8 @@
         "aerodrome-cl-base-usdc-100",
         "aerodrome-cl-base-weth-400",
         "aerodrome-cl-base-wsteth-2500",
-        "uniswap-v3-arbitrumone-usdt-100"
+        "uniswap-v3-arbitrumone-usdt-100",
+        "uniswap-v3-arbitrumone-usdc-100"
       ]
     },
     "SolvBTC.ENA": {
