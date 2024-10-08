@@ -5,7 +5,7 @@ dependencies = ["std"]
 
 [[package]]
 name = "core"
-source = "path+from-root-4BA3A18A2D620E67"
+source = "path+from-root-8357A6DDC5F39D14"
 
 [[package]]
 name = "prices"
@@ -18,10 +18,10 @@ dependencies = [
 
 [[package]]
 name = "redstone"
-source = "git+https://github.com/redstone-finance/redstone-fuel-sdk?tag=testnet-0.64.0#9f02688f48a8cbff189e518a37e4b611e9f2df01"
+source = "path+from-root-150CADB8352FDDF2"
 dependencies = ["std"]
 
 [[package]]
 name = "std"
-source = "git+https://github.com/fuellabs/sway?tag=v0.64.0#2156bfbbee01ffb85bfca2aae8f185f8e7c715a4"
+source = "git+https://github.com/fuellabs/sway?tag=v0.65.2#66bb430395daf5b8f7205f7b9d8d008e2e812d54"
 dependencies = ["core"]

@@ -1,6 +1,6 @@
 [toolchain]
-channel = "testnet"
+channel = "nightly-2024-10-08"
 
 [components]
-fuel-core = "0.36.0"
-forc = "0.64.0"
+fuel-core = "0.37.1"
+forc = "0.65.2"

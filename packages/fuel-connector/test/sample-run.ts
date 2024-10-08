@@ -8,12 +8,12 @@ const IS_LOCAL = true as boolean;
 async function main() {
   const paramsProvider = new ContractParamsProvider({
     dataServiceId: "redstone-primary-prod",
-    uniqueSignersCount: 1,
+    uniqueSignersCount: 5,
     dataPackagesIds: ["ETH", "BTC"],
   });
 
   const pricesConnector = await connectPricesContract(
-    readProxyContractId("contract_adapter"),
+    readProxyContractId(),
     false,
     await provider(IS_LOCAL)
   );
