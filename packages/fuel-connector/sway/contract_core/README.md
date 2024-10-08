@@ -59,7 +59,7 @@ To have defined your custom data-service id and signers, [contact us](#contact).
 
 ## ⚠ Possible transaction failures
 
-See [`errors.sw`](../redstone-fuel-sdk/src/core/errors.sw)
+See [here](https://docs.redstone.finance/sway/redstone/core/errors/index.html)
 
 ## 🙋‍Contact
 

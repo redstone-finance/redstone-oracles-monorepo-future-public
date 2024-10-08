@@ -1,9 +1,9 @@
 [project]
 authors = ["Łukasz Kalbarczyk"]
 entry = "main.sw"
-forc-version = "0.64.0"
+forc-version = "0.65.2"
 license = "Apache-2.0"
-name = "contract_invoker"
+name = "contract_invoker_core"
 organization = "RedStone"
 
 [dependencies]

@@ -1,7 +1,7 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { BigNumberish } from "ethers";
 import { sleep } from "fuels";
-import { provider } from "../common/provider";
+import { IS_CI, provider } from "../common/provider";
 import { readProxyContractId } from "../common/read-proxy-contract-id";
 import { connectPricesContract } from "./prices-contract-test-utils";
 
@@ -9,7 +9,7 @@ jest.setTimeout(10 * 60000);
 
 describe("Gas Usage of integrated and initialized prices contract", () => {
   it("gas usage tests", async () => {
-    if (process.env.IS_CI === "true") {
+    if (IS_CI) {
       return console.log("Skipping in CI env");
     }
 
@@ -51,7 +51,7 @@ describe("Gas Usage of integrated and initialized prices contract", () => {
       await connectPricesContract(readProxyContractId(), true, await provider())
     ).getAdapter();
     const paramsProvider = new ContractParamsProvider({
-      dataServiceId: "redstone-avalanche-prod",
+      dataServiceId: "redstone-primary-prod",
       uniqueSignersCount: uniqueSignerCount,
       dataPackagesIds: dataFeeds,
     });

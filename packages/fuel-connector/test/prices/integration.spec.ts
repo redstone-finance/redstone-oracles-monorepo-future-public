@@ -1,6 +1,7 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
+import "dotenv/config";
 import redstone from "redstone-api";
-import { provider } from "../common/provider";
+import { IS_CI, provider } from "../common/provider";
 import { readProxyContractId } from "../common/read-proxy-contract-id";
 import { connectPricesContract } from "./prices-contract-test-utils";
 
@@ -8,7 +9,7 @@ jest.setTimeout(10 * 60000);
 
 describe("Integrated and initialized prices contract", () => {
   it("write_prices should write the price data that can be read then", async () => {
-    if (process.env.IS_CI === "true") {
+    if (IS_CI) {
       return console.log("Skipping in CI env");
     }
 
@@ -20,7 +21,7 @@ describe("Integrated and initialized prices contract", () => {
       )
     ).getAdapter();
     const paramsProvider = new ContractParamsProvider({
-      dataServiceId: "redstone-avalanche-prod",
+      dataServiceId: "redstone-primary-prod",
       uniqueSignersCount: 2,
       dataPackagesIds: ["ETH", "BTC"],
     });

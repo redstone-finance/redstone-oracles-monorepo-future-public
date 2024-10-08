@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 
 /*
-  Fuels version: 0.94.8
+  Fuels version: 0.94.9
 */
 
 import type {
@@ -23,33 +23,43 @@ import { Contract, Interface } from "fuels";
 
 import type { Enum, Option, Vec } from "./common";
 
-export type IdentityInput = Enum<{
-  Address: AddressInput;
-  ContractId: ContractIdInput;
+export type RedStoneContractErrorInput = Enum<{
+  TimestampMustBeGreaterThanBefore: [BigNumberish, BigNumberish];
+  UpdaterIsNotTrusted: string;
 }>;
-export type IdentityOutput = Enum<{
-  Address: AddressOutput;
-  ContractId: ContractIdOutput;
+export type RedStoneContractErrorOutput = Enum<{
+  TimestampMustBeGreaterThanBefore: [BN, BN];
+  UpdaterIsNotTrusted: string;
 }>;
 export type RedStoneErrorInput = Enum<{
-  EmptyAllowedSigners: undefined;
-  SignerCountThresholdToSmall: undefined;
-  DuplicateSignerFound: undefined;
-  SenderIsNotTheOwner: [IdentityInput, Option<IdentityInput>];
-  TimestampMustBeGreaterThanBefore: [BigNumberish, BigNumberish];
+  EmptyAllowedSigners: [];
+  EmptyFeedIds: [];
+  SignerCountThresholdToSmall: [];
+  DuplicatedSigner: [];
+  DuplicatedFeedId: [];
+  DuplicatedValueForSigner: [string, BigNumberish];
+  SignerNotRecognized: [string, BigNumberish];
+  InsufficientSignerCount: [BigNumberish, BigNumberish];
+  TimestampOutOfRange: [boolean, BigNumberish, BigNumberish];
+  TimestampDifferentThanOthers: [BigNumberish, BigNumberish, BigNumberish];
 }>;
 export type RedStoneErrorOutput = Enum<{
-  EmptyAllowedSigners: void;
-  SignerCountThresholdToSmall: void;
-  DuplicateSignerFound: void;
-  SenderIsNotTheOwner: [IdentityOutput, Option<IdentityOutput>];
-  TimestampMustBeGreaterThanBefore: [BN, BN];
+  EmptyAllowedSigners: [];
+  EmptyFeedIds: [];
+  SignerCountThresholdToSmall: [];
+  DuplicatedSigner: [];
+  DuplicatedFeedId: [];
+  DuplicatedValueForSigner: [string, BN];
+  SignerNotRecognized: [string, BN];
+  InsufficientSignerCount: [BN, BN];
+  TimestampOutOfRange: [boolean, BN, BN];
+  TimestampDifferentThanOthers: [BN, BN, BN];
 }>;
 
-export type AddressInput = { bits: string };
-export type AddressOutput = AddressInput;
-export type ContractIdInput = { bits: string };
-export type ContractIdOutput = ContractIdInput;
+export type PricesConfigurables = Partial<{
+  SIGNER_COUNT_THRESHOLD: BigNumberish;
+  ALLOWED_SIGNERS: [string, string, string, string, string, string];
+}>;
 
 const abi = {
   programType: "contract",
@@ -57,65 +67,49 @@ const abi = {
   encodingVersion: "1",
   concreteTypes: [
     {
-      type: "()",
-      concreteTypeId:
-        "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
-    },
-    {
       type: "(struct std::vec::Vec<u256>, u64)",
       concreteTypeId:
         "e34c2f53d80f2667116e2b1d557ef6e30cf510868fad2bfd788d50d506cd44e0",
-      metadataTypeId: 0,
+      metadataTypeId: 1,
     },
     {
-      type: "b256",
+      type: "[b256; 6]",
       concreteTypeId:
-        "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
+        "ba22e94e8d8f51fff1ffb0b61cd199b2386cc65867c2d2793e5c77fb4adad6db",
+      metadataTypeId: 7,
     },
     {
-      type: "enum common::check::RedStoneError",
+      type: "enum common::check::RedStoneContractError",
       concreteTypeId:
-        "2801e3d51186db56fbc40e85aa87d50cbb39bc26a0ed79f047fd1908d0656c4e",
-      metadataTypeId: 3,
+        "0356b29f5ddf4c9e28556be346f1259b84e3f4a3e79b005a499a8a7e39aca851",
+      metadataTypeId: 10,
+    },
+    {
+      type: "enum redstone::core::errors::RedStoneError",
+      concreteTypeId:
+        "c35d5ab61b0f170d72f36b2bc3a2e791d577f09fc0f50a1983096340d59ce09a",
+      metadataTypeId: 11,
     },
     {
       type: "enum std::option::Option<u256>",
       concreteTypeId:
         "d601d33973e88992430b8137fe37206cc386110534c47d966d6b54014c4f1356",
-      metadataTypeId: 5,
+      metadataTypeId: 12,
       typeArguments: [
         "1b5759d94094368cfd443019e7ca5ec4074300e544e5ea993a979f5da627261e",
-      ],
-    },
-    {
-      type: "enum std::option::Option<u64>",
-      concreteTypeId:
-        "d852149004cc9ec0bbe7dc4e37bffea1d41469b759512b6136f2e865a4c06e7d",
-      metadataTypeId: 5,
-      typeArguments: [
-        "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
       ],
     },
     {
       type: "struct std::bytes::Bytes",
       concreteTypeId:
         "cdd87b7d12fe505416570c294c884bca819364863efe3bf539245fa18515fbbb",
-      metadataTypeId: 9,
-    },
-    {
-      type: "struct std::vec::Vec<b256>",
-      concreteTypeId:
-        "32559685d0c9845f059bf9d472a0a38cf77d36c23dfcffe5489e86a65cdd9198",
-      metadataTypeId: 13,
-      typeArguments: [
-        "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
-      ],
+      metadataTypeId: 15,
     },
     {
       type: "struct std::vec::Vec<enum std::option::Option<u256>>",
       concreteTypeId:
         "c976e1cf37e7eb4e2c7ec52fb45b98828666366f0e64e99c5b8dd1683fcf4585",
-      metadataTypeId: 13,
+      metadataTypeId: 18,
       typeArguments: [
         "d601d33973e88992430b8137fe37206cc386110534c47d966d6b54014c4f1356",
       ],
@@ -124,7 +118,7 @@ const abi = {
       type: "struct std::vec::Vec<u256>",
       concreteTypeId:
         "742d7b76206a39cfad7eaec9b457390bbd0a92fe1da596db414daa0e4964bf82",
-      metadataTypeId: 13,
+      metadataTypeId: 18,
       typeArguments: [
         "1b5759d94094368cfd443019e7ca5ec4074300e544e5ea993a979f5da627261e",
       ],
@@ -142,12 +136,16 @@ const abi = {
   ],
   metadataTypes: [
     {
-      type: "(_, _)",
+      type: "()",
       metadataTypeId: 0,
+    },
+    {
+      type: "(_, _)",
+      metadataTypeId: 1,
       components: [
         {
           name: "__tuple_element",
-          typeId: 13,
+          typeId: 18,
           typeArguments: [
             {
               name: "",
@@ -165,125 +163,199 @@ const abi = {
     },
     {
       type: "(_, _)",
-      metadataTypeId: 1,
+      metadataTypeId: 2,
       components: [
         {
           name: "__tuple_element",
-          typeId: 4,
+          typeId: 8,
         },
         {
           name: "__tuple_element",
-          typeId: 5,
-          typeArguments: [
-            {
-              name: "",
-              typeId: 4,
-            },
-          ],
+          typeId:
+            "1b5759d94094368cfd443019e7ca5ec4074300e544e5ea993a979f5da627261e",
         },
       ],
     },
     {
       type: "(_, _)",
-      metadataTypeId: 2,
-      components: [
-        {
-          name: "__tuple_element",
-          typeId:
-            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-        },
-        {
-          name: "__tuple_element",
-          typeId:
-            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-        },
-      ],
-    },
-    {
-      type: "enum common::check::RedStoneError",
       metadataTypeId: 3,
       components: [
         {
-          name: "EmptyAllowedSigners",
+          name: "__tuple_element",
+          typeId: 8,
+        },
+        {
+          name: "__tuple_element",
           typeId:
-            "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
-        },
-        {
-          name: "SignerCountThresholdToSmall",
-          typeId:
-            "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
-        },
-        {
-          name: "DuplicateSignerFound",
-          typeId:
-            "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
-        },
-        {
-          name: "SenderIsNotTheOwner",
-          typeId: 1,
-        },
-        {
-          name: "TimestampMustBeGreaterThanBefore",
-          typeId: 2,
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
         },
       ],
     },
     {
-      type: "enum std::identity::Identity",
+      type: "(_, _)",
       metadataTypeId: 4,
       components: [
         {
-          name: "Address",
-          typeId: 8,
+          name: "__tuple_element",
+          typeId:
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
         },
         {
-          name: "ContractId",
-          typeId: 11,
+          name: "__tuple_element",
+          typeId:
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+        },
+      ],
+    },
+    {
+      type: "(_, _, _)",
+      metadataTypeId: 5,
+      components: [
+        {
+          name: "__tuple_element",
+          typeId: 9,
+        },
+        {
+          name: "__tuple_element",
+          typeId:
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+        },
+        {
+          name: "__tuple_element",
+          typeId:
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+        },
+      ],
+    },
+    {
+      type: "(_, _, _)",
+      metadataTypeId: 6,
+      components: [
+        {
+          name: "__tuple_element",
+          typeId:
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+        },
+        {
+          name: "__tuple_element",
+          typeId:
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+        },
+        {
+          name: "__tuple_element",
+          typeId:
+            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+        },
+      ],
+    },
+    {
+      type: "[_; 6]",
+      metadataTypeId: 7,
+      components: [
+        {
+          name: "__array_element",
+          typeId: 8,
+        },
+      ],
+    },
+    {
+      type: "b256",
+      metadataTypeId: 8,
+    },
+    {
+      type: "bool",
+      metadataTypeId: 9,
+    },
+    {
+      type: "enum common::check::RedStoneContractError",
+      metadataTypeId: 10,
+      components: [
+        {
+          name: "TimestampMustBeGreaterThanBefore",
+          typeId: 4,
+        },
+        {
+          name: "UpdaterIsNotTrusted",
+          typeId: 8,
+        },
+      ],
+    },
+    {
+      type: "enum redstone::core::errors::RedStoneError",
+      metadataTypeId: 11,
+      components: [
+        {
+          name: "EmptyAllowedSigners",
+          typeId: 0,
+        },
+        {
+          name: "EmptyFeedIds",
+          typeId: 0,
+        },
+        {
+          name: "SignerCountThresholdToSmall",
+          typeId: 0,
+        },
+        {
+          name: "DuplicatedSigner",
+          typeId: 0,
+        },
+        {
+          name: "DuplicatedFeedId",
+          typeId: 0,
+        },
+        {
+          name: "DuplicatedValueForSigner",
+          typeId: 2,
+        },
+        {
+          name: "SignerNotRecognized",
+          typeId: 3,
+        },
+        {
+          name: "InsufficientSignerCount",
+          typeId: 4,
+        },
+        {
+          name: "TimestampOutOfRange",
+          typeId: 5,
+        },
+        {
+          name: "TimestampDifferentThanOthers",
+          typeId: 6,
         },
       ],
     },
     {
       type: "enum std::option::Option",
-      metadataTypeId: 5,
+      metadataTypeId: 12,
       components: [
         {
           name: "None",
-          typeId:
-            "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
+          typeId: 0,
         },
         {
           name: "Some",
-          typeId: 6,
+          typeId: 13,
         },
       ],
-      typeParameters: [6],
+      typeParameters: [13],
     },
     {
       type: "generic T",
-      metadataTypeId: 6,
+      metadataTypeId: 13,
     },
     {
       type: "raw untyped ptr",
-      metadataTypeId: 7,
-    },
-    {
-      type: "struct std::address::Address",
-      metadataTypeId: 8,
-      components: [
-        {
-          name: "bits",
-          typeId:
-            "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
-        },
-      ],
+      metadataTypeId: 14,
     },
     {
       type: "struct std::bytes::Bytes",
-      metadataTypeId: 9,
+      metadataTypeId: 15,
       components: [
         {
           name: "buf",
-          typeId: 10,
+          typeId: 16,
         },
         {
           name: "len",
@@ -294,37 +366,26 @@ const abi = {
     },
     {
       type: "struct std::bytes::RawBytes",
-      metadataTypeId: 10,
+      metadataTypeId: 16,
       components: [
         {
           name: "ptr",
-          typeId: 7,
+          typeId: 14,
         },
         {
           name: "cap",
           typeId:
             "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-        },
-      ],
-    },
-    {
-      type: "struct std::contract_id::ContractId",
-      metadataTypeId: 11,
-      components: [
-        {
-          name: "bits",
-          typeId:
-            "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
         },
       ],
     },
     {
       type: "struct std::vec::RawVec",
-      metadataTypeId: 12,
+      metadataTypeId: 17,
       components: [
         {
           name: "ptr",
-          typeId: 7,
+          typeId: 14,
         },
         {
           name: "cap",
@@ -332,19 +393,19 @@ const abi = {
             "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
         },
       ],
-      typeParameters: [6],
+      typeParameters: [13],
     },
     {
       type: "struct std::vec::Vec",
-      metadataTypeId: 13,
+      metadataTypeId: 18,
       components: [
         {
           name: "buf",
-          typeId: 12,
+          typeId: 17,
           typeArguments: [
             {
               name: "",
-              typeId: 6,
+              typeId: 13,
             },
           ],
         },
@@ -354,32 +415,16 @@ const abi = {
             "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
         },
       ],
-      typeParameters: [6],
+      typeParameters: [13],
     },
   ],
   functions: [
     {
-      inputs: [
-        {
-          name: "allowed_signers",
-          concreteTypeId:
-            "32559685d0c9845f059bf9d472a0a38cf77d36c23dfcffe5489e86a65cdd9198",
-        },
-        {
-          name: "signer_count_threshold",
-          concreteTypeId:
-            "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-        },
-      ],
-      name: "init",
+      inputs: [],
+      name: "get_version",
       output:
-        "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
-      attributes: [
-        {
-          name: "storage",
-          arguments: ["write"],
-        },
-      ],
+        "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+      attributes: null,
     },
     {
       inputs: [
@@ -460,43 +505,34 @@ const abi = {
   ],
   loggedTypes: [
     {
-      logId: "2882835740755417942",
+      logId: "14077507748414560013",
       concreteTypeId:
-        "2801e3d51186db56fbc40e85aa87d50cbb39bc26a0ed79f047fd1908d0656c4e",
+        "c35d5ab61b0f170d72f36b2bc3a2e791d577f09fc0f50a1983096340d59ce09a",
     },
     {
-      logId: "1515152261580153489",
+      logId: "240576027655359646",
       concreteTypeId:
-        "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-    },
-    {
-      logId: "8961848586872524460",
-      concreteTypeId:
-        "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
-    },
-    {
-      logId: "15587543869071072960",
-      concreteTypeId:
-        "d852149004cc9ec0bbe7dc4e37bffea1d41469b759512b6136f2e865a4c06e7d",
+        "0356b29f5ddf4c9e28556be346f1259b84e3f4a3e79b005a499a8a7e39aca851",
     },
   ],
   messagesTypes: [],
-  configurables: [],
+  configurables: [
+    {
+      name: "SIGNER_COUNT_THRESHOLD",
+      concreteTypeId:
+        "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+      offset: 41928,
+    },
+    {
+      name: "ALLOWED_SIGNERS",
+      concreteTypeId:
+        "ba22e94e8d8f51fff1ffb0b61cd199b2386cc65867c2d2793e5c77fb4adad6db",
+      offset: 41736,
+    },
+  ],
 };
 
 const storageSlots: StorageSlot[] = [
-  {
-    key: "1d63cc2495bbf5570c9a6d7f632018dc033107e7f4452405c44601bb771a4a5d",
-    value: "0000000000000000000000000000000000000000000000000000000000000000",
-  },
-  {
-    key: "1d63cc2495bbf5570c9a6d7f632018dc033107e7f4452405c44601bb771a4a5e",
-    value: "0000000000000000000000000000000000000000000000000000000000000000",
-  },
-  {
-    key: "6238732d072bd5075fc386b9b4ecec370613a5c5d090822757ee1bd23e9c61f1",
-    value: "ffffffffffffffff000000000000000000000000000000000000000000000000",
-  },
   {
     key: "f70207fd95bebb96e4a11ad8dcc79ae69597edc049c7457d7c65a8c6a07a7f76",
     value: "0000000000000000000000000000000000000000000000000000000000000000",
@@ -509,7 +545,7 @@ export class PricesInterface extends Interface {
   }
 
   declare functions: {
-    init: FunctionFragment;
+    get_version: FunctionFragment;
     get_prices: FunctionFragment;
     read_prices: FunctionFragment;
     read_timestamp: FunctionFragment;
@@ -523,10 +559,7 @@ export class Prices extends Contract {
 
   declare interface: PricesInterface;
   declare functions: {
-    init: InvokeFunction<
-      [allowed_signers: Vec<string>, signer_count_threshold: BigNumberish],
-      void
-    >;
+    get_version: InvokeFunction<[], BN>;
     get_prices: InvokeFunction<
       [feed_ids: Vec<BigNumberish>, payload: Bytes],
       [Vec<BN>, BN]

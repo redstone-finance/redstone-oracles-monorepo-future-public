@@ -8,7 +8,7 @@ const SALT =
 
 async function main() {
   const adapter = (await deployPricesContract(await provider(IS_LOCAL), {
-    signers: [
+    allowedSigners: [
       "0x12470f7aba85c8b81d63137dd5925d6ee114952b",
       "0x109B4a318A4F5ddcbCA6349B45f881B4137deaFB",
       "0x1ea62d73edf8ac05dfcea1a34b9796e937a29eff",

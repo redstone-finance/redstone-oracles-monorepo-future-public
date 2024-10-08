@@ -1,14 +1,14 @@
 [project]
 authors = ["Łukasz Kalbarczyk"]
 entry = "redstone_adapter.sw"
-forc-version = "0.64.0"
+forc-version = "0.65.2"
 license = "Apache-2.0"
 name = "redstone_adapter"
 organization = "RedStone"
 
 [dependencies]
 common = { path = "../common" }
-redstone = { path = "../redstone-fuel-sdk" }
+redstone = { git = "https://github.com/redstone-finance/redstone-fuel-sdk", branch = "sway-0.65.2" }
 
 [proxy]
 address = "0x3c00ee6f614ae63cd94d76452c331acdbeeb857de16eeb77a616fa143bf923c9"

@@ -4,7 +4,7 @@ use std::{bytes::Bytes, logging::log, tx::{tx_script_data, tx_script_data_length
 use common::redstone_core_abi::RedStoneCore;
 
 configurable {
-    CONTRACT_ID: b256 = 0x823f963f71032f016a0e6d8ee06fc63dad843f91f1f1de8336a48d3f4cdd0442,
+    CONTRACT_ID: b256 = 0x7a3bfed7818ad781ce0aa9560e7f705e64becfb3350bc3ea56a5046783e9c293,
 }
 
 // const AVAX = 0x41564158u256;
