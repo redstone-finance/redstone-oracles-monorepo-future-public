@@ -11,7 +11,8 @@
         "gasLimitPerCall": 100000
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": false
     },
     "ethereum": {
       "name": "Ethereum Mainnet",
@@ -29,7 +30,8 @@
         "gasLimitPerCall": 2000000
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "arbitrumOne": {
       "name": "Arbitrum One",
@@ -48,7 +50,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": true
+      "twoDimensionalFees": true,
+      "isMainnet": true
     },
     "avalanche": {
       "name": "Avalanche Network",
@@ -67,7 +70,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "optimism": {
       "name": "Optimism",
@@ -86,7 +90,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "polygon": {
       "name": "Polygon Mainnet",
@@ -103,7 +108,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "celo": {
       "name": "Celo Mainnet",
@@ -116,7 +122,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "base": {
       "name": "Base Mainnet",
@@ -133,7 +140,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "canto": {
       "name": "Canto",
@@ -149,7 +157,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "manta": {
       "name": "Manta Pacific Mainnet",
@@ -166,7 +175,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "blast": {
       "name": "Blast Mainnet",
@@ -184,7 +194,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "etherlink-ghostnet": {
       "name": "Etherlink Ghostnet",
@@ -196,7 +207,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": true
+      "twoDimensionalFees": true,
+      "isMainnet": false
     },
     "etherlink": {
       "name": "Etherlink Mainnet",
@@ -208,7 +220,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": true
+      "twoDimensionalFees": true,
+      "isMainnet": true
     },
     "mode": {
       "name": "Mode Mainnet",
@@ -223,7 +236,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "mantle": {
       "name": "Mantle",
@@ -242,7 +256,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": true
+      "twoDimensionalFees": true,
+      "isMainnet": true
     },
     "ethereum-sepolia": {
       "name": "Ethereum Sepolia",
@@ -259,7 +274,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": false
     },
     "bnb": {
       "name": "Binance chain",
@@ -279,7 +295,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "bnb-testnet": {
       "name": "Binance chain testnet",
@@ -295,7 +312,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": false
     },
     "celo-baklava": {
       "name": "Celo baklava",
@@ -308,7 +326,8 @@
         "gasLimitPerCall": 1000000
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": false
     },
     "canto-testnet": {
       "name": "Canto Testnet",
@@ -320,7 +339,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": false
     },
     "kava": {
       "name": "Kava",
@@ -339,7 +359,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "fraxtal": {
       "name": "Fraxtal Mainnet",
@@ -351,7 +372,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "linea": {
       "name": "Linea Mainnet",
@@ -367,7 +389,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "b2": {
       "name": "B2 Mainnet",
@@ -384,7 +407,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "bob": {
       "name": "BOB Mainnet",
@@ -397,7 +421,8 @@
       },
       "isAuctionModel": false,
       "fallbackToEthMaxPriorityFeePerGas": true,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "blast-sepolia": {
       "name": "Blast sepolia",
@@ -413,7 +438,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": false
     },
     "re.al": {
       "name": "re.al",
@@ -425,7 +451,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "merlin": {
       "name": "Merlin Mainnet",
@@ -441,7 +468,8 @@
         "gasLimitPerCall": 1000000
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "sei": {
       "name": "Sei Mainnet",
@@ -453,7 +481,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "berachain-testnet": {
       "name": "Berachain Testnet",
@@ -466,7 +495,8 @@
         "gasLimitPerCall": 1000000
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": false
     },
     "cyber": {
       "name": "Cyber",
@@ -479,7 +509,8 @@
         "gasLimitPerCall": 1000000
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "zksync": {
       "name": "zkSync",
@@ -496,7 +527,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": true
+      "twoDimensionalFees": true,
+      "isMainnet": true
     },
     "zkLink": {
       "name": "zkLink",
@@ -508,7 +540,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": true
+      "twoDimensionalFees": true,
+      "isMainnet": true
     },
     "zircuit": {
       "name": "Zircuit Mainnet",
@@ -523,7 +556,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "scroll": {
       "name": "Scroll",
@@ -542,7 +576,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "haven1Testnet": {
       "name": "Haven1 Testnet",
@@ -554,7 +589,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": false
     },
     "bounceBit": {
       "name": "BounceBit Mainnet",
@@ -567,7 +603,8 @@
         "gasLimitPerCall": 1000000
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": true
     },
     "hemiTestnet": {
       "name": "Hemi Sepolia",
@@ -579,7 +616,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": false,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": false
     },
     "unichainTestnet": {
       "name": "Unichain Sepolia",
@@ -591,7 +629,8 @@
         "type": "Multicall3"
       },
       "isAuctionModel": true,
-      "twoDimensionalFees": false
+      "twoDimensionalFees": false,
+      "isMainnet": false
     }
   },
   "temporaryConfigUpdates": {

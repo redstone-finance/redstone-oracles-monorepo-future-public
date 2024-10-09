@@ -30,15 +30,12 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
   }
   return async (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>> => {
     const fnName = config.fnName ?? config.fn.name;
-    const error = new AggregateError(
-      [],
-      `Retry failed after ${config.maxRetries} attempts of ${fnName}`
-    );
+    const errors = [];
     for (let i = 0; i < config.maxRetries; i++) {
       try {
         return await (config.fn(...args) as Promise<ReturnType<T>>);
       } catch (e) {
-        error.errors.push(e);
+        errors.push(e);
 
         config.logger?.(
           `Retry ${i + 1}/${config.maxRetries}; Function ${fnName} failed. ${stringifyError(e)}`
@@ -58,7 +55,10 @@ export function retry<T extends (...args: any[]) => Promise<unknown>>(
         }
       }
     }
-    throw error;
+    throw new AggregateError(
+      errors,
+      `Retry failed after ${config.maxRetries} attempts of ${fnName}`
+    );
   };
 }
 

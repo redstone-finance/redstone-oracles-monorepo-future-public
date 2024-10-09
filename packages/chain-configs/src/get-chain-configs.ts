@@ -2,7 +2,7 @@ import { Manifest, resolveManifest } from "@redstone-finance/internal-utils";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { z } from "zod";
 import localChainConfigsManifest from "../manifest/chain-configs.json";
-import { ChainConfigs, ChainConfigsSchema } from "./schemes";
+import { ChainConfigs, ChainConfigsById, ChainConfigsSchema } from "./schemes";
 
 const fetchChainConfigsWithAxios = async (
   manifestsHosts: string[],
@@ -62,6 +62,14 @@ export async function getChainConfigs(): Promise<ChainConfigs> {
 
 export function getLocalChainConfigs(): ChainConfigs {
   const resolvedManifest = resolveManifest(localChainConfigsManifest);
-
   return ChainConfigsSchema.parse(resolvedManifest);
+}
+
+export function getLocalChainConfigsById(): ChainConfigsById {
+  const chainConfigs = getLocalChainConfigs();
+  const entries = Object.values(chainConfigs).map((chain) => [
+    chain.chainId,
+    chain,
+  ]);
+  return Object.fromEntries(entries) as ChainConfigsById;
 }

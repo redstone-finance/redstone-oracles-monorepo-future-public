@@ -8,6 +8,7 @@ export const ChainConfigSchema = z.object({
   avgBlockTimeMs: z.number(),
   isAuctionModel: z.boolean(),
   twoDimensionalFees: z.boolean(),
+  isMainnet: z.boolean(),
   disabled: z.boolean().default(false),
   etherScanApi: z.string().url().optional(),
   /**
@@ -32,9 +33,11 @@ export const ChainConfigSchema = z.object({
 });
 
 export const ChainConfigsSchema = z.record(z.string(), ChainConfigSchema);
+export const ChainConfigsByIdSchema = z.record(z.number(), ChainConfigSchema);
 
 export type ChainConfig = z.infer<typeof ChainConfigSchema>;
 export type ChainConfigs = z.infer<typeof ChainConfigsSchema>;
+export type ChainConfigsById = z.infer<typeof ChainConfigsByIdSchema>;
 export type SupportedNetworkNames = keyof typeof chainConfigs.defaultConfig;
 
 export const STANDARD_MULTICALL3_ADDRESS =
