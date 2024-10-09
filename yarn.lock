@@ -8178,6 +8178,7 @@ __metadata:
   resolution: "@redstone-finance/lambda-node-price-deviation-monitoring@workspace:packages/lambda-node-price-deviation-monitoring"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
+    "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/internal-utils": "npm:0.6.2"
     "@redstone-finance/monitoring-manifests": "npm:0.6.2"
     "@redstone-finance/sdk": "npm:0.6.2"
