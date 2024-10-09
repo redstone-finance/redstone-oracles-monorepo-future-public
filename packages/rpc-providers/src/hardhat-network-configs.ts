@@ -6,7 +6,13 @@ type ChainName = (typeof chainNames)[number];
 
 const CHAIN_NAME_TO_HARDHAT_NETWORK_NAME: {
   [key: ChainName]: string | undefined;
-} = { ethereum: "mainnet", "ethereum-sepolia": "sepolia", "re.al": "real" };
+} = {
+  ethereum: "mainnet",
+  "ethereum-sepolia": "sepolia",
+  "re.al": "real",
+  "blast-sepolia": "blast-testnet",
+  "bnb-testnet": "bscTestnet",
+};
 
 const HARDHAT_NETWORK_NAME_TO_CHAIN_NAME = Object.fromEntries(
   Object.entries(CHAIN_NAME_TO_HARDHAT_NETWORK_NAME).map(([key, value]) => [
