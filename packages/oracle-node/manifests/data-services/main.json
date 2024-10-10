@@ -1673,6 +1673,14 @@
         "xt"
       ]
     },
+    "fxUSD": {
+      "source": [
+        "curve-ethereum-eusd",
+        "curve-ethereum-frax",
+        "curve-ethereum-gho",
+        "curve-ethereum-usdc"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
