@@ -12,27 +12,19 @@ import {
   UsePipes,
   ValidationPipe,
 } from "@nestjs/common";
-import { Serializable } from "@redstone-finance/protocol";
-import type { Response } from "express";
 import config from "../config";
-import { duplexStream } from "../utils/streams";
 import {
   BulkPostRequestBody,
   DataPackagesResponse,
   DataPackagesStatsResponse,
   GetDataPackagesStatsQuery,
-  ResponseFormat,
 } from "./data-packages.interface";
 import { DataPackagesService } from "./data-packages.service";
-
-const CONTENT_TYPE_OCTET_STREAM = "application/octet-stream";
-const CONTENT_TYPE_TEXT = "text/html";
-const CONTENT_TYPE_JSON = "application/json";
 
 @Controller("data-packages")
 @UsePipes(new ValidationPipe({ transform: true }))
 export class DataPackagesController {
-  constructor(private dataPackagesService: DataPackagesService) {}
+  constructor(private readonly dataPackagesService: DataPackagesService) {}
 
   private static async validateDataServiceId(dataServiceId: string) {
     const isDataServiceIdValid =
@@ -134,36 +126,5 @@ export class DataPackagesController {
       );
 
     await this.dataPackagesService.broadcast(dataPackagesToSave, signerAddress);
-  }
-
-  private static sendSerializableResponse(
-    res: Response,
-    data: Serializable,
-    format?: ResponseFormat
-  ) {
-    switch (format ?? "raw") {
-      case "hex":
-        res.contentType(CONTENT_TYPE_TEXT);
-        res.send(data.toBytesHex());
-        return;
-
-      case "raw":
-        res.contentType(CONTENT_TYPE_OCTET_STREAM);
-        duplexStream(data.toBytes()).pipe(res);
-        return;
-
-      case "bytes":
-        res.contentType(CONTENT_TYPE_JSON);
-        res.send(Array.from(data.toBytes()));
-        return;
-
-      case "json":
-        res.contentType(CONTENT_TYPE_JSON);
-        res.send(data);
-        return;
-
-      default:
-        throw new Error(`Unsupported format: '${format}'`);
-    }
   }
 }

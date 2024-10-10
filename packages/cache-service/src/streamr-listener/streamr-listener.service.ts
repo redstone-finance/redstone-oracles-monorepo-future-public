@@ -34,7 +34,7 @@ export class StreamrListenerService {
   });
   private subscriptionsState: StreamrSubscriptions = {};
 
-  constructor(private dataPackageService: DataPackagesService) {}
+  constructor(private readonly dataPackageService: DataPackagesService) {}
 
   @Cron(CRON_EXPRESSION_EVERY_1_MINUTE)
   handleCron() {

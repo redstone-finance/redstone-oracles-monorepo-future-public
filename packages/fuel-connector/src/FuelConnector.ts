@@ -29,7 +29,7 @@ export class FuelConnector {
       data: { query: LATEST_BLOCK_QUERY },
     });
 
-    // eslint-disable-next-line
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
     return response.data.data.chain.latestBlock.header;
   }
 }

@@ -41,8 +41,8 @@ export class DataPackagesService {
   private readonly broadcasters: DataPackagesBroadcaster[] = [];
 
   constructor(
-    @Optional() private readonly mongoBroadcaster?: MongoBroadcaster,
-    @Optional() private readonly streamrBroadcaster?: StreamrBroadcaster
+    @Optional() mongoBroadcaster?: MongoBroadcaster,
+    @Optional() streamrBroadcaster?: StreamrBroadcaster
   ) {
     if (mongoBroadcaster) {
       this.broadcasters.push(mongoBroadcaster);
@@ -63,9 +63,22 @@ export class DataPackagesService {
     dataPackagesToSave: CachedDataPackage[],
     nodeEvmAddress: string
   ): Promise<void> {
-    const savePromises: Promise<unknown>[] = this.broadcasters.map(
-      (broadcaster) => broadcaster.broadcast(dataPackagesToSave, nodeEvmAddress)
-    );
+    const message = `broadcast ${dataPackagesToSave.length} data packages for node ${nodeEvmAddress}`;
+    const savePromises = this.broadcasters.map(async (broadcaster) => {
+      try {
+        await broadcaster.broadcast(dataPackagesToSave, nodeEvmAddress);
+        this.logger.log(
+          `[${broadcaster.constructor.name}] succeeded to ${message}.`
+        );
+      } catch (error) {
+        this.logger.error(
+          `[${
+            broadcaster.constructor.name
+          }] failed to ${message}. ${RedstoneCommon.stringifyError(error)}`
+        );
+        throw error;
+      }
+    });
 
     await Promise.allSettled(savePromises);
   }
