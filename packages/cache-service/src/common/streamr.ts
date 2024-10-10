@@ -1,8 +1,12 @@
-import * as pako from "pako";
+import { Logger } from "@nestjs/common";
+import { RedstoneCommon } from "@redstone-finance/utils";
+import pako from "pako";
 import { StreamrClient } from "streamr-client";
 import config from "../config";
 
 export { StreamPermission, StreamrClient, Subscription } from "streamr-client";
+
+const logger = new Logger("streamr client");
 
 export const getStreamIdForNodeByEvmAddress = (evmAddress: string) =>
   config.streamrStreamNamePattern.replaceAll("{evmAddress}", evmAddress);
@@ -15,6 +19,9 @@ export const doesStreamExist = async (
     await streamr.getStream(streamId);
     return true;
   } catch (error) {
+    logger.log(
+      `failed to check if stream ${streamId} exists. ${RedstoneCommon.stringifyError(error)}`
+    );
     return false;
   }
 };
