@@ -1431,6 +1431,14 @@
         "okx-usdt",
         "xt"
       ]
+    },
+    "fxUSD": {
+      "source": [
+        "curve-ethereum-eusd",
+        "curve-ethereum-frax",
+        "curve-ethereum-gho",
+        "curve-ethereum-usdc"
+      ]
     }
   },
   "multiPointPackages": {

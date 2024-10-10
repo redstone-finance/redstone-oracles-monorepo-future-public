@@ -277,6 +277,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
       decimals: 8,
     },
+    fxUSD: {
+      address: "0x085780639CC2cACd35E474e71f4d000e2405d8f6",
+      decimals: 18,
+    },
   },
   blast: {
     ETH: {
