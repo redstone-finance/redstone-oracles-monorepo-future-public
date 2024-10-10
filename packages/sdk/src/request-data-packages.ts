@@ -2,12 +2,12 @@ import {
   SignedDataPackage,
   SignedDataPackagePlainObj,
 } from "@redstone-finance/protocol";
-import { MathUtils, RedstoneCommon, SafeNumber } from "@redstone-finance/utils";
+import { RedstoneCommon } from "@redstone-finance/utils";
 import axios from "axios";
 import { BigNumber } from "ethers";
-import _ from "lodash";
 import { z } from "zod";
 import { resolveDataServiceUrls } from "./data-services-urls";
+import { pickDataFeedPackagesClosestToMedian } from "./pick-closest-to-median";
 
 const GET_REQUEST_TIMEOUT = 5_000;
 const DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME = 500;
@@ -274,27 +274,10 @@ const parseAndValidateDataPackagesResponse = (
   return parsedResponse;
 };
 
-const getAllValues = (dataPackages: SignedDataPackagePlainObj[]) => {
-  const allValues: Partial<Record<string, number[]>> = {};
-  for (const dataPackage of dataPackages) {
-    for (const dataPoint of dataPackage.dataPoints) {
-      allValues[dataPoint.dataFeedId] ??= [];
-      allValues[dataPoint.dataFeedId]!.push(Number(dataPoint.value));
-    }
-  }
-  return allValues;
-};
-
-const pickDataFeedPackagesClosestToMedian = (
-  dataFeedPackages: SignedDataPackagePlainObj[],
-  count: number
-): SignedDataPackage[] => {
-  const allValues = getAllValues(dataFeedPackages) as Record<string, number[]>;
-  const allMedians = _.mapValues(allValues, MathUtils.getMedian);
-
-  return sortByDistanceFromMedian(dataFeedPackages, allMedians)
-    .map((diff) => SignedDataPackage.fromObj(diff.dp))
-    .slice(0, count);
+const getUrlsForDataServiceId = (
+  reqParams: DataPackagesRequestParams
+): string[] => {
+  return reqParams.urls ?? resolveDataServiceUrls(reqParams.dataServiceId);
 };
 
 function sendRequestToGateway(
@@ -324,41 +307,6 @@ function maybeGetSigner(dp: SignedDataPackagePlainObj) {
     return undefined;
   }
 }
-
-const getMaxDistanceFromMedian = (
-  dataPackage: SignedDataPackagePlainObj,
-  medians: Record<string, number>
-) => {
-  let maxDistanceFromMedian = 0;
-  for (const dataPoint of dataPackage.dataPoints) {
-    maxDistanceFromMedian = Math.max(
-      maxDistanceFromMedian,
-      SafeNumber.createSafeNumber(dataPoint.value)
-        .sub(medians[dataPoint.dataFeedId])
-        .abs()
-        .unsafeToNumber()
-    );
-  }
-  return maxDistanceFromMedian;
-};
-
-function sortByDistanceFromMedian(
-  dataFeedPackages: SignedDataPackagePlainObj[],
-  medians: Record<string, number>
-) {
-  return dataFeedPackages
-    .map((dp) => ({
-      dp,
-      diff: getMaxDistanceFromMedian(dp, medians),
-    }))
-    .sort((first, second) => first.diff - second.diff);
-}
-
-const getUrlsForDataServiceId = (
-  reqParams: DataPackagesRequestParams
-): string[] => {
-  return reqParams.urls ?? resolveDataServiceUrls(reqParams.dataServiceId);
-};
 
 export const chooseDataPackagesTimestamp = (
   dataPackages: DataPackagesResponse,
