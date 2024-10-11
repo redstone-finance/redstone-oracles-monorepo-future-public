@@ -89,7 +89,8 @@
   "workspaces": {
     "packages": [
       "packages/*",
-      "packages/avs/*"
+      "packages/avs/*",
+      "packages/lambda/*"
     ]
   },
   "packageManager": "yarn@4.3.1"
