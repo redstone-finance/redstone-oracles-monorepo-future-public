@@ -38,7 +38,7 @@ export const readSsmRpcUrls = async (): Promise<RpcUrlsPerChain> => {
       };
     } catch (e) {
       console.error(
-        `Rpc urls for chain ${name} (${chainId}) not present in ${env} SSM: ${RedstoneCommon.stringifyError(e)}`
+        `Error reading rpc urls on ${env} from SSM parameter /${env}/rpc/${chainId}${fallbackInfix}/urls: ${RedstoneCommon.stringifyError(e)}`
       );
     }
   }

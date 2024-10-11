@@ -19,7 +19,7 @@ export const doesStreamExist = async (
     await streamr.getStream(streamId);
     return true;
   } catch (error) {
-    logger.log(
+    logger.error(
       `failed to check if stream ${streamId} exists. ${RedstoneCommon.stringifyError(error)}`
     );
     return false;
