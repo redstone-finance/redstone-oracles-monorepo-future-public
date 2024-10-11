@@ -8,6 +8,8 @@ export const getOracleRegistryState =
     return await Promise.resolve(redstoneOraclesInitialState);
   };
 
+export const getOracleRegistryStateSync = () => redstoneOraclesInitialState;
+
 export const getDataServiceIdForSigner = (
   oracleState: RedstoneOraclesState,
   signerAddress: string
