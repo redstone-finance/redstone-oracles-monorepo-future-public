@@ -7883,9 +7883,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-aggregator-influx-synchronizer@workspace:packages/lambda-aggregator-influx-synchronizer":
+"@redstone-finance/lambda-aggregator-influx-synchronizer@workspace:packages/lambda/lambda-aggregator-influx-synchronizer":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-aggregator-influx-synchronizer@workspace:packages/lambda-aggregator-influx-synchronizer"
+  resolution: "@redstone-finance/lambda-aggregator-influx-synchronizer@workspace:packages/lambda/lambda-aggregator-influx-synchronizer"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/internal-utils": "npm:0.6.2"
@@ -7894,9 +7894,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-alarm-notifier@workspace:packages/lambda-alarm-notifier":
+"@redstone-finance/lambda-alarm-notifier@workspace:packages/lambda/lambda-alarm-notifier":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-alarm-notifier@workspace:packages/lambda-alarm-notifier"
+  resolution: "@redstone-finance/lambda-alarm-notifier@workspace:packages/lambda/lambda-alarm-notifier"
   dependencies:
     "@redstone-finance/utils": "npm:0.6.2"
     "@types/aws-lambda": "npm:^8.10.128"
@@ -7904,9 +7904,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-all-relayers-manifests@workspace:packages/lambda-all-relayers-manifests":
+"@redstone-finance/lambda-all-relayers-manifests@workspace:packages/lambda/lambda-all-relayers-manifests":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-all-relayers-manifests@workspace:packages/lambda-all-relayers-manifests"
+  resolution: "@redstone-finance/lambda-all-relayers-manifests@workspace:packages/lambda/lambda-all-relayers-manifests"
   dependencies:
     "@redstone-finance/utils": "npm:0.6.2"
     "@types/aws-lambda": "npm:^8.10.128"
@@ -7915,9 +7915,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-arweave-gateway@workspace:packages/lambda-arweave-gateway":
+"@redstone-finance/lambda-arweave-gateway@workspace:packages/lambda/lambda-arweave-gateway":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-arweave-gateway@workspace:packages/lambda-arweave-gateway"
+  resolution: "@redstone-finance/lambda-arweave-gateway@workspace:packages/lambda/lambda-arweave-gateway"
   dependencies:
     "@ardrive/turbo-sdk": "npm:^1.2.0"
     "@aws-sdk/client-ssm": "npm:^3.485.0"
@@ -7932,9 +7932,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-chainlink-influx-synchronizer@workspace:packages/lambda-chainlink-influx-synchronizer":
+"@redstone-finance/lambda-chainlink-influx-synchronizer@workspace:packages/lambda/lambda-chainlink-influx-synchronizer":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-chainlink-influx-synchronizer@workspace:packages/lambda-chainlink-influx-synchronizer"
+  resolution: "@redstone-finance/lambda-chainlink-influx-synchronizer@workspace:packages/lambda/lambda-chainlink-influx-synchronizer"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/internal-utils": "npm:0.6.2"
@@ -7944,9 +7944,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-check-relayers-monitoring@workspace:packages/lambda-check-relayers-monitoring":
+"@redstone-finance/lambda-check-relayers-monitoring@workspace:packages/lambda/lambda-check-relayers-monitoring":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-check-relayers-monitoring@workspace:packages/lambda-check-relayers-monitoring"
+  resolution: "@redstone-finance/lambda-check-relayers-monitoring@workspace:packages/lambda/lambda-check-relayers-monitoring"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@redstone-finance/internal-utils": "npm:0.6.2"
@@ -7959,9 +7959,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda-deviation-monitoring":
+"@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda/lambda-deviation-monitoring":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda-deviation-monitoring"
+  resolution: "@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda/lambda-deviation-monitoring"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/internal-utils": "npm:0.6.2"
@@ -7969,9 +7969,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-ecs-services-monitoring@workspace:packages/lambda-ecs-services-monitoring":
+"@redstone-finance/lambda-ecs-services-monitoring@workspace:packages/lambda/lambda-ecs-services-monitoring":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-ecs-services-monitoring@workspace:packages/lambda-ecs-services-monitoring"
+  resolution: "@redstone-finance/lambda-ecs-services-monitoring@workspace:packages/lambda/lambda-ecs-services-monitoring"
   dependencies:
     "@aws-sdk/client-ecs": "npm:^3.485.0"
     "@aws-sdk/client-lambda": "npm:^3.485.0"
@@ -7987,9 +7987,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-gas-fee-comparator@workspace:packages/lambda-gas-fee-comparator":
+"@redstone-finance/lambda-gas-fee-comparator@workspace:packages/lambda/lambda-gas-fee-comparator":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-gas-fee-comparator@workspace:packages/lambda-gas-fee-comparator"
+  resolution: "@redstone-finance/lambda-gas-fee-comparator@workspace:packages/lambda/lambda-gas-fee-comparator"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/rpc-providers": "npm:0.6.2"
@@ -7999,9 +7999,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-gw-metrics@workspace:packages/lambda-gw-metrics":
+"@redstone-finance/lambda-gw-metrics@workspace:packages/lambda/lambda-gw-metrics":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda-gw-metrics"
+  resolution: "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda/lambda-gw-metrics"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/sdk": "npm:0.6.2"
@@ -8010,9 +8010,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-hard-limits-monitoring@workspace:packages/lambda-hard-limits-monitoring":
+"@redstone-finance/lambda-hard-limits-monitoring@workspace:packages/lambda/lambda-hard-limits-monitoring":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-hard-limits-monitoring@workspace:packages/lambda-hard-limits-monitoring"
+  resolution: "@redstone-finance/lambda-hard-limits-monitoring@workspace:packages/lambda/lambda-hard-limits-monitoring"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@redstone-finance/internal-utils": "npm:0.6.2"
@@ -8026,9 +8026,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-hard-limits@workspace:packages/lambda-hard-limits":
+"@redstone-finance/lambda-hard-limits@workspace:packages/lambda/lambda-hard-limits":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-hard-limits@workspace:packages/lambda-hard-limits"
+  resolution: "@redstone-finance/lambda-hard-limits@workspace:packages/lambda/lambda-hard-limits"
   dependencies:
     "@aws-sdk/client-cloudwatch": "npm:^3.485.0"
     "@aws-sdk/client-s3": "npm:^3.485.0"
@@ -8039,18 +8039,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-http-multi-call@workspace:packages/lambda-http-multi-call":
+"@redstone-finance/lambda-http-multi-call@workspace:packages/lambda/lambda-http-multi-call":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-http-multi-call@workspace:packages/lambda-http-multi-call"
+  resolution: "@redstone-finance/lambda-http-multi-call@workspace:packages/lambda/lambda-http-multi-call"
   dependencies:
     "@types/aws-lambda": "npm:^8.10.128"
     axios: "npm:^1.6.2"
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-influxdb-proxy@workspace:packages/lambda-influxdb-proxy":
+"@redstone-finance/lambda-influxdb-proxy@workspace:packages/lambda/lambda-influxdb-proxy":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-influxdb-proxy@workspace:packages/lambda-influxdb-proxy"
+  resolution: "@redstone-finance/lambda-influxdb-proxy@workspace:packages/lambda/lambda-influxdb-proxy"
   dependencies:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.35.0"
@@ -8061,9 +8061,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-influxdb-state-metrics@workspace:packages/lambda-influxdb-state-metrics":
+"@redstone-finance/lambda-influxdb-state-metrics@workspace:packages/lambda/lambda-influxdb-state-metrics":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-influxdb-state-metrics@workspace:packages/lambda-influxdb-state-metrics"
+  resolution: "@redstone-finance/lambda-influxdb-state-metrics@workspace:packages/lambda/lambda-influxdb-state-metrics"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/internal-utils": "npm:0.6.2"
@@ -8073,9 +8073,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-lbtc-peg-checker@workspace:packages/lambda-lbtc-peg-checker":
+"@redstone-finance/lambda-lbtc-peg-checker@workspace:packages/lambda/lambda-lbtc-peg-checker":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-lbtc-peg-checker@workspace:packages/lambda-lbtc-peg-checker"
+  resolution: "@redstone-finance/lambda-lbtc-peg-checker@workspace:packages/lambda/lambda-lbtc-peg-checker"
   dependencies:
     "@redstone-finance/internal-utils": "npm:0.6.2"
     "@redstone-finance/protocol": "npm:0.6.2"
@@ -8084,9 +8084,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring":
+"@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda/lambda-missing-sources-monitoring":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda-missing-sources-monitoring"
+  resolution: "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda/lambda-missing-sources-monitoring"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/internal-utils": "npm:0.6.2"
@@ -8094,9 +8094,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-mongodb-influx-synchronizer@workspace:packages/lambda-mongodb-influx-synchronizer":
+"@redstone-finance/lambda-mongodb-influx-synchronizer@workspace:packages/lambda/lambda-mongodb-influx-synchronizer":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-mongodb-influx-synchronizer@workspace:packages/lambda-mongodb-influx-synchronizer"
+  resolution: "@redstone-finance/lambda-mongodb-influx-synchronizer@workspace:packages/lambda/lambda-mongodb-influx-synchronizer"
   dependencies:
     "@aws-sdk/client-s3": "npm:^3.485.0"
     "@aws-sdk/client-ssm": "npm:^3.485.0"
@@ -8114,9 +8114,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-monitoring-core@workspace:packages/lambda-monitoring-core":
+"@redstone-finance/lambda-monitoring-core@workspace:packages/lambda/lambda-monitoring-core":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-monitoring-core@workspace:packages/lambda-monitoring-core"
+  resolution: "@redstone-finance/lambda-monitoring-core@workspace:packages/lambda/lambda-monitoring-core"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@redstone-finance/evm-connector": "npm:0.6.2"
@@ -8133,9 +8133,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-monitoring-relayers@workspace:packages/lambda-monitoring-relayers":
+"@redstone-finance/lambda-monitoring-relayers@workspace:packages/lambda/lambda-monitoring-relayers":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-monitoring-relayers@workspace:packages/lambda-monitoring-relayers"
+  resolution: "@redstone-finance/lambda-monitoring-relayers@workspace:packages/lambda/lambda-monitoring-relayers"
   dependencies:
     "@redstone-finance/chain-configs": "npm:0.6.2"
     "@redstone-finance/monitoring-manifests": "npm:0.6.2"
@@ -8146,9 +8146,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-multi-top-up@workspace:packages/lambda-multi-top-up":
+"@redstone-finance/lambda-multi-top-up@workspace:packages/lambda/lambda-multi-top-up":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-multi-top-up@workspace:packages/lambda-multi-top-up"
+  resolution: "@redstone-finance/lambda-multi-top-up@workspace:packages/lambda/lambda-multi-top-up"
   dependencies:
     "@redstone-finance/chain-configs": "npm:0.6.2"
     "@redstone-finance/evm-multicall": "npm:0.6.2"
@@ -8168,9 +8168,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-new-sources-monitoring@workspace:packages/lambda-new-sources-monitoring":
+"@redstone-finance/lambda-new-sources-monitoring@workspace:packages/lambda/lambda-new-sources-monitoring":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-new-sources-monitoring@workspace:packages/lambda-new-sources-monitoring"
+  resolution: "@redstone-finance/lambda-new-sources-monitoring@workspace:packages/lambda/lambda-new-sources-monitoring"
   dependencies:
     "@redstone-finance/chain-configs": "npm:0.6.2"
     "@redstone-finance/internal-utils": "npm:0.6.2"
@@ -8189,9 +8189,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-node-price-deviation-monitoring@workspace:packages/lambda-node-price-deviation-monitoring":
+"@redstone-finance/lambda-node-price-deviation-monitoring@workspace:packages/lambda/lambda-node-price-deviation-monitoring":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-node-price-deviation-monitoring@workspace:packages/lambda-node-price-deviation-monitoring"
+  resolution: "@redstone-finance/lambda-node-price-deviation-monitoring@workspace:packages/lambda/lambda-node-price-deviation-monitoring"
   dependencies:
     "@aws-sdk/client-lambda": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.35.0"
@@ -8205,18 +8205,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests":
+"@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda/lambda-prod-nodes-manifests":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda-prod-nodes-manifests"
+  resolution: "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda/lambda-prod-nodes-manifests"
   dependencies:
     "@redstone-finance/monitoring-manifests": "npm:0.6.2"
     axios: "npm:^1.6.2"
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-redstone-txs-indexer@workspace:packages/lambda-redstone-txs-indexer":
+"@redstone-finance/lambda-redstone-txs-indexer@workspace:packages/lambda/lambda-redstone-txs-indexer":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-redstone-txs-indexer@workspace:packages/lambda-redstone-txs-indexer"
+  resolution: "@redstone-finance/lambda-redstone-txs-indexer@workspace:packages/lambda/lambda-redstone-txs-indexer"
   dependencies:
     "@aws-sdk/client-ssm": "npm:^3.485.0"
     "@influxdata/influxdb-client": "npm:^1.35.0"
@@ -8237,9 +8237,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-wallet-balances@workspace:packages/lambda-wallet-balances":
+"@redstone-finance/lambda-wallet-balances@workspace:packages/lambda/lambda-wallet-balances":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-wallet-balances@workspace:packages/lambda-wallet-balances"
+  resolution: "@redstone-finance/lambda-wallet-balances@workspace:packages/lambda/lambda-wallet-balances"
   dependencies:
     "@redstone-finance/internal-utils": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
@@ -8248,9 +8248,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-wallets-balances-notifier@npm:0.6.2, @redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier":
+"@redstone-finance/lambda-wallets-balances-notifier@npm:0.6.2, @redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda/lambda-wallets-balances-notifier":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda-wallets-balances-notifier"
+  resolution: "@redstone-finance/lambda-wallets-balances-notifier@workspace:packages/lambda/lambda-wallets-balances-notifier"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/chain-configs": "npm:0.6.2"
@@ -8264,9 +8264,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/lambda-zrodelko-balance-monitoring@workspace:packages/lambda-zrodelko-balance-monitoring":
+"@redstone-finance/lambda-zrodelko-balance-monitoring@workspace:packages/lambda/lambda-zrodelko-balance-monitoring":
   version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-zrodelko-balance-monitoring@workspace:packages/lambda-zrodelko-balance-monitoring"
+  resolution: "@redstone-finance/lambda-zrodelko-balance-monitoring@workspace:packages/lambda/lambda-zrodelko-balance-monitoring"
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/chain-configs": "npm:0.6.2"
