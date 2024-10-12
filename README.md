@@ -29,6 +29,6 @@ You can learn more at https://docs.redstone.finance
 
 Please feel free to contact us on [Discord](https://redstone.finance/discord) or email to core@redstone.finance.
 
-## 📜 Licesnse
+## 📜 License
 
 BUSL-1.1
