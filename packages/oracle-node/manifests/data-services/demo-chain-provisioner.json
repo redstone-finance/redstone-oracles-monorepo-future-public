@@ -351,6 +351,8 @@
     },
     "crvUSD": {
       "source": [
+        "curve-arbitrumone-wbtc",
+        "curve-arbitrumone-weth",
         "curve-arbitrumone-frax",
         "curve-ethereum-crv",
         "curve-ethereum-frax",

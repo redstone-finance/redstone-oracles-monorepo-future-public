@@ -108,6 +108,7 @@
     },
     "USDC.e": {
       "source": [
+        "curve-arbitrumone-usdt",
         "uniswap-v3-arbitrumone-weth-500",
         "uniswap-v3-arbitrumone-weth-3000",
         "uniswap-v3-arbitrumone-arb-500",
@@ -306,7 +307,8 @@
         "okx-usdt",
         "uniswap-v3-ethereum-weth-3000",
         "uniswap-v3-ethereum-weth-500",
-        "uniswap-v3-arbitrumone-weth-500"
+        "uniswap-v3-arbitrumone-weth-500",
+        "curve-arbitrumone-weth"
       ]
     },
     "ETH/USDC": {
@@ -919,6 +921,7 @@
     },
     "osETH": {
       "source": [
+        "uniswap-v3-ethereum-usdc-500",
         "balancer-ethereum-weth",
         "balancer-arbitrumone-weth",
         "curve-ethereum-reth"
@@ -1299,6 +1302,8 @@
     },
     "crvUSD": {
       "source": [
+        "curve-arbitrumone-wbtc",
+        "curve-arbitrumone-weth",
         "curve-arbitrumone-frax",
         "curve-ethereum-crv",
         "curve-ethereum-frax",
@@ -1310,6 +1315,7 @@
     },
     "USDe": {
       "source": [
+        "curve-ethereum-fdusd",
         "curve-ethereum-dai",
         "curve-ethereum-frax",
         "curve-ethereum-usdc",
@@ -1627,6 +1633,7 @@
     },
     "SolvBTC.BBN": {
       "source": [
+        "pancake-swap-bnb-solvbtc-500",
         "curve-ethereum-solvbtc",
         "dodoex-bnb-solvbtc",
         "dodoex-ethereum-solvbtc"
@@ -1650,6 +1657,7 @@
     },
     "cbBTC": {
       "source": [
+        "curve-ethereum-wbtc",
         "aerodrome-cl-base-usdc-500",
         "aerodrome-cl-base-weth-500",
         "uniswap-v3-base-weth-3000",
@@ -2095,6 +2103,18 @@
     },
     "QI": {
       "source": ["binance-usdt", "coingecko", "kucoin-usdt", "xt"]
+    },
+    "FDUSD": {
+      "source": [
+        "pancake-swap-bnb-usdt-100",
+        "pancake-swap-bnb-wbnb-500",
+        "uniswap-v3-ethereum-usdt-100",
+        "binance-btc",
+        "binance-eth",
+        "binance-bnb",
+        "binance-xrp",
+        "bingx-usdt"
+      ]
     },
     "BAT": {},
     "COMP": {},

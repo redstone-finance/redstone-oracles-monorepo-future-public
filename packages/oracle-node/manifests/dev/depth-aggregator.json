@@ -1002,6 +1002,8 @@
     },
     "crvUSD": {
       "source": [
+        "curve-arbitrumone-wbtc",
+        "curve-arbitrumone-weth",
         "curve-arbitrumone-frax",
         "curve-ethereum-crv",
         "curve-ethereum-frax",
@@ -1374,6 +1376,7 @@
     },
     "SolvBTC.BBN": {
       "source": [
+        "pancake-swap-bnb-solvbtc-500",
         "curve-ethereum-solvbtc",
         "dodoex-bnb-solvbtc",
         "dodoex-ethereum-solvbtc"
