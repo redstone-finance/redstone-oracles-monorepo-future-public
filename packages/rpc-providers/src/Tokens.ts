@@ -277,6 +277,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
       decimals: 8,
     },
+    FDUSD: {
+      address: "0xc5f0f7b66764F6ec8C8Dff7BA683102295E16409",
+      decimals: 18,
+    },
     fxUSD: {
       address: "0x085780639CC2cACd35E474e71f4d000e2405d8f6",
       decimals: 18,
@@ -641,6 +645,22 @@ export const chainTokenMap: ChainTokenMap = {
     },
     "SolvBTC.BBN": {
       address: "0x1346b618dC92810EC74163e4c27004c921D446a5",
+      decimals: 18,
+    },
+    WBNB: {
+      address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+      decimals: 18,
+    },
+    USDT: {
+      address: "0x55d398326f99059fF775485246999027B3197955",
+      decimals: 18,
+    },
+    FDUSD: {
+      address: "0xc5f0f7b66764F6ec8C8Dff7BA683102295E16409",
+      decimals: 18,
+    },
+    ETH: {
+      address: "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
       decimals: 18,
     },
   },
