@@ -1,7 +1,7 @@
 import { RedstoneCommon } from "@redstone-finance/utils";
 import http from "http";
 import { createServer } from "http-server";
-import puppeteer, { ConsoleMessage, Page, Product } from "puppeteer";
+import puppeteer, { ConsoleMessage, Page, SupportedBrowser } from "puppeteer";
 
 export const PORT_NUMBER = 8088;
 
@@ -56,13 +56,14 @@ async function waitForSuccess(
 export async function testInBrowser(
   path: string,
   expectedMessage: string,
-  product?: Product,
+  product?: SupportedBrowser,
   port: number = PORT_NUMBER
 ) {
   const server = await startServer(path, port);
   const browser = await puppeteer.launch({
-    product,
+    browser: product,
     protocol: product === "firefox" ? "webDriverBiDi" : undefined,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
   });
 
   try {
