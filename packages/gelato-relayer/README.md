@@ -54,7 +54,7 @@ npx hardhat w3f-run redstone --logs
 
 ### The configuration: use User arguments
 
-Put the `manifestUrl` of your configuration in the [userArgs.json](./web3-functions/redstone/userArgs.json) file.
+Put the `manifestUrls` of your configuration in the [userArgs.json](./web3-functions/redstone/userArgs.json) file.
 Make sure the corresponding network is listed in the `hardhat.config.ts` file under `w3f.networks` configuration property.
 In the Gelato environment, put the value into a proper field in the create-task form.
 

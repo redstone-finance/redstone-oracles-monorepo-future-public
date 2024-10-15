@@ -34,7 +34,7 @@ describe("RedStone Gelato w3f: On-chain Relayer & remote manifest e2e Tests", fu
 
   async function performTest(
     redstoneW3f: Web3FunctionHardhat,
-    userArgs: { manifestUrl: string },
+    userArgs: { manifestUrls: string[] },
     value: string
   ) {
     const { result } = await redstoneW3f.run("onRun", { userArgs });
