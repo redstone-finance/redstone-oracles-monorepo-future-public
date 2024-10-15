@@ -14,11 +14,16 @@ export type {
 } from "../typechain-types";
 export { setConfigProvider } from "./config";
 export { getAbiForAdapter } from "./core/contract-interactions/get-abi-for-adapter";
+export { EvmContractFacade } from "./facade/EvmContractFacade";
+export type { IContractFacade } from "./facade/IContractFacade";
+export { MultiFeedEvmContractFacade } from "./facade/MultiFeedEvmContractFacade";
+export { PriceAdapterEvmContractFacade } from "./facade/PriceAdapterEvmContractFacade";
 export { makeConfigProvider } from "./make-config-provider";
 export { getIterationArgs as getMultiFeedIterationArgs } from "./multi-feed/args/get-iteration-args";
 export { getIterationArgs as getPriceFeedsIterationArgs } from "./price-feeds/args/get-iteration-args";
 export {
   type ConfigProvider,
+  type MultiFeedUpdatePricesArgs,
   type OnChainRelayerEnv,
   type RelayerConfig,
   type UpdatePricesArgs,

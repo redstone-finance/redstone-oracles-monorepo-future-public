@@ -1,17 +1,16 @@
-import { MultiFeedAdapterWithoutRounds } from "../../../typechain-types";
 import { config } from "../../config";
-import { UpdatePricesArgs } from "../../types";
+import { MultiFeedUpdatePricesArgs } from "../../types";
 import { includeFeedsCloseToDeviation } from "./feeds-close-to-devation";
 import { includeSynchronizedHeartbeatUpdates } from "./heartbeat-sync";
 
 export const addExtraFeedsToUpdateParams = (
-  args: UpdatePricesArgs<MultiFeedAdapterWithoutRounds>
+  args: MultiFeedUpdatePricesArgs
 ) => {
   const relayerConfig = config();
   const { dataFeedsToUpdate, dataFeedsDeviationRatios, heartbeatUpdates } =
     args;
   const dataFeedsToUpdateLengthOld = dataFeedsToUpdate.length;
-  const { message: deviatonMessage } = includeFeedsCloseToDeviation(
+  const { message: deviationMessage } = includeFeedsCloseToDeviation(
     dataFeedsToUpdate,
     dataFeedsDeviationRatios,
     relayerConfig
@@ -24,7 +23,7 @@ export const addExtraFeedsToUpdateParams = (
   const message =
     dataFeedsToUpdateLengthOld < dataFeedsToUpdate.length
       ? "Additional feeds included in the update to optimize gas: " +
-        deviatonMessage +
+        deviationMessage +
         "\n" +
         heartbeatMessage
       : "No additional feeds were included in the update.";

@@ -5,6 +5,8 @@ import {
   getMultiFeedIterationArgs,
   makeConfigProvider,
   MultiFeedAdapterWithoutRounds,
+  MultiFeedEvmContractFacade,
+  MultiFeedUpdatePricesArgs,
   OnChainRelayerEnv,
   setConfigProvider,
   UpdatePricesArgs,
@@ -26,6 +28,7 @@ export class MultiFeedIterationArgsProvider
   ) {}
 
   adapterContractAddress?: string;
+  adapterContract?: MultiFeedAdapterWithoutRounds;
 
   async getArgs(
     userArgs: Web3FunctionUserArgs,
@@ -40,28 +43,32 @@ export class MultiFeedIterationArgsProvider
       throw new Error("Unknown adapterContractAddress");
     }
 
-    const adapterContract = new Contract(
+    this.adapterContract = new Contract(
       this.adapterContractAddress,
       abi,
       provider
     ) as MultiFeedAdapterWithoutRounds;
 
-    return await getMultiFeedIterationArgs(adapterContract);
+    return await getMultiFeedIterationArgs(
+      new MultiFeedEvmContractFacade(this.adapterContract)
+    );
   }
 
   async getTransactionData({
-    adapterContract,
     dataFeedsToUpdate,
     fetchDataPackages,
-  }: UpdatePricesArgs<MultiFeedAdapterWithoutRounds>): Promise<
-    string | undefined
-  > {
+  }: MultiFeedUpdatePricesArgs): Promise<string | undefined> {
     const dataPackages = await fetchDataPackages();
     const dataPackagesWrapper = new DataPackagesWrapper(dataPackages);
     const dataFeedsAsBytes32 = dataFeedsToUpdate.map(utils.formatBytes32String);
 
-    const wrappedContract =
-      dataPackagesWrapper.overwriteEthersContract(adapterContract);
+    if (!this.adapterContract) {
+      throw new Error("Adapter contract not set");
+    }
+
+    const wrappedContract = dataPackagesWrapper.overwriteEthersContract(
+      this.adapterContract
+    );
 
     const { data } =
       await wrappedContract.populateTransaction.updateDataFeedsValuesPartial(

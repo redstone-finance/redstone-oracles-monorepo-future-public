@@ -1,10 +1,8 @@
-import { MultiFeedAdapterWithoutRounds } from "../../../typechain-types";
 import { config } from "../../config";
-import { getUniqueSignersThresholdFromContract } from "../../core/contract-interactions/get-unique-signers-threshold";
 import { fetchDataPackages } from "../../core/fetch-data-packages";
-import { IterationArgs, RelayerConfig } from "../../types";
+import { IContractFacade } from "../../facade/IContractFacade";
+import { RelayerConfig } from "../../types";
 import { shouldUpdate } from "../should-update";
-import { getLastRoundParamsFromContract } from "./get-last-round-params";
 
 const getDataFromGateways = async (
   relayerConfig: RelayerConfig,
@@ -27,22 +25,18 @@ const getDataFromGateways = async (
   };
 };
 
-export const getIterationArgs = async (
-  adapterContract: MultiFeedAdapterWithoutRounds
-): Promise<IterationArgs<MultiFeedAdapterWithoutRounds>> => {
+export const getIterationArgs = async (contractFacade: IContractFacade) => {
   const relayerConfig = config();
-  const blockTag = await adapterContract.provider.getBlockNumber();
-  const uniqueSignersThreshold = await getUniqueSignersThresholdFromContract(
-    adapterContract,
-    blockTag
-  );
+  const blockTag = await contractFacade.getBlockNumber();
+  const uniqueSignersThreshold =
+    await contractFacade.getUniqueSignersThresholdFromContract(blockTag);
   const { gatewayData, fetchDataPackages } = await getDataFromGateways(
     relayerConfig,
     uniqueSignersThreshold
   );
-  const contractData = await getLastRoundParamsFromContract(
-    adapterContract,
-    blockTag
+  const contractData = await contractFacade.getLastRoundParamsFromContract(
+    blockTag,
+    relayerConfig
   );
 
   const {
@@ -62,7 +56,6 @@ export const getIterationArgs = async (
   return {
     shouldUpdatePrices: dataFeedsToUpdate.length > 0,
     args: {
-      adapterContract,
       dataFeedsToUpdate,
       dataFeedsDeviationRatios,
       heartbeatUpdates,

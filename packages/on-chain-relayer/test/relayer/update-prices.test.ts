@@ -50,12 +50,11 @@ describe("update-prices", () => {
 
     // Update prices
     const updatePricesArgs: UpdatePricesArgs = {
-      adapterContract: priceFeedsAdapter,
       blockTag: await provider.getBlockNumber(),
       fetchDataPackages: getDataPackagesResponse,
     };
 
-    await updatePrices(updatePricesArgs);
+    await updatePrices(updatePricesArgs, priceFeedsAdapter);
 
     // Check updated values
     const dataFeedsValues = await priceFeedsAdapter.getValuesForDataFeeds(
@@ -98,12 +97,11 @@ describe("update-prices", () => {
 
     // Update prices
     const updatePricesArgs: UpdatePricesArgs = {
-      adapterContract: mentoAdapter.connect(provider),
       blockTag: await provider.getBlockNumber(),
       fetchDataPackages: getDataPackagesResponse,
     };
 
-    await updatePrices(updatePricesArgs);
+    await updatePrices(updatePricesArgs, mentoAdapter.connect(provider));
 
     // Check updated values in SortedOracles
     const normalizeValue = (num: number) => parseUnits(num.toString(), 24);
