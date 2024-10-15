@@ -3,8 +3,7 @@ import {
   UpdateTriggers,
 } from "@redstone-finance/on-chain-relayer-common";
 import { DataPackagesResponse } from "@redstone-finance/sdk";
-import { BigNumber, Contract } from "ethers";
-import { MultiFeedAdapterWithoutRounds } from "../typechain-types";
+import { BigNumber } from "ethers";
 
 export type LastRoundDetails = {
   lastDataPackageTimestampMS: number;
@@ -35,29 +34,22 @@ export interface ConditionCheckResponse {
   maxDeviationRatio?: number;
 }
 
-export type IterationArgs<T extends Contract> = {
+export type IterationArgs = {
   shouldUpdatePrices: boolean;
-  args: UpdatePricesArgs<T>;
+  args: UpdatePricesArgs;
   message?: string;
 };
 
-export type UpdatePricesArgsBase<T extends Contract = Contract> = {
-  adapterContract: T;
+export type UpdatePricesArgs = {
   blockTag: number;
   fetchDataPackages: () => Promise<DataPackagesResponse>;
 };
 
-export type UpdatePricesMultiFeedFields = {
+export type MultiFeedUpdatePricesArgs = UpdatePricesArgs & {
   dataFeedsToUpdate: string[];
   dataFeedsDeviationRatios: Record<string, number>;
   heartbeatUpdates: number[];
 };
-
-export type UpdatePricesArgs<T extends Contract = Contract> =
-  UpdatePricesArgsBase<T> &
-    (T extends MultiFeedAdapterWithoutRounds
-      ? UpdatePricesMultiFeedFields
-      : object);
 
 export type RelayerConfig = OnChainRelayerEnv &
   ManifestConfig & { fallbackOffsetInMS: number };

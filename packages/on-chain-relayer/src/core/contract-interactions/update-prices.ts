@@ -4,7 +4,7 @@ import {
   convertToTxDeliveryCall,
 } from "@redstone-finance/rpc-providers";
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
-import { providers, utils } from "ethers";
+import { Contract, providers, utils } from "ethers";
 import {
   MentoAdapterBase,
   MultiFeedAdapterWithoutRounds,
@@ -17,20 +17,23 @@ import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import { chooseDataPackagesTimestamp } from "@redstone-finance/sdk";
 import { getSortedOraclesContractAtAddress } from "../../custom-integrations/mento/get-sorted-oracles-contract-at-address";
-import { UpdatePricesArgs } from "../../types";
+import { MultiFeedUpdatePricesArgs, UpdatePricesArgs } from "../../types";
 
 const logger = loggerFactory("updatePrices");
 
-export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
-  const updateTx = await makeUpdateTx(updatePricesArgs);
+export const updatePrices = async (
+  updatePricesArgs: UpdatePricesArgs,
+  adapterContract: Contract
+) => {
+  const updateTx = await makeUpdateTx(updatePricesArgs, adapterContract);
 
   const txDeliveryMan = getTxDeliveryMan(
-    updatePricesArgs.adapterContract.signer,
-    updatePricesArgs.adapterContract.provider as providers.JsonRpcProvider
+    adapterContract.signer,
+    adapterContract.provider as providers.JsonRpcProvider
   );
 
   const updateTxResponse = await txDeliveryMan.deliver(updateTx, () =>
-    makeUpdateTx(updatePricesArgs).then((tx) => tx.data)
+    makeUpdateTx(updatePricesArgs, adapterContract).then((tx) => tx.data)
   );
 
   // is not using await to not block the main function
@@ -53,21 +56,19 @@ export const updatePrices = async (updatePricesArgs: UpdatePricesArgs) => {
 };
 
 const makeUpdateTx = async (
-  args: UpdatePricesArgs
+  args: UpdatePricesArgs,
+  contract: Contract
 ): Promise<TxDeliveryCall> => {
   switch (config().adapterContractType) {
     case "price-feeds":
-      return await makePriceFeedUpdateTx(
-        args as UpdatePricesArgs<RedstoneAdapterBase>
-      );
+      return await makePriceFeedUpdateTx(args, contract as RedstoneAdapterBase);
     case "multi-feed":
       return await makeMultiFeedUpdateTx(
-        args as UpdatePricesArgs<MultiFeedAdapterWithoutRounds>
+        args as MultiFeedUpdatePricesArgs,
+        contract as MultiFeedAdapterWithoutRounds
       );
     case "mento":
-      return await makeMentoUpdateTx(
-        args as UpdatePricesArgs<MentoAdapterBase>
-      );
+      return await makeMentoUpdateTx(args, contract as MentoAdapterBase);
     default:
       throw new Error(
         `Unsupported adapter contract type: ${config().adapterContractType}`
@@ -75,10 +76,10 @@ const makeUpdateTx = async (
   }
 };
 
-const makePriceFeedUpdateTx = async ({
-  adapterContract,
-  fetchDataPackages,
-}: UpdatePricesArgs<RedstoneAdapterBase>): Promise<TxDeliveryCall> => {
+const makePriceFeedUpdateTx = async (
+  { fetchDataPackages }: UpdatePricesArgs,
+  adapterContract: RedstoneAdapterBase
+): Promise<TxDeliveryCall> => {
   const dataPackages = await fetchDataPackages();
   const dataPackagesWrapper = new DataPackagesWrapper<RedstoneAdapterBase>(
     dataPackages
@@ -98,11 +99,10 @@ const makePriceFeedUpdateTx = async ({
   return txCall;
 };
 
-const makeMultiFeedUpdateTx = async ({
-  adapterContract,
-  dataFeedsToUpdate,
-  fetchDataPackages,
-}: UpdatePricesArgs<MultiFeedAdapterWithoutRounds>): Promise<TxDeliveryCall> => {
+const makeMultiFeedUpdateTx = async (
+  { dataFeedsToUpdate, fetchDataPackages }: MultiFeedUpdatePricesArgs,
+  adapterContract: MultiFeedAdapterWithoutRounds
+): Promise<TxDeliveryCall> => {
   const dataFeedsAsBytes32 = dataFeedsToUpdate.map(utils.formatBytes32String);
   const dataPackages = await fetchDataPackages();
   const dataPackagesWrapper =
@@ -121,10 +121,10 @@ const makeMultiFeedUpdateTx = async ({
   return txCall;
 };
 
-const makeMentoUpdateTx = async ({
-  adapterContract: mentoAdapter,
-  fetchDataPackages,
-}: UpdatePricesArgs<MentoAdapterBase>): Promise<TxDeliveryCall> => {
+const makeMentoUpdateTx = async (
+  { fetchDataPackages }: UpdatePricesArgs,
+  mentoAdapter: MentoAdapterBase
+): Promise<TxDeliveryCall> => {
   const dataPackagesPromise = fetchDataPackages();
   const blockTag = await mentoAdapter.provider.getBlockNumber();
 

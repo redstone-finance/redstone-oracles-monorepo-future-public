@@ -3,7 +3,7 @@ import { MultiFeedAdapterWithoutRounds } from "../../../typechain-types";
 import { config } from "../../config";
 import { ContractData, LastRoundDetails } from "../../types";
 
-export const getLastRoundParamsFromContract = async (
+export const getLastRoundParamsFromContractMultiFeed = async (
   adapterContract: MultiFeedAdapterWithoutRounds,
   blockTag: number
 ): Promise<ContractData> => {

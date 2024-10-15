@@ -5,6 +5,7 @@ import {
   getPriceFeedsIterationArgs,
   makeConfigProvider,
   OnChainRelayerEnv,
+  PriceAdapterEvmContractFacade,
   RedstoneAdapterBase,
   setConfigProvider,
   UpdatePricesArgs,
@@ -27,6 +28,7 @@ export class IterationArgsProvider
   ) {}
 
   adapterContractAddress?: string;
+  adapterContract?: RedstoneAdapterBase;
 
   async getArgs(
     userArgs: Web3FunctionUserArgs,
@@ -41,25 +43,31 @@ export class IterationArgsProvider
       throw new Error("Unknown adapterContractAddress");
     }
 
-    const adapterContract = new Contract(
+    this.adapterContract = new Contract(
       this.adapterContractAddress,
       abi,
       provider
     ) as RedstoneAdapterBase;
 
-    return await getPriceFeedsIterationArgs(adapterContract);
+    return await getPriceFeedsIterationArgs(
+      new PriceAdapterEvmContractFacade(this.adapterContract)
+    );
   }
 
   async getTransactionData({
-    adapterContract,
     fetchDataPackages,
   }: UpdatePricesArgs): Promise<string | undefined> {
     const dataPackages = await fetchDataPackages();
     const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
     const dataPackagesWrapper = new DataPackagesWrapper(dataPackages);
 
-    const wrappedContract =
-      dataPackagesWrapper.overwriteEthersContract(adapterContract);
+    if (!this.adapterContract) {
+      throw new Error("Adapter contract not set");
+    }
+
+    const wrappedContract = dataPackagesWrapper.overwriteEthersContract(
+      this.adapterContract
+    );
 
     const { data } =
       await wrappedContract.populateTransaction.updateDataFeedsValues(
