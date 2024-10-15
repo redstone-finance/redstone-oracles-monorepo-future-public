@@ -49,13 +49,20 @@ export async function makeIterationArgsProvider(env: IterationArgsProviderEnv) {
 }
 
 async function fetchManifestAndSetUp(env: IterationArgsProviderEnv) {
-  const manifestUrl = `${env.manifestUrl}?t=${Date.now()}`;
   let manifestData: unknown;
-  try {
-    manifestData = (await axios.get(manifestUrl)).data;
-  } catch (e) {
-    console.error(`Error fetching manifest from url: ${manifestUrl}`);
-    throw e;
+
+  for (const url of env.manifestUrls) {
+    try {
+      manifestData = (await axios.get(url)).data;
+      if (manifestData) {
+        break;
+      }
+    } catch (e) {
+      console.warn(`Error fetching manifest from url: ${url}`);
+    }
+  }
+  if (!manifestData) {
+    throw new Error("failed to fetch manifest from all URLs");
   }
 
   const manifest = AnyOnChainRelayerManifestSchema.parse(manifestData);

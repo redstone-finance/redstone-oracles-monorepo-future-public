@@ -31,8 +31,8 @@ export class IterationArgsProvider
   adapterContract?: RedstoneAdapterBase;
 
   async getArgs(
-    userArgs: Web3FunctionUserArgs,
-    env: IterationArgsProviderEnv,
+    _userArgs: Web3FunctionUserArgs,
+    _env: IterationArgsProviderEnv,
     provider: providers.StaticJsonRpcProvider
   ): Promise<IterationArgs<UpdatePricesArgs>> {
     this.setUp();

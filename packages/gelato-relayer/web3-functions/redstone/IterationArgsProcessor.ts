@@ -12,8 +12,8 @@ export class IterationArgsProcessor<Args> {
   protected argsProvider!: IterationArgsProviderInterface<Args>;
 
   constructor(
-    private context: Web3FunctionContext,
-    private argsProviderFactory: (
+    private readonly context: Web3FunctionContext,
+    private readonly argsProviderFactory: (
       env: IterationArgsProviderEnv
     ) => Promise<IterationArgsProviderInterface<Args>>
   ) {}
@@ -22,7 +22,7 @@ export class IterationArgsProcessor<Args> {
     argsMessage?: string,
     alternativeMessage = "Unknown reason"
   ): Web3FunctionResult {
-    const message = argsMessage || alternativeMessage;
+    const message = argsMessage ?? alternativeMessage;
 
     console.log(message); // Do not remove - to have the full message visible as the Gelato web3FunctionLogs log entry.
 
@@ -88,7 +88,9 @@ export class IterationArgsProcessor<Args> {
 
   private async getEnvParams() {
     const env: IterationArgsProviderEnv = {
-      manifestUrl: (await this.context.secrets.get("MANIFEST_URL")) ?? "",
+      manifestUrls: JSON.parse(
+        (await this.context.secrets.get("MANIFEST_URLS")) ?? "[]"
+      ) as string[],
       fallbackOffsetInMinutes: Number.parseInt(
         (await this.context.secrets.get("FALLBACK_OFFSET_IN_MINUTES")) ?? "0"
       ),
@@ -107,7 +109,7 @@ export class IterationArgsProcessor<Args> {
         "Overriding secrets by userArgs variables. That means we're not in the Gelato environment but local."
       );
 
-      env.manifestUrl = this.context.userArgs["manifestUrl"] as string;
+      env.manifestUrls = this.context.userArgs["manifestUrls"] as string[];
     }
 
     return env;

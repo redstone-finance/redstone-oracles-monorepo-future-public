@@ -8,7 +8,7 @@ export type IterationArgs<Args> = {
 };
 
 export type IterationArgsProviderEnv = {
-  manifestUrl: string;
+  manifestUrls: string[];
   historicalPackagesGateways?: string[];
   fallbackOffsetInMinutes: number;
   fallbackSkipDeviationBasedFrequentUpdates: boolean;
