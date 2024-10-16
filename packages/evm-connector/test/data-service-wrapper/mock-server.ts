@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { delay, http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { mockSignedDataPackageObjects } from "../tests-common";
 
@@ -21,38 +21,25 @@ const getValidDataPackagesResponse = () => ({
 });
 
 const handlers = [
-  rest.get(
-    "http://valid-cache.com/data-packages/latest/*",
-    async (req, res, ctx) => {
-      return await res(ctx.json(getValidDataPackagesResponse()));
-    }
+  http.get("http://valid-cache.com/data-packages/latest/*", () =>
+    HttpResponse.json(getValidDataPackagesResponse())
   ),
-  rest.get(
-    "http://invalid-cache.com/data-packages/latest/*",
-    async (req, res, ctx) => {
-      return await res(
-        ctx.json({
-          ETH: getDataPackageResponse("ETH").map((obj) => ({
-            ...obj,
-            dataPoints: [{ ...obj.dataPoints[0], value: 1 }],
-          })),
-          BTC: getDataPackageResponse("BTC").map((obj) => ({
-            ...obj,
-            dataPoints: [{ ...obj.dataPoints[0], value: 1 }],
-          })),
-        })
-      );
-    }
+  http.get("http://invalid-cache.com/data-packages/latest/*", () =>
+    HttpResponse.json({
+      ETH: getDataPackageResponse("ETH").map((obj) => ({
+        ...obj,
+        dataPoints: [{ ...obj.dataPoints[0], value: 1 }],
+      })),
+      BTC: getDataPackageResponse("BTC").map((obj) => ({
+        ...obj,
+        dataPoints: [{ ...obj.dataPoints[0], value: 1 }],
+      })),
+    })
   ),
-  rest.get(
-    "http://slower-cache.com/data-packages/latest/*",
-    async (req, res, ctx) => {
-      return await res(
-        ctx.delay(200),
-        ctx.json(getValidDataPackagesResponse())
-      );
-    }
-  ),
+  http.get("http://slower-cache.com/data-packages/latest/*", async () => {
+    await delay(200);
+    return HttpResponse.json(getValidDataPackagesResponse());
+  }),
 ];
 
 export const server = setupServer(...handlers);
