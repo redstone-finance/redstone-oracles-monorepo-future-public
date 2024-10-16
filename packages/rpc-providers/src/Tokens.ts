@@ -483,6 +483,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0xbc78D84Ba0c46dFe32cf2895a19939c86b81a777",
       decimals: 18,
     },
+    "SolvBTC.BBN": {
+      address: "0xCC0966D8418d412c599A6421b760a847eB169A8c",
+      decimals: 18,
+    },
     "BTC.b": {
       address: "0x152b9d0FdC40C096757F570A51E494bd4b943E50",
       decimals: 8,
