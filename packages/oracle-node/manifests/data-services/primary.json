@@ -970,6 +970,7 @@
     },
     "rsETH": {
       "source": [
+        "camelot-v3-arbitrumone-wsteth",
         "balancer-arbitrumone-weth",
         "camelot-v3-arbitrumone-weth",
         "balancer-ethereum-ethx",
@@ -1214,6 +1215,7 @@
     },
     "USD+": {
       "source": [
+        "uniswap-v3-arbitrumone-weth-500",
         "aerodrome-cl-base-usdc-100",
         "aerodrome-cl-base-weth-400",
         "aerodrome-cl-base-wsteth-2500",
@@ -1381,6 +1383,8 @@
     },
     "SolvBTC.BBN": {
       "source": [
+        "trader-joe-v2-avalanche-solvbtc",
+        "uniswap-v3-ethereum-solvbtc-100",
         "pancake-swap-bnb-solvbtc-500",
         "curve-ethereum-solvbtc",
         "dodoex-bnb-solvbtc",

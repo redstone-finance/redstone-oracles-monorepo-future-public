@@ -575,6 +575,7 @@
     },
     "rsETH": {
       "source": [
+        "camelot-v3-arbitrumone-wsteth",
         "balancer-arbitrumone-weth",
         "camelot-v3-arbitrumone-weth",
         "balancer-ethereum-ethx",
