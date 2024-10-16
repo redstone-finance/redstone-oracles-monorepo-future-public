@@ -8582,6 +8582,7 @@ __metadata:
   dependencies:
     "@ethersproject/bytes": "npm:^5.6.1"
     "@ethersproject/strings": "npm:^5.7.0"
+    "@redstone-finance/mqtt5-client": "npm:0.6.2"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.2"
     "@redstone-finance/protocol": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
