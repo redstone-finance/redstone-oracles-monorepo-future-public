@@ -11,5 +11,5 @@ common = { path = "../common" }
 redstone = { path = "../redstone-fuel-sdk" }
 
 [proxy]
-address = "0x9e5bb4f53af633455a245315e1f3258047b7773b0ee270ea4dac8dc5f9a67e12"
+address = "0x6c6020e293bded85a5db6ab57d9f41e9401c6576a58d4362ea26f373450c3acd"
 enabled = true

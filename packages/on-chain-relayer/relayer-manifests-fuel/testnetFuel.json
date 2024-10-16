@@ -1,0 +1,17 @@
+{
+  "adapterContractType": "fuel",
+  "chain": {
+    "name": "fuel-testnet",
+    "id": 0
+  },
+  "updateTriggers": {
+    "deviationPercentage": 1,
+    "timeSinceLastUpdateInMilliseconds": 8640000
+  },
+  "adapterContract": "0xd7ae6565970e67593caf50c5e0e0ada1a7ded444754334741058fe5dab2f7c7b",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH": "__NO_FEED__",
+    "BTC": "__NO_FEED__"
+  }
+}

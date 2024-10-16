@@ -9,7 +9,7 @@ source = "path+from-root-8357A6DDC5F39D14"
 
 [[package]]
 name = "redstone"
-source = "git+https://github.com/redstone-finance/redstone-fuel-sdk?branch=sway-0.65.2#212bec19a9c423496e29065c1e40170c0242e73a"
+source = "git+https://github.com/redstone-finance/redstone-fuel-sdk?branch=sway-0.65.2#7085b728c7c14704e51561048aba4aec109ec042"
 dependencies = ["std"]
 
 [[package]]

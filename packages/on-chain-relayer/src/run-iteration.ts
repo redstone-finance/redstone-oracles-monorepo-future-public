@@ -7,7 +7,7 @@ const logger = loggerFactory("relayer/run-iteration");
 export const runIteration = async () => {
   const iterationStart = performance.now();
   const relayerConfig = config();
-  const contractFacade = getContractFacade(relayerConfig);
+  const contractFacade = await getContractFacade(relayerConfig);
   const iterationArgs = await contractFacade.getIterationArgs();
   void sendHealthcheckPing(relayerConfig.healthcheckPingUrl);
   logger.log(

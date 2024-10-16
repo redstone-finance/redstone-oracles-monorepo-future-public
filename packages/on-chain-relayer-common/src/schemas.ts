@@ -3,8 +3,9 @@ import { z } from "zod";
 const PRICE_FEEDS = "price-feeds";
 const MENTO = "mento";
 const MULTI_FEED = "multi-feed";
+const FUEL = "fuel";
 
-export const BaseAdapterTypesEnum = z.enum([PRICE_FEEDS, MENTO]);
+export const BaseAdapterTypesEnum = z.enum([PRICE_FEEDS, MENTO, FUEL]);
 export const MultiFeedAdapterTypesEnum = z.enum([MULTI_FEED]);
 export const AdapterTypesEnum = z.enum([
   ...BaseAdapterTypesEnum.options,

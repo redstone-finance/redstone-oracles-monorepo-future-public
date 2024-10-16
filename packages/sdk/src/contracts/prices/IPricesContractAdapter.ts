@@ -23,4 +23,6 @@ export interface IPricesContractAdapter {
   // Reads the timestamp of the lastly written values to the contract's storage.
   // It doesn't modify the contract's storage
   readTimestampFromContract(): Promise<number>;
+
+  getUniqueSignerThreshold?: () => Promise<number>;
 }

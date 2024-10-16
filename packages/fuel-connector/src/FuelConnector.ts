@@ -8,11 +8,14 @@ export interface Block {
 }
 
 export class FuelConnector {
-  constructor(protected providerUrl?: string) {}
+  constructor(
+    protected providerUrl?: string,
+    protected gasLimit = FUEL_BASE_GAS_LIMIT
+  ) {}
 
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   getGasLimit(): number {
-    return FUEL_BASE_GAS_LIMIT;
+    return this.gasLimit;
   }
 
   async getBlockNumber(): Promise<number> {
