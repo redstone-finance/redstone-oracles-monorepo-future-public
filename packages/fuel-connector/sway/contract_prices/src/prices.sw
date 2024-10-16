@@ -9,6 +9,7 @@ use common::{
     arr_wrap::ArrWrap,
     check::check_timestamp,
     configurables::REDSTONE_PRIMARY_PROD_WITH_RAPID_ALLOWED_SIGNERS,
+    metadata_abi::Metadata,
     redstone_adapter_abi::RedStoneAdapter,
     redstone_core_abi::RedStoneCore,
     storage_keys::{
@@ -17,7 +18,6 @@ use common::{
         TIMESTAMP_SK,
     },
     to_vec::ToVec,
-    versioned_abi::Versioned,
 };
 use config::*;
 
@@ -34,9 +34,13 @@ configurable {
     ALLOWED_SIGNERS: [b256; 6] = REDSTONE_PRIMARY_PROD_WITH_RAPID_ALLOWED_SIGNERS,
 }
 
-impl Versioned for Contract {
+impl Metadata for Contract {
     fn get_version() -> u64 {
         VERSION
+    }
+
+    fn get_unique_signer_threshold() -> u64 {
+        SIGNER_COUNT_THRESHOLD
     }
 }
 

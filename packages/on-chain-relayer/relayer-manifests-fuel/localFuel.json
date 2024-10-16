@@ -1,0 +1,17 @@
+{
+  "adapterContractType": "fuel",
+  "chain": {
+    "name": "fuel-local",
+    "id": 0
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0,
+    "timeSinceLastUpdateInMilliseconds": 60000
+  },
+  "adapterContract": "0x0065d7b5307249b4e8c671ad3b5912c7a4657faff656c46065264e3c02d2f42a",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "ETH": "__NO_FEED__",
+    "BTC": "__NO_FEED__"
+  }
+}

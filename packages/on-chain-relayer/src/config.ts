@@ -18,7 +18,7 @@ export const config = () => {
 
   // Validating adapter contract type
   if (
-    !["mento", "price-feeds", "multi-feed"].includes(
+    !["mento", "price-feeds", "multi-feed", "fuel"].includes(
       relayerConfig.adapterContractType
     )
   ) {

@@ -5,10 +5,10 @@ use redstone::{core::{config::Config, processor::process_input}, utils::vec::*};
 use common::{
     arr_wrap::ArrWrap,
     configurables::REDSTONE_PRIMARY_PROD_ALLOWED_SIGNERS,
+    metadata_abi::Metadata,
     redstone_core_abi::RedStoneCore,
     timestamp::get_unix_timestamp,
     to_vec::ToVec,
-    versioned_abi::Versioned,
 };
 
 const VERSION = 1;
@@ -18,9 +18,13 @@ configurable {
     ALLOWED_SIGNERS: [b256; 5] = REDSTONE_PRIMARY_PROD_ALLOWED_SIGNERS,
 }
 
-impl Versioned for Contract {
+impl Metadata for Contract {
     fn get_version() -> u64 {
         VERSION
+    }
+
+    fn get_unique_signer_threshold() -> u64 {
+        SIGNER_COUNT_THRESHOLD
     }
 }
 

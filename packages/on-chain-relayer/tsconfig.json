@@ -29,6 +29,9 @@
     },
     {
       "path": "../on-chain-relayer-common/tsconfig.build.json"
+    },
+    {
+      "path": "../fuel-connector/tsconfig.build.json"
     }
   ]
 }

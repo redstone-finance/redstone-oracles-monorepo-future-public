@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 
 /*
-  Fuels version: 0.94.9
+  Fuels version: 0.96.1
 */
 
 import type {
@@ -421,6 +421,13 @@ const abi = {
   functions: [
     {
       inputs: [],
+      name: "get_unique_signer_threshold",
+      output:
+        "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+      attributes: null,
+    },
+    {
+      inputs: [],
       name: "get_version",
       output:
         "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
@@ -521,13 +528,13 @@ const abi = {
       name: "SIGNER_COUNT_THRESHOLD",
       concreteTypeId:
         "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      offset: 41928,
+      offset: 42512,
     },
     {
       name: "ALLOWED_SIGNERS",
       concreteTypeId:
         "ba22e94e8d8f51fff1ffb0b61cd199b2386cc65867c2d2793e5c77fb4adad6db",
-      offset: 41736,
+      offset: 42320,
     },
   ],
 };
@@ -545,6 +552,7 @@ export class PricesInterface extends Interface {
   }
 
   declare functions: {
+    get_unique_signer_threshold: FunctionFragment;
     get_version: FunctionFragment;
     get_prices: FunctionFragment;
     read_prices: FunctionFragment;
@@ -559,6 +567,7 @@ export class Prices extends Contract {
 
   declare interface: PricesInterface;
   declare functions: {
+    get_unique_signer_threshold: InvokeFunction<[], BN>;
     get_version: InvokeFunction<[], BN>;
     get_prices: InvokeFunction<
       [feed_ids: Vec<BigNumberish>, payload: Bytes],

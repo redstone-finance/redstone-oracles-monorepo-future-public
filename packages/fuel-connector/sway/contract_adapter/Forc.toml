@@ -11,5 +11,5 @@ common = { path = "../common" }
 redstone = { git = "https://github.com/redstone-finance/redstone-fuel-sdk", branch = "sway-0.65.2" }
 
 [proxy]
-address = "0x3c00ee6f614ae63cd94d76452c331acdbeeb857de16eeb77a616fa143bf923c9"
+address = "0xd7ae6565970e67593caf50c5e0e0ada1a7ded444754334741058fe5dab2f7c7b"
 enabled = true

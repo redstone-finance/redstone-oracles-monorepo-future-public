@@ -6,6 +6,7 @@ import {
 } from "@redstone-finance/protocol";
 import {
   DataPackagesRequestParams,
+  DataPackagesResponse,
   requestDataPackages,
 } from "./request-data-packages";
 
@@ -26,12 +27,11 @@ export const getDecimalsForDataFeedId = (
   return firstDecimal;
 };
 
-export const requestRedstonePayload = async (
-  reqParams: DataPackagesRequestParams,
+export const convertDataPackagesResponse = (
+  signedDataPackagesResponse: DataPackagesResponse,
   format = "hex",
   unsignedMetadataMsg?: string
-): Promise<string> => {
-  const signedDataPackagesResponse = await requestDataPackages(reqParams);
+) => {
   const signedDataPackages = Object.values(
     signedDataPackagesResponse
   ).flat() as SignedDataPackage[];
@@ -49,6 +49,20 @@ export const requestRedstonePayload = async (
     default:
       return payload.toBytesHexWithout0xPrefix();
   }
+};
+
+export const requestRedstonePayload = async (
+  reqParams: DataPackagesRequestParams,
+  format = "hex",
+  unsignedMetadataMsg?: string
+): Promise<string> => {
+  const signedDataPackagesResponse = await requestDataPackages(reqParams);
+
+  return convertDataPackagesResponse(
+    signedDataPackagesResponse,
+    format,
+    unsignedMetadataMsg
+  );
 };
 
 export * from "./contracts/ContractParamsProvider";

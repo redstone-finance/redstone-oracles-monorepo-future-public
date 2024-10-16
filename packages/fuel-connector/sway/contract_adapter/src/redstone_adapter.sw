@@ -20,6 +20,7 @@ use common::{
         check_updater,
     },
     configurables::REDSTONE_PRIMARY_PROD_ALLOWED_SIGNERS,
+    metadata_abi::Metadata,
     redstone_adapter_abi::RedStoneAdapter,
     redstone_core_abi::RedStoneCore,
     storage_keys::{
@@ -29,7 +30,6 @@ use common::{
     },
     timestamp::get_unix_timestamp,
     to_vec::ToVec,
-    versioned_abi::Versioned,
 };
 
 const VERSION = 1;
@@ -37,7 +37,7 @@ const VERSION = 1;
 configurable {
     SIGNER_COUNT_THRESHOLD: u64 = 1,
     ALLOWED_SIGNERS: [b256; 5] = REDSTONE_PRIMARY_PROD_ALLOWED_SIGNERS,
-    TRUSTED_UPDATERS: [b256; 1] = [0x6b63804cfbf9856e68e5b6e7aef238dc8311ec55bec04df774003a2c96e0418e],
+    TRUSTED_UPDATERS: [b256; 1] = [0xd5e7a65C0634e6f4f92b38A16DF0fEA14736b844fEbd90027254F2008BDF99C8],
 }
 
 storage {
@@ -46,9 +46,13 @@ storage {
     feed_ids in FEED_IDS_SK: StorageVec<u256> = StorageVec::<u256> {},
 }
 
-impl Versioned for Contract {
+impl Metadata for Contract {
     fn get_version() -> u64 {
         VERSION
+    }
+
+    fn get_unique_signer_threshold() -> u64 {
+        SIGNER_COUNT_THRESHOLD
     }
 }
 

@@ -50,6 +50,7 @@ export const makeUpdateConditions = (
   switch (manifest.adapterContractType) {
     case "price-feeds":
     case "mento":
+    case "fuel":
       return makePriceFeedsUpdateConditions(manifest);
     case "multi-feed":
       return makeMultiFeedUpdateConditions(manifest);

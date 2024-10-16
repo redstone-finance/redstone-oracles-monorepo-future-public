@@ -1,13 +1,16 @@
 import { IContractConnector } from "@redstone-finance/sdk";
 import { Account } from "fuels";
-import { FuelConnector } from "./FuelConnector";
+import { FUEL_BASE_GAS_LIMIT, FuelConnector } from "./FuelConnector";
 
 export abstract class FuelContractConnector<Adapter>
   extends FuelConnector
   implements IContractConnector<Adapter>
 {
-  protected constructor(protected wallet?: Account) {
-    super(wallet?.provider.url);
+  protected constructor(
+    protected wallet?: Account,
+    gasLimit = FUEL_BASE_GAS_LIMIT
+  ) {
+    super(wallet?.provider.url, gasLimit);
   }
 
   abstract getAdapter(): Promise<Adapter>;
