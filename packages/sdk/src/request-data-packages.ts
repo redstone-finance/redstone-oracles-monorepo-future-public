@@ -69,33 +69,30 @@ export interface ValuesForDataFeeds {
   [dataFeedId: string]: BigNumber | undefined;
 }
 
-const GwResponseSchema = z.record(
-  z.string(),
-  z.array(
-    z.object({
-      dataPoints: z
-        .array(
-          z
-            .object({
-              dataFeedId: z.string(),
-              value: z.number(),
-              decimals: z.number().optional(),
-            })
-            .or(
-              z.object({
-                dataFeedId: z.string(),
-                value: z.string(),
-                decimals: z.number().optional(),
-              })
-            )
+export const SignedDataPackageSchema = z.object({
+  dataPoints: z
+    .array(
+      z
+        .object({
+          dataFeedId: z.string(),
+          value: z.number(),
+          decimals: z.number().optional(),
+        })
+        .or(
+          z.object({
+            dataFeedId: z.string(),
+            value: z.string(),
+            decimals: z.number().optional(),
+          })
         )
-        .min(1),
-      timestampMilliseconds: z.number(),
-      signature: z.string(),
-      dataPackageId: z.string(),
-    })
-  )
-);
+    )
+    .min(1),
+  timestampMilliseconds: z.number(),
+  signature: z.string(),
+  dataPackageId: z.string(),
+});
+
+const GwResponseSchema = z.record(z.string(), z.array(SignedDataPackageSchema));
 export type GwResponse = Partial<z.infer<typeof GwResponseSchema>>;
 
 export const calculateHistoricalPackagesTimestamp = (

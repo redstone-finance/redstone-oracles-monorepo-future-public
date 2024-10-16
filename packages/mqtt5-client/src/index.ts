@@ -72,7 +72,7 @@ export class Mqtt5Client {
     });
 
     mqttClient.on("attemptingConnect", () => {
-      client.logger.error("Attempting to connect...");
+      client.logger.info("Attempting to connect...");
     });
 
     mqttClient.on("disconnection", (event) => {
@@ -156,6 +156,12 @@ export class Mqtt5Client {
           `Error occurred when tried to parse message error=${RedstoneCommon.stringifyError(e)}`
         );
       }
+    });
+  }
+
+  async unsubscribe(topics: string[]) {
+    await this._mqtt.unsubscribe({
+      topicFilters: topics,
     });
   }
 
