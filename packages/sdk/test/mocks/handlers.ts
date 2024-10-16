@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { mockSignedDataPackages } from "./mock-packages";
 
 const getMockResponseObject = (url: string) => {
@@ -31,12 +31,12 @@ export const handlers = [
   "https://bad-url-2.com",
   "http://valid-cache.com",
 ].map((url) =>
-  rest.get(url + "/data-packages/latest/*", (req, res, ctx) => {
-    if (req.url.origin.includes("bad-url")) {
-      return res(ctx.status(400), ctx.json(null));
+  http.get(url + "/data-packages/latest/*", ({ request }) => {
+    if (new URL(request.url).origin.includes("bad-url")) {
+      return new HttpResponse(null, { status: 400 });
     } else {
       const responseObject = getMockResponseObject(url);
-      return res(ctx.status(200), ctx.json(responseObject));
+      return HttpResponse.json(responseObject);
     }
   })
 );
