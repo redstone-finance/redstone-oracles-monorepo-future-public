@@ -6,7 +6,7 @@ import {PriceFeedsAdapterWithoutRounds} from "../without-rounds/PriceFeedsAdapte
 
 abstract contract PriceFeedsAdapterWithoutRoundsPrimaryProd is PriceFeedsAdapterWithoutRounds {
   function getUniqueSignersThreshold() public view virtual override returns (uint8) {
-    return 2;
+    return 3;
   }
 
   function getAuthorisedSignerIndex(

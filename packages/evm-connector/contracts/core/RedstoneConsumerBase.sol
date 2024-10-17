@@ -50,12 +50,10 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
   }
 
   /**
-   * @dev This function should be overridden by the child consumer contract.
+   * @dev This function must be implemented by the child consumer contract.
    * @return The minimum required value of unique authorised signers
    */
-  function getUniqueSignersThreshold() public view virtual returns (uint8) {
-    return 1;
-  }
+  function getUniqueSignersThreshold() public view virtual returns (uint8);
 
   /**
    * @dev This function may be overridden by the child consumer contract.
