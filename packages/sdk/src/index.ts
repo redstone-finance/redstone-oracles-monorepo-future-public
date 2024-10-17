@@ -73,6 +73,7 @@ export * from "./contracts/prices/IPricesContractAdapter";
 export * from "./contracts/prices/sample-run";
 export * from "./data-feed-values";
 export * from "./data-services-urls";
+export * from "./DataPackageSubscriber";
 export * from "./fetch-data-packages";
 export * from "./oracle-registry";
 export * from "./request-data-packages";

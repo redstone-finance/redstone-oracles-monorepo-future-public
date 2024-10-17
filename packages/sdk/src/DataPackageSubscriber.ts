@@ -12,6 +12,7 @@ import {
 } from "./request-data-packages";
 
 const MAX_DELAY = RedstoneCommon.minToMs(3);
+const TOPIC_FILTER_LIMIT = 50;
 
 /**
  * defines behavior of {@link DataPackageSubscriber}
@@ -22,7 +23,7 @@ export type DataPackageSubscriberParams = {
    */
   dataServiceId: string;
   /**
-   * array of tokens to fetch
+   * array of tokens to fetch. If more then 50, then we subscribe to all. Because of message broker limits.
    */
   dataPackageIds: string[];
   /**
@@ -111,15 +112,27 @@ export class DataPackageSubscriber {
       );
     }
 
-    for (const dataPackageId of params.dataPackageIds) {
+    if (params.dataPackageIds.length >= TOPIC_FILTER_LIMIT) {
       for (const signer of params.authorizedSigners) {
         this.topics.push(
           MqttTopics.encodeDataPackageTopic({
-            dataPackageId,
+            dataPackageId: "+", // matches all
             dataServiceId: this.params.dataServiceId,
             nodeAddress: signer,
           })
         );
+      }
+    } else {
+      for (const dataPackageId of params.dataPackageIds) {
+        for (const signer of params.authorizedSigners) {
+          this.topics.push(
+            MqttTopics.encodeDataPackageTopic({
+              dataPackageId,
+              dataServiceId: this.params.dataServiceId,
+              nodeAddress: signer,
+            })
+          );
+        }
       }
     }
   }
@@ -175,24 +188,21 @@ export class DataPackageSubscriber {
     }
     this.subscribeCallback = subscribeCallback;
 
-    await this.mqttClient.subscribe(
-      this.topics,
-      (topic, messagePayload, error) => {
-        this.handleCircuitBreaker();
+    await this.mqttClient.subscribe(this.topics, (_, messagePayload, error) => {
+      this.handleCircuitBreaker();
 
-        try {
-          if (error) {
-            throw new Error(error);
-          }
-
-          this.processNewPackage(messagePayload);
-        } catch (e) {
-          this.logger.error(
-            `Failed to process new package error=${RedstoneCommon.stringifyError(e)}`
-          );
+      try {
+        if (error) {
+          throw new Error(error);
         }
+
+        this.processNewPackage(messagePayload);
+      } catch (e) {
+        this.logger.error(
+          `Failed to process new package error=${RedstoneCommon.stringifyError(e)}`
+        );
       }
-    );
+    });
     this.logger.info("Successfully subscribed to topics", this.topics);
   }
 
