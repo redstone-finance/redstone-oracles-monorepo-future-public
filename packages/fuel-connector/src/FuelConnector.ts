@@ -13,7 +13,6 @@ export class FuelConnector {
     protected gasLimit = FUEL_BASE_GAS_LIMIT
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   getGasLimit(): number {
     return this.gasLimit;
   }
