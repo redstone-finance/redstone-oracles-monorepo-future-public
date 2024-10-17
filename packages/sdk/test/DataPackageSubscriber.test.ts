@@ -10,6 +10,7 @@ import {
 } from "@redstone-finance/protocol";
 import { RedstoneLogger } from "@redstone-finance/utils";
 import { ethers } from "ethers";
+import _ from "lodash";
 import {
   DataPackageSubscriber,
   DataPackageSubscriberParams,
@@ -235,6 +236,26 @@ describe("subscribe-data-packages", () => {
         `data-package/data-service-1/ETH+/${MOCK_WALLET_2.address}`,
         `data-package/data-service-1/BTC/${MOCK_WALLET_1.address}`,
         `data-package/data-service-1/BTC/${MOCK_WALLET_2.address}`,
+      ]);
+
+      expect([
+        ...(mqtt as unknown as MockMqttClient).topicToCallback.keys(),
+      ]).toEqual(subscriber.topics);
+    });
+
+    it("should subscribe to all data feeds, when more then 50 data feeds", async () => {
+      const mqtt = createMockMqttClient();
+      const subscriber = new DataPackageSubscriber(
+        mqtt,
+        createMockParams({
+          dataPackageIds: _.range(0, 100).map((x) => x.toString()),
+        })
+      );
+      await subscriber.subscribe(() => {});
+
+      expect(subscriber.topics).toEqual([
+        `data-package/data-service-1/+/${MOCK_WALLET_1.address}`,
+        `data-package/data-service-1/+/${MOCK_WALLET_2.address}`,
       ]);
 
       expect([
