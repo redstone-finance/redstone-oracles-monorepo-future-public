@@ -282,7 +282,7 @@ export class ProviderWithFallback
 
     const nextProviderName = this.extractProviderName(nextProviderIndex);
 
-    logger.info(
+    logger.debug(
       `Fallback into next provider ${nextProviderName} (${retryNumber}/${this.providers.length}).`
     );
 
