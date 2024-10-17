@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { assertWithLog } from "./errors";
 
 type MemoizeCache<T> = { promise: Promise<T>; lastSet: number };

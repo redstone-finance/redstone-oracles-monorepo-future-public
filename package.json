@@ -28,7 +28,7 @@
     "publish:all": "lerna publish",
     "syncpack:fix-mismatches": "syncpack fix-mismatches --types !local",
     "syncpack:list": "syncpack list-mismatches --types !local",
-    "global:eslint": "cd $INIT_CWD && eslint",
+    "global:eslint": "cd $INIT_CWD && eslint --report-unused-disable-directives",
     "global:jest": "cd $INIT_CWD && jest",
     "global:jest:cov": "cd $INIT_CWD && jest --json --coverage --testLocationInResults --outputFile=coverage/report.json",
     "global:prettier": "cd $INIT_CWD && prettier",

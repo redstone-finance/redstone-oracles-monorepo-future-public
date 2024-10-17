@@ -149,7 +149,6 @@ export const pThrottle = ({
   return (function_) => {
     const throttled = function (...arguments_: unknown[]) {
       if (!throttled.isEnabled) {
-        // eslint-disable-next-line @typescript-eslint/require-await
         // @ts-ignore
         return (async () => function_.apply(this, arguments_))();
       }
