@@ -13,6 +13,9 @@
   "priceFeeds": {
     "SUSDz_FUNDAMENTAL": {
       "priceFeedAddress": "0x24c8964338Deb5204B096039147B8e8C3AEa42Cc"
+    },
+    "PUFFER": {
+      "priceFeedAddress": "0x85C4F855Bc0609D2584405819EdAEa3aDAbfE97D"
     }
   }
 }
