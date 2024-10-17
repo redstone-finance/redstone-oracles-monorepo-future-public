@@ -142,8 +142,7 @@
         "fraxswap-ethereum-weth",
         "uniswap-v3-ethereum-fxs-10000",
         "uniswap-v3-ethereum-usdc-500",
-        "uniswap-v3-ethereum-dai-500",
-        "fraxswap-arbitrumone-weth"
+        "uniswap-v3-ethereum-dai-500"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -380,7 +379,6 @@
         "curve-ethereum-weth",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-ethereum-weth-500",
-        "uniswap-v3-ethereum-wsteth-500",
         "balancer-arbitrumone-wsteth"
       ]
     },
@@ -978,7 +976,6 @@
         "curve-ethereum-sfrxeth",
         "curve-ethereum-weeth",
         "uniswap-v3-ethereum-weth-500",
-        "uniswap-v3-ethereum-wsteth-500",
         "uniswap-v3-arbitrumone-wsteth-500"
       ]
     },
@@ -1387,8 +1384,7 @@
         "uniswap-v3-ethereum-solvbtc-100",
         "pancake-swap-bnb-solvbtc-500",
         "curve-ethereum-solvbtc",
-        "dodoex-bnb-solvbtc",
-        "dodoex-ethereum-solvbtc"
+        "dodoex-bnb-solvbtc"
       ],
       "upper": {
         "token": "BTC",
