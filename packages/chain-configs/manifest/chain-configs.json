@@ -18,9 +18,10 @@
       "name": "Ethereum Mainnet",
       "chainId": 1,
       "publicRpcUrls": [
-        "https://rpc.ankr.com/eth",
+        "https://eth.drpc.org",
         "https://ethereum.publicnode.com",
-        "https://eth.llamarpc.com"
+        "https://eth.llamarpc.com",
+        "https://rpc.ankr.com/eth"
       ],
       "etherScanApi": "https://api.etherscan.io",
       "avgBlockTimeMs": 12000,
@@ -281,8 +282,8 @@
       "name": "Binance chain",
       "chainId": 56,
       "publicRpcUrls": [
-        "https://bsc-dataseed.bnbchain.org",
         "https://binance.llamarpc.com",
+        "https://bsc-dataseed.bnbchain.org",
         "https://bsc-pokt.nodies.app",
         "https://bscrpc.com",
         "https://binance.nodereal.io",
