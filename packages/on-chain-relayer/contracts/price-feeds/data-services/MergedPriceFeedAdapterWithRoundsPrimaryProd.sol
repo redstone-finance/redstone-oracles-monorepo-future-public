@@ -6,7 +6,7 @@ import {MergedPriceFeedAdapterWithRounds} from "../with-rounds/MergedPriceFeedAd
 
 abstract contract MergedPriceFeedAdapterWithRoundsPrimaryProd is MergedPriceFeedAdapterWithRounds {
   function getUniqueSignersThreshold() public view virtual override returns (uint8) {
-    return 2;
+    return 3;
   }
 
   function getAuthorisedSignerIndex(
