@@ -204,7 +204,7 @@ export class ProviderWithFallback
       );
 
       return await RedstoneCommon.timeout(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/return-await, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
         (this.currentProvider as any)[fnName](...args),
         this.providerWithFallbackConfig.singleProviderOperationTimeout
       );

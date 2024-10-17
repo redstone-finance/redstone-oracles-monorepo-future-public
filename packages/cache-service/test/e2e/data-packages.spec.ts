@@ -36,7 +36,6 @@ import { signByMockSigner } from "../common/test-utils";
 
 type WithSigner = { signerAddress: string };
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 jest.mock("@redstone-finance/sdk", () => ({
   __esModule: true,
   ...jest.requireActual("@redstone-finance/sdk"),
@@ -138,7 +137,7 @@ describe("Data packages (e2e)", () => {
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
       const { _id, __v, ...rest } = dp.toJSON() as any;
       // temporary for backward compatibility
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
       rest.dataFeedId = rest.dataPackageId;
       return rest;
     });
@@ -163,7 +162,7 @@ describe("Data packages (e2e)", () => {
     const dataPackagesInDBCleaned = dataPackagesInDB.map((dp) => {
       const { _id, __v, ...rest } = dp.toJSON() as any;
       // temporary for backward compatibility
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
       rest.dataFeedId = rest.dataPackageId;
       return rest;
     });

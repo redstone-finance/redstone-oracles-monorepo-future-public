@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/unbound-method */
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
