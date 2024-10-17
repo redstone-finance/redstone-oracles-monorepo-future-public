@@ -1,6 +1,7 @@
 import {
   MathUtils,
   RedstoneCommon,
+  RedstoneLogger,
   loggerFactory,
 } from "@redstone-finance/utils";
 import { z } from "zod";
@@ -47,11 +48,10 @@ export type CuratedRpcListConfig = z.input<typeof CuratedRpcListConfigSchema>;
 
 export type RpcIdentifier = string;
 
-const logger = loggerFactory("CuratedRpcList");
 export class CuratedRpcList {
   config: Required<CuratedRpcListConfig>;
   state: { [rpcIdentifier: RpcIdentifier]: Score } = {};
-  log: (msg: string) => void;
+  logger: RedstoneLogger;
 
   constructor(config: CuratedRpcListConfig, chainId: number) {
     this.config = CuratedRpcListConfigSchema.parse(config);
@@ -59,9 +59,7 @@ export class CuratedRpcList {
       this.config.minimalProvidersCount <= this.config.rpcIdentifiers.length,
       `A minimalProvidersCount can't be bigger than supplied rpcs list length`
     );
-
-    this.log = (msg: string) =>
-      logger.log(`[CuratedRpcList chainId=${chainId}] ${msg}`);
+    this.logger = loggerFactory(`curated-rpc-list-${chainId}`);
 
     for (const rpc of config.rpcIdentifiers) {
       RedstoneCommon.assert(
@@ -97,7 +95,7 @@ export class CuratedRpcList {
     if (errorRate > this.config.maxErrorRate) {
       stats.inQuarantine = true;
       stats.quarantineCounter += 1;
-      this.log(
+      this.logger.debug(
         `Sending provider with identifier=${rpc} to quarantine errorRate=${errorRate.toFixed(
           2
         )}`
@@ -113,7 +111,7 @@ export class CuratedRpcList {
       .map(([rpc]) => rpc);
 
     if (healthyProviders.length < this.config.minimalProvidersCount) {
-      this.log(
+      this.logger.warn(
         `Not enough healty providers, have to release one from quarantine`
       );
       this.freeOneRpcFromQuarantine();
@@ -134,7 +132,7 @@ export class CuratedRpcList {
 
     if (index >= 0) {
       providersInQurantine[index][1].inQuarantine = false;
-      this.log(
+      this.logger.debug(
         `Releasing provider identifier=${providersInQurantine[index][0]} from quarantine`
       );
     }
