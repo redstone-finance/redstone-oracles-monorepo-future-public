@@ -67,6 +67,13 @@
         "deviationPercentage": 0.5,
         "timeSinceLastUpdateInMilliseconds": 21600000
       }
+    },
+    "PUFFER": {
+      "priceFeedAddress": "0x197225B3B017eb9b72Ac356D6B3c267d0c04c57c",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 1,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     }
   }
 }
