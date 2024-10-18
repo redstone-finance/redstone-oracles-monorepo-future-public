@@ -17,7 +17,6 @@
   "dependencies": {
     "@ethersproject/bytes": "^5.6.1",
     "@ethersproject/strings": "^5.7.0",
-    "@redstone-finance/mqtt5-client": "0.6.2",
     "@redstone-finance/oracles-smartweave-contracts": "0.6.2",
     "@redstone-finance/protocol": "0.6.2",
     "@redstone-finance/utils": "0.6.2",

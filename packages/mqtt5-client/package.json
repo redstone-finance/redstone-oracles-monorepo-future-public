@@ -14,6 +14,8 @@
     "lint:fix": "yarn global:eslint --fix ."
   },
   "dependencies": {
+    "@redstone-finance/protocol": "0.6.2",
+    "@redstone-finance/sdk": "0.6.2",
     "@redstone-finance/utils": "0.6.2",
     "aws-iot-device-sdk-v2": "^1.21.1"
   }

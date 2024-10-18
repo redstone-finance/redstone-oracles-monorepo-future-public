@@ -1,15 +1,15 @@
-import { Mqtt5Client, MqttTopics } from "@redstone-finance/mqtt5-client";
 import {
   SignedDataPackage,
   SignedDataPackagePlainObj,
 } from "@redstone-finance/protocol";
-import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
-import { pickDataFeedPackagesClosestToMedian } from "./pick-closest-to-median";
-import { RateLimitsCircuitBreaker } from "./RateLimitsCircuitBreaker";
 import {
   DataPackagesResponse,
+  pickDataFeedPackagesClosestToMedian,
   SignedDataPackageSchema,
-} from "./request-data-packages";
+} from "@redstone-finance/sdk";
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
+import { Mqtt5Client, MqttTopics } from "./index";
+import { RateLimitsCircuitBreaker } from "./RateLimitsCircuitBreaker";
 
 const MAX_DELAY = RedstoneCommon.minToMs(3);
 const TOPIC_FILTER_LIMIT = 50;
@@ -242,9 +242,10 @@ export class DataPackageSubscriber {
 
     // check if dataPackageId is in dataPackagesIds
     if (!this.params.dataPackageIds.includes(dataPackageId)) {
-      throw new Error(
+      this.logger.debug(
         `Received package with unexpected id=${dataPackageId} expectedIds=${this.params.dataPackageIds.join(",")}`
       );
+      return;
     }
 
     //timestamp
@@ -267,9 +268,10 @@ export class DataPackageSubscriber {
         (dp) => dp.recoverSignerAddress() === packageSigner
       )
     ) {
-      throw new Error(
-        `Package was rejected because already have package from signer=${packageSigner} for timestamp=${packageTimestamp}`
+      this.logger.debug(
+        `Package was rejected because already have package from signer=${packageSigner} for timestamp=${packageTimestamp} dataPackageId=${dataPackageId}`
       );
+      return;
     }
 
     this.logger.debug(

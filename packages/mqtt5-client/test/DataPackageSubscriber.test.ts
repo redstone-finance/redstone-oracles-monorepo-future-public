@@ -1,9 +1,4 @@
 import {
-  Mqtt5Client,
-  MqttPayload,
-  MqttTopics,
-} from "@redstone-finance/mqtt5-client";
-import {
   DataPackage,
   NumericDataPoint,
   SignedDataPackage,
@@ -11,6 +6,7 @@ import {
 import { RedstoneLogger } from "@redstone-finance/utils";
 import { ethers } from "ethers";
 import _ from "lodash";
+import { Mqtt5Client, MqttPayload, MqttTopics } from "../src";
 import {
   DataPackageSubscriber,
   DataPackageSubscriberParams,
@@ -232,8 +228,8 @@ describe("subscribe-data-packages", () => {
       expect(subscriber.topics).toEqual([
         `data-package/data-service-1/ETH/${MOCK_WALLET_1.address}`,
         `data-package/data-service-1/ETH/${MOCK_WALLET_2.address}`,
-        `data-package/data-service-1/ETH+/${MOCK_WALLET_1.address}`,
-        `data-package/data-service-1/ETH+/${MOCK_WALLET_2.address}`,
+        `data-package/data-service-1/ETH%2B/${MOCK_WALLET_1.address}`,
+        `data-package/data-service-1/ETH%2B/${MOCK_WALLET_2.address}`,
         `data-package/data-service-1/BTC/${MOCK_WALLET_1.address}`,
         `data-package/data-service-1/BTC/${MOCK_WALLET_2.address}`,
       ]);
@@ -415,7 +411,7 @@ describe("subscribe-data-packages", () => {
       const logger = jest.fn();
       subscriber.logger = {
         error: logger,
-        debug: () => {},
+        debug: logger,
       } as unknown as RedstoneLogger;
 
       const timestamp = Date.now();
@@ -443,7 +439,7 @@ describe("subscribe-data-packages", () => {
     });
 
     it("should reject package if id not in requested dataPackageId", async () => {
-      const { mqtt, callback, logger } = await singleSignerSetUp();
+      const { mqtt, callback, loggerDebug } = await singleSignerSetUp();
       const dataPackage = createDataPackage(
         "ETH2",
         12,
@@ -467,7 +463,7 @@ describe("subscribe-data-packages", () => {
       );
 
       expect(callback).toBeCalledTimes(0);
-      expect(logger).toBeCalledWith(
+      expect(loggerDebug).toBeCalledWith(
         expect.stringContaining("Received package with unexpected id=ETH2")
       );
     });

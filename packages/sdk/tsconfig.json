@@ -9,9 +9,6 @@
     },
     {
       "path": "../utils/tsconfig.build.json"
-    },
-    {
-      "path": "../mqtt5-client/tsconfig.build.json"
     }
   ]
 }
