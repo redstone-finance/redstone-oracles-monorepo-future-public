@@ -80,9 +80,9 @@ describe("SerializerDeserializer", () => {
     });
 
     it("should throw an error for non-existent SerializerDeserializer", () => {
-      expect(() => getSerializerDeserializer("non-existent")).toThrow(
-        "SerializerDeserializer for non-existent is not implemented"
-      );
+      expect(() =>
+        getSerializerDeserializer("non-existent" as "deflate+json")
+      ).toThrow("SerializerDeserializer for non-existent is not implemented");
     });
   });
 });

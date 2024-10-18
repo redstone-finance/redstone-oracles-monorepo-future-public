@@ -5,7 +5,6 @@ import {
   ContentTypes,
   getSerializerDeserializer,
 } from "./SerializerDeserializer";
-import { decodeTopic, encodeTopic } from "./topics";
 
 export type Mqtt5ClientConfig = {
   endpoint: string;
@@ -21,6 +20,7 @@ const DEFAULT_CONFIG = {
 };
 
 export type MqttPayload = {
+  /** valid topic @see ./topic.ts */
   topic: string;
   /** valid json object */
   data: unknown;
@@ -110,7 +110,7 @@ export class Mqtt5Client {
         promises.push(
           this._mqtt.publish({
             payload: encodedMessage,
-            topicName: encodeTopic(payload.topic),
+            topicName: payload.topic,
             qos: this.config.qos,
             contentType,
             messageExpiryIntervalSeconds: Math.floor(
@@ -129,6 +129,7 @@ export class Mqtt5Client {
   async subscribe(
     topics: string[],
     onMessage: (
+      /** encoded topic @see ./topic.ts */
       topicName: string,
       messagePayload: unknown,
       error: string | null
@@ -136,20 +137,20 @@ export class Mqtt5Client {
   ) {
     await this._mqtt.subscribe({
       subscriptions: topics.map((topic) => ({
-        topicFilter: encodeTopic(topic),
+        topicFilter: topic,
         qos: this.config.qos,
       })),
     });
 
     this._mqtt.on("messageReceived", ({ message }) => {
-      const topicName = decodeTopic(message.topicName);
+      const topicName = message.topicName;
 
       try {
         const deserializeData = getSerializerDeserializer(
           message.contentType as ContentTypes
         ).deserialize(Buffer.from(message.payload as ArrayBuffer));
 
-        onMessage(decodeTopic(message.topicName), deserializeData, null);
+        onMessage(message.topicName, deserializeData, null);
       } catch (e) {
         onMessage(
           topicName,

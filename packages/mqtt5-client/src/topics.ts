@@ -9,12 +9,17 @@ export function encodeDataPackageTopic({
   dataPackageId,
   nodeAddress,
 }: DataPackageTopic) {
-  return `data-package/${dataServiceId}/${dataPackageId}/${nodeAddress}`;
+  return encodeTopic([
+    "data-package",
+    dataServiceId,
+    dataPackageId,
+    nodeAddress,
+  ]);
 }
 
 export function decodeDataPackageTopic(encodedTopic: string): DataPackageTopic {
   const [_, dataServiceId, dataPackageId, nodeAddress] =
-    encodedTopic.split("/");
+    decodeTopic(encodedTopic);
 
   return {
     dataServiceId,
@@ -23,9 +28,8 @@ export function decodeDataPackageTopic(encodedTopic: string): DataPackageTopic {
   };
 }
 
-export const encodeTopic = (topic: string) => {
+export const encodeTopic = (parts: string[]) => {
   const encodedParts = [];
-  const parts = topic.split("/");
 
   let index = 0;
   for (const part of parts) {
