@@ -8415,6 +8415,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/mqtt5-client@workspace:packages/mqtt5-client"
   dependencies:
+    "@redstone-finance/protocol": "npm:0.6.2"
+    "@redstone-finance/sdk": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
     aws-iot-device-sdk-v2: "npm:^1.21.1"
   languageName: unknown
@@ -8684,7 +8686,6 @@ __metadata:
   dependencies:
     "@ethersproject/bytes": "npm:^5.6.1"
     "@ethersproject/strings": "npm:^5.7.0"
-    "@redstone-finance/mqtt5-client": "npm:0.6.2"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.2"
     "@redstone-finance/protocol": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
