@@ -17,6 +17,8 @@
     "print:chain-configs": "yarn run-ts scripts/print-chain-configs.ts",
     "print:ssm-rpc-urls-dev": "ENV=dev yarn run-ts scripts/print-ssm-rpc-urls.ts",
     "print:ssm-rpc-urls-prod": "ENV=prod yarn run-ts scripts/print-ssm-rpc-urls.ts",
+    "compare:ssm-rpc-urls-prod": "ENV=prod yarn run-ts scripts/compare-ssm-rpc-urls.ts",
+    "compare:ssm-rpc-urls-dev": "ENV=dev yarn run-ts scripts/compare-ssm-rpc-urls.ts",
     "test": "hardhat test",
     "test:rpc-urls": "TEST_RPC=T hardhat test test/rpc-urls/public-rpc-urls.test.ts",
     "test:rpc-urls-dev": "ENV=dev TEST_RPC=T hardhat test test/rpc-urls/ssm-rpc-urls.test.ts",
