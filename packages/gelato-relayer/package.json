@@ -38,7 +38,7 @@
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
     "@types/sinon-chai": "^3.2.12",
-    "axios": "^1.6.2",
+    "axios": "^1.7.7",
     "chai": "^4.3.10",
     "dotenv": "^16.0.3",
     "ethereum-waffle": "^4.0.10",
