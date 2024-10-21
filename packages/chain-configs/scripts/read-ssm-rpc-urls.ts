@@ -1,5 +1,6 @@
 import { getSSMParameterValue } from "@redstone-finance/internal-utils";
 import { RedstoneCommon } from "@redstone-finance/utils";
+import chalk from "chalk";
 import { z } from "zod";
 import { getLocalChainConfigs } from "../src";
 
@@ -11,34 +12,32 @@ export type RpcUrlsPerChain = {
 };
 
 const env = RedstoneCommon.getFromEnv("ENV", z.string().default("dev"));
-const isFallback = RedstoneCommon.getFromEnv(
-  "FALLBACK",
-  z.boolean().default(false)
-);
 
-export const readSsmRpcUrls = async (): Promise<RpcUrlsPerChain> => {
+export const readSsmRpcUrls = async (
+  isFallback: boolean
+): Promise<RpcUrlsPerChain> => {
   const chainConfigs = getLocalChainConfigs();
   const rpcUrlsPerChain: RpcUrlsPerChain = {};
 
-  const fallbackInfix = isFallback ? "/fallback" : "";
-  const region = isFallback ? "eu-north-1" : "eu-west-1";
   for (const { name, chainId } of Object.values(chainConfigs)) {
     if (name === "hardhat") {
       continue;
     }
     try {
-      const ssmRpcUrls = await getSSMParameterValue(
-        `/${env}/rpc/${chainId}${fallbackInfix}/urls`,
-        region
-      );
+      const path = `/${env}/rpc/${chainId}/${isFallback ? "fallback/" : ""}urls`;
+      const region = isFallback ? "eu-north-1" : undefined;
+      const ssmRpcUrls = await getSSMParameterValue(path, region);
       const rpcUrls = JSON.parse(ssmRpcUrls!) as string[];
+
       rpcUrlsPerChain[name] = {
         chainId,
         rpcUrls,
       };
-    } catch (e) {
-      console.error(
-        `Error reading rpc urls on ${env} from SSM parameter /${env}/rpc/${chainId}${fallbackInfix}/urls: ${RedstoneCommon.stringifyError(e)}`
+    } catch {
+      console.log(
+        chalk.yellow(
+          `${isFallback ? "Fallback" : "Main"} Rpc urls for chain ${name} (${chainId}) not present in ${env} SSM`
+        )
       );
     }
   }
