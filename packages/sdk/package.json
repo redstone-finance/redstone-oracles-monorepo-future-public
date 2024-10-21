@@ -21,7 +21,7 @@
     "@redstone-finance/protocol": "0.6.2",
     "@redstone-finance/utils": "0.6.2",
     "@types/lodash": "^4.14.195",
-    "axios": "^1.6.2",
+    "axios": "^1.7.7",
     "ethers": "^5.7.2",
     "lodash": "^4.17.21",
     "zod": "^3.22.4"

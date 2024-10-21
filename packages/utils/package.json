@@ -14,7 +14,7 @@
     "lint:fix": "yarn global:eslint --fix ."
   },
   "dependencies": {
-    "axios": "^1.6.2",
+    "axios": "^1.7.7",
     "consola": "^2.15.3",
     "decimal.js": "^10.4.3",
     "ethers": "^5.7.2",
