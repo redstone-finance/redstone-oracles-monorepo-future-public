@@ -285,6 +285,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x085780639CC2cACd35E474e71f4d000e2405d8f6",
       decimals: 18,
     },
+    aUSD: {
+      address: "0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a",
+      decimals: 6,
+    },
   },
   blast: {
     ETH: {
@@ -490,6 +494,14 @@ export const chainTokenMap: ChainTokenMap = {
     "BTC.b": {
       address: "0x152b9d0FdC40C096757F570A51E494bd4b943E50",
       decimals: 8,
+    },
+    USDT: {
+      address: "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7",
+      decimals: 6,
+    },
+    aUSD: {
+      address: "0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a",
+      decimals: 6,
     },
   },
   merlin: {

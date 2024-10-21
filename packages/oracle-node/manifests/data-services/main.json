@@ -1700,6 +1700,13 @@
         "xt"
       ]
     },
+    "aUSD": {
+      "source": [
+        "curve-ethereum-frax",
+        "trader-joe-v2-avalanche-usdc",
+        "trader-joe-v2-avalanche-usdt"
+      ]
+    },
     "AUD": {
       "source": ["ecb", "kraken-usd", "twelve-data"]
     },
