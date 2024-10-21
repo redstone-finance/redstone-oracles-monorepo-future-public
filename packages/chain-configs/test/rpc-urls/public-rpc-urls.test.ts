@@ -2,7 +2,7 @@ import { RpcUrlsPerChain } from "../../scripts/read-ssm-rpc-urls";
 import { getLocalChainConfigs } from "../../src";
 import { validateRpcUrls } from "./common";
 
-const CHAINS_TO_SKIP_RPC_CHECK = ["Unichain Sepolia"];
+const CHAINS_TO_SKIP_RPC_CHECK = ["Unichain Sepolia", "Monad Devnet"];
 
 const validatePublicRpcUrls = () => {
   const chainConfigs = getLocalChainConfigs();

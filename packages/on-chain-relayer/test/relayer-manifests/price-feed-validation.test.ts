@@ -9,7 +9,10 @@ import {
   readMultiFeedManifests,
 } from "../../scripts/read-manifests";
 
-const INTEGRATIONS_NOT_FOR_TESTING = ["unichainTestnetMultiFeed"];
+const INTEGRATIONS_NOT_FOR_TESTING = [
+  "unichainTestnetMultiFeed",
+  "monadDevnetMultiFeed",
+];
 
 const ABI = ["function getDataFeedId() public view returns (bytes32)"];
 
