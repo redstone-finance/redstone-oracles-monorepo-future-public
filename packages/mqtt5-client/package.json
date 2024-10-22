@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn global:tsc --build tsconfig.build.json",
-    "build-dev": "yarn build-deps && yarn global:tsc --build tsconfig.json",
+    "build-dev": "yarn global:tsc --build tsconfig.json",
     "preversion": "yarn build",
     "test": "yarn global:jest",
     "lint": "yarn global:eslint .",
