@@ -95,7 +95,8 @@
         "twelve-data",
         "ecb",
         "kraken-usd",
-        "financialmodelingprep-usd"
+        "financialmodelingprep-usd",
+        "bitstamp-usd"
       ]
     },
     "AUD": {
@@ -113,8 +114,9 @@
         "kaiko",
         "kaiko-v2",
         "kraken-usd",
-        "kucoin-api",
-        "twelve-data"
+        "twelve-data",
+        "kraken-gbp",
+        "bitstamp-usd"
       ]
     },
     "JPY": {
@@ -311,7 +313,13 @@
         "kraken-usd",
         "curve-ethereum-usdt",
         "okx-usdt",
-        "xt"
+        "xt",
+        "gate-usdt",
+        "lbank-usdt",
+        "bybit-usdt",
+        "bitfinex2-usd",
+        "bitstamp-usd",
+        "bingx-usdt"
       ]
     },
     "ETH": {

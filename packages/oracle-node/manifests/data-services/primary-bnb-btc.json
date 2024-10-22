@@ -60,6 +60,30 @@
       },
       "skipBroadcasting": true
     },
+    "EUR": {
+      "source": [
+        "binance-usdt",
+        "bitstamp-api",
+        "coinbase-api",
+        "ecb",
+        "kaiko",
+        "kaiko-v2",
+        "kraken-usd",
+        "twelve-data",
+        "kraken-gbp",
+        "bitstamp-usd"
+      ]
+    },
+    "GBP": {
+      "source": [
+        "alphavantage-usd",
+        "twelve-data",
+        "ecb",
+        "kraken-usd",
+        "financialmodelingprep-usd",
+        "bitstamp-usd"
+      ]
+    },
     "DAI": {
       "source": [
         "bitget-usdt",
@@ -71,7 +95,13 @@
         "kraken-usd",
         "curve-ethereum-usdt",
         "okx-usdt",
-        "xt"
+        "xt",
+        "gate-usdt",
+        "lbank-usdt",
+        "bybit-usdt",
+        "bitfinex2-usd",
+        "bitstamp-usd",
+        "bingx-usdt"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {

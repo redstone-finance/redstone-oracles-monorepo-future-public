@@ -35,6 +35,29 @@
         }
       }
     },
+    "EUR": {
+      "source": [
+        "bitstamp-api",
+        "coinbase-api",
+        "ecb",
+        "kaiko",
+        "kaiko-v2",
+        "kraken-usd",
+        "twelve-data",
+        "kraken-gbp",
+        "bitstamp-usd"
+      ]
+    },
+    "GBP": {
+      "source": [
+        "alphavantage-usd",
+        "twelve-data",
+        "ecb",
+        "kraken-usd",
+        "financialmodelingprep-usd",
+        "bitstamp-usd"
+      ]
+    },
     "AVAX": {
       "source": ["kaiko", "kaiko-v2"]
     },

@@ -77,10 +77,10 @@
         "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
-        "coingecko",
         "kucoin-usdt",
         "lbank-usdt",
         "okx-usdt",
+        "coingecko",
         "xt"
       ]
     },
@@ -232,14 +232,20 @@
     "DAI": {
       "source": [
         "bitget-usdt",
-        "bitmart-usdt",
-        "bitrue-usdt",
-        "coinbasepro-usd",
-        "coingecko",
-        "kraken-usd",
-        "curve-ethereum-usdt",
         "okx-usdt",
-        "xt"
+        "coinbasepro-usd",
+        "gate-usdt",
+        "lbank-usdt",
+        "bybit-usdt",
+        "kraken-usd",
+        "bitrue-usdt",
+        "bitmart-usdt",
+        "bitfinex2-usd",
+        "bitstamp-usd",
+        "bingx-usdt",
+        "xt",
+        "coingecko",
+        "curve-ethereum-usdt"
       ]
     },
     "LTC": {
@@ -298,13 +304,21 @@
     },
     "WBTC": {
       "source": [
-        "binance-usdt",
-        "bingx-usdt",
-        "bitrue-btc",
-        "coinbasepro-usd",
-        "coingecko",
+        "binance-btc",
+        "kraken-btc",
         "kraken-usd",
+        "bybit-btc",
+        "okx-btc",
         "okx-usdt",
+        "coinbasepro-btc",
+        "coinbasepro-usd",
+        "binance-usdt",
+        "gate-btc",
+        "bitget-usdt",
+        "bitrue-btc",
+        "kucoin-btc",
+        "bingx-usdt",
+        "coingecko",
         "uniswap-v3-ethereum-weth-3000",
         "uniswap-v3-ethereum-weth-500",
         "uniswap-v3-arbitrumone-weth-500",
@@ -575,10 +589,14 @@
     },
     "MNT": {
       "source": [
-        "bingx-usdt",
-        "bitmart-usdt",
-        "coingecko",
+        "bybit-usdt",
         "gate-usdt",
+        "bitmart-usdt",
+        "kucoin-usdt",
+        "bybit-btc",
+        "kraken-usd",
+        "bingx-usdt",
+        "coingecko",
         "uniswap-v3-ethereum-weth-3000"
       ]
     },
@@ -643,11 +661,14 @@
     "JOE": {
       "source": [
         "binance-usdt",
-        "bingx-usdt",
-        "bitget-usdt",
-        "coingecko",
+        "binanceusdm-usdt",
         "gate-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "lbank-usdt",
         "okx-usdt",
+        "bingx-usdt",
+        "coingecko",
         "trader-joe-v1-avalanche-wavax",
         "trader-joe-v2-avalanche-wavax",
         "xt"
@@ -861,7 +882,7 @@
       ]
     },
     "TLOS": {
-      "source": ["bitget-usdt", "gate-usdt", "kucoin-usdt"]
+      "source": ["bitget-usdt", "gate-usdt", "kucoin-usdt", "bitmart-usdt"]
     },
     "ETHx": {
       "source": [
@@ -989,7 +1010,8 @@
         "binanceusdm-usdt",
         "bingx-usdt",
         "gate-usdt",
-        "lbank-usdt"
+        "lbank-usdt",
+        "bitrue-usdt"
       ]
     },
     "MAGIC": {
@@ -1396,7 +1418,14 @@
       ]
     },
     "MODE": {
-      "source": ["bitget-usdt", "bitmart-usdt", "bybit-usdt", "gate-usdt", "xt"]
+      "source": [
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bybit-usdt",
+        "gate-usdt",
+        "bitfinex2-usd",
+        "xt"
+      ]
     },
     "rsETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-kelp"]
@@ -1716,7 +1745,8 @@
         "twelve-data",
         "ecb",
         "kraken-usd",
-        "financialmodelingprep-usd"
+        "financialmodelingprep-usd",
+        "bitstamp-usd"
       ]
     },
     "EUR": {
@@ -1728,8 +1758,9 @@
         "kaiko",
         "kaiko-v2",
         "kraken-usd",
-        "kucoin-api",
-        "twelve-data"
+        "twelve-data",
+        "kraken-gbp",
+        "bitstamp-usd"
       ]
     },
     "KES": {
@@ -2121,7 +2152,15 @@
       "source": ["coingecko", "gate-usdt", "kucoin-usdt", "bybit-usdt"]
     },
     "QI": {
-      "source": ["binance-usdt", "coingecko", "kucoin-usdt", "xt"]
+      "source": [
+        "binance-usdt",
+        "coingecko",
+        "kucoin-usdt",
+        "coinbasepro-usd",
+        "lbank-usdt",
+        "bitrue-usdt",
+        "xt"
+      ]
     },
     "FDUSD": {
       "source": [
