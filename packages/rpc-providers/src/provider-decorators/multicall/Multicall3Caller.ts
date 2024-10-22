@@ -51,7 +51,7 @@ export async function safeExecuteMulticall3(
   } catch (e) {
     if (retryBySingleCalls) {
       // if whole multicall failed & retryBySingleCalls is disabled, fallback to normal execution model (1 call = 1 request)
-      logger.log(
+      logger.error(
         `Whole multicall3 chainId=${chainId} failed. Will fallback to ${
           call3s.length
         } separate calls. Error: ${RedstoneCommon.stringifyError(e)}`
@@ -61,7 +61,7 @@ export async function safeExecuteMulticall3(
         call3s.map((call3) => safeFallbackCall(provider, call3, blockTag))
       );
     } else {
-      logger.log(
+      logger.error(
         `Whole multicall3 chainId=${chainId} failed. Will not fallback. Error: ${RedstoneCommon.stringifyError(e)}`
       );
 
