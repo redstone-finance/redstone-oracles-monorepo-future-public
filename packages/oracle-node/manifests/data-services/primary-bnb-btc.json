@@ -16,7 +16,6 @@
         "balancer-arbitrumone-usdt",
         "balancer-ethereum-usdt",
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
@@ -114,8 +113,6 @@
     "BNB": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "coingecko",
@@ -129,8 +126,6 @@
     "BTC": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",

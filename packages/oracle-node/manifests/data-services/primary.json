@@ -19,7 +19,6 @@
         "balancer-arbitrumone-usdt",
         "balancer-ethereum-usdt",
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
@@ -64,8 +63,6 @@
     "BNB": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "coingecko",
@@ -79,8 +76,6 @@
     "BTC": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -160,8 +155,6 @@
     "ETH": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
@@ -276,7 +269,6 @@
     "AAVE": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitfinex2-usd",
@@ -458,7 +450,6 @@
     "ARB": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -478,8 +469,6 @@
     "OP": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
@@ -500,7 +489,6 @@
     "CELO": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -562,7 +550,6 @@
     "AVAX": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -598,7 +585,6 @@
     "ATOM": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
@@ -628,8 +614,6 @@
     "XRP": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
         "coingecko",
@@ -643,7 +627,6 @@
     "SOL": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -694,7 +677,6 @@
     "XVS": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "coinmarketcap",
         "gate-usdt",
@@ -729,8 +711,6 @@
     "UNI": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -751,7 +731,6 @@
     "LINK": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -772,7 +751,6 @@
     "CRV": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -791,7 +769,6 @@
     "MKR": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -811,7 +788,6 @@
     "APE": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -897,7 +873,6 @@
     "RSR": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -1120,7 +1095,6 @@
     "LDO": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -1230,7 +1204,6 @@
     "ZK": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitmart-usdt",
         "bybit-usdt",
@@ -1301,7 +1274,6 @@
     "SEI": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",

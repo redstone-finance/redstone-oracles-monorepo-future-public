@@ -14,8 +14,6 @@
     "ETH": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
@@ -34,8 +32,6 @@
     "BTC": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -69,7 +65,6 @@
       "source": [
         "balancer-ethereum-usdt",
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
@@ -113,19 +108,11 @@
       ]
     },
     "XVS": {
-      "source": [
-        "binance-usdt",
-        "binanceusdm-usdt",
-        "bingx-usdt",
-        "gate-usdt",
-        "lbank-usdt"
-      ]
+      "source": ["binance-usdt", "bingx-usdt", "gate-usdt", "lbank-usdt"]
     },
     "BNB": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "kucoin-usdt",
@@ -164,7 +151,6 @@
     "ATOM": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
@@ -181,7 +167,6 @@
     "CELO": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
