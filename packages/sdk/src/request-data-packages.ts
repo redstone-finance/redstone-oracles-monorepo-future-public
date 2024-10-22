@@ -309,14 +309,41 @@ export const chooseDataPackagesTimestamp = (
   dataPackages: DataPackagesResponse,
   dataFeedId?: string
 ) => {
-  const dataPackageTimestamps = dataFeedId
-    ? dataPackages[dataFeedId]!.flatMap(
-        (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
-      )
-    : Object.values(dataPackages).flatMap((dataPackages) =>
-        dataPackages!.map(
-          (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
-        )
-      );
-  return Math.min(...dataPackageTimestamps);
+  const signedDataPackages = extractSignedDataPackagesForFeedId(
+    dataPackages,
+    dataFeedId
+  );
+
+  if (!signedDataPackages.length) {
+    throw new Error(`Data packages are missing! (feedId ${dataFeedId})`);
+  }
+
+  return Math.min(
+    ...signedDataPackages.map(
+      (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
+    )
+  );
+};
+
+const extractSignedDataPackagesForFeedId = (
+  dataPackages: DataPackagesResponse,
+  dataFeedId?: string
+) => {
+  if (dataFeedId && dataPackages[dataFeedId]) {
+    return dataPackages[dataFeedId];
+  }
+
+  const signedDataPackages = Object.values(dataPackages).flatMap(
+    (dataPackages) => dataPackages!
+  );
+
+  if (!dataFeedId) {
+    return signedDataPackages;
+  }
+
+  return signedDataPackages.filter((dataPackage) =>
+    dataPackage.dataPackage.dataPoints.some(
+      (dataPoint) => dataPoint.dataFeedId === dataFeedId
+    )
+  );
 };
