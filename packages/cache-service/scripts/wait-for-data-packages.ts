@@ -11,8 +11,7 @@ const INTERVAL_MILLISECONDS = 5000; // 5 seconds
 const DATA_PACKAGE_ID = process.argv[3] || consts.ALL_FEEDS_KEY;
 const EXPECTED_COUNT = parseInt(process.argv[2]);
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-main();
+void main();
 
 async function main() {
   mongoose.set("strictQuery", true);
