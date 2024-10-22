@@ -10,10 +10,9 @@ import {
   STANDARD_MULTICALL3_ADDRESS,
 } from "../src";
 
-const RETRY_CONFIG = {
-  maxRetries: 4,
+const RETRY_CONFIG: Omit<RedstoneCommon.RetryConfig, "fn"> = {
+  maxRetries: 2,
   waitBetweenMs: 1000,
-  disableLog: true,
 };
 
 const CHAINS_TO_SKIP_MULTICALL_ADDRESS_CHECK = [
@@ -86,7 +85,14 @@ describe("Validate multicall3", () => {
     }
 
     it(`Chain config for chain ${chainConfig.name} (${chainConfig.chainId}) should have a valid multicall3 address`, async function () {
-      await verifyMulticallAddress(chainConfig);
+      try {
+        await verifyMulticallAddress(chainConfig);
+      } catch (e) {
+        console.log(
+          `multicall verification failed for ${chainConfig.name} (${chainConfig.chainId}), error ${RedstoneCommon.stringifyError(e)} `
+        );
+        throw e;
+      }
     });
   }
 
@@ -95,21 +101,29 @@ describe("Validate multicall3", () => {
       chainConfig.publicRpcUrls[index]
     );
 
-    const multicallCode = await RedstoneCommon.retry({
-      fn: () => provider.getCode(chainConfig.multicall3.address),
-      ...RETRY_CONFIG,
-    })();
-
     try {
+      const multicallCode = await RedstoneCommon.retry({
+        ...RETRY_CONFIG,
+        fn: async () =>
+          await RedstoneCommon.timeout(
+            provider.getCode(chainConfig.multicall3.address),
+            1000
+          ),
+        fnName: "provider.getCode",
+      })();
+
       chai
         .expect(multicallCode.length, "Multicall implementation missing")
         .greaterThan(2);
     } catch (e) {
+      console.log(
+        `${chainConfig.name} - RPC ${chainConfig.publicRpcUrls[index]} failed.`
+      );
       if (index === chainConfig.publicRpcUrls.length - 1) {
+        console.log(`${chainConfig.name} - All RPCs failed`);
         throw e;
       }
 
-      console.log(`Moving to next RPC[${index}]...`);
       await verifyMulticallAddress(chainConfig, index + 1);
     }
   }

@@ -4,10 +4,9 @@ import { ethers } from "ethers";
 import { RpcUrlsPerChain } from "../../scripts/read-ssm-rpc-urls";
 import { getLocalChainConfigByChainId } from "../../src";
 
-const RETRY_CONFIG = {
+const RETRY_CONFIG: Omit<RedstoneCommon.RetryConfig, "fn"> = {
   maxRetries: 4,
   waitBetweenMs: 1000,
-  disableLog: true,
 };
 const logger = loggerFactory("chain-config/rpc-urls");
 
@@ -22,9 +21,9 @@ export const validateRpcUrls = (rpcUrlsPerChain: RpcUrlsPerChain) => {
         it(`Test '${name}' rpc url: ${rpcUrl}`, async () => {
           const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
           const fetchedChainId = await RedstoneCommon.retry({
+            ...RETRY_CONFIG,
             fn: async () => (await provider.getNetwork()).chainId,
             fnName: "provider.getNetwork()",
-            ...RETRY_CONFIG,
             logger: logger.log,
           })();
 
