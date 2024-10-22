@@ -4,7 +4,6 @@ SHELL := /bin/bash
 clean:
 	rm -rf $(DATA_DIR)
 
-# make DATA_NAME=test prepare_data
 fetch_data:
 	mkdir -p $(DATA_DIR)
 	ts-node index.ts | tr -d " \t\n\r" > $(DATA_DIR)/${DATA_NAME}.hex &
@@ -21,3 +20,6 @@ prepare_data: fetch_time fetch_data
 	printf ',' >> $(DATA_DIR)/${DATA_NAME}.input
 	curl -L -H "Accept: application/json" unixtimesta.mp | cut -c 2- >> $(DATA_DIR)/${DATA_NAME}.input
 	(echo -n "0x" && cat $(DATA_DIR)/${DATA_NAME}.hex) | fold -w2 | paste -sd' ' -  | sed -E 's/[[:space:]]+/ 0x/g' | cut -c 3- > $(DATA_DIR)/${DATA_NAME}.split
+
+run:
+	DATA_NAME=run make prepare_data
