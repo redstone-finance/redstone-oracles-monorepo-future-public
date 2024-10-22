@@ -2,7 +2,7 @@ import { InfluxDB, Point } from "@influxdata/influxdb-client";
 import { BucketsAPI } from "@influxdata/influxdb-client-apis";
 import { RedstoneCommon } from "@redstone-finance/utils";
 
-export const RETRY_CONFIG = {
+export const RETRY_CONFIG: Omit<RedstoneCommon.RetryConfig, "fn"> = {
   maxRetries: 5,
   waitBetweenMs: 100,
   backOff: {

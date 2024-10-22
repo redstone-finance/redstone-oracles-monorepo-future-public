@@ -21,10 +21,9 @@ const CONNECTION_INFO = {
   timeout: 5_000,
 };
 
-export const RETRY_CONFIG = {
+export const RETRY_CONFIG: Omit<RedstoneCommon.RetryConfig, "fn"> = {
   maxRetries: 3,
   waitBetweenMs: 1000,
-  disableLog: true,
 };
 
 const getProvider = (chainId: number): providers.Provider => {
