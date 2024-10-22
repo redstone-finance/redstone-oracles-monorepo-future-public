@@ -110,6 +110,30 @@
         }
       }
     },
+    "EUR": {
+      "source": [
+        "binance-usdt",
+        "bitstamp-api",
+        "coinbase-api",
+        "ecb",
+        "kaiko",
+        "kaiko-v2",
+        "kraken-usd",
+        "twelve-data",
+        "kraken-gbp",
+        "bitstamp-usd"
+      ]
+    },
+    "GBP": {
+      "source": [
+        "alphavantage-usd",
+        "twelve-data",
+        "ecb",
+        "kraken-usd",
+        "financialmodelingprep-usd",
+        "bitstamp-usd"
+      ]
+    },
     "BTC": {
       "source": [
         "binance-usdt",
@@ -185,7 +209,13 @@
         "curve-ethereum-usdt",
         "kraken-usd",
         "okx-usdt",
-        "xt"
+        "xt",
+        "gate-usdt",
+        "lbank-usdt",
+        "bybit-usdt",
+        "bitfinex2-usd",
+        "bitstamp-usd",
+        "bingx-usdt"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -323,7 +353,15 @@
         "uniswap-v3-ethereum-weth-3000",
         "uniswap-v3-ethereum-weth-500",
         "uniswap-v3-arbitrumone-weth-500",
-        "curve-arbitrumone-weth"
+        "curve-arbitrumone-weth",
+        "binance-btc",
+        "kraken-btc",
+        "bybit-btc",
+        "okx-btc",
+        "coinbasepro-btc",
+        "gate-btc",
+        "bitget-usdt",
+        "kucoin-btc"
       ],
       "skipBroadcasting": true
     },
@@ -375,7 +413,10 @@
         "okx-usdt",
         "trader-joe-v1-avalanche-wavax",
         "trader-joe-v2-avalanche-wavax",
-        "xt"
+        "xt",
+        "binanceusdm-usdt",
+        "bitmart-usdt",
+        "lbank-usdt"
       ]
     },
     "BAL": {
@@ -808,6 +849,8 @@
       "BAL",
       "BNB",
       "BTC",
+      "EUR",
+      "GBP",
       "CRV",
       "CVX",
       "DAI",

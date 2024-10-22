@@ -33,8 +33,8 @@
         "kraken-usdt",
         "kucoin-usdt",
         "lbank-usdt",
-        "okx-usdt",
-        "uniswap-v3-ethereum-dai-100"
+        "uniswap-v3-ethereum-dai-100",
+        "okx-usdt"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -110,7 +110,13 @@
         "kraken-usd",
         "curve-ethereum-usdt",
         "okx-usdt",
-        "xt"
+        "xt",
+        "gate-usdt",
+        "lbank-usdt",
+        "bybit-usdt",
+        "bitfinex2-usd",
+        "bitstamp-usd",
+        "bingx-usdt"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -342,11 +348,21 @@
         "coingecko",
         "coinmarketcap",
         "gate-usdt",
-        "uniswap-v3-ethereum-weth-3000"
+        "uniswap-v3-ethereum-weth-3000",
+        "bybit-usdt",
+        "kucoin-usdt",
+        "bybit-btc",
+        "kraken-usd"
       ]
     },
     "TLOS": {
-      "source": ["coinmarketcap", "gate-usdt", "kucoin-usdt", "bitget-usdt"]
+      "source": [
+        "coinmarketcap",
+        "gate-usdt",
+        "kucoin-usdt",
+        "bitget-usdt",
+        "bitmart-usdt"
+      ]
     },
     "ETHx": {
       "source": [
@@ -515,8 +531,9 @@
         "kaiko",
         "kaiko-v2",
         "kraken-usd",
-        "kucoin-api",
-        "twelve-data"
+        "twelve-data",
+        "kraken-gbp",
+        "bitstamp-usd"
       ]
     },
     "CELO/EUR": {
@@ -681,7 +698,8 @@
         "bingx-usdt",
         "coinmarketcap",
         "gate-usdt",
-        "lbank-usdt"
+        "lbank-usdt",
+        "bitrue-usdt"
       ]
     },
     "WBTC": {
@@ -697,7 +715,15 @@
         "uniswap-v3-ethereum-weth-3000",
         "uniswap-v3-ethereum-weth-500",
         "uniswap-v3-arbitrumone-weth-500",
-        "curve-arbitrumone-weth"
+        "curve-arbitrumone-weth",
+        "binance-btc",
+        "kraken-btc",
+        "bybit-btc",
+        "okx-btc",
+        "coinbasepro-btc",
+        "gate-btc",
+        "bitget-usdt",
+        "kucoin-btc"
       ]
     },
     "UNI": {
@@ -957,7 +983,8 @@
         "twelve-data",
         "ecb",
         "kraken-usd",
-        "financialmodelingprep-usd"
+        "financialmodelingprep-usd",
+        "bitstamp-usd"
       ]
     },
     "sfrxETH": {
@@ -1109,7 +1136,14 @@
       ]
     },
     "MODE": {
-      "source": ["bitget-usdt", "bitmart-usdt", "bybit-usdt", "gate-usdt", "xt"]
+      "source": [
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bybit-usdt",
+        "gate-usdt",
+        "xt",
+        "bitfinex2-usd"
+      ]
     },
     "rsETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-kelp"]
