@@ -14,8 +14,6 @@
     "ETH": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
@@ -40,7 +38,6 @@
         "balancer-arbitrumone-usdt",
         "balancer-ethereum-usdt",
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
@@ -137,8 +134,6 @@
     "BTC": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
@@ -160,8 +155,6 @@
     "BNB": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "coingecko",
@@ -174,8 +167,6 @@
     "XRP": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitstamp-usd",
         "coingecko",
@@ -258,8 +249,6 @@
     "UNI": {
       "source": [
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -280,7 +269,6 @@
     "LINK": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -301,7 +289,6 @@
     "ARB": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -321,7 +308,6 @@
     "CRV": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -385,7 +371,6 @@
     "AVAX": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -414,7 +399,6 @@
         "trader-joe-v1-avalanche-wavax",
         "trader-joe-v2-avalanche-wavax",
         "xt",
-        "binanceusdm-usdt",
         "bitmart-usdt",
         "lbank-usdt"
       ]
@@ -425,7 +409,6 @@
         "bitget-usdt",
         "bitmart-usdt",
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitfinex2-usd",
         "coinbasepro-usd",
         "coingecko",
@@ -470,7 +453,6 @@
     "MAGIC": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -497,7 +479,6 @@
     "STG": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -514,7 +495,6 @@
     "WOO": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
@@ -537,7 +517,6 @@
     "SOL": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
@@ -711,7 +690,6 @@
     "AAVE": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitfinex2-usd",
@@ -775,7 +753,6 @@
     "ATOM": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
@@ -794,7 +771,6 @@
     "NEAR": {
       "source": [
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitrue-usdt",
         "bybit-usdt",

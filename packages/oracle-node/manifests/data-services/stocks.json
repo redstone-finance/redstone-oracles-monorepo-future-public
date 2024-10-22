@@ -286,7 +286,6 @@
         "balancer-arbitrumone-usdt",
         "balancer-ethereum-usdt",
         "binance-usdt",
-        "binanceusdm-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
@@ -326,8 +325,6 @@
       "source": [
         "band",
         "binance-usdt",
-        "binancecoinm-usd",
-        "binanceusdm-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
