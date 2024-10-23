@@ -19,6 +19,9 @@
     },
     "WBTC": {
       "priceFeedAddress": "0x76A495b0bFfb53ef3F0E94ef0763e03cE410835C"
+    },
+    "aUSD": {
+      "priceFeedAddress": "0xb81131B6368b3F0a83af09dB4E39Ac23DA96C2Db"
     }
   }
 }
