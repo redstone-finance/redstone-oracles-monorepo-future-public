@@ -1606,6 +1606,7 @@
     },
     "SolvBTC.BBN": {
       "source": [
+        "pancake-swap-bnb-solvbtc-100",
         "trader-joe-v2-avalanche-solvbtc",
         "uniswap-v3-ethereum-solvbtc-100",
         "pancake-swap-bnb-solvbtc-500",
