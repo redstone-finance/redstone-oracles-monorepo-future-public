@@ -55,14 +55,28 @@ const checkDataFeedIdInContract = async (
   chainId: number
 ) => {
   const contract = new Contract(address, ABI, getProvider(chainId));
-  const dataFeedIdFromContractAsBytes = await RedstoneCommon.retry({
-    fn: () => (contract.getDataFeedId as ContractFunction<Bytes>)(),
-    ...RETRY_CONFIG,
-  })();
-  const dataFeedIdFromContract = utils.parseBytes32String(
-    dataFeedIdFromContractAsBytes
-  );
-  return dataFeedId === dataFeedIdFromContract;
+  try {
+    const dataFeedIdFromContractAsBytes = await RedstoneCommon.retry({
+      fn: () => (contract.getDataFeedId as ContractFunction<Bytes>)(),
+      ...RETRY_CONFIG,
+    })();
+    const dataFeedIdFromContract = utils.parseBytes32String(
+      dataFeedIdFromContractAsBytes
+    );
+    if (dataFeedId === dataFeedIdFromContract) {
+      return true;
+    } else {
+      console.log(
+        `unexpected data feed id in contract: ${dataFeedIdFromContract}, expected: ${dataFeedId}`
+      );
+      return false;
+    }
+  } catch (e) {
+    console.log(
+      `contract.getFeedId failed with error: ${RedstoneCommon.stringifyError(e)}`
+    );
+    return false;
+  }
 };
 
 describe("Price feed contract should return the same dataFeedId as in relayer manifest", () => {
