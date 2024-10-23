@@ -232,14 +232,16 @@ export class DataPackageSubscriber {
     const signedDataPackage = SignedDataPackage.fromObj(dataPackageFromMessage);
     const packageSigner = signedDataPackage.recoverSignerAddress();
 
-    //authorized signer
-    if (!this.params.authorizedSigners.includes(packageSigner)) {
-      throw new Error("Failed to verify signature");
-    }
-
     const packageTimestamp =
       signedDataPackage.dataPackage.timestampMilliseconds;
     const dataPackageId = signedDataPackage.dataPackage.dataPackageId;
+
+    //authorized signer
+    if (!this.params.authorizedSigners.includes(packageSigner)) {
+      throw new Error(
+        `Failed to verify signature signer=${packageSigner} expectedSigners=${this.params.authorizedSigners.join(",")} dataPackageId=${dataPackageId} packageTimestamp=${packageTimestamp}`
+      );
+    }
 
     // check if dataPackageId is in dataPackagesIds
     if (!this.params.dataPackageIds.includes(dataPackageId)) {
