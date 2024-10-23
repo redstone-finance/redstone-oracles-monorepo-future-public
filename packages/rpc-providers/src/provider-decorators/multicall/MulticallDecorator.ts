@@ -104,7 +104,7 @@ export function MulticallDecorator<T extends providers.Provider>(
     )
       .then((result3s) => {
         for (let i = 0; i < result3s.length; i++) {
-          // we should handle fallback specially because the can fail partially
+          // we should handle fallback specially because they can fail partially
           if (result3s[i].fallbackRejectReason) {
             callEntries[i].reject(result3s[i].fallbackRejectReason);
           } else {

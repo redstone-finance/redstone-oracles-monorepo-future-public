@@ -1,5 +1,6 @@
 import { config } from "../../config";
 import { fetchDataPackages } from "../../core/fetch-data-packages";
+import { getIterationArgsBase } from "../../core/get-iteration-args-base";
 import { IContractFacade } from "../../facade/IContractFacade";
 import { RelayerConfig } from "../../types";
 import { shouldUpdate } from "../should-update";
@@ -27,16 +28,12 @@ const getDataFromGateways = async (
 
 export const getIterationArgs = async (contractFacade: IContractFacade) => {
   const relayerConfig = config();
-  const blockTag = await contractFacade.getBlockNumber();
-  const uniqueSignersThreshold =
-    await contractFacade.getUniqueSignersThresholdFromContract(blockTag);
+  const { blockTag, uniqueSignersThreshold, dataFromContract } =
+    await getIterationArgsBase(contractFacade, relayerConfig);
+
   const { gatewayData, fetchDataPackages } = await getDataFromGateways(
     relayerConfig,
     uniqueSignersThreshold
-  );
-  const contractData = await contractFacade.getLastRoundParamsFromContract(
-    blockTag,
-    relayerConfig
   );
 
   const {
@@ -47,7 +44,7 @@ export const getIterationArgs = async (contractFacade: IContractFacade) => {
   } = await shouldUpdate(
     {
       dataPackages: gatewayData,
-      dataFromContract: contractData,
+      dataFromContract,
       uniqueSignersThreshold,
     },
     relayerConfig
