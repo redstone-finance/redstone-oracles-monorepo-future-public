@@ -8,8 +8,9 @@ import {
   SignedDataPackageSchema,
 } from "@redstone-finance/sdk";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
-import { Mqtt5Client, MqttTopics } from "./index";
+import { Mqtt5Client } from "./Mqtt5Client";
 import { RateLimitsCircuitBreaker } from "./RateLimitsCircuitBreaker";
+import { encodeDataPackageTopic } from "./topics";
 
 const MAX_DELAY = RedstoneCommon.minToMs(3);
 const TOPIC_FILTER_LIMIT = 50;
@@ -115,7 +116,7 @@ export class DataPackageSubscriber {
     if (params.dataPackageIds.length >= TOPIC_FILTER_LIMIT) {
       for (const signer of params.authorizedSigners) {
         this.topics.push(
-          MqttTopics.encodeDataPackageTopic({
+          encodeDataPackageTopic({
             dataPackageId: "+", // matches all
             dataServiceId: this.params.dataServiceId,
             nodeAddress: signer,
@@ -126,7 +127,7 @@ export class DataPackageSubscriber {
       for (const dataPackageId of params.dataPackageIds) {
         for (const signer of params.authorizedSigners) {
           this.topics.push(
-            MqttTopics.encodeDataPackageTopic({
+            encodeDataPackageTopic({
               dataPackageId,
               dataServiceId: this.params.dataServiceId,
               nodeAddress: signer,
