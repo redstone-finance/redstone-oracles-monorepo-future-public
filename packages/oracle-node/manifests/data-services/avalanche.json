@@ -14,10 +14,10 @@
     "ETH": {
       "source": [
         "binance-usdt",
+        "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
-        "bingx-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
         "coinbasepro-usd",
@@ -55,24 +55,24 @@
       "source": [
         "binance-usdt",
         "bitstamp-api",
+        "bitstamp-usd",
         "coinbase-api",
         "ecb",
         "kaiko",
         "kaiko-v2",
-        "kraken-usd",
-        "twelve-data",
         "kraken-gbp",
-        "bitstamp-usd"
+        "kraken-usd",
+        "twelve-data"
       ]
     },
     "GBP": {
       "source": [
         "alphavantage-usd",
-        "twelve-data",
+        "bitstamp-usd",
         "ecb",
-        "kraken-usd",
         "financialmodelingprep-usd",
-        "bitstamp-usd"
+        "kraken-usd",
+        "twelve-data"
       ]
     },
     "PNG": {
@@ -123,8 +123,8 @@
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
-        "bitrue-usdt",
         "bitmart-usdt",
+        "bitrue-usdt",
         "bitstamp-usd",
         "coinbasepro-usd",
         "coingecko",
@@ -141,13 +141,13 @@
     "QI": {
       "source": [
         "binance-usdt",
+        "bitrue-usdt",
+        "coinbasepro-usd",
         "coingecko",
         "coinmarketcap",
         "kucoin-usdt",
-        "xt",
-        "coinbasepro-usd",
         "lbank-usdt",
-        "bitrue-usdt"
+        "xt"
       ]
     },
     "USDC": {
@@ -207,11 +207,11 @@
     },
     "XAVA": {
       "source": [
+        "bybit-usdt",
         "coingecko",
         "coinmarketcap",
         "gate-usdt",
-        "kucoin-usdt",
-        "bybit-usdt"
+        "kucoin-usdt"
       ]
     },
     "GMX": {
@@ -236,33 +236,33 @@
         "binance-usdt",
         "bingx-usdt",
         "bitget-usdt",
+        "bitmart-usdt",
         "coingecko",
         "coinmarketcap",
         "gate-usdt",
         "okx-usdt",
         "trader-joe-v1-avalanche-wavax",
         "trader-joe-v2-avalanche-wavax",
-        "xt",
-        "bitmart-usdt"
+        "xt"
       ]
     },
     "DAI": {
       "source": [
+        "bingx-usdt",
+        "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
+        "bitstamp-usd",
+        "bybit-usdt",
         "coinbasepro-usd",
         "coingecko",
-        "kraken-usd",
         "curve-ethereum-usdt",
-        "okx-usdt",
-        "xt",
         "gate-usdt",
+        "kraken-usd",
         "lbank-usdt",
-        "bybit-usdt",
-        "bitfinex2-usd",
-        "bitstamp-usd",
-        "bingx-usdt"
+        "okx-usdt",
+        "xt"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -375,10 +375,10 @@
     "BAL": {
       "source": [
         "balancer-ethereum-weth",
-        "bitget-usdt",
-        "bitmart-usdt",
         "binance-usdt",
         "bitfinex2-usd",
+        "bitget-usdt",
+        "bitmart-usdt",
         "coinbasepro-usd",
         "coingecko",
         "coinmarketcap",
