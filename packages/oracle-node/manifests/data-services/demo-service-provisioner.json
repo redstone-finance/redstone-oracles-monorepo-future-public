@@ -29,26 +29,21 @@
         }
       }
     },
-
     "BTC": {
       "source": ["kaiko", "kaiko-v2"]
     },
     "ETH": {
       "source": ["kaiko", "kaiko-v2"]
     },
-
     "AAVE": {
       "source": ["kaiko", "kaiko-v2"]
     },
-
     "TRX": {
       "source": ["kaiko-v2"]
     },
-
     "EUR": {
       "source": ["kaiko", "kaiko-v2"]
     },
-
     "AVAX": {
       "source": ["kaiko", "kaiko-v2"]
     }

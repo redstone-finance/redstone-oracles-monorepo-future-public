@@ -84,7 +84,7 @@
       "source": ["twelve-data"]
     },
     "XAU": {
-      "source": ["twelve-data", "finhub-usd", "financialmodelingprep-usd"]
+      "source": ["financialmodelingprep-usd", "finhub-usd", "twelve-data"]
     },
     "SILVER": {
       "source": ["twelve-data"]
@@ -92,15 +92,15 @@
     "GBP": {
       "source": [
         "alphavantage-usd",
-        "twelve-data",
+        "bitstamp-usd",
         "ecb",
-        "kraken-usd",
         "financialmodelingprep-usd",
-        "bitstamp-usd"
+        "kraken-usd",
+        "twelve-data"
       ]
     },
     "AUD": {
-      "source": ["ecb", "twelve-data", "kraken-usd"]
+      "source": ["ecb", "kraken-usd", "twelve-data"]
     },
     "CHF": {
       "source": ["twelve-data"]
@@ -109,14 +109,14 @@
       "source": [
         "binance-usdt",
         "bitstamp-api",
+        "bitstamp-usd",
         "coinbase-api",
         "ecb",
         "kaiko",
         "kaiko-v2",
-        "kraken-usd",
-        "twelve-data",
         "kraken-gbp",
-        "bitstamp-usd"
+        "kraken-usd",
+        "twelve-data"
       ]
     },
     "JPY": {
@@ -142,7 +142,7 @@
       ]
     },
     "COP": {
-      "source": ["alphavantage-usd", "twelve-data", "financialmodelingprep-usd"]
+      "source": ["alphavantage-usd", "financialmodelingprep-usd", "twelve-data"]
     },
     "BBBY": {
       "source": ["twelve-data"]
@@ -304,31 +304,31 @@
     },
     "DAI": {
       "source": [
+        "bingx-usdt",
+        "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
+        "bitstamp-usd",
+        "bybit-usdt",
         "coinbasepro-usd",
         "coingecko",
-        "kraken-usd",
         "curve-ethereum-usdt",
-        "okx-usdt",
-        "xt",
         "gate-usdt",
+        "kraken-usd",
         "lbank-usdt",
-        "bybit-usdt",
-        "bitfinex2-usd",
-        "bitstamp-usd",
-        "bingx-usdt"
+        "okx-usdt",
+        "xt"
       ]
     },
     "ETH": {
       "source": [
         "band",
         "binance-usdt",
+        "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
-        "bingx-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
         "coinbasepro-usd",

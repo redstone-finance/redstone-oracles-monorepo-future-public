@@ -18,8 +18,8 @@
         "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
-        "bitrue-usdt",
         "bitmart-usdt",
+        "bitrue-usdt",
         "bitstamp-usd",
         "coinbasepro-usd",
         "coingecko",
@@ -36,10 +36,10 @@
       "source": [
         "band",
         "binance-usdt",
+        "bingx-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
-        "bingx-usdt",
         "bitrue-usdt",
         "bitstamp-usd",
         "coinbasepro-usd",
@@ -138,17 +138,17 @@
     },
     "AR": {
       "source": [
-        "binance-usdt",
         "binance-btc",
+        "binance-usdt",
         "bingx-usdt",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
         "bybit-usdt",
+        "coingecko",
         "gate-usdt",
         "kucoin-usdt",
         "okx-usdt",
-        "coingecko",
         "xt"
       ]
     },
@@ -162,15 +162,15 @@
         "coingecko",
         "gate-usdt",
         "kucoin-usdt",
-        "okx-usdt",
-        "mento"
+        "mento",
+        "okx-usdt"
       ]
     },
     "CELO/EUR": {
-      "source": ["non-usd-based", "mento"]
+      "source": ["mento", "non-usd-based"]
     },
     "CELO/BRL": {
-      "source": ["non-usd-based", "mento"]
+      "source": ["mento", "non-usd-based"]
     },
     "EUROC": {
       "source": [
@@ -180,13 +180,13 @@
       ]
     },
     "EUROC/EUR": {
-      "source": ["non-usd-based", "mento"]
+      "source": ["mento", "non-usd-based"]
     },
     "USDC/BRL": {
-      "source": ["non-usd-based", "mento"]
+      "source": ["mento", "non-usd-based"]
     },
     "USDC/EUR": {
-      "source": ["non-usd-based", "mento"]
+      "source": ["mento", "non-usd-based"]
     },
     "AVAX": {
       "source": [
@@ -230,21 +230,21 @@
     },
     "DAI": {
       "source": [
+        "bingx-usdt",
+        "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
+        "bitstamp-usd",
+        "bybit-usdt",
         "coinbasepro-usd",
         "coingecko",
-        "kraken-usd",
         "curve-ethereum-usdt",
-        "okx-usdt",
-        "xt",
         "gate-usdt",
+        "kraken-usd",
         "lbank-usdt",
-        "bybit-usdt",
-        "bitfinex2-usd",
-        "bitstamp-usd",
-        "bingx-usdt"
+        "okx-usdt",
+        "xt"
       ]
     },
     "FXS": {
@@ -255,21 +255,21 @@
         "bitmart-usdc",
         "bitrue-usdt",
         "coingecko",
-        "lbank-usdt",
         "kucoin-usdt",
+        "lbank-usdt",
         "okx-usdt"
       ]
     },
     "FRAX": {
       "source": [
         "curve-ethereum-3crv",
-        "curve-ethereum-usdc-multi-block",
         "curve-ethereum-sdai",
+        "curve-ethereum-usdc-multi-block",
         "fraxswap-ethereum-fxs",
         "fraxswap-ethereum-weth",
+        "uniswap-v3-ethereum-dai-500",
         "uniswap-v3-ethereum-fxs-10000",
-        "uniswap-v3-ethereum-usdc-500",
-        "uniswap-v3-ethereum-dai-500"
+        "uniswap-v3-ethereum-usdc-500"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -282,24 +282,24 @@
       "source": [
         "binance-usdt",
         "bitstamp-api",
+        "bitstamp-usd",
         "coinbase-api",
         "ecb",
         "kaiko",
         "kaiko-v2",
-        "kraken-usd",
-        "twelve-data",
         "kraken-gbp",
-        "bitstamp-usd"
+        "kraken-usd",
+        "twelve-data"
       ]
     },
     "GBP": {
       "source": [
         "alphavantage-usd",
-        "twelve-data",
+        "bitstamp-usd",
         "ecb",
-        "kraken-usd",
         "financialmodelingprep-usd",
-        "bitstamp-usd"
+        "kraken-usd",
+        "twelve-data"
       ]
     },
     "BRL": {
