@@ -6,6 +6,7 @@ const config: Config.InitialOptions = {
   coverageDirectory: "<rootDir>/coverage",
   coverageReporters: ["html"],
   preset: "ts-jest",
+  testPathIgnorePatterns: ["<rootDir>/dist/"],
 };
 
 export default config;
