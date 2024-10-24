@@ -1,3 +1,4 @@
+import { Provider } from "@ethersproject/providers";
 import {
   EvmMulticallTypes,
   Multicall3Abi,
@@ -5,49 +6,29 @@ import {
 } from "@redstone-finance/evm-multicall";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { Contract, Wallet } from "ethers";
-import { getChainConfigs, getLocalChainConfigs } from "./get-chain-configs";
-import { ChainConfig } from "./schemes";
+import { ChainConfig, ChainConfigs } from "./schemes";
 
-export async function getChainConfig(
+export function getChainConfig(
+  chainConfigs: ChainConfigs,
   networkName: string
-): Promise<ChainConfig> {
-  const chainConfigs = await getChainConfigs();
+): ChainConfig {
   return RedstoneCommon.assertThenReturn(
     chainConfigs[networkName],
     `Couldn't find chain config for ${networkName}`
   );
 }
 
-export async function getChainConfigUnsafe(
-  networkName: string
-): Promise<ChainConfig | undefined> {
-  const chainConfigs = await getChainConfigs();
-  return chainConfigs[networkName];
-}
-
-export function getLocalChainConfig(networkName: string): ChainConfig {
-  const chainConfigs = getLocalChainConfigs();
-  return RedstoneCommon.assertThenReturn(
-    chainConfigs[networkName],
-    `Couldn't find chain config for ${networkName}`
-  );
-}
-
-export function getLocalChainConfigUnsafe(
+export function getChainConfigUnsafe(
+  chainConfigs: ChainConfigs,
   networkName: string
 ): ChainConfig | undefined {
-  const chainConfigs = getLocalChainConfigs();
   return chainConfigs[networkName];
 }
 
-export async function getChainId(networkName: string): Promise<number> {
-  return (await getChainConfig(networkName)).chainId;
-}
-
-export async function getNetworkName(
+export function getNetworkName(
+  chainConfigs: ChainConfigs,
   chainId: number | string
-): Promise<string> {
-  const chainConfigs = await getChainConfigs();
+): string {
   const networkName = Object.entries(chainConfigs).find(
     ([_, v]) => v.chainId === Number(chainId)
   )?.[0];
@@ -58,34 +39,27 @@ export async function getNetworkName(
   return networkName;
 }
 
-export async function getChainConfigByChainId(chainId: number) {
-  const chainConfigs = await getChainConfigs();
+export function getChainConfigByChainId(
+  chainConfigs: ChainConfigs,
+  chainId: number
+) {
   return RedstoneCommon.assertThenReturn(
     Object.values(chainConfigs).find((c) => c.chainId === chainId),
     `Failed to getChainConfigByChainId chainConfig not defined for ${chainId}`
   );
 }
 
-export function getLocalChainConfigByChainId(chainId: number) {
-  const chainConfigs = getLocalChainConfigs();
-  return RedstoneCommon.assertThenReturn(
-    Object.values(chainConfigs).find((c) => c.chainId === chainId),
-    `Failed to getChainConfigByChainId chainConfig not defined for ${chainId}`
-  );
-}
-
-type Multicall3Options = {
+export type Multicall3Options = {
   chainId: number;
   overrideAddress?: string;
-  signerOrProvider?: Wallet;
+  signerOrProvider: Wallet | Provider;
 };
 
-export async function getMulticall3(
-  opts: Multicall3Options
-): Promise<
-  EvmMulticallTypes.Multicall3 | EvmMulticallTypes.RedstoneMulticall3
-> {
-  const { multicall3 } = await getChainConfigByChainId(opts.chainId);
+export function getMulticall3(
+  opts: Multicall3Options,
+  chainConfig: ChainConfig
+): EvmMulticallTypes.Multicall3 | EvmMulticallTypes.RedstoneMulticall3 {
+  const { multicall3 } = chainConfig;
 
   const address = opts.overrideAddress ?? multicall3.address;
 

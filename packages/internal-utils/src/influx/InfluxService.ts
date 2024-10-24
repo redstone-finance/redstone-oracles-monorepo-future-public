@@ -94,6 +94,7 @@ export class InfluxService {
     const buckets = await bucketsApi.getBuckets({
       org: this.authParams.orgName,
     });
+
     const selectedBucket = buckets.buckets?.find(
       (b) => b.name === this.authParams.bucketName
     );

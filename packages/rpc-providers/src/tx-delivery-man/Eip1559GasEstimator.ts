@@ -1,4 +1,7 @@
-import { getChainConfigByChainId } from "@redstone-finance/chain-configs";
+import {
+  getChainConfigByChainId,
+  getLocalChainConfigs,
+} from "@redstone-finance/chain-configs";
 import { providers } from "ethers";
 import { getProviderChainId } from "../common";
 import { GasEstimator } from "./GasEstimator";
@@ -58,7 +61,12 @@ export class Eip1559GasEstimator implements GasEstimator<Eip1559Fee> {
     }
 
     const chainId = await getProviderChainId(provider);
-    const chainConfig = await getChainConfigByChainId(chainId);
+
+    const chainConfig = getChainConfigByChainId(
+      getLocalChainConfigs(),
+      chainId
+    );
+
     if (chainConfig.fallbackToEthMaxPriorityFeePerGas) {
       const ethMaxPriorityFeePerGasResult = Number(
         await provider.send("eth_maxPriorityFeePerGas", [])
