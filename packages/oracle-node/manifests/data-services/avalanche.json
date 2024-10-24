@@ -243,8 +243,7 @@
         "trader-joe-v1-avalanche-wavax",
         "trader-joe-v2-avalanche-wavax",
         "xt",
-        "bitmart-usdt",
-        "lbank-usdt"
+        "bitmart-usdt"
       ]
     },
     "DAI": {
