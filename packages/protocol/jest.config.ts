@@ -4,4 +4,5 @@ module.exports = {
   coverageDirectory: "<rootDir>/coverage",
   coverageReporters: ["html"],
   preset: "ts-jest",
+  testPathIgnorePatterns: ["<rootDir>/dist/"],
 };

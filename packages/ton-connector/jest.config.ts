@@ -7,6 +7,7 @@ const config: Config.InitialOptions = {
   coverageReporters: ["html"],
   preset: "ts-jest",
   setupFilesAfterEnv: ["./jest.setup-after-env.js"],
+  testPathIgnorePatterns: ["<rootDir>/dist/"],
 };
 
 export default config;

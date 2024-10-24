@@ -7,6 +7,7 @@ const config: Config.InitialOptions = {
   coverageReporters: ["html"],
   preset: "ts-jest",
   transformIgnorePatterns: ["prices-contract-binary.js"],
+  testPathIgnorePatterns: ["<rootDir>/dist/"],
 };
 
 export default config;

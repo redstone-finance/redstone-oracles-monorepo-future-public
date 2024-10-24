@@ -7,6 +7,7 @@ const config: Config.InitialOptions = {
   coverageReporters: ["html"],
   preset: "ts-jest",
   setupFiles: ["<rootDir>/.jest/set-redstone-number-config.ts"],
+  testPathIgnorePatterns: ["<rootDir>/dist/"],
 };
 
 export default config;
