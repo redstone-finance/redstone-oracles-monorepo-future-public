@@ -1,7 +1,9 @@
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import dayjs from "dayjs";
 import _ from "lodash";
+import { z } from "zod";
 
-export type Manifest<T = unknown> = {
+export type GenericMonitoringManifest<T = unknown> = {
   defaultConfig: T;
   temporaryConfigUpdates?: { expirationTimestamp?: string };
 };
@@ -9,7 +11,9 @@ export type Manifest<T = unknown> = {
 const DAY_IN_MS = 24 * 3600 * 1000;
 const MAX_EXPIRATION_PERIOD = 7 * DAY_IN_MS;
 
-export function resolveManifest<T>(manifest: Manifest<T>): T {
+export function resolveMonitoringManifest<T>(
+  manifest: GenericMonitoringManifest<T>
+): T {
   const { defaultConfig, temporaryConfigUpdates } = manifest;
 
   const expirationTimestamp = validateExpirationTimestamp(
@@ -28,6 +32,49 @@ export function resolveManifest<T>(manifest: Manifest<T>): T {
     : defaultConfig;
 
   return finalConfig;
+}
+
+const logger = loggerFactory("remote-monitoring-manifest-config");
+export function getRemoteMonitoringManifestConfigFromEnv():
+  | { shouldUseLocal: true }
+  | {
+      shouldUseLocal: false;
+      manifestsHosts: string[];
+      manifestsApiKey: string;
+      manifestsGitRef: string;
+    } {
+  // this is hack to ease testing locally use only for that
+  if (
+    RedstoneCommon.getFromEnv(
+      "OVERRIDE_REMOTE_MANIFEST_WITH_LOCAL",
+      z.boolean().default(false)
+    )
+  ) {
+    logger.warn(
+      `OVERRIDE_REMOTE_MANIFEST_WITH_LOCAL is set to true, overriding remote manifest with local. SHOULD BE SEEN ONLY IN TESTS OR DEV ENV`
+    );
+    return { shouldUseLocal: true };
+  }
+
+  const manifestsHosts = RedstoneCommon.getFromEnv(
+    "MONITORING_MANIFESTS_HOSTNAMES",
+    z.array(z.string())
+  );
+  const manifestsApiKey = RedstoneCommon.getFromEnv(
+    "MONITORING_MANIFESTS_APIKEY",
+    z.string()
+  );
+  const manifestsGitRef = RedstoneCommon.getFromEnv(
+    "MONITORING_MANIFESTS_GITREF",
+    z.string().default("main")
+  );
+
+  return {
+    shouldUseLocal: false,
+    manifestsHosts,
+    manifestsApiKey,
+    manifestsGitRef,
+  };
 }
 
 function parseExpirationTimestamp(

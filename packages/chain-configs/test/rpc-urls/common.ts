@@ -2,7 +2,7 @@ import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import chai from "chai";
 import { ethers } from "ethers";
 import { RpcUrlsPerChain } from "../../scripts/read-ssm-rpc-urls";
-import { getLocalChainConfigByChainId } from "../../src";
+import { getChainConfigByChainId, getLocalChainConfigs } from "../../src";
 
 const RETRY_CONFIG: Omit<RedstoneCommon.RetryConfig, "fn"> = {
   maxRetries: 4,
@@ -14,7 +14,7 @@ export const validateRpcUrls = (rpcUrlsPerChain: RpcUrlsPerChain) => {
   for (const [name, { chainId, rpcUrls }] of Object.entries(rpcUrlsPerChain)) {
     describe(`${name} (${chainId})`, function () {
       for (const rpcUrl of rpcUrls) {
-        if (getLocalChainConfigByChainId(chainId).disabled) {
+        if (getChainConfigByChainId(getLocalChainConfigs(), chainId).disabled) {
           continue;
         }
 

@@ -1,4 +1,7 @@
-import { getLocalChainConfigByChainId } from "@redstone-finance/chain-configs";
+import {
+  getChainConfigByChainId,
+  getLocalChainConfigs,
+} from "@redstone-finance/chain-configs";
 import {
   MegaProviderBuilder,
   ProviderDecorators,
@@ -18,7 +21,10 @@ const electBlock = (
   const firstBlockNumber = sortedBlockNumber.at(-1)!;
   const secondBlockNumber = sortedBlockNumber.at(-2);
 
-  const { avgBlockTimeMs } = getLocalChainConfigByChainId(chainId);
+  const { avgBlockTimeMs } = getChainConfigByChainId(
+    getLocalChainConfigs(),
+    chainId
+  );
   const acceptableBlockDiff = Math.ceil(
     ACCEPTABLE_BLOCK_DIFF_IN_MS / avgBlockTimeMs
   );

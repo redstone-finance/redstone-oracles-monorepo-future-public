@@ -1,7 +1,7 @@
-import { getChainConfigs } from "../src";
+import { fetchChainConfigs } from "../src";
 
 const main = async () => {
-  const chainConfigs = await getChainConfigs();
+  const chainConfigs = await fetchChainConfigs();
   console.log(chainConfigs);
 };
 

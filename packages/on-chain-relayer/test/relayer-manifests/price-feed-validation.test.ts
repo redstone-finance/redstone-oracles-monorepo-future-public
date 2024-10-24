@@ -1,4 +1,7 @@
-import { getLocalChainConfigByChainId } from "@redstone-finance/chain-configs";
+import {
+  getChainConfigByChainId,
+  getLocalChainConfigs,
+} from "@redstone-finance/chain-configs";
 import { MegaProviderBuilder } from "@redstone-finance/rpc-providers";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { expect } from "chai";
@@ -27,7 +30,10 @@ export const RETRY_CONFIG: Omit<RedstoneCommon.RetryConfig, "fn"> = {
 };
 
 const getProvider = (chainId: number): providers.Provider => {
-  const { publicRpcUrls, name } = getLocalChainConfigByChainId(chainId);
+  const { publicRpcUrls, name } = getChainConfigByChainId(
+    getLocalChainConfigs(),
+    chainId
+  );
   return new MegaProviderBuilder({
     rpcUrls: publicRpcUrls,
     network: {

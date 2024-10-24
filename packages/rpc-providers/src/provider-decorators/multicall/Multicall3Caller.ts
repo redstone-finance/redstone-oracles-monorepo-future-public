@@ -1,5 +1,8 @@
 import { BlockTag } from "@ethersproject/abstract-provider";
-import { getMulticall3 } from "@redstone-finance/chain-configs";
+import {
+  getLocalChainConfigsByChainId,
+  getMulticall3,
+} from "@redstone-finance/chain-configs";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { Contract, providers } from "ethers";
 
@@ -27,8 +30,9 @@ function rawMulticall3(
 }
 
 const logger = loggerFactory("multicall3");
+const chainConfigsByChainId = getLocalChainConfigsByChainId();
 
-/** [TURBO IMPORTANT] this function MUST NOT throw errors event in try catch */
+/** [TURBO IMPORTANT] this function MUST NOT throw errors */
 export async function safeExecuteMulticall3(
   provider: providers.Provider,
   call3s: Multicall3Request[],
@@ -39,15 +43,15 @@ export async function safeExecuteMulticall3(
   let chainId = -1;
   try {
     chainId = (await provider.getNetwork()).chainId;
-    const multicall3Contract = await getMulticall3({
-      chainId: chainId,
-      overrideAddress: multicallAddress,
-    });
-    return await rawMulticall3(
-      multicall3Contract.connect(provider),
-      call3s,
-      blockTag
+    const multicall3Contract = getMulticall3(
+      {
+        chainId: chainId,
+        overrideAddress: multicallAddress,
+        signerOrProvider: provider,
+      },
+      chainConfigsByChainId[chainId]
     );
+    return await rawMulticall3(multicall3Contract, call3s, blockTag);
   } catch (e) {
     if (retryBySingleCalls) {
       // if whole multicall failed & retryBySingleCalls is disabled, fallback to normal execution model (1 call = 1 request)
