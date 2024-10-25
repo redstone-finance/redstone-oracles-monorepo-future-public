@@ -5,8 +5,8 @@ export const timeUpdateCondition = (
   lastUpdateTimestamp: number,
   config: RelayerConfig
 ) => {
-  const { fallbackOffsetInMS } = config;
-  const isFallback = fallbackOffsetInMS > 0;
+  const { fallbackOffsetInMilliseconds } = config;
+  const isFallback = fallbackOffsetInMilliseconds > 0;
   let updatePriceInterval =
     config.updateTriggers[dataFeedId].timeSinceLastUpdateInMilliseconds;
 
@@ -15,7 +15,7 @@ export const timeUpdateCondition = (
   }
 
   if (isFallback) {
-    updatePriceInterval += fallbackOffsetInMS;
+    updatePriceInterval += fallbackOffsetInMilliseconds;
   }
 
   const currentTimestamp = Date.now();

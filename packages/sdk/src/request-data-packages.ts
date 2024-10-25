@@ -11,7 +11,7 @@ import { pickDataFeedPackagesClosestToMedian } from "./pick-closest-to-median";
 
 const GET_REQUEST_TIMEOUT = 5_000;
 const DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME = 500;
-const MILLISECONDS_IN_ONE_MINUTE = 60 * 1000;
+const MILLISECONDS_IN_TEN_SECONDS = 10 * 1000;
 
 /**
  * defines behavior of {@link requestDataPackages} method
@@ -96,17 +96,16 @@ const GwResponseSchema = z.record(z.string(), z.array(SignedDataPackageSchema));
 export type GwResponse = Partial<z.infer<typeof GwResponseSchema>>;
 
 export const calculateHistoricalPackagesTimestamp = (
-  deviationCheckOffsetInMinutes: number,
+  deviationCheckOffsetInMilliseconds: number,
   baseTimestamp: number = Date.now()
 ) => {
-  if (deviationCheckOffsetInMinutes > 0) {
-    // We round the timestamp to full minutes for being compatible with
-    // oracle-nodes, which usually work with rounded 10s and 60s intervals
+  if (deviationCheckOffsetInMilliseconds > 0) {
+    // We round the timestamp to full 10s, which usually works, better solution will be to have this rounding mechanism implemented in oracle-gateways
     return (
       Math.floor(
-        baseTimestamp / MILLISECONDS_IN_ONE_MINUTE -
-          deviationCheckOffsetInMinutes
-      ) * MILLISECONDS_IN_ONE_MINUTE
+        (baseTimestamp - deviationCheckOffsetInMilliseconds) /
+          MILLISECONDS_IN_TEN_SECONDS
+      ) * MILLISECONDS_IN_TEN_SECONDS
     );
   }
   return undefined;

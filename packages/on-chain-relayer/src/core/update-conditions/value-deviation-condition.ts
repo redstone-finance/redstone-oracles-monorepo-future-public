@@ -20,7 +20,7 @@ export const performValueDeviationConditionChecks = async (
       config
     );
 
-  const isFallback = config.fallbackOffsetInMinutes > 0;
+  const isFallback = config.fallbackOffsetInMilliseconds > 0;
   let historicalShouldUpdatePrices = true;
   let historicalWarningMessage = "";
   let historicalMaxDeviation = 0;
@@ -47,14 +47,13 @@ export const performValueDeviationConditionChecks = async (
   const skipFallbackUpdate =
     isFallback &&
     config.fallbackSkipDeviationBasedFrequentUpdates &&
-    Date.now() - lastUpdateTimestampInMs <
-      config.fallbackOffsetInMinutes * 60 * 1000;
+    Date.now() - lastUpdateTimestampInMs < config.fallbackOffsetInMilliseconds;
 
   const shouldUpdatePricesNoSkip =
     shouldUpdatePrices && historicalShouldUpdatePrices;
   const skipFallbackMessage =
     shouldUpdatePricesNoSkip && skipFallbackUpdate
-      ? `Update skipped: less than ${config.fallbackOffsetInMinutes} minutes passed since last update. `
+      ? `Update skipped: less than ${config.fallbackOffsetInMilliseconds} milliseconds passed since last update. `
       : "";
   const prefix = isFallback ? "Deviation in fallback mode: " : "";
 

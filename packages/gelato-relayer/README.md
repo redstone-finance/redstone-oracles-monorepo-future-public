@@ -12,7 +12,8 @@ documentation [here](https://docs.gelato.network/developer-services/web3-functio
 
 <!-- TOC -->
 
- -[The `redstone` function](#the-redstone-function)
+-[The `redstone` function](#the-redstone-function)
+
 - [Calling the function](#calling-the-function)
   - [The configuration: use User arguments](#the-configuration-use-user-arguments)
   - [The fallback mode: Use user secrets](#the-fallback-mode-use-user-secrets)
@@ -41,10 +42,10 @@ Under the hood, it runs the following command:
 npx hardhat w3f-run redstone
 ```
 
-* Options:
-  * `--logs` Show internal Web3 Function logs
-  * `--debug` Show Runtime debug messages
-  * `--network [NETWORK]` Set the default runtime network & provider.
+- Options:
+  - `--logs` Show internal Web3 Function logs
+  - `--debug` Show Runtime debug messages
+  - `--network [NETWORK]` Set the default runtime network & provider.
 
 Example:
 
@@ -71,7 +72,7 @@ Input your PRIVATE_KEY and ALCHEMY_ID in the top-level `.env` file
 
 ```bash
 # when >0, runs the trigger functions depending on the manifest in the fallback mode
-FALLBACK_OFFSET_IN_MINUTES=2
+FALLBACK_OFFSET_IN_MILLISECONDS=120000
 
 # put here a json-decodable array of strings;
 # **DO NOT*** use the escaping slashes

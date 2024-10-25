@@ -36,7 +36,9 @@ const checkCronCondition = (
 ) => {
   const interval = parseExpression(cronExpression, {
     // We move current time a bit back for the case with fallback
-    currentDate: new Date(currentTimestamp - config.fallbackOffsetInMS),
+    currentDate: new Date(
+      currentTimestamp - config.fallbackOffsetInMilliseconds
+    ),
     utc: true,
   });
   const lastExpectedUpdateTime = interval.prev().getTime();

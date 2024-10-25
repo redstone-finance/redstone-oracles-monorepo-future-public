@@ -11,7 +11,6 @@ import { formatBytes32String } from "ethers/lib/utils";
 import { ethers } from "hardhat";
 import { FactoryOptions } from "hardhat/types";
 import { RelayerConfig, setConfigProvider } from "../src";
-import { MS_IN_ONE_MINUTE } from "../src/make-config-provider";
 import { MockSortedOracles } from "../typechain-types";
 
 export const ethDataFeed = formatBytes32String("ETH");
@@ -80,9 +79,10 @@ export const mockEnvVariables = (
         },
       },
       adapterContractType: "price-feeds",
-      fallbackOffsetInMS:
-        ((overrideMockConfig.fallbackOffsetInMinutes as number | undefined) ??
-          0) * MS_IN_ONE_MINUTE,
+      fallbackOffsetInMilliseconds:
+        (overrideMockConfig.fallbackOffsetInMilliseconds as
+          | number
+          | undefined) ?? 0,
       ...overrideMockConfig,
     } as unknown as RelayerConfig;
   });
