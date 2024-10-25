@@ -7599,8 +7599,28 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/cli@workspace:packages/cli"
   dependencies:
-    axios: "npm:^1.7.7"
-    warp-contracts: "npm:^1.2.47"
+    "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
+    "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
+    "@openzeppelin/contracts-upgradeable": "npm:^4.8.3"
+    "@openzeppelin/hardhat-upgrades": "npm:^1.26.0"
+    "@redstone-finance/contract-deployments": "npm:0.6.2"
+    "@redstone-finance/on-chain-relayer": "npm:0.6.2"
+    "@typechain/ethers-v5": "npm:^10.2.0"
+    "@typechain/hardhat": "npm:^6.1.2"
+    "@types/chai": "npm:^4.3.4"
+    "@types/mocha": "npm:^10.0.1"
+    "@types/node": "npm:^20.14.12"
+    "@types/prompts": "npm:^2.4.2"
+    chai: "npm:^4.3.10"
+    chalk: "npm:^4.1.2"
+    ethers: "npm:^5.7.2"
+    hardhat: "npm:^2.17.2"
+    prompts: "npm:^2.4.2"
+    ts-node: "npm:^10.9.2"
+    typechain: "npm:^8.1.1"
+    typescript: "npm:^5.5.4"
+  bin:
+    redstone-cli: dist/index.js
   languageName: unknown
   linkType: soft
 
