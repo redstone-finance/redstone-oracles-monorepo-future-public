@@ -1,15 +1,47 @@
 {
   "name": "@redstone-finance/cli",
   "version": "0.6.2",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "private": true,
   "license": "MIT",
+  "bin": {
+    "redstone-cli": "dist/index.js"
+  },
   "scripts": {
-    "cli": "yarn global:ts-node src/main.ts"
+    "clean": "rm -rf dist artifacts cache typechain-types",
+    "build": "yarn compile && ENTRYPOINT=index.ts yarn global:rollup -c ../../rollup.config.mjs",
+    "build-deps": "yarn --cwd ../contract-deployments build",
+    "build-dev": "yarn compile && yarn build && yarn global:tsc --build tsconfig.json",
+    "compile": "yarn build-deps && hardhat compile",
+    "cli": "yarn global:ts-node index.ts",
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix .",
+    "run-ts": "yarn global:ts-node",
+    "test": "hardhat test"
   },
   "dependencies": {
-    "axios": "^1.7.7",
-    "warp-contracts": "^1.2.47"
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.0.6",
+    "@openzeppelin/contracts-upgradeable": "^4.8.3",
+    "@openzeppelin/hardhat-upgrades": "^1.26.0",
+    "@redstone-finance/contract-deployments": "0.6.2",
+    "@redstone-finance/on-chain-relayer": "0.6.2",
+    "chalk": "^4.1.2",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.17.2",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@typechain/ethers-v5": "^10.2.0",
+    "@typechain/hardhat": "^6.1.2",
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.14.12",
+    "@types/prompts": "^2.4.2",
+    "chai": "^4.3.10",
+    "ts-node": "^10.9.2",
+    "typechain": "^8.1.1",
+    "typescript": "^5.5.4"
   }
 }

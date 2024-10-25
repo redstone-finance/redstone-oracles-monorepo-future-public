@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: BUSL-1.1
+
+pragma solidity ^0.8.4;
+
+import {PriceFeedWithoutRoundsForMultiFeedAdapter} from "@redstone-finance/on-chain-relayer/contracts/price-feeds/without-rounds/PriceFeedWithoutRoundsForMultiFeedAdapter.sol";
+import {IRedstoneAdapter} from "@redstone-finance/on-chain-relayer/contracts/core/IRedstoneAdapter.sol";
+
+contract {{CONTRACT_NAME}} is PriceFeedWithoutRoundsForMultiFeedAdapter {
+  function description() public view virtual override returns (string memory) {
+    return {{DESCRIPTION}};
+  }
+
+  function getDataFeedId() public view virtual override returns (bytes32) {
+    return bytes32({{DATA_FEED_ID}});
+  }
+
+  function getPriceFeedAdapter() public view virtual override returns (IRedstoneAdapter) {
+    return {{ADAPTER_ADDRESS}};
+  }
+}
