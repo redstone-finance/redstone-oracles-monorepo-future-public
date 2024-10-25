@@ -11,8 +11,6 @@ import {
   type ManifestConfig,
 } from "./types";
 
-export const MS_IN_ONE_MINUTE = 60000;
-
 const createManifestConfig = (
   manifest: AnyOnChainRelayerManifest
 ): ManifestConfig => {
@@ -35,7 +33,6 @@ export const makeConfigProvider = (
   env: OnChainRelayerEnv
 ): RelayerConfig => {
   return {
-    fallbackOffsetInMS: env.fallbackOffsetInMinutes * MS_IN_ONE_MINUTE,
     ...createManifestConfig(manifest),
     ...env,
   };

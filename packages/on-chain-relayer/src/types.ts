@@ -51,8 +51,7 @@ export type MultiFeedUpdatePricesArgs = UpdatePricesArgs & {
   heartbeatUpdates: number[];
 };
 
-export type RelayerConfig = OnChainRelayerEnv &
-  ManifestConfig & { fallbackOffsetInMS: number };
+export type RelayerConfig = OnChainRelayerEnv & ManifestConfig;
 
 export type ManifestConfig = {
   chainName: string;
@@ -74,7 +73,7 @@ export type OnChainRelayerEnv = {
   healthcheckPingUrl?: string;
   expectedTxDeliveryTimeInMS: number;
   twoDimensionalFees: boolean;
-  fallbackOffsetInMinutes: number;
+  fallbackOffsetInMilliseconds: number;
   cacheServiceUrls?: string[];
   historicalPackagesGateways?: string[];
   gasMultiplier?: number;

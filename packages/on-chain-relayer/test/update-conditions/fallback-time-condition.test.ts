@@ -6,7 +6,7 @@ import { mockEnvVariables } from "../helpers";
 describe("fallback-time-condition", () => {
   before(() => {
     mockEnvVariables({
-      fallbackOffsetInMinutes: 1,
+      fallbackOffsetInMilliseconds: 60_000,
     });
   });
 

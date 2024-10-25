@@ -10,7 +10,7 @@ export type IterationArgs<Args> = {
 export type IterationArgsProviderEnv = {
   manifestUrls: string[];
   historicalPackagesGateways?: string[];
-  fallbackOffsetInMinutes: number;
+  fallbackOffsetInMilliseconds: number;
   fallbackSkipDeviationBasedFrequentUpdates: boolean;
 };
 

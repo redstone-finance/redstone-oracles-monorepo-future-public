@@ -82,9 +82,9 @@ export const readManifestAndEnv = () => {
           )
         )
     ),
-    fallbackOffsetInMinutes: RedstoneCommon.getFromEnv(
-      "FALLBACK_OFFSET_IN_MINUTES",
-      z.number().int().default(0)
+    fallbackOffsetInMilliseconds: RedstoneCommon.getFromEnv(
+      "FALLBACK_OFFSET_IN_MILLISECONDS",
+      z.number().int()
     ),
     cacheServiceUrls: RedstoneCommon.getFromEnv(
       "CACHE_SERVICE_URLS",

@@ -9,7 +9,7 @@ import {
 describe("value-deviation-condition fallback mode tests", () => {
   before(() => {
     mockEnvVariables({
-      fallbackOffsetInMinutes: 1,
+      fallbackOffsetInMilliseconds: 60_000,
       historicalPackagesGateways: ["X"],
     });
   });
@@ -67,7 +67,7 @@ describe("value-deviation-condition fallback mode tests", () => {
 
   it("should return false if not enough time passed since last update", async () => {
     mockEnvVariables({
-      fallbackOffsetInMinutes: 1,
+      fallbackOffsetInMilliseconds: 60_000,
       historicalPackagesGateways: ["X"],
       fallbackSkipDeviationBasedFrequentUpdates: true,
     });
@@ -86,7 +86,7 @@ describe("value-deviation-condition fallback mode tests", () => {
 
   it("should return true if skip frequent updates enabled and enough time passed since last update", async () => {
     mockEnvVariables({
-      fallbackOffsetInMinutes: 1,
+      fallbackOffsetInMilliseconds: 60_000,
       historicalPackagesGateways: ["X"],
       fallbackSkipDeviationBasedFrequentUpdates: true,
     });

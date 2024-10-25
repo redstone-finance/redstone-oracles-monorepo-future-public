@@ -91,8 +91,9 @@ export class IterationArgsProcessor<Args> {
       manifestUrls: JSON.parse(
         (await this.context.secrets.get("MANIFEST_URLS")) ?? "[]"
       ) as string[],
-      fallbackOffsetInMinutes: Number.parseInt(
-        (await this.context.secrets.get("FALLBACK_OFFSET_IN_MINUTES")) ?? "0"
+      fallbackOffsetInMilliseconds: Number.parseInt(
+        (await this.context.secrets.get("FALLBACK_OFFSET_IN_MILLISECONDS")) ??
+          "0"
       ),
       historicalPackagesGateways: JSON.parse(
         (await this.context.secrets.get("HISTORICAL_PACKAGES_GATEWAYS")) ?? "[]"

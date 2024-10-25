@@ -3,55 +3,52 @@ import { calculateHistoricalPackagesTimestamp } from "../src";
 const FULL_MINUTE_TS = 1710407460000;
 
 describe("Historical packages timestamp", () => {
-  it(`Should properly return (x-1):00 for x:40`, () => {
+  it(`Should properly return (x-1):50 for x:50 and offset 1 min`, () => {
     const result = calculateHistoricalPackagesTimestamp(
-      1,
-      FULL_MINUTE_TS + 40 * 1000
+      60_000,
+      FULL_MINUTE_TS + 50 * 1000
+    );
+
+    expect(result).toEqual(FULL_MINUTE_TS - 10 * 1000);
+  });
+
+  it(`Should properly return (x-1):00 for x:00 and offset 1 min`, () => {
+    const result = calculateHistoricalPackagesTimestamp(60_000, FULL_MINUTE_TS);
+
+    expect(result).toEqual(FULL_MINUTE_TS - 60 * 1000);
+  });
+
+  it(`Should properly return (x-1):00 for x:01 and offset 1 min`, () => {
+    const result = calculateHistoricalPackagesTimestamp(
+      60_000,
+      FULL_MINUTE_TS + 1 * 1000
     );
 
     expect(result).toEqual(FULL_MINUTE_TS - 60 * 1000);
   });
 
-  it(`Should properly return (x-1):00 for x:30`, () => {
+  it(`Should properly return (x-1):50 for x:59 and offset 1 min`, () => {
     const result = calculateHistoricalPackagesTimestamp(
-      1,
-      FULL_MINUTE_TS + 30 * 1000
+      60_000,
+      FULL_MINUTE_TS + 59 * 1000
     );
 
-    expect(result).toEqual(FULL_MINUTE_TS - 60 * 1000);
+    expect(result).toEqual(FULL_MINUTE_TS - 10 * 1000);
   });
 
-  it(`Should properly return (x-1):00 for x:20`, () => {
+  it(`Should properly return (x-1):40 for x:00 and offset 12s`, () => {
+    const result = calculateHistoricalPackagesTimestamp(12_000, FULL_MINUTE_TS);
+
+    expect(result).toEqual(FULL_MINUTE_TS - 20 * 1000);
+  });
+
+  it(`Should properly return x:50 for x:59 and offset 3s`, () => {
     const result = calculateHistoricalPackagesTimestamp(
-      1,
-      FULL_MINUTE_TS + 20 * 1000
+      3_000,
+      FULL_MINUTE_TS + 59 * 1000
     );
 
-    expect(result).toEqual(FULL_MINUTE_TS - 60 * 1000);
-  });
-
-  it(`Should properly return (x-1):00 for x:00`, () => {
-    const result = calculateHistoricalPackagesTimestamp(1, FULL_MINUTE_TS);
-
-    expect(result).toEqual(FULL_MINUTE_TS - 60 * 1000);
-  });
-
-  it(`Should properly return (x-1):00 for x:30 and offset 1.5`, () => {
-    const result = calculateHistoricalPackagesTimestamp(
-      1.5,
-      FULL_MINUTE_TS + 30 * 1000
-    );
-
-    expect(result).toEqual(FULL_MINUTE_TS - 60 * 1000);
-  });
-
-  it(`Should properly return (x-2):00 for x:20 and offset 1.5`, () => {
-    const result = calculateHistoricalPackagesTimestamp(
-      1.5,
-      FULL_MINUTE_TS + 20 * 1000
-    );
-
-    expect(result).toEqual(FULL_MINUTE_TS - 2 * 60 * 1000);
+    expect(result).toEqual(FULL_MINUTE_TS + 50 * 1000);
   });
 
   it(`Should properly return undefined for 0 offset`, () => {

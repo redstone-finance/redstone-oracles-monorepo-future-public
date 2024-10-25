@@ -16,7 +16,7 @@ describe("fallback-cron-condition", () => {
           cron: ["0 * * * *"], // every hour at 0th minute
         },
       },
-      fallbackOffsetInMinutes: 1,
+      fallbackOffsetInMilliseconds: 60_000,
     });
   });
 

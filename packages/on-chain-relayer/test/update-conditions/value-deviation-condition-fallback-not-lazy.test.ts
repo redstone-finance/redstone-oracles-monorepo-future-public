@@ -9,7 +9,7 @@ import {
 describe("value-deviation-condition fallback mode not lazy tests", () => {
   before(() => {
     mockEnvVariables({
-      fallbackOffsetInMinutes: 1,
+      fallbackOffsetInMilliseconds: 60_000,
       historicalPackagesGateways: ["X"],
       isNotLazy: true,
     });

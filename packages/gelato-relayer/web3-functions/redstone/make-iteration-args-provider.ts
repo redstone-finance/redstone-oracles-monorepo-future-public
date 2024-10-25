@@ -27,7 +27,7 @@ const EMPTY_GELATO_ENV: OnChainRelayerEnv = {
   disableCustomGasOracle: false,
   fallbackSkipDeviationBasedFrequentUpdates: false,
   temporaryUpdatePriceInterval: -1,
-  fallbackOffsetInMinutes: 2,
+  fallbackOffsetInMilliseconds: 120000,
   useMulticallProvider: true,
 };
 
