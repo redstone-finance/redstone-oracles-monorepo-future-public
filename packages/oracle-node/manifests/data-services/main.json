@@ -148,14 +148,19 @@
     },
     "DOGE": {
       "source": [
+        "binance-fdusd",
         "binance-usdt",
-        "bitfinex2-usd",
+        "bingx-usdt",
+        "bybit-usdc",
+        "bybit-usdt",
         "coinbasepro-usd",
-        "coingecko",
-        "kraken-usd",
+        "coinbasepro-usdt",
+        "gate-usdt",
         "kucoin-usdt",
         "lbank-usdt",
-        "okx-usdt"
+        "okx-usdc",
+        "okx-usdt",
+        "xt"
       ]
     },
     "SOL": {
@@ -192,14 +197,13 @@
         "binance-usdt",
         "bitget-usdt",
         "bitrue-usdt",
+        "bybit-usdt",
         "coinbasepro-usd",
-        "coingecko",
         "gate-usdt",
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
-        "okx-usdt",
-        "uniswap-v3-ethereum-weth-3000"
+        "okx-usdt"
       ]
     },
     "TRX": {
@@ -234,14 +238,17 @@
     },
     "LTC": {
       "source": [
+        "binance-btc",
         "binance-usdt",
-        "bitfinex2-usd",
+        "bitget-usdt",
+        "bybit-usdt",
         "coinbasepro-usd",
-        "coingecko",
-        "kraken-usdt",
+        "gate-usdt",
+        "kraken-eur",
+        "kraken-usd",
         "kucoin-usdt",
-        "lbank-usdt",
-        "okx-usdt"
+        "okx-usdt",
+        "xt"
       ]
     },
     "AVAX": {
@@ -422,7 +429,20 @@
       ]
     },
     "STX": {
-      "source": ["binance-usdt", "coinbasepro-usd", "kucoin-usdt", "okx-usdt"]
+      "source": [
+        "binance-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitrue-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "gate-usdt",
+        "kraken-usd",
+        "kucoin-usdt",
+        "okx-usdt",
+        "xt"
+      ]
     },
     "FTM": {
       "source": [
@@ -1679,6 +1699,53 @@
         "curve-ethereum-frax",
         "trader-joe-v2-avalanche-usdc",
         "trader-joe-v2-avalanche-usdt"
+      ]
+    },
+    "EIGEN": {
+      "source": [
+        "binance-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "gate-usdt",
+        "kraken-usd",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdt",
+        "xt"
+      ]
+    },
+    "ORDI": {
+      "source": [
+        "binance-fdusd",
+        "binance-usdc",
+        "binance-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdt",
+        "xt"
+      ]
+    },
+    "SATS": {
+      "source": [
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bybit-usdt",
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdt",
+        "xt"
       ]
     },
     "AUD": {
