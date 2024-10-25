@@ -24,7 +24,7 @@ export interface MetadataPerSource {
 }
 
 export interface SlippageData {
-  slippageAsPercent: string;
+  slippageAsPercent: string | undefined;
   direction: TradeDirections;
   simulationValueInUsd: string;
 }
