@@ -158,6 +158,7 @@
         "bitget-usdt",
         "bitmart-usdt",
         "coingecko",
+        "coinmarketcap",
         "kucoin-usdt",
         "lbank-usdt",
         "okx-usdt",
@@ -170,6 +171,7 @@
         "bitfinex2-usd",
         "bitstamp-usd",
         "coingecko",
+        "coinmarketcap",
         "kraken-usd",
         "kucoin-usdt",
         "lbank-usdt",
@@ -812,6 +814,122 @@
         "pancake-swap-bnb-wbnb-500",
         "uniswap-v3-ethereum-usdt-100"
       ]
+    },
+    "LTC": {
+      "source": [
+        "binance-btc",
+        "binance-usdt",
+        "bitget-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "coinmarketcap",
+        "gate-usdt",
+        "kraken-eur",
+        "kraken-usd",
+        "kucoin-usdt",
+        "okx-usdt",
+        "xt"
+      ]
+    },
+    "SHIB": {
+      "source": [
+        "binance-usdt",
+        "bitget-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "coinmarketcap",
+        "gate-usdt",
+        "kraken-usd",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdt"
+      ]
+    },
+    "DOGE": {
+      "source": [
+        "binance-fdusd",
+        "binance-usdt",
+        "bingx-usdt",
+        "bybit-usdc",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "coinbasepro-usdt",
+        "coinmarketcap",
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdc",
+        "okx-usdt",
+        "xt"
+      ]
+    },
+    "EIGEN": {
+      "source": [
+        "binance-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "coinmarketcap",
+        "gate-usdt",
+        "kraken-usd",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdt",
+        "xt"
+      ]
+    },
+    "STX": {
+      "source": [
+        "binance-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitrue-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "coinmarketcap",
+        "gate-usdt",
+        "kraken-usd",
+        "kucoin-usdt",
+        "okx-usdt",
+        "xt"
+      ]
+    },
+    "ORDI": {
+      "source": [
+        "binance-fdusd",
+        "binance-usdc",
+        "binance-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinmarketcap",
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdt",
+        "xt"
+      ]
+    },
+    "SATS": {
+      "source": [
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bybit-usdt",
+        "coinmarketcap",
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdt",
+        "xt"
+      ]
     }
   },
   "multiPointPackages": {
@@ -895,7 +1013,14 @@
       "weETH",
       "wstETH",
       "XRP",
-      "sDAI"
+      "sDAI",
+      "LTC",
+      "SHIB",
+      "DOGE",
+      "EIGEN",
+      "STX",
+      "ORDI",
+      "SATS"
     ]
   }
 }

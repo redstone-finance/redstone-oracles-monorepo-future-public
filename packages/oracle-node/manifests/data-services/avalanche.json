@@ -419,6 +419,77 @@
         "trader-joe-v2-avalanche-wavax",
         "uniswap-v3-arbitrumone-weth-3000"
       ]
+    },
+    "FDUSD": {
+      "source": [
+        "binance-bnb",
+        "binance-btc",
+        "binance-eth",
+        "binance-xrp",
+        "bingx-usdt",
+        "pancake-swap-bnb-usdt-100",
+        "pancake-swap-bnb-wbnb-500",
+        "uniswap-v3-ethereum-usdt-100"
+      ]
+    },
+    "BNB": {
+      "source": [
+        "binance-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "coingecko",
+        "coinmarketcap",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdt",
+        "xt"
+      ]
+    },
+    "DOGE": {
+      "source": [
+        "binance-fdusd",
+        "binance-usdt",
+        "bingx-usdt",
+        "bybit-usdc",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "coinbasepro-usdt",
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdc",
+        "okx-usdt",
+        "xt"
+      ]
+    },
+    "XRP": {
+      "source": [
+        "binance-usdt",
+        "bitfinex2-usd",
+        "bitstamp-usd",
+        "coingecko",
+        "coinmarketcap",
+        "kraken-usd",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "okx-usdt"
+      ]
+    },
+    "LTC": {
+      "source": [
+        "binance-btc",
+        "binance-usdt",
+        "bitget-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "coinmarketcap",
+        "gate-usdt",
+        "kraken-eur",
+        "kraken-usd",
+        "kucoin-usdt",
+        "okx-usdt",
+        "xt"
+      ]
     }
   },
   "multiPointPackages": {
@@ -476,7 +547,12 @@
       "gmdETH",
       "gmdUSDC",
       "sAVAX",
-      "yyAVAX"
+      "yyAVAX",
+      "DOGE",
+      "XRP",
+      "LTC",
+      "FDUSD",
+      "BNB"
     ]
   }
 }

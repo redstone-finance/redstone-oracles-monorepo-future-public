@@ -80,14 +80,19 @@
     },
     "DOGE": {
       "source": [
+        "binance-fdusd",
         "binance-usdt",
-        "bitfinex2-usd",
+        "bingx-usdt",
+        "bybit-usdc",
+        "bybit-usdt",
         "coinbasepro-usd",
-        "coingecko",
-        "kraken-usd",
+        "coinbasepro-usdt",
+        "gate-usdt",
         "kucoin-usdt",
         "lbank-usdt",
-        "okx-usdt"
+        "okx-usdc",
+        "okx-usdt",
+        "xt"
       ]
     },
     "XRP": {
