@@ -2754,6 +2754,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@codegenie/serverless-express@npm:^4.3.9":
+  version: 4.15.0
+  resolution: "@codegenie/serverless-express@npm:4.15.0"
+  checksum: 10c0/09340918f7b6804781c98bdc7ad0a65a636eddcac5019e74c35a9ea8708131b3cdcafcd1a4e5ce475c0bb41685ee7cc571f84291de15f527fd3845053227c67d
+  languageName: node
+  linkType: hard
+
 "@colors/colors@npm:1.5.0":
   version: 1.5.0
   resolution: "@colors/colors@npm:1.5.0"
@@ -8066,6 +8073,38 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-cache-layer@workspace:packages/lambda/lambda-cache-layer":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-cache-layer@workspace:packages/lambda/lambda-cache-layer"
+  dependencies:
+    "@codegenie/serverless-express": "npm:^4.3.9"
+    "@redstone-finance/protocol": "npm:0.6.2"
+    "@redstone-finance/sdk": "npm:0.6.2"
+    "@redstone-finance/utils": "npm:0.6.2"
+    "@types/cors": "npm:^2.8.12"
+    "@types/errorhandler": "npm:^1.5.0"
+    "@types/express": "npm:^4.17.14"
+    "@types/lodash": "npm:^4.14.195"
+    "@types/supertest": "npm:^2.0.12"
+    arweave: "npm:^1.14.4"
+    axios: "npm:^1.7.7"
+    cors: "npm:^2.8.5"
+    csv-file-to-json: "npm:^4.0.5"
+    deep-sort-object: "npm:^1.0.2"
+    dotenv: "npm:^16.0.3"
+    errorhandler: "npm:^1.5.1"
+    express: "npm:^4.18.1"
+    express-async-handler: "npm:^1.1.4"
+    lodash: "npm:^4.17.21"
+    mongodb: "npm:^5.9.0"
+    mongodb-memory-server: "npm:^9.1.6"
+    mongoose: "npm:^7.6.3"
+    sleep-promise: "npm:^9.1.0"
+    supertest: "npm:^6.2.3"
+    uuid-random: "npm:^1.3.2"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-chainlink-influx-synchronizer@workspace:packages/lambda/lambda-chainlink-influx-synchronizer":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-chainlink-influx-synchronizer@workspace:packages/lambda/lambda-chainlink-influx-synchronizer"
@@ -11317,6 +11356,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/errorhandler@npm:^1.5.0":
+  version: 1.5.3
+  resolution: "@types/errorhandler@npm:1.5.3"
+  dependencies:
+    "@types/express": "npm:*"
+  checksum: 10c0/0d021e3683205b95b3c8e3222bc5bac35b2d80e671f0c9114b3c5daf7d2f6d2913fc172ee759ae9525f119c3f61eb37f38b2a5553a33067a0453320ee5e0b600
+  languageName: node
+  linkType: hard
+
 "@types/eslint-scope@npm:^3.7.3":
   version: 3.7.4
   resolution: "@types/eslint-scope@npm:3.7.4"
@@ -12833,7 +12881,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"accepts@npm:^1.3.5, accepts@npm:^1.3.7, accepts@npm:~1.3.8":
+"accepts@npm:^1.3.5, accepts@npm:^1.3.7, accepts@npm:~1.3.7, accepts@npm:~1.3.8":
   version: 1.3.8
   resolution: "accepts@npm:1.3.8"
   dependencies:
@@ -16805,6 +16853,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"csv-file-to-json@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "csv-file-to-json@npm:4.0.5"
+  checksum: 10c0/351b4343dc8987dbf17ad299c972cb4906517e0661a3085585c15128df3fa17d76c2e77797d2d12d8a14006a49d96613214bb080a8f944a21f2fe706f6bbcc77
+  languageName: node
+  linkType: hard
+
 "csv-generate@npm:^3.4.3":
   version: 3.4.3
   resolution: "csv-generate@npm:3.4.3"
@@ -17982,6 +18037,16 @@ __metadata:
   dependencies:
     is-arrayish: "npm:^0.2.1"
   checksum: 10c0/ba827f89369b4c93382cfca5a264d059dfefdaa56ecc5e338ffa58a6471f5ed93b71a20add1d52290a4873d92381174382658c885ac1a2305f7baca363ce9cce
+  languageName: node
+  linkType: hard
+
+"errorhandler@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "errorhandler@npm:1.5.1"
+  dependencies:
+    accepts: "npm:~1.3.7"
+    escape-html: "npm:~1.0.3"
+  checksum: 10c0/58568c7eec3f4de5dc49e4385a50af66b76759b3463a86e4a85e05c4f7a5348f51d3d23af51c3a23eceef6278045d0a47d975da11bdaaf92d1d783dc677e980e
   languageName: node
   linkType: hard
 
@@ -19292,6 +19357,13 @@ __metadata:
   version: 3.1.1
   resolution: "exponential-backoff@npm:3.1.1"
   checksum: 10c0/160456d2d647e6019640bd07111634d8c353038d9fa40176afb7cd49b0548bdae83b56d05e907c2cce2300b81cae35d800ef92fefb9d0208e190fa3b7d6bb579
+  languageName: node
+  linkType: hard
+
+"express-async-handler@npm:^1.1.4":
+  version: 1.2.0
+  resolution: "express-async-handler@npm:1.2.0"
+  checksum: 10c0/0c664965b86d8f6369883080bc7709266215c3c5d7e62ce7b00859e68293720bac409157d4f4ac8859b5fe59608f75b5038ce2b2f683fae356ff9f60874a1341
   languageName: node
   linkType: hard
 
@@ -30835,6 +30907,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sleep-promise@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "sleep-promise@npm:9.1.0"
+  checksum: 10c0/15813898a356d64818d34b437523fe64b0804694730d23201af171e7f3172843d8fcbdc1ba7eea0a0f5b76afa94277a64ef829f22abe3801e3eb2e3915092aa3
+  languageName: node
+  linkType: hard
+
 "slice-ansi@npm:^4.0.0":
   version: 4.0.0
   resolution: "slice-ansi@npm:4.0.0"
@@ -33947,6 +34026,13 @@ __metadata:
   version: 1.1.0
   resolution: "uuid-parse@npm:1.1.0"
   checksum: 10c0/513d5b0407b8929c54d452e8e286a1f6f00d40a2ebf6607fc7297b9caa40eee35230dcc4ce3f178f84d89704e8147e24d1a33d680a8afb7e12a5700714db7f51
+  languageName: node
+  linkType: hard
+
+"uuid-random@npm:^1.3.2":
+  version: 1.3.2
+  resolution: "uuid-random@npm:1.3.2"
+  checksum: 10c0/14cb0fc8d52738b9f3b856df39e82f50650dad3dca254d3e62742148ba57292697c53d7bb171b84ad9d0f9d9231fd0f13d13eb65cb67b7d6c994f78d40e5e363
   languageName: node
   linkType: hard
 
