@@ -5,7 +5,9 @@ import { NonEvmContractFacade } from "./NonEvmContractFacade";
 
 export const getContractFacade = async (relayerConfig: RelayerConfig) => {
   if (relayerConfig.adapterContractType === "fuel") {
-    return new NonEvmContractFacade(await getFuelContractConnector());
+    return new NonEvmContractFacade(
+      await getFuelContractConnector(relayerConfig)
+    );
   }
 
   return getEvmContractFacade(relayerConfig);
