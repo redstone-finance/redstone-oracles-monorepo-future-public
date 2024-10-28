@@ -5,11 +5,11 @@ dependencies = ["std"]
 
 [[package]]
 name = "core"
-source = "path+from-root-8357A6DDC5F39D14"
+source = "path+from-root-7053AAA90CC5E690"
 
 [[package]]
 name = "redstone"
-source = "git+https://github.com/redstone-finance/redstone-fuel-sdk?branch=sway-0.65.2#26d5e5c66b6551d40671b46401cd5f113e508f2b"
+source = "git+https://github.com/redstone-finance/redstone-fuel-sdk?tag=v0.66.2#5aa4ac58f2ebfc6d0a7ffd4b8bdbb509fa87df50"
 dependencies = ["std"]
 
 [[package]]
@@ -23,5 +23,5 @@ dependencies = [
 
 [[package]]
 name = "std"
-source = "git+https://github.com/fuellabs/sway?tag=v0.65.2#66bb430395daf5b8f7205f7b9d8d008e2e812d54"
+source = "git+https://github.com/fuellabs/sway?tag=v0.66.2#31486c0b47669612acb7c64d66ecb50aea281282"
 dependencies = ["core"]

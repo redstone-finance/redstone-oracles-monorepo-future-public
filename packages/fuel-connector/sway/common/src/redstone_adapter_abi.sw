@@ -20,7 +20,6 @@ abi RedStoneAdapter {
     #[storage(read)]
     fn read_timestamp() -> u64;
 
-    ///
     /// The function reads the values persisting in the contract's storage and returns an array corresponding to the
     /// passed `feed_ids`.
     /// The function doesn't modify the storage and can read only aggregated values of the `feed_ids` saved by
@@ -32,4 +31,9 @@ abi RedStoneAdapter {
     /// * `feed_ids` - A vector of u256 representing the feed_ids.
     #[storage(read)]
     fn read_prices(feed_ids: Vec<u256>) -> Vec<Option<u256>>;
+
+    /// Returns the block timestamp of the lastly written values to the contract's storage.
+    ///
+    #[storage(read)]
+    fn read_last_update_block_timestamp() -> Option<u64>;
 }

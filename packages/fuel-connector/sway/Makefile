@@ -8,9 +8,9 @@ SUFFIX=_prices#_prices#_core#_adapter
 
 ifeq ($(IS_LOCAL), 0)
 	ifeq ($(IS_MAINNET), 1)
-		NODE_URL=--node-url https://$(API_CREDENTIALS)mainnet.fuel.network/v1/graphql
+		NODE_URL=--target "Ignition"
 	else
-		NODE_URL=--target testnet
+		NODE_URL=--target "Fuel Sepolia Testnet"
 	endif
 	GAS_PRICE=1
 else

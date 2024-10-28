@@ -13,24 +13,24 @@ const IS_MAINNET = false as boolean;
 
 const LOCAL_NODE_URL = "http://127.0.0.1:4000/v1/graphql";
 const TESTNET_NODE_URL = "https://testnet.fuel.network/v1/graphql";
+const MAINNET_NODE_URL = "https://mainnet.fuel.network/v1/graphql";
 
 export const provider = async (isLocal = IS_LOCAL) =>
   isLocal
     ? undefined
-    : await Provider.create(
-        IS_MAINNET
-          ? RedstoneCommon.getFromEnv("MAINNET_NODE_URL")
-          : TESTNET_NODE_URL
-      );
+    : await Provider.create(IS_MAINNET ? MAINNET_NODE_URL : TESTNET_NODE_URL);
 
 export async function getWallet(provider?: Provider) {
-  const privateKey = RedstoneCommon.getFromEnv("PRIVATE_KEY");
-  if (privateKey) {
-    return Wallet.fromPrivateKey(
-      privateKey,
-      provider ?? (await Provider.create(LOCAL_NODE_URL))
-    );
+  const privateKey = RedstoneCommon.getFromEnv(
+    "PRIVATE_KEY",
+    z.string().optional()
+  );
+  if (!privateKey) {
+    throw new Error("Non-empty PRIVATE_KEY must be defined in env!");
   }
 
-  throw new Error("Non-empty PRIVATE_KEY must be defined in env!");
+  return Wallet.fromPrivateKey(
+    privateKey,
+    provider ?? (await Provider.create(LOCAL_NODE_URL))
+  );
 }

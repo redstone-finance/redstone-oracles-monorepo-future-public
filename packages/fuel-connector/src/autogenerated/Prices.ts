@@ -22,10 +22,16 @@ import type { Enum, Option, Vec } from "./common";
 export type RedStoneContractErrorInput = Enum<{
   TimestampMustBeGreaterThanBefore: [BigNumberish, BigNumberish];
   UpdaterIsNotTrusted: string;
+  MinIntervalBetweenUpdatesHasNotPassedYet: [
+    BigNumberish,
+    BigNumberish,
+    BigNumberish,
+  ];
 }>;
 export type RedStoneContractErrorOutput = Enum<{
   TimestampMustBeGreaterThanBefore: [BN, BN];
   UpdaterIsNotTrusted: string;
+  MinIntervalBetweenUpdatesHasNotPassedYet: [BN, BN, BN];
 }>;
 export type RedStoneErrorInput = Enum<{
   EmptyAllowedSigners: [];
@@ -93,6 +99,15 @@ const abi = {
       metadataTypeId: 12,
       typeArguments: [
         "1b5759d94094368cfd443019e7ca5ec4074300e544e5ea993a979f5da627261e",
+      ],
+    },
+    {
+      type: "enum std::option::Option<u64>",
+      concreteTypeId:
+        "d852149004cc9ec0bbe7dc4e37bffea1d41469b759512b6136f2e865a4c06e7d",
+      metadataTypeId: 12,
+      typeArguments: [
+        "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
       ],
     },
     {
@@ -274,6 +289,10 @@ const abi = {
           name: "UpdaterIsNotTrusted",
           typeId: 8,
         },
+        {
+          name: "MinIntervalBetweenUpdatesHasNotPassedYet",
+          typeId: 6,
+        },
       ],
     },
     {
@@ -453,6 +472,18 @@ const abi = {
       ],
     },
     {
+      inputs: [],
+      name: "read_last_update_block_timestamp",
+      output:
+        "d852149004cc9ec0bbe7dc4e37bffea1d41469b759512b6136f2e865a4c06e7d",
+      attributes: [
+        {
+          name: "storage",
+          arguments: ["read"],
+        },
+      ],
+    },
+    {
       inputs: [
         {
           name: "feed_ids",
@@ -524,13 +555,13 @@ const abi = {
       name: "SIGNER_COUNT_THRESHOLD",
       concreteTypeId:
         "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
-      offset: 42512,
+      offset: 43344,
     },
     {
       name: "ALLOWED_SIGNERS",
       concreteTypeId:
         "ba22e94e8d8f51fff1ffb0b61cd199b2386cc65867c2d2793e5c77fb4adad6db",
-      offset: 42320,
+      offset: 43152,
     },
   ],
 };
@@ -551,6 +582,7 @@ export class PricesInterface extends Interface {
     get_unique_signer_threshold: FunctionFragment;
     get_version: FunctionFragment;
     get_prices: FunctionFragment;
+    read_last_update_block_timestamp: FunctionFragment;
     read_prices: FunctionFragment;
     read_timestamp: FunctionFragment;
     write_prices: FunctionFragment;
@@ -569,6 +601,7 @@ export class Prices extends Contract {
       [feed_ids: Vec<BigNumberish>, payload: Bytes],
       [Vec<BN>, BN]
     >;
+    read_last_update_block_timestamp: InvokeFunction<[], Option<BN>>;
     read_prices: InvokeFunction<[feed_ids: Vec<BigNumberish>], Vec<Option<BN>>>;
     read_timestamp: InvokeFunction<[], BN>;
     write_prices: InvokeFunction<

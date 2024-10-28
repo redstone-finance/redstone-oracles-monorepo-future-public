@@ -8,3 +8,6 @@ pub const PRICES_SK = 0xfcff72d66400dbd2aa1676596636bc80651755092668696d5616c817
 
 // sha256("RedStone_feed_ids")
 pub const FEED_IDS_SK = 0x7e39308d092dbb88fca5a395e4cd0e9a74b3676c1c8999febbe854cf4d94d240;
+
+// sha256("RedStone_last_update_block_timestamp")
+pub const LAST_UPDATE_BLOCK_TIMESTAMP_SK = 0xea724638500939db0a8c96b81f5cba4b5f7ca4cdff7f62d45802e25a0908e9bd;

@@ -1,7 +1,4 @@
-import {
-  ContractParamsProvider,
-  IPricesContractAdapter,
-} from "@redstone-finance/sdk";
+import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { BigNumberish } from "ethers";
 import {
   FuelPricesContractAdapter,
@@ -9,10 +6,10 @@ import {
 } from "../../src";
 
 export class GasUsageFuelPricesContractConnector extends FuelPricesContractConnector {
-  override getAdapter(): Promise<IPricesContractAdapter> {
-    return Promise.resolve(
+  override async getAdapter() {
+    return await Promise.resolve(
       new GasUsageFuelPricesContractAdapter(
-        this.getContract(),
+        await this.getContract(),
         this.getGasLimit()
       )
     );

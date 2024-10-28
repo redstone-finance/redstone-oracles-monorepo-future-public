@@ -78,6 +78,11 @@ impl RedStoneAdapter for Contract {
 
         aggregated_values
     }
+
+    #[storage(read)]
+    fn read_last_update_block_timestamp() -> Option<u64> {
+        storage.timestamp.try_read()
+    }
 }
 
 #[storage(write)]
