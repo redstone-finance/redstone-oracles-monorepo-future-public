@@ -1036,6 +1036,8 @@
     },
     "USDB": {
       "source": [
+        "thruster-v3-blast-susde-500",
+        "thruster-v3-blast-usde-500",
         "ambient-blast-eth",
         "ringswap-blast-fwweth",
         "thruster-blast-weth",
@@ -1297,6 +1299,7 @@
     },
     "ISEI": {
       "source": [
+        "dragonswap-v2-sei-wsei-500",
         "dragonswap-sei-wsei",
         "jellyverse-sei-wsei",
         "xei-sei-wsei-100",

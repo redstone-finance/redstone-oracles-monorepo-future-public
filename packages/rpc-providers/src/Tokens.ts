@@ -319,6 +319,14 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x2416092f143378750bb29b79eD961ab195CcEea5",
       decimals: 18,
     },
+    USDe: {
+      address: "0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34",
+      decimals: 18,
+    },
+    sUSDe: {
+      address: "0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2",
+      decimals: 18,
+    },
   },
   arbitrumOne: {
     WETH: {

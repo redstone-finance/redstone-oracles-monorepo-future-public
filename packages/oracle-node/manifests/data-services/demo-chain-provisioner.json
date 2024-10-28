@@ -381,6 +381,8 @@
     },
     "USDB": {
       "source": [
+        "thruster-v3-blast-susde-500",
+        "thruster-v3-blast-usde-500",
         "ambient-blast-eth",
         "ringswap-blast-fwweth",
         "thruster-blast-weth",
