@@ -20,8 +20,14 @@ export async function fetchDataPackages(
   isHistorical: boolean = false,
   dataFeedIds?: string[]
 ) {
-  const { dataServiceId, dataFeeds, dataPackagesNames, cacheServiceUrls } =
-    config;
+  const {
+    dataServiceId,
+    dataFeeds,
+    dataPackagesNames,
+    cacheServiceUrls,
+    waitForAllGatewaysTimeMs,
+    enableEnhancedRequestDataPackagesLogs,
+  } = config;
 
   const requestParams: DataPackagesRequestParams = {
     dataServiceId,
@@ -33,6 +39,8 @@ export async function fetchDataPackages(
       dataServiceId as DataServiceIds
     ),
     ignoreMissingFeed: true,
+    waitForAllGatewaysTimeMs,
+    enableEnhancedLogs: enableEnhancedRequestDataPackagesLogs,
   };
 
   try {

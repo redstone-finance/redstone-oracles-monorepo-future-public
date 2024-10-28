@@ -9,10 +9,10 @@ import {
 import { Serializable } from "../common/Serializable";
 import { DataPackage, DataPackagePlainObj } from "./DataPackage";
 import {
-  SignedDataPackageLike,
   deserializeSignedPackage,
   recoverSignerAddress,
   recoverSignerPublicKey,
+  SignedDataPackageLike,
 } from "./signed-package-deserializing";
 
 export interface SignedDataPackagePlainObj extends DataPackagePlainObj {

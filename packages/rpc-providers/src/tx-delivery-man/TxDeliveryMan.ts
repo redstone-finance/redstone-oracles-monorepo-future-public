@@ -60,7 +60,7 @@ export class TxDeliveryMan {
       } else {
         // we are okay with skipping current delivery, because we are passing
         // dynamically fetched calldata
-        // This approach allows bettering separate providers errors
+        // This approach allows to better separate providers errors
         const rpcUrl = getProviderNetworkInfo(provider).url;
         const message = `RpcUrl=${rpcUrl} Delivery in progress; Skipping`;
         logger.log(message);
@@ -139,8 +139,13 @@ function buildWaitFn(deliveryPromises: Promise<TransactionResponse>[]) {
       .filter((result) => result.status === "fulfilled")
       .map((result) => result.value);
 
-    const hashes = Array.from(new Set(receipts.map((r) => r.transactionHash)));
-    if (hashes.length > 1) {
+    if (receipts.length > 1) {
+      const hashes = Array.from(
+        new Set(receipts.map((r) => r.transactionHash))
+      );
+      if (hashes.length === 1) {
+        return receipts[0];
+      }
       throw new Error(
         `Network between rpcs is forked - received more than one successful receipts (${receipts.length}). Possible transactions: ${hashes.join(", ")}`
       );
