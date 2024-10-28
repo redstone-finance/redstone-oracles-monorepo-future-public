@@ -125,6 +125,8 @@ export class DataPackagesController {
         signerAddress
       );
 
-    await this.dataPackagesService.broadcast(dataPackagesToSave, signerAddress);
+    this.dataPackagesService
+      .broadcast(dataPackagesToSave, signerAddress)
+      .catch(() => {}); // ignore errors as they are logged by the service
   }
 }

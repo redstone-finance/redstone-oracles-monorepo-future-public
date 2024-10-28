@@ -99,7 +99,7 @@ export class StreamrListenerService {
             nodeEvmAddress
           );
         } catch (e) {
-          this.logger.error("Error occured ", (e as Error).stack);
+          this.logger.error("Error occurred ", (e as Error).stack);
         }
       }
     );

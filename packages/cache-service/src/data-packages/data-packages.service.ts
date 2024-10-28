@@ -62,8 +62,9 @@ export class DataPackagesService {
   async broadcast(
     dataPackagesToSave: CachedDataPackage[],
     nodeEvmAddress: string
-  ): Promise<void> {
-    const message = `broadcast ${dataPackagesToSave.length} data packages for node ${nodeEvmAddress}`;
+  ): Promise<void[]> {
+    const packagesTimestamp = dataPackagesToSave[0]?.timestampMilliseconds;
+    const message = `broadcast ${dataPackagesToSave.length} data packages for node ${nodeEvmAddress} and timestamp ${packagesTimestamp}`;
     const savePromises = this.broadcasters.map(async (broadcaster) => {
       try {
         await broadcaster.broadcast(dataPackagesToSave, nodeEvmAddress);
@@ -80,7 +81,7 @@ export class DataPackagesService {
       }
     });
 
-    await Promise.allSettled(savePromises);
+    return await Promise.all(savePromises);
   }
 
   getLatestDataPackagesWithSameTimestampWithCache = RedstoneCommon.memoize({
