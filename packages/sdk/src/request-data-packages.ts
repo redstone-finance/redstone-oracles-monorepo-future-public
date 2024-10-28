@@ -8,6 +8,7 @@ import { BigNumber } from "ethers";
 import { z } from "zod";
 import { resolveDataServiceUrls } from "./data-services-urls";
 import { pickDataFeedPackagesClosestToMedian } from "./pick-closest-to-median";
+import { RequestDataPackagesLogger } from "./RequestDataPackagesLogger";
 
 const GET_REQUEST_TIMEOUT = 5_000;
 const DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME = 500;
@@ -56,6 +57,10 @@ export interface DataPackagesRequestParams {
    * do not throw error in case of missing or filtered-out token
    */
   ignoreMissingFeed?: boolean;
+  /**
+   * adds more detailed logs, depending on the log level
+   */
+  enableEnhancedLogs?: boolean;
 }
 
 /**
@@ -122,7 +127,15 @@ export const requestDataPackages = async (
     throw new Error("Please provide at least one dataFeed");
   }
   try {
-    const promises = prepareDataPackagePromises(reqParams);
+    const urls = getUrlsForDataServiceId(reqParams);
+    const requestDataPackagesLogger = reqParams.enableEnhancedLogs
+      ? new RequestDataPackagesLogger(urls.length)
+      : undefined;
+    const promises = prepareDataPackagePromises(
+      reqParams,
+      urls,
+      requestDataPackagesLogger
+    );
 
     if (reqParams.historicalTimestamp) {
       return await Promise.any(promises);
@@ -130,7 +143,8 @@ export const requestDataPackages = async (
 
     return await getTheMostRecentDataPackages(
       promises,
-      reqParams.waitForAllGatewaysTimeMs
+      reqParams.waitForAllGatewaysTimeMs,
+      requestDataPackagesLogger
     );
   } catch (e) {
     const errMessage = `Request failed: ${JSON.stringify({
@@ -140,58 +154,78 @@ export const requestDataPackages = async (
   }
 };
 
+export const getResponseTimestamp = (response: DataPackagesResponse) =>
+  Object.values(response).at(0)?.at(0)?.dataPackage.timestampMilliseconds ?? 0;
+
 const getTheMostRecentDataPackages = (
   promises: Promise<DataPackagesResponse>[],
-  waitForAllGatewaysTimeMs = DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME
+  waitForAllGatewaysTimeMs = DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME,
+  requestDataPackagesLogger?: RequestDataPackagesLogger
 ): Promise<DataPackagesResponse> => {
   return new Promise((resolve, reject) => {
     const collectedResponses: DataPackagesResponse[] = [];
-    const errors: Error[] = [];
-    let waitForAll = true;
+    const collectedErrors: Error[] = [];
+
+    let isTimedOut = false;
+    let didResolveOrReject = false;
 
     const timer = setTimeout(() => {
-      waitForAll = false;
-      checkResults();
+      isTimedOut = true;
+      checkResults(true);
     }, waitForAllGatewaysTimeMs);
 
-    const responseTimestamp = (response: DataPackagesResponse) =>
-      Object.values(response).at(0)?.at(0)?.dataPackage.timestampMilliseconds ??
-      0;
+    const checkResults = (timeout = false) => {
+      requestDataPackagesLogger?.willCheckState(timeout, didResolveOrReject);
 
-    const checkResults = () => {
-      if (errors.length === promises.length) {
+      if (didResolveOrReject) {
+        return;
+      }
+
+      if (collectedErrors.length === promises.length) {
+        requestDataPackagesLogger?.willReject();
         clearTimeout(timer);
-        reject(new AggregateError(errors));
+        didResolveOrReject = true;
+        reject(new AggregateError(collectedErrors));
       } else if (
-        collectedResponses.length + errors.length === promises.length ||
-        (!waitForAll && collectedResponses.length !== 0)
+        collectedResponses.length + collectedErrors.length ===
+          promises.length ||
+        (isTimedOut && collectedResponses.length !== 0)
       ) {
         const newestPackage = collectedResponses.reduce(
-          (a, b) => (responseTimestamp(b) > responseTimestamp(a) ? b : a),
+          (a, b) => (getResponseTimestamp(b) > getResponseTimestamp(a) ? b : a),
           {}
         );
 
+        requestDataPackagesLogger?.willResolve(newestPackage);
         clearTimeout(timer);
+        didResolveOrReject = true;
         resolve(newestPackage);
       }
     };
 
-    for (const promise of promises) {
-      promise
-        .then((r) => collectedResponses.push(r))
-        .catch((e) => errors.push(e as Error))
+    for (let i = 0; i < promises.length; i++) {
+      promises[i]
+        .then((r) => {
+          collectedResponses.push(r);
+          requestDataPackagesLogger?.didReceiveResponse(r, i);
+        })
+        .catch((e) => {
+          collectedErrors.push(e as Error);
+          requestDataPackagesLogger?.didReceiveError(e, i);
+        })
         .finally(checkResults);
     }
   });
 };
 
 const prepareDataPackagePromises = (
-  reqParams: DataPackagesRequestParams
+  reqParams: DataPackagesRequestParams,
+  urls: string[],
+  requestDataPackagesLogger?: RequestDataPackagesLogger
 ): Promise<DataPackagesResponse>[] => {
   if (reqParams.authorizedSigners && reqParams.authorizedSigners.length == 0) {
     throw new Error("authorizer signers array, if provided, cannot be empty");
   }
-  const urls = getUrlsForDataServiceId(reqParams);
   const pathComponents = [
     "data-packages",
     reqParams.historicalTimestamp ? "historical" : "latest",
@@ -203,13 +237,19 @@ const prepareDataPackagePromises = (
 
   return urls.map(async (url) => {
     const response = await sendRequestToGateway(url, pathComponents, reqParams);
-    return parseAndValidateDataPackagesResponse(response.data, reqParams);
+
+    return parseAndValidateDataPackagesResponse(
+      response.data,
+      reqParams,
+      requestDataPackagesLogger
+    );
   });
 };
 
 const parseAndValidateDataPackagesResponse = (
   responseData: unknown,
-  reqParams: DataPackagesRequestParams
+  reqParams: DataPackagesRequestParams,
+  requestDataPackagesLogger?: RequestDataPackagesLogger
 ): DataPackagesResponse => {
   const parsedResponse: DataPackagesResponse = {};
 
@@ -221,12 +261,13 @@ const parseAndValidateDataPackagesResponse = (
     let dataFeedPackages = responseData[dataFeedId];
 
     if (!dataFeedPackages) {
+      const message = `Requested data feed id is not included in response: ${dataFeedId}`;
+
       if (reqParams.ignoreMissingFeed) {
+        requestDataPackagesLogger?.feedIsMissing(message);
         continue;
       }
-      throw new Error(
-        `Requested data feed id is not included in response: ${dataFeedId}`
-      );
+      throw new Error(message);
     }
 
     // filter out packages with not expected signers
@@ -251,14 +292,15 @@ const parseAndValidateDataPackagesResponse = (
     }
 
     if (dataFeedPackages.length < reqParams.uniqueSignersCount) {
+      const message =
+        `Too few unique signers for the data feed: ${dataFeedId}. ` +
+        `Expected: ${reqParams.uniqueSignersCount}. ` +
+        `Received: ${dataFeedPackages.length}`;
       if (reqParams.ignoreMissingFeed) {
+        requestDataPackagesLogger?.feedIsMissing(message);
         continue;
       }
-      throw new Error(
-        `Too few unique signers for the data feed: ${dataFeedId}. ` +
-          `Expected: ${reqParams.uniqueSignersCount}. ` +
-          `Received: ${dataFeedPackages.length}`
-      );
+      throw new Error(message);
     }
 
     parsedResponse[dataFeedId] = pickDataFeedPackagesClosestToMedian(

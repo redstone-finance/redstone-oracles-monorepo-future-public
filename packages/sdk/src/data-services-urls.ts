@@ -1,12 +1,12 @@
 const DEV_GWS = [
-  "https://oracle-gateway-1.b.redstone.finance",
   "https://oracle-gateway-1.b.redstone.vip",
+  "https://oracle-gateway-1.b.redstone.finance",
 ];
 
 const PROD_GWS = [
+  "https://oracle-gateway-1.a.redstone.vip",
   "https://oracle-gateway-1.a.redstone.finance",
   "https://oracle-gateway-2.a.redstone.finance",
-  "https://oracle-gateway-1.a.redstone.vip",
 ];
 
 export const REDSTONE_DATA_SERVICES_URLS: Partial<Record<string, string[]>> = {

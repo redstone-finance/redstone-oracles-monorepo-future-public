@@ -90,6 +90,8 @@ export type OnChainRelayerEnv = {
   useMulticallProvider: boolean;
   multiFeedAdditionalUpdatesDeviationThreshold?: number;
   multiFeedSyncHeartbeats?: boolean;
+  waitForAllGatewaysTimeMs?: number;
+  enableEnhancedRequestDataPackagesLogs?: boolean;
 };
 
 export type ConfigProvider = () => RelayerConfig;

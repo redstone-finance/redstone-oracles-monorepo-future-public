@@ -6,6 +6,8 @@ import { z } from "zod";
 import { makeConfigProvider } from "./make-config-provider";
 import { OnChainRelayerEnv } from "./types";
 
+const DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME = 1000;
+
 // copy of method from oracle-node. Probably should be moved to some common package
 const readJSON = <T>(path: string): T => {
   const content = fs.readFileSync(path, "utf-8");
@@ -129,6 +131,14 @@ export const readManifestAndEnv = () => {
     multiFeedSyncHeartbeats: RedstoneCommon.getFromEnv(
       "MULTI_FEED_SYNC_HEARTBEATS",
       z.boolean().default(true)
+    ),
+    waitForAllGatewaysTimeMs: RedstoneCommon.getFromEnv(
+      "WAIT_FOR_ALL_GATEWAYS_TIME_MS",
+      z.number().default(DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME)
+    ),
+    enableEnhancedRequestDataPackagesLogs: RedstoneCommon.getFromEnv(
+      "ENABLE_ENHANCED_REQUEST_DATA_PACKAGES_LOGS",
+      z.boolean().default(false)
     ),
   };
 
