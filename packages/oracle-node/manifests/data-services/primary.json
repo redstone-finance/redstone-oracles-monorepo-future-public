@@ -1426,6 +1426,8 @@
     },
     "cbBTC": {
       "source": [
+        "uniswap-v3-ethereum-wbtc-100",
+        "aerodrome-base-weth",
         "aerodrome-cl-base-usdc-500",
         "aerodrome-cl-base-weth-500",
         "curve-ethereum-wbtc",
