@@ -331,6 +331,18 @@
           "maxDelayMilliseconds": 300000
         }
       }
+    },
+    "FDUSD": {
+      "source": [
+        "binance-bnb",
+        "binance-btc",
+        "binance-eth",
+        "binance-xrp",
+        "bingx-usdt",
+        "pancake-swap-bnb-usdt-100",
+        "pancake-swap-bnb-wbnb-500",
+        "uniswap-v3-ethereum-usdt-100"
+      ]
     }
   }
 }
