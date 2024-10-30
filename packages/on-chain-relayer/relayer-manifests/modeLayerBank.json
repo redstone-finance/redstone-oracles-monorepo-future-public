@@ -1,6 +1,6 @@
 {
   "chain": {
-    "name": "mode-mainnet",
+    "name": "mode",
     "id": 34443
   },
   "updateTriggers": {
