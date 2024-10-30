@@ -18,6 +18,8 @@ export const btcDataFeed = formatBytes32String("BTC");
 
 export const DEFAULT_ROUND_ID_FOR_WITHOUT_ROUNDS = 1;
 
+export const START_OEV_AUCTION_URL = "http://mock-fastlane/start-auction";
+
 interface DataPoint {
   dataFeedId: string;
   value: number;

@@ -132,13 +132,29 @@ export const readManifestAndEnv = () => {
       "MULTI_FEED_SYNC_HEARTBEATS",
       z.boolean().default(true)
     ),
-    waitForAllGatewaysTimeMs: RedstoneCommon.getFromEnv(
-      "WAIT_FOR_ALL_GATEWAYS_TIME_MS",
-      z.number().default(DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME)
+    oevAuctionUrl: RedstoneCommon.getFromEnv(
+      "OEV_AUCTION_URL",
+      z.string().optional()
+    ),
+    oevResolveAuctionTimeout: RedstoneCommon.getFromEnv(
+      "OEV_RESOLVE_AUCTION_TIMEOUT_MS",
+      z.number().default(2000)
+    ),
+    oevTotalTimeout: RedstoneCommon.getFromEnv(
+      "OEV_TOTAL_TIMEOUT_MS",
+      z.number().default(10000)
+    ),
+    oevVerifyGasPriceDisabled: RedstoneCommon.getFromEnv(
+      "OEV_VERIFY_GAS_PRICE_DISABLED",
+      z.boolean().default(false)
     ),
     enableEnhancedRequestDataPackagesLogs: RedstoneCommon.getFromEnv(
       "ENABLE_ENHANCED_REQUEST_DATA_PACKAGES_LOGS",
       z.boolean().default(false)
+    ),
+    waitForAllGatewaysTimeMs: RedstoneCommon.getFromEnv(
+      "WAIT_FOR_ALL_GATEWAYS_TIME_MS",
+      z.number().default(DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME)
     ),
   };
 

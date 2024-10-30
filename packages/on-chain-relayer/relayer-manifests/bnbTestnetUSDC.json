@@ -1,0 +1,15 @@
+{
+  "chain": {
+    "name": "bnb-testnet",
+    "id": 97
+  },
+  "updateTriggers": {
+    "deviationPercentage": 0.1,
+    "timeSinceLastUpdateInMilliseconds": 60000
+  },
+  "adapterContract": "0xd1f2cC2683522c3eC20B331A32597A0d6D786250",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "USDC": "0xd1f2cC2683522c3eC20B331A32597A0d6D786250"
+  }
+}
