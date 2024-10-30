@@ -648,9 +648,9 @@
     }
   },
   "temporaryConfigUpdates": {
-    "merlin": {
+    "sei": {
       "disabled": true
     },
-    "expirationTimestamp": "2024-10-22T11:00:00Z"
+    "expirationTimestamp": "2024-10-31T10:00:00Z"
   }
 }
