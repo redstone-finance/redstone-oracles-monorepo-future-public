@@ -1,6 +1,6 @@
 {
   "chain": {
-    "name": "zkSyncMainnet",
+    "name": "zksync",
     "id": 324
   },
   "updateTriggers": {

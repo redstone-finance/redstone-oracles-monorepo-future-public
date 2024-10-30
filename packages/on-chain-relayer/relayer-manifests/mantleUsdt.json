@@ -1,6 +1,6 @@
 {
   "chain": {
-    "name": "Mantle",
+    "name": "mantle",
     "id": 5000
   },
   "updateTriggers": {
