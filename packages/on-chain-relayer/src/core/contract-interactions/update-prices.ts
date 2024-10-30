@@ -15,7 +15,11 @@ import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-in
 import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
 
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
-import { chooseDataPackagesTimestamp } from "@redstone-finance/sdk";
+import {
+  DataPackagesResponse,
+  chooseDataPackagesTimestamp,
+} from "@redstone-finance/sdk";
+import { updateUsingOevAuction } from "../../custom-integrations/fastlane/update-using-oev-auction";
 import { getSortedOraclesContractAtAddress } from "../../custom-integrations/mento/get-sorted-oracles-contract-at-address";
 import { MultiFeedUpdatePricesArgs, UpdatePricesArgs } from "../../types";
 
@@ -25,13 +29,40 @@ export const updatePrices = async (
   updatePricesArgs: UpdatePricesArgs,
   adapterContract: Contract
 ) => {
-  const updateTx = await makeUpdateTx(updatePricesArgs, adapterContract);
+  const dataPackages = await updatePricesArgs.fetchDataPackages();
+  const updateTx = await makeUpdateTx(
+    updatePricesArgs,
+    adapterContract,
+    dataPackages
+  );
 
   const txDeliveryMan = getTxDeliveryMan(
     adapterContract.signer,
     adapterContract.provider as providers.JsonRpcProvider
   );
 
+  if (config().oevAuctionUrl) {
+    try {
+      const updateUsingOevAuctionPromise = updateUsingOevAuction(
+        updateTx,
+        updatePricesArgs.blockTag,
+        adapterContract as RedstoneAdapterBase,
+        dataPackages
+      );
+      const timeout = config().oevTotalTimeout;
+      await RedstoneCommon.timeout(
+        updateUsingOevAuctionPromise,
+        timeout,
+        `Updating using OEV auction didn't succeed in ${timeout} [ms].`
+      );
+
+      return;
+    } catch (error) {
+      logger.error(
+        `Failed to update using OEV auction, proceeding with standard update, error: ${RedstoneCommon.stringifyError(error)}`
+      );
+    }
+  }
   const updateTxResponse = await txDeliveryMan.deliver(updateTx, () =>
     makeUpdateTx(updatePricesArgs, adapterContract).then((tx) => tx.data)
   );
@@ -57,11 +88,16 @@ export const updatePrices = async (
 
 const makeUpdateTx = async (
   args: UpdatePricesArgs,
-  contract: Contract
+  contract: Contract,
+  initialDataPackages?: DataPackagesResponse
 ): Promise<TxDeliveryCall> => {
   switch (config().adapterContractType) {
     case "price-feeds":
-      return await makePriceFeedUpdateTx(args, contract as RedstoneAdapterBase);
+      return await makePriceFeedUpdateTx(
+        args,
+        contract as RedstoneAdapterBase,
+        initialDataPackages
+      );
     case "multi-feed":
       return await makeMultiFeedUpdateTx(
         args as MultiFeedUpdatePricesArgs,
@@ -78,9 +114,10 @@ const makeUpdateTx = async (
 
 const makePriceFeedUpdateTx = async (
   { fetchDataPackages }: UpdatePricesArgs,
-  adapterContract: RedstoneAdapterBase
+  adapterContract: RedstoneAdapterBase,
+  initialDataPackages?: DataPackagesResponse
 ): Promise<TxDeliveryCall> => {
-  const dataPackages = await fetchDataPackages();
+  const dataPackages = initialDataPackages ?? (await fetchDataPackages());
   const dataPackagesWrapper = new DataPackagesWrapper<RedstoneAdapterBase>(
     dataPackages
   );

@@ -4,6 +4,7 @@ export * from "./hardhat-network-configs";
 export * from "./MegaProviderBuilder";
 export * from "./provider-decorators/MetricDecorator";
 export * from "./provider-decorators/multicall/Multicall3Caller";
+export * as Multicall3Caller from "./provider-decorators/multicall/Multicall3Caller";
 export * from "./provider-decorators/multicall/MulticallDecorator";
 export * as ProviderDecorators from "./provider-decorators/provider-decorators";
 export * from "./providers/ProviderWithAgreement";

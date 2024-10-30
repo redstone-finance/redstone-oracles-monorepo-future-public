@@ -29,6 +29,9 @@ const EMPTY_GELATO_ENV: OnChainRelayerEnv = {
   temporaryUpdatePriceInterval: -1,
   fallbackOffsetInMilliseconds: 120000,
   useMulticallProvider: true,
+  oevTotalTimeout: 10000,
+  oevResolveAuctionTimeout: 2000,
+  oevVerifyGasPriceDisabled: false,
 };
 
 export async function makeIterationArgsProvider(env: IterationArgsProviderEnv) {
