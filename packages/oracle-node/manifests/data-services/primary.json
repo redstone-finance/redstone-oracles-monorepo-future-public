@@ -1414,6 +1414,9 @@
       "source": ["fixed-value"],
       "fixedValue": 1
     },
+    "pumpBTC_FUNDAMENTAL": {
+      "source": ["pump-btc"]
+    },
     "fBOMB": {
       "source": [
         "aerodrome-base-cbbtc",
