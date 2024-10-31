@@ -48,7 +48,7 @@ export abstract class BaseWrapper<T extends Contract> {
     }
 
     // Calculating the number of bytes in the hex representation of payload
-    // We divide by 2, beacuse 2 symbols in a hex string represent one byte
+    // We divide by 2, because 2 symbols in a hex string represent one byte
     const originalPayloadLength = originalPayload.length / 2;
 
     // Number of bytes that we want to add to unsigned metadata so that

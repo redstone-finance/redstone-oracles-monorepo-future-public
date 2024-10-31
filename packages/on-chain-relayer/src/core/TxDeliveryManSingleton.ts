@@ -10,17 +10,15 @@ export const getTxDeliveryMan = (
   signer: TxDeliverySigner,
   provider: TxDeliveryManSupportedProviders
 ) => {
-  deliveryMan =
-    deliveryMan ??
-    new TxDeliveryMan(provider, signer, {
-      expectedDeliveryTimeMs: config().expectedTxDeliveryTimeInMS,
-      gasLimit: config().gasLimit,
-      twoDimensionalFees: config().twoDimensionalFees,
-      multiplier: config().gasMultiplier,
-      maxAttempts: config().maxTxSendAttempts,
-      isAuctionModel: config().isAuctionModel,
-      forceDisableCustomGasOracle: config().disableCustomGasOracle,
-    });
+  deliveryMan ??= new TxDeliveryMan(provider, signer, {
+    expectedDeliveryTimeMs: config().expectedTxDeliveryTimeInMS,
+    gasLimit: config().gasLimit,
+    twoDimensionalFees: config().twoDimensionalFees,
+    multiplier: config().gasMultiplier,
+    maxAttempts: config().maxTxSendAttempts,
+    isAuctionModel: config().isAuctionModel,
+    forceDisableCustomGasOracle: config().disableCustomGasOracle,
+  });
   return deliveryMan;
 };
 

@@ -69,7 +69,7 @@ export const getRelayerProvider = () => {
       config().useMulticallProvider
     )
     .addDecorator(ProviderDecorators.Treat0xAsErrorDecorator)
-    .build()!;
+    .build();
 
   return cachedProvider;
 };
