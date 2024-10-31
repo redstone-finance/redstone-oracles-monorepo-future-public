@@ -8,16 +8,21 @@ import {
 
 export type Mqtt5ClientConfig = {
   endpoint: string;
+  authorization:
+    | { type: "AWSSigV4" }
+    | { type: "Cert"; privateKey: string; cert: string };
   qos?: awsIot.mqtt5.QoS;
   connectionTimeoutMs?: number;
   messageExpireTimeMs?: number;
 };
 
 const DEFAULT_CONFIG = {
-  qos: awsIot.mqtt.QoS.AtLeastOnce,
+  qos: awsIot.mqtt.QoS.AtMostOnce,
   connectionTimeoutMs: 10_000,
   messageExpireTimeMs: RedstoneCommon.minToMs(60),
 };
+
+const TOPICS_BATCH_LIMIT = 8;
 
 export type MqttPayload = {
   /** valid topic @see ./topic.ts */
@@ -39,15 +44,8 @@ export class Mqtt5Client {
   static async create(config: Mqtt5ClientConfig): Promise<Mqtt5Client> {
     const client = new Mqtt5Client(config);
 
-    const credentialsProvider = awsIot.auth.AwsCredentialsProvider.newDefault();
-
     const mqttClientBuilder =
-      awsIot.iot.AwsIotMqtt5ClientConfigBuilder.newWebsocketMqttBuilderWithSigv4Auth(
-        client.config.endpoint,
-        {
-          credentialsProvider,
-        }
-      );
+      Mqtt5Client.createMqttBuilderWithAuthorization(config);
 
     // Add some default configurations
     mqttClientBuilder
@@ -56,7 +54,10 @@ export class Mqtt5Client {
         clientId: randomUUID(),
         sessionExpiryIntervalSeconds: 3600,
       })
-      .withSessionBehavior(awsIot.mqtt5.ClientSessionBehavior.RejoinAlways)
+      .withOfflineQueueBehavior(
+        awsIot.mqtt5.ClientOperationQueueBehavior.FailAllOnDisconnect
+      )
+      .withSessionBehavior(awsIot.mqtt5.ClientSessionBehavior.RejoinPostSuccess)
       .withRetryJitterMode(awsIot.mqtt5.RetryJitterType.Full);
 
     const clientConfig = mqttClientBuilder.build();
@@ -95,6 +96,28 @@ export class Mqtt5Client {
     });
 
     return client;
+  }
+
+  private static createMqttBuilderWithAuthorization(
+    config: Mqtt5ClientConfig
+  ): awsIot.iot.AwsIotMqtt5ClientConfigBuilder {
+    if (config.authorization.type === "AWSSigV4") {
+      const credentialsProvider =
+        awsIot.auth.AwsCredentialsProvider.newDefault();
+
+      return awsIot.iot.AwsIotMqtt5ClientConfigBuilder.newWebsocketMqttBuilderWithSigv4Auth(
+        config.endpoint,
+        {
+          credentialsProvider,
+        }
+      );
+    } else {
+      return awsIot.iot.AwsIotMqtt5ClientConfigBuilder.newDirectMqttBuilderWithMtlsFromMemory(
+        config.endpoint,
+        config.authorization.cert,
+        config.authorization.privateKey
+      );
+    }
   }
 
   /** publish all data in single batch */
@@ -136,12 +159,7 @@ export class Mqtt5Client {
       error: string | null
     ) => unknown
   ) {
-    await this._mqtt.subscribe({
-      subscriptions: topics.map((topic) => ({
-        topicFilter: topic,
-        qos: this.config.qos,
-      })),
-    });
+    await this.subscribeToTopics(topics);
 
     this._mqtt.on("messageReceived", ({ message }) => {
       const topicName = message.topicName;
@@ -162,13 +180,55 @@ export class Mqtt5Client {
     });
   }
 
+  /**
+   * unsubscribing to not subscribed topics does NOT throw error
+   */
   async unsubscribe(topics: string[]) {
-    await this._mqtt.unsubscribe({
-      topicFilters: topics,
-    });
+    const unsubscribeResponses = [];
+    for (let i = 0; i < topics.length; i += TOPICS_BATCH_LIMIT) {
+      unsubscribeResponses.push(
+        await this._mqtt.unsubscribe({
+          topicFilters: topics.slice(i, i + TOPICS_BATCH_LIMIT),
+        })
+      );
+    }
+
+    if (
+      unsubscribeResponses
+        .flatMap((response) => response.reasonCodes)
+        .some(
+          (reasonCode) => reasonCode !== awsIot.mqtt5.UnsubackReasonCode.Success
+        )
+    ) {
+      throw new Error(`Failed to unsubscribe to topics=${topics.join(", ")}`);
+    }
   }
 
   stop() {
     this._mqtt.stop();
+  }
+
+  private async subscribeToTopics(topics: string[]) {
+    for (let i = 0; i < topics.length; i += TOPICS_BATCH_LIMIT) {
+      const subscriptionResult = await this._mqtt.subscribe({
+        subscriptions: topics.slice(i, i + TOPICS_BATCH_LIMIT).map((topic) => ({
+          topicFilter: topic,
+          qos: this.config.qos,
+        })),
+      });
+
+      if (
+        subscriptionResult.reasonCodes.some(
+          (reasonCode) => reasonCode > awsIot.mqtt5.SubackReasonCode.GrantedQoS2
+        )
+      ) {
+        await this.unsubscribe(topics).catch((e) =>
+          this.logger.error(RedstoneCommon.stringifyError(e))
+        );
+        throw new Error(
+          `Subscription failed reason=${subscriptionResult.reasonString} reasonCodes=${subscriptionResult.reasonCodes.join(", ")}`
+        );
+      }
+    }
   }
 }

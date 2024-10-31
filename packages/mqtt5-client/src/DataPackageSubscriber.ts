@@ -8,11 +8,12 @@ import {
   SignedDataPackageSchema,
 } from "@redstone-finance/sdk";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
+import { LastPublishedFeedState } from "./LastPublishedFeedState";
 import { Mqtt5Client } from "./Mqtt5Client";
 import { RateLimitsCircuitBreaker } from "./RateLimitsCircuitBreaker";
 import { encodeDataPackageTopic } from "./topics";
 
-const MAX_DELAY = RedstoneCommon.minToMs(3);
+const MAX_DELAY = RedstoneCommon.minToMs(2);
 const TOPIC_FILTER_LIMIT = 50;
 
 /**
@@ -72,7 +73,8 @@ type SubscriptionCallbackFn = (dataPackages: DataPackagesResponse) => unknown;
  * - Publishes immediately if packages from all signers are received
  * - Schedules delayed publication if `minimalOffChainSignersCount` is met
  * - Uses `ignoreMissingFeeds` to determine if all or some dataPackageIds must meet criteria
- * - NEVER publishes a package with the same timestamp or older than the last published
+ * - NEVER publish a package with the same timestamp or older than the last published - this rule is enforced per DATA PACKAGE ID
+ * - ALWAYS packages published together have same timestamp
  *
  * 3. Package selection:
  * - Employs `pickDataFeedPackagesClosestToMedian` to select `uniqueSignersCount` packages
@@ -94,13 +96,17 @@ export class DataPackageSubscriber {
     number,
     Record<string, SignedDataPackage[] | undefined>
   >();
-  private lastPublishedTimestamp: number = Date.now() - MAX_DELAY;
+  private lastPublishedState: LastPublishedFeedState;
   private circuitBreaker?: RateLimitsCircuitBreaker;
 
   constructor(
     readonly mqttClient: Mqtt5Client,
     readonly params: DataPackageSubscriberParams
   ) {
+    if (params.authorizedSigners.length === 0) {
+      throw new Error("You have to provide at least one authorized signer");
+    }
+
     if (params.authorizedSigners.length < params.uniqueSignersCount) {
       throw new Error(
         `Misconfiguration authorizedSigners.length=${params.authorizedSigners.length} has to be >= uniqueSignersCount=${params.uniqueSignersCount}`
@@ -113,7 +119,15 @@ export class DataPackageSubscriber {
       );
     }
 
-    if (params.dataPackageIds.length >= TOPIC_FILTER_LIMIT) {
+    this.lastPublishedState = new LastPublishedFeedState(
+      params.dataPackageIds,
+      Date.now() - MAX_DELAY
+    );
+
+    if (
+      params.dataPackageIds.length * params.authorizedSigners.length >=
+      TOPIC_FILTER_LIMIT
+    ) {
       for (const signer of params.authorizedSigners) {
         this.topics.push(
           encodeDataPackageTopic({
@@ -150,22 +164,31 @@ export class DataPackageSubscriber {
     return setInterval(async () => {
       try {
         if (
-          Date.now() - this.lastPublishedTimestamp >
-          maxDelayBetweenPublishes
+          this.lastPublishedState.isAnyFeedNotPublishedIn(
+            maxDelayBetweenPublishes
+          )
         ) {
           this.logger.warn(
-            `Fallback triggered now=${Date.now()} lastPublishedTimestamp=${this.lastPublishedTimestamp}`
+            `Fallback triggered now=${Date.now()} lastPublishedTimestamp=${this.lastPublishedState.toString()}`
           );
           const dataPackages = await fallbackFn();
           const packageTimestamp =
             Object.values(dataPackages)[0]![0].dataPackage
               .timestampMilliseconds;
+
           this.logger.debug(
             `Received package from fallbackFn packageTimestamp=${packageTimestamp}`
           );
-          if (packageTimestamp > this.lastPublishedTimestamp) {
+
+          const newerPackagesOnly =
+            this.lastPublishedState.filterOutNotNewerPackages(dataPackages);
+
+          if (Object.keys(newerPackagesOnly).length > 0) {
             this.subscribeCallback!(dataPackages);
-            this.lastPublishedTimestamp = packageTimestamp;
+            this.lastPublishedState.update(
+              Object.keys(newerPackagesOnly),
+              packageTimestamp
+            );
           }
         }
       } catch (e) {
@@ -230,11 +253,20 @@ export class DataPackageSubscriber {
       dataPackageFromMessage
     );
     const signedDataPackage = SignedDataPackage.fromObj(dataPackageFromMessage);
-    const packageSigner = signedDataPackage.recoverSignerAddress();
-
+    const dataPackageId = signedDataPackage.dataPackage.dataPackageId;
     const packageTimestamp =
       signedDataPackage.dataPackage.timestampMilliseconds;
-    const dataPackageId = signedDataPackage.dataPackage.dataPackageId;
+
+    // check if dataPackageId is in dataPackagesIds
+    // reject before signature checking to save CPU cycles
+    if (!this.params.dataPackageIds.includes(dataPackageId)) {
+      this.logger.debug(
+        `Received package with unexpected id=${dataPackageId} expectedIds=${this.params.dataPackageIds.join(",")}`
+      );
+      return;
+    }
+
+    const packageSigner = signedDataPackage.recoverSignerAddress();
 
     //authorized signer
     if (!this.params.authorizedSigners.includes(packageSigner)) {
@@ -243,18 +275,15 @@ export class DataPackageSubscriber {
       );
     }
 
-    // check if dataPackageId is in dataPackagesIds
-    if (!this.params.dataPackageIds.includes(dataPackageId)) {
-      this.logger.debug(
-        `Received package with unexpected id=${dataPackageId} expectedIds=${this.params.dataPackageIds.join(",")}`
-      );
-      return;
-    }
-
     //timestamp
-    if (packageTimestamp <= this.lastPublishedTimestamp) {
+    if (
+      !this.lastPublishedState.isNewerThanLastPublished(
+        dataPackageId,
+        packageTimestamp
+      )
+    ) {
       this.logger.debug(
-        `Package was rejected because packageTimestamp=${packageTimestamp} < lastPublishedTimestamp=${this.lastPublishedTimestamp}`
+        `Package was rejected because packageTimestamp=${packageTimestamp} < lastPublishedTimestamp=${this.lastPublishedState.getLastPublishTime(dataPackageId)}`
       );
       return;
     }
@@ -334,24 +363,26 @@ export class DataPackageSubscriber {
     entryForTimestamp: Record<string, SignedDataPackage[] | undefined>,
     packageTimestamp: number
   ) {
-    if (packageTimestamp > this.lastPublishedTimestamp) {
-      const packagesToPublish: Record<string, SignedDataPackage[]> =
-        this.preparePackagesBeforePublish(entryForTimestamp);
+    const packagesToPublish: DataPackagesResponse =
+      this.preparePackagesBeforePublish(entryForTimestamp);
 
-      this.logger.debug(
-        `Publishing packages for timestamp=${packageTimestamp}`
-      );
+    const packageIdsToPublish = Object.keys(packagesToPublish);
 
-      this.subscribeCallback!(packagesToPublish);
-      this.lastPublishedTimestamp = packageTimestamp;
-
-      // clear older then last published timestamp
-      this.clearOldData();
-    } else {
-      this.logger.debug(
-        `Not publishing, because proposed packageTimestamp=${packageTimestamp} <= lastPublishedTimestamp=${this.lastPublishedTimestamp}`
-      );
+    if (packageIdsToPublish.length === 0) {
+      return;
     }
+
+    this.logger.info(
+      `Publishing packages for timestamp=${packageTimestamp} latency=${Date.now() - packageTimestamp} dataPackageIds=${packageIdsToPublish.join(",")}`
+    );
+
+    this.subscribeCallback!(packagesToPublish);
+    this.lastPublishedState.update(
+      Object.keys(packagesToPublish),
+      packageTimestamp
+    );
+
+    this.cleanPublishedAndStalePackages(packageTimestamp);
   }
 
   private preparePackagesBeforePublish(
@@ -379,12 +410,21 @@ export class DataPackageSubscriber {
         packagesToPublish[dataPackageId] = potentialPackagesToPublish;
       }
     }
-    return packagesToPublish;
+    return this.lastPublishedState.filterOutNotNewerPackages(packagesToPublish);
   }
 
-  private clearOldData() {
+  private cleanPublishedAndStalePackages(timestamp: number) {
+    const entryForTimestamp = this.packagesPerTimestamp.get(timestamp)!;
+
+    const onlyNewerPackages =
+      this.lastPublishedState.filterOutNotNewerPackages(entryForTimestamp);
+
+    this.packagesPerTimestamp.set(timestamp, onlyNewerPackages);
+
+    const now = Date.now();
+    // extra clear for packages which were never published
     for (const timestamp of this.packagesPerTimestamp.keys()) {
-      if (timestamp <= this.lastPublishedTimestamp) {
+      if (timestamp <= now - MAX_DELAY) {
         this.packagesPerTimestamp.delete(timestamp);
       }
     }

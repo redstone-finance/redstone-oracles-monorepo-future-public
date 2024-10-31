@@ -483,7 +483,8 @@ describe("subscribe-data-packages", () => {
         ETH: [dataPackage],
       });
 
-      expect([...subscriber.packagesPerTimestamp.keys()].length).toEqual(0);
+      expect([...subscriber.packagesPerTimestamp.keys()].length).toEqual(1);
+      expect(subscriber.packagesPerTimestamp.get(Date.now())!).toEqual({});
     });
   });
 
