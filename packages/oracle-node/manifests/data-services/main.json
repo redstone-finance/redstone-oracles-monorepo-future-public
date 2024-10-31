@@ -1580,6 +1580,9 @@
         "xei-sei-wsei-500"
       ]
     },
+    "ISEI_FUNDAMENTAL/USD": {
+      "source": ["sei-cosmos-contract-silohub-api"]
+    },
     "pzETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-renzo"]
     },
