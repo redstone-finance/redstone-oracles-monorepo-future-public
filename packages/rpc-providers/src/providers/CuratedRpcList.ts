@@ -13,7 +13,7 @@ type Score = {
   quarantineCounter: number;
 };
 
-type ScoreRaport = {
+type ScoreReport = {
   error: boolean;
 };
 
@@ -84,7 +84,7 @@ export class CuratedRpcList {
     );
   }
 
-  scoreRpc(rpc: RpcIdentifier, score: ScoreRaport): void {
+  scoreRpc(rpc: RpcIdentifier, score: ScoreReport): void {
     this.state[rpc].callsCount += 1;
     this.state[rpc].errorsCount += score.error ? 1 : 0;
   }
@@ -112,7 +112,7 @@ export class CuratedRpcList {
 
     if (healthyProviders.length < this.config.minimalProvidersCount) {
       this.logger.warn(
-        `Not enough healty providers, have to release one from quarantine`
+        `Not enough healthy providers, have to release one from quarantine`
       );
       this.freeOneRpcFromQuarantine();
       return this.getBestProviders();
@@ -122,18 +122,20 @@ export class CuratedRpcList {
   }
 
   freeOneRpcFromQuarantine(): void {
-    const providersInQurantine = Object.entries(this.state).filter(
+    const providersInQuarantine = Object.entries(this.state).filter(
       ([_, { inQuarantine }]) => inQuarantine
     );
 
-    const weights = providersInQurantine.map((v) => 1 / v[1].quarantineCounter);
+    const weights = providersInQuarantine.map(
+      (v) => 1 / v[1].quarantineCounter
+    );
 
     const index = MathUtils.weightedRandom(weights);
 
     if (index >= 0) {
-      providersInQurantine[index][1].inQuarantine = false;
+      providersInQuarantine[index][1].inQuarantine = false;
       this.logger.debug(
-        `Releasing provider identifier=${providersInQurantine[index][0]} from quarantine`
+        `Releasing provider identifier=${providersInQuarantine[index][0]} from quarantine`
       );
     }
   }

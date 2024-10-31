@@ -56,7 +56,7 @@ export class MegaProviderBuilder {
   build<T extends providers.Provider>() {
     RedstoneCommon.assert(
       this.factories.length === 1,
-      "MegaProviderBuilder should always return single provider. Please use agreemnt or fallback option"
+      "MegaProviderBuilder should always return a single provider. Please use agreement or fallback option."
     );
 
     return this.factories[0]() as T;
@@ -73,6 +73,6 @@ export class MegaProviderBuilder {
           },
           this.options.network
         )
-    ) as ProviderFactory[];
+    );
   }
 }
