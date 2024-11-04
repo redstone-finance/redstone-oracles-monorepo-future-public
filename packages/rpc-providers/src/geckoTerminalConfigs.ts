@@ -10,6 +10,8 @@ const networkNameMappingGecko: { [key in SupportedNetworkNames]?: string } = {
   bnb: "bsc",
   manta: "manta-pacific",
   sei: "sei-evm",
+  merlin: "merlin-chain",
+  blast: "blast",
 };
 
 export function mapNetworkNameToGeckoTerminalNetworkName(
