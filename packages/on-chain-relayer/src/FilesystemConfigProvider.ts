@@ -156,6 +156,18 @@ export const readManifestAndEnv = () => {
       "WAIT_FOR_ALL_GATEWAYS_TIME_MS",
       z.number().default(DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME)
     ),
+    dryRunWithInflux: RedstoneCommon.getFromEnv(
+      "DRY_RUN_WITH_INFLUX",
+      z.boolean().default(false)
+    ),
+    influxUrl: RedstoneCommon.getFromEnv(
+      "INFLUX_URL",
+      z.string().url().optional()
+    ),
+    influxToken: RedstoneCommon.getFromEnv(
+      "INFLUX_TOKEN",
+      z.string().optional()
+    ),
   };
 
   return { manifest, env };

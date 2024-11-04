@@ -9,6 +9,7 @@ import { getRelayerProvider } from "../core/contract-interactions/get-relayer-pr
 import { updatePrices } from "../core/contract-interactions/update-prices";
 import { RelayerConfig } from "../types";
 import { MultiFeedEvmContractFacade } from "./MultiFeedEvmContractFacade";
+import { MultiFeedInfluxContractFacade } from "./MultiFeedInfluxContractFacade";
 import { PriceAdapterEvmContractFacade } from "./PriceAdapterEvmContractFacade";
 
 export const getEvmContractFacade = (relayerConfig: RelayerConfig) => {
@@ -21,10 +22,15 @@ export const getEvmContractFacade = (relayerConfig: RelayerConfig) => {
     | MultiFeedAdapterWithoutRounds;
 
   return relayerConfig.adapterContractType === "multi-feed"
-    ? new MultiFeedEvmContractFacade(
-        adapterContract as MultiFeedAdapterWithoutRounds,
-        (args) => updatePrices(args, adapterContract)
-      )
+    ? relayerConfig.dryRunWithInflux
+      ? new MultiFeedInfluxContractFacade(
+          adapterContract as MultiFeedAdapterWithoutRounds,
+          relayerConfig
+        )
+      : new MultiFeedEvmContractFacade(
+          adapterContract as MultiFeedAdapterWithoutRounds,
+          (args) => updatePrices(args, adapterContract)
+        )
     : new PriceAdapterEvmContractFacade(
         adapterContract as RedstoneAdapterBase,
         (args) => updatePrices(args, adapterContract)
