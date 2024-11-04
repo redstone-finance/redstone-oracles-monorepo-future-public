@@ -20,7 +20,7 @@ export interface InfluxAuthParams {
 export class InfluxService {
   private readonly influx;
 
-  public constructor(private authParams: InfluxAuthParams) {
+  public constructor(protected authParams: InfluxAuthParams) {
     this.influx = new InfluxDB({
       token: this.authParams.token,
       url: this.authParams.url,

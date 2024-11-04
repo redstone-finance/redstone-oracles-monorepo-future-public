@@ -32,6 +32,9 @@
     },
     {
       "path": "../fuel-connector/tsconfig.build.json"
+    },
+    {
+      "path": "../internal-utils/tsconfig.build.json"
     }
   ]
 }

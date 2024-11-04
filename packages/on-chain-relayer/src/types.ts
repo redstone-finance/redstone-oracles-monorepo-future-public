@@ -96,6 +96,9 @@ export type OnChainRelayerEnv = {
   oevVerifyGasPriceDisabled: boolean;
   enableEnhancedRequestDataPackagesLogs?: boolean;
   waitForAllGatewaysTimeMs?: number;
+  dryRunWithInflux?: boolean;
+  influxUrl?: string;
+  influxToken?: string;
 };
 
 export type ConfigProvider = () => RelayerConfig;

@@ -8503,6 +8503,7 @@ __metadata:
     "@redstone-finance/chain-configs": "npm:0.6.2"
     "@redstone-finance/evm-connector": "npm:0.6.2"
     "@redstone-finance/fuel-connector": "npm:0.6.2"
+    "@redstone-finance/internal-utils": "npm:0.6.2"
     "@redstone-finance/on-chain-relayer-common": "npm:0.6.2"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.6.2"
     "@redstone-finance/protocol": "npm:0.6.2"
