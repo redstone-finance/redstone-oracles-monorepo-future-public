@@ -8254,6 +8254,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-liquidity-pools-monitoring@workspace:packages/lambda/lambda-liquidity-pools-monitoring":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-liquidity-pools-monitoring@workspace:packages/lambda/lambda-liquidity-pools-monitoring"
+  dependencies:
+    "@redstone-finance/chain-configs": "npm:0.6.2"
+    "@redstone-finance/internal-utils": "npm:0.6.2"
+    "@redstone-finance/oracle-node": "npm:0.6.2"
+    "@redstone-finance/rpc-providers": "npm:0.6.2"
+    "@redstone-finance/utils": "npm:0.6.2"
+    "@types/aws-lambda": "npm:^8.10.145"
+    axios: "npm:^1.7.7"
+    lodash: "npm:^4.17.21"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda/lambda-missing-sources-monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-missing-sources-monitoring@workspace:packages/lambda/lambda-missing-sources-monitoring"
@@ -8333,20 +8348,6 @@ __metadata:
     ethers: "npm:^5.7.2"
     inquirer: "npm:^8.2.6"
     zod: "npm:^3.22.4"
-  languageName: unknown
-  linkType: soft
-
-"@redstone-finance/lambda-new-sources-monitoring@workspace:packages/lambda/lambda-new-sources-monitoring":
-  version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-new-sources-monitoring@workspace:packages/lambda/lambda-new-sources-monitoring"
-  dependencies:
-    "@redstone-finance/chain-configs": "npm:0.6.2"
-    "@redstone-finance/internal-utils": "npm:0.6.2"
-    "@redstone-finance/oracle-node": "npm:0.6.2"
-    "@redstone-finance/rpc-providers": "npm:0.6.2"
-    "@redstone-finance/utils": "npm:0.6.2"
-    "@types/aws-lambda": "npm:^8.10.145"
-    axios: "npm:^1.7.7"
   languageName: unknown
   linkType: soft
 
