@@ -1,6 +1,6 @@
 import { config } from "../../config";
 import { MultiFeedUpdatePricesArgs } from "../../types";
-import { includeFeedsCloseToDeviation } from "./feeds-close-to-devation";
+import { includeFeedsCloseToDeviation } from "./feeds-close-to-deviation";
 import { includeSynchronizedHeartbeatUpdates } from "./heartbeat-sync";
 
 export const addExtraFeedsToUpdateParams = (
