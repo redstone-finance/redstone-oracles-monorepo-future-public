@@ -1495,6 +1495,18 @@
         "trader-joe-v2-avalanche-usdc",
         "trader-joe-v2-avalanche-usdt"
       ]
+    },
+    "GOAT": {
+      "source": [
+        "coingecko",
+        "coinmarketcap",
+        "gate-usdt",
+        "kucoin-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bingx-usdt",
+        "bitrue-usdt"
+      ]
     }
   },
   "multiPointPackages": {
