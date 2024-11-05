@@ -390,9 +390,6 @@
         "xt"
       ]
     },
-    "CAI": {
-      "source": ["avalanche-evm-fetcher-cai"]
-    },
     "WOMBAT_ggAVAX_AVAX_LP_AVAX": {
       "source": ["avalanche-evm-fetcher-wombat"]
     },
@@ -502,7 +499,6 @@
       "BTC",
       "EUR",
       "GBP",
-      "CAI",
       "CRV",
       "DAI",
       "ETH",
