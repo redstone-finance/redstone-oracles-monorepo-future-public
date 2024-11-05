@@ -1142,9 +1142,6 @@
         "lbank-usdt"
       ]
     },
-    "CAI": {
-      "source": ["avalanche-evm-fetcher-cai"]
-    },
     "STONE": {
       "source": ["ethereum-evm-fetcher-stake-stone"]
     },
