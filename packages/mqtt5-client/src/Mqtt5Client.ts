@@ -31,10 +31,18 @@ export type MqttPayload = {
   data: unknown;
 };
 
+export type SubscribeCallback = (
+  /** encoded topic @see ./topic.ts */
+  topicName: string,
+  messagePayload: unknown,
+  error: string | null
+) => unknown;
+
 export class Mqtt5Client {
   private logger = loggerFactory("mqtt5-client");
   private _mqtt!: awsIot.mqtt5.Mqtt5Client;
   private config: Required<Mqtt5ClientConfig>;
+  private onMessageCallback?: SubscribeCallback;
 
   private constructor(config: Mqtt5ClientConfig) {
     this.config = { ...DEFAULT_CONFIG, ...config };
@@ -150,34 +158,30 @@ export class Mqtt5Client {
     await Promise.all(promises);
   }
 
-  async subscribe(
-    topics: string[],
-    onMessage: (
-      /** encoded topic @see ./topic.ts */
-      topicName: string,
-      messagePayload: unknown,
-      error: string | null
-    ) => unknown
-  ) {
+  /** onMessage is assigned to ALL topics, you can't specify onMessage per topic*/
+  async subscribe(topics: string[], onMessage: SubscribeCallback) {
     await this.subscribeToTopics(topics);
+    this.onMessageCallback = onMessage;
 
-    this._mqtt.on("messageReceived", ({ message }) => {
-      const topicName = message.topicName;
+    if (this._mqtt.listenerCount("messageReceived") === 0) {
+      this._mqtt.on("messageReceived", ({ message }) => {
+        const topicName = message.topicName;
 
-      try {
-        const deserializeData = getSerializerDeserializer(
-          message.contentType as ContentTypes
-        ).deserialize(Buffer.from(message.payload as ArrayBuffer));
+        try {
+          const deserializeData = getSerializerDeserializer(
+            message.contentType as ContentTypes
+          ).deserialize(Buffer.from(message.payload as ArrayBuffer));
 
-        onMessage(message.topicName, deserializeData, null);
-      } catch (e) {
-        onMessage(
-          topicName,
-          null,
-          `Error occurred when tried to parse message error=${RedstoneCommon.stringifyError(e)}`
-        );
-      }
-    });
+          this.onMessageCallback!(message.topicName, deserializeData, null);
+        } catch (e) {
+          this.onMessageCallback!(
+            topicName,
+            null,
+            `Error occurred when tried to parse message error=${RedstoneCommon.stringifyError(e)}`
+          );
+        }
+      });
+    }
   }
 
   /**
