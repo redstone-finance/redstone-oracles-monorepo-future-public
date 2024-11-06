@@ -1,27 +1,35 @@
 import { spawn } from "child_process";
 import { isAddress } from "ethers/lib/utils";
 import prompts, { PromptObject } from "prompts";
+import { onCancel } from "../src/utils";
 import { isUrl } from "../src/validations";
 
-export const deployMultiFeedAdapter = async () => {
-  const questions = [
+interface PromptResponse {
+  networkName: string;
+  networkRpcUrl: string;
+  proxyAdminOwner: string;
+  privateKey: string;
+}
+
+export const deployMultiFeedAdapterPrompt = async () => {
+  const questions: PromptObject[] = [
     {
       type: "text",
       name: "networkName",
       message: "Network name",
+      validate: (value: string) => value.length > 0,
     },
     {
       type: "text",
       name: "networkRpcUrl",
       message: "Network RPC URL",
-      validate: (value) => (isUrl(value as string) ? true : "Invalid URL"),
+      validate: (value: string) => isUrl(value) || "Invalid URL",
     },
     {
       type: "text",
       name: "proxyAdminOwner",
       message: "Proxy Admin Owner",
-      validate: (value) =>
-        isAddress(value as string) ? true : "Invalid address",
+      validate: (value: string) => isAddress(value) || "Invalid address",
     },
     {
       // hardhat will validate private key
@@ -29,16 +37,13 @@ export const deployMultiFeedAdapter = async () => {
       name: "privateKey",
       message: "Private key",
     },
-  ] as PromptObject[];
+  ];
 
   const { networkName, networkRpcUrl, proxyAdminOwner, privateKey } =
-    await prompts(questions);
+    (await prompts(questions, { onCancel })) as PromptResponse;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   process.env.NETWORK_NAME = networkName;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   process.env.NETWORK_RPC_URL = networkRpcUrl;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   process.env.PRIVATE_KEY = privateKey;
 
   const hardhatProcess = spawn(

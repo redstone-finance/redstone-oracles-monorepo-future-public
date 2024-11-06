@@ -1,0 +1,36 @@
+{
+  "chain": {
+    "name": "optimism",
+    "id": 10
+  },
+  "adapterContract": "0xFB1267A29C0aa19daae4a483ea895862A69e4AA5",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {
+    "ETH": {
+      "priceFeedAddress": "0x4aF6b78d92432D32E3a635E824d3A541866f7a78"
+    },
+    "BTC": {
+      "priceFeedAddress": "0x26FB59e5562405F42f55661f790fA1Bd2F410A3d"
+    },
+    "BNB": {
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.4,
+        "timeSinceLastUpdateInMilliseconds": 10800000
+      }
+    },
+    "USDC": {
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 10800000
+      }
+    },
+    "USDT": {},
+    "weETH": {},
+    "apxETH/ETH": {}
+  }
+}

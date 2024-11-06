@@ -1,14 +1,19 @@
 #!/usr/bin/env node
 
 import prompts, { PromptObject } from "prompts";
-import { deployMultiFeedAdapter } from "./prompts/deploy-adapter-prompt";
-import { deployPriceFeeds } from "./prompts/deploy-price-feeds-prompt";
-import { displayRedStoneLogo } from "./src/utils";
+import { deployMultiFeedAdapterPrompt } from "./prompts/deploy-adapter-prompt";
+import { deployPriceFeedsPrompt } from "./prompts/deploy-price-feeds-prompt";
+import { runRelayerPrompt } from "./prompts/run-relayer-prompt";
+import { displayRedStoneLogo, onCancel } from "./src/utils";
+
+interface PromptResponse {
+  whatToDo: "deploy-multi-feed-adapter" | "deploy-price-feeds" | "run-relayer";
+}
 
 void (async () => {
   displayRedStoneLogo();
 
-  const questions = [
+  const questions: PromptObject[] = [
     {
       type: "select",
       name: "whatToDo",
@@ -16,19 +21,25 @@ void (async () => {
       choices: [
         {
           title: "Deploy multi-feed adapter",
-          value: "multi-feed-adapter",
+          value: "deploy-multi-feed-adapter",
         },
-        { title: "Deploy price feeds", value: "price-feeds" },
+        { title: "Deploy price feeds", value: "deploy-price-feeds" },
+        { title: "Run relayer", value: "run-relayer" },
       ],
     },
-  ] as PromptObject[];
+  ];
 
-  const { whatToDo } = await prompts(questions);
+  const { whatToDo } = (await prompts(questions, {
+    onCancel,
+  })) as PromptResponse;
 
-  if (whatToDo === "multi-feed-adapter") {
-    await deployMultiFeedAdapter();
-  } else if (whatToDo === "price-feeds") {
-    await deployPriceFeeds();
+  if (whatToDo === "deploy-multi-feed-adapter") {
+    await deployMultiFeedAdapterPrompt();
+  } else if (whatToDo === "deploy-price-feeds") {
+    await deployPriceFeedsPrompt();
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  } else if (whatToDo === "run-relayer") {
+    await runRelayerPrompt();
   } else {
     throw new Error("Error happened, exiting...");
   }

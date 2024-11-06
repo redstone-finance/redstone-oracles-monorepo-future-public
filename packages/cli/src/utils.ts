@@ -13,3 +13,8 @@ export const displayRedStoneLogo = () => {
   `)
   );
 };
+
+export const onCancel = () => {
+  console.log("Canceled....");
+  process.exit(1);
+};
