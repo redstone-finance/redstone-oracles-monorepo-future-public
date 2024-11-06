@@ -150,7 +150,7 @@ export const readManifestAndEnv = () => {
     ),
     enableEnhancedRequestDataPackagesLogs: RedstoneCommon.getFromEnv(
       "ENABLE_ENHANCED_REQUEST_DATA_PACKAGES_LOGS",
-      z.boolean().default(false)
+      z.boolean().default(true)
     ),
     waitForAllGatewaysTimeMs: RedstoneCommon.getFromEnv(
       "WAIT_FOR_ALL_GATEWAYS_TIME_MS",
