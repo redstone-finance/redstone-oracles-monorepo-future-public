@@ -69,8 +69,7 @@
         "kaiko",
         "kaiko-v2",
         "kraken-gbp",
-        "kraken-usd",
-        "twelve-data"
+        "kraken-usd"
       ]
     },
     "GBP": {
@@ -79,8 +78,7 @@
         "bitstamp-usd",
         "ecb",
         "financialmodelingprep-usd",
-        "kraken-usd",
-        "twelve-data"
+        "kraken-usd"
       ]
     },
     "DAI": {

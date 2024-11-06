@@ -272,7 +272,6 @@
         "curve-ethereum-usdc-multi-block",
         "fraxswap-ethereum-fxs",
         "fraxswap-ethereum-weth",
-        "uniswap-v3-ethereum-dai-500",
         "uniswap-v3-ethereum-fxs-10000",
         "uniswap-v3-ethereum-usdc-500"
       ],
@@ -293,8 +292,7 @@
         "kaiko",
         "kaiko-v2",
         "kraken-gbp",
-        "kraken-usd",
-        "twelve-data"
+        "kraken-usd"
       ]
     },
     "GBP": {
@@ -303,8 +301,7 @@
         "bitstamp-usd",
         "ecb",
         "financialmodelingprep-usd",
-        "kraken-usd",
-        "twelve-data"
+        "kraken-usd"
       ]
     },
     "BRL": {

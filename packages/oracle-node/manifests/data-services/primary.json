@@ -141,7 +141,6 @@
         "curve-ethereum-usdc-multi-block",
         "fraxswap-ethereum-fxs",
         "fraxswap-ethereum-weth",
-        "uniswap-v3-ethereum-dai-500",
         "uniswap-v3-ethereum-fxs-10000",
         "uniswap-v3-ethereum-usdc-500"
       ],
@@ -520,8 +519,7 @@
         "kaiko",
         "kaiko-v2",
         "kraken-gbp",
-        "kraken-usd",
-        "twelve-data"
+        "kraken-usd"
       ]
     },
     "CELO/EUR": {
@@ -958,8 +956,7 @@
         "bitstamp-usd",
         "ecb",
         "financialmodelingprep-usd",
-        "kraken-usd",
-        "twelve-data"
+        "kraken-usd"
       ]
     },
     "sfrxETH": {
@@ -1112,14 +1109,7 @@
       ]
     },
     "MODE": {
-      "source": [
-        "bitfinex2-usd",
-        "bitget-usdt",
-        "bitmart-usdt",
-        "bybit-usdt",
-        "gate-usdt",
-        "xt"
-      ]
+      "source": ["bitget-usdt", "bitmart-usdt", "bybit-usdt", "gate-usdt", "xt"]
     },
     "rsETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-kelp"]
