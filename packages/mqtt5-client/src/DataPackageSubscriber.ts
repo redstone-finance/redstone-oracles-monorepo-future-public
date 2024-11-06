@@ -9,7 +9,7 @@ import {
 } from "@redstone-finance/sdk";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { LastPublishedFeedState } from "./LastPublishedFeedState";
-import { Mqtt5Client } from "./Mqtt5Client";
+import { MultiPubSubClient } from "./MultiPubSubClient";
 import { RateLimitsCircuitBreaker } from "./RateLimitsCircuitBreaker";
 import { encodeDataPackageTopic } from "./topics";
 
@@ -100,7 +100,7 @@ export class DataPackageSubscriber {
   private circuitBreaker?: RateLimitsCircuitBreaker;
 
   constructor(
-    readonly mqttClient: Mqtt5Client,
+    readonly pubSubClient: MultiPubSubClient,
     readonly params: DataPackageSubscriberParams
   ) {
     if (params.authorizedSigners.length === 0) {
@@ -124,30 +124,15 @@ export class DataPackageSubscriber {
       Date.now() - MAX_DELAY
     );
 
-    if (
-      params.dataPackageIds.length * params.authorizedSigners.length >=
-      TOPIC_FILTER_LIMIT
-    ) {
+    for (const dataPackageId of params.dataPackageIds) {
       for (const signer of params.authorizedSigners) {
         this.topics.push(
           encodeDataPackageTopic({
-            dataPackageId: "+", // matches all
+            dataPackageId,
             dataServiceId: this.params.dataServiceId,
             nodeAddress: signer,
           })
         );
-      }
-    } else {
-      for (const dataPackageId of params.dataPackageIds) {
-        for (const signer of params.authorizedSigners) {
-          this.topics.push(
-            encodeDataPackageTopic({
-              dataPackageId,
-              dataServiceId: this.params.dataServiceId,
-              nodeAddress: signer,
-            })
-          );
-        }
       }
     }
   }
@@ -212,21 +197,24 @@ export class DataPackageSubscriber {
     }
     this.subscribeCallback = subscribeCallback;
 
-    await this.mqttClient.subscribe(this.topics, (_, messagePayload, error) => {
-      this.handleCircuitBreaker();
+    await this.pubSubClient.subscribe(
+      this.topics,
+      (_, messagePayload, error) => {
+        this.handleCircuitBreaker();
 
-      try {
-        if (error) {
-          throw new Error(error);
+        try {
+          if (error) {
+            throw new Error(error);
+          }
+
+          this.processNewPackage(messagePayload);
+        } catch (e) {
+          this.logger.error(
+            `Failed to process new package error=${RedstoneCommon.stringifyError(e)}`
+          );
         }
-
-        this.processNewPackage(messagePayload);
-      } catch (e) {
-        this.logger.error(
-          `Failed to process new package error=${RedstoneCommon.stringifyError(e)}`
-        );
       }
-    });
+    );
     this.logger.info("Successfully subscribed to topics", this.topics);
   }
 
@@ -243,7 +231,7 @@ export class DataPackageSubscriber {
   }
 
   unsubscribe() {
-    return this.mqttClient.unsubscribe(this.topics);
+    return this.pubSubClient.unsubscribe(this.topics);
   }
 
   private processNewPackage(dataPackageFromMessage: unknown) {

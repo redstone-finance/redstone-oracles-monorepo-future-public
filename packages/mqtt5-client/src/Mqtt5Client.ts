@@ -1,6 +1,7 @@
 import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
 import * as awsIot from "aws-iot-device-sdk-v2";
 import { randomUUID } from "crypto";
+import { PubSubClient, PubSubPayload } from "./PubSubClient";
 import {
   ContentTypes,
   getSerializerDeserializer,
@@ -24,13 +25,6 @@ const DEFAULT_CONFIG = {
 
 const TOPICS_BATCH_LIMIT = 8;
 
-export type MqttPayload = {
-  /** valid topic @see ./topic.ts */
-  topic: string;
-  /** valid json object */
-  data: unknown;
-};
-
 export type SubscribeCallback = (
   /** encoded topic @see ./topic.ts */
   topicName: string,
@@ -38,7 +32,7 @@ export type SubscribeCallback = (
   error: string | null
 ) => unknown;
 
-export class Mqtt5Client {
+export class Mqtt5Client implements PubSubClient {
   private logger = loggerFactory("mqtt5-client");
   private _mqtt!: awsIot.mqtt5.Mqtt5Client;
   private config: Required<Mqtt5ClientConfig>;
@@ -129,7 +123,7 @@ export class Mqtt5Client {
   }
 
   /** publish all data in single batch */
-  async publish(payloads: MqttPayload[], contentType: ContentTypes) {
+  async publish(payloads: PubSubPayload[], contentType: ContentTypes) {
     const promises = [];
     try {
       this._mqtt.cork();

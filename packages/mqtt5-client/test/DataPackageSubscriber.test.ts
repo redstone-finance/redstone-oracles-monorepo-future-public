@@ -5,12 +5,13 @@ import {
 } from "@redstone-finance/protocol";
 import { RedstoneLogger } from "@redstone-finance/utils";
 import { ethers } from "ethers";
-import _ from "lodash";
-import { Mqtt5Client, MqttPayload, MqttTopics } from "../src";
+import { MqttTopics } from "../src";
 import {
   DataPackageSubscriber,
   DataPackageSubscriberParams,
 } from "../src/DataPackageSubscriber";
+import { MultiPubSubClient } from "../src/MultiPubSubClient";
+import { PubSubPayload } from "../src/PubSubClient";
 import { RateLimitsCircuitBreaker } from "../src/RateLimitsCircuitBreaker";
 
 const MOCK_WALLET_1 = new ethers.Wallet(
@@ -37,7 +38,7 @@ type SubscribeFn = (
   error: string | null
 ) => unknown;
 
-class MockMqttClient {
+class MockPubSubClient {
   topicToCallback: Map<string, SubscribeFn> = new Map();
 
   subscribe(topics: string[], onMessage: SubscribeFn) {
@@ -46,7 +47,7 @@ class MockMqttClient {
     }
   }
 
-  publish(payloads: MqttPayload[]) {
+  publish(payloads: PubSubPayload[]) {
     for (const payload of payloads) {
       this.topicToCallback.get(payload.topic)?.(
         payload.topic,
@@ -82,8 +83,8 @@ function createDataPackage(
   return dataPackage.sign(signer.privateKey);
 }
 
-async function publishToMqtt(
-  mqtt: Mqtt5Client,
+async function publishToPubSub(
+  pubSub: MultiPubSubClient,
   packageData: {
     signer: ethers.Wallet;
     value: number;
@@ -97,7 +98,7 @@ async function publishToMqtt(
     packageData.timestamp,
     packageData.signer
   );
-  await mqtt.publish(
+  await pubSub.publish(
     [
       {
         topic: MqttTopics.encodeDataPackageTopic({
@@ -127,14 +128,14 @@ function createMockParams(override: Partial<DataPackageSubscriberParams>) {
   };
 }
 
-function createMockMqttClient(): Mqtt5Client {
-  return new MockMqttClient() as unknown as Mqtt5Client;
+function createMockPubSubClient(): MultiPubSubClient {
+  return new MockPubSubClient() as unknown as MultiPubSubClient;
 }
 
 async function singleSignerSetUp() {
-  const mqtt = createMockMqttClient();
+  const pubSub = createMockPubSubClient();
   const subscriber = new DataPackageSubscriber(
-    mqtt,
+    pubSub,
     createMockParams({
       dataPackageIds: ["ETH"],
       authorizedSigners: [MOCK_WALLET_1.address],
@@ -154,7 +155,7 @@ async function singleSignerSetUp() {
 
   const callback = jest.fn();
   await subscriber.subscribe(callback);
-  return { mqtt, callback, logger, subscriber, loggerDebug };
+  return { pubSub, callback, logger, subscriber, loggerDebug };
 }
 
 describe("subscribe-data-packages", () => {
@@ -168,12 +169,12 @@ describe("subscribe-data-packages", () => {
 
   describe("config validation", () => {
     it("should throw error when signers length < unique signers count", () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
 
       expect(
         () =>
           new DataPackageSubscriber(
-            mqtt,
+            pubSub,
             createMockParams({
               uniqueSignersCount: 2,
               authorizedSigners: [MOCK_WALLET_3.address],
@@ -183,12 +184,12 @@ describe("subscribe-data-packages", () => {
     });
 
     it("should throw offChainMinimalSignersCount < uniqueSignersCount", () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
 
       expect(
         () =>
           new DataPackageSubscriber(
-            mqtt,
+            pubSub,
             createMockParams({
               uniqueSignersCount: 2,
               minimalOffChainSignersCount: 1,
@@ -201,9 +202,9 @@ describe("subscribe-data-packages", () => {
 
   describe("topics", () => {
     it("should subscribe to valid topics", async () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
       const subscriber = new DataPackageSubscriber(
-        mqtt,
+        pubSub,
         createMockParams({ dataPackageIds: ["ETH"] })
       );
       await subscriber.subscribe(() => {});
@@ -213,56 +214,14 @@ describe("subscribe-data-packages", () => {
         `data-package/data-service-1/ETH/${MOCK_WALLET_2.address}`,
       ]);
       expect([
-        ...(mqtt as unknown as MockMqttClient).topicToCallback.keys(),
-      ]).toEqual(subscriber.topics);
-    });
-
-    it("should subscribe to even more topics", async () => {
-      const mqtt = createMockMqttClient();
-      const subscriber = new DataPackageSubscriber(
-        mqtt,
-        createMockParams({ dataPackageIds: ["ETH", "ETH+", "BTC"] })
-      );
-      await subscriber.subscribe(() => {});
-
-      expect(subscriber.topics).toEqual([
-        `data-package/data-service-1/ETH/${MOCK_WALLET_1.address}`,
-        `data-package/data-service-1/ETH/${MOCK_WALLET_2.address}`,
-        `data-package/data-service-1/ETH%2B/${MOCK_WALLET_1.address}`,
-        `data-package/data-service-1/ETH%2B/${MOCK_WALLET_2.address}`,
-        `data-package/data-service-1/BTC/${MOCK_WALLET_1.address}`,
-        `data-package/data-service-1/BTC/${MOCK_WALLET_2.address}`,
-      ]);
-
-      expect([
-        ...(mqtt as unknown as MockMqttClient).topicToCallback.keys(),
-      ]).toEqual(subscriber.topics);
-    });
-
-    it("should subscribe to all data feeds, when more then 50 data feeds", async () => {
-      const mqtt = createMockMqttClient();
-      const subscriber = new DataPackageSubscriber(
-        mqtt,
-        createMockParams({
-          dataPackageIds: _.range(0, 100).map((x) => x.toString()),
-        })
-      );
-      await subscriber.subscribe(() => {});
-
-      expect(subscriber.topics).toEqual([
-        `data-package/data-service-1/+/${MOCK_WALLET_1.address}`,
-        `data-package/data-service-1/+/${MOCK_WALLET_2.address}`,
-      ]);
-
-      expect([
-        ...(mqtt as unknown as MockMqttClient).topicToCallback.keys(),
+        ...(pubSub as unknown as MockPubSubClient).topicToCallback.keys(),
       ]).toEqual(subscriber.topics);
     });
   });
 
   describe("single package validation", () => {
     it("should aggregate prices for single data feed id, one signer", async () => {
-      const { mqtt, callback } = await singleSignerSetUp();
+      const { pubSub, callback } = await singleSignerSetUp();
 
       const dataPackage = createDataPackage(
         "ETH",
@@ -271,7 +230,7 @@ describe("subscribe-data-packages", () => {
         MOCK_WALLET_1
       );
 
-      await mqtt.publish(
+      await pubSub.publish(
         [
           {
             topic: MqttTopics.encodeDataPackageTopic({
@@ -292,7 +251,7 @@ describe("subscribe-data-packages", () => {
     });
 
     it("should reject package not fulfilling schema", async () => {
-      const { mqtt, callback, logger } = await singleSignerSetUp();
+      const { pubSub, callback, logger } = await singleSignerSetUp();
       const dataPackage = createDataPackage(
         "ETH",
         12,
@@ -300,7 +259,7 @@ describe("subscribe-data-packages", () => {
         MOCK_WALLET_1
       );
 
-      await mqtt.publish(
+      await pubSub.publish(
         [
           {
             topic: MqttTopics.encodeDataPackageTopic({
@@ -321,7 +280,7 @@ describe("subscribe-data-packages", () => {
     });
 
     it("should reject package wrong signer", async () => {
-      const { mqtt, callback, logger } = await singleSignerSetUp();
+      const { pubSub, callback, logger } = await singleSignerSetUp();
       const dataPackage = createDataPackage(
         "ETH",
         12,
@@ -329,7 +288,7 @@ describe("subscribe-data-packages", () => {
         MOCK_WALLET_2
       );
 
-      await mqtt.publish(
+      await pubSub.publish(
         [
           {
             topic: MqttTopics.encodeDataPackageTopic({
@@ -350,13 +309,13 @@ describe("subscribe-data-packages", () => {
     });
 
     it("should reject package if it is older or the same timestamp as last published", async () => {
-      const { mqtt, callback, loggerDebug, subscriber } =
+      const { pubSub, callback, loggerDebug, subscriber } =
         await singleSignerSetUp();
 
       const timestamp = Date.now();
 
       // first call to setup packageTimestamp
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 12,
         timestamp,
@@ -367,7 +326,7 @@ describe("subscribe-data-packages", () => {
       subscriber.params.authorizedSigners.push(MOCK_WALLET_2.address);
 
       // the same
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 12,
         timestamp,
@@ -381,7 +340,7 @@ describe("subscribe-data-packages", () => {
       );
 
       // older
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 12,
         timestamp: timestamp - 1,
@@ -396,10 +355,10 @@ describe("subscribe-data-packages", () => {
     });
 
     it("should reject package from duplicated signer", async () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
 
       const subscriber = new DataPackageSubscriber(
-        mqtt,
+        pubSub,
         createMockParams({
           dataPackageIds: ["ETH"],
           authorizedSigners: [MOCK_WALLET_1.address, MOCK_WALLET_2.address],
@@ -416,14 +375,14 @@ describe("subscribe-data-packages", () => {
 
       const timestamp = Date.now();
       // first call to setup packageTimestamp
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 12,
         timestamp: timestamp,
         signer: MOCK_WALLET_1,
       });
 
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 13,
         timestamp: timestamp,
@@ -439,7 +398,7 @@ describe("subscribe-data-packages", () => {
     });
 
     it("should reject package if id not in requested dataPackageId", async () => {
-      const { mqtt, callback, loggerDebug } = await singleSignerSetUp();
+      const { pubSub, callback, loggerDebug } = await singleSignerSetUp();
       const dataPackage = createDataPackage(
         "ETH2",
         12,
@@ -448,7 +407,7 @@ describe("subscribe-data-packages", () => {
       );
 
       // first call to setup packageTimestamp
-      await mqtt.publish(
+      await pubSub.publish(
         [
           {
             topic: MqttTopics.encodeDataPackageTopic({
@@ -469,9 +428,9 @@ describe("subscribe-data-packages", () => {
     });
 
     it("should remove old data", async () => {
-      const { mqtt, callback, subscriber } = await singleSignerSetUp();
+      const { pubSub, callback, subscriber } = await singleSignerSetUp();
 
-      const dataPackage = await publishToMqtt(mqtt, {
+      const dataPackage = await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 12,
         timestamp: Date.now(),
@@ -490,10 +449,10 @@ describe("subscribe-data-packages", () => {
 
   describe("publish requirements", () => {
     it("should instantly  publish data when received data from all signers", async () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
 
       const subscriber = new DataPackageSubscriber(
-        mqtt,
+        pubSub,
         createMockParams({
           dataPackageIds: ["ETH"],
           authorizedSigners: [MOCK_WALLET_1.address, MOCK_WALLET_2.address],
@@ -506,7 +465,7 @@ describe("subscribe-data-packages", () => {
       const packageTimestamp = Date.now();
 
       // first call to setup packageTimestamp
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 11,
         timestamp: packageTimestamp,
@@ -517,7 +476,7 @@ describe("subscribe-data-packages", () => {
       jest.runAllTimers();
       expect(callback).toBeCalledTimes(0);
 
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 12,
         timestamp: packageTimestamp,
@@ -529,10 +488,10 @@ describe("subscribe-data-packages", () => {
     });
 
     it("should publish after delay when received data from minimalOffChainSignersCount", async () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
 
       const subscriber = new DataPackageSubscriber(
-        mqtt,
+        pubSub,
         createMockParams({
           dataPackageIds: ["ETH"],
           authorizedSigners: [MOCK_WALLET_1.address, MOCK_WALLET_2.address],
@@ -545,7 +504,7 @@ describe("subscribe-data-packages", () => {
       const packageTimestamp = Date.now();
 
       // first call to setup packageTimestamp
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 12,
         timestamp: packageTimestamp,
@@ -561,10 +520,10 @@ describe("subscribe-data-packages", () => {
     });
 
     it("should publish even one feed of two required when ignoreMissingFeeds enabled and minimalOffChainSignersCount satisfied", async () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
 
       const subscriber = new DataPackageSubscriber(
-        mqtt,
+        pubSub,
         createMockParams({
           dataPackageIds: ["ETH", "BTC"],
           authorizedSigners: [MOCK_WALLET_1.address, MOCK_WALLET_2.address],
@@ -577,7 +536,7 @@ describe("subscribe-data-packages", () => {
       await subscriber.subscribe(callback);
       const packageTimestamp = Date.now();
 
-      const firstPackage = await publishToMqtt(mqtt, {
+      const firstPackage = await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 12,
         timestamp: packageTimestamp,
@@ -587,7 +546,7 @@ describe("subscribe-data-packages", () => {
       jest.runAllTimers();
       expect(callback).toBeCalledTimes(0);
 
-      const secondPackage = await publishToMqtt(mqtt, {
+      const secondPackage = await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 13,
         timestamp: packageTimestamp,
@@ -616,10 +575,10 @@ describe("subscribe-data-packages", () => {
       MOCK_WALLET_5,
     ];
     it("should prices closest to median and slice at unique signer threshold", async () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
 
       const subscriber = new DataPackageSubscriber(
-        mqtt,
+        pubSub,
         createMockParams({
           dataPackageIds: ["ETH", "BTC"],
           authorizedSigners: NODES.map((n) => n.address),
@@ -638,7 +597,7 @@ describe("subscribe-data-packages", () => {
       const publishedPackagesBtc = [];
       for (const node of NODES) {
         publishedPackagesEth.push(
-          await publishToMqtt(mqtt, {
+          await publishToPubSub(pubSub, {
             dataPackageId: "ETH",
             value: valueEth++,
             timestamp: packageTimestamp,
@@ -647,7 +606,7 @@ describe("subscribe-data-packages", () => {
         );
 
         publishedPackagesBtc.push(
-          await publishToMqtt(mqtt, {
+          await publishToPubSub(pubSub, {
             dataPackageId: "BTC",
             value: valueBtc++,
             timestamp: packageTimestamp,
@@ -663,10 +622,10 @@ describe("subscribe-data-packages", () => {
     });
 
     it("4 nodes produces value, 1 node lags 2 seconds", async () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
 
       const subscriber = new DataPackageSubscriber(
-        mqtt,
+        pubSub,
         createMockParams({
           dataPackageIds: ["ETH"],
           authorizedSigners: NODES.map((n) => n.address),
@@ -686,7 +645,7 @@ describe("subscribe-data-packages", () => {
       const publishedPackagesEth = [];
       for (const node of NODES.slice(0, 4)) {
         publishedPackagesEth.push(
-          await publishToMqtt(mqtt, {
+          await publishToPubSub(pubSub, {
             dataPackageId: "ETH",
             value: valueEth++,
             timestamp: packageTimestamp,
@@ -696,7 +655,7 @@ describe("subscribe-data-packages", () => {
       }
 
       jest.advanceTimersByTime(2_000);
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: valueEth,
         timestamp: packageTimestamp,
@@ -714,10 +673,10 @@ describe("subscribe-data-packages", () => {
     });
 
     it("4 nodes produces value, 1 node never publishes", async () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
 
       const subscriber = new DataPackageSubscriber(
-        mqtt,
+        pubSub,
         createMockParams({
           dataPackageIds: ["ETH"],
           authorizedSigners: NODES.map((n) => n.address),
@@ -737,7 +696,7 @@ describe("subscribe-data-packages", () => {
       const publishedPackagesEth = [];
       for (const node of NODES.slice(0, 4)) {
         publishedPackagesEth.push(
-          await publishToMqtt(mqtt, {
+          await publishToPubSub(pubSub, {
             dataPackageId: "ETH",
             value: valueEth++,
             timestamp: packageTimestamp,
@@ -759,10 +718,10 @@ describe("subscribe-data-packages", () => {
     });
 
     it("5 nodes produces value for BTC, 3 for ETH, 2 for DAI, 1 for USDT", async () => {
-      const mqtt = createMockMqttClient();
+      const pubSub = createMockPubSubClient();
 
       const subscriber = new DataPackageSubscriber(
-        mqtt,
+        pubSub,
         createMockParams({
           dataPackageIds: ["ETH", "BTC", "USDT", "DAI"],
           authorizedSigners: NODES.map((n) => n.address),
@@ -781,7 +740,7 @@ describe("subscribe-data-packages", () => {
       let value = 1;
       const publishedPackagesBtc = [];
       for (const node of NODES.slice(0, 2)) {
-        await publishToMqtt(mqtt, {
+        await publishToPubSub(pubSub, {
           dataPackageId: "DAI",
           value: (value *= 2),
           timestamp: packageTimestamp,
@@ -790,7 +749,7 @@ describe("subscribe-data-packages", () => {
       }
 
       for (const node of NODES.slice(0, 1)) {
-        await publishToMqtt(mqtt, {
+        await publishToPubSub(pubSub, {
           dataPackageId: "USDT",
           value: (value *= 2),
           timestamp: packageTimestamp,
@@ -800,7 +759,7 @@ describe("subscribe-data-packages", () => {
 
       for (const node of NODES) {
         publishedPackagesBtc.push(
-          await publishToMqtt(mqtt, {
+          await publishToPubSub(pubSub, {
             dataPackageId: "BTC",
             value: (value *= 2),
             timestamp: packageTimestamp,
@@ -812,7 +771,7 @@ describe("subscribe-data-packages", () => {
       const publishedPackagesEth = [];
       for (const node of NODES.slice(0, 3)) {
         publishedPackagesEth.push(
-          await publishToMqtt(mqtt, {
+          await publishToPubSub(pubSub, {
             dataPackageId: "ETH",
             value: (value *= 2),
             timestamp: packageTimestamp,
@@ -838,7 +797,7 @@ describe("subscribe-data-packages", () => {
   describe("fallback mode", () => {
     it("fallback mode should be triggered after maxDelayerBetweenPublishes", async () => {
       jest.setTimeout(15_000);
-      const { callback, mqtt, subscriber } = await singleSignerSetUp();
+      const { callback, pubSub, subscriber } = await singleSignerSetUp();
 
       const fallbackPackage = createDataPackage(
         "ETH",
@@ -851,7 +810,7 @@ describe("subscribe-data-packages", () => {
       }));
       const interval = subscriber.enableFallback(fallbackFn, 1_000, 200);
 
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         signer: MOCK_WALLET_1,
         value: 2,
         timestamp: Date.now(),
@@ -870,14 +829,14 @@ describe("subscribe-data-packages", () => {
 
     it("fallback mode should NOT be triggered if maxDelayerBetweenPublishes doesn't pass", async () => {
       jest.setTimeout(15_000);
-      const { callback, mqtt, subscriber } = await singleSignerSetUp();
+      const { callback, pubSub, subscriber } = await singleSignerSetUp();
 
       const fallbackFn = jest.fn().mockImplementationOnce(() => ({
         ETH: [createDataPackage("ETH", 3, Date.now() + 2_000, MOCK_WALLET_1)],
       }));
       const interval = subscriber.enableFallback(fallbackFn, 1_500, 200);
 
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         signer: MOCK_WALLET_1,
         value: 2,
         timestamp: Date.now(),
@@ -896,14 +855,14 @@ describe("subscribe-data-packages", () => {
 
   describe("circuit breaker", () => {
     it("should trigger circuit breaker and unsubscribe", async () => {
-      const { subscriber, mqtt } = await singleSignerSetUp();
+      const { subscriber, pubSub } = await singleSignerSetUp();
 
       subscriber.enableCircuitBreaker(new RateLimitsCircuitBreaker(1000, 2));
       const unsubSpy = jest.spyOn(subscriber, "unsubscribe");
 
       expect(unsubSpy).toBeCalledTimes(0);
 
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 1,
         timestamp: Date.now() + 1,
@@ -911,7 +870,7 @@ describe("subscribe-data-packages", () => {
       });
       expect(unsubSpy).toBeCalledTimes(0);
 
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 1,
         timestamp: Date.now() + 2,
@@ -919,7 +878,7 @@ describe("subscribe-data-packages", () => {
       });
       expect(unsubSpy).toBeCalledTimes(0);
 
-      await publishToMqtt(mqtt, {
+      await publishToPubSub(pubSub, {
         dataPackageId: "ETH",
         value: 1,
         timestamp: Date.now() + 3,

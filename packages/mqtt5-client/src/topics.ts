@@ -4,6 +4,14 @@ export type DataPackageTopic = {
   nodeAddress: string;
 };
 
+// 100 req/s is mqtt limit per connection
+// 1 topic(dataFeedId,signer) produces => 3 (main,fallback,fast) feed per second
+// prod: 30 feeds x 5 signers => 5 connections
+// dev: 30 feeds x 2 signers => 2 connections
+export function calculateTopicCountPerConnection(): number {
+  return Math.floor(100 / 3);
+}
+
 export function encodeDataPackageTopic({
   dataServiceId,
   dataPackageId,

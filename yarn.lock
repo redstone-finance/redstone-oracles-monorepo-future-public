@@ -8464,6 +8464,7 @@ __metadata:
     "@redstone-finance/protocol": "npm:0.6.2"
     "@redstone-finance/sdk": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
+    async-mutex: "npm:^0.5.0"
     aws-iot-device-sdk-v2: "npm:^1.21.1"
   languageName: unknown
   linkType: soft
@@ -14001,6 +14002,15 @@ __metadata:
   dependencies:
     tslib: "npm:^2.4.0"
   checksum: 10c0/6541695f80c1d6c5acbf3f7f04e8ff0733b3e029312c48d77bb95243fbe21fc5319f45ac3d72ce08551e6df83dc32440285ce9a3ac17bfc5d385ff0cc8ccd62a
+  languageName: node
+  linkType: hard
+
+"async-mutex@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "async-mutex@npm:0.5.0"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: 10c0/9096e6ad6b674c894d8ddd5aa4c512b09bb05931b8746ebd634952b05685608b2b0820ed5c406e6569919ff5fe237ab3c491e6f2887d6da6b6ba906db3ee9c32
   languageName: node
   linkType: hard
 
