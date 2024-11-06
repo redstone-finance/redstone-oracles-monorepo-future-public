@@ -22,6 +22,12 @@
     },
     "aUSD": {
       "priceFeedAddress": "0xb81131B6368b3F0a83af09dB4E39Ac23DA96C2Db"
+    },
+    "USDe": {
+      "priceFeedAddress": "0x3DFA26B9A15D37190bB8e50aE093730DcA88973E"
+    },
+    "sUSDe": {
+      "priceFeedAddress": "0xd6a987Ff6323F658D04da16c36CE00960137a115"
     }
   }
 }
