@@ -1400,12 +1400,18 @@
     "SolvBTC.BBN_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-curve-rate-provider"]
     },
-    "pumpBTC/BTC": {
-      "source": ["fixed-value"],
-      "fixedValue": 1
-    },
     "pumpBTC_FUNDAMENTAL": {
       "source": ["pump-btc"]
+    },
+    "pumpBTC": {
+      "source": [
+        "curve-ethereum-wbtc",
+        "balancer-ethereum-wbtc",
+        "uniswap-v3-ethereum-wbtc-500"
+      ]
+    },
+    "pumpBTC/BTC": {
+      "source": ["non-usd-based"]
     },
     "fBOMB": {
       "source": [

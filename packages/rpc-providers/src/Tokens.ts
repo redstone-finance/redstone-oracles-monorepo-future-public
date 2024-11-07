@@ -289,6 +289,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a",
       decimals: 6,
     },
+    pumpBTC: {
+      address: "0xF469fBD2abcd6B9de8E169d128226C0Fc90a012e",
+      decimals: 8,
+    },
   },
   blast: {
     ETH: {
@@ -587,6 +591,10 @@ export const chainTokenMap: ChainTokenMap = {
     },
     cbBTC: {
       address: "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+      decimals: 8,
+    },
+    pumpBTC: {
+      address: "0xF469fBD2abcd6B9de8E169d128226C0Fc90a012e",
       decimals: 8,
     },
   },
