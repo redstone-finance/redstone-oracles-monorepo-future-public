@@ -293,6 +293,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0xF469fBD2abcd6B9de8E169d128226C0Fc90a012e",
       decimals: 8,
     },
+    LBTC: {
+      address: "0x8236a87084f8B84306f72007F36F2618A5634494",
+      decimals: 8,
+    },
   },
   blast: {
     ETH: {

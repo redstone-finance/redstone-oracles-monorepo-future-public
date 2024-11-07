@@ -1500,6 +1500,13 @@
         "bingx-usdt",
         "bitrue-usdt"
       ]
+    },
+    "LBTC": {
+      "source": [
+        "uniswap-v3-ethereum-wbtc-500",
+        "uniswap-v3-ethereum-cbbtc-500",
+        "curve-ethereum-wbtc"
+      ]
     }
   },
   "multiPointPackages": {
