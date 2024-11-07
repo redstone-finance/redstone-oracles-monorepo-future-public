@@ -97,7 +97,6 @@
     "LUSD": {
       "source": [
         "curve-ethereum-3crv",
-        "maverick-ethereum-usdc",
         "uniswap-v3-ethereum-usdc-500",
         "velodrome-optimism-usdc"
       ],
@@ -229,7 +228,7 @@
       "source": [
         "curve-ethereum-euroc",
         "uniswap-v3-ethereum-usdc-3000",
-        "uniswap-v3-ethereum-weth-500"
+        "uniswap-v3-arbitrumone-usdc.e-500"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -301,7 +300,7 @@
       "source": ["ethereum-evm-fetcher-savings-dai"]
     },
     "NOTE": {
-      "source": ["canto-canto-usdc", "canto-canto-usdt"],
+      "source": ["canto-canto-usdc"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -326,7 +325,6 @@
         "camelot-v3-arbitrumone-weth",
         "curve-ethereum-sfrxeth",
         "curve-ethereum-weeth",
-        "uniswap-v3-arbitrumone-wsteth-500",
         "uniswap-v3-ethereum-weth-500"
       ]
     },
