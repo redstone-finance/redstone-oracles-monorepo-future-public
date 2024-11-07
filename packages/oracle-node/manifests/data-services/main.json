@@ -1694,6 +1694,19 @@
         "trader-joe-v2-avalanche-usdt"
       ]
     },
+    "pumpBTC_FUNDAMENTAL": {
+      "source": ["pump-btc"]
+    },
+    "pumpBTC": {
+      "source": [
+        "curve-ethereum-wbtc",
+        "balancer-ethereum-wbtc",
+        "uniswap-v3-ethereum-wbtc-500"
+      ]
+    },
+    "pumpBTC/BTC": {
+      "source": ["non-usd-based"]
+    },
     "EIGEN": {
       "source": [
         "binance-usdt",
