@@ -7987,6 +7987,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/http-client@npm:0.6.2, @redstone-finance/http-client@workspace:packages/http-client":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/http-client@workspace:packages/http-client"
+  dependencies:
+    axios: "npm:^1.7.7"
+    axios-retry: "npm:^4.5.0"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/integration-tests@workspace:packages/integration":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/integration-tests@workspace:packages/integration"
@@ -8000,7 +8009,7 @@ __metadata:
     "@redstone-finance/sdk": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
     axios: "npm:^1.7.7"
-    axios-retry: "npm:^4.4.0"
+    axios-retry: "npm:^4.5.0"
     ethers: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
@@ -8473,6 +8482,7 @@ __metadata:
   resolution: "@redstone-finance/node-commons@workspace:packages/node-commons"
   dependencies:
     "@redstone-finance/chain-configs": "npm:0.6.2"
+    "@redstone-finance/http-client": "npm:0.6.2"
     "@redstone-finance/rpc-providers": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
     zod: "npm:^3.22.4"
@@ -14195,18 +14205,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios-retry@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "axios-retry@npm:4.4.0"
-  dependencies:
-    is-retry-allowed: "npm:^2.2.0"
-  peerDependencies:
-    axios: 0.x || 1.x
-  checksum: 10c0/583361dc56d8d0514c08ad89b5d267413dc31d6cbeb12712e0068496a0bd024ba0dfcbff0a7ba6b355311db7b6d90f1d1e05015e3cdda1246969c9ef17f66bcf
-  languageName: node
-  linkType: hard
-
-"axios-retry@npm:^4.4.2":
+"axios-retry@npm:^4.4.2, axios-retry@npm:^4.5.0":
   version: 4.5.0
   resolution: "axios-retry@npm:4.5.0"
   dependencies:
