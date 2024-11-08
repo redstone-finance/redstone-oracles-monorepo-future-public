@@ -22,6 +22,9 @@
     },
     "ezETH": {
       "priceFeedAddress": "0x4BAD96DD1C7D541270a0C92e1D4e5f12EEEA7a57"
+    },
+    "ISEI_FUNDAMENTAL/USD": {
+      "priceFeedAddress": "0x5C4c8d6f6Bf79B718F3e8399AaBdFEd01cB7e48f"
     }
   }
 }
