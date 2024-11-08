@@ -8,7 +8,7 @@ use redstone::{core::{config::Config, processor::process_input}, utils::vec::*};
 use common::{
     arr_wrap::ArrWrap,
     check::check_timestamp,
-    configurables::REDSTONE_PRIMARY_PROD_WITH_RAPID_ALLOWED_SIGNERS,
+    configurables::*,
     metadata_abi::Metadata,
     redstone_adapter_abi::RedStoneAdapter,
     redstone_core_abi::RedStoneCore,
@@ -31,7 +31,7 @@ const VERSION = 1;
 
 configurable {
     SIGNER_COUNT_THRESHOLD: u64 = 1,
-    ALLOWED_SIGNERS: [b256; 6] = REDSTONE_PRIMARY_PROD_WITH_RAPID_ALLOWED_SIGNERS,
+    ALLOWED_SIGNERS: [b256; 2] = REDSTONE_PRIMARY_DEMO_ALLOWED_SIGNERS,
 }
 
 impl Metadata for Contract {
@@ -81,7 +81,10 @@ impl RedStoneAdapter for Contract {
 
     #[storage(read)]
     fn read_last_update_block_timestamp() -> Option<u64> {
-        storage.timestamp.try_read()
+        match storage.timestamp.try_read() {
+            None => None,
+            Some(value) => Some(value / 1000),
+        }
     }
 }
 

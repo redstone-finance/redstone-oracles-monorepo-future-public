@@ -14,7 +14,6 @@ import { RateLimitsCircuitBreaker } from "./RateLimitsCircuitBreaker";
 import { encodeDataPackageTopic } from "./topics";
 
 const MAX_DELAY = RedstoneCommon.minToMs(2);
-const TOPIC_FILTER_LIMIT = 50;
 
 /**
  * defines behavior of {@link DataPackageSubscriber}
@@ -271,7 +270,7 @@ export class DataPackageSubscriber {
       )
     ) {
       this.logger.debug(
-        `Package was rejected because packageTimestamp=${packageTimestamp} < lastPublishedTimestamp=${this.lastPublishedState.getLastPublishTime(dataPackageId)}`
+        `Package was rejected because packageTimestamp=${packageTimestamp} <= lastPublishedTimestamp=${this.lastPublishedState.getLastPublishTime(dataPackageId)}`
       );
       return;
     }
@@ -311,9 +310,9 @@ export class DataPackageSubscriber {
 
     if (this.canSchedulePublish(entryForTimestamp)) {
       this.logger.debug(
-        `Got packages from enough authorized signers timestamp=${packageTimestamp}, will try to publish in ${this.params.waitMsForOtherSignersAfterMinimalSignersCountSatisfied}`
+        `Got packages from enough authorized signers timestamp=${packageTimestamp}, will try to publish in ${this.params.waitMsForOtherSignersAfterMinimalSignersCountSatisfied} [ms]`
       );
-      // this can be scheduled multiple times but this is okey, because lastPublishedTimestamp will protect from publishing multiple times
+      // this can be scheduled multiple times, but this is okay, because lastPublishedTimestamp will protect from publishing multiple times
       setTimeout(
         () => this.publish(entryForTimestamp, packageTimestamp),
         this.params.waitMsForOtherSignersAfterMinimalSignersCountSatisfied
@@ -321,7 +320,7 @@ export class DataPackageSubscriber {
     }
   }
 
-  /** Can publish instantly only if have already packages for every data feed from every signer */
+  /** Can publish instantly only if already have packages for every data feed from every signer */
   private canBePublishedInstantly(
     entryForTimestamp: Record<string, SignedDataPackage[] | undefined>
   ) {
@@ -364,7 +363,13 @@ export class DataPackageSubscriber {
       `Publishing packages for timestamp=${packageTimestamp} latency=${Date.now() - packageTimestamp} dataPackageIds=${packageIdsToPublish.join(",")}`
     );
 
-    this.subscribeCallback!(packagesToPublish);
+    if (!this.subscribeCallback) {
+      return this.logger.warn(
+        `subscribeCallback is undefined - have already unsubscribed?`
+      );
+    }
+
+    this.subscribeCallback(packagesToPublish);
     this.lastPublishedState.update(
       Object.keys(packagesToPublish),
       packageTimestamp

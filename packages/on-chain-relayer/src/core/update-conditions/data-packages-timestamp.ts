@@ -1,8 +1,8 @@
 import { chooseDataPackagesTimestamp } from "@redstone-finance/sdk";
-import { Context } from "../../types";
+import { ShouldUpdateContext } from "../../types";
 
 export const checkIfDataPackageTimestampIsNewer = (
-  context: Context,
+  context: ShouldUpdateContext,
   dataFeedId: string
 ) => {
   const { dataPackages } = context;

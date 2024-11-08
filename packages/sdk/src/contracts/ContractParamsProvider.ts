@@ -1,15 +1,22 @@
 import { hexlify } from "@ethersproject/bytes";
 import { toUtf8Bytes } from "@ethersproject/strings/lib/utf8";
 import { arrayify } from "ethers/lib/utils";
-import { DataPackagesRequestParams, requestRedstonePayload } from "../index";
+import {
+  convertDataPackagesResponse,
+  DataPackagesRequestParams,
+  DataPackagesResponseCache,
+  requestDataPackages,
+} from "../index";
 
 export class ContractParamsProvider {
-  constructor(public readonly requestParams: DataPackagesRequestParams) {}
+  constructor(
+    public readonly requestParams: DataPackagesRequestParams,
+    private readonly cache?: DataPackagesResponseCache,
+    private readonly overrideFeedIdsToUpdate?: string[]
+  ) {}
 
   async getPayloadHex(withPrefix = true): Promise<string> {
-    return (
-      (withPrefix ? "0x" : "") + (await this.requestPayload(this.requestParams))
-    );
+    return (withPrefix ? "0x" : "") + (await this.requestPayload());
   }
 
   async getPayloadData(): Promise<number[]> {
@@ -21,13 +28,19 @@ export class ContractParamsProvider {
   }
 
   getDataFeedIds(): string[] {
-    return this.requestParams.dataPackagesIds;
+    return this.overrideFeedIdsToUpdate ?? this.requestParams.dataPackagesIds;
   }
 
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
-  protected async requestPayload(
-    requestParams: DataPackagesRequestParams
-  ): Promise<string> {
-    return await requestRedstonePayload(requestParams);
+  async requestDataPackages() {
+    const cachedResponse = this.cache?.get(this.requestParams);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+
+    return await requestDataPackages(this.requestParams);
+  }
+
+  protected async requestPayload(): Promise<string> {
+    return convertDataPackagesResponse(await this.requestDataPackages());
   }
 }

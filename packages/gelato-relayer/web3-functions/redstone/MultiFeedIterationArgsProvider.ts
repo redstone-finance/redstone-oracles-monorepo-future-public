@@ -2,7 +2,6 @@ import { Web3FunctionUserArgs } from "@gelatonetwork/web3-functions-sdk";
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
   getAbiForAdapter,
-  getMultiFeedIterationArgs,
   makeConfigProvider,
   MultiFeedAdapterWithoutRounds,
   MultiFeedEvmContractFacade,
@@ -49,9 +48,11 @@ export class MultiFeedIterationArgsProvider
       provider
     ) as MultiFeedAdapterWithoutRounds;
 
-    return await getMultiFeedIterationArgs(
-      new MultiFeedEvmContractFacade(this.adapterContract)
-    );
+    const facade = new MultiFeedEvmContractFacade(this.adapterContract);
+    const config = makeConfigProvider(this.manifest, this.relayerEnv);
+    const context = await facade.getShouldUpdateContext(config);
+
+    return await facade.getIterationArgs(context, config);
   }
 
   async getTransactionData({

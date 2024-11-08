@@ -1,17 +1,22 @@
 import { MultiFeedAdapterWithoutRounds } from "../../typechain-types";
-import { getMultiFeedIterationArgs, RelayerConfig } from "../index";
+import { RelayerConfig } from "../index";
 import { getLastRoundParamsFromContractMultiFeed } from "../multi-feed/args/get-last-round-params";
+import { getMultiFeedIterationArgs } from "../multi-feed/args/get-multi-feed-iteration-args";
 import { addExtraFeedsToUpdateParams } from "../multi-feed/gas-optimization/add-extra-feeds";
 import {
   ContractData,
   IterationArgs,
   MultiFeedUpdatePricesArgs,
+  ShouldUpdateContext,
 } from "../types";
 import { EvmContractFacade } from "./EvmContractFacade";
 
 export class MultiFeedEvmContractFacade extends EvmContractFacade<MultiFeedAdapterWithoutRounds> {
-  override async getIterationArgs() {
-    return await getMultiFeedIterationArgs(this);
+  override async getIterationArgs(
+    context: ShouldUpdateContext,
+    relayerConfig: RelayerConfig
+  ) {
+    return await getMultiFeedIterationArgs(this, context, relayerConfig);
   }
 
   async getLastRoundParamsFromContract(

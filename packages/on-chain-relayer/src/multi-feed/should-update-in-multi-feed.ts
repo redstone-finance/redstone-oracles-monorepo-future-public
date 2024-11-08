@@ -1,21 +1,26 @@
 import { checkConditionByName } from "../core/update-conditions/check-condition-by-name";
 import { checkIfDataPackageTimestampIsNewer } from "../core/update-conditions/data-packages-timestamp";
-import { Context, RelayerConfig, ShouldUpdateResponse } from "../types";
+import {
+  RelayerConfig,
+  ShouldUpdateContext,
+  ShouldUpdateResponse,
+} from "../types";
 
-export const shouldUpdate = async (
-  context: Context,
+export const shouldUpdateInMultiFeed = async (
+  context: ShouldUpdateContext,
   config: RelayerConfig
 ): Promise<ShouldUpdateResponse> => {
   const dataFeedsToUpdate: string[] = [];
   const warningMessages: string[] = [];
   const dataFeedsDeviationRatios: Record<string, number> = {};
   const heartbeatUpdates: Set<number> = new Set();
+  const pictogram = config.runWithMqtt ? "ℹ️" : "⛔";
   for (const [dataFeedId, updateConditions] of Object.entries(
     config.updateConditions
   )) {
     if (!Object.keys(context.dataPackages).includes(dataFeedId)) {
       warningMessages.push(
-        `⛔Data feed: ${dataFeedId} couldn't be fetched from gateway.⛔`
+        `${pictogram}Data package for feed: ${dataFeedId} is missing in the datasource${pictogram}`
       );
       continue;
     }

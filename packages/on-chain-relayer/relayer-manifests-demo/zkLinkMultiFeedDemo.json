@@ -1,0 +1,65 @@
+{
+  "chain": {
+    "name": "zkLink",
+    "id": 810180
+  },
+  "adapterContract": "0x5efDb74da192584746c96EcCe138681Ec1501218",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-demo",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {
+    "BTC": {
+      "priceFeedAddress": "0x51d9725882178234c0F3417C36052d7B23A1ecd4"
+    },
+    "USDC": {
+      "priceFeedAddress": "0x3B5d81B77a4EddEfF5ffC77681AAd9bec55d24cf"
+    },
+    "USDT": {
+      "priceFeedAddress": "0xd2ccd490BB0Ab958FF75d099E1F5174686b39a8c"
+    },
+    "WBTC": {
+      "priceFeedAddress": "0x87Dcd2F002D94FEED5b73DA5597874C6b80C1BE5"
+    },
+    "ARB": {
+      "priceFeedAddress": "0xcCAa30c08Dbd4773EE8D2e814170420dAE890c75"
+    },
+    "SolvBTC_MERLIN": {
+      "priceFeedAddress": "0xe1eBcB160239aEbCC529e448B0045534d3c3F30e"
+    },
+    "ETH": {
+      "priceFeedAddress": "0xBAdD9ADb835Fb4813cd8D8c87d8FCD2F123fd4B0"
+    },
+    "pufETH": {
+      "priceFeedAddress": "0x81b9dC350576CfE64178B1Fe23c3630F6F0Ec2b2"
+    },
+    "STONE": {
+      "priceFeedAddress": "0xeC76D0A6Ac840Cdae2a9AA64F515Ceb936AD61Bf"
+    },
+    "MANTA": {
+      "priceFeedAddress": "0x0341f7732eb4110657081FfaE39109A7B2C42C8d"
+    },
+    "ezETH": {
+      "priceFeedAddress": "0xca4793Eeb7a837E30884279b3D557970E444EBDe"
+    },
+    "ZKL": {
+      "priceFeedAddress": "0x5B88B0fa676fE763110322e766C2DBB5d6d99d6D"
+    },
+    "BBUSD": {
+      "priceFeedAddress": "0xEDDBdC16ba4492C6d930d9e9B85F203E02f7b293",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "BBTC": {
+      "priceFeedAddress": "0xCb183d277a6DAEf1e76534f8AEb1a9355042f6ff",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    }
+  }
+}

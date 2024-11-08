@@ -1,6 +1,5 @@
 import { hexlify } from "@ethersproject/bytes";
 import { toUtf8Bytes } from "@ethersproject/strings/lib/utf8";
-import { DataPackagesRequestParams } from "../index";
 import { ContractParamsProvider } from "./ContractParamsProvider";
 
 export class ContractParamsProviderMock extends ContractParamsProvider {
@@ -19,9 +18,7 @@ export class ContractParamsProviderMock extends ContractParamsProvider {
     });
   }
 
-  protected override requestPayload(
-    _: DataPackagesRequestParams
-  ): Promise<string> {
+  protected override requestPayload(): Promise<string> {
     return Promise.resolve(this.fileReader(this.filePath).toString());
   }
 

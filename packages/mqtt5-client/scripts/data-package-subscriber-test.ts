@@ -1,6 +1,5 @@
 import { getSignersForDataServiceId } from "@redstone-finance/oracles-smartweave-contracts";
-import { DataPackageSubscriber, Mqtt5Client } from "../src";
-import { MultiPubSubClient } from "../src/MultiPubSubClient";
+import { DataPackageSubscriber, Mqtt5Client, MultiPubSubClient } from "../src";
 import { calculateTopicCountPerConnection } from "../src/topics";
 
 const ENDPOINT = "a263ekd4nmsrss-ats.iot.eu-west-1.amazonaws.com";

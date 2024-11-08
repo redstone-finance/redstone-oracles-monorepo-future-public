@@ -5,11 +5,11 @@
     "id": 0
   },
   "updateTriggers": {
-    "deviationPercentage": 0,
+    "deviationPercentage": 0.1,
     "timeSinceLastUpdateInMilliseconds": 60000
   },
-  "adapterContract": "0xe2c9078c40c3b92c4b9794316495f4b6154178122315bc334c306d27c87c3bbc",
-  "dataServiceId": "redstone-primary-prod",
+  "adapterContract": "0x218181db5a37117057cf29a8597de74eb87edf5716f0ccd71fb0d19383c48000",
+  "dataServiceId": "redstone-primary-demo",
   "priceFeeds": {
     "ETH": "__NO_FEED__",
     "BTC": "__NO_FEED__"

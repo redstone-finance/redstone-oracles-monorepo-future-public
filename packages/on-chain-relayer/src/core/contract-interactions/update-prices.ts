@@ -1,9 +1,15 @@
 import { TransactionReceipt } from "@ethersproject/providers";
+import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
-  TxDeliveryCall,
   convertToTxDeliveryCall,
+  TxDeliveryCall,
 } from "@redstone-finance/rpc-providers";
-import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
+import {
+  chooseDataPackagesTimestamp,
+  DataPackagesResponse,
+  isSubsetOf,
+} from "@redstone-finance/sdk";
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { Contract, providers, utils } from "ethers";
 import {
   MentoAdapterBase,
@@ -11,17 +17,11 @@ import {
   RedstoneAdapterBase,
 } from "../../../typechain-types";
 import { config } from "../../config";
-import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
-import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
-
-import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
-import {
-  DataPackagesResponse,
-  chooseDataPackagesTimestamp,
-} from "@redstone-finance/sdk";
 import { updateUsingOevAuction } from "../../custom-integrations/fastlane/update-using-oev-auction";
 import { getSortedOraclesContractAtAddress } from "../../custom-integrations/mento/get-sorted-oracles-contract-at-address";
+import { prepareLinkedListLocationsForMentoAdapterReport } from "../../custom-integrations/mento/mento-utils";
 import { MultiFeedUpdatePricesArgs, UpdatePricesArgs } from "../../types";
+import { getTxDeliveryMan } from "../TxDeliveryManSingleton";
 
 const logger = loggerFactory("updatePrices");
 
@@ -140,8 +140,23 @@ const makeMultiFeedUpdateTx = async (
   { dataFeedsToUpdate, fetchDataPackages }: MultiFeedUpdatePricesArgs,
   adapterContract: MultiFeedAdapterWithoutRounds
 ): Promise<TxDeliveryCall> => {
-  const dataFeedsAsBytes32 = dataFeedsToUpdate.map(utils.formatBytes32String);
+  let dataFeedsAsBytes32 = dataFeedsToUpdate.map(utils.formatBytes32String);
   const dataPackages = await fetchDataPackages();
+  const dataPackagesFeeds = Object.keys(dataPackages);
+
+  //TODO: Multifeed won't work with medium data packages.
+  if (!isSubsetOf(new Set(dataPackagesFeeds), new Set(dataFeedsToUpdate))) {
+    logger.log(
+      `Missing some feeds in the response, will update only for [${dataPackagesFeeds.toString()}]`,
+      {
+        dataFeedsToUpdate,
+        dataPackagesFeeds,
+      }
+    );
+
+    dataFeedsAsBytes32 = dataPackagesFeeds.map(utils.formatBytes32String);
+  }
+
   const dataPackagesWrapper =
     new DataPackagesWrapper<MultiFeedAdapterWithoutRounds>(dataPackages);
 
