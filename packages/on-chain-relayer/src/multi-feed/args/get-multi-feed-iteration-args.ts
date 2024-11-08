@@ -1,34 +1,39 @@
 import { makeDataPackagesRequestParams } from "../../core/make-data-packages-request-params";
 import { ContractFacade } from "../../facade/ContractFacade";
 import { RelayerConfig, ShouldUpdateContext } from "../../types";
-import { shouldUpdate } from "../should-update";
+import { shouldUpdateInMultiFeed } from "../should-update-in-multi-feed";
 
-export const getIterationArgs = async (
+export const getMultiFeedIterationArgs = async (
   contractFacade: ContractFacade,
   context: ShouldUpdateContext,
   relayerConfig: RelayerConfig
 ) => {
-  const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
-    context,
-    relayerConfig
-  );
+  const {
+    dataFeedsToUpdate,
+    dataFeedsDeviationRatios,
+    heartbeatUpdates,
+    warningMessage: message,
+  } = await shouldUpdateInMultiFeed(context, relayerConfig);
 
   const updateRequestParams = makeDataPackagesRequestParams(
     relayerConfig,
-    context.uniqueSignersThreshold
+    context.uniqueSignersThreshold,
+    dataFeedsToUpdate
   );
 
   return {
-    shouldUpdatePrices,
-    message: warningMessage,
+    shouldUpdatePrices: dataFeedsToUpdate.length > 0,
     args: {
+      dataFeedsToUpdate,
+      dataFeedsDeviationRatios,
+      heartbeatUpdates,
       blockTag: context.blockTag,
       updateRequestParams,
-      dataFeedsToUpdate: relayerConfig.dataFeeds,
       fetchDataPackages: async () =>
         await contractFacade
           .getContractParamsProvider(updateRequestParams)
           .requestDataPackages(),
     },
+    message,
   };
 };

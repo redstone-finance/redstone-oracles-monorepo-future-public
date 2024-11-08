@@ -1,3 +1,4 @@
+import { DataPackagesResponseCache } from "@redstone-finance/sdk";
 import { Contract, Wallet } from "ethers";
 import {
   MultiFeedAdapterWithoutRounds,
@@ -12,7 +13,10 @@ import { MultiFeedEvmContractFacade } from "./MultiFeedEvmContractFacade";
 import { MultiFeedInfluxContractFacade } from "./MultiFeedInfluxContractFacade";
 import { PriceAdapterEvmContractFacade } from "./PriceAdapterEvmContractFacade";
 
-export const getEvmContractFacade = (relayerConfig: RelayerConfig) => {
+export const getEvmContractFacade = (
+  relayerConfig: RelayerConfig,
+  cache?: DataPackagesResponseCache
+) => {
   const { privateKey, adapterContractAddress } = config();
   const provider = getRelayerProvider();
   const signer = new Wallet(privateKey, provider);
@@ -21,18 +25,23 @@ export const getEvmContractFacade = (relayerConfig: RelayerConfig) => {
     | RedstoneAdapterBase
     | MultiFeedAdapterWithoutRounds;
 
-  return relayerConfig.adapterContractType === "multi-feed"
-    ? relayerConfig.dryRunWithInflux
+  if (relayerConfig.adapterContractType === "multi-feed") {
+    return relayerConfig.dryRunWithInflux
       ? new MultiFeedInfluxContractFacade(
           adapterContract as MultiFeedAdapterWithoutRounds,
-          relayerConfig
+          relayerConfig,
+          cache
         )
       : new MultiFeedEvmContractFacade(
           adapterContract as MultiFeedAdapterWithoutRounds,
-          (args) => updatePrices(args, adapterContract)
-        )
-    : new PriceAdapterEvmContractFacade(
-        adapterContract as RedstoneAdapterBase,
-        (args) => updatePrices(args, adapterContract)
-      );
+          (args) => updatePrices(args, adapterContract),
+          cache
+        );
+  }
+
+  return new PriceAdapterEvmContractFacade(
+    adapterContract as RedstoneAdapterBase,
+    (args) => updatePrices(args, adapterContract),
+    cache
+  );
 };

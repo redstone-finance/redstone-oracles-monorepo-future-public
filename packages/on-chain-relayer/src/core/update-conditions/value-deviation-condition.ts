@@ -1,7 +1,13 @@
-import { DataPackagesResponse } from "@redstone-finance/sdk";
+import {
+  ContractParamsProvider,
+  DataPackagesResponse,
+} from "@redstone-finance/sdk";
 import { BigNumber } from "ethers";
 import { RelayerConfig } from "../../types";
-import { fetchDataPackages } from "../fetch-data-packages";
+import {
+  convertToHistoricalDataPackagesRequestParams,
+  makeDataPackagesRequestParams,
+} from "../make-data-packages-request-params";
 import { checkValueDeviationCondition } from "./check-value-deviation-condition";
 
 export const performValueDeviationConditionChecks = async (
@@ -73,7 +79,15 @@ export const valueDeviationCondition = async (
   config: RelayerConfig
 ) => {
   const olderDataPackagesFetchCallback = async () => {
-    return await fetchDataPackages(config, uniqueSignersThreshold, true);
+    const dataPackagesRequestParams =
+      convertToHistoricalDataPackagesRequestParams(
+        makeDataPackagesRequestParams(config, uniqueSignersThreshold),
+        config
+      );
+
+    return await new ContractParamsProvider(
+      dataPackagesRequestParams
+    ).requestDataPackages();
   };
 
   return await performValueDeviationConditionChecks(

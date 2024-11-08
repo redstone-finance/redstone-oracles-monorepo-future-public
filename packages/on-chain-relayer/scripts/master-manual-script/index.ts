@@ -2,9 +2,11 @@ import { getSSMParameterValue } from "@redstone-finance/internal-utils";
 import { AdapterType } from "@redstone-finance/on-chain-relayer-common";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { z } from "zod";
-import { setConfigProvider } from "../../src/config";
+import { setConfigProvider } from "../../src";
+import { config } from "../../src/config";
 import { clearCachedRelayerProvider } from "../../src/core/contract-interactions/get-relayer-provider";
 import { clearCachedTxDeliveryMan } from "../../src/core/TxDeliveryManSingleton";
+import { getContractFacade } from "../../src/facade/get-contract-facade";
 import { fileSystemConfigProvider } from "../../src/FilesystemConfigProvider";
 import { runIteration } from "../../src/run-iteration";
 import {
@@ -134,11 +136,13 @@ async function main() {
     clearCacheAndSetConfig();
 
     try {
-      const iteration = runIteration();
+      const relayerConfig = config();
+      const contractFacade = await getContractFacade(relayerConfig);
+      const iteration = runIteration(contractFacade);
       await RedstoneCommon.timeout(iteration, 15000);
     } catch (e) {
       console.error(
-        `An error occured while running iteration of ${manifestName}`,
+        `An error occurred while running iteration of ${manifestName}`,
         e
       );
     }

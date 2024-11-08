@@ -1,10 +1,14 @@
 import { checkConditionByName } from "../core/update-conditions/check-condition-by-name";
 import { checkIfDataPackageTimestampIsNewer } from "../core/update-conditions/data-packages-timestamp";
 import { checkIfDataPackagesDecimalsAreAcceptable } from "../custom-integrations/mento/data-packages-decimals";
-import { ConditionCheckResponse, Context, RelayerConfig } from "../types";
+import {
+  ConditionCheckResponse,
+  RelayerConfig,
+  ShouldUpdateContext,
+} from "../types";
 
 export const shouldUpdate = async (
-  context: Context,
+  context: ShouldUpdateContext,
   config: RelayerConfig
 ): Promise<ConditionCheckResponse> => {
   const warningMessages: string[] = [];

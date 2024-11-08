@@ -168,6 +168,34 @@ export const readManifestAndEnv = () => {
       "INFLUX_TOKEN",
       z.string().optional()
     ),
+    runWithMqtt: RedstoneCommon.getFromEnv(
+      "RUN_WITH_MQTT",
+      z.boolean().default(false)
+    ),
+    mqttEndpoint: RedstoneCommon.getFromEnv(
+      "MQTT_ENDPOINT",
+      z.string().optional()
+    ),
+    mqttUpdateSubscriptionIntervalMs: RedstoneCommon.getFromEnv(
+      "MQTT_UPDATE_SUBSCRIPTION_INTERVAL_MS",
+      z.number().default(RedstoneCommon.minToMs(3))
+    ),
+    mqttMinimalOffChainSignersCount: RedstoneCommon.getFromEnv(
+      "MQTT_MINIMAL_OFFCHAIN_SIGNERS_COUNT",
+      z.number().optional()
+    ),
+    mqttWaitForOtherSignersMs: RedstoneCommon.getFromEnv(
+      "MQTT_WAIT_FOR_OTHER_SIGNERS_MS",
+      z.number().optional()
+    ),
+    mqttFallbackMaxDelayBetweenPublishesMs: RedstoneCommon.getFromEnv(
+      "MQTT_FALLBACK_MAX_DELAY_BETWEEN_PUBLISHES_MS",
+      z.number().optional()
+    ),
+    mqttFallbackCheckIntervalMs: RedstoneCommon.getFromEnv(
+      "MQTT_FALLBACK_CHECK_INTERVAL_MS",
+      z.number().optional()
+    ),
   };
 
   return { manifest, env };

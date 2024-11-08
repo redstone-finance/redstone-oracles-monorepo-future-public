@@ -1,3 +1,4 @@
+import { DataPackagesResponseCache } from "@redstone-finance/sdk";
 import {
   MultiFeedAdapterWithoutRounds,
   MultiFeedEvmContractFacade,
@@ -10,7 +11,8 @@ const RELAYER_DATA_BUCKET = "dry-run-relayer-data";
 export class MultiFeedInfluxContractFacade extends MultiFeedEvmContractFacade {
   constructor(
     contract: MultiFeedAdapterWithoutRounds,
-    relayerConfig: RelayerConfig
+    relayerConfig: RelayerConfig,
+    cache?: DataPackagesResponseCache
   ) {
     const { influxUrl, influxToken } = relayerConfig;
 
@@ -21,6 +23,6 @@ export class MultiFeedInfluxContractFacade extends MultiFeedEvmContractFacade {
       orgName: "redstone",
     });
 
-    super(contract, (args) => influxService.updatePriceValues(args));
+    super(contract, (args) => influxService.updatePriceValues(args), cache);
   }
 }

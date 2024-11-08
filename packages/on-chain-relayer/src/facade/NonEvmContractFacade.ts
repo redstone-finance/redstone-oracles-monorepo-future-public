@@ -1,30 +1,31 @@
 import {
-  ContractParamsProvider,
-  convertDataPackagesResponse,
-  DataPackagesRequestParams,
+  DataPackagesResponseCache,
   IContractConnector,
   IPricesContractAdapter,
 } from "@redstone-finance/sdk";
 import { BigNumber } from "ethers";
 import { zip } from "lodash";
-import { config } from "../config";
-import {
-  getPriceFeedsIterationArgs,
-  IContractFacade,
-  RelayerConfig,
-  UpdatePricesArgs,
-} from "../index";
-import { ContractData, IterationArgs } from "../types";
+import { RelayerConfig, UpdatePricesArgs } from "../index";
+import { getIterationArgs } from "../price-feeds/args/get-iteration-args";
+import { ContractData, IterationArgs, ShouldUpdateContext } from "../types";
+import { ContractFacade } from "./ContractFacade";
 
 export class NonEvmContractFacade<
   Connector extends IContractConnector<Adapter>,
   Adapter extends IPricesContractAdapter,
-> implements IContractFacade
-{
-  constructor(protected contractConnector: Connector) {}
+> extends ContractFacade {
+  constructor(
+    protected contractConnector: Connector,
+    cache?: DataPackagesResponseCache
+  ) {
+    super(cache);
+  }
 
-  async getIterationArgs(): Promise<IterationArgs> {
-    return await getPriceFeedsIterationArgs(this);
+  async getIterationArgs(
+    context: ShouldUpdateContext,
+    relayerConfig: RelayerConfig
+  ): Promise<IterationArgs> {
+    return await getIterationArgs(this, context, relayerConfig);
   }
 
   async getLastRoundParamsFromContract(
@@ -37,7 +38,7 @@ export class NonEvmContractFacade<
       await adapter.readTimestampFromContract(),
       await adapter.readLatestUpdateBlockTimestamp!(),
       await adapter.readPricesFromContract(
-        new ContractParamsProvider(
+        this.getContractParamsProvider(
           await this.getDataPackageRequestParams(
             blockTag,
             relayerConfig.dataServiceId,
@@ -52,8 +53,7 @@ export class NonEvmContractFacade<
         feedId,
         {
           lastDataPackageTimestampMS: timestamp,
-          lastBlockTimestampMS:
-            (latestUpdateBlockTimestamp ?? timestamp) * 1000,
+          lastBlockTimestampMS: latestUpdateBlockTimestamp ?? timestamp,
           lastValue: BigNumber.from(price),
         },
       ]
@@ -74,26 +74,13 @@ export class NonEvmContractFacade<
     return this.contractConnector.getBlockNumber();
   }
 
-  addExtraFeedsToUpdateParams(
-    _iterationArgs: IterationArgs
-  ): { message: string; args?: unknown[] }[] {
-    return [];
-  }
-
   async updatePrices(args: UpdatePricesArgs): Promise<void> {
     const adapter = await this.contractConnector.getAdapter();
-    const relayerConfig = config();
 
     await adapter.writePricesFromPayloadToContract(
-      new RelayerContractParamsProvider(
-        await this.getDataPackageRequestParams(
-          args.blockTag,
-          relayerConfig.dataServiceId,
-          relayerConfig.dataFeeds,
-          relayerConfig.dataPackagesNames
-        ),
-        relayerConfig.dataFeeds,
-        args
+      this.getContractParamsProvider(
+        args.updateRequestParams,
+        args.dataFeedsToUpdate
       )
     );
   }
@@ -101,36 +88,14 @@ export class NonEvmContractFacade<
   private async getDataPackageRequestParams(
     blockTag: number,
     dataServiceId: string,
-    dataFeeds: string[],
-    dataPackagesNames?: string[]
+    dataFeeds: string[]
   ) {
+    const uniqueSignersCount =
+      await this.getUniqueSignersThresholdFromContract(blockTag);
     return {
       dataServiceId,
-      uniqueSignersCount:
-        await this.getUniqueSignersThresholdFromContract(blockTag),
-      dataPackagesIds: dataPackagesNames ?? dataFeeds,
+      uniqueSignersCount,
+      dataPackagesIds: dataFeeds,
     };
-  }
-}
-
-class RelayerContractParamsProvider extends ContractParamsProvider {
-  constructor(
-    params: DataPackagesRequestParams,
-    protected feedIds: string[],
-    protected args: UpdatePricesArgs
-  ) {
-    super(params);
-  }
-
-  protected override async requestPayload(
-    _requestParams: DataPackagesRequestParams
-  ): Promise<string> {
-    const dataPackages = await this.args.fetchDataPackages();
-
-    return convertDataPackagesResponse(dataPackages);
-  }
-
-  override getDataFeedIds(): string[] {
-    return this.feedIds;
   }
 }

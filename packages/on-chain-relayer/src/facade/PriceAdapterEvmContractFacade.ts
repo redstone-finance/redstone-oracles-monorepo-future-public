@@ -1,12 +1,16 @@
 import { RedstoneAdapterBase } from "../../typechain-types";
-import { getPriceFeedsIterationArgs, RelayerConfig } from "../index";
+import { RelayerConfig } from "../index";
+import { getIterationArgs } from "../price-feeds/args/get-iteration-args";
 import { getLastRoundParamsFromContract } from "../price-feeds/args/get-last-round-params";
-import { ContractData } from "../types";
+import { ContractData, ShouldUpdateContext } from "../types";
 import { EvmContractFacade } from "./EvmContractFacade";
 
 export class PriceAdapterEvmContractFacade extends EvmContractFacade<RedstoneAdapterBase> {
-  override async getIterationArgs() {
-    return await getPriceFeedsIterationArgs(this);
+  override async getIterationArgs(
+    context: ShouldUpdateContext,
+    relayerConfig: RelayerConfig
+  ) {
+    return await getIterationArgs(this, context, relayerConfig);
   }
 
   getLastRoundParamsFromContract(

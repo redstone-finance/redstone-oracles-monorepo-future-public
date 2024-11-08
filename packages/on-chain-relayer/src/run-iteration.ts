@@ -1,14 +1,18 @@
 import { loggerFactory, sendHealthcheckPing } from "@redstone-finance/utils";
 import { config } from "./config";
-import { getContractFacade } from "./facade/get-contract-facade";
+import { ContractFacade } from "./facade/ContractFacade";
 
 const logger = loggerFactory("relayer/run-iteration");
 
-export const runIteration = async () => {
+export const runIteration = async (contractFacade: ContractFacade) => {
   const iterationStart = performance.now();
   const relayerConfig = config();
-  const contractFacade = await getContractFacade(relayerConfig);
-  const iterationArgs = await contractFacade.getIterationArgs();
+  const shouldUpdateContext =
+    await contractFacade.getShouldUpdateContext(relayerConfig);
+  const iterationArgs = await contractFacade.getIterationArgs(
+    shouldUpdateContext,
+    relayerConfig
+  );
   void sendHealthcheckPing(relayerConfig.healthcheckPingUrl);
   logger.log(
     `Update condition ${

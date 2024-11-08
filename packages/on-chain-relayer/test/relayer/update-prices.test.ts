@@ -1,4 +1,5 @@
 import { ProviderWithAgreement } from "@redstone-finance/rpc-providers";
+import { DataPackagesRequestParams } from "@redstone-finance/sdk";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { Wallet } from "ethers";
@@ -49,6 +50,8 @@ describe("update-prices", () => {
     const updatePricesArgs: UpdatePricesArgs = {
       blockTag: await provider.getBlockNumber(),
       fetchDataPackages: getDataPackagesResponse,
+      dataFeedsToUpdate: [],
+      updateRequestParams: {} as unknown as DataPackagesRequestParams,
     };
 
     await updatePrices(updatePricesArgs, priceFeedsAdapter);
@@ -96,6 +99,8 @@ describe("update-prices", () => {
     const updatePricesArgs: UpdatePricesArgs = {
       blockTag: await provider.getBlockNumber(),
       fetchDataPackages: getDataPackagesResponse,
+      dataFeedsToUpdate: [],
+      updateRequestParams: {} as unknown as DataPackagesRequestParams,
     };
 
     await updatePrices(updatePricesArgs, mentoAdapter.connect(provider));

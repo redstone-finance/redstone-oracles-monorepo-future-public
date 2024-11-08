@@ -2,7 +2,10 @@ import {
   AdapterType,
   UpdateTriggers,
 } from "@redstone-finance/on-chain-relayer-common";
-import { DataPackagesResponse } from "@redstone-finance/sdk";
+import {
+  DataPackagesRequestParams,
+  DataPackagesResponse,
+} from "@redstone-finance/sdk";
 import { BigNumber } from "ethers";
 
 export type LastRoundDetails = {
@@ -15,10 +18,11 @@ export type ContractData = {
   [dataFeedsId: string]: LastRoundDetails;
 };
 
-export interface Context {
+export interface ShouldUpdateContext {
   dataPackages: DataPackagesResponse;
   dataFromContract: ContractData;
   uniqueSignersThreshold: number;
+  blockTag: number;
 }
 
 export interface ShouldUpdateResponse {
@@ -42,11 +46,12 @@ export type IterationArgs = {
 
 export type UpdatePricesArgs = {
   blockTag: number;
+  updateRequestParams: DataPackagesRequestParams;
+  dataFeedsToUpdate: string[];
   fetchDataPackages: () => Promise<DataPackagesResponse>;
 };
 
 export type MultiFeedUpdatePricesArgs = UpdatePricesArgs & {
-  dataFeedsToUpdate: string[];
   dataFeedsDeviationRatios: Record<string, number>;
   heartbeatUpdates: number[];
 };
@@ -99,6 +104,13 @@ export type OnChainRelayerEnv = {
   dryRunWithInflux?: boolean;
   influxUrl?: string;
   influxToken?: string;
+  runWithMqtt?: boolean;
+  mqttEndpoint?: string;
+  mqttUpdateSubscriptionIntervalMs?: number;
+  mqttMinimalOffChainSignersCount?: number;
+  mqttWaitForOtherSignersMs?: number;
+  mqttFallbackMaxDelayBetweenPublishesMs?: number;
+  mqttFallbackCheckIntervalMs?: number;
 };
 
 export type ConfigProvider = () => RelayerConfig;

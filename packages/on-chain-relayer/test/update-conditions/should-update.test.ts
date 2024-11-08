@@ -36,6 +36,7 @@ describe("should-update", () => {
           },
         },
         uniqueSignersThreshold: 2,
+        blockTag: 0,
       },
       config()
     );
@@ -72,6 +73,7 @@ describe("should-update", () => {
           },
         },
         uniqueSignersThreshold: 2,
+        blockTag: 0,
       },
       config()
     );
@@ -105,6 +107,7 @@ describe("should-update", () => {
           },
         },
         uniqueSignersThreshold: 2,
+        blockTag: 0,
       },
       config()
     );
@@ -142,6 +145,7 @@ describe("should-update", () => {
           },
         },
         uniqueSignersThreshold: 2,
+        blockTag: 0,
       },
       config()
     );
@@ -174,6 +178,7 @@ describe("should-update", () => {
           },
         },
         uniqueSignersThreshold: 2,
+        blockTag: 0,
       },
       config()
     );

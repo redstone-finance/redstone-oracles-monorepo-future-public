@@ -88,9 +88,10 @@ export class FuelPricesContractAdapter implements IPricesContractAdapter {
   }
 
   async readLatestUpdateBlockTimestamp() {
-    return (
+    const value = (
       await this.contract.functions.read_last_update_block_timestamp().get()
     ).value?.toNumber();
+    return value ? value * 1000 : undefined;
   }
 
   protected async call<TArgs extends Array<unknown>, TReturn>(

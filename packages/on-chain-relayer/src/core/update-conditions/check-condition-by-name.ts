@@ -1,8 +1,8 @@
 import {
   ConditionCheckNames,
   ConditionCheckResponse,
-  Context,
   RelayerConfig,
+  ShouldUpdateContext,
 } from "../../types";
 import { cronCondition } from "./cron-condition";
 import { timeUpdateCondition } from "./time-condition";
@@ -11,7 +11,7 @@ import { valueDeviationCondition } from "./value-deviation-condition";
 export const checkConditionByName = async (
   name: ConditionCheckNames,
   dataFeedId: string,
-  context: Context,
+  context: ShouldUpdateContext,
   config: RelayerConfig
 ): Promise<ConditionCheckResponse> => {
   switch (name) {

@@ -2,7 +2,6 @@ import { Web3FunctionUserArgs } from "@gelatonetwork/web3-functions-sdk";
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
   getAbiForAdapter,
-  getPriceFeedsIterationArgs,
   makeConfigProvider,
   OnChainRelayerEnv,
   PriceAdapterEvmContractFacade,
@@ -49,9 +48,11 @@ export class IterationArgsProvider
       provider
     ) as RedstoneAdapterBase;
 
-    return await getPriceFeedsIterationArgs(
-      new PriceAdapterEvmContractFacade(this.adapterContract)
-    );
+    const facade = new PriceAdapterEvmContractFacade(this.adapterContract);
+    const config = makeConfigProvider(this.manifest, this.relayerEnv);
+    const context = await facade.getShouldUpdateContext(config);
+
+    return await facade.getIterationArgs(context, config);
   }
 
   async getTransactionData({

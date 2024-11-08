@@ -2,12 +2,12 @@ import {
   getNumericDataPointDecimals,
   NumericDataPoint,
 } from "@redstone-finance/protocol";
-import { Context, RelayerConfig } from "../../types";
+import { RelayerConfig, ShouldUpdateContext } from "../../types";
 
 const MENTO_SUPPORTED_DECIMALS = 8;
 
 export const checkIfDataPackagesDecimalsAreAcceptable = (
-  context: Context,
+  context: ShouldUpdateContext,
   relayerConfig: RelayerConfig
 ): { shouldNotUpdatePrice: boolean; message?: string } => {
   if (relayerConfig.adapterContractType !== "mento") {

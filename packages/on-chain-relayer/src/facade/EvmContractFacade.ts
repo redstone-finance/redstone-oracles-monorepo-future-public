@@ -1,31 +1,27 @@
+import { DataPackagesResponseCache } from "@redstone-finance/sdk";
 import { Contract } from "ethers";
 import { getUniqueSignersThresholdFromContract } from "../core/contract-interactions/get-unique-signers-threshold";
 import {
   MultiFeedAdapterWithoutRounds,
   RedstoneAdapterBase,
-  RelayerConfig,
   UpdatePricesArgs,
 } from "../index";
-import { ContractData, IterationArgs } from "../types";
-import { IContractFacade } from "./IContractFacade";
+import { IterationArgs } from "../types";
+import { ContractFacade } from "./ContractFacade";
 
 type RedstoneEvmContract = Contract &
   (MultiFeedAdapterWithoutRounds | RedstoneAdapterBase);
 
-export abstract class EvmContractFacade<C extends RedstoneEvmContract>
-  implements IContractFacade
-{
+export abstract class EvmContractFacade<
+  C extends RedstoneEvmContract,
+> extends ContractFacade {
   constructor(
     protected readonly adapterContract: C,
-    protected readonly updater?: (args: UpdatePricesArgs) => Promise<void>
-  ) {}
-
-  abstract getIterationArgs(): Promise<IterationArgs>;
-
-  abstract getLastRoundParamsFromContract(
-    blockTag: number,
-    relayerConfig: RelayerConfig
-  ): Promise<ContractData>;
+    protected readonly updater?: (args: UpdatePricesArgs) => Promise<void>,
+    cache?: DataPackagesResponseCache
+  ) {
+    super(cache);
+  }
 
   getUniqueSignersThresholdFromContract(blockTag: number): Promise<number> {
     return getUniqueSignersThresholdFromContract(
@@ -38,7 +34,7 @@ export abstract class EvmContractFacade<C extends RedstoneEvmContract>
     return this.adapterContract.provider.getBlockNumber();
   }
 
-  addExtraFeedsToUpdateParams(
+  override addExtraFeedsToUpdateParams(
     _iterationArgs: IterationArgs
   ): { message: string; args?: unknown[] }[] {
     return [];
