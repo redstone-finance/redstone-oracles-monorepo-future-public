@@ -8150,6 +8150,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-dex-price-shift-cost-estimator@workspace:packages/lambda/lambda-DEX-price-shift-cost-estimator":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-dex-price-shift-cost-estimator@workspace:packages/lambda/lambda-DEX-price-shift-cost-estimator"
+  dependencies:
+    "@redstone-finance/fetchers": "npm:0.6.2"
+    "@redstone-finance/node-commons": "npm:0.6.2"
+    "@redstone-finance/oracle-node": "npm:0.6.2"
+    "@redstone-finance/utils": "npm:0.6.2"
+    dotenv: "npm:^16.0.3"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-ecs-services-monitoring@workspace:packages/lambda/lambda-ecs-services-monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-ecs-services-monitoring@workspace:packages/lambda/lambda-ecs-services-monitoring"
