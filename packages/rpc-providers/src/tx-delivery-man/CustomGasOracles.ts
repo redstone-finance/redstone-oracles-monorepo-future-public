@@ -4,7 +4,7 @@ import { getEthFeeFromGasOracle } from "./custom-gas-oracles/ethereum";
 import { kavaGasOracle } from "./custom-gas-oracles/kava";
 import { merlinGasOracle } from "./custom-gas-oracles/merlin";
 
-const ETHERLINK_GHOSTNET_BLOCKSCOUT_EXPLORER_BASE_URL = `https://testnet-explorer.etherlink.com`;
+const ETHERLINK_GHOSTNET_BLOCKSCOUT_EXPLORER_BASE_URL = `https://testnet.explorer.etherlink.com`;
 
 export const CHAIN_ID_TO_GAS_ORACLE = {
   1: getEthFeeFromGasOracle,
