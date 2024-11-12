@@ -1179,7 +1179,6 @@
     },
     "bsdETH": {
       "source": [
-        "aerodrome-base-rsr",
         "aerodrome-base-weth",
         "aerodrome-cl-base-weth-100",
         "uniswap-v3-base-weth-100"
