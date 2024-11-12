@@ -51,6 +51,13 @@
         "timeSinceLastUpdateInMilliseconds": 21600000
       }
     },
+    "pumpBTC/BTC": {
+      "priceFeedAddress": "0x13433B1949d9141Be52Ae13Ad7e7E4911228414e",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 1,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
     "pumpBTC_FUNDAMENTAL": {
       "priceFeedAddress": "0x85C4F855Bc0609D2584405819EdAEa3aDAbfE97D"
     },
