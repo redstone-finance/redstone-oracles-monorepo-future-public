@@ -221,7 +221,8 @@ export class ProviderWithAgreement extends ProviderWithFallback {
 
     const agreedResult = await this.executeWithAgreement(
       getBalance,
-      "getBalance"
+      "getBalance",
+      convertBlockTagToNumber(blockTag)
     );
 
     const parsedResult = BigNumber.from(agreedResult);
@@ -272,7 +273,11 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       return await provider.call(transaction, electedBlockTag);
     };
 
-    const agreedResult = await this.executeWithAgreement(syncThenCall, "call");
+    const agreedResult = await this.executeWithAgreement(
+      syncThenCall,
+      "call",
+      electedBlockNumber
+    );
 
     return agreedResult.toString();
   }
@@ -282,7 +287,8 @@ export class ProviderWithAgreement extends ProviderWithFallback {
       provider: ProviderWithIdentifier,
       shouldAbort: () => boolean
     ) => Promise<string>,
-    operationName: string
+    operationName: string,
+    electedBlockNumber: number
   ) {
     return new Promise<string>((resolve, reject) => {
       const errors: Error[] = [];
@@ -332,7 +338,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
                 errors,
                 `operation=${operationName} Failed to find at least ${
                   this.agreementConfig.numberOfProvidersThatHaveToAgree
-                } agreeing providers. ${
+                } agreeing providers at block ${electedBlockNumber}. ${
                   healthyProviders.length - errors.length
                 } providers responded with success. Result map: ${mapToString(
                   results

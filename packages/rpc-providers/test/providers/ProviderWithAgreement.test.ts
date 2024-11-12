@@ -228,7 +228,9 @@ describe("ProviderWithAgreement", () => {
         counter.getCount({
           blockTag: await providerWithAgreement.getBlockNumber(),
         })
-      ).rejectedWith(`Failed to find at least 2 agreeing providers.`);
+      ).rejectedWith(
+        "Failed to find at least 2 agreeing providers at block 24."
+      );
     });
 
     it("should write to contract", async () => {
@@ -259,7 +261,9 @@ describe("ProviderWithAgreement", () => {
         counter.getCount({
           blockTag: await providerWithAgreement.getBlockNumber(),
         })
-      ).rejectedWith(`Failed to find at least 2 agreeing providers.`);
+      ).rejectedWith(
+        "Failed to find at least 2 agreeing providers at block 29."
+      );
     });
 
     it("should write to contract", async () => {
@@ -307,7 +311,7 @@ describe("ProviderWithAgreement", () => {
       const counter = contract.connect(signer.connect(providerWithAgreement));
 
       await expect(counter.getCountPlusOne({ blockTag })).rejectedWith(
-        /Failed to find at least 2 agreeing providers/
+        "Failed to find at least 2 agreeing providers"
       );
     });
   });
@@ -336,7 +340,9 @@ describe("ProviderWithAgreement", () => {
         it("should return 2 when results from providers are [2,2,1]", async () => {
           await expect(
             testAgreementAlgo(["2", "2", "1"], "2", 3, operation)
-          ).rejectedWith("Failed to find at least 3 agreeing providers.");
+          ).rejectedWith(
+            "Failed to find at least 3 agreeing providers at block 1."
+          );
         });
 
         it("should NOT fail on [error,2], when ignoreAgreementOnInsufficientResponses", async () => {
@@ -389,13 +395,17 @@ describe("ProviderWithAgreement", () => {
       it("should fail on [error,2]", async () => {
         await expect(
           testAgreementAlgo(["error", "2"], "", 2, operation)
-        ).rejectedWith("Failed to find at least 2 agreeing providers.");
+        ).rejectedWith(
+          "Failed to find at least 2 agreeing providers at block 1."
+        );
       });
 
       it("should fail on [1,2]", async () => {
         await expect(
           testAgreementAlgo(["1", "2"], "", 2, operation)
-        ).rejectedWith("Failed to find at least 2 agreeing providers.");
+        ).rejectedWith(
+          "Failed to find at least 2 agreeing providers at block 1."
+        );
       });
 
       it("should fail on [1,2,3,4,5,6,7,8,9]", async () => {
@@ -406,7 +416,9 @@ describe("ProviderWithAgreement", () => {
             2,
             operation
           )
-        ).rejectedWith("Failed to find at least 2 agreeing providers.");
+        ).rejectedWith(
+          "Failed to find at least 2 agreeing providers at block 1."
+        );
       });
     });
 
