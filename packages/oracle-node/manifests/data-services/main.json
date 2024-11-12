@@ -1430,7 +1430,6 @@
     },
     "bsdETH": {
       "source": [
-        "aerodrome-base-rsr",
         "aerodrome-base-weth",
         "aerodrome-cl-base-weth-100",
         "uniswap-v3-base-weth-100"
@@ -1465,7 +1464,11 @@
       ]
     },
     "SolvBTC.ENA": {
-      "source": ["dodoex-bnb-solvbtc", "pancake-swap-arbitrumone-solvbtc-500"],
+      "source": [
+        "dodoex-bnb-solvbtc",
+        "pancake-swap-arbitrumone-solvbtc-500",
+        "pancake-swap-bnb-solvbtc-500"
+      ],
       "valueCapConfig": {
         "upper": {
           "token": "BTC"
