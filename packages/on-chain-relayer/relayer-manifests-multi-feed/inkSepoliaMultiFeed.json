@@ -1,0 +1,30 @@
+{
+  "chain": {
+    "name": "inkSepolia",
+    "id": 763373
+  },
+  "adapterContract": "0x58fa68A373956285dDfb340EDf755246f8DfCA16",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {
+    "ETH": {
+      "priceFeedAddress": "0xb4fe9028A4D4D8B3d00e52341F2BB0798860532C"
+    },
+    "BTC": {
+      "priceFeedAddress": "0xf1454949C6dEdfb500ae63Aa6c784Aa1Dde08A6c"
+    },
+    "SOL": {
+      "priceFeedAddress": "0xE94c9f9A1893f23be38A5C0394E46Ac05e8a5f8C"
+    },
+    "USDC": {
+      "priceFeedAddress": "0xb67047eDF6204F4C81333248dA71F8387050790C"
+    },
+    "USDT": {
+      "priceFeedAddress": "0xb9D0073aCb296719C26a8BF156e4b599174fe1d5"
+    }
+  }
+}
