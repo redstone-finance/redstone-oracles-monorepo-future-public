@@ -136,9 +136,11 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
 
       dataPackagesTimestamp = dataPackageTimestamp;
 
-      // Shifting memory pointer back to the "safe" value
+      // Resetting the memory pointer to the initial "safe" value
+      // We add STANDARD_SLOT_BS (32 bytes) to account for potential allocation
+      // of the dataPackageIndex variable, which may or may not be stored in memory
       assembly {
-        mstore(FREE_MEMORY_PTR, freeMemPtr)
+        mstore(FREE_MEMORY_PTR, add(freeMemPtr, STANDARD_SLOT_BS))
       }
       unchecked {
         dataPackageIndex++;
