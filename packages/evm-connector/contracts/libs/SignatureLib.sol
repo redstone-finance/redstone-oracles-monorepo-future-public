@@ -6,10 +6,12 @@ library SignatureLib {
   uint256 constant ECDSA_SIG_R_BS = 32;
   uint256 constant ECDSA_SIG_S_BS = 32;
 
+  error InvalidSignature(bytes32 signedHash);
+
   function recoverSignerAddress(bytes32 signedHash, uint256 signatureCalldataNegativeOffset)
     internal
     pure
-    returns (address)
+    returns (address signerAddress)
   {
     bytes32 r;
     bytes32 s;
@@ -22,6 +24,9 @@ library SignatureLib {
       signatureCalldataStartPos := add(signatureCalldataStartPos, ECDSA_SIG_S_BS)
       v := byte(0, calldataload(signatureCalldataStartPos)) // last byte of the signature memory array
     }
-    return ecrecover(signedHash, v, r, s);
+    signerAddress = ecrecover(signedHash, v, r, s);
+    if (signerAddress == address(0)) {
+      revert InvalidSignature(signedHash);
+    }
   }
 }
