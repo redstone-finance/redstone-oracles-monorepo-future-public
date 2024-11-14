@@ -1510,6 +1510,9 @@
         "uniswap-v3-ethereum-cbbtc-500",
         "curve-ethereum-wbtc"
       ]
+    },
+    "ssETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-nucleus-rate-provider"]
     }
   },
   "multiPointPackages": {

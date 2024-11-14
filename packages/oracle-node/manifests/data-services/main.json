@@ -2200,6 +2200,9 @@
         "curve-ethereum-wbtc"
       ]
     },
+    "ssETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-nucleus-rate-provider"]
+    },
     "BAT": {},
     "COMP": {},
     "OMG": {},
