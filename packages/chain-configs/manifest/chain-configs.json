@@ -348,7 +348,6 @@
       "chainId": 2222,
       "publicRpcUrls": [
         "https://evm.kava.io",
-        "https://kava.api.onfinality.io/public",
         "https://kava-evm-rpc.publicnode.com",
         "https://kava-pokt.nodies.app",
         "https://evm.kava-rpc.com",
