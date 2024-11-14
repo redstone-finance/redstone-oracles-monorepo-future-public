@@ -130,11 +130,14 @@ abstract contract RedstoneConsumerBase is CalldataExtractor {
         revert DataTimestampCannotBeZero();
       }
 
-      if (dataPackageTimestamp != dataPackagesTimestamp && dataPackagesTimestamp != 0) {
-        revert TimestampsMustBeEqual();
+      if (dataPackageTimestamp != dataPackagesTimestamp) {
+        if (dataPackagesTimestamp == 0) {
+          // Setting dataPackagesTimestamp first time
+          dataPackagesTimestamp = dataPackageTimestamp;    
+        } else {
+          revert TimestampsMustBeEqual();
+        }
       }
-
-      dataPackagesTimestamp = dataPackageTimestamp;
 
       // Resetting the memory pointer to the initial "safe" value
       // We add STANDARD_SLOT_BS (32 bytes) to account for potential allocation
