@@ -1,0 +1,35 @@
+{
+  "chain": {
+    "name": "hemi",
+    "id": 43111
+  },
+  "adapterContract": "0x98DC6E90D4c2f212ed9d124aD2aFBa4833268633",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {
+    "ETH": {
+      "priceFeedAddress": "0xb9D0073aCb296719C26a8BF156e4b599174fe1d5"
+    },
+    "BTC": {
+      "priceFeedAddress": "0xE23eCA12D7D2ED3829499556F6dCE06642AFd990"
+    },
+    "USDC": {
+      "priceFeedAddress": "0x31a36CdF4465ba61ce78F5CDbA26FDF8ec361803",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 21600000
+      }
+    },
+    "USDT": {
+      "priceFeedAddress": "0xe8D9FbC10e00ecc9f0694617075fDAF657a76FB2",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 21600000
+      }
+    }
+  }
+}

@@ -22,7 +22,11 @@ const CHAINS_TO_SKIP_MULTICALL_ADDRESS_CHECK = [
   "BounceBit Mainnet",
 ];
 
-const CHAINS_TO_SKIP_RPC_PRESENCE_CHECK = ["Unichain Sepolia", "Monad Devnet"];
+const CHAINS_TO_SKIP_RPC_PRESENCE_CHECK = [
+  "Unichain Sepolia",
+  "Monad Devnet",
+  "Hemi Network",
+];
 
 const ChainConfigs = getLocalChainConfigs();
 
