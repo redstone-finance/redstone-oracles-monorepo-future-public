@@ -8192,6 +8192,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-gateway-latencies-monitoring@workspace:packages/lambda/lambda-gateway-latencies-monitoring":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-gateway-latencies-monitoring@workspace:packages/lambda/lambda-gateway-latencies-monitoring"
+  dependencies:
+    "@influxdata/influxdb-client": "npm:^1.35.0"
+    "@redstone-finance/internal-utils": "npm:0.6.2"
+    "@redstone-finance/monitoring-manifests": "npm:0.6.2"
+    "@redstone-finance/utils": "npm:0.6.2"
+    "@types/aws-lambda": "npm:^8.10.145"
+    dotenv: "npm:^16.0.3"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda/lambda-gw-metrics":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-gw-metrics@workspace:packages/lambda/lambda-gw-metrics"
