@@ -8495,6 +8495,7 @@ __metadata:
     "@redstone-finance/utils": "npm:0.6.2"
     async-mutex: "npm:^0.5.0"
     aws-iot-device-sdk-v2: "npm:^1.21.1"
+    lodash: "npm:^4.17.21"
   languageName: unknown
   linkType: soft
 
