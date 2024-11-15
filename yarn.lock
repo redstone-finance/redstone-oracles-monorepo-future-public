@@ -8146,6 +8146,7 @@ __metadata:
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/internal-utils": "npm:0.6.2"
+    "@redstone-finance/monitoring-manifests": "npm:0.6.2"
     dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
@@ -8310,6 +8311,8 @@ __metadata:
   dependencies:
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@redstone-finance/internal-utils": "npm:0.6.2"
+    "@redstone-finance/monitoring-manifests": "npm:0.6.2"
+    "@redstone-finance/utils": "npm:0.6.2"
     dotenv: "npm:^16.0.3"
   languageName: unknown
   linkType: soft
@@ -8398,15 +8401,6 @@ __metadata:
     "@types/aws-lambda": "npm:^8.10.145"
     dotenv: "npm:^16.0.3"
     zod: "npm:^3.22.4"
-  languageName: unknown
-  linkType: soft
-
-"@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda/lambda-prod-nodes-manifests":
-  version: 0.0.0-use.local
-  resolution: "@redstone-finance/lambda-prod-nodes-manifests@workspace:packages/lambda/lambda-prod-nodes-manifests"
-  dependencies:
-    "@redstone-finance/monitoring-manifests": "npm:0.6.2"
-    axios: "npm:^1.7.7"
   languageName: unknown
   linkType: soft
 
