@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { MultiPubSubClient } from "../src/MultiPubSubClient";
-import { PubSubClient } from "../src/PubSubClient";
+import { PubSubClient, PubSubPayload } from "../src/PubSubClient";
+
+const createPayloads = (count: number) =>
+  Array(count).fill({
+    topic: "test",
+    data: {},
+  }) as PubSubPayload[];
 
 describe("MultiPubSubClient", () => {
   let mockClient: PubSubClient;
@@ -16,14 +22,6 @@ describe("MultiPubSubClient", () => {
     };
     fabric = jest.fn().mockResolvedValue(mockClient);
     client = new MultiPubSubClient(fabric, 2); // 2 topics per connection
-  });
-
-  it("should throw error on publish", async () => {
-    await expect(() =>
-      client.publish([{ topic: "test", data: {} }], "deflate+json")
-    ).rejects.toThrow(
-      "MultiConnectionMqtt5Client doesn't support publishing data"
-    );
   });
 
   describe("subscribe", () => {
@@ -79,16 +77,114 @@ describe("MultiPubSubClient", () => {
     });
   });
 
+  describe("publish", () => {
+    it("should distribute payloads across multiple clients when exceeding MAX_REQ_PER_SECOND_PER_CONNECTION", async () => {
+      const payloads = createPayloads(150);
+
+      await client.publish(payloads, "deflate+json");
+
+      expect(fabric).toHaveBeenCalledTimes(2); // Should create 2 clients for 150 messages
+      expect(client.publishClients).toHaveLength(2);
+
+      // First client should handle first 100 messages
+      expect(client.publishClients[0].publish).toHaveBeenCalledWith(
+        payloads.slice(0, 100),
+        "deflate+json"
+      );
+
+      // Second client should handle remaining 50 messages
+      expect(client.publishClients[1].publish).toHaveBeenCalledWith(
+        payloads.slice(100),
+        "deflate+json"
+      );
+    });
+
+    it("should reuse existing publish clients", async () => {
+      // First publish with 50 messages
+      await client.publish(createPayloads(50), "deflate+json");
+      expect(fabric).toHaveBeenCalledTimes(1);
+      expect(client.publishClients).toHaveLength(1);
+
+      // Second publish with 50 messages
+      await client.publish(createPayloads(50), "deflate+json");
+      expect(fabric).toHaveBeenCalledTimes(1); // Should not create new client
+      expect(client.publishClients).toHaveLength(1);
+    });
+
+    it("should handle empty payload array", async () => {
+      await client.publish([], "deflate+json");
+
+      expect(fabric).not.toHaveBeenCalled();
+      expect(client.publishClients).toHaveLength(0);
+    });
+
+    it("should handle client creation failure", async () => {
+      fabric.mockRejectedValueOnce(new Error("Failed to create client"));
+      const payloads = createPayloads(150);
+
+      await expect(client.publish(payloads, "deflate+json")).rejects.toThrow(
+        "Failed to create client"
+      );
+    });
+
+    it("should prevent concurrent modifications with mutex", async () => {
+      const payloads1 = createPayloads(150);
+      const payloads2 = createPayloads(150);
+
+      // Start multiple publish operations simultaneously
+      const promises = [
+        client.publish(payloads1, "deflate+json"),
+        client.publish(payloads2, "deflate+json"),
+      ];
+
+      await Promise.all(promises);
+
+      // Verify clients were created correctly
+      expect(fabric).toHaveBeenCalledTimes(2);
+      expect(client.publishClients).toHaveLength(2);
+    });
+
+    it("should handle large number of payloads", async () => {
+      const payloads = createPayloads(301);
+
+      await client.publish(payloads, "deflate+json");
+
+      expect(fabric).toHaveBeenCalledTimes(4); // Should create 4 clients for 301 messages
+      expect(client.publishClients).toHaveLength(4);
+
+      // Verify each client got the correct chunk
+      expect(client.publishClients[0].publish).toHaveBeenCalledWith(
+        payloads.slice(0, 100),
+        "deflate+json"
+      );
+      expect(client.publishClients[1].publish).toHaveBeenCalledWith(
+        payloads.slice(100, 200),
+        "deflate+json"
+      );
+      expect(client.publishClients[2].publish).toHaveBeenCalledWith(
+        payloads.slice(200, 300),
+        "deflate+json"
+      );
+      expect(client.publishClients[3].publish).toHaveBeenCalledWith(
+        payloads.slice(300),
+        "deflate+json"
+      );
+    });
+  });
+
   describe("stop", () => {
     it("should stop all clients", async () => {
       const onMessage = jest.fn();
       await client.subscribe(["topic1", "topic2", "topic3"], onMessage);
+      const payloads = createPayloads(301);
+      await client.publish(payloads, "deflate+json");
 
       client.stop();
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      expect(mockClient.stop).toHaveBeenCalledTimes(2);
+      expect(mockClient.stop).toHaveBeenCalledTimes(6);
       expect(client.clientToTopics).toHaveLength(0);
+      expect(client.publishClients).toHaveLength(0);
     });
   });
 });

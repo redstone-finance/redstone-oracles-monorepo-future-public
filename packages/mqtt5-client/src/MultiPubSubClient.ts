@@ -1,16 +1,23 @@
 import { loggerFactory } from "@redstone-finance/utils";
 import { Mutex } from "async-mutex";
+import _ from "lodash";
 import { SubscribeCallback } from "./Mqtt5Client";
 import { PubSubClient, PubSubPayload } from "./PubSubClient";
 import { ContentTypes } from "./SerializerDeserializer";
+
+/** AWS enforce limit per connection  */
+const MAX_REQ_PER_SECOND_PER_CONNECTION = 100;
 
 /**
  * Using subscribe and unsubscribe together in Promise.all doesn't give any performance boost cause of mutex
  */
 export class MultiPubSubClient implements PubSubClient {
   clientToTopics: [PubSubClient, string[]][] = [];
+  publishClients: PubSubClient[] = [];
+
   // we have to use mutex to avoid concurrent modifications of clientToTopics array
-  mutex = new Mutex();
+  subscribeMutex = new Mutex();
+  publishMutex = new Mutex();
   logger = loggerFactory("multi-pub-sub-client");
 
   constructor(
@@ -18,32 +25,56 @@ export class MultiPubSubClient implements PubSubClient {
     private readonly connectionsPerTopic: number
   ) {}
 
-  publish(
-    _payloads: PubSubPayload[],
-    _contentType: ContentTypes
+  /** Created clients are not recycled */
+  async publish(
+    payloads: PubSubPayload[],
+    contentType: ContentTypes
   ): Promise<void> {
-    return Promise.reject(
-      new Error("MultiConnectionMqtt5Client doesn't support publishing data")
-    );
+    await this.publishMutex.acquire();
+
+    try {
+      const neededClientsCount = Math.ceil(
+        payloads.length / MAX_REQ_PER_SECOND_PER_CONNECTION
+      );
+      const missingClientsCount =
+        neededClientsCount - this.publishClients.length;
+
+      for (let i = 0; i < missingClientsCount; i++) {
+        this.publishClients.push(await this.pubSubClientFactory());
+      }
+
+      const chunksToPublish = _.chunk(
+        payloads,
+        MAX_REQ_PER_SECOND_PER_CONNECTION
+      );
+
+      await Promise.all(
+        chunksToPublish.map((payloads, index) =>
+          this.publishClients[index].publish(payloads, contentType)
+        )
+      );
+    } finally {
+      this.publishMutex.release();
+    }
   }
 
   async subscribe(
     topics: string[],
     onMessage: SubscribeCallback
   ): Promise<void> {
-    await this.mutex.acquire();
+    await this.subscribeMutex.acquire();
     try {
       await this._subscribe(topics, onMessage);
       this.logger.info(
         `Subscribed to ${topics.length} topics, active ${this.clientToTopics.length} connections`
       );
     } finally {
-      this.mutex.release();
+      this.subscribeMutex.release();
     }
   }
 
   async unsubscribe(topics: string[]): Promise<void> {
-    await this.mutex.acquire();
+    await this.subscribeMutex.acquire();
 
     try {
       const updatedClientToTopics: [PubSubClient, string[]][] = [];
@@ -65,7 +96,7 @@ export class MultiPubSubClient implements PubSubClient {
       }
       this.clientToTopics = updatedClientToTopics;
     } finally {
-      this.mutex.release();
+      this.subscribeMutex.release();
     }
   }
 
@@ -73,6 +104,10 @@ export class MultiPubSubClient implements PubSubClient {
     for (const [client, _] of this.clientToTopics) {
       client.stop();
     }
+    for (const client of this.publishClients) {
+      client.stop();
+    }
+    this.publishClients = [];
     this.clientToTopics = [];
   }
 
