@@ -181,7 +181,6 @@ describe("MultiPubSubClient", () => {
 
       client.stop();
 
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(mockClient.stop).toHaveBeenCalledTimes(6);
       expect(client.clientToTopics).toHaveLength(0);
       expect(client.publishClients).toHaveLength(0);
