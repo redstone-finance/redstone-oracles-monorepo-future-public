@@ -502,7 +502,6 @@
       "source": [
         "binance-api",
         "bitso-api",
-        "ecb",
         "kucoin-api",
         "mercado-api",
         "twelve-data"
@@ -514,7 +513,6 @@
         "bitstamp-api",
         "bitstamp-usd",
         "coinbase-api",
-        "ecb",
         "kaiko",
         "kaiko-v2",
         "kraken-gbp",
@@ -953,7 +951,6 @@
       "source": [
         "alphavantage-usd",
         "bitstamp-usd",
-        "ecb",
         "financialmodelingprep-usd",
         "kraken-usd"
       ]
@@ -1162,12 +1159,7 @@
       "source": ["alphavantage-usd", "financialmodelingprep-usd", "twelve-data"]
     },
     "PHP": {
-      "source": [
-        "alphavantage-usd",
-        "ecb",
-        "financialmodelingprep-usd",
-        "twelve-data"
-      ]
+      "source": ["alphavantage-usd", "financialmodelingprep-usd", "twelve-data"]
     },
     "COP": {
       "source": ["alphavantage-usd", "financialmodelingprep-usd", "twelve-data"]
