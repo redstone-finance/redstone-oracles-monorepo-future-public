@@ -512,17 +512,40 @@ describe("ProviderWithAgreement", () => {
       await testGetBlockNumber(
         [
           [100, "error", 200],
-          [100 + seventyThreeHoursInEthBlocks, 2, 200],
+          [100 + seventyThreeHoursInEthBlocks, 2, 202],
         ],
-        [150, 101]
+        [150, 102]
       );
+    });
+
+    describe("stale block numbers", () => {
+      let clock: sinon.SinonFakeTimers;
+      beforeEach(() => {
+        clock = sinon.useFakeTimers();
+      });
+      afterEach(() => {
+        clock.restore();
+      });
+
+      it("reject block numbers which have not changed since MAX_BLOCK_STALENESS", async () => {
+        await testGetBlockNumber(
+          [
+            [1, 2, 3],
+            [1, 2, 10],
+            [1, 2, 12],
+          ],
+          [2, 2, 12],
+          () => clock.tick(100_000)
+        );
+      });
     });
   });
 });
 
 const testGetBlockNumber = async (
   providerResponsesPerRound: (number | "error")[][],
-  expectedResults: number[]
+  expectedResults: number[],
+  clockTick = () => {}
 ) => {
   const mockProviders: providers.StaticJsonRpcProvider[] = [];
 
@@ -548,6 +571,7 @@ const testGetBlockNumber = async (
 
   for (const expected of expectedResults) {
     const result = await agreementProvider.getBlockNumber();
+    clockTick();
     expect(result.toString()).to.eq(expected.toString());
   }
 };

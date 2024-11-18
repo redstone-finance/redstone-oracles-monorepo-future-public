@@ -7474,6 +7474,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redstone-finance/agents@npm:0.6.2, @redstone-finance/agents@workspace:packages/agents":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/agents@workspace:packages/agents"
+  dependencies:
+    "@redstone-finance/utils": "npm:0.6.2"
+    "@types/node-schedule": "npm:^2.1.0"
+    node-schedule: "npm:^2.1.1"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/avs-contracts@workspace:packages/avs/avs-contracts":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/avs-contracts@workspace:packages/avs/avs-contracts"
@@ -8738,6 +8748,7 @@ __metadata:
     "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
+    "@redstone-finance/agents": "npm:0.6.2"
     "@redstone-finance/chain-configs": "npm:0.6.2"
     "@redstone-finance/evm-multicall": "npm:0.6.2"
     "@redstone-finance/utils": "npm:0.6.2"
