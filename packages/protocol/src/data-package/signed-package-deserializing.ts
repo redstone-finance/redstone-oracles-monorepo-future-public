@@ -1,12 +1,6 @@
 import { Signature } from "ethers";
-import {
-  arrayify,
-  base64,
-  computeAddress,
-  joinSignature,
-  splitSignature,
-} from "ethers/lib/utils";
-import { ecdsaRecover } from "secp256k1";
+import { base64, computeAddress, splitSignature } from "ethers/lib/utils";
+import { UniversalSigner } from "../UniversalSigner";
 import { DataPackage } from "./DataPackage";
 import { SignedDataPackagePlainObj } from "./SignedDataPackage";
 
@@ -31,28 +25,13 @@ export function deserializeSignedPackage(
   return { signature: parsedSignature, dataPackage: unsignedDataPackage };
 }
 
-const RS_SIGNATURE_LENGTH = 64;
-
 export function recoverSignerPublicKey(
   object: SignedDataPackageLike
 ): Uint8Array {
-  const digest = object.dataPackage.getSignableHash();
-  const joinedSignature = arrayify(joinSignature(object.signature));
-
-  if (joinedSignature.length !== RS_SIGNATURE_LENGTH + 1) {
-    throw new Error(
-      `Wrong signature length: ${joinedSignature.length} instead of ${RS_SIGNATURE_LENGTH + 1}`
-    );
-  }
-
-  const publicKeyHex = ecdsaRecover(
-    joinedSignature.slice(0, RS_SIGNATURE_LENGTH),
-    object.signature.recoveryParam,
-    digest,
-    false
+  return UniversalSigner.recoverPublicKey(
+    object.dataPackage.getSignableHash(),
+    object.signature
   );
-
-  return arrayify(publicKeyHex);
 }
 
 export function recoverSignerAddress(object: SignedDataPackageLike): string {
