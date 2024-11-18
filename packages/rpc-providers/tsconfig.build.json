@@ -16,6 +16,9 @@
     },
     {
       "path": "../chain-configs/tsconfig.build.json"
+    },
+    {
+      "path": "../agents/tsconfig.build.json"
     }
   ]
 }

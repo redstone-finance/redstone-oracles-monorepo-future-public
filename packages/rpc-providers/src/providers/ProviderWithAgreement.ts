@@ -15,6 +15,7 @@ import {
 } from "./ProviderWithFallback";
 
 const MAX_BLOCK_TIME_AHEAD_HOURS = 72;
+const MAX_BLOCK_STALENESS = RedstoneCommon.minToMs(3);
 
 interface ProviderWithAgreementSpecificConfig {
   numberOfProvidersThatHaveToAgree: number;
@@ -62,7 +63,10 @@ export class ProviderWithAgreement extends ProviderWithFallback {
   readonly agreementConfig: ProviderWithAgreementSpecificConfig;
   readonly curatedRpcList?: CuratedRpcList;
   readonly providersWithIdentifier: readonly ProviderWithIdentifier[];
-  readonly lastBlockNumberForProvider: Record<string, number | undefined> = {};
+  readonly lastBlockNumberForProvider: Record<
+    string,
+    { blockNumber: number; changedAt: number } | undefined
+  > = {};
   readonly logger: RedstoneLogger;
 
   constructor(
@@ -152,7 +156,7 @@ export class ProviderWithAgreement extends ProviderWithFallback {
           this.agreementConfig.getBlockNumberTimeoutMS
         );
         this.assertValidBlockNumber(blockNumber, identifier);
-        this.lastBlockNumberForProvider[identifier] = blockNumber;
+        this.updateLastBlockNumber(identifier, blockNumber);
         return blockNumber;
       })
     );
@@ -185,6 +189,22 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     });
 
     return electedBlockNumber;
+  }
+
+  private updateLastBlockNumber(identifier: string, blockNumber: number) {
+    this.lastBlockNumberForProvider[identifier] ??= {
+      blockNumber,
+      changedAt: Date.now(),
+    };
+
+    if (
+      this.lastBlockNumberForProvider[identifier].blockNumber !== blockNumber
+    ) {
+      this.lastBlockNumberForProvider[identifier] = {
+        blockNumber,
+        changedAt: Date.now(),
+      };
+    }
   }
 
   override async call(
@@ -234,16 +254,24 @@ export class ProviderWithAgreement extends ProviderWithFallback {
     blockNumber: number,
     providerIdentifier: string
   ) {
-    const prevBlockNumber = this.lastBlockNumberForProvider[providerIdentifier];
-    if (prevBlockNumber) {
+    const prevBlockResult = this.lastBlockNumberForProvider[providerIdentifier];
+
+    if (prevBlockResult) {
+      const { blockNumber: prevBlockNumber, changedAt } = prevBlockResult;
       RedstoneCommon.assert(
         prevBlockNumber <= blockNumber,
         `provider=${providerIdentifier} returned block_number=${blockNumber} previous_one=${prevBlockNumber}, block_number can't be < previous_one`
       );
+
       RedstoneCommon.assert(
         (blockNumber - prevBlockNumber) * this.chainConfig.avgBlockTimeMs <
           RedstoneCommon.hourToMs(MAX_BLOCK_TIME_AHEAD_HOURS),
         `provider=${providerIdentifier} returned block_number=${blockNumber} previous_one=${prevBlockNumber}, blockNumber can't be ahead more than ${MAX_BLOCK_TIME_AHEAD_HOURS} hours from previous one`
+      );
+
+      RedstoneCommon.assert(
+        Date.now() - changedAt < MAX_BLOCK_STALENESS,
+        `provider=${providerIdentifier} hasn't changed block number for ${Date.now() - changedAt}`
       );
     }
   }

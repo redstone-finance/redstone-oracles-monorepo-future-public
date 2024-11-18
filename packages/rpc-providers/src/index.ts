@@ -1,3 +1,4 @@
+export * from "./BackgroundBlockNumbersFetcher";
 export * from "./common";
 export * from "./geckoTerminalConfigs";
 export * from "./hardhat-network-configs";
