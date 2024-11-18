@@ -168,6 +168,10 @@ export const readManifestAndEnv = () => {
       "INFLUX_TOKEN",
       z.string().optional()
     ),
+    ethersPollingIntervalInMs: RedstoneCommon.getFromEnv(
+      "ETHERS_POLLING_INTERVAL_IN_MS",
+      z.number().default(4000)
+    ),
     runWithMqtt: RedstoneCommon.getFromEnv(
       "RUN_WITH_MQTT",
       z.boolean().default(false)

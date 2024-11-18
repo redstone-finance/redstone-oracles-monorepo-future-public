@@ -11,6 +11,7 @@ type MegaProviderOptions = {
   network: { name: string; chainId: number };
   throttleLimit: number;
   timeout: number;
+  pollingInterval?: number;
 };
 
 type ProviderFactory = () => providers.Provider;
@@ -63,16 +64,19 @@ export class MegaProviderBuilder {
   }
 
   private buildProvidersFactories(): ProviderFactory[] {
-    return this.options.rpcUrls.map(
-      (rpcUrl) => () =>
-        new providers.StaticJsonRpcProvider(
-          {
-            url: rpcUrl,
-            timeout: this.options.timeout,
-            throttleLimit: this.options.throttleLimit,
-          },
-          this.options.network
-        )
-    );
+    return this.options.rpcUrls.map((rpcUrl) => () => {
+      const provider = new providers.StaticJsonRpcProvider(
+        {
+          url: rpcUrl,
+          timeout: this.options.timeout,
+          throttleLimit: this.options.throttleLimit,
+        },
+        this.options.network
+      );
+      if (this.options.pollingInterval) {
+        provider.pollingInterval = this.options.pollingInterval;
+      }
+      return provider;
+    });
   }
 }

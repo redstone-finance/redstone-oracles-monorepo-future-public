@@ -42,13 +42,14 @@ export const getRelayerProvider = () => {
   if (cachedProvider) {
     return cachedProvider;
   }
-  const { rpcUrls, chainName, chainId } = config();
+  const { rpcUrls, chainName, chainId, ethersPollingIntervalInMs } = config();
 
   cachedProvider = new MegaProviderBuilder({
     rpcUrls,
     timeout: config().singleProviderOperationTimeout,
     throttleLimit: 1,
     network: { name: chainName, chainId },
+    pollingInterval: ethersPollingIntervalInMs,
   })
     .agreement(
       {
