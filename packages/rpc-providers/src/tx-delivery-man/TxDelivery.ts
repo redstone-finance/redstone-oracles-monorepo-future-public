@@ -3,8 +3,8 @@ import {
   TransactionRequest,
   TransactionResponse,
 } from "@ethersproject/providers";
-import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
-import { BigNumber, PopulatedTransaction, providers, utils } from "ethers";
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
+import { BigNumber, providers, utils } from "ethers";
 import _ from "lodash";
 import { EthersError, isEthersError } from "../common";
 import {
@@ -15,6 +15,7 @@ import { CHAIN_ID_TO_GAS_ORACLE } from "./CustomGasOracles";
 import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
 import { GasLimitEstimator } from "./GasLimitEstimator";
+import { convertToTxDeliveryCall, TxDeliveryCall } from "./TxDeliveryCall";
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
 
@@ -141,16 +142,6 @@ export type TxDeliveryOptsValidated = Omit<
   "gasLimit"
 > & {
   gasLimit?: number;
-};
-
-/**
- * All values has to resolve to hex values
- */
-export type TxDeliveryCall = {
-  from: string;
-  to: string;
-  data: string;
-  value?: string;
 };
 
 export type TxDeliverySigner = {
@@ -424,11 +415,3 @@ export class TxDelivery {
     return tx.data;
   }
 }
-
-export const convertToTxDeliveryCall = (
-  transactionRequest: TransactionRequest | PopulatedTransaction
-): TxDeliveryCall => ({
-  from: transactionRequest.from as string,
-  to: transactionRequest.to as string,
-  data: transactionRequest.data as string,
-});

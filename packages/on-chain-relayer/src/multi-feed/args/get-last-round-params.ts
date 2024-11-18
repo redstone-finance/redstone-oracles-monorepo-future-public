@@ -1,15 +1,12 @@
 import { utils } from "ethers";
 import { MultiFeedAdapterWithoutRounds } from "../../../typechain-types";
-import { config } from "../../config";
 import { ContractData, LastRoundDetails } from "../../types";
 
 export const getLastRoundParamsFromContractMultiFeed = async (
   adapterContract: MultiFeedAdapterWithoutRounds,
+  dataFeeds: string[],
   blockTag: number
 ): Promise<ContractData> => {
-  const relayerConfig = config();
-  const { dataFeeds } = relayerConfig;
-
   const dataFromContract: ContractData = {};
 
   const lastRoundDetails = await getLastUpdateDetailsForManyFromContract(

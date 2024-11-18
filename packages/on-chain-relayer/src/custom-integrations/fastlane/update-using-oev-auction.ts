@@ -1,7 +1,6 @@
 import {
   Multicall3Request,
   safeExecuteMulticall3,
-  TxDeliveryCall,
 } from "@redstone-finance/rpc-providers";
 import { DataPackagesResponse } from "@redstone-finance/sdk";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
@@ -18,7 +17,7 @@ import { config } from "../../config";
 const logger = loggerFactory("update-using-oev-auction");
 
 export const updateUsingOevAuction = async (
-  txDeliveryCall: TxDeliveryCall,
+  txDeliveryCalldata: string,
   blockTag: number,
   adapterContract: RedstoneAdapterBase,
   dataPackagesResponse: DataPackagesResponse
@@ -27,7 +26,7 @@ export const updateUsingOevAuction = async (
   const start = Date.now();
   const signedTransactions = await runOevAuction(
     adapterContract.signer,
-    txDeliveryCall
+    txDeliveryCalldata
   );
   logger.log(
     `Received signed oev transactions: ${JSON.stringify(signedTransactions)}`
@@ -46,19 +45,16 @@ export const updateUsingOevAuction = async (
   logger.log(`OEV auction successfully completed in ${Date.now() - start}ms`);
 };
 
-const runOevAuction = async (
-  signer: Signer,
-  txDeliveryCall: TxDeliveryCall
-) => {
+const runOevAuction = async (signer: Signer, txDeliveryCalldata: string) => {
   const oevAuctionUrl = config().oevAuctionUrl!;
   const adapterContractAddress = config().adapterContractAddress;
   const chainId = config().chainId;
   const chainIdHex = `0x${chainId.toString(16)}`;
   const body = JSON.stringify({
     adapter: adapterContractAddress,
-    updatePayload: txDeliveryCall.data,
+    updatePayload: txDeliveryCalldata,
     signature: await signer.signMessage(
-      `${chainIdHex}:${adapterContractAddress}:${txDeliveryCall.data}`
+      `${chainIdHex}:${adapterContractAddress}:${txDeliveryCalldata}`
     ),
     earlyReturn: true,
     chainId: chainIdHex,

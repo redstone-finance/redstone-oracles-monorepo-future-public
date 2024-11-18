@@ -12,11 +12,11 @@ import { parseUnits } from "ethers/lib/utils";
 import { ethers, upgrades, waffle } from "hardhat";
 import Sinon from "sinon";
 import * as get_provider from "../../../../src/core/contract-interactions/get-relayer-provider";
+import { MentoEvmContractAdapter } from "../../../../src/core/contract-interactions/MentoEvmContractAdapter";
 import {
   calculateLinkedListPosition,
   prepareLinkedListLocationsForMentoAdapterReport,
 } from "../../../../src/custom-integrations/mento/mento-utils";
-import { getValuesForDataFeeds } from "../../../../src/price-feeds/args/get-values-for-data-feeds";
 import {
   MentoAdapterBase,
   MentoAdapterMock,
@@ -120,6 +120,11 @@ describe("MentoAdapter", () => {
       proposedTimestamp,
       locationsModifierFn(locationsInSortedLinkedLists)
     );
+
+    return {
+      proposedTimestamp,
+      timestampMilliseconds: 1000 * (await time.latest()),
+    };
   };
 
   const reportWithAdapterAndDeviation = async (
@@ -308,15 +313,24 @@ describe("MentoAdapter", () => {
   });
 
   it("Should properly read redstone values reported to sorted oracles", async () => {
-    await reportWithAdapter(1, 2, mentoAdapter);
-    const values = await getValuesForDataFeeds(
-      mentoAdapter,
+    const { proposedTimestamp, timestampMilliseconds } =
+      (await reportWithAdapter(1, 2, mentoAdapter))!;
+    const adapter = new MentoEvmContractAdapter(mentoAdapter);
+    const values = await adapter.readLatestRoundParamsFromContract(
       ["BTC", "ETH"],
       await mentoAdapter.provider.getBlockNumber()
     );
     expect(values).to.eql({
-      BTC: BigNumber.from(1 * 10 ** 8),
-      ETH: BigNumber.from(2 * 10 ** 8),
+      BTC: {
+        lastDataPackageTimestampMS: proposedTimestamp,
+        lastBlockTimestampMS: timestampMilliseconds,
+        lastValue: BigNumber.from(1 * 10 ** 8),
+      },
+      ETH: {
+        lastDataPackageTimestampMS: proposedTimestamp,
+        lastBlockTimestampMS: timestampMilliseconds,
+        lastValue: BigNumber.from(2 * 10 ** 8),
+      },
     });
   });
 });

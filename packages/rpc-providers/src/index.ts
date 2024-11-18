@@ -14,4 +14,6 @@ export * from "./Tokens";
 export * from "./tx-delivery-man/CustomGasOracles";
 export * from "./tx-delivery-man/Eip1559GasEstimator";
 export * from "./tx-delivery-man/TxDelivery";
+export { convertToTxDeliveryCall } from "./tx-delivery-man/TxDeliveryCall";
+export type { TxDeliveryCall } from "./tx-delivery-man/TxDeliveryCall";
 export * from "./tx-delivery-man/TxDeliveryMan";

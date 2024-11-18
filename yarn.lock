@@ -4378,9 +4378,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gelatonetwork/web3-functions-sdk@npm:^2.4.3":
-  version: 2.4.3
-  resolution: "@gelatonetwork/web3-functions-sdk@npm:2.4.3"
+"@gelatonetwork/web3-functions-sdk@npm:^2.4.4":
+  version: 2.4.4
+  resolution: "@gelatonetwork/web3-functions-sdk@npm:2.4.4"
   dependencies:
     "@ethersproject/address": "npm:^5.7.0"
     "@ethersproject/contracts": "npm:^5.7.0"
@@ -4392,7 +4392,7 @@ __metadata:
     body-parser: "npm:^1.20.1"
     colors: "npm:^1.4.0"
     deep-object-diff: "npm:^1.1.9"
-    deno-bin: "npm:^1.36.0"
+    deno-bin: "npm:^1.44.4"
     dockerode: "npm:^3.3.4"
     dotenv: "npm:^16.0.3"
     esbuild: "npm:^0.17.4"
@@ -4407,7 +4407,7 @@ __metadata:
     undici: "npm:^6.6.2"
   bin:
     w3f: dist/bin/index.js
-  checksum: 10c0/f33959d56d2f30bd744b1ebc87192f59c8e60e6ed1601107c6dcfe51a22f1a8cc822b7733bd05cbc1ea23c0de58fc284ff9c78a01a05718f97e99f1c5a339679
+  checksum: 10c0/b02624f04c7a3cf29e3c2f199b60339547ba80f33baa8cf4b558e8597c48602cefb9b78eb6e578c41bc85fff4c6a72628fb95e401c675b584a86ac017e3b9aa7
   languageName: node
   linkType: hard
 
@@ -7959,7 +7959,7 @@ __metadata:
   dependencies:
     "@ethersproject/abi": "npm:^5.6.3"
     "@ethersproject/providers": "npm:^5.6.8"
-    "@gelatonetwork/web3-functions-sdk": "npm:^2.4.3"
+    "@gelatonetwork/web3-functions-sdk": "npm:^2.4.4"
     "@nomicfoundation/hardhat-chai-matchers": "npm:1.0.6"
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.9"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
@@ -17424,16 +17424,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deno-bin@npm:^1.36.0":
-  version: 1.36.0
-  resolution: "deno-bin@npm:1.36.0"
+"deno-bin@npm:^1.44.4":
+  version: 1.46.3
+  resolution: "deno-bin@npm:1.46.3"
   dependencies:
     adm-zip: "npm:^0.5.4"
-    follow-redirects: "npm:^1.10.0"
   bin:
     deno: bin/deno.js
     deno-bin: bin/deno.js
-  checksum: 10c0/98fd3219b10452f54a070887045fb244fd2400dc1ea2bcdf931c54ec0710d0af1abf2c9e8c4efd48c92766943992205c9485ddc40262dfa040659c5690d4af3b
+  checksum: 10c0/28b463b8463bd6b491b729ecd0b601ef8204e9c9cc71d6bd11d45b2de0a23429f2553f0e665eee08138e5ce29ae0e7a3a71eb30184f10dbfd51f0d8c35a3adab
   languageName: node
   linkType: hard
 
@@ -20146,7 +20145,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.10.0, follow-redirects@npm:^1.12.1, follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.14.7, follow-redirects@npm:^1.14.9, follow-redirects@npm:^1.15.0":
+"follow-redirects@npm:^1.12.1, follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.14.7, follow-redirects@npm:^1.14.9, follow-redirects@npm:^1.15.0":
   version: 1.15.2
   resolution: "follow-redirects@npm:1.15.2"
   peerDependenciesMeta:

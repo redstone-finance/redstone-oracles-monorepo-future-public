@@ -1,38 +1,34 @@
-import { Web3FunctionUserArgs } from "@gelatonetwork/web3-functions-sdk";
+import { Web3FunctionContext } from "@gelatonetwork/web3-functions-sdk";
 import { providers } from "ethers";
-import {
-  IterationArgs,
-  IterationArgsProviderEnv,
-  IterationArgsProviderInterface,
-} from "../IterationArgsProviderInterface";
+import { IterationArgsProcessor } from "../redstone/IterationArgsProcessor";
 
-export class MockIterationArgsProvider
-  implements IterationArgsProviderInterface<string | undefined>
-{
-  constructor(public adapterContractAddress?: string) {}
+export class MockIterationArgsProcessor extends IterationArgsProcessor {
+  constructor(context: Web3FunctionContext) {
+    super(context);
+  }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  async getArgs(
-    userArgs: Web3FunctionUserArgs,
-    _env: IterationArgsProviderEnv,
-    _provider: providers.StaticJsonRpcProvider
-  ): Promise<IterationArgs<string | undefined>> {
-    const { shouldUpdatePrices, message, args } = userArgs;
+  override async processArgs(_provider: providers.StaticJsonRpcProvider) {
+    const { shouldUpdatePrices, message, args, adapterContractAddress } =
+      this.context.userArgs;
 
-    const resultShouldUpdatePrices = shouldUpdatePrices as unknown as boolean;
+    const resultShouldUpdatePrices = shouldUpdatePrices as boolean;
     const resultMessage =
-      message === "undefined" ? undefined : (message as unknown as string);
-    const resultArgs =
-      args === "undefined" ? undefined : (args as unknown as string);
+      message === "undefined" ? undefined : (message as string);
+    const resultArgs = args === "undefined" ? undefined : (args as string);
 
-    return {
+    const updatePricesArgs = {
       shouldUpdatePrices: resultShouldUpdatePrices,
       message: resultMessage,
       args: resultArgs,
     };
-  }
 
-  getTransactionData(args: string | undefined): Promise<string | undefined> {
-    return Promise.resolve(args);
+    return await IterationArgsProcessor.processIterationArgs(
+      updatePricesArgs,
+      () =>
+        Promise.resolve({
+          to: adapterContractAddress as string,
+          data: args as string,
+        })
+    );
   }
 }

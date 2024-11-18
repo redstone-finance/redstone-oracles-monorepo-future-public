@@ -2,22 +2,25 @@ import { Point } from "@influxdata/influxdb-client";
 import { InfluxService } from "@redstone-finance/internal-utils";
 import {
   chooseDataPackagesTimestamp,
+  ContractParamsProvider,
   DataPackagesResponse,
 } from "@redstone-finance/sdk";
 import { RedstoneCommon, SafeNumber } from "@redstone-finance/utils";
 import { basename } from "path";
 import { z } from "zod";
 import { config } from "../config";
-import { RelayerConfig, UpdatePricesArgs } from "../types";
+import { RelayerConfig } from "../types";
 
 const TXS_MEASUREMENT = "redstoneTransactions";
 const SENDER_TAG =
   "0x0000000000000000000000000000000000000000000000000000000000000001";
 
 export class RelayerDataInfluxService extends InfluxService {
-  async updatePriceValues(updatePricesArgs: UpdatePricesArgs): Promise<void> {
+  async updatePriceValues(
+    paramsProvider: ContractParamsProvider
+  ): Promise<void> {
     const relayerConfig = config();
-    const dataPackages = await updatePricesArgs.fetchDataPackages();
+    const dataPackages = await paramsProvider.requestDataPackages();
     const manifestFile = RedstoneCommon.getFromEnv("MANIFEST_FILE", z.string());
 
     await this.insert([

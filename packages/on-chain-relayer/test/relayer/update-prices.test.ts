@@ -1,17 +1,19 @@
+import { JsonRpcProvider } from "@ethersproject/providers";
 import { ProviderWithAgreement } from "@redstone-finance/rpc-providers";
-import { DataPackagesRequestParams } from "@redstone-finance/sdk";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { Wallet } from "ethers";
 import { parseUnits } from "ethers/lib/utils";
 import { ethers } from "hardhat";
-import { UpdatePricesArgs } from "../../src";
-import { updatePrices } from "../../src/core/contract-interactions/update-prices";
+import { EvmContractConnector } from "../../src";
+import { MentoEvmContractAdapter } from "../../src/core/contract-interactions/MentoEvmContractAdapter";
+import { PriceFeedsEvmContractAdapter } from "../../src/core/contract-interactions/PriceFeedsEvmContractAdapter";
+import { getTxDeliveryMan } from "../../src/core/TxDeliveryManSingleton";
 import { PriceFeedsAdapterWithoutRoundsMock } from "../../typechain-types";
 import {
   btcDataFeed,
+  ContractParamsProviderMock,
   deployMockSortedOracles,
-  getDataPackagesResponse,
   mockEnvVariables,
 } from "../helpers";
 import { server } from "./mock-server";
@@ -31,11 +33,11 @@ describe("update-prices", () => {
   it("should update price in price-feeds adapter", async () => {
     mockEnvVariables();
     // Deploy contract
-    const PriceFeedsAdapterFactory = await ethers.getContractFactory(
+    const priceFeedsAdapterFactory = await ethers.getContractFactory(
       "PriceFeedsAdapterWithoutRoundsMock"
     );
     let priceFeedsAdapter: PriceFeedsAdapterWithoutRoundsMock =
-      await PriceFeedsAdapterFactory.deploy();
+      await priceFeedsAdapterFactory.deploy();
     await priceFeedsAdapter.deployed();
 
     const provider = new ProviderWithAgreement([
@@ -47,14 +49,18 @@ describe("update-prices", () => {
     );
 
     // Update prices
-    const updatePricesArgs: UpdatePricesArgs = {
-      blockTag: await provider.getBlockNumber(),
-      fetchDataPackages: getDataPackagesResponse,
-      dataFeedsToUpdate: [],
-      updateRequestParams: {} as unknown as DataPackagesRequestParams,
-    };
-
-    await updatePrices(updatePricesArgs, priceFeedsAdapter);
+    const contractAdapter = await new EvmContractConnector(
+      ethers.provider,
+      new PriceFeedsEvmContractAdapter(
+        priceFeedsAdapter,
+        getTxDeliveryMan(
+          priceFeedsAdapter.signer,
+          priceFeedsAdapter.provider as JsonRpcProvider
+        )
+      )
+    ).getAdapter();
+    const paramsProvider = new ContractParamsProviderMock();
+    await contractAdapter.writePricesFromPayloadToContract(paramsProvider);
 
     // Check updated values
     const dataFeedsValues = await priceFeedsAdapter.getValuesForDataFeeds(
@@ -79,9 +85,9 @@ describe("update-prices", () => {
     const sortedOracles = await deployMockSortedOracles();
 
     // Deploying mento adapter
-    const MentoAdapterFactory =
+    const mentoAdapterFactory =
       await ethers.getContractFactory("MentoAdapterMock");
-    let mentoAdapter = await MentoAdapterFactory.deploy();
+    let mentoAdapter = await mentoAdapterFactory.deploy();
     await mentoAdapter.deployed();
 
     const provider = new ProviderWithAgreement([
@@ -96,14 +102,18 @@ describe("update-prices", () => {
     await mentoAdapter.setSortedOraclesAddress(sortedOracles.address);
 
     // Update prices
-    const updatePricesArgs: UpdatePricesArgs = {
-      blockTag: await provider.getBlockNumber(),
-      fetchDataPackages: getDataPackagesResponse,
-      dataFeedsToUpdate: [],
-      updateRequestParams: {} as unknown as DataPackagesRequestParams,
-    };
-
-    await updatePrices(updatePricesArgs, mentoAdapter.connect(provider));
+    const contractAdapter = await new EvmContractConnector(
+      ethers.provider,
+      new MentoEvmContractAdapter(
+        mentoAdapter,
+        getTxDeliveryMan(
+          mentoAdapter.signer,
+          mentoAdapter.provider as JsonRpcProvider
+        )
+      )
+    ).getAdapter();
+    const paramsProvider = new ContractParamsProviderMock();
+    await contractAdapter.writePricesFromPayloadToContract(paramsProvider);
 
     // Check updated values in SortedOracles
     const normalizeValue = (num: number) => parseUnits(num.toString(), 24);

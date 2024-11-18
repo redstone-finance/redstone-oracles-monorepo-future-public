@@ -2,21 +2,57 @@ import {
   Web3FunctionContext,
   Web3FunctionResult,
 } from "@gelatonetwork/web3-functions-sdk";
+import {
+  EvmContractConnector,
+  EvmContractFacade,
+  getEvmContractAdapter,
+  getIterationArgsProvider,
+  makeConfigProvider,
+  setConfigProvider,
+} from "@redstone-finance/on-chain-relayer";
+import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { providers } from "ethers";
 import {
+  IterationArgs,
   IterationArgsProviderEnv,
-  IterationArgsProviderInterface,
 } from "../IterationArgsProviderInterface";
+import { fetchManifestAndSetUp } from "./make-iteration-args-provider";
 
-export class IterationArgsProcessor<Args> {
-  protected argsProvider!: IterationArgsProviderInterface<Args>;
+export class IterationArgsProcessor {
+  constructor(protected readonly context: Web3FunctionContext) {}
 
-  constructor(
-    private readonly context: Web3FunctionContext,
-    private readonly argsProviderFactory: (
-      env: IterationArgsProviderEnv
-    ) => Promise<IterationArgsProviderInterface<Args>>
-  ) {}
+  static async processIterationArgs<Args>(
+    iterationArgs: IterationArgs<Args>,
+    getTransactionData: () => Promise<{ data: string; to: string }>
+  ): Promise<Web3FunctionResult> {
+    if (iterationArgs.shouldUpdatePrices) {
+      if (!iterationArgs.args) {
+        return IterationArgsProcessor.shouldNotExec(
+          iterationArgs.message,
+          "Args are empty"
+        );
+      } else {
+        const txDeliveryCall = await getTransactionData();
+
+        if (!!txDeliveryCall.data && txDeliveryCall.data != "0x") {
+          return IterationArgsProcessor.canExec(
+            txDeliveryCall,
+            iterationArgs.message
+          );
+        } else {
+          return {
+            canExec: false,
+            message: `Wrong transaction data: '${txDeliveryCall.data}'`,
+          };
+        }
+      }
+    } else {
+      return IterationArgsProcessor.shouldNotExec(
+        iterationArgs.message,
+        "Skipping"
+      );
+    }
+  }
 
   private static shouldNotExec(
     argsMessage?: string,
@@ -29,61 +65,53 @@ export class IterationArgsProcessor<Args> {
     return { canExec: false, message };
   }
 
+  private static canExec(
+    txDeliveryCall: { data: string; to: string },
+    message?: string
+  ): Web3FunctionResult {
+    console.log(message); // Do not remove - to have the full message visible as the Gelato web3FunctionLogs log entry.
+
+    return {
+      canExec: true,
+      callData: [{ data: txDeliveryCall.data, to: txDeliveryCall.to }],
+    };
+  }
+
   async processArgs(
     provider: providers.StaticJsonRpcProvider
   ): Promise<Web3FunctionResult> {
     const env = await this.getEnvParams();
+    const { relayerEnv, manifest } = await fetchManifestAndSetUp(env);
 
-    this.argsProvider = await this.argsProviderFactory(env);
+    setConfigProvider(() => makeConfigProvider(manifest, relayerEnv));
 
-    const iterationArgs = await this.argsProvider.getArgs(
-      this.context.userArgs,
-      env,
-      provider
+    const config = makeConfigProvider(manifest, relayerEnv);
+    const connector = new EvmContractConnector(
+      provider,
+      getEvmContractAdapter(config, provider)
     );
 
-    if (iterationArgs.shouldUpdatePrices) {
-      if (!iterationArgs.args) {
-        return IterationArgsProcessor.shouldNotExec(
-          iterationArgs.message,
-          "Args are empty"
-        );
-      } else {
-        const data = await this.argsProvider.getTransactionData(
-          iterationArgs.args
-        );
+    const facade = new EvmContractFacade(
+      connector,
+      getIterationArgsProvider(config)
+    );
+    const context = await facade.getShouldUpdateContext(config);
+    const iterationArgs = await facade.getIterationArgs(context, config);
 
-        if (!!data && data != "0x") {
-          return this.canExec(data, iterationArgs.message);
-        } else {
-          return {
-            canExec: false,
-            message: `Wrong transaction data: '${data}'`,
-          };
-        }
-      }
-    } else {
-      return IterationArgsProcessor.shouldNotExec(
-        iterationArgs.message,
-        "Skipping"
+    const getTransactionData = async () => {
+      const paramsProvider = new ContractParamsProvider(
+        iterationArgs.args.updateRequestParams,
+        undefined,
+        iterationArgs.args.dataFeedsToUpdate
       );
-    }
-  }
 
-  private canExec(data: string, message?: string): Web3FunctionResult {
-    console.log(message); // Do not remove - to have the full message visible as the Gelato web3FunctionLogs log entry.
+      return await (await connector.getAdapter()).makeUpdateTx(paramsProvider);
+    };
 
-    if (this.argsProvider.adapterContractAddress) {
-      return {
-        canExec: true,
-        callData: [{ data, to: `${this.argsProvider.adapterContractAddress}` }],
-      };
-    } else {
-      return {
-        canExec: false,
-        message: "Unknown adapterContractAddress",
-      };
-    }
+    return await IterationArgsProcessor.processIterationArgs(
+      iterationArgs,
+      getTransactionData
+    );
   }
 
   private async getEnvParams() {

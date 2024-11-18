@@ -1,13 +1,7 @@
 import { OnChainRelayerEnv } from "@redstone-finance/on-chain-relayer";
-import {
-  AnyOnChainRelayerManifestSchema,
-  MultiFeedOnChainRelayerManifest,
-  OnChainRelayerManifest,
-} from "@redstone-finance/on-chain-relayer-common";
+import { AnyOnChainRelayerManifestSchema } from "@redstone-finance/on-chain-relayer-common";
 import axios from "axios";
 import { IterationArgsProviderEnv } from "../IterationArgsProviderInterface";
-import { IterationArgsProvider } from "./IterationArgsProvider";
-import { MultiFeedIterationArgsProvider } from "./MultiFeedIterationArgsProvider";
 
 const NOT_NEEDED_FOR_GELATO = "Not needed for Gelato";
 const NUMBER_NOT_NEEDED_FOR_GELATO = 0;
@@ -34,24 +28,7 @@ const EMPTY_GELATO_ENV: OnChainRelayerEnv = {
   oevVerifyGasPriceDisabled: false,
 };
 
-export async function makeIterationArgsProvider(env: IterationArgsProviderEnv) {
-  const { relayerEnv, manifest } = await fetchManifestAndSetUp(env);
-
-  switch (manifest.adapterContractType) {
-    case "multi-feed":
-      return new MultiFeedIterationArgsProvider(
-        manifest as MultiFeedOnChainRelayerManifest,
-        relayerEnv
-      );
-    default:
-      return new IterationArgsProvider(
-        manifest as OnChainRelayerManifest,
-        relayerEnv
-      );
-  }
-}
-
-async function fetchManifestAndSetUp(env: IterationArgsProviderEnv) {
+export async function fetchManifestAndSetUp(env: IterationArgsProviderEnv) {
   let manifestData: unknown;
 
   for (const url of env.manifestUrls) {
