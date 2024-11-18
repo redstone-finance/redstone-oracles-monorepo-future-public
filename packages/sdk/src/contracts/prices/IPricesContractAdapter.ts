@@ -23,10 +23,14 @@ export interface IPricesContractAdapter {
   // Reads the timestamp of the lastly written values to the contract's storage.
   // It doesn't modify the contract's storage
   readTimestampFromContract(): Promise<number>;
+}
 
-  /// Returns the unique signer threshold, which the contract is set up.
-  getUniqueSignerThreshold?: () => Promise<number>;
+export interface IExtendedPricesContractAdapter extends IPricesContractAdapter {
+  // Returns the unique signer threshold, which the contract is set up.
+  getUniqueSignerThreshold(blockNumber?: number): Promise<number>;
 
-  /// Returns the block timestamp of the lastly written values to the contract's storage.
-  readLatestUpdateBlockTimestamp?: () => Promise<number | undefined>;
+  // Returns the block timestamp of the lastly written values to the contract's storage.
+  readLatestUpdateBlockTimestamp(
+    blockNumber?: number
+  ): Promise<number | undefined>;
 }

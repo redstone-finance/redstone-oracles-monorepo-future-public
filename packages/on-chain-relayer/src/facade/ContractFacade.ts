@@ -2,7 +2,10 @@ import {
   ContractParamsProvider,
   DataPackagesRequestParams,
   DataPackagesResponseCache,
+  IContractConnector,
+  IExtendedPricesContractAdapter,
 } from "@redstone-finance/sdk";
+import { IRedstoneContractAdapter } from "../core/contract-interactions/IRedstoneContractAdapter";
 import { makeDataPackagesRequestParams } from "../core/make-data-packages-request-params";
 import {
   ContractData,
@@ -12,8 +15,24 @@ import {
   UpdatePricesArgs,
 } from "../types";
 
+export type IterationArgsProvider = (
+  context: ShouldUpdateContext,
+  relayerConfig: RelayerConfig
+) => Promise<IterationArgs>;
+
 export abstract class ContractFacade {
-  protected constructor(protected cache?: DataPackagesResponseCache) {}
+  constructor(
+    protected readonly connector: IContractConnector<
+      IExtendedPricesContractAdapter | IRedstoneContractAdapter
+    >,
+    protected iterationArgsProvider: IterationArgsProvider,
+    protected cache?: DataPackagesResponseCache
+  ) {}
+
+  abstract getLastRoundParamsFromContract(
+    feedIds: string[],
+    blockTag: number
+  ): Promise<ContractData>;
 
   async getShouldUpdateContext(
     relayerConfig: RelayerConfig
@@ -21,7 +40,7 @@ export abstract class ContractFacade {
     const blockTag = await this.getBlockNumber();
     const [uniqueSignersThreshold, dataFromContract] = await Promise.all([
       this.getUniqueSignersThresholdFromContract(blockTag),
-      this.getLastRoundParamsFromContract(blockTag, relayerConfig),
+      this.getLastRoundParamsFromContract(relayerConfig.dataFeeds, blockTag),
     ]);
 
     const requestParams = makeDataPackagesRequestParams(
@@ -40,30 +59,35 @@ export abstract class ContractFacade {
     };
   }
 
-  abstract getIterationArgs(
+  async getIterationArgs(
     context: ShouldUpdateContext,
     relayerConfig: RelayerConfig
-  ): Promise<IterationArgs>;
-
-  abstract getBlockNumber(): Promise<number>;
-
-  abstract getUniqueSignersThresholdFromContract(
-    blockTag: number
-  ): Promise<number>;
-
-  abstract getLastRoundParamsFromContract(
-    blockTag: number,
-    relayerConfig: RelayerConfig
-  ): Promise<ContractData>;
-
-  //eslint-disable-next-line  @typescript-eslint/class-methods-use-this
-  addExtraFeedsToUpdateParams(
-    _iterationArgs: IterationArgs
-  ): { message: string; args?: unknown[] }[] {
-    return [];
+  ): Promise<IterationArgs> {
+    return await this.iterationArgsProvider(context, relayerConfig);
   }
 
-  abstract updatePrices(args: UpdatePricesArgs): Promise<void>;
+  getBlockNumber() {
+    return this.connector.getBlockNumber();
+  }
+
+  async getUniqueSignersThresholdFromContract(
+    blockTag: number
+  ): Promise<number> {
+    return await (
+      await this.connector.getAdapter()
+    ).getUniqueSignerThreshold(blockTag);
+  }
+
+  async updatePrices(args: UpdatePricesArgs): Promise<void> {
+    const adapter = await this.connector.getAdapter();
+
+    await adapter.writePricesFromPayloadToContract(
+      this.getContractParamsProvider(
+        args.updateRequestParams,
+        args.dataFeedsToUpdate
+      )
+    );
+  }
 
   getContractParamsProvider(
     requestParams: DataPackagesRequestParams,

@@ -1,47 +1,54 @@
+import { TxDeliveryManSupportedProviders } from "@redstone-finance/rpc-providers";
 import { DataPackagesResponseCache } from "@redstone-finance/sdk";
-import { Contract, Wallet } from "ethers";
-import {
-  MultiFeedAdapterWithoutRounds,
-  RedstoneAdapterBase,
-} from "../../typechain-types";
+import { Wallet } from "ethers";
+import { RedstoneAdapterBase } from "../../typechain-types";
 import { config } from "../config";
-import { getAbiForAdapter } from "../core/contract-interactions/get-abi-for-adapter";
+import { EvmContractConnector } from "../core/contract-interactions/EvmContractConnector";
 import { getRelayerProvider } from "../core/contract-interactions/get-relayer-provider";
-import { updatePrices } from "../core/contract-interactions/update-prices";
+import { InfluxEvmContractAdapter } from "../core/contract-interactions/InfluxEvmContractAdapter";
+import { OevPriceFeedsEvmContractAdapter } from "../core/contract-interactions/OevPriceFeedsEvmContractAdapter";
+import { ITxDeliveryMan } from "../core/contract-interactions/tx-delivery-gelato-fixes";
+import { getTxDeliveryMan } from "../core/TxDeliveryManSingleton";
 import { RelayerConfig } from "../types";
-import { MultiFeedEvmContractFacade } from "./MultiFeedEvmContractFacade";
-import { MultiFeedInfluxContractFacade } from "./MultiFeedInfluxContractFacade";
-import { PriceAdapterEvmContractFacade } from "./PriceAdapterEvmContractFacade";
+import { EvmContractFacade } from "./EvmContractFacade";
+import { getEvmContractAdapter } from "./get-evm-contract-adapter";
+import { getIterationArgsProvider } from "./get-iteration-args-provider";
 
 export const getEvmContractFacade = (
   relayerConfig: RelayerConfig,
   cache?: DataPackagesResponseCache
 ) => {
-  const { privateKey, adapterContractAddress } = config();
+  const { privateKey } = config();
   const provider = getRelayerProvider();
   const signer = new Wallet(privateKey, provider);
-  const abi = getAbiForAdapter();
-  const adapterContract = new Contract(adapterContractAddress, abi, signer) as
-    | RedstoneAdapterBase
-    | MultiFeedAdapterWithoutRounds;
 
-  if (relayerConfig.adapterContractType === "multi-feed") {
-    return relayerConfig.dryRunWithInflux
-      ? new MultiFeedInfluxContractFacade(
-          adapterContract as MultiFeedAdapterWithoutRounds,
-          relayerConfig,
-          cache
+  const txDeliveryMan = getTxDeliveryMan(
+    signer,
+    provider as TxDeliveryManSupportedProviders
+  );
+
+  const priceFeedsEvmContractAdapterOverride = relayerConfig.oevAuctionUrl
+    ? (contract: RedstoneAdapterBase, txDeliveryMan?: ITxDeliveryMan) =>
+        new OevPriceFeedsEvmContractAdapter<RedstoneAdapterBase>(
+          contract,
+          txDeliveryMan
         )
-      : new MultiFeedEvmContractFacade(
-          adapterContract as MultiFeedAdapterWithoutRounds,
-          (args) => updatePrices(args, adapterContract),
-          cache
-        );
+    : undefined;
+
+  let adapter = getEvmContractAdapter(
+    relayerConfig,
+    signer,
+    txDeliveryMan,
+    priceFeedsEvmContractAdapterOverride
+  );
+
+  if (relayerConfig.dryRunWithInflux) {
+    adapter = new InfluxEvmContractAdapter(adapter, relayerConfig);
   }
 
-  return new PriceAdapterEvmContractFacade(
-    adapterContract as RedstoneAdapterBase,
-    (args) => updatePrices(args, adapterContract),
+  return new EvmContractFacade(
+    new EvmContractConnector(provider, adapter),
+    getIterationArgsProvider(relayerConfig),
     cache
   );
 };

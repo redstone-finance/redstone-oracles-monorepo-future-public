@@ -19,7 +19,7 @@
     "w3f-deploy": "yarn build && hardhat w3f-deploy redstone | tee /dev/tty | ts-node save-deploy-cid.ts"
   },
   "dependencies": {
-    "@gelatonetwork/web3-functions-sdk": "^2.4.3",
+    "@gelatonetwork/web3-functions-sdk": "^2.4.4",
     "@redstone-finance/on-chain-relayer": "0.6.2"
   },
   "license": "MIT",

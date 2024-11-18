@@ -42,13 +42,13 @@ export type IterationArgs = {
   shouldUpdatePrices: boolean;
   args: UpdatePricesArgs;
   message?: string;
+  additionalMessages?: { message: string; args?: string[][] }[];
 };
 
 export type UpdatePricesArgs = {
   blockTag: number;
   updateRequestParams: DataPackagesRequestParams;
   dataFeedsToUpdate: string[];
-  fetchDataPackages: () => Promise<DataPackagesResponse>;
 };
 
 export type MultiFeedUpdatePricesArgs = UpdatePricesArgs & {

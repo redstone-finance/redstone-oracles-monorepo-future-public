@@ -22,9 +22,9 @@ export const runIteration = async (contractFacade: ContractFacade) => {
     } iteration_duration=${performance.now() - iterationStart}`
   );
   if (iterationArgs.shouldUpdatePrices) {
-    const logMessages =
-      contractFacade.addExtraFeedsToUpdateParams(iterationArgs);
-    logMessages.forEach(({ message, args }) => logger.log(message, args));
+    iterationArgs.additionalMessages?.forEach(({ message, args }) =>
+      logger.log(message, args)
+    );
 
     await contractFacade.updatePrices(iterationArgs.args);
   }

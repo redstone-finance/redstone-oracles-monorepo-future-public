@@ -12,7 +12,7 @@ export class ContractParamsProvider {
   constructor(
     public readonly requestParams: DataPackagesRequestParams,
     private readonly cache?: DataPackagesResponseCache,
-    private readonly overrideFeedIdsToUpdate?: string[]
+    private readonly overrideRequestParamsPackagesIds?: string[]
   ) {}
 
   async getPayloadHex(withPrefix = true): Promise<string> {
@@ -28,7 +28,10 @@ export class ContractParamsProvider {
   }
 
   getDataFeedIds(): string[] {
-    return this.overrideFeedIdsToUpdate ?? this.requestParams.dataPackagesIds;
+    return (
+      this.overrideRequestParamsPackagesIds ??
+      this.requestParams.dataPackagesIds
+    );
   }
 
   async requestDataPackages() {

@@ -7,6 +7,8 @@ import {
 } from "@redstone-finance/protocol";
 import {
   calculateHistoricalPackagesTimestamp,
+  ContractParamsProvider,
+  DataPackagesRequestParams,
   DataPackagesResponse,
 } from "@redstone-finance/sdk";
 import { BigNumber, Contract, Signer } from "ethers";
@@ -148,6 +150,23 @@ export const getDataPackagesResponse = async (
   }
   return signedDataPackages;
 };
+
+export class ContractParamsProviderMock extends ContractParamsProvider {
+  constructor(
+    private dataPoints: INumericDataPoint[] = DEFAULT_DATA_POINTS,
+    overrideRequestParamsPackagesIds?: string[]
+  ) {
+    super(
+      {} as unknown as DataPackagesRequestParams,
+      undefined,
+      overrideRequestParamsPackagesIds
+    );
+  }
+
+  override requestDataPackages() {
+    return getDataPackagesResponse(this.dataPoints);
+  }
+}
 
 export const getMultiPointDataPackagesResponse = async (
   dataPackageId: string,

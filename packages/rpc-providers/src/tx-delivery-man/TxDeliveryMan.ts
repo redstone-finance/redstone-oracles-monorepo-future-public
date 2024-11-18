@@ -1,15 +1,11 @@
 import { TransactionResponse } from "@ethersproject/providers";
-import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { ethers, providers } from "ethers";
 import { getProviderNetworkInfo } from "../common";
 import { ProviderWithAgreement } from "../providers/ProviderWithAgreement";
 import { ProviderWithFallback } from "../providers/ProviderWithFallback";
-import {
-  TxDelivery,
-  TxDeliveryCall,
-  TxDeliveryOpts,
-  TxDeliverySigner,
-} from "./TxDelivery";
+import { TxDelivery, TxDeliveryOpts, TxDeliverySigner } from "./TxDelivery";
+import { TxDeliveryCall } from "./TxDeliveryCall";
 
 export type TxDeliveryManSupportedProviders =
   | providers.JsonRpcProvider

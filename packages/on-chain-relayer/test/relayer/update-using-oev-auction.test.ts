@@ -68,23 +68,17 @@ describe("update-using-oev-auction", () => {
     const PriceFeedsAdapterFactory = await ethers.getContractFactory(
       "PriceFeedsAdapterWithoutRoundsMock"
     );
-    let priceFeedsAdapter: PriceFeedsAdapterWithoutRoundsMock =
+    const priceFeedsAdapter: PriceFeedsAdapterWithoutRoundsMock =
       await PriceFeedsAdapterFactory.deploy();
     await priceFeedsAdapter.deployed();
 
-    priceFeedsAdapter = priceFeedsAdapter.connect(wallet);
+    priceFeedsAdapter.connect(wallet);
 
     const fetchDataPackages = () =>
       getDataPackagesResponse([
         { dataFeedId: "BTC", value: 67847.1057306512 },
         { dataFeedId: "BTC", value: 67847.10773065251 },
       ]);
-
-    const txDeliveryCall = {
-      from: "0x1",
-      to: "0x2",
-      data: "0x",
-    };
 
     const adapterContract = new Contract(
       "0x61ed8EBd497d11654e91f5faFeadaAF4cB125E0C",
@@ -93,7 +87,7 @@ describe("update-using-oev-auction", () => {
     );
 
     await updateUsingOevAuction(
-      txDeliveryCall,
+      "0x",
       45044689,
       adapterContract as RedstoneAdapterBase,
       await fetchDataPackages()

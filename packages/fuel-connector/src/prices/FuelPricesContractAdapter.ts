@@ -1,6 +1,6 @@
 import {
   ContractParamsProvider,
-  IPricesContractAdapter,
+  IExtendedPricesContractAdapter,
 } from "@redstone-finance/sdk";
 import { loggerFactory } from "@redstone-finance/utils";
 import { BigNumberish } from "ethers";
@@ -15,7 +15,9 @@ import { FuelPricesContract } from "./FuelPricesContractConnector";
 
 const logger = loggerFactory("fuel-connector/prices-contract-adapter");
 
-export class FuelPricesContractAdapter implements IPricesContractAdapter {
+export class FuelPricesContractAdapter
+  implements IExtendedPricesContractAdapter
+{
   constructor(
     public contract: FuelPricesContract,
     private gasLimit: number

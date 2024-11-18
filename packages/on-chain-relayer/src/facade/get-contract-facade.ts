@@ -2,6 +2,7 @@ import { DataPackagesResponseCache } from "@redstone-finance/sdk";
 import { getFuelContractConnector } from "../non-evm/get-fuel-contract-connector";
 import { RelayerConfig } from "../types";
 import { getEvmContractFacade } from "./get-evm-contract-facade";
+import { getIterationArgsProvider } from "./get-iteration-args-provider";
 import { NonEvmContractFacade } from "./NonEvmContractFacade";
 
 export const getContractFacade = async (
@@ -11,6 +12,7 @@ export const getContractFacade = async (
   if (relayerConfig.adapterContractType === "fuel") {
     return new NonEvmContractFacade(
       await getFuelContractConnector(relayerConfig),
+      getIterationArgsProvider(relayerConfig),
       cache
     );
   }
