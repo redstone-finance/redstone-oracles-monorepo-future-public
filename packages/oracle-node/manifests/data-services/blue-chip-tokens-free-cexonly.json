@@ -85,7 +85,6 @@
         "bitstamp-api",
         "bitstamp-usd",
         "coinbase-api",
-        "ecb",
         "kaiko",
         "kaiko-v2",
         "kraken-gbp",
@@ -97,7 +96,6 @@
       "source": [
         "alphavantage-usd",
         "bitstamp-usd",
-        "ecb",
         "financialmodelingprep-usd",
         "kraken-usd",
         "twelve-data"

@@ -93,13 +93,12 @@
       "source": [
         "alphavantage-usd",
         "bitstamp-usd",
-        "ecb",
         "financialmodelingprep-usd",
         "kraken-usd"
       ]
     },
     "AUD": {
-      "source": ["ecb", "kraken-usd", "twelve-data"]
+      "source": ["kraken-usd", "twelve-data"]
     },
     "CHF": {
       "source": ["twelve-data"]
@@ -110,7 +109,6 @@
         "bitstamp-api",
         "bitstamp-usd",
         "coinbase-api",
-        "ecb",
         "kaiko",
         "kaiko-v2",
         "kraken-gbp",
@@ -133,7 +131,6 @@
       "source": [
         "binance-api",
         "bitso-api",
-        "ecb",
         "kucoin-api",
         "mercado-api",
         "twelve-data"
