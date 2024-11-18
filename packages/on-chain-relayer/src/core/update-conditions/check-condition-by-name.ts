@@ -34,8 +34,7 @@ export const checkConditionByName = async (
         dataFeedId,
         context.dataPackages,
         context.uniqueSignersThreshold,
-        context.dataFromContract[dataFeedId].lastValue,
-        context.dataFromContract[dataFeedId].lastBlockTimestampMS,
+        context.dataFromContract[dataFeedId],
         config
       );
   }

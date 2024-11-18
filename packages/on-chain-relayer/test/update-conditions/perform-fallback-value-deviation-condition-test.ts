@@ -1,7 +1,11 @@
 import { INumericDataPoint } from "@redstone-finance/protocol";
 import { config } from "../../src/config";
 import { performValueDeviationConditionChecks } from "../../src/core/update-conditions/value-deviation-condition";
-import { createNumberFromContract, getDataPackagesResponse } from "../helpers";
+import {
+  createNumberFromContract,
+  getDataPackagesResponse,
+  mockEnvVariables,
+} from "../helpers";
 
 export const HISTORICAL_DATA_POINTS = [
   { dataFeedId: "ETH", value: 1660.99 },
@@ -16,19 +20,23 @@ export const performFallbackValueDeviationConditionTest = async (
   ethPrice: number,
   btcPrice: number,
   dataPoints: INumericDataPoint[],
-  lastUpdateTimestamp: number = Date.now()
+  lastUpdateTimestamp = Date.now(),
+  lastDataPackageTimestamp = 0
 ) => {
   const dataPackages = await getDataPackagesResponse();
   const olderDataPackagesFetchCallback = () =>
-    getDataPackagesResponse(dataPoints);
+    getDataPackagesResponse(dataPoints, true, Date.now());
   const ethValue = createNumberFromContract(ethPrice);
   const btcValue = createNumberFromContract(btcPrice);
   let { shouldUpdatePrices, warningMessage } =
     await performValueDeviationConditionChecks(
       "ETH",
       dataPackages,
-      ethValue,
-      lastUpdateTimestamp,
+      {
+        lastValue: ethValue,
+        lastBlockTimestampMS: lastUpdateTimestamp,
+        lastDataPackageTimestampMS: lastDataPackageTimestamp,
+      },
       config(),
       olderDataPackagesFetchCallback
     );
@@ -38,12 +46,37 @@ export const performFallbackValueDeviationConditionTest = async (
   } = await performValueDeviationConditionChecks(
     "BTC",
     dataPackages,
-    btcValue,
-    lastUpdateTimestamp,
+    {
+      lastValue: btcValue,
+      lastBlockTimestampMS: lastUpdateTimestamp,
+      lastDataPackageTimestampMS: lastDataPackageTimestamp,
+    },
     config(),
     olderDataPackagesFetchCallback
   );
   shouldUpdatePrices ||= shouldUpdatePrices2;
   warningMessage = warningMessage.concat(warningMessage2);
+
   return { shouldUpdatePrices, warningMessage };
 };
+
+export async function performSkipFrequentUpdatesCheck(
+  isNotEnoughTimeElapsed: boolean,
+  isUpdatedDataPackageNewerThanHistorical: boolean
+) {
+  mockEnvVariables({
+    fallbackOffsetInMilliseconds: 60_000,
+    historicalPackagesGateways: ["X"],
+    fallbackSkipDeviationBasedFrequentUpdates: true,
+  });
+  const { shouldUpdatePrices, warningMessage } =
+    await performFallbackValueDeviationConditionTest(
+      1230.99,
+      13011.68,
+      HISTORICAL_DATA_POINTS,
+      Date.now() - (isNotEnoughTimeElapsed ? 0 : 2 * 60000),
+      isUpdatedDataPackageNewerThanHistorical ? Date.now() : 0
+    );
+
+  return { shouldUpdatePrices, warningMessage };
+}

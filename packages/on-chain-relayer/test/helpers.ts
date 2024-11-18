@@ -5,7 +5,10 @@ import {
   INumericDataPoint,
   NumericDataPoint,
 } from "@redstone-finance/protocol";
-import { DataPackagesResponse } from "@redstone-finance/sdk";
+import {
+  calculateHistoricalPackagesTimestamp,
+  DataPackagesResponse,
+} from "@redstone-finance/sdk";
 import { BigNumber, Contract, Signer } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
 import { ethers } from "hardhat";
@@ -111,9 +114,14 @@ const DEFAULT_DATA_POINTS = [
 ];
 
 export const getDataPackagesResponse = async (
-  dataPoints: INumericDataPoint[] = DEFAULT_DATA_POINTS
+  dataPoints: INumericDataPoint[] = DEFAULT_DATA_POINTS,
+  isHistorical = false,
+  overrideMockedTime?: number
 ) => {
-  const timestampMilliseconds = (await time.latest()) * 1000;
+  const currentTime = overrideMockedTime ?? (await time.latest()) * 1000;
+  const timestampMilliseconds = isHistorical
+    ? calculateHistoricalPackagesTimestamp(10000, currentTime)!
+    : currentTime;
 
   const signedDataPackages: DataPackagesResponse = {};
 
