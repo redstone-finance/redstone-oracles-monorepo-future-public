@@ -104,6 +104,7 @@ export type OnChainRelayerEnv = {
   dryRunWithInflux?: boolean;
   influxUrl?: string;
   influxToken?: string;
+  ethersPollingIntervalInMs?: number;
   runWithMqtt?: boolean;
   mqttEndpoint?: string;
   mqttUpdateSubscriptionIntervalMs?: number;
