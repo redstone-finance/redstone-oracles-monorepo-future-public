@@ -1,9 +1,9 @@
 import {
+  chooseDataPackagesTimestamp,
   ContractParamsProvider,
   DataPackagesResponse,
 } from "@redstone-finance/sdk";
-import { BigNumber } from "ethers";
-import { RelayerConfig } from "../../types";
+import { LastRoundDetails, RelayerConfig } from "../../types";
 import {
   convertToHistoricalDataPackagesRequestParams,
   makeDataPackagesRequestParams,
@@ -13,8 +13,7 @@ import { checkValueDeviationCondition } from "./check-value-deviation-condition"
 export const performValueDeviationConditionChecks = async (
   dataFeedId: string,
   latestDataPackages: DataPackagesResponse,
-  valuesFromContract: BigNumber,
-  lastUpdateTimestampInMs: number,
+  lastRoundDetails: LastRoundDetails,
   config: RelayerConfig,
   historicalDataPackagesFetchCallback: () => Promise<DataPackagesResponse>
 ) => {
@@ -22,7 +21,7 @@ export const performValueDeviationConditionChecks = async (
     checkValueDeviationCondition(
       dataFeedId,
       latestDataPackages,
-      valuesFromContract,
+      lastRoundDetails.lastValue,
       config
     );
 
@@ -30,6 +29,7 @@ export const performValueDeviationConditionChecks = async (
   let historicalShouldUpdatePrices = true;
   let historicalWarningMessage = "";
   let historicalMaxDeviation = 0;
+  let historicalPackagesTime = undefined;
 
   if ((shouldUpdatePrices || config.isNotLazy) && isFallback) {
     const historicalDataPackages = await historicalDataPackagesFetchCallback();
@@ -41,26 +41,47 @@ export const performValueDeviationConditionChecks = async (
     } = checkValueDeviationCondition(
       dataFeedId,
       historicalDataPackages,
-      valuesFromContract,
+      lastRoundDetails.lastValue,
       config
     );
 
+    historicalPackagesTime = chooseDataPackagesTimestamp(
+      historicalDataPackages,
+      dataFeedId
+    );
     historicalShouldUpdatePrices = historicalShouldUpdatePricesTmp;
     historicalMaxDeviation = historicalMaxDeviationTmp;
     historicalWarningMessage = ` AND Historical ${historicalWarningMessageTmp}`;
   }
 
+  const lastUpdateTimestampOffset =
+    Date.now() - lastRoundDetails.lastBlockTimestampMS;
+  const isLastUpdateNewerThanFallbackOffset =
+    lastUpdateTimestampOffset < config.fallbackOffsetInMilliseconds;
+  const isLastPackageNewerThanHistorical =
+    historicalPackagesTime !== undefined &&
+    lastRoundDetails.lastDataPackageTimestampMS >= historicalPackagesTime;
   const skipFallbackUpdate =
     isFallback &&
     config.fallbackSkipDeviationBasedFrequentUpdates &&
-    Date.now() - lastUpdateTimestampInMs < config.fallbackOffsetInMilliseconds;
+    (isLastUpdateNewerThanFallbackOffset || isLastPackageNewerThanHistorical);
 
   const shouldUpdatePricesNoSkip =
     shouldUpdatePrices && historicalShouldUpdatePrices;
-  const skipFallbackMessage =
-    shouldUpdatePricesNoSkip && skipFallbackUpdate
-      ? `Update skipped: less than ${config.fallbackOffsetInMilliseconds} milliseconds passed since last update. `
+  let updateSkippedMessage = isLastUpdateNewerThanFallbackOffset
+    ? `less than ${config.fallbackOffsetInMilliseconds} milliseconds passed since last update (${lastUpdateTimestampOffset}); `
+    : "";
+  updateSkippedMessage += isLastPackageNewerThanHistorical
+    ? `last updated package timestamp (${lastRoundDetails.lastDataPackageTimestampMS}) is newer that the historical one (${historicalPackagesTime}); `
+    : "";
+
+  updateSkippedMessage =
+    updateSkippedMessage !== ""
+      ? `Update skipped: ${updateSkippedMessage}`
       : "";
+
+  const skipFallbackMessage =
+    shouldUpdatePricesNoSkip && skipFallbackUpdate ? updateSkippedMessage : "";
   const prefix = isFallback ? "Deviation in fallback mode: " : "";
 
   return {
@@ -74,8 +95,7 @@ export const valueDeviationCondition = async (
   dataFeedId: string,
   latestDataPackages: DataPackagesResponse,
   uniqueSignersThreshold: number,
-  valueFromContract: BigNumber,
-  lastUpdateTimestampInMs: number,
+  lastRoundDetails: LastRoundDetails,
   config: RelayerConfig
 ) => {
   const olderDataPackagesFetchCallback = async () => {
@@ -93,8 +113,7 @@ export const valueDeviationCondition = async (
   return await performValueDeviationConditionChecks(
     dataFeedId,
     latestDataPackages,
-    valueFromContract,
-    lastUpdateTimestampInMs,
+    lastRoundDetails,
     config,
     olderDataPackagesFetchCallback
   );
