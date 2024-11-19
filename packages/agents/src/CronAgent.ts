@@ -38,7 +38,7 @@ export class CronAgent<R> {
       await this.executeJobAndSaveResults();
     } catch (e) {
       this.logger.error(
-        `Failed to initalize agent with first value error=${RedstoneCommon.stringifyError(e)}`
+        `Failed to initialize agent with first value error=${RedstoneCommon.stringifyError(e)}`
       );
       hasSucceded = false;
     }
@@ -82,7 +82,7 @@ export class CronAgent<R> {
   }
 
   /** return defaultValue if value is not fresh */
-  getLastFreshMessageOrDefault(defaultValue = undefined): R | undefined {
+  getLastFreshMessageOrDefault(defaultValue?: R): R | undefined {
     if (this.isStale()) {
       return defaultValue;
     }
