@@ -48,7 +48,7 @@ export class BackgroundBlockNumberFetcher {
     const blockNumbersPerChainid: Record<string, number | undefined> = {};
 
     for (const [chainId, agent] of Object.entries(this.agentPerChainId)) {
-      const blockNumber = agent.getLastFreshMessageOr();
+      const blockNumber = agent.getLastFreshMessageOrDefault();
 
       if (blockNumber !== undefined) {
         blockNumbersPerChainid[chainId] = blockNumber;

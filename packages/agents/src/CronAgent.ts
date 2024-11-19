@@ -73,21 +73,21 @@ export class CronAgent<R> {
 
   /** throws if cached value is not fresh */
   getLastFreshMessageOrFail(): R {
-    if (this.isStale()) {
+    if (this.isStale() || !this.cachedValue.value) {
       throw new Error(
         `Cached data is stale or not populated cachedAt=${this.cachedValue.cachedAt} maxDataTTL=${this.args.maxDataTTL} cache_age=${Date.now() - this.cachedValue.cachedAt}`
       );
     }
-    return this.cachedValue.value!;
+    return this.cachedValue.value;
   }
 
   /** return defaultValue if value is not fresh */
-  getLastFreshMessageOr(defaultValue = undefined): R | undefined {
+  getLastFreshMessageOrDefault(defaultValue = undefined): R | undefined {
     if (this.isStale()) {
       return defaultValue;
     }
 
-    return this.cachedValue.value!;
+    return this.cachedValue.value;
   }
 
   private isStale() {
