@@ -7,7 +7,7 @@ import { EvmContractConnector } from "../core/contract-interactions/EvmContractC
 import { getRelayerProvider } from "../core/contract-interactions/get-relayer-provider";
 import { InfluxEvmContractAdapter } from "../core/contract-interactions/InfluxEvmContractAdapter";
 import { OevPriceFeedsEvmContractAdapter } from "../core/contract-interactions/OevPriceFeedsEvmContractAdapter";
-import { ITxDeliveryMan } from "../core/contract-interactions/tx-delivery-gelato-fixes";
+import { ITxDeliveryMan } from "../core/contract-interactions/tx-delivery-gelato-bypass";
 import { getTxDeliveryMan } from "../core/TxDeliveryManSingleton";
 import { RelayerConfig } from "../types";
 import { EvmContractFacade } from "./EvmContractFacade";

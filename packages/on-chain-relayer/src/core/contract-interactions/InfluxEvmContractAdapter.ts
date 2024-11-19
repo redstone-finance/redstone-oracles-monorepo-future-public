@@ -3,7 +3,7 @@ import { RedstoneEvmContract } from "../../facade/EvmContractFacade";
 import { RelayerDataInfluxService } from "../../facade/RelayerDataInfluxService";
 import { ContractData, RelayerConfig } from "../../types";
 import { EvmContractAdapter } from "./EvmContractAdapter";
-import { TxDeliveryCall } from "./tx-delivery-gelato-fixes";
+import { TxDeliveryCall } from "./tx-delivery-gelato-bypass";
 
 const RELAYER_DATA_BUCKET = "dry-run-relayer-data";
 
@@ -40,7 +40,8 @@ export class InfluxEvmContractAdapter<
 
   // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   makeUpdateTx(
-    _paramsProvider: ContractParamsProvider
+    _paramsProvider: ContractParamsProvider,
+    _metadataTimestamp: number = Date.now()
   ): Promise<TxDeliveryCall> {
     throw new Error("Path not supported");
   }
