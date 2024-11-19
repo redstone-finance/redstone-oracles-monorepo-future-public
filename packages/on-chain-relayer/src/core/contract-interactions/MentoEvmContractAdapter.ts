@@ -12,95 +12,77 @@ import {
   prepareLinkedListLocationsForMentoAdapterReport,
 } from "../../custom-integrations/mento/mento-utils";
 import { PriceFeedsEvmContractAdapter } from "./PriceFeedsEvmContractAdapter";
-import {
-  convertToTxDeliveryCall,
-  TxDeliveryCall,
-} from "./tx-delivery-gelato-fixes";
+import { convertToTxDeliveryCall } from "./tx-delivery-gelato-bypass";
 
 export class MentoEvmContractAdapter extends PriceFeedsEvmContractAdapter<MentoAdapterBase> {
-  override async makeUpdateTx(paramsProvider: ContractParamsProvider) {
-    return await makeMentoUpdateTx(paramsProvider, this.adapterContract);
-  }
-
   override async getValuesForDataFeeds(
     dataFeeds: string[],
     blockTag: number
   ): Promise<ValuesForDataFeeds> {
-    return await getValuesForDataFeedsInMentoAdapter(
+    const sortedOraclesAddress = await this.adapterContract.getSortedOracles({
+      blockTag,
+    });
+    return await getValuesForMentoDataFeeds(
       this.adapterContract,
+      getSortedOraclesContractAtAddress(
+        sortedOraclesAddress,
+        this.adapterContract.provider
+      ),
       dataFeeds,
       blockTag
     );
   }
-}
 
-const makeMentoUpdateTx = async (
-  paramsProvider: ContractParamsProvider,
-  mentoAdapter: MentoAdapterBase
-): Promise<TxDeliveryCall> => {
-  const dataPackagesPromise = paramsProvider.requestDataPackages();
-  const blockTag = await mentoAdapter.provider.getBlockNumber();
+  override async makeUpdateTx(
+    paramsProvider: ContractParamsProvider,
+    metadataTimestamp: number
+  ) {
+    const dataPackagesPromise = paramsProvider.requestDataPackages();
+    const blockTag = await this.adapterContract.provider.getBlockNumber();
 
-  const sortedOraclesAddress = await mentoAdapter.getSortedOracles({
-    blockTag,
-  });
-  const sortedOracles = getSortedOraclesContractAtAddress(
-    sortedOraclesAddress,
-    mentoAdapter.provider
-  );
-  const maxDeviationAllowed = config().mentoMaxDeviationAllowed;
-
-  const dataPackages = await dataPackagesPromise;
-  const dataPackagesWrapper = new DataPackagesWrapper<MentoAdapterBase>(
-    dataPackages
-  );
-
-  const linkedListPositions =
-    await prepareLinkedListLocationsForMentoAdapterReport(
-      {
-        mentoAdapter,
-        dataPackagesWrapper,
-        sortedOracles,
-      },
+    const sortedOraclesAddress = await this.adapterContract.getSortedOracles({
       blockTag,
-      maxDeviationAllowed
-    );
-  if (!linkedListPositions) {
-    throw new Error(
-      `Prices in Sorted Oracles deviated more than ${maxDeviationAllowed}% from RedStone prices`
-    );
-  }
-
-  dataPackagesWrapper.setMetadataTimestamp(Date.now());
-  const wrappedMentoContract =
-    dataPackagesWrapper.overwriteEthersContract(mentoAdapter);
-
-  const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
-
-  const txCall = convertToTxDeliveryCall(
-    await wrappedMentoContract.populateTransaction[
-      "updatePriceValuesAndCleanOldReports"
-    ](proposedTimestamp, linkedListPositions)
-  );
-
-  return txCall;
-};
-
-const getValuesForDataFeedsInMentoAdapter = async (
-  mentoAdapter: MentoAdapterBase,
-  dataFeeds: string[],
-  blockTag: number
-): Promise<ValuesForDataFeeds> => {
-  const sortedOraclesAddress = await mentoAdapter.getSortedOracles({
-    blockTag,
-  });
-  return await getValuesForMentoDataFeeds(
-    mentoAdapter,
-    getSortedOraclesContractAtAddress(
+    });
+    const sortedOracles = getSortedOraclesContractAtAddress(
       sortedOraclesAddress,
-      mentoAdapter.provider
-    ),
-    dataFeeds,
-    blockTag
-  );
-};
+      this.adapterContract.provider
+    );
+    const maxDeviationAllowed = config().mentoMaxDeviationAllowed;
+
+    const dataPackages = await dataPackagesPromise;
+    const dataPackagesWrapper = new DataPackagesWrapper<MentoAdapterBase>(
+      dataPackages
+    );
+
+    const linkedListPositions =
+      await prepareLinkedListLocationsForMentoAdapterReport(
+        {
+          mentoAdapter: this.adapterContract,
+          dataPackagesWrapper,
+          sortedOracles,
+        },
+        blockTag,
+        maxDeviationAllowed
+      );
+    if (!linkedListPositions) {
+      throw new Error(
+        `Prices in Sorted Oracles deviated more than ${maxDeviationAllowed}% from RedStone prices`
+      );
+    }
+
+    dataPackagesWrapper.setMetadataTimestamp(metadataTimestamp);
+    const wrappedMentoContract = dataPackagesWrapper.overwriteEthersContract(
+      this.adapterContract
+    );
+
+    const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
+
+    const txCall = convertToTxDeliveryCall(
+      await wrappedMentoContract.populateTransaction[
+        "updatePriceValuesAndCleanOldReports"
+      ](proposedTimestamp, linkedListPositions)
+    );
+
+    return txCall;
+  }
+}

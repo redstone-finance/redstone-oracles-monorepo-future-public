@@ -2,15 +2,11 @@ import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
   chooseDataPackagesTimestamp,
   ContractParamsProvider,
-  DataPackagesResponse,
   ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { BigNumber, utils } from "ethers";
-import {
-  IRedstoneAdapter,
-  RedstoneAdapterBase,
-} from "../../../typechain-types";
+import { RedstoneAdapterBase } from "../../../typechain-types";
 import { config } from "../../config";
 import { ContractData } from "../../types";
 import { EvmContractAdapter } from "./EvmContractAdapter";
@@ -18,13 +14,33 @@ import { getLatestTimestampsFromContract } from "./get-latest-timestamps-from-co
 import {
   convertToTxDeliveryCall,
   TxDeliveryCall,
-} from "./tx-delivery-gelato-fixes";
+} from "./tx-delivery-gelato-bypass";
 
 export class PriceFeedsEvmContractAdapter<
   Contract extends RedstoneAdapterBase,
 > extends EvmContractAdapter<Contract> {
-  override async makeUpdateTx(paramsProvider: ContractParamsProvider) {
-    return await makePriceFeedUpdateTx(paramsProvider, this.adapterContract);
+  override async makeUpdateTx(
+    paramsProvider: ContractParamsProvider,
+    metadataTimestamp: number
+  ): Promise<TxDeliveryCall> {
+    const dataPackages = await paramsProvider.requestDataPackages();
+    const dataPackagesWrapper = new DataPackagesWrapper<RedstoneAdapterBase>(
+      dataPackages
+    );
+    const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
+
+    dataPackagesWrapper.setMetadataTimestamp(metadataTimestamp);
+    const wrappedContract = dataPackagesWrapper.overwriteEthersContract(
+      this.adapterContract
+    );
+
+    const txCall = convertToTxDeliveryCall(
+      await wrappedContract.populateTransaction["updateDataFeedsValues"](
+        proposedTimestamp
+      )
+    );
+
+    return txCall;
   }
 
   override readLatestRoundParamsFromContract(
@@ -43,11 +59,18 @@ export class PriceFeedsEvmContractAdapter<
   }
 
   async getValuesForDataFeeds(dataFeeds: string[], blockTag: number) {
-    return await getValuesForDataFeedsInPriceFeedsAdapter(
-      this.adapterContract,
-      dataFeeds,
-      blockTag
-    );
+    const dataFeedsAsBytes32 = dataFeeds.map(utils.formatBytes32String);
+    const valuesFromContractAsBigNumber =
+      await this.adapterContract.getValuesForDataFeeds(dataFeedsAsBytes32, {
+        blockTag,
+      });
+    const dataFeedsValues: ValuesForDataFeeds = {};
+    for (const [index, dataFeedId] of dataFeeds.entries()) {
+      const currentValue = valuesFromContractAsBigNumber[index];
+
+      dataFeedsValues[dataFeedId] = currentValue;
+    }
+    return dataFeedsValues;
   }
 
   private async getLastRoundParamsFromContract(
@@ -79,47 +102,3 @@ export class PriceFeedsEvmContractAdapter<
     return lastRoundParams;
   }
 }
-
-const makePriceFeedUpdateTx = async (
-  paramsProvider: ContractParamsProvider,
-  adapterContract: RedstoneAdapterBase,
-  initialDataPackages?: DataPackagesResponse
-): Promise<TxDeliveryCall> => {
-  const dataPackages =
-    initialDataPackages ?? (await paramsProvider.requestDataPackages());
-  const dataPackagesWrapper = new DataPackagesWrapper<RedstoneAdapterBase>(
-    dataPackages
-  );
-  const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
-
-  dataPackagesWrapper.setMetadataTimestamp(Date.now());
-  const wrappedContract =
-    dataPackagesWrapper.overwriteEthersContract(adapterContract);
-
-  const txCall = convertToTxDeliveryCall(
-    await wrappedContract.populateTransaction["updateDataFeedsValues"](
-      proposedTimestamp
-    )
-  );
-
-  return txCall;
-};
-
-const getValuesForDataFeedsInPriceFeedsAdapter = async (
-  priceFeedsAdapter: IRedstoneAdapter,
-  dataFeeds: string[],
-  blockTag: number
-): Promise<ValuesForDataFeeds> => {
-  const dataFeedsAsBytes32 = dataFeeds.map(utils.formatBytes32String);
-  const valuesFromContractAsBigNumber =
-    await priceFeedsAdapter.getValuesForDataFeeds(dataFeedsAsBytes32, {
-      blockTag,
-    });
-  const dataFeedsValues: ValuesForDataFeeds = {};
-  for (const [index, dataFeedId] of dataFeeds.entries()) {
-    const currentValue = valuesFromContractAsBigNumber[index];
-
-    dataFeedsValues[dataFeedId] = currentValue;
-  }
-  return dataFeedsValues;
-};

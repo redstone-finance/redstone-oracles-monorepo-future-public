@@ -17,7 +17,7 @@ export { EvmContractConnector } from "./core/contract-interactions/EvmContractCo
 export type {
   ITxDeliveryMan,
   TxDeliveryCall,
-} from "./core/contract-interactions/tx-delivery-gelato-fixes";
+} from "./core/contract-interactions/tx-delivery-gelato-bypass";
 export type { ContractFacade } from "./facade/ContractFacade";
 export { EvmContractFacade } from "./facade/EvmContractFacade";
 export { getEvmContractAdapter } from "./facade/get-evm-contract-adapter";

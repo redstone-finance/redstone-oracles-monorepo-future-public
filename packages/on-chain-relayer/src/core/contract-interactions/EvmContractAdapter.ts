@@ -4,7 +4,7 @@ import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { RedstoneEvmContract } from "../../facade/EvmContractFacade";
 import { ContractData } from "../../types";
 import { IRedstoneContractAdapter } from "./IRedstoneContractAdapter";
-import { ITxDeliveryMan, TxDeliveryCall } from "./tx-delivery-gelato-fixes";
+import { ITxDeliveryMan, TxDeliveryCall } from "./tx-delivery-gelato-bypass";
 
 const logger = loggerFactory("evm-contract-adapter");
 
@@ -17,7 +17,8 @@ export abstract class EvmContractAdapter<Contract extends RedstoneEvmContract>
   ) {}
 
   abstract makeUpdateTx(
-    paramsProvider: ContractParamsProvider
+    paramsProvider: ContractParamsProvider,
+    metadataTimestamp: number
   ): Promise<TxDeliveryCall>;
 
   abstract readLatestRoundParamsFromContract(
@@ -32,10 +33,11 @@ export abstract class EvmContractAdapter<Contract extends RedstoneEvmContract>
   async writePricesFromPayloadToContract(
     paramsProvider: ContractParamsProvider
   ) {
-    const updateTx = await this.makeUpdateTx(paramsProvider);
+    const metadataTimestamp = Date.now();
+    const updateTx = await this.makeUpdateTx(paramsProvider, metadataTimestamp);
 
     const updateTxResponse = await this.txDeliveryMan?.deliver(updateTx, () =>
-      this.makeUpdateTx(paramsProvider).then((tx) => tx.data)
+      this.makeUpdateTx(paramsProvider, metadataTimestamp).then((tx) => tx.data)
     );
 
     if (!updateTxResponse) {

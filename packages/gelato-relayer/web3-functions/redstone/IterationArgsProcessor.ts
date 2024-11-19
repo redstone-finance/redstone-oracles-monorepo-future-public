@@ -105,7 +105,9 @@ export class IterationArgsProcessor {
         iterationArgs.args.dataFeedsToUpdate
       );
 
-      return await (await connector.getAdapter()).makeUpdateTx(paramsProvider);
+      return await (
+        await connector.getAdapter()
+      ).makeUpdateTx(paramsProvider, Date.now());
     };
 
     return await IterationArgsProcessor.processIterationArgs(

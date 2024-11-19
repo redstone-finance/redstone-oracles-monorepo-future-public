@@ -15,7 +15,7 @@ export class OevPriceFeedsEvmContractAdapter<
   ): Promise<void> {
     try {
       const updateUsingOevAuctionPromise = updateUsingOevAuction(
-        (await this.makeUpdateTx(paramsProvider)).data,
+        (await this.makeUpdateTx(paramsProvider, Date.now())).data,
         await this.adapterContract.provider.getBlockNumber(), // TODO: additional call here
         this.adapterContract,
         await paramsProvider.requestDataPackages()
