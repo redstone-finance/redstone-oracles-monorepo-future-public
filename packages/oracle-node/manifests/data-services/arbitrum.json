@@ -31,7 +31,8 @@
         "lbank-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "USDC": {
       "source": [
@@ -59,7 +60,8 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      }
+      },
+      "denomination": "USD"
     },
     "sUSDe": {
       "source": ["ethereum-evm-fetcher-ethena"],
@@ -68,7 +70,8 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      }
+      },
+      "denomination": "USD"
     },
     "USDC.e": {
       "source": [
@@ -87,7 +90,8 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      }
+      },
+      "denomination": "USD"
     },
     "USDT": {
       "source": [
@@ -105,7 +109,8 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      }
+      },
+      "denomination": "USD"
     },
     "EUR": {
       "source": [
@@ -117,7 +122,8 @@
         "kaiko-v2",
         "kraken-gbp",
         "kraken-usd"
-      ]
+      ],
+      "denomination": "USD"
     },
     "GBP": {
       "source": [
@@ -125,7 +131,8 @@
         "bitstamp-usd",
         "financialmodelingprep-usd",
         "kraken-usd"
-      ]
+      ],
+      "denomination": "USD"
     },
     "BTC": {
       "source": [
@@ -146,7 +153,8 @@
         "lbank-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "BNB": {
       "source": [
@@ -159,7 +167,8 @@
         "lbank-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "XRP": {
       "source": [
@@ -172,7 +181,8 @@
         "kucoin-usdt",
         "lbank-usdt",
         "okx-usdt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "GMX": {
       "source": [
@@ -186,7 +196,8 @@
         "kraken-usd",
         "kucoin-usdt",
         "okx-usdt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "DAI": {
       "source": [
@@ -211,7 +222,8 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      }
+      },
+      "denomination": "USD"
     },
     "FXS": {
       "source": [
@@ -224,7 +236,8 @@
         "kucoin-usdt",
         "lbank-usdt",
         "okx-usdt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "FRAX": {
       "source": [
@@ -241,7 +254,8 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      }
+      },
+      "denomination": "USD"
     },
     "UNI": {
       "source": [
@@ -261,7 +275,8 @@
         "okx-usdt",
         "uniswap-v3-ethereum-weth-3000",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "LINK": {
       "source": [
@@ -281,7 +296,8 @@
         "okx-usdt",
         "uniswap-v3-ethereum-weth-3000",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "ARB": {
       "source": [
@@ -300,7 +316,8 @@
         "okx-usdt",
         "uniswap-v3-arbitrumone-weth-3000",
         "uniswap-v3-arbitrumone-weth-500"
-      ]
+      ],
+      "denomination": "USD"
     },
     "CRV": {
       "source": [
@@ -318,10 +335,12 @@
         "lbank-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "GLP": {
-      "source": ["arbitrum-evm-fetcher-glp-manager"]
+      "source": ["arbitrum-evm-fetcher-glp-manager"],
+      "denomination": "USD"
     },
     "WBTC": {
       "source": [
@@ -346,7 +365,8 @@
         "uniswap-v3-ethereum-weth-3000",
         "uniswap-v3-ethereum-weth-500"
       ],
-      "skipBroadcasting": true
+      "skipBroadcasting": true,
+      "denomination": "USD"
     },
     "wstETH": {
       "source": [
@@ -363,7 +383,8 @@
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-optimism-weth-100",
         "velodrome-cl-optimism-weth-100"
-      ]
+      ],
+      "denomination": "USD"
     },
     "AVAX": {
       "source": [
@@ -382,7 +403,8 @@
         "kucoin-usdt",
         "lbank-usdt",
         "okx-usdt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "JOE": {
       "source": [
@@ -397,7 +419,8 @@
         "trader-joe-v1-avalanche-wavax",
         "trader-joe-v2-avalanche-wavax",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "BAL": {
       "source": [
@@ -414,36 +437,46 @@
         "lbank-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "MOO_GMX": {
-      "source": ["arbitrum-evm-fetcher-beefy"]
+      "source": ["arbitrum-evm-fetcher-beefy"],
+      "denomination": "USD"
     },
     "YY_WOMBEX_USDT": {
       "source": ["arbitrum-evm-fetcher-yield-yak"],
-      "decimals": 20
+      "decimals": 20,
+      "denomination": "USD"
     },
     "YY_WOMBEX_USDC.e": {
       "source": ["arbitrum-evm-fetcher-yield-yak"],
-      "decimals": 20
+      "decimals": 20,
+      "denomination": "USD"
     },
     "YY_WOMBEX_GLP": {
-      "source": ["arbitrum-evm-fetcher-yield-yak"]
+      "source": ["arbitrum-evm-fetcher-yield-yak"],
+      "denomination": "USD"
     },
     "YY_WOMBEX_DAI": {
-      "source": ["arbitrum-evm-fetcher-yield-yak"]
+      "source": ["arbitrum-evm-fetcher-yield-yak"],
+      "denomination": "USD"
     },
     "arbJnrLLP": {
-      "source": ["arbitrum-evm-fetcher-level-finance"]
+      "source": ["arbitrum-evm-fetcher-level-finance"],
+      "denomination": "USD"
     },
     "arbMzeLLP": {
-      "source": ["arbitrum-evm-fetcher-level-finance"]
+      "source": ["arbitrum-evm-fetcher-level-finance"],
+      "denomination": "USD"
     },
     "arbSnrLLP": {
-      "source": ["arbitrum-evm-fetcher-level-finance"]
+      "source": ["arbitrum-evm-fetcher-level-finance"],
+      "denomination": "USD"
     },
     "LVL": {
-      "source": ["coingecko", "coinmarketcap"]
+      "source": ["coingecko", "coinmarketcap"],
+      "denomination": "USD"
     },
     "MAGIC": {
       "source": [
@@ -459,7 +492,8 @@
         "okx-usdt",
         "uniswap-v3-arbitrumone-weth-3000",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "GRAIL": {
       "source": [
@@ -469,7 +503,8 @@
         "coingecko",
         "coinmarketcap",
         "gate-usdt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "STG": {
       "source": [
@@ -485,7 +520,8 @@
         "kucoin-usdt",
         "lbank-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "WOO": {
       "source": [
@@ -500,14 +536,16 @@
         "kucoin-usdt",
         "lbank-usdt",
         "okx-usdt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "SWETH": {
       "source": [
         "balancer-ethereum-weth-multi-block",
         "pancake-swap-ethereum-weth-500-multi-block",
         "uniswap-v3-ethereum-weth-500-multi-block"
-      ]
+      ],
+      "denomination": "USD"
     },
     "SOL": {
       "source": [
@@ -525,25 +563,32 @@
         "lbank-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "GM_ETH_WETH_USDC": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "GM_BTC_WBTC_USDC": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "GM_LINK_LINK_USDC": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "GM_UNI_UNI_USDC": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "GM_ARB_ARB_USDC": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "GM_SOL_SOL_USDC": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "rETH": {
       "source": [
@@ -558,14 +603,16 @@
         "uniswap-v3-arbitrumone-weth-500",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-ethereum-weth-500"
-      ]
+      ],
+      "denomination": "USD"
     },
     "ETHx": {
       "source": [
         "balancer-arbitrumone-wsteth",
         "balancer-ethereum-wsteth",
         "curve-ethereum-eth"
-      ]
+      ],
+      "denomination": "USD"
     },
     "weETH": {
       "source": [
@@ -576,7 +623,8 @@
         "uniswap-v3-arbitrumone-weth-3000",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-ethereum-weth-500"
-      ]
+      ],
+      "denomination": "USD"
     },
     "rswETH": {
       "source": [
@@ -584,7 +632,8 @@
         "balancer-ethereum-weeth",
         "curve-ethereum-weeth",
         "pancake-swap-ethereum-weth-500"
-      ]
+      ],
+      "denomination": "USD"
     },
     "rsETH": {
       "source": [
@@ -596,7 +645,8 @@
         "curve-ethereum-sfrxeth",
         "curve-ethereum-weeth",
         "uniswap-v3-ethereum-weth-500"
-      ]
+      ],
+      "denomination": "USD"
     },
     "CVX": {
       "source": [
@@ -612,7 +662,8 @@
         "kraken-usd",
         "kucoin-usdt",
         "okx-usdt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "stETH": {
       "source": [
@@ -624,7 +675,8 @@
         "curve-ethereum-weth",
         "okx-eth",
         "uniswap-v2-ethereum-weth"
-      ]
+      ],
+      "denomination": "USD"
     },
     "frxETH": {
       "source": [
@@ -633,10 +685,12 @@
         "curve-ethereum-steth",
         "curve-ethereum-weth",
         "uniswap-v3-ethereum-frax-10000"
-      ]
+      ],
+      "denomination": "USD"
     },
     "sfrxETH": {
-      "source": ["ethereum-evm-fetcher-frax"]
+      "source": ["ethereum-evm-fetcher-frax"],
+      "denomination": "USD"
     },
     "ezETH": {
       "source": [
@@ -649,37 +703,48 @@
         "thruster-v3-blast-weth-500",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-ethereum-wsteth-500"
-      ]
+      ],
+      "denomination": "USD"
     },
     "PENDLE_EZ_ETH_LP": {
-      "source": ["arbitrum-evm-fetcher-pendle"]
+      "source": ["arbitrum-evm-fetcher-pendle"],
+      "denomination": "USD"
     },
     "PENDLE_SILO_ETH_WSTETH_LP": {
-      "source": ["arbitrum-evm-fetcher-pendle"]
+      "source": ["arbitrum-evm-fetcher-pendle"],
+      "denomination": "USD"
     },
     "PENDLE_RS_ETH_LP": {
-      "source": ["arbitrum-evm-fetcher-pendle"]
+      "source": ["arbitrum-evm-fetcher-pendle"],
+      "denomination": "USD"
     },
     "PENDLE_E_ETH_LP": {
-      "source": ["arbitrum-evm-fetcher-pendle"]
+      "source": ["arbitrum-evm-fetcher-pendle"],
+      "denomination": "USD"
     },
     "PENDLE_WSTETH_LP": {
-      "source": ["arbitrum-evm-fetcher-pendle"]
+      "source": ["arbitrum-evm-fetcher-pendle"],
+      "denomination": "USD"
     },
     "PENDLE_EZ_ETH_26_09_24": {
-      "source": ["arbitrum-evm-fetcher-pendle"]
+      "source": ["arbitrum-evm-fetcher-pendle"],
+      "denomination": "USD"
     },
     "PENDLE_RS_ETH_26_09_24": {
-      "source": ["arbitrum-evm-fetcher-pendle"]
+      "source": ["arbitrum-evm-fetcher-pendle"],
+      "denomination": "USD"
     },
     "PENDLE_E_ETH_26_09_24": {
-      "source": ["arbitrum-evm-fetcher-pendle"]
+      "source": ["arbitrum-evm-fetcher-pendle"],
+      "denomination": "USD"
     },
     "PENDLE_WSTETH_26_06_25": {
-      "source": ["arbitrum-evm-fetcher-pendle"]
+      "source": ["arbitrum-evm-fetcher-pendle"],
+      "denomination": "USD"
     },
     "3Crv": {
-      "source": ["ethereum-evm-fetcher-curve"]
+      "source": ["ethereum-evm-fetcher-curve"],
+      "denomination": "USD"
     },
     "AAVE": {
       "source": [
@@ -698,7 +763,8 @@
         "okx-usdt",
         "uniswap-v3-ethereum-weth-3000",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "crvUSD": {
       "source": [
@@ -711,7 +777,8 @@
         "curve-ethereum-usde",
         "curve-ethereum-usdt",
         "curve-ethereum-weth"
-      ]
+      ],
+      "denomination": "USD"
     },
     "USDe": {
       "source": [
@@ -727,22 +794,27 @@
           "maxPercent": 5,
           "maxDelayMilliseconds": 300000
         }
-      }
+      },
+      "denomination": "USD"
     },
     "YY_STG_S*USDC": {
-      "source": ["arbitrum-evm-fetcher-yield-yak"]
+      "source": ["arbitrum-evm-fetcher-yield-yak"],
+      "denomination": "USD"
     },
     "YY_STG_S*USDT": {
-      "source": ["arbitrum-evm-fetcher-yield-yak"]
+      "source": ["arbitrum-evm-fetcher-yield-yak"],
+      "denomination": "USD"
     },
     "YY_STG_S*ETH": {
-      "source": ["arbitrum-evm-fetcher-yield-yak"]
+      "source": ["arbitrum-evm-fetcher-yield-yak"],
+      "denomination": "USD"
     },
     "PRIME": {
       "source": [
         "trader-joe-v2-avalanche-wavax",
         "uniswap-v3-arbitrumone-weth-3000"
-      ]
+      ],
+      "denomination": "USD"
     },
     "ATOM": {
       "source": [
@@ -760,7 +832,8 @@
         "lbank-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "NEAR": {
       "source": [
@@ -776,25 +849,32 @@
         "kucoin-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "GM_ATOM_WETH_USDC": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "GM_NEAR_WETH_USDC": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "GM_BTC_WBTC": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "GM_ETH_WETH": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "GM_GMX_GMX_USDC": {
-      "source": ["arbitrum-evm-fetcher-gmx"]
+      "source": ["arbitrum-evm-fetcher-gmx"],
+      "denomination": "USD"
     },
     "sDAI": {
-      "source": ["ethereum-evm-fetcher-savings-dai"]
+      "source": ["ethereum-evm-fetcher-savings-dai"],
+      "denomination": "USD"
     },
     "FDUSD": {
       "source": [
@@ -806,7 +886,8 @@
         "pancake-swap-bnb-usdt-100",
         "pancake-swap-bnb-wbnb-500",
         "uniswap-v3-ethereum-usdt-100"
-      ]
+      ],
+      "denomination": "USD"
     },
     "LTC": {
       "source": [
@@ -822,7 +903,8 @@
         "kucoin-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "SHIB": {
       "source": [
@@ -837,7 +919,8 @@
         "kucoin-usdt",
         "lbank-usdt",
         "okx-usdt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "DOGE": {
       "source": [
@@ -855,7 +938,8 @@
         "okx-usdc",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "EIGEN": {
       "source": [
@@ -873,7 +957,8 @@
         "lbank-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "STX": {
       "source": [
@@ -890,7 +975,8 @@
         "kucoin-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "ORDI": {
       "source": [
@@ -908,7 +994,8 @@
         "lbank-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     },
     "SATS": {
       "source": [
@@ -922,7 +1009,8 @@
         "lbank-usdt",
         "okx-usdt",
         "xt"
-      ]
+      ],
+      "denomination": "USD"
     }
   },
   "multiPointPackages": {
