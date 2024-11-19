@@ -32,7 +32,8 @@
         "okx-usdt",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "USDT": {
       "source": [
@@ -51,7 +52,8 @@
           "maxDelayMilliseconds": 300000
         }
       },
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "EUR": {
       "source": [
@@ -64,7 +66,8 @@
         "kraken-gbp",
         "kraken-usd"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "GBP": {
       "source": [
@@ -73,11 +76,13 @@
         "financialmodelingprep-usd",
         "kraken-usd"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "PNG": {
       "source": ["coinbasepro-usd", "coingecko", "coinmarketcap", "gate-usdt"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "AVAX": {
       "source": [
@@ -97,7 +102,8 @@
         "lbank-usdt",
         "okx-usdt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "LINK": {
       "source": [
@@ -118,7 +124,8 @@
         "uniswap-v3-ethereum-weth-3000",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "BTC": {
       "source": [
@@ -140,7 +147,8 @@
         "okx-usdt",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "QI": {
       "source": [
@@ -153,7 +161,8 @@
         "lbank-usdt",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "USDC": {
       "source": [
@@ -182,43 +191,53 @@
           "maxDelayMilliseconds": 300000
         }
       },
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "sAVAX": {
       "source": ["avalanche-evm-fetcher-oracle-adapter"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "YY_AAVE_AVAX": {
       "source": ["avalanche-evm-fetcher-yield-yak"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "YYAV3SA1": {
       "source": ["avalanche-evm-fetcher-yield-yak"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "YY_PNG_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher-yield-yak"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "YY_PNG_AVAX_ETH_LP": {
       "source": ["avalanche-evm-fetcher-yield-yak"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "YY_GLP": {
       "source": ["avalanche-evm-fetcher-yield-yak"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "PNG_AVAX_USDC_LP": {
       "source": ["avalanche-evm-fetcher-dex-lp"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "PNG_AVAX_USDT_LP": {
       "source": ["avalanche-evm-fetcher-dex-lp"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "PNG_AVAX_ETH_LP": {
       "source": ["avalanche-evm-fetcher-dex-lp"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "XAVA": {
       "source": [
@@ -228,7 +247,8 @@
         "gate-usdt",
         "kucoin-usdt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "GMX": {
       "source": [
@@ -243,11 +263,13 @@
         "kucoin-usdt",
         "okx-usdt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "GLP": {
       "source": ["avalanche-evm-fetcher-glp-manager"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "JOE": {
       "source": [
@@ -263,7 +285,8 @@
         "trader-joe-v2-avalanche-wavax",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "DAI": {
       "source": [
@@ -289,23 +312,28 @@
           "maxDelayMilliseconds": 300000
         }
       },
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "gmdUSDC": {
       "source": ["avalanche-evm-fetcher-gmd"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "gmdAVAX": {
       "source": ["avalanche-evm-fetcher-gmd"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "gmdBTC": {
       "source": ["avalanche-evm-fetcher-gmd"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "gmdETH": {
       "source": ["avalanche-evm-fetcher-gmd"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "EUROC": {
       "source": [
@@ -320,11 +348,13 @@
           "maxDelayMilliseconds": 300000
         }
       },
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "TJ_AVAX_USDC_AUTO": {
       "source": ["avalanche-evm-fetcher-trader-joe"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "CRV": {
       "source": [
@@ -343,7 +373,8 @@
         "okx-usdt",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "SOL": {
       "source": [
@@ -362,55 +393,68 @@
         "okx-usdt",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "crvUSDBTCETH": {
       "source": ["avalanche-evm-fetcher-curve"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "IB01.L": {
       "source": ["twelve-data"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "SHLB_GMX-AVAX_B": {
       "source": ["avalanche-evm-fetcher-steak-hut"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "ggAVAX": {
       "source": ["avalanche-evm-fetcher-oracle-adapter"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "yyAVAX": {
       "source": ["avalanche-evm-fetcher-oracle-adapter"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "GM_ETH_WETHe_USDC": {
       "source": ["avalanche-evm-fetcher-gmx"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "GM_BTC_BTCb_USDC": {
       "source": ["avalanche-evm-fetcher-gmx"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "GM_AVAX_WAVAX_USDC": {
       "source": ["avalanche-evm-fetcher-gmx"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "GM_SOL_SOL_USDC": {
       "source": ["avalanche-evm-fetcher-gmx"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "BAL_ggAVAX_AVAX": {
       "source": ["avalanche-evm-fetcher-balancer"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "BAL_yyAVAX_AVAX": {
       "source": ["avalanche-evm-fetcher-balancer"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "BAL_sAVAX_AVAX": {
       "source": ["avalanche-evm-fetcher-balancer"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "BAL": {
       "source": [
@@ -428,42 +472,51 @@
         "okx-usdt",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "WOMBAT_ggAVAX_AVAX_LP_AVAX": {
       "source": ["avalanche-evm-fetcher-wombat"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "WOMBAT_ggAVAX_AVAX_LP_ggAVAX": {
       "source": ["avalanche-evm-fetcher-wombat"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "WOMBAT_sAVAX_AVAX_LP_AVAX": {
       "source": ["avalanche-evm-fetcher-wombat"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "WOMBAT_sAVAX_AVAX_LP_sAVAX": {
       "source": ["avalanche-evm-fetcher-wombat"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "GM_AVAX_WAVAX": {
       "source": ["avalanche-evm-fetcher-gmx"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "GM_BTC_BTCb": {
       "source": ["avalanche-evm-fetcher-gmx"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "GM_ETH_WETHe": {
       "source": ["avalanche-evm-fetcher-gmx"],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "PRIME": {
       "source": [
         "trader-joe-v2-avalanche-wavax",
         "uniswap-v3-arbitrumone-weth-3000"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "FDUSD": {
       "source": [
@@ -476,7 +529,8 @@
         "pancake-swap-bnb-wbnb-500",
         "uniswap-v3-ethereum-usdt-100"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "BNB": {
       "source": [
@@ -490,7 +544,8 @@
         "okx-usdt",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "DOGE": {
       "source": [
@@ -508,7 +563,8 @@
         "okx-usdt",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "XRP": {
       "source": [
@@ -522,7 +578,8 @@
         "lbank-usdt",
         "okx-usdt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     },
     "LTC": {
       "source": [
@@ -539,7 +596,8 @@
         "okx-usdt",
         "xt"
       ],
-      "denomination": "USD"
+      "denomination": "USD",
+      "rateFeed": false
     }
   },
   "multiPointPackages": {
