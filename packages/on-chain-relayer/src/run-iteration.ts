@@ -2,9 +2,11 @@ import { loggerFactory, sendHealthcheckPing } from "@redstone-finance/utils";
 import { config } from "./config";
 import { ContractFacade } from "./facade/ContractFacade";
 
-const logger = loggerFactory("relayer/run-iteration");
-
-export const runIteration = async (contractFacade: ContractFacade) => {
+export const runIteration = async (
+  contractFacade: ContractFacade,
+  sendHealthcheckPingCallback = sendHealthcheckPing,
+  logger = loggerFactory("relayer/run-iteration")
+) => {
   const iterationStart = performance.now();
   const relayerConfig = config();
   const shouldUpdateContext =
@@ -13,7 +15,7 @@ export const runIteration = async (contractFacade: ContractFacade) => {
     shouldUpdateContext,
     relayerConfig
   );
-  void sendHealthcheckPing(relayerConfig.healthcheckPingUrl);
+  void sendHealthcheckPingCallback(relayerConfig.healthcheckPingUrl);
   logger.log(
     `Update condition ${
       iterationArgs.shouldUpdatePrices ? "" : "NOT "

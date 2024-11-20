@@ -1,4 +1,8 @@
-import type { SignedDataPackagePlainObj } from "@redstone-finance/protocol";
+import {
+  RedstonePayload,
+  SignedDataPackage,
+  SignedDataPackagePlainObj,
+} from "@redstone-finance/protocol";
 
 const signedDataPackagesObjects: (SignedDataPackagePlainObj & {
   dataServiceId: string;
@@ -58,3 +62,15 @@ export const mockSignedDataPackages = {
   ETH: signedDataPackagesObjects,
   BTC: signedDataPackagesObjects,
 };
+
+export const mockSignedDataPackagesResponse = {
+  ETH: signedDataPackagesObjects.map(SignedDataPackage.fromObj),
+  BTC: signedDataPackagesObjects.map(SignedDataPackage.fromObj),
+};
+
+export const mockPayload = RedstonePayload.prepare(
+  Object.values(mockSignedDataPackagesResponse).flatMap(
+    (dataPackage) => dataPackage
+  ),
+  ""
+);

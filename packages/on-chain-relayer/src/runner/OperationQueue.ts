@@ -1,4 +1,4 @@
-import { loggerFactory } from "@redstone-finance/utils/dist/src/logger";
+import { loggerFactory } from "@redstone-finance/utils";
 
 export type Operation = () => Promise<void>;
 
@@ -6,7 +6,8 @@ export class OperationQueue {
   private queue: { id: string; operation: Operation }[] = [];
   private isProcessing = false;
   private activeOperations = new Set<string>();
-  private logger = loggerFactory("operation-queue");
+
+  constructor(private logger = loggerFactory("operation-queue")) {}
 
   enqueue(id: string, operation: Operation) {
     const existingOperationIndex = this.queue.findIndex((op) => op.id === id);
