@@ -10,6 +10,7 @@ import {
   ContractParamsProvider,
   DataPackagesRequestParams,
   DataPackagesResponse,
+  DataPackagesResponseCache,
 } from "@redstone-finance/sdk";
 import { BigNumber, Contract, Signer } from "ethers";
 import { formatBytes32String } from "ethers/lib/utils";
@@ -90,6 +91,7 @@ export const mockEnvVariables = (
         (overrideMockConfig.fallbackOffsetInMilliseconds as
           | number
           | undefined) ?? 0,
+      healthcheckPingUrl: "http://example.com/ping",
       ...overrideMockConfig,
     } as unknown as RelayerConfig;
   });
@@ -110,7 +112,7 @@ const mockWallets = [
   },
 ];
 
-const DEFAULT_DATA_POINTS = [
+export const DEFAULT_DATA_POINTS = [
   { dataFeedId: "ETH", value: 1670.99 },
   { dataFeedId: "BTC", value: 23077.68 },
 ];
@@ -154,16 +156,17 @@ export const getDataPackagesResponse = async (
 export class ContractParamsProviderMock extends ContractParamsProvider {
   constructor(
     private dataPoints: INumericDataPoint[] = DEFAULT_DATA_POINTS,
-    overrideRequestParamsPackagesIds?: string[]
+    overrideRequestParamsPackagesIds?: string[],
+    cache?: DataPackagesResponseCache
   ) {
     super(
       {} as unknown as DataPackagesRequestParams,
-      undefined,
+      cache,
       overrideRequestParamsPackagesIds
     );
   }
 
-  override requestDataPackages() {
+  override performRequestingDataPackages() {
     return getDataPackagesResponse(this.dataPoints);
   }
 }

@@ -17,6 +17,8 @@ export class DataPackagesResponseCache {
   ) {
     this.response = dataPackagesResponse;
     this.requestParams = requestParams;
+
+    return this;
   }
 
   invalidate() {
@@ -72,7 +74,7 @@ export class DataPackagesResponseCache {
  *
  * @returns `true` if the cached response conforms to the request; otherwise, `false`.
  */
-function isConforming(
+export function isConforming(
   thisRequestParams: DataPackagesRequestParams,
   otherRequestParams: DataPackagesRequestParams,
   currentResponseDataPackageIds: string[]

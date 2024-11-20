@@ -40,6 +40,10 @@ export class ContractParamsProvider {
       return cachedResponse;
     }
 
+    return await this.performRequestingDataPackages();
+  }
+
+  protected async performRequestingDataPackages() {
     return await requestDataPackages(this.requestParams);
   }
 

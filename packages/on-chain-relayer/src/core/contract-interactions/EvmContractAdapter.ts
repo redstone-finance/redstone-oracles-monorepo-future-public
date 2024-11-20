@@ -49,12 +49,12 @@ export abstract class EvmContractAdapter<Contract extends RedstoneEvmContract>
     // is not using await to not block the main function
     updateTxResponse
       .wait()
-      .then((receipt) =>
-        logger.log(
-          `iteration_block=${receipt.blockNumber} ${getTxReceiptDesc(receipt)}`
+      .then((receipt) => logger.log(getTxReceiptDesc(receipt), { receipt }))
+      .catch((error) =>
+        logger.error(
+          `Failed to await transaction ${RedstoneCommon.stringifyError(error)}`
         )
-      )
-      .catch((error) => describeTxWaitError(error));
+      );
 
     logger.log(
       `Update prices tx delivered hash=${updateTxResponse.hash} gasLimit=${String(
@@ -73,9 +73,3 @@ const getTxReceiptDesc = (receipt: TransactionReceipt) => {
     receipt.transactionIndex
   }]. gas_used=${receipt.gasUsed.toString()} effective_gas_price=${receipt.effectiveGasPrice.toString()}`;
 };
-
-function describeTxWaitError(error: unknown) {
-  logger.error(
-    `Failed to await transaction ${RedstoneCommon.stringifyError(error)}`
-  );
-}
