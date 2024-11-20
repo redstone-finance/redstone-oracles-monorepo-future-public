@@ -14,7 +14,6 @@ import {
 
 const INTEGRATIONS_NOT_FOR_TESTING = [
   "unichainTestnetMultiFeed",
-  "monadDevnetMultiFeed",
   "hemiMultiFeed", // remove once we get a publicRpc
 ];
 
