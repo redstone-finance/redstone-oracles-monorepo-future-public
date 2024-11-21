@@ -3,6 +3,8 @@ const DEV_GWS = [
   "https://oracle-gateway-1.b.redstone.finance",
 ];
 
+const STAGING_GWS = ["https://read-ext-oracle-gateway.b.redstone.finance"];
+
 const PROD_GWS = [
   "https://oracle-gateway-1.a.redstone.vip",
   "https://oracle-gateway-1.a.redstone.finance",
@@ -22,6 +24,7 @@ export const REDSTONE_DATA_SERVICES_URLS: Partial<Record<string, string[]>> = {
   "redstone-arbitrum-demo": DEV_GWS,
   "mock-data-service": ["http://localhost:3000"],
   "mock-data-service-tests": ["http://valid-cache.com"],
+  "redstone-external-demo-1": STAGING_GWS,
 };
 
 export const resolveDataServiceUrls = (dataServiceId: string): string[] => {
