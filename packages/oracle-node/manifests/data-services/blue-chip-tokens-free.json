@@ -47,13 +47,7 @@
       ]
     },
     "USDT": {
-      "source": [
-        "bitfinex2-usd",
-        "bitstamp-usd",
-        "coinbasepro-usd",
-        "gate-usd",
-        "kraken-usd"
-      ],
+      "source": ["bitstamp-usd", "coinbasepro-usd", "gate-usd", "kraken-usd"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -86,14 +80,14 @@
     },
     "EUR": {
       "source": [
+        "binance-usdt",
         "bitstamp-api",
         "bitstamp-usd",
         "coinbase-api",
         "kaiko",
         "kaiko-v2",
         "kraken-gbp",
-        "kraken-usd",
-        "twelve-data"
+        "kraken-usd"
       ]
     },
     "GBP": {
@@ -101,12 +95,17 @@
         "alphavantage-usd",
         "bitstamp-usd",
         "financialmodelingprep-usd",
-        "kraken-usd",
-        "twelve-data"
+        "kraken-usd"
       ]
     },
     "XVS": {
-      "source": ["binance-usdt", "bingx-usdt", "gate-usdt", "lbank-usdt"]
+      "source": [
+        "binance-usdt",
+        "bingx-usdt",
+        "bitrue-usdt",
+        "gate-usdt",
+        "lbank-usdt"
+      ]
     },
     "BNB": {
       "source": [
@@ -200,12 +199,18 @@
     },
     "DAI": {
       "source": [
+        "bingx-usdt",
+        "bitfinex2-usd",
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
+        "bitstamp-usd",
+        "bybit-usdt",
         "coinbasepro-usd",
         "curve-ethereum-usdt",
+        "gate-usdt",
         "kraken-usd",
+        "lbank-usdt",
         "okx-usdt",
         "xt"
       ],
