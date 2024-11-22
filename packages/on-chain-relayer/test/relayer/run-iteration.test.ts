@@ -5,9 +5,11 @@ import {
 import { RedstoneLogger } from "@redstone-finance/utils";
 import { expect } from "chai";
 import sinon from "sinon";
-import { EvmContractFacade } from "../../src";
-import { IterationArgsProvider } from "../../src/facade/ContractFacade";
-import { runIteration } from "../../src/run-iteration";
+import {
+  EvmContractFacade,
+  IterationArgsProvider,
+  runIteration,
+} from "../../src";
 import {
   ContractParamsProviderMock,
   DEFAULT_DATA_POINTS,
@@ -19,9 +21,9 @@ import {
 } from "./run-iteration-mocks";
 
 const UPDATE_CONDITION_SATISFIED_REGEXP =
-  /Update condition satisfied: Test message block_number=123432 iteration_duration=/;
+  /Update condition satisfied; block_number=123432 iteration_duration=/;
 const UPDATE_CONDITION_NOT_SATISFIED_REGEXP =
-  /Update condition NOT satisfied: Test message block_number=123432 iteration_duration=/;
+  /Update condition NOT satisfied; block_number=123432 iteration_duration=/;
 
 describe("runIteration tests", () => {
   let connector: ContractConnectorMock;
@@ -53,6 +55,7 @@ describe("runIteration tests", () => {
       loggerStub.log,
       sinon.match(UPDATE_CONDITION_SATISFIED_REGEXP)
     );
+    expect(loggerStub.log.lastCall.lastArg).to.deep.equal(["Test message"]);
   });
 
   it("should call updatePrices and not to call requestDataPackages if shouldUpdatePrices is true with cache", async () => {
@@ -72,6 +75,7 @@ describe("runIteration tests", () => {
       loggerStub.log,
       sinon.match(UPDATE_CONDITION_SATISFIED_REGEXP)
     );
+    expect(loggerStub.log.lastCall.lastArg).to.deep.equal(["Test message"]);
   });
 
   it("should call updatePrices and call requestDataPackages if shouldUpdatePrices is true with cache, but cache is not conforming", async () => {
@@ -90,6 +94,7 @@ describe("runIteration tests", () => {
       loggerStub.log,
       sinon.match(UPDATE_CONDITION_SATISFIED_REGEXP)
     );
+    expect(loggerStub.log.lastCall.lastArg).to.deep.equal(["Test message"]);
   });
 
   it("should not call updatePrices if shouldUpdatePrices is false", async () => {
@@ -103,6 +108,7 @@ describe("runIteration tests", () => {
       loggerStub.log,
       sinon.match(UPDATE_CONDITION_NOT_SATISFIED_REGEXP)
     );
+    expect(loggerStub.log.lastCall.lastArg).to.deep.equal(["Test message"]);
   });
 
   it("should log additional messages if present and shouldUpdatePrices is true", async () => {
@@ -148,8 +154,8 @@ describe("runIteration tests", () => {
 
     await runIteration(
       facade,
-      sendHealthcheckPingStub,
-      loggerStub as unknown as RedstoneLogger
+      loggerStub as unknown as RedstoneLogger,
+      sendHealthcheckPingStub
     );
   }
 });

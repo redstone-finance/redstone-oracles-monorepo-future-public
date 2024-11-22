@@ -13,22 +13,31 @@ export type {
   RedstoneAdapterBase,
 } from "../typechain-types";
 export { setConfigProvider } from "./config";
+export type { EvmContractAdapter } from "./core/contract-interactions/EvmContractAdapter";
 export { EvmContractConnector } from "./core/contract-interactions/EvmContractConnector";
+export type { IRedstoneContractAdapter } from "./core/contract-interactions/IRedstoneContractAdapter";
 export type {
   ITxDeliveryMan,
   TxDeliveryCall,
 } from "./core/contract-interactions/tx-delivery-gelato-bypass";
 export type { ContractFacade } from "./facade/ContractFacade";
 export { EvmContractFacade } from "./facade/EvmContractFacade";
+export type { RedstoneEvmContract } from "./facade/EvmContractFacade";
 export { getEvmContractAdapter } from "./facade/get-evm-contract-adapter";
-export { getIterationArgsProvider } from "./facade/get-iteration-args-provider";
-export { makeConfigProvider } from "./make-config-provider";
 export {
-  type ConfigProvider,
-  type MultiFeedUpdatePricesArgs,
-  type OnChainRelayerEnv,
-  type RelayerConfig,
-  type UpdatePricesArgs,
+  getIterationArgsProvider,
+  type IterationArgsProvider,
+} from "./facade/get-iteration-args-provider";
+export { makeConfigProvider } from "./make-config-provider";
+export { runIteration, type IterationLogger } from "./run-iteration";
+export type {
+  ConfigProvider,
+  ContractData,
+  IterationArgsMessage,
+  MultiFeedUpdatePricesArgs,
+  OnChainRelayerEnv,
+  RelayerConfig,
+  UpdatePricesArgs,
 } from "./types";
 export {
   ISortedOraclesAbi,

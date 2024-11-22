@@ -28,19 +28,9 @@ const EMPTY_GELATO_ENV: OnChainRelayerEnv = {
   oevVerifyGasPriceDisabled: false,
 };
 
-export async function fetchManifestAndSetUp(env: IterationArgsProviderEnv) {
-  let manifestData: unknown;
-
-  for (const url of env.manifestUrls) {
-    try {
-      manifestData = (await axios.get(url)).data;
-      if (manifestData) {
-        break;
-      }
-    } catch (e) {
-      console.warn(`Error fetching manifest from url: ${url}`);
-    }
-  }
+export async function fetchManifestAndSetUpEnv(env: IterationArgsProviderEnv) {
+  const manifestData =
+    env.localManifestData ?? (await fetchManifestFromUrls(env.manifestUrls));
   if (!manifestData) {
     throw new Error("failed to fetch manifest from all URLs");
   }
@@ -53,4 +43,21 @@ export async function fetchManifestAndSetUp(env: IterationArgsProviderEnv) {
   };
 
   return { relayerEnv, manifest };
+}
+
+async function fetchManifestFromUrls(manifestUrls: string[]) {
+  let manifestData: unknown;
+
+  for (const url of manifestUrls) {
+    try {
+      manifestData = (await axios.get(url)).data;
+      if (manifestData) {
+        break;
+      }
+    } catch (e) {
+      console.warn(`Error fetching manifest from url: ${url}`);
+    }
+  }
+
+  return manifestData;
 }

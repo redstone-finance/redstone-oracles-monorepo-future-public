@@ -28,7 +28,7 @@ export const performFallbackValueDeviationConditionTest = async (
     getDataPackagesResponse(dataPoints, true, Date.now());
   const ethValue = createNumberFromContract(ethPrice);
   const btcValue = createNumberFromContract(btcPrice);
-  let { shouldUpdatePrices, warningMessage } =
+  const { shouldUpdatePrices, messages: warningMessage } =
     await performValueDeviationConditionChecks(
       "ETH",
       dataPackages,
@@ -40,24 +40,24 @@ export const performFallbackValueDeviationConditionTest = async (
       config(),
       olderDataPackagesFetchCallback
     );
-  const {
-    shouldUpdatePrices: shouldUpdatePrices2,
-    warningMessage: warningMessage2,
-  } = await performValueDeviationConditionChecks(
-    "BTC",
-    dataPackages,
-    {
-      lastValue: btcValue,
-      lastBlockTimestampMS: lastUpdateTimestamp,
-      lastDataPackageTimestampMS: lastDataPackageTimestamp,
-    },
-    config(),
-    olderDataPackagesFetchCallback
-  );
-  shouldUpdatePrices ||= shouldUpdatePrices2;
-  warningMessage = warningMessage.concat(warningMessage2);
+  const { shouldUpdatePrices: shouldUpdatePrices2, messages: warningMessage2 } =
+    await performValueDeviationConditionChecks(
+      "BTC",
+      dataPackages,
+      {
+        lastValue: btcValue,
+        lastBlockTimestampMS: lastUpdateTimestamp,
+        lastDataPackageTimestampMS: lastDataPackageTimestamp,
+      },
+      config(),
+      olderDataPackagesFetchCallback
+    );
+  warningMessage.push(...warningMessage2);
 
-  return { shouldUpdatePrices, warningMessage };
+  return {
+    shouldUpdatePrices: shouldUpdatePrices || shouldUpdatePrices2,
+    warningMessage: `${warningMessage[0].message}; ${warningMessage2[0].message}`,
+  };
 };
 
 export async function performSkipFrequentUpdatesCheck(

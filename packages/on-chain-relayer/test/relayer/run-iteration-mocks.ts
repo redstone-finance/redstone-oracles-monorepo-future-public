@@ -3,7 +3,7 @@ import {
   IContractConnector,
 } from "@redstone-finance/sdk";
 import { BigNumber } from "ethers";
-import { IRedstoneContractAdapter } from "../../src/core/contract-interactions/IRedstoneContractAdapter";
+import { IRedstoneContractAdapter, IterationArgsMessage } from "../../src";
 import {
   ContractData,
   RelayerConfig,
@@ -60,7 +60,7 @@ export class ContractConnectorMock
 
 export function getIterationArgsProviderMock(
   shouldUpdatePrices = true,
-  additionalMessages?: { message: string; args?: string[][] }[]
+  additionalUpdateMessages?: IterationArgsMessage[]
 ) {
   return (
     _shouldUpdateContext: ShouldUpdateContext,
@@ -77,7 +77,7 @@ export function getIterationArgsProviderMock(
         },
         dataFeedsToUpdate: relayerConfig.dataFeeds,
       },
-      message: "Test message",
-      additionalMessages,
+      messages: [{ message: "Test message" }],
+      additionalUpdateMessages,
     });
 }

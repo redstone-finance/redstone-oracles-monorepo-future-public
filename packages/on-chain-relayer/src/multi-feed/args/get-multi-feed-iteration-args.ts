@@ -16,7 +16,7 @@ export const getMultiFeedIterationArgs = async (
     dataFeedsToUpdate,
     dataFeedsDeviationRatios,
     heartbeatUpdates,
-    warningMessage: message,
+    messages,
   } = await shouldUpdateInMultiFeed(context, relayerConfig);
 
   const updateRequestParams = makeDataPackagesRequestParams(
@@ -34,7 +34,7 @@ export const getMultiFeedIterationArgs = async (
       blockTag: context.blockTag,
       updateRequestParams,
     },
-    message,
+    messages,
   };
 
   if (iterationArgs.shouldUpdatePrices) {
@@ -64,5 +64,5 @@ function addExtraFeedsAndMessagesToUpdateParams(iterationArgs: IterationArgs) {
     ],
   });
 
-  iterationArgs.additionalMessages = messages;
+  iterationArgs.additionalUpdateMessages = messages;
 }

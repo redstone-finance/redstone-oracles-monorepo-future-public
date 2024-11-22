@@ -1,6 +1,7 @@
 import { checkConditionByName } from "../core/update-conditions/check-condition-by-name";
 import { checkIfDataPackageTimestampIsNewer } from "../core/update-conditions/data-packages-timestamp";
 import {
+  IterationArgsMessage,
   RelayerConfig,
   ShouldUpdateContext,
   ShouldUpdateResponse,
@@ -11,7 +12,7 @@ export const shouldUpdateInMultiFeed = async (
   config: RelayerConfig
 ): Promise<ShouldUpdateResponse> => {
   const dataFeedsToUpdate: string[] = [];
-  const warningMessages: string[] = [];
+  const warningMessages: IterationArgsMessage[] = [];
   const dataFeedsDeviationRatios: Record<string, number> = {};
   const heartbeatUpdates: Set<number> = new Set();
   const pictogram = config.runWithMqtt ? "ℹ️" : "⛔";
@@ -19,9 +20,9 @@ export const shouldUpdateInMultiFeed = async (
     config.updateConditions
   )) {
     if (!Object.keys(context.dataPackages).includes(dataFeedId)) {
-      warningMessages.push(
-        `${pictogram}Data package for feed: ${dataFeedId} is missing in the datasource${pictogram}`
-      );
+      warningMessages.push({
+        message: `${pictogram}Data package for feed: ${dataFeedId} is missing in the datasource${pictogram}`,
+      });
       continue;
     }
     let shouldUpdatePrices = false;
@@ -33,9 +34,7 @@ export const shouldUpdateInMultiFeed = async (
         config
       );
       shouldUpdatePrices ||= conditionCheck.shouldUpdatePrices;
-      if (conditionCheck.warningMessage.length > 0) {
-        warningMessages.push(conditionCheck.warningMessage);
-      }
+      warningMessages.push(...conditionCheck.messages);
       if (conditionCheck.maxDeviationRatio) {
         dataFeedsDeviationRatios[dataFeedId] = conditionCheck.maxDeviationRatio;
       }
@@ -46,11 +45,11 @@ export const shouldUpdateInMultiFeed = async (
       }
     }
 
-    const { shouldNotUpdatePrice, message } =
+    const { shouldNotUpdatePrice, messages } =
       checkIfDataPackageTimestampIsNewer(context, dataFeedId);
     if (shouldNotUpdatePrice) {
       shouldUpdatePrices = false;
-      warningMessages.push(message!);
+      warningMessages.push(...messages);
     }
 
     if (shouldUpdatePrices) {
@@ -62,6 +61,6 @@ export const shouldUpdateInMultiFeed = async (
     dataFeedsToUpdate,
     dataFeedsDeviationRatios,
     heartbeatUpdates: Array.from(heartbeatUpdates),
-    warningMessage: warningMessages.join("; "),
+    messages: warningMessages,
   };
 };
