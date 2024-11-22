@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig-common.json",
-  "include": ["**/*", "contracts/templates/*"],
+  "include": ["**/*", "contracts/templates/*", "package.json"],
   "references": [
     {
       "path": "../contract-deployments/tsconfig.build.json"

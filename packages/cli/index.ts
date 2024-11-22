@@ -4,6 +4,7 @@ import prompts, { PromptObject } from "prompts";
 import { deployMultiFeedAdapterPrompt } from "./prompts/deploy-adapter-prompt";
 import { deployPriceFeedsPrompt } from "./prompts/deploy-price-feeds-prompt";
 import { runRelayerPrompt } from "./prompts/run-relayer-prompt";
+import { checkIfNewestVersionIsUsed } from "./src/checks";
 import { displayRedStoneLogo, onCancel } from "./src/utils";
 
 interface PromptResponse {
@@ -12,6 +13,7 @@ interface PromptResponse {
 
 void (async () => {
   displayRedStoneLogo();
+  await checkIfNewestVersionIsUsed();
 
   const questions: PromptObject[] = [
     {

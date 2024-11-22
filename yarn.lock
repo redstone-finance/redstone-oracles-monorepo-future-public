@@ -7628,6 +7628,7 @@ __metadata:
     "@types/mocha": "npm:^10.0.1"
     "@types/node": "npm:^20.14.12"
     "@types/prompts": "npm:^2.4.2"
+    axios: "npm:^1.7.7"
     chai: "npm:^4.3.10"
     chalk: "npm:^4.1.2"
     ethers: "npm:^5.7.2"
