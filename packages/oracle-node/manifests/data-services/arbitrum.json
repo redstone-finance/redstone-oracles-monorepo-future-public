@@ -852,7 +852,8 @@
         "curve-ethereum-frax",
         "curve-ethereum-usdc",
         "pancake-swap-ethereum-usdt-100",
-        "uniswap-v3-ethereum-usdt-100"
+        "uniswap-v3-ethereum-usdt-100",
+        "camelot-v3-arbitrumone-usdc"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
