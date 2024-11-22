@@ -128,13 +128,7 @@
       "source": ["twelve-data"]
     },
     "BRL": {
-      "source": [
-        "binance-api",
-        "bitso-api",
-        "kucoin-api",
-        "mercado-api",
-        "twelve-data"
-      ]
+      "source": ["binance-api", "bitso-api", "kucoin-api", "mercado-api"]
     },
     "COP": {
       "source": ["alphavantage-usd", "financialmodelingprep-usd", "twelve-data"]
@@ -304,7 +298,6 @@
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
-        "bitstamp-usd",
         "bybit-usdt",
         "coinbasepro-usd",
         "coingecko",

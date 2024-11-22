@@ -259,7 +259,6 @@
         "coingecko",
         "coinmarketcap",
         "gate-usdt",
-        "kraken-usd",
         "kucoin-usdt",
         "okx-usdt"
       ],
@@ -295,7 +294,6 @@
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
-        "bitstamp-usd",
         "bybit-usdt",
         "coinbasepro-usd",
         "coingecko",
