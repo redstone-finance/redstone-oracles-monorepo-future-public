@@ -3,6 +3,7 @@ import {
   Mqtt5Client,
   MqttTopics,
   MultiPubSubClient,
+  RateLimitsCircuitBreaker,
 } from "@redstone-finance/mqtt5-client";
 import {
   chooseDataPackagesTimestamp,
@@ -29,6 +30,10 @@ export class MqttRunner {
   private queue = new OperationQueue();
   private fallbackInterval?: NodeJS.Timeout;
   private readonly logger = loggerFactory("relayer/mqtt-runner");
+  private readonly rateLimitCircuitBreaker = new RateLimitsCircuitBreaker(
+    1_000,
+    10_000
+  );
 
   constructor(
     private readonly client: MultiPubSubClient,
@@ -133,23 +138,23 @@ export class MqttRunner {
     this.logger.info("Subscribing...", params);
 
     await this.subscriber?.unsubscribe();
+    this.subscriber?.disableFallback();
 
     this.subscriber = new DataPackageSubscriber(this.client, params);
+    this.maybeEnableFallback(relayerConfig, requestParams);
+    this.subscriber.enableCircuitBreaker(this.rateLimitCircuitBreaker);
+
     await this.subscriber.subscribe(
       (dataPackagesResponse: DataPackagesResponse) => {
         this.processResponse(dataPackagesResponse, requestParams);
       }
     );
-
-    this.maybeEnableFallback(relayerConfig, requestParams);
   }
 
   private maybeEnableFallback(
     relayerConfig: RelayerConfig,
     requestParams: DataPackagesRequestParams
   ) {
-    clearInterval(this.fallbackInterval);
-
     if (
       !relayerConfig.mqttFallbackCheckIntervalMs ||
       !relayerConfig.mqttFallbackMaxDelayBetweenPublishesMs
@@ -159,7 +164,7 @@ export class MqttRunner {
       );
     }
 
-    this.fallbackInterval = this.subscriber!.enableFallback(
+    this.subscriber!.enableFallback(
       async () =>
         await new ContractParamsProvider(requestParams).requestDataPackages(),
       relayerConfig.mqttFallbackMaxDelayBetweenPublishesMs,
