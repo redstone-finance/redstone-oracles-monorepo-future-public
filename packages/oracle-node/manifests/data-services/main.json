@@ -1300,7 +1300,8 @@
         "curve-ethereum-frax",
         "curve-ethereum-usdc",
         "pancake-swap-ethereum-usdt-100",
-        "uniswap-v3-ethereum-usdt-100"
+        "uniswap-v3-ethereum-usdt-100",
+        "camelot-v3-arbitrumone-usdc"
       ]
     },
     "sUSDe": {
@@ -1622,7 +1623,8 @@
         "pancake-swap-bnb-solvbtc-100",
         "pancake-swap-bnb-solvbtc-500",
         "trader-joe-v2-avalanche-solvbtc",
-        "uniswap-v3-ethereum-solvbtc-100"
+        "uniswap-v3-ethereum-solvbtc-100",
+        "uniswap-v3-ethereum-solvbtc-500"
       ]
     },
     "SolvBTC.BBN/BTC": {
@@ -2178,7 +2180,8 @@
       "source": [
         "uniswap-v3-ethereum-wbtc-500",
         "uniswap-v3-ethereum-cbbtc-500",
-        "curve-ethereum-wbtc"
+        "curve-ethereum-wbtc",
+        "curve-ethereum-wbtc-2"
       ]
     },
     "ssETH_FUNDAMENTAL": {
