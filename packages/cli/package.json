@@ -3,7 +3,6 @@
   "version": "0.6.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "private": true,
   "license": "MIT",
   "bin": {
     "redstone-cli": "dist/index.js"
