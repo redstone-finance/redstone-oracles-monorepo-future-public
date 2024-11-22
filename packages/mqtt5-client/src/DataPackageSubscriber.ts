@@ -255,6 +255,10 @@ export class DataPackageSubscriber {
     return this.pubSubClient.unsubscribe(this.topics);
   }
 
+  stop() {
+    this.pubSubClient.stop();
+  }
+
   private processNewPackage(dataPackageFromMessage: unknown) {
     //schema
     RedstoneCommon.zodAssert<SignedDataPackagePlainObj>(
