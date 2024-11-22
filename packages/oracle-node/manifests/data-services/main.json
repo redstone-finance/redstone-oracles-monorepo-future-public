@@ -224,7 +224,6 @@
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
-        "bitstamp-usd",
         "bybit-usdt",
         "coinbasepro-usd",
         "coingecko",
@@ -563,7 +562,6 @@
         "bitrue-usdt",
         "coingecko",
         "gate-usdt",
-        "kraken-usd",
         "kucoin-usdt",
         "okx-usdt"
       ]
@@ -1792,12 +1790,7 @@
       "source": ["alphavantage-usd", "financialmodelingprep-usd", "twelve-data"]
     },
     "INR": {
-      "source": [
-        "alphavantage-usd",
-        "ecb",
-        "financialmodelingprep-usd",
-        "twelve-data"
-      ]
+      "source": ["alphavantage-usd", "ecb", "financialmodelingprep-usd"]
     },
     "JPY": {
       "source": ["twelve-data"]
@@ -1839,13 +1832,7 @@
       "source": ["ecb", "twelve-data"]
     },
     "BRL": {
-      "source": [
-        "binance-api",
-        "bitso-api",
-        "kucoin-api",
-        "mercado-api",
-        "twelve-data"
-      ]
+      "source": ["binance-api", "bitso-api", "kucoin-api", "mercado-api"]
     },
     "SPY": {
       "source": ["twelve-data"]

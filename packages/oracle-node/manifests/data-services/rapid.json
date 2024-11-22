@@ -240,7 +240,6 @@
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
-        "bitstamp-usd",
         "bybit-usdt",
         "coinbasepro-usd",
         "coingecko",
@@ -303,13 +302,7 @@
       ]
     },
     "BRL": {
-      "source": [
-        "binance-api",
-        "bitso-api",
-        "kucoin-api",
-        "mercado-api",
-        "twelve-data"
-      ]
+      "source": ["binance-api", "bitso-api", "kucoin-api", "mercado-api"]
     },
     "ETH/USDC": {
       "source": ["non-usd-based"]

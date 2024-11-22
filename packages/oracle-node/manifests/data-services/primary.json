@@ -111,7 +111,6 @@
         "bitget-usdt",
         "bitmart-usdt",
         "bitrue-usdt",
-        "bitstamp-usd",
         "bybit-usdt",
         "coinbasepro-usd",
         "coingecko",
@@ -595,13 +594,7 @@
       "rateFeed": false
     },
     "BRL": {
-      "source": [
-        "binance-api",
-        "bitso-api",
-        "kucoin-api",
-        "mercado-api",
-        "twelve-data"
-      ],
+      "source": ["binance-api", "bitso-api", "kucoin-api", "mercado-api"],
       "denomination": "USD",
       "rateFeed": false
     },
@@ -1425,12 +1418,7 @@
       "rateFeed": false
     },
     "INR": {
-      "source": [
-        "alphavantage-usd",
-        "ecb",
-        "financialmodelingprep-usd",
-        "twelve-data"
-      ],
+      "source": ["alphavantage-usd", "ecb", "financialmodelingprep-usd"],
       "denomination": "USD",
       "rateFeed": false
     },
