@@ -97,6 +97,7 @@ export class DataPackageSubscriber {
   >();
   private lastPublishedState: LastPublishedFeedState;
   private circuitBreaker?: RateLimitsCircuitBreaker;
+  fallbackInterval?: NodeJS.Timeout;
 
   constructor(
     readonly pubSubClient: MultiPubSubClient,
@@ -136,6 +137,7 @@ export class DataPackageSubscriber {
     }
   }
 
+  /** Packages returned by fallbackFn are not verified - use {@link requestDataPackages} for off-chain verification */
   enableFallback(
     fallbackFn: () => Promise<DataPackagesResponse>,
     maxDelayBetweenPublishes: number,
@@ -145,7 +147,7 @@ export class DataPackageSubscriber {
       `Enabled fallback mode interval=${checkInterval} maxDelayBetweenPublishes=${maxDelayBetweenPublishes}`
     );
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    return setInterval(async () => {
+    this.fallbackInterval = setInterval(async () => {
       try {
         if (
           this.lastPublishedState.isAnyFeedNotPublishedIn(
@@ -167,7 +169,12 @@ export class DataPackageSubscriber {
           const newerPackagesOnly =
             this.lastPublishedState.filterOutNotNewerPackages(dataPackages);
 
-          if (Object.keys(newerPackagesOnly).length > 0) {
+          const newDataPackagesIds = Object.keys(newerPackagesOnly);
+
+          if (newDataPackagesIds.length > 0) {
+            this.logger.info(
+              `Publishing packages from fallback method timestamp=${packageTimestamp} latency=${Date.now() - packageTimestamp} dataPackageIds=${newDataPackagesIds.join(",")}`
+            );
             this.subscribeCallback!(dataPackages);
             this.lastPublishedState.update(
               Object.keys(newerPackagesOnly),
@@ -183,6 +190,10 @@ export class DataPackageSubscriber {
     }, checkInterval);
   }
 
+  disableFallback() {
+    clearInterval(this.fallbackInterval);
+  }
+
   enableCircuitBreaker(circuitBreaker: RateLimitsCircuitBreaker) {
     this.circuitBreaker = circuitBreaker;
   }
@@ -196,24 +207,35 @@ export class DataPackageSubscriber {
     }
     this.subscribeCallback = subscribeCallback;
 
-    await this.pubSubClient.subscribe(
-      this.topics,
-      (_, messagePayload, error) => {
-        this.handleCircuitBreaker();
+    try {
+      await this.pubSubClient.subscribe(
+        this.topics,
+        (_, messagePayload, error) => {
+          this.handleCircuitBreaker();
 
-        try {
-          if (error) {
-            throw new Error(error);
+          try {
+            if (error) {
+              throw new Error(error);
+            }
+
+            this.processNewPackage(messagePayload);
+          } catch (e) {
+            this.logger.error(
+              `Failed to process new package error=${RedstoneCommon.stringifyError(e)}`
+            );
           }
-
-          this.processNewPackage(messagePayload);
-        } catch (e) {
-          this.logger.error(
-            `Failed to process new package error=${RedstoneCommon.stringifyError(e)}`
-          );
         }
+      );
+    } catch (e) {
+      if (this.fallbackInterval) {
+        this.logger.warn(
+          "Failed to subscribe to topics, continuing because fallback is enabled"
+        );
+        return;
+      } else {
+        throw e;
       }
-    );
+    }
     this.logger.info("Successfully subscribed to topics", this.topics);
   }
 
@@ -288,7 +310,7 @@ export class DataPackageSubscriber {
       )
     ) {
       this.logger.debug(
-        `Package was rejected because already have package from signer=${packageSigner} for timestamp=${packageTimestamp} dataPackageId=${dataPackageId}`
+        `Package was rejected because already have package signer=${packageSigner} timestamp=${packageTimestamp} dataPackageId=${dataPackageId}`
       );
       return;
     }
@@ -360,7 +382,7 @@ export class DataPackageSubscriber {
     }
 
     this.logger.info(
-      `Publishing packages for timestamp=${packageTimestamp} latency=${Date.now() - packageTimestamp} dataPackageIds=${packageIdsToPublish.join(",")}`
+      `Publishing packages timestamp=${packageTimestamp} latency=${Date.now() - packageTimestamp} dataPackageIds=${packageIdsToPublish.join(",")}`
     );
 
     if (!this.subscribeCallback) {

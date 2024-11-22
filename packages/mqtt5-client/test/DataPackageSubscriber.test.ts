@@ -392,7 +392,7 @@ describe("subscribe-data-packages", () => {
       expect(callback).toBeCalledTimes(0);
       expect(logger).toBeCalledWith(
         expect.stringContaining(
-          `Package was rejected because already have package from signer=${MOCK_WALLET_1.address}`
+          `Package was rejected because already have package signer=${MOCK_WALLET_1.address}`
         )
       );
     });
@@ -808,7 +808,7 @@ describe("subscribe-data-packages", () => {
       const fallbackFn = jest.fn().mockImplementationOnce(() => ({
         ETH: [fallbackPackage],
       }));
-      const interval = subscriber.enableFallback(fallbackFn, 1_000, 200);
+      subscriber.enableFallback(fallbackFn, 1_000, 200);
 
       await publishToPubSub(pubSub, {
         signer: MOCK_WALLET_1,
@@ -820,7 +820,7 @@ describe("subscribe-data-packages", () => {
       expect(callback).toBeCalledTimes(1);
 
       await jest.advanceTimersByTimeAsync(1_200);
-      clearInterval(interval);
+      subscriber.disableFallback();
 
       expect(fallbackFn).toBeCalledTimes(1);
       expect(callback).toBeCalledTimes(2);
@@ -834,7 +834,7 @@ describe("subscribe-data-packages", () => {
       const fallbackFn = jest.fn().mockImplementationOnce(() => ({
         ETH: [createDataPackage("ETH", 3, Date.now() + 2_000, MOCK_WALLET_1)],
       }));
-      const interval = subscriber.enableFallback(fallbackFn, 1_500, 200);
+      subscriber.enableFallback(fallbackFn, 1_500, 200);
 
       await publishToPubSub(pubSub, {
         signer: MOCK_WALLET_1,
@@ -846,7 +846,7 @@ describe("subscribe-data-packages", () => {
       expect(callback).toBeCalledTimes(1);
 
       await jest.advanceTimersByTimeAsync(1_200);
-      clearInterval(interval);
+      subscriber.disableFallback();
 
       expect(fallbackFn).toBeCalledTimes(0);
       expect(callback).toBeCalledTimes(1);
