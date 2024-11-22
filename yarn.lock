@@ -4054,29 +4054,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fuel-ts/abi-coder@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/abi-coder@npm:0.96.1"
+"@fuel-ts/abi-coder@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/abi-coder@npm:0.97.0"
   dependencies:
-    "@fuel-ts/crypto": "npm:0.96.1"
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/hasher": "npm:^0.96.1"
-    "@fuel-ts/interfaces": "npm:0.96.1"
-    "@fuel-ts/math": "npm:0.96.1"
-    "@fuel-ts/utils": "npm:0.96.1"
+    "@fuel-ts/crypto": "npm:0.97.0"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/hasher": "npm:^0.97.0"
+    "@fuel-ts/interfaces": "npm:0.97.0"
+    "@fuel-ts/math": "npm:0.97.0"
+    "@fuel-ts/utils": "npm:0.97.0"
     type-fest: "npm:^4.26.1"
-  checksum: 10c0/67743813d56f0d69e1ee52c14c5ebacddeb63dd54e3dae60126e9f635f4dd296e632036997d2da0bffe053137994954e69f9e4f1950f9a090908908f1832dd91
+  checksum: 10c0/d8aad7d3a894ecfad2f30c11c4c5ea160d7d40f2c097db1f4816446ec613e516509a7f8647a0dbb8a545511be4df7f6a0c8b0e577c2a503810a1903c9e6c3440
   languageName: node
   linkType: hard
 
-"@fuel-ts/abi-typegen@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/abi-typegen@npm:0.96.1"
+"@fuel-ts/abi-typegen@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/abi-typegen@npm:0.97.0"
   dependencies:
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/interfaces": "npm:^0.96.1"
-    "@fuel-ts/utils": "npm:0.96.1"
-    "@fuel-ts/versions": "npm:0.96.1"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/interfaces": "npm:^0.97.0"
+    "@fuel-ts/utils": "npm:0.97.0"
+    "@fuel-ts/versions": "npm:0.97.0"
     commander: "npm:12.1.0"
     glob: "npm:^10.4.5"
     handlebars: "npm:^4.7.8"
@@ -4085,213 +4085,213 @@ __metadata:
     rimraf: "npm:^5.0.10"
   bin:
     fuels-typegen: typegen.js
-  checksum: 10c0/2fa5464011d6fc4183d44b1b224c67cb1877ca391421954b41f7759c9b176dbdc41ada471935a4e7fc3889acee551b1d217bc9e3c342f5163f5daaf5b2525ca7
+  checksum: 10c0/5e29fe2ae0e78a22f608c1befed1e68118d3ff51492f0acc72f8079bd21e1f57b1ca11b39a2250c3a1b9f0f9a0d09f3d829bc2be1c94388455507d8527bb495b
   languageName: node
   linkType: hard
 
-"@fuel-ts/account@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/account@npm:0.96.1"
+"@fuel-ts/account@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/account@npm:0.97.0"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.96.1"
-    "@fuel-ts/address": "npm:0.96.1"
-    "@fuel-ts/crypto": "npm:0.96.1"
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/hasher": "npm:0.96.1"
-    "@fuel-ts/interfaces": "npm:0.96.1"
-    "@fuel-ts/math": "npm:0.96.1"
-    "@fuel-ts/merkle": "npm:0.96.1"
-    "@fuel-ts/transactions": "npm:0.96.1"
-    "@fuel-ts/utils": "npm:0.96.1"
-    "@fuel-ts/versions": "npm:0.96.1"
-    "@fuels/vm-asm": "npm:0.58.0"
+    "@fuel-ts/abi-coder": "npm:0.97.0"
+    "@fuel-ts/address": "npm:0.97.0"
+    "@fuel-ts/crypto": "npm:0.97.0"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/hasher": "npm:0.97.0"
+    "@fuel-ts/interfaces": "npm:0.97.0"
+    "@fuel-ts/math": "npm:0.97.0"
+    "@fuel-ts/merkle": "npm:0.97.0"
+    "@fuel-ts/transactions": "npm:0.97.0"
+    "@fuel-ts/utils": "npm:0.97.0"
+    "@fuel-ts/versions": "npm:0.97.0"
+    "@fuels/vm-asm": "npm:0.58.2"
     "@noble/curves": "npm:^1.6.0"
     events: "npm:^3.3.0"
     graphql: "npm:^16.9.0"
     graphql-request: "npm:5.0.0"
     graphql-tag: "npm:^2.12.6"
     ramda: "npm:^0.30.1"
-  checksum: 10c0/9a88c5de90ef724461fb0c004795444a7c096b98b4d7cf26f87ce143fac0c2da3988b009da77b23b9211d53582f7c057d37074eb6477d8ec8cfd50584e2011ce
+  checksum: 10c0/49a480a0a3119871a00f191ad6f23123b551f37fe1feef2f54833919ab7d237f39b4a8e22f2a348cfa183282b17ea2429ec7db536d321a82e0afcb3e25a6683d
   languageName: node
   linkType: hard
 
-"@fuel-ts/address@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/address@npm:0.96.1"
+"@fuel-ts/address@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/address@npm:0.97.0"
   dependencies:
-    "@fuel-ts/crypto": "npm:0.96.1"
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/interfaces": "npm:0.96.1"
-    "@fuel-ts/utils": "npm:^0.96.1"
+    "@fuel-ts/crypto": "npm:0.97.0"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/interfaces": "npm:0.97.0"
+    "@fuel-ts/utils": "npm:^0.97.0"
     "@noble/hashes": "npm:^1.5.0"
     bech32: "npm:^2.0.0"
-  checksum: 10c0/786f539b504c0fadb73ea1aca767508c27767512aea75df92b2b050add324ec40d8d3aaabb46d94d64338e0845a9ca9d2e0ccc4cef8faa0a0086704bb9eadc23
+  checksum: 10c0/814ef26e88cde6a77421d678c0f8d25968f221a227efb881e4f1eaee28e9c07778d2ada6e794736a75ba6577cfbad447dec514d46cd5c6c90c6bd77094dbd727
   languageName: node
   linkType: hard
 
-"@fuel-ts/contract@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/contract@npm:0.96.1"
+"@fuel-ts/contract@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/contract@npm:0.97.0"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.96.1"
-    "@fuel-ts/account": "npm:0.96.1"
-    "@fuel-ts/crypto": "npm:0.96.1"
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/hasher": "npm:0.96.1"
-    "@fuel-ts/interfaces": "npm:^0.96.1"
-    "@fuel-ts/math": "npm:^0.96.1"
-    "@fuel-ts/merkle": "npm:0.96.1"
-    "@fuel-ts/program": "npm:0.96.1"
-    "@fuel-ts/transactions": "npm:0.96.1"
-    "@fuel-ts/utils": "npm:0.96.1"
-    "@fuel-ts/versions": "npm:0.96.1"
-    "@fuels/vm-asm": "npm:0.58.0"
+    "@fuel-ts/abi-coder": "npm:0.97.0"
+    "@fuel-ts/account": "npm:0.97.0"
+    "@fuel-ts/crypto": "npm:0.97.0"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/hasher": "npm:0.97.0"
+    "@fuel-ts/interfaces": "npm:^0.97.0"
+    "@fuel-ts/math": "npm:^0.97.0"
+    "@fuel-ts/merkle": "npm:0.97.0"
+    "@fuel-ts/program": "npm:0.97.0"
+    "@fuel-ts/transactions": "npm:0.97.0"
+    "@fuel-ts/utils": "npm:0.97.0"
+    "@fuel-ts/versions": "npm:0.97.0"
+    "@fuels/vm-asm": "npm:0.58.2"
     ramda: "npm:^0.30.1"
-  checksum: 10c0/1da8880acba8e33a6f61043528f71bafc991a33f3ef299b962335b8c5c6e28a53ed541a92e9a5e724b1f0d4a0d6c9cfe727137202e628aa707faaa16d84a64c5
+  checksum: 10c0/f5d3aba4c7e6214735e8eb4d01de96e8953bed274b0f54664f577033ddb2430808e472e06590e4c4336dcce1dd6f03606f0299ce92deed9fd11975a2ab0e43c0
   languageName: node
   linkType: hard
 
-"@fuel-ts/crypto@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/crypto@npm:0.96.1"
+"@fuel-ts/crypto@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/crypto@npm:0.97.0"
   dependencies:
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/interfaces": "npm:0.96.1"
-    "@fuel-ts/math": "npm:0.96.1"
-    "@fuel-ts/utils": "npm:^0.96.1"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/interfaces": "npm:0.97.0"
+    "@fuel-ts/math": "npm:0.97.0"
+    "@fuel-ts/utils": "npm:^0.97.0"
     "@noble/hashes": "npm:^1.5.0"
-  checksum: 10c0/d1e7881380113a25d70b5278a9ee3f97adb88880ce833a1e5d8c5ca207db800a57559c7b595e00d61ae604bae9d255f7ab86f84b05b082ad2fa3b3da1adecdc9
+  checksum: 10c0/f7b8ba2321d857e47885b77231a63df40b9500a16278b593a49225e15a37319bb77ffb3a74c332a93e59a5179834064411f5e294e0ba4772cb4289be1f33a2b4
   languageName: node
   linkType: hard
 
-"@fuel-ts/errors@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/errors@npm:0.96.1"
+"@fuel-ts/errors@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/errors@npm:0.97.0"
   dependencies:
-    "@fuel-ts/versions": "npm:0.96.1"
-  checksum: 10c0/80bf7e3bae2734fa4d0e009c94ce5574ed5d9734e5c7569c3402ed91b47019c1765b46f9f9569395560525d296e167b351f3b7deaee6ef044b7d44e691fd79db
+    "@fuel-ts/versions": "npm:0.97.0"
+  checksum: 10c0/9e9639a836e0da7934aa31ced22735263c893e591c4774f74ecba0043db8b208144619284d5b7b262c4e9c8509ea22aa556a65832b915c2219450202ccd6b199
   languageName: node
   linkType: hard
 
-"@fuel-ts/hasher@npm:0.96.1, @fuel-ts/hasher@npm:^0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/hasher@npm:0.96.1"
+"@fuel-ts/hasher@npm:0.97.0, @fuel-ts/hasher@npm:^0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/hasher@npm:0.97.0"
   dependencies:
-    "@fuel-ts/crypto": "npm:0.96.1"
-    "@fuel-ts/interfaces": "npm:^0.96.1"
-    "@fuel-ts/utils": "npm:0.96.1"
+    "@fuel-ts/crypto": "npm:0.97.0"
+    "@fuel-ts/interfaces": "npm:^0.97.0"
+    "@fuel-ts/utils": "npm:0.97.0"
     "@noble/hashes": "npm:^1.5.0"
-  checksum: 10c0/b62cad33f3375804595c4ca233e4f24ed8387f666e77015d1d1a0a39a0e4e346b9d447c19f1e6ad3381f083ec4ce136ec70f38cffd9556b28f21fb27dec0f9b2
+  checksum: 10c0/83a16f3f505d01ed128ac1e187d5201de31dcaba6902059863ab754e6287f119a9ab2b9ec27a93804043c5ecc8b73d0b6185e34e7001f88934337bdeaba048fa
   languageName: node
   linkType: hard
 
-"@fuel-ts/interfaces@npm:0.96.1, @fuel-ts/interfaces@npm:^0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/interfaces@npm:0.96.1"
-  checksum: 10c0/f5b2e07a5811b05ce50168c38ff244c3332371ca07cb448bf288a44ef4ce8643c057ce6724fb9fcbf9d5ddc97e00daeb99aae36956575c46ea24ca3a3268ebb0
+"@fuel-ts/interfaces@npm:0.97.0, @fuel-ts/interfaces@npm:^0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/interfaces@npm:0.97.0"
+  checksum: 10c0/f7c3f8419e70e646ce8745f85925f596f149ee41eacb2da3a17fac2f16e26b9ffe4c36216c9450969300f97bf6fa1c03c04fd68c3faebea0ecb7dadc6daa55a7
   languageName: node
   linkType: hard
 
-"@fuel-ts/math@npm:0.96.1, @fuel-ts/math@npm:^0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/math@npm:0.96.1"
+"@fuel-ts/math@npm:0.97.0, @fuel-ts/math@npm:^0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/math@npm:0.97.0"
   dependencies:
-    "@fuel-ts/errors": "npm:0.96.1"
+    "@fuel-ts/errors": "npm:0.97.0"
     "@types/bn.js": "npm:^5.1.6"
     bn.js: "npm:^5.2.1"
-  checksum: 10c0/73648ed459d27f2656e3b7481918802eff8dc128da8e4ceae313d34c5730d9e9a70e7bb12045645211c00c00fac52cba0676a4a7dbf7975eb2d715108cca4242
+  checksum: 10c0/61e5a87f8d72b7201d36a3ef286f3d7b73d638582855b45532d04f74c1b28332226a7e04bb4f70787a36d67c4f1adcd8fad3810369b8447339aca7b5b88af337
   languageName: node
   linkType: hard
 
-"@fuel-ts/merkle@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/merkle@npm:0.96.1"
+"@fuel-ts/merkle@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/merkle@npm:0.97.0"
   dependencies:
-    "@fuel-ts/hasher": "npm:^0.96.1"
-    "@fuel-ts/math": "npm:0.96.1"
-  checksum: 10c0/95f01d7b3c92e3c61b00c9930320141d0d292ad45653a732a60db0b9a69d43cbb2034b3581ef39918eeade866f7ced7b38324f9e02f6c0d73ac893f84e9c870b
+    "@fuel-ts/hasher": "npm:^0.97.0"
+    "@fuel-ts/math": "npm:0.97.0"
+  checksum: 10c0/008e1c6e7f058c4a150d77f9851822796fb0c992e13c892d3beb42503ad8a53d56ddc91711b53f2b2a17081cf861b295a6e2e624fcd1dccedb14a28c58947999
   languageName: node
   linkType: hard
 
-"@fuel-ts/program@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/program@npm:0.96.1"
+"@fuel-ts/program@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/program@npm:0.97.0"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.96.1"
-    "@fuel-ts/account": "npm:0.96.1"
-    "@fuel-ts/address": "npm:0.96.1"
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/interfaces": "npm:0.96.1"
-    "@fuel-ts/math": "npm:0.96.1"
-    "@fuel-ts/transactions": "npm:0.96.1"
-    "@fuel-ts/utils": "npm:0.96.1"
-    "@fuels/vm-asm": "npm:0.58.0"
+    "@fuel-ts/abi-coder": "npm:0.97.0"
+    "@fuel-ts/account": "npm:0.97.0"
+    "@fuel-ts/address": "npm:0.97.0"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/interfaces": "npm:0.97.0"
+    "@fuel-ts/math": "npm:0.97.0"
+    "@fuel-ts/transactions": "npm:0.97.0"
+    "@fuel-ts/utils": "npm:0.97.0"
+    "@fuels/vm-asm": "npm:0.58.2"
     ramda: "npm:^0.30.1"
-  checksum: 10c0/1cb3c4cde6ef3f66af931badb901994544051674a447ec27cb4e91a0f0f7414d89fb9a0901b7932413953e02c3ce2979deda405ab0cc266b8cc254489134c599
+  checksum: 10c0/c6fab00af9c29bbf4f3b2005b20320d79aa5d828915fbb79f66051a815e634d9d23d45e41f770d2f09293bf2930d52c22cee08ac1717d40857818b0a1e6c10d9
   languageName: node
   linkType: hard
 
-"@fuel-ts/script@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/script@npm:0.96.1"
+"@fuel-ts/script@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/script@npm:0.97.0"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.96.1"
-    "@fuel-ts/account": "npm:0.96.1"
-    "@fuel-ts/address": "npm:0.96.1"
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/interfaces": "npm:0.96.1"
-    "@fuel-ts/math": "npm:0.96.1"
-    "@fuel-ts/program": "npm:0.96.1"
-    "@fuel-ts/transactions": "npm:0.96.1"
-    "@fuel-ts/utils": "npm:0.96.1"
-  checksum: 10c0/8f0b2dd719abf11ca98fbfec711287c21000e12e11abbac7dc7da84fb40c8fa1c40e30fe1942d0317c7009bdb4f429045fa22a1b6b3517ebac63d0b776613d0f
+    "@fuel-ts/abi-coder": "npm:0.97.0"
+    "@fuel-ts/account": "npm:0.97.0"
+    "@fuel-ts/address": "npm:0.97.0"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/interfaces": "npm:0.97.0"
+    "@fuel-ts/math": "npm:0.97.0"
+    "@fuel-ts/program": "npm:0.97.0"
+    "@fuel-ts/transactions": "npm:0.97.0"
+    "@fuel-ts/utils": "npm:0.97.0"
+  checksum: 10c0/c8d7143bcd6a637462e9a8d77794b5810c5c9b47723b2ef9b57f9ae80718d93799aed73cef01bdea613b72d85c08e160cd7e5f695737dd3dea1e8c8d07433d78
   languageName: node
   linkType: hard
 
-"@fuel-ts/transactions@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/transactions@npm:0.96.1"
+"@fuel-ts/transactions@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/transactions@npm:0.97.0"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.96.1"
-    "@fuel-ts/address": "npm:0.96.1"
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/hasher": "npm:^0.96.1"
-    "@fuel-ts/interfaces": "npm:^0.96.1"
-    "@fuel-ts/math": "npm:0.96.1"
-    "@fuel-ts/utils": "npm:0.96.1"
-  checksum: 10c0/7ac4d65748c4f92860f09e1ca264bbdc21610f4f9441f9d66e180db4ab88df9336f1fff04882f425f0878e3fa2c065f26d3ac97cc02cabd3d7c6b9193c32d46c
+    "@fuel-ts/abi-coder": "npm:0.97.0"
+    "@fuel-ts/address": "npm:0.97.0"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/hasher": "npm:^0.97.0"
+    "@fuel-ts/interfaces": "npm:^0.97.0"
+    "@fuel-ts/math": "npm:0.97.0"
+    "@fuel-ts/utils": "npm:0.97.0"
+  checksum: 10c0/749dbaca5ef8245d1cfe270a281dafe6730e2c13431e86b13ae72dcf591908bb6616f990f6ac4e6cf2f5ed7dbbccec95a3ae334bfacb02d7aec772c5d33c6982
   languageName: node
   linkType: hard
 
-"@fuel-ts/utils@npm:0.96.1, @fuel-ts/utils@npm:^0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/utils@npm:0.96.1"
+"@fuel-ts/utils@npm:0.97.0, @fuel-ts/utils@npm:^0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/utils@npm:0.97.0"
   dependencies:
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/interfaces": "npm:0.96.1"
-    "@fuel-ts/math": "npm:0.96.1"
-    "@fuel-ts/versions": "npm:0.96.1"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/interfaces": "npm:0.97.0"
+    "@fuel-ts/math": "npm:0.97.0"
+    "@fuel-ts/versions": "npm:0.97.0"
     fflate: "npm:^0.8.2"
-  checksum: 10c0/753c2ce2b2ac208dafada29274bf9b8b72c05dd4f12f39f32e7639ba35ece8d13e532e577955e2402dadaa2231bba22839a5c7078a111e4f5f837652c45ebd71
+  checksum: 10c0/a68ca600d274e63f9cc0aef77ee930d9d137288593bcbe9ab591a10e03270a3fe4bba5d696512021ab35f34f33292729af1db6bb3fedf4a1223d465d91a9a7fb
   languageName: node
   linkType: hard
 
-"@fuel-ts/versions@npm:0.96.1":
-  version: 0.96.1
-  resolution: "@fuel-ts/versions@npm:0.96.1"
+"@fuel-ts/versions@npm:0.97.0":
+  version: 0.97.0
+  resolution: "@fuel-ts/versions@npm:0.97.0"
   dependencies:
     chalk: "npm:4"
     cli-table: "npm:^0.3.11"
   bin:
     fuels-versions: versions.js
-  checksum: 10c0/78857d228da42528e069a90a856c65ac6d96a6d364a1c42c0b093502ea096388d2396366acd38ce52e4448e4642717a1de1faf371c36fbfe6ac64284e7957f98
+  checksum: 10c0/25c49cd4133b4a8694e0687bd72fac36375437c1fdb189bf82b8145f251a8e79d77e8c35b16ba852fe14fa25eea9e18776ed71a96a1c2f6020f77cdae02b1a1c
   languageName: node
   linkType: hard
 
-"@fuels/vm-asm@npm:0.58.0":
-  version: 0.58.0
-  resolution: "@fuels/vm-asm@npm:0.58.0"
-  checksum: 10c0/2421058c889e08799e7ee7485780c3af42f45cdbb1ac865f4049020ca447049d3095dc5627d2ec56d749df7bf841b5746652a19ff8630e1a6b73a5b0e9a01bc2
+"@fuels/vm-asm@npm:0.58.2":
+  version: 0.58.2
+  resolution: "@fuels/vm-asm@npm:0.58.2"
+  checksum: 10c0/98bc373e751fe04c95cad0744f0668362ec3c89bdc520c6f3035591a50d84cef03822a43c0cb77870d73e76c5a26800350c5ac5b8bee4b8644b3dfbf5b333c0c
   languageName: node
   linkType: hard
 
@@ -7957,7 +7957,7 @@ __metadata:
     "@babel/core": "npm:^7.23.2"
     "@babel/preset-typescript": "npm:^7.23.2"
     "@redstone-finance/sdk": "npm:0.6.2"
-    fuels: "npm:^0.96.1"
+    fuels: "npm:^0.97.0"
     redstone-api: "npm:^0.4.11"
     toml: "npm:^3.0.0"
     zod: "npm:^3.22.4"
@@ -20630,26 +20630,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fuels@npm:^0.96.1":
-  version: 0.96.1
-  resolution: "fuels@npm:0.96.1"
+"fuels@npm:^0.97.0":
+  version: 0.97.0
+  resolution: "fuels@npm:0.97.0"
   dependencies:
-    "@fuel-ts/abi-coder": "npm:0.96.1"
-    "@fuel-ts/abi-typegen": "npm:0.96.1"
-    "@fuel-ts/account": "npm:0.96.1"
-    "@fuel-ts/address": "npm:0.96.1"
-    "@fuel-ts/contract": "npm:0.96.1"
-    "@fuel-ts/crypto": "npm:0.96.1"
-    "@fuel-ts/errors": "npm:0.96.1"
-    "@fuel-ts/hasher": "npm:0.96.1"
-    "@fuel-ts/interfaces": "npm:0.96.1"
-    "@fuel-ts/math": "npm:0.96.1"
-    "@fuel-ts/merkle": "npm:0.96.1"
-    "@fuel-ts/program": "npm:0.96.1"
-    "@fuel-ts/script": "npm:0.96.1"
-    "@fuel-ts/transactions": "npm:0.96.1"
-    "@fuel-ts/utils": "npm:0.96.1"
-    "@fuel-ts/versions": "npm:0.96.1"
+    "@fuel-ts/abi-coder": "npm:0.97.0"
+    "@fuel-ts/abi-typegen": "npm:0.97.0"
+    "@fuel-ts/account": "npm:0.97.0"
+    "@fuel-ts/address": "npm:0.97.0"
+    "@fuel-ts/contract": "npm:0.97.0"
+    "@fuel-ts/crypto": "npm:0.97.0"
+    "@fuel-ts/errors": "npm:0.97.0"
+    "@fuel-ts/hasher": "npm:0.97.0"
+    "@fuel-ts/interfaces": "npm:0.97.0"
+    "@fuel-ts/math": "npm:0.97.0"
+    "@fuel-ts/merkle": "npm:0.97.0"
+    "@fuel-ts/program": "npm:0.97.0"
+    "@fuel-ts/script": "npm:0.97.0"
+    "@fuel-ts/transactions": "npm:0.97.0"
+    "@fuel-ts/utils": "npm:0.97.0"
+    "@fuel-ts/versions": "npm:0.97.0"
     bundle-require: "npm:^5.0.0"
     chalk: "npm:4"
     chokidar: "npm:^3.6.0"
@@ -20665,7 +20665,7 @@ __metadata:
     yup: "npm:^1.4.0"
   bin:
     fuels: fuels.js
-  checksum: 10c0/e5c3836b56aa2d039c45b201e1a7ac1917b23f1ad1c1515eedb70c14ab127756ffaff46e84ffd82418e0af5100de12ff9a21e419a2dbdac94e9645e75412a794
+  checksum: 10c0/8767cba26425c2d48e639fc272875305d29874e24df866facba78518a85d2f6920bdd91b70d3b79b58eaf492b03d48dfb45f79c998111ae207791c1901c64558
   languageName: node
   linkType: hard
 
