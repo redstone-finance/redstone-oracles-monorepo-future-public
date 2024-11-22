@@ -20,7 +20,7 @@ describe("should-update", () => {
       BTC: createNumberFromContract(23011.68),
     };
     const lastUpdateTimestamp = Date.now() - 1;
-    const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
+    const { shouldUpdatePrices, messages } = await shouldUpdate(
       {
         dataPackages,
         dataFromContract: {
@@ -41,13 +41,10 @@ describe("should-update", () => {
       config()
     );
     expect(shouldUpdatePrices).to.be.false;
-    expect(warningMessage.split("; ")[0]).to.match(
+    expect(messages[0].message).to.match(
       /Not enough time has passed to update prices/
     );
-
-    expect(warningMessage.split("; ")[1]).to.match(
-      /Value has not deviated enough to/
-    );
+    expect(messages[1].message).to.match(/Value has not deviated enough to/);
   });
 
   it("should return true if value-deviation check succeed", async () => {
@@ -57,7 +54,7 @@ describe("should-update", () => {
       BTC: createNumberFromContract(13011.68),
     };
     const lastUpdateTimestamp = Date.now() - 1;
-    const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
+    const { shouldUpdatePrices, messages } = await shouldUpdate(
       {
         dataPackages,
         dataFromContract: {
@@ -77,9 +74,8 @@ describe("should-update", () => {
       },
       config()
     );
-    console.log(warningMessage);
     expect(shouldUpdatePrices).to.be.true;
-    expect(warningMessage).to.match(
+    expect(messages[0].message).to.match(
       /Not enough time has passed to update prices/
     );
   });
@@ -91,7 +87,7 @@ describe("should-update", () => {
       BTC: createNumberFromContract(23011.68),
     };
     const lastUpdateTimestamp = Date.now() - 100000;
-    const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
+    const { shouldUpdatePrices, messages } = await shouldUpdate(
       {
         dataPackages,
         dataFromContract: {
@@ -112,7 +108,7 @@ describe("should-update", () => {
       config()
     );
     expect(shouldUpdatePrices).to.be.true;
-    expect(warningMessage).to.match(
+    expect(messages[1].message).to.match(
       /Value has not deviated enough to be updated/
     );
   });
@@ -129,7 +125,7 @@ describe("should-update", () => {
     };
 
     const lastUpdateTimestamp = Date.now() - 100000;
-    const { warningMessage } = await shouldUpdate(
+    const { messages } = await shouldUpdate(
       {
         dataPackages,
         dataFromContract: {
@@ -149,7 +145,7 @@ describe("should-update", () => {
       },
       config()
     );
-    expect(warningMessage).to.match(
+    expect(messages[1].message).to.match(
       /Value has not deviated enough to be updated/
     );
   });
@@ -167,7 +163,7 @@ describe("should-update", () => {
     };
 
     const lastUpdateTimestamp = Date.now() - 100000;
-    const { warningMessage } = await shouldUpdate(
+    const { messages } = await shouldUpdate(
       {
         dataPackages,
         dataFromContract: {
@@ -182,6 +178,6 @@ describe("should-update", () => {
       },
       config()
     );
-    expect(warningMessage).to.match(/Enough time passed to updated price/);
+    expect(messages[0].message).to.match(/Enough time passed to updated price/);
   });
 });

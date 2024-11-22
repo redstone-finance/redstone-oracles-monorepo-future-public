@@ -87,7 +87,11 @@ export const performValueDeviationConditionChecks = async (
   return {
     shouldUpdatePrices: shouldUpdatePricesNoSkip && !skipFallbackUpdate,
     maxDeviationRatio: Math.max(maxDeviationRatio, historicalMaxDeviation),
-    warningMessage: `${prefix}${skipFallbackMessage}${warningMessage}${historicalWarningMessage}`,
+    messages: [
+      {
+        message: `${prefix}${skipFallbackMessage}${warningMessage}${historicalWarningMessage}`,
+      },
+    ],
   };
 };
 

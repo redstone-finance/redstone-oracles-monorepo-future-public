@@ -3,17 +3,21 @@
     "name": "sepolia",
     "id": 11155111
   },
-  "adapterContract": "0xE2Ff0DeB9B24Ec6C4F1f1dEE39610A450B3238E0",
+  "adapterContract": "0xfcd454d19f9B8806F8908e99d85b8eA17b3c7346",
   "adapterContractType": "multi-feed",
   "dataServiceId": "redstone-primary-prod",
   "updateTriggers": {
-    "deviationPercentage": 1,
-    "timeSinceLastUpdateInMilliseconds": 86400000
+    "timeSinceLastUpdateInMilliseconds": 10000
   },
   "priceFeeds": {
     "ETH": {},
     "BTC": {},
     "USDC": {},
-    "USDT": {}
+    "USDT": {},
+    "weETH": {},
+    "ezETH": {},
+    "STONE": {},
+    "rsETH": {},
+    "weETH_FUNDAMENTAL": {}
   }
 }

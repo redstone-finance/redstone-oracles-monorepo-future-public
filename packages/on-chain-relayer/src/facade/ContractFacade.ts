@@ -14,11 +14,7 @@ import {
   ShouldUpdateContext,
   UpdatePricesArgs,
 } from "../types";
-
-export type IterationArgsProvider = (
-  context: ShouldUpdateContext,
-  relayerConfig: RelayerConfig
-) => Promise<IterationArgs>;
+import { IterationArgsProvider } from "./get-iteration-args-provider";
 
 export abstract class ContractFacade {
   constructor(

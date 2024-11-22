@@ -25,24 +25,26 @@ export interface ShouldUpdateContext {
   blockTag: number;
 }
 
+export type IterationArgsMessage = { message: string; args?: unknown[] };
+
 export interface ShouldUpdateResponse {
   dataFeedsToUpdate: string[];
   dataFeedsDeviationRatios: Record<string, number>;
   heartbeatUpdates: number[];
-  warningMessage: string;
+  messages: IterationArgsMessage[];
 }
 
 export interface ConditionCheckResponse {
   shouldUpdatePrices: boolean;
-  warningMessage: string;
+  messages: IterationArgsMessage[];
   maxDeviationRatio?: number;
 }
 
 export type IterationArgs = {
   shouldUpdatePrices: boolean;
   args: UpdatePricesArgs;
-  message?: string;
-  additionalMessages?: { message: string; args?: string[][] }[];
+  messages: IterationArgsMessage[];
+  additionalUpdateMessages?: IterationArgsMessage[];
 };
 
 export type UpdatePricesArgs = {

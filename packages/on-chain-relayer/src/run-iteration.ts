@@ -2,10 +2,14 @@ import { loggerFactory, sendHealthcheckPing } from "@redstone-finance/utils";
 import { config } from "./config";
 import { ContractFacade } from "./facade/ContractFacade";
 
+export type IterationLogger = {
+  log(message: string, ...args: unknown[]): void;
+};
+
 export const runIteration = async (
   contractFacade: ContractFacade,
-  sendHealthcheckPingCallback = sendHealthcheckPing,
-  logger = loggerFactory("relayer/run-iteration")
+  logger: IterationLogger = loggerFactory("relayer/run-iteration"),
+  sendHealthcheckPingCallback = sendHealthcheckPing
 ) => {
   const iterationStart = performance.now();
   const relayerConfig = config();
@@ -16,18 +20,22 @@ export const runIteration = async (
     relayerConfig
   );
   void sendHealthcheckPingCallback(relayerConfig.healthcheckPingUrl);
-  logger.log(
-    `Update condition ${
+  const messages = iterationArgs.messages.map(({ message }) => message),
+    message = `Update condition ${
       iterationArgs.shouldUpdatePrices ? "" : "NOT "
-    }satisfied: ${iterationArgs.message} block_number=${
+    }satisfied; block_number=${
       iterationArgs.args.blockTag
-    } iteration_duration=${performance.now() - iterationStart}`
-  );
+    } iteration_duration=${performance.now() - iterationStart}`;
+
+  logger.log(message, messages);
+
   if (iterationArgs.shouldUpdatePrices) {
-    iterationArgs.additionalMessages?.forEach(({ message, args }) =>
+    iterationArgs.additionalUpdateMessages?.forEach(({ message, args }) =>
       logger.log(message, args)
     );
 
     await contractFacade.updatePrices(iterationArgs.args);
   }
+
+  return iterationArgs.shouldUpdatePrices;
 };

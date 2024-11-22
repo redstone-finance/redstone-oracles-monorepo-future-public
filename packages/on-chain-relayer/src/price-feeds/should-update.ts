@@ -3,6 +3,7 @@ import { checkIfDataPackageTimestampIsNewer } from "../core/update-conditions/da
 import { checkIfDataPackagesDecimalsAreAcceptable } from "../custom-integrations/mento/data-packages-decimals";
 import {
   ConditionCheckResponse,
+  IterationArgsMessage,
   RelayerConfig,
   ShouldUpdateContext,
 } from "../types";
@@ -11,7 +12,7 @@ export const shouldUpdate = async (
   context: ShouldUpdateContext,
   config: RelayerConfig
 ): Promise<ConditionCheckResponse> => {
-  const warningMessages: string[] = [];
+  const warningMessages: IterationArgsMessage[] = [];
   let shouldUpdatePrices = false;
   for (const dataFeedId of config.dataFeeds) {
     for (const conditionName of config.updateConditions[dataFeedId]) {
@@ -22,30 +23,30 @@ export const shouldUpdate = async (
         config
       );
       shouldUpdatePrices ||= conditionCheck.shouldUpdatePrices;
-      if (conditionCheck.warningMessage.length > 0) {
-        warningMessages.push(conditionCheck.warningMessage);
+      if (conditionCheck.messages.length > 0) {
+        warningMessages.push(...conditionCheck.messages);
       }
     }
 
-    let { shouldNotUpdatePrice, message } = checkIfDataPackageTimestampIsNewer(
+    let { shouldNotUpdatePrice, messages } = checkIfDataPackageTimestampIsNewer(
       context,
       dataFeedId
     );
     if (shouldNotUpdatePrice) {
       shouldUpdatePrices = false;
-      warningMessages.push(message!);
+      warningMessages.push(...messages);
     }
 
-    ({ shouldNotUpdatePrice, message } =
+    ({ shouldNotUpdatePrice, messages } =
       checkIfDataPackagesDecimalsAreAcceptable(context, config));
     if (shouldNotUpdatePrice) {
       shouldUpdatePrices = false;
-      warningMessages.push(message!);
+      warningMessages.push(...messages);
     }
   }
 
   return {
     shouldUpdatePrices,
-    warningMessage: warningMessages.join("; "),
+    messages: warningMessages,
   };
 };

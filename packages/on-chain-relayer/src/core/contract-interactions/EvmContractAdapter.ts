@@ -41,9 +41,8 @@ export abstract class EvmContractAdapter<Contract extends RedstoneEvmContract>
     );
 
     if (!updateTxResponse) {
-      return logger.info(
-        "updateTxResponse is undefined - we are probably in Gelato env"
-      );
+      // nothing wrong: we are probably in Gelato env or another custom txDeliveryMan is provided
+      return;
     }
 
     // is not using await to not block the main function

@@ -265,9 +265,9 @@
       "name": "Ethereum Sepolia",
       "chainId": 11155111,
       "publicRpcUrls": [
-        "https://rpc.sepolia.org",
+        "https://1rpc.io/sepolia",
         "https://ethereum-sepolia-rpc.publicnode.com",
-        "https://1rpc.io/sepolia"
+        "https://rpc.sepolia.org"
       ],
       "etherScanApi": "https://api-sepolia.etherscan.io",
       "avgBlockTimeMs": 12000,

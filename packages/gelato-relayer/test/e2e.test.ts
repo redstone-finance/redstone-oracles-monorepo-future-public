@@ -3,7 +3,6 @@ import { Web3FunctionHardhat } from "@gelatonetwork/web3-functions-sdk/hardhat-p
 import { expect } from "chai";
 import hre from "hardhat";
 import * as args from "./userArgs.json";
-import * as argsMultiFeed from "./userArgsMultiFeed.json";
 
 const { w3f } = hre;
 
@@ -17,25 +16,24 @@ describe("RedStone Gelato w3f: On-chain Relayer & remote manifest e2e Tests", fu
   });
 
   it("Return 'canExec: true' when update is needed", async () => {
-    await performTest(
-      redstoneW3f,
-      { ...args },
-      "0x11B714817cBC92D402383cFd3f1037B122dcf69A"
-    );
+    await performTest(args, "0x11B714817cBC92D402383cFd3f1037B122dcf69A");
   });
 
   it("Return 'canExec: true' when update is needed for MultiFeed", async () => {
     await performTest(
-      redstoneW3f,
-      { ...argsMultiFeed },
+      {
+        ...args,
+        manifestUrls: [
+          "https://remote-config-ruby.vercel.app/gelato-sepolia-for-tests-multi-feed-manifest.json",
+        ],
+      },
       "0xfcd454d19f9B8806F8908e99d85b8eA17b3c7346"
     );
   });
 
   async function performTest(
-    redstoneW3f: Web3FunctionHardhat,
-    userArgs: { manifestUrls: string[] },
-    value: string
+    userArgs: typeof args,
+    destinationContractAddress: string
   ) {
     const { result } = await redstoneW3f.run("onRun", { userArgs });
     expect(result.canExec).to.equal(true);
@@ -48,6 +46,6 @@ describe("RedStone Gelato w3f: On-chain Relayer & remote manifest e2e Tests", fu
     ).callData;
 
     expect(callData.length).to.equal(1);
-    expect(callData[0].to).to.equal(value);
+    expect(callData[0].to).to.equal(destinationContractAddress);
   }
 });

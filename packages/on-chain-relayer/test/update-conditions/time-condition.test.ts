@@ -10,25 +10,27 @@ describe("time-condition", () => {
 
   it("should return false if time diff smaller than interval", () => {
     const lastUpdateTimestamp = Date.now() - 1;
-    const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
+    const { shouldUpdatePrices, messages } = timeUpdateCondition(
       "ETH",
       lastUpdateTimestamp,
       config()
     );
     expect(shouldUpdatePrices).to.be.false;
-    expect(warningMessage).to.match(
+    expect(messages[0].message).to.match(
       /Not enough time has passed to update prices/
     );
   });
 
   it("should return true if time diff bigger than interval", () => {
     const lastUpdateTimestamp = Date.now() - 100000;
-    const { shouldUpdatePrices, warningMessage } = timeUpdateCondition(
+    const { shouldUpdatePrices, messages } = timeUpdateCondition(
       "ETH",
       lastUpdateTimestamp,
       config()
     );
     expect(shouldUpdatePrices).to.be.true;
-    expect(warningMessage).to.match(/Enough time passed to updated prices/);
+    expect(messages[0].message).to.match(
+      /Enough time passed to updated prices/
+    );
   });
 });

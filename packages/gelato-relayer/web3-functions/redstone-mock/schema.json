@@ -6,7 +6,7 @@
   "userArgs": {
     "shouldUpdatePrices": "boolean",
     "message": "string",
-    "args": "string",
-    "adapterContractAddress": "string"
+    "manifestUrls": "string[]",
+    "localManifestData": "string"
   }
 }

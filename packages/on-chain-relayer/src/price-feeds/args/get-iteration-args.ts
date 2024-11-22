@@ -6,7 +6,7 @@ export const getIterationArgs = async (
   context: ShouldUpdateContext,
   relayerConfig: RelayerConfig
 ) => {
-  const { shouldUpdatePrices, warningMessage } = await shouldUpdate(
+  const { shouldUpdatePrices, messages } = await shouldUpdate(
     context,
     relayerConfig
   );
@@ -18,7 +18,7 @@ export const getIterationArgs = async (
 
   return {
     shouldUpdatePrices,
-    message: warningMessage,
+    messages,
     args: {
       blockTag: context.blockTag,
       updateRequestParams,

@@ -1,16 +1,16 @@
 import { Web3FunctionHardhat } from "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
 import { expect } from "chai";
 import hre from "hardhat";
-import * as args from "../web3-functions/redstone-mock/userArgs.json";
+import * as args from "./userArgs.json";
 
-import {
-  Web3FunctionResultCallData,
-  Web3FunctionResultV1,
-  Web3FunctionResultV2,
-} from "@gelatonetwork/web3-functions-sdk";
+import { Web3FunctionResultCallData } from "@gelatonetwork/web3-functions-sdk";
+import * as fs from "node:fs";
+import path from "path";
 
 const { w3f } = hre;
 
+const CONDITION_NOT_SATISFIED_MESSAGE =
+  /Update condition NOT satisfied; block_number=12221/;
 describe("RedStone Gelato w3f Tests", function () {
   this.timeout(0);
 
@@ -21,10 +21,59 @@ describe("RedStone Gelato w3f Tests", function () {
   });
 
   it("Return canExec: true when update is needed", async () => {
-    const userArgs = { ...args };
-    userArgs.shouldUpdatePrices = true;
-    userArgs.args = "0x0512341435321111a";
+    const callData = await performCanExecTest(prepareUserArgs());
 
+    expect(callData).to.match(/0xc14c9204.*002ed57011e0000/);
+  });
+
+  it("Return canExec: true when update is needed in multi-feed", async () => {
+    const callData = await performCanExecTest(
+      prepareUserArgs(true, "./manifestMultiFeed.json"),
+      "0xfcd454d19f9B8806F8908e99d85b8eA17b3c7346"
+    );
+
+    expect(callData).to.match(/0xb7a16251.*002ed57011e0000/);
+  });
+
+  it("Return canExec: false (Skipping) when update is not needed", async () => {
+    const message = await performShouldNotExecTest(
+      redstoneW3f,
+      prepareUserArgs(false)
+    );
+
+    expect(message).to.match(CONDITION_NOT_SATISFIED_MESSAGE);
+  });
+
+  it("Return canExec: false (Skipping) when update is not needed in multi-feed", async () => {
+    const message = await performShouldNotExecTest(
+      redstoneW3f,
+      prepareUserArgs(false, "./manifestMultiFeed.json")
+    );
+
+    expect(message).to.match(CONDITION_NOT_SATISFIED_MESSAGE);
+  });
+
+  function prepareUserArgs(
+    shouldUpdatePrices = true,
+    manifestPath = "./manifest.json"
+  ) {
+    const userArgs = { ...args };
+
+    userArgs.shouldUpdatePrices = shouldUpdatePrices;
+    userArgs.message = shouldUpdatePrices
+      ? "Update needed"
+      : "Update NOT needed";
+    userArgs.localManifestData = Buffer.from(
+      fs.readFileSync(path.join(__dirname, manifestPath))
+    ).toString("base64");
+
+    return userArgs;
+  }
+
+  async function performCanExecTest(
+    userArgs: typeof args,
+    adapterContractAddress = "0x11B714817cBC92D402383cFd3f1037B122dcf69A"
+  ) {
     const { result } = await redstoneW3f.run("onRun", { userArgs });
     expect(result.canExec).to.equal(true);
 
@@ -36,41 +85,23 @@ describe("RedStone Gelato w3f Tests", function () {
     ).callData;
 
     expect(callData.length).to.equal(1);
-    expect(callData[0].to).to.equal(userArgs.adapterContractAddress);
-    expect(callData[0].data).to.equal(userArgs.args);
-  });
+    expect(callData[0].to).to.equal(adapterContractAddress);
 
-  it("Return canExec: false (Skipping) when update is not needed", async () => {
-    const userArgs = { ...args };
-    userArgs.shouldUpdatePrices = false;
-    userArgs.message = "Update not needed";
+    return callData[0].data;
+  }
 
-    const { result } = await redstoneW3f.run("onRun", { userArgs });
-
-    checkCanNotExec(result, "Update not needed");
-  });
-
-  it("Return canExec: false (Args are empty) when update is needed but no args", async () => {
-    const userArgs = { ...args };
-    userArgs.shouldUpdatePrices = true;
-
-    const { result } = await redstoneW3f.run("onRun", { userArgs });
-
-    checkCanNotExec(result, "Args are empty");
-  });
-
-  function checkCanNotExec(
-    result: Web3FunctionResultV1 | Web3FunctionResultV2 | undefined,
-    message: string
+  async function performShouldNotExecTest(
+    redstoneW3f: Web3FunctionHardhat,
+    userArgs: typeof args
   ) {
-    expect(result?.canExec).to.equal(false);
-    expect(
-      (
-        result as {
-          canExec: false;
-          message: string;
-        }
-      ).message
-    ).to.equal(message);
+    const { result } = await redstoneW3f.run("onRun", { userArgs });
+    expect(result.canExec).to.equal(false);
+
+    return (
+      result as {
+        canExec: false;
+        message: string;
+      }
+    ).message;
   }
 });

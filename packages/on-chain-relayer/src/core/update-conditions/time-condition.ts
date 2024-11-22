@@ -22,6 +22,7 @@ export const timeUpdateCondition = (
   const timeDiff = currentTimestamp - lastUpdateTimestamp;
   const shouldUpdatePrices = timeDiff >= updatePriceInterval;
   const logTrace = JSON.stringify({
+    dataFeedId,
     timeDiff,
     updatePriceInterval,
   });
@@ -32,8 +33,10 @@ export const timeUpdateCondition = (
 
   return {
     shouldUpdatePrices,
-    warningMessage: `${
-      isFallback ? "Time in fallback mode: " : ""
-    }${warningMessage}`,
+    messages: [
+      {
+        message: `${isFallback ? "Time in fallback mode: " : ""}${warningMessage}`,
+      },
+    ],
   };
 };

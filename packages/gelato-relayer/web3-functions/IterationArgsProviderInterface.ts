@@ -9,4 +9,5 @@ export type IterationArgsProviderEnv = {
   historicalPackagesGateways?: string[];
   fallbackOffsetInMilliseconds: number;
   fallbackSkipDeviationBasedFrequentUpdates: boolean;
+  localManifestData?: unknown;
 };
