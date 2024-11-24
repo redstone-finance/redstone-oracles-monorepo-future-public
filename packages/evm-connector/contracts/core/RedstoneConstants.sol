@@ -18,7 +18,6 @@ contract RedstoneConstants {
   uint256 internal constant STANDARD_SLOT_BS = 32;
   uint256 internal constant FREE_MEMORY_PTR = 0x40;
   uint256 internal constant BYTES_ARR_LEN_VAR_BS = 32;
-  uint256 internal constant FUNCTION_SIGNATURE_BS = 4;
   uint256 internal constant REVERT_MSG_OFFSET = 68; // Revert message structure described here: https://ethereum.stackexchange.com/a/66173/106364
   uint256 internal constant STRING_ERR_MESSAGE_MASK = 0x08c379a000000000000000000000000000000000000000000000000000000000;
 
