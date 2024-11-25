@@ -1,6 +1,7 @@
 import { TransactionReceipt } from "@ethersproject/providers";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
+import { RelayerConfig } from "../../config/RelayerConfig";
 import { RedstoneEvmContract } from "../../facade/EvmContractFacade";
 import { ContractData } from "../../types";
 import { IRedstoneContractAdapter } from "./IRedstoneContractAdapter";
@@ -12,6 +13,7 @@ export abstract class EvmContractAdapter<Contract extends RedstoneEvmContract>
   implements IRedstoneContractAdapter
 {
   constructor(
+    public relayerConfig: RelayerConfig,
     public adapterContract: Contract,
     protected txDeliveryMan?: ITxDeliveryMan
   ) {}

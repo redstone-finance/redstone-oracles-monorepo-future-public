@@ -17,7 +17,7 @@ import {
 } from "../../typechain-types";
 import {
   getDataPackagesResponse,
-  mockEnvVariables,
+  mockConfig,
   START_OEV_AUCTION_URL,
 } from "../helpers";
 import { server } from "./mock-server";
@@ -51,7 +51,7 @@ describe("update-using-oev-auction", () => {
       Promise.resolve(multipartResponse)
     );
 
-    mockEnvVariables({
+    const relayerConfig = mockConfig({
       oevAuctionUrl: START_OEV_AUCTION_URL,
       dataFeeds: ["BTC"],
     });
@@ -87,6 +87,7 @@ describe("update-using-oev-auction", () => {
     );
 
     await updateUsingOevAuction(
+      relayerConfig,
       "0x",
       45044689,
       adapterContract as RedstoneAdapterBase,

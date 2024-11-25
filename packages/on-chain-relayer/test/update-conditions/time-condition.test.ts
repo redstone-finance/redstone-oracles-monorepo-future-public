@@ -1,11 +1,13 @@
 import { expect } from "chai";
-import { config } from "../../src/config";
+import { RelayerConfig } from "../../src";
 import { timeUpdateCondition } from "../../src/core/update-conditions/time-condition";
-import { mockEnvVariables } from "../helpers";
+import { mockConfig } from "../helpers";
 
 describe("time-condition", () => {
+  let relayerConfig: RelayerConfig;
+
   before(() => {
-    mockEnvVariables();
+    relayerConfig = mockConfig();
   });
 
   it("should return false if time diff smaller than interval", () => {
@@ -13,7 +15,7 @@ describe("time-condition", () => {
     const { shouldUpdatePrices, messages } = timeUpdateCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(messages[0].message).to.match(
@@ -26,7 +28,7 @@ describe("time-condition", () => {
     const { shouldUpdatePrices, messages } = timeUpdateCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(messages[0].message).to.match(

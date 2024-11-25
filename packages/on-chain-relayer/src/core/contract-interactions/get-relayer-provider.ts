@@ -7,7 +7,7 @@ import {
   ProviderDecorators,
 } from "@redstone-finance/rpc-providers";
 import { providers } from "ethers";
-import { config } from "../../config";
+import { RelayerConfig } from "../../config/RelayerConfig";
 
 let cachedProvider: providers.Provider | undefined;
 
@@ -38,24 +38,28 @@ const electBlock = (
   }
 };
 
-export const getRelayerProvider = () => {
+export const getRelayerProvider = (relayerConfig: RelayerConfig) => {
   if (cachedProvider) {
     return cachedProvider;
   }
-  const { rpcUrls, chainName, chainId, ethersPollingIntervalInMs } = config();
+
+  const { rpcUrls, chainName, chainId, ethersPollingIntervalInMs } =
+    relayerConfig;
 
   cachedProvider = new MegaProviderBuilder({
     rpcUrls,
-    timeout: config().singleProviderOperationTimeout,
+    timeout: relayerConfig.singleProviderOperationTimeout,
     throttleLimit: 1,
     network: { name: chainName, chainId },
     pollingInterval: ethersPollingIntervalInMs,
   })
     .agreement(
       {
-        singleProviderOperationTimeout: config().singleProviderOperationTimeout,
-        allProvidersOperationTimeout: config().allProvidersOperationTimeout,
-        getBlockNumberTimeoutMS: config().getBlockNumberTimeout,
+        singleProviderOperationTimeout:
+          relayerConfig.singleProviderOperationTimeout,
+        allProvidersOperationTimeout:
+          relayerConfig.allProvidersOperationTimeout,
+        getBlockNumberTimeoutMS: relayerConfig.getBlockNumberTimeout,
         electBlockFn: electBlock,
         ignoreAgreementOnInsufficientResponses: true,
       },
@@ -67,7 +71,7 @@ export const getRelayerProvider = () => {
           maxCallsCount: 3,
           autoResolveInterval: 100,
         }),
-      config().useMulticallProvider
+      relayerConfig.useMulticallProvider
     )
     .addDecorator(ProviderDecorators.Treat0xAsErrorDecorator)
     .build();

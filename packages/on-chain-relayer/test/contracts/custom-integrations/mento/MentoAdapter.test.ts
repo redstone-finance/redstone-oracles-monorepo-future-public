@@ -11,6 +11,7 @@ import { BigNumber } from "ethers";
 import { parseUnits } from "ethers/lib/utils";
 import { ethers, upgrades, waffle } from "hardhat";
 import Sinon from "sinon";
+import { RelayerConfig } from "../../../../src";
 import * as get_provider from "../../../../src/core/contract-interactions/get-relayer-provider";
 import { MentoEvmContractAdapter } from "../../../../src/core/contract-interactions/MentoEvmContractAdapter";
 import {
@@ -22,9 +23,9 @@ import {
   MentoAdapterMock,
   MockSortedOracles,
 } from "../../../../typechain-types";
-import { deployMockSortedOracles, mockEnvVariables } from "../../../helpers";
+import { deployMockSortedOracles, mockConfig } from "../../../helpers";
 
-let getProviderStub: Sinon.SinonStub<[], Provider>;
+let getProviderStub: Sinon.SinonStub<[RelayerConfig], Provider>;
 
 chai.use(chaiAsPromised);
 
@@ -182,7 +183,6 @@ describe("MentoAdapter", () => {
   beforeEach(async () => {
     // Deploying sorted oracles
     sortedOracles = await deployMockSortedOracles();
-    mockEnvVariables({ adapterContractType: "mento" });
 
     // Deploying mento adapter
     const MentoAdapterFactory =
@@ -315,7 +315,7 @@ describe("MentoAdapter", () => {
   it("Should properly read redstone values reported to sorted oracles", async () => {
     const { proposedTimestamp, timestampMilliseconds } =
       (await reportWithAdapter(1, 2, mentoAdapter))!;
-    const adapter = new MentoEvmContractAdapter(mentoAdapter);
+    const adapter = new MentoEvmContractAdapter(mockConfig(), mentoAdapter);
     const values = await adapter.readLatestRoundParamsFromContract(
       ["BTC", "ETH"],
       await mentoAdapter.provider.getBlockNumber()

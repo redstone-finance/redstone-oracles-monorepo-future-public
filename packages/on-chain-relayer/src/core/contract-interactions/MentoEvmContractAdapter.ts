@@ -5,7 +5,6 @@ import {
   ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
 import { MentoAdapterBase } from "../../../typechain-types";
-import { config } from "../../config";
 import { getSortedOraclesContractAtAddress } from "../../custom-integrations/mento/get-sorted-oracles-contract-at-address";
 import {
   getValuesForMentoDataFeeds,
@@ -47,7 +46,7 @@ export class MentoEvmContractAdapter extends PriceFeedsEvmContractAdapter<MentoA
       sortedOraclesAddress,
       this.adapterContract.provider
     );
-    const maxDeviationAllowed = config().mentoMaxDeviationAllowed;
+    const maxDeviationAllowed = this.relayerConfig.mentoMaxDeviationAllowed;
 
     const dataPackages = await dataPackagesPromise;
     const dataPackagesWrapper = new DataPackagesWrapper<MentoAdapterBase>(

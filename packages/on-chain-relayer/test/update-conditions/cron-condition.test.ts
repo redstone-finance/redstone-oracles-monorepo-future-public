@@ -1,9 +1,9 @@
 import { expect } from "chai";
-import { config } from "../../src/config";
+import { RelayerConfig } from "../../src";
 import { cronCondition } from "../../src/core/update-conditions/cron-condition";
 import {
   dateStrToMilliseconds,
-  mockEnvVariables,
+  mockConfig,
   restoreOriginalSystemTime,
   setCurrentSystemTime,
 } from "../helpers";
@@ -11,9 +11,12 @@ import {
 const SHOULD_NOT_UPDATE_REGEXP =
   /Should not update prices according to cron expr/;
 const SHOULD_UPDATE_REGEXP = /Should update prices according to cron expr/;
+
 describe("cron-condition", () => {
+  let relayerConfig: RelayerConfig;
+
   before(() => {
-    mockEnvVariables({
+    relayerConfig = mockConfig({
       updateTriggers: {
         ETH: {
           cron: ["0 * * * *"], // every hour at 0th minute
@@ -32,7 +35,7 @@ describe("cron-condition", () => {
     const { shouldUpdatePrices, messages } = cronCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(messages[0].message).to.match(SHOULD_NOT_UPDATE_REGEXP);
@@ -44,7 +47,7 @@ describe("cron-condition", () => {
     const { shouldUpdatePrices, messages } = cronCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(messages[0].message).to.match(SHOULD_NOT_UPDATE_REGEXP);
@@ -56,14 +59,14 @@ describe("cron-condition", () => {
     const { shouldUpdatePrices, messages } = cronCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(messages[0].message).to.match(SHOULD_UPDATE_REGEXP);
   });
 
   it("should return true if one of multiple cron expressions fulfilled", () => {
-    mockEnvVariables({
+    const relayerConfig = mockConfig({
       updateTriggers: {
         ETH: {
           cron: ["0 * * * *", "1 * * * *", "2 * * * *"], // every hour at 0th, 1st and 2nd minute
@@ -76,7 +79,7 @@ describe("cron-condition", () => {
     const { shouldUpdatePrices, messages } = cronCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(messages[0].message).to.match(SHOULD_NOT_UPDATE_REGEXP);
@@ -85,7 +88,7 @@ describe("cron-condition", () => {
   });
 
   it("should return true if two of multiple cron expressions fulfilled", () => {
-    mockEnvVariables({
+    const relayerConfig = mockConfig({
       updateTriggers: {
         ETH: {
           cron: ["0 * * * *", "1 * * * *", "2 * * * *"], // every hour at 0th, 1st and 2nd minute
@@ -98,7 +101,7 @@ describe("cron-condition", () => {
     const { shouldUpdatePrices, messages } = cronCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(messages[0].message).to.match(SHOULD_NOT_UPDATE_REGEXP);
@@ -107,7 +110,7 @@ describe("cron-condition", () => {
   });
 
   it("should return false if none of multiple cron expressions fulfilled", () => {
-    mockEnvVariables({
+    const relayerConfig = mockConfig({
       updateTriggers: {
         ETH: {
           cron: ["0 * * * *", "1 * * * *", "2 * * * *"], // every hour at 0th, 1st and 2nd minute
@@ -120,7 +123,7 @@ describe("cron-condition", () => {
     const { shouldUpdatePrices, messages } = cronCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(messages[0].message).to.match(SHOULD_NOT_UPDATE_REGEXP);

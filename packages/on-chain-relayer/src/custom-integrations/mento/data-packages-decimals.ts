@@ -2,11 +2,8 @@ import {
   getNumericDataPointDecimals,
   NumericDataPoint,
 } from "@redstone-finance/protocol";
-import {
-  IterationArgsMessage,
-  RelayerConfig,
-  ShouldUpdateContext,
-} from "../../types";
+import { RelayerConfig } from "../../config/RelayerConfig";
+import { IterationArgsMessage, ShouldUpdateContext } from "../../types";
 
 const MENTO_SUPPORTED_DECIMALS = 8;
 

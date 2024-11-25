@@ -1,16 +1,11 @@
 import { loggerFactory } from "@redstone-finance/utils";
-import { fileSystemConfigProvider } from "./FilesystemConfigProvider";
-import {
-  config,
-  setConfigProvider,
-  timelyOverrideSinceLastUpdate,
-} from "./config";
+import { config, ConsciouslyInvoked } from "./config/config";
+import { timelyOverrideSinceLastUpdate } from "./config/timely-override-since-last-update";
 import { AsyncTaskRunner } from "./runner/AsyncTaskRunner";
 import { MqttRunner } from "./runner/MqttRunner";
 
 export const runRelayer = () => {
-  setConfigProvider(fileSystemConfigProvider);
-  const relayerConfig = config();
+  const relayerConfig = config(ConsciouslyInvoked);
 
   const logger = loggerFactory("relayer/run");
 
@@ -24,7 +19,10 @@ export const runRelayer = () => {
   );
 
   if (relayerConfig.temporaryUpdatePriceInterval !== -1) {
-    timelyOverrideSinceLastUpdate(relayerConfig.temporaryUpdatePriceInterval);
+    timelyOverrideSinceLastUpdate(
+      relayerConfig,
+      relayerConfig.temporaryUpdatePriceInterval
+    );
   }
 
   if (relayerConfig.runWithMqtt) {

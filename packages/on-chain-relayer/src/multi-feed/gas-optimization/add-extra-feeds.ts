@@ -1,12 +1,12 @@
-import { config } from "../../config";
+import { RelayerConfig } from "../../config/RelayerConfig";
 import { MultiFeedUpdatePricesArgs } from "../../types";
 import { includeFeedsCloseToDeviation } from "./feeds-close-to-deviation";
 import { includeSynchronizedHeartbeatUpdates } from "./heartbeat-sync";
 
 export const addExtraFeedsToUpdateParams = (
+  relayerConfig: RelayerConfig,
   args: MultiFeedUpdatePricesArgs
 ) => {
-  const relayerConfig = config();
   const { dataFeedsToUpdate, dataFeedsDeviationRatios, heartbeatUpdates } =
     args;
   const dataFeedsToUpdateLengthOld = dataFeedsToUpdate.length;

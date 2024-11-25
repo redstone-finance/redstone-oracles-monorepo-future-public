@@ -1,8 +1,8 @@
+import { RelayerConfig } from "../../config/RelayerConfig";
 import { makeDataPackagesRequestParams } from "../../core/make-data-packages-request-params";
 import {
   IterationArgs,
   MultiFeedUpdatePricesArgs,
-  RelayerConfig,
   ShouldUpdateContext,
 } from "../../types";
 import { addExtraFeedsToUpdateParams } from "../gas-optimization/add-extra-feeds";
@@ -38,13 +38,16 @@ export const getMultiFeedIterationArgs = async (
   };
 
   if (iterationArgs.shouldUpdatePrices) {
-    addExtraFeedsAndMessagesToUpdateParams(iterationArgs);
+    addExtraFeedsAndMessagesToUpdateParams(relayerConfig, iterationArgs);
   }
 
   return iterationArgs;
 };
 
-function addExtraFeedsAndMessagesToUpdateParams(iterationArgs: IterationArgs) {
+function addExtraFeedsAndMessagesToUpdateParams(
+  relayerConfig: RelayerConfig,
+  iterationArgs: IterationArgs
+) {
   const messages = [];
 
   messages.push({
@@ -54,6 +57,7 @@ function addExtraFeedsAndMessagesToUpdateParams(iterationArgs: IterationArgs) {
     ],
   });
   const message = addExtraFeedsToUpdateParams(
+    relayerConfig,
     iterationArgs.args as MultiFeedUpdatePricesArgs
   );
   messages.push({ message });

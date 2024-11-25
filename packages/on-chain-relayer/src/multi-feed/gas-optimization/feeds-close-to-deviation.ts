@@ -1,4 +1,4 @@
-import { RelayerConfig } from "../../types";
+import { RelayerConfig } from "../../config/RelayerConfig";
 
 export const includeFeedsCloseToDeviation = (
   dataFeedsToUpdate: string[],

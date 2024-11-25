@@ -1,7 +1,6 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { RedstoneAdapterBase } from "../../../typechain-types";
-import { config } from "../../config";
 import { updateUsingOevAuction } from "../../custom-integrations/fastlane/update-using-oev-auction";
 import { PriceFeedsEvmContractAdapter } from "./PriceFeedsEvmContractAdapter";
 
@@ -15,12 +14,13 @@ export class OevPriceFeedsEvmContractAdapter<
   ): Promise<void> {
     try {
       const updateUsingOevAuctionPromise = updateUsingOevAuction(
+        this.relayerConfig,
         (await this.makeUpdateTx(paramsProvider, Date.now())).data,
-        await this.adapterContract.provider.getBlockNumber(), // TODO: additional call here
+        await this.adapterContract.provider.getBlockNumber(),
         this.adapterContract,
         await paramsProvider.requestDataPackages()
       );
-      const timeout = config().oevTotalTimeout;
+      const timeout = this.relayerConfig.oevTotalTimeout;
       await RedstoneCommon.timeout(
         updateUsingOevAuctionPromise,
         timeout,

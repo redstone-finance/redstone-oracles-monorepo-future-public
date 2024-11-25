@@ -5,12 +5,12 @@ import {
   IContractConnector,
   IExtendedPricesContractAdapter,
 } from "@redstone-finance/sdk";
+import { RelayerConfig } from "../config/RelayerConfig";
 import { IRedstoneContractAdapter } from "../core/contract-interactions/IRedstoneContractAdapter";
 import { makeDataPackagesRequestParams } from "../core/make-data-packages-request-params";
 import {
   ContractData,
   IterationArgs,
-  RelayerConfig,
   ShouldUpdateContext,
   UpdatePricesArgs,
 } from "../types";

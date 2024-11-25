@@ -3,12 +3,12 @@ import {
   IContractConnector,
 } from "@redstone-finance/sdk";
 import { BigNumber } from "ethers";
-import { IRedstoneContractAdapter, IterationArgsMessage } from "../../src";
 import {
-  ContractData,
+  IRedstoneContractAdapter,
+  IterationArgsMessage,
   RelayerConfig,
-  ShouldUpdateContext,
-} from "../../src/types";
+} from "../../src";
+import { ContractData, ShouldUpdateContext } from "../../src/types";
 
 class ContractAdapterMock implements IRedstoneContractAdapter {
   getUniqueSignerThreshold(_blockNumber?: number): Promise<number> {

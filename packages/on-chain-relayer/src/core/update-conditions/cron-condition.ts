@@ -1,5 +1,6 @@
 import { parseExpression } from "cron-parser";
-import { RelayerConfig } from "../../types";
+
+import { RelayerConfig } from "../../config/RelayerConfig";
 
 export const cronCondition = (
   dataFeedId: string,

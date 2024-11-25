@@ -1,16 +1,18 @@
 import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 import { expect } from "chai";
-import { config } from "../../src/config";
+import { RelayerConfig } from "../../src";
 import { shouldUpdate } from "../../src/price-feeds/should-update";
 import {
   createNumberFromContract,
   getDataPackagesResponse,
-  mockEnvVariables,
+  mockConfig,
 } from "../helpers";
 
 describe("should-update", () => {
+  let relayerConfig: RelayerConfig;
+
   before(() => {
-    mockEnvVariables();
+    relayerConfig = mockConfig();
   });
 
   it("should return false if all checks fail", async () => {
@@ -38,7 +40,7 @@ describe("should-update", () => {
         uniqueSignersThreshold: 2,
         blockTag: 0,
       },
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(messages[0].message).to.match(
@@ -72,7 +74,7 @@ describe("should-update", () => {
         uniqueSignersThreshold: 2,
         blockTag: 0,
       },
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(messages[0].message).to.match(
@@ -105,7 +107,7 @@ describe("should-update", () => {
         uniqueSignersThreshold: 2,
         blockTag: 0,
       },
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(messages[1].message).to.match(
@@ -143,7 +145,7 @@ describe("should-update", () => {
         uniqueSignersThreshold: 2,
         blockTag: 0,
       },
-      config()
+      relayerConfig
     );
     expect(messages[1].message).to.match(
       /Value has not deviated enough to be updated/
@@ -151,7 +153,7 @@ describe("should-update", () => {
   });
 
   it("should return true for smaller value when data packages contains custom decimals", async () => {
-    mockEnvVariables({
+    const relayerConfig = mockConfig({
       dataFeeds: ["ETH"],
     });
     const dataPackages = await getDataPackagesResponse([
@@ -176,7 +178,7 @@ describe("should-update", () => {
         uniqueSignersThreshold: 2,
         blockTag: 0,
       },
-      config()
+      relayerConfig
     );
     expect(messages[0].message).to.match(/Enough time passed to updated price/);
   });

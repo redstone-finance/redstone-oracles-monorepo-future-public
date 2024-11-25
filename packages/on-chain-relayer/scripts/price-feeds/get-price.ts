@@ -1,5 +1,6 @@
 import { Contract, utils } from "ethers";
 import { abi } from "../../artifacts/contracts/price-feeds/interfaces/IPriceFeed.sol/IPriceFeed.json";
+import { config, ConsciouslyInvoked } from "../../src/config/config";
 import { getRelayerProvider } from "../../src/core/contract-interactions/get-relayer-provider";
 import { PriceFeedBase } from "../../typechain-types";
 
@@ -9,7 +10,7 @@ import { PriceFeedBase } from "../../typechain-types";
 const PRICE_FEED_ADDRESS = "";
 
 void (async () => {
-  const provider = getRelayerProvider();
+  const provider = getRelayerProvider(config(ConsciouslyInvoked));
   const priceFeedContract = new Contract(
     PRICE_FEED_ADDRESS,
     abi,

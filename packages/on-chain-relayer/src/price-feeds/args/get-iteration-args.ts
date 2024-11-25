@@ -1,5 +1,6 @@
+import { RelayerConfig } from "../../config/RelayerConfig";
 import { makeDataPackagesRequestParams } from "../../core/make-data-packages-request-params";
-import { RelayerConfig, ShouldUpdateContext } from "../../types";
+import { ShouldUpdateContext } from "../../types";
 import { shouldUpdate } from "../should-update";
 
 export const getIterationArgs = async (

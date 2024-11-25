@@ -1,9 +1,5 @@
-import {
-  ConditionCheckNames,
-  ConditionCheckResponse,
-  RelayerConfig,
-  ShouldUpdateContext,
-} from "../../types";
+import { ConditionCheckNames, RelayerConfig } from "../../config/RelayerConfig";
+import { ConditionCheckResponse, ShouldUpdateContext } from "../../types";
 import { cronCondition } from "./cron-condition";
 import { timeUpdateCondition } from "./time-condition";
 import { valueDeviationCondition } from "./value-deviation-condition";
