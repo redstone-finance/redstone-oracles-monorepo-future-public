@@ -26,6 +26,13 @@
     },
     "fBOMB": {
       "priceFeedAddress": "0xFB1267A29C0aa19daae4a483ea895862A69e4AA5"
+    },
+    "XVS": {
+      "priceFeedAddress": "0x5ED849a45B4608952161f45483F4B95BCEa7f8f0",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 1,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     }
   }
 }
