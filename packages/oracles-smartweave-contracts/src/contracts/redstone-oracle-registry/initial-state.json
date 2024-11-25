@@ -289,6 +289,16 @@
       "description": "Data feeds provided by Kaiko",
       "evmAddress": "0xC92Fb6e9383BCC90f8299AfA519ac6bf7606A9F0",
       "ecdsaPublicKey": "0x04a4e9489e8e36206427cda107c566702de435055b83235dd787601af4a35f7fcd1b0347dba277a111c3ab756cfd87202f1986797472a1603581dc5c15a954dfe4"
+    },
+    "0x6318eE5BC5070150b7ab2688fc2C9c1Bf958B72c": {
+      "url": "https://kudasai.co.jp",
+      "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/kudasaijp/logo_orange.svg",
+      "name": "kudasaijp-demo-1",
+      "ipAddress": "0.0.0.0",
+      "dataServiceId": "kudasaijp-demo-1",
+      "description": "Data feeds provided by KudasaiJP",
+      "evmAddress": "0x6318eE5BC5070150b7ab2688fc2C9c1Bf958B72c",
+      "ecdsaPublicKey": "0x04923b515ca55308a9a6f5cac7ccf6cafbc1fda73700a081b1d1114e20e3c0a89c9fe388b6e62fade1243bd30895ac0473a9642756be38e3619aad5c9b890e0cc3"
     }
   },
   "evolve": null,
@@ -379,6 +389,11 @@
       "name": "Kaiko Demo 1 Node",
       "logo": "https://redstone.finance/assets/img/redstone-logo-full.svg",
       "description": "Data feeds provided by Kaiko to staging env"
+    },
+    "kudasaijp-demo-1": {
+      "name": "KudasaiJP Demo 1 Node",
+      "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/kudasaijp/logo_orange.svg",
+      "description": "Data feeds provided by KudasaiJP to staging env"
     }
   },
   "contractAdmins": [
