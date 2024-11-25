@@ -13,12 +13,13 @@ const logger = loggerFactory("chain-config/rpc-urls");
 export const validateRpcUrls = (rpcUrlsPerChain: RpcUrlsPerChain) => {
   for (const [name, { chainId, rpcUrls }] of Object.entries(rpcUrlsPerChain)) {
     describe(`${name} (${chainId})`, function () {
-      for (const rpcUrl of rpcUrls) {
+      before(function () {
         if (getChainConfigByChainId(getLocalChainConfigs(), chainId).disabled) {
-          continue;
+          this.skip();
         }
-
-        it(`Test '${name}' rpc url: ${rpcUrl}`, async () => {
+      });
+      for (const rpcUrl of rpcUrls) {
+        it(`Test '${name}' rpc url: ${rpcUrl}`, async function () {
           const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
           const fetchedChainId = await RedstoneCommon.retry({
             ...RETRY_CONFIG,

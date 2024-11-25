@@ -89,6 +89,9 @@ describe("Validate multicall3", () => {
     }
 
     it(`Chain config for chain ${chainConfig.name} (${chainConfig.chainId}) should have a valid multicall3 address`, async function () {
+      if (chainConfig.disabled) {
+        this.skip();
+      }
       try {
         await verifyMulticallAddress(chainConfig);
       } catch (e) {
