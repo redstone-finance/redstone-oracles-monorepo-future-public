@@ -25,11 +25,12 @@ const validatePublicRpcUrls = () => {
   validateRpcUrls(rpcUrlsPerChain);
 };
 
-describe("Chain Configs Rpc Urls Validation", function () {
-  it("public RPC URLs are valid", function () {
+describe("Public Rpc Urls Validation", function () {
+  before(function () {
     if (!process.env.TEST_RPC) {
       this.skip();
     }
-    return validatePublicRpcUrls();
   });
+
+  validatePublicRpcUrls();
 });

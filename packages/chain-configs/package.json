@@ -23,7 +23,7 @@
     "test:rpc-urls": "TEST_RPC=T hardhat test test/rpc-urls/public-rpc-urls.test.ts",
     "test:rpc-urls-dev": "ENV=dev TEST_RPC=T hardhat test test/rpc-urls/ssm-rpc-urls.test.ts",
     "test:rpc-urls-prod": "ENV=prod TEST_RPC=T hardhat test test/rpc-urls/ssm-rpc-urls.test.ts",
-    "test:chain-configs": "TEST_RPC=T hardhat test test/chain-configs.test.ts"
+    "test:chain-configs": "hardhat test test/chain-configs.test.ts"
   },
   "dependencies": {
     "@redstone-finance/evm-multicall": "0.6.2",

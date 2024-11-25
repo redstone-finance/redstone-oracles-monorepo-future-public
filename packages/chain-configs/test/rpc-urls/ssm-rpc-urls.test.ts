@@ -3,17 +3,18 @@ import { validateRpcUrls } from "./common";
 
 const validateSsmMainRpcUrls = async () => {
   const rpcUrlsPerChain = await readSsmRpcUrls(false);
-
   validateRpcUrls(rpcUrlsPerChain);
 };
 
 describe("SSM Main Rpc Urls Validation", function () {
-  it("Loading rpc urls from SSM", function () {
+  before(async function () {
     if (!process.env.TEST_RPC) {
       this.skip();
     }
-    return validateSsmMainRpcUrls();
+    await validateSsmMainRpcUrls();
   });
+
+  it("force before hook to get executed", () => {});
 });
 
 const validateSsmFallbackRpcUrls = async () => {
@@ -23,10 +24,12 @@ const validateSsmFallbackRpcUrls = async () => {
 };
 
 describe("SSM Fallback Rpc Urls Validation", function () {
-  it("Loading rpc urls from SSM", function () {
+  before(async function () {
     if (!process.env.TEST_RPC) {
       this.skip();
     }
-    return validateSsmFallbackRpcUrls();
+    await validateSsmFallbackRpcUrls();
   });
+
+  it("force before hook to get executed", () => {});
 });
