@@ -7603,6 +7603,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-monitoring-approver@workspace:packages/lambda/lambda-monitoring-approver":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-monitoring-approver@workspace:packages/lambda/lambda-monitoring-approver"
+  dependencies:
+    "@redstone-finance/internal-utils": "npm:0.6.2"
+    "@redstone-finance/utils": "npm:0.6.2"
+    "@types/aws-lambda": "npm:^8.10.145"
+    axios: "npm:^1.7.7"
+    dotenv: "npm:^16.0.3"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-monitoring-core@workspace:packages/lambda/lambda-monitoring-core":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-monitoring-core@workspace:packages/lambda/lambda-monitoring-core"
