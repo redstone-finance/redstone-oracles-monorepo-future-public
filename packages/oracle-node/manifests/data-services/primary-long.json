@@ -23,7 +23,9 @@
         "upper": {
           "value": 1
         }
-      }
+      },
+      "denomination": "BTC",
+      "rateFeed": true
     },
     "LBENCH": {
       "source": ["lbench"],
@@ -32,7 +34,9 @@
           "maxPercent": 100,
           "maxDelayMilliseconds": 6000000
         }
-      }
+      },
+      "denomination": "BTC",
+      "rateFeed": true
     }
   }
 }
