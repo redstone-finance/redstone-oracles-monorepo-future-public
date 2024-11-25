@@ -1,16 +1,18 @@
 import { expect } from "chai";
-import { config } from "../../src/config";
+import { RelayerConfig } from "../../src";
 import { cronCondition } from "../../src/core/update-conditions/cron-condition";
 import {
   dateStrToMilliseconds,
-  mockEnvVariables,
+  mockConfig,
   restoreOriginalSystemTime,
   setCurrentSystemTime,
 } from "../helpers";
 
 describe("fallback-cron-condition", () => {
+  let relayerConfig: RelayerConfig;
+
   before(() => {
-    mockEnvVariables({
+    relayerConfig = mockConfig({
       updateTriggers: {
         ETH: {
           cron: ["0 * * * *"], // every hour at 0th minute
@@ -30,7 +32,7 @@ describe("fallback-cron-condition", () => {
     const { shouldUpdatePrices, messages } = cronCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(messages[0].message).to.match(
@@ -44,7 +46,7 @@ describe("fallback-cron-condition", () => {
     const { shouldUpdatePrices, messages } = cronCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(messages[0].message).to.match(
@@ -58,7 +60,7 @@ describe("fallback-cron-condition", () => {
     const { shouldUpdatePrices, messages } = cronCondition(
       "ETH",
       lastUpdateTimestamp,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(messages[0].message).to.match(

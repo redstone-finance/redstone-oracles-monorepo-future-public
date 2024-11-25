@@ -14,7 +14,7 @@ import {
   btcDataFeed,
   ContractParamsProviderMock,
   deployMockSortedOracles,
-  mockEnvVariables,
+  mockConfig,
 } from "../helpers";
 import { server } from "./mock-server";
 
@@ -31,7 +31,7 @@ describe("update-prices", () => {
   });
 
   it("should update price in price-feeds adapter", async () => {
-    mockEnvVariables();
+    const relayerConfig = mockConfig();
     // Deploy contract
     const priceFeedsAdapterFactory = await ethers.getContractFactory(
       "PriceFeedsAdapterWithoutRoundsMock"
@@ -52,8 +52,10 @@ describe("update-prices", () => {
     const contractAdapter = await new EvmContractConnector(
       ethers.provider,
       new PriceFeedsEvmContractAdapter(
+        relayerConfig,
         priceFeedsAdapter,
         getTxDeliveryMan(
+          relayerConfig,
           priceFeedsAdapter.signer,
           priceFeedsAdapter.provider as JsonRpcProvider
         )
@@ -79,7 +81,7 @@ describe("update-prices", () => {
         BTC: ["time"],
       },
     };
-    mockEnvVariables(overrideMockConfig);
+    const relayerConfig = mockConfig(overrideMockConfig);
 
     // Deploying sorted oracles
     const sortedOracles = await deployMockSortedOracles();
@@ -105,8 +107,10 @@ describe("update-prices", () => {
     const contractAdapter = await new EvmContractConnector(
       ethers.provider,
       new MentoEvmContractAdapter(
+        relayerConfig,
         mentoAdapter,
         getTxDeliveryMan(
+          relayerConfig,
           mentoAdapter.signer,
           mentoAdapter.provider as JsonRpcProvider
         )

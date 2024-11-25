@@ -10,9 +10,8 @@ import {
   getIterationArgsProvider,
   IRedstoneContractAdapter,
   IterationArgsProvider,
-  makeConfigProvider,
+  makeRelayerConfig,
   runIteration,
-  setConfigProvider,
 } from "@redstone-finance/on-chain-relayer";
 import { IContractConnector } from "@redstone-finance/sdk";
 import { providers } from "ethers";
@@ -35,9 +34,7 @@ export class GelatoRunner {
   ): Promise<Web3FunctionResult> {
     const env = await this.getEnvParams();
     const { relayerEnv, manifest } = await fetchManifestAndSetUpEnv(env);
-    const config = makeConfigProvider(manifest, relayerEnv);
-
-    setConfigProvider(() => config);
+    const config = makeRelayerConfig(manifest, relayerEnv);
 
     return await new Promise((resolve, reject) => {
       const logger = new GelatoLogger();
@@ -52,7 +49,7 @@ export class GelatoRunner {
         ((conn, argsProvider) => new EvmContractFacade(conn, argsProvider))
       )(connector, getIterationArgsProvider(config));
 
-      runIteration(facade, logger)
+      runIteration(facade, config, logger)
         .then((didUpdate) => {
           if (didUpdate) {
             return;

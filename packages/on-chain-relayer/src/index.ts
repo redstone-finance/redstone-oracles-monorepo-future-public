@@ -12,7 +12,8 @@ export type {
   PriceFeedWithRounds,
   RedstoneAdapterBase,
 } from "../typechain-types";
-export { setConfigProvider } from "./config";
+export { makeRelayerConfig } from "./config/make-relayer-config";
+export type { OnChainRelayerEnv, RelayerConfig } from "./config/RelayerConfig";
 export type { EvmContractAdapter } from "./core/contract-interactions/EvmContractAdapter";
 export { EvmContractConnector } from "./core/contract-interactions/EvmContractConnector";
 export type { IRedstoneContractAdapter } from "./core/contract-interactions/IRedstoneContractAdapter";
@@ -28,15 +29,11 @@ export {
   getIterationArgsProvider,
   type IterationArgsProvider,
 } from "./facade/get-iteration-args-provider";
-export { makeConfigProvider } from "./make-config-provider";
-export { runIteration, type IterationLogger } from "./run-iteration";
+export { runIteration, type IterationLogger } from "./runner/run-iteration";
 export type {
-  ConfigProvider,
   ContractData,
   IterationArgsMessage,
   MultiFeedUpdatePricesArgs,
-  OnChainRelayerEnv,
-  RelayerConfig,
   UpdatePricesArgs,
 } from "./types";
 export {

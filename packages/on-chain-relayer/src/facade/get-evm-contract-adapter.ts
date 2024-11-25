@@ -8,12 +8,12 @@ import {
   MultiFeedAdapterWithoutRounds,
   RedstoneAdapterBase,
 } from "../../typechain-types";
+import { RelayerConfig } from "../config/RelayerConfig";
 import { EvmContractAdapter } from "../core/contract-interactions/EvmContractAdapter";
 import { MentoEvmContractAdapter } from "../core/contract-interactions/MentoEvmContractAdapter";
 import { MultiFeedEvmContractAdapter } from "../core/contract-interactions/MultiFeedEvmContractAdapter";
 import { PriceFeedsEvmContractAdapter } from "../core/contract-interactions/PriceFeedsEvmContractAdapter";
 import { ITxDeliveryMan } from "../core/contract-interactions/tx-delivery-gelato-bypass";
-import { RelayerConfig } from "../types";
 import { RedstoneEvmContract } from "./EvmContractFacade";
 
 export function getEvmContractAdapter(
@@ -22,6 +22,7 @@ export function getEvmContractAdapter(
   txDeliveryMan?: ITxDeliveryMan,
   // especially for gelato
   priceFeedsEvmContractAdapterOverride?: (
+    relayerConfig: RelayerConfig,
     contract: RedstoneAdapterBase,
     txDeliveryMan?: ITxDeliveryMan
   ) => PriceFeedsEvmContractAdapter<RedstoneAdapterBase>
@@ -36,7 +37,11 @@ export function getEvmContractAdapter(
         signerOrProvider
       ) as MultiFeedAdapterWithoutRounds;
 
-      return new MultiFeedEvmContractAdapter(multiFeedContract, txDeliveryMan);
+      return new MultiFeedEvmContractAdapter(
+        relayerConfig,
+        multiFeedContract,
+        txDeliveryMan
+      );
     }
 
     case "price-feeds": {
@@ -47,10 +52,18 @@ export function getEvmContractAdapter(
       ) as RedstoneAdapterBase;
 
       if (priceFeedsEvmContractAdapterOverride) {
-        return priceFeedsEvmContractAdapterOverride(contract, txDeliveryMan);
+        return priceFeedsEvmContractAdapterOverride(
+          relayerConfig,
+          contract,
+          txDeliveryMan
+        );
       }
 
-      return new PriceFeedsEvmContractAdapter(contract, txDeliveryMan);
+      return new PriceFeedsEvmContractAdapter(
+        relayerConfig,
+        contract,
+        txDeliveryMan
+      );
     }
 
     case "mento": {
@@ -60,7 +73,11 @@ export function getEvmContractAdapter(
         signerOrProvider
       ) as MentoAdapterBase;
 
-      return new MentoEvmContractAdapter(mentoContract, txDeliveryMan);
+      return new MentoEvmContractAdapter(
+        relayerConfig,
+        mentoContract,
+        txDeliveryMan
+      );
     }
 
     default:

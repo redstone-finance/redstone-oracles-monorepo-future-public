@@ -1,11 +1,10 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
+import { RelayerConfig } from "../../config/RelayerConfig";
 import { RedstoneEvmContract } from "../../facade/EvmContractFacade";
 import { RelayerDataInfluxService } from "../../facade/RelayerDataInfluxService";
-import { ContractData, RelayerConfig } from "../../types";
+import { ContractData } from "../../types";
 import { EvmContractAdapter } from "./EvmContractAdapter";
 import { TxDeliveryCall } from "./tx-delivery-gelato-bypass";
-
-const RELAYER_DATA_BUCKET = "dry-run-relayer-data";
 
 export class InfluxEvmContractAdapter<
   Contract extends RedstoneEvmContract,
@@ -16,16 +15,9 @@ export class InfluxEvmContractAdapter<
     private wrappedAdapter: EvmContractAdapter<Contract>,
     relayerConfig: RelayerConfig
   ) {
-    const { influxUrl, influxToken } = relayerConfig;
+    super(relayerConfig, wrappedAdapter.adapterContract);
 
-    super(wrappedAdapter.adapterContract);
-
-    this.influxService = new RelayerDataInfluxService({
-      url: influxUrl!,
-      token: influxToken!,
-      bucketName: RELAYER_DATA_BUCKET,
-      orgName: "redstone",
-    });
+    this.influxService = new RelayerDataInfluxService(relayerConfig);
   }
 
   override async readLatestRoundParamsFromContract(

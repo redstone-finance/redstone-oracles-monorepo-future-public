@@ -1,8 +1,9 @@
 import { RedstoneCommon, RedstoneLogger } from "@redstone-finance/utils";
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from "toad-scheduler";
 import { getContractFacade } from "../facade/get-contract-facade";
-import { runIteration } from "../run-iteration";
-import { RelayerConfig } from "../types";
+import { runIteration } from "./run-iteration";
+
+import { RelayerConfig } from "../config/RelayerConfig";
 
 export class AsyncTaskRunner {
   static run(relayerConfig: RelayerConfig, logger: RedstoneLogger) {
@@ -10,7 +11,7 @@ export class AsyncTaskRunner {
       "Relayer task",
       async () => {
         const contractFacade = await getContractFacade(relayerConfig);
-        return await runIteration(contractFacade);
+        return await runIteration(contractFacade, relayerConfig);
       },
       (error) =>
         logger.log(

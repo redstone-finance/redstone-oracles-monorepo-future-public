@@ -3,21 +3,22 @@ import {
   TxDeliveryManSupportedProviders,
   TxDeliverySigner,
 } from "@redstone-finance/rpc-providers";
-import { config } from "../config";
+import { RelayerConfig } from "../config/RelayerConfig";
 
 let deliveryMan: TxDeliveryMan | undefined = undefined;
 export const getTxDeliveryMan = (
+  relayerConfig: RelayerConfig,
   signer: TxDeliverySigner,
   provider: TxDeliveryManSupportedProviders
 ) => {
   deliveryMan ??= new TxDeliveryMan(provider, signer, {
-    expectedDeliveryTimeMs: config().expectedTxDeliveryTimeInMS,
-    gasLimit: config().gasLimit,
-    twoDimensionalFees: config().twoDimensionalFees,
-    multiplier: config().gasMultiplier,
-    maxAttempts: config().maxTxSendAttempts,
-    isAuctionModel: config().isAuctionModel,
-    forceDisableCustomGasOracle: config().disableCustomGasOracle,
+    expectedDeliveryTimeMs: relayerConfig.expectedTxDeliveryTimeInMS,
+    gasLimit: relayerConfig.gasLimit,
+    twoDimensionalFees: relayerConfig.twoDimensionalFees,
+    multiplier: relayerConfig.gasMultiplier,
+    maxAttempts: relayerConfig.maxTxSendAttempts,
+    isAuctionModel: relayerConfig.isAuctionModel,
+    forceDisableCustomGasOracle: relayerConfig.disableCustomGasOracle,
   });
   return deliveryMan;
 };

@@ -8,12 +8,13 @@ import sinon from "sinon";
 import {
   EvmContractFacade,
   IterationArgsProvider,
+  RelayerConfig,
   runIteration,
 } from "../../src";
 import {
   ContractParamsProviderMock,
   DEFAULT_DATA_POINTS,
-  mockEnvVariables,
+  mockConfig,
 } from "../helpers";
 import {
   ContractConnectorMock,
@@ -31,9 +32,10 @@ describe("runIteration tests", () => {
   let updatePricesStub: sinon.SinonStub;
   let loggerStub: { log: sinon.SinonStub };
   let requestDataPackagesStub: sinon.SinonStub;
+  let relayerConfig: RelayerConfig;
 
   beforeEach(() => {
-    mockEnvVariables();
+    relayerConfig = mockConfig();
     sendHealthcheckPingStub = sinon.stub().resolves();
     loggerStub = {
       log: sinon.stub(),
@@ -45,7 +47,7 @@ describe("runIteration tests", () => {
   });
 
   it("should call updatePrices if shouldUpdatePrices is true", async () => {
-    await performRunIterationTest();
+    await performRunIterationTest(relayerConfig);
 
     expect(updatePricesStub.calledOnce).to.be.true;
     expect(sendHealthcheckPingStub.calledOnceWith("http://example.com/ping")).to
@@ -60,6 +62,7 @@ describe("runIteration tests", () => {
 
   it("should call updatePrices and not to call requestDataPackages if shouldUpdatePrices is true with cache", async () => {
     await performRunIterationTest(
+      relayerConfig,
       getIterationArgsProviderMock(),
       new DataPackagesResponseCache().update(
         {},
@@ -80,6 +83,7 @@ describe("runIteration tests", () => {
 
   it("should call updatePrices and call requestDataPackages if shouldUpdatePrices is true with cache, but cache is not conforming", async () => {
     await performRunIterationTest(
+      relayerConfig,
       getIterationArgsProviderMock(),
       new DataPackagesResponseCache().update({}, {
         dataServiceId: "other",
@@ -98,7 +102,10 @@ describe("runIteration tests", () => {
   });
 
   it("should not call updatePrices if shouldUpdatePrices is false", async () => {
-    await performRunIterationTest(getIterationArgsProviderMock(false));
+    await performRunIterationTest(
+      relayerConfig,
+      getIterationArgsProviderMock(false)
+    );
 
     expect(updatePricesStub.called).to.be.false;
     expect(sendHealthcheckPingStub.calledOnceWith("http://example.com/ping")).to
@@ -113,6 +120,7 @@ describe("runIteration tests", () => {
 
   it("should log additional messages if present and shouldUpdatePrices is true", async () => {
     await performRunIterationTest(
+      relayerConfig,
       getIterationArgsProviderMock(true, [
         { message: "Additional message" },
         { message: "Other message" },
@@ -124,6 +132,7 @@ describe("runIteration tests", () => {
   });
 
   async function performRunIterationTest(
+    relayerConfig: RelayerConfig,
     iterationArgsProvider: IterationArgsProvider = getIterationArgsProviderMock(),
     cache?: DataPackagesResponseCache
   ) {
@@ -154,6 +163,7 @@ describe("runIteration tests", () => {
 
     await runIteration(
       facade,
+      relayerConfig,
       loggerStub as unknown as RedstoneLogger,
       sendHealthcheckPingStub
     );

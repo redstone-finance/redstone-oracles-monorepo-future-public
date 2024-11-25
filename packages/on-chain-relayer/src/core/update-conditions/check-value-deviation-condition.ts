@@ -5,7 +5,8 @@ import {
 } from "@redstone-finance/sdk";
 import { MathUtils } from "@redstone-finance/utils";
 import { BigNumber, utils } from "ethers";
-import { RelayerConfig } from "../../types";
+
+import { RelayerConfig } from "../../config/RelayerConfig";
 
 const getDataPointsForDataFeedId = (
   dataPackages: DataPackagesResponse,

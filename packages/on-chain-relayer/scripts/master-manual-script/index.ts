@@ -2,13 +2,11 @@ import { getSSMParameterValue } from "@redstone-finance/internal-utils";
 import { AdapterType } from "@redstone-finance/on-chain-relayer-common";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { z } from "zod";
-import { setConfigProvider } from "../../src";
-import { config } from "../../src/config";
+import { runIteration } from "../../src";
+import { config, ConsciouslyInvoked } from "../../src/config/config";
 import { clearCachedRelayerProvider } from "../../src/core/contract-interactions/get-relayer-provider";
 import { clearCachedTxDeliveryMan } from "../../src/core/TxDeliveryManSingleton";
 import { getContractFacade } from "../../src/facade/get-contract-facade";
-import { fileSystemConfigProvider } from "../../src/FilesystemConfigProvider";
-import { runIteration } from "../../src/run-iteration";
 import {
   readClassicManifests,
   readMultiFeedManifests,
@@ -72,10 +70,9 @@ function getManualKeySSMName(manifestName: string) {
   return `/prod/on-chain-relayer/${encodedManifestName}/manual/private-key`;
 }
 
-function clearCacheAndSetConfig() {
+function clearCache() {
   clearCachedTxDeliveryMan();
   clearCachedRelayerProvider();
-  setConfigProvider(fileSystemConfigProvider);
 }
 
 async function setUpEnvVariables(
@@ -133,12 +130,12 @@ async function main() {
       continue;
     }
 
-    clearCacheAndSetConfig();
+    clearCache();
+    const relayerConfig = config(ConsciouslyInvoked);
+    const contractFacade = await getContractFacade(relayerConfig);
 
     try {
-      const relayerConfig = config();
-      const contractFacade = await getContractFacade(relayerConfig);
-      const iteration = runIteration(contractFacade);
+      const iteration = runIteration(contractFacade, relayerConfig);
       await RedstoneCommon.timeout(iteration, 15000);
     } catch (e) {
       console.error(

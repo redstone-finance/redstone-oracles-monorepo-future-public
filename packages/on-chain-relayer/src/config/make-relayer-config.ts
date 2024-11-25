@@ -6,10 +6,10 @@ import {
 } from "@redstone-finance/on-chain-relayer-common";
 import {
   ConditionCheckNames,
+  ManifestConfig,
   OnChainRelayerEnv,
   RelayerConfig,
-  type ManifestConfig,
-} from "./types";
+} from "./RelayerConfig";
 
 const createManifestConfig = (
   manifest: AnyOnChainRelayerManifest
@@ -28,7 +28,7 @@ const createManifestConfig = (
   };
 };
 
-export const makeConfigProvider = (
+export const makeRelayerConfig = (
   manifest: AnyOnChainRelayerManifest,
   env: OnChainRelayerEnv
 ): RelayerConfig => {

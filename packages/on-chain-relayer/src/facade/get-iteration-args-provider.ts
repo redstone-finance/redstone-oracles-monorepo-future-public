@@ -1,7 +1,8 @@
+import { RelayerConfig } from "../config/RelayerConfig";
 import { canIgnoreMissingFeeds } from "../core/make-data-packages-request-params";
 import { getMultiFeedIterationArgs } from "../multi-feed/args/get-multi-feed-iteration-args";
 import { getIterationArgs } from "../price-feeds/args/get-iteration-args";
-import { IterationArgs, RelayerConfig, ShouldUpdateContext } from "../types";
+import { IterationArgs, ShouldUpdateContext } from "../types";
 
 export type IterationArgsProvider = (
   context: ShouldUpdateContext,

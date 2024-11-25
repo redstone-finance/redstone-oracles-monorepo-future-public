@@ -3,8 +3,7 @@ import { RedstoneCommon } from "@redstone-finance/utils";
 import "dotenv/config";
 import fs from "fs";
 import { z } from "zod";
-import { makeConfigProvider } from "./make-config-provider";
-import { OnChainRelayerEnv } from "./types";
+import { OnChainRelayerEnv } from "./RelayerConfig";
 
 const DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME = 1000;
 
@@ -203,10 +202,4 @@ export const readManifestAndEnv = () => {
   };
 
   return { manifest, env };
-};
-
-export const fileSystemConfigProvider = () => {
-  const { manifest, env } = readManifestAndEnv();
-
-  return makeConfigProvider(manifest, env);
 };

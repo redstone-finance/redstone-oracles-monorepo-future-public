@@ -1,6 +1,6 @@
 import { DataPackagesResponseCache } from "@redstone-finance/sdk";
+import { RelayerConfig } from "../config/RelayerConfig";
 import { getFuelContractConnector } from "../non-evm/get-fuel-contract-connector";
-import { RelayerConfig } from "../types";
 import { getEvmContractFacade } from "./get-evm-contract-facade";
 import { getIterationArgsProvider } from "./get-iteration-args-provider";
 import { NonEvmContractFacade } from "./NonEvmContractFacade";

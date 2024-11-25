@@ -8,24 +8,35 @@ import {
 import { RedstoneCommon, SafeNumber } from "@redstone-finance/utils";
 import { basename } from "path";
 import { z } from "zod";
-import { config } from "../config";
-import { RelayerConfig } from "../types";
 
+import { RelayerConfig } from "../config/RelayerConfig";
+
+const RELAYER_DATA_BUCKET = "dry-run-relayer-data";
 const TXS_MEASUREMENT = "redstoneTransactions";
 const SENDER_TAG =
   "0x0000000000000000000000000000000000000000000000000000000000000001";
 
 export class RelayerDataInfluxService extends InfluxService {
+  constructor(private relayerConfig: RelayerConfig) {
+    const { influxUrl, influxToken } = relayerConfig;
+
+    super({
+      url: influxUrl!,
+      token: influxToken!,
+      bucketName: RELAYER_DATA_BUCKET,
+      orgName: "redstone",
+    });
+  }
+
   async updatePriceValues(
     paramsProvider: ContractParamsProvider
   ): Promise<void> {
-    const relayerConfig = config();
     const dataPackages = await paramsProvider.requestDataPackages();
     const manifestFile = RedstoneCommon.getFromEnv("MANIFEST_FILE", z.string());
 
     await this.insert([
       RelayerDataInfluxService.getInfluxPointForDataFeedPackages(dataPackages, {
-        ...relayerConfig,
+        ...this.relayerConfig,
         manifestFile,
       }),
     ]);

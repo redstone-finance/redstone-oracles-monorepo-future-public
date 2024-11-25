@@ -14,21 +14,19 @@ import {
 } from "@redstone-finance/sdk";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import _ from "lodash";
-import { config } from "../config";
+import { RelayerConfig } from "../config/RelayerConfig";
 import {
   canIgnoreMissingFeeds,
   makeDataPackagesRequestParams,
 } from "../core/make-data-packages-request-params";
 import { ContractFacade } from "../facade/ContractFacade";
 import { getContractFacade } from "../facade/get-contract-facade";
-import { runIteration } from "../run-iteration";
-import { RelayerConfig } from "../types";
 import { OperationQueue } from "./OperationQueue";
+import { runIteration } from "./run-iteration";
 
 export class MqttRunner {
   private subscriber?: DataPackageSubscriber;
   private queue = new OperationQueue();
-  private fallbackInterval?: NodeJS.Timeout;
   private readonly logger = loggerFactory("relayer/mqtt-runner");
   private readonly rateLimitCircuitBreaker = new RateLimitsCircuitBreaker(
     1_000,
@@ -67,19 +65,19 @@ export class MqttRunner {
     );
 
     const runner = new MqttRunner(multiClient, contractFacade, cache);
-    await runner.updateSubscription();
+    await runner.updateSubscription(relayerConfig);
 
     if (relayerConfig.mqttUpdateSubscriptionIntervalMs > 0) {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       setInterval(async () => {
-        await runner.updateSubscription();
+        await runner.updateSubscription(relayerConfig);
       }, relayerConfig.mqttUpdateSubscriptionIntervalMs);
     }
 
     return runner;
   }
 
-  private async updateSubscription() {
+  private async updateSubscription(relayerConfig: RelayerConfig) {
     try {
       const blockTag = await this.contractFacade.getBlockNumber();
       const uniqueSignersThreshold =
@@ -87,7 +85,6 @@ export class MqttRunner {
           blockTag
         );
 
-      const relayerConfig = config();
       const requestParams = makeDataPackagesRequestParams(
         relayerConfig,
         uniqueSignersThreshold
@@ -146,7 +143,11 @@ export class MqttRunner {
 
     await this.subscriber.subscribe(
       (dataPackagesResponse: DataPackagesResponse) => {
-        this.processResponse(dataPackagesResponse, requestParams);
+        this.processResponse(
+          relayerConfig,
+          requestParams,
+          dataPackagesResponse
+        );
       }
     );
   }
@@ -173,8 +174,9 @@ export class MqttRunner {
   }
 
   private processResponse(
-    dataPackagesResponse: DataPackagesResponse,
-    requestParams: DataPackagesRequestParams
+    relayerConfig: RelayerConfig,
+    requestParams: DataPackagesRequestParams,
+    dataPackagesResponse: DataPackagesResponse
   ) {
     const dataPackageIds = Object.keys(dataPackagesResponse);
     dataPackageIds.sort();
@@ -184,7 +186,7 @@ export class MqttRunner {
     );
 
     const wasEnqueued = this.queue.enqueue(dataPackageIds.toString(), () =>
-      this.runIteration(dataPackagesResponse, requestParams)
+      this.runIteration(relayerConfig, dataPackagesResponse, requestParams)
     );
 
     if (!wasEnqueued) {
@@ -193,12 +195,13 @@ export class MqttRunner {
   }
 
   private async runIteration(
+    relayerConfig: RelayerConfig,
     dataPackagesResponse: DataPackagesResponse,
     requestParams: DataPackagesRequestParams
   ) {
     try {
       this.cache.update(dataPackagesResponse, requestParams);
-      await runIteration(this.contractFacade);
+      await runIteration(this.contractFacade, relayerConfig);
     } catch (error) {
       this.logger.error(
         "Unhandled error occurred during iteration:",

@@ -1,16 +1,18 @@
 import { ValuesForDataFeeds } from "@redstone-finance/sdk";
 import { expect } from "chai";
-import { config } from "../../src/config";
+import { RelayerConfig } from "../../src";
 import { checkValueDeviationCondition } from "../../src/core/update-conditions/check-value-deviation-condition";
 import {
   createNumberFromContract,
   getDataPackagesResponse,
-  mockEnvVariables,
+  mockConfig,
 } from "../helpers";
 
 describe("check-value-deviation-condition", () => {
+  let relayerConfig: RelayerConfig;
+
   before(() => {
-    mockEnvVariables();
+    relayerConfig = mockConfig();
   });
 
   it("should return false if value diff smaller than expected", async () => {
@@ -23,7 +25,7 @@ describe("check-value-deviation-condition", () => {
       "ETH",
       dataPackages,
       smallerValueDiff.ETH!,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
@@ -34,7 +36,7 @@ describe("check-value-deviation-condition", () => {
       "BTC",
       dataPackages,
       smallerValueDiff.BTC!,
-      config()
+      relayerConfig
     ));
     expect(shouldUpdatePrices).to.be.false;
     expect(warningMessage).to.match(
@@ -53,7 +55,7 @@ describe("check-value-deviation-condition", () => {
       "ETH",
       dataPackages,
       biggerValueDiff.ETH!,
-      config()
+      relayerConfig
     );
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(/Value has deviated enough to be/);
@@ -62,7 +64,7 @@ describe("check-value-deviation-condition", () => {
       "BTC",
       dataPackages,
       biggerValueDiff.BTC!,
-      config()
+      relayerConfig
     ));
     expect(shouldUpdatePrices).to.be.true;
     expect(warningMessage).to.match(/Value has deviated enough to be/);
@@ -78,7 +80,7 @@ describe("check-value-deviation-condition", () => {
   //   const { shouldUpdatePrices, warningMessage } = checkValueDeviationCondition(
   //     dataPackages,
   //     biggerValueDiff,
-  //     config()
+  //     relayerConfig
   //   );
   //   expect(shouldUpdatePrices).to.be.true;
   //   expect(warningMessage).to.match(/Value has deviated enough to be/);

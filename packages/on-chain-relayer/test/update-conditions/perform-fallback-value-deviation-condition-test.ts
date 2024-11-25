@@ -1,10 +1,10 @@
 import { INumericDataPoint } from "@redstone-finance/protocol";
-import { config } from "../../src/config";
+import { RelayerConfig } from "../../src";
 import { performValueDeviationConditionChecks } from "../../src/core/update-conditions/value-deviation-condition";
 import {
   createNumberFromContract,
   getDataPackagesResponse,
-  mockEnvVariables,
+  mockConfig,
 } from "../helpers";
 
 export const HISTORICAL_DATA_POINTS = [
@@ -17,6 +17,7 @@ export const VERY_SMALL_DATA_POINTS = [
 ];
 
 export const performFallbackValueDeviationConditionTest = async (
+  relayerConfig: RelayerConfig,
   ethPrice: number,
   btcPrice: number,
   dataPoints: INumericDataPoint[],
@@ -37,7 +38,7 @@ export const performFallbackValueDeviationConditionTest = async (
         lastBlockTimestampMS: lastUpdateTimestamp,
         lastDataPackageTimestampMS: lastDataPackageTimestamp,
       },
-      config(),
+      relayerConfig,
       olderDataPackagesFetchCallback
     );
   const { shouldUpdatePrices: shouldUpdatePrices2, messages: warningMessage2 } =
@@ -49,7 +50,7 @@ export const performFallbackValueDeviationConditionTest = async (
         lastBlockTimestampMS: lastUpdateTimestamp,
         lastDataPackageTimestampMS: lastDataPackageTimestamp,
       },
-      config(),
+      relayerConfig,
       olderDataPackagesFetchCallback
     );
   warningMessage.push(...warningMessage2);
@@ -64,13 +65,14 @@ export async function performSkipFrequentUpdatesCheck(
   isNotEnoughTimeElapsed: boolean,
   isUpdatedDataPackageNewerThanHistorical: boolean
 ) {
-  mockEnvVariables({
+  const relayerConfig = mockConfig({
     fallbackOffsetInMilliseconds: 60_000,
     historicalPackagesGateways: ["X"],
     fallbackSkipDeviationBasedFrequentUpdates: true,
   });
   const { shouldUpdatePrices, warningMessage } =
     await performFallbackValueDeviationConditionTest(
+      relayerConfig,
       1230.99,
       13011.68,
       HISTORICAL_DATA_POINTS,

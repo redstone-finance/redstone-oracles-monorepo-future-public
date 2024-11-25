@@ -1,8 +1,8 @@
+import { RelayerConfig } from "../config/RelayerConfig";
 import { checkConditionByName } from "../core/update-conditions/check-condition-by-name";
 import { checkIfDataPackageTimestampIsNewer } from "../core/update-conditions/data-packages-timestamp";
 import {
   IterationArgsMessage,
-  RelayerConfig,
   ShouldUpdateContext,
   ShouldUpdateResponse,
 } from "../types";

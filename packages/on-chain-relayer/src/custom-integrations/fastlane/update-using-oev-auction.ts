@@ -1,3 +1,4 @@
+import { JsonRpcProvider } from "@ethersproject/providers";
 import {
   Multicall3Request,
   safeExecuteMulticall3,
@@ -12,11 +13,12 @@ import {
   parseTransaction,
 } from "ethers/lib/utils";
 import { RedstoneAdapterBase } from "../../../typechain-types";
-import { config } from "../../config";
+import { RelayerConfig } from "../../config/RelayerConfig";
 
 const logger = loggerFactory("update-using-oev-auction");
 
 export const updateUsingOevAuction = async (
+  relayerConfig: RelayerConfig,
   txDeliveryCalldata: string,
   blockTag: number,
   adapterContract: RedstoneAdapterBase,
@@ -25,6 +27,7 @@ export const updateUsingOevAuction = async (
   logger.log(`Updating using OEV auction`);
   const start = Date.now();
   const signedTransactions = await runOevAuction(
+    relayerConfig,
     adapterContract.signer,
     txDeliveryCalldata
   );
@@ -38,17 +41,22 @@ export const updateUsingOevAuction = async (
         tx,
         blockTag,
         adapterContract,
-        dataPackagesResponse
+        dataPackagesResponse,
+        relayerConfig
       )
     )
   );
   logger.log(`OEV auction successfully completed in ${Date.now() - start}ms`);
 };
 
-const runOevAuction = async (signer: Signer, txDeliveryCalldata: string) => {
-  const oevAuctionUrl = config().oevAuctionUrl!;
-  const adapterContractAddress = config().adapterContractAddress;
-  const chainId = config().chainId;
+const runOevAuction = async (
+  relayerConfig: RelayerConfig,
+  signer: Signer,
+  txDeliveryCalldata: string
+) => {
+  const oevAuctionUrl = relayerConfig.oevAuctionUrl!;
+  const { adapterContractAddress, chainId } = relayerConfig;
+
   const chainIdHex = `0x${chainId.toString(16)}`;
   const body = JSON.stringify({
     adapter: adapterContractAddress,
@@ -61,7 +69,7 @@ const runOevAuction = async (signer: Signer, txDeliveryCalldata: string) => {
   });
   try {
     const response = await axios.post<string[]>(oevAuctionUrl, body, {
-      timeout: config().oevResolveAuctionTimeout,
+      timeout: relayerConfig.oevResolveAuctionTimeout,
     });
     return response.data;
   } catch (error) {
@@ -72,11 +80,12 @@ const runOevAuction = async (signer: Signer, txDeliveryCalldata: string) => {
 };
 
 const verifyFastlaneResponse = async (
-  provider: providers.JsonRpcProvider,
+  provider: JsonRpcProvider,
   tx: string,
   blockTag: number,
   adapterContract: RedstoneAdapterBase,
-  dataPackagesResponse: DataPackagesResponse
+  dataPackagesResponse: DataPackagesResponse,
+  relayerConfig: RelayerConfig
 ) => {
   const decodedTx = parseTransaction(tx);
   logger.log(`Decoded transaction from FastLane: ${JSON.stringify(decodedTx)}`);
@@ -86,7 +95,8 @@ const verifyFastlaneResponse = async (
     decodedTx,
     blockTag,
     adapterContract,
-    dataPackagesResponse
+    dataPackagesResponse,
+    relayerConfig
   ).catch((error) => {
     logger.log(
       `Failed to check if transaction updates price: ${RedstoneCommon.stringifyError(error)}`
@@ -102,14 +112,16 @@ const verifyFastlaneResponse = async (
     );
     throw error;
   });
-  const checkGasPricePromise = verifyGasPrice(provider, decodedTx).catch(
-    (error) => {
-      logger.log(
-        `Failed to verify gas price: ${RedstoneCommon.stringifyError(error)}`
-      );
-      throw error;
-    }
-  );
+  const checkGasPricePromise = verifyGasPrice(
+    relayerConfig,
+    provider,
+    decodedTx
+  ).catch((error) => {
+    logger.log(
+      `Failed to verify gas price: ${RedstoneCommon.stringifyError(error)}`
+    );
+    throw error;
+  });
   await Promise.all([
     checkIfTransactionUpdatesPricePromise,
     waitForTransactionToMintPromise,
@@ -144,18 +156,19 @@ const waitForTransactionMint = async (
 };
 
 const checkIfTransactionUpdatesPrice = async (
-  provider: providers.JsonRpcProvider,
+  provider: JsonRpcProvider,
   decodedTx: Transaction,
   blockTag: number,
   adapterContract: RedstoneAdapterBase,
-  dataPackagesResponse: DataPackagesResponse
+  dataPackagesResponse: DataPackagesResponse,
+  relayerConfig: RelayerConfig
 ) => {
   const priceUpdateRequest: Multicall3Request = {
     target: decodedTx.to!,
     allowFailure: false,
     callData: decodedTx.data,
   };
-  const dataFeeds = config().dataFeeds;
+  const { dataFeeds } = relayerConfig;
   const calldata = adapterContract.interface.encodeFunctionData(
     "getValuesForDataFeeds",
     [dataFeeds.map(formatBytes32String)]
@@ -217,10 +230,11 @@ const checkIfTransactionUpdatesPrice = async (
 };
 
 const verifyGasPrice = async (
-  provider: providers.JsonRpcProvider,
+  relayerConfig: RelayerConfig,
+  provider: JsonRpcProvider,
   decodedTx: Transaction
 ): Promise<void> => {
-  if (config().oevVerifyGasPriceDisabled) {
+  if (relayerConfig.oevVerifyGasPriceDisabled) {
     return await Promise.resolve();
   } else {
     const gasPrice = await provider.getGasPrice();

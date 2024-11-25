@@ -3,7 +3,8 @@ import {
   ContractParamsProvider,
   DataPackagesResponse,
 } from "@redstone-finance/sdk";
-import { LastRoundDetails, RelayerConfig } from "../../types";
+import { RelayerConfig } from "../../config/RelayerConfig";
+import { LastRoundDetails } from "../../types";
 import {
   convertToHistoricalDataPackagesRequestParams,
   makeDataPackagesRequestParams,

@@ -7,7 +7,6 @@ import {
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { BigNumber, utils } from "ethers";
 import { RedstoneAdapterBase } from "../../../typechain-types";
-import { config } from "../../config";
 import { ContractData } from "../../types";
 import { EvmContractAdapter } from "./EvmContractAdapter";
 import { getLatestTimestampsFromContract } from "./get-latest-timestamps-from-contract";
@@ -47,9 +46,10 @@ export class PriceFeedsEvmContractAdapter<
     feedIds: string[],
     blockNumber: number
   ): Promise<ContractData> {
-    const { updateConditions } = config();
-    const shouldCheckValueDeviation =
-      updateConditions[feedIds[0]].includes("value-deviation");
+    const { updateConditions } = this.relayerConfig;
+    const shouldCheckValueDeviation = feedIds.some((feedId) =>
+      updateConditions[feedId].includes("value-deviation")
+    );
 
     return this.getLastRoundParamsFromContract(
       blockNumber,

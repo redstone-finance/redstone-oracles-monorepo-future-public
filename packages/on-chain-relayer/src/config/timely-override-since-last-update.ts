@@ -1,49 +1,13 @@
-import { RedstoneCommon, loggerFactory } from "@redstone-finance/utils";
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import _ from "lodash";
-import { ConfigProvider, RelayerConfig } from "./types";
-
-let configProvider: ConfigProvider | undefined = undefined;
-let relayerConfig: RelayerConfig | undefined = undefined;
-
-export const config = () => {
-  if (relayerConfig) {
-    return relayerConfig;
-  }
-  if (!configProvider) {
-    throw new Error(
-      "Config provider not defined. Consider calling setConfigProvider method."
-    );
-  }
-  relayerConfig = configProvider();
-
-  // Validating adapter contract type
-  if (
-    !["mento", "price-feeds", "multi-feed", "fuel"].includes(
-      relayerConfig.adapterContractType
-    )
-  ) {
-    throw new Error(
-      `Adapter contract type not supported: ${relayerConfig.adapterContractType}`
-    );
-  }
-
-  return relayerConfig;
-};
+import { RelayerConfig } from "./RelayerConfig";
 
 const logger = loggerFactory("relayer/config");
 
-export const setConfigProvider = (provider: ConfigProvider) => {
-  relayerConfig = undefined;
-  configProvider = provider;
-};
-
 export const timelyOverrideSinceLastUpdate = (
+  relayerConfig: RelayerConfig,
   temporaryUpdatePriceInterval: number
 ) => {
-  RedstoneCommon.assert(
-    relayerConfig,
-    "[BUG] It should never happen. Fix code..."
-  );
   const oldUpdateConditions = _.cloneDeep(relayerConfig.updateConditions);
   const oldUpdateTriggers = _.cloneDeep(relayerConfig.updateTriggers);
 
@@ -71,8 +35,8 @@ export const timelyOverrideSinceLastUpdate = (
   );
 
   setTimeout(() => {
-    relayerConfig!.updateTriggers = oldUpdateTriggers;
-    relayerConfig!.updateConditions = oldUpdateConditions;
+    relayerConfig.updateTriggers = oldUpdateTriggers;
+    relayerConfig.updateConditions = oldUpdateConditions;
     logger.log(`Reverting updatePriceIntervals`);
   }, temporaryUpdateDuration);
 };

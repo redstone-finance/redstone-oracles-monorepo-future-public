@@ -7,7 +7,8 @@ import {
   DataPackagesRequestParams,
 } from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
-import { RelayerConfig } from "../types";
+
+import { RelayerConfig } from "../config/RelayerConfig";
 
 export function canIgnoreMissingFeeds(relayerConfig: RelayerConfig) {
   return relayerConfig.adapterContractType === "multi-feed";
