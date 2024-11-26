@@ -12,7 +12,7 @@ import { RequestDataPackagesLogger } from "./RequestDataPackagesLogger";
 
 const GET_REQUEST_TIMEOUT = 5_000;
 const DEFAULT_WAIT_FOR_ALL_GATEWAYS_TIME = 500;
-const MILLISECONDS_IN_TEN_SECONDS = 10 * 1000;
+export const HISTORICAL_DATA_PACKAGES_DENOMINATOR_MS = 10000;
 
 /**
  * defines behavior of {@link requestDataPackages} method
@@ -102,15 +102,15 @@ export type GwResponse = Partial<z.infer<typeof GwResponseSchema>>;
 
 export const calculateHistoricalPackagesTimestamp = (
   deviationCheckOffsetInMilliseconds: number,
-  baseTimestamp: number = Date.now()
+  baseTimestamp: number = Date.now(),
+  denominator = HISTORICAL_DATA_PACKAGES_DENOMINATOR_MS
 ) => {
   if (deviationCheckOffsetInMilliseconds > 0) {
     // We round the timestamp to full 10s, which usually works, better solution will be to have this rounding mechanism implemented in oracle-gateways
     return (
       Math.floor(
-        (baseTimestamp - deviationCheckOffsetInMilliseconds) /
-          MILLISECONDS_IN_TEN_SECONDS
-      ) * MILLISECONDS_IN_TEN_SECONDS
+        (baseTimestamp - deviationCheckOffsetInMilliseconds) / denominator
+      ) * denominator
     );
   }
   return undefined;
@@ -388,3 +388,50 @@ const extractSignedDataPackagesForFeedId = (
     )
   );
 };
+
+export function convertToHistoricalDataPackagesRequestParams(
+  requestParams: DataPackagesRequestParams,
+  config: {
+    fallbackOffsetInMilliseconds: number;
+    historicalPackagesGateways?: string[];
+  },
+  latestDataPackagesTimestamp?: number
+) {
+  const { fallbackOffsetInMilliseconds, historicalPackagesGateways } = config;
+
+  if (
+    !fallbackOffsetInMilliseconds ||
+    !historicalPackagesGateways ||
+    !Array.isArray(historicalPackagesGateways) ||
+    !historicalPackagesGateways.length
+  ) {
+    throw new Error(
+      `Historical packages fetcher for fallback deviation check is not properly configured: ` +
+        `offset=${fallbackOffsetInMilliseconds} milliseconds., gateways=${JSON.stringify(
+          historicalPackagesGateways
+        )}, isArray=${Array.isArray(historicalPackagesGateways)} `
+    );
+  }
+
+  let historicalTimestamp = calculateHistoricalPackagesTimestamp(
+    fallbackOffsetInMilliseconds
+  )!;
+  if (
+    latestDataPackagesTimestamp &&
+    historicalTimestamp >= latestDataPackagesTimestamp
+  ) {
+    historicalTimestamp = calculateHistoricalPackagesTimestamp(
+      Math.min(
+        HISTORICAL_DATA_PACKAGES_DENOMINATOR_MS,
+        fallbackOffsetInMilliseconds
+      ),
+      latestDataPackagesTimestamp
+    )!;
+  }
+
+  return {
+    ...requestParams,
+    historicalTimestamp,
+    urls: historicalPackagesGateways,
+  };
+}
