@@ -1,0 +1,27 @@
+{
+  "chain": {
+    "name": "taiko",
+    "id": 167000
+  },
+  "adapterContract": "0xe5867B1d421f0b52697F16e2ac437e87d66D5fbF",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {
+    "ETH": {
+      "priceFeedAddress": "0x4aF6b78d92432D32E3a635E824d3A541866f7a78"
+    },
+    "BTC": {
+      "priceFeedAddress": "0x58fa68A373956285dDfb340EDf755246f8DfCA16"
+    },
+    "USDC": {
+      "priceFeedAddress": "0xb4fe9028A4D4D8B3d00e52341F2BB0798860532C"
+    },
+    "USDT": {
+      "priceFeedAddress": "0xf1454949C6dEdfb500ae63Aa6c784Aa1Dde08A6c"
+    }
+  }
+}
