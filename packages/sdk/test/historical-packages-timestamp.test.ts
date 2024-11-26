@@ -1,54 +1,94 @@
 import { calculateHistoricalPackagesTimestamp } from "../src";
 
 const FULL_MINUTE_TS = 1710407460000;
+const ONE_MINUTE_MS = 60000;
 
 describe("Historical packages timestamp", () => {
-  it(`Should properly return (x-1):50 for x:50 and offset 1 min`, () => {
+  it(`Should properly return (x-1):30 for x:30 with 10s denominator`, () => {
     const result = calculateHistoricalPackagesTimestamp(
-      60_000,
-      FULL_MINUTE_TS + 50 * 1000
+      ONE_MINUTE_MS,
+      FULL_MINUTE_TS + 30 * 1000
     );
 
-    expect(result).toEqual(FULL_MINUTE_TS - 10 * 1000);
+    expect(result).toEqual(FULL_MINUTE_TS - 30 * 1000);
   });
 
-  it(`Should properly return (x-1):00 for x:00 and offset 1 min`, () => {
-    const result = calculateHistoricalPackagesTimestamp(60_000, FULL_MINUTE_TS);
-
-    expect(result).toEqual(FULL_MINUTE_TS - 60 * 1000);
-  });
-
-  it(`Should properly return (x-1):00 for x:01 and offset 1 min`, () => {
+  it(`Should properly return (x-1):40 for x:40.001 with 10s denominator`, () => {
     const result = calculateHistoricalPackagesTimestamp(
-      60_000,
-      FULL_MINUTE_TS + 1 * 1000
+      ONE_MINUTE_MS,
+      FULL_MINUTE_TS + 40 * 1000 + 1
     );
-
-    expect(result).toEqual(FULL_MINUTE_TS - 60 * 1000);
-  });
-
-  it(`Should properly return (x-1):50 for x:59 and offset 1 min`, () => {
-    const result = calculateHistoricalPackagesTimestamp(
-      60_000,
-      FULL_MINUTE_TS + 59 * 1000
-    );
-
-    expect(result).toEqual(FULL_MINUTE_TS - 10 * 1000);
-  });
-
-  it(`Should properly return (x-1):40 for x:00 and offset 12s`, () => {
-    const result = calculateHistoricalPackagesTimestamp(12_000, FULL_MINUTE_TS);
 
     expect(result).toEqual(FULL_MINUTE_TS - 20 * 1000);
   });
 
-  it(`Should properly return x:50 for x:59 and offset 3s`, () => {
+  it(`Should properly return (x-1):30 for x:39.999 with 10s denominator`, () => {
     const result = calculateHistoricalPackagesTimestamp(
-      3_000,
-      FULL_MINUTE_TS + 59 * 1000
+      ONE_MINUTE_MS,
+      FULL_MINUTE_TS + 40 * 1000 - 1
     );
 
-    expect(result).toEqual(FULL_MINUTE_TS + 50 * 1000);
+    expect(result).toEqual(FULL_MINUTE_TS - 30 * 1000);
+  });
+
+  it(`Should properly return (x-1):00 for x:40 with one minute denominator`, () => {
+    const result = calculateHistoricalPackagesTimestamp(
+      ONE_MINUTE_MS,
+      FULL_MINUTE_TS + 40 * 1000,
+      ONE_MINUTE_MS
+    );
+
+    expect(result).toEqual(FULL_MINUTE_TS - ONE_MINUTE_MS);
+  });
+
+  it(`Should properly return (x-1):00 for x:30 with one minute denominator`, () => {
+    const result = calculateHistoricalPackagesTimestamp(
+      ONE_MINUTE_MS,
+      FULL_MINUTE_TS + 30 * 1000,
+      ONE_MINUTE_MS
+    );
+
+    expect(result).toEqual(FULL_MINUTE_TS - ONE_MINUTE_MS);
+  });
+
+  it(`Should properly return (x-1):00 for x:20 with one minute denominator`, () => {
+    const result = calculateHistoricalPackagesTimestamp(
+      ONE_MINUTE_MS,
+      FULL_MINUTE_TS + 20 * 1000,
+      ONE_MINUTE_MS
+    );
+
+    expect(result).toEqual(FULL_MINUTE_TS - ONE_MINUTE_MS);
+  });
+
+  it(`Should properly return (x-1):00 for x:00 with one minute denominator`, () => {
+    const result = calculateHistoricalPackagesTimestamp(
+      ONE_MINUTE_MS,
+      FULL_MINUTE_TS,
+      ONE_MINUTE_MS
+    );
+
+    expect(result).toEqual(FULL_MINUTE_TS - ONE_MINUTE_MS);
+  });
+
+  it(`Should properly return (x-1):00 for x:30 and offset 1.5 with one minute denominator`, () => {
+    const result = calculateHistoricalPackagesTimestamp(
+      1.5 * ONE_MINUTE_MS,
+      FULL_MINUTE_TS + 30 * 1000,
+      ONE_MINUTE_MS
+    );
+
+    expect(result).toEqual(FULL_MINUTE_TS - ONE_MINUTE_MS);
+  });
+
+  it(`Should properly return (x-2):00 for x:20 and offset 1.5 with one minute denominator`, () => {
+    const result = calculateHistoricalPackagesTimestamp(
+      1.5 * ONE_MINUTE_MS,
+      FULL_MINUTE_TS + 20 * 1000,
+      ONE_MINUTE_MS
+    );
+
+    expect(result).toEqual(FULL_MINUTE_TS - 2 * ONE_MINUTE_MS);
   });
 
   it(`Should properly return undefined for 0 offset`, () => {
