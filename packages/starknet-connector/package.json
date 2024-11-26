@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/starknet-connector",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "A tool to inject RedStone data into Starknet compatible smart contracts",
   "license": "MIT",
   "main": "dist/src/index.js",
@@ -16,7 +16,7 @@
     "lint:fix": "yarn global:eslint --fix ."
   },
   "dependencies": {
-    "@redstone-finance/sdk": "0.6.2",
+    "@redstone-finance/sdk": "0.7.0",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
     "starknet": "^6.6.6"

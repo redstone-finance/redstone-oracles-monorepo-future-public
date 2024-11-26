@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/internal-utils",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "private": true,
@@ -22,7 +22,7 @@
     "@aws-sdk/client-ssm": "^3.696.0",
     "@influxdata/influxdb-client": "^1.35.0",
     "@influxdata/influxdb-client-apis": "^1.35.0",
-    "@redstone-finance/utils": "0.6.2",
+    "@redstone-finance/utils": "0.7.0",
     "@types/lodash": "^4.14.195",
     "axios": "^1.7.7",
     "dayjs": "^1.11.12",

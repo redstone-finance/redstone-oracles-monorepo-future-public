@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/chain-configs",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "private": true,
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -26,9 +26,9 @@
     "test:chain-configs": "hardhat test test/chain-configs.test.ts"
   },
   "dependencies": {
-    "@redstone-finance/evm-multicall": "0.6.2",
-    "@redstone-finance/internal-utils": "0.6.2",
-    "@redstone-finance/utils": "0.6.2",
+    "@redstone-finance/evm-multicall": "0.7.0",
+    "@redstone-finance/internal-utils": "0.7.0",
+    "@redstone-finance/utils": "0.7.0",
     "dayjs": "^1.11.12",
     "ethers": "^5.7.2",
     "lodash": "^4.17.21",
