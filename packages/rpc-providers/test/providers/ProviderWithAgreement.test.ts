@@ -538,6 +538,19 @@ describe("ProviderWithAgreement", () => {
           () => clock.tick(100_000)
         );
       });
+
+      it("reject block numbers which have not changed since MAX_BLOCK_STALENESS, but then accept new valid blocks", async () => {
+        await testGetBlockNumber(
+          [
+            [1, 2, 3],
+            [1, 2, 10],
+            [1, 2, 12],
+            [2, 3, 12],
+          ],
+          [2, 2, 12, 3],
+          () => clock.tick(100_000)
+        );
+      });
     });
   });
 });
