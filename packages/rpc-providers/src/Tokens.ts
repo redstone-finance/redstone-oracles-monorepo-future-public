@@ -523,6 +523,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a",
       decimals: 6,
     },
+    deUSD: {
+      address: "0xB57B25851fE2311CC3fE511c8F10E868932e0680",
+      decimals: 18,
+    },
   },
   merlin: {
     SolvBTC_MERLIN: {

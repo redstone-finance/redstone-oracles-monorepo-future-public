@@ -2075,7 +2075,8 @@
       "source": [
         "aerodrome-base-cbbtc",
         "aerodrome-base-weth",
-        "aerodrome-base-wsteth"
+        "aerodrome-base-wsteth",
+        "velodrome-optimism-weth"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -2144,7 +2145,8 @@
       "source": [
         "curve-ethereum-frax",
         "trader-joe-v2-avalanche-usdc",
-        "trader-joe-v2-avalanche-usdt"
+        "trader-joe-v2-avalanche-usdt",
+        "trader-joe-v2-avalanche-deusd"
       ],
       "denomination": "USD",
       "rateFeed": false
