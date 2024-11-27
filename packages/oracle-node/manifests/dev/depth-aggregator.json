@@ -1404,7 +1404,8 @@
       "source": [
         "aerodrome-base-cbbtc",
         "aerodrome-base-weth",
-        "aerodrome-base-wsteth"
+        "aerodrome-base-wsteth",
+        "velodrome-optimism-weth"
       ]
     },
     "SUSDz_FUNDAMENTAL": {
