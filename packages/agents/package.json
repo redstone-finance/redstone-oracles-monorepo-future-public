@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/agents",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "lint:fix": "yarn global:eslint --fix ."
   },
   "dependencies": {
-    "@redstone-finance/utils": "0.7.0",
+    "@redstone-finance/utils": "0.7.1",
     "node-schedule": "^2.1.1"
   },
   "devDependencies": {
