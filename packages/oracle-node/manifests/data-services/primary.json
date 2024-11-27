@@ -1842,6 +1842,22 @@
       "source": ["ethereum-evm-fetcher-nucleus-rate-provider"],
       "denomination": "ETH",
       "rateFeed": true
+    },
+    "AERO": {
+      "source": [
+        "aerodrome-base-usdc",
+        "aerodrome-base-weth",
+        "aerodrome-cl-base-weth-6000",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "gate-usdt",
+        "kucoin-usdt",
+        "uniswap-v3-base-weth-3000",
+        "xt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
     }
   },
   "multiPointPackages": {

@@ -605,6 +605,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0xF469fBD2abcd6B9de8E169d128226C0Fc90a012e",
       decimals: 8,
     },
+    AERO: {
+      address: "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
+      decimals: 18,
+    },
   },
   optimism: {
     USDC: {
