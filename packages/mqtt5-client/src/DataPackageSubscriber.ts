@@ -13,7 +13,7 @@ import { MultiPubSubClient } from "./MultiPubSubClient";
 import { RateLimitsCircuitBreaker } from "./RateLimitsCircuitBreaker";
 import { encodeDataPackageTopic } from "./topics";
 
-const MAX_DELAY = RedstoneCommon.minToMs(2);
+const MAX_PACKAGE_STALENESS = RedstoneCommon.minToMs(2);
 
 /**
  * defines behavior of {@link DataPackageSubscriber}
@@ -121,7 +121,7 @@ export class DataPackageSubscriber {
 
     this.lastPublishedState = new LastPublishedFeedState(
       params.dataPackageIds,
-      Date.now() - MAX_DELAY
+      Date.now() - MAX_PACKAGE_STALENESS
     );
 
     for (const dataPackageId of params.dataPackageIds) {
@@ -433,17 +433,19 @@ export class DataPackageSubscriber {
   }
 
   private cleanPublishedAndStalePackages(timestamp: number) {
-    const entryForTimestamp = this.packagesPerTimestamp.get(timestamp)!;
+    const entryForTimestamp = this.packagesPerTimestamp.get(timestamp);
 
-    const onlyNewerPackages =
-      this.lastPublishedState.filterOutNotNewerPackages(entryForTimestamp);
+    if (entryForTimestamp) {
+      const onlyNewerPackages =
+        this.lastPublishedState.filterOutNotNewerPackages(entryForTimestamp);
 
-    this.packagesPerTimestamp.set(timestamp, onlyNewerPackages);
+      this.packagesPerTimestamp.set(timestamp, onlyNewerPackages);
+    }
 
     const now = Date.now();
     // extra clear for packages which were never published
     for (const timestamp of this.packagesPerTimestamp.keys()) {
-      if (timestamp <= now - MAX_DELAY) {
+      if (timestamp <= now - MAX_PACKAGE_STALENESS) {
         this.packagesPerTimestamp.delete(timestamp);
       }
     }
