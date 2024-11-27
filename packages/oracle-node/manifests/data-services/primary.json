@@ -1845,6 +1845,17 @@
       "denomination": "ETH",
       "rateFeed": true
     },
+    "XRD": {
+      "source": [
+        "kucoin-usdt",
+        "gate-usdt",
+        "bitfinex2-usd",
+        "bitget-usdt",
+        "gate-eth"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
     "AERO": {
       "source": [
         "aerodrome-base-usdc",

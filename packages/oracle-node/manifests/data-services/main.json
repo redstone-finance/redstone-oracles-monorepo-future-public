@@ -5761,6 +5761,13 @@
       "rateFeed": false
     },
     "XRD": {
+      "source": [
+        "kucoin-usdt",
+        "gate-usdt",
+        "bitfinex2-usd",
+        "bitget-usdt",
+        "gate-eth"
+      ],
       "denomination": "USD",
       "rateFeed": false
     },
