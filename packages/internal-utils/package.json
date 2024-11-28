@@ -3,7 +3,6 @@
   "version": "0.7.1",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
-  "private": true,
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf dist",
@@ -28,5 +27,8 @@
     "dayjs": "^1.11.12",
     "lodash": "^4.17.21",
     "zod": "^3.22.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

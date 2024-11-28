@@ -3,7 +3,6 @@
   "version": "0.7.1",
   "description": "",
   "author": "",
-  "private": true,
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf dist",
@@ -64,5 +63,8 @@
     "tsconfig-paths": "4.0.0",
     "typescript": "^5.5.4",
     "webpack": "^5.89.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -1,7 +1,6 @@
 {
   "name": "@redstone-finance/chain-configs",
   "version": "0.7.1",
-  "private": true,
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
@@ -56,5 +55,8 @@
     "ts-node": "^10.9.2",
     "typechain": "^8.1.1",
     "typescript": "^5.5.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

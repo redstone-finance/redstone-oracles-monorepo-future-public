@@ -48,7 +48,8 @@
     "global:lambda-pushDev": "cd $INIT_CWD && yarn global:lambda-pushDevIreland",
     "global:lambda-pushProd": "cd $INIT_CWD && yarn global:lambda-pushProdIreland",
     "global:lambda-pushProdAllRegions": "cd $INIT_CWD && yarn global:lambda-pushProdFrankfurt & yarn global:lambda-pushProdIreland & yarn global:lambda-pushProdLondon & yarn global:lambda-pushProdParis & yarn global:lambda-pushProdStockholm && wait",
-    "global:object-pushToBucket": "cd $INIT_CWD && aws s3api put-object --bucket $BUCKET_NAME --key $KEY_NAME --body $FILENAME"
+    "global:object-pushToBucket": "cd $INIT_CWD && aws s3api put-object --bucket $BUCKET_NAME --key $KEY_NAME --body $FILENAME",
+    "validate-paths-to-include-in-public-repo": "yarn global:ts-node scripts/validate-paths-to-include-in-public-repo.ts"
   },
   "keywords": [],
   "author": "hatskier <Suvorovalex1997@gmail.com> (https://hatskier.com/)",

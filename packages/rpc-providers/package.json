@@ -6,7 +6,6 @@
   "license": "MIT",
   "scripts": {
     "test": "REDSTONE_FINANCE_LOG_LEVEL=0 NODE_ENV=test hardhat test",
-    "test:rpc-urls": "NODE_ENV=test IS_CI=true hardhat test test/chains-configs/chains-configs-rpc-urls.test.ts",
     "test:chains-configs": "NODE_ENV=test IS_CI=true hardhat test test/chains-configs/chains-configs.test.ts",
     "build": "yarn compile && yarn global:tsc --build tsconfig.build.json",
     "build-dev": "yarn compile && yarn global:tsc --build tsconfig.json",

@@ -3,7 +3,6 @@
   "version": "0.7.1",
   "description": "RedStone Relayer based on Gelato Web3 Functions",
   "repository": "https://github.com/redstone-finance/redstone-oracles-monorepo",
-  "private": true,
   "scripts": {
     "clean": "rm -rf dist cache",
     "build": "yarn compile && yarn global:tsc --build tsconfig.build.json",
@@ -49,5 +48,8 @@
     "ts-generator": "0.1.1",
     "typechain": "^8.1.1",
     "typescript": "^5.5.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
