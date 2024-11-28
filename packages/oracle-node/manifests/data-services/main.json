@@ -1218,13 +1218,7 @@
       "rateFeed": false
     },
     "GRAIL": {
-      "source": [
-        "bingx-usdt",
-        "bitget-usdt",
-        "bitmart-usdt",
-        "coingecko",
-        "gate-usdt"
-      ],
+      "source": ["bingx-usdt", "bitget-usdt", "coingecko", "gate-usdt"],
       "denomination": "USD",
       "rateFeed": false
     },
