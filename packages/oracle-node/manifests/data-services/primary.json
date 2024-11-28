@@ -1840,6 +1840,11 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "LBTC/BTC": {
+      "source": ["non-usd-based"],
+      "denomination": "BTC",
+      "rateFeed": false
+    },
     "ssETH_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-nucleus-rate-provider"],
       "denomination": "ETH",
