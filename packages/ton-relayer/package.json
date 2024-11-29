@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/ton-relayer",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
@@ -15,9 +15,9 @@
     "lint:fix": "yarn global:eslint --fix ."
   },
   "dependencies": {
-    "@redstone-finance/sdk": "0.7.1",
-    "@redstone-finance/ton-connector": "0.7.1",
-    "@redstone-finance/utils": "0.7.1",
+    "@redstone-finance/sdk": "0.7.2",
+    "@redstone-finance/ton-connector": "0.7.2",
+    "@redstone-finance/utils": "0.7.2",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2"
   },
