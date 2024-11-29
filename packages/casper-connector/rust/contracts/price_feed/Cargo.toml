@@ -6,7 +6,7 @@ edition = "2021"
 description = "Sample consumer of the data saved in Price Adapter or of its wrapped version Price Relay Adapter"
 
 [features]
-print_debug = ["casper-contract/test-support", "redstone/print_debug"]
+print_debug = ["casper-contract/test-support", "redstone/casper_debug"]
 
 [dependencies]
 redstone = { path = "../../rust-sdk", default-features = false, features = ["network_casper"] }

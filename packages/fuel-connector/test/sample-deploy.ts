@@ -4,7 +4,7 @@ import { deployPricesContract } from "./prices/prices-contract-test-utils";
 
 const IS_LOCAL = false as boolean;
 const SALT =
-  "0x0000000000000000000000000000000000000000000000000000000000000012";
+  "0x0000000000000000000000000000000000000000000000000000000000000013";
 
 async function main() {
   const adapter = (await deployPricesContract(await provider(IS_LOCAL), {

@@ -1,0 +1,42 @@
+{
+  "name": "@redstone-finance/radix-connector",
+  "version": "0.7.1",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn global:tsc --build tsconfig.json",
+    "preversion": "yarn build",
+    "pack-package": "yarn build && cd dist && npm pack",
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix .",
+    "test-ci": "IS_CI=true yarn global:jest",
+    "test": "yarn global:jest",
+    "test-e2e": "yarn global:jest e2e.spec.ts",
+    "coverage": "yarn global:jest:cov --coveragePathIgnorePatterns=\"src/index.ts\" --coveragePathIgnorePatterns=\"src/radix/parser/generated/converter.ts\"",
+    "sample-deploy": "make -C scrypto build && yarn global:ts-node test/scripts/sample_deploy.ts",
+    "sample-instantiate": "yarn global:ts-node test/scripts/sample_instantiate.ts",
+    "sample-run": "yarn global:ts-node test/scripts/sample_run.ts"
+  },
+  "dependencies": {
+    "@radixdlt/babylon-gateway-api-sdk": "^1.6.1",
+    "@radixdlt/radix-engine-toolkit": "^1.0.5",
+    "@redstone-finance/sdk": "0.7.1",
+    "axios": "^1.7.7",
+    "ethers": "^5.7.2"
+  },
+  "devDependencies": {
+    "@atlantis-l/radix-tool": "^0.8.9",
+    "node-jq": "^4.2.2",
+    "redstone-api": "^0.4.12",
+    "zod": "^3.22.4"
+  },
+  "files": [
+    "dist/src/**/*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

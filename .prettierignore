@@ -2,3 +2,4 @@ node_modules
 artifacts
 gasReporterOutput.json
 dist
+target

@@ -1,6 +1,6 @@
 export * from "./casper/CasperConfig";
 export * from "./casper/CasperConnection";
-export * from "./casper/CasperConnector";
+export * from "./casper/CasperContractConnector";
 export * from "./casper/CasperWalletTypes";
 export * from "./casper/WalletCasperConnection";
 export * from "./contracts/price_adapter/PriceAdapterCasperContractAdapter";

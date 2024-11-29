@@ -1,6 +1,7 @@
 # RedStone Oracles integration with Casper
 
 <!-- TOC -->
+
 - [RedStone Oracles integration with Casper](#redstone-oracles-integration-with-casper)
   - [💡 How RedStone Oracles work with Casper](#-how-redstone-oracles-work-with-casper)
   - [✨ General parameter disclaimer](#-general-parameter-disclaimer)
@@ -25,6 +26,7 @@
     - [Sample payload](#sample-payload)
   - [⚠ Possible transaction failures](#-possible-transaction-failures)
   - [🙋‍Contact](#contact)
+
 <!-- TOC -->
 
 ## 💡 How RedStone Oracles work with Casper
@@ -36,7 +38,8 @@ cache gateways and streamr data broadcasting protocol. Data is transferred to th
 attach signed data packages to their function invocations. The information integrity is verified on-chain through
 signature checking.
 
-To learn more about _RedStone Oracles_ design, go to the [RedStone docs](https://docs.redstone.finance/docs/introduction)
+To learn more about _RedStone Oracles_ design, go to
+the [RedStone docs](https://docs.redstone.finance/docs/introduction)
 
 ## ✨ General parameter disclaimer
 
@@ -55,7 +58,7 @@ The value `payload` is a serialized `List` of `U8`s representing the serialized 
 <br />
 📚 See RedStone data-packing: https://docs.redstone.finance/img/payload.png
 
-📚 See also the file [constants.fc](../redstone_casper/src/contracts/constants.rs), containing all necessary
+📚 See also the file [constants.rs](../redstone_casper/src/contracts/constants.rs), containing all necessary
 constants.
 
 ## 📄 Smart Contracts
@@ -260,7 +263,7 @@ of the returned values on the end of the list (in case on superset, intersects i
 
 ```rust
 write_prices_chunk(feed_ids: List[U256], payload: List[U8],
-                   hash: List[U8], chunk_index: U8): Unit     // Public/Contract
+hash: List[U8], chunk_index: U8): Unit     // Public/Contract
 ```
 
 The function temporarily saves the chunk of `payload` to a contract storage, taking into account the `chunk_index` and
@@ -276,7 +279,7 @@ saved chunk with the empty chunk.
 
 ```rust
 get_prices_chunk(feed_ids: List[U256], payload: List[U8],
-                   hash: List[U8], chunk_index: U8): Unit     // Public/Contract
+hash: List[U8], chunk_index: U8): Unit     // Public/Contract
 ```
 
 The function works as the [`write_prices_chunk`](#-write_prices_chunk) function, but also saves the result as
@@ -323,7 +326,8 @@ See [here](../README.md#preparing-sample-data).
 The transaction could have returned a `UserError: [code]` with one of codes defined:
 
 * in the [redstone](../rust-sdk/src/network/error.rs) library, or see
-  in [docs](https://redstone-docs-git-casper-redstone-finance.vercel.app/rust/casper/redstone/crypto_secp256k1,network_casper/redstone/network/error/enum.Error.html)
+  in [docs](https://docs.redstone.finance/rust/redstone/crypto_secp256k1,network_casper/redstone/network/error/enum.Error.html)
+
 - commonly used
   across [contracts](https://redstone-docs-git-casper-redstone-finance.vercel.app/rust/casper/redstone/crypto_secp256k1,network_casper/redstone/network/casper/contracts/contract_error/enum.ContractError.html)
 - Price Adapter [specific](../contracts/price_adapter/src/price_adapter_error.rs)

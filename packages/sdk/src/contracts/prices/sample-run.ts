@@ -32,7 +32,7 @@ export async function sampleRun(
   if (typeof deployHash == "string") {
     await pricesConnector.waitForTransaction(deployHash);
   } else {
-    console.log(`Values pushed to component: ${deployHash}`);
+    console.log(`Values pushed to contract: ${deployHash}`);
   }
 
   await refreshStateCallback();
@@ -43,10 +43,11 @@ export async function sampleRun(
 
   logHeader("Reading values from component state...");
   const values = await pricesAdapter.readPricesFromContract(paramsProvider);
-  console.log(`Values read from component: ${values.map(convertValue)}`);
+
+  console.log(`Values read from contract: ${values.map(convertValue)}`);
   const readTimestamp = await pricesAdapter.readTimestampFromContract();
   console.log(
-    `Timestamp read from component: ${readTimestamp} (${describeTimestamp(readTimestamp)})`
+    `Timestamp read from contract: ${readTimestamp} (${describeTimestamp(readTimestamp)})`
   );
 
   if (!ethFeedConnector) {
@@ -62,10 +63,10 @@ export async function sampleRun(
   );
 }
 
-function convertValue(v: BigNumberish) {
+export function convertValue(v: BigNumberish) {
   return BigNumber.from(v).toNumber() / 10 ** 8;
 }
 
-function describeTimestamp(timestamp: number) {
+export function describeTimestamp(timestamp: number) {
   return `${(Date.now() - timestamp) / 1000} sec. ago`;
 }

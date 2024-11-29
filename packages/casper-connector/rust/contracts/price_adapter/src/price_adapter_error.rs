@@ -58,7 +58,7 @@ impl ContractErrorContent for PriceAdapterError {
     fn message(&self) -> String {
         match self {
             PriceAdapterError::WrongSignerCountThresholdValue(value) => {
-                format!("Wrong signer count threshold value: ${}", value)
+                format!("Wrong signer count threshold value: {}", value)
             }
 
             PriceAdapterError::SignersMustNotBeEmpty => "Signers must not be empty".to_string(),

@@ -6,10 +6,10 @@ edition = "2021"
 description = "Sample oracle contract that consumes RedStone payload"
 
 [features]
-print_debug = ["casper-contract/test-support", "redstone/print_debug"]
+print_debug = ["casper-contract/test-support", "redstone/casper_debug"]
 
 [dependencies]
-redstone = { path = "../../rust-sdk", features = ["crypto_secp256k1", "network_casper"] }
+redstone = { path = "../../rust-sdk", default-features = false, features = ["crypto_secp256k1", "network_casper"] }
 redstone_casper = { path = "../../redstone_casper" }
 casper-contract = { version = "^4.0.0", default-features = false, features = ["wee_alloc"] }
 casper-types = "^4.0.1"

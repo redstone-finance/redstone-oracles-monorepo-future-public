@@ -2,7 +2,7 @@ import { IContractConnector } from "@redstone-finance/sdk";
 import { VersionedCasperContract } from "../contracts/VersionedCasperContract";
 import { ICasperConnection } from "./ICasperConnection";
 
-export abstract class CasperConnector<Adapter>
+export abstract class CasperContractConnector<Adapter>
   implements IContractConnector<Adapter>
 {
   constructor(

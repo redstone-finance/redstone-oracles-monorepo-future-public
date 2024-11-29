@@ -6,7 +6,7 @@ ALL_TARGET_DIRS := $(CONTRACTS_DIR)/tests
 CONTRACT_DIRS := $(addprefix $(CONTRACTS_DIR)/,$(CONTRACTS))
 DIRS := $(REDSTONE_DIR) $(CONTRACT_DIRS) $(ALL_TARGET_DIRS) $(REDSTONE_CASPER_DIR)
 CLEAN_DIRS := $(CONTRACTS_DIR)/tests
-RUN_FEATURES=--features="print_debug"
+RUN_FEATURES=--features="casper_debug"
 CLIPPY=cargo clippy --release --fix --allow-dirty --allow-staged
 DOC=cargo doc --no-deps --document-private-items
 TEST=RUST_BACKTRACE=full cargo test --features="helpers"

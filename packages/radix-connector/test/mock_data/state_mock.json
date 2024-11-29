@@ -1,0 +1,155 @@
+{
+  "details": {
+    "state": {
+      "fields": [
+        {
+          "kind": "U8",
+          "field_name": "signer_count_threshold",
+          "value": "1"
+        },
+        {
+          "kind": "Array",
+          "field_name": "signers",
+          "element_kind": "Array",
+          "elements": [
+            {
+              "kind": "Bytes",
+              "element_kind": "U8",
+              "hex": "12470f7aba85c8b81d63137dd5925d6ee114952b"
+            },
+            {
+              "kind": "Bytes",
+              "element_kind": "U8",
+              "hex": "109b4a318a4f5ddcbca6349b45f881b4137deafb"
+            },
+            {
+              "kind": "Bytes",
+              "element_kind": "U8",
+              "hex": "1ea62d73edf8ac05dfcea1a34b9796e937a29eff"
+            },
+            {
+              "kind": "Bytes",
+              "element_kind": "U8",
+              "hex": "2c59617248994d12816ee1fa77ce0a64eeb456bf"
+            },
+            {
+              "kind": "Bytes",
+              "element_kind": "U8",
+              "hex": "83cba8c619fb629b81a65c2e67fe15cf3e3c9747"
+            },
+            {
+              "kind": "Bytes",
+              "element_kind": "U8",
+              "hex": "f786a909d559f5dee2dc6706d8e5a81728a39ae9"
+            }
+          ]
+        },
+        {
+          "kind": "Map",
+          "field_name": "prices",
+          "key_kind": "Array",
+          "value_kind": "Array",
+          "entries": [
+            {
+              "key": {
+                "kind": "Array",
+                "element_kind": "U64",
+                "elements": [
+                  {
+                    "kind": "U64",
+                    "value": "4346947"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  }
+                ]
+              },
+              "value": {
+                "kind": "Array",
+                "element_kind": "U64",
+                "elements": [
+                  {
+                    "kind": "U64",
+                    "value": "5910281962996"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  }
+                ]
+              }
+            },
+            {
+              "key": {
+                "kind": "Array",
+                "element_kind": "U64",
+                "elements": [
+                  {
+                    "kind": "U64",
+                    "value": "4543560"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  }
+                ]
+              },
+              "value": {
+                "kind": "Array",
+                "element_kind": "U64",
+                "elements": [
+                  {
+                    "kind": "U64",
+                    "value": "246120063046"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  },
+                  {
+                    "kind": "U64",
+                    "value": "0"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "kind": "U64",
+          "field_name": "timestamp",
+          "value": "1724834030000"
+        }
+      ]
+    }
+  }
+}

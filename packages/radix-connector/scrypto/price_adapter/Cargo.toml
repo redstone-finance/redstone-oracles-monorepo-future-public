@@ -1,0 +1,23 @@
+[package]
+name = "price_adapter"
+version = "1.0.0"
+edition = "2021"
+build = "build.rs"
+
+[dependencies]
+scrypto = { version = "1.2.0" }
+redstone = { path = "../rust-sdk", default-features = false, optional = true }
+
+[dev-dependencies]
+scrypto-test = { version = "1.2.0" }
+
+[features]
+real_network = ["redstone/crypto_secp256k1", "redstone/network_radix"]
+default = ["redstone/crypto_secp256k1", "redstone/network_radix", "redstone/helpers", "redstone/print_debug"]
+test_sim_env = ["redstone/print_debug"]
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[package.metadata.scripts]
+publish = "resim publish ."

@@ -1,0 +1,4 @@
+target/
+**/wasm/
+scripts/sample-data/*
+scripts/DEPLOY_HASH

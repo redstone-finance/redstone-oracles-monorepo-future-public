@@ -1,8 +1,8 @@
 import { IPricesContractAdapter } from "@redstone-finance/sdk";
-import { CasperConnector } from "../../casper/CasperConnector";
+import { CasperContractConnector } from "../../casper/CasperContractConnector";
 import { PriceRelayAdapterCasperContractAdapter } from "./PriceRelayAdapterCasperContractAdapter";
 
-export class PriceRelayAdapterCasperContractConnector extends CasperConnector<IPricesContractAdapter> {
+export class PriceRelayAdapterCasperContractConnector extends CasperContractConnector<IPricesContractAdapter> {
   getAdapter(): Promise<IPricesContractAdapter> {
     return Promise.resolve(
       new PriceRelayAdapterCasperContractAdapter(

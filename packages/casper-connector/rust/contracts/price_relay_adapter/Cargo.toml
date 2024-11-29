@@ -6,7 +6,7 @@ edition = "2021"
 description = "A proxy for the regular price adapter methods. It solves the limitation of calling get_prices method off-chain and adds a set of methods for passing the payload argument in chunks"
 
 [features]
-print_debug = ["redstone/print_debug"]
+print_debug = ["redstone/casper_debug"]
 
 [dependencies]
 redstone = { path = "../../rust-sdk", default-features = false, features = ["network_casper"] }
