@@ -129,7 +129,7 @@ export class JsNativeSafeNumber implements ISafeNumber {
 
   assertPositive() {
     if (this._value <= 0) {
-      throw new Error("Assert non positive failed");
+      throw new Error("Assert positive failed");
     }
   }
 

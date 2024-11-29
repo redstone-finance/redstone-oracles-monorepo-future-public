@@ -83,15 +83,15 @@ describe("JsNativePreciseNumber", () => {
 
   it("assert positive", () => {
     expect(() => JsNativeSafeNumber.from(-10).assertPositive()).toThrowError(
-      /Assert non positive failed/
+      /Assert positive failed/
     );
 
     expect(() => JsNativeSafeNumber.from(0).assertPositive()).toThrowError(
-      /Assert non positive failed/
+      /Assert positive failed/
     );
 
     expect(() => JsNativeSafeNumber.from(-0).assertPositive()).toThrowError(
-      /Assert non positive failed/
+      /Assert positive failed/
     );
 
     expect(() => JsNativeSafeNumber.from(10).assertPositive()).not.toThrow();
