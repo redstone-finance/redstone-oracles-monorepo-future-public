@@ -299,6 +299,16 @@
       "description": "Data feeds provided by KudasaiJP",
       "evmAddress": "0x6318eE5BC5070150b7ab2688fc2C9c1Bf958B72c",
       "ecdsaPublicKey": "0x04923b515ca55308a9a6f5cac7ccf6cafbc1fda73700a081b1d1114e20e3c0a89c9fe388b6e62fade1243bd30895ac0473a9642756be38e3619aad5c9b890e0cc3"
+    },
+    "0x01922465ccaa8b14A1CDF84BeC16fFA0A7CD2b9d": {
+      "url": "https://redstone.finance",
+      "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/teb/logo.png",
+      "name": "teb-demo-1",
+      "ipAddress": "0.0.0.0",
+      "dataServiceId": "teb-demo-1",
+      "description": "Data feeds provided by TEB",
+      "evmAddress": "0x01922465ccaa8b14A1CDF84BeC16fFA0A7CD2b9d",
+      "ecdsaPublicKey": "0x0446b99cd91967222a16d5220ed10a5d743d517655a80f4eda8b52a817f77de7d237f0c474ef28859f347cc001b910dc74de03181880408d40aa37ae5329dda384"
     }
   },
   "evolve": null,
@@ -394,6 +404,11 @@
       "name": "KudasaiJP Demo 1 Node",
       "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/kudasaijp/logo_orange.svg",
       "description": "Data feeds provided by KudasaiJP to staging env"
+    },
+    "teb-demo-1": {
+      "name": "TEB Demo 1 Node",
+      "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/teb/logo.svg",
+      "description": "Data feeds provided by TEB to staging env"
     }
   },
   "contractAdmins": [
