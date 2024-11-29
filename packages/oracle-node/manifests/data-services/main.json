@@ -2049,8 +2049,7 @@
         "pancake-swap-bnb-solvbtc-100",
         "pancake-swap-bnb-solvbtc-500",
         "trader-joe-v2-avalanche-solvbtc",
-        "uniswap-v3-ethereum-solvbtc-100",
-        "uniswap-v3-ethereum-solvbtc-500"
+        "uniswap-v3-ethereum-solvbtc-100"
       ],
       "denomination": "USD",
       "rateFeed": false

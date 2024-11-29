@@ -1379,8 +1379,7 @@
         "uniswap-v3-ethereum-solvbtc-100",
         "pancake-swap-bnb-solvbtc-500",
         "curve-ethereum-solvbtc",
-        "dodoex-bnb-solvbtc",
-        "uniswap-v3-ethereum-solvbtc-500"
+        "dodoex-bnb-solvbtc"
       ],
       "upper": {
         "token": "BTC",
