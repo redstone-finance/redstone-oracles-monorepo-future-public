@@ -2924,6 +2924,21 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "RIF": {
+      "source": [
+        "binance-btc",
+        "binance-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitrue-usdt",
+        "coingecko",
+        "gate-usdt",
+        "lbank-usdt",
+        "xt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
     "BAT": {
       "denomination": "USD",
       "rateFeed": false
@@ -3978,10 +3993,6 @@
       "rateFeed": false
     },
     "CTK": {
-      "denomination": "USD",
-      "rateFeed": false
-    },
-    "RIF": {
       "denomination": "USD",
       "rateFeed": false
     },

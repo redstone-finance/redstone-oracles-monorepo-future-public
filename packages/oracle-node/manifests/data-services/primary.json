@@ -1875,6 +1875,22 @@
       ],
       "denomination": "USD",
       "rateFeed": false
+    },
+    "RIF": {
+      "source": [
+        "binance-btc",
+        "binance-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitrue-usdt",
+        "coingecko",
+        "coinmarketcap",
+        "gate-usdt",
+        "lbank-usdt",
+        "xt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
     }
   },
   "multiPointPackages": {
