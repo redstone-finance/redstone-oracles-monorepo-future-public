@@ -14,6 +14,7 @@ import {
 } from "ethers/lib/utils";
 import { RedstoneAdapterBase } from "../../../typechain-types";
 import { RelayerConfig } from "../../config/RelayerConfig";
+import { RedstoneEvmContract } from "../../facade/EvmContractFacade";
 
 const logger = loggerFactory("update-using-oev-auction");
 
@@ -21,7 +22,7 @@ export const updateUsingOevAuction = async (
   relayerConfig: RelayerConfig,
   txDeliveryCalldata: string,
   blockTag: number,
-  adapterContract: RedstoneAdapterBase,
+  adapterContract: RedstoneEvmContract,
   dataPackagesResponse: DataPackagesResponse
 ) => {
   logger.log(`Updating using OEV auction`);
@@ -40,7 +41,7 @@ export const updateUsingOevAuction = async (
         adapterContract.provider as providers.JsonRpcProvider,
         tx,
         blockTag,
-        adapterContract,
+        adapterContract as RedstoneAdapterBase,
         dataPackagesResponse,
         relayerConfig
       )

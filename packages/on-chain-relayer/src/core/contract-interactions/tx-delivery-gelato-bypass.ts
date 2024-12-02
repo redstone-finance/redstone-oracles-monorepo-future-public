@@ -3,6 +3,7 @@ import {
   TransactionRequest,
   TransactionResponse,
 } from "@ethersproject/providers";
+import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { PopulatedTransaction } from "ethers";
 
 export const convertToTxDeliveryCall = (
@@ -20,9 +21,13 @@ export type TxDeliveryCall = {
   value?: string;
 };
 
+// TODO: move it from here
+export const SelfHandled = Symbol("SelfHandled");
+
 export interface ITxDeliveryMan {
   deliver(
     txDeliveryCall: TxDeliveryCall,
-    deferredCallData?: () => Promise<string>
-  ): Promise<TransactionResponse | undefined>;
+    deferredCallData?: () => Promise<string>,
+    paramsProvider?: ContractParamsProvider
+  ): Promise<TransactionResponse | typeof SelfHandled>;
 }

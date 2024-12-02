@@ -17,13 +17,15 @@ export type { OnChainRelayerEnv, RelayerConfig } from "./config/RelayerConfig";
 export type { EvmContractAdapter } from "./core/contract-interactions/EvmContractAdapter";
 export { EvmContractConnector } from "./core/contract-interactions/EvmContractConnector";
 export type { IRedstoneContractAdapter } from "./core/contract-interactions/IRedstoneContractAdapter";
-export type {
-  ITxDeliveryMan,
-  TxDeliveryCall,
+export {
+  SelfHandled,
+  type ITxDeliveryMan,
+  type TxDeliveryCall,
 } from "./core/contract-interactions/tx-delivery-gelato-bypass";
 export type { ContractFacade } from "./facade/ContractFacade";
 export { EvmContractFacade } from "./facade/EvmContractFacade";
 export type { RedstoneEvmContract } from "./facade/EvmContractFacade";
+export { getEvmContract } from "./facade/get-evm-contract";
 export { getEvmContractAdapter } from "./facade/get-evm-contract-adapter";
 export {
   getIterationArgsProvider,

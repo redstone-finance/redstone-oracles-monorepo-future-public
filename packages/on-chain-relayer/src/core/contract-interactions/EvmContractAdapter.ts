@@ -5,7 +5,11 @@ import { RelayerConfig } from "../../config/RelayerConfig";
 import { RedstoneEvmContract } from "../../facade/EvmContractFacade";
 import { ContractData } from "../../types";
 import { IRedstoneContractAdapter } from "./IRedstoneContractAdapter";
-import { ITxDeliveryMan, TxDeliveryCall } from "./tx-delivery-gelato-bypass";
+import {
+  ITxDeliveryMan,
+  SelfHandled,
+  TxDeliveryCall,
+} from "./tx-delivery-gelato-bypass";
 
 const logger = loggerFactory("evm-contract-adapter");
 
@@ -38,11 +42,16 @@ export abstract class EvmContractAdapter<Contract extends RedstoneEvmContract>
     const metadataTimestamp = Date.now();
     const updateTx = await this.makeUpdateTx(paramsProvider, metadataTimestamp);
 
-    const updateTxResponse = await this.txDeliveryMan?.deliver(updateTx, () =>
-      this.makeUpdateTx(paramsProvider, metadataTimestamp).then((tx) => tx.data)
+    const updateTxResponse = await this.txDeliveryMan?.deliver(
+      updateTx,
+      () =>
+        this.makeUpdateTx(paramsProvider, metadataTimestamp).then(
+          (tx) => tx.data
+        ),
+      paramsProvider
     );
 
-    if (!updateTxResponse) {
+    if (!updateTxResponse || updateTxResponse === SelfHandled) {
       // nothing wrong: we are probably in Gelato env or another custom txDeliveryMan is provided
       return;
     }

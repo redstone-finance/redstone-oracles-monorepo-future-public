@@ -1,17 +1,18 @@
+import { Provider } from "@ethersproject/providers";
 import { TxDeliveryManSupportedProviders } from "@redstone-finance/rpc-providers";
 import { DataPackagesResponseCache } from "@redstone-finance/sdk";
-import { Wallet } from "ethers";
-import { RedstoneAdapterBase } from "../../typechain-types";
+import { Signer, Wallet } from "ethers";
 import { RelayerConfig } from "../config/RelayerConfig";
 import { EvmContractConnector } from "../core/contract-interactions/EvmContractConnector";
 import { getRelayerProvider } from "../core/contract-interactions/get-relayer-provider";
-import { InfluxEvmContractAdapter } from "../core/contract-interactions/InfluxEvmContractAdapter";
-import { OevPriceFeedsEvmContractAdapter } from "../core/contract-interactions/OevPriceFeedsEvmContractAdapter";
+import { OevTxDeliveryMan } from "../core/contract-interactions/OevTxDeliveryMan";
 import { ITxDeliveryMan } from "../core/contract-interactions/tx-delivery-gelato-bypass";
 import { getTxDeliveryMan } from "../core/TxDeliveryManSingleton";
-import { EvmContractFacade } from "./EvmContractFacade";
+import { EvmContractFacade, RedstoneEvmContract } from "./EvmContractFacade";
+import { getEvmContract } from "./get-evm-contract";
 import { getEvmContractAdapter } from "./get-evm-contract-adapter";
 import { getIterationArgsProvider } from "./get-iteration-args-provider";
+import { RelayerDataInfluxService } from "./RelayerDataInfluxService";
 
 export const getEvmContractFacade = (
   relayerConfig: RelayerConfig,
@@ -20,36 +21,20 @@ export const getEvmContractFacade = (
   const { privateKey } = relayerConfig;
   const provider = getRelayerProvider(relayerConfig);
   const signer = new Wallet(privateKey, provider);
+  const adapterContract = getEvmContract(relayerConfig, signer);
 
-  const txDeliveryMan = getTxDeliveryMan(
+  const txDeliveryMan = makeTxDeliveryMan(
     relayerConfig,
     signer,
-    provider as TxDeliveryManSupportedProviders
+    provider,
+    adapterContract
   );
 
-  const priceFeedsEvmContractAdapterOverride = relayerConfig.oevAuctionUrl
-    ? (
-        relayerConfig: RelayerConfig,
-        contract: RedstoneAdapterBase,
-        txDeliveryMan?: ITxDeliveryMan
-      ) =>
-        new OevPriceFeedsEvmContractAdapter<RedstoneAdapterBase>(
-          relayerConfig,
-          contract,
-          txDeliveryMan
-        )
-    : undefined;
-
-  let adapter = getEvmContractAdapter(
+  const adapter = getEvmContractAdapter(
     relayerConfig,
-    signer,
-    txDeliveryMan,
-    priceFeedsEvmContractAdapterOverride
+    adapterContract,
+    txDeliveryMan
   );
-
-  if (relayerConfig.dryRunWithInflux) {
-    adapter = new InfluxEvmContractAdapter(adapter, relayerConfig);
-  }
 
   return new EvmContractFacade(
     new EvmContractConnector(provider, adapter),
@@ -57,3 +42,30 @@ export const getEvmContractFacade = (
     cache
   );
 };
+
+function makeTxDeliveryMan(
+  relayerConfig: RelayerConfig,
+  signer: Wallet,
+  provider: Signer | Provider,
+  adapterContract: RedstoneEvmContract
+) {
+  let txDeliveryMan: ITxDeliveryMan = getTxDeliveryMan(
+    relayerConfig,
+    signer,
+    provider as TxDeliveryManSupportedProviders
+  );
+
+  if (relayerConfig.dryRunWithInflux) {
+    txDeliveryMan = new RelayerDataInfluxService(relayerConfig);
+  }
+
+  if (relayerConfig.oevAuctionUrl) {
+    txDeliveryMan = new OevTxDeliveryMan(
+      txDeliveryMan,
+      adapterContract,
+      relayerConfig
+    );
+  }
+
+  return txDeliveryMan;
+}

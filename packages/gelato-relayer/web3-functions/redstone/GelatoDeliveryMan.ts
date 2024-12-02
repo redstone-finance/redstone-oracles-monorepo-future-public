@@ -1,5 +1,8 @@
 import { Web3FunctionResult } from "@gelatonetwork/web3-functions-sdk";
-import { ITxDeliveryMan } from "@redstone-finance/on-chain-relayer";
+import {
+  ITxDeliveryMan,
+  SelfHandled,
+} from "@redstone-finance/on-chain-relayer";
 import { TxDeliveryCall } from "@redstone-finance/rpc-providers";
 import { GelatoLogger } from "./GelatoLogger";
 
@@ -33,15 +36,12 @@ export class GelatoDeliveryMan implements ITxDeliveryMan {
     };
   }
 
-  deliver(
-    txDeliveryCall: TxDeliveryCall,
-    _deferredCallData?: () => Promise<string>
-  ) {
+  deliver(txDeliveryCall: TxDeliveryCall) {
     this.logger.emitMessages();
 
     this.resolve(GelatoDeliveryMan.makeWeb3FunctionResult(txDeliveryCall));
 
-    return Promise.resolve(undefined);
+    return Promise.resolve(SelfHandled);
   }
 
   doNotDeliver() {

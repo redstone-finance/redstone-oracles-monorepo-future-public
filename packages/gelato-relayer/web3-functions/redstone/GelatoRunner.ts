@@ -6,6 +6,7 @@ import {
   ContractFacade,
   EvmContractConnector,
   EvmContractFacade,
+  getEvmContract,
   getEvmContractAdapter,
   getIterationArgsProvider,
   IRedstoneContractAdapter,
@@ -41,7 +42,11 @@ export class GelatoRunner {
       const deliveryMan = new GelatoDeliveryMan(resolve, logger);
       const connector = new EvmContractConnector(
         provider,
-        getEvmContractAdapter(config, provider, deliveryMan)
+        getEvmContractAdapter(
+          config,
+          getEvmContract(config, provider),
+          deliveryMan
+        )
       );
 
       const facade = (

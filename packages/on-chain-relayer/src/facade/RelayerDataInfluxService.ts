@@ -10,13 +10,21 @@ import { basename } from "path";
 import { z } from "zod";
 
 import { RelayerConfig } from "../config/RelayerConfig";
+import {
+  ITxDeliveryMan,
+  SelfHandled,
+  TxDeliveryCall,
+} from "../core/contract-interactions/tx-delivery-gelato-bypass";
 
 const RELAYER_DATA_BUCKET = "dry-run-relayer-data";
 const TXS_MEASUREMENT = "redstoneTransactions";
 const SENDER_TAG =
   "0x0000000000000000000000000000000000000000000000000000000000000001";
 
-export class RelayerDataInfluxService extends InfluxService {
+export class RelayerDataInfluxService
+  extends InfluxService
+  implements ITxDeliveryMan
+{
   constructor(private relayerConfig: RelayerConfig) {
     const { influxUrl, influxToken } = relayerConfig;
 
@@ -28,10 +36,12 @@ export class RelayerDataInfluxService extends InfluxService {
     });
   }
 
-  async updatePriceValues(
-    paramsProvider: ContractParamsProvider
-  ): Promise<void> {
-    const dataPackages = await paramsProvider.requestDataPackages();
+  async deliver(
+    _txDeliveryCall: TxDeliveryCall,
+    _deferredCallData?: () => Promise<string>,
+    paramsProvider?: ContractParamsProvider
+  ): Promise<typeof SelfHandled> {
+    const dataPackages = await paramsProvider!.requestDataPackages();
     const manifestFile = RedstoneCommon.getFromEnv("MANIFEST_FILE", z.string());
 
     await this.insert([
@@ -40,6 +50,8 @@ export class RelayerDataInfluxService extends InfluxService {
         manifestFile,
       }),
     ]);
+
+    return SelfHandled;
   }
 
   private static getInfluxPointForDataFeedPackages(

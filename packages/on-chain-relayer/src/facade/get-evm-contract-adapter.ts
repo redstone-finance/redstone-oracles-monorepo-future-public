@@ -1,8 +1,3 @@
-import { Provider } from "@ethersproject/providers";
-import { Contract, Signer } from "ethers";
-import { abi as redstoneAdapterABI } from "../../artifacts/contracts/core/RedstoneAdapterBase.sol/RedstoneAdapterBase.json";
-import { abi as mentoAdapterABI } from "../../artifacts/contracts/custom-integrations/mento/MentoAdapterBase.sol/MentoAdapterBase.json";
-import { abi as multifeedAdapterABI } from "../../artifacts/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol/MultiFeedAdapterWithoutRounds.json";
 import {
   MentoAdapterBase,
   MultiFeedAdapterWithoutRounds,
@@ -18,64 +13,30 @@ import { RedstoneEvmContract } from "./EvmContractFacade";
 
 export function getEvmContractAdapter(
   relayerConfig: RelayerConfig,
-  signerOrProvider?: Signer | Provider,
-  txDeliveryMan?: ITxDeliveryMan,
-  // especially for gelato
-  priceFeedsEvmContractAdapterOverride?: (
-    relayerConfig: RelayerConfig,
-    contract: RedstoneAdapterBase,
-    txDeliveryMan?: ITxDeliveryMan
-  ) => PriceFeedsEvmContractAdapter<RedstoneAdapterBase>
+  adapterContract: RedstoneEvmContract,
+  txDeliveryMan?: ITxDeliveryMan
 ): EvmContractAdapter<RedstoneEvmContract> {
-  const { adapterContractAddress } = relayerConfig;
-
   switch (relayerConfig.adapterContractType) {
     case "multi-feed": {
-      const multiFeedContract = new Contract(
-        adapterContractAddress,
-        multifeedAdapterABI,
-        signerOrProvider
-      ) as MultiFeedAdapterWithoutRounds;
-
       return new MultiFeedEvmContractAdapter(
         relayerConfig,
-        multiFeedContract,
+        adapterContract as MultiFeedAdapterWithoutRounds,
         txDeliveryMan
       );
     }
 
     case "price-feeds": {
-      const contract = new Contract(
-        adapterContractAddress,
-        redstoneAdapterABI,
-        signerOrProvider
-      ) as RedstoneAdapterBase;
-
-      if (priceFeedsEvmContractAdapterOverride) {
-        return priceFeedsEvmContractAdapterOverride(
-          relayerConfig,
-          contract,
-          txDeliveryMan
-        );
-      }
-
       return new PriceFeedsEvmContractAdapter(
         relayerConfig,
-        contract,
+        adapterContract as RedstoneAdapterBase,
         txDeliveryMan
       );
     }
 
     case "mento": {
-      const mentoContract = new Contract(
-        adapterContractAddress,
-        mentoAdapterABI,
-        signerOrProvider
-      ) as MentoAdapterBase;
-
       return new MentoEvmContractAdapter(
         relayerConfig,
-        mentoContract,
+        adapterContract as MentoAdapterBase,
         txDeliveryMan
       );
     }
