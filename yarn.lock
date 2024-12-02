@@ -597,8 +597,8 @@ __metadata:
   linkType: hard
 
 "@aws-sdk/client-s3@npm:^3.696.0":
-  version: 3.699.0
-  resolution: "@aws-sdk/client-s3@npm:3.699.0"
+  version: 3.700.0
+  resolution: "@aws-sdk/client-s3@npm:3.700.0"
   dependencies:
     "@aws-crypto/sha1-browser": "npm:5.2.0"
     "@aws-crypto/sha256-browser": "npm:5.2.0"
@@ -658,7 +658,7 @@ __metadata:
     "@smithy/util-utf8": "npm:^3.0.0"
     "@smithy/util-waiter": "npm:^3.1.9"
     tslib: "npm:^2.6.2"
-  checksum: 10c0/65afc42a25ef44506e9bc0f4c790ebc36f341d2b469ba2a5c9e18e8cbbaa0b484aacbdc9efb25d9e0f3ec4724608488beadf1b7560f26ed25f61fe43d69963ca
+  checksum: 10c0/ca72bb49949a5f5b221b7a3d6979dd5ad2a92fdc42522652b89191254478932e1f2e73f1f50921a82ff04c401d0bfcfa8cd946f4dd29a14571fccf35977fa8ba
   languageName: node
   linkType: hard
 
