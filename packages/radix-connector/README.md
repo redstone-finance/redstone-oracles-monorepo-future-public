@@ -26,12 +26,12 @@ the [whole RedStone Oracle model](https://docs.redstone.finance/docs/introductio
 
 ## 👨‍💻 Code structure
 
-- [scrypto](scrypto) directory contains the radix-network on-chain libraries written in scrypto `1.2.0`.
+- [scrypto](scrypto) directory contains the radix-network on-chain libraries written in scrypto `1.3.0`.
   - There are also various tests of signature verification with the given signers, timestamp validation, value
       aggregation as well as full data-processing tests with various configurations.
   - You can find all the possibilities [here](scrypto/README.md).
   - You can read [here](scrypto/price_adapter/README.md) how the contract works.
-- [src](src) directory contains the Typescript classes, useful for establishing a connection between Typescript and
+- [src](src) directory contains the TypeScript classes, useful for establishing a connection between TypeScript and
   Radix-network layers.
   - See [below](#-connecting-to-the-contract), how to connect to the contract.
 - [test](test) directory contains the off-chain component tests

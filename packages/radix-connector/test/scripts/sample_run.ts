@@ -5,7 +5,7 @@ import {
   sampleRun,
 } from "@redstone-finance/sdk";
 import { PriceAdapterRadixContractConnector, RadixClient } from "../../src";
-import { loadAddress, PRIVATE_KEY } from "./constants";
+import { loadAddress, NETWORK, PRIVATE_KEY } from "./constants";
 
 async function main() {
   const paramsProvider = new ContractParamsProvider({
@@ -14,11 +14,11 @@ async function main() {
     uniqueSignersCount: 1,
   });
 
-  const client = new RadixClient(PRIVATE_KEY);
+  const client = new RadixClient(PRIVATE_KEY, NETWORK.id);
 
   const connector = new PriceAdapterRadixContractConnector(
     client,
-    await loadAddress("component.stokenet.addr")
+    await loadAddress(`component.${NETWORK.name}.addr`)
   );
 
   const adapter = await connector.getAdapter();

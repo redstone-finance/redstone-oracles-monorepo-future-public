@@ -19,7 +19,8 @@ CONTRACTS_DIR=.
 CONTRACT_DIR=$(CONTRACTS_DIR)/$(CONTRACT)
 PACKAGE_ADDRESS=$(shell cat $(CONTRACT_DIR)/package.resim.addr)
 COMPONENT_ADDRESS=$(shell cat $(CONTRACT_DIR)/component.resim.addr)
-FEATURE_SETS="crypto_k256" "crypto_secp256k1" "crypto_k256,network_radix" "crypto_secp256k1,network_radix"
+FEATURE_SETS="crypto_secp256k1" "crypto_secp256k1,network_radix"
+WASM32_FEATURE_SETS="crypto_radix" "crypto_radix,network_radix"
 REDSTONE_DIR=rust-sdk
 TEST=RUST_BACKTRACE=full cargo test --features="helpers"
 CLIPPY=cargo clippy --release --fix --allow-dirty --allow-staged --allow-no-vcs
@@ -34,9 +35,10 @@ TIMESTAMP=$(shell cat $(DATA_DIR)/data/$(DATA_NAME).time | node-jq -r ".timestam
 
 prepare:
 	@rustup target add wasm32-unknown-unknown
+	cargo install wasm-bindgen-cli wasm-pack
 
 build: prepare
-	cargo build $(REAL_NETWORK_FEATURES)
+	cargo build --package $(CONTRACT) $(REAL_NETWORK_FEATURES)
 	scrypto build --path $(CONTRACT_DIR) $(REAL_NETWORK_FEATURES)
 	cp ./target/wasm32-unknown-unknown/release/${CONTRACT}.rpd $(CONTRACT_DIR)/artifacts/
 	cp ./target/wasm32-unknown-unknown/release/${CONTRACT}.wasm $(CONTRACT_DIR)/artifacts/
@@ -65,6 +67,11 @@ test: clippy
         echo "Running tests with features: $$features"; \
         ($(TEST) --package redstone --features=$$features); \
     done
+
+	@for features in $(WASM32_FEATURE_SETS); do \
+		echo "Running wasm32 tests with features: $$features"; \
+		(cd $(REDSTONE_DIR) && wasm-pack test --node --features="helpers" --features=$$features); \
+	done
 
 clippy: prepare
 	@for features in $(FEATURE_SETS); do \

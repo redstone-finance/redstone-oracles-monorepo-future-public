@@ -6,9 +6,9 @@
 [submodule "packages/casper-connector/rust/rust-sdk"]
 	path = packages/casper-connector/rust/rust-sdk
 	url = https://github.com/redstone-finance/rust-sdk.git
-	tag = 1.1.0
+	tag = 1.2.0
 
 [submodule "packages/radix-connector/scrypto/rust-sdk"]
 	path = packages/radix-connector/scrypto/rust-sdk
 	url = https://github.com/redstone-finance/rust-sdk.git
-	tag = 1.1.0
+	tag = 1.2.0

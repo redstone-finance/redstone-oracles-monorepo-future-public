@@ -1,14 +1,13 @@
 import fs from "fs";
 import { RadixClient } from "../../src";
 import { PriceAdapterRadixContractDeployer } from "../../src/contracts/price_adapter/PriceAdapterRadixContractDeployer";
-
-import { getFilename, loadAddress, PRIVATE_KEY } from "./constants";
+import { getFilename, loadAddress, NETWORK, PRIVATE_KEY } from "./constants";
 
 async function instantiate() {
-  const client = new RadixClient(PRIVATE_KEY);
+  const client = new RadixClient(PRIVATE_KEY, NETWORK.id);
   const connector = new PriceAdapterRadixContractDeployer(
     client,
-    await loadAddress("package.stokenet.addr"),
+    await loadAddress(`package.${NETWORK.name}.addr`),
     1,
     [
       "0x12470f7aba85c8b81d63137dd5925d6ee114952b",
@@ -24,7 +23,7 @@ async function instantiate() {
   console.log(componentId);
 
   await fs.promises.writeFile(
-    getFilename("component.stokenet.addr"),
+    getFilename(`component.${NETWORK.name}.addr`),
     componentId
   );
 }

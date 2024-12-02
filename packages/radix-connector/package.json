@@ -21,7 +21,7 @@
     "sample-run": "yarn global:ts-node test/scripts/sample_run.ts"
   },
   "dependencies": {
-    "@radixdlt/babylon-gateway-api-sdk": "^1.6.1",
+    "@radixdlt/babylon-gateway-api-sdk": "^1.8.1",
     "@radixdlt/radix-engine-toolkit": "^1.0.5",
     "@redstone-finance/sdk": "0.7.2",
     "axios": "^1.7.7",

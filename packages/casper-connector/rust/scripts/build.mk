@@ -44,7 +44,7 @@ run: brun-$(PRICE_ADAPTER) brun-$(CONTRACT)
 test: build_contracts
 	@for features in $(FEATURE_SETS); do \
         echo "Running tests with features: $$features"; \
-        (cd $(REDSTONE_DIR) && $(TEST) --features=$$features); \
+        (cd $(REDSTONE_DIR) && cargo update -p bumpalo --precise 3.13.0 && $(TEST) --features=$$features); \
     done
 	cd $(CONTRACTS_DIR)/tests && cargo test
 
@@ -68,7 +68,7 @@ coverage:
 
 clippy: prepare
 	@for features in $(FEATURE_SETS); do \
-        (cd $(REDSTONE_DIR) && $(CLIPPY) --all-targets --features=$$features -- -D warnings); \
+        (cd $(REDSTONE_DIR) && cargo update -p bumpalo --precise 3.13.0 && $(CLIPPY) --all-targets --features=$$features -- -D warnings); \
     done
 
 	$(call run_in_dirs,$(ALL_TARGET_DIRS),${CLIPPY} --all-targets -- -D warnings)

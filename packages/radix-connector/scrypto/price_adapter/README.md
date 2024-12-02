@@ -47,7 +47,7 @@ section below.
 ### PriceAdapter
 
 - Sample oracle contract that consumes _RedStone Oracles_ data [prices.sw](src/price_adapter.rs) written in scrypto
-  version `1.2.0`.
+  version `1.3.0`.
 
 #### ⨐ instantiate
 
@@ -87,8 +87,6 @@ The timestamp of the last saved data can be retrieved using the `read_timestamp`
 The function also returns the saved timestamp and price values.
 
 That function modifies the contract's storage.
-
-📖 See how it works on: https://fuel-showroom.redstone.finance/
 
 #### ⨗ read_prices
 

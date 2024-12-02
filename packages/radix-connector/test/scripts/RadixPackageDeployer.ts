@@ -25,6 +25,10 @@ export class RadixPackageDeployer extends RadixClient {
 
     console.log(result);
 
+    if (result.status) {
+      throw new Error("Deployment failed");
+    }
+
     const transactionId = result.transactionId!;
     await this.waitForCommit(transactionId);
 

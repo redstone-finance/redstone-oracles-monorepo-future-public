@@ -13,6 +13,7 @@
       * [The specification extract](#the-specification-extract)
     * [The best way of attaching *RedStone Oracles* payload](#the-best-way-of-attaching-redstone-oracles-payload)
     * [Available timestamp details in the context of transaction](#available-timestamp-details-in-the-context-of-transaction)
+    * [Cost comparison with clutterfish update](#cost-comparison-with-clutterfish-update)
 
 <!-- TOC -->
 
@@ -124,7 +125,7 @@ to retrieve a precise timestamp. However, this limitation can be mitigated by cr
 to approximate the current time, providing a reliable source of time-related data with the necessary granularity,
 despite the absence of direct timestamp access.
 
-Another way to approximate the current time in the Radix network is by utilizing the Proposer timestamp provided
+Another way to approximate the current time in the Radix network is by using the Proposer timestamp provided
 by the Consensus Manager. This timestamp represents the time at which the current proposal is being made,
 rather than the time that has been committed to the ledger. It allows you to obtain a more precise time reference,
 with the requested precision, directly from the network’s consensus process. This can serve as an additional method
@@ -135,11 +136,27 @@ pub fn get_current_time(&self) -> i64 {
     let rtn = ScryptoVmV1Api::object_call(
         CONSENSUS_MANAGER.as_node_id(),
         CONSENSUS_MANAGER_GET_CURRENT_TIME_IDENT,
-        scrypto_encode(&ConsensusManagerGetCurrentTimeInputV1 {
-            precision: TimePrecisionV1::Minute,
+        scrypto_encode(&ConsensusManagerGetCurrentTimeInputV2 {
+            precision: TimePrecisionV2::Second,
         }).unwrap(),
     );
     let instant: Instant = scrypto_decode(&rtn).unwrap();
     instant.seconds_since_unix_epoch
 }
 ```
+
+## Cost comparison with clutterfish update
+
+Below there is cost comparison of pushing 2 prices x 2 signers:
+
+| Cost in in XRD                   |             1.2.0 |         1.3.0-dev | % Change |          1.3.0 |  % Change |
+|----------------------------------|------------------:|------------------:|---------:|---------------:|----------:|
+| **deploying component**          |            **77** |            **58** | **-25%** |         **56** | **-3.5%** |
+| xrd_total_royalty_cost           |                 0 |                 0 |       0% |              0 |        0% |
+| xrd_total_storage_cost           |     0.13570785289 |     0.13570785289 |       0% |  0.12273788241 |      -10% |
+| xrd_total_tipping_cost           |                 0 |                 0 |       0% |              0 |        0% |
+| xrd_total_execution_cost         |        0.62951825 |         0.2694182 |     -57% |     0.23631415 |      -10% |
+| xrd_total_finalization_cost      |        0.01541155 |        0.01541155 |       0% |     0.01541155 |        0% |
+| execution_cost_units_consumed    |          12590365 |           5388364 |     -57% |        4726283 |      -10% |
+| finalization_cost_units_consumed |            308231 |            308231 |       0% |         308231 |        0% |
+| **total_cost**                   | **0.78063765289** | **0.42053760289** | **-46%** | **0,37446358** |  **-11%** |
