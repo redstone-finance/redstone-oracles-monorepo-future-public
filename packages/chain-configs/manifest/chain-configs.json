@@ -697,6 +697,7 @@
         "gasLimitPerCall": 1000000
       },
       "isAuctionModel": false,
+      "fallbackToEthMaxPriorityFeePerGas": true,
       "twoDimensionalFees": false,
       "isMainnet": false
     }
