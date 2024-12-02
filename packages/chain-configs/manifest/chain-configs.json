@@ -130,9 +130,9 @@
       "name": "Base Mainnet",
       "chainId": 8453,
       "publicRpcUrls": [
+        "https://base.publicnode.com",
         "https://mainnet.base.org",
         "https://base.llamarpc.com",
-        "https://base.publicnode.com",
         "https://base-mainnet.public.blastapi.io"
       ],
       "avgBlockTimeMs": 5000,
