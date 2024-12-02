@@ -28,6 +28,18 @@
     },
     "sUSDe": {
       "priceFeedAddress": "0xd6a987Ff6323F658D04da16c36CE00960137a115"
+    },
+    "MNT": {
+      "priceFeedAddress": "0xed1f0df0b88889e5eA19c768613cDf3DbBF3d2a7"
+    },
+    "ETH": {
+      "priceFeedAddress": "0xFc34806fbD673c21c1AEC26d69AA247F1e69a2C6"
+    },
+    "wstETH/stETH": {
+      "priceFeedAddress": "0xE8d850331faAbb277a24C09d91aabb68fb808748"
+    },
+    "USDT": {
+      "priceFeedAddress": "0x3A236F67Fce401D87D7215695235e201966576E4"
     }
   }
 }
