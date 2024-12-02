@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 import {PriceFeedsAdapterWithLowestGasRead} from "../mocks/PriceFeedsAdapterWithLowestRead.sol";
 
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.17;
 
 contract ReadBenchmark {
   event Value(uint256);

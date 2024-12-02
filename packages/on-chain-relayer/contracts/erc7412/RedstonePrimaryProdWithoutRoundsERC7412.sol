@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.17;
 
 import {IERC7412} from './IERC7412.sol';
 import {MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd} from '../price-feeds/data-services/MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd.sol';

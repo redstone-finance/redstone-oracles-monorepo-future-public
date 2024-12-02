@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.17;
 
 import {RedstonePrimaryProdWithoutRoundsERC7412} from "../erc7412/RedstonePrimaryProdWithoutRoundsERC7412.sol";
 import {AuthorisedMockSignersBase} from "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";

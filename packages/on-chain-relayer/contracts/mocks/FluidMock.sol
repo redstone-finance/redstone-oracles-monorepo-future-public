@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.17;
 
 import {FluidRedstoneAdapterReader} from "../custom-integrations/fluid/FluidRedstoneAdapterReader.sol";
 import {IFluidOracle} from "../custom-integrations/fluid/IFluidOracle.sol";

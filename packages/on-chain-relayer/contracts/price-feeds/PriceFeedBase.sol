@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.17;
 
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import {IRedstoneAdapter} from "../core/IRedstoneAdapter.sol";

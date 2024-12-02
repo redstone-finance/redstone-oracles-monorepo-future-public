@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.17;
 
 import {EthUsdcRedstoneAdapterForFluidOracle} from "../custom-integrations/fluid/EthUsdcRedstoneAdapterForFluidOracle.sol";
 import {AuthorisedMockSignersBase} from "@redstone-finance/evm-connector/contracts/mocks/AuthorisedMockSignersBase.sol";

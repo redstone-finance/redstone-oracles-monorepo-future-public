@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.17;
 
 interface IFluidOracle {
     /// @notice Get the exchange rate between the underlying asset and the peg asset

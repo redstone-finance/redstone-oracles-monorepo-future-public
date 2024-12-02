@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.17;
 
 library BitmapLib {
   function setBitInBitmap(uint256 bitmap, uint256 bitIndex) internal pure returns (uint256) {

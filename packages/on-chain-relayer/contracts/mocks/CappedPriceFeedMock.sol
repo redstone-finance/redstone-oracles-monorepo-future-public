@@ -1,6 +1,6 @@
 
 // SPDX-License-Identifier: BUSL-1.1
-pragma solidity ^0.8.14;
+pragma solidity ^0.8.17;
 
 import {CappedPriceFeed} from "../price-feeds/capped-price-feed/CappedPriceFeed.sol";
 import {IPriceFeed} from "../price-feeds/interfaces/IPriceFeed.sol";
