@@ -48,7 +48,7 @@ describe("SampleRedstoneConsumerBytesMockStrings", function () {
     await expect(
       wrappedContract.saveLatestValueInStorage(DEFAULT_DATA_FEED_ID_BYTES_32)
     )
-      .to.be.revertedWith(revertMsg)
+      .to.be.revertedWithCustomError(wrappedContract, revertMsg)
       .withArgs(...args);
   };
 

@@ -127,13 +127,16 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
     it("should revert when trying to get details of feed that wasn't updated yet", async () => {
       await expect(
         multiAdapter.getLastUpdateDetails(formatBytes32String("ETH"))
-      ).to.be.revertedWith("InvalidLastUpdateDetails");
+      ).to.be.revertedWithCustomError(multiAdapter, "InvalidLastUpdateDetails");
     });
 
     it("should revert if redstone payload is not attached", async () => {
       await expect(
         multiAdapter.updateDataFeedsValuesPartial([formatBytes32String("ETH")])
-      ).to.be.revertedWith("CalldataMustHaveValidPayload");
+      ).to.be.revertedWithCustomError(
+        multiAdapter,
+        "CalldataMustHaveValidPayload"
+      );
     });
 
     it("should revert for an unauthorised signer", async () => {
@@ -145,7 +148,7 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
             "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199", // Unauthorised signer address
           ],
         })
-      ).to.be.revertedWith("SignerNotAuthorised");
+      ).to.be.revertedWithCustomError(multiAdapter, "SignerNotAuthorised");
     });
 
     it("should revert for too few signers", async () => {
@@ -154,7 +157,10 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
           prices: { ETH: "43" },
           signerAddresses: ["0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"],
         })
-      ).to.be.revertedWith("InsufficientNumberOfUniqueSigners");
+      ).to.be.revertedWithCustomError(
+        multiAdapter,
+        "InsufficientNumberOfUniqueSigners"
+      );
     });
 
     it("should properly update data feeds with extra data feeds in payload", async () => {
@@ -168,7 +174,7 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
       // BTC value should have not been updated
       await expect(
         multiAdapter.getValueForDataFeed(formatBytes32String("BTC"))
-      ).to.be.revertedWith("InvalidLastUpdateDetails");
+      ).to.be.revertedWithCustomError(multiAdapter, "InvalidLastUpdateDetails");
     });
 
     it("should revert trying to update with duplicated feeds in an array", async () => {
@@ -177,7 +183,10 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
           prices: { ETH: "43", USDC: "5000" },
           dataFeedIdsStrings: ["ETH", "USDC", "ETH"],
         })
-      ).to.be.revertedWith("InsufficientNumberOfUniqueSigners");
+      ).to.be.revertedWithCustomError(
+        multiAdapter,
+        "InsufficientNumberOfUniqueSigners"
+      );
     });
 
     it("should revert trying to update a missing feed", async () => {
@@ -186,13 +195,16 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
           prices: { ETH: "43", USDC: "5000" },
           dataFeedIdsStrings: ["ETH", "BTC", "USDC"],
         })
-      ).to.be.revertedWith("InsufficientNumberOfUniqueSigners");
+      ).to.be.revertedWithCustomError(
+        multiAdapter,
+        "InsufficientNumberOfUniqueSigners"
+      );
     });
 
     it("should revert trying to get a zero value for a data feed", async () => {
       await expect(
         multiAdapter.getValueForDataFeed(formatBytes32String("ETH"))
-      ).to.be.revertedWith("InvalidLastUpdateDetails");
+      ).to.be.revertedWithCustomError(multiAdapter, "InvalidLastUpdateDetails");
     });
 
     it("should properly get several values", async () => {
@@ -209,7 +221,7 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
         multiAdapter.getValuesForDataFeeds(
           ["ETH", "INVALID", "BTC"].map(formatBytes32String)
         )
-      ).to.be.revertedWith("InvalidLastUpdateDetails");
+      ).to.be.revertedWithCustomError(multiAdapter, "InvalidLastUpdateDetails");
     });
 
     describe("Test values of different size, up to 32 bytes", () => {
@@ -255,7 +267,7 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
           prices: { ETH: "42" },
           prepareDataTime: (blockTime) => (blockTime - 3 * 60) * 1000,
         })
-      ).to.be.revertedWith("TimestampIsTooOld");
+      ).to.be.revertedWithCustomError(multiAdapter, "TimestampIsTooOld");
     });
 
     it("should revert if proposed data package timestamp is too new", async () => {
@@ -264,7 +276,10 @@ export const describeCommonMultiFeedAdapterTests = (contractName: string) => {
           prices: { ETH: "42" },
           prepareDataTime: (blockTime) => (blockTime + 2 * 60) * 1000,
         })
-      ).to.be.revertedWith("TimestampFromTooLongFuture");
+      ).to.be.revertedWithCustomError(
+        multiAdapter,
+        "TimestampFromTooLongFuture"
+      );
     });
 
     describe("Tests of the updates independency for data feeds (value validation)", () => {

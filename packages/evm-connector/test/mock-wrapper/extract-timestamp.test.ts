@@ -47,7 +47,10 @@ describe("Extract Timestamp", function () {
 
     await expect(
       wrappedContract.extractTimestampFromRedstonePayload()
-    ).to.be.revertedWith("DataPackageTimestampsMustBeEqual");
+    ).to.be.revertedWithCustomError(
+      wrappedContract,
+      "DataPackageTimestampsMustBeEqual"
+    );
   });
 
   it("Should revert if one of many timestamps is different", async () => {
@@ -63,6 +66,9 @@ describe("Extract Timestamp", function () {
 
     await expect(
       wrappedContract.extractTimestampFromRedstonePayload()
-    ).to.be.revertedWith("DataPackageTimestampsMustBeEqual");
+    ).to.be.revertedWithCustomError(
+      wrappedContract,
+      "DataPackageTimestampsMustBeEqual"
+    );
   });
 });

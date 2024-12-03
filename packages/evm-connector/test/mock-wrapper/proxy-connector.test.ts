@@ -30,7 +30,7 @@ describe("SampleProxyConnector", function () {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockPackages);
     await expect(wrappedContract.getOracleValueUsingProxy(ethDataFeedId))
-      .to.be.revertedWith(revertMsg)
+      .to.be.revertedWithCustomError(wrappedContract, revertMsg)
       .withArgs(...args);
   };
 
@@ -110,7 +110,7 @@ describe("SampleProxyConnector", function () {
     await expect(
       wrappedContract.checkOracleValueLongEncodedFunction(ethDataFeedId, 9999)
     )
-      .to.be.revertedWith("WrongValue")
+      .to.be.revertedWithCustomError(wrappedContract, "WrongValue")
       .withArgs();
   });
 
@@ -169,7 +169,10 @@ describe("SampleProxyConnector", function () {
   it("Should fail with correct message (no error message)", async () => {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
-    await expect(wrappedContract.proxyEmptyError()).to.be.revertedWith(
+    await expect(
+      wrappedContract.proxyEmptyError()
+    ).to.be.revertedWithCustomError(
+      wrappedContract,
       "ProxyCalldataFailedWithoutErrMsg"
     );
   });
@@ -178,7 +181,10 @@ describe("SampleProxyConnector", function () {
     const wrappedContract =
       WrapperBuilder.wrap(contract).usingMockDataPackages(mockNumericPackages);
     await expect(wrappedContract.proxyTestStringError())
-      .to.be.revertedWith("ProxyCalldataFailedWithStringMessage")
+      .to.be.revertedWithCustomError(
+        wrappedContract,
+        "ProxyCalldataFailedWithStringMessage"
+      )
       .withArgs("Test message");
   });
 });

@@ -63,7 +63,7 @@ describe("SampleRedstoneConsumerBytesMock", function () {
         DEFAULT_DATA_FEED_ID_BYTES_32
       )
     )
-      .to.be.revertedWith(revertMsg)
+      .to.be.revertedWithCustomError(wrappedContract, revertMsg)
       .withArgs(...args);
   };
 
@@ -157,7 +157,10 @@ describe("SampleRedstoneConsumerBytesMock", function () {
         utils.convertStringToBytes32("ANOTHER_DATA_FEED_ID")
       )
     )
-      .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
+      .to.be.revertedWithCustomError(
+        wrappedContract,
+        "InsufficientNumberOfUniqueSigners"
+      )
       .withArgs(0, 3);
   });
 });

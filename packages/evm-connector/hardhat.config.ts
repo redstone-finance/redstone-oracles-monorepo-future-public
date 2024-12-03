@@ -5,7 +5,7 @@ import { HardhatUserConfig } from "hardhat/config";
 import "solidity-coverage";
 
 // import order matters here, having this upper in import list breaks type HardhatUserConfig somehow
-import "@nomiclabs/hardhat-waffle";
+import "@nomicfoundation/hardhat-toolbox";
 
 const config: HardhatUserConfig = {
   solidity: {

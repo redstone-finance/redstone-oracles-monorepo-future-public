@@ -56,7 +56,8 @@ describe("MergedAdapterWithoutRoundsSusdeRateProviderBase", () => {
   });
 
   it("should revert getRate function before the first update", async () => {
-    await expect(mergedAdapterSusde.getRate()).to.be.revertedWith(
+    await expect(mergedAdapterSusde.getRate()).to.be.revertedWithCustomError(
+      mergedAdapterSusde,
       "DataFeedValueCannotBeZero"
     );
   });
@@ -96,7 +97,10 @@ describe("MergedAdapterWithoutRoundsSusdeRateProviderBase", () => {
     const SIX_HOURS_IN_SECONDS = 60 * 60 * 6;
     await expect(
       updatePrices(defaultTestValues, SIX_HOURS_IN_SECONDS)
-    ).to.be.revertedWith("MinIntervalBetweenUpdatesHasNotPassedYet");
+    ).to.be.revertedWithCustomError(
+      mergedAdapterSusde,
+      "MinIntervalBetweenUpdatesHasNotPassedYet"
+    );
   });
 
   it("shouldn't allow second update when new value is deviated more than 2% - lesser", async () => {
@@ -110,7 +114,10 @@ describe("MergedAdapterWithoutRoundsSusdeRateProviderBase", () => {
         },
         THIRTEEN_HOURS_IN_SECONDS
       )
-    ).to.be.revertedWith("ProposedValueIsDeviatedTooMuch");
+    ).to.be.revertedWithCustomError(
+      mergedAdapterSusde,
+      "ProposedValueIsDeviatedTooMuch"
+    );
   });
 
   it("shouldn't allow second update when new value is deviated more than 2% - bigger", async () => {
@@ -124,6 +131,9 @@ describe("MergedAdapterWithoutRoundsSusdeRateProviderBase", () => {
         },
         THIRTEEN_HOURS_IN_SECONDS
       )
-    ).to.be.revertedWith("ProposedValueIsDeviatedTooMuch");
+    ).to.be.revertedWithCustomError(
+      mergedAdapterSusde,
+      "ProposedValueIsDeviatedTooMuch"
+    );
   });
 });

@@ -186,7 +186,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
   it("should revert trying to get index if data feed is not supported", async () => {
     await expect(
       adapterContract.getDataFeedIndex(formatBytes32String("BAD_SYMBOL"))
-    ).to.be.revertedWith("DataFeedIdNotFound");
+    ).to.be.revertedWithCustomError(adapterContract, "DataFeedIdNotFound");
   });
 
   it("should revert trying to update by unauthorised updater", () => {
@@ -209,7 +209,10 @@ export const describeCommonPriceFeedsAdapterTests = ({
     } else {
       await expect(
         updateValues({ increaseBlockTimeBySeconds: 2 })
-      ).to.be.revertedWith("MinIntervalBetweenUpdatesHasNotPassedYet");
+      ).to.be.revertedWithCustomError(
+        adapterContract,
+        "MinIntervalBetweenUpdatesHasNotPassedYet"
+      );
     }
   });
 
@@ -224,7 +227,10 @@ export const describeCommonPriceFeedsAdapterTests = ({
           increaseBlockTimeBySeconds: 5,
           calculateMockDataTimestamp: () => mockDataTimestamp,
         })
-      ).to.be.revertedWith("DataTimestampShouldBeNewerThanBefore");
+      ).to.be.revertedWithCustomError(
+        adapterContract,
+        "DataTimestampShouldBeNewerThanBefore"
+      );
     });
 
     it("should revert if proposed data package timestamp is older than before", async () => {
@@ -237,7 +243,10 @@ export const describeCommonPriceFeedsAdapterTests = ({
           increaseBlockTimeBySeconds: 5,
           calculateMockDataTimestamp: () => mockDataTimestamp - 1,
         })
-      ).to.be.revertedWith("DataTimestampShouldBeNewerThanBefore");
+      ).to.be.revertedWithCustomError(
+        adapterContract,
+        "DataTimestampShouldBeNewerThanBefore"
+      );
     });
   }
 
@@ -248,7 +257,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
         calculateMockDataTimestamp: (blockTimestamp) =>
           (blockTimestamp - 4 * 60) * 1000,
       })
-    ).to.be.revertedWith("TimestampIsTooOld");
+    ).to.be.revertedWithCustomError(adapterContract, "TimestampIsTooOld");
   });
 
   it("should revert if proposed data package timestamp is too new", async () => {
@@ -258,7 +267,10 @@ export const describeCommonPriceFeedsAdapterTests = ({
         calculateMockDataTimestamp: (blockTimestamp) =>
           (blockTimestamp + 4 * 60) * 1000,
       })
-    ).to.be.revertedWith("TimestampFromTooLongFuture");
+    ).to.be.revertedWithCustomError(
+      adapterContract,
+      "TimestampFromTooLongFuture"
+    );
   });
 
   it("should revert if at least one timestamp isn't equal to proposed timestamp", async () => {
@@ -272,14 +284,20 @@ export const describeCommonPriceFeedsAdapterTests = ({
           timestampMilliseconds: latestBlockTimestamp * 1000,
         },
       })
-    ).to.be.revertedWith("DataPackageTimestampMismatch");
+    ).to.be.revertedWithCustomError(
+      adapterContract,
+      "DataPackageTimestampMismatch"
+    );
   });
 
   it("should revert if redstone payload is not attached", async () => {
     const mockBlockTimestamp = (await time.latest()) + 1;
     await expect(
       adapterContract.updateDataFeedsValues(mockBlockTimestamp * 1000)
-    ).to.be.revertedWith("CalldataMustHaveValidPayload");
+    ).to.be.revertedWithCustomError(
+      adapterContract,
+      "CalldataMustHaveValidPayload"
+    );
   });
 
   it("should revert if a data feed is missed in redstone payload", async () => {
@@ -292,7 +310,10 @@ export const describeCommonPriceFeedsAdapterTests = ({
         },
       })
     )
-      .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
+      .to.be.revertedWithCustomError(
+        adapterContract,
+        "InsufficientNumberOfUniqueSigners"
+      )
       .withArgs(0, 2);
   });
 
@@ -306,7 +327,10 @@ export const describeCommonPriceFeedsAdapterTests = ({
         },
       })
     )
-      .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
+      .to.be.revertedWithCustomError(
+        adapterContract,
+        "InsufficientNumberOfUniqueSigners"
+      )
       .withArgs(1, 2);
   });
 
@@ -395,7 +419,8 @@ export const describeCommonPriceFeedsAdapterTests = ({
       adapterContract.getValueForDataFeed(
         utils.convertStringToBytes32(dataFeedId)
       )
-    ).to.be.revertedWith(
+    ).to.be.revertedWithCustomError(
+      adapterContract,
       isErc7412 ? "OracleDataRequired" : "DataFeedValueCannotBeZero"
     );
   });
@@ -405,7 +430,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       adapterContract.getValueForDataFeed(
         utils.convertStringToBytes32("SMTH-ELSE")
       )
-    ).to.be.revertedWith("DataFeedIdNotFound");
+    ).to.be.revertedWithCustomError(adapterContract, "DataFeedIdNotFound");
   });
 
   it("should revert trying to get several values, if one data feed is not supported", async () => {
@@ -417,7 +442,7 @@ export const describeCommonPriceFeedsAdapterTests = ({
       adapterContract.getValuesForDataFeeds(
         [dataFeedId, "SMTH-ELSE"].map(utils.convertStringToBytes32)
       )
-    ).to.be.revertedWith("DataFeedIdNotFound");
+    ).to.be.revertedWithCustomError(adapterContract, "DataFeedIdNotFound");
   });
 
   it("should revert trying to get several values, if one data feed has invalid (zero) value", async () => {
@@ -425,7 +450,8 @@ export const describeCommonPriceFeedsAdapterTests = ({
       adapterContract.getValuesForDataFeeds(
         [dataFeedId].map(utils.convertStringToBytes32)
       )
-    ).to.be.revertedWith(
+    ).to.be.revertedWithCustomError(
+      adapterContract,
       isErc7412 ? "OracleDataRequired" : "DataFeedValueCannotBeZero"
     );
   });

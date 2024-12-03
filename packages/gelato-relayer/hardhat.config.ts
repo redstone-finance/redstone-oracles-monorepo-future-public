@@ -3,8 +3,8 @@ import { HardhatUserConfig } from "hardhat/config";
 
 // PLUGINS
 import "@gelatonetwork/web3-functions-sdk/hardhat-plugin";
+import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-ethers";
-import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-deploy";
 

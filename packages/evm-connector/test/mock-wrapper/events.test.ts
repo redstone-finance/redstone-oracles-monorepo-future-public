@@ -15,7 +15,7 @@ describe("SampleWithEvents", function () {
   });
 
   it("Test events with contract wrapping", async function () {
-    // Wrapping the contract instnace
+    // Wrapping the contract instance
     const wrappedContract =
       WrapperBuilder.wrap(sampleContract).usingMockDataPackages(
         mockNumericPackages

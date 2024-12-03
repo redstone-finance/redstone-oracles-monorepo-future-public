@@ -9,7 +9,6 @@
     "build": "yarn global:tsc --build tsconfig.build.json",
     "build-dev": "yarn global:tsc --build tsconfig.json",
     "preversion": "yarn build",
-    "test": "yarn global:jest",
     "lint": "yarn global:eslint .",
     "lint:fix": "yarn global:eslint --fix ."
   },

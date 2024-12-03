@@ -20,7 +20,7 @@ describe("Not Wrapped Contract", function () {
         utils.convertStringToBytes32("BTC")
       )
     )
-      .to.be.revertedWith("CalldataMustHaveValidPayload")
+      .to.be.revertedWithCustomError(contract, "CalldataMustHaveValidPayload")
       .withArgs();
   });
 });

@@ -35,14 +35,14 @@ export async function generate7412CompatibleCall(
           target: call.to as viem.Hex,
           callData: call.data as viem.Hex,
           allowFailure: false,
-          value: call.value || 0n,
+          value: call.value ?? 0n,
         })),
       ],
     });
 
     let totalValue = 0n;
     for (const call of calls) {
-      totalValue += call.value || 0n;
+      totalValue += call.value ?? 0n;
     }
 
     return {
@@ -55,7 +55,7 @@ export async function generate7412CompatibleCall(
 
   const converter = new erc7412.EIP7412([new RedstoneAdapter()], makeMulticall);
 
-  // will call static code and pack orginal tx with price feed update call in single mulitcall if price is stale
+  // will call static code and pack original tx with price feed update call in single multicall if price is stale
   // do nothing if price is fresh
   return await converter.enableERC7412(client, {
     to,

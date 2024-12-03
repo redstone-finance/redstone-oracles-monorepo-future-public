@@ -28,14 +28,14 @@ describe("SampleRedstoneDefaultsLib", function () {
     const timestamp = await getBlockTimestampMilliseconds();
     await expect(
       contract.validateTimestamp(timestamp - 4 * MILLISECONDS_IN_MINUTE)
-    ).to.be.revertedWith("TimestampIsTooOld");
+    ).to.be.revertedWithCustomError(contract, "TimestampIsTooOld");
   });
 
   it("Should revert for timestamp from too long future", async () => {
     const timestamp = await getBlockTimestampMilliseconds();
     await expect(
       contract.validateTimestamp(timestamp + 2 * MILLISECONDS_IN_MINUTE)
-    ).to.be.revertedWith("TimestampFromTooLongFuture");
+    ).to.be.revertedWithCustomError(contract, "TimestampFromTooLongFuture");
   });
 
   it("Should properly aggregate an array with 1 value", async () => {
@@ -71,7 +71,8 @@ describe("SampleRedstoneDefaultsLib", function () {
   });
 
   it("Should revert trying to aggregate an empty array", async () => {
-    await expect(contract.aggregateValues([])).to.be.revertedWith(
+    await expect(contract.aggregateValues([])).to.be.revertedWithCustomError(
+      contract,
       "CanNotPickMedianOfEmptyArray"
     );
   });

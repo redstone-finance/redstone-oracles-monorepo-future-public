@@ -18,7 +18,7 @@ contract MockCappedPriceFeed is CappedPriceFeed {
     }
 
     // helpers
-    function setFundementalRatio(uint256 fundamentalRatio) external {
+    function setFundamentalRatio(uint256 fundamentalRatio) external {
         _fundamentalRatio = fundamentalRatio;
     }
 

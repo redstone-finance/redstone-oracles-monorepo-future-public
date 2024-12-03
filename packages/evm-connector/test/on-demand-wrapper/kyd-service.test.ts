@@ -43,7 +43,7 @@ describe.skip("SampleKydServiceConsumer", () => {
       ScoreType.coinbaseKYD
     );
     await expect(wrappedContract.executeActionPassingKYD())
-      .to.be.revertedWith(`UserDidNotPassKYD`)
+      .to.be.revertedWithCustomError(wrappedContract, "UserDidNotPassKYD")
       .withArgs("0x70997970C51812dc3A010C7d01b50e0d17dc79C8");
   });
 
@@ -56,7 +56,10 @@ describe.skip("SampleKydServiceConsumer", () => {
       ScoreType.coinbaseKYD
     );
     await expect(wrappedContract.executeActionPassingKYD())
-      .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
+      .to.be.revertedWithCustomError(
+        wrappedContract,
+        "InsufficientNumberOfUniqueSigners"
+      )
       .withArgs(1, 2);
   });
 
@@ -69,7 +72,7 @@ describe.skip("SampleKydServiceConsumer", () => {
       ScoreType.coinbaseKYD
     );
     await expect(wrappedContract.executeActionPassingKYD())
-      .to.be.revertedWith("AllValuesMustBeEqual")
+      .to.be.revertedWithCustomError(wrappedContract, "AllValuesMustBeEqual")
       .withArgs();
   });
 
@@ -82,7 +85,10 @@ describe.skip("SampleKydServiceConsumer", () => {
       ScoreType.coinbaseKYD
     );
     await expect(wrappedContract.executeActionPassingKYD())
-      .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
+      .to.be.revertedWithCustomError(
+        wrappedContract,
+        "InsufficientNumberOfUniqueSigners"
+      )
       .withArgs(1, 2);
   });
 });

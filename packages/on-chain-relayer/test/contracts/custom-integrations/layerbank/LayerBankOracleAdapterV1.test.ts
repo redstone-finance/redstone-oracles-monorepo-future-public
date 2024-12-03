@@ -28,7 +28,7 @@ const assetAddresses = {
   wUSDM: "0xbdAd407F77f44F7Da6684B416b1951ECa461FB07",
   MANTA: "0x95CeF13441Be50d20cA4558CC0a27B601aC544E5",
 };
-const invalidAddress = "0x1234567891Be50d20cA4558CC0a27B6123456789";
+const invalidAddress = "0x1234567891BE50D20ca4558Cc0A27b6123456789";
 
 describe("LayerBankOracleAdapterV1", () => {
   let layerBankAdapter: LayerBankOracleAdapterV1;
@@ -77,7 +77,10 @@ describe("LayerBankOracleAdapterV1", () => {
   it("Should fail trying to update any feed with 0 value", async () => {
     await expect(
       updatePrices({ ...defaultTestValues, wUSDM: 0 })
-    ).to.be.revertedWith("DataFeedValueCannotBeZero");
+    ).to.be.revertedWithCustomError(
+      layerBankAdapter,
+      "DataFeedValueCannotBeZero"
+    );
   });
 
   it("Should properly update values several times", async () => {
@@ -135,7 +138,7 @@ describe("LayerBankOracleAdapterV1", () => {
     await mine();
     await expect(
       layerBankAdapter.priceOf(assetAddresses.ETH)
-    ).to.be.revertedWith("DataIsStale");
+    ).to.be.revertedWithCustomError(layerBankAdapter, "DataIsStale");
   });
 
   it("Should revert for getting 0 values", async () => {
@@ -178,7 +181,7 @@ describe("LayerBankOracleAdapterV1", () => {
       layerBankAdapter.getUnderlyingPrice(
         "0x0000000000000000000000000000000000000003"
       )
-    ).to.be.revertedWith("InvalidGToken");
+    ).to.be.revertedWithCustomError(layerBankAdapter, "InvalidGToken");
   });
 
   it("Should properly connect PriceFeedWithRounds", async () => {

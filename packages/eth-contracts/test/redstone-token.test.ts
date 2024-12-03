@@ -22,7 +22,10 @@ describe("RedStone token", () => {
   it("Should not init contract with too high total supply", async () => {
     const ContractFactory = await ethers.getContractFactory("RedstoneToken");
     const tooBigSupply = ethers.utils.parseEther("50000000").add(1);
-    await expect(ContractFactory.deploy(tooBigSupply)).to.be.revertedWith(
+    await expect(
+      ContractFactory.deploy(tooBigSupply)
+    ).to.be.revertedWithCustomError(
+      ContractFactory,
       "CanNotMintMoreThanMaxSupply"
     );
   });
@@ -33,7 +36,9 @@ describe("RedStone token", () => {
     const transferTx = await contract.transfer(otherAddr, 700);
     await transferTx.wait();
 
-    expect(transferTx).to.emit("Transfer").withArgs(otherAddr, minterAddr, 700);
+    expect(transferTx)
+      .to.emit(contract, "Transfer")
+      .withArgs(otherAddr, minterAddr, 700);
     expect(await contract.balanceOf(minterAddr)).to.equal(300);
     expect(await contract.balanceOf(otherAddr)).to.equal(700);
   });
@@ -41,7 +46,8 @@ describe("RedStone token", () => {
   it("Should not mint from account other than the minter", async () => {
     contract = contract.connect(other);
 
-    await expect(contract.mint(otherAddr, 100)).to.be.revertedWith(
+    await expect(contract.mint(otherAddr, 100)).to.be.revertedWithCustomError(
+      contract,
       "OnlyMinterCanMint"
     );
   });
@@ -70,7 +76,8 @@ describe("RedStone token", () => {
     const tx = await contract.mint(minterAddr, max.sub(1000));
     await tx.wait();
 
-    await expect(contract.mint(minterAddr, 1)).to.be.revertedWith(
+    await expect(contract.mint(minterAddr, 1)).to.be.revertedWithCustomError(
+      contract,
       "CanNotMintMoreThanMaxSupply"
     );
   });
@@ -78,13 +85,13 @@ describe("RedStone token", () => {
   it("Should properly update minter ", async () => {
     const proposalTx = await contract.proposeNewMinter(otherAddr);
     await proposalTx.wait();
-    expect(proposalTx).to.emit("MinterProposal").withArgs(otherAddr);
+    expect(proposalTx).to.emit(contract, "MinterProposal").withArgs(otherAddr);
     expect(await contract.minter()).to.equal(minterAddr);
     expect(await contract.proposedMinter()).to.equal(otherAddr);
 
     const acceptRoleTx = await contract.connect(other).acceptMinterRole();
     await acceptRoleTx.wait();
-    expect(acceptRoleTx).to.emit("MinterUpdate").withArgs(otherAddr);
+    expect(acceptRoleTx).to.emit(contract, "MinterUpdate").withArgs(otherAddr);
     expect(await contract.minter()).to.equal(otherAddr);
     expect(await contract.proposedMinter()).to.equal(
       ethers.constants.AddressZero
@@ -94,13 +101,14 @@ describe("RedStone token", () => {
   it("Should not propose new minter from an unauthorized account", async () => {
     await expect(
       contract.connect(other).proposeNewMinter(otherAddr)
-    ).to.be.revertedWith("OnlyMinterCanProposeNewMinter");
+    ).to.be.revertedWithCustomError(contract, "OnlyMinterCanProposeNewMinter");
   });
 
   it("Should not accept minter role from an unauthorized account", async () => {
     const proposalTx = await contract.proposeNewMinter(otherAddr);
     await proposalTx.wait();
-    await expect(contract.acceptMinterRole()).to.be.revertedWith(
+    await expect(contract.acceptMinterRole()).to.be.revertedWithCustomError(
+      contract,
       "OnlyProposedMinterCanAcceptMinterRole"
     );
   });

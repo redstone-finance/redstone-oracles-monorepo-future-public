@@ -59,7 +59,7 @@ describe("SampleRedstoneConsumerBytesMockManyDataFeeds", function () {
         dataFeedIds.map(utils.convertStringToBytes32)
       )
     )
-      .to.be.revertedWith(revertMsg)
+      .to.be.revertedWithCustomError(wrappedContract, revertMsg)
       .withArgs(...args);
   };
 

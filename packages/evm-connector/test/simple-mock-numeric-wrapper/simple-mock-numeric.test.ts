@@ -120,7 +120,10 @@ describe("Simple Mock Numeric Wrapper", function () {
         utils.convertStringToBytes32(dataPoints[1].dataFeedId),
       ])
     )
-      .to.be.revertedWith("InsufficientNumberOfUniqueSigners")
+      .to.be.revertedWithCustomError(
+        wrappedContract,
+        "InsufficientNumberOfUniqueSigners"
+      )
       .withArgs(9, 10);
   });
 
@@ -139,7 +142,7 @@ describe("Simple Mock Numeric Wrapper", function () {
         utils.convertStringToBytes32(dataPoints[1].dataFeedId),
       ])
     )
-      .to.be.revertedWith("TimestampIsNotValid")
+      .to.be.revertedWithCustomError(wrappedContract, "TimestampIsNotValid")
       .withArgs();
   });
 

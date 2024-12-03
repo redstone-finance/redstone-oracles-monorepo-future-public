@@ -52,7 +52,7 @@ describe("SampleRedstoneConsumerNumericMock", function () {
         utils.convertStringToBytes32(dataFeedId)
       )
     )
-      .to.be.revertedWith(revertMsg)
+      .to.be.revertedWithCustomError(wrappedContract, revertMsg)
       .withArgs(...args);
   };
 

@@ -12,7 +12,7 @@ import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { BigNumber } from "ethers";
 import { parseUnits } from "ethers/lib/utils";
-import { ethers, upgrades, waffle } from "hardhat";
+import { ethers, upgrades } from "hardhat";
 import Sinon from "sinon";
 import { RelayerConfig } from "../../../../src";
 import * as get_provider from "../../../../src/core/contract-interactions/get-relayer-provider";
@@ -180,7 +180,7 @@ describe("MentoAdapter", () => {
   before(async () => {
     signers = await ethers.getSigners();
     getProviderStub = Sinon.stub(get_provider, "getRelayerProvider");
-    getProviderStub.returns(waffle.provider);
+    getProviderStub.returns(ethers.provider);
   });
 
   beforeEach(async () => {
@@ -233,8 +233,7 @@ describe("MentoAdapter", () => {
       arr.pop(); // remove the last element
       return arr;
     };
-    const errMsg = "panic code 0x32"; // Array out of bound error
-    await expect(testModifiedLocations(modifier)).to.be.revertedWith(errMsg);
+    await expect(testModifiedLocations(modifier)).to.be.revertedWithPanic(0x32);
   });
 
   it("Should fail if locations are invalid", async () => {

@@ -1,7 +1,7 @@
 import { Signer } from "ethers";
-import { network, waffle } from "hardhat";
+import { network, ethers } from "hardhat";
 import { keccak256, toUtf8Bytes } from "ethers/lib/utils";
-const { provider } = waffle;
+const { provider } = ethers;
 
 // Note!: It's quite important to have the deterministic version of ECDSA
 // Signatures here. Looks like ethereum uses the deterministic version of

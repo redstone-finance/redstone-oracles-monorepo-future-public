@@ -1,7 +1,7 @@
 import "dotenv/config";
 import "hardhat-gas-reporter";
 import "@openzeppelin/hardhat-upgrades";
-import "@nomiclabs/hardhat-waffle";
+import "@nomicfoundation/hardhat-toolbox";
 import "@nomiclabs/hardhat-ethers";
 import "@typechain/hardhat";
 import { HardhatUserConfig } from "hardhat/config";

@@ -64,7 +64,8 @@ describe("CappedPriceFeed", () => {
   describe("initiation", () => {
     it("can NOT call snapshot before init", async () => {
       const contract = await createContract();
-      await expect(contract.snapshotRatio()).revertedWith(
+      await expect(contract.snapshotRatio()).revertedWithCustomError(
+        contract,
         "MustInitCapParameters"
       );
     });
@@ -75,7 +76,7 @@ describe("CappedPriceFeed", () => {
         contract
           .connect(PARAM_SETTER.connect(contract.provider))
           .setCapParameters(fromPercent(500), fromPercent(500 + 1))
-      ).to.revertedWith("PercentValueOutOfRange");
+      ).to.revertedWithCustomError(contract, "PercentValueOutOfRange");
     });
 
     it("should fail to set cap parameters with too small value", async () => {
@@ -84,7 +85,7 @@ describe("CappedPriceFeed", () => {
         contract
           .connect(PARAM_SETTER.connect(contract.provider))
           .setCapParameters(0, 0)
-      ).to.revertedWith("PercentValueOutOfRange");
+      ).to.revertedWithCustomError(contract, "PercentValueOutOfRange");
     });
 
     it("should transfer ownership authorized by current owner", async () => {
@@ -103,7 +104,7 @@ describe("CappedPriceFeed", () => {
       const [_, newOwner] = await ethers.getSigners();
       await expect(
         contract.transferParamSetterRole(newOwner.address)
-      ).revertedWith("CallerIsNotParamSetter");
+      ).revertedWithCustomError(contract, "CallerIsNotParamSetter");
     });
 
     it("should FAIL to transfer ownership to 0 address ", async () => {
@@ -112,7 +113,7 @@ describe("CappedPriceFeed", () => {
         contract
           .connect(PARAM_SETTER.connect(contract.provider))
           .transferParamSetterRole("0x" + "0".repeat(40))
-      ).revertedWith("CanNotTransferRoleToZeroAddress");
+      ).revertedWithCustomError(contract, "CanNotTransferRoleToZeroAddress");
     });
 
     it("should allow to set params to new values", async () => {
@@ -124,9 +125,9 @@ describe("CappedPriceFeed", () => {
 
     it("should FAIL to set cap parameters, from unauthorized address", async () => {
       const contract = await createAndInitContract();
-      await expect(contract.setCapParameters(1e4, 1e4)).to.revertedWith(
-        "CallerIsNotParamSetter"
-      );
+      await expect(
+        contract.setCapParameters(1e4, 1e4)
+      ).to.revertedWithCustomError(contract, "CallerIsNotParamSetter");
     });
   });
 
@@ -134,7 +135,8 @@ describe("CappedPriceFeed", () => {
     it("should fail to getMaxRatio before setCapParameters was called", async () => {
       const contract = await createContract();
 
-      await expect(contract.getMaxRatio()).to.revertedWith(
+      await expect(contract.getMaxRatio()).to.revertedWithCustomError(
+        contract,
         "MustInitCapParameters"
       );
     });
@@ -193,7 +195,7 @@ describe("CappedPriceFeed", () => {
       const startTimestamp = await time.latest();
 
       // bigger then max ratio
-      await cappedPriceFeed.setFundementalRatio((2e18).toString());
+      await cappedPriceFeed.setFundamentalRatio((2e18).toString());
       await time.increaseTo(startTimestamp + YEAR_IN_SECONDS);
 
       const expectedAnswer = (1.01e18).toString();
@@ -206,7 +208,7 @@ describe("CappedPriceFeed", () => {
       const startTimestamp = await time.latest();
 
       // smaller then max ratio
-      await cappedPriceFeed.setFundementalRatio((1e17).toString());
+      await cappedPriceFeed.setFundamentalRatio((1e17).toString());
       await time.increaseTo(startTimestamp + YEAR_IN_SECONDS);
 
       const expectedAnswer = (1e17).toString();
@@ -250,7 +252,7 @@ describe("CappedPriceFeed", () => {
         const marketPriceFeed = await getMarketPriceFeed(cappedPriceFeed);
 
         await marketPriceFeed.setAnswer(test.marketRatio);
-        await cappedPriceFeed.setFundementalRatio(test.fundamentalRatio);
+        await cappedPriceFeed.setFundamentalRatio(test.fundamentalRatio);
         expect(
           await cappedPriceFeed.getFundamentalRatioDeviationFromMarketRatio()
         ).to.eq(test.deviation);
@@ -265,7 +267,7 @@ describe("CappedPriceFeed", () => {
       const marketPriceFeed = await getMarketPriceFeed(cappedPriceFeed);
 
       await marketPriceFeed.setAnswer(2);
-      await cappedPriceFeed.setFundementalRatio(1);
+      await cappedPriceFeed.setFundamentalRatio(1);
       expect(
         await cappedPriceFeed.getFundamentalRatioDeviationFromMarketRatio()
       ).to.eq(fromPercent(-50));
@@ -276,7 +278,10 @@ describe("CappedPriceFeed", () => {
 
       await expect(
         cappedPriceFeed.latestAnswerIfRatioCloseToMarktetRatio()
-      ).to.revertedWith("FundametnalRatioDivergedFromMarketRatio");
+      ).to.revertedWithCustomError(
+        cappedPriceFeed,
+        "FundametnalRatioDivergedFromMarketRatio"
+      );
     });
 
     it("should return true when maxMarketDeviationPercent is NOT crossed", async () => {
@@ -287,7 +292,7 @@ describe("CappedPriceFeed", () => {
       const marketPriceFeed = await getMarketPriceFeed(cappedPriceFeed);
 
       await marketPriceFeed.setAnswer(3);
-      await cappedPriceFeed.setFundementalRatio(2);
+      await cappedPriceFeed.setFundamentalRatio(2);
       expect(
         await cappedPriceFeed.getFundamentalRatioDeviationFromMarketRatio()
       ).to.eq(-3333);
@@ -304,9 +309,10 @@ describe("CappedPriceFeed", () => {
       const contract = await createAndInitContract(ANNUAL_GROWTH);
       await time.increase(YEAR_IN_SECONDS);
 
-      await contract.setFundementalRatio((1.11e18).toString());
+      await contract.setFundamentalRatio((1.11e18).toString());
 
-      await expect(contract.snapshotRatio()).revertedWith(
+      await expect(contract.snapshotRatio()).revertedWithCustomError(
+        contract,
         "FundamentalRatioCantExceedMaxRatio"
       );
     });
@@ -317,7 +323,7 @@ describe("CappedPriceFeed", () => {
       await time.increase(YEAR_IN_SECONDS);
       expect(await contract.getMaxRatio()).to.eq((1.1e18).toString());
 
-      await contract.setFundementalRatio((1.1e18).toString());
+      await contract.setFundamentalRatio((1.1e18).toString());
 
       await contract.snapshotRatio();
       await time.increase(YEAR_IN_SECONDS);
@@ -330,7 +336,7 @@ describe("CappedPriceFeed", () => {
       await time.increase(YEAR_IN_SECONDS);
       expect(await contract.getMaxRatio()).to.eq((1.1e18).toString());
 
-      await contract.setFundementalRatio((0.5e18).toString());
+      await contract.setFundamentalRatio((0.5e18).toString());
 
       await contract.snapshotRatio();
       await time.increase(YEAR_IN_SECONDS);
@@ -341,11 +347,12 @@ describe("CappedPriceFeed", () => {
       const ANNUAL_GROWTH = fromPercent(10);
       const contract = await createAndInitContract(ANNUAL_GROWTH);
 
-      await contract.setFundementalRatio(0);
+      await contract.setFundamentalRatio(0);
 
       await time.increase(61);
 
-      await expect(contract.snapshotRatio()).revertedWith(
+      await expect(contract.snapshotRatio()).revertedWithCustomError(
+        contract,
         "FundamentalRatioEqualsZero"
       );
     });
@@ -354,7 +361,8 @@ describe("CappedPriceFeed", () => {
       const ANNUAL_GROWTH = fromPercent(10);
       const contract = await createAndInitContract(ANNUAL_GROWTH);
 
-      await expect(contract.snapshotRatio()).revertedWith(
+      await expect(contract.snapshotRatio()).revertedWithCustomError(
+        contract,
         "SnapshotCanBeUpdatedOnlyEveryOneMinute"
       );
     });
@@ -376,7 +384,7 @@ describe("CappedPriceFeed", () => {
       const ANNUAL_GROWTH = fromPercent(10);
       const contract = await createAndInitContract(ANNUAL_GROWTH);
 
-      await contract.setFundementalRatio(0);
+      await contract.setFundamentalRatio(0);
 
       await time.increase(61);
 
@@ -387,7 +395,7 @@ describe("CappedPriceFeed", () => {
       const ANNUAL_GROWTH = fromPercent(10);
 
       const contract = await createContract();
-      await contract.setFundementalRatio(
+      await contract.setFundamentalRatio(
         BigNumber.from(
           "1684996666696914987166688442938726917102321526408785780068975640576" // 2 ^ 220
         )
@@ -407,7 +415,7 @@ describe("CappedPriceFeed", () => {
       const ANNUAL_GROWTH = fromPercent(10);
 
       const contract = await createContract();
-      await contract.setFundementalRatio(
+      await contract.setFundamentalRatio(
         BigNumber.from(
           "1606938044258990275541962092341162602522202993782792835301376" // 2 ^ 220
         )

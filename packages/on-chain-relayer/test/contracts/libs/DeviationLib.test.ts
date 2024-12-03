@@ -38,7 +38,7 @@ describe("DeviationLib", function () {
         originalValue,
         precision
       )
-    ).to.be.revertedWith("Panic");
+    ).to.be.revertedWithPanic(0x12);
   });
 
   it("calculates deviation with new value bigger", async function () {
