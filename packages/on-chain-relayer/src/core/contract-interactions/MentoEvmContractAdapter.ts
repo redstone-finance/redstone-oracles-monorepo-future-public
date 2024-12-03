@@ -4,6 +4,7 @@ import {
   ContractParamsProvider,
   ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
+import { Tx } from "@redstone-finance/utils";
 import { MentoAdapterBase } from "../../../typechain-types";
 import { getSortedOraclesContractAtAddress } from "../../custom-integrations/mento/get-sorted-oracles-contract-at-address";
 import {
@@ -11,7 +12,6 @@ import {
   prepareLinkedListLocationsForMentoAdapterReport,
 } from "../../custom-integrations/mento/mento-utils";
 import { PriceFeedsEvmContractAdapter } from "./PriceFeedsEvmContractAdapter";
-import { convertToTxDeliveryCall } from "./tx-delivery-gelato-bypass";
 
 export class MentoEvmContractAdapter extends PriceFeedsEvmContractAdapter<MentoAdapterBase> {
   override async getValuesForDataFeeds(
@@ -76,7 +76,7 @@ export class MentoEvmContractAdapter extends PriceFeedsEvmContractAdapter<MentoA
 
     const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
 
-    const txCall = convertToTxDeliveryCall(
+    const txCall = Tx.convertToTxDeliveryCall(
       await wrappedMentoContract.populateTransaction[
         "updatePriceValuesAndCleanOldReports"
       ](proposedTimestamp, linkedListPositions)

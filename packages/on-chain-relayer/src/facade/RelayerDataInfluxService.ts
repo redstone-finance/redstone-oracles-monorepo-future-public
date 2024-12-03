@@ -2,19 +2,13 @@ import { Point } from "@influxdata/influxdb-client";
 import { InfluxService } from "@redstone-finance/internal-utils";
 import {
   chooseDataPackagesTimestamp,
-  ContractParamsProvider,
   DataPackagesResponse,
 } from "@redstone-finance/sdk";
-import { RedstoneCommon, SafeNumber } from "@redstone-finance/utils";
+import { RedstoneCommon, SafeNumber, Tx } from "@redstone-finance/utils";
 import { basename } from "path";
 import { z } from "zod";
-
 import { RelayerConfig } from "../config/RelayerConfig";
-import {
-  ITxDeliveryMan,
-  SelfHandled,
-  TxDeliveryCall,
-} from "../core/contract-interactions/tx-delivery-gelato-bypass";
+import { RelayerTxDeliveryManContext } from "../core/contract-interactions/RelayerTxDeliveryManContext";
 
 const RELAYER_DATA_BUCKET = "dry-run-relayer-data";
 const TXS_MEASUREMENT = "redstoneTransactions";
@@ -23,7 +17,7 @@ const SENDER_TAG =
 
 export class RelayerDataInfluxService
   extends InfluxService
-  implements ITxDeliveryMan
+  implements Tx.ITxDeliveryMan
 {
   constructor(private relayerConfig: RelayerConfig) {
     const { influxUrl, influxToken } = relayerConfig;
@@ -37,11 +31,10 @@ export class RelayerDataInfluxService
   }
 
   async deliver(
-    _txDeliveryCall: TxDeliveryCall,
-    _deferredCallData?: () => Promise<string>,
-    paramsProvider?: ContractParamsProvider
-  ): Promise<typeof SelfHandled> {
-    const dataPackages = await paramsProvider!.requestDataPackages();
+    _txDeliveryCall: Tx.TxDeliveryCall,
+    context: RelayerTxDeliveryManContext
+  ) {
+    const dataPackages = await context.paramsProvider.requestDataPackages();
     const manifestFile = RedstoneCommon.getFromEnv("MANIFEST_FILE", z.string());
 
     await this.insert([
@@ -50,8 +43,6 @@ export class RelayerDataInfluxService
         manifestFile,
       }),
     ]);
-
-    return SelfHandled;
   }
 
   private static getInfluxPointForDataFeedPackages(

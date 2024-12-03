@@ -4,16 +4,12 @@ import {
   ContractParamsProvider,
   ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { RedstoneCommon, Tx } from "@redstone-finance/utils";
 import { BigNumber, utils } from "ethers";
 import { RedstoneAdapterBase } from "../../../typechain-types";
 import { ContractData } from "../../types";
 import { EvmContractAdapter } from "./EvmContractAdapter";
 import { getLatestTimestampsFromContract } from "./get-latest-timestamps-from-contract";
-import {
-  convertToTxDeliveryCall,
-  TxDeliveryCall,
-} from "./tx-delivery-gelato-bypass";
 
 export class PriceFeedsEvmContractAdapter<
   Contract extends RedstoneAdapterBase,
@@ -21,7 +17,7 @@ export class PriceFeedsEvmContractAdapter<
   override async makeUpdateTx(
     paramsProvider: ContractParamsProvider,
     metadataTimestamp: number
-  ): Promise<TxDeliveryCall> {
+  ): Promise<Tx.TxDeliveryCall> {
     const dataPackages = await paramsProvider.requestDataPackages();
     const dataPackagesWrapper = new DataPackagesWrapper<RedstoneAdapterBase>(
       dataPackages
@@ -33,7 +29,7 @@ export class PriceFeedsEvmContractAdapter<
       this.adapterContract
     );
 
-    const txCall = convertToTxDeliveryCall(
+    const txCall = Tx.convertToTxDeliveryCall(
       await wrappedContract.populateTransaction["updateDataFeedsValues"](
         proposedTimestamp
       )

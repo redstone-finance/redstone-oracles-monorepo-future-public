@@ -1,48 +1,36 @@
-import { TransactionResponse } from "@ethersproject/providers";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
-import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
+import { loggerFactory, RedstoneCommon, Tx } from "@redstone-finance/utils";
 import { RelayerConfig } from "../../config/RelayerConfig";
 import { updateUsingOevAuction } from "../../custom-integrations/fastlane/update-using-oev-auction";
 import { RedstoneEvmContract } from "../../facade/EvmContractFacade";
-import {
-  ITxDeliveryMan,
-  SelfHandled,
-  TxDeliveryCall,
-} from "./tx-delivery-gelato-bypass";
+import { RelayerTxDeliveryManContext } from "./RelayerTxDeliveryManContext";
 
-export class OevTxDeliveryMan implements ITxDeliveryMan {
+export class OevTxDeliveryMan implements Tx.ITxDeliveryMan {
   private logger = loggerFactory("updatePrices/oev");
 
   constructor(
-    private readonly baseDeliveryMan: ITxDeliveryMan,
+    private readonly fallbackDeliveryMan: Tx.ITxDeliveryMan,
     private readonly adapterContract: RedstoneEvmContract,
     private readonly relayerConfig: RelayerConfig
   ) {}
 
   async deliver(
-    txDeliveryCall: TxDeliveryCall,
-    deferredCallData?: () => Promise<string>,
-    paramsProvider?: ContractParamsProvider
-  ): Promise<TransactionResponse | typeof SelfHandled> {
+    txDeliveryCall: Tx.TxDeliveryCall,
+    context: RelayerTxDeliveryManContext
+  ) {
     try {
-      await this.updateUsingOevAction(txDeliveryCall, paramsProvider);
-
-      return SelfHandled;
+      await this.updateUsingOevAction(txDeliveryCall, context.paramsProvider);
     } catch (error) {
       this.logger.error(
         `Failed to update using OEV auction, proceeding with standard update, error: ${RedstoneCommon.stringifyError(error)}`
       );
 
-      return await this.baseDeliveryMan.deliver(
-        txDeliveryCall,
-        deferredCallData,
-        paramsProvider
-      );
+      await this.fallbackDeliveryMan.deliver(txDeliveryCall, context);
     }
   }
 
   private async updateUsingOevAction(
-    txDeliveryCall: TxDeliveryCall,
+    txDeliveryCall: Tx.TxDeliveryCall,
     paramsProvider: ContractParamsProvider | undefined
   ) {
     const updateUsingOevAuctionPromise = updateUsingOevAuction(

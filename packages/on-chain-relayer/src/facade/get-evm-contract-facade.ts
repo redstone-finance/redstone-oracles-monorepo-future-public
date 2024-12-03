@@ -1,12 +1,12 @@
 import { Provider } from "@ethersproject/providers";
 import { TxDeliveryManSupportedProviders } from "@redstone-finance/rpc-providers";
 import { DataPackagesResponseCache } from "@redstone-finance/sdk";
+import { Tx } from "@redstone-finance/utils";
 import { Signer, Wallet } from "ethers";
 import { RelayerConfig } from "../config/RelayerConfig";
 import { EvmContractConnector } from "../core/contract-interactions/EvmContractConnector";
 import { getRelayerProvider } from "../core/contract-interactions/get-relayer-provider";
 import { OevTxDeliveryMan } from "../core/contract-interactions/OevTxDeliveryMan";
-import { ITxDeliveryMan } from "../core/contract-interactions/tx-delivery-gelato-bypass";
 import { getTxDeliveryMan } from "../core/TxDeliveryManSingleton";
 import { EvmContractFacade, RedstoneEvmContract } from "./EvmContractFacade";
 import { getEvmContract } from "./get-evm-contract";
@@ -49,7 +49,7 @@ function makeTxDeliveryMan(
   provider: Signer | Provider,
   adapterContract: RedstoneEvmContract
 ) {
-  let txDeliveryMan: ITxDeliveryMan = getTxDeliveryMan(
+  let txDeliveryMan: Tx.ITxDeliveryMan = getTxDeliveryMan(
     relayerConfig,
     signer,
     provider as TxDeliveryManSupportedProviders

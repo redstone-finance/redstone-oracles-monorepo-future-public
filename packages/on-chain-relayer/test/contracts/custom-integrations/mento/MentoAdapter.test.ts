@@ -5,6 +5,9 @@ import {
   SimpleNumericMockWrapper,
   WrapperBuilder,
 } from "@redstone-finance/evm-connector";
+import { TxDeliveryCall } from "@redstone-finance/rpc-providers";
+import { Tx } from "@redstone-finance/utils";
+import { TxDeliveryManContext } from "@redstone-finance/utils/dist/src/tx";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { BigNumber } from "ethers";
@@ -315,7 +318,11 @@ describe("MentoAdapter", () => {
   it("Should properly read redstone values reported to sorted oracles", async () => {
     const { proposedTimestamp, timestampMilliseconds } =
       (await reportWithAdapter(1, 2, mentoAdapter))!;
-    const adapter = new MentoEvmContractAdapter(mockConfig(), mentoAdapter);
+    const adapter = new MentoEvmContractAdapter(
+      mockConfig(),
+      mentoAdapter,
+      new MockTxDeliveryMan()
+    );
     const values = await adapter.readLatestRoundParamsFromContract(
       ["BTC", "ETH"],
       await mentoAdapter.provider.getBlockNumber()
@@ -334,3 +341,9 @@ describe("MentoAdapter", () => {
     });
   });
 });
+
+class MockTxDeliveryMan implements Tx.ITxDeliveryMan {
+  deliver(_txDeliveryCall: TxDeliveryCall, _context: TxDeliveryManContext) {
+    return Promise.resolve();
+  }
+}

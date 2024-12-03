@@ -1,11 +1,13 @@
-import { TransactionResponse } from "@ethersproject/providers";
-import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
+import {
+  TransactionReceipt,
+  TransactionResponse,
+} from "@ethersproject/providers";
+import { loggerFactory, RedstoneCommon, Tx } from "@redstone-finance/utils";
 import { ethers, providers } from "ethers";
 import { getProviderNetworkInfo } from "../common";
 import { ProviderWithAgreement } from "../providers/ProviderWithAgreement";
 import { ProviderWithFallback } from "../providers/ProviderWithFallback";
 import { TxDelivery, TxDeliveryOpts, TxDeliverySigner } from "./TxDelivery";
-import { TxDeliveryCall } from "./TxDeliveryCall";
 
 export type TxDeliveryManSupportedProviders =
   | providers.JsonRpcProvider
@@ -14,7 +16,7 @@ export type TxDeliveryManSupportedProviders =
 
 const logger = loggerFactory("TxDeliveryMan");
 
-export class TxDeliveryMan {
+export class TxDeliveryMan implements Tx.ITxDeliveryMan {
   private providers: readonly providers.JsonRpcProvider[];
   private txDeliveriesInProgress = new Map<
     providers.JsonRpcProvider,
@@ -31,8 +33,8 @@ export class TxDeliveryMan {
 
   /**
    *
-   * @param txDeliveryCall {TxDeliveryCall} - all values has to be hex values starting with 0x
-   * @param deferredCallData {() => Promise<string>} - if passed is called first time on second attempt.
+   * @param txDeliveryCall {TxDeliveryCall} - all values have to be hex values starting with 0x
+   * @param context {deferredCallData {() => Promise<string>}} - if passed is called first time on second attempt.
    * During first attempt callData from txDeliveryCall is used.
    * @returns {TransactionResponse}
    * Because we are sending concurrently many requests
@@ -41,8 +43,8 @@ export class TxDeliveryMan {
    * get more context.
    */
   async deliver(
-    txDeliveryCall: TxDeliveryCall,
-    deferredCallData?: () => Promise<string>
+    txDeliveryCall: Tx.TxDeliveryCall,
+    context: Tx.TxDeliveryManContext = {}
   ): Promise<TransactionResponse> {
     const deliveryPromises = this.providers.map(async (provider) => {
       const deliveryInProgress = this.txDeliveriesInProgress.get(provider);
@@ -51,7 +53,7 @@ export class TxDeliveryMan {
         return await this.createAndDeliverNewPackage(
           provider,
           txDeliveryCall,
-          deferredCallData
+          context.deferredCallData
         );
       } else {
         // we are okay with skipping current delivery, because we are passing
@@ -66,12 +68,43 @@ export class TxDeliveryMan {
 
     const fastestDelivery = await Promise.any(deliveryPromises);
 
-    return { ...fastestDelivery, wait: buildWaitFn(deliveryPromises) };
+    const result = { ...fastestDelivery, wait: buildWaitFn(deliveryPromises) };
+    this.logTxResponse(result);
+
+    return result;
+  }
+
+  private logTxResponse(transactionResponse: TransactionResponse) {
+    const getTxReceiptDesc = (receipt: TransactionReceipt) => {
+      return `Transaction ${receipt.transactionHash} mined with SUCCESS(status: ${
+        receipt.status
+      }) in block #${receipt.blockNumber}[tx index: ${
+        receipt.transactionIndex
+      }]. gas_used=${receipt.gasUsed.toString()} effective_gas_price=${receipt.effectiveGasPrice.toString()}`;
+    };
+
+    // is not using await to not block the main function
+    transactionResponse
+      .wait()
+      .then((receipt) => logger.log(getTxReceiptDesc(receipt), { receipt }))
+      .catch((error) =>
+        logger.error(
+          `Failed to await transaction ${RedstoneCommon.stringifyError(error)}`
+        )
+      );
+
+    logger.log(
+      `Transaction tx delivered hash=${transactionResponse.hash} gasLimit=${String(
+        transactionResponse.gasLimit
+      )} gasPrice=${transactionResponse.gasPrice?.toString()} maxFeePerGas=${String(
+        transactionResponse.maxFeePerGas
+      )} maxPriorityFeePerGas=${String(transactionResponse.maxPriorityFeePerGas)}`
+    );
   }
 
   private createAndDeliverNewPackage(
     provider: providers.JsonRpcProvider,
-    txDeliveryCall: TxDeliveryCall,
+    txDeliveryCall: Tx.TxDeliveryCall,
     deferredCallData?: () => Promise<string>
   ) {
     const txDelivery = createTxDelivery(

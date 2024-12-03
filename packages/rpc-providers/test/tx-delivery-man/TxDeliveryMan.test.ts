@@ -4,8 +4,11 @@ import chaiAsPromised from "chai-as-promised";
 import { ethers } from "ethers";
 import * as hardhat from "hardhat";
 import Sinon from "sinon";
-import { ProviderWithFallback, convertToTxDeliveryCall } from "../../src";
-import { TxDeliveryMan } from "../../src/tx-delivery-man/TxDeliveryMan";
+import {
+  ProviderWithFallback,
+  TxDeliveryMan,
+  convertToTxDeliveryCall,
+} from "../../src";
 import { Counter } from "../../typechain-types";
 import { HardhatProviderMocker, deployCounter } from "../helpers";
 
@@ -307,7 +310,7 @@ describe("TxDeliveryMan", () => {
           await counter.populateTransaction["inc"]().then((req) =>
             convertToTxDeliveryCall(req)
           ),
-          deferredSpy
+          { deferredCallData: deferredSpy }
         );
       } catch (e) {
         console.log(e);

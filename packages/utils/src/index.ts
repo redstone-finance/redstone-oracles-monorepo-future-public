@@ -5,4 +5,5 @@ export * as SafeNumber from "./ISafeNumber";
 export * from "./logger";
 export * as MathUtils from "./math"; // to avoid clash with Math global
 export * from "./monitoring";
+export * as Tx from "./tx";
 export * as RedstoneTypes from "./types";

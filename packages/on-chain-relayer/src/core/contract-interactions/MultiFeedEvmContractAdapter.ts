@@ -1,15 +1,11 @@
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import { ContractParamsProvider, isSubsetOf } from "@redstone-finance/sdk";
-import { loggerFactory } from "@redstone-finance/utils";
+import { loggerFactory, Tx } from "@redstone-finance/utils";
 import { utils } from "ethers";
 import { MultiFeedAdapterWithoutRounds } from "../../../typechain-types";
 import { getLastRoundParamsFromContractMultiFeed } from "../../multi-feed/args/get-last-round-params";
 import { ContractData } from "../../types";
 import { EvmContractAdapter } from "./EvmContractAdapter";
-import {
-  convertToTxDeliveryCall,
-  TxDeliveryCall,
-} from "./tx-delivery-gelato-bypass";
 
 const logger = loggerFactory("updatePrices/multi-feed");
 
@@ -17,7 +13,7 @@ export class MultiFeedEvmContractAdapter extends EvmContractAdapter<MultiFeedAda
   async makeUpdateTx(
     paramsProvider: ContractParamsProvider,
     metadataTimestamp: number
-  ): Promise<TxDeliveryCall> {
+  ): Promise<Tx.TxDeliveryCall> {
     const dataFeedsToUpdate = paramsProvider.getDataFeedIds();
     let dataFeedsAsBytes32 = dataFeedsToUpdate.map(utils.formatBytes32String);
     const dataPackages = await paramsProvider.requestDataPackages();
@@ -44,7 +40,7 @@ export class MultiFeedEvmContractAdapter extends EvmContractAdapter<MultiFeedAda
       this.adapterContract
     );
 
-    const txCall = convertToTxDeliveryCall(
+    const txCall = Tx.convertToTxDeliveryCall(
       await wrappedContract.populateTransaction["updateDataFeedsValuesPartial"](
         dataFeedsAsBytes32
       )

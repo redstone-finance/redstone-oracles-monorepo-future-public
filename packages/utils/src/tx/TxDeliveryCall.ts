@@ -2,7 +2,7 @@ import { TransactionRequest } from "@ethersproject/providers";
 import { PopulatedTransaction } from "ethers";
 
 /**
- * All values has to resolve to hex values
+ * All values have to resolve to hex values
  */
 export type TxDeliveryCall = {
   from: string;

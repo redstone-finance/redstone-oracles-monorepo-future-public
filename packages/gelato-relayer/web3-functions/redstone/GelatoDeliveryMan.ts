@@ -1,18 +1,14 @@
 import { Web3FunctionResult } from "@gelatonetwork/web3-functions-sdk";
-import {
-  ITxDeliveryMan,
-  SelfHandled,
-} from "@redstone-finance/on-chain-relayer";
-import { TxDeliveryCall } from "@redstone-finance/rpc-providers";
+import { Tx } from "@redstone-finance/utils";
 import { GelatoLogger } from "./GelatoLogger";
 
-export class GelatoDeliveryMan implements ITxDeliveryMan {
+export class GelatoDeliveryMan implements Tx.ITxDeliveryMan {
   constructor(
     private resolve: (result: Web3FunctionResult) => void,
     private logger: GelatoLogger
   ) {}
 
-  private static makeWeb3FunctionResult(txDeliveryCall: TxDeliveryCall) {
+  private static makeWeb3FunctionResult(txDeliveryCall: Tx.TxDeliveryCall) {
     if (!!txDeliveryCall.data && txDeliveryCall.data != "0x") {
       return GelatoDeliveryMan.canExec(txDeliveryCall);
     } else {
@@ -26,22 +22,21 @@ export class GelatoDeliveryMan implements ITxDeliveryMan {
     return { canExec: false, message };
   }
 
-  private static canExec(txDeliveryCall: {
-    data: string;
-    to: string;
-  }): Web3FunctionResult {
+  private static canExec(
+    txDeliveryCall: Tx.TxDeliveryCall
+  ): Web3FunctionResult {
     return {
       canExec: true,
       callData: [{ data: txDeliveryCall.data, to: txDeliveryCall.to }],
     };
   }
 
-  deliver(txDeliveryCall: TxDeliveryCall) {
+  deliver(txDeliveryCall: Tx.TxDeliveryCall) {
     this.logger.emitMessages();
 
     this.resolve(GelatoDeliveryMan.makeWeb3FunctionResult(txDeliveryCall));
 
-    return Promise.resolve(SelfHandled);
+    return Promise.resolve();
   }
 
   doNotDeliver() {

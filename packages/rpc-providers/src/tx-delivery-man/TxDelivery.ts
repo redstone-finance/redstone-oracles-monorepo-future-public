@@ -3,7 +3,7 @@ import {
   TransactionRequest,
   TransactionResponse,
 } from "@ethersproject/providers";
-import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
+import { loggerFactory, RedstoneCommon, Tx } from "@redstone-finance/utils";
 import { BigNumber, providers, utils } from "ethers";
 import _ from "lodash";
 import { EthersError, isEthersError } from "../common";
@@ -15,7 +15,6 @@ import { CHAIN_ID_TO_GAS_ORACLE } from "./CustomGasOracles";
 import { Eip1559Fee, Eip1559GasEstimator } from "./Eip1559GasEstimator";
 import { GasEstimator } from "./GasEstimator";
 import { GasLimitEstimator } from "./GasLimitEstimator";
-import { convertToTxDeliveryCall, TxDeliveryCall } from "./TxDeliveryCall";
 
 export type FeeStructure = Eip1559Fee | AuctionModelFee;
 
@@ -168,7 +167,7 @@ export class TxDelivery {
     this.gasLimitEstimator = new GasLimitEstimator(this.opts);
   }
 
-  public async deliver(call: TxDeliveryCall): Promise<TransactionResponse> {
+  public async deliver(call: Tx.TxDeliveryCall): Promise<TransactionResponse> {
     RedstoneCommon.assert(
       this.attempt === 1,
       "TxDelivery.deliver can be called only once per instance"
@@ -310,7 +309,7 @@ export class TxDelivery {
   private async updateTxParamsForNextAttempt(
     tx: DeliveryManTx
   ): Promise<DeliveryManTx> {
-    const gasEstimateTx = convertToTxDeliveryCall(tx);
+    const gasEstimateTx = Tx.convertToTxDeliveryCall(tx);
     const [newFees, newGasLimit, newCalldata] = await Promise.all([
       this.getFees(),
       this.gasLimitEstimator.getGasLimit(this.provider, gasEstimateTx),
@@ -326,7 +325,7 @@ export class TxDelivery {
   }
 
   async prepareTransactionRequest(
-    call: TxDeliveryCall
+    call: Tx.TxDeliveryCall
   ): Promise<DeliveryManTx> {
     const address = await this.signer.getAddress();
     const currentNonce = await this.provider.getTransactionCount(address);
@@ -334,7 +333,7 @@ export class TxDelivery {
     const fees = await this.getFees();
     const gasLimit = await this.gasLimitEstimator.getGasLimit(
       this.provider,
-      convertToTxDeliveryCall(call)
+      Tx.convertToTxDeliveryCall(call)
     );
 
     const { chainId } = await this.provider.getNetwork();
@@ -408,7 +407,7 @@ export class TxDelivery {
     }
   }
 
-  async resolveTxDeliveryCallData(tx: TxDeliveryCall): Promise<string> {
+  async resolveTxDeliveryCallData(tx: Tx.TxDeliveryCall): Promise<string> {
     if (this.deferredCallData) {
       return await this.deferredCallData();
     }
