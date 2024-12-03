@@ -36,6 +36,9 @@ const config: HardhatUserConfig = {
     bounceBit: {
       url: "https://fullnode-mainnet.bouncebitapi.com",
     },
+    corn: {
+      url: "https://rpc.ankr.com/corn_maizenet",
+    },
     cornTestnet: {
       url: "https://testnet-rpc.usecorn.com",
     },

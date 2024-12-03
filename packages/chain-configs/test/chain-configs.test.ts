@@ -20,6 +20,7 @@ const CHAINS_TO_SKIP_MULTICALL_ADDRESS_CHECK = [
   "zkLink",
   "Haven1 Testnet",
   "BounceBit Mainnet",
+  "Corn Maizenet", // first few create transactions failed leading to different address
 ];
 
 const CHAINS_TO_SKIP_RPC_PRESENCE_CHECK = [
@@ -52,7 +53,10 @@ describe("Validate chain configs", () => {
 describe("Validate multicall3", () => {
   it(`Each redstone multicall3 should have the same address`, function () {
     for (const chainConfig of Object.values(ChainConfigs)) {
-      if (chainConfig.multicall3.type === "RedstoneMulticall3") {
+      if (
+        chainConfig.multicall3.type === "RedstoneMulticall3" &&
+        !CHAINS_TO_SKIP_MULTICALL_ADDRESS_CHECK.includes(chainConfig.name)
+      ) {
         chai
           .expect(
             chainConfig.multicall3.address,
@@ -82,8 +86,7 @@ describe("Validate multicall3", () => {
   for (const chainConfig of Object.values(ChainConfigs)) {
     if (
       chainConfig.publicRpcUrls.length === 0 ||
-      chainConfig.publicRpcUrls[0].includes("localhost") ||
-      chainConfig.name === "BounceBit Mainnet" // In progress
+      chainConfig.publicRpcUrls[0].includes("localhost")
     ) {
       continue;
     }

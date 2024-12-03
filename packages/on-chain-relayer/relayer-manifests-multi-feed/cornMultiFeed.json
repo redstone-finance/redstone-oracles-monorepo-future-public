@@ -1,0 +1,42 @@
+{
+  "chain": {
+    "name": "corn",
+    "id": 21000000
+  },
+  "adapterContract": "0x368eE51E47a594fe1E9908b48228748a30BC7ca4",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {
+    "ETH": {
+      "priceFeedAddress": "0x13433B1949d9141Be52Ae13Ad7e7E4911228414e"
+    },
+    "BTC": {
+      "priceFeedAddress": "0xD15862FC3D5407A03B696548b6902D6464A69b8c"
+    },
+    "USDe": {
+      "priceFeedAddress": "0x58fa68A373956285dDfb340EDf755246f8DfCA16"
+    },
+    "weETH/ETH": {
+      "priceFeedAddress": "0xb4fe9028A4D4D8B3d00e52341F2BB0798860532C"
+    },
+    "eBTC/WBTC": {
+      "priceFeedAddress": "0xf1454949C6dEdfb500ae63Aa6c784Aa1Dde08A6c"
+    },
+    "LBTC/BTC": {
+      "priceFeedAddress": "0xE94c9f9A1893f23be38A5C0394E46Ac05e8a5f8C"
+    },
+    "SolvBTC/BTC": {
+      "priceFeedAddress": "0xb67047eDF6204F4C81333248dA71F8387050790C"
+    },
+    "pumpBTC/BTC": {
+      "priceFeedAddress": "0xb9D0073aCb296719C26a8BF156e4b599174fe1d5"
+    },
+    "USDC": {
+      "priceFeedAddress": "0x31a36CdF4465ba61ce78F5CDbA26FDF8ec361803"
+    }
+  }
+}

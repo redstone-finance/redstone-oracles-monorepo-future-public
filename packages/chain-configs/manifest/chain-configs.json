@@ -683,6 +683,24 @@
       "twoDimensionalFees": false,
       "isMainnet": true
     },
+    "corn": {
+      "name": "Corn Maizenet",
+      "chainId": 21000000,
+      "publicRpcUrls": [
+        "https://rpc.ankr.com/corn_maizenet",
+        "https://maizenet-rpc.usecorn.com"
+      ],
+      "avgBlockTimeMs": 60000,
+      "multicall3": {
+        "address": "0x0871f732A0DaAFe1E6a80A862878648a86dE1298",
+        "type": "RedstoneMulticall3",
+        "gasLimitPerCall": 1000000
+      },
+      "isAuctionModel": false,
+      "fallbackToEthMaxPriorityFeePerGas": true,
+      "twoDimensionalFees": false,
+      "isMainnet": true
+    },
     "cornTestnet": {
       "name": "Corn Testnet",
       "chainId": 21000001,
