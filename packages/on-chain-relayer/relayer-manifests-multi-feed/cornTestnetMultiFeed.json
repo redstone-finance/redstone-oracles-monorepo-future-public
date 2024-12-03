@@ -34,6 +34,9 @@
     },
     "pumpBTC/BTC": {
       "priceFeedAddress": "0x90196F6D52fce394C79D1614265d36D3F0033Ccf"
+    },
+    "USDC": {
+      "priceFeedAddress": "0x0bE6929FD4ad87347e97A525DB6ac8E884FCDCeC"
     }
   }
 }
