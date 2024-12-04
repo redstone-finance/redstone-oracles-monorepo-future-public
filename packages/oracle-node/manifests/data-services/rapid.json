@@ -87,6 +87,7 @@
         "bybit-usdt",
         "coinbasepro-usd",
         "coinbasepro-usdt",
+        "coingecko",
         "gate-usdt",
         "kucoin-usdt",
         "lbank-usdt",
@@ -326,6 +327,7 @@
         "binance-eth",
         "binance-xrp",
         "bingx-usdt",
+        "coingecko",
         "pancake-swap-bnb-usdt-100",
         "pancake-swap-bnb-wbnb-500",
         "uniswap-v3-ethereum-usdt-100"

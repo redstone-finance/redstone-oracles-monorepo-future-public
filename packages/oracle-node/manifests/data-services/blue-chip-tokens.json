@@ -125,6 +125,7 @@
         "binance-usdt",
         "bingx-usdt",
         "bitrue-usdt",
+        "coingecko",
         "coinmarketcap",
         "gate-usdt",
         "lbank-usdt"
@@ -167,6 +168,7 @@
         "binance-usdt",
         "bitget-usdt",
         "bitrue-usdt",
+        "coingecko",
         "coinmarketcap",
         "gate-usdt",
         "kaiko-v2",
@@ -212,6 +214,7 @@
         "bitfinex2-usd",
         "bitget-usdt",
         "coinbasepro-usd",
+        "coingecko",
         "coinmarketcap",
         "gate-usdt",
         "kucoin-usdt",
