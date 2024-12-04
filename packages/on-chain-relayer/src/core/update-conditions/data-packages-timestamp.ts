@@ -1,4 +1,4 @@
-import { chooseDataPackagesTimestamp } from "@redstone-finance/sdk";
+import { getDataPackagesTimestamp } from "@redstone-finance/sdk";
 import { ShouldUpdateContext } from "../../types";
 
 export const checkIfDataPackageTimestampIsNewer = (
@@ -9,7 +9,7 @@ export const checkIfDataPackageTimestampIsNewer = (
   const lastDataPackageTimestampMS =
     context.dataFromContract[dataFeedId].lastDataPackageTimestampMS;
 
-  const dataPackageTimestamp = chooseDataPackagesTimestamp(
+  const dataPackageTimestamp = getDataPackagesTimestamp(
     dataPackages,
     dataFeedId
   );

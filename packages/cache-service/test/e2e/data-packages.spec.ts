@@ -260,7 +260,7 @@ describe("Data packages (e2e)", () => {
     );
   });
 
-  it("/data-packages/latest (GET) return packages with unique signers if multiple packages with repeated singers", async () => {
+  it("/data-packages/latest (GET) return packages with unique signers if multiple packages with repeated signers", async () => {
     await DataPackage.insertMany(mockDataPackagesForUniqueSigners);
 
     const dpTimestamp = mockDataPackages[0].timestampMilliseconds;

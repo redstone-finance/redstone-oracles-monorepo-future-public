@@ -57,6 +57,6 @@ Some of the benchmark results are presented below.
   },
 ```
 
-The data enables us to make the following observations. First, the storageProxy approach scales better w.r.t. number of singers and proxy chain length than proxyConnector approach. This is due to the fact, that in proxyConnector approach RedStone payload is parsed multiple times, whereas in the storageProxy approach, it is processed only once. Nonetheless, when the values of the aforementioned variables are low, the proxyConnector approach excels.
+The data enables us to make the following observations. First, the storageProxy approach scales better w.r.t. number of signers and proxy chain length than proxyConnector approach. This is due to the fact, that in proxyConnector approach RedStone payload is parsed multiple times, whereas in the storageProxy approach, it is processed only once. Nonetheless, when the values of the aforementioned variables are low, the proxyConnector approach excels.
 
 Second, the storageProxy approach can utilize the fact that subsequent writes to the same storage slot are cheaper than the initial write. When second writes are considered the storageProxy-based approach outperforms proxyConnector across all benchmark scenarios.

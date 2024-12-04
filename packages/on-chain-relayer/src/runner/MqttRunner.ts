@@ -6,11 +6,11 @@ import {
   RateLimitsCircuitBreaker,
 } from "@redstone-finance/mqtt5-client";
 import {
-  chooseDataPackagesTimestamp,
   ContractParamsProvider,
   DataPackagesRequestParams,
   DataPackagesResponse,
   DataPackagesResponseCache,
+  getDataPackagesTimestamp,
 } from "@redstone-finance/sdk";
 import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import _ from "lodash";
@@ -182,7 +182,7 @@ export class MqttRunner {
     dataPackageIds.sort();
 
     this.logger.debug(
-      `Got data for [${dataPackageIds.toString()}], timestamp: ${chooseDataPackagesTimestamp(dataPackagesResponse)}`
+      `Got data for [${dataPackageIds.toString()}], timestamp: ${getDataPackagesTimestamp(dataPackagesResponse)}`
     );
 
     const wasEnqueued = this.queue.enqueue(dataPackageIds.toString(), () =>

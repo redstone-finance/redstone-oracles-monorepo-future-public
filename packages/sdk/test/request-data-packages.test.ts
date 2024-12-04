@@ -195,7 +195,52 @@ describe("request-data-packages", () => {
     );
   });
 
-  test("Should omit packages with deviated timestamp", async () => {
+  test("Should throw error for different timestamps", async () => {
+    const axiosGetSpy = jest.spyOn(axios, "get");
+    const dataPackage = DataPackage.fromObj({
+      dataPoints: [{ dataFeedId: "ETH", value: 20000 }],
+      timestampMilliseconds: 1732724591164,
+      dataPackageId: "ETH",
+    }).sign(MOCK_WALLET.privateKey);
+
+    axiosGetSpy.mockResolvedValue({
+      data: {
+        ETH: [
+          {
+            dataPoints: [{ dataFeedId: "ETH", value: 20000 }],
+            timestampMilliseconds: 1732724591163,
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            dataPackageId: "ETH",
+            signerAddress: "0x2",
+            signature: dataPackage.toObj().signature,
+          },
+          {
+            dataPoints: [{ dataFeedId: "ETH", value: 10000 }],
+            timestampMilliseconds: 1732724591165,
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            dataPackageId: "ETH",
+            signerAddress: "0x3",
+            signature: dataPackage.toObj().signature,
+          },
+        ],
+      },
+    });
+
+    await expect(
+      requestDataPackages({
+        ...getReqParams(),
+        uniqueSignersCount: 2,
+        dataPackagesIds: ["ETH"],
+        maxTimestampDeviationMS: 20_000,
+      })
+    ).rejects.toThrowError(
+      /Timestamps do not have the same value: 1732724591163, 1732724591165/
+    );
+  });
+
+  test("Should throw error for deviated timestamp", async () => {
     const axiosGetSpy = jest.spyOn(axios, "get");
     const now = Date.now();
     const dataPackage = DataPackage.fromObj({
@@ -209,7 +254,7 @@ describe("request-data-packages", () => {
         ETH: [
           {
             dataPoints: [{ dataFeedId: "ETH", value: 20000 }],
-            timestampMilliseconds: now,
+            timestampMilliseconds: now - 30_000,
             dataServiceId: "service-1",
             dataFeedId: "ETH",
             dataPackageId: "ETH",
@@ -236,21 +281,10 @@ describe("request-data-packages", () => {
         dataPackagesIds: ["ETH"],
         maxTimestampDeviationMS: 20_000,
       })
-    ).rejects.toThrowError(/Too few unique signers/);
-
-    const result = await requestDataPackages({
-      ...getReqParams(),
-      uniqueSignersCount: 1,
-      dataPackagesIds: ["ETH"],
-      maxTimestampDeviationMS: 20_000,
-    });
-
-    expect(result["ETH"]![0].dataPackage.dataPoints[0].toObj().value).toEqual(
-      20_000
-    );
+    ).rejects.toThrowError(/Timestamp deviation exceeded/);
   });
 
-  test("Should omit packages signed by not authorized", async () => {
+  test("Should throw error for all packages signed by not authorized", async () => {
     const axiosGetSpy = jest.spyOn(axios, "get");
     const dataPackage = DataPackage.fromObj({
       dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
@@ -262,7 +296,7 @@ describe("request-data-packages", () => {
       data: {
         ETH: [
           {
-            dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
+            dataPoints: [{ dataFeedId: "ETH", value: 20000 }],
             timestampMilliseconds: 1654353400000,
             dataServiceId: "service-1",
             dataFeedId: "ETH",
@@ -281,7 +315,41 @@ describe("request-data-packages", () => {
         dataPackagesIds: ["ETH"],
         authorizedSigners: ["fake_signer"],
       })
-    ).rejects.toThrowError(/Too few unique signers/);
+    ).rejects.toThrowError(/No data packages for the data feed: ETH/);
+  });
+
+  test("Should not throw an error if ignoreMissingFeed set", async () => {
+    const axiosGetSpy = jest.spyOn(axios, "get");
+    const dataPackage = DataPackage.fromObj({
+      dataPoints: [{ dataFeedId: "BTC", value: 20000 }],
+      timestampMilliseconds: 1654353400000,
+      dataPackageId: "BTC",
+    }).sign(MOCK_WALLET.privateKey);
+
+    axiosGetSpy.mockResolvedValueOnce({
+      data: {
+        ETH: [
+          {
+            dataPoints: [{ dataFeedId: "ETH", value: 20000 }],
+            timestampMilliseconds: 1654353400000,
+            dataServiceId: "service-1",
+            dataFeedId: "ETH",
+            dataPackageId: "ETH",
+            signerAddress: "0x2",
+            signature: dataPackage.toObj().signature,
+          },
+        ],
+      },
+    });
+
+    const result = await requestDataPackages({
+      ...getReqParams(),
+      uniqueSignersCount: 1,
+      dataPackagesIds: ["BTC"],
+      authorizedSigners: [MOCK_WALLET.address],
+      ignoreMissingFeed: true,
+    });
+    expect(result).toMatchObject({});
   });
 
   test("Should omit packages signed by not authorized signers, but pass through correctly signed", async () => {

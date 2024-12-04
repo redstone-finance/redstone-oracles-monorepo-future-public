@@ -1,8 +1,8 @@
 import {
-  chooseDataPackagesTimestamp,
   ContractParamsProvider,
   convertToHistoricalDataPackagesRequestParams,
   DataPackagesResponse,
+  getDataPackagesTimestamp,
 } from "@redstone-finance/sdk";
 import { RelayerConfig } from "../../config/RelayerConfig";
 import { LastRoundDetails } from "../../types";
@@ -44,7 +44,7 @@ export const performValueDeviationConditionChecks = async (
       config
     );
 
-    historicalPackagesTime = chooseDataPackagesTimestamp(
+    historicalPackagesTime = getDataPackagesTimestamp(
       historicalDataPackages,
       dataFeedId
     );
@@ -110,7 +110,7 @@ export const valueDeviationCondition = async (
       fetchHistoricalDataPackages(
         config,
         uniqueSignersThreshold,
-        chooseDataPackagesTimestamp(latestDataPackages, dataFeedId)
+        getDataPackagesTimestamp(latestDataPackages, dataFeedId)
       )
   );
 };

@@ -4,7 +4,7 @@ import {
   getSignersForDataServiceId,
 } from "@redstone-finance/oracles-smartweave-contracts";
 import {
-  chooseDataPackagesTimestamp,
+  getDataPackagesTimestamp,
   requestDataPackages,
 } from "@redstone-finance/sdk";
 import { Adapter } from "erc7412";
@@ -42,7 +42,7 @@ export class RedstoneAdapter implements Adapter {
       dataPackages
     ).prepareRedstonePayload(true);
 
-    const dataTimestamp = BigInt(chooseDataPackagesTimestamp(dataPackages));
+    const dataTimestamp = BigInt(getDataPackagesTimestamp(dataPackages));
     const encodedDataTimestamp = viem.encodeAbiParameters(
       [{ type: "uint256" }],
       [dataTimestamp]

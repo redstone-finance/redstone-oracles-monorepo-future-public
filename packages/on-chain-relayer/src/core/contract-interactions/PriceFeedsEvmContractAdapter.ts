@@ -1,7 +1,7 @@
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
-  chooseDataPackagesTimestamp,
   ContractParamsProvider,
+  getDataPackagesTimestamp,
   ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
 import { RedstoneCommon, Tx } from "@redstone-finance/utils";
@@ -22,7 +22,7 @@ export class PriceFeedsEvmContractAdapter<
     const dataPackagesWrapper = new DataPackagesWrapper<RedstoneAdapterBase>(
       dataPackages
     );
-    const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
+    const proposedTimestamp = getDataPackagesTimestamp(dataPackages);
 
     dataPackagesWrapper.setMetadataTimestamp(metadataTimestamp);
     const wrappedContract = dataPackagesWrapper.overwriteEthersContract(

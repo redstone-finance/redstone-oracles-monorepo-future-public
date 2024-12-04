@@ -37,7 +37,7 @@ export interface DataPackagesRequestParams {
    */
   waitForAllGatewaysTimeMs?: number;
   /**
-   * filter out old packages
+   * maximum allowed timestamp deviation in milliseconds
    */
   maxTimestampDeviationMS?: number;
   /**
@@ -61,6 +61,10 @@ export interface DataPackagesRequestParams {
    * adds more detailed logs, depending on the log level
    */
   enableEnhancedLogs?: boolean;
+  /**
+   * By default, packages closest to the median are returned. Setting this to true causes all packages to be returned.
+   */
+  disableMedianSelection?: boolean;
 }
 
 /**
@@ -281,32 +285,41 @@ const parseAndValidateDataPackagesResponse = (
       });
     }
 
-    // filter out package with deviated timestamps
-    if (reqParams.maxTimestampDeviationMS) {
-      const now = Date.now();
-      dataFeedPackages = dataFeedPackages.filter(
-        (dp) =>
-          Math.abs(now - dp.timestampMilliseconds) <
-          reqParams.maxTimestampDeviationMS!
-      );
-    }
-
-    if (dataFeedPackages.length < reqParams.uniqueSignersCount) {
-      const message =
-        `Too few unique signers for the data feed: ${dataFeedId}. ` +
-        `Expected: ${reqParams.uniqueSignersCount}. ` +
-        `Received: ${dataFeedPackages.length}`;
+    if (dataFeedPackages.length === 0) {
+      const message = `No data packages for the data feed: ${dataFeedId}`;
       if (reqParams.ignoreMissingFeed) {
         requestDataPackagesLogger?.feedIsMissing(message);
         continue;
+      } else {
+        throw new Error(message);
       }
-      throw new Error(message);
+    } else if (dataFeedPackages.length < reqParams.uniqueSignersCount) {
+      throw new Error(
+        `Too few unique signers for the data feed: ${dataFeedId}. ` +
+          `Expected: ${reqParams.uniqueSignersCount}. ` +
+          `Received: ${dataFeedPackages.length}`
+      );
     }
 
-    parsedResponse[dataFeedId] = pickDataFeedPackagesClosestToMedian(
-      dataFeedPackages,
-      reqParams.uniqueSignersCount
+    const signedDataPackages = dataFeedPackages.map((dp) =>
+      SignedDataPackage.fromObj(dp)
     );
+    const timestamp = checkAndGetSameTimestamp(signedDataPackages);
+    if (reqParams.maxTimestampDeviationMS) {
+      const deviation = Math.abs(Date.now() - timestamp);
+      if (deviation > reqParams.maxTimestampDeviationMS) {
+        throw new Error(
+          `Timestamp deviation exceeded - timestamp: ${timestamp}, deviation: ${deviation}, max deviation: ${reqParams.maxTimestampDeviationMS}`
+        );
+      }
+    }
+
+    parsedResponse[dataFeedId] = reqParams.disableMedianSelection
+      ? signedDataPackages
+      : pickDataFeedPackagesClosestToMedian(
+          dataFeedPackages,
+          reqParams.uniqueSignersCount
+        );
   }
 
   return parsedResponse;
@@ -346,7 +359,7 @@ function maybeGetSigner(dp: SignedDataPackagePlainObj) {
   }
 }
 
-export const chooseDataPackagesTimestamp = (
+export const getDataPackagesTimestamp = (
   dataPackages: DataPackagesResponse,
   dataFeedId?: string
 ) => {
@@ -355,15 +368,24 @@ export const chooseDataPackagesTimestamp = (
     dataFeedId
   );
 
-  if (!signedDataPackages.length) {
-    throw new Error(`Data packages are missing! (feedId ${dataFeedId})`);
+  return checkAndGetSameTimestamp(signedDataPackages);
+};
+
+export const checkAndGetSameTimestamp = (dataPackages: SignedDataPackage[]) => {
+  if (!dataPackages.length) {
+    throw new Error("No data packages");
   }
 
-  return Math.min(
-    ...signedDataPackages.map(
-      (dataPackage) => dataPackage.dataPackage.timestampMilliseconds
-    )
+  const timestamps = dataPackages.map(
+    (dp) => dp.dataPackage.timestampMilliseconds
   );
+  if (new Set(timestamps).size !== 1) {
+    throw new Error(
+      `Timestamps do not have the same value: ${timestamps.join(", ")}`
+    );
+  }
+
+  return timestamps[0];
 };
 
 const extractSignedDataPackagesForFeedId = (

@@ -1,7 +1,7 @@
 import { consts, INumericDataPoint } from "@redstone-finance/protocol";
 import {
-  chooseDataPackagesTimestamp,
   DataPackagesResponse,
+  getDataPackagesTimestamp,
 } from "@redstone-finance/sdk";
 import { MathUtils } from "@redstone-finance/utils";
 import { BigNumber, utils } from "ethers";
@@ -52,7 +52,7 @@ export const checkValueDeviationCondition = (
   let shouldUpdatePrices = false;
   const warnings = verifyDataPackagesAreDisjoint(dataPackages);
   logTrace.addWarnings(warnings);
-  const timestampMilliseconds = chooseDataPackagesTimestamp(
+  const timestampMilliseconds = getDataPackagesTimestamp(
     dataPackages,
     dataFeedId
   );

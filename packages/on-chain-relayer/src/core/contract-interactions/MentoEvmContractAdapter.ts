@@ -1,7 +1,7 @@
 import { DataPackagesWrapper } from "@redstone-finance/evm-connector";
 import {
-  chooseDataPackagesTimestamp,
   ContractParamsProvider,
+  getDataPackagesTimestamp,
   ValuesForDataFeeds,
 } from "@redstone-finance/sdk";
 import { Tx } from "@redstone-finance/utils";
@@ -74,7 +74,7 @@ export class MentoEvmContractAdapter extends PriceFeedsEvmContractAdapter<MentoA
       this.adapterContract
     );
 
-    const proposedTimestamp = chooseDataPackagesTimestamp(dataPackages);
+    const proposedTimestamp = getDataPackagesTimestamp(dataPackages);
 
     const txCall = Tx.convertToTxDeliveryCall(
       await wrappedMentoContract.populateTransaction[

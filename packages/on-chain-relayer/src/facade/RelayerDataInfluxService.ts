@@ -1,8 +1,8 @@
 import { Point } from "@influxdata/influxdb-client";
 import { InfluxService } from "@redstone-finance/internal-utils";
 import {
-  chooseDataPackagesTimestamp,
   DataPackagesResponse,
+  getDataPackagesTimestamp,
 } from "@redstone-finance/sdk";
 import { RedstoneCommon, SafeNumber, Tx } from "@redstone-finance/utils";
 import { basename } from "path";
@@ -49,7 +49,7 @@ export class RelayerDataInfluxService
     dataPackagesResponse: DataPackagesResponse,
     relayerConfig: RelayerConfig & { manifestFile: string }
   ) {
-    const timestamp = chooseDataPackagesTimestamp(dataPackagesResponse);
+    const timestamp = getDataPackagesTimestamp(dataPackagesResponse);
 
     const point = new Point(TXS_MEASUREMENT);
 
