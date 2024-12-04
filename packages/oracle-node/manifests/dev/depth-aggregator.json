@@ -986,7 +986,8 @@
         "thruster-v3-blast-weth-3000",
         "thruster-v3-blast-weth-500",
         "uniswap-v3-ethereum-weth-100",
-        "uniswap-v3-ethereum-wsteth-500"
+        "uniswap-v3-ethereum-wsteth-500",
+        "aerodrome-cl-base-weth-3000"
       ]
     },
     "ezETH/ETH": {
@@ -1333,7 +1334,8 @@
       "source": [
         "curve-ethereum-dai",
         "curve-ethereum-usdc",
-        "curve-ethereum-usdt"
+        "curve-ethereum-usdt",
+        "trader-joe-v2-avalanche-usdc"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {

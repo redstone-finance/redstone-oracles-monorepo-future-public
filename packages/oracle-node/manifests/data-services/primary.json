@@ -1167,7 +1167,8 @@
         "thruster-v3-blast-weth-3000",
         "thruster-v3-blast-weth-500",
         "uniswap-v3-ethereum-weth-100",
-        "uniswap-v3-ethereum-wsteth-500"
+        "uniswap-v3-ethereum-wsteth-500",
+        "aerodrome-cl-base-weth-3000"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -1624,7 +1625,8 @@
       "source": [
         "curve-ethereum-dai",
         "curve-ethereum-usdc",
-        "curve-ethereum-usdt"
+        "curve-ethereum-usdt",
+        "trader-joe-v2-avalanche-usdc"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -1746,7 +1748,8 @@
         "uniswap-v3-base-weth-3000",
         "uniswap-v3-ethereum-usdc-3000",
         "uniswap-v3-ethereum-wbtc-500",
-        "uniswap-v3-ethereum-weth-3000"
+        "uniswap-v3-ethereum-weth-3000",
+        "aerodrome-base-usdc"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -1834,7 +1837,8 @@
         "uniswap-v3-ethereum-wbtc-500",
         "uniswap-v3-ethereum-cbbtc-500",
         "curve-ethereum-wbtc",
-        "curve-ethereum-wbtc-2"
+        "curve-ethereum-wbtc-2",
+        "aerodrome-cl-base-cbbtc-100"
       ],
       "denomination": "USD",
       "rateFeed": false

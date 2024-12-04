@@ -613,6 +613,14 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
       decimals: 18,
     },
+    LBTC: {
+      address: "0xecAc9C5F704e954931349Da37F60E39f515c11c1",
+      decimals: 8,
+    },
+    ezETH: {
+      address: "0x2416092f143378750bb29b79eD961ab195CcEea5",
+      decimals: 18,
+    },
   },
   optimism: {
     USDC: {

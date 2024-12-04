@@ -338,7 +338,8 @@
         "thruster-v3-blast-weth-500",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-ethereum-weth-500",
-        "uniswap-v3-ethereum-wsteth-500"
+        "uniswap-v3-ethereum-wsteth-500",
+        "aerodrome-cl-base-weth-3000"
       ]
     },
     "crvUSD": {
