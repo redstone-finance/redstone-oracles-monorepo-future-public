@@ -1,0 +1,18 @@
+{
+  "chain": {
+    "name": "manta",
+    "id": 169
+  },
+  "adapterContract": "0xb81131B6368b3F0a83af09dB4E39Ac23DA96C2Db",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {
+    "SolvBTC": {
+      "priceFeedAddress": "0x24c8964338Deb5204B096039147B8e8C3AEa42Cc"
+    }
+  }
+}
