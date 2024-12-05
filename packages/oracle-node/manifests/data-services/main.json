@@ -2966,6 +2966,11 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "USDe/USDC": {
+      "source": ["non-usd-based"],
+      "denomination": "USDC",
+      "rateFeed": false
+    },
     "BAT": {
       "denomination": "USD",
       "rateFeed": false
