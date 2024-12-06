@@ -746,6 +746,7 @@
     },
     "ezETH": {
       "source": [
+        "aerodrome-cl-base-weth-3000",
         "balancer-arbitrumone-wsteth",
         "balancer-ethereum-weeth",
         "balancer-ethereum-weth",
@@ -754,8 +755,7 @@
         "thruster-v3-blast-weth-3000",
         "thruster-v3-blast-weth-500",
         "uniswap-v3-ethereum-weth-100",
-        "uniswap-v3-ethereum-wsteth-500",
-        "aerodrome-cl-base-weth-3000"
+        "uniswap-v3-ethereum-wsteth-500"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -848,12 +848,12 @@
     },
     "USDe": {
       "source": [
+        "camelot-v3-arbitrumone-usdc",
         "curve-ethereum-dai",
         "curve-ethereum-fdusd",
         "curve-ethereum-frax",
         "curve-ethereum-usdc",
-        "uniswap-v3-ethereum-usdt-100",
-        "camelot-v3-arbitrumone-usdc"
+        "uniswap-v3-ethereum-usdt-100"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {

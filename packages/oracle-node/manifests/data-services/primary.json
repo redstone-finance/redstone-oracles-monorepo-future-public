@@ -1166,6 +1166,7 @@
     },
     "ezETH": {
       "source": [
+        "aerodrome-cl-base-weth-3000",
         "balancer-arbitrumone-wsteth",
         "balancer-ethereum-weeth",
         "balancer-ethereum-weth",
@@ -1174,8 +1175,7 @@
         "thruster-v3-blast-weth-3000",
         "thruster-v3-blast-weth-500",
         "uniswap-v3-ethereum-weth-100",
-        "uniswap-v3-ethereum-wsteth-500",
-        "aerodrome-cl-base-weth-3000"
+        "uniswap-v3-ethereum-wsteth-500"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -1208,12 +1208,12 @@
     "USDe": {
       "priceAggregator": "depth",
       "source": [
+        "camelot-v3-arbitrumone-usdc",
         "curve-ethereum-dai",
         "curve-ethereum-fdusd",
         "curve-ethereum-frax",
         "curve-ethereum-usdc",
-        "uniswap-v3-ethereum-usdt-100",
-        "camelot-v3-arbitrumone-usdc"
+        "uniswap-v3-ethereum-usdt-100"
       ],
       "deviationCheck": {
         "deviationWithRecentValues": {
@@ -1237,11 +1237,11 @@
     },
     "USDB": {
       "source": [
-        "thruster-v3-blast-susde-500",
-        "thruster-v3-blast-usde-500",
         "ambient-blast-eth",
         "ringswap-blast-fwweth",
         "thruster-blast-weth",
+        "thruster-v3-blast-susde-500",
+        "thruster-v3-blast-usde-500",
         "thruster-v3-blast-weth-3000",
         "thruster-v3-blast-weth-500"
       ],
@@ -1326,9 +1326,9 @@
         "bitget-usdt",
         "bitmart-usdt",
         "bybit-usdt",
-        "gate-usdt",
         "coingecko",
         "coinmarketcap",
+        "gate-usdt",
         "xt"
       ],
       "denomination": "USD",
@@ -1579,10 +1579,10 @@
     },
     "ISEI": {
       "source": [
-        "dragonswap-v2-sei-wsei-500",
         "dragonswap-sei-usdc",
         "dragonswap-sei-wsei",
         "dragonswap-v2-sei-wsei-3000",
+        "dragonswap-v2-sei-wsei-500",
         "jellyverse-sei-wsei",
         "xei-sei-wsei-100",
         "xei-sei-wsei-500"
@@ -1719,8 +1719,8 @@
     },
     "pumpBTC": {
       "source": [
-        "curve-ethereum-wbtc",
         "balancer-ethereum-wbtc",
+        "curve-ethereum-wbtc",
         "uniswap-v3-ethereum-wbtc-500"
       ],
       "denomination": "USD",
@@ -1748,16 +1748,16 @@
     },
     "cbBTC": {
       "source": [
-        "uniswap-v3-ethereum-wbtc-100",
+        "aerodrome-base-usdc",
         "aerodrome-base-weth",
         "aerodrome-cl-base-usdc-500",
         "aerodrome-cl-base-weth-500",
         "curve-ethereum-wbtc",
         "uniswap-v3-base-weth-3000",
         "uniswap-v3-ethereum-usdc-3000",
+        "uniswap-v3-ethereum-wbtc-100",
         "uniswap-v3-ethereum-wbtc-500",
-        "uniswap-v3-ethereum-weth-3000",
-        "aerodrome-base-usdc"
+        "uniswap-v3-ethereum-weth-3000"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -1825,34 +1825,34 @@
     "aUSD": {
       "source": [
         "curve-ethereum-frax",
+        "trader-joe-v2-avalanche-deusd",
         "trader-joe-v2-avalanche-usdc",
-        "trader-joe-v2-avalanche-usdt",
-        "trader-joe-v2-avalanche-deusd"
+        "trader-joe-v2-avalanche-usdt"
       ],
       "denomination": "USD",
       "rateFeed": false
     },
     "GOAT": {
       "source": [
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
         "coingecko",
         "coinmarketcap",
         "gate-usdt",
-        "kucoin-usdt",
-        "bitget-usdt",
-        "bitmart-usdt",
-        "bingx-usdt",
-        "bitrue-usdt"
+        "kucoin-usdt"
       ],
       "denomination": "USD",
       "rateFeed": false
     },
     "LBTC": {
       "source": [
-        "uniswap-v3-ethereum-wbtc-500",
-        "uniswap-v3-ethereum-cbbtc-500",
+        "aerodrome-cl-base-cbbtc-100",
         "curve-ethereum-wbtc",
         "curve-ethereum-wbtc-2",
-        "aerodrome-cl-base-cbbtc-100"
+        "uniswap-v3-ethereum-cbbtc-500",
+        "uniswap-v3-ethereum-wbtc-500"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -1869,13 +1869,13 @@
     },
     "XRD": {
       "source": [
-        "kucoin-usdt",
-        "gate-usdt",
         "bitfinex2-usd",
         "bitget-usdt",
         "coingecko",
         "coinmarketcap",
-        "gate-eth"
+        "gate-eth",
+        "gate-usdt",
+        "kucoin-usdt"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -1916,6 +1916,24 @@
     },
     "USDe/USDC": {
       "source": ["non-usd-based"],
+      "denomination": "USDC",
+      "rateFeed": false
+    },
+    "LSK": {
+      "source": [
+        "binance-btc",
+        "binance-usdt",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitrue-usdt",
+        "coingecko",
+        "coinmarketcap",
+        "gate-usdt",
+        "kraken-usd",
+        "kucoin-usdt",
+        "okx-usdt",
+        "xt"
+      ],
       "denomination": "USDC",
       "rateFeed": false
     }
