@@ -1,5 +1,6 @@
 export * from "./aws/aws";
 export * from "./aws/cloudwatch";
+export * from "./aws/ecs";
 export * from "./aws/error-logger";
 export * from "./aws/params";
 export * from "./config-checks";

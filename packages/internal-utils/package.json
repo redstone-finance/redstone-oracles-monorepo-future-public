@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-cloudwatch": "^3.696.0",
+    "@aws-sdk/client-ecs": "^3.696.0",
     "@aws-sdk/client-lambda": "^3.696.0",
     "@aws-sdk/client-s3": "^3.696.0",
     "@aws-sdk/client-ssm": "^3.696.0",

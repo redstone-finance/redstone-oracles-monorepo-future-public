@@ -7475,6 +7475,7 @@ __metadata:
   resolution: "@redstone-finance/internal-utils@workspace:packages/internal-utils"
   dependencies:
     "@aws-sdk/client-cloudwatch": "npm:^3.696.0"
+    "@aws-sdk/client-ecs": "npm:^3.696.0"
     "@aws-sdk/client-lambda": "npm:^3.696.0"
     "@aws-sdk/client-s3": "npm:^3.696.0"
     "@aws-sdk/client-ssm": "npm:^3.696.0"
