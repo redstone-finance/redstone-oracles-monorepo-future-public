@@ -21,14 +21,17 @@
       },
       "valueCapConfig": {
         "upper": {
-          "value": 1
+          "value": 1.005
+        },
+        "lower": {
+          "value": 0.995
         }
       },
       "denomination": "BTC",
       "rateFeed": true
     },
     "LBENCH": {
-      "source": ["lbench"],
+      "source": ["lbtc"],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 100,
