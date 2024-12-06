@@ -7504,6 +7504,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-alarm-notifier@workspace:packages/lambda/lambda-alarm-notifier"
   dependencies:
+    "@redstone-finance/internal-utils": "npm:0.7.2"
     "@redstone-finance/utils": "npm:0.7.2"
     "@types/aws-lambda": "npm:^8.10.145"
     axios: "npm:^1.7.7"
@@ -7626,6 +7627,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-ecs": "npm:^3.696.0"
     "@redstone-finance/internal-utils": "npm:0.7.2"
+    "@redstone-finance/monitoring-manifests": "npm:0.7.2"
     "@redstone-finance/sdk": "npm:0.7.2"
     "@redstone-finance/utils": "npm:0.7.2"
     "@types/aws-lambda": "npm:^8.10.145"
