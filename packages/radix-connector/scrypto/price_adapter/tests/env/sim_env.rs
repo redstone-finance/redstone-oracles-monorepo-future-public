@@ -83,6 +83,10 @@ impl PriceAdapterRunEnv for PriceAdapterSimEnv {
 
         (timestamp, values.into_t())
     }
+
+    fn increase_time(&mut self) {
+        // nop here
+    }
 }
 
 impl PriceAdapterSimEnv {

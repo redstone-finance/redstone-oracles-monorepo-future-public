@@ -1,0 +1,18 @@
+{
+  "adapterContractType": "radix",
+  "chain": {
+    "name": "stokenet",
+    "id": 2
+  },
+  "updateTriggers": {
+    "deviationPercentage": 1,
+    "timeSinceLastUpdateInMilliseconds": 8640000
+  },
+  "adapterContract": "component_tdx_2_1czscmfnungnu6eg64ye0w9vg0e8tnyqcja3f9ashuwxq24fcqpmp8m",
+  "dataServiceId": "redstone-primary-prod",
+  "priceFeeds": {
+    "XRD": "__NO_FEED__",
+    "ETH": "__NO_FEED__",
+    "BTC": "__NO_FEED__"
+  }
+}

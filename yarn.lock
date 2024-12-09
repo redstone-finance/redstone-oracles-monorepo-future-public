@@ -8015,6 +8015,7 @@ __metadata:
     "@redstone-finance/on-chain-relayer-common": "npm:0.7.2"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.7.2"
     "@redstone-finance/protocol": "npm:0.7.2"
+    "@redstone-finance/radix-connector": "npm:0.7.2"
     "@redstone-finance/rpc-providers": "npm:0.7.2"
     "@redstone-finance/sdk": "npm:0.7.2"
     "@redstone-finance/utils": "npm:0.7.2"
@@ -8154,7 +8155,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@redstone-finance/radix-connector@workspace:packages/radix-connector":
+"@redstone-finance/radix-connector@npm:0.7.2, @redstone-finance/radix-connector@workspace:packages/radix-connector":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/radix-connector@workspace:packages/radix-connector"
   dependencies:

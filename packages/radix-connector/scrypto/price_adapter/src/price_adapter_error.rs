@@ -31,6 +31,14 @@ pub(crate) enum PriceAdapterError {
     /// timestamp does not meet this criterion, ensuring the chronological integrity of price data.
     TimestampMustBeGreaterThanBefore,
 
+    /// Indicates that the current timestamp is not greater than the timestamp of the last update.
+    ///
+    /// This error is raised to ensure that the data being written has a timestamp strictly greater
+    /// than the most recent timestamp already stored in the system. It guarantees that new data
+    /// is not outdated or stale compared to the existing records, thereby maintaining the chronological
+    /// integrity and consistency of the updates.
+    CurrentTimestampMustBeGreaterThanLatestUpdateTimestamp,
+
     /// Represents a missing value for a specified data feed.
     ///
     /// This error occurs when an expected value for a data feed is not found.
@@ -46,6 +54,7 @@ impl ContractErrorContent for PriceAdapterError {
             PriceAdapterError::WrongSignerCountThresholdValue(_) => 240,
             PriceAdapterError::SignersMustNotBeEmpty => 241,
             PriceAdapterError::TimestampMustBeGreaterThanBefore => 250,
+            PriceAdapterError::CurrentTimestampMustBeGreaterThanLatestUpdateTimestamp => 251,
             PriceAdapterError::MissingDataFeedValue(index, _) => 100 + *index as u8,
         }
     }
@@ -61,6 +70,10 @@ impl ContractErrorContent for PriceAdapterError {
 
             PriceAdapterError::TimestampMustBeGreaterThanBefore => {
                 "Timestamp must be greater than before".to_string()
+            }
+
+            PriceAdapterError::CurrentTimestampMustBeGreaterThanLatestUpdateTimestamp => {
+                "Current timestamp must be greater than latest update timestamp".to_string()
             }
 
             PriceAdapterError::MissingDataFeedValue(index, feed_id) => {

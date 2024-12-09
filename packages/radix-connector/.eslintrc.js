@@ -5,4 +5,12 @@ module.exports = {
     sourceType: "module",
   },
   ignorePatterns: ["target"],
+  overrides: [
+    {
+      files: "src/**/*.ts",
+      rules: {
+        "no-console": "error",
+      },
+    },
+  ],
 };

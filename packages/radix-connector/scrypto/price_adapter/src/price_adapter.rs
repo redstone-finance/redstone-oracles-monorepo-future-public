@@ -27,6 +27,7 @@ mod price_adapter {
         signers: Vec<Bytes>,
         prices: HashMap<U256Digits, U256Digits>,
         timestamp: u64,
+        latest_update_timestamp: Option<u64>,
         current_timestamp_mock: Option<u64>,
     }
 
@@ -38,7 +39,6 @@ mod price_adapter {
             Self::make_instance(signer_count_threshold, allowed_signer_addresses, None)
         }
 
-        #[allow(dead_code)]
         pub fn instantiate_with_mock_timestamp(
             signer_count_threshold: u8,
             allowed_signer_addresses: Signers,
@@ -91,24 +91,24 @@ mod price_adapter {
             self.timestamp
         }
 
+        pub fn read_latest_update_timestamp(&mut self) -> Option<u64> {
+            self.latest_update_timestamp
+        }
+
+        pub fn get_unique_signer_threshold(&mut self) -> u8 {
+            self.signer_count_threshold
+        }
+
         fn process_payload(
             &mut self,
             feed_ids: Vec<U256>,
             payload: Bytes,
         ) -> (u64, Vec<U256Digits>) {
-            let mut current_time = get_current_time();
-
-            if current_time == 0 {
-                if let Some(mock_timestamp) = self.current_timestamp_mock {
-                    current_time = mock_timestamp;
-                };
-            };
-
             let config = Config {
                 signer_count_threshold: self.signer_count_threshold,
                 signers: self.signers.clone(),
                 feed_ids,
-                block_timestamp: current_time * 1000,
+                block_timestamp: self.get_current_time(),
             };
 
             let result = process_payload(config, payload);
@@ -129,12 +129,29 @@ mod price_adapter {
                 |_| Error::contract_error(PriceAdapterError::TimestampMustBeGreaterThanBefore),
             );
 
+            let current_timestamp = (self.get_current_time()).assert_or_revert(
+                |&ts| {
+                    self.latest_update_timestamp.is_none()
+                        || ts > self.latest_update_timestamp.unwrap()
+                },
+                |_| {
+                    Error::contract_error(
+                        PriceAdapterError::CurrentTimestampMustBeGreaterThanLatestUpdateTimestamp,
+                    )
+                },
+            );
+
+            self.latest_update_timestamp = Some(current_timestamp);
             self.timestamp = timestamp;
             self.prices = feed_ids
                 .iter()
                 .zip(values.clone())
                 .map(|(key, value)| (key.to_digits(), value))
                 .collect();
+
+            if let Some(current_timestamp_mock) = self.current_timestamp_mock {
+                self.current_timestamp_mock = Some(current_timestamp_mock + 1);
+            }
 
             (timestamp, values)
         }
@@ -161,11 +178,24 @@ mod price_adapter {
                 signers,
                 prices: hashmap!(),
                 timestamp: 0,
+                latest_update_timestamp: None,
                 current_timestamp_mock,
             }
             .instantiate()
             .prepare_to_globalize(OwnerRole::None)
             .globalize()
+        }
+
+        fn get_current_time(&self) -> u64 {
+            let mut current_time = get_current_time();
+
+            if current_time == 0 {
+                if let Some(current_timestamp_mock) = self.current_timestamp_mock {
+                    current_time = current_timestamp_mock;
+                };
+            };
+
+            current_time * 1000
         }
     }
 }

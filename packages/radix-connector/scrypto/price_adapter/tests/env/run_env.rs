@@ -18,4 +18,5 @@ pub trait PriceAdapterRunEnv {
         feed_ids: FeedIds,
         timestamp: u64,
     ) -> (u64, Vec<U256>);
+    fn increase_time(&mut self);
 }

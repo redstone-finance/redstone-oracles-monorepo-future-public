@@ -45,6 +45,7 @@ impl Sample {
     ) {
         self.test_process_payload(Write, price_adapter, override_feed_ids.clone());
         self.verify_written_values(price_adapter, override_feed_ids);
+        price_adapter.increase_time();
     }
 
     pub(crate) fn test_get_prices<PriceAdapter: PriceAdapterRunEnv>(

@@ -48,6 +48,7 @@ export const makeUpdateConditions = (
     case "price-feeds":
     case "mento":
     case "fuel":
+    case "radix":
       return makePriceFeedsUpdateConditions(manifest);
     case "multi-feed":
       return makeMultiFeedUpdateConditions(manifest);

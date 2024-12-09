@@ -68,17 +68,6 @@ impl PriceAdapterRunEnv for PriceAdapterTestEnv {
         feed_ids: FeedIds,
         _timestamp: u64,
     ) -> (u64, Vec<U256>) {
-        // let ct = self.env.get_current_time().seconds_since_unix_epoch;
-        //
-        // println!("CTCT: {}", ct);
-        // self.env.set_current_time(Instant::new(timestamp as i64));
-        // let epoch = self.env.get_current_epoch();
-        // self.env.set_current_epoch(epoch.next().unwrap());
-        // self.env.set_current_time(Instant::new(timestamp as i64));
-        //
-        // let ct2 = self.env.get_current_time().seconds_since_unix_epoch;
-        // println!("CTCT: {}", ct2);
-
         let (timestamp, values) = match run_mode {
             RunMode::Get => self
                 .price_adapter
@@ -90,6 +79,11 @@ impl PriceAdapterRunEnv for PriceAdapterTestEnv {
         .unwrap();
 
         (timestamp, values.into_t())
+    }
+
+    fn increase_time(&mut self) {
+        let ct = self.env.get_current_time().seconds_since_unix_epoch;
+        self.env.set_current_time(Instant::new(ct + 1));
     }
 }
 

@@ -8,12 +8,13 @@ import {
   TransactionBuilder,
   TransactionHeader,
 } from "@radixdlt/radix-engine-toolkit";
-import { RedstoneCommon } from "@redstone-finance/utils";
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { RadixApiClient } from "./RadixApiClient";
 import { RadixInvocation } from "./RadixInvocation";
 import { RadixTransaction } from "./RadixTransaction";
 
 export class RadixClient {
+  protected readonly logger = loggerFactory("RadixClient");
   protected readonly signer: PrivateKey;
   protected readonly apiClient: RadixApiClient;
 
@@ -71,20 +72,44 @@ export class RadixClient {
     pollDelayMs = 500,
     pollAttempts = 60000 / pollDelayMs
   ) {
+    try {
+      return await this.performWaitingForCommit(
+        transactionId,
+        pollDelayMs,
+        pollAttempts
+      );
+    } catch (e) {
+      this.logger.error(e);
+
+      return false;
+    }
+  }
+
+  private async performWaitingForCommit(
+    transactionId: string,
+    pollDelayMs: number,
+    pollAttempts: number
+  ) {
     for (let i = 0; i < pollAttempts; i++) {
       const statusOutput =
         await this.apiClient.getTransactionStatus(transactionId);
-      console.debug(
-        `Transaction ${transactionId} is ${statusOutput.intent_status}`
-      );
+      const logMessage = `Transaction ${transactionId} is ${statusOutput.intent_status}`;
       switch (statusOutput.intent_status) {
+        case "Pending":
+        case "CommitPendingOutcomeUnknown": {
+          this.logger.debug(logMessage);
+          break;
+        }
         case "CommittedSuccess": {
+          this.logger.log(logMessage);
           return true;
         }
         case "CommittedFailure":
           throw new Error(
             `Transaction ${transactionId} failed: ${statusOutput.error_message}`
           );
+        default:
+          this.logger.log(logMessage);
       }
       await RedstoneCommon.sleep(pollDelayMs);
     }
@@ -134,7 +159,7 @@ export class RadixClient {
       await RadixEngineToolkit.NotarizedTransaction.intentHash(
         notarizedTransaction
       );
-    console.log(`Transaction ${transactionId.id} sent.`);
+    this.logger.log(`Transaction ${transactionId.id} sent.`);
 
     const compiled =
       await RadixEngineToolkit.NotarizedTransaction.compile(

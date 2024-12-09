@@ -1,6 +1,6 @@
 import {
   ContractParamsProvider,
-  IPricesContractAdapter,
+  IExtendedPricesContractAdapter,
 } from "@redstone-finance/sdk";
 import { BigNumberish } from "ethers";
 import { RadixContractAdapter } from "../../radix/RadixContractAdapter";
@@ -11,7 +11,7 @@ import { WritePricesRadixMethod } from "./methods/WritePricesRadixMethod";
 
 export class PriceAdapterRadixContractAdapter
   extends RadixContractAdapter
-  implements IPricesContractAdapter
+  implements IExtendedPricesContractAdapter
 {
   async getPricesFromPayload(
     paramsProvider: ContractParamsProvider
@@ -73,5 +73,20 @@ export class PriceAdapterRadixContractAdapter
     return Number(
       await this.client.call(new ReadTimestampRadixMethod(this.componentId))
     );
+  }
+
+  async getUniqueSignerThreshold(): Promise<number> {
+    return Number(
+      await this.client.readValue(this.componentId, "signer_count_threshold")
+    );
+  }
+
+  async readLatestUpdateBlockTimestamp(): Promise<number | undefined> {
+    const value = await this.client.readValue(
+      this.componentId,
+      "latest_update_timestamp"
+    );
+
+    return value ? Number(value) : (value as undefined);
   }
 }

@@ -5,12 +5,17 @@ import {
   sampleRun,
 } from "@redstone-finance/sdk";
 import { PriceAdapterRadixContractConnector, RadixClient } from "../../src";
-import { loadAddress, NETWORK, PRIVATE_KEY } from "./constants";
+import {
+  DATA_SERVICE_ID,
+  loadAddress,
+  NETWORK,
+  PRIVATE_KEY,
+} from "./constants";
 
 async function main() {
   const paramsProvider = new ContractParamsProvider({
-    dataPackagesIds: ["ETH", "BTC"],
-    dataServiceId: "redstone-avalanche-prod",
+    dataPackagesIds: ["ETH", "BTC", "XRD"],
+    dataServiceId: DATA_SERVICE_ID,
     uniqueSignersCount: 1,
   });
 

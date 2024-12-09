@@ -16,12 +16,6 @@ export abstract class RadixContractConnector<Adapter>
   }
 
   async waitForTransaction(transactionId: string): Promise<boolean> {
-    try {
-      return await this.client.waitForCommit(transactionId);
-    } catch (e) {
-      console.error(e);
-
-      return false;
-    }
+    return await this.client.waitForCommit(transactionId);
   }
 }

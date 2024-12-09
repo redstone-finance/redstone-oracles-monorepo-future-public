@@ -2,7 +2,10 @@ import { BigNumber, BigNumberish } from "ethers";
 import { ContractParamsProvider } from "../ContractParamsProvider";
 import { IContractConnector } from "../IContractConnector";
 import { IPriceFeedContractAdapter } from "./IPriceFeedContractAdapter";
-import { IPricesContractAdapter } from "./IPricesContractAdapter";
+import {
+  IExtendedPricesContractAdapter,
+  IPricesContractAdapter,
+} from "./IPricesContractAdapter";
 
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
@@ -50,6 +53,18 @@ export async function sampleRun(
     `Timestamp read from contract: ${readTimestamp} (${describeTimestamp(readTimestamp)})`
   );
 
+  if (isExtendedPricesContractAdapter(pricesAdapter)) {
+    const lastUpdateBlockTimestamp =
+      await pricesAdapter.readLatestUpdateBlockTimestamp();
+    console.log(
+      `Last update block timestamp: ${lastUpdateBlockTimestamp} (${describeTimestamp(lastUpdateBlockTimestamp!)})`
+    );
+
+    const uniqueSignerThreshold =
+      await pricesAdapter.getUniqueSignerThreshold();
+    console.log(`Unique signer count: ${uniqueSignerThreshold}`);
+  }
+
   if (!ethFeedConnector) {
     return;
   }
@@ -69,4 +84,15 @@ export function convertValue(v: BigNumberish) {
 
 export function describeTimestamp(timestamp: number) {
   return `${(Date.now() - timestamp) / 1000} sec. ago`;
+}
+
+export function isExtendedPricesContractAdapter(
+  priceAdapter: unknown
+): priceAdapter is IExtendedPricesContractAdapter {
+  const adapter = priceAdapter as IExtendedPricesContractAdapter;
+
+  return (
+    typeof adapter.getUniqueSignerThreshold === "function" &&
+    typeof adapter.readLatestUpdateBlockTimestamp === "function"
+  );
 }

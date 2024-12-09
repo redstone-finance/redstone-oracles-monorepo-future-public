@@ -12,6 +12,7 @@ export const NETWORK = {
   name: "stokenet",
 };
 
+export const DATA_SERVICE_ID = "redstone-primary-prod";
 export const CONTRACT_NAME = "price_adapter";
 export const IS_CI = RedstoneCommon.getFromEnv(
   "IS_CI",

@@ -1,3 +1,4 @@
+import { AdapterTypesEnum } from "@redstone-finance/on-chain-relayer-common";
 import { makeRelayerConfig } from "./make-relayer-config";
 import { readManifestAndEnv } from "./read-manifest-and-env";
 
@@ -13,16 +14,12 @@ export const config = (isInvokedConsciously?: typeof ConsciouslyInvoked) => {
   const { manifest, env } = readManifestAndEnv();
   const relayerConfig = makeRelayerConfig(manifest, env);
 
-  // Validating adapter contract type
-  if (
-    !["mento", "price-feeds", "multi-feed", "fuel"].includes(
-      relayerConfig.adapterContractType
-    )
-  ) {
+  try {
+    AdapterTypesEnum.parse(relayerConfig.adapterContractType);
+  } catch {
     throw new Error(
       `Adapter contract type not supported: ${relayerConfig.adapterContractType}`
     );
   }
-
   return relayerConfig;
 };
