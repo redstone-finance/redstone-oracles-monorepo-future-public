@@ -1936,6 +1936,11 @@
       ],
       "denomination": "USDC",
       "rateFeed": false
+    },
+    "HYPE": {
+      "source": ["hyperliquid-api-fetcher"],
+      "denomination": "USDC",
+      "rateFeed": false
     }
   },
   "multiPointPackages": {

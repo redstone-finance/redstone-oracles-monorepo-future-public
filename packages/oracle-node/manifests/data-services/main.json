@@ -2987,6 +2987,11 @@
       "denomination": "USDC",
       "rateFeed": false
     },
+    "HYPE": {
+      "source": ["hyperliquid-api-fetcher"],
+      "denomination": "USDC",
+      "rateFeed": false
+    },
     "BAT": {
       "denomination": "USD",
       "rateFeed": false
