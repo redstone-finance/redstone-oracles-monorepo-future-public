@@ -1,5 +1,9 @@
 import { abi as ISortedOraclesAbi } from "../artifacts/contracts/custom-integrations/mento/ISortedOracles.sol/ISortedOracles.json";
 import { abi as MentoAdapterBaseAbi } from "../artifacts/contracts/custom-integrations/mento/MentoAdapterBase.sol/MentoAdapterBase.json";
+import PriceFeedsAdapterWithRoundsOneSignerMockArtifact from "../artifacts/contracts/mocks/PriceFeedsAdapterWithRoundsOneSignerMock.sol/PriceFeedsAdapterWithRoundsOneSignerMock.json";
+import PriceFeedWithRoundsMockArtifact, {
+  abi as PriceFeedWithRoundsMockAbi,
+} from "../artifacts/contracts/mocks/PriceFeedWithRoundsMock.sol/PriceFeedWithRoundsMock.json";
 import { abi as PriceFeedsAdapterWithRoundsAbi } from "../artifacts/contracts/price-feeds/with-rounds/PriceFeedsAdapterWithRounds.sol/PriceFeedsAdapterWithRounds.json";
 import { abi as PriceFeedWithRoundsAbi } from "../artifacts/contracts/price-feeds/with-rounds/PriceFeedWithRounds.sol/PriceFeedWithRounds.json";
 import { abi as MultiFeedAdapterWithoutRoundsAbi } from "../artifacts/contracts/price-feeds/without-rounds/MultiFeedAdapterWithoutRounds.sol/MultiFeedAdapterWithoutRounds.json";
@@ -9,7 +13,9 @@ export type {
   MentoAdapterBase,
   MultiFeedAdapterWithoutRounds,
   PriceFeedsAdapterWithRounds,
+  PriceFeedsAdapterWithRoundsOneSignerMock,
   PriceFeedWithRounds,
+  PriceFeedWithRoundsMock,
   RedstoneAdapterBase,
 } from "../typechain-types";
 export { makeRelayerConfig } from "./config/make-relayer-config";
@@ -38,5 +44,8 @@ export {
   MentoAdapterBaseAbi,
   MultiFeedAdapterWithoutRoundsAbi,
   PriceFeedsAdapterWithRoundsAbi,
+  PriceFeedsAdapterWithRoundsOneSignerMockArtifact,
   PriceFeedWithRoundsAbi,
+  PriceFeedWithRoundsMockAbi,
+  PriceFeedWithRoundsMockArtifact,
 };

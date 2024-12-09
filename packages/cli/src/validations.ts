@@ -16,3 +16,7 @@ export const areFeedsCommaSeparated = (feedsMightBe: string) => {
   const areAnyWhiteSpaces = feedsMightBe.indexOf(" ") !== -1;
   return feeds.length > 0 && feeds.every(Boolean) && !areAnyWhiteSpaces;
 };
+
+export const areRpcUrlsValid = (rpcUrlsMightBe: string) => {
+  return rpcUrlsMightBe.split(",").every((rpcUrl) => isUrl(rpcUrl));
+};

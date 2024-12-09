@@ -1,5 +1,5 @@
 import { WrapperBuilder } from "@redstone-finance/evm-connector";
-import { ethers } from "hardhat";
+import hre from "hardhat";
 import { IRedstoneAdapter } from "../typechain-types";
 
 const SLEEP_TIME_MS = 15 * 60 * 1000;
@@ -56,7 +56,7 @@ async function sleep(ms: number) {
 }
 
 async function deployContract(contractName: string) {
-  const factory = await ethers.getContractFactory(contractName);
+  const factory = await hre.ethers.getContractFactory(contractName);
 
   // Deploy the contract
   console.log("Deploying contract: " + contractName);

@@ -18,3 +18,9 @@ export const onCancel = () => {
   console.log("Canceled....");
   process.exit(1);
 };
+
+export const checkIfInit = () => {
+  const INIT_COMMAND = "init";
+  const argumentsPassed = process.argv.slice(2);
+  return argumentsPassed[0] === INIT_COMMAND;
+};

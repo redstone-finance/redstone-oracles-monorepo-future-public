@@ -3,6 +3,11 @@
   "version": "0.7.2",
   "types": "dist/src/index.d.ts",
   "main": "dist/src/index.js",
+  "exports": {
+    ".": "./dist/src/index.js",
+    "./src/run-relayer": "./dist/src/run-relayer.js",
+    "./scripts/": "./scripts/"
+  },
   "license": "MIT",
   "scripts": {
     "run-ts": "yarn global:ts-node",

@@ -1,17 +1,20 @@
-#!/usr/bin/env node
-
 import prompts, { PromptObject } from "prompts";
+import { init } from "./init";
 import { deployMultiFeedAdapterPrompt } from "./prompts/deploy-adapter-prompt";
 import { deployPriceFeedsPrompt } from "./prompts/deploy-price-feeds-prompt";
 import { runRelayerPrompt } from "./prompts/run-relayer-prompt";
 import { checkIfNewestVersionIsUsed } from "./src/checks";
-import { displayRedStoneLogo, onCancel } from "./src/utils";
+import { checkIfInit, displayRedStoneLogo, onCancel } from "./src/utils";
 
 interface PromptResponse {
   whatToDo: "deploy-multi-feed-adapter" | "deploy-price-feeds" | "run-relayer";
 }
 
 void (async () => {
+  if (checkIfInit()) {
+    init();
+  }
+
   displayRedStoneLogo();
   await checkIfNewestVersionIsUsed();
 

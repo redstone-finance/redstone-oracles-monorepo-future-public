@@ -8,35 +8,40 @@
     "redstone-cli": "dist/index.js"
   },
   "scripts": {
-    "clean": "rm -rf dist artifacts cache typechain-types",
-    "build": "yarn compile && ENTRYPOINT=index.ts yarn global:rollup -c ../../rollup.config.mjs",
+    "bundle": "yarn build && yarn bundle-everything && yarn bundle-deploy-multi-feed-adapter && yarn bundle-deploy-price-feeds",
+    "bundle-everything": "ENTRYPOINT=index.ts yarn global:rollup -c rollup.config.mjs",
+    "bundle-deploy-multi-feed-adapter": "ENTRYPOINT=scripts/deploy-multi-feed-adapter.ts yarn global:rollup -c ../../rollup.config.mjs -o dist/scripts/deploy-multi-feed-adapter.js",
+    "bundle-deploy-price-feeds": "ENTRYPOINT=scripts/deploy-price-feeds.ts yarn global:rollup -c ../../rollup.config.mjs -o dist/scripts/deploy-price-feeds.js",
+    "build": "yarn compile && yarn global:tsc --build tsconfig.build.json",
     "build-deps": "yarn --cwd ../contract-deployments build",
     "build-dev": "yarn compile && yarn global:tsc --build tsconfig.json",
     "compile": "yarn build-deps && hardhat compile",
-    "cli": "yarn build-dev && yarn global:ts-node --swc index.ts",
+    "clean": "rm -rf dist artifacts cache typechain-types",
+    "cli": "NODE_ENV=dev yarn build-dev && node dist/index.js",
+    "init-cli": "node init.js",
     "lint": "yarn global:eslint .",
     "lint:fix": "yarn global:eslint --fix .",
+    "preversion": "yarn bundle",
     "run-ts": "yarn global:ts-node",
     "test": "hardhat test"
   },
   "dependencies": {
-    "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
+    "@ethersproject/abi": "^5.6.3",
+    "@ethersproject/providers": "^5.6.8",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
-    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "@nomiclabs/hardhat-ethers": "^2.0.6",
     "@nomiclabs/hardhat-etherscan": "^3.1.7",
     "@openzeppelin/contracts-upgradeable": "^4.8.3",
     "@openzeppelin/hardhat-upgrades": "^1.26.0",
-    "@redstone-finance/contract-deployments": "0.7.2",
     "@redstone-finance/on-chain-relayer": "0.7.2",
+    "chai-as-promised": "^7.1.1",
     "chalk": "^4.1.2",
     "ethers": "^5.7.2",
     "hardhat": "^2.17.2",
     "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "@ethersproject/abi": "^5.6.3",
-    "@ethersproject/providers": "^5.6.8",
+    "@redstone-finance/contract-deployments": "0.7.2",
     "@typechain/ethers-v5": "^10.2.0",
     "@typechain/hardhat": "^6.1.2",
     "@types/chai": "^4.3.4",
@@ -51,6 +56,13 @@
     "typechain": "^8.1.1",
     "typescript": "^5.5.4"
   },
+  "files": [
+    "dist/index.js",
+    "dist/hardhat.config.js",
+    "dist/scripts/*.js",
+    "contracts/**/*",
+    "dist/init.js"
+  ],
   "publishConfig": {
     "access": "public"
   }

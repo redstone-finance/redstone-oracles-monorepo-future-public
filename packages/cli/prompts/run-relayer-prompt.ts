@@ -3,11 +3,11 @@
 import { runRelayer } from "@redstone-finance/on-chain-relayer/src/run-relayer";
 import prompts, { PromptObject } from "prompts";
 import { onCancel } from "../src/utils";
-import { isUrl } from "../src/validations";
+import { areRpcUrlsValid } from "../src/validations";
 
 interface PromptResponse {
   networkName: string;
-  networkRpcUrl: string;
+  networkRpcUrls: string;
   interval: number;
   expectedTxDeliveryTimeInMS: number;
   twoDimensionalFees: number;
@@ -25,9 +25,10 @@ export const runRelayerPrompt = async () => {
     },
     {
       type: "text",
-      name: "networkRpcUrl",
-      message: "Network RPC URL",
-      validate: (value: string) => isUrl(value) || "Invalid URL",
+      name: "networkRpcUrls",
+      message:
+        "Network RPC URLs comma-separated, e.g. https://rpc-url-1.com,https://rpc-url-2.com",
+      validate: (value: string) => areRpcUrlsValid(value) || "Invalid URLs",
     },
     {
       type: "number",
@@ -46,7 +47,8 @@ export const runRelayerPrompt = async () => {
     {
       type: "confirm",
       name: "twoDimensionalFees",
-      message: "Are fees two dimensional (yes for Arbitrum networks)",
+      message:
+        "Are fees two dimensional (yes for Arbitrum or ZKSync based networks)",
       initial: false,
     },
     {
@@ -65,7 +67,7 @@ export const runRelayerPrompt = async () => {
 
   const {
     networkName,
-    networkRpcUrl,
+    networkRpcUrls,
     interval,
     expectedTxDeliveryTimeInMS,
     twoDimensionalFees,
@@ -74,7 +76,7 @@ export const runRelayerPrompt = async () => {
   } = (await prompts(questions, { onCancel })) as PromptResponse;
 
   process.env.MANIFEST_FILE = `manifests/${networkName}MultiFeed.json`;
-  process.env.RPC_URLS = JSON.stringify([networkRpcUrl]);
+  process.env.RPC_URLS = JSON.stringify(networkRpcUrls.split(","));
   process.env.RELAYER_ITERATION_INTERVAL = interval.toString();
   process.env.EXPECTED_TX_DELIVERY_TIME_IN_MS =
     expectedTxDeliveryTimeInMS.toString();

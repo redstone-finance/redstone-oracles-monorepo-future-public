@@ -7029,9 +7029,7 @@ __metadata:
   dependencies:
     "@ethersproject/abi": "npm:^5.6.3"
     "@ethersproject/providers": "npm:^5.6.8"
-    "@nomicfoundation/hardhat-chai-matchers": "npm:^1.0.6"
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.9"
-    "@nomicfoundation/hardhat-toolbox": "npm:^2.0.2"
     "@nomiclabs/hardhat-ethers": "npm:^2.0.6"
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
     "@openzeppelin/contracts-upgradeable": "npm:^4.8.3"
@@ -7046,6 +7044,7 @@ __metadata:
     "@types/prompts": "npm:^2.4.2"
     axios: "npm:^1.7.7"
     chai: "npm:^4.3.10"
+    chai-as-promised: "npm:^7.1.1"
     chalk: "npm:^4.1.2"
     ethers: "npm:^5.7.2"
     hardhat: "npm:^2.17.2"
