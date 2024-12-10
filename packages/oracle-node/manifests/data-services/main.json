@@ -2987,6 +2987,11 @@
       "denomination": "USDC",
       "rateFeed": false
     },
+    "swETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-swell"],
+      "denomination": "ETH",
+      "rateFeed": true
+    },
     "HYPE": {
       "source": ["hyperliquid-api-fetcher"],
       "denomination": "USDC",
