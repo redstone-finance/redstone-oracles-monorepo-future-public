@@ -26,6 +26,7 @@ export const REDSTONE_DATA_SERVICES_URLS: Partial<Record<string, string[]>> = {
   "mock-data-service-tests": ["http://valid-cache.com"],
   "redstone-external-demo-1": STAGING_GWS,
   "kudasaijp-demo-1": STAGING_GWS,
+  "teb-demo-1": STAGING_GWS,
 };
 
 export const resolveDataServiceUrls = (dataServiceId: string): string[] => {
