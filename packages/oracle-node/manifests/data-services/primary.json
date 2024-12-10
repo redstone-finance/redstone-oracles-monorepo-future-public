@@ -996,6 +996,11 @@
       "denomination": "USD",
       "rateFeed": true
     },
+    "STONE/ETH": {
+      "source": ["non-usd-based"],
+      "denomination": "ETH",
+      "rateFeed": false
+    },
     "frxETH": {
       "source": [
         "curve-ethereum-cvx",
