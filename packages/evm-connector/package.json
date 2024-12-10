@@ -3,6 +3,7 @@
   "version": "0.7.2",
   "description": "A tool to inject RedStone data into EVM compatible smart contracts",
   "main": "dist/src/index.js",
+  "exports": "./dist/src/index.js",
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf dist artifacts cache typechain-types",

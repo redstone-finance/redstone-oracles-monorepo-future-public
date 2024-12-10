@@ -2,6 +2,7 @@
   "name": "@redstone-finance/erc7412",
   "version": "0.7.2",
   "main": "dist/src/index.js",
+  "exports": "./dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "license": "MIT",
   "scripts": {

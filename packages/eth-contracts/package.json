@@ -3,6 +3,7 @@
   "version": "0.7.2",
   "description": "RedStone ethereum contracts",
   "main": "dist/src/index.js",
+  "exports": "./dist/src/index.js",
   "private": true,
   "license": "MIT",
   "scripts": {

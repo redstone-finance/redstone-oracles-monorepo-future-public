@@ -5,8 +5,13 @@
   "main": "dist/src/index.js",
   "exports": {
     ".": "./dist/src/index.js",
-    "./src/run-relayer": "./dist/src/run-relayer.js",
-    "./scripts/": "./scripts/"
+    "./src/run-relayer": {
+      "types": "./dist/src/run-relayer",
+      "default": "./dist/src/run-relayer.js"
+    },
+    "./scripts/read-manifests": "./scripts/read-manifests",
+    "./artifacts/*": "./artifacts/*",
+    "./typechain-types": "./typechain-types"
   },
   "license": "MIT",
   "scripts": {

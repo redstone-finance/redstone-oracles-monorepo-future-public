@@ -2,7 +2,6 @@
   "name": "@redstone-finance/oracles-monorepo",
   "version": "0.0.2",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "global:run-on-workspaces": "yarn workspaces foreach -vv $WORKSPACES_SPEC ${PARALLEL:+--parallel} --include ${INCLUDE:-'**'} --exclude ${EXCLUDE:-'[]'} ${DRY_RUN:+--dry-run} --topological-dev run",
     "global:run-all": "WORKSPACES_SPEC=--all yarn global:run-on-workspaces",

@@ -1,7 +1,6 @@
 {
   "name": "@redstone-finance/ton-relayer",
   "version": "0.7.2",
-  "types": "dist/index.d.ts",
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf dist",

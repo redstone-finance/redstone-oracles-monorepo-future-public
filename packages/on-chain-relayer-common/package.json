@@ -1,8 +1,9 @@
 {
   "name": "@redstone-finance/on-chain-relayer-common",
   "version": "0.7.2",
-  "types": "dist/index.d.ts",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": "./dist/index.js",
   "license": "MIT",
   "scripts": {
     "run-ts": "yarn global:ts-node",

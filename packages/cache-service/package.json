@@ -1,6 +1,9 @@
 {
   "name": "@redstone-finance/cache-service",
   "version": "0.7.2",
+  "main": "dist/src/main.js",
+  "exports": "./dist/src/main.js",
+  "types": "dist/src/main.d.ts",
   "description": "",
   "author": "",
   "license": "MIT",

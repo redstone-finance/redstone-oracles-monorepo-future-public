@@ -1,6 +1,8 @@
 import { time } from "@nomicfoundation/hardhat-network-helpers";
-import { WrapperBuilder } from "@redstone-finance/evm-connector";
-import { MockSignerAddress } from "@redstone-finance/evm-connector/src/helpers/test-utils";
+import {
+  WrapperBuilder,
+  type MockSignerAddress,
+} from "@redstone-finance/evm-connector";
 import { DataPackage, DataPoint, utils } from "@redstone-finance/protocol";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
