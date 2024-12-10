@@ -373,7 +373,8 @@
       },
       "isAuctionModel": false,
       "twoDimensionalFees": false,
-      "isMainnet": true
+      "isMainnet": true,
+      "fallbackToEthMaxPriorityFeePerGas": true
     },
     "linea": {
       "name": "Linea Mainnet",
