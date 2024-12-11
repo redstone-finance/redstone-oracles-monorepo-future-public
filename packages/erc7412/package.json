@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/erc7412",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "main": "dist/src/index.js",
   "exports": "./dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -18,10 +18,10 @@
   },
   "dependencies": {
     "@nomicfoundation/hardhat-viem": "^2.0.0",
-    "@redstone-finance/evm-connector": "0.7.2",
-    "@redstone-finance/on-chain-relayer": "0.7.2",
-    "@redstone-finance/oracles-smartweave-contracts": "0.7.2",
-    "@redstone-finance/sdk": "0.7.2",
+    "@redstone-finance/evm-connector": "0.7.3",
+    "@redstone-finance/on-chain-relayer": "0.7.3",
+    "@redstone-finance/oracles-smartweave-contracts": "0.7.3",
+    "@redstone-finance/sdk": "0.7.3",
     "erc7412": "^0.2.3",
     "ethers": "^5.7.2",
     "node-gyp": "^10.0.1"

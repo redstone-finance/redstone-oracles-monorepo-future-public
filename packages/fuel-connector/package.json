@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/fuel-connector",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "A tool to inject RedStone data into Fuel compatible smart contracts",
   "main": "dist/src/index.js",
   "exports": "./dist/src/index.js",
@@ -21,7 +21,7 @@
     "run-node": "fuel-core run --db-type in-memory --debug"
   },
   "dependencies": {
-    "@redstone-finance/sdk": "0.7.2",
+    "@redstone-finance/sdk": "0.7.3",
     "fuels": "^0.97.0"
   },
   "devDependencies": {

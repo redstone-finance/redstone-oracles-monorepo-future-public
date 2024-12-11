@@ -1,6 +1,6 @@
 {
   "name": "@redstone-finance/radix-connector",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "main": "dist/src/index.js",
   "exports": "./dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -24,7 +24,7 @@
   "dependencies": {
     "@radixdlt/babylon-gateway-api-sdk": "^1.8.1",
     "@radixdlt/radix-engine-toolkit": "^1.0.5",
-    "@redstone-finance/sdk": "0.7.2",
+    "@redstone-finance/sdk": "0.7.3",
     "axios": "^1.7.7",
     "ethers": "^5.7.2"
   },
