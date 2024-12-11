@@ -6,6 +6,7 @@ const CHAINS_TO_SKIP_RPC_CHECK = [
   "Unichain Sepolia",
   "Monad Devnet",
   "Hemi Network",
+  "Ink",
 ];
 
 const validatePublicRpcUrls = () => {
