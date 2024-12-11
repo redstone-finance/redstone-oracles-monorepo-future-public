@@ -1857,7 +1857,8 @@
         "curve-ethereum-wbtc",
         "curve-ethereum-wbtc-2",
         "uniswap-v3-ethereum-cbbtc-500",
-        "uniswap-v3-ethereum-wbtc-500"
+        "uniswap-v3-ethereum-wbtc-500",
+        "pancake-swap-bnb-btcb-500"
       ],
       "denomination": "USD",
       "rateFeed": false

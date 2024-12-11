@@ -719,6 +719,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x2170Ed0880ac9A755fd29B2688956BD959F933F8",
       decimals: 18,
     },
+    LBTC: {
+      address: "0xecAc9C5F704e954931349Da37F60E39f515c11c1",
+      decimals: 8,
+    },
   },
   sei: {
     WSEI: {
