@@ -151,7 +151,9 @@ export class RadixClient {
       defaultValidationConfig(this.networkId)
     ).then((validation) => {
       if (validation.kind === "Invalid") {
-        throw new Error("Transaction is invalid");
+        throw new Error(
+          `Transaction is invalid: ${RedstoneCommon.stringifyError(validation.error)}`
+        );
       }
     });
 

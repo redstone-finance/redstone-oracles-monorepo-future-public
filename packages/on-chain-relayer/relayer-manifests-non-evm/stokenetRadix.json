@@ -8,7 +8,7 @@
     "deviationPercentage": 1,
     "timeSinceLastUpdateInMilliseconds": 8640000
   },
-  "adapterContract": "component_tdx_2_1czscmfnungnu6eg64ye0w9vg0e8tnyqcja3f9ashuwxq24fcqpmp8m",
+  "adapterContract": "component_tdx_2_1cqdqxv0se5568vnkxyh73xxyj8v4rjrsum64ju7hal8s6emr803p0d",
   "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {
     "XRD": "__NO_FEED__",

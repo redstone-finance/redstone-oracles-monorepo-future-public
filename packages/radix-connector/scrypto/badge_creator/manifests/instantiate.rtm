@@ -1,0 +1,13 @@
+CALL_METHOD
+    Address("${ACCOUNT}")
+    "lock_fee"
+    Decimal("5000")
+;
+CALL_FUNCTION
+    Address("${PACKAGE_ADDRESS}")
+    "Proxy"
+    "instantiate"
+    NonFungibleGlobalId("${OWNER_BADGE}")
+    NonFungibleGlobalId("${MANAGER_BADGE}")
+    None
+;

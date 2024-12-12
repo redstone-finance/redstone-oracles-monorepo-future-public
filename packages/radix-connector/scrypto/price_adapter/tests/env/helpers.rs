@@ -1,8 +1,14 @@
-#![allow(clippy::module_inception)]
+#[cfg(feature = "real_network")]
+pub use real_network::*;
+
+#[cfg(not(feature = "real_network"))]
+pub use not_real_network::*;
+
+use std::{fs::File, io::Read};
 
 #[cfg(feature = "real_network")]
-pub mod helpers {
-    use price_adapter::types::types::{FeedIds, Payload, Signers};
+pub mod real_network {
+    use price_adapter::types::{FeedIds, Payload, Signers};
     use redstone::helpers::hex::hex_from;
 
     #[cfg(test)]
@@ -18,13 +24,13 @@ pub mod helpers {
     }
 
     pub(crate) fn read_payload(path: &str) -> Payload {
-        redstone::helpers::hex::read_payload_bytes(path)
+        super::read_payload_bytes(path)
     }
 }
 
 #[cfg(not(feature = "real_network"))]
-pub mod helpers {
-    use price_adapter::types::types::{FeedIds, Payload, Signers, DATA_SEPARATOR};
+pub mod not_real_network {
+    use price_adapter::types::{FeedIds, Payload, Signers, DATA_SEPARATOR};
 
     #[cfg(test)]
     #[inline]
@@ -39,6 +45,24 @@ pub mod helpers {
     }
 
     pub(crate) fn read_payload(path: &str) -> Payload {
-        redstone::helpers::hex::read_payload_hex(path)
+        super::read_payload_hex(path)
     }
+}
+
+#[cfg(test)]
+#[inline]
+pub fn read_payload_hex(path: &str) -> String {
+    let mut file = File::open(path).unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).expect("Read error");
+    contents
+}
+
+#[cfg(feature = "real_network")]
+#[cfg(test)]
+#[inline]
+pub fn read_payload_bytes(path: &str) -> Vec<u8> {
+    let contents = read_payload_hex(path);
+
+    redstone::helpers::hex::hex_to_bytes(contents)
 }

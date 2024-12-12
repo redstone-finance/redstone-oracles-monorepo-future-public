@@ -1,14 +1,16 @@
 import { ManifestBuilder } from "@radixdlt/radix-engine-toolkit";
-import { CreateProofOfAmountRadixMethod } from "../methods/CreateProofOfAmountRadixMethod";
+import { CreateProofOfNonFungiblesRadixMethod } from "../methods/CreateProofOfNonFungiblesRadixMethod";
 import { DepositBatchRadixMethod } from "../methods/DepositBatchRadixMethod";
 import { LockFeeRadixMethod } from "../methods/LockFeeRadixMethod";
+import { DEFAULT_TRANSACTION_XRD_FEE } from "./constants";
 import { RadixInvocation } from "./RadixInvocation";
+import { NonFungibleGlobalIdInput } from "./utils";
 
 export class RadixTransaction {
   constructor(
     protected account: string,
-    private bodyMethods: RadixInvocation<unknown>[],
-    private fee = 1
+    protected bodyMethods: RadixInvocation<unknown>[],
+    private fee = DEFAULT_TRANSACTION_XRD_FEE
   ) {}
 
   getInitMethods(): RadixInvocation<unknown>[] {
@@ -38,7 +40,7 @@ export class RadixTransaction {
   }
 
   interpret(output: unknown[]) {
-    const index = 1 + this.getFinalMethods().length;
+    const index = DEFAULT_TRANSACTION_XRD_FEE + this.getFinalMethods().length;
 
     return this.bodyMethods[this.bodyMethods.length - 1].interpret(
       output[output.length - index]
@@ -46,12 +48,12 @@ export class RadixTransaction {
   }
 }
 
-export class OwnableRadixTransaction extends RadixTransaction {
+export class ProvingRadixTransaction extends RadixTransaction {
   constructor(
     account: string,
     bodyMethods: RadixInvocation<unknown>[],
-    private proofResourceId: string,
-    fee = 1
+    private proofBadge: NonFungibleGlobalIdInput,
+    fee = DEFAULT_TRANSACTION_XRD_FEE
   ) {
     super(account, bodyMethods, fee);
   }
@@ -59,7 +61,7 @@ export class OwnableRadixTransaction extends RadixTransaction {
   override getInitMethods(): RadixInvocation<unknown>[] {
     return [
       ...super.getInitMethods(),
-      new CreateProofOfAmountRadixMethod(this.account, this.proofResourceId),
+      new CreateProofOfNonFungiblesRadixMethod(this.account, this.proofBadge),
     ];
   }
 }

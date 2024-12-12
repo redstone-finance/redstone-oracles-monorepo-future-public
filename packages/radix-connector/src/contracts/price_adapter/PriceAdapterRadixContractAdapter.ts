@@ -9,10 +9,14 @@ import { ReadPricesRadixMethod } from "./methods/ReadPricesRadixMethod";
 import { ReadTimestampRadixMethod } from "./methods/ReadTimestampRadixMethod";
 import { WritePricesRadixMethod } from "./methods/WritePricesRadixMethod";
 
+export type ReadMode = "ReadFromStorage" | "CallReadMethod";
+
 export class PriceAdapterRadixContractAdapter
   extends RadixContractAdapter
   implements IExtendedPricesContractAdapter
 {
+  public readMode: ReadMode = "ReadFromStorage";
+
   async getPricesFromPayload(
     paramsProvider: ContractParamsProvider
   ): Promise<BigNumberish[]> {
@@ -44,35 +48,31 @@ export class PriceAdapterRadixContractAdapter
   async readPricesFromContract(
     paramsProvider: ContractParamsProvider
   ): Promise<BigNumberish[]> {
-    const priceMap: { [p: string]: BigNumberish } = await this.client.readValue(
-      this.componentId,
-      "prices"
-    );
+    if (this.readMode === "ReadFromStorage") {
+      const priceMap: { [p: string]: BigNumberish } =
+        await this.client.readValue(this.componentId, "prices");
 
-    return paramsProvider
-      .getHexlifiedFeedIds()
-      .map((feedId) => priceMap[feedId]);
+      return paramsProvider
+        .getHexlifiedFeedIds()
+        .map((feedId) => priceMap[feedId]);
+    } else {
+      return await this.client.call(
+        new ReadPricesRadixMethod(
+          this.componentId,
+          paramsProvider.getDataFeedIds()
+        )
+      );
+    }
   }
 
   async readTimestampFromContract(): Promise<number> {
-    return Number(await this.client.readValue(this.componentId, "timestamp"));
-  }
-
-  async readPricesFromContractWithMethod(
-    paramsProvider: ContractParamsProvider
-  ) {
-    return await this.client.call(
-      new ReadPricesRadixMethod(
-        this.componentId,
-        paramsProvider.getDataFeedIds()
-      )
-    );
-  }
-
-  async readTimestampFromContractWithMethod() {
-    return Number(
-      await this.client.call(new ReadTimestampRadixMethod(this.componentId))
-    );
+    if (this.readMode === "ReadFromStorage") {
+      return Number(await this.client.readValue(this.componentId, "timestamp"));
+    } else {
+      return Number(
+        await this.client.call(new ReadTimestampRadixMethod(this.componentId))
+      );
+    }
   }
 
   async getUniqueSignerThreshold(): Promise<number> {

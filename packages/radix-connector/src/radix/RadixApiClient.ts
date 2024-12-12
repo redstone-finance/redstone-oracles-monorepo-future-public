@@ -27,6 +27,13 @@ export class RadixApiClient {
         },
       });
 
+    if (receipt.transaction.transaction_status !== "CommittedSuccess") {
+      throw new Error(
+        receipt.transaction.error_message ??
+          receipt.transaction.transaction_status
+      );
+    }
+
     const output = receipt.transaction.receipt?.output as {
       hex: string;
     }[];

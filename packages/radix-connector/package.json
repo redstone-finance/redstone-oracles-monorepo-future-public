@@ -17,8 +17,14 @@
     "test": "yarn global:jest",
     "test-e2e": "yarn global:jest e2e.spec.ts",
     "coverage": "yarn global:jest:cov --coveragePathIgnorePatterns=\"src/index.ts\" --coveragePathIgnorePatterns=\"src/radix/parser/generated/converter.ts\"",
-    "sample-deploy": "make -C scrypto build && yarn global:ts-node test/scripts/sample_deploy.ts",
+    "sample-deploy": "make CONTRACT_NAME=price_adapter -C scrypto build && CONTRACT_NAME=price_adapter yarn global:ts-node test/scripts/sample_deploy.ts",
+    "sample-deploy-feed": "make CONTRACT_NAME=price_feed -C scrypto build && CONTRACT_NAME=price_feed yarn global:ts-node test/scripts/sample_deploy.ts",
+    "sample-deploy-proxy": "make CONTRACT_NAME=proxy -C scrypto build && CONTRACT_NAME=proxy yarn global:ts-node test/scripts/sample_deploy.ts",
+    "sample-deploy-badge_creator": "make CONTRACT_NAME=badge_creator -C scrypto build && CONTRACT_NAME=badge_creator yarn global:ts-node test/scripts/sample_deploy.ts",
     "sample-instantiate": "yarn global:ts-node test/scripts/sample_instantiate.ts",
+    "sample-instantiate-feed": "yarn global:ts-node test/scripts/sample_instantiate_feed.ts",
+    "sample-instantiate-proxy": "yarn global:ts-node test/scripts/sample_instantiate_proxy.ts",
+    "sample-create_badges": "yarn global:ts-node test/scripts/sample_create_badges.ts",
     "sample-run": "yarn global:ts-node test/scripts/sample_run.ts"
   },
   "dependencies": {

@@ -1,11 +1,5 @@
 use crate::env::{run_env::PriceAdapterRunEnv, run_mode::RunMode, test_env::IntoT};
-use price_adapter::{
-    price_adapter::price_adapter_test::PriceAdapterState,
-    types::{
-        types::{FeedIds, Payload, Signers},
-        U256Digits,
-    },
-};
+use price_adapter::{price_adapter::price_adapter_test::PriceAdapterState, types::*};
 use scrypto_test::prelude::*;
 use std::fmt::Debug;
 

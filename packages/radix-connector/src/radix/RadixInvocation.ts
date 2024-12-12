@@ -1,4 +1,9 @@
-import { ManifestBuilder, Value } from "@radixdlt/radix-engine-toolkit";
+import {
+  ManifestBuilder,
+  str,
+  tuple,
+  Value,
+} from "@radixdlt/radix-engine-toolkit";
 import { RadixTransaction } from "./RadixTransaction";
 
 export abstract class RadixInvocation<T> {
@@ -27,6 +32,14 @@ export abstract class RadixInvocation<T> {
   abstract interpret(value: unknown): T;
 }
 
+export abstract class ProxyRadixInvocation<T> extends RadixInvocation<T> {
+  override appendTo(builder: ManifestBuilder): ManifestBuilder {
+    const params = [str(this.name), tuple(...this.getParams())];
+
+    return builder.callMethod(this.subject, "call_method", params);
+  }
+}
+
 export abstract class VoidRadixInvocation extends RadixInvocation<void> {
   override interpret(_value: unknown) {
     return;
@@ -39,7 +52,15 @@ export abstract class ValueRadixInvocation<T> extends RadixInvocation<T> {
   }
 }
 
-export abstract class RadixFunction extends ValueRadixInvocation<string> {
+export abstract class ValueProxyRadixInvocation<
+  T,
+> extends ProxyRadixInvocation<T> {
+  override interpret(value: unknown) {
+    return value as T;
+  }
+}
+
+export abstract class RadixFunction<T> extends ValueRadixInvocation<T> {
   protected constructor(
     packageAddress: string,
     name: string,

@@ -1,0 +1,15 @@
+[package]
+name = "badge_creator"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+scrypto = { version = "1.3.0" }
+
+[features]
+default = []
+test = []
+
+[lib]
+doctest = false
+crate-type = ["cdylib", "lib"]

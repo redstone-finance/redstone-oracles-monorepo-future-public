@@ -4,7 +4,7 @@ import { RadixClient } from "./RadixClient";
 export abstract class RadixContractConnector<Adapter>
   implements IContractConnector<Adapter>
 {
-  protected constructor(
+  constructor(
     protected client: RadixClient,
     protected componentId?: string
   ) {}

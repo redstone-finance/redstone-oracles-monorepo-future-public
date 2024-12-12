@@ -1,0 +1,2 @@
+export const DEFAULT_TRANSACTION_XRD_FEE = 1;
+export const DEFAULT_INSTANTIATE_XRD_FEE = 100;

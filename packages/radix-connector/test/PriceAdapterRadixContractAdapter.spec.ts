@@ -62,7 +62,8 @@ describe("PriceAdapterRadixContractAdapter tests", () => {
       ])
     );
 
-    const timestamp = await sut.readTimestampFromContractWithMethod();
+    sut.readMode = "CallReadMethod";
+    const timestamp = await sut.readTimestampFromContract();
 
     expect(timestamp).toBe(1730368770000);
   });
@@ -88,7 +89,8 @@ describe("PriceAdapterRadixContractAdapter tests", () => {
       ])
     );
 
-    const prices = await sut.readPricesFromContractWithMethod(paramsProvider);
+    sut.readMode = "CallReadMethod";
+    const prices = await sut.readPricesFromContract(paramsProvider);
     expect(prices).toStrictEqual([
       BigNumber.from("0x3d57670451"),
       BigNumber.from("0x0693392aeca8"),

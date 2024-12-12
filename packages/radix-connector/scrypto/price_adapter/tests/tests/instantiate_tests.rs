@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use crate::{
-        env::{helpers::helpers::make_signers, run_env::PriceAdapterRunEnv},
+        env::{helpers::make_signers, run_env::PriceAdapterRunEnv},
         tests::PriceAdapterEnv,
     };
 

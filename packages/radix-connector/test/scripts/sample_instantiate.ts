@@ -6,6 +6,7 @@ import {
   getFilename,
   loadAddress,
   NETWORK,
+  PRICE_ADAPTER_NAME,
   PRIVATE_KEY,
 } from "./constants";
 
@@ -13,7 +14,7 @@ async function instantiate() {
   const client = new RadixClient(PRIVATE_KEY, NETWORK.id);
   const connector = new PriceAdapterRadixContractDeployer(
     client,
-    await loadAddress(`package.${NETWORK.name}.addr`),
+    await loadAddress(`package.${NETWORK.name}.addr`, PRICE_ADAPTER_NAME),
     1,
     getSignersForDataServiceId(DATA_SERVICE_ID)!
   );
@@ -22,7 +23,7 @@ async function instantiate() {
   console.log(componentId);
 
   await fs.promises.writeFile(
-    getFilename(`component.${NETWORK.name}.addr`),
+    getFilename(`component.${NETWORK.name}.addr`, PRICE_ADAPTER_NAME),
     componentId
   );
 }

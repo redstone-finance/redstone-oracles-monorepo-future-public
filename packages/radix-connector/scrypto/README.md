@@ -40,7 +40,7 @@ the data, execute `make update_data` in the `scrypto` directory.
 
 ### Using the PriceAdapter contract
 
-1. The contract can be deployed and initialized by using `make deploy` command.
+1. The contract can be deployed and initialized by using `make deploy_adapter` command.
     1. The deployed [`package.resim.addr`](price_adapter/package.resim.addr)
        and [`component.resim.addr`](price_adapter/package.resim.addr) hashes can be found in the
        [`price_adapter`](price_adapter)

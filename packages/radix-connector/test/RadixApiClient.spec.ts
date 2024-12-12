@@ -7,7 +7,10 @@ import {
   transactionStatus,
   transactionSubmit,
 } from "./__mocks__/transactions";
-import { mockDefaultValues } from "./mock-default-values";
+import {
+  mockDefaultValues,
+  transactionCommittedDetailsMock,
+} from "./mock-default-values";
 
 jest.spyOn(Convert.Uint8Array, "toHexString");
 
@@ -21,18 +24,11 @@ describe("RadixApiClient", () => {
   });
 
   it("should get transaction details", async () => {
-    const mockResponse = {
-      transaction: {
-        receipt: {
-          output: [
-            {
-              hex: "5c21020a90d4838e91010000200c020c3078334644354338314238450d30783543464543394630413538",
-            },
-          ],
-        },
-      },
-    };
-    transactionCommittedDetails.mockResolvedValueOnce(mockResponse);
+    transactionCommittedDetails.mockResolvedValueOnce(
+      transactionCommittedDetailsMock([
+        "5c21020a90d4838e91010000200c020c3078334644354338314238450d30783543464543394630413538",
+      ])
+    );
 
     const result = await sut.getTransactionDetails("mockTransactionId");
     expect(transactionCommittedDetails).toHaveBeenCalledWith({

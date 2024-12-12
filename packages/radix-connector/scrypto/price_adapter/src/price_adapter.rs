@@ -2,10 +2,8 @@ use crate::{
     get_current_time::get_current_time,
     price_adapter_error::PriceAdapterError,
     types::{
-        types::{
-            process_feed_ids, process_payload_bytes, process_signers, FeedIds, Payload, Signers,
-        },
-        U256Digits,
+        process_feed_ids, process_payload_bytes, process_signers, FeedIds, Payload, Signers,
+        ToDigits, U256Digits,
     },
 };
 use redstone::{
@@ -16,6 +14,7 @@ use redstone::{
         error::Error,
         specific::Bytes,
     },
+    FeedId,
 };
 use scrypto::prelude::*;
 
@@ -74,15 +73,15 @@ mod price_adapter {
             process_feed_ids(feed_ids)
                 .iter()
                 .enumerate()
-                .map(|(index, feed_id)| self.read_price(feed_id.to_digits(), index))
+                .map(|(index, &feed_id)| self.read_price(feed_id, index))
                 .collect()
         }
 
-        fn read_price(&mut self, feed_id: U256Digits, index: usize) -> U256Digits {
-            *self.prices.get(&feed_id).unwrap_or_revert(|_| {
+        fn read_price(&mut self, feed_id: FeedId, index: usize) -> U256Digits {
+            *self.prices.get(&feed_id.to_digits()).unwrap_or_revert(|_| {
                 Error::contract_error(PriceAdapterError::MissingDataFeedValue(
                     index,
-                    U256::from_digits(feed_id).as_ascii_str(),
+                    feed_id.as_ascii_str(),
                 ))
             })
         }
@@ -101,7 +100,7 @@ mod price_adapter {
 
         fn process_payload(
             &mut self,
-            feed_ids: Vec<U256>,
+            feed_ids: Vec<FeedId>,
             payload: Bytes,
         ) -> (u64, Vec<U256Digits>) {
             let config = Config {
@@ -119,7 +118,7 @@ mod price_adapter {
 
         fn process_payload_and_write(
             &mut self,
-            feed_ids: Vec<U256>,
+            feed_ids: Vec<FeedId>,
             payload: Bytes,
         ) -> (u64, Vec<U256Digits>) {
             let (timestamp, values) = self.process_payload(feed_ids.clone(), payload);

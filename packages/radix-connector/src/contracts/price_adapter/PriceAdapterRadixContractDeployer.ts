@@ -1,6 +1,6 @@
 import { RadixClient } from "../../radix/RadixClient";
 import { PriceAdapterRadixContractConnector } from "./PriceAdapterRadixContractConnector";
-import { InstantiateRadixFunction } from "./methods/InstantiateRadixFunction";
+import { PriceAdapterInstantiateRadixFunction } from "./methods/PriceAdapterInstantiateRadixFunction";
 
 export class PriceAdapterRadixContractDeployer extends PriceAdapterRadixContractConnector {
   constructor(
@@ -24,7 +24,7 @@ export class PriceAdapterRadixContractDeployer extends PriceAdapterRadixContract
 
   private async instantiate() {
     return await this.client.call(
-      new InstantiateRadixFunction(
+      new PriceAdapterInstantiateRadixFunction(
         this.packageId,
         this.signerCountThreshold,
         this.signers

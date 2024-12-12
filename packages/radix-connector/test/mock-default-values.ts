@@ -28,6 +28,7 @@ export function mockDefaultValues() {
 export function transactionCommittedDetailsMock(values: string[]) {
   return {
     transaction: {
+      transaction_status: "CommittedSuccess",
       receipt: {
         output: values.map((hex) => ({
           hex,

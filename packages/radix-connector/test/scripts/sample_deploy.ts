@@ -1,20 +1,25 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import fs from "fs";
 import { readFileSync } from "node:fs";
 import { RadixPackageDeployer } from "./RadixPackageDeployer";
-import { CONTRACT_NAME, getFilename, NETWORK, PRIVATE_KEY } from "./constants";
+import { getFilename, NETWORK, PRIVATE_KEY } from "./constants";
 
-async function deploy() {
+async function deploy(contractName: string) {
   const client = new RadixPackageDeployer(PRIVATE_KEY, NETWORK.id);
 
-  const wasm = readFileSync(getFilename(`${CONTRACT_NAME}.wasm`, "artifacts"));
-  const rpd = readFileSync(getFilename(`${CONTRACT_NAME}.rpd`, "artifacts"));
+  const wasm = readFileSync(
+    getFilename(`${contractName}.wasm`, `${contractName}/artifacts`)
+  );
+  const rpd = readFileSync(
+    getFilename(`${contractName}.rpd`, `${contractName}/artifacts`)
+  );
   const feeLock = 120;
 
   const packageId = await client.deployPackage(wasm, rpd, feeLock);
   await fs.promises.writeFile(
-    getFilename(`package.${NETWORK.name}.addr`),
+    getFilename(`package.${NETWORK.name}.addr`, contractName),
     packageId
   );
 }
 
-void deploy();
+void deploy(RedstoneCommon.getFromEnv("CONTRACT_NAME"));

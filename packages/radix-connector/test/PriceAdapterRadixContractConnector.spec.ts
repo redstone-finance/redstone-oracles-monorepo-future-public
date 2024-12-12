@@ -1,5 +1,4 @@
-import { RadixClient } from "../src";
-import { PriceAdapterRadixContractDeployer } from "../src/contracts/price_adapter/PriceAdapterRadixContractDeployer";
+import { PriceAdapterRadixContractDeployer, RadixClient } from "../src";
 import {
   transactionCommittedDetails,
   transactionStatus,

@@ -3,11 +3,14 @@ import { RadixFunction } from "../../../radix/RadixInvocation";
 import { RadixTransaction } from "../../../radix/RadixTransaction";
 import { makeSigners } from "../../../radix/utils";
 
-export class InstantiateRadixFunction extends RadixFunction {
+import { DEFAULT_INSTANTIATE_XRD_FEE } from "../../../radix/constants";
+
+export class PriceAdapterInstantiateRadixFunction extends RadixFunction<string> {
   constructor(
     packageId: string,
     private signerCountThreshold: number,
-    private signers: string[]
+    private signers: string[],
+    private fee = DEFAULT_INSTANTIATE_XRD_FEE
   ) {
     super(packageId, "instantiate", "PriceAdapter");
   }
@@ -17,6 +20,6 @@ export class InstantiateRadixFunction extends RadixFunction {
   }
 
   override getDedicatedTransaction(account: string) {
-    return new RadixTransaction(account, [this], 100);
+    return new RadixTransaction(account, [this], this.fee);
   }
 }

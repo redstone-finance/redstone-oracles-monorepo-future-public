@@ -1,0 +1,12 @@
+CALL_METHOD
+    Address("${ACCOUNT}")
+    "lock_fee"
+    Decimal("5000")
+;
+
+CALL_METHOD
+    Address("${PROXY_ADDRESS}")
+    "call_method"
+    "read_price_and_timestamp"
+    Tuple()
+;

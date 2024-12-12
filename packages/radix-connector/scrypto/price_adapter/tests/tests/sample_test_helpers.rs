@@ -1,9 +1,6 @@
 use crate::{
     env::{
-        helpers::{
-            helpers,
-            helpers::{make_feed_ids, read_payload},
-        },
+        helpers::{make_feed_ids, make_signers, read_payload},
         run_env::PriceAdapterRunEnv,
         run_mode::{
             RunMode,
@@ -20,7 +17,7 @@ impl Sample {
     ) -> PriceAdapter {
         PriceAdapter::instantiate(
             1,
-            helpers::make_signers(SIGNERS.into()),
+            make_signers(SIGNERS.into()),
             self.system_timestamp.into(),
         )
     }

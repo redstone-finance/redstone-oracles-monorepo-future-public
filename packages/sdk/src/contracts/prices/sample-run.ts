@@ -66,16 +66,19 @@ export async function sampleRun(
   }
 
   if (!ethFeedConnector) {
-    return;
+    return logHeader("FINISHING");
   }
 
-  const feedAdapter = await ethFeedConnector.getAdapter();
+  logHeader("Reading data from PriceFeed");
 
+  const feedAdapter = await ethFeedConnector.getAdapter();
   const { value, timestamp } = await feedAdapter.getPriceAndTimestamp();
 
   console.log(
     `ETH price: $${convertValue(value)} (${describeTimestamp(timestamp)})`
   );
+
+  logHeader("FINISHING");
 }
 
 export function convertValue(v: BigNumberish) {

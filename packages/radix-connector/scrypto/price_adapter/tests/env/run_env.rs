@@ -1,7 +1,7 @@
 use crate::env::run_mode::RunMode;
 use price_adapter::{
     price_adapter::price_adapter_test::PriceAdapterState,
-    types::types::{FeedIds, Payload, Signers},
+    types::{FeedIds, Payload, Signers},
 };
 use redstone::network::specific::U256;
 

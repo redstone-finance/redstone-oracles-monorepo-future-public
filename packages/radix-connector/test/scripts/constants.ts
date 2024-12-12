@@ -13,7 +13,11 @@ export const NETWORK = {
 };
 
 export const DATA_SERVICE_ID = "redstone-primary-prod";
-export const CONTRACT_NAME = "price_adapter";
+export const PRICE_ADAPTER_NAME = "price_adapter";
+export const PRICE_FEED_NAME = "price_feed";
+export const PROXY_NAME = "proxy";
+export const BADGE_CREATOR_NAME = "badge_creator";
+
 export const IS_CI = RedstoneCommon.getFromEnv(
   "IS_CI",
   z.boolean().default(false)
@@ -32,7 +36,6 @@ export function getFilename(name: string, subdirectory?: string) {
   return path.join(
     __dirname,
     SCRYPTO_DIR,
-    CONTRACT_NAME,
     subdirectory ? subdirectory : name,
     subdirectory ? name : ""
   );
