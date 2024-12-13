@@ -6934,6 +6934,7 @@ __metadata:
     "@nestjs/schedule": "npm:^2.1.0"
     "@nestjs/schematics": "npm:^9.0.0"
     "@nestjs/testing": "npm:^9.0.0"
+    "@redstone-finance/internal-utils": "npm:0.7.3"
     "@redstone-finance/protocol": "npm:0.7.3"
     "@redstone-finance/sdk": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"
@@ -7164,6 +7165,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/db-less-gateway@workspace:packages/db-less-gateway"
   dependencies:
+    "@redstone-finance/internal-utils": "npm:0.7.3"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.7.3"
     "@redstone-finance/protocol": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"
@@ -7480,6 +7482,7 @@ __metadata:
     "@aws-sdk/client-ssm": "npm:^3.696.0"
     "@influxdata/influxdb-client": "npm:^1.35.0"
     "@influxdata/influxdb-client-apis": "npm:^1.35.0"
+    "@redstone-finance/protocol": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"
     "@types/lodash": "npm:^4.14.195"
     axios: "npm:^1.7.7"

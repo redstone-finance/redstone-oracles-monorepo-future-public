@@ -10,6 +10,9 @@
     },
     {
       "path": "../utils/tsconfig.build.json"
+    },
+    {
+      "path": "../internal-utils/tsconfig.build.json"
     }
   ]
 }

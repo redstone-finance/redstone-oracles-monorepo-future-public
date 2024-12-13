@@ -13,7 +13,8 @@
     "lint:fix": "yarn global:eslint --fix .",
     "preversion": "yarn build",
     "push-config-json": "FILENAME=../../terraform/config/$KEY_NAME yarn global:object-pushToBucket",
-    "push-wallets-to-monitor-json": "BUCKET_NAME=redstone-configuration-eu-west-1 KEY_NAME=wallets-to-monitor.json yarn push-config-json"
+    "push-wallets-to-monitor-json": "BUCKET_NAME=redstone-configuration-eu-west-1 KEY_NAME=wallets-to-monitor.json yarn push-config-json",
+    "test": "yarn global:jest:cov"
   },
   "dependencies": {
     "@aws-sdk/client-cloudwatch": "^3.696.0",
@@ -23,6 +24,7 @@
     "@aws-sdk/client-ssm": "^3.696.0",
     "@influxdata/influxdb-client": "^1.35.0",
     "@influxdata/influxdb-client-apis": "^1.35.0",
+    "@redstone-finance/protocol": "0.7.3",
     "@redstone-finance/utils": "0.7.3",
     "@types/lodash": "^4.14.195",
     "axios": "^1.7.7",

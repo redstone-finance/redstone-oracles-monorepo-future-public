@@ -32,6 +32,7 @@
     "@nestjs/mongoose": "^9.2.2",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/schedule": "^2.1.0",
+    "@redstone-finance/internal-utils": "0.7.3",
     "@redstone-finance/protocol": "0.7.3",
     "@redstone-finance/sdk": "0.7.3",
     "@redstone-finance/utils": "0.7.3",

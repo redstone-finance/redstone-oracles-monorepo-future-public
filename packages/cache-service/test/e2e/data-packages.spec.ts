@@ -351,6 +351,78 @@ describe("Data packages (e2e)", () => {
     expect(response.body.message).toBe("Data packages response is empty");
   });
 
+  it("/data-packages/latest (GET) should filter out outlier prices", async () => {
+    const baseTimestamp = Date.now();
+    const mockDataPackage = mockDataPackages[0];
+    const mockDataPackagesWithOutlier = [
+      {
+        ...mockDataPackage,
+        timestampMilliseconds: baseTimestamp,
+        isSignatureValid: true,
+        dataFeedId: "BTC",
+        dataPackageId: "BTC",
+        dataServiceId: "mock-data-service-1",
+        signerAddress: "0x1",
+        dataPoints: [{ dataFeedId: "BTC", value: "50000" }],
+      },
+      {
+        ...mockDataPackage,
+        timestampMilliseconds: baseTimestamp,
+        isSignatureValid: true,
+        dataFeedId: "BTC",
+        dataPackageId: "BTC",
+        dataServiceId: "mock-data-service-1",
+        signerAddress: "0x2",
+        dataPoints: [{ dataFeedId: "BTC", value: "49900" }],
+      },
+      {
+        ...mockDataPackage,
+        timestampMilliseconds: baseTimestamp,
+        isSignatureValid: true,
+        dataFeedId: "BTC",
+        dataPackageId: "BTC",
+        dataServiceId: "mock-data-service-1",
+        signerAddress: "0x3",
+        dataPoints: [{ dataFeedId: "BTC", value: "50100" }],
+      },
+      {
+        ...mockDataPackage,
+        timestampMilliseconds: baseTimestamp,
+        isSignatureValid: true,
+        dataFeedId: "BTC",
+        dataPackageId: "BTC",
+        dataServiceId: "mock-data-service-1",
+        signerAddress: "0x4",
+        dataPoints: [{ dataFeedId: "BTC", value: "50050" }],
+      },
+      {
+        ...mockDataPackage,
+        timestampMilliseconds: baseTimestamp,
+        isSignatureValid: true,
+        dataFeedId: "BTC",
+        dataPackageId: "BTC",
+        dataServiceId: "mock-data-service-1",
+        signerAddress: "0x5",
+        dataPoints: [
+          { dataFeedId: "BTC", value: "55000" }, // Outlier value
+        ],
+      },
+    ];
+
+    await DataPackage.insertMany(mockDataPackagesWithOutlier);
+
+    jest.spyOn(Date, "now").mockImplementation(() => baseTimestamp);
+    const response = await request(httpServer)
+      .get("/data-packages/latest/mock-data-service-1")
+      .expect(200);
+
+    // Check that the outlier BTC price was filtered out
+    const outlierPackage = response.body["BTC"].find(
+      (dp: any) => dp.signerAddress === "0x5"
+    );
+    expect(outlierPackage).toBeUndefined();
+  });
+
   it("/data-packages/stats (GET) - should work properly with a valid api key", async () => {
     // Sending request for stats
     const mockDataPackage = mockDataPackages[0];

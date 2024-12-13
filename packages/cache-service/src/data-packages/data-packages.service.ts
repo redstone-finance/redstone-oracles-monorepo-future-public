@@ -5,6 +5,7 @@ import {
   Logger,
   Optional,
 } from "@nestjs/common";
+import { filterOutliers } from "@redstone-finance/internal-utils";
 import {
   UniversalSigner,
   recoverDeserializedSignerAddress,
@@ -181,7 +182,7 @@ export class DataPackagesService {
       ).dataFeedId = dataPackageId;
     }
 
-    return fetchedPackagesPerDataFeed;
+    return filterOutliers(fetchedPackagesPerDataFeed);
   }
 
   /**
@@ -274,7 +275,7 @@ export class DataPackagesService {
       fetchedPackagesPerDataFeed[dataPackageId].push(candidatePackage);
     }
 
-    return fetchedPackagesPerDataFeed;
+    return filterOutliers(fetchedPackagesPerDataFeed);
   }
 
   static updateMediumPackageInResponseIfBetter(
