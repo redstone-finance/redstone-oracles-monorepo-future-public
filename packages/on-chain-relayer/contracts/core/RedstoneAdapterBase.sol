@@ -68,7 +68,7 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
 
   /**
    * @notice Returns the unique index of the given data feed
-   * @dev This function can (and should) be overriden to reduce gas
+   * @dev This function can (and should) be overridden to reduce gas
    * costs of other functions
    * @param dataFeedId The data feed identifier
    * @return index The index of the data feed
@@ -156,7 +156,7 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
 
   /**
    * @notice Returns minimal required interval (usually in seconds) between subsequent updates
-   * @dev You can override this function to change the required interval between udpates.
+   * @dev You can override this function to change the required interval between updates.
    * Please do not set it to 0, as it may open many attack vectors
    * @return interval The required interval between updates
    */
@@ -198,7 +198,7 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
   }
 
   /**
-   * @dev This function can be overriden, e.g. to use block.number instead of block.timestamp
+   * @dev This function can be overridden, e.g. to use block.number instead of block.timestamp
    * It can be useful in some L2 chains, as sometimes their different blocks can have the same timestamp
    * @return timestamp Timestamp or Block number or any other number that can identify time in the context
    * of the given blockchain
@@ -209,7 +209,7 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
 
   /**
    * @dev Helpful function for getting values for timestamp validation
-   * @return  maxDataAheadSeconds Max allowed number of seconds ahead of block.timrstamp
+   * @return  maxDataAheadSeconds Max allowed number of seconds ahead of block.timestamp
    * @return  maxDataDelaySeconds Max allowed number of seconds for data delay
    */
   function getAllowedTimestampDiffsInSeconds() public view virtual returns (uint256 maxDataAheadSeconds, uint256 maxDataDelaySeconds) {
@@ -286,7 +286,7 @@ abstract contract RedstoneAdapterBase is RedstoneConsumerNumericBase, IRedstoneA
    * @dev Logic of saving timestamps of the current update
    * By default, it stores packed timestamps in one storage slot (32 bytes)
    * to minimise gas costs
-   * But it can be overriden (e.g. in SinglePriceFeedAdapter)
+   * But it can be overridden (e.g. in SinglePriceFeedAdapter)
    * @param   dataPackagesTimestamp  .
    */
   function _saveTimestampsOfCurrentUpdate(uint256 dataPackagesTimestamp) internal virtual {

@@ -45,7 +45,7 @@ abstract contract MentoAdapterBase is RedstoneAdapterBase, Initializable {
     // Because it is used for contract setup in upgradable contracts
   }
 
-  // This function must be overriden
+  // This function must be overridden
   function getSortedOracles()
     public
     view
@@ -213,12 +213,12 @@ abstract contract MentoAdapterBase is RedstoneAdapterBase, Initializable {
     return dataFeeds;
   }
 
-  // This function must be overriden in the child contract
+  // This function must be overridden in the child contract
   function getTokenDetailsAtIndex(
     uint256 tokenIndex
   ) public view virtual returns (bytes32 dataFeedId, address tokenAddress);
 
-  // This function must be overriden in the child contract
+  // This function must be overridden in the child contract
   function getDataFeedsCount() public view virtual returns (uint256);
 
   function getTokenIndexByDataFeedId(

@@ -13,7 +13,7 @@ import {PriceFeedsAdapterBase} from "../PriceFeedsAdapterBase.sol";
  * - getDataFeedId
  * - getUniqueSignersThreshold
  * - getAuthorisedSignerIndex
- * 
+ *
  * This contract stores the value along with timestamps in a single storage slot
  * 32 bytes = 6 bytes (Data timestamp ) + 6 bytes (Block timestamp) + 20 bytes (Value)
  */
@@ -27,10 +27,10 @@ abstract contract SinglePriceFeedAdapter is PriceFeedsAdapterBase {
   error DataFeedValueTooBig(uint256 valueForDataFeed);
 
   /**
-   * @notice Returns the only data feed identifer supported by the adapter
-   * @dev This function should be overriden in the derived contracts,
+   * @notice Returns the only data feed identifier supported by the adapter
+   * @dev This function should be overridden in the derived contracts,
    * but `getDataFeedIds` and `getDataFeedIndex` should not (and can not)
-   * @return dataFeedId The only data feed identifer supported by the adapter
+   * @return dataFeedId The only data feed identifier supported by the adapter
    */
   function getDataFeedId() public view virtual returns (bytes32);
 

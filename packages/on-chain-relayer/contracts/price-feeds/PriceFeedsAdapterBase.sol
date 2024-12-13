@@ -38,7 +38,7 @@ abstract contract PriceFeedsAdapterBase is RedstoneAdapterBase, Initializable {
 
   /**
    * @dev Helpful virtual function for handling value validation and saving in derived
-   * Price Feed Adapters contracts 
+   * Price Feed Adapters contracts
    * @param dataFeedId The data feed identifier
    * @param dataFeedValue Proposed value for the data feed
    */

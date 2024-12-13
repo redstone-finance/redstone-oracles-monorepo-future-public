@@ -277,10 +277,10 @@ describe("CappedPriceFeed", () => {
       ).to.eq(false);
 
       await expect(
-        cappedPriceFeed.latestAnswerIfRatioCloseToMarktetRatio()
+        cappedPriceFeed.latestAnswerIfRatioCloseToMarketRatio()
       ).to.revertedWithCustomError(
         cappedPriceFeed,
-        "FundametnalRatioDivergedFromMarketRatio"
+        "FundamentalRatioDivergedFromMarketRatio"
       );
     });
 

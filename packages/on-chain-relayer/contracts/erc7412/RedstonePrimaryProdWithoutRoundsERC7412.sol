@@ -29,11 +29,11 @@ import {MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd} from '../price-fee
 
     /**
      * @dev If price was updated recently we return success.
-     * This allow smooth UX when two users independently tries to update price in same block 
+     * This allow smooth UX when two users independently tries to update price in same block
      */
     function updateDataFeedsValues(uint256 dataPackagesTimestamp) override public virtual {
         uint256 lastTimestamp = getBlockTimestampFromLatestUpdate();
-        if(block.timestamp - lastTimestamp <  MIN_INTERVAL_BETWEEN_UPDATES) {
+        if (block.timestamp - lastTimestamp <  MIN_INTERVAL_BETWEEN_UPDATES) {
             return;
         }
 
@@ -49,7 +49,7 @@ import {MergedSinglePriceFeedAdapterWithoutRoundsPrimaryProd} from '../price-fee
             );
         }
 
-        super.validateDataFeedValueOnRead(dataFeedId, value); 
+        super.validateDataFeedValueOnRead(dataFeedId, value);
     }
 
     function fulfillOracleQuery(bytes calldata signedOffchainData) payable external {

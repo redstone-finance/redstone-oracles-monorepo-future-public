@@ -12,7 +12,7 @@ import {PriceFeedsAdapterBase} from "../PriceFeedsAdapterBase.sol";
  * - getDataFeedIds
  * - getUniqueSignersThreshold
  * - getAuthorisedSignerIndex
- * 
+ *
  * We also recommend to override `getDataFeedIndex` function with hardcoded
  * values, as it can significantly reduce gas usage
  */

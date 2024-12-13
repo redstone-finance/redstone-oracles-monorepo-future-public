@@ -22,10 +22,10 @@ abstract contract PriceFeedWithoutRounds is PriceFeedBase {
   function latestRound() public pure override returns (uint80) {
     return DEFAULT_ROUND;
   }
-  
+
   /**
    * @dev There are possible use cases that some contracts don't need values from old rounds
-   * but still rely on `getRoundData` or `latestRounud` functions
+   * but still rely on `getRoundData` or `latestRound` functions
    */
   function getRoundData(uint80 requestedRoundId) public view override returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound) {
     if (requestedRoundId != latestRound()) {

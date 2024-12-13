@@ -10,10 +10,10 @@ import {IPriceFeed} from "./interfaces/IPriceFeed.sol";
  * @author The Redstone Oracles team
  * @dev Implementation of common functions for the PriceFeed contract
  * that queries data from the specified PriceFeedAdapter
- * 
+ *
  * It can be used by projects that have already implemented with Chainlink-like
  * price feeds and would like to minimise changes in their existing codebase.
- * 
+ *
  * If you are flexible, it's much better (and cheaper in terms of gas) to query
  * the PriceFeedAdapter contract directly
  */

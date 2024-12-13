@@ -28,7 +28,7 @@ type SliceConfig = { negativeOffset: number; length: number };
 
 export class RedstonePayloadParser {
   // Last bytes of bytesData must contain valid redstone payload
-  constructor(private bytesData: Uint8Array) {}
+  constructor(private readonly bytesData: Uint8Array) {}
 
   parse(): RedstonePayloadParsingResult {
     this.assertValidRedstoneMarker();

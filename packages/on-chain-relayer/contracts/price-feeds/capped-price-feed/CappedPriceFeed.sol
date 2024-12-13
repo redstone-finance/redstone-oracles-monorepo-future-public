@@ -9,7 +9,7 @@ import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 /// @author RedStone team
 /// @notice Described in ICappedPriceFeed
 /// @dev It assumes that all prices are described in same ratio, with same decimals
-abstract contract CappedPriceFeed is ICappedPriceFeed 
+abstract contract CappedPriceFeed is ICappedPriceFeed
 {
     /// Defines precision for parameters passed in percentage
     uint256 constant PERCENTAGE_FACTOR = 1e4;
@@ -27,14 +27,14 @@ abstract contract CappedPriceFeed is ICappedPriceFeed
     /// @inheritdoc ICappedPriceFeed
     function getMarketPriceFeed() view public virtual returns (IPriceFeed);
 
-    /// Optmized to fit in single storage slot
+    /// Optimized to fit in single storage slot
     struct ParamsStorage {
        uint16 maxYearlyRatioGrowthPercent;
        uint16 maxMarketDeviationPercent;
        address paramsSetter;
     }
 
-    /// Optmized to fit in single storage slot (if fundamental ratio is less then 200 bits)
+    /// Optimized to fit in single storage slot (if fundamental ratio is less then 200 bits)
     struct SnapshotStorage {
         bool isValueBiggerThan200Bits;
         uint200 fundamentalRatioSmallerValue;
@@ -42,7 +42,7 @@ abstract contract CappedPriceFeed is ICappedPriceFeed
         uint256 fundamentalRatioBiggerValue;
     }
 
-  
+
     /// ethers.utils.solidityKeccak256(["string"],["RedStone.CappedPriceFeed.ParamsStorage"])
     bytes32 private constant PARAMS_STORAGE_LOCATION = 0xc5cf9af1b5468f91e35aaa8a7815124709f84924a3bced8b979ee79c432284c5;
     /// ethers.utils.solidityKeccak256(["string"],["RedStone.CappedPriceFeed.SnapshotStorage"])
@@ -170,7 +170,7 @@ abstract contract CappedPriceFeed is ICappedPriceFeed
        _unsafeSetSnapshotRatio(fundamentalRatio);
     }
 
-    /// @dev abillity to call this function also add extra permission to update snapshot ratio in same block
+    /// @dev ability to call this function also add extra permission to update snapshot ratio in same block
     /// and to set ratio to arbitrary number without maxRatio comparison
     /// this MUST be called only by permissioned actor
     function _unsafeSetSnapshotRatio(uint256 fundamentalRatio) private {
@@ -194,16 +194,16 @@ abstract contract CappedPriceFeed is ICappedPriceFeed
     /// @inheritdoc ICappedPriceFeed
     function setCapParameters(uint16 maxYearlyRatioGrowthPercent, uint16 maxMarketDeviationPercent) external {
         ParamsStorage storage paramsStore = _getParamsStorage();
-    
+
         if (paramsStore.paramsSetter == address(0)) {
             paramsStore.paramsSetter = msg.sender;
         } else if (paramsStore.paramsSetter != msg.sender) {
             revert CallerIsNotParamSetter();
         }
 
-        validatePercentBoundries(maxYearlyRatioGrowthPercent);
+        validatePercentBoundaries(maxYearlyRatioGrowthPercent);
         paramsStore.maxYearlyRatioGrowthPercent = maxYearlyRatioGrowthPercent;
-        validatePercentBoundries(maxMarketDeviationPercent);
+        validatePercentBoundaries(maxMarketDeviationPercent);
         paramsStore.maxMarketDeviationPercent = maxMarketDeviationPercent;
 
         uint256 fundamentalRatio = getFundamentalRatio();
@@ -211,28 +211,28 @@ abstract contract CappedPriceFeed is ICappedPriceFeed
     }
 
     /// @inheritdoc ICappedPriceFeed
-    function transferParamSetterRole(address tranferTo) external {
+    function transferParamSetterRole(address transferTo) external {
         ParamsStorage storage paramsStore = _getParamsStorage();
         if (paramsStore.paramsSetter != msg.sender) {
             revert CallerIsNotParamSetter();
         }
 
-        if (tranferTo == address(0)) {
+        if (transferTo == address(0)) {
             revert CanNotTransferRoleToZeroAddress();
         }
-        
-        paramsStore.paramsSetter = tranferTo;
+
+        paramsStore.paramsSetter = transferTo;
     }
 
-    function validatePercentBoundries(uint256 valueInPercent) internal view virtual {
+    function validatePercentBoundaries(uint256 valueInPercent) internal view virtual {
         if (valueInPercent >  UPPER_HARD_LIMIT_PERCENT || valueInPercent < LOWER_HARD_LIMIT_PERCENT) {
             revert PercentValueOutOfRange(LOWER_HARD_LIMIT_PERCENT, UPPER_HARD_LIMIT_PERCENT, valueInPercent);
         }
     }
 
-    function latestAnswerIfRatioCloseToMarktetRatio() external view returns (int256) {
+    function latestAnswerIfRatioCloseToMarketRatio() external view returns (int256) {
         if (!isFundamentalRatioCloseToMarketRatio()) {
-            revert FundametnalRatioDivergedFromMarketRatio();
+            revert FundamentalRatioDivergedFromMarketRatio();
         }
         return latestAnswer();
     }

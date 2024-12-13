@@ -12,7 +12,7 @@ const ecsClient = new ECSClient({
 });
 
 export class AwsEcs {
-  constructor(private client = ecsClient) {}
+  constructor(private readonly client = ecsClient) {}
 
   static forRegion(region: string) {
     return new AwsEcs(
@@ -50,7 +50,7 @@ export class AwsEcs {
     });
     const { services } = await this.client.send(command);
 
-    return services && services[0];
+    return services?.[0];
   }
 
   async describeTaskDefinition(taskDefinitionArn: string) {

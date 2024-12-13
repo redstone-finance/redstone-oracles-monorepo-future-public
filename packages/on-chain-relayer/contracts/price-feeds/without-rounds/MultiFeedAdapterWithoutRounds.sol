@@ -10,12 +10,12 @@ import {ILToken} from "../../custom-integrations/layerbank/ILToken.sol";
 /**
  * @title MultiFeedAdapterWithoutRounds
  * @author The Redstone Oracles team
- * @dev This abstract contract serves as an adapter for multiple data feeds, facilitating 
+ * @dev This abstract contract serves as an adapter for multiple data feeds, facilitating
  * the updating and retrieval of oracle data values independently.
  *
  * Key details about the contract:
  * - Values for data feeds can be updated using the `updateDataFeedsValuesPartial` function
- * - Unlike the previous version (RedstoneAdapterBase), this adapter allows updating any set of data feeds, 
+ * - Unlike the previous version (RedstoneAdapterBase), this adapter allows updating any set of data feeds,
  *   with each update being made independently.
  * - Updates are highly independent. Each data feed update is attempted separately, ensuring maximum possible
  *   updates without reverting the entire transaction if some of them fail. Both successful value updates and
@@ -34,7 +34,7 @@ abstract contract MultiFeedAdapterWithoutRounds is RedstoneConsumerNumericBase, 
   error DataTimestampTooLarge(uint256 dataTimestamp);
   error BlockTimestampTooLarge(uint256 blockTimestamp);
   error InvalidLastUpdateDetails(bytes32 dataFeedId, uint256 lastDataTimestamp, uint256 lastBlockTimestamp, uint256 lastValue);
-  
+
   event ValueUpdate(uint256 value, bytes32 dataFeedId, uint256 updatedAt);
   event UpdateSkipDueToBlockTimestamp(bytes32 dataFeedId);
   event UpdateSkipDueToDataTimestamp(bytes32 dataFeedId);
@@ -168,12 +168,12 @@ abstract contract MultiFeedAdapterWithoutRounds is RedstoneConsumerNumericBase, 
   }
 
   /// Important! This function should not revert, it should only return bool result of the validation
-  /// It can be overriden to handle more specific logic in future
+  /// It can be overridden to handle more specific logic in future
   function _validateValueBeforeSave(bytes32 /* dataFeedId */, uint256 proposedValue, uint256 /* lastValue */) internal view virtual returns (bool) {
     return proposedValue > 0;
   }
 
-  /// This function can be overriden (e.g. value validation and staleness check)
+  /// This function can be overridden (e.g. value validation and staleness check)
   /// We've added dataFeedId for being able to implement custom validation per feed
   function _validateLastUpdateDetailsOnRead(bytes32 /* dataFeedId */, uint256 /* lastDataTimestamp */, uint256 lastBlockTimestamp, uint256 lastValue) internal view virtual returns (bool) {
     return lastValue > 0 && lastBlockTimestamp + MAX_DATA_STALENESS > block.timestamp;
