@@ -22,9 +22,22 @@ mod price_adapter {
             .globalize()
         }
 
-        pub fn read_price_and_timestamp(&self) -> (U256Digits, u64) {
-            let price: Vec<U256Digits> = self.call(
-                "read_prices",
+        pub fn read_price_and_timestamp(&self) -> (Decimal, u64) {
+            self.call_for_price_and_timestamp("read_prices")
+        }
+
+        pub fn read_price_and_timestamp_raw(&self) -> (U256Digits, u64) {
+            self.call_for_price_and_timestamp("read_prices_raw")
+        }
+
+        fn call_for_price_and_timestamp<
+            T: ScryptoDecode + Categorize<ScryptoCustomValueKind> + Copy,
+        >(
+            &self,
+            method_name: &str,
+        ) -> (T, u64) {
+            let price: Vec<T> = self.call(
+                method_name,
                 scrypto_args!(make_feed_ids(vec![self.feed_id.clone()])),
             );
             let timestamp = self.call("read_timestamp", scrypto_args!());

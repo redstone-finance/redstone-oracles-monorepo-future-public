@@ -5,7 +5,7 @@ import { RadixTransaction } from "../../../radix/RadixTransaction";
 
 export class ReadPriceAndTimestampRadixMethod extends ValueProxyRadixInvocation<PriceAndTimestamp> {
   constructor(component: string) {
-    super(component, "read_price_and_timestamp");
+    super(component, "read_price_and_timestamp_raw");
   }
 
   override getDedicatedTransaction(account: string) {

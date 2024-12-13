@@ -4,7 +4,7 @@
 
 - [RedStone Oracles integration with Radix](#redstone-oracles-integration-with-radix)
   -[💡 How RedStone Oracles work with Radix](#-how-redstone-oracles-work-with-radix)
-  -[✨ General parameter disclaimer](#-general-parameter-disclaimer)
+  -[✨ General parameter type disclaimer](#-general-parameter-type-disclaimer)
   -[📄 Blueprints](#-blueprints)
   -[PriceAdapter](#priceadapter)
   - [⨐ instantiate](#-instantiate)
@@ -30,12 +30,15 @@ packages to their function invocations. The information integrity is verified on
 To learn more about _RedStone Oracles_ design, go to
 the [RedStone docs](https://docs.redstone.finance/docs/introduction)
 
-## ✨ General parameter disclaimer
+## ✨ General parameter type disclaimer
 
-In the function parameters below, each `feed_id` is a `Vec<u8>` as the byte-representation of the string.
-The value of `feed_ids` should be passed as a serialized `Vec` of `Vec<u8>`s. \
-The returning values are encoded as `U256Digits` represented each as four `u64`'s, to be properly represented in SBOR. \
-The value `payload` is a `Vec` of `u8`s representing the serialized RedStone payload.
+* In the function parameters below, each `feed_id` is a `Vec<u8>` as the byte-representation of the string.
+  The value of `feed_ids` should be passed as a serialized `Vec` of `Vec<u8>`s.
+* The returning values for base (non `*_raw`) functions are `Decimal`s -
+  the functions may fail when one of the values is overflowing the `Decimal` range `/ 10 ** 8` which is `~2 ** 165`.
+* In that case you should use one `*._raw` function which returning values are encoded as `U256Digits`,
+  represented each as four `u64`'s, to be properly represented in SBOR.
+* The `payload` value is a `Vec` of `u8`s representing the serialized RedStone payload.
 
 📚 See RedStone data-packing: https://docs.redstone.finance/img/payload.png and the [Sample payload](#-sample-payload)
 section below.
@@ -65,25 +68,29 @@ There is also needed `signer_count_threshold` to be passed.
 #### ⨗ get_prices
 
 ```rust
-pub fn get_prices(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<U256Digits>)
+pub fn get_prices(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<Decimal>)
+
+pub fn get_prices_raw(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<U256Digits>)
 ```
 
 The function processes on-chain the `payload` passed as an argument
-and returns an array of aggregated values of each feed passed as an identifier inside `feed_ids`,
-and a timestamp related to the payload data packages.
+and returns an array of aggregated values for each feed passed as an identifier inside `feed_ids`,
+as well as the timestamp of the aggregated prices.
 
 That function doesn't modify the contract's storage.
 
 #### ⨒ write_prices
 
 ```rust
-pub fn write_prices(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<U256Digits>)
+pub fn write_prices(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<Decimal>)
+
+pub fn write_prices_raw(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<U256Digits>)
 ```
 
 Besides on-the-fly processing, there is also a function that processes the `payload` on-chain.
 This function saves the aggregated values to the contract's storage and returns them as an array.
 The values persist in the contract's storage and then can be read by using `read_prices` function.
-The timestamp of the last saved data can be retrieved using the `read_timestamp` function.
+The timestamp of the saved data can be retrieved using the `read_timestamp` function.
 The function also returns the saved timestamp and price values.
 
 That function modifies the contract's storage.
@@ -91,7 +98,9 @@ That function modifies the contract's storage.
 #### ⨗ read_prices
 
 ```rust
-pub fn read_prices(&mut self, feed_ids: FeedIds) -> Vec<U256Digits>
+pub fn read_prices(&mut self, feed_ids: FeedIds) -> Vec<Decimal>
+
+pub fn read_prices_raw(&mut self, feed_ids: FeedIds) -> Vec<U256Digits>
 ```
 
 The function reads the values persisting in the contract's storage and returns an array corresponding to the

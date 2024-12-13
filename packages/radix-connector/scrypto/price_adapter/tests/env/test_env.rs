@@ -53,7 +53,7 @@ impl PriceAdapterRunEnv for PriceAdapterTestEnv {
 
     fn read_prices(&mut self, feed_ids: FeedIds) -> Vec<U256> {
         self.price_adapter
-            .read_prices(feed_ids, &mut self.env)
+            .read_prices_raw(feed_ids, &mut self.env)
             .unwrap()
             .into_t()
     }
@@ -68,10 +68,10 @@ impl PriceAdapterRunEnv for PriceAdapterTestEnv {
         let (timestamp, values) = match run_mode {
             RunMode::Get => self
                 .price_adapter
-                .get_prices(feed_ids, payload, &mut self.env),
+                .get_prices_raw(feed_ids, payload, &mut self.env),
             RunMode::Write => self
                 .price_adapter
-                .write_prices(feed_ids, payload, &mut self.env),
+                .write_prices_raw(feed_ids, payload, &mut self.env),
         }
         .unwrap();
 

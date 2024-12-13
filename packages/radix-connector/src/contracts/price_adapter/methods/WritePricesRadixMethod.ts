@@ -7,6 +7,6 @@ export class WritePricesRadixMethod extends GetPricesRadixMethod {
     payloadData: number[],
     fee = dataFeedIds.length * 1.5
   ) {
-    super(componentId, dataFeedIds, payloadData, fee, "write_prices");
+    super(componentId, dataFeedIds, payloadData, fee, "write_prices_raw");
   }
 }

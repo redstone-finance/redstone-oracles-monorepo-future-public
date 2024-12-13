@@ -1,4 +1,5 @@
-use redstone::network::error::ContractErrorContent;
+use crate::types::U256Digits;
+use redstone::network::{error::ContractErrorContent, specific::U256};
 
 /// Represents errors specific to the price adapter's functionality.
 ///
@@ -45,6 +46,11 @@ pub(crate) enum PriceAdapterError {
     /// It contains the index (`usize`) identifying the data feed in question and a `String`
     /// message providing additional context or the name of the missing data feed.
     MissingDataFeedValue(usize, String),
+
+    /// This error occurs when the value for a data feed is exceeding the Radix Decimal range.
+    /// It contains the value (U256Digits) representing the raw-value and a `String`
+    /// message providing the name of the overflowing data feed.
+    DecimalOverflow(U256Digits, String),
 }
 
 impl ContractErrorContent for PriceAdapterError {
@@ -56,6 +62,7 @@ impl ContractErrorContent for PriceAdapterError {
             PriceAdapterError::TimestampMustBeGreaterThanBefore => 250,
             PriceAdapterError::CurrentTimestampMustBeGreaterThanLatestUpdateTimestamp => 251,
             PriceAdapterError::MissingDataFeedValue(index, _) => 100 + *index as u8,
+            PriceAdapterError::DecimalOverflow(_, _) => 192,
         }
     }
 
@@ -78,6 +85,14 @@ impl ContractErrorContent for PriceAdapterError {
 
             PriceAdapterError::MissingDataFeedValue(index, feed_id) => {
                 format!("Missing data feed value for #{} ({})", index, feed_id)
+            }
+
+            PriceAdapterError::DecimalOverflow(value, feed_id) => {
+                format!(
+                    "Decimal overflow: {} ({})",
+                    U256::from_digits(*value),
+                    feed_id
+                )
             }
         }
     }

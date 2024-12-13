@@ -57,6 +57,7 @@ Besides on-the-fly processing, there is also a function that processes the `payl
 This function saves the aggregated values to the contract's storage and returns them as an array.
 The values persist in the contract's storage and then can be read by using `read_prices` function.
 The timestamp of the saved data can be retrieved using the `read_timestamp` function.
+
 That's a `#[storage(write)]` function - it consumes GAS and modifies the contract's storage.
 
 📖 See how it works on: https://fuel-showroom.redstone.finance/

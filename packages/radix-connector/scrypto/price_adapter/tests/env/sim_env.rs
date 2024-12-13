@@ -6,9 +6,9 @@ use std::fmt::Debug;
 const PRICE_ADAPTER: &str = "PriceAdapter";
 const ENTRY_POINT_INSTANTIATE: &str = "instantiate_with_mock_timestamp";
 const ENTRY_POINT_READ_TIMESTAMP: &str = "read_timestamp";
-const ENTRY_POINT_READ_PRICES: &str = "read_prices";
-const ENTRY_POINT_GET_PRICES: &str = "get_prices";
-const ENTRY_POINT_WRITE_PRICES: &str = "write_prices";
+const ENTRY_POINT_READ_PRICES: &str = "read_prices_raw";
+const ENTRY_POINT_GET_PRICES: &str = "get_prices_raw";
+const ENTRY_POINT_WRITE_PRICES: &str = "write_prices_raw";
 
 pub(crate) struct PriceAdapterSimEnv {
     component: ComponentAddress,

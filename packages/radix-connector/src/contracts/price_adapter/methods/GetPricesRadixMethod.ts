@@ -13,7 +13,7 @@ export class GetPricesRadixMethod extends RadixInvocation<{
     private dataFeedIds: string[],
     private payloadBytes: number[],
     private fee = dataFeedIds.length,
-    name: string = "get_prices"
+    name: string = "get_prices_raw"
   ) {
     super(componentId, name);
   }

@@ -11,7 +11,7 @@ export class ReadPricesRadixMethod extends ValueRadixInvocation<
     componentId: string,
     private dataFeedIds: string[]
   ) {
-    super(componentId, "read_prices");
+    super(componentId, "read_prices_raw");
   }
 
   override getDedicatedTransaction(account: string) {

@@ -1,4 +1,5 @@
 use crate::{
+    decimals::ToRedStoneDecimals,
     get_current_time::get_current_time,
     price_adapter_error::PriceAdapterError,
     types::{
@@ -20,7 +21,6 @@ use scrypto::prelude::*;
 
 #[blueprint]
 mod price_adapter {
-
     struct PriceAdapter {
         signer_count_threshold: u8,
         signers: Vec<Bytes>,
@@ -50,7 +50,7 @@ mod price_adapter {
             )
         }
 
-        pub fn get_prices(
+        pub fn get_prices_raw(
             &mut self,
             feed_ids: FeedIds,
             payload: Payload,
@@ -58,7 +58,13 @@ mod price_adapter {
             self.process_payload(process_feed_ids(feed_ids), process_payload_bytes(payload))
         }
 
-        pub fn write_prices(
+        pub fn get_prices(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<Decimal>) {
+            let (timestamp, values) = self.get_prices_raw(feed_ids.clone(), payload);
+
+            (timestamp, values.to_redstone_decimals(feed_ids))
+        }
+
+        pub fn write_prices_raw(
             &mut self,
             feed_ids: FeedIds,
             payload: Payload,
@@ -69,12 +75,23 @@ mod price_adapter {
             )
         }
 
-        pub fn read_prices(&mut self, feed_ids: FeedIds) -> Vec<U256Digits> {
+        pub fn write_prices(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<Decimal>) {
+            let (timestamp, values) = self.write_prices_raw(feed_ids.clone(), payload);
+
+            (timestamp, values.to_redstone_decimals(feed_ids))
+        }
+
+        pub fn read_prices_raw(&mut self, feed_ids: FeedIds) -> Vec<U256Digits> {
             process_feed_ids(feed_ids)
                 .iter()
                 .enumerate()
                 .map(|(index, &feed_id)| self.read_price(feed_id, index))
                 .collect()
+        }
+
+        pub fn read_prices(&mut self, feed_ids: FeedIds) -> Vec<Decimal> {
+            self.read_prices_raw(feed_ids.clone())
+                .to_redstone_decimals(feed_ids)
         }
 
         fn read_price(&mut self, feed_id: FeedId, index: usize) -> U256Digits {
