@@ -25,13 +25,14 @@ else
 	endif
 endif
 
-CONTRACTS_DIR=.
+CONTRACTS_DIR=./contracts
 CONTRACT_DIR=$(CONTRACTS_DIR)/$(CONTRACT)
-PACKAGE_ADDRESS=$(shell cat $(CONTRACT_DIR)/package.resim.addr)
-COMPONENT_ADDRESS=$(shell cat $(CONTRACT_DIR)/component.resim.addr)
-PRICE_ADAPTER_ADDRESS=$(shell cat $(CONTRACTS_DIR)/$(PRICE_ADAPTER)/component.resim.addr)
-PRICE_FEED_ADDRESS=$(shell cat $(CONTRACTS_DIR)/$(PRICE_FEED)/component.resim.addr)
-PROXY_ADDRESS=$(shell cat $(CONTRACTS_DIR)/$(PROXY)/component.resim.addr)
+DEPLOYED_DIR=$(CONTRACT_DIR)/deployed
+PACKAGE_ADDRESS=$(shell cat $(DEPLOYED_DIR)/package.resim.addr)
+COMPONENT_ADDRESS=$(shell cat $(DEPLOYED_DIR)/component.resim.addr)
+PRICE_ADAPTER_ADDRESS=$(shell cat $(CONTRACTS_DIR)/$(PRICE_ADAPTER)/deployed/component.resim.addr)
+PRICE_FEED_ADDRESS=$(shell cat $(CONTRACTS_DIR)/$(PRICE_FEED)/deployed/component.resim.addr)
+PROXY_ADDRESS=$(shell cat $(CONTRACTS_DIR)/$(PROXY)/deployed/component.resim.addr)
 
 ACCOUNT=$(shell resim show | sed -n 's/Component Address.*\(account_[a-zA-Z0-9]*\).*/\1/p')
 OWNER_BADGE=$(shell resim show | sed -n 's/.*\(resource_[a-zA-Z0-9]*\).*: 1 Owner Badge/\1\:\#1\#/p')
@@ -61,12 +62,12 @@ build: prepare
 	cp ./target/wasm32-unknown-unknown/release/${CONTRACT}.wasm $(CONTRACT_DIR)/artifacts/
 
 publish: clippy
-	resim publish $(NETWORK) $(CONTRACT_DIR) | tee | grep -o 'package_[a-zA-Z0-9]*' > $(CONTRACT_DIR)/package.resim.addr
+	resim publish $(NETWORK) $(CONTRACT_DIR) | tee | grep -o 'package_[a-zA-Z0-9]*' > $(DEPLOYED_DIR)/package.resim.addr
 
 instantiate-%:
 	resim call-function $(NETWORK) $(OPTS) $(PACKAGE_ADDRESS) $* instantiate $(ARGS) > output.tmp
-	cat output.tmp | grep -o 'component_[a-zA-Z0-9]*' | tail -n 1 > $(CONTRACT_DIR)/component.resim.addr
-	cat output.tmp | grep -o 'resource_[a-zA-Z0-9]*' | tail -n 1 > $(CONTRACT_DIR)/owner.resim.addr
+	cat output.tmp | grep -o 'component_[a-zA-Z0-9]*' | tail -n 1 > $(DEPLOYED_DIR)/component.resim.addr
+	cat output.tmp | grep -o 'resource_[a-zA-Z0-9]*' | tail -n 1 > $(DEPLOYED_DIR)/owner.resim.addr
 	rm output.tmp
 
 deploy-%: publish
@@ -121,8 +122,8 @@ deploy_feed: publish
 
 deploy_proxy: publish
 	ACCOUNT=$(ACCOUNT) PACKAGE_ADDRESS=$(PACKAGE_ADDRESS) OWNER_BADGE="$(OWNER_BADGE)" MANAGER_BADGE="$(OWNER_BADGE)" resim run $(CONTRACT_DIR)/manifests/instantiate.rtm > output.tmp
-	cat output.tmp | grep -o 'component_[a-zA-Z0-9]*' | tail -n 1 > $(CONTRACT_DIR)/component.resim.addr
-	cat output.tmp | grep -o 'resource_[a-zA-Z0-9]*' | tail -n 1 > $(CONTRACT_DIR)/owner.resim.addr
+	cat output.tmp | grep -o 'component_[a-zA-Z0-9]*' | tail -n 1 > $(DEPLOYED_DIR)/component.resim.addr
+	cat output.tmp | grep -o 'resource_[a-zA-Z0-9]*' | tail -n 1 > $(DEPLOYED_DIR)/owner.resim.addr
 	rm output.tmp
 
 set_contract_address:

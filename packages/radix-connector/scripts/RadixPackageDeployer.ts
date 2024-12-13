@@ -1,5 +1,5 @@
 import { PackageDeployer, Wallet } from "@atlantis-l/radix-tool";
-import { RadixClient } from "../../src";
+import { RadixClient } from "../src";
 
 export class RadixPackageDeployer extends RadixClient {
   public async deployPackage(

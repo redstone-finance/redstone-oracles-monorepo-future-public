@@ -1,8 +1,13 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import "dotenv/config";
 import redstone from "redstone-api";
+import {
+  IS_CI,
+  loadAddress,
+  PRICE_ADAPTER_NAME,
+  PRIVATE_KEY,
+} from "../scripts/constants";
 import { PriceAdapterRadixContractConnector, RadixClient } from "../src";
-import { IS_CI, loadAddress, PRIVATE_KEY } from "./scripts/constants";
 
 jest.setTimeout(10 * 60000);
 jest.unmock("@radixdlt/babylon-gateway-api-sdk");
@@ -16,7 +21,7 @@ describe("Integrated and initialized prices contract", () => {
     const client = new RadixClient(PRIVATE_KEY);
     const connector = new PriceAdapterRadixContractConnector(
       client,
-      await loadAddress("component.stokenet.addr")
+      await loadAddress("component", PRICE_ADAPTER_NAME)
     );
 
     const adapter = await connector.getAdapter();

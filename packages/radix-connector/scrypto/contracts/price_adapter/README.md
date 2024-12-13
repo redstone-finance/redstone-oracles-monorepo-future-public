@@ -122,20 +122,20 @@ That function doesn't modify the contract's storage.
 
 ## 📖 Sample payload
 
-See [here](../README.md#preparing-sample-data), how to generate it.
+See [here](../../README.md#preparing-sample-data), how to generate it.
 
 Then the hex response is necessary to be split to single bytes, for example, by using `Array.from(arrayify(payloadHex))`
 functions of `ethers` node package, and converted to SBOR, by using one of helpers functions like
-defined [here](../../src/radix/utils.ts).
+defined [here](../../../src/radix/utils.ts).
 
 ## ⚠ Possible transaction failures
 
 The transaction could have returned an error, one of the defined below:
 
-- in the [redstone](../rust-sdk/src/network/error.rs) library, or see
+- in the [redstone](../../rust-sdk/src/network/error.rs) library, or see
   in [docs](https://docs.redstone.finance/rust/redstone/crypto_secp256k1,network_radix/redstone/network/error/enum.Error.html)
 
-- Price Adapter [specific](../price_adapter/src/price_adapter_error.rs)
+- Price Adapter [specific](r_error.rs)
 
 ## 🙋‍Contact
 

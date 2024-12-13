@@ -4,8 +4,8 @@ import {
   describeTimestamp,
   sampleRun,
 } from "@redstone-finance/sdk";
-import { PriceAdapterRadixContractConnector, RadixClient } from "../../src";
-import { PriceFeedRadixContractConnector } from "../../src/contracts/price_feed/PriceFeedRadixContractConnector";
+import { PriceAdapterRadixContractConnector, RadixClient } from "../src";
+import { PriceFeedRadixContractConnector } from "../src/contracts/price_feed/PriceFeedRadixContractConnector";
 import {
   DATA_SERVICE_ID,
   loadAddress,
@@ -26,18 +26,18 @@ async function main() {
 
   const connector = new PriceAdapterRadixContractConnector(
     client,
-    await loadAddress(`component.${NETWORK.name}.addr`, PRICE_ADAPTER_NAME)
+    await loadAddress(`component`, PRICE_ADAPTER_NAME)
   );
   const priceAdapter = await connector.getAdapter();
 
   const priceFeed = new PriceFeedRadixContractConnector(
     client,
-    await loadAddress(`component.${NETWORK.name}.addr`, PROXY_NAME)
+    await loadAddress(`component`, PROXY_NAME)
   );
 
   await sampleRun(paramsProvider, connector, priceFeed);
 
-  priceAdapter.readMode = false;
+  priceAdapter.readMode = "CallReadMethod";
   const timestampRead = await priceAdapter.readTimestampFromContract();
   console.log(
     `Timestamp read by using method read_timestamp: ${timestampRead} (${describeTimestamp(timestampRead)})`

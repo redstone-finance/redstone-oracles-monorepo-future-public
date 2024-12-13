@@ -30,7 +30,7 @@ the [whole RedStone Oracle model](https://docs.redstone.finance/docs/introductio
   - There are also various tests of signature verification with the given signers, timestamp validation, value
       aggregation as well as full data-processing tests with various configurations.
   - You can find all the possibilities [here](scrypto/README.md).
-  - You can read [here](scrypto/price_adapter/README.md) how the contract works.
+  - You can read [here](scrypto/contracts/price_adapter/README.md) how the contract works.
 - [src](src) directory contains the TypeScript classes, useful for establishing a connection between TypeScript and
   Radix-network layers.
   - See [below](#-connecting-to-the-contract), how to connect to the contract.

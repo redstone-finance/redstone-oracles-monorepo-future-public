@@ -2,10 +2,10 @@
 resolver = "2"
 members = [
     "rust-sdk",
-    "price_adapter",
-    "price_feed",
-    "proxy",
-    "badge_creator"
+    "contracts/price_adapter",
+    "contracts/price_feed",
+    "contracts/proxy",
+    "contracts/badge_creator"
 ]
 
 [profile.release]

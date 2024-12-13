@@ -1,5 +1,5 @@
-import { RadixClient } from "../../src";
-import { BadgeCreatorRadixContractConnector } from "../../src/contracts/badge_creator/BadgeCreatorRadixContractConnector";
+import { RadixClient } from "../src";
+import { BadgeCreatorRadixContractConnector } from "../src/contracts/badge_creator/BadgeCreatorRadixContractConnector";
 import {
   BADGE_CREATOR_NAME,
   loadAddress,
@@ -12,7 +12,7 @@ async function createBadges() {
 
   const connector = new BadgeCreatorRadixContractConnector(
     client,
-    await loadAddress(`package.${NETWORK.name}.addr`, BADGE_CREATOR_NAME)
+    await loadAddress(`package`, BADGE_CREATOR_NAME)
   );
 
   await connector.createBadges();
