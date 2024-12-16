@@ -10,6 +10,6 @@
   "adapterContract": "0x3A236F67Fce401D87D7215695235e201966576E4",
   "dataServiceId": "redstone-primary-prod",
   "priceFeeds": {
-    "USDT": "0x3A236F67Fce401D87D7215695235e201966576E4"
+    "USDT": "__NO_FEED__"
   }
 }
