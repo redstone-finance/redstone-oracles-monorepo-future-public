@@ -1,0 +1,27 @@
+{
+  "chain": {
+    "name": "hyperliquidTestnet",
+    "id": 998
+  },
+  "adapterContract": "0x663B50C9DA9Bd586f855aF13e91EF2f0954c9761",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {
+    "BTC": {
+      "priceFeedAddress": "0x85C4F855Bc0609D2584405819EdAEa3aDAbfE97D"
+    },
+    "ETH": {
+      "priceFeedAddress": "0xBf3bA2b090188B40eF83145Be0e9F30C6ca63689"
+    },
+    "USDC": {
+      "priceFeedAddress": "0xa0f2EF6ceC437a4e5F6127d6C51E1B0d3A746911"
+    },
+    "HYPE": {
+      "priceFeedAddress": "0xC3346631E0A9720582fB9CAbdBEA22BC2F57741b"
+    }
+  }
+}
