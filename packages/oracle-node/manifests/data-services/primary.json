@@ -1952,6 +1952,11 @@
       "source": ["hyperliquid-api-fetcher"],
       "denomination": "USDC",
       "rateFeed": false
+    },
+    "stTON_FUNDAMENTAL": {
+      "source": ["ton-staked"],
+      "denomination": "TON",
+      "rateFeed": true
     }
   },
   "multiPointPackages": {

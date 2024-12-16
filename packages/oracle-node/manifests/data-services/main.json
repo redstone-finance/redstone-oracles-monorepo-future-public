@@ -2998,6 +2998,11 @@
       "denomination": "USDC",
       "rateFeed": false
     },
+    "stTON_FUNDAMENTAL": {
+      "source": ["ton-staked"],
+      "denomination": "TON",
+      "rateFeed": true
+    },
     "BAT": {
       "denomination": "USD",
       "rateFeed": false

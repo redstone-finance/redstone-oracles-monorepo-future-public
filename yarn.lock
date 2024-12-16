@@ -7336,6 +7336,8 @@ __metadata:
     "@redstone-finance/rpc-providers": "npm:0.7.3"
     "@redstone-finance/sdk": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"
+    "@ton/core": "npm:^0.56.3"
+    "@ton/crypto": "npm:^3.2.0"
     "@types/exchange-rates-api": "npm:^1.0.0"
     "@types/isomorphic-fetch": "npm:^0.0.35"
     "@types/jsonpath": "npm:^0.2.0"
