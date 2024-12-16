@@ -5,6 +5,7 @@ export const ChainConfigSchema = z.object({
   chainId: z.number().positive(),
   name: z.string(),
   publicRpcUrls: z.string().url().array(),
+  currencySymbol: z.string(),
   avgBlockTimeMs: z.number(),
   isAuctionModel: z.boolean(),
   twoDimensionalFees: z.boolean(),
