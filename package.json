@@ -14,6 +14,7 @@
     "global:separate-build": "git clean -fdx --exclude=.env packages && cd $INIT_CWD && yarn global:run-if-exists build-dev",
     "global:build-clean-build": "(cd $INIT_CWD && yarn global:run-if-exists build-dev) && git clean -fdx --exclude=.env packages && cd $INIT_CWD && yarn global:run-if-exists build",
     "compile:all": "yarn global:run-all compile",
+    "clean:all": "yarn global:run-all-deps-parallel clean",
     "clean:build": "cd $INIT_CWD && yarn clean && yarn build",
     "lint:all": "yarn global:run-all-parallel lint",
     "lint:fix:all": "yarn global:run-all-parallel lint:fix",
