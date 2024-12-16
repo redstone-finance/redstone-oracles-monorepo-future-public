@@ -801,6 +801,7 @@
     "hyperliquidTestnet": {
       "name": "Hyperliquid Testnet",
       "chainId": 998,
+      "currencySymbol": "HYPE",
       "publicRpcUrls": ["https://api.hyperliquid-testnet.xyz/evm"],
       "avgBlockTimeMs": 2000,
       "multicall3": {
