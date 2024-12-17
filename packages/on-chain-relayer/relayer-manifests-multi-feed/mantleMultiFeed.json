@@ -24,22 +24,46 @@
       "priceFeedAddress": "0xb81131B6368b3F0a83af09dB4E39Ac23DA96C2Db"
     },
     "USDe": {
-      "priceFeedAddress": "0x3DFA26B9A15D37190bB8e50aE093730DcA88973E"
+      "priceFeedAddress": "0x3DFA26B9A15D37190bB8e50aE093730DcA88973E",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     },
     "sUSDe": {
-      "priceFeedAddress": "0xd6a987Ff6323F658D04da16c36CE00960137a115"
+      "priceFeedAddress": "0xd6a987Ff6323F658D04da16c36CE00960137a115",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     },
     "MNT": {
-      "priceFeedAddress": "0xed1f0df0b88889e5eA19c768613cDf3DbBF3d2a7"
+      "priceFeedAddress": "0xed1f0df0b88889e5eA19c768613cDf3DbBF3d2a7",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 3600000
+      }
     },
     "ETH": {
-      "priceFeedAddress": "0xFc34806fbD673c21c1AEC26d69AA247F1e69a2C6"
+      "priceFeedAddress": "0xFc34806fbD673c21c1AEC26d69AA247F1e69a2C6",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 3600000
+      }
     },
     "wstETH/stETH": {
-      "priceFeedAddress": "0xE8d850331faAbb277a24C09d91aabb68fb808748"
+      "priceFeedAddress": "0xE8d850331faAbb277a24C09d91aabb68fb808748",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 3600000
+      }
     },
     "USDT": {
-      "priceFeedAddress": "0x3A236F67Fce401D87D7215695235e201966576E4"
+      "priceFeedAddress": "0x3A236F67Fce401D87D7215695235e201966576E4",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.25,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     }
   }
 }
