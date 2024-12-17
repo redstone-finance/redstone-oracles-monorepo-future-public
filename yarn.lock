@@ -7892,6 +7892,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-monitoring-avs@workspace:packages/lambda/lambda-monitoring-avs":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-monitoring-avs@workspace:packages/lambda/lambda-monitoring-avs"
+  dependencies:
+    "@redstone-finance/chain-configs": "npm:0.7.3"
+    "@redstone-finance/redstone-monitoring": "npm:0.7.3"
+    "@redstone-finance/utils": "npm:0.7.3"
+    dotenv: "npm:^16.0.3"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-monitoring-core@workspace:packages/lambda/lambda-monitoring-core":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-monitoring-core@workspace:packages/lambda/lambda-monitoring-core"
