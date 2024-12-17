@@ -7,9 +7,10 @@ export const sendHealthcheckPing = async (healthcheckPingUrl?: string) => {
   if (!healthcheckPingUrl) {
     return;
   }
-
+  const start = Date.now();
   try {
     await axios.get(healthcheckPingUrl);
+    logger.info(`Sent healthcheck ping in ${Date.now() - start}ms`);
   } catch (e) {
     const error = e as AxiosError;
     if (error.code === "ENOTFOUND") {
