@@ -2049,7 +2049,8 @@
         "dodoex-bnb-btcb",
         "pancake-swap-bnb-btcb-500",
         "trader-joe-v2-avalanche-btc.b",
-        "uniswap-v3-ethereum-wbtc-500"
+        "uniswap-v3-ethereum-wbtc-500",
+        "thena-bnb-btcb"
       ],
       "denomination": "USD",
       "rateFeed": false
