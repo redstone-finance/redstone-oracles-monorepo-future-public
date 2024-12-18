@@ -1,0 +1,36 @@
+{
+  "name": "@redstone-finance/sui-connector",
+  "version": "0.7.3",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "yarn global:tsc --build tsconfig.build.json",
+    "test": "ID_FILE=object_ids.$NETWORK.json yarn global:jest:cov",
+    "lint": "yarn global:eslint",
+    "deploy": "yarn global:ts-node scripts/deploy-sui-program.ts",
+    "sample-run": "ID_FILE=object_ids.$NETWORK.json yarn global:ts-node scripts/sample-run.ts"
+  },
+  "peerDependencies": {
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@mysten/bcs": "^1.1.0",
+    "@mysten/sui": "^1.13.0",
+    "@redstone-finance/sdk": "0.7.3",
+    "commander": "^12.1.0",
+    "dotenv": "^16.0.3",
+    "zod": "^3.22.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/src/**/*",
+    "scripts/**/*"
+  ],
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "chai": "^4.3.10"
+  }
+}

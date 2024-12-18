@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig-common.json",
+  "include": ["**/*", "src/**/*_abi.json"],
+  "references": [
+    {
+      "path": "../protocol/tsconfig.build.json"
+    },
+    {
+      "path": "../sdk/tsconfig.build.json"
+    }
+  ]
+}

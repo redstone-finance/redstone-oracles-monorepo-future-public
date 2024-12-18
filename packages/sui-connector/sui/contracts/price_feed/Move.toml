@@ -1,0 +1,14 @@
+[package]
+name = "price_feed"
+edition = "2024.beta"
+license = "GPL"
+authors = ["redstone"]
+
+[dependencies]
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/testnet" }
+redstone_price_adapter = { local = "../price_adapter" }
+
+
+[addresses]
+price_feed = "0x0"
+

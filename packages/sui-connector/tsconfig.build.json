@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts", "cairo"],
+  "references": [
+    {
+      "path": "../protocol/tsconfig.build.json"
+    },
+    {
+      "path": "../sdk/tsconfig.build.json"
+    }
+  ]
+}

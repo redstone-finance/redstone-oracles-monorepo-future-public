@@ -1,3 +1,4 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
 import { BigNumber, BigNumberish } from "ethers";
 import { ContractParamsProvider } from "../ContractParamsProvider";
 import { IContractConnector } from "../IContractConnector";
@@ -25,8 +26,12 @@ export async function sampleRun(
   const pricesAdapter = await pricesConnector.getAdapter();
 
   logHeader("Taking values using core model");
-  const coreValues = await pricesAdapter.getPricesFromPayload(paramsProvider);
-  console.log(`Core values: ${coreValues.map(convertValue)}`);
+  try {
+    const coreValues = await pricesAdapter.getPricesFromPayload(paramsProvider);
+    console.log(`Core values: ${coreValues.map(convertValue)}`);
+  } catch (e) {
+    console.error(RedstoneCommon.stringifyError(e));
+  }
 
   logHeader("Pushing values using classic model");
   const deployHash =
