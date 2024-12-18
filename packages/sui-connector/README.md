@@ -17,3 +17,12 @@ Tests:
 NETWORK=localnet yarn test
 NETWORK=localnet yarn sample-run
 ```
+
+
+### Move code conventions
+We try to follow conventions from [here](https://docs.sui.io/concepts/sui-move-concepts/conventions).
+
+Differences:
+* We have added a section called `Public Functions` for functions that are public and non-mutable but are not view-only. For example
+  * Functions creating structs.
+  * Functions filtering collections.

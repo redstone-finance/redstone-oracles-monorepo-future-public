@@ -88,7 +88,7 @@ fun read_price(scenario: &mut Scenario) {
     test_scenario::next_tx(scenario, OWNER);
     {
         let price_adapter = test_scenario::take_shared<PriceAdapter>(scenario);
-        let (price, _timestamp) = price_adapter::read_price_and_timestamp(
+        let (price, _timestamp) = price_adapter::price_and_timestamp(
             &price_adapter,
             TEST_FEED_ID,
         );

@@ -1,6 +1,10 @@
+// === Imports ===
+
 module redstone_price_adapter::redstone_sdk_config;
 
 use redstone_price_adapter::admin::AdminCap;
+
+// === Structs ===
 
 public struct Config has store, copy, drop {
     signer_count_threshold: u8,
@@ -8,6 +12,26 @@ public struct Config has store, copy, drop {
     max_timestamp_delay_ms: u64,
     max_timestamp_ahead_ms: u64,
 }
+
+// === Public-View Functions ===
+
+public fun signer_count_threshold(config: &Config): u8 {
+    config.signer_count_threshold
+}
+
+public fun signers(config: &Config): vector<vector<u8>> {
+    config.signers
+}
+
+public fun max_timestamp_delay_ms(config: &Config): u64 {
+    config.max_timestamp_delay_ms
+}
+
+public fun max_timestamp_ahead_ms(config: &Config): u64 {
+    config.max_timestamp_ahead_ms
+}
+
+// === Public-Package Functions ===
 
 public(package) fun new(
     signer_count_threshold: u8,
@@ -35,20 +59,4 @@ public(package) fun update_config(
     config.signer_count_threshold = signer_count_threshold;
     config.max_timestamp_delay_ms = max_timestamp_delay_ms;
     config.max_timestamp_ahead_ms = max_timestamp_ahead_ms;
-}
-
-public fun get_signer_count_threshold(config: &Config): u8 {
-    config.signer_count_threshold
-}
-
-public fun get_signers(config: &Config): vector<vector<u8>> {
-    config.signers
-}
-
-public fun get_max_timestamp_delay_ms(config: &Config): u64 {
-    config.max_timestamp_delay_ms
-}
-
-public fun get_max_timestamp_ahead_ms(config: &Config): u64 {
-    config.max_timestamp_ahead_ms
 }

@@ -1,4 +1,8 @@
+// === Imports ===
+
 module redstone_price_adapter::redstone_sdk_conv;
+
+// === Public Functions ===
 
 public fun from_bytes_to_u64(bytes: &vector<u8>): u64 {
     let mut result = 0u64;

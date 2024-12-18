@@ -1,7 +1,11 @@
+// === Imports ===
+
 module redstone_price_adapter::main;
 
 use redstone_price_adapter::admin::AdminCap;
 use redstone_price_adapter::price_adapter;
+
+// === Public Functions ===
 
 public fun initialize_price_adapter(
     admin_cap: &AdminCap,

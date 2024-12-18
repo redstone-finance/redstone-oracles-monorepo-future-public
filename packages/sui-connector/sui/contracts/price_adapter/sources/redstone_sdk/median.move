@@ -1,7 +1,12 @@
+// === Imports ===
+
 module redstone_price_adapter::redstone_sdk_median;
 
-// Error codes
+// === Errors ===
+
 const E_MEDIAN_ERROR_EMPTY_VECTOR: u64 = 0;
+
+// === Public Functions ===
 
 public fun calculate_median(values: &mut vector<u256>): u256 {
     let len = vector::length(values);
@@ -71,6 +76,8 @@ public fun sort(values: &mut vector<u256>) {
         i = i + 1;
     };
 }
+
+// === Test Functions ===
 
 #[test]
 fun test_median() {

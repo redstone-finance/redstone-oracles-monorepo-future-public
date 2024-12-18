@@ -1,7 +1,13 @@
+// === Imports ===
+
 module redstone_price_adapter::redstone_sdk_crypto;
+
+// === Errors ===
 
 const E_INVALID_SIGNATURE: u64 = 0;
 const E_INVALID_RECOVERY_ID: u64 = 1;
+
+// === Public Functions ===
 
 /// `recover_address` doesn't check the signature validity, it just recovers the address.
 /// the signatures are validated at a later step by checking if the
@@ -35,9 +41,11 @@ public fun recover_address(msg: &vector<u8>, signature: &vector<u8>): vector<u8>
     );
     let public_key = sui::ecdsa_k1::decompress_pubkey(&compressed_public_key);
 
-    let key_hash = sui::hash::keccak256(&last_n_bytes(
-        &public_key, 
-        vector::length(&public_key) - 1),
+    let key_hash = sui::hash::keccak256(
+        &last_n_bytes(
+            &public_key,
+            vector::length(&public_key) - 1,
+        ),
     );
 
     let recovered_address = last_n_bytes(&key_hash, 20);
@@ -45,6 +53,7 @@ public fun recover_address(msg: &vector<u8>, signature: &vector<u8>): vector<u8>
     recovered_address
 }
 
+// === Private Functions ===
 
 fun last_n_bytes(input: &vector<u8>, n: u64): vector<u8> {
     let mut result = vector::empty<u8>();
@@ -64,13 +73,17 @@ fun last_n_bytes(input: &vector<u8>, n: u64): vector<u8> {
     result
 }
 
+// === Test Functions ===
+
 #[test_only]
 const E_SIGNER_NOT_FOUND: u64 = 2;
 
 #[test]
 fun test_recover_signature() {
-    let signature = x"3e46aabdce1293d4b96baa431708bfa0a5ac41ed4eed8401fb090bd987c161c009b3dd2131617e673b3619fd1c1a44c63e26efd2e3b838055c340d2531db3ffd1c";
-    let msg = x"42414c5f73415641585f4156415800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aca4bc340192a6d8f79000000020000001";
+    let signature =
+        x"3e46aabdce1293d4b96baa431708bfa0a5ac41ed4eed8401fb090bd987c161c009b3dd2131617e673b3619fd1c1a44c63e26efd2e3b838055c340d2531db3ffd1c";
+    let msg =
+        x"42414c5f73415641585f4156415800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000aca4bc340192a6d8f79000000020000001";
     let recovered_signer = recover_address(
         &msg,
         &signature,

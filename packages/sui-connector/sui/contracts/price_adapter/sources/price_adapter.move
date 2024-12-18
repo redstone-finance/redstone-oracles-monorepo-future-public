@@ -1,3 +1,5 @@
+// === Imports ===
+
 module redstone_price_adapter::price_adapter;
 
 use redstone_price_adapter::admin::AdminCap;
@@ -8,13 +10,19 @@ use sui::clock::Clock;
 use sui::event;
 use sui::table::{Self, Table};
 
+// === Errors ===
+
 const E_TIMESTAMP_STALE: u64 = 0;
 const E_INVALID_FEED_ID: u64 = 1;
 const E_INVALID_SIGNER_COUNT: u64 = 2;
 const E_INVALID_VERSION: u64 = 3;
 const E_DUPLICATE_SIGNER: u64 = 4;
 
+// === Constants ===
+
 const VERSION: u8 = 1;
+
+// === Structs ===
 
 public struct AssertVersion has drop {}
 
@@ -31,6 +39,61 @@ public struct PriceWrite has copy, drop {
     timestamp: u64,
     write_timestamp: u64,
 }
+
+// === Public-Mutative Functions ===
+
+public fun write_price(
+    price_adapter: &mut PriceAdapter,
+    feed_id: vector<u8>,
+    payload: vector<u8>,
+    clock: &Clock,
+): u256 {
+    let assert_version = assert_version(price_adapter);
+
+    write_price_checked(assert_version, price_adapter, feed_id, payload, clock)
+}
+
+// === Public-View Functions ===
+
+public fun price_and_timestamp(
+    price_adapter: &PriceAdapter,
+    feed_id: vector<u8>,
+): (u256, u64) {
+    price_adapter.price_data(feed_id).price_and_timestamp()
+}
+
+public fun price_data(price_adapter: &PriceAdapter, feed_id: vector<u8>): &PriceData {
+    if (!table::contains(&price_adapter.prices, feed_id)) {
+        abort E_INVALID_FEED_ID
+    };
+
+    table::borrow(&price_adapter.prices, feed_id)
+}
+
+// === Admin Functions ===
+
+public fun update_config(
+    admin_cap: &AdminCap,
+    priceAdapter: &mut PriceAdapter,
+    signers: Option<vector<vector<u8>>>,
+    signer_count_threshold: Option<u8>,
+    max_timestamp_delay_ms: Option<u64>,
+    max_timestamp_ahead_ms: Option<u64>,
+) {
+    let assert_version = assert_version(priceAdapter);
+
+    update_config_checked(
+        assert_version,
+        admin_cap,
+        priceAdapter,
+        signers,
+        signer_count_threshold,
+        max_timestamp_delay_ms,
+        max_timestamp_ahead_ms,
+    )
+}
+
+// === Public-Package Functions ===
 
 public(package) fun new(
     _: &AdminCap,
@@ -57,54 +120,7 @@ public(package) fun new(
     transfer::share_object(price_adapter);
 }
 
-public fun update_config(
-    admin_cap: &AdminCap,
-    priceAdapter: &mut PriceAdapter,
-    signers: Option<vector<vector<u8>>>,
-    signer_count_threshold: Option<u8>,
-    max_timestamp_delay_ms: Option<u64>,
-    max_timestamp_ahead_ms: Option<u64>,
-) {
-    let assert_version = assert_version(priceAdapter);
-
-    update_config_checked(
-        assert_version,
-        admin_cap,
-        priceAdapter,
-        signers,
-        signer_count_threshold,
-        max_timestamp_delay_ms,
-        max_timestamp_ahead_ms,
-    )
-}
-
-public fun read_price_and_timestamp(
-    price_adapter: &PriceAdapter,
-    feed_id: vector<u8>,
-): (u256, u64) {
-    let price_data = get_price_data(price_adapter, feed_id);
-
-    price_data::read_price_and_timestamp(price_data)
-}
-
-public fun get_price_data(price_adapter: &PriceAdapter, feed_id: vector<u8>): &PriceData {
-    if (!table::contains(&price_adapter.prices, feed_id)) {
-        abort E_INVALID_FEED_ID
-    };
-
-    table::borrow(&price_adapter.prices, feed_id)
-}
-
-public fun write_price(
-    price_adapter: &mut PriceAdapter,
-    feed_id: vector<u8>,
-    payload: vector<u8>,
-    clock: &Clock,
-): u256 {
-    let assert_version = assert_version(price_adapter);
-
-    write_price_checked(assert_version, price_adapter, feed_id, payload, clock)
-}
+// === Private Functions ===
 
 fun write_price_checked(
     assert_version: AssertVersion,
@@ -175,25 +191,25 @@ fun update_config_checked(
     let final_signers = if (option::is_some(&signers)) {
         option::extract(&mut signers)
     } else {
-        redstone_sdk_config::get_signers(&price_adapter.config)
+        redstone_sdk_config::signers(&price_adapter.config)
     };
 
     let final_signer_count_threshold = if (option::is_some(&signer_count_threshold)) {
         option::extract(&mut signer_count_threshold)
     } else {
-        redstone_sdk_config::get_signer_count_threshold(&price_adapter.config)
+        redstone_sdk_config::signer_count_threshold(&price_adapter.config)
     };
 
     let final_max_timestamp_delay_ms = if (option::is_some(&max_timestamp_delay_ms)) {
         option::extract(&mut max_timestamp_delay_ms)
     } else {
-        redstone_sdk_config::get_max_timestamp_delay_ms(&price_adapter.config)
+        redstone_sdk_config::max_timestamp_delay_ms(&price_adapter.config)
     };
 
     let final_max_timestamp_ahead_ms = if (option::is_some(&max_timestamp_ahead_ms)) {
         option::extract(&mut max_timestamp_ahead_ms)
     } else {
-        redstone_sdk_config::get_max_timestamp_ahead_ms(&price_adapter.config)
+        redstone_sdk_config::max_timestamp_ahead_ms(&price_adapter.config)
     };
 
     assert!(

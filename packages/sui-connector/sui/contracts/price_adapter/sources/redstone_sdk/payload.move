@@ -1,3 +1,5 @@
+// === Imports ===
+
 module redstone_price_adapter::redstone_sdk_payload;
 
 use redstone_price_adapter::redstone_sdk_config::Config;
@@ -6,16 +8,22 @@ use redstone_price_adapter::redstone_sdk_crypto::recover_address;
 use redstone_price_adapter::redstone_sdk_data_package::{
     DataPackage,
     DataPoint,
-    get_value,
-    get_feed_id,
-    get_data_points,
+    value,
+    feed_id,
+    data_points,
     new_data_point,
     new_data_package,
-    get_timestamp
+    timestamp
 };
 use redstone_price_adapter::redstone_sdk_median::calculate_median;
 use redstone_price_adapter::redstone_sdk_validate::{verify_data_packages, verify_redstone_marker};
 use sui::clock::Clock;
+
+// === Errors ===
+
+const E_DATA_INCONSISTENT: u64 = 0;
+
+// === Constants ===
 
 const UNSIGNED_METADATA_BYTE_SIZE_BS: u64 = 3;
 const DATA_PACKAGES_COUNT_BS: u64 = 2;
@@ -26,19 +34,13 @@ const DATA_FEED_ID_BS: u64 = 32;
 const TIMESTAMP_BS: u64 = 6;
 const REDSTONE_MARKER_BS: u64 = 9;
 
-const E_DATA_INCONSISTENT: u64 = 0;
+// === Structs ===
 
 public struct Payload has copy, drop {
     data_packages: vector<DataPackage>,
 }
 
-public fun get_payload_package_timestamp(payload: &Payload): u64 {
-    get_timestamp(&payload.data_packages[0])
-}
-
-public fun get_data_packages(payload: &Payload): vector<DataPackage> {
-    payload.data_packages
-}
+// === Public Functions ===
 
 public fun process_payload(
     config: &Config,
@@ -48,7 +50,7 @@ public fun process_payload(
 ): (u256, u64) {
     let parsed_payload = parse_raw_payload(payload);
     let data_packages = filter_packages_by_feed_id(
-        &get_data_packages(&parsed_payload),
+        &data_packages(&parsed_payload),
         &feed_id,
     );
 
@@ -62,10 +64,41 @@ public fun process_payload(
     let aggregated_value = calculate_median(
         &mut values.map!(|bytes| from_bytes_to_u256(&bytes)),
     );
-    let new_package_timestamp = get_payload_package_timestamp(&parsed_payload);
+    let new_package_timestamp = package_timestamp(&parsed_payload);
 
     (aggregated_value, new_package_timestamp)
 }
+
+// === Public-View Functions ===
+public fun package_timestamp(payload: &Payload): u64 {
+    timestamp(&payload.data_packages[0])
+}
+
+public fun extract_values_by_feed_id(payload: &Payload, feed_id: &vector<u8>): vector<vector<u8>> {
+    let mut values = vector::empty<vector<u8>>();
+    let mut i = 0;
+    let data_packages = data_packages(payload);
+    while (i < vector::length(&data_packages)) {
+        let package = vector::borrow(&data_packages, i);
+        let data_points = data_points(package);
+        let mut j = 0;
+        while (j < vector::length(&data_points)) {
+            let data_point = vector::borrow(&data_points, j);
+            if (feed_id(data_point) == feed_id) {
+                vector::push_back(&mut values, value(data_point));
+            };
+            j = j + 1;
+        };
+        i = i + 1;
+    };
+    values
+}
+
+public fun data_packages(payload: &Payload): vector<DataPackage> {
+    payload.data_packages
+}
+
+// === Private Functions ===
 
 fun parse_raw_payload(mut payload: vector<u8>): Payload {
     verify_redstone_marker(&payload);
@@ -177,14 +210,14 @@ fun filter_packages_by_feed_id(
     let mut i = 0;
     while (i < vector::length(packages)) {
         let package = vector::borrow(packages, i);
-        let data_points = get_data_points(package);
+        let data_points = data_points(package);
         let mut j = 0;
         let mut should_include = false;
 
         // Check if any data point in the package contains the feed_id
         while (j < vector::length(&data_points)) {
             let data_point = vector::borrow(&data_points, j);
-            if (get_feed_id(data_point) == feed_id) {
+            if (feed_id(data_point) == feed_id) {
                 should_include = true;
                 break
             };
@@ -199,29 +232,6 @@ fun filter_packages_by_feed_id(
     };
 
     filtered_packages
-}
-
-public fun extract_values_by_feed_id(
-    payload: &Payload,
-    feed_id: &vector<u8>,
-): vector<vector<u8>> {
-    let mut values = vector::empty<vector<u8>>();
-    let mut i = 0;
-    let data_packages = get_data_packages(payload);
-    while (i < vector::length(&data_packages)) {
-        let package = vector::borrow(&data_packages, i);
-        let data_points = get_data_points(package);
-        let mut j = 0;
-        while (j < vector::length(&data_points)) {
-            let data_point = vector::borrow(&data_points, j);
-            if (get_feed_id(data_point) == feed_id) {
-                vector::push_back(&mut values, get_value(data_point));
-            };
-            j = j + 1;
-        };
-        i = i + 1;
-    };
-    values
 }
 
 fun trim_end(v: &mut vector<u8>, len: u64): vector<u8> {
