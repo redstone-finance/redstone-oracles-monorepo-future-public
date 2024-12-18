@@ -59,16 +59,15 @@ public fun calculate_median(values: &mut vector<u256>): u256 {
 
 /// `sort` uses insertion sort O(n^2), O(1)
 public fun sort(values: &mut vector<u256>) {
-    let len = vector::length(values);
+    let len = values.length();
     let mut i = 1;
     while (i < len) {
-        let key = *vector::borrow(values, i);
+        let key = values[i];
         let mut j = i;
-        while (j > 0 && *vector::borrow(values, j - 1) > key) {
-            vector::swap(values, j, j-1);
+        while (j > 0 && values[j - 1] > key) {
+            vector::swap(values, j - 1, j);
             j = j - 1;
         };
-        *vector::borrow_mut(values, j) = key;
         i = i + 1;
     };
 }
@@ -145,15 +144,26 @@ fun test_median_basic() {
 
 #[test]
 fun test_sort() {
-    let mut items: vector<u256> = vector[5123, 123, 55, 12, 518, 123, 123, 90, 123, 123];
-
-    let expected = vector[12, 55, 90, 123, 123, 123, 123, 123, 518, 5123];
-
-    sort(&mut items);
+    let mut items: vector<vector<u256>> = vector[
+        vector[5123, 123, 55, 12, 518, 123, 123, 90, 123, 123],
+        vector[1, 2, 3, 4, 5, 6, 7],
+        vector[7, 6, 5, 4, 3, 2, 1],
+        vector[7, 1, 2, 3, 4, 5, 6],
+        vector[7, 6, 2, 3, 4, 5, 1],
+    ];
+    let expected = vector[
+        vector[12, 55, 90, 123, 123, 123, 123, 123, 518, 5123],
+        vector[1, 2, 3, 4, 5, 6, 7],
+        vector[1, 2, 3, 4, 5, 6, 7],
+        vector[1, 2, 3, 4, 5, 6, 7],
+        vector[1, 2, 3, 4, 5, 6, 7],
+    ];
+    assert!(items.length() == expected.length());
 
     let mut i = 0;
-    while (i < vector::length(&items)) {
-        assert!(*vector::borrow(&items, i) == *vector::borrow(&expected, i));
+    while (i < expected.length()) {
+        sort(&mut items[i]);
+        assert!(items[i] == expected[i], i);
         i = i + 1;
-    };
+    }
 }
