@@ -50,6 +50,9 @@
         "deviationPercentage": 1,
         "timeSinceLastUpdateInMilliseconds": 86400000
       }
+    },
+    "SolvBTC.BBN/BTC": {
+      "priceFeedAddress": "0xBf3bA2b090188B40eF83145Be0e9F30C6ca63689"
     }
   }
 }
