@@ -3004,6 +3004,11 @@
       "denomination": "TON",
       "rateFeed": true
     },
+    "stS_FUNDAMENTAL": {
+      "source": ["sonic-evm-fetcher-beets"],
+      "denomination": "S",
+      "rateFeed": true
+    },
     "BAT": {
       "denomination": "USD",
       "rateFeed": false
