@@ -7692,6 +7692,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-clients-tvs-tvl@workspace:packages/lambda/lambda-clients-tvs-tvl":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-clients-tvs-tvl@workspace:packages/lambda/lambda-clients-tvs-tvl"
+  dependencies:
+    "@aws-sdk/client-s3": "npm:^3.696.0"
+    "@redstone-finance/utils": "npm:0.7.3"
+    dotenv: "npm:^16.0.3"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda/lambda-deviation-monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-deviation-monitoring@workspace:packages/lambda/lambda-deviation-monitoring"
