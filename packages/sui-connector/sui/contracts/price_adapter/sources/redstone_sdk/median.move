@@ -100,7 +100,7 @@ fun test_median_with_max_values() {
     let max_value = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
     let mut i = 0;
     while (i < 100) {
-        vector::push_back(&mut values, max_value);
+        values.push_back(max_value);
         i = i + 1;
     };
 
@@ -114,10 +114,10 @@ fun test_median_avg() {
     let max_value = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
     let diff = 10u256;
 
-    vector::push_back(&mut values, max_value);
-    vector::push_back(&mut values, max_value);
-    vector::push_back(&mut values, max_value - diff);
-    vector::push_back(&mut values, max_value - diff);
+    values.push_back(max_value);
+    values.push_back(max_value);
+    values.push_back(max_value - diff);
+    values.push_back(max_value - diff);
 
     let result = calculate_median(&mut values);
     assert!(result == max_value - (diff / 2), 0);

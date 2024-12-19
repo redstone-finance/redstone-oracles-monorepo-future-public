@@ -53,6 +53,6 @@ published-version = "1"
 
 [env.localnet]
 chain-id = "17df8def"
-original-published-id = "0x63ab7ccbb21cd4f441108ed502a3a33d32acdb5831d901099eaf19d5001c234b"
-latest-published-id = "0x63ab7ccbb21cd4f441108ed502a3a33d32acdb5831d901099eaf19d5001c234b"
+original-published-id = "0xb92230e9fd494ef564883f217363c36d298101102b7455add986a9dfd982e309"
+latest-published-id = "0xb92230e9fd494ef564883f217363c36d298101102b7455add986a9dfd982e309"
 published-version = "1"

@@ -45,7 +45,7 @@ public fun recover_address(msg: &vector<u8>, signature: &vector<u8>): vector<u8>
     let key_hash = sui::hash::keccak256(
         &last_n_bytes(
             &public_key,
-            vector::length(&public_key) - 1,
+            public_key.length() - 1,
         ),
     );
 
@@ -57,7 +57,7 @@ public fun recover_address(msg: &vector<u8>, signature: &vector<u8>): vector<u8>
 // === Private Functions ===
 
 fun last_n_bytes(input: &vector<u8>, n: u64): vector<u8> {
-    let len = vector::length(input);
+    let len = input.length();
     assert!(n <= len, E_INVALID_VECTOR_LEN);
 
     let start_idx = len - n;

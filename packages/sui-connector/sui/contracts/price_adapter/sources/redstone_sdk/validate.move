@@ -9,11 +9,7 @@ use redstone_price_adapter::redstone_sdk_config::{
     max_timestamp_ahead_ms,
     max_timestamp_delay_ms
 };
-use redstone_price_adapter::redstone_sdk_data_package::{
-    DataPackage,
-    signer_address,
-    timestamp,
-};
+use redstone_price_adapter::redstone_sdk_data_package::{DataPackage, signer_address, timestamp};
 use sui::vec_set;
 
 // === Errors ===
@@ -67,7 +63,7 @@ public fun verify_redstone_marker(bytes: &vector<u8>) {
 // === Private Functions ===
 
 fun verify_timestamps_are_the_same(data_packages: &vector<DataPackage>) {
-    assert!(vector::length(data_packages) > 0, E_EMPTY_DATA_PACKAGES);
+    assert!(!data_packages.is_empty(), E_EMPTY_DATA_PACKAGES);
 
     let timestamp = data_packages[0].timestamp();
 

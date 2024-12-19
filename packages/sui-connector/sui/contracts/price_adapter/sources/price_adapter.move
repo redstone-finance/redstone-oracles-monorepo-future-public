@@ -9,6 +9,7 @@ use redstone_price_adapter::redstone_sdk_payload::process_payload;
 use sui::clock::Clock;
 use sui::event;
 use sui::table::{Self, Table};
+use sui::vec_set;
 
 // === Errors ===
 
@@ -16,7 +17,6 @@ const E_TIMESTAMP_STALE: u64 = 0;
 const E_INVALID_FEED_ID: u64 = 1;
 const E_INVALID_SIGNER_COUNT: u64 = 2;
 const E_INVALID_VERSION: u64 = 3;
-const E_DUPLICATE_SIGNER: u64 = 4;
 
 // === Constants ===
 
@@ -60,11 +60,11 @@ public fun price_and_timestamp(price_adapter: &PriceAdapter, feed_id: vector<u8>
 }
 
 public fun price_data(price_adapter: &PriceAdapter, feed_id: vector<u8>): &PriceData {
-    if (!table::contains(&price_adapter.prices, feed_id)) {
+    if (!price_adapter.prices.contains(feed_id)) {
         abort E_INVALID_FEED_ID
     };
 
-    table::borrow(&price_adapter.prices, feed_id)
+    &price_adapter.prices[feed_id]
 }
 
 // === Admin Functions ===
@@ -158,16 +158,12 @@ fun overwrite_price(
     timestamp: u64,
     write_timestamp: u64,
 ) {
-    if (!table::contains(&price_adapter.prices, feed_id)) {
+    if (!price_adapter.prices.contains(feed_id)) {
         let new_price_data = price_data::default(feed_id);
-        table::add(
-            &mut price_adapter.prices,
-            feed_id,
-            new_price_data,
-        );
+        price_adapter.prices.add(feed_id, new_price_data);
     };
 
-    let price_data = table::borrow_mut(&mut price_adapter.prices, feed_id);
+    let price_data = &mut price_adapter.prices[feed_id];
     assert!(timestamp > price_data.timestamp(), E_TIMESTAMP_STALE);
 
     price_data.overwrite(feed_id, aggregated_value, timestamp, write_timestamp);
@@ -215,24 +211,12 @@ fun update_config_checked(
     };
 
     assert!(
-        vector::length(&final_signers) >= (final_signer_count_threshold as u64),
+        final_signers.length() >= (final_signer_count_threshold as u64),
         E_INVALID_SIGNER_COUNT,
     );
 
-    // Check for unique signers
-    let len = vector::length(&final_signers);
-    let mut i = 0;
-    while (i < len) {
-        let mut j = i + 1;
-        while (j < len) {
-            assert!(
-                vector::borrow(&final_signers, i) != vector::borrow(&final_signers, j),
-                E_DUPLICATE_SIGNER,
-            );
-            j = j + 1;
-        };
-        i = i + 1;
-    };
+    // Check for unique signers, vec_set::from_keys fails if final_signers are not unique.
+    let final_signers = vec_set::from_keys(final_signers).into_keys();
 
     // Create new config with all final values
     price_adapter
