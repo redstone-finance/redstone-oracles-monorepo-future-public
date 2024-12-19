@@ -826,7 +826,7 @@
       "isAuctionModel": false,
       "fallbackToEthMaxPriorityFeePerGas": true,
       "twoDimensionalFees": false,
-      "isMainnet": false
+      "isMainnet": true
     }
   },
   "temporaryConfigUpdates": {

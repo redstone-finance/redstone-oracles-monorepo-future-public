@@ -42,6 +42,9 @@ const config: HardhatUserConfig = {
     cornTestnet: {
       url: "https://testnet-rpc.usecorn.com",
     },
+    sonic: {
+      url: "https://rpc.soniclabs.com",
+    },
   },
 };
 

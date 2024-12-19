@@ -1,0 +1,30 @@
+{
+  "chain": {
+    "name": "sonic",
+    "id": 146
+  },
+  "adapterContract": "0x368eE51E47a594fe1E9908b48228748a30BC7ca4",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {
+    "STONE/ETH": {
+      "priceFeedAddress": "0xc555c100DB24dF36D406243642C169CC5A937f09"
+    },
+    "ETH": {
+      "priceFeedAddress": "0xf0DEbDAE819b354D076b0D162e399BE013A856d3"
+    },
+    "SolvBTC": {
+      "priceFeedAddress": "0x4aF6b78d92432D32E3a635E824d3A541866f7a78"
+    },
+    "SolvBTC.BBN": {
+      "priceFeedAddress": "0x26FB59e5562405F42f55661f790fA1Bd2F410A3d"
+    },
+    "stS_FUNDAMENTAL": {
+      "priceFeedAddress": "0x65d0F14f7809CdC4f90c3978c753C4671b6B815b"
+    }
+  }
+}
