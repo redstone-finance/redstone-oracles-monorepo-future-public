@@ -13,10 +13,10 @@ use sui::vec_set;
 
 // === Errors ===
 
-const E_TIMESTAMP_STALE: u64 = 0;
-const E_INVALID_FEED_ID: u64 = 1;
-const E_INVALID_SIGNER_COUNT: u64 = 2;
-const E_INVALID_VERSION: u64 = 3;
+const E_INVALID_VERSION: u64 = 0;
+const E_TIMESTAMP_STALE: u64 = 1;
+const E_INVALID_FEED_ID: u64 = 2;
+const E_INVALID_SIGNER_COUNT: u64 = 3;
 
 // === Constants ===
 
@@ -57,6 +57,14 @@ public fun write_price(
 
 public fun price_and_timestamp(price_adapter: &PriceAdapter, feed_id: vector<u8>): (u256, u64) {
     price_adapter.price_data(feed_id).price_and_timestamp()
+}
+
+public fun price(price_adapter: &PriceAdapter, feed_id: vector<u8>): u256 {
+    price_adapter.price_data(feed_id).price()
+}
+
+public fun timestamp(price_adapter: &PriceAdapter, feed_id: vector<u8>): u64 {
+    price_adapter.price_data(feed_id).timestamp()
 }
 
 public fun price_data(price_adapter: &PriceAdapter, feed_id: vector<u8>): &PriceData {
