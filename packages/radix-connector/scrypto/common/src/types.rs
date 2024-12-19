@@ -1,7 +1,7 @@
-#[cfg(feature = "real_network")]
+#[cfg(any(feature = "real_network_test", feature = "real_network"))]
 pub use real_network::*;
 
-#[cfg(not(feature = "real_network"))]
+#[cfg(not(any(feature = "real_network_test", feature = "real_network")))]
 pub use not_real_network::*;
 
 use redstone::{
@@ -14,7 +14,7 @@ use redstone::{
 
 pub type U256Digits = [u64; 4];
 
-#[cfg(feature = "real_network")]
+#[cfg(any(feature = "real_network_test", feature = "real_network"))]
 pub mod real_network {
 
     pub type Payload = Vec<u8>;
@@ -37,7 +37,7 @@ pub mod real_network {
     }
 }
 
-#[cfg(not(feature = "real_network"))]
+#[cfg(not(any(feature = "real_network_test", feature = "real_network")))]
 pub mod not_real_network {
     use redstone::helpers::hex::{hex_to_bytes, make_feed_id};
 

@@ -44,6 +44,32 @@ describe("RadixParser tests", () => {
     ]);
   });
 
+  it("should decode getPriceData SBOR response", async () => {
+    const result = await RadixParser.decodeSborHex(
+      "5c20210303200a040096ad80590000000000000000000000000000000000000000000000000000000a00db55da930100000a100256da9301000003200a046484b3a5740900000000000000000000000000000000000000000000000000000a00db55da930100000a100256da9301000003200a04c6f72b00000000000000000000000000000000000000000000000000000000000a00db55da930100000a100256da93010000"
+    );
+    const prices = [384410949120n, 10396600861796n, 2881478n];
+    const timestamp = 1734534880000n;
+    const blockTimestamp = 1734534890000n;
+
+    const priceData = expectArray<Value>(result, "Tuple");
+    prices.forEach((price, index) =>
+      expectTupleOfBigIntAndTwoInts(
+        priceData[index],
+        price,
+        timestamp,
+        blockTimestamp
+      )
+    );
+
+    const priceDataObj = RadixParser.extractValue(result);
+    expect(priceDataObj).toStrictEqual(
+      prices.map(BigNumber.from).map((price) => {
+        return [price, timestamp, blockTimestamp];
+      })
+    );
+  });
+
   it("should decode instantiate SBOR response", async () => {
     const result = await RadixParser.decodeSborHex(
       "5c80c0eb30370cafa2b014b880b80e602470b48ec19d01ee74ac5c603f4f0347"
@@ -127,6 +153,21 @@ function expectTupleOfBigIntAndArray<ArrayElementType extends { kind: string }>(
   expectValue(fields[0], "U64", bigintValue);
 
   return expectArray<ArrayElementType>(fields[1], type);
+}
+
+function expectTupleOfBigIntAndTwoInts(
+  obj: Value,
+  bigintValue: bigint,
+  v1: bigint,
+  v2: bigint
+) {
+  expect(obj.kind).toBe("Tuple");
+  const fields = (obj as { fields: Value[] }).fields;
+
+  expect(fields.length).toBe(3);
+  expectU256(fields[0], bigintValue);
+  expectValue(fields[1], "U64", v1);
+  expectValue(fields[2], "U64", v2);
 }
 
 function expectValue<T>(value: Value, type: string, expectedValue: T) {

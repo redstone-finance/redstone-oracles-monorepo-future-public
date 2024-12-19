@@ -1,10 +1,12 @@
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { BigNumber, BigNumberish } from "ethers";
+import { ContractData } from "../ContractData";
 import { ContractParamsProvider } from "../ContractParamsProvider";
 import { IContractConnector } from "../IContractConnector";
 import { IPriceFeedContractAdapter } from "./IPriceFeedContractAdapter";
 import {
   IExtendedPricesContractAdapter,
+  IMultiFeedPricesContractAdapter,
   IPricesContractAdapter,
 } from "./IPricesContractAdapter";
 
@@ -49,18 +51,30 @@ export async function sampleRun(
     `Current block number: ${await pricesConnector.getBlockNumber()}`
   );
 
-  logHeader("Reading values from component state...");
+  logHeader("Reading values from contract state...");
   const values = await pricesAdapter.readPricesFromContract(paramsProvider);
 
   console.log(`Values read from contract: ${values.map(convertValue)}`);
-  const readTimestamp = await pricesAdapter.readTimestampFromContract();
+  const readTimestamp = await pricesAdapter.readTimestampFromContract(
+    paramsProvider.getDataFeedIds()[0]
+  );
   console.log(
     `Timestamp read from contract: ${readTimestamp} (${describeTimestamp(readTimestamp)})`
   );
 
+  if (isMultiFeedContractAdapter(pricesAdapter)) {
+    console.log(
+      `Price data: \n${describeContractData(
+        await pricesAdapter.readContractData(paramsProvider.getDataFeedIds())
+      )}`
+    );
+  }
+
   if (isExtendedPricesContractAdapter(pricesAdapter)) {
     const lastUpdateBlockTimestamp =
-      await pricesAdapter.readLatestUpdateBlockTimestamp();
+      await pricesAdapter.readLatestUpdateBlockTimestamp(
+        paramsProvider.getDataFeedIds()[0]
+      );
     console.log(
       `Last update block timestamp: ${lastUpdateBlockTimestamp} (${describeTimestamp(lastUpdateBlockTimestamp!)})`
     );
@@ -74,7 +88,7 @@ export async function sampleRun(
     return logHeader("FINISHING");
   }
 
-  logHeader("Reading data from PriceFeed");
+  logHeader("Reading data from ETH PriceFeed");
 
   const feedAdapter = await ethFeedConnector.getAdapter();
   const { value, timestamp } = await feedAdapter.getPriceAndTimestamp();
@@ -94,6 +108,15 @@ export function describeTimestamp(timestamp: number) {
   return `${(Date.now() - timestamp) / 1000} sec. ago`;
 }
 
+export function describeContractData(data: ContractData) {
+  return Object.entries(data)
+    .map(
+      ([key, value]) =>
+        `${key}: ${convertValue(value.lastValue)} of ${describeTimestamp(value.lastDataPackageTimestampMS)} / block: ${describeTimestamp(value.lastBlockTimestampMS)}`
+    )
+    .join("\n");
+}
+
 export function isExtendedPricesContractAdapter(
   priceAdapter: unknown
 ): priceAdapter is IExtendedPricesContractAdapter {
@@ -103,4 +126,12 @@ export function isExtendedPricesContractAdapter(
     typeof adapter.getUniqueSignerThreshold === "function" &&
     typeof adapter.readLatestUpdateBlockTimestamp === "function"
   );
+}
+
+export function isMultiFeedContractAdapter(
+  priceAdapter: unknown
+): priceAdapter is IMultiFeedPricesContractAdapter {
+  const adapter = priceAdapter as IMultiFeedPricesContractAdapter;
+
+  return typeof adapter.readContractData === "function";
 }

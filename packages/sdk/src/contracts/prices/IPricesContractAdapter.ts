@@ -1,4 +1,5 @@
 import { BigNumberish } from "ethers";
+import { ContractData } from "../ContractData";
 import { ContractParamsProvider } from "../ContractParamsProvider";
 
 export interface IPricesContractAdapter {
@@ -22,7 +23,10 @@ export interface IPricesContractAdapter {
 
   // Reads the timestamp of the lastly written values to the contract's storage.
   // It doesn't modify the contract's storage
-  readTimestampFromContract(): Promise<number>;
+  readTimestampFromContract(
+    feedId?: string,
+    blockNumber?: number
+  ): Promise<number>;
 }
 
 export interface IExtendedPricesContractAdapter extends IPricesContractAdapter {
@@ -31,6 +35,15 @@ export interface IExtendedPricesContractAdapter extends IPricesContractAdapter {
 
   // Returns the block timestamp of the lastly written values to the contract's storage.
   readLatestUpdateBlockTimestamp(
+    feedId?: string,
     blockNumber?: number
   ): Promise<number | undefined>;
+}
+
+export interface IMultiFeedPricesContractAdapter
+  extends IExtendedPricesContractAdapter {
+  readContractData(
+    feedIds: string[],
+    blockNumber?: number
+  ): Promise<ContractData>;
 }

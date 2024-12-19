@@ -1,16 +1,18 @@
 import {
   ContractParamsProvider,
   convertValue,
+  describeContractData,
   describeTimestamp,
   sampleRun,
 } from "@redstone-finance/sdk";
-import { PriceAdapterRadixContractConnector, RadixClient } from "../src";
+import { RadixClient } from "../src";
+import { MultiFeedPriceAdapterRadixContractConnector } from "../src/contracts/multi_feed_price_adapter/MultiFeedPriceAdapterRadixContractConnector";
 import { PriceFeedRadixContractConnector } from "../src/contracts/price_feed/PriceFeedRadixContractConnector";
 import {
   DATA_SERVICE_ID,
   loadAddress,
+  MULTI_FEED_PRICE_ADAPTER_NAME,
   NETWORK,
-  PRICE_ADAPTER_NAME,
   PRIVATE_KEY,
   PROXY_NAME,
 } from "./constants";
@@ -24,9 +26,9 @@ async function main() {
 
   const client = new RadixClient(PRIVATE_KEY, NETWORK.id);
 
-  const connector = new PriceAdapterRadixContractConnector(
+  const connector = new MultiFeedPriceAdapterRadixContractConnector(
     client,
-    await loadAddress(`component`, PRICE_ADAPTER_NAME)
+    await loadAddress(`component`, MULTI_FEED_PRICE_ADAPTER_NAME)
   );
   const priceAdapter = await connector.getAdapter();
 
@@ -38,16 +40,23 @@ async function main() {
   await sampleRun(paramsProvider, connector, priceFeed);
 
   priceAdapter.readMode = "CallReadMethod";
-  const timestampRead = await priceAdapter.readTimestampFromContract();
+  const timestampRead = await priceAdapter.readTimestampFromContract(
+    paramsProvider.getDataFeedIds()[0]
+  );
   console.log(
     `Timestamp read by using method read_timestamp: ${timestampRead} (${describeTimestamp(timestampRead)})`
   );
   console.log(
-    `Values read by using method read_prices ${(
+    `Values read by using method read_prices: \n${(
       await priceAdapter.readPricesFromContract(paramsProvider)
     )
       .map(convertValue)
       .toString()}`
+  );
+  console.log(
+    `Values read by using method read_price_data ${describeContractData(
+      await priceAdapter.readContractData(paramsProvider.getDataFeedIds())
+    )}`
   );
 }
 

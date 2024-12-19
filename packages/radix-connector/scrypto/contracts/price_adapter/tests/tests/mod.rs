@@ -6,5 +6,4 @@ pub(crate) type PriceAdapterEnv = crate::env::sim_env::PriceAdapterSimEnv;
 
 mod get_prices_tests;
 mod instantiate_tests;
-mod sample_test_helpers;
 mod write_prices_tests;

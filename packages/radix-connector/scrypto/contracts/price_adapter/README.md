@@ -43,14 +43,14 @@ the [RedStone docs](https://docs.redstone.finance/docs/introduction)
 📚 See RedStone data-packing: https://docs.redstone.finance/img/payload.png and the [Sample payload](#-sample-payload)
 section below.
 
-📚 See also [types.rs](src/types.rs) to check which types are changed for the `resim` environment.
+📚 See also [types.rs](../../common/src/types.rs) to check which types are changed for the `resim` environment.
 
 ## 📄 Blueprints
 
 ### PriceAdapter
 
-- Sample oracle contract that consumes _RedStone Oracles_ data [prices.sw](src/price_adapter.rs) written in scrypto
-  version `1.3.0`.
+- Sample oracle contract that consumes _RedStone Oracles_ data
+  [price_adapter.rs](src/price_adapter.rs) written in scrypto version `1.3.0`.
 
 #### ⨐ instantiate
 
@@ -68,9 +68,9 @@ There is also needed `signer_count_threshold` to be passed.
 #### ⨗ get_prices
 
 ```rust
-pub fn get_prices(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<Decimal>)
+pub fn get_prices(&self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<Decimal>)
 
-pub fn get_prices_raw(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<U256Digits>)
+pub fn get_prices_raw(&self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<U256Digits>)
 ```
 
 The function processes on-chain the `payload` passed as an argument
@@ -98,9 +98,9 @@ That function modifies the contract's storage.
 #### ⨗ read_prices
 
 ```rust
-pub fn read_prices(&mut self, feed_ids: FeedIds) -> Vec<Decimal>
+pub fn read_prices(&self, feed_ids: FeedIds) -> Vec<Decimal>
 
-pub fn read_prices_raw(&mut self, feed_ids: FeedIds) -> Vec<U256Digits>
+pub fn read_prices_raw(&self, feed_ids: FeedIds) -> Vec<U256Digits>
 ```
 
 The function reads the values persisting in the contract's storage and returns an array corresponding to the
@@ -113,7 +113,7 @@ That function doesn't modify the contract's storage.
 #### ∮ read_timestamp
 
 ```rust
-pub fn read_timestamp(&mut self)
+pub fn read_timestamp(&self)
 ```
 
 Returns the timestamp of data last saved/written to the contract's storage by using `write_prices` function.

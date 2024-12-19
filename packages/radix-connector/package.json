@@ -17,14 +17,17 @@
     "test": "yarn global:jest",
     "test-e2e": "yarn global:jest e2e.spec.ts",
     "coverage": "yarn global:jest:cov --coveragePathIgnorePatterns=\"src/index.ts\" --coveragePathIgnorePatterns=\"src/radix/parser/generated/converter.ts\"",
-    "sample-deploy_adapter": "make CONTRACT_NAME=price_adapter -C scrypto build && CONTRACT_NAME=price_adapter yarn global:ts-node scripts/sample_deploy.ts",
-    "sample-deploy-feed": "make CONTRACT_NAME=price_feed -C scrypto build && CONTRACT_NAME=price_feed yarn global:ts-node scripts/sample_deploy.ts",
-    "sample-deploy-proxy": "make CONTRACT_NAME=proxy -C scrypto build && CONTRACT_NAME=proxy yarn global:ts-node scripts/sample_deploy.ts",
-    "sample-deploy-badge_creator": "make CONTRACT_NAME=badge_creator -C scrypto build && CONTRACT_NAME=badge_creator yarn global:ts-node scripts/sample_deploy.ts",
-    "sample-instantiate_adapter": "yarn global:ts-node scripts/sample_instantiate.ts",
-    "sample-instantiate-feed": "yarn global:ts-node scripts/sample_instantiate_feed.ts",
+    "sample-deploy_price_adapter": "make -C scrypto build-price_adapter && CONTRACT_NAME=price_adapter yarn global:ts-node scripts/sample_deploy.ts",
+    "sample-deploy_multi_feed_price_adapter": "make -C scrypto build-multi_feed_price_adapter && CONTRACT_NAME=multi_feed_price_adapter yarn global:ts-node scripts/sample_deploy.ts",
+    "sample-deploy-price_feed": "make -C scrypto build-price_feed && CONTRACT_NAME=price_feed yarn global:ts-node scripts/sample_deploy.ts",
+    "sample-deploy-proxy": "make -C scrypto build-proxy && CONTRACT_NAME=proxy yarn global:ts-node scripts/sample_deploy.ts",
+    "sample-deploy-badge_creator": "make -C scrypto build-badge_creator  && CONTRACT_NAME=badge_creator yarn global:ts-node scripts/sample_deploy.ts",
+    "sample-instantiate-price_adapter": "yarn global:ts-node scripts/sample_instantiate_price_adapter.ts",
+    "sample-instantiate-multi_feed_price_adapter": "yarn global:ts-node scripts/sample_instantiate_multi_feed_price_adapter.ts",
+    "sample-instantiate-price_feed": "yarn global:ts-node scripts/sample_instantiate_price_feed.ts",
     "sample-instantiate-proxy": "yarn global:ts-node scripts/sample_instantiate_proxy.ts",
     "sample-create_badges": "yarn global:ts-node scripts/sample_create_badges.ts",
+    "sample-change_proxy_address": "yarn global:ts-node scripts/sample_change_proxy_address.ts",
     "sample-run": "yarn global:ts-node scripts/sample_run.ts"
   },
   "dependencies": {
@@ -32,7 +35,8 @@
     "@radixdlt/radix-engine-toolkit": "^1.0.5",
     "@redstone-finance/sdk": "0.7.3",
     "axios": "^1.7.7",
-    "ethers": "^5.7.2"
+    "ethers": "^5.7.2",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@atlantis-l/radix-tool": "^0.8.9",

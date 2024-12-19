@@ -2,8 +2,8 @@ import { RadixClient } from "../src";
 import { PriceFeedRadixContractDeployer } from "../src/contracts/price_feed/PriceFeedRadixContractDeployer";
 import {
   loadAddress,
+  MULTI_FEED_PRICE_ADAPTER_NAME,
   NETWORK,
-  PRICE_ADAPTER_NAME,
   PRICE_FEED_NAME,
   PRIVATE_KEY,
   saveAddress,
@@ -14,7 +14,7 @@ async function instantiate() {
   const connector = new PriceFeedRadixContractDeployer(
     client,
     await loadAddress(`package`, PRICE_FEED_NAME),
-    await loadAddress(`component`, PRICE_ADAPTER_NAME),
+    await loadAddress(`component`, MULTI_FEED_PRICE_ADAPTER_NAME),
     "ETH"
   );
 

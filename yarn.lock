@@ -8281,6 +8281,7 @@ __metadata:
     "@redstone-finance/sdk": "npm:0.7.3"
     axios: "npm:^1.7.7"
     ethers: "npm:^5.7.2"
+    lodash: "npm:^4.17.21"
     node-jq: "npm:^4.2.2"
     redstone-api: "npm:^0.4.12"
     zod: "npm:^3.22.4"

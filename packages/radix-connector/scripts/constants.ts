@@ -13,6 +13,7 @@ export const NETWORK = {
 };
 
 export const DATA_SERVICE_ID = "redstone-primary-prod";
+export const MULTI_FEED_PRICE_ADAPTER_NAME = "multi_feed_price_adapter";
 export const PRICE_ADAPTER_NAME = "price_adapter";
 export const PRICE_FEED_NAME = "price_feed";
 export const PROXY_NAME = "proxy";
@@ -52,7 +53,8 @@ export async function saveAddress(
   await fs.promises.writeFile(
     getContractFilename(
       formatAddressFilename(clientName, entityType),
-      contractName
+      contractName,
+      "deployed"
     ),
     address
   );
@@ -75,5 +77,5 @@ function formatAddressFilename(
   clientName: string | undefined,
   entityType: "component" | "package"
 ) {
-  return `${clientName ? `${clientName}.` : ""}${NETWORK.id}.${entityType}.addr`;
+  return `${clientName ? `${clientName}.` : ""}${NETWORK.name}.${entityType}.addr`;
 }

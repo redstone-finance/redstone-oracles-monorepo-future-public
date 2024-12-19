@@ -15,6 +15,10 @@ export class ContractParamsProvider {
     private readonly overrideRequestParamsPackagesIds?: string[]
   ) {}
 
+  static hexlifyFeedIds(feedIds: string[]) {
+    return feedIds.map((feed) => hexlify(toUtf8Bytes(feed)));
+  }
+
   async getPayloadHex(withPrefix = true): Promise<string> {
     return (withPrefix ? "0x" : "") + (await this.requestPayload());
   }
@@ -24,7 +28,7 @@ export class ContractParamsProvider {
   }
 
   getHexlifiedFeedIds(): string[] {
-    return this.getDataFeedIds().map((feed) => hexlify(toUtf8Bytes(feed)));
+    return ContractParamsProvider.hexlifyFeedIds(this.getDataFeedIds());
   }
 
   getDataFeedIds(): string[] {

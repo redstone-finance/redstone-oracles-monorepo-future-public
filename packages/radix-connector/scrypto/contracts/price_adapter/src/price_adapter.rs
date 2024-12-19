@@ -1,33 +1,24 @@
-use crate::{
-    decimals::ToRedStoneDecimals,
-    get_current_time::get_current_time,
-    price_adapter_error::PriceAdapterError,
-    types::{
-        process_feed_ids, process_payload_bytes, process_signers, FeedIds, Payload, Signers,
-        ToDigits, U256Digits,
-    },
-};
-use redstone::{
-    core::{config::Config, processor::process_payload},
-    network::{
-        as_str::AsAsciiStr,
-        assert::{Assert, Unwrap},
-        error::Error,
-        specific::Bytes,
-    },
-    FeedId,
+use common::{
+    decimals::{ToRedStoneDecimal, ToRedStoneDecimals},
+    process_payload::process_payload,
+    read_price_data::{read_price_data, read_prices_data},
+    time::Time,
+    types::{process_feed_ids, FeedIds, Payload, Signers, ToDigits, U256Digits},
+    verify::{verify_signers, verify_timestamps},
 };
 use scrypto::prelude::*;
 
 #[blueprint]
 mod price_adapter {
+    use common::time::Time;
+
     struct PriceAdapter {
         signer_count_threshold: u8,
-        signers: Vec<Bytes>,
+        signers: Vec<Vec<u8>>,
         prices: HashMap<U256Digits, U256Digits>,
         timestamp: u64,
         latest_update_timestamp: Option<u64>,
-        current_timestamp_mock: Option<u64>,
+        time: Time,
     }
 
     impl PriceAdapter {
@@ -35,7 +26,11 @@ mod price_adapter {
             signer_count_threshold: u8,
             allowed_signer_addresses: Signers,
         ) -> Global<PriceAdapter> {
-            Self::make_instance(signer_count_threshold, allowed_signer_addresses, None)
+            Self::make_instance(
+                signer_count_threshold,
+                allowed_signer_addresses,
+                Time::System,
+            )
         }
 
         pub fn instantiate_with_mock_timestamp(
@@ -45,20 +40,24 @@ mod price_adapter {
         ) -> Global<PriceAdapter> {
             Self::make_instance(
                 signer_count_threshold,
-                allowed_signer_addresses,
-                timestamp_mock,
+                allowed_signer_addresses.clone(),
+                timestamp_mock.into(),
             )
         }
 
+        pub fn get_unique_signer_threshold(&self) -> u8 {
+            self.signer_count_threshold
+        }
+
         pub fn get_prices_raw(
-            &mut self,
+            &self,
             feed_ids: FeedIds,
             payload: Payload,
         ) -> (u64, Vec<U256Digits>) {
-            self.process_payload(process_feed_ids(feed_ids), process_payload_bytes(payload))
+            self.process_payload(feed_ids, payload)
         }
 
-        pub fn get_prices(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<Decimal>) {
+        pub fn get_prices(&self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<Decimal>) {
             let (timestamp, values) = self.get_prices_raw(feed_ids.clone(), payload);
 
             (timestamp, values.to_redstone_decimals(feed_ids))
@@ -69,10 +68,7 @@ mod price_adapter {
             feed_ids: FeedIds,
             payload: Payload,
         ) -> (u64, Vec<U256Digits>) {
-            self.process_payload_and_write(
-                process_feed_ids(feed_ids),
-                process_payload_bytes(payload),
-            )
+            self.process_payload_and_write(feed_ids, payload)
         }
 
         pub fn write_prices(&mut self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<Decimal>) {
@@ -81,93 +77,69 @@ mod price_adapter {
             (timestamp, values.to_redstone_decimals(feed_ids))
         }
 
-        pub fn read_prices_raw(&mut self, feed_ids: FeedIds) -> Vec<U256Digits> {
-            process_feed_ids(feed_ids)
-                .iter()
-                .enumerate()
-                .map(|(index, &feed_id)| self.read_price(feed_id, index))
-                .collect()
+        pub fn read_prices_raw(&self, feed_ids: FeedIds) -> Vec<U256Digits> {
+            read_prices_data(&self.prices, feed_ids)
         }
 
-        pub fn read_prices(&mut self, feed_ids: FeedIds) -> Vec<Decimal> {
+        pub fn read_prices(&self, feed_ids: FeedIds) -> Vec<Decimal> {
             self.read_prices_raw(feed_ids.clone())
                 .to_redstone_decimals(feed_ids)
         }
 
-        fn read_price(&mut self, feed_id: FeedId, index: usize) -> U256Digits {
-            *self.prices.get(&feed_id.to_digits()).unwrap_or_revert(|_| {
-                Error::contract_error(PriceAdapterError::MissingDataFeedValue(
-                    index,
-                    feed_id.as_ascii_str(),
-                ))
-            })
+        pub fn read_price_and_timestamp_raw(&self, feed_id: Vec<u8>) -> (U256Digits, u64) {
+            (
+                read_price_data(&self.prices, feed_id.into(), 0),
+                self.timestamp,
+            )
         }
 
-        pub fn read_timestamp(&mut self) -> u64 {
+        pub fn read_price_and_timestamp(&self, feed_id: Vec<u8>) -> (Decimal, u64) {
+            let data = self.read_price_and_timestamp_raw(feed_id.clone());
+
+            (data.0.to_redstone_decimal(&feed_id), data.1)
+        }
+
+        pub fn read_timestamp(&self) -> u64 {
             self.timestamp
         }
 
-        pub fn read_latest_update_timestamp(&mut self) -> Option<u64> {
+        pub fn read_latest_update_timestamp(&self) -> Option<u64> {
             self.latest_update_timestamp
         }
 
-        pub fn get_unique_signer_threshold(&mut self) -> u8 {
-            self.signer_count_threshold
-        }
-
-        fn process_payload(
-            &mut self,
-            feed_ids: Vec<FeedId>,
-            payload: Bytes,
-        ) -> (u64, Vec<U256Digits>) {
-            let config = Config {
-                signer_count_threshold: self.signer_count_threshold,
-                signers: self.signers.clone(),
+        fn process_payload(&self, feed_ids: FeedIds, payload: Payload) -> (u64, Vec<U256Digits>) {
+            process_payload(
+                self.time.get_current_in_ms(),
+                self.signer_count_threshold,
+                self.signers.clone(),
                 feed_ids,
-                block_timestamp: self.get_current_time(),
-            };
-
-            let result = process_payload(config, payload);
-            let prices = result.values.iter().map(|v| v.to_digits()).collect();
-
-            (result.min_timestamp, prices)
+                payload,
+            )
         }
 
         fn process_payload_and_write(
             &mut self,
-            feed_ids: Vec<FeedId>,
-            payload: Bytes,
+            feed_ids: FeedIds,
+            payload: Payload,
         ) -> (u64, Vec<U256Digits>) {
             let (timestamp, values) = self.process_payload(feed_ids.clone(), payload);
+            let current_timestamp = self.time.get_current_in_ms();
 
-            timestamp.assert_or_revert(
-                |&ts| ts > self.timestamp,
-                |_| Error::contract_error(PriceAdapterError::TimestampMustBeGreaterThanBefore),
-            );
-
-            let current_timestamp = (self.get_current_time()).assert_or_revert(
-                |&ts| {
-                    self.latest_update_timestamp.is_none()
-                        || ts > self.latest_update_timestamp.unwrap()
-                },
-                |_| {
-                    Error::contract_error(
-                        PriceAdapterError::CurrentTimestampMustBeGreaterThanLatestUpdateTimestamp,
-                    )
-                },
+            verify_timestamps(
+                current_timestamp,
+                timestamp,
+                self.latest_update_timestamp,
+                self.timestamp,
             );
 
             self.latest_update_timestamp = Some(current_timestamp);
             self.timestamp = timestamp;
-            self.prices = feed_ids
+            self.prices = process_feed_ids(feed_ids)
                 .iter()
                 .zip(values.clone())
-                .map(|(key, value)| (key.to_digits(), value))
+                .map(|(&key, value)| (key.to_digits(), value))
                 .collect();
-
-            if let Some(current_timestamp_mock) = self.current_timestamp_mock {
-                self.current_timestamp_mock = Some(current_timestamp_mock + 1);
-            }
+            self.time.maybe_increase(1);
 
             (timestamp, values)
         }
@@ -175,19 +147,9 @@ mod price_adapter {
         fn make_instance(
             signer_count_threshold: u8,
             allowed_signer_addresses: Signers,
-            current_timestamp_mock: Option<u64>,
+            time: Time,
         ) -> Global<PriceAdapter> {
-            let signers = process_signers(allowed_signer_addresses);
-
-            signers.len().assert_or_revert(
-                |&v| v > 0usize,
-                |_| Error::contract_error(PriceAdapterError::SignersMustNotBeEmpty),
-            );
-
-            signer_count_threshold.assert_or_revert(
-                |&v| (v as usize) <= signers.len(),
-                |&v| Error::contract_error(PriceAdapterError::WrongSignerCountThresholdValue(v)),
-            );
+            let signers = verify_signers(signer_count_threshold, allowed_signer_addresses);
 
             Self {
                 signer_count_threshold,
@@ -195,23 +157,11 @@ mod price_adapter {
                 prices: hashmap!(),
                 timestamp: 0,
                 latest_update_timestamp: None,
-                current_timestamp_mock,
+                time,
             }
             .instantiate()
             .prepare_to_globalize(OwnerRole::None)
             .globalize()
-        }
-
-        fn get_current_time(&self) -> u64 {
-            let mut current_time = get_current_time();
-
-            if current_time == 0 {
-                if let Some(current_timestamp_mock) = self.current_timestamp_mock {
-                    current_time = current_timestamp_mock;
-                };
-            };
-
-            current_time * 1000
         }
     }
 }

@@ -1,6 +1,6 @@
-use crate::{
+use crate::test_helpers::{
     env::{
-        helpers::{make_feed_ids, make_signers, read_payload},
+        helpers::{convert_payload, make_feed_ids, make_signers},
         run_env::PriceAdapterRunEnv,
         run_mode::{
             RunMode,
@@ -12,9 +12,7 @@ use crate::{
 use redstone::{helpers::iter_into::IterIntoOpt, network::specific::U256};
 
 impl Sample {
-    pub(crate) fn instantiate_price_adapter<PriceAdapter: PriceAdapterRunEnv>(
-        &self,
-    ) -> PriceAdapter {
+    pub fn instantiate_price_adapter<PriceAdapter: PriceAdapterRunEnv>(&self) -> PriceAdapter {
         PriceAdapter::instantiate(
             1,
             make_signers(SIGNERS.into()),
@@ -22,7 +20,7 @@ impl Sample {
         )
     }
 
-    pub(crate) fn verify_written_values<PriceAdapter: PriceAdapterRunEnv>(
+    pub fn verify_written_values<PriceAdapter: PriceAdapterRunEnv>(
         &self,
         price_adapter: &mut PriceAdapter,
         override_feed_ids: Option<Vec<&str>>,
@@ -30,12 +28,12 @@ impl Sample {
         let feed_ids = override_feed_ids.unwrap_or(self.feed_ids());
 
         let values = price_adapter.read_prices(make_feed_ids(feed_ids.clone()));
-        let timestamp = price_adapter.read_timestamp();
+        let timestamp = price_adapter.read_timestamp(Some(feed_ids.get(0).unwrap()));
 
         self.verify_results(feed_ids, values.iter_into_opt(), timestamp);
     }
 
-    pub(crate) fn test_write_prices<PriceAdapter: PriceAdapterRunEnv>(
+    pub fn test_write_prices<PriceAdapter: PriceAdapterRunEnv>(
         &self,
         price_adapter: &mut PriceAdapter,
         override_feed_ids: Option<Vec<&str>>,
@@ -45,7 +43,7 @@ impl Sample {
         price_adapter.increase_time();
     }
 
-    pub(crate) fn test_get_prices<PriceAdapter: PriceAdapterRunEnv>(
+    pub fn test_get_prices<PriceAdapter: PriceAdapterRunEnv>(
         &self,
         price_adapter: &mut PriceAdapter,
         override_feed_ids: Option<Vec<&str>>,
@@ -62,7 +60,7 @@ impl Sample {
         let feed_ids = override_feed_ids.clone().unwrap_or(self.feed_ids());
         let (timestamp, values) = price_adapter.process_payload(
             run_mode,
-            read_payload(self.path),
+            convert_payload(self.content),
             make_feed_ids(feed_ids.clone()),
             self.system_timestamp,
         );

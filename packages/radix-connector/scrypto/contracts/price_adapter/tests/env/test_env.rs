@@ -1,10 +1,9 @@
-use crate::env::{run_env::PriceAdapterRunEnv, run_mode::RunMode};
-use price_adapter::{
-    price_adapter::price_adapter_test::{PriceAdapter, PriceAdapterState},
+use common::{
+    test_helpers::env::{run_env::PriceAdapterRunEnv, run_mode::RunMode},
     types::*,
 };
-use redstone::network::specific::U256;
-use scrypto::time::Instant;
+use price_adapter::price_adapter::price_adapter_test::PriceAdapter;
+use scrypto::{prelude::U256, time::Instant};
 use scrypto_test::{
     environment::TestEnvironment,
     ledger_simulator::CompileProfile::Fast,
@@ -18,6 +17,8 @@ pub(crate) struct PriceAdapterTestEnv {
 }
 
 impl PriceAdapterRunEnv for PriceAdapterTestEnv {
+    type State = ();
+
     fn instantiate(unique_signer_count: u8, signers: Signers, timestamp: Option<u64>) -> Self {
         let mut env = TestEnvironment::new();
 
@@ -43,11 +44,9 @@ impl PriceAdapterRunEnv for PriceAdapterTestEnv {
         Self { env, price_adapter }
     }
 
-    fn state(&self) -> PriceAdapterState {
-        todo!()
-    }
+    fn state(&self) -> Self::State {}
 
-    fn read_timestamp(&mut self) -> u64 {
+    fn read_timestamp(&mut self, _feed_id: Option<&str>) -> u64 {
         self.price_adapter.read_timestamp(&mut self.env).unwrap()
     }
 

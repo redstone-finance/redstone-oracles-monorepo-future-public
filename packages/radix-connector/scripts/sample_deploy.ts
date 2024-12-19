@@ -21,7 +21,7 @@ async function deploy(contractName: string) {
 
   const packageId = await client.deployPackage(wasm, rpd, feeLock);
 
-  await saveAddress("component", contractName, packageId);
+  await saveAddress("package", contractName, packageId);
 }
 
 void deploy(RedstoneCommon.getFromEnv("CONTRACT_NAME"));

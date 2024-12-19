@@ -676,6 +676,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "common"
+version = "1.0.0"
+dependencies = [
+ "redstone",
+ "scrypto",
+ "scrypto-test",
+]
+
+[[package]]
 name = "console_error_panic_hook"
 version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1484,6 +1493,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "685a9ac4b61f4e728e1d2c6a7844609c16527aeb5e6c865915c08e619c16410f"
 
 [[package]]
+name = "multi_feed_price_adapter"
+version = "1.0.0"
+dependencies = [
+ "common",
+ "scrypto",
+ "scrypto-test",
+]
+
+[[package]]
 name = "num"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1702,7 +1720,7 @@ dependencies = [
 name = "price_adapter"
 version = "1.0.0"
 dependencies = [
- "redstone",
+ "common",
  "scrypto",
  "scrypto-test",
 ]

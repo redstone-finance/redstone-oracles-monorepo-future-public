@@ -11,10 +11,10 @@ macro_rules! hashmap {
          map
     }};
 }
-pub(crate) const SAMPLE_SYSTEM_TIMESTAMP_OLD: u64 = 1707738300;
-pub(crate) const SAMPLE_SYSTEM_TIMESTAMP: u64 = 1725975900;
-pub(crate) const SAMPLE_SYSTEM_TIMESTAMP_2: u64 = 1725976000;
-pub(crate) const SIGNERS: [&str; 5] = [
+pub const SAMPLE_SYSTEM_TIMESTAMP_OLD: u64 = 1707738300;
+pub const SAMPLE_SYSTEM_TIMESTAMP: u64 = 1725975900;
+pub const SAMPLE_SYSTEM_TIMESTAMP_2: u64 = 1725976000;
+pub const SIGNERS: [&str; 5] = [
     "0x109B4a318A4F5ddcbCA6349B45f881B4137deaFB",
     "0x12470f7aba85c8b81d63137dd5925d6ee114952b",
     "0x1ea62d73edf8ac05dfcea1a34b9796e937a29eff",
@@ -23,16 +23,16 @@ pub(crate) const SIGNERS: [&str; 5] = [
 ];
 
 #[derive(Debug, Clone)]
-pub(crate) struct Sample {
-    pub(crate) path: &'static str,
-    pub(crate) values: HashMap<String, U256>,
-    pub(crate) timestamp: u64,
-    pub(crate) system_timestamp: u64,
+pub struct Sample {
+    pub content: &'static str,
+    pub values: HashMap<String, U256>,
+    pub timestamp: u64,
+    pub system_timestamp: u64,
 }
 
-pub(crate) fn sample_eth_btc_avax_5sig_old() -> Sample {
+pub fn sample_eth_btc_avax_5sig_old() -> Sample {
     Sample {
-        path: "./tests/sample/ETH_BTC_AVAX_5sig.hex",
+        content: include_str!("ETH_BTC_AVAX_5sig.hex"),
         values: hashmap![
             "ETH" => 248111446713u128,
             "BTC" => 4783856731782u128,
@@ -43,9 +43,9 @@ pub(crate) fn sample_eth_btc_avax_5sig_old() -> Sample {
     }
 }
 
-pub(crate) fn sample_eth_btc_avax_5sig() -> Sample {
+pub fn sample_eth_btc_avax_5sig() -> Sample {
     Sample {
-        path: "./tests/sample/ETH_BTC_AVAX_5sig.hex",
+        content: include_str!("ETH_BTC_AVAX_5sig.hex"),
         values: hashmap![
             "ETH" => 233933981770u128,
             "BTC" => 5678054152708u128,
@@ -56,9 +56,9 @@ pub(crate) fn sample_eth_btc_avax_5sig() -> Sample {
     }
 }
 
-pub(crate) fn sample_eth_btc_avax_5sig_2() -> Sample {
+pub fn sample_eth_btc_avax_5sig_2() -> Sample {
     Sample {
-        path: "./tests/sample/ETH_BTC_AVAX_5sig_2.hex",
+        content: include_str!("ETH_BTC_AVAX_5sig_2.hex"),
         values: hashmap![
             "ETH" => 234067119798u128,
             "BTC" => 5682347620349u128,

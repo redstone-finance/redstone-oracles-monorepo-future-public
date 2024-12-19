@@ -65,6 +65,7 @@ export const requestRedstonePayload = async (
   );
 };
 
+export * from "./contracts/ContractData";
 export * from "./contracts/ContractParamsProvider";
 export * from "./contracts/ContractParamsProviderMock";
 export * from "./contracts/IContractConnector";

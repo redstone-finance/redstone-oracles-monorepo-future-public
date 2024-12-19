@@ -31,7 +31,7 @@ export class SuiPricesContractAdapter
     return priceAdapterDataContent.fields.config.fields.signer_count_threshold;
   }
 
-  async readLatestUpdateBlockTimestamp(_blockNumber?: number): Promise<number> {
+  async readLatestUpdateBlockTimestamp(): Promise<number> {
     const priceDataObject = await this.getOneOfFeedIdsPriceDataContent();
     return parseInt(priceDataObject.fields.value.fields.write_timestamp);
   }

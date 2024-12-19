@@ -1,16 +1,14 @@
 #[cfg(test)]
 mod tests {
-    use crate::{
-        env::{helpers::make_signers, run_env::PriceAdapterRunEnv},
-        tests::PriceAdapterEnv,
-    };
+    use crate::tests::PriceAdapterEnv;
+    use common::test_helpers::env::{helpers::make_signers, run_env::PriceAdapterRunEnv};
 
     #[test]
     fn test_instantiate() {
         let mut price_adapter =
             PriceAdapterEnv::instantiate(3, make_signers(vec!["0x1111", "0x2222", "0x3311"]), None);
 
-        assert_eq!(price_adapter.read_timestamp(), 0u64);
+        assert_eq!(price_adapter.read_timestamp(None), 0u64);
 
         #[cfg(feature = "test_sim_env")]
         {

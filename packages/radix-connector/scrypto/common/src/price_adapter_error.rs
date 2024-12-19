@@ -10,7 +10,7 @@ use redstone::network::{error::ContractErrorContent, specific::U256};
 /// It implements the `ContractErrorContent` trait, allowing these errors to be used directly
 /// as part of the RedStone payload processing mechanism.
 #[derive(Debug)]
-pub(crate) enum PriceAdapterError {
+pub enum PriceAdapterError {
     /// Indicates an invalid value for the signer count threshold.
     ///
     /// This error is returned when the specified threshold for the minimum number of signers

@@ -6,15 +6,17 @@ build = "build.rs"
 
 [dependencies]
 scrypto = { version = "^1.3.0" }
-redstone = { path = "../../rust-sdk", default-features = false, optional = true }
+common = { path = "../../common", default-features = false, optional = true }
 
 [dev-dependencies]
 scrypto-test = { version = "^1.3.0" }
+common = { path = "../../common", features = ["test_helpers"] }
 
 [features]
-real_network = ["redstone/crypto_radix", "redstone/network_radix"]
-default = ["redstone/crypto_radix", "redstone/network_radix", "redstone/helpers", "redstone/print_debug"]
-test_sim_env = ["redstone/print_debug"]
+real_network = ["common/real_network"]
+real_network_test = ["common/real_network_test"]
+default = ["common/default"]
+test_sim_env = ["common/test_sim_env"]
 
 [lib]
 crate-type = ["cdylib", "lib"]

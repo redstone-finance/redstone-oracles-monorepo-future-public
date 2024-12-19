@@ -23,11 +23,11 @@ mod price_adapter {
         }
 
         pub fn read_price_and_timestamp(&self) -> (Decimal, u64) {
-            self.call_for_price_and_timestamp("read_prices")
+            self.call_for_price_and_timestamp("read_price_and_timestamp")
         }
 
         pub fn read_price_and_timestamp_raw(&self) -> (U256Digits, u64) {
-            self.call_for_price_and_timestamp("read_prices_raw")
+            self.call_for_price_and_timestamp("read_price_and_timestamp_raw")
         }
 
         fn call_for_price_and_timestamp<
@@ -36,13 +36,7 @@ mod price_adapter {
             &self,
             method_name: &str,
         ) -> (T, u64) {
-            let price: Vec<T> = self.call(
-                method_name,
-                scrypto_args!(make_feed_ids(vec![self.feed_id.clone()])),
-            );
-            let timestamp = self.call("read_timestamp", scrypto_args!());
-
-            (price[0], timestamp)
+            self.call(method_name, scrypto_args!(&self.feed_id))
         }
 
         fn call<T: ScryptoDecode>(&self, method_name: &str, args: Vec<u8>) -> T {

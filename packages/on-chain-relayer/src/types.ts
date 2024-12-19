@@ -1,18 +1,12 @@
 import {
   DataPackagesRequestParams,
   DataPackagesResponse,
+  ContractData as SdkContractData,
+  LastRoundDetails as SdkLastRoundDetails,
 } from "@redstone-finance/sdk";
-import { BigNumber } from "ethers";
 
-export type LastRoundDetails = {
-  lastDataPackageTimestampMS: number;
-  lastBlockTimestampMS: number;
-  lastValue: BigNumber;
-};
-
-export type ContractData = {
-  [dataFeedsId: string]: LastRoundDetails;
-};
+export type LastRoundDetails = SdkLastRoundDetails;
+export type ContractData = SdkContractData;
 
 export interface ShouldUpdateContext {
   dataPackages: DataPackagesResponse;

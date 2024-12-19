@@ -123,6 +123,15 @@ export class RadixParser {
       );
     }
 
+    if (obj.kind === "Tuple" && Array.isArray(obj.value)) {
+      return {
+        kind: "Tuple",
+        value: {
+          fields: obj.value.map(RadixParser.makeSerializableManifestValue),
+        },
+      } as SerializableManifestValue;
+    }
+
     if (!["string", "undefined"].includes(typeof obj.value)) {
       return obj as unknown as SerializableManifestValue;
     }

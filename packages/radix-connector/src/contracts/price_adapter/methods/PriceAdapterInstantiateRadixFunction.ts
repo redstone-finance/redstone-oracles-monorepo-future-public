@@ -10,9 +10,10 @@ export class PriceAdapterInstantiateRadixFunction extends RadixFunction<string> 
     packageId: string,
     private signerCountThreshold: number,
     private signers: string[],
+    packageName = "PriceAdapter",
     private fee = DEFAULT_INSTANTIATE_XRD_FEE
   ) {
-    super(packageId, "instantiate", "PriceAdapter");
+    super(packageId, "instantiate", packageName);
   }
 
   override getParams(): Value[] {

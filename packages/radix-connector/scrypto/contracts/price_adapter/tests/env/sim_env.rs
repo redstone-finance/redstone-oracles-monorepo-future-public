@@ -1,5 +1,11 @@
-use crate::env::{run_env::PriceAdapterRunEnv, run_mode::RunMode, test_env::IntoT};
-use price_adapter::{price_adapter::price_adapter_test::PriceAdapterState, types::*};
+use common::{
+    test_helpers::{
+        env::{run_env::PriceAdapterRunEnv, run_mode::RunMode},
+        into_t::IntoT,
+    },
+    types::*,
+};
+use price_adapter::price_adapter::price_adapter_test::PriceAdapterState;
 use scrypto_test::prelude::*;
 use std::fmt::Debug;
 
@@ -17,6 +23,8 @@ pub(crate) struct PriceAdapterSimEnv {
 }
 
 impl PriceAdapterRunEnv for PriceAdapterSimEnv {
+    type State = PriceAdapterState;
+
     fn instantiate(unique_signer_count: u8, signers: Signers, timestamp: Option<u64>) -> Self {
         let mut ledger = LedgerSimulatorBuilder::new().build();
         let (public_key, _private_key, _) = ledger.new_allocated_account();
@@ -50,11 +58,11 @@ impl PriceAdapterRunEnv for PriceAdapterSimEnv {
             .component_state::<PriceAdapterState>(self.component)
     }
 
-    fn read_timestamp(&mut self) -> u64 {
+    fn read_timestamp(&mut self, _feed_id: Option<&str>) -> u64 {
         self.call_method(ENTRY_POINT_READ_TIMESTAMP, manifest_args!())
     }
 
-    fn read_prices(&mut self, feed_ids: FeedIds) -> Vec<redstone::network::specific::U256> {
+    fn read_prices(&mut self, feed_ids: FeedIds) -> Vec<U256> {
         self.call_method::<Vec<U256Digits>>(ENTRY_POINT_READ_PRICES, manifest_args!(feed_ids))
             .into_t()
     }

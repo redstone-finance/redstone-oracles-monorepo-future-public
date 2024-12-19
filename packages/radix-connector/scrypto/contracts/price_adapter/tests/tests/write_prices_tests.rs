@@ -1,13 +1,13 @@
 #[cfg(test)]
 mod tests {
-    use crate::{
+    use crate::tests::PriceAdapterEnv;
+    use common::{
         hashmap,
-        sample::sample::{
+        test_helpers::sample::sample::{
             sample_eth_btc_avax_5sig, sample_eth_btc_avax_5sig_2, sample_eth_btc_avax_5sig_old,
         },
-        tests::PriceAdapterEnv,
     };
-    use redstone::network::specific::U256;
+    use scrypto::prelude::U256;
 
     #[test]
     fn test_write_prices() {
