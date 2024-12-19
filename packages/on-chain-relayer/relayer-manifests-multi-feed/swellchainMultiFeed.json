@@ -43,6 +43,12 @@
     },
     "ETH/USDC": {
       "priceFeedAddress": "0x84AD474c33c9cCefB1a2D8b77Bdd88bDc592f96b"
+    },
+    "ETH": {
+      "priceFeedAddress": "0xe7f71d6a24EBc391f5ee57B867ED429EB7Bd74f4"
+    },
+    "USDe": {
+      "priceFeedAddress": "0x65eD6a4ac085620eE943c0B15525C4428D23e4Db"
     }
   }
 }
