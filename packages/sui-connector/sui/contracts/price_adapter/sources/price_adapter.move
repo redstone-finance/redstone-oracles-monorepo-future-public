@@ -55,10 +55,7 @@ public fun write_price(
 
 // === Public-View Functions ===
 
-public fun price_and_timestamp(
-    price_adapter: &PriceAdapter,
-    feed_id: vector<u8>,
-): (u256, u64) {
+public fun price_and_timestamp(price_adapter: &PriceAdapter, feed_id: vector<u8>): (u256, u64) {
     price_adapter.price_data(feed_id).price_and_timestamp()
 }
 

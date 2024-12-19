@@ -63,7 +63,7 @@ fun write_price(scenario: &mut Scenario) {
     test_scenario::next_tx(scenario, OWNER);
     {
         let mut price_adapter = test_scenario::take_shared<PriceAdapter>(
-            scenario
+            scenario,
         );
         let mut clock = clock::create_for_testing(test_scenario::ctx(scenario));
 

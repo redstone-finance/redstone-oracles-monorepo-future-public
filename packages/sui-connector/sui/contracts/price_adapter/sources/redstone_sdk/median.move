@@ -9,24 +9,24 @@ const E_MEDIAN_ERROR_EMPTY_VECTOR: u64 = 0;
 // === Public Functions ===
 
 public fun calculate_median(values: &mut vector<u256>): u256 {
-    let len = vector::length(values);
+    let len = values.length();
     assert!(len > 0, E_MEDIAN_ERROR_EMPTY_VECTOR);
 
     // Optimized paths for small vectors
     if (len == 1) {
-        return *vector::borrow(values, 0)
+        return values[0]
     };
 
     if (len == 2) {
-        let a = *vector::borrow(values, 0);
-        let b = *vector::borrow(values, 1);
+        let a = values[0];
+        let b = values[1];
         return a / 2 + b / 2 + (a % 2 + b % 2) / 2
     };
 
     if (len == 3) {
-        let a = *vector::borrow(values, 0);
-        let b = *vector::borrow(values, 1);
-        let c = *vector::borrow(values, 2);
+        let a = values[0];
+        let b = values[1];
+        let c = values[2];
 
         // Find middle value without sorting
         if (a <= b) {
@@ -52,10 +52,10 @@ public fun calculate_median(values: &mut vector<u256>): u256 {
     sort(values);
 
     if (len % 2 == 1) {
-        *vector::borrow(values, len / 2)
+        values[len/2]
     } else {
-        let mid1 = *vector::borrow(values, len / 2 - 1);
-        let mid2 = *vector::borrow(values, len / 2);
+        let mid1 = values[len / 2 - 1];
+        let mid2 = values[len / 2];
 
         // Safe arithmetic mean calculation to avoid overflow
         mid1 / 2 + mid2 / 2 + (mid1 % 2 + mid2 % 2) / 2
@@ -69,8 +69,8 @@ public fun sort(values: &mut vector<u256>) {
     while (i < len) {
         let key = values[i];
         let mut j = i;
-        while (j > 0 && values[j - 1] > key) {
-            vector::swap(values, j - 1, j);
+        while (j > 0 && values[j-1] > key) {
+            values.swap(j - 1, j);
             j = j - 1;
         };
         i = i + 1;

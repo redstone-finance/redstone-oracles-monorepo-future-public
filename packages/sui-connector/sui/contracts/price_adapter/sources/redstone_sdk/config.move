@@ -60,3 +60,18 @@ public(package) fun update_config(
     config.max_timestamp_delay_ms = max_timestamp_delay_ms;
     config.max_timestamp_ahead_ms = max_timestamp_ahead_ms;
 }
+
+// === Tests Functions ===
+
+#[test_only]
+public fun test_config(): Config {
+    new(
+        2,
+        vector[
+            x"1ea62d73edF8ac05dfcea1a34b9796e937a29eFF",
+            x"109b4a318a4f5ddcbca6349b45f881b4137deafb",
+        ],
+        15 * 60 * 1000,
+        3 * 60 * 1000,
+    )
+}

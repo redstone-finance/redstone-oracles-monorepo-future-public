@@ -42,18 +42,18 @@ public fun timestamp(data_package: &DataPackage): u64 {
     data_package.timestamp
 }
 
-public fun signer_address(data_package: &DataPackage): vector<u8> {
-    data_package.signer_address
+public fun signer_address(data_package: &DataPackage): &vector<u8> {
+    &data_package.signer_address
 }
 
-public fun data_points(data_package: &DataPackage): vector<DataPoint> {
-    data_package.data_points
+public fun data_points(data_package: &DataPackage): &vector<DataPoint> {
+    &data_package.data_points
 }
 
-public fun feed_id(data_point: &DataPoint): vector<u8> {
-    data_point.feed_id
+public fun feed_id(data_point: &DataPoint): &vector<u8> {
+    &data_point.feed_id
 }
 
-public fun value(data_point: &DataPoint): vector<u8> {
-    data_point.value
+public fun value(data_point: &DataPoint): &vector<u8> {
+    &data_point.value
 }
