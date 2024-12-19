@@ -9,6 +9,7 @@ import { NetworkEnum } from "../src/config";
 import { readSuiConfig } from "../src/util";
 
 const DATA_SERVICE_ID = "redstone-primary-prod";
+const WRITE_TEST_TIMEOUT = 20 * 1_000; // 20 secs
 
 describe("SuiPricesContractAdapter", () => {
   let adapter: SuiPricesContractAdapter;
@@ -54,7 +55,7 @@ describe("SuiPricesContractAdapter", () => {
       expect(result.length).to.be.gte(0);
       const receipt = await suiClient.waitForTransaction({ digest: result! });
       expect(receipt.digest).to.eq(result!);
-    });
+    }, WRITE_TEST_TIMEOUT);
 
     it("should write prices with multiple feed IDs", async () => {
       contractParamsProvider = new ContractParamsProvider({
@@ -70,7 +71,7 @@ describe("SuiPricesContractAdapter", () => {
       expect(result.length).to.be.gte(0);
       const receipt = await suiClient.waitForTransaction({ digest: result! });
       expect(receipt.digest).to.eq(result!);
-    }, 10000);
+    }, WRITE_TEST_TIMEOUT);
 
     it("should write prices for a lot of feeds", async () => {
       contractParamsProvider = new ContractParamsProvider({
@@ -108,7 +109,7 @@ describe("SuiPricesContractAdapter", () => {
       expect(result.length).to.be.gte(0);
       const receipt = await suiClient.waitForTransaction({ digest: result! });
       expect(receipt.digest).to.eq(result!);
-    }, 10000);
+    }, WRITE_TEST_TIMEOUT);
   });
 
   describe("readLatestUpdateBlockTimestamp", () => {
