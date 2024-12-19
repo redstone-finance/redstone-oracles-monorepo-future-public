@@ -117,6 +117,11 @@ public(package) fun new(
     transfer::share_object(price_adapter);
 }
 
+/// Sets version for the PriceAdapter object. Can be called only by admin.
+public(package) fun set_version(_: &AdminCap, price_adapter: &mut PriceAdapter, new_version: u8) {
+    price_adapter.version = new_version;
+}
+
 // === Private Functions ===
 
 fun write_price_checked(
