@@ -54,7 +54,7 @@ build-%: prepare
 	cargo build --package $* $(call get_features, $*)
 	scrypto build --path $(CONTRACTS_DIR)/$* $(call get_features, $*)
 	cp ./target/wasm32-unknown-unknown/release/$*.rpd $(CONTRACTS_DIR)/$*/artifacts/
-	cp ./target/wasm32-unknown-unknown/release/$*.wasm $(CONTRACTS_DIR)/$*/artifacts/
+	cp ./target/wasm32-unknown-unknown/release/$*_with_schema.wasm $(CONTRACTS_DIR)/$*/artifacts/
 
 publish: clippy
 	resim publish $(CONTRACT_DIR) | tee | grep -o 'package_[a-zA-Z0-9]*' > $(DEPLOYED_DIR)/package.resim.addr

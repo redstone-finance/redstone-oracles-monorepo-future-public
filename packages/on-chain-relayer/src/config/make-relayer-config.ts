@@ -1,5 +1,6 @@
 import {
   AnyOnChainRelayerManifest,
+  isMultiFeedRelayerManifest,
   MultiFeedOnChainRelayerManifest,
   OnChainRelayerManifest,
   UpdateTriggers,
@@ -44,17 +45,9 @@ export const makeUpdateConditions = (
   updateConditions: Record<string, ConditionCheckNames[]>;
   updateTriggers: Record<string, UpdateTriggers>;
 } => {
-  switch (manifest.adapterContractType) {
-    case "price-feeds":
-    case "mento":
-    case "fuel":
-    case "radix":
-      return makePriceFeedsUpdateConditions(manifest);
-    case "multi-feed":
-      return makeMultiFeedUpdateConditions(manifest);
-    default:
-      throw new Error(`Unsupported adapter contract type`);
-  }
+  return isMultiFeedRelayerManifest(manifest)
+    ? makeMultiFeedUpdateConditions(manifest)
+    : makePriceFeedsUpdateConditions(manifest);
 };
 
 export const makePriceFeedsUpdateConditions = (

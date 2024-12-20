@@ -8,18 +8,26 @@ import {
   saveAddress,
 } from "./constants";
 
+const DEFAULT_DEPLOY_FEE_LOCK = 200;
+
 async function deploy(contractName: string) {
   const client = new RadixPackageDeployer(PRIVATE_KEY, NETWORK.id);
 
   const wasm = readFileSync(
-    getContractFilename(`${contractName}.wasm`, `${contractName}/artifacts`)
+    getContractFilename(
+      `${contractName}_with_schema.wasm`,
+      `${contractName}/artifacts`
+    )
   );
   const rpd = readFileSync(
     getContractFilename(`${contractName}.rpd`, `${contractName}/artifacts`)
   );
-  const feeLock = 120;
 
-  const packageId = await client.deployPackage(wasm, rpd, feeLock);
+  const packageId = await client.deployPackage(
+    wasm,
+    rpd,
+    DEFAULT_DEPLOY_FEE_LOCK
+  );
 
   await saveAddress("package", contractName, packageId);
 }

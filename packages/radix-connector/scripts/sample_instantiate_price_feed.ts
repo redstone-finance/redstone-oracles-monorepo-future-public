@@ -1,6 +1,6 @@
-import { RadixClient } from "../src";
-import { PriceFeedRadixContractDeployer } from "../src/contracts/price_feed/PriceFeedRadixContractDeployer";
+import { PriceFeedRadixContractDeployer, RadixClient } from "../src";
 import {
+  FEED_ID,
   loadAddress,
   MULTI_FEED_PRICE_ADAPTER_NAME,
   NETWORK,
@@ -15,13 +15,13 @@ async function instantiate() {
     client,
     await loadAddress(`package`, PRICE_FEED_NAME),
     await loadAddress(`component`, MULTI_FEED_PRICE_ADAPTER_NAME),
-    "ETH"
+    FEED_ID
   );
 
   const componentId = await connector.getComponentId();
   console.log(componentId);
 
-  await saveAddress(`component`, PRICE_FEED_NAME, componentId);
+  await saveAddress(`component`, PRICE_FEED_NAME, componentId, FEED_ID);
 }
 
 void instantiate();

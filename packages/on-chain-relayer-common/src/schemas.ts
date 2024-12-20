@@ -5,9 +5,10 @@ const MENTO = "mento";
 const MULTI_FEED = "multi-feed";
 const FUEL = "fuel";
 const RADIX = "radix";
+const RADIX_MULTI_FEED = `${RADIX}-${MULTI_FEED}`;
 
-export const MultiFeedAdapterTypesEnum = z.enum([MULTI_FEED]);
-export const NonEvmAdapterTypesEnum = z.enum([FUEL, RADIX]);
+export const MultiFeedAdapterTypesEnum = z.enum([MULTI_FEED, RADIX_MULTI_FEED]);
+export const NonEvmAdapterTypesEnum = z.enum([FUEL, RADIX, RADIX_MULTI_FEED]);
 export const BaseAdapterTypesEnum = z.enum([
   PRICE_FEEDS,
   MENTO,

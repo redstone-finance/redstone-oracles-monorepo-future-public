@@ -5,9 +5,11 @@ import {
   describeTimestamp,
   sampleRun,
 } from "@redstone-finance/sdk";
-import { RadixClient } from "../src";
-import { MultiFeedPriceAdapterRadixContractConnector } from "../src/contracts/multi_feed_price_adapter/MultiFeedPriceAdapterRadixContractConnector";
-import { PriceFeedRadixContractConnector } from "../src/contracts/price_feed/PriceFeedRadixContractConnector";
+import {
+  MultiFeedPriceAdapterRadixContractConnector,
+  PriceFeedRadixContractConnector,
+  RadixClient,
+} from "../src";
 import {
   DATA_SERVICE_ID,
   loadAddress,

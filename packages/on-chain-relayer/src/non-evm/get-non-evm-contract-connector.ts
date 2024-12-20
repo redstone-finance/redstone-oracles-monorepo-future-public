@@ -8,6 +8,8 @@ export async function getNonEvmContractConnector(relayerConfig: RelayerConfig) {
       return await getFuelContractConnector(relayerConfig);
     case "radix":
       return getRadixContractConnector(relayerConfig);
+    case "radix-multi-feed":
+      return getRadixContractConnector(relayerConfig, true);
     default:
       throw new Error(
         `${relayerConfig.adapterContractType} is not "non-evm" type`

@@ -1,8 +1,8 @@
 import { RedstoneCommon } from "@redstone-finance/utils";
-import { RadixClient } from "../src";
-import { ProxyRadixContractDeployer } from "../src/contracts/proxy/ProxyRadixContractDeployer";
+import { ProxyRadixContractDeployer, RadixClient } from "../src";
 import { NonFungibleGlobalIdInput } from "../src/radix/utils";
 import {
+  FEED_ID,
   loadAddress,
   NETWORK,
   PRICE_FEED_NAME,
@@ -29,19 +29,13 @@ async function instantiate() {
     await loadAddress(`package`, PROXY_NAME),
     OWNER_BADGE(),
     MAN_BADGE(),
-    await loadAddress(`component`, PRICE_FEED_NAME)
+    await loadAddress(`component`, PRICE_FEED_NAME, FEED_ID)
   );
 
   const componentId = await connector.getComponentId();
   console.log(componentId);
 
-  await saveAddress(`component`, PROXY_NAME, componentId);
-
-  const adapter = await connector.getAdapter();
-  await adapter.setContractGlobalAddress(
-    await loadAddress(`component`, PRICE_FEED_NAME),
-    MAN_BADGE()
-  );
+  await saveAddress(`component`, PROXY_NAME, componentId, FEED_ID);
 }
 
 void instantiate();

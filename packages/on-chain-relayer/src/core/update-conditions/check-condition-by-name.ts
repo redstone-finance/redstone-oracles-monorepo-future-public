@@ -1,3 +1,5 @@
+import { BigNumber } from "ethers";
+import _ from "lodash";
 import { ConditionCheckNames, RelayerConfig } from "../../config/RelayerConfig";
 import { ConditionCheckResponse, ShouldUpdateContext } from "../../types";
 import { cronCondition } from "./cron-condition";
@@ -10,18 +12,29 @@ export const checkConditionByName = async (
   context: ShouldUpdateContext,
   config: RelayerConfig
 ): Promise<ConditionCheckResponse> => {
+  let lastRoundDetails = context.dataFromContract[dataFeedId];
+  if (_.isEmpty(lastRoundDetails)) {
+    lastRoundDetails = {
+      lastBlockTimestampMS: 0,
+      lastDataPackageTimestampMS: 0,
+      lastValue: BigNumber.from(0),
+    };
+
+    context.dataFromContract[dataFeedId] = lastRoundDetails;
+  }
+
   switch (name) {
     case "time":
       return timeUpdateCondition(
         dataFeedId,
-        context.dataFromContract[dataFeedId].lastBlockTimestampMS,
+        lastRoundDetails.lastBlockTimestampMS,
         config
       );
 
     case "cron":
       return cronCondition(
         dataFeedId,
-        context.dataFromContract[dataFeedId].lastBlockTimestampMS,
+        lastRoundDetails.lastBlockTimestampMS,
         config
       );
 
@@ -30,7 +43,7 @@ export const checkConditionByName = async (
         dataFeedId,
         context.dataPackages,
         context.uniqueSignersThreshold,
-        context.dataFromContract[dataFeedId],
+        lastRoundDetails,
         config
       );
   }

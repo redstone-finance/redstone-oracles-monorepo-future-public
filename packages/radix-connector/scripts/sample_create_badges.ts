@@ -1,5 +1,4 @@
-import { RadixClient } from "../src";
-import { BadgeCreatorRadixContractConnector } from "../src/contracts/badge_creator/BadgeCreatorRadixContractConnector";
+import { BadgeCreatorRadixContractConnector, RadixClient } from "../src";
 import {
   BADGE_CREATOR_NAME,
   loadAddress,

@@ -1,3 +1,4 @@
+import { isMultiFeedAdapterType } from "@redstone-finance/on-chain-relayer-common";
 import {
   DataServiceIds,
   getSignersForDataServiceId,
@@ -7,7 +8,7 @@ import { RedstoneCommon } from "@redstone-finance/utils";
 import { RelayerConfig } from "../config/RelayerConfig";
 
 export function canIgnoreMissingFeeds(relayerConfig: RelayerConfig) {
-  return relayerConfig.adapterContractType === "multi-feed";
+  return isMultiFeedAdapterType(relayerConfig.adapterContractType);
 }
 
 export function makeDataPackagesRequestParams(

@@ -1,6 +1,5 @@
 import { RedstoneCommon } from "@redstone-finance/utils";
-import { RadixClient } from "../src";
-import { ProxyRadixContractConnector } from "../src/contracts/proxy/ProxyRadixContractConnector";
+import { ProxyRadixContractConnector, RadixClient } from "../src";
 import { NonFungibleGlobalIdInput } from "../src/radix/utils";
 import {
   loadAddress,
