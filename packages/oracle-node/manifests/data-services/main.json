@@ -6423,6 +6423,10 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "FARTCOIN": {
+      "denomination": "USD",
+      "rateFeed": false
+    },
     "LBTC_FUNDAMENTAL": {
       "source": ["lbtc"],
       "deviationCheck": {
