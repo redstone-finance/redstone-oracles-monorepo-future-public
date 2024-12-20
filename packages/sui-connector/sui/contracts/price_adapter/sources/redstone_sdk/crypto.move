@@ -2,11 +2,17 @@
 
 module redstone_price_adapter::redstone_sdk_crypto;
 
+use redstone_price_adapter::redstone_sdk_conv::from_bytes_to_u256;
+
 // === Errors ===
 
 const E_INVALID_SIGNATURE: u64 = 0;
 const E_INVALID_RECOVERY_ID: u64 = 1;
 const E_INVALID_VECTOR_LEN: u64 = 2;
+
+// === Constants ===
+
+const ECDSA_N_DIV_2: u256 = 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141;
 
 // === Public Functions ===
 
@@ -22,14 +28,15 @@ public fun recover_address(msg: &vector<u8>, signature: &vector<u8>): vector<u8>
     // Create a mutable copy of the signature
     let mut sig = *signature;
 
-    // Extract the 'v' value and ensure it's in the range {0, 1, 2, 3}
+    // Extract the 'v' value and ensure it's in the range {0, 1}
     let v = sig[64];
     let v = if (v >= 27) {
         v - 27
     } else {
         v
     };
-    assert!(v <4, E_INVALID_RECOVERY_ID);
+    assert!(v <2, E_INVALID_RECOVERY_ID);
+    check_s(&sig);
 
     // Replace the last byte of the signature with the adjusted recovery byte
     *&mut sig[64] = v;
@@ -55,6 +62,14 @@ public fun recover_address(msg: &vector<u8>, signature: &vector<u8>): vector<u8>
 }
 
 // === Private Functions ===
+
+fun check_s(signature: &vector<u8>) {
+    // signature = [r0..r31][s0..s31][v]
+    let s = vector::tabulate!(32, |i| signature[32 + i]);
+    let s_number = from_bytes_to_u256(&s);
+
+    assert!(s_number <= ECDSA_N_DIV_2, E_INVALID_SIGNATURE);
+}
 
 fun last_n_bytes(input: &vector<u8>, n: u64): vector<u8> {
     let len = input.length();
