@@ -63,7 +63,7 @@
       "currencySymbol": "AVAX",
       "publicRpcUrls": [
         "https://api.avax.network/ext/bc/C/rpc",
-        "https://avalanche.blockpi.network/v1/rpc/public",
+        "https://avalanche.drpc.org",
         "https://avax.meowrpc.com",
         "https://ava-mainnet.public.blastapi.io/ext/bc/C/rpc",
         "https://avalanche-c-chain.publicnode.com"
@@ -88,7 +88,7 @@
         "https://optimism-mainnet.public.blastapi.io",
         "https://rpc.ankr.com/optimism",
         "https://1rpc.io/op",
-        "https://optimism.blockpi.network/v1/rpc/public"
+        "https://optimism.drpc.org"
       ],
       "avgBlockTimeMs": 2000,
       "multicall3": {
@@ -105,7 +105,7 @@
       "currencySymbol": "POL",
       "publicRpcUrls": [
         "https://polygon.llamarpc.com",
-        "https://polygon.blockpi.network/v1/rpc/public",
+        "https://rpc.ankr.com/polygon",
         "https://polygon-mainnet.public.blastapi.io",
         "https://rpc-mainnet.matic.quiknode.pro"
       ],
@@ -198,7 +198,7 @@
         "https://rpc.ankr.com/blast",
         "https://blast.din.dev/rpc",
         "https://blastl2-mainnet.public.blastapi.io",
-        "https://blast.blockpi.network/v1/rpc/public"
+        "https://blast.drpc.org"
       ],
       "avgBlockTimeMs": 2000,
       "multicall3": {
@@ -323,7 +323,7 @@
       "publicRpcUrls": [
         "https://bsc-testnet.public.blastapi.io",
         "https://bsc-testnet-rpc.publicnode.com",
-        "https://bsc-testnet.blockpi.network/v1/rpc/public"
+        "https://endpoints.omniatech.io/v1/bsc/testnet/public"
       ],
       "avgBlockTimeMs": 3000,
       "multicall3": {
@@ -403,7 +403,7 @@
       "chainId": 59144,
       "currencySymbol": "ETH",
       "publicRpcUrls": [
-        "https://linea.blockpi.network/v1/rpc/public",
+        "https://linea.drpc.org",
         "https://rpc.linea.build",
         "https://1rpc.io/linea"
       ],
@@ -456,7 +456,6 @@
       "currencySymbol": "ETH",
       "publicRpcUrls": [
         "https://sepolia.blast.io",
-        "https://blast-sepolia.blockpi.network/v1/rpc/public",
         "https://blast-sepolia.drpc.org"
       ],
       "avgBlockTimeMs": 2000,
@@ -556,7 +555,7 @@
         "https://mainnet.era.zksync.io",
         "https://zksync.drpc.org",
         "https://1rpc.io/zksync2-era",
-        "https://zksync-era.blockpi.network/v1/rpc/public"
+        "https://endpoints.omniatech.io/v1/zksync-era/mainnet/public"
       ],
       "avgBlockTimeMs": 1200,
       "multicall3": {
@@ -609,7 +608,6 @@
         "https://rpc.scroll.io",
         "https://1rpc.io/scroll",
         "https://scroll-mainnet.public.blastapi.io",
-        "https://scroll.blockpi.network/v1/rpc/public",
         "https://scroll-mainnet.chainstacklabs.com"
       ],
       "avgBlockTimeMs": 3000,
