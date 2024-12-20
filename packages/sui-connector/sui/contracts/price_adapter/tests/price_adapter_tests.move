@@ -4,7 +4,7 @@ module redstone_price_adapter::tests;
 use redstone_price_adapter::admin::{admin_cap, consume_cap};
 use redstone_price_adapter::main;
 use redstone_price_adapter::price_adapter::{Self, PriceAdapter};
-use sui::clock;
+use sui::clock::{Self, Clock};
 use sui::test_scenario::{Self, Scenario};
 
 const OWNER: address = @0xCAFE;
@@ -31,19 +31,44 @@ const SIGNERS: vector<vector<u8>> = vector[
     x"57331c48c0c6f256f899d118cb4d67fc75f07bee",
 ];
 
+const MIN_INTERVAL_BETWEEN_UPDATES_MS: u64 = 15 * 1000; // 15 seconds;
+
 const E_PRICE_MISMATCH: u64 = 0;
 
 #[test]
-fun e2e() {
+fun e2e_as_trusted() {
     let mut scenario = test_scenario::begin(OWNER);
-    initialize_price_adapter(&mut scenario);
-    write_price(&mut scenario);
+    let mut clock = clock::create_for_testing(scenario.ctx());
+    let timestamp = 1729443646868;
+    // Set the clock to a specific time (adjustable)
+    clock.set_for_testing(timestamp);
+    initialize_price_adapter(&mut scenario, vector[OWNER]);
+
+    // mv clock by one tick
+    clock.set_for_testing(timestamp + 1);
+    write_price(&mut scenario, &clock);
     read_price(&mut scenario);
 
+    clock::destroy_for_testing(clock);
     test_scenario::end(scenario);
 }
 
-fun initialize_price_adapter(scenario: &mut Scenario) {
+#[test]
+fun e2e_as_non_trusted() {
+    let mut scenario = test_scenario::begin(OWNER);
+    let mut clock = clock::create_for_testing(scenario.ctx());
+    let timestamp = 1729443646868;
+    // Set the clock to a specific time (adjustable)
+    clock.set_for_testing(timestamp);
+    initialize_price_adapter(&mut scenario, vector[]);
+
+    write_price(&mut scenario, &clock);
+
+    clock::destroy_for_testing(clock);
+    test_scenario::end(scenario);
+}
+
+fun initialize_price_adapter(scenario: &mut Scenario, trusted_updaters: vector<address>) {
     test_scenario::next_tx(scenario, OWNER);
     {
         let admin_cap = admin_cap(test_scenario::ctx(scenario));
@@ -53,22 +78,20 @@ fun initialize_price_adapter(scenario: &mut Scenario) {
             3,
             15 * 60 * 1000, // 15 minutes
             3 * 60 * 1000, // 3 minutes
+            trusted_updaters,
+            MIN_INTERVAL_BETWEEN_UPDATES_MS,
             test_scenario::ctx(scenario),
         );
         consume_cap(admin_cap);
     };
 }
 
-fun write_price(scenario: &mut Scenario) {
+fun write_price(scenario: &mut Scenario, clock: &Clock) {
     test_scenario::next_tx(scenario, OWNER);
     {
         let mut price_adapter = test_scenario::take_shared<PriceAdapter>(
             scenario,
         );
-        let mut clock = clock::create_for_testing(test_scenario::ctx(scenario));
-
-        // Set the clock to a specific time (adjustable)
-        clock::set_for_testing(&mut clock, 1729443646868);
 
         let payload = TEST_PAYLOAD;
 
@@ -76,11 +99,11 @@ fun write_price(scenario: &mut Scenario) {
             &mut price_adapter,
             TEST_FEED_ID,
             payload,
-            &clock,
+            clock,
+            scenario.ctx(),
         );
 
         test_scenario::return_shared(price_adapter);
-        clock::destroy_for_testing(clock);
     };
 }
 

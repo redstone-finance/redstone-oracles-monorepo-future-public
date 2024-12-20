@@ -29,9 +29,11 @@ function makeSuiDeployConfig(
     network,
     uniqueSignerCount: 3,
     signerCountThreshold: 3,
-    maxTimestampDelayMs: 900000,
-    maxTimestampAheadMs: 180000,
+    maxTimestampDelayMs: 15 * 60 * 1_000, // 15 min
+    maxTimestampAheadMs: 3 * 60 * 1_000, // 3 min
     signers: getSignersForDataServiceId(dataServiceId),
+    trustedUpdaters: [], // no one is trusted at the start
+    minIntervalBetweenUpdatesMs: 1 * 1000, // 1 sec between updated // todo: change after
   });
 }
 
@@ -127,6 +129,8 @@ async function initialize(
       tx.pure(bcs.u8().serialize(config.signerCountThreshold)),
       tx.pure(bcs.u64().serialize(config.maxTimestampDelayMs)),
       tx.pure(bcs.u64().serialize(config.maxTimestampAheadMs)),
+      tx.pure(serializeSigners(config.trustedUpdaters)),
+      tx.pure(bcs.u64().serialize(config.minIntervalBetweenUpdatesMs)),
     ],
   });
 

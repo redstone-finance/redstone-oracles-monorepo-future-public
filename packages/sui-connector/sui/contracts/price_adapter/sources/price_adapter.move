@@ -6,6 +6,7 @@ use redstone_price_adapter::admin::AdminCap;
 use redstone_price_adapter::price_data::{Self, PriceData};
 use redstone_price_adapter::redstone_sdk_config::{Self, Config};
 use redstone_price_adapter::redstone_sdk_payload::process_payload;
+use redstone_price_adapter::redstone_sdk_update_check::assert_update_time;
 use sui::clock::Clock;
 use sui::event;
 use sui::table::{Self, Table};
@@ -47,10 +48,33 @@ public fun write_price(
     feed_id: vector<u8>,
     payload: vector<u8>,
     clock: &Clock,
+    tx_context: &TxContext,
 ): u256 {
+    let timestamp_now_ms = clock.timestamp_ms();
+
     let assert_version = assert_version(price_adapter);
 
-    write_price_checked(assert_version, price_adapter, feed_id, payload, clock)
+    let price_write_timestamp = price_adapter.get_price_feed_write_timestamp(
+        feed_id,
+    );
+
+    // If the feed_id was written to before check condition
+    price_write_timestamp.do!(|write_time| {
+        assert_update_time(
+            &price_adapter.config,
+            write_time,
+            timestamp_now_ms,
+            tx_context.sender(),
+        )
+    });
+
+    write_price_checked(
+        assert_version,
+        price_adapter,
+        feed_id,
+        payload,
+        timestamp_now_ms,
+    )
 }
 
 // === Public-View Functions ===
@@ -84,6 +108,8 @@ public fun update_config(
     signer_count_threshold: Option<u8>,
     max_timestamp_delay_ms: Option<u64>,
     max_timestamp_ahead_ms: Option<u64>,
+    trusted_updaters: Option<vector<address>>,
+    min_interval_between_updates_ms: Option<u64>,
 ) {
     let assert_version = assert_version(priceAdapter);
 
@@ -95,6 +121,8 @@ public fun update_config(
         signer_count_threshold,
         max_timestamp_delay_ms,
         max_timestamp_ahead_ms,
+        trusted_updaters,
+        min_interval_between_updates_ms,
     )
 }
 
@@ -106,6 +134,8 @@ public(package) fun new(
     signer_count_threshold: u8,
     max_timestamp_delay_ms: u64,
     max_timestamp_ahead_ms: u64,
+    trusted_updaters: vector<address>,
+    min_interval_between_updates_ms: u64,
     ctx: &mut TxContext,
 ) {
     let config = redstone_sdk_config::new(
@@ -113,6 +143,8 @@ public(package) fun new(
         signers,
         max_timestamp_delay_ms,
         max_timestamp_ahead_ms,
+        trusted_updaters,
+        min_interval_between_updates_ms,
     );
 
     let price_adapter = PriceAdapter {
@@ -137,11 +169,11 @@ fun write_price_checked(
     price_adapter: &mut PriceAdapter,
     feed_id: vector<u8>,
     payload: vector<u8>,
-    clock: &Clock,
+    timestamp_now_ms: u64,
 ): u256 {
     let (aggregated_value, timestamp) = process_payload(
         &price_adapter.config,
-        clock,
+        timestamp_now_ms,
         feed_id,
         payload,
     );
@@ -152,29 +184,45 @@ fun write_price_checked(
         feed_id,
         aggregated_value,
         timestamp,
-        clock.timestamp_ms(),
+        timestamp_now_ms,
     );
 
     aggregated_value
 }
 
-fun overwrite_price(
+fun get_or_create_default(
     _: AssertVersion,
+    price_adapter: &mut PriceAdapter,
+    feed_id: vector<u8>,
+): &mut PriceData {
+    if (!price_adapter.prices.contains(feed_id)) {
+        let new_price_data = price_data::default(feed_id);
+        price_adapter.prices.add(feed_id, new_price_data);
+    };
+
+    &mut price_adapter.prices[feed_id]
+}
+
+fun get_price_feed_write_timestamp(price_adapter: &PriceAdapter, feed_id: vector<u8>): Option<u64> {
+    if (!price_adapter.prices.contains(feed_id)) {
+        return option::none()
+    };
+
+    option::some(price_adapter.prices[feed_id].write_timestamp())
+}
+
+fun overwrite_price(
+    assert_version: AssertVersion,
     price_adapter: &mut PriceAdapter,
     feed_id: vector<u8>,
     aggregated_value: u256,
     timestamp: u64,
     write_timestamp: u64,
 ) {
-    if (!price_adapter.prices.contains(feed_id)) {
-        let new_price_data = price_data::default(feed_id);
-        price_adapter.prices.add(feed_id, new_price_data);
-    };
+    let price_data = get_or_create_default(assert_version, price_adapter, feed_id);
 
-    let price_data = &mut price_adapter.prices[feed_id];
     assert!(timestamp > price_data.timestamp(), E_TIMESTAMP_STALE);
-
-    price_data.overwrite(feed_id, aggregated_value, timestamp, write_timestamp);
+    price_data.update(feed_id, aggregated_value, timestamp, write_timestamp);
 
     event::emit(PriceWrite {
         feed_id: std::string::utf8(feed_id),
@@ -192,30 +240,44 @@ fun update_config_checked(
     mut signer_count_threshold: Option<u8>,
     mut max_timestamp_delay_ms: Option<u64>,
     mut max_timestamp_ahead_ms: Option<u64>,
+    mut trusted_updaters: Option<vector<address>>,
+    mut min_interval_between_updates_ms: Option<u64>,
 ) {
     // Extract new values or use existing ones
-    let final_signers = if (option::is_some(&signers)) {
-        option::extract(&mut signers)
+    let final_signers = if (signers.is_some()) {
+        signers.extract()
     } else {
-        redstone_sdk_config::signers(&price_adapter.config)
+        price_adapter.config.signers()
     };
 
-    let final_signer_count_threshold = if (option::is_some(&signer_count_threshold)) {
-        option::extract(&mut signer_count_threshold)
+    let final_signer_count_threshold = if (signer_count_threshold.is_some()) {
+        signer_count_threshold.extract()
     } else {
-        redstone_sdk_config::signer_count_threshold(&price_adapter.config)
+        price_adapter.config.signer_count_threshold()
     };
 
-    let final_max_timestamp_delay_ms = if (option::is_some(&max_timestamp_delay_ms)) {
-        option::extract(&mut max_timestamp_delay_ms)
+    let final_max_timestamp_delay_ms = if (max_timestamp_delay_ms.is_some()) {
+        max_timestamp_delay_ms.extract()
     } else {
-        redstone_sdk_config::max_timestamp_delay_ms(&price_adapter.config)
+        price_adapter.config.max_timestamp_delay_ms()
     };
 
-    let final_max_timestamp_ahead_ms = if (option::is_some(&max_timestamp_ahead_ms)) {
-        option::extract(&mut max_timestamp_ahead_ms)
+    let final_max_timestamp_ahead_ms = if (max_timestamp_ahead_ms.is_some()) {
+        max_timestamp_ahead_ms.extract()
     } else {
-        redstone_sdk_config::max_timestamp_ahead_ms(&price_adapter.config)
+        price_adapter.config.max_timestamp_ahead_ms()
+    };
+
+    let trusted_updaters = if (trusted_updaters.is_some()) {
+        trusted_updaters.extract()
+    } else {
+        price_adapter.config.trusted_updaters()
+    };
+
+    let min_interval_between_updates_ms = if (min_interval_between_updates_ms.is_some()) {
+        min_interval_between_updates_ms.extract()
+    } else {
+        price_adapter.config.min_interval_between_updates_ms()
     };
 
     assert!(
@@ -235,6 +297,8 @@ fun update_config_checked(
             final_signer_count_threshold,
             final_max_timestamp_delay_ms,
             final_max_timestamp_ahead_ms,
+            trusted_updaters,
+            min_interval_between_updates_ms,
         );
 }
 

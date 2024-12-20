@@ -19,6 +19,8 @@ export const SuiDeployConfigSchema = z.object({
   signerCountThreshold: z.number(),
   maxTimestampDelayMs: z.number(),
   maxTimestampAheadMs: z.number(),
+  trustedUpdaters: z.array(z.string()),
+  minIntervalBetweenUpdatesMs: z.number(),
   initializeTxGasBudget: z.number().default(100000000),
 });
 

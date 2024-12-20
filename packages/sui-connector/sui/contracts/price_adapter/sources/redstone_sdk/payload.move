@@ -17,7 +17,6 @@ use redstone_price_adapter::redstone_sdk_data_package::{
 };
 use redstone_price_adapter::redstone_sdk_median::calculate_median;
 use redstone_price_adapter::redstone_sdk_validate::{verify_data_packages, verify_redstone_marker};
-use sui::clock::Clock;
 
 // === Errors ===
 
@@ -44,7 +43,7 @@ public struct Payload has copy, drop {
 
 public fun process_payload(
     config: &Config,
-    clock: &Clock,
+    timestamp_now_ms: u64,
     feed_id: vector<u8>,
     payload: vector<u8>,
 ): (u256, u64) {
@@ -57,7 +56,7 @@ public fun process_payload(
     verify_data_packages(
         &data_packages,
         config,
-        clock.timestamp_ms(),
+        timestamp_now_ms,
     );
 
     let values = extract_values_by_feed_id(&parsed_payload, &feed_id);
@@ -227,22 +226,17 @@ fun trim_end(v: &mut vector<u8>, len: u64): vector<u8> {
 
 #[test_only]
 use redstone_price_adapter::redstone_sdk_config::test_config;
-#[test_only]
-use sui::clock;
 
 #[test]
 fun test_process_payload() {
     let payload = SAMPLE_PAYLOAD;
     let feed_id = x"4554480000000000000000000000000000000000000000000000000000000000";
-    let mut clock = test_clock();
+    let timestamp = 1707307760000;
 
-    clock::set_for_testing(&mut clock, 1707307760000);
-
-    let (val, timestamp) = process_payload(&test_config(), &clock, feed_id, payload);
+    let (val, timestamp) = process_payload(&test_config(), timestamp, feed_id, payload);
 
     assert!(val == 236389750361);
     assert!(timestamp == 1707307760000);
-    clock::destroy_for_testing(clock);
 }
 
 #[test]
@@ -420,12 +414,4 @@ fun new_test_data_package(timestamp: u64, data_points: vector<DataPoint>): DataP
 fun test_data_point(data_point: DataPoint, feed_id: vector<u8>, value: vector<u8>) {
     assert!(data_point.feed_id() == feed_id);
     assert!(data_point.value() == value);
-}
-
-#[test_only]
-fun test_clock(): Clock {
-    let mut dummy = tx_context::dummy();
-    let clock = clock::create_for_testing(&mut dummy);
-
-    clock
 }

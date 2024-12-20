@@ -11,6 +11,8 @@ public struct Config has store, copy, drop {
     signers: vector<vector<u8>>,
     max_timestamp_delay_ms: u64,
     max_timestamp_ahead_ms: u64,
+    trusted_updaters: vector<address>,
+    min_interval_between_updates_ms: u64,
 }
 
 // === Public-View Functions ===
@@ -31,6 +33,14 @@ public fun max_timestamp_ahead_ms(config: &Config): u64 {
     config.max_timestamp_ahead_ms
 }
 
+public fun trusted_updaters(config: &Config): vector<address> {
+    config.trusted_updaters
+}
+
+public fun min_interval_between_updates_ms(config: &Config): u64 {
+    config.min_interval_between_updates_ms
+}
+
 // === Public-Package Functions ===
 
 public(package) fun new(
@@ -38,12 +48,16 @@ public(package) fun new(
     signers: vector<vector<u8>>,
     max_timestamp_delay_ms: u64,
     max_timestamp_ahead_ms: u64,
+    trusted_updaters: vector<address>,
+    min_interval_between_updates_ms: u64,
 ): Config {
     Config {
         signer_count_threshold,
         signers,
         max_timestamp_delay_ms,
         max_timestamp_ahead_ms,
+        trusted_updaters,
+        min_interval_between_updates_ms,
     }
 }
 
@@ -54,11 +68,15 @@ public(package) fun update_config(
     signer_count_threshold: u8,
     max_timestamp_delay_ms: u64,
     max_timestamp_ahead_ms: u64,
+    trusted_updaters: vector<address>,
+    min_interval_between_updates_ms: u64,
 ) {
     config.signers = signers;
     config.signer_count_threshold = signer_count_threshold;
     config.max_timestamp_delay_ms = max_timestamp_delay_ms;
     config.max_timestamp_ahead_ms = max_timestamp_ahead_ms;
+    config.trusted_updaters = trusted_updaters;
+    config.min_interval_between_updates_ms = min_interval_between_updates_ms;
 }
 
 // === Tests Functions ===
@@ -73,5 +91,7 @@ public fun test_config(): Config {
         ],
         15 * 60 * 1000,
         3 * 60 * 1000,
+        vector[],
+        0,
     )
 }

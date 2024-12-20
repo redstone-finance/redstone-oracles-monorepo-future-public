@@ -13,6 +13,8 @@ public fun initialize_price_adapter(
     signer_count_threshold: u8,
     max_timestamp_delay_ms: u64,
     max_timestamp_ahead_ms: u64,
+    trusted_updaters: vector<address>,
+    min_interval_between_updates_ms: u64,
     ctx: &mut TxContext,
 ) {
     price_adapter::new(
@@ -21,6 +23,8 @@ public fun initialize_price_adapter(
         signer_count_threshold,
         max_timestamp_delay_ms,
         max_timestamp_ahead_ms,
+        trusted_updaters,
+        min_interval_between_updates_ms,
         ctx,
     );
 }
