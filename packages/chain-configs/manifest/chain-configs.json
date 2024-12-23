@@ -827,9 +827,9 @@
     }
   },
   "temporaryConfigUpdates": {
-    "ink": {
+    "sonic": {
       "disabled": true
     },
-    "expirationTimestamp": "2024-12-15T10:00:00Z"
+    "expirationTimestamp": "2024-12-27T10:00:00Z"
   }
 }
