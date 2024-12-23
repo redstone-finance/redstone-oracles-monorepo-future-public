@@ -322,8 +322,7 @@
       "currencySymbol": "tBNB",
       "publicRpcUrls": [
         "https://bsc-testnet.public.blastapi.io",
-        "https://bsc-testnet-rpc.publicnode.com",
-        "https://endpoints.omniatech.io/v1/bsc/testnet/public"
+        "https://bsc-testnet-rpc.publicnode.com"
       ],
       "avgBlockTimeMs": 3000,
       "multicall3": {
@@ -554,8 +553,7 @@
       "publicRpcUrls": [
         "https://mainnet.era.zksync.io",
         "https://zksync.drpc.org",
-        "https://1rpc.io/zksync2-era",
-        "https://endpoints.omniatech.io/v1/zksync-era/mainnet/public"
+        "https://1rpc.io/zksync2-era"
       ],
       "avgBlockTimeMs": 1200,
       "multicall3": {
