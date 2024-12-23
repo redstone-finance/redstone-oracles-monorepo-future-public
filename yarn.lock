@@ -7993,6 +7993,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-private-key-generator@workspace:packages/lambda/lambda-private-key-generator":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-private-key-generator@workspace:packages/lambda/lambda-private-key-generator"
+  dependencies:
+    "@aws-sdk/client-ssm": "npm:^3.696.0"
+    "@redstone-finance/utils": "npm:0.7.3"
+    ethers: "npm:^5.7.2"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-redstone-txs-indexer@workspace:packages/lambda/lambda-redstone-txs-indexer":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-redstone-txs-indexer@workspace:packages/lambda/lambda-redstone-txs-indexer"
