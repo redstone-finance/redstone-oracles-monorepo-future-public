@@ -1412,6 +1412,11 @@
       "denomination": "USD",
       "rateFeed": true
     },
+    "STONE/ETH": {
+      "source": ["non-usd-based"],
+      "denomination": "ETH",
+      "rateFeed": false
+    },
     "frxETH": {
       "source": [
         "curve-ethereum-cvx",
@@ -2918,6 +2923,20 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "GOAT": {
+      "source": [
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
+        "coingecko",
+        "coinmarketcap",
+        "gate-usdt",
+        "kucoin-usdt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
     "LBTC": {
       "source": [
         "aerodrome-cl-base-cbbtc-100",
@@ -2928,6 +2947,11 @@
         "pancake-swap-bnb-btcb-500"
       ],
       "denomination": "USD",
+      "rateFeed": false
+    },
+    "LBTC/BTC": {
+      "source": ["non-usd-based"],
+      "denomination": "BTC",
       "rateFeed": false
     },
     "ssETH_FUNDAMENTAL": {
@@ -2997,6 +3021,11 @@
     "HYPE": {
       "source": ["hyperliquid-api-fetcher"],
       "denomination": "USDC",
+      "rateFeed": false
+    },
+    "CESR": {
+      "source": ["coindesk-cesr"],
+      "denomination": "percentage",
       "rateFeed": false
     },
     "stTON_FUNDAMENTAL": {
