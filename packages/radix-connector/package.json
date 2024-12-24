@@ -10,7 +10,7 @@
     "build": "yarn global:tsc --build tsconfig.build.json",
     "build-dev": "yarn global:tsc --build tsconfig.json",
     "preversion": "yarn build",
-    "pack-package": "yarn build && cd dist && npm pack",
+    "pack-package": "yarn build && npm pack",
     "lint": "yarn global:eslint .",
     "lint:fix": "yarn global:eslint --fix .",
     "test-ci": "IS_CI=true yarn global:jest",

@@ -12,3 +12,4 @@ export * from "./contracts/proxy/ProxyRadixContractAdapter";
 export * from "./contracts/proxy/ProxyRadixContractConnector";
 export * from "./contracts/proxy/ProxyRadixContractDeployer";
 export * from "./radix/RadixClient";
+export * from "./radix/RadixContractAdapter";

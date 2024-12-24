@@ -9,14 +9,10 @@ import { ReadPricesRadixMethod } from "./methods/ReadPricesRadixMethod";
 import { ReadTimestampRadixMethod } from "./methods/ReadTimestampRadixMethod";
 import { WritePricesRadixMethod } from "./methods/WritePricesRadixMethod";
 
-export type ReadMode = "ReadFromStorage" | "CallReadMethod";
-
 export class PriceAdapterRadixContractAdapter
   extends RadixContractAdapter
   implements IExtendedPricesContractAdapter
 {
-  public readMode: ReadMode = "ReadFromStorage";
-
   async getPricesFromPayload(
     paramsProvider: ContractParamsProvider
   ): Promise<BigNumberish[]> {

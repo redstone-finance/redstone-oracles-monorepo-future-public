@@ -12,6 +12,7 @@ import {
 } from "../src";
 import {
   DATA_SERVICE_ID,
+  FEED_ID,
   loadAddress,
   MULTI_FEED_PRICE_ADAPTER_NAME,
   NETWORK,
@@ -36,7 +37,7 @@ async function main() {
 
   const priceFeed = new PriceFeedRadixContractConnector(
     client,
-    await loadAddress(`component`, PROXY_NAME)
+    await loadAddress(`component`, PROXY_NAME, FEED_ID)
   );
 
   await sampleRun(paramsProvider, connector, priceFeed);
