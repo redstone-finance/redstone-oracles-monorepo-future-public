@@ -827,9 +827,12 @@
     }
   },
   "temporaryConfigUpdates": {
+    "expirationTimestamp": "2024-12-27T10:00:00Z",
     "sonic": {
       "disabled": true
     },
-    "expirationTimestamp": "2024-12-27T10:00:00Z"
+    "berachain-testnet": {
+      "disabled": true
+    }
   }
 }
