@@ -475,7 +475,7 @@
         "uniswap-v3-optimism-usdc-3000",
         "uniswap-v3-optimism-weth-3000",
         "uniswap-v3-optimism-weth-500",
-        "velodrome-cl-optimism-weth-500",
+        "velodrome-cl-optimism-weth-400",
         "velodrome-optimism-weth"
       ]
     },
