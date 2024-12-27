@@ -3043,6 +3043,28 @@
       "denomination": "S",
       "rateFeed": true
     },
+    "SWELL": {
+      "source": [
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
+        "coinbasepro-usd",
+        "coingecko",
+        "coinmarketcap",
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
+    "SWELL/ETH": {
+      "source": ["non-usd-based"],
+      "denomination": "ETH",
+      "rateFeed": false
+    },
     "BAT": {
       "denomination": "USD",
       "rateFeed": false
