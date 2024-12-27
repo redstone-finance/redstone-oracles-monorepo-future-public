@@ -355,6 +355,7 @@ export class TxDelivery {
     return (
       (e.message.includes("maxFeePerGas") ||
         e.message.includes("baseFeePerGas") ||
+        e.message.includes("underpriced") ||
         e.code === ErrorCode.INSUFFICIENT_FUNDS ||
         e.code === ErrorCode.REPLACEMENT_UNDERPRICED ||
         e.code === ErrorCode.UNPREDICTABLE_GAS_LIMIT) &&
