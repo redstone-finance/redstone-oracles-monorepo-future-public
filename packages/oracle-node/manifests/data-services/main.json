@@ -1631,6 +1631,11 @@
       "denomination": "USD",
       "rateFeed": true
     },
+    "sUSDe_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-ethena"],
+      "denomination": "USDe",
+      "rateFeed": true
+    },
     "rswETH": {
       "source": [
         "balancer-ethereum-ezeth",

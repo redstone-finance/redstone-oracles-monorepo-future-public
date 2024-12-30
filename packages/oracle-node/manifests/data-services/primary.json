@@ -1240,6 +1240,11 @@
       "denomination": "USD",
       "rateFeed": true
     },
+    "sUSDe_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-ethena"],
+      "denomination": "USDe",
+      "rateFeed": true
+    },
     "USDB": {
       "source": [
         "ambient-blast-eth",
