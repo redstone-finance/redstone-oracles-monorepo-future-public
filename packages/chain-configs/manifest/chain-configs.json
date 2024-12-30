@@ -680,7 +680,10 @@
       "name": "Unichain Sepolia",
       "chainId": 1301,
       "currencySymbol": "ETH",
-      "publicRpcUrls": [],
+      "publicRpcUrls": [
+        "https://sepolia.unichain.org",
+        "https://endpoints.omniatech.io/v1/unichain/sepolia/public"
+      ],
       "avgBlockTimeMs": 2000,
       "multicall3": {
         "address": "0xcA11bde05977b3631167028862bE2a173976CA11",

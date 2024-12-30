@@ -13,7 +13,6 @@ import {
 } from "../../scripts/read-manifests";
 
 const INTEGRATIONS_NOT_FOR_TESTING = [
-  "unichainTestnetMultiFeed",
   "hemiMultiFeed", // remove once we get a publicRpc
   "inkMultiFeed", // remove once we get a publicRpc
 ];
