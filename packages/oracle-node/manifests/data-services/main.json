@@ -3046,6 +3046,15 @@
       "denomination": "S",
       "rateFeed": true
     },
+    "USDX": {
+      "source": [
+        "balancer-arbitrumone-usdt",
+        "curve-ethereum-usdt",
+        "pancake-swap-stable-bnb-usdt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
     "sUSDX_ARB_FUNDAMENTAL": {
       "source": ["arbitrum-evm-fetcher-stables-labs"],
       "denomination": "USDX",
@@ -6010,10 +6019,6 @@
       "rateFeed": false
     },
     "NYM": {
-      "denomination": "USD",
-      "rateFeed": false
-    },
-    "USDX": {
       "denomination": "USD",
       "rateFeed": false
     },

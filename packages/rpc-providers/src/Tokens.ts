@@ -297,6 +297,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0x8236a87084f8B84306f72007F36F2618A5634494",
       decimals: 8,
     },
+    USDX: {
+      address: "0xf3527ef8dE265eAa3716FB312c12847bFBA66Cef",
+      decimals: 18,
+    },
   },
   blast: {
     ETH: {
@@ -451,6 +455,10 @@ export const chainTokenMap: ChainTokenMap = {
     },
     USDe: {
       address: "0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34",
+      decimals: 18,
+    },
+    USDX: {
+      address: "0xf3527ef8de265eaa3716fb312c12847bfba66cef",
       decimals: 18,
     },
   },
@@ -722,6 +730,10 @@ export const chainTokenMap: ChainTokenMap = {
     LBTC: {
       address: "0xecAc9C5F704e954931349Da37F60E39f515c11c1",
       decimals: 8,
+    },
+    USDX: {
+      address: "0xf3527ef8dE265eAa3716FB312c12847bFBA66Cef",
+      decimals: 18,
     },
   },
   sei: {
