@@ -45,6 +45,9 @@ const config: HardhatUserConfig = {
     sonic: {
       url: "https://rpc.soniclabs.com",
     },
+    rootstock: {
+      url: "https://rootstock-mainnet.public.blastapi.io",
+    },
   },
 };
 

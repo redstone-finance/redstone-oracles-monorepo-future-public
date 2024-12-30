@@ -826,6 +826,26 @@
       "isAuctionModel": false,
       "fallbackToEthMaxPriorityFeePerGas": true,
       "twoDimensionalFees": false,
+      "isMainnet": false
+    },
+    "rootstock": {
+      "name": "Rootstock Mainnet",
+      "chainId": 30,
+      "currencySymbol": "RBTC",
+      "publicRpcUrls": [
+        "https://rootstock-mainnet.public.blastapi.io",
+        "https://rootstock.drpc.org",
+        "https://public-node.rsk.co",
+        "https://mycrypto.rsk.co"
+      ],
+      "avgBlockTimeMs": 25000,
+      "multicall3": {
+        "address": "0xaD6CC5a465E5c8284a49eC9eD10EFE275460678c",
+        "type": "RedstoneMulticall3",
+        "gasLimitPerCall": 1000000
+      },
+      "isAuctionModel": true,
+      "twoDimensionalFees": true,
       "isMainnet": true
     }
   },

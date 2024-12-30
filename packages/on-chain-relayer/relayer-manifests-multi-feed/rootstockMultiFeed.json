@@ -1,0 +1,30 @@
+{
+  "chain": {
+    "name": "rootstock",
+    "id": 30
+  },
+  "adapterContract": "0x24c8964338Deb5204B096039147B8e8C3AEa42Cc",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 1,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "priceFeeds": {
+    "BTC": {
+      "priceFeedAddress": "0x197225B3B017eb9b72Ac356D6B3c267d0c04c57c"
+    },
+    "RIF": {
+      "priceFeedAddress": "0xbbF121624c3b85C929Ac83872bf6c86b0976A55e"
+    },
+    "USDT": {
+      "priceFeedAddress": "0x09639692CE6ff12A06CA3AE9A24b3Aae4CD80DC8"
+    },
+    "USDC": {
+      "priceFeedAddress": "0x83c6f7F61A55Fc7A1337AbD45733AD9c1c68076D"
+    },
+    "ETH": {
+      "priceFeedAddress": "0x3401DAF2b1f150Ef0c709Cc0283b5F2e55c3DF29"
+    }
+  }
+}
