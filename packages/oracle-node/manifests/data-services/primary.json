@@ -1974,6 +1974,21 @@
       "denomination": "S",
       "rateFeed": true
     },
+    "sUSDX_ARB_FUNDAMENTAL": {
+      "source": ["arbitrum-evm-fetcher-stables-labs"],
+      "denomination": "USDX",
+      "rateFeed": true
+    },
+    "sUSDX_BNB_FUNDAMENTAL": {
+      "source": ["bnb-evm-fetcher-stables-labs"],
+      "denomination": "USDX",
+      "rateFeed": true
+    },
+    "sUSDX_ETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-stables-labs"],
+      "denomination": "USDX",
+      "rateFeed": true
+    },
     "SWELL": {
       "source": [
         "bingx-usdt",
