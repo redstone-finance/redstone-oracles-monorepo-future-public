@@ -2933,7 +2933,6 @@
         "bitmart-usdt",
         "bitrue-usdt",
         "coingecko",
-        "coinmarketcap",
         "gate-usdt",
         "kucoin-usdt"
       ],
@@ -3092,7 +3091,6 @@
         "bybit-usdt",
         "coinbasepro-usd",
         "coingecko",
-        "coinmarketcap",
         "gate-usdt",
         "kucoin-usdt",
         "lbank-usdt"
