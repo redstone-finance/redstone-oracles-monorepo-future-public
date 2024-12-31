@@ -352,7 +352,8 @@
         "curve-ethereum-usdc",
         "curve-ethereum-usde",
         "curve-ethereum-usdt",
-        "curve-ethereum-weth"
+        "curve-ethereum-weth",
+        "curve-ethereum-susde"
       ]
     },
     "USDe": {
