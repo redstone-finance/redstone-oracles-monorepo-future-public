@@ -847,6 +847,24 @@
       "isAuctionModel": true,
       "twoDimensionalFees": true,
       "isMainnet": true
+    },
+    "rootstockTestnet": {
+      "name": "Rootstock Testnet",
+      "chainId": 31,
+      "currencySymbol": "tRBTC",
+      "publicRpcUrls": [
+        "https://rootstock-testnet.public.blastapi.io",
+        "https://rootstock-testnet.drpc.org",
+        "https://public-node.testnet.rsk.co"
+      ],
+      "avgBlockTimeMs": 25000,
+      "multicall3": {
+        "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
+        "type": "Multicall3"
+      },
+      "isAuctionModel": true,
+      "twoDimensionalFees": true,
+      "isMainnet": false
     }
   },
   "temporaryConfigUpdates": {
