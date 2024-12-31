@@ -7837,6 +7837,7 @@ __metadata:
   resolution: "@redstone-finance/lambda-lbtc-peg-checker@workspace:packages/lambda/lambda-lbtc-peg-checker"
   dependencies:
     "@redstone-finance/internal-utils": "npm:0.7.3"
+    "@redstone-finance/monitoring-manifests": "npm:0.7.3"
     "@redstone-finance/protocol": "npm:0.7.3"
     "@redstone-finance/sdk": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"
