@@ -53,6 +53,12 @@
     },
     "SolvBTC.BBN/BTC": {
       "priceFeedAddress": "0xBf3bA2b090188B40eF83145Be0e9F30C6ca63689"
+    },
+    "USDX": {
+      "priceFeedAddress": "0x4BAD96DD1C7D541270a0C92e1D4e5f12EEEA7a57"
+    },
+    "sUSDX_BNB_FUNDAMENTAL": {
+      "priceFeedAddress": "0xebE443E20ADf302B59419648c4dbA0c7299cf1A2"
     }
   }
 }
