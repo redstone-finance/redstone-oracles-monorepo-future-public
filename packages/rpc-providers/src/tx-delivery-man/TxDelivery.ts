@@ -27,6 +27,7 @@ enum TransactionBroadcastErrorResult {
   AlreadyDelivered,
   Underpriced,
   UnknownError,
+  InsufficientFunds,
 }
 
 type DeliveryManTx =
@@ -198,6 +199,13 @@ export class TxDelivery {
             tx = await this.updateTxParamsForNextAttempt(tx);
             // skip sleeping
             continue;
+          case TransactionBroadcastErrorResult.InsufficientFunds:
+            this.opts.logger(
+              `Aborting delivery due to insufficient funds. error=${RedstoneCommon.stringifyError(
+                ethersError
+              )}`
+            );
+            throw ethersError;
           default:
             this.opts.logger(
               `Failed to delivery transaction with unknown error. Aborting delivery. error=${RedstoneCommon.stringifyError(
@@ -298,9 +306,14 @@ export class TxDelivery {
       // if underpriced then bump fee and skip sleeping
     } else if (TxDelivery.isUnderpricedError(ethersError)) {
       this.opts.logger(
-        `Underpriced error occurred, trying with scaled fees without sleep`
+        "Underpriced error occurred, trying with scaled fees without sleep"
       );
       return TransactionBroadcastErrorResult.Underpriced;
+    } else if (TxDelivery.isInsufficientFundsError(ethersError)) {
+      this.opts.logger(
+        "Insufficient funds error occurred, updater doesn't have enough tokens"
+      );
+      return TransactionBroadcastErrorResult.InsufficientFunds;
     }
 
     return TransactionBroadcastErrorResult.UnknownError;
@@ -356,7 +369,6 @@ export class TxDelivery {
       (e.message.includes("maxFeePerGas") ||
         e.message.includes("baseFeePerGas") ||
         e.message.includes("underpriced") ||
-        e.code === ErrorCode.INSUFFICIENT_FUNDS ||
         e.code === ErrorCode.REPLACEMENT_UNDERPRICED ||
         e.code === ErrorCode.UNPREDICTABLE_GAS_LIMIT) &&
       !e.message.includes("VM Exception while processing transaction")
@@ -370,6 +382,10 @@ export class TxDelivery {
       e.message.includes("invalid sequence") ||
       e.code === ErrorCode.NONCE_EXPIRED
     );
+  }
+
+  private static isInsufficientFundsError(e: EthersError) {
+    return e.code === ErrorCode.INSUFFICIENT_FUNDS;
   }
 
   private async getFees(): Promise<FeeStructure> {
