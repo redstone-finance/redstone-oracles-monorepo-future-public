@@ -3,8 +3,7 @@ import { ContractParamsProvider, isSubsetOf } from "@redstone-finance/sdk";
 import { loggerFactory, Tx } from "@redstone-finance/utils";
 import { utils } from "ethers";
 import { MultiFeedAdapterWithoutRounds } from "../../../typechain-types";
-import { getLastRoundParamsFromContractMultiFeed } from "../../multi-feed/args/get-last-round-params";
-import { ContractData } from "../../types";
+import { ContractData, LastRoundDetails } from "../../types";
 import { EvmContractAdapter } from "./EvmContractAdapter";
 
 const logger = loggerFactory("updatePrices/multi-feed");
@@ -49,14 +48,41 @@ export class MultiFeedEvmContractAdapter extends EvmContractAdapter<MultiFeedAda
     return txCall;
   }
 
-  override async readLatestRoundParamsFromContract(
+  override async readLatestRoundContractData(
     feedIds: string[],
     blockNumber: number
   ): Promise<ContractData> {
-    return await getLastRoundParamsFromContractMultiFeed(
-      this.adapterContract,
+    const dataFromContract: ContractData = {};
+
+    const lastRoundDetails = await this.getLastUpdateDetailsForManyFromContract(
       feedIds,
       blockNumber
     );
+
+    for (const [index, dataFeedId] of feedIds.entries()) {
+      dataFromContract[dataFeedId] = lastRoundDetails[index];
+    }
+
+    return dataFromContract;
   }
+
+  private getLastUpdateDetailsForManyFromContract = async (
+    feedIds: string[],
+    blockNumber: number
+  ): Promise<LastRoundDetails[]> => {
+    const dataFeedsAsBytes32 = feedIds.map(utils.formatBytes32String);
+    const contractOutput: MultiFeedAdapterWithoutRounds.LastUpdateDetailsStructOutput[] =
+      await this.adapterContract.getLastUpdateDetailsUnsafeForMany(
+        dataFeedsAsBytes32,
+        {
+          blockTag: blockNumber,
+        }
+      );
+
+    return contractOutput.map((lastRoundDetails) => ({
+      lastDataPackageTimestampMS: lastRoundDetails.dataTimestamp.toNumber(),
+      lastBlockTimestampMS: lastRoundDetails.blockTimestamp.toNumber() * 1000,
+      lastValue: lastRoundDetails.value,
+    }));
+  };
 }

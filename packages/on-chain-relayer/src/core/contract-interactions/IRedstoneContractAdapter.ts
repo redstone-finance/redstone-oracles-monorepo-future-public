@@ -4,9 +4,10 @@ import { ContractData } from "../../types";
 export interface IRedstoneContractAdapter {
   getUniqueSignerThreshold(blockNumber?: number): Promise<number>;
 
-  readLatestRoundParamsFromContract(
+  readLatestRoundContractData(
     feedIds: string[],
-    blockNumber: number
+    blockNumber: number,
+    withDataFeedValues: boolean
   ): Promise<ContractData>;
 
   writePricesFromPayloadToContract(

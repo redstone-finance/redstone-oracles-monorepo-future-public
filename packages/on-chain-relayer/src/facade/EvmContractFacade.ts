@@ -8,13 +8,14 @@ export type RedstoneEvmContract = Contract &
   (MultiFeedAdapterWithoutRounds | RedstoneAdapterBase);
 
 export class EvmContractFacade extends ContractFacade {
-  async getLastRoundParamsFromContract(
+  async getLatestRoundContractData(
     feedIds: string[],
-    blockTag: number
+    blockTag: number,
+    withDataFeedValues: boolean
   ): Promise<ContractData> {
     return await (
       await this.getAdapter()
-    ).readLatestRoundParamsFromContract(feedIds, blockTag);
+    ).readLatestRoundContractData(feedIds, blockTag, withDataFeedValues);
   }
 
   private async getAdapter() {

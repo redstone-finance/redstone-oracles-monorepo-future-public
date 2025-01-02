@@ -15,7 +15,7 @@ class ContractAdapterMock implements IRedstoneContractAdapter {
     return Promise.resolve(1);
   }
 
-  readLatestRoundParamsFromContract(
+  readLatestRoundContractData(
     _feedIds: string[],
     _blockNumber: number
   ): Promise<ContractData> {

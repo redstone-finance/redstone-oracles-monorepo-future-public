@@ -1,4 +1,5 @@
 import { Provider } from "@ethersproject/providers";
+import { AdapterType } from "@redstone-finance/on-chain-relayer-common";
 import { Contract, Signer } from "ethers";
 import { abi as redstoneAdapterABI } from "../../artifacts/contracts/core/RedstoneAdapterBase.sol/RedstoneAdapterBase.json";
 import { abi as mentoAdapterABI } from "../../artifacts/contracts/custom-integrations/mento/MentoAdapterBase.sol/MentoAdapterBase.json";
@@ -8,16 +9,18 @@ import {
   MultiFeedAdapterWithoutRounds,
   RedstoneAdapterBase,
 } from "../../typechain-types";
-import { RelayerConfig } from "../config/RelayerConfig";
 import { RedstoneEvmContract } from "./EvmContractFacade";
 
 export function getEvmContract(
-  relayerConfig: RelayerConfig,
+  relayerConfig: {
+    adapterContractAddress: string;
+    adapterContractType: AdapterType;
+  },
   signerOrProvider?: Signer | Provider
 ): RedstoneEvmContract {
-  const { adapterContractAddress } = relayerConfig;
+  const { adapterContractAddress, adapterContractType } = relayerConfig;
 
-  switch (relayerConfig.adapterContractType) {
+  switch (adapterContractType) {
     case "multi-feed": {
       return new Contract(
         adapterContractAddress,
@@ -44,7 +47,7 @@ export function getEvmContract(
 
     default:
       throw new Error(
-        `adapterContractType ${relayerConfig.adapterContractType} is not supported`
+        `adapterContractType ${adapterContractType} is not supported`
       );
   }
 }

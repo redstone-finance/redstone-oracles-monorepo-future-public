@@ -44,9 +44,10 @@ export class MockContractFacade extends EvmContractFacade {
     return Promise.resolve(1);
   }
 
-  override getLastRoundParamsFromContract(
+  override getLatestRoundContractData(
     _feedIds: string[],
-    _blockTag: number
+    _blockTag: number,
+    _withDataFeedValues: boolean
   ): Promise<ContractData> {
     return Promise.resolve({
       ETH: {

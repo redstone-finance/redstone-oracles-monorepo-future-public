@@ -1,10 +1,10 @@
+import { AdapterType } from "@redstone-finance/on-chain-relayer-common";
 import { Tx } from "@redstone-finance/utils";
 import {
   MentoAdapterBase,
   MultiFeedAdapterWithoutRounds,
   RedstoneAdapterBase,
 } from "../../typechain-types";
-import { RelayerConfig } from "../config/RelayerConfig";
 import { EvmContractAdapter } from "../core/contract-interactions/EvmContractAdapter";
 import { MentoEvmContractAdapter } from "../core/contract-interactions/MentoEvmContractAdapter";
 import { MultiFeedEvmContractAdapter } from "../core/contract-interactions/MultiFeedEvmContractAdapter";
@@ -12,14 +12,16 @@ import { PriceFeedsEvmContractAdapter } from "../core/contract-interactions/Pric
 import { RedstoneEvmContract } from "./EvmContractFacade";
 
 export function getEvmContractAdapter(
-  relayerConfig: RelayerConfig,
+  relayerConfig: {
+    adapterContractType: AdapterType;
+    mentoMaxDeviationAllowed?: number;
+  },
   adapterContract: RedstoneEvmContract,
   txDeliveryMan: Tx.ITxDeliveryMan
 ): EvmContractAdapter<RedstoneEvmContract> {
   switch (relayerConfig.adapterContractType) {
     case "multi-feed": {
       return new MultiFeedEvmContractAdapter(
-        relayerConfig,
         adapterContract as MultiFeedAdapterWithoutRounds,
         txDeliveryMan
       );
@@ -27,7 +29,6 @@ export function getEvmContractAdapter(
 
     case "price-feeds": {
       return new PriceFeedsEvmContractAdapter(
-        relayerConfig,
         adapterContract as RedstoneAdapterBase,
         txDeliveryMan
       );
@@ -35,9 +36,9 @@ export function getEvmContractAdapter(
 
     case "mento": {
       return new MentoEvmContractAdapter(
-        relayerConfig,
         adapterContract as MentoAdapterBase,
-        txDeliveryMan
+        txDeliveryMan,
+        relayerConfig.mentoMaxDeviationAllowed
       );
     }
 

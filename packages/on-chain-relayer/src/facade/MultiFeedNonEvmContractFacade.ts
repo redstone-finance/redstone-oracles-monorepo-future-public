@@ -3,7 +3,7 @@ import { ContractData } from "../types";
 import { ContractFacade } from "./ContractFacade";
 
 export class MultiFeedNonEvmContractFacade extends ContractFacade {
-  async getLastRoundParamsFromContract(
+  async getLatestRoundContractData(
     feedIds: string[],
     blockTag: number
   ): Promise<ContractData> {

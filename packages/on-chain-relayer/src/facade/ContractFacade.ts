@@ -25,18 +25,28 @@ export abstract class ContractFacade {
     protected cache?: DataPackagesResponseCache
   ) {}
 
-  abstract getLastRoundParamsFromContract(
+  abstract getLatestRoundContractData(
     feedIds: string[],
-    blockTag: number
+    blockTag: number,
+    withDataFeedValues: boolean
   ): Promise<ContractData>;
 
   async getShouldUpdateContext(
     relayerConfig: RelayerConfig
   ): Promise<ShouldUpdateContext> {
     const blockTag = await this.getBlockNumber();
+    const { updateConditions, dataFeeds } = relayerConfig;
+    const shouldCheckValueDeviation = dataFeeds.some((feedId) =>
+      updateConditions[feedId].includes("value-deviation")
+    );
+
     const [uniqueSignersThreshold, dataFromContract] = await Promise.all([
       this.getUniqueSignersThresholdFromContract(blockTag),
-      this.getLastRoundParamsFromContract(relayerConfig.dataFeeds, blockTag),
+      this.getLatestRoundContractData(
+        dataFeeds,
+        blockTag,
+        shouldCheckValueDeviation
+      ),
     ]);
 
     const requestParams = makeDataPackagesRequestParams(

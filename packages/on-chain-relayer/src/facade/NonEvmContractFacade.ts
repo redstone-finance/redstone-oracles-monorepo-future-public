@@ -9,7 +9,7 @@ import { ContractData } from "../types";
 import { ContractFacade } from "./ContractFacade";
 
 export class NonEvmContractFacade extends ContractFacade {
-  async getLastRoundParamsFromContract(
+  async getLatestRoundContractData(
     feedIds: string[],
     _blockTag: number
   ): Promise<ContractData> {

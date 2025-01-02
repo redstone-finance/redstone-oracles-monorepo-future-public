@@ -26,7 +26,7 @@ import {
   MentoAdapterMock,
   MockSortedOracles,
 } from "../../../../typechain-types";
-import { deployMockSortedOracles, mockConfig } from "../../../helpers";
+import { deployMockSortedOracles } from "../../../helpers";
 
 let getProviderStub: Sinon.SinonStub<[RelayerConfig], Provider>;
 
@@ -318,13 +318,13 @@ describe("MentoAdapter", () => {
     const { proposedTimestamp, timestampMilliseconds } =
       (await reportWithAdapter(1, 2, mentoAdapter))!;
     const adapter = new MentoEvmContractAdapter(
-      mockConfig(),
       mentoAdapter,
       new MockTxDeliveryMan()
     );
-    const values = await adapter.readLatestRoundParamsFromContract(
+    const values = await adapter.readLatestRoundContractData(
       ["BTC", "ETH"],
-      await mentoAdapter.provider.getBlockNumber()
+      await mentoAdapter.provider.getBlockNumber(),
+      true
     );
     expect(values).to.eql({
       BTC: {

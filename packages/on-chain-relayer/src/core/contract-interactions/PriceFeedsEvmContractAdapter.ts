@@ -38,20 +38,33 @@ export class PriceFeedsEvmContractAdapter<
     return txCall;
   }
 
-  override readLatestRoundParamsFromContract(
+  override async readLatestRoundContractData(
     feedIds: string[],
-    blockNumber: number
+    blockNumber: number,
+    withDataFeedValues: boolean
   ): Promise<ContractData> {
-    const { updateConditions } = this.relayerConfig;
-    const shouldCheckValueDeviation = feedIds.some((feedId) =>
-      updateConditions[feedId].includes("value-deviation")
-    );
+    const { lastUpdateTimestamps, valuesFromContract } =
+      await RedstoneCommon.waitForAllRecord({
+        lastUpdateTimestamps: getLatestTimestampsFromContract(
+          this.adapterContract,
+          blockNumber
+        ),
+        valuesFromContract: withDataFeedValues
+          ? this.getValuesForDataFeeds(feedIds, blockNumber)
+          : Promise.resolve({} as ValuesForDataFeeds),
+      });
+    const { lastBlockTimestampMS, lastDataPackageTimestampMS } =
+      lastUpdateTimestamps;
+    const lastRoundParams: ContractData = {};
+    for (const dataFeedId of feedIds) {
+      lastRoundParams[dataFeedId] = {
+        lastBlockTimestampMS,
+        lastDataPackageTimestampMS,
+        lastValue: valuesFromContract[dataFeedId] ?? BigNumber.from(0),
+      };
+    }
 
-    return this.getLastRoundParamsFromContract(
-      blockNumber,
-      feedIds,
-      shouldCheckValueDeviation
-    );
+    return lastRoundParams;
   }
 
   async getValuesForDataFeeds(dataFeeds: string[], blockTag: number) {
@@ -62,39 +75,8 @@ export class PriceFeedsEvmContractAdapter<
       });
     const dataFeedsValues: ValuesForDataFeeds = {};
     for (const [index, dataFeedId] of dataFeeds.entries()) {
-      const currentValue = valuesFromContractAsBigNumber[index];
-
-      dataFeedsValues[dataFeedId] = currentValue;
+      dataFeedsValues[dataFeedId] = valuesFromContractAsBigNumber[index];
     }
     return dataFeedsValues;
-  }
-
-  private async getLastRoundParamsFromContract(
-    blockTag: number,
-    dataFeeds: string[],
-    shouldCheckValueDeviation: boolean
-  ): Promise<ContractData> {
-    // We fetch the latest values from contract only if we want to check value deviation
-    const { lastUpdateTimestamps, valuesFromContract } =
-      await RedstoneCommon.waitForAllRecord({
-        lastUpdateTimestamps: getLatestTimestampsFromContract(
-          this.adapterContract,
-          blockTag
-        ),
-        valuesFromContract: shouldCheckValueDeviation
-          ? this.getValuesForDataFeeds(dataFeeds, blockTag)
-          : Promise.resolve({} as ValuesForDataFeeds),
-      });
-    const { lastBlockTimestampMS, lastDataPackageTimestampMS } =
-      lastUpdateTimestamps;
-    const lastRoundParams: ContractData = {};
-    for (const dataFeedId of dataFeeds) {
-      lastRoundParams[dataFeedId] = {
-        lastBlockTimestampMS,
-        lastDataPackageTimestampMS,
-        lastValue: valuesFromContract[dataFeedId] ?? BigNumber.from(0),
-      };
-    }
-    return lastRoundParams;
   }
 }

@@ -1,6 +1,5 @@
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { Tx } from "@redstone-finance/utils";
-import { RelayerConfig } from "../../config/RelayerConfig";
 import { RedstoneEvmContract } from "../../facade/EvmContractFacade";
 import { ContractData } from "../../types";
 import { IRedstoneContractAdapter } from "./IRedstoneContractAdapter";
@@ -10,7 +9,6 @@ export abstract class EvmContractAdapter<Contract extends RedstoneEvmContract>
   implements IRedstoneContractAdapter
 {
   constructor(
-    public relayerConfig: RelayerConfig,
     public adapterContract: Contract,
     protected txDeliveryMan: Tx.ITxDeliveryMan
   ) {}
@@ -20,9 +18,10 @@ export abstract class EvmContractAdapter<Contract extends RedstoneEvmContract>
     metadataTimestamp: number
   ): Promise<Tx.TxDeliveryCall>;
 
-  abstract readLatestRoundParamsFromContract(
+  abstract readLatestRoundContractData(
     feedIds: string[],
-    blockNumber: number
+    blockNumber: number,
+    withDataFeedValues: boolean
   ): Promise<ContractData>;
 
   async getUniqueSignerThreshold(blockTag?: number): Promise<number> {

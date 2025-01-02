@@ -14,6 +14,14 @@ import {
 import { PriceFeedsEvmContractAdapter } from "./PriceFeedsEvmContractAdapter";
 
 export class MentoEvmContractAdapter extends PriceFeedsEvmContractAdapter<MentoAdapterBase> {
+  constructor(
+    adapterContract: MentoAdapterBase,
+    txDeliveryMan: Tx.ITxDeliveryMan,
+    private maxDeviationAllowed?: number
+  ) {
+    super(adapterContract, txDeliveryMan);
+  }
+
   override async getValuesForDataFeeds(
     dataFeeds: string[],
     blockTag: number
@@ -46,7 +54,6 @@ export class MentoEvmContractAdapter extends PriceFeedsEvmContractAdapter<MentoA
       sortedOraclesAddress,
       this.adapterContract.provider
     );
-    const maxDeviationAllowed = this.relayerConfig.mentoMaxDeviationAllowed;
 
     const dataPackages = await dataPackagesPromise;
     const dataPackagesWrapper = new DataPackagesWrapper<MentoAdapterBase>(
@@ -61,11 +68,11 @@ export class MentoEvmContractAdapter extends PriceFeedsEvmContractAdapter<MentoA
           sortedOracles,
         },
         blockTag,
-        maxDeviationAllowed
+        this.maxDeviationAllowed
       );
     if (!linkedListPositions) {
       throw new Error(
-        `Prices in Sorted Oracles deviated more than ${maxDeviationAllowed}% from RedStone prices`
+        `Prices in Sorted Oracles deviated more than ${this.maxDeviationAllowed}% from RedStone prices`
       );
     }
 

@@ -52,7 +52,6 @@ describe("update-prices", () => {
     const contractAdapter = await new EvmContractConnector(
       ethers.provider,
       new PriceFeedsEvmContractAdapter(
-        relayerConfig,
         priceFeedsAdapter,
         getTxDeliveryMan(
           relayerConfig,
@@ -107,13 +106,13 @@ describe("update-prices", () => {
     const contractAdapter = await new EvmContractConnector(
       ethers.provider,
       new MentoEvmContractAdapter(
-        relayerConfig,
         mentoAdapter,
         getTxDeliveryMan(
           relayerConfig,
           mentoAdapter.signer,
           mentoAdapter.provider as JsonRpcProvider
-        )
+        ),
+        relayerConfig.mentoMaxDeviationAllowed
       )
     ).getAdapter();
     const paramsProvider = new ContractParamsProviderMock();
