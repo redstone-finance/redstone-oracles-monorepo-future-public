@@ -49,6 +49,12 @@
     },
     "USDe": {
       "priceFeedAddress": "0x65eD6a4ac085620eE943c0B15525C4428D23e4Db"
+    },
+    "SWELL/ETH": {
+      "priceFeedAddress": "0x24eDD61cdA334bFf871A80DEB135073a7d7a9187"
+    },
+    "sUSDe_FUNDAMENTAL": {
+      "priceFeedAddress": "0xddE3b77040cee3387C0cA661d1b619C3acA203b0"
     }
   }
 }
