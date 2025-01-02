@@ -343,7 +343,6 @@ function sendRequestToGateway(
   return axios.get<Record<string, SignedDataPackagePlainObj[]>>(sanitizedUrl, {
     timeout: GET_REQUEST_TIMEOUT,
     params: {
-      dataFeedIds: reqParams.dataPackagesIds,
       dataPackagesIds: reqParams.dataPackagesIds,
       minimalSignersCount: reqParams.uniqueSignersCount,
     },
