@@ -128,6 +128,22 @@
         "deviationPercentage": 0.2,
         "timeSinceLastUpdateInMilliseconds": 86400000
       }
+    },
+    "USDX": {
+      "priceFeedAddress": "0x6205DCc41329fb5dE3FB01e272eD49F8771cC715"
+    },
+    "sUSDX_ETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0x5708d924Fc996EDee46962CdB6815f90639974e1"
+    },
+    "beraETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0x4f67Fd74cff274Ef2942223c0f3166b856410AdD"
+    },
+    "SWELL/ETH": {
+      "priceFeedAddress": "0xf2d31a29c7BCc992a62D297489dBBfff5F39BE15",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 21600000
+      }
     }
   }
 }
