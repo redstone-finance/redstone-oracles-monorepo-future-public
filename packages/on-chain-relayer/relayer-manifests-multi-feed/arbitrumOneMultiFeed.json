@@ -16,6 +16,20 @@
     },
     "ETH+/ETH": {
       "priceFeedAddress": "0xCfd39de761508A7aCb8C931b959127a1D9d0B3D4"
+    },
+    "USDX": {
+      "priceFeedAddress": "0xb81131B6368b3F0a83af09dB4E39Ac23DA96C2Db",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 21600000
+      }
+    },
+    "sUSDX_ARB_FUNDAMENTAL": {
+      "priceFeedAddress": "0x24c8964338Deb5204B096039147B8e8C3AEa42Cc",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 21600000
+      }
     }
   }
 }
