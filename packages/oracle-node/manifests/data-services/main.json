@@ -3104,6 +3104,11 @@
       "denomination": "ETH",
       "rateFeed": false
     },
+    "beraETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-stake-stone-bera"],
+      "denomination": "ETH",
+      "rateFeed": true
+    },
     "BAT": {
       "denomination": "USD",
       "rateFeed": false
