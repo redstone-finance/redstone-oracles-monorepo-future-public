@@ -407,7 +407,7 @@
     },
     "teb-demo-1": {
       "name": "TEB Demo 1 Node",
-      "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/teb/logo.svg",
+      "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/teb/logo.png",
       "description": "Data feeds provided by TEB to staging env"
     }
   },
