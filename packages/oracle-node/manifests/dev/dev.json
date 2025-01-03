@@ -10,8 +10,25 @@
     }
   },
   "tokens": {
-    "BTC": {},
-    "ETH": {},
-    "BNB": {}
+    "BTC": {
+      "denomination": "USD",
+      "rateFeed": false
+    },
+    "ETH": {
+      "denomination": "USD",
+      "rateFeed": false
+    },
+    "BNB": {
+      "denomination": "USD",
+      "rateFeed": false
+    },
+    "USDT": {
+      "denomination": "USD",
+      "rateFeed": false
+    },
+    "USDC": {
+      "denomination": "USD",
+      "rateFeed": false
+    }
   }
 }

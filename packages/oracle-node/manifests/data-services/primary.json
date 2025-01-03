@@ -2023,6 +2023,24 @@
       "source": ["ethereum-evm-fetcher-stake-stone-bera"],
       "denomination": "ETH",
       "rateFeed": true
+    },
+    "ENA": {
+      "source": [
+        "binance-usdt",
+        "bybit-usdt",
+        "gate-usdt",
+        "binance-usdc",
+        "binance-btc",
+        "lbank-usdt",
+        "binance-fdusd",
+        "bitget-usdt",
+        "kucoin-usdt",
+        "bitmart-usdt",
+        "coingecko",
+        "coinmarketcap"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
     }
   },
   "multiPointPackages": {
