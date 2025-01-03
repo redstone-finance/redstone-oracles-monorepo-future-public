@@ -1,2 +1,3 @@
 cache
-artifacts
+artifacts/build-info 
+artifacts/contracts/**/*dbg.json

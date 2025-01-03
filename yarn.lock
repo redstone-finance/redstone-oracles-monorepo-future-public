@@ -4578,6 +4578,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@knowyourrpc/sdk@npm:0.3.6":
+  version: 0.3.6
+  resolution: "@knowyourrpc/sdk@npm:0.3.6"
+  dependencies:
+    "@ethersproject/wallet": "npm:^5.7.0"
+    express: "npm:^4.18.2"
+  checksum: 10c0/74b0cb9f19d1e98acdfcd97d3ab92361404122acc4fb14343b6016ecc7b462a22d363513ea43a831cd08612ec5997b199779f08e3342b7c131e414c5ac10e21e
+  languageName: node
+  linkType: hard
+
 "@koa/cors@npm:^3.1.0":
   version: 3.4.3
   resolution: "@koa/cors@npm:3.4.3"
@@ -7661,6 +7671,19 @@ __metadata:
     axios: "npm:^1.7.7"
     dayjs: "npm:^1.11.12"
     lodash: "npm:^4.17.21"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
+"@redstone-finance/kyr-proxy@workspace:packages/kyr-proxy":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/kyr-proxy@workspace:packages/kyr-proxy"
+  dependencies:
+    "@knowyourrpc/sdk": "npm:0.3.6"
+    "@redstone-finance/chain-configs": "npm:0.7.3"
+    "@redstone-finance/internal-utils": "npm:0.7.3"
+    "@redstone-finance/utils": "npm:0.7.3"
+    dotenv: "npm:^16.0.3"
     zod: "npm:^3.22.4"
   languageName: unknown
   linkType: soft

@@ -4,6 +4,7 @@ export * from "./aws/ecs";
 export * from "./aws/error-logger";
 export * from "./aws/params";
 export * from "./config-checks";
+export * from "./fetch-rpc-urls-from-ssm";
 export * from "./influx/influxdb-config";
 export * from "./influx/InfluxService";
 export * from "./monorepo-fetcher";
