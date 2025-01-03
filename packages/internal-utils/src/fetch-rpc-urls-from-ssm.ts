@@ -22,26 +22,40 @@ export async function fetchRpcUrlsFromSsm(
   for (const chainIds of chainIdsChunks) {
     await Promise.all(
       chainIds.map(async (chainId) => {
-        const path = `/${opts.env}/rpc/${chainId}/${opts.type === "fallback" ? "fallback/" : ""}urls`;
-        let rpcUrls: string | undefined;
-        try {
-          const region = opts.type === "fallback" ? "eu-north-1" : undefined;
-          rpcUrls = await getSSMParameterValue(path, region);
-        } catch (e) {
-          if ((e as Error).name !== "ParameterNotFound") {
-            throw new Error(
-              `Failed to get rpcUrls for chainId=${chainId}: ${RedstoneCommon.stringifyError(e)}`
-            );
-          }
-          return;
+        const rpcUrlsForChainId = await fetchRpcUrlsFromSsmByChainId(
+          chainId,
+          opts.type,
+          opts.env
+        );
+        if (rpcUrlsForChainId) {
+          result[chainId] = JSON.parse(rpcUrlsForChainId) as string[];
+        } else {
+          throw new Error(
+            `Failed to get rpcUrls for chainId=${chainId}: getSSMParameterValue returned empty value`
+          );
         }
-        if (!rpcUrls) {
-          return;
-        }
-        result[chainId] = JSON.parse(rpcUrls) as string[];
       })
     );
   }
 
   return result;
+}
+
+async function fetchRpcUrlsFromSsmByChainId(
+  chainId: number,
+  type: FetchRpcUrlsFromSsmOpts["type"],
+  env: FetchRpcUrlsFromSsmOpts["env"]
+): Promise<string | undefined> {
+  try {
+    const path = `/${env}/rpc/${chainId}/${type === "fallback" ? "fallback/" : ""}urls`;
+    const region = type === "fallback" ? "eu-north-1" : undefined;
+    return await getSSMParameterValue(path, region);
+  } catch (e) {
+    if ((e as Error).name !== "ParameterNotFound") {
+      throw new Error(
+        `Failed to get rpcUrls for chainId=${chainId}: ${RedstoneCommon.stringifyError(e)}`
+      );
+    }
+    return undefined;
+  }
 }
