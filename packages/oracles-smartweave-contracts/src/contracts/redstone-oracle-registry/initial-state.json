@@ -301,7 +301,7 @@
       "ecdsaPublicKey": "0x04923b515ca55308a9a6f5cac7ccf6cafbc1fda73700a081b1d1114e20e3c0a89c9fe388b6e62fade1243bd30895ac0473a9642756be38e3619aad5c9b890e0cc3"
     },
     "0x01922465ccaa8b14A1CDF84BeC16fFA0A7CD2b9d": {
-      "url": "https://redstone.finance",
+      "url": "https://x.com/tebplace",
       "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/teb/logo.png",
       "name": "teb-demo-1",
       "ipAddress": "0.0.0.0",
@@ -309,6 +309,16 @@
       "description": "Data feeds provided by TEB",
       "evmAddress": "0x01922465ccaa8b14A1CDF84BeC16fFA0A7CD2b9d",
       "ecdsaPublicKey": "0x0446b99cd91967222a16d5220ed10a5d743d517655a80f4eda8b52a817f77de7d237f0c474ef28859f347cc001b910dc74de03181880408d40aa37ae5329dda384"
+    },
+    "0xA73880D5550f712f1820fF3e157BD64ea7Bc7040": {
+      "url": "https://auros.global",
+      "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/auros/logo.png",
+      "name": "auros-demo-1",
+      "ipAddress": "0.0.0.0",
+      "dataServiceId": "auros-demo-1",
+      "description": "Data feeds provided by Auros",
+      "evmAddress": "0xA73880D5550f712f1820fF3e157BD64ea7Bc7040",
+      "ecdsaPublicKey": "0x045a0c7f02d731f6146b96fef298417f44a08d04dbe9c676110c91e60eb94b14010d8422335c9192fd6bb98bbbe564b1c7e6a867f9dc9a37910f239e77bab0a6c4"
     }
   },
   "evolve": null,
@@ -409,6 +419,11 @@
       "name": "TEB Demo 1 Node",
       "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/teb/logo.png",
       "description": "Data feeds provided by TEB to staging env"
+    },
+    "auros-demo-1": {
+      "name": "Auros Demo 1 Node",
+      "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-images/main/providers/auros/logo.png",
+      "description": "Data feeds provided by Auros to staging env"
     }
   },
   "contractAdmins": [
