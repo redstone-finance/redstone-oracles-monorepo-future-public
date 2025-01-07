@@ -1603,11 +1603,11 @@
         "curve-arbitrumone-weth",
         "curve-ethereum-crv",
         "curve-ethereum-frax",
+        "curve-ethereum-susde",
         "curve-ethereum-usdc",
         "curve-ethereum-usde",
         "curve-ethereum-usdt",
-        "curve-ethereum-weth",
-        "curve-ethereum-susde"
+        "curve-ethereum-weth"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -2057,9 +2057,9 @@
         "curve-ethereum-wbtc",
         "dodoex-bnb-btcb",
         "pancake-swap-bnb-btcb-500",
+        "thena-bnb-btcb",
         "trader-joe-v2-avalanche-btc.b",
-        "uniswap-v3-ethereum-wbtc-500",
-        "thena-bnb-btcb"
+        "uniswap-v3-ethereum-wbtc-500"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -2945,9 +2945,9 @@
         "aerodrome-cl-base-cbbtc-100",
         "curve-ethereum-wbtc",
         "curve-ethereum-wbtc-2",
+        "pancake-swap-bnb-btcb-500",
         "uniswap-v3-ethereum-cbbtc-500",
-        "uniswap-v3-ethereum-wbtc-500",
-        "pancake-swap-bnb-btcb-500"
+        "uniswap-v3-ethereum-wbtc-500"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -3111,18 +3111,17 @@
     },
     "ENA": {
       "source": [
-        "binance-usdt",
-        "bybit-usdt",
-        "gate-usdt",
-        "binance-usdc",
         "binance-btc",
-        "lbank-usdt",
         "binance-fdusd",
+        "binance-usdc",
+        "binance-usdt",
         "bitget-usdt",
-        "kucoin-usdt",
         "bitmart-usdt",
+        "bybit-usdt",
         "coingecko",
-        "coinmarketcap"
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt"
       ],
       "denomination": "USD",
       "rateFeed": false

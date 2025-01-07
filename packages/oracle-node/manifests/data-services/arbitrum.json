@@ -835,11 +835,11 @@
         "curve-arbitrumone-weth",
         "curve-ethereum-crv",
         "curve-ethereum-frax",
+        "curve-ethereum-susde",
         "curve-ethereum-usdc",
         "curve-ethereum-usde",
         "curve-ethereum-usdt",
-        "curve-ethereum-weth",
-        "curve-ethereum-susde"
+        "curve-ethereum-weth"
       ],
       "denomination": "USD",
       "rateFeed": false
