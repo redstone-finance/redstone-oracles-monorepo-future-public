@@ -4578,13 +4578,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@knowyourrpc/sdk@npm:0.3.6":
-  version: 0.3.6
-  resolution: "@knowyourrpc/sdk@npm:0.3.6"
+"@knowyourrpc/sdk@npm:0.3.7":
+  version: 0.3.7
+  resolution: "@knowyourrpc/sdk@npm:0.3.7"
   dependencies:
     "@ethersproject/wallet": "npm:^5.7.0"
     express: "npm:^4.18.2"
-  checksum: 10c0/74b0cb9f19d1e98acdfcd97d3ab92361404122acc4fb14343b6016ecc7b462a22d363513ea43a831cd08612ec5997b199779f08e3342b7c131e414c5ac10e21e
+    node-fetch: "npm:^2.6.12"
+  checksum: 10c0/acac60b2dfdc1082954bd7112f557569f6ab2840a5b49430149c8ad4ca19ab54d20267dfce61c0a8e185a32afe3e72933dfadc54833bc8feb4d0457f289fc9ff
   languageName: node
   linkType: hard
 
@@ -7679,7 +7680,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/kyr-proxy@workspace:packages/kyr-proxy"
   dependencies:
-    "@knowyourrpc/sdk": "npm:0.3.6"
+    "@knowyourrpc/sdk": "npm:0.3.7"
     "@redstone-finance/chain-configs": "npm:0.7.3"
     "@redstone-finance/internal-utils": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"
