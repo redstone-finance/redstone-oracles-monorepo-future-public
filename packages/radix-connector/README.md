@@ -57,12 +57,10 @@ Then you can invoke the contract methods described above pointing to the
 selected [RedStone data service](https://app.redstone.finance) and requested data feeds.
 
 ```ts
-import {RadixClient} from "@redstone-finance/radix-connector";
-
-const prices = new PriceAdapterRadixContractConnector(
-  new RadixClient({ed25519: yourWalletPrivateKey}),
-  yourComponentAddress
-);
+const client = new RadixClient(NetworkId.Stokenet, {
+  ed25519: yourWalletPrivateKey
+});
+const prices = new PriceAdapterRadixContractConnector(client, yourComponentId);
 
 const paramsProvider = new ContractParamsProvider({
   dataServiceId: "redstone-main-demo",

@@ -7,7 +7,6 @@ import {
 } from "@redstone-finance/evm-connector";
 import { TxDeliveryCall } from "@redstone-finance/rpc-providers";
 import { Tx } from "@redstone-finance/utils";
-import { TxDeliveryManContext } from "@redstone-finance/utils/dist/src/tx";
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { BigNumber } from "ethers";
@@ -342,7 +341,7 @@ describe("MentoAdapter", () => {
 });
 
 class MockTxDeliveryMan implements Tx.ITxDeliveryMan {
-  deliver(_txDeliveryCall: TxDeliveryCall, _context: TxDeliveryManContext) {
+  deliver(_txDeliveryCall: TxDeliveryCall, _context: Tx.TxDeliveryManContext) {
     return Promise.resolve();
   }
 }

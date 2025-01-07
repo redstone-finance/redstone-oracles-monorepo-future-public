@@ -20,6 +20,7 @@ export const AdapterTypesEnum = z.enum([
   ...NonEvmAdapterTypesEnum.options,
 ]);
 export type AdapterType = z.infer<typeof AdapterTypesEnum>;
+export type NonEvmAdapterType = z.infer<typeof NonEvmAdapterTypesEnum>;
 
 export const ChainSchema = z.object({
   name: z.string(),

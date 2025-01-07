@@ -1,6 +1,6 @@
 import {
   isMultiFeedAdapterType,
-  isNonEvmAdapterType,
+  isNonEvmConfig,
 } from "@redstone-finance/on-chain-relayer-common";
 import { DataPackagesResponseCache } from "@redstone-finance/sdk";
 import { RelayerConfig } from "../config/RelayerConfig";
@@ -14,7 +14,7 @@ export const getContractFacade = async (
   relayerConfig: RelayerConfig,
   cache?: DataPackagesResponseCache
 ) => {
-  if (isNonEvmAdapterType(relayerConfig.adapterContractType)) {
+  if (isNonEvmConfig(relayerConfig)) {
     return new (
       isMultiFeedAdapterType(relayerConfig.adapterContractType)
         ? MultiFeedNonEvmContractFacade

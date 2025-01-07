@@ -21,7 +21,7 @@ export abstract class ContractFacade {
     protected readonly connector: IContractConnector<
       IExtendedPricesContractAdapter | IRedstoneContractAdapter
     >,
-    protected iterationArgsProvider: IterationArgsProvider,
+    protected iterationArgsProvider?: IterationArgsProvider,
     protected cache?: DataPackagesResponseCache
   ) {}
 
@@ -69,7 +69,7 @@ export abstract class ContractFacade {
     context: ShouldUpdateContext,
     relayerConfig: RelayerConfig
   ): Promise<IterationArgs> {
-    return await this.iterationArgsProvider(context, relayerConfig);
+    return await this.iterationArgsProvider!(context, relayerConfig);
   }
 
   getBlockNumber() {

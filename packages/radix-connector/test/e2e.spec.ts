@@ -1,3 +1,4 @@
+import { NetworkId } from "@radixdlt/radix-engine-toolkit";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import "dotenv/config";
 import redstone from "redstone-api";
@@ -18,7 +19,7 @@ describe("Integrated and initialized prices contract", () => {
       return console.log("Skipping in CI env");
     }
 
-    const client = new RadixClient(PRIVATE_KEY);
+    const client = new RadixClient(NetworkId.Stokenet, PRIVATE_KEY);
     const connector = new PriceAdapterRadixContractConnector(
       client,
       await loadAddress("component", PRICE_ADAPTER_NAME)

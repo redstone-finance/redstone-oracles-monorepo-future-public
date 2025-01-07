@@ -13,7 +13,7 @@ import {
 } from "./constants";
 
 async function instantiate() {
-  const client = new RadixClient(PRIVATE_KEY, NETWORK.id);
+  const client = new RadixClient(NETWORK.id, PRIVATE_KEY);
   const connector = new MultiFeedPriceAdapterRadixContractDeployer(
     client,
     await loadAddress(`package`, MULTI_FEED_PRICE_ADAPTER_NAME),

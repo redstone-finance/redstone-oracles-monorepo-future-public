@@ -11,7 +11,7 @@ import {
 const DEFAULT_DEPLOY_FEE_LOCK = 200;
 
 async function deploy(contractName: string) {
-  const client = new RadixPackageDeployer(PRIVATE_KEY, NETWORK.id);
+  const client = new RadixPackageDeployer(NETWORK.id, PRIVATE_KEY);
 
   const wasm = readFileSync(
     getContractFilename(

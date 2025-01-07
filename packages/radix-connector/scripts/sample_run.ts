@@ -27,7 +27,7 @@ async function main() {
     uniqueSignersCount: 1,
   });
 
-  const client = new RadixClient(PRIVATE_KEY, NETWORK.id);
+  const client = new RadixClient(NETWORK.id, PRIVATE_KEY);
 
   const connector = new MultiFeedPriceAdapterRadixContractConnector(
     client,

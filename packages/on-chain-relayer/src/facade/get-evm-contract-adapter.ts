@@ -1,4 +1,5 @@
 import { AdapterType } from "@redstone-finance/on-chain-relayer-common";
+import { TxDeliveryCall } from "@redstone-finance/rpc-providers";
 import { Tx } from "@redstone-finance/utils";
 import {
   MentoAdapterBase,
@@ -11,13 +12,20 @@ import { MultiFeedEvmContractAdapter } from "../core/contract-interactions/Multi
 import { PriceFeedsEvmContractAdapter } from "../core/contract-interactions/PriceFeedsEvmContractAdapter";
 import { RedstoneEvmContract } from "./EvmContractFacade";
 
+const emptyTxDeliveryMan: Tx.ITxDeliveryMan = {
+  deliver: (
+    _txDeliveryCall: TxDeliveryCall,
+    _context: Tx.TxDeliveryManContext
+  ) => Promise.resolve(),
+};
+
 export function getEvmContractAdapter(
   relayerConfig: {
     adapterContractType: AdapterType;
     mentoMaxDeviationAllowed?: number;
   },
   adapterContract: RedstoneEvmContract,
-  txDeliveryMan: Tx.ITxDeliveryMan
+  txDeliveryMan = emptyTxDeliveryMan
 ): EvmContractAdapter<RedstoneEvmContract> {
   switch (relayerConfig.adapterContractType) {
     case "multi-feed": {

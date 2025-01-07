@@ -1,7 +1,6 @@
 import { FuelPricesContractConnector } from "@redstone-finance/fuel-connector";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { Provider, Wallet } from "fuels";
-
 import { RelayerConfig } from "../config/RelayerConfig";
 
 export const getFuelContractConnector = async (

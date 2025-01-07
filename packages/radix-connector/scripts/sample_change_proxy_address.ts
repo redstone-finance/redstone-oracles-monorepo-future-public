@@ -16,7 +16,7 @@ const MAN_BADGE: () => NonFungibleGlobalIdInput = () => ({
 });
 
 async function changeProxyAddress() {
-  const client = new RadixClient(PRIVATE_KEY, NETWORK.id);
+  const client = new RadixClient(NETWORK.id, PRIVATE_KEY);
 
   const connector = new ProxyRadixContractConnector(
     client,

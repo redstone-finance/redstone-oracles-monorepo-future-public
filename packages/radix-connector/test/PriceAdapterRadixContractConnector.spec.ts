@@ -1,3 +1,4 @@
+import { NetworkId } from "@radixdlt/radix-engine-toolkit";
 import { PriceAdapterRadixContractDeployer, RadixClient } from "../src";
 import {
   transactionCommittedDetails,
@@ -19,7 +20,7 @@ describe("PriceAdapterRadixContractConnector tests", () => {
     mockDefaultValues();
 
     sut = new PriceAdapterRadixContractDeployer(
-      new RadixClient({ ed25519: MOCK_PRIVATE_KEY }),
+      new RadixClient(NetworkId.Stokenet, { ed25519: MOCK_PRIVATE_KEY }),
       MOCK_PACKAGE_ID,
       1,
       [

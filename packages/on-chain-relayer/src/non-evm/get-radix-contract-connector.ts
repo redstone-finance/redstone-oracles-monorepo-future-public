@@ -11,7 +11,7 @@ export const getRadixContractConnector = (
 ) => {
   const { privateKey, adapterContractAddress, chainId } = relayerConfig;
 
-  const client = new RadixClient({ ed25519: privateKey }, chainId);
+  const client = new RadixClient(chainId, { ed25519: privateKey });
 
   return new (
     isMultiFeed

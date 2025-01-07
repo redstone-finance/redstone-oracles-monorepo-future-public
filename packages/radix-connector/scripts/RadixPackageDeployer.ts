@@ -9,8 +9,8 @@ export class RadixPackageDeployer extends RadixClient {
   ) {
     const wallet = new Wallet(
       await this.getAccountAddress(),
-      this.signer.publicKey(),
-      this.signer
+      this.getPublicKey(),
+      this.signer!
     );
 
     const deployer = new PackageDeployer(this.networkId, wallet);

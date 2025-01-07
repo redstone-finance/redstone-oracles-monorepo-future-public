@@ -1,5 +1,4 @@
-import { BigNumber } from "ethers";
-import _ from "lodash";
+import { getLastRoundDetails } from "@redstone-finance/sdk";
 import { ConditionCheckNames, RelayerConfig } from "../../config/RelayerConfig";
 import { ConditionCheckResponse, ShouldUpdateContext } from "../../types";
 import { cronCondition } from "./cron-condition";
@@ -12,16 +11,11 @@ export const checkConditionByName = async (
   context: ShouldUpdateContext,
   config: RelayerConfig
 ): Promise<ConditionCheckResponse> => {
-  let lastRoundDetails = context.dataFromContract[dataFeedId];
-  if (_.isEmpty(lastRoundDetails)) {
-    lastRoundDetails = {
-      lastBlockTimestampMS: 0,
-      lastDataPackageTimestampMS: 0,
-      lastValue: BigNumber.from(0),
-    };
-
-    context.dataFromContract[dataFeedId] = lastRoundDetails;
-  }
+  const lastRoundDetails = getLastRoundDetails(
+    context.dataFromContract,
+    dataFeedId,
+    true
+  );
 
   switch (name) {
     case "time":

@@ -13,33 +13,32 @@ import { RadixApiClient } from "./RadixApiClient";
 import { RadixInvocation } from "./RadixInvocation";
 import { RadixTransaction } from "./RadixTransaction";
 
+const ALLOWED_FORWARD_EPOCH_COUNT = 100;
+
 export class RadixClient {
   protected readonly logger = loggerFactory("RadixClient");
-  protected readonly signer: PrivateKey;
+  protected readonly signer?: PrivateKey;
   protected readonly apiClient: RadixApiClient;
 
   constructor(
-    privateKey: { ed25519?: string; secp256k1?: string },
     protected networkId = NetworkId.Stokenet,
+    privateKey?: { ed25519?: string; secp256k1?: string },
     applicationName = "RedStone Radix Connector"
   ) {
     this.signer = RadixClient.makeSigner(privateKey);
     this.apiClient = new RadixApiClient(applicationName, networkId);
   }
 
-  static makeSigner(privateKey: {
-    ed25519?: string;
-    secp256k1?: string;
-  }): PrivateKey {
-    if (privateKey.ed25519) {
+  static makeSigner(privateKey?: { ed25519?: string; secp256k1?: string }) {
+    if (privateKey?.ed25519) {
       return new PrivateKey.Ed25519(privateKey.ed25519);
     }
 
-    if (privateKey.secp256k1) {
+    if (privateKey?.secp256k1) {
       return new PrivateKey.Secp256k1(privateKey.secp256k1);
     }
 
-    throw new Error("No Ed25519 nor Secp256k1 private key passed!");
+    return undefined;
   }
 
   async call<T>(
@@ -121,9 +120,17 @@ export class RadixClient {
 
   protected async getAccountAddress() {
     return await RadixEngineToolkit.Derive.virtualAccountAddressFromPublicKey(
-      this.signer.publicKey(),
+      this.getPublicKey(),
       this.networkId
     );
+  }
+
+  protected getPublicKey() {
+    if (!this.signer) {
+      throw new Error("No signer or private key passed");
+    }
+
+    return this.signer.publicKey();
   }
 
   private async callTransaction(transaction: RadixTransaction) {
@@ -131,9 +138,9 @@ export class RadixClient {
     const transactionHeader: TransactionHeader = {
       networkId: this.networkId,
       startEpochInclusive: currentEpochNumber,
-      endEpochExclusive: currentEpochNumber + 100,
+      endEpochExclusive: currentEpochNumber + ALLOWED_FORWARD_EPOCH_COUNT,
       nonce: generateRandomNonce(),
-      notaryPublicKey: this.signer.publicKey(),
+      notaryPublicKey: this.getPublicKey(),
       notaryIsSignatory: true,
       tipPercentage: 0,
     };
@@ -143,7 +150,7 @@ export class RadixClient {
         builder
           .header(transactionHeader)
           .manifest(transaction.getManifest())
-          .notarize(this.signer)
+          .notarize(this.signer!)
       );
 
     await RadixEngineToolkit.NotarizedTransaction.staticallyValidate(

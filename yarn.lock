@@ -7019,10 +7019,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radixdlt/babylon-gateway-api-sdk@npm:^1.8.1":
-  version: 1.8.1
-  resolution: "@radixdlt/babylon-gateway-api-sdk@npm:1.8.1"
-  checksum: 10c0/66210601cb56a2bfac24694b4d17505760702b846ba790b8e52fd44de50f7a44a40e871400a6800e8d648c46c5f3a97caf6bec25ec058d07cc708afef038913c
+"@radixdlt/babylon-gateway-api-sdk@npm:^1.9.2":
+  version: 1.9.2
+  resolution: "@radixdlt/babylon-gateway-api-sdk@npm:1.9.2"
+  checksum: 10c0/9711419d3ddfdc36ebdf11ef63dce5ebbf97dea237b7563d9f22b27f223973351a3cf3e39ba275ae4196d8daae7a57abcac2ce09c2c67c27121ddd1c72ac2ca4
   languageName: node
   linkType: hard
 
@@ -8407,7 +8407,7 @@ __metadata:
   resolution: "@redstone-finance/radix-connector@workspace:packages/radix-connector"
   dependencies:
     "@atlantis-l/radix-tool": "npm:^0.8.9"
-    "@radixdlt/babylon-gateway-api-sdk": "npm:^1.8.1"
+    "@radixdlt/babylon-gateway-api-sdk": "npm:^1.9.2"
     "@radixdlt/radix-engine-toolkit": "npm:^1.0.5"
     "@redstone-finance/sdk": "npm:0.7.3"
     axios: "npm:^1.7.7"
@@ -8438,6 +8438,7 @@ __metadata:
     "@redstone-finance/on-chain-relayer": "npm:0.7.3"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.7.3"
     "@redstone-finance/protocol": "npm:0.7.3"
+    "@redstone-finance/radix-connector": "npm:0.7.3"
     "@redstone-finance/rpc-providers": "npm:0.7.3"
     "@redstone-finance/sdk": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"

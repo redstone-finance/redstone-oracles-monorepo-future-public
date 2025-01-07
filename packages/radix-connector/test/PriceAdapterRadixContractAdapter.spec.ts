@@ -1,3 +1,4 @@
+import { NetworkId } from "@radixdlt/radix-engine-toolkit";
 import { ContractParamsProviderMock } from "@redstone-finance/sdk";
 import { BigNumber } from "ethers";
 import {
@@ -32,7 +33,7 @@ describe("PriceAdapterRadixContractAdapter tests", () => {
     mockDefaultValues();
 
     sut = await new PriceAdapterRadixContractConnector(
-      new RadixClient({ secp256k1: MOCK_PRIVATE_KEY }),
+      new RadixClient(NetworkId.Stokenet, { secp256k1: MOCK_PRIVATE_KEY }),
       MOCK_COMPONENT_ID
     ).getAdapter();
   });

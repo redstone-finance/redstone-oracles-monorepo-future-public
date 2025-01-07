@@ -4,6 +4,7 @@ import {
   AnyOnChainRelayerManifest,
   MultiFeedAdapterTypesEnum,
   MultiFeedOnChainRelayerManifest,
+  NonEvmAdapterType,
   NonEvmAdapterTypesEnum,
 } from "./schemas";
 
@@ -21,6 +22,12 @@ export function isMultiFeedAdapterType(
 
 export function isNonEvmAdapterType(
   adapterContractType: AdapterType
-): adapterContractType is z.infer<typeof NonEvmAdapterTypesEnum> {
+): adapterContractType is NonEvmAdapterType {
   return NonEvmAdapterTypesEnum.safeParse(adapterContractType).success;
+}
+
+export function isNonEvmConfig(config: {
+  adapterContractType: AdapterType;
+}): config is { adapterContractType: NonEvmAdapterType } {
+  return isNonEvmAdapterType(config.adapterContractType);
 }
