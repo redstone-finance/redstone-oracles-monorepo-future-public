@@ -7848,6 +7848,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-gas-cost-breakdown@workspace:packages/lambda/lambda-gas-cost-breakdown":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-gas-cost-breakdown@workspace:packages/lambda/lambda-gas-cost-breakdown"
+  dependencies:
+    "@aws-sdk/client-s3": "npm:^3.696.0"
+    "@influxdata/influxdb-client": "npm:^1.35.0"
+    "@redstone-finance/chain-configs": "npm:0.7.3"
+    "@redstone-finance/internal-utils": "npm:0.7.3"
+    "@redstone-finance/monitoring-manifests": "npm:0.7.3"
+    "@redstone-finance/utils": "npm:0.7.3"
+    "@types/aws-lambda": "npm:^8.10.145"
+    dotenv: "npm:^16.0.3"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-gas-fee-comparator@workspace:packages/lambda/lambda-gas-fee-comparator":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-gas-fee-comparator@workspace:packages/lambda/lambda-gas-fee-comparator"
