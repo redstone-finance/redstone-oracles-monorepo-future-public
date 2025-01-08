@@ -10,14 +10,12 @@ use redstone_price_adapter::redstone_sdk_update_check::assert_update_time;
 use sui::clock::Clock;
 use sui::event;
 use sui::table::{Self, Table};
-use sui::vec_set;
 
 // === Errors ===
 
 const E_INVALID_VERSION: u64 = 0;
 const E_TIMESTAMP_STALE: u64 = 1;
 const E_INVALID_FEED_ID: u64 = 2;
-const E_INVALID_SIGNER_COUNT: u64 = 3;
 
 // === Constants ===
 
@@ -279,14 +277,6 @@ fun update_config_checked(
     } else {
         price_adapter.config.min_interval_between_updates_ms()
     };
-
-    assert!(
-        final_signers.length() >= (final_signer_count_threshold as u64),
-        E_INVALID_SIGNER_COUNT,
-    );
-
-    // Check for unique signers, vec_set::from_keys fails if final_signers are not unique.
-    let final_signers = vec_set::from_keys(final_signers).into_keys();
 
     // Create new config with all final values
     price_adapter

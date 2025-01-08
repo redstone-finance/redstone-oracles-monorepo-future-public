@@ -3,10 +3,15 @@
 module redstone_price_adapter::redstone_sdk_config;
 
 use redstone_price_adapter::admin::AdminCap;
+use sui::vec_set;
+
+// === Errors ===
+const E_INVALID_SIGNER_COUNT_THRESHOLD: u64 = 0;
+const E_SIGNER_COUNT_THRESHOLD_CANT_BE_ZERO: u64 = 0;
 
 // === Structs ===
 
-public struct Config has store, copy, drop {
+public struct Config has copy, drop, store {
     signer_count_threshold: u8,
     signers: vector<vector<u8>>,
     max_timestamp_delay_ms: u64,
@@ -51,14 +56,18 @@ public(package) fun new(
     trusted_updaters: vector<address>,
     min_interval_between_updates_ms: u64,
 ): Config {
-    Config {
+    let config = Config {
         signer_count_threshold,
         signers,
         max_timestamp_delay_ms,
         max_timestamp_ahead_ms,
         trusted_updaters,
         min_interval_between_updates_ms,
-    }
+    };
+
+    config.check();
+
+    config
 }
 
 public(package) fun update_config(
@@ -77,6 +86,21 @@ public(package) fun update_config(
     config.max_timestamp_ahead_ms = max_timestamp_ahead_ms;
     config.trusted_updaters = trusted_updaters;
     config.min_interval_between_updates_ms = min_interval_between_updates_ms;
+
+    config.check()
+}
+
+// === Private Functions ===
+fun check(config: &Config) {
+    // Check for unique signers, vec_set::from_keys fails if final_signers are not unique.
+    let _ = vec_set::from_keys(config.signers);
+    let signers_count = config.signers.length();
+
+    assert!(
+        signers_count >= (config.signer_count_threshold as u64),
+        E_INVALID_SIGNER_COUNT_THRESHOLD,
+    );
+    assert!(signers_count > 0, E_SIGNER_COUNT_THRESHOLD_CANT_BE_ZERO);
 }
 
 // === Tests Functions ===

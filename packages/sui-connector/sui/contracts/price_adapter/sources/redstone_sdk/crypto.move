@@ -6,13 +6,14 @@ use redstone_price_adapter::redstone_sdk_conv::from_bytes_to_u256;
 
 // === Errors ===
 
-const E_INVALID_SIGNATURE: u64 = 0;
+const E_INVALID_SIGNATURE_LEN: u64 = 0;
 const E_INVALID_RECOVERY_ID: u64 = 1;
 const E_INVALID_VECTOR_LEN: u64 = 2;
+const E_INVALID_SIGNATURE: u64 = 3;
 
 // === Constants ===
 
-const ECDSA_N_DIV_2: u256 = 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141;
+const ECDSA_N_DIV_2: u256 = 0x7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0;
 
 // === Public Functions ===
 
@@ -23,7 +24,7 @@ const ECDSA_N_DIV_2: u256 = 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbf
 ///
 /// the function might abort with invalid signature error if address recovery fails
 public fun recover_address(msg: &vector<u8>, signature: &vector<u8>): vector<u8> {
-    assert!(signature.length() == 65, E_INVALID_SIGNATURE);
+    assert!(signature.length() == 65, E_INVALID_SIGNATURE_LEN);
 
     // Create a mutable copy of the signature
     let mut sig = *signature;
@@ -131,7 +132,7 @@ fun test_recover_v28() {
 }
 
 #[test]
-#[expected_failure(abort_code = E_INVALID_SIGNATURE)]
+#[expected_failure(abort_code = E_INVALID_SIGNATURE_LEN)]
 fun invalida_signature_len() {
     // msg len is 64 should be 65
     let msg =
@@ -150,6 +151,21 @@ fun invalid_recovery_byte() {
     let msg =
         x"415641580000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d394303d018d79bf0ba000000020000001";
     let signature = vector::tabulate!(65, |_| 255); // recovery byte too large
+
+    let _ = recover_address(
+        &msg,
+        &signature,
+    );
+}
+
+#[test]
+#[expected_failure(abort_code = E_INVALID_SIGNATURE)]
+fun malleabillity() {
+    let msg =
+        x"4254430000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000058f32c910a001924dc0bd5000000020000001";
+
+    let signature =
+        x"6307247862e106f0d4b3cde75805ababa67325953145aa05bdd219d90a741e0eeba79b756bf3af6db6c26a8ed3810e3c584379476fd83096218e9deb95a7617e1b";
 
     let _ = recover_address(
         &msg,
