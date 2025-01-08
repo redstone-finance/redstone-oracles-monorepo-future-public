@@ -33,13 +33,13 @@
     },
     "sUSDe_RATE_PROVIDER": {
       "priceFeedAddress": "0x3A236F67Fce401D87D7215695235e201966576E4",
-      "updateTriggers": {
+      "updateTriggersOverrides": {
         "timeSinceLastUpdateInMilliseconds": 86400000
       }
     },
     "XVS": {
       "priceFeedAddress": "0xd9a66Ff1D660aD943F48e9c606D09eA672f312E8",
-      "updateTriggers": {
+      "updateTriggersOverrides": {
         "deviationPercentage": 1,
         "timeSinceLastUpdateInMilliseconds": 86400000
       }

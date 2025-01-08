@@ -40,6 +40,13 @@
         "deviationPercentage": 0.25,
         "timeSinceLastUpdateInMilliseconds": 43200000
       }
+    },
+    "USD+": {
+      "priceFeedAddress": "0xd9a66Ff1D660aD943F48e9c606D09eA672f312E8",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     }
   }
 }
