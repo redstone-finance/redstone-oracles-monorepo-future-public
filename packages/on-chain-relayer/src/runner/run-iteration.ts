@@ -2,6 +2,7 @@ import { loggerFactory, sendHealthcheckPing } from "@redstone-finance/utils";
 import _ from "lodash";
 import { RelayerConfig } from "../config/RelayerConfig";
 import { ContractFacade } from "../facade/ContractFacade";
+import { getIterationArgsProvider } from "../facade/get-iteration-args-provider";
 
 export type IterationLogger = {
   log(message: string, ...args: unknown[]): void;
@@ -11,12 +12,13 @@ export const runIteration = async (
   contractFacade: ContractFacade,
   relayerConfig: RelayerConfig,
   logger: IterationLogger = loggerFactory("relayer/run-iteration"),
+  iterationArgsProvider = getIterationArgsProvider(relayerConfig),
   sendHealthcheckPingCallback = sendHealthcheckPing
 ) => {
   const iterationStart = performance.now();
   const shouldUpdateContext =
     await contractFacade.getShouldUpdateContext(relayerConfig);
-  const iterationArgs = await contractFacade.getIterationArgs(
+  const iterationArgs = await iterationArgsProvider(
     shouldUpdateContext,
     relayerConfig
   );

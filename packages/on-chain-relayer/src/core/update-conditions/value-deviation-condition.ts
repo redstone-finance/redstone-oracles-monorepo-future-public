@@ -1,15 +1,12 @@
 import {
-  ContractParamsProvider,
-  convertToHistoricalDataPackagesRequestParams,
   DataPackagesResponse,
   getDataPackagesTimestamp,
 } from "@redstone-finance/sdk";
 import { RelayerConfig } from "../../config/RelayerConfig";
 import { LastRoundDetails } from "../../types";
-import { makeDataPackagesRequestParams } from "../make-data-packages-request-params";
 import { checkValueDeviationCondition } from "./check-value-deviation-condition";
 
-export const performValueDeviationConditionChecks = async (
+export const valueDeviationCondition = async (
   dataFeedId: string,
   latestDataPackages: DataPackagesResponse,
   lastRoundDetails: LastRoundDetails,
@@ -93,38 +90,3 @@ export const performValueDeviationConditionChecks = async (
     ],
   };
 };
-
-export const valueDeviationCondition = async (
-  dataFeedId: string,
-  latestDataPackages: DataPackagesResponse,
-  uniqueSignersThreshold: number,
-  lastRoundDetails: LastRoundDetails,
-  config: RelayerConfig
-) => {
-  return await performValueDeviationConditionChecks(
-    dataFeedId,
-    latestDataPackages,
-    lastRoundDetails,
-    config,
-    () =>
-      fetchHistoricalDataPackages(
-        config,
-        uniqueSignersThreshold,
-        getDataPackagesTimestamp(latestDataPackages, dataFeedId)
-      )
-  );
-};
-
-async function fetchHistoricalDataPackages(
-  config: RelayerConfig,
-  uniqueSignersThreshold: number,
-  latestDataPackagesTimestamp: number
-) {
-  return await new ContractParamsProvider(
-    convertToHistoricalDataPackagesRequestParams(
-      makeDataPackagesRequestParams(config, uniqueSignersThreshold),
-      config,
-      latestDataPackagesTimestamp
-    )
-  ).requestDataPackages();
-}

@@ -1,43 +1,15 @@
-import { Web3FunctionContext } from "@gelatonetwork/web3-functions-sdk";
 import {
   ContractData,
   EvmContractFacade,
-  IRedstoneContractAdapter,
 } from "@redstone-finance/on-chain-relayer";
 import { SignedDataPackage } from "@redstone-finance/protocol";
 import {
   ContractParamsProvider,
   DataPackagesRequestParams,
-  IContractConnector,
 } from "@redstone-finance/sdk";
 import { BigNumber } from "ethers";
 
 export class MockContractFacade extends EvmContractFacade {
-  constructor(
-    connector: IContractConnector<IRedstoneContractAdapter>,
-    context: Web3FunctionContext
-  ) {
-    super(connector, () =>
-      Promise.resolve(MockContractFacade.getIterationArgsFromContext(context))
-    );
-  }
-
-  static getIterationArgsFromContext(context: Web3FunctionContext) {
-    const { shouldUpdatePrices, message } = context.userArgs;
-
-    return {
-      shouldUpdatePrices: shouldUpdatePrices as boolean,
-      args: {
-        blockTag: 12221,
-        updateRequestParams: {} as DataPackagesRequestParams,
-        dataFeedsToUpdate: ["ETH"],
-        heartbeatUpdates: [1],
-        dataFeedsDeviationRatios: { ETH: 1 },
-      },
-      messages: [{ message: message as string }],
-    };
-  }
-
   override getUniqueSignersThresholdFromContract(
     _blockTag: number
   ): Promise<number> {

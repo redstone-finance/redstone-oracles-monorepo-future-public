@@ -39,6 +39,7 @@ describe("should-update", () => {
         },
         uniqueSignersThreshold: 2,
         blockTag: 0,
+        baseChecksTimestamp: Date.now(),
       },
       relayerConfig
     );
@@ -73,6 +74,7 @@ describe("should-update", () => {
         },
         uniqueSignersThreshold: 2,
         blockTag: 0,
+        baseChecksTimestamp: Date.now(),
       },
       relayerConfig
     );
@@ -106,6 +108,7 @@ describe("should-update", () => {
         },
         uniqueSignersThreshold: 2,
         blockTag: 0,
+        baseChecksTimestamp: Date.now(),
       },
       relayerConfig
     );
@@ -144,6 +147,7 @@ describe("should-update", () => {
         },
         uniqueSignersThreshold: 2,
         blockTag: 0,
+        baseChecksTimestamp: Date.now(),
       },
       relayerConfig
     );
@@ -177,6 +181,7 @@ describe("should-update", () => {
         },
         uniqueSignersThreshold: 2,
         blockTag: 0,
+        baseChecksTimestamp: Date.now(),
       },
       relayerConfig
     );

@@ -1,8 +1,14 @@
 import { afterEach } from "node:test";
-import { convertToHistoricalDataPackagesRequestParams } from "../src";
+import {
+  convertToHistoricalDataPackagesRequestParams,
+  HISTORICAL_DATA_PACKAGES_DENOMINATOR_MS,
+} from "../src";
 
 describe("convertToHistoricalDataPackagesRequestParams", () => {
   const MOCK_TIME = 1732431947000;
+  const EXPECTED_HISTORICAL_TIME = 1732431930000;
+  const PREVIOUS_HISTORICAL_TIME =
+    EXPECTED_HISTORICAL_TIME - HISTORICAL_DATA_PACKAGES_DENOMINATOR_MS;
 
   const mockRequestParams = {
     dataServiceId: "test-service",
@@ -67,7 +73,7 @@ describe("convertToHistoricalDataPackagesRequestParams", () => {
 
     expect(result).toEqual({
       ...mockRequestParams,
-      historicalTimestamp: 1732431930000,
+      historicalTimestamp: EXPECTED_HISTORICAL_TIME,
       urls: mockRelayerConfig.historicalPackagesGateways,
     });
   });
@@ -76,12 +82,12 @@ describe("convertToHistoricalDataPackagesRequestParams", () => {
     const result = convertToHistoricalDataPackagesRequestParams(
       mockRequestParams,
       mockRelayerConfig,
-      1732431930000
+      EXPECTED_HISTORICAL_TIME
     );
 
     expect(result).toEqual({
       ...mockRequestParams,
-      historicalTimestamp: 1732431920000,
+      historicalTimestamp: PREVIOUS_HISTORICAL_TIME,
       urls: mockRelayerConfig.historicalPackagesGateways,
     });
   });
@@ -90,12 +96,46 @@ describe("convertToHistoricalDataPackagesRequestParams", () => {
     const result = convertToHistoricalDataPackagesRequestParams(
       mockRequestParams,
       { ...mockRelayerConfig, fallbackOffsetInMilliseconds: 8000 },
-      1732431930000
+      EXPECTED_HISTORICAL_TIME
     );
 
     expect(result).toEqual({
       ...mockRequestParams,
-      historicalTimestamp: 1732431920000,
+      historicalTimestamp: PREVIOUS_HISTORICAL_TIME,
+      urls: mockRelayerConfig.historicalPackagesGateways,
+    });
+  });
+
+  it("should return requestParams with historicalTimestamp and urls if valid config is provided for given base timestamp", () => {
+    jest.useRealTimers();
+
+    const result = convertToHistoricalDataPackagesRequestParams(
+      mockRequestParams,
+      mockRelayerConfig,
+      undefined,
+      MOCK_TIME
+    );
+
+    expect(result).toEqual({
+      ...mockRequestParams,
+      historicalTimestamp: EXPECTED_HISTORICAL_TIME,
+      urls: mockRelayerConfig.historicalPackagesGateways,
+    });
+  });
+
+  it("should adjust historicalTimestamp if it is equal to latestDataPackagesTimestamp and fallback offset is less than historical packages granulation for given base timestamp", () => {
+    jest.useRealTimers();
+
+    const result = convertToHistoricalDataPackagesRequestParams(
+      mockRequestParams,
+      { ...mockRelayerConfig, fallbackOffsetInMilliseconds: 8000 },
+      EXPECTED_HISTORICAL_TIME,
+      MOCK_TIME
+    );
+
+    expect(result).toEqual({
+      ...mockRequestParams,
+      historicalTimestamp: PREVIOUS_HISTORICAL_TIME,
       urls: mockRelayerConfig.historicalPackagesGateways,
     });
   });

@@ -142,11 +142,7 @@ describe("runIteration tests", () => {
       .stub(adapter, "writePricesFromPayloadToContract")
       .resolves();
 
-    const facade = new EvmContractFacade(
-      connector,
-      iterationArgsProvider,
-      cache
-    );
+    const facade = new EvmContractFacade(connector, cache);
     const contractParamsProvider = new ContractParamsProviderMock(
       DEFAULT_DATA_POINTS,
       undefined,
@@ -165,6 +161,7 @@ describe("runIteration tests", () => {
       facade,
       relayerConfig,
       loggerStub as unknown as RedstoneLogger,
+      iterationArgsProvider,
       sendHealthcheckPingStub
     );
   }

@@ -8,20 +8,13 @@ import {
 import { RelayerConfig } from "../config/RelayerConfig";
 import { IRedstoneContractAdapter } from "../core/contract-interactions/IRedstoneContractAdapter";
 import { makeDataPackagesRequestParams } from "../core/make-data-packages-request-params";
-import {
-  ContractData,
-  IterationArgs,
-  ShouldUpdateContext,
-  UpdatePricesArgs,
-} from "../types";
-import { IterationArgsProvider } from "./get-iteration-args-provider";
+import { ContractData, ShouldUpdateContext, UpdatePricesArgs } from "../types";
 
 export abstract class ContractFacade {
   constructor(
     protected readonly connector: IContractConnector<
       IExtendedPricesContractAdapter | IRedstoneContractAdapter
     >,
-    protected iterationArgsProvider?: IterationArgsProvider,
     protected cache?: DataPackagesResponseCache
   ) {}
 
@@ -54,22 +47,18 @@ export abstract class ContractFacade {
       uniqueSignersThreshold
     );
 
-    const dataPackages =
-      await this.getContractParamsProvider(requestParams).requestDataPackages();
+    const dataPackages = await this.getContractParamsProvider(
+      requestParams
+    ).requestDataPackages(this.cache?.isEmpty());
 
     return {
       dataPackages,
       uniqueSignersThreshold,
       dataFromContract,
       blockTag,
+      baseChecksTimestamp: Date.now(),
+      historicalCache: new DataPackagesResponseCache(),
     };
-  }
-
-  async getIterationArgs(
-    context: ShouldUpdateContext,
-    relayerConfig: RelayerConfig
-  ): Promise<IterationArgs> {
-    return await this.iterationArgsProvider!(context, relayerConfig);
   }
 
   getBlockNumber() {

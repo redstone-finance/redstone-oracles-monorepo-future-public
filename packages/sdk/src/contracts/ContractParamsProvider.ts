@@ -38,13 +38,19 @@ export class ContractParamsProvider {
     );
   }
 
-  async requestDataPackages() {
-    const cachedResponse = this.cache?.get(this.requestParams);
+  async requestDataPackages(canUpdateCache = false) {
+    const cachedResponse = this.cache?.get(this.requestParams, !canUpdateCache);
     if (cachedResponse) {
       return cachedResponse;
     }
 
-    return await this.performRequestingDataPackages();
+    const dataPackagesResponse = await this.performRequestingDataPackages();
+
+    if (canUpdateCache) {
+      this.cache?.update(dataPackagesResponse, this.requestParams);
+    }
+
+    return dataPackagesResponse;
   }
 
   protected async performRequestingDataPackages() {

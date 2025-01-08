@@ -1,6 +1,7 @@
 import {
   DataPackagesRequestParams,
   DataPackagesResponse,
+  DataPackagesResponseCache,
   ContractData as SdkContractData,
   LastRoundDetails as SdkLastRoundDetails,
 } from "@redstone-finance/sdk";
@@ -13,6 +14,8 @@ export interface ShouldUpdateContext {
   dataFromContract: ContractData;
   uniqueSignersThreshold: number;
   blockTag: number;
+  baseChecksTimestamp: number;
+  historicalCache?: DataPackagesResponseCache;
 }
 
 export type IterationArgsMessage = { message: string; args?: unknown[] };

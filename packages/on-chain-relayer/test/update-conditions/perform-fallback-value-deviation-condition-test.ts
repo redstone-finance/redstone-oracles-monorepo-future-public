@@ -1,6 +1,6 @@
 import { INumericDataPoint } from "@redstone-finance/protocol";
 import { RelayerConfig } from "../../src";
-import { performValueDeviationConditionChecks } from "../../src/core/update-conditions/value-deviation-condition";
+import { valueDeviationCondition } from "../../src/core/update-conditions/value-deviation-condition";
 import {
   createNumberFromContract,
   getDataPackagesResponse,
@@ -30,7 +30,7 @@ export const performFallbackValueDeviationConditionTest = async (
   const ethValue = createNumberFromContract(ethPrice);
   const btcValue = createNumberFromContract(btcPrice);
   const { shouldUpdatePrices, messages: warningMessage } =
-    await performValueDeviationConditionChecks(
+    await valueDeviationCondition(
       "ETH",
       dataPackages,
       {
@@ -42,7 +42,7 @@ export const performFallbackValueDeviationConditionTest = async (
       olderDataPackagesFetchCallback
     );
   const { shouldUpdatePrices: shouldUpdatePrices2, messages: warningMessage2 } =
-    await performValueDeviationConditionChecks(
+    await valueDeviationCondition(
       "BTC",
       dataPackages,
       {

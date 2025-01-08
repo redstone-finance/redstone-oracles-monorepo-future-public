@@ -22,6 +22,12 @@ export class GelatoLogger implements IterationLogger {
     [" to be updated. ", " "],
     ["Value has ", ""],
     ["not", "Not"],
+    ["Time in fallback mode:", "FlMd"],
+    ["Deviation in fallback mode:", "FlMd"],
+    [" AND Historical", ",H"],
+    ["deviated enough", "devEngh"],
+    ["enough time", "enghTm"],
+    ["update prices according to cron expr", "updCron"],
     ...[
       "dataFeedId",
       "timeDiff",
@@ -31,6 +37,10 @@ export class GelatoLogger implements IterationLogger {
       "valueFromContract",
       "valuesFromNode",
       "timestamp",
+      "timeSinceLastUpdate",
+      "timeSinceLastExpectedUpdate",
+      "timeToNextExpectedUpdate",
+      "type",
     ].map((pattern) => [pattern, GelatoLogger.shortenKey(pattern)]),
   ];
 

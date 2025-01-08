@@ -12,6 +12,7 @@ export class RequestDataPackagesLogger {
 
   constructor(
     requestsLength: number,
+    private readonly isHistorical: boolean,
     protected readonly logger = loggerFactory("request-data-packages")
   ) {
     this.initialDate = Date.now();
@@ -45,7 +46,7 @@ export class RequestDataPackagesLogger {
     );
 
     (timeout ? this.logger.info : this.logger.debug)(
-      `${timeout ? "Timed out with" : "Checking"} ${collectedResponses.length} response(s) / ${collectedErrors.length} errors ` +
+      `${timeout ? "Timed out with" : "Checking"} ${collectedResponses.length} response(s) / ${collectedErrors.length} error(s) ` +
         `, didResolveOrReject before: ${didResolveOrReject}`,
       {
         particularTimestamps,
@@ -57,15 +58,16 @@ export class RequestDataPackagesLogger {
     );
   }
 
-  willResolve(newestPackage: DataPackagesResponse) {
-    const timestampDelta = Date.now() - getResponseTimestamp(newestPackage);
+  willResolve(dataPackagesResponse: DataPackagesResponse) {
+    const timestampDelta =
+      Date.now() - getResponseTimestamp(dataPackagesResponse);
     const collectedResponses = RequestDataPackagesLogger.filterOutUndefined(
       this.particularResponses
     );
     const particularTimestamps = this.particularTimestamps();
 
     this.logger.log(
-      `Resolving with the newest package timestamp: ${getResponseTimestamp(newestPackage)} of ${collectedResponses.length} responses` +
+      `Resolving with the ${this.isHistorical ? "historical" : "newest"} package timestamp: ${getResponseTimestamp(dataPackagesResponse)} of ${collectedResponses.length} response(s)` +
         `, ${timestampDelta / 1000} [s] ago`,
       {
         responseTimestamps: particularTimestamps,

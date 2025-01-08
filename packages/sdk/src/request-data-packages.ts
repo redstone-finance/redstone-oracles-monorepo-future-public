@@ -133,7 +133,10 @@ export const requestDataPackages = async (
   try {
     const urls = getUrlsForDataServiceId(reqParams);
     const requestDataPackagesLogger = reqParams.enableEnhancedLogs
-      ? new RequestDataPackagesLogger(urls.length)
+      ? new RequestDataPackagesLogger(
+          urls.length,
+          !!reqParams.historicalTimestamp
+        )
       : undefined;
     const promises = prepareDataPackagePromises(
       reqParams,
@@ -141,13 +144,11 @@ export const requestDataPackages = async (
       requestDataPackagesLogger
     );
 
-    if (reqParams.historicalTimestamp) {
-      return await Promise.any(promises);
-    }
-
     return await getTheMostRecentDataPackages(
       promises,
-      reqParams.waitForAllGatewaysTimeMs,
+      reqParams.historicalTimestamp
+        ? 0 // we take the first response when historical packages are requested
+        : reqParams.waitForAllGatewaysTimeMs,
       requestDataPackagesLogger
     );
   } catch (e) {
@@ -172,11 +173,16 @@ const getTheMostRecentDataPackages = (
 
     let isTimedOut = false;
     let didResolveOrReject = false;
+    let timer: NodeJS.Timeout | undefined;
 
-    const timer = setTimeout(() => {
+    if (waitForAllGatewaysTimeMs) {
+      timer = setTimeout(() => {
+        isTimedOut = true;
+        checkResults(true);
+      }, waitForAllGatewaysTimeMs);
+    } else {
       isTimedOut = true;
-      checkResults(true);
-    }, waitForAllGatewaysTimeMs);
+    }
 
     const checkResults = (timeout = false) => {
       requestDataPackagesLogger?.willCheckState(timeout, didResolveOrReject);
@@ -416,7 +422,8 @@ export function convertToHistoricalDataPackagesRequestParams(
     fallbackOffsetInMilliseconds: number;
     historicalPackagesGateways?: string[];
   },
-  latestDataPackagesTimestamp?: number
+  latestDataPackagesTimestamp?: number,
+  baseTimestamp?: number
 ) {
   const { fallbackOffsetInMilliseconds, historicalPackagesGateways } = config;
 
@@ -435,7 +442,8 @@ export function convertToHistoricalDataPackagesRequestParams(
   }
 
   let historicalTimestamp = calculateHistoricalPackagesTimestamp(
-    fallbackOffsetInMilliseconds
+    fallbackOffsetInMilliseconds,
+    baseTimestamp
   )!;
   if (
     latestDataPackagesTimestamp &&

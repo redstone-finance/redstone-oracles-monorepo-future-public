@@ -3,18 +3,20 @@ import {
   Web3FunctionResult,
 } from "@gelatonetwork/web3-functions-sdk";
 import {
-  ContractFacade,
   EvmContractConnector,
   EvmContractFacade,
   getEvmContract,
   getEvmContractAdapter,
-  getIterationArgsProvider,
   IRedstoneContractAdapter,
-  IterationArgsProvider,
   makeRelayerConfig,
+  RelayerConfig,
   runIteration,
 } from "@redstone-finance/on-chain-relayer";
-import { IContractConnector } from "@redstone-finance/sdk";
+import {
+  DataPackagesResponseCache,
+  IContractConnector,
+  IExtendedPricesContractAdapter,
+} from "@redstone-finance/sdk";
 import { providers } from "ethers";
 import { IterationArgsProviderEnv } from "../IterationArgsProviderInterface";
 import { GelatoDeliveryMan } from "./GelatoDeliveryMan";
@@ -22,13 +24,7 @@ import { GelatoLogger } from "./GelatoLogger";
 import { fetchManifestAndSetUpEnv } from "./fetch-manifest-and-set-up-env";
 
 export class GelatoRunner {
-  constructor(
-    private readonly context: Web3FunctionContext,
-    private facadeCreatorOverride?: (
-      connector: IContractConnector<IRedstoneContractAdapter>,
-      iterationArgsProvider: IterationArgsProvider
-    ) => ContractFacade
-  ) {}
+  constructor(protected readonly context: Web3FunctionContext) {}
 
   async run(
     provider: providers.StaticJsonRpcProvider
@@ -49,12 +45,7 @@ export class GelatoRunner {
         )
       );
 
-      const facade = (
-        this.facadeCreatorOverride ??
-        ((conn, argsProvider) => new EvmContractFacade(conn, argsProvider))
-      )(connector, getIterationArgsProvider(config));
-
-      runIteration(facade, config, logger)
+      this.runIteration(connector, config, logger)
         .then((didUpdate) => {
           if (didUpdate) {
             return;
@@ -64,6 +55,21 @@ export class GelatoRunner {
         })
         .catch(reject);
     });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/class-methods-use-this -- To be overridden
+  protected runIteration(
+    connector: IContractConnector<
+      IExtendedPricesContractAdapter | IRedstoneContractAdapter
+    >,
+    config: RelayerConfig,
+    logger: GelatoLogger
+  ) {
+    return runIteration(
+      new EvmContractFacade(connector, new DataPackagesResponseCache()),
+      config,
+      logger
+    );
   }
 
   private async getEnvParams() {

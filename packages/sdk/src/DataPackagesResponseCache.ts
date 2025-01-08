@@ -21,21 +21,30 @@ export class DataPackagesResponseCache {
     return this;
   }
 
+  isEmpty() {
+    return !this.response;
+  }
+
   invalidate() {
     this.response = undefined;
     this.requestParams = undefined;
   }
 
-  get(requestParams: DataPackagesRequestParams) {
+  get(
+    requestParams: DataPackagesRequestParams,
+    shouldReportMissingResponse = true
+  ) {
     if (!this.requestParams || !this.response) {
-      this.logger.debug(
-        "Trying to use cache when there doesn't exist a cached value",
-        {
-          requestParams,
-          cachedRequestParams: this.requestParams,
-          cachedResponse: this.response,
-        }
-      );
+      if (shouldReportMissingResponse) {
+        this.logger.debug(
+          "Trying to use cache when there doesn't exist a cached value",
+          {
+            requestParams,
+            cachedRequestParams: this.requestParams,
+            cachedResponse: this.response,
+          }
+        );
+      }
 
       return undefined;
     }

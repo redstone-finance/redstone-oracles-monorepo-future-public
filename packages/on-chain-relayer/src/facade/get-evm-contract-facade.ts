@@ -11,7 +11,6 @@ import { getTxDeliveryMan } from "../core/TxDeliveryManSingleton";
 import { EvmContractFacade, RedstoneEvmContract } from "./EvmContractFacade";
 import { getEvmContract } from "./get-evm-contract";
 import { getEvmContractAdapter } from "./get-evm-contract-adapter";
-import { getIterationArgsProvider } from "./get-iteration-args-provider";
 import { RelayerDataInfluxService } from "./RelayerDataInfluxService";
 
 export const getEvmContractFacade = (
@@ -38,7 +37,6 @@ export const getEvmContractFacade = (
 
   return new EvmContractFacade(
     new EvmContractConnector(provider, adapter),
-    getIterationArgsProvider(relayerConfig),
     cache
   );
 };
