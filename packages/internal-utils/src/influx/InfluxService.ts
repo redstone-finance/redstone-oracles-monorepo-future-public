@@ -93,15 +93,12 @@ export class InfluxService {
     const bucketsApi = new BucketsAPI(this.influx);
     const buckets = await bucketsApi.getBuckets({
       org: this.authParams.orgName,
+      name: this.authParams.bucketName,
     });
 
-    const selectedBucket = buckets.buckets?.find(
-      (b) => b.name === this.authParams.bucketName
-    );
-
-    if (!selectedBucket) {
+    if (!buckets.buckets?.length) {
       throw new Error(`Bucket "${this.authParams.bucketName}" not found`);
     }
-    return selectedBucket;
+    return buckets.buckets[0];
   }
 }

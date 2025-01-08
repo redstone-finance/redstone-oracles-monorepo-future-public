@@ -77,6 +77,6 @@ export function getMulticall3(
       opts.signerOrProvider
     ) as EvmMulticallTypes.RedstoneMulticall3;
   } else {
-    throw new Error(`Uknown multicall3.type=${String(multicall3)}`);
+    throw new Error(`Unknown multicall3.type=${String(multicall3)}`);
   }
 }
