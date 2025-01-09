@@ -13,15 +13,9 @@ export const relayerNameToManualKeyArn: Record<string, string> = {
     "/prod/on-chain-relayer/ethereum/puf/staking/manual/private-key",
   ethereumStakewiseOsetheth:
     "/prod/on-chain-relayer/ethereum/stakewise/osetheth/manual/private_key",
-  ethereumUsdeSusde:
-    "/prod/on-chain-relayer/ethereum/usdesusde/manual/private-key",
   etherlinkGhostnetTezosXtzEthBtc:
     "/prod/on-chain-relayer/etherlink-ghostnet/tezos/xtzethbtc/manual/private_key",
   mantaLayerBank: "/prod/on-chain-relayer/manta/layerbank/manual/private-key",
-  mantleEth: "/prod/on-chain-relayer/mantle/eth/private_key",
-  mantleMnt: "/prod/on-chain-relayer/mantle/mnt/private_key",
-  mantleUsdeSusde: "/prod/on-chain-relayer/mantle/usdesusde/manual/private-key",
-  mantleWstEth: "/prod/on-chain-relayer/mantle/wsteth/private_key",
   mentoBaklavaMultisig:
     "/prod/on-chain-relayer/baklava/mento/testnet_private_key",
   mentoCeloMainnet: "/prod/on-chain-relayer/mento/celo/private-key",
