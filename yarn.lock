@@ -8177,6 +8177,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/lambda-whitelist-monitoring-dashboard@workspace:packages/lambda/lambda-whitelist-monitoring-dashboard":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/lambda-whitelist-monitoring-dashboard@workspace:packages/lambda/lambda-whitelist-monitoring-dashboard"
+  dependencies:
+    "@types/aws-lambda": "npm:^8.10.145"
+    "@types/express": "npm:^4.17.14"
+    "@types/mustache": "npm:^4.2.5"
+    express: "npm:^4.18.1"
+    mustache: "npm:^4.2.0"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/lambda-zrodelko-balance-monitoring@workspace:packages/lambda/lambda-zrodelko-balance-monitoring":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/lambda-zrodelko-balance-monitoring@workspace:packages/lambda/lambda-zrodelko-balance-monitoring"
@@ -11180,6 +11193,13 @@ __metadata:
   version: 0.7.34
   resolution: "@types/ms@npm:0.7.34"
   checksum: 10c0/ac80bd90012116ceb2d188fde62d96830ca847823e8ca71255616bc73991aa7d9f057b8bfab79e8ee44ffefb031ddd1bcce63ea82f9e66f7c31ec02d2d823ccc
+  languageName: node
+  linkType: hard
+
+"@types/mustache@npm:^4.2.5":
+  version: 4.2.5
+  resolution: "@types/mustache@npm:4.2.5"
+  checksum: 10c0/624975c39068d47407eadb89628aaff5ef60f3b7a71eef92a254310896a4e90518a01dcf71d95779ab2c986034a6ca5403d22fea237c67ff87f2e2b3fb794ea6
   languageName: node
   linkType: hard
 
