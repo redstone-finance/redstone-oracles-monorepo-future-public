@@ -1,34 +1,40 @@
+import { RedstoneCommon } from "@redstone-finance/utils";
+import { z } from "zod";
 import { readSsmRpcUrls } from "../../scripts/read-ssm-rpc-urls";
-import { validateRpcUrls } from "./common";
+import {
+  validateBlockNumberAgreementBetweenRpcs,
+  validateNetworkRpcUrls,
+} from "./common";
 
-const validateSsmMainRpcUrls = async () => {
-  const rpcUrlsPerChain = await readSsmRpcUrls(false);
-  validateRpcUrls(rpcUrlsPerChain);
-};
+const chainId = RedstoneCommon.getFromEnv("CHAIN_ID", z.number().optional());
+const blockNumberDiffTolerance = 5;
 
 describe("SSM Main Rpc Urls Validation", function () {
   before(async function () {
     if (!process.env.TEST_RPC) {
       this.skip();
     }
-    await validateSsmMainRpcUrls();
+    const rpcUrlsPerChain = await readSsmRpcUrls(false, chainId);
+    validateNetworkRpcUrls(rpcUrlsPerChain);
+    validateBlockNumberAgreementBetweenRpcs(
+      rpcUrlsPerChain,
+      blockNumberDiffTolerance
+    );
   });
-
   it("force before hook to get executed", () => {});
 });
-
-const validateSsmFallbackRpcUrls = async () => {
-  const rpcUrlsPerChain = await readSsmRpcUrls(true);
-
-  validateRpcUrls(rpcUrlsPerChain);
-};
 
 describe("SSM Fallback Rpc Urls Validation", function () {
   before(async function () {
     if (!process.env.TEST_RPC) {
       this.skip();
     }
-    await validateSsmFallbackRpcUrls();
+    const rpcUrlsPerChain = await readSsmRpcUrls(true, chainId);
+    validateNetworkRpcUrls(rpcUrlsPerChain);
+    validateBlockNumberAgreementBetweenRpcs(
+      rpcUrlsPerChain,
+      blockNumberDiffTolerance
+    );
   });
 
   it("force before hook to get executed", () => {});

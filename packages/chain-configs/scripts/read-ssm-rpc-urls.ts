@@ -17,7 +17,8 @@ const env = RedstoneCommon.getFromEnv(
 );
 
 export const readSsmRpcUrls = async (
-  isFallback: boolean
+  isFallback: boolean,
+  specificChainId?: number
 ): Promise<RpcUrlsPerChain> => {
   const chainConfigs = getLocalChainConfigs();
   const rpcUrlsPerChain: RpcUrlsPerChain = {};
@@ -30,7 +31,10 @@ export const readSsmRpcUrls = async (
   });
 
   for (const { name, chainId } of Object.values(chainConfigs)) {
-    if (name === "hardhat") {
+    if (
+      name === "hardhat" ||
+      (specificChainId && chainId !== specificChainId)
+    ) {
       continue;
     }
     try {

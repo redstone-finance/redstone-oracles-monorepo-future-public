@@ -1,6 +1,6 @@
 import { RpcUrlsPerChain } from "../../scripts/read-ssm-rpc-urls";
 import { getLocalChainConfigs } from "../../src";
-import { validateRpcUrls } from "./common";
+import { validateNetworkRpcUrls } from "./common";
 
 const CHAINS_TO_SKIP_RPC_CHECK = ["Monad Devnet", "Hemi Network", "Ink"];
 
@@ -18,7 +18,7 @@ const validatePublicRpcUrls = () => {
     };
   }
 
-  validateRpcUrls(rpcUrlsPerChain);
+  validateNetworkRpcUrls(rpcUrlsPerChain);
 };
 
 describe("Public Rpc Urls Validation", function () {

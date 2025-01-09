@@ -3,13 +3,14 @@ import { readSsmRpcUrls } from "./read-ssm-rpc-urls";
 
 const MIN_RPC_URLS = 3;
 const PATH_TRIM_LENGTH = 5;
+const MIN_RPC_URLS_FOR_REPEAT_DOMAIN_CHECK = 4;
 
 const getDomain = (hostname: string): string => {
   const match = hostname.match(/([a-zA-Z0-9-]+\.[a-zA-Z]+)$/);
   return match?.[0] ?? hostname;
 };
 
-const isTestNetwork = (name: string): boolean => {
+const isTestNetworkOrKnownNetworkWithIssue = (name: string): boolean => {
   const testnetKeywords = ["testnet", "baklava", "sepolia", "ghostnet"];
   return testnetKeywords.some((keyword) =>
     name.toLowerCase().includes(keyword)
@@ -74,13 +75,16 @@ const printRpcUrls = async (): Promise<void> => {
       );
 
       for (const [domain, count] of sortedDomainCounts) {
-        if (count > 1) {
+        if (
+          count > 1 &&
+          rpcUrls.length < MIN_RPC_URLS_FOR_REPEAT_DOMAIN_CHECK
+        ) {
           console.error(chalk.red(`Domain ${domain} repeats ${count} times`));
           issues.push(`Domain ${domain} repeats ${count} times`);
         }
       }
 
-      const isTest = isTestNetwork(name);
+      const isTest = isTestNetworkOrKnownNetworkWithIssue(name);
       if (issues.length > 0) {
         addProblematicNetwork(
           name,
@@ -97,14 +101,23 @@ const printRpcUrls = async (): Promise<void> => {
 
       for (const rpcUrl of rpcUrls) {
         const url = new URL(rpcUrl);
+        const fullPath = url.pathname + url.search + url.hash;
         const path =
-          url.pathname.length > PATH_TRIM_LENGTH
-            ? url.pathname.slice(0, PATH_TRIM_LENGTH) + "..."
-            : url.pathname;
+          fullPath.length > PATH_TRIM_LENGTH
+            ? fullPath.slice(0, PATH_TRIM_LENGTH) + "..."
+            : fullPath;
         console.log(`${url.origin} PATH ${path}`);
       }
 
       console.log(`\nFallback URLs for ${name}:`);
+
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (!fallbackRpcUrlsPerChain[name]) {
+        console.error(chalk.red(`No fallback RPC URLs found for ${name}`));
+        issues.push(`No fallback RPC URLs found for ${name}`);
+        continue;
+      }
+
       const fallbackRpcUrls = fallbackRpcUrlsPerChain[name].rpcUrls;
 
       if (fallbackRpcUrls.length < MIN_RPC_URLS) {
@@ -118,10 +131,11 @@ const printRpcUrls = async (): Promise<void> => {
 
       for (const fallbackRpcUrl of fallbackRpcUrls) {
         const url = new URL(fallbackRpcUrl);
+        const fullPath = url.pathname + url.search + url.hash;
         const path =
-          url.pathname.length > PATH_TRIM_LENGTH
-            ? url.pathname.slice(0, PATH_TRIM_LENGTH) + "..."
-            : url.pathname;
+          fullPath.length > PATH_TRIM_LENGTH
+            ? fullPath.slice(0, PATH_TRIM_LENGTH) + "..."
+            : fullPath;
         console.log(`${url.origin} PATH ${path}`);
       }
     }
@@ -143,7 +157,7 @@ const printRpcUrls = async (): Promise<void> => {
     console.log(
       "\n---------------------------------------------------------------------\n"
     );
-    console.log("Problematic testnet networks:");
+    console.log("Problematic testnet networks or networks with known issue:");
     for (const { name, problems } of problematicTestnetNetworks) {
       console.log(`-`, chalk.red(`${name}:`));
       for (const problem of problems) {
