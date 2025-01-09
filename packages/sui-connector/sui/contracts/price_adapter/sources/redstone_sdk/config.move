@@ -7,7 +7,7 @@ use sui::vec_set;
 
 // === Errors ===
 const E_INVALID_SIGNER_COUNT_THRESHOLD: u64 = 0;
-const E_SIGNER_COUNT_THRESHOLD_CANT_BE_ZERO: u64 = 0;
+const E_SIGNER_COUNT_THRESHOLD_CANT_BE_ZERO: u64 = 1;
 
 // === Structs ===
 
@@ -94,13 +94,13 @@ public(package) fun update_config(
 fun check(config: &Config) {
     // Check for unique signers, vec_set::from_keys fails if final_signers are not unique.
     let _ = vec_set::from_keys(config.signers);
-    let signers_count = config.signers.length();
+    let signer_count = config.signers.length();
 
     assert!(
-        signers_count >= (config.signer_count_threshold as u64),
+        signer_count >= (config.signer_count_threshold as u64),
         E_INVALID_SIGNER_COUNT_THRESHOLD,
     );
-    assert!(signers_count > 0, E_SIGNER_COUNT_THRESHOLD_CANT_BE_ZERO);
+    assert!(config.signer_count_threshold > 0, E_SIGNER_COUNT_THRESHOLD_CANT_BE_ZERO);
 }
 
 // === Tests Functions ===
@@ -118,4 +118,36 @@ public fun test_config(): Config {
         vector[],
         0,
     )
+}
+
+#[test]
+#[expected_failure(abort_code = E_SIGNER_COUNT_THRESHOLD_CANT_BE_ZERO)]
+fun cant_construct_config_with_threshold_eq_to_0() {
+    new(
+        0,
+        vector[
+            x"1ea62d73edF8ac05dfcea1a34b9796e937a29eFF",
+            x"109b4a318a4f5ddcbca6349b45f881b4137deafb",
+        ],
+        15 * 60 * 1000,
+        3 * 60 * 1000,
+        vector[],
+        0,
+    );
+}
+
+#[test]
+#[expected_failure(abort_code = E_INVALID_SIGNER_COUNT_THRESHOLD)]
+fun cant_construct_config_with_threshold_gt_signers_len() {
+    new(
+        3,
+        vector[
+            x"1ea62d73edF8ac05dfcea1a34b9796e937a29eFF",
+            x"109b4a318a4f5ddcbca6349b45f881b4137deafb",
+        ],
+        15 * 60 * 1000,
+        3 * 60 * 1000,
+        vector[],
+        0,
+    );
 }
