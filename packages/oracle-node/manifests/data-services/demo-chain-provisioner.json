@@ -457,7 +457,8 @@
         "aerodrome-base-eusd",
         "aerodrome-cl-base-usdc-100",
         "aerodrome-cl-base-weth-400",
-        "uniswap-v3-arbitrumone-usdc-100"
+        "uniswap-v3-arbitrumone-usdc-100",
+        "thruster-v3-blast-usdb-100"
       ]
     }
   }

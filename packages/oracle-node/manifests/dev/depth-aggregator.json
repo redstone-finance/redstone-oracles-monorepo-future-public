@@ -1212,7 +1212,8 @@
         "aerodrome-cl-base-weth-400",
         "aerodrome-cl-base-wsteth-2500",
         "uniswap-v3-arbitrumone-usdt-100",
-        "uniswap-v3-arbitrumone-usdc-100"
+        "uniswap-v3-arbitrumone-usdc-100",
+        "thruster-v3-blast-usdb-100"
       ]
     },
     "AR": {
