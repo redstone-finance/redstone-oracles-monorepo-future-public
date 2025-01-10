@@ -7625,6 +7625,7 @@ __metadata:
     "@redstone-finance/utils": "npm:0.7.3"
     dotenv: "npm:^16.0.3"
     lodash: "npm:^4.17.21"
+    node-schedule: "npm:^2.1.1"
   languageName: unknown
   linkType: soft
 
