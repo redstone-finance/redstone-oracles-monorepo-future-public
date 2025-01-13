@@ -2042,6 +2042,16 @@
       ],
       "denomination": "USD",
       "rateFeed": false
+    },
+    "BUIDL_FUNDAMENTAL": {
+      "source": ["securitize-api"],
+      "denomination": "USD",
+      "rateFeed": true
+    },
+    "BUIDL_DAILY_INTEREST_ACCRUAL": {
+      "source": ["securitize-api"],
+      "denomination": "percentage",
+      "rateFeed": false
     }
   },
   "multiPointPackages": {
