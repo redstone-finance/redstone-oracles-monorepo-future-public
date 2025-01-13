@@ -3139,6 +3139,16 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "scUSD_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-veda"],
+      "denomination": "USDC",
+      "rateFeed": true
+    },
+    "scETH_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-veda"],
+      "denomination": "ETH",
+      "rateFeed": true
+    },
     "BAT": {
       "denomination": "USD",
       "rateFeed": false
