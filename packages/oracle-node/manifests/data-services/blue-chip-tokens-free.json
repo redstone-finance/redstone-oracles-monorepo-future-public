@@ -47,7 +47,13 @@
       ]
     },
     "USDT": {
-      "source": ["bitstamp-usd", "coinbasepro-usd", "gate-usd", "kraken-usd"],
+      "source": [
+        "bitfinex2-usd",
+        "bitstamp-usd",
+        "coinbasepro-usd",
+        "gate-usd",
+        "kraken-usd"
+      ],
       "deviationCheck": {
         "deviationWithRecentValues": {
           "maxPercent": 5,
@@ -81,13 +87,17 @@
     "EUR": {
       "source": [
         "binance-usdt",
-        "bitstamp-api",
         "bitstamp-usd",
-        "coinbase-api",
-        "kaiko",
+        "coinbasepro-usd-reversed",
         "kaiko-v2",
-        "kraken-gbp",
-        "kraken-usd"
+        "kraken-usd",
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "coinbasepro-usdt-reversed",
+        "binance-usdc",
+        "bitget-usdt-reversed",
+        "okx-btc-reversed"
       ]
     },
     "GBP": {
@@ -95,7 +105,11 @@
         "alphavantage-usd",
         "bitstamp-usd",
         "financialmodelingprep-usd",
-        "kraken-usd"
+        "kraken-usd",
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "bitfinex2-btc-reversed"
       ]
     },
     "XVS": {

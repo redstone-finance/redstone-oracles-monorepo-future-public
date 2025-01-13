@@ -24,7 +24,6 @@
         "coingecko",
         "coinmarketcap",
         "gate-usdt",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd",
         "kucoin-usdt",
@@ -42,7 +41,6 @@
         "coingecko",
         "coinmarketcap",
         "gate-usd",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd"
       ],
@@ -58,13 +56,17 @@
     "EUR": {
       "source": [
         "binance-usdt",
-        "bitstamp-api",
         "bitstamp-usd",
-        "coinbase-api",
-        "kaiko",
+        "coinbasepro-usd-reversed",
         "kaiko-v2",
-        "kraken-gbp",
-        "kraken-usd"
+        "kraken-usd",
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "coinbasepro-usdt-reversed",
+        "binance-usdc",
+        "bitget-usdt-reversed",
+        "okx-btc-reversed"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -74,7 +76,11 @@
         "alphavantage-usd",
         "bitstamp-usd",
         "financialmodelingprep-usd",
-        "kraken-usd"
+        "kraken-usd",
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "bitfinex2-btc-reversed"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -96,7 +102,6 @@
         "coingecko",
         "coinmarketcap",
         "gate-usdt",
-        "kaiko",
         "kaiko-v2",
         "kucoin-usdt",
         "lbank-usdt",
@@ -139,7 +144,6 @@
         "coinbasepro-usd",
         "coingecko",
         "coinmarketcap",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd",
         "kucoin-usdt",
@@ -177,7 +181,6 @@
         "coinmarketcap",
         "curve-ethereum-dai",
         "curve-ethereum-usdt",
-        "kaiko",
         "kaiko-v2",
         "kraken-usdt",
         "kucoin-usdt",
@@ -517,7 +520,7 @@
     },
     "FDUSD": {
       "source": [
-        "binance-bnb",
+        "binance-bnb-reversed",
         "binance-btc",
         "binance-eth",
         "binance-xrp",

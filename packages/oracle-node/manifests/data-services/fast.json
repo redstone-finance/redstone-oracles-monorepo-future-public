@@ -12,10 +12,10 @@
   },
   "tokens": {
     "BTC": {
-      "source": ["bitfinex2-usd", "bitstamp-usd", "kaiko", "kaiko-v2", "xt"]
+      "source": ["bitfinex2-usd", "bitstamp-usd", "kaiko-v2", "xt"]
     },
     "ETH": {
-      "source": ["bitfinex2-usd", "bitstamp-usd", "kaiko", "kaiko-v2", "xt"]
+      "source": ["bitfinex2-usd", "bitstamp-usd", "kaiko-v2", "xt"]
     }
   }
 }

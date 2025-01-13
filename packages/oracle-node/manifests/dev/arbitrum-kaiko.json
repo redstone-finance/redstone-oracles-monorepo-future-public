@@ -3,7 +3,7 @@
   "useCustomScheduler": "on-each-arbitrum-block",
   "signBlockNumbersInsteadOfTimestamps": true,
   "priceAggregator": "median",
-  "defaultSource": ["kaiko"],
+  "defaultSource": ["kaiko-v2"],
   "sourceTimeout": 50000,
   "deviationCheck": {
     "deviationWithRecentValues": {

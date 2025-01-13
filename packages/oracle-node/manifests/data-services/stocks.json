@@ -89,14 +89,6 @@
     "SILVER": {
       "source": ["twelve-data"]
     },
-    "GBP": {
-      "source": [
-        "alphavantage-usd",
-        "bitstamp-usd",
-        "financialmodelingprep-usd",
-        "kraken-usd"
-      ]
-    },
     "AUD": {
       "source": ["kraken-usd", "twelve-data"]
     },
@@ -106,13 +98,29 @@
     "EUR": {
       "source": [
         "binance-usdt",
-        "bitstamp-api",
         "bitstamp-usd",
-        "coinbase-api",
-        "kaiko",
+        "coinbasepro-usd-reversed",
         "kaiko-v2",
-        "kraken-gbp",
-        "kraken-usd"
+        "kraken-usd",
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "coinbasepro-usdt-reversed",
+        "binance-usdc",
+        "bitget-usdt-reversed",
+        "okx-btc-reversed"
+      ]
+    },
+    "GBP": {
+      "source": [
+        "alphavantage-usd",
+        "bitstamp-usd",
+        "financialmodelingprep-usd",
+        "kraken-usd",
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "bitfinex2-btc-reversed"
       ]
     },
     "JPY": {
@@ -128,7 +136,17 @@
       "source": ["twelve-data"]
     },
     "BRL": {
-      "source": ["binance-api", "bitso-api", "kucoin-api", "mercado-api"]
+      "source": [
+        "binance-usdt-reversed",
+        "bitso-api",
+        "binance-btc-reversed",
+        "mercado-api",
+        "bitget-usdt-reversed",
+        "okx-usdt-reversed",
+        "bitget-btc-reversed",
+        "bybit-usdt-reversed",
+        "kucoin-usdt-reversed"
+      ]
     },
     "COP": {
       "source": ["alphavantage-usd", "financialmodelingprep-usd", "twelve-data"]
@@ -265,7 +283,6 @@
         "coinbasepro-usd",
         "coingecko",
         "gate-usd",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd"
       ]
@@ -282,7 +299,6 @@
         "coingecko",
         "curve-ethereum-dai",
         "curve-ethereum-usdt",
-        "kaiko",
         "kaiko-v2",
         "kraken-usdt",
         "kucoin-usdt",
@@ -323,7 +339,6 @@
         "coingecko",
         "dia",
         "gate-usdt",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd",
         "kucoin-usdt",

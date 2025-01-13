@@ -23,7 +23,6 @@
         "bitstamp-usd",
         "coinbasepro-usd",
         "coingecko",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd",
         "kucoin-usdt",
@@ -46,7 +45,6 @@
         "coingecko",
         "dia",
         "gate-usdt",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd",
         "kucoin-usdt",
@@ -61,7 +59,6 @@
         "coinbasepro-usd",
         "coingecko",
         "gate-usd",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd"
       ]
@@ -205,7 +202,6 @@
         "coinbasepro-usd",
         "coingecko",
         "gate-usdt",
-        "kaiko",
         "kaiko-v2",
         "kucoin-usdt",
         "lbank-usdt",
@@ -224,7 +220,6 @@
         "coingecko",
         "curve-ethereum-dai",
         "curve-ethereum-usdt",
-        "kaiko",
         "kaiko-v2",
         "kraken-usdt",
         "kucoin-usdt",
@@ -285,13 +280,17 @@
     "EUR": {
       "source": [
         "binance-usdt",
-        "bitstamp-api",
         "bitstamp-usd",
-        "coinbase-api",
-        "kaiko",
+        "coinbasepro-usd-reversed",
         "kaiko-v2",
-        "kraken-gbp",
-        "kraken-usd"
+        "kraken-usd",
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "coinbasepro-usdt-reversed",
+        "binance-usdc",
+        "bitget-usdt-reversed",
+        "okx-btc-reversed"
       ]
     },
     "GBP": {
@@ -299,11 +298,25 @@
         "alphavantage-usd",
         "bitstamp-usd",
         "financialmodelingprep-usd",
-        "kraken-usd"
+        "kraken-usd",
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "bitfinex2-btc-reversed"
       ]
     },
     "BRL": {
-      "source": ["binance-api", "bitso-api", "kucoin-api", "mercado-api"]
+      "source": [
+        "binance-usdt-reversed",
+        "bitso-api",
+        "binance-btc-reversed",
+        "mercado-api",
+        "bitget-usdt-reversed",
+        "okx-usdt-reversed",
+        "bitget-btc-reversed",
+        "bybit-usdt-reversed",
+        "kucoin-usdt-reversed"
+      ]
     },
     "ETH/USDC": {
       "source": ["non-usd-based"]
@@ -322,7 +335,7 @@
     },
     "FDUSD": {
       "source": [
-        "binance-bnb",
+        "binance-bnb-reversed",
         "binance-btc",
         "binance-eth",
         "binance-xrp",

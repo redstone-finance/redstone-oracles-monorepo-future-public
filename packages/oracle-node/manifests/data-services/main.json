@@ -25,7 +25,6 @@
         "coingecko",
         "dia",
         "gate-usdt",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd",
         "kucoin-usdt",
@@ -48,7 +47,6 @@
         "bitstamp-usd",
         "coinbasepro-usd",
         "coingecko",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd",
         "kucoin-usdt",
@@ -65,7 +63,6 @@
         "coinbasepro-usd",
         "coingecko",
         "gate-usd",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd"
       ],
@@ -98,7 +95,6 @@
         "coingecko",
         "curve-ethereum-dai",
         "curve-ethereum-usdt",
-        "kaiko",
         "kaiko-v2",
         "kraken-usdt",
         "kucoin-usdt",
@@ -297,7 +293,6 @@
         "coinbasepro-usd",
         "coingecko",
         "gate-usdt",
-        "kaiko",
         "kaiko-v2",
         "kucoin-usdt",
         "lbank-usdt",
@@ -543,7 +538,6 @@
         "bitmart-usdt",
         "coinbasepro-usd",
         "coingecko",
-        "kaiko",
         "kaiko-v2",
         "kraken-usd",
         "kucoin-usdt",
@@ -2255,26 +2249,34 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "EUR": {
+      "source": [
+        "binance-usdt",
+        "bitstamp-usd",
+        "coinbasepro-usd-reversed",
+        "kaiko-v2",
+        "kraken-usd",
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "coinbasepro-usdt-reversed",
+        "binance-usdc",
+        "bitget-usdt-reversed",
+        "okx-btc-reversed"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
     "GBP": {
       "source": [
         "alphavantage-usd",
         "bitstamp-usd",
         "financialmodelingprep-usd",
-        "kraken-usd"
-      ],
-      "denomination": "USD",
-      "rateFeed": false
-    },
-    "EUR": {
-      "source": [
-        "binance-usdt",
-        "bitstamp-api",
-        "bitstamp-usd",
-        "coinbase-api",
-        "kaiko",
-        "kaiko-v2",
-        "kraken-gbp",
-        "kraken-usd"
+        "kraken-usd",
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "bitfinex2-btc-reversed"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -2377,7 +2379,17 @@
       "rateFeed": false
     },
     "BRL": {
-      "source": ["binance-api", "bitso-api", "kucoin-api", "mercado-api"],
+      "source": [
+        "binance-usdt-reversed",
+        "bitso-api",
+        "binance-btc-reversed",
+        "mercado-api",
+        "bitget-usdt-reversed",
+        "okx-usdt-reversed",
+        "bitget-btc-reversed",
+        "bybit-usdt-reversed",
+        "kucoin-usdt-reversed"
+      ],
       "denomination": "USD",
       "rateFeed": false
     },
@@ -2513,7 +2525,7 @@
     },
     "C3M": {
       "source": [
-        "alphavantage-stock",
+        "alphavantagestock-usd",
         "financialmodelingprep-usd",
         "twelve-data"
       ],
@@ -2915,7 +2927,7 @@
     },
     "FDUSD": {
       "source": [
-        "binance-bnb",
+        "binance-bnb-reversed",
         "binance-btc",
         "binance-eth",
         "binance-xrp",

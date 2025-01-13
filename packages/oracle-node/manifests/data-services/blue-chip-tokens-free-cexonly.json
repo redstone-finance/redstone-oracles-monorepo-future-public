@@ -82,14 +82,18 @@
     },
     "EUR": {
       "source": [
-        "bitstamp-api",
+        "binance-usdt",
         "bitstamp-usd",
-        "coinbase-api",
-        "kaiko",
+        "coinbasepro-usd-reversed",
         "kaiko-v2",
-        "kraken-gbp",
         "kraken-usd",
-        "twelve-data"
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "coinbasepro-usdt-reversed",
+        "binance-usdc",
+        "bitget-usdt-reversed",
+        "okx-btc-reversed"
       ]
     },
     "GBP": {
@@ -98,7 +102,10 @@
         "bitstamp-usd",
         "financialmodelingprep-usd",
         "kraken-usd",
-        "twelve-data"
+        "coinbasepro-btc-reversed",
+        "bitstamp-btc-reversed",
+        "kraken-usdt-reversed",
+        "bitfinex2-btc-reversed"
       ]
     },
     "XVS": {
