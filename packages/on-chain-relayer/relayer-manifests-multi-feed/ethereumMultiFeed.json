@@ -144,6 +144,20 @@
         "deviationPercentage": 0.5,
         "timeSinceLastUpdateInMilliseconds": 21600000
       }
+    },
+    "ETHx": {
+      "priceFeedAddress": "0xFaBEb1474C2Ab34838081BFdDcE4132f640E7D2d",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 1,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "XVS": {
+      "priceFeedAddress": "0xa2a8507DEb233ceE4F5594044C259DD0582339CC",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 1,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     }
   }
 }

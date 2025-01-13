@@ -59,6 +59,16 @@
     },
     "sUSDX_BNB_FUNDAMENTAL": {
       "priceFeedAddress": "0xebE443E20ADf302B59419648c4dbA0c7299cf1A2"
+    },
+    "weETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0x9b2C948dbA5952A1f5Ab6fA16101c1392b8da1ab"
+    },
+    "TRX": {
+      "priceFeedAddress": "0xa17362dd9AD6d0aF646D7C8f8578fddbfc90B916",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.2,
+        "timeSinceLastUpdateInMilliseconds": 600000
+      }
     }
   }
 }
