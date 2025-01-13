@@ -317,8 +317,8 @@
       "ipAddress": "0.0.0.0",
       "dataServiceId": "auros-demo-1",
       "description": "Data feeds provided by Auros",
-      "evmAddress": "0xA73880D5550f712f1820fF3e157BD64ea7Bc7040",
-      "ecdsaPublicKey": "0x045a0c7f02d731f6146b96fef298417f44a08d04dbe9c676110c91e60eb94b14010d8422335c9192fd6bb98bbbe564b1c7e6a867f9dc9a37910f239e77bab0a6c4"
+      "evmAddress": "0xCA5C81a36C21583b8488a3327F4023EaE6B5e02b",
+      "ecdsaPublicKey": "0x04bdc7d5c223b8dbe77aab4c3fc7a84b90ec1848b50d9cc52ca762c42eebd3215b0d62bcd86adecc834d093104028edad060f446cbcfeef8b0131dbeee8a6ed42f"
     }
   },
   "evolve": null,
