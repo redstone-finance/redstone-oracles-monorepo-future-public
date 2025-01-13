@@ -3139,6 +3139,18 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "THE": {
+      "source": [
+        "binance-usdt",
+        "bitget-usdt",
+        "gate-usdt",
+        "lbank-usdt",
+        "xt",
+        "coingecko"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
     "scUSD_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-veda"],
       "denomination": "USDC",

@@ -2055,6 +2055,19 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "THE": {
+      "source": [
+        "binance-usdt",
+        "bitget-usdt",
+        "gate-usdt",
+        "lbank-usdt",
+        "xt",
+        "coingecko",
+        "coinmarketcap"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
     "BUIDL_FUNDAMENTAL": {
       "source": ["securitize-api"],
       "denomination": "USD",
