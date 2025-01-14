@@ -29,10 +29,6 @@ export async function fetchRpcUrlsFromSsm(
         );
         if (rpcUrlsForChainId) {
           result[chainId] = JSON.parse(rpcUrlsForChainId) as string[];
-        } else {
-          throw new Error(
-            `Failed to get rpcUrls for chainId=${chainId}: getSSMParameterValue returned empty value`
-          );
         }
       })
     );
