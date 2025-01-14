@@ -301,6 +301,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0xf3527ef8dE265eAa3716FB312c12847bFBA66Cef",
       decimals: 18,
     },
+    BIO: {
+      address: "0xcb1592591996765Ec0eFc1f92599A19767ee5ffA",
+      decimals: 18,
+    },
   },
   blast: {
     ETH: {

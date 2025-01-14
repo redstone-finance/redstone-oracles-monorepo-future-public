@@ -2068,6 +2068,22 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "BIO": {
+      "source": [
+        "binance-usdt",
+        "gate-usdt",
+        "okx-usdt",
+        "bitget-usdt",
+        "bitrue-usdt",
+        "binance-fdusd",
+        "bitmart-usdt",
+        "kucoin-usdt",
+        "coingecko",
+        "uniswap-v3-ethereum-weth-3000"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
     "BUIDL_FUNDAMENTAL": {
       "source": ["securitize-api"],
       "denomination": "USD",
