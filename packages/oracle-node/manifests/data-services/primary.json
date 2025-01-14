@@ -2078,6 +2078,11 @@
       "denomination": "percentage",
       "rateFeed": false
     },
+    "HLScope_FUNDAMENTAL": {
+      "source": ["securitize-api"],
+      "denomination": "USD",
+      "rateFeed": true
+    },
     "scUSD_FUNDAMENTAL": {
       "source": ["ethereum-evm-fetcher-veda"],
       "denomination": "USDC",
