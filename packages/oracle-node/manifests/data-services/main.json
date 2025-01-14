@@ -3161,6 +3161,11 @@
       "denomination": "ETH",
       "rateFeed": true
     },
+    "zkETH_FUNDAMENTAL": {
+      "source": ["zksync-evm-fetcher-dinero-branded-eth"],
+      "denomination": "USD",
+      "rateFeed": true
+    },
     "BAT": {
       "denomination": "USD",
       "rateFeed": false
