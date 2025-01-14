@@ -6,9 +6,9 @@ const config: Config.InitialOptions = {
   coverageDirectory: "<rootDir>/coverage",
   coverageReporters: ["html"],
   preset: "ts-jest",
-  setupFilesAfterEnv: ["./jest.setup-after-env.js"],
+  setupFiles: ["./jest.setup.ts"],
   testPathIgnorePatterns: ["<rootDir>/dist/"],
-  coveragePathIgnorePatterns: ["/node_modules/", "sample-run.ts"],
+  roots: ["<rootDir>/src/", "<rootDir>/test/"],
 };
 
 export default config;

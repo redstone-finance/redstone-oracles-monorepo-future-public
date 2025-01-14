@@ -1,41 +1,19 @@
 import { bcs } from "@mysten/bcs";
 import { SuiClient, SuiTransactionBlockResponse } from "@mysten/sui/client";
 import { Transaction } from "@mysten/sui/transactions";
-import {
-  DataServiceIds,
-  getSignersForDataServiceId,
-} from "@redstone-finance/oracles-smartweave-contracts";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { spawn } from "child_process";
 import "dotenv/config";
 import { z } from "zod";
 import {
-  NetworkEnum,
-  SuiDeployConfig,
-  SuiDeployConfigSchema,
-} from "../src/config";
-import {
   makeSuiClient,
   makeSuiKeypair,
   saveIds,
   serializeSigners,
-} from "../src/util";
-
-function makeSuiDeployConfig(
-  network: z.infer<typeof NetworkEnum>,
-  dataServiceId: DataServiceIds = "redstone-primary-prod"
-): SuiDeployConfig {
-  return SuiDeployConfigSchema.parse({
-    network,
-    uniqueSignerCount: 3,
-    signerCountThreshold: 3,
-    maxTimestampDelayMs: 15 * 60 * 1_000, // 15 min
-    maxTimestampAheadMs: 3 * 60 * 1_000, // 3 min
-    signers: getSignersForDataServiceId(dataServiceId),
-    trustedUpdaters: [], // no one is trusted at the start
-    minIntervalBetweenUpdatesMs: 1 * 1000, // 1 sec between updated // todo: change after
-  });
-}
+  SuiNetworkName,
+  SuiNetworkSchema,
+} from "../src";
+import { makeSuiDeployConfig } from "./DeployConfig";
 
 interface ObjectChanges {
   objectChanges?: Array<{
@@ -54,16 +32,16 @@ async function executeCommand(
   command: string,
   args: string[]
 ): Promise<string> {
-  return new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
     const proc = spawn(command, args);
     let stdout = "";
     let stderr = "";
 
-    proc.stdout?.on("data", (data: Buffer) => {
+    proc.stdout.on("data", (data: Buffer) => {
       stdout += data.toString();
     });
 
-    proc.stderr?.on("data", (data: Buffer) => {
+    proc.stderr.on("data", (data: Buffer) => {
       stderr += data.toString();
     });
 
@@ -98,9 +76,8 @@ async function executeSuiPublish(network: string): Promise<ObjectChanges> {
     const output = await executeCommand("sui", cmd);
 
     console.log("Output:", output);
-    const result = JSON.parse(output.split("Transaction digest:")[0]);
 
-    return result;
+    return JSON.parse(output.split("Transaction digest:")[0]) as ObjectChanges;
   } catch (error) {
     console.error("Error executing sui client publish:", error);
     throw error;
@@ -113,7 +90,7 @@ async function initialize(
   client: SuiClient,
   packageId: string,
   adminCap: string,
-  network: "mainnet" | "testnet" | "localnet"
+  network: SuiNetworkName
 ): Promise<TransactionResult> {
   const tx = new Transaction();
   const config = makeSuiDeployConfig(network);
@@ -142,35 +119,29 @@ async function initialize(
   return result;
 }
 
-function getAdminCap(packageId: string, changes: ObjectChanges): string {
+function getAdminCap(packageId: string, changes: ObjectChanges) {
   const created = changes.objectChanges?.filter((obj) => obj.type == "created");
 
   return created?.find(
     (obj) => obj.objectType == `${packageId}::admin::AdminCap`
-  )?.objectId!;
+  )?.objectId;
 }
 
 function getPriceAdapter(
   packageId: string,
-  deets: SuiTransactionBlockResponse
-): string {
-  const created = deets.objectChanges?.filter((obj) => obj.type == "created");
+  response: SuiTransactionBlockResponse
+) {
+  const created = response.objectChanges?.filter(
+    (obj) => obj.type == "created"
+  );
 
   return created?.find(
     (obj) => obj.objectType == `${packageId}::price_adapter::PriceAdapter`
-  )?.objectId!;
+  )?.objectId;
 }
 
 async function main() {
-  const network = RedstoneCommon.getFromEnv("NETWORK");
-  if (
-    network !== "mainnet" &&
-    network !== "testnet" &&
-    network !== "localnet"
-  ) {
-    throw new Error("Invalid network");
-  }
-
+  const network = RedstoneCommon.getFromEnv("NETWORK", SuiNetworkSchema);
   const client = makeSuiClient(network);
 
   const output = await executeCommand("sui", ["client", "active-env"]);
@@ -187,7 +158,7 @@ async function main() {
   }
 
   const publishResult = await executeSuiPublish(network);
-  const packageId = publishResult?.objectChanges?.find(
+  const packageId = publishResult.objectChanges?.find(
     (v) => v.type === "published"
   )?.packageId;
   if (!packageId) {
@@ -195,19 +166,23 @@ async function main() {
   }
   console.log("Publish result:", publishResult);
   const adminCap = getAdminCap(packageId, publishResult);
+  if (!adminCap) {
+    throw new Error("Admin cap not found");
+  }
 
   const res = await initialize(client, packageId, adminCap, network);
   await client.waitForTransaction({ digest: res.digest });
   console.log("PriceAdapter initialized:", res);
 
-  const deets = await client.getTransactionBlock({
+  const details = await client.getTransactionBlock({
     digest: res.digest,
     options: { showObjectChanges: true },
   });
-  if (deets === null) {
-    throw new Error("Detail of initialize_price_adapter transaction not found");
+  const priceAdapterObjectId = getPriceAdapter(packageId, details);
+
+  if (!priceAdapterObjectId) {
+    throw new Error("Admin cap not found");
   }
-  const priceAdapterObjectId = getPriceAdapter(packageId, deets);
 
   const ids = {
     packageId,
@@ -221,4 +196,4 @@ async function main() {
   console.log(`ADMINCAP_OBJECT_ID=${adminCap}`);
 }
 
-main();
+void main();

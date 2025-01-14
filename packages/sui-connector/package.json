@@ -6,30 +6,35 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn global:tsc --build tsconfig.build.json",
-    "test": "ID_FILE=object_ids.$NETWORK.json yarn global:jest:cov",
-    "lint": "yarn global:eslint",
+    "build-dev": "yarn global:tsc --build tsconfig.json",
+    "preversion": "yarn build",
+    "pack-package": "yarn build && npm pack",
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix .",
+    "test": "yarn global:jest:cov",
     "deploy": "yarn global:ts-node scripts/deploy-sui-program.ts",
-    "sample-run": "ID_FILE=object_ids.$NETWORK.json yarn global:ts-node scripts/sample-run.ts"
+    "sample-run": "yarn global:ts-node scripts/sample-run.ts"
   },
   "peerDependencies": {
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@mysten/bcs": "^1.1.0",
-    "@mysten/sui": "^1.13.0",
+    "@mysten/bcs": "^1.2.1",
+    "@mysten/sui": "^1.19.0",
     "@redstone-finance/sdk": "0.7.3",
-    "commander": "^12.1.0",
+    "@redstone-finance/utils": "0.7.3",
     "dotenv": "^16.0.3",
+    "lodash": "^4.17.21",
     "zod": "^3.22.4"
   },
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "dist/src/**/*",
-    "scripts/**/*"
+    "dist/src/**/*"
   ],
   "devDependencies": {
+    "@redstone-finance/oracles-smartweave-contracts": "0.7.3",
     "@types/chai": "^4.3.4",
     "chai": "^4.3.10"
   }

@@ -1,14 +1,24 @@
 import { z } from "zod";
 
-const PRICE_FEEDS = "price-feeds";
-const MENTO = "mento";
-const MULTI_FEED = "multi-feed";
-const FUEL = "fuel";
-const RADIX = "radix";
-const RADIX_MULTI_FEED = `${RADIX}-${MULTI_FEED}`;
+export const PRICE_FEEDS = "price-feeds";
+export const MENTO = "mento";
+export const MULTI_FEED = "multi-feed";
+export const FUEL = "fuel";
+export const RADIX = "radix";
+export const RADIX_MULTI_FEED = `${RADIX}-${MULTI_FEED}`;
+export const SUI_MULTI_FEED = `sui-${MULTI_FEED}`;
 
-export const MultiFeedAdapterTypesEnum = z.enum([MULTI_FEED, RADIX_MULTI_FEED]);
-export const NonEvmAdapterTypesEnum = z.enum([FUEL, RADIX, RADIX_MULTI_FEED]);
+export const MultiFeedAdapterTypesEnum = z.enum([
+  MULTI_FEED,
+  RADIX_MULTI_FEED,
+  SUI_MULTI_FEED,
+]);
+export const NonEvmAdapterTypesEnum = z.enum([
+  FUEL,
+  RADIX,
+  RADIX_MULTI_FEED,
+  SUI_MULTI_FEED,
+]);
 export const BaseAdapterTypesEnum = z.enum([
   PRICE_FEEDS,
   MENTO,
@@ -45,6 +55,7 @@ export const CommonManifestSchema = z.object({
   chain: ChainSchema,
   updateTriggers: UpdateTriggersSchema,
   adapterContract: z.string(),
+  adapterContractPackageId: z.string().optional(),
   adapterContractType: AdapterTypesEnum,
   dataServiceId: z.string(),
   priceFeeds: z.record(z.string(), z.any()),

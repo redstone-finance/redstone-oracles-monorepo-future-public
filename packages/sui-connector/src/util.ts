@@ -1,12 +1,12 @@
 import { bcs } from "@mysten/bcs";
 import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
 import type { Keypair } from "@mysten/sui/cryptography";
-import { getFaucetHost, requestSuiFromFaucetV0 } from "@mysten/sui/faucet";
 import { Secp256k1Keypair } from "@mysten/sui/keypairs/secp256k1";
 import { RedstoneCommon } from "@redstone-finance/utils";
+import { arrayify, isHexString } from "ethers/lib/utils";
 import fs from "fs";
 import path from "path";
-import { Network, SuiConfig, SuiConfigSchema } from "./config";
+import { SuiConfig, SuiNetworkName } from "./config";
 
 interface Ids {
   packageId: string;
@@ -14,49 +14,25 @@ interface Ids {
   adminCapId: string;
 }
 
-function readIds(idFile: string | undefined): Ids | undefined {
-  if (idFile === undefined) {
-    return undefined;
-  }
-  try {
-    return JSON.parse(fs.readFileSync(idFile, "utf8"));
-  } catch {
-    return undefined;
-  }
+function getIdsFilePath(network: string) {
+  return path.join(__dirname, `../object_ids.${network}.json`);
 }
 
-export function saveIds(ids: Ids, network: Network): void {
-  const file_path = path.join(process.cwd(), `./object_ids.${network}.json`);
-  fs.writeFile(file_path, JSON.stringify(ids), (e) => e);
+function readIds(network: SuiNetworkName): Ids {
+  return JSON.parse(fs.readFileSync(getIdsFilePath(network), "utf8")) as Ids;
 }
 
-export async function ensureSuiBalance(
-  client: SuiClient,
-  address: string,
-  network: Network,
-  amount: number = 10 ** 9 * 2
-) {
-  const balance = await client.getBalance({
-    owner: address,
-  });
-  if (parseInt(balance.totalBalance) < amount && network !== "mainnet") {
-    const res = await requestSuiFromFaucetV0({
-      host: getFaucetHost(network),
-      recipient: address,
-    });
-    if (res.error) {
-      throw new Error(res.error);
-    }
-  }
+export function saveIds(ids: Ids, network: SuiNetworkName): void {
+  fs.writeFileSync(getIdsFilePath(network), JSON.stringify(ids, null, "\n"));
 }
 
-export function readSuiConfig(network: Network): SuiConfig {
-  const ids = readIds(RedstoneCommon.getFromEnv("ID_FILE"));
-  return SuiConfigSchema.parse({
+export function readSuiConfig(network: SuiNetworkName): SuiConfig {
+  const ids = readIds(network);
+
+  return {
+    ...ids,
     network,
-    packageId: ids?.packageId ?? "",
-    priceAdapterObjectId: ids?.priceAdapterObjectId ?? "",
-  });
+  };
 }
 
 export function makeSuiKeypair(privateKey?: string): Keypair {
@@ -64,10 +40,16 @@ export function makeSuiKeypair(privateKey?: string): Keypair {
   if (!key) {
     throw new Error("PRIVATE_KEY is not set, privateKey param not provided");
   }
-  return Secp256k1Keypair.fromSecretKey(key);
+
+  return Secp256k1Keypair.fromSecretKey(
+    isHexString(key, 32) ? arrayify(key) : key
+  );
 }
 
-export function makeSuiClient(network: Network, url?: string): SuiClient {
+export function makeSuiClient(
+  network: SuiNetworkName,
+  url?: string
+): SuiClient {
   return new SuiClient({
     url: url ?? getFullnodeUrl(network),
   });
@@ -80,7 +62,7 @@ export function hexToBytes(data: string): Uint8Array {
 
   return Uint8Array.from(
     data
-      .slice(2)!
+      .slice(2)
       .match(/.{2}/g)!
       .map((byte) => parseInt(byte, 16))
   );

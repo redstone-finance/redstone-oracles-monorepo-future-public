@@ -13,9 +13,9 @@
 * The data are written to a shared [`PriceData`](./price_adapter/sources/price_data.move) object
 * The contract can be read by one of `view` functions.
 * The parameters` update doesn't change the contract code
-* Logic update requires changing the code and version ([see migration guide](#sui-package-upgrades)
+* Logic update requires changing the code and version ([see migration guide](#sui-package-upgrades))
   * Still, **the shared [`PriceData`](./price_adapter/sources/price_data.move) object ID remains unchanged**
-  and is readable by *passing the first PriceAdapter version ID*.
+  and is readable by passing **the first PriceAdapter version ID**.
 
 ## PriceFeed
 
@@ -53,15 +53,16 @@ Manual steps to take:
 
 Example of migrate function:
 
-```sui move
+```rust
 /// Migrates to `price_adapter` object version 10
 public(package) fun migrate_to_version_10(admin_cap: &AdminCap, price_adapter: &mut PriceAdapter) {
-// check if we should bump the `price_adapter` version.
-assert!(price_adapter.version == 9, E_CANT_BUMP_VERSION);
-// sanity check
-assert!(VERSION == 10, E_VERSION_CONSTANT_INCORRECT);
+  // check if we should bump the `price_adapter` version.
+  assert!(price_adapter.version == 9, E_CANT_BUMP_VERSION);
 
-// set version to 10
-admin_cap.set_version(price_adapter, VERSION);
+  // sanity check
+  assert!(VERSION == 10, E_VERSION_CONSTANT_INCORRECT);
+
+  // set version to 10
+  admin_cap.set_version(price_adapter, VERSION);
 }
 ```

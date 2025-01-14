@@ -1,24 +1,22 @@
-import { expect } from "chai";
-import dotenv from "dotenv";
-
 import { RedstoneCommon } from "@redstone-finance/utils";
+import dotenv from "dotenv";
 import {
   makeSuiClient,
   makeSuiKeypair,
   readSuiConfig,
-  SuiContractConnector,
+  SuiNetworkSchema,
   SuiPricesContractAdapter,
+  SuiPricesContractConnector,
 } from "../src";
-import { NetworkEnum } from "../src/config";
 
 describe("SuiContractConnector", () => {
-  let connector: SuiContractConnector;
+  let connector: SuiPricesContractConnector;
 
   beforeAll(() => {
     dotenv.config();
-    const network = RedstoneCommon.getFromEnv("NETWORK", NetworkEnum);
+    const network = RedstoneCommon.getFromEnv("NETWORK", SuiNetworkSchema);
 
-    connector = new SuiContractConnector(
+    connector = new SuiPricesContractConnector(
       makeSuiClient(network),
       readSuiConfig(network),
       makeSuiKeypair()
@@ -28,14 +26,14 @@ describe("SuiContractConnector", () => {
   describe("getBlockNumber", () => {
     it("should get block number", async () => {
       const result = await connector.getBlockNumber();
-      expect(result).to.be.gte(10);
+      expect(result).toBeGreaterThan(10);
     });
   });
 
   describe("getAdapter", () => {
     it("should return adapter", async () => {
       const adapter = await connector.getAdapter();
-      expect(adapter).to.be.instanceOf(SuiPricesContractAdapter);
+      expect(adapter).toBeInstanceOf(SuiPricesContractAdapter);
     });
   });
 });

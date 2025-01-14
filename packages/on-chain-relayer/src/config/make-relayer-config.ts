@@ -26,6 +26,7 @@ const createManifestConfig = (
     updateConditions,
     updateTriggers,
     adapterContractType: manifest.adapterContractType,
+    adapterContractPackageId: manifest.adapterContractPackageId,
   };
 };
 

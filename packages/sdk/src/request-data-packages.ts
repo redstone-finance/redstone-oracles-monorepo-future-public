@@ -393,7 +393,7 @@ export const checkAndGetSameTimestamp = (dataPackages: SignedDataPackage[]) => {
   return timestamps[0];
 };
 
-const extractSignedDataPackagesForFeedId = (
+export const extractSignedDataPackagesForFeedId = (
   dataPackages: DataPackagesResponse,
   dataFeedId?: string
 ) => {

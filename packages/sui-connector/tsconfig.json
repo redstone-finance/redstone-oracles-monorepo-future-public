@@ -1,12 +1,15 @@
 {
   "extends": "../../tsconfig-common.json",
-  "include": ["**/*", "src/**/*_abi.json"],
+  "include": ["**/*", "**/*.json"],
   "references": [
     {
-      "path": "../protocol/tsconfig.build.json"
+      "path": "../sdk/tsconfig.build.json"
     },
     {
-      "path": "../sdk/tsconfig.build.json"
+      "path": "../utils/tsconfig.build.json"
+    },
+    {
+      "path": "../oracles-smartweave-contracts/tsconfig.build.json"
     }
   ]
 }

@@ -1,19 +1,25 @@
-import { DynamicFieldPage, SuiClient } from "@mysten/sui/client";
+import { SuiClient } from "@mysten/sui/client";
 import type { Keypair } from "@mysten/sui/cryptography";
 import { Transaction } from "@mysten/sui/transactions";
+import { SUI_CLOCK_OBJECT_ID } from "@mysten/sui/utils";
 import {
-  convertDataPackagesResponse,
+  ContractData,
   type ContractParamsProvider,
+  convertDataPackagesResponse,
   type DataPackagesResponse,
-  type IExtendedPricesContractAdapter,
+  extractSignedDataPackagesForFeedId,
+  IMultiFeedPricesContractAdapter,
 } from "@redstone-finance/sdk";
-import type { BigNumberish } from "ethers";
-import type { SuiConfig } from "../src/config";
-import { makeFeedIdBytes, uint8ArrayToBcs } from "../src/util";
+import { BigNumberish, utils } from "ethers";
+import _ from "lodash";
+import type { SuiConfig } from "./config";
 import { PriceAdapterDataContent, PriceDataContent } from "./types";
+import { makeFeedIdBytes, uint8ArrayToBcs } from "./util";
+
+const DEFAULT_GAS_BUDGET = 10000000n;
 
 export class SuiPricesContractAdapter
-  implements IExtendedPricesContractAdapter
+  implements IMultiFeedPricesContractAdapter
 {
   private readonly client: SuiClient;
   private readonly keypair: Keypair;
@@ -28,65 +34,69 @@ export class SuiPricesContractAdapter
   async getUniqueSignerThreshold(): Promise<number> {
     const priceAdapterDataContent =
       await this.getPriceAdapterObjectDataContent();
-    return priceAdapterDataContent.fields.config.fields.signer_count_threshold;
+
+    return priceAdapterDataContent.config.signer_count_threshold;
   }
 
-  async readLatestUpdateBlockTimestamp(): Promise<number> {
-    const priceDataObject = await this.getOneOfFeedIdsPriceDataContent();
-    return parseInt(priceDataObject.fields.value.fields.write_timestamp);
+  async readPricesFromContract(
+    paramsProvider: ContractParamsProvider
+  ): Promise<BigNumberish[]> {
+    const contractData = await this.readContractData(
+      paramsProvider.getDataFeedIds()
+    );
+
+    return paramsProvider
+      .getDataFeedIds()
+      .map((feedId) => contractData[feedId].lastValue);
   }
 
-  async readTimestampFromContract(): Promise<number> {
-    const priceDataContent = await this.getOneOfFeedIdsPriceDataContent();
-    return parseInt(priceDataContent.fields.value.fields.timestamp);
+  async readLatestUpdateBlockTimestamp(feedId: string): Promise<number> {
+    const contractData = await this.readContractData([feedId]);
+
+    return Object.values(contractData)[0].lastBlockTimestampMS;
   }
 
-  private async getOneOfFeedIdsPriceDataContent() {
+  async readTimestampFromContract(feedId: string): Promise<number> {
+    const contractData = await this.readContractData([feedId]);
+
+    return Object.values(contractData)[0].lastDataPackageTimestampMS;
+  }
+
+  async readContractData(feedIds: string[]): Promise<ContractData> {
     const priceAdapterDataContent =
       await this.getPriceAdapterObjectDataContent();
 
-    const pricesTableId = priceAdapterDataContent.fields.prices.fields.id.id;
+    const pricesTableId = priceAdapterDataContent.prices.id.id;
     if (!pricesTableId) {
       throw new Error("Prices table ID not found");
     }
 
-    const priceDataContent =
-      await this.getPriceDataContentFromPricesTable(pricesTableId);
-
-    return priceDataContent;
-  }
-
-  async getPricesFromPayload(
-    _paramsProvider: ContractParamsProvider
-  ): Promise<BigNumberish[]> {
-    throw new Error("Pull model not supported");
+    return _.pick(
+      await this.getContractDataFromPricesTable(pricesTableId),
+      feedIds
+    );
   }
 
   async writePricesFromPayloadToContract(
     paramsProvider: ContractParamsProvider
   ): Promise<string> {
-    const dataPackages: DataPackagesResponse =
+    const dataPackagesResponse: DataPackagesResponse =
       await paramsProvider.requestDataPackages();
 
     const tx = new Transaction();
+    tx.setGasBudget(this.config.writePricesTxGasBudget ?? DEFAULT_GAS_BUDGET);
 
-    tx.setGasBudget(this.config.writePricesTxGasBudget);
-
-    // TODO use `extractSignedDataPackagesForFeedId` from @redstone-finance/sdk
-    Object.entries(dataPackages).forEach(([feedId, dataPackages]) => {
+    paramsProvider.getDataFeedIds().forEach((feedId) => {
+      const dataPackages = extractSignedDataPackagesForFeedId(
+        dataPackagesResponse,
+        feedId
+      );
       const payload = convertDataPackagesResponse(
         { [feedId]: dataPackages },
-        "bytes"
+        "string"
       );
-      tx.moveCall({
-        target: `${this.config.packageId}::price_adapter::write_price`,
-        arguments: [
-          tx.object(this.config.priceAdapterObjectId),
-          tx.pure(uint8ArrayToBcs(makeFeedIdBytes(feedId))),
-          tx.pure(uint8ArrayToBcs(new Uint8Array(JSON.parse(payload)))),
-          tx.object("0x6"), // Clock object ID
-        ],
-      });
+
+      this.writePrice(tx, feedId, payload);
     });
 
     const result = await this.client.signAndExecuteTransaction({
@@ -97,14 +107,23 @@ export class SuiPricesContractAdapter
     return result.digest;
   }
 
-  async readPricesFromContract(
-    paramsProvider: ContractParamsProvider
+  private writePrice(tx: Transaction, feedId: string, payload: string) {
+    tx.moveCall({
+      target: `${this.config.packageId}::price_adapter::write_price`,
+      arguments: [
+        tx.object(this.config.priceAdapterObjectId),
+        tx.pure(uint8ArrayToBcs(makeFeedIdBytes(feedId))),
+        tx.pure(uint8ArrayToBcs(utils.arrayify("0x" + payload))),
+        tx.object(SUI_CLOCK_OBJECT_ID), // Clock object ID
+      ],
+    });
+  }
+
+  //eslint-disable-next-line @typescript-eslint/require-await
+  async getPricesFromPayload(
+    _paramsProvider: ContractParamsProvider
   ): Promise<BigNumberish[]> {
-    const feedIds = paramsProvider.getDataFeedIds();
-    const promises = await Promise.all(
-      feedIds.map((feedId) => this.getPrice(feedId))
-    );
-    return promises.map((priceData) => BigInt(priceData.value));
+    throw new Error("Pull model not supported");
   }
 
   private async getPriceAdapterObjectDataContent() {
@@ -117,34 +136,10 @@ export class SuiPricesContractAdapter
       throw new Error("Object not found or has no content");
     }
 
-    const priceAdapterDataContent = PriceAdapterDataContent.parse(
-      object.data.content
-    );
-
-    return priceAdapterDataContent;
+    return PriceAdapterDataContent.parse(object.data.content);
   }
 
-  private async getPrice(feedId: string) {
-    const priceAdapterDataContent =
-      await this.getPriceAdapterObjectDataContent();
-
-    const pricesTableId = priceAdapterDataContent.fields.prices.fields.id.id;
-    if (!pricesTableId) {
-      throw new Error("Prices table ID not found");
-    }
-
-    const priceDataContent = await this.getPriceDataContentFromPricesTable(
-      pricesTableId,
-      feedId
-    );
-
-    return priceDataContent.fields.value.fields;
-  }
-
-  private async getPriceDataContentFromPricesTable(
-    pricesTableId: string,
-    feedId?: string
-  ) {
+  private async getContractDataFromPricesTable(pricesTableId: string) {
     const dynamicFields = await this.client.getDynamicFields({
       parentId: pricesTableId,
     });
@@ -152,33 +147,24 @@ export class SuiPricesContractAdapter
       throw new Error("Dynamic fields not found");
     }
 
-    const feedField = this.filterDynamicFields(dynamicFields, feedId);
-    if (!feedField?.objectId) {
-      throw new Error("Feed for the given field not found");
-    }
-
-    const feedObject = await this.client.getObject({
-      id: feedField.objectId,
+    const ids = dynamicFields.data.map((field) => field.objectId);
+    const result = await this.client.multiGetObjects({
+      ids,
       options: { showContent: true },
     });
 
-    if (!feedObject?.data?.content) {
-      throw new Error("Feed object has no fields");
-    }
+    const parsedResults = result.map(
+      (response) => PriceDataContent.parse(response.data?.content).value
+    );
+    const contractData = parsedResults.map((data) => [
+      utils.toUtf8String(data.feed_id).replace(/\0+$/, ""),
+      {
+        lastDataPackageTimestampMS: parseInt(data.timestamp),
+        lastBlockTimestampMS: parseInt(data.write_timestamp),
+        lastValue: BigInt(data.value),
+      },
+    ]);
 
-    return PriceDataContent.parse(feedObject.data.content);
-  }
-
-  private filterDynamicFields(
-    dynamicFields: DynamicFieldPage,
-    feedId?: string
-  ) {
-    if (feedId) {
-      const feedIdBytes = makeFeedIdBytes(feedId);
-      return dynamicFields.data.find(
-        (field) => field.name.value!.toString() === feedIdBytes.toString()
-      );
-    }
-    return dynamicFields.data[0];
+    return Object.fromEntries(contractData) as ContractData;
   }
 }

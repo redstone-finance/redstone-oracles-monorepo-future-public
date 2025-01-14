@@ -37,6 +37,9 @@
       "path": "../radix-connector/tsconfig.build.json"
     },
     {
+      "path": "../sui-connector/tsconfig.build.json"
+    },
+    {
       "path": "../internal-utils/tsconfig.build.json"
     },
     {

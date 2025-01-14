@@ -17,6 +17,7 @@ export type ManifestConfig = {
   updateTriggers: Record<string, UpdateTriggers>;
   updateConditions: Record<string, ConditionCheckNames[]>;
   adapterContractType: AdapterType;
+  adapterContractPackageId?: string;
 };
 export type OnChainRelayerEnv = {
   relayerIterationInterval: number;

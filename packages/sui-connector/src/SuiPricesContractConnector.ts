@@ -7,7 +7,7 @@ import type {
 import { SuiPricesContractAdapter } from "./SuiPricesContractAdapter";
 import { SuiConfig } from "./config";
 
-export class SuiContractConnector
+export class SuiPricesContractConnector
   implements IContractConnector<IPricesContractAdapter>
 {
   constructor(
