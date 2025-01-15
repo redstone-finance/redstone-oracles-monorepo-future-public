@@ -8257,6 +8257,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@redstone-finance/on-chain-relayer-manual-scripts@workspace:packages/on-chain-relayer-manual-scripts":
+  version: 0.0.0-use.local
+  resolution: "@redstone-finance/on-chain-relayer-manual-scripts@workspace:packages/on-chain-relayer-manual-scripts"
+  dependencies:
+    "@redstone-finance/evm-connector": "npm:0.7.3"
+    "@redstone-finance/internal-utils": "npm:0.7.3"
+    "@redstone-finance/on-chain-relayer": "npm:0.7.3"
+    "@redstone-finance/on-chain-relayer-common": "npm:0.7.3"
+    "@redstone-finance/sdk": "npm:0.7.3"
+    "@redstone-finance/utils": "npm:0.7.3"
+    dotenv: "npm:^16.0.3"
+    ethers: "npm:^5.7.2"
+    prompts: "npm:^2.4.2"
+    zod: "npm:^3.22.4"
+  languageName: unknown
+  linkType: soft
+
 "@redstone-finance/on-chain-relayer@npm:0.7.3, @redstone-finance/on-chain-relayer@workspace:packages/on-chain-relayer":
   version: 0.0.0-use.local
   resolution: "@redstone-finance/on-chain-relayer@workspace:packages/on-chain-relayer"

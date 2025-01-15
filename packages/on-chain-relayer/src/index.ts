@@ -23,6 +23,7 @@ export type { OnChainRelayerEnv, RelayerConfig } from "./config/RelayerConfig";
 export type { EvmContractAdapter } from "./core/contract-interactions/EvmContractAdapter";
 export { EvmContractConnector } from "./core/contract-interactions/EvmContractConnector";
 export type { IRedstoneContractAdapter } from "./core/contract-interactions/IRedstoneContractAdapter";
+export { prepareLinkedListLocationsForMentoAdapterReport } from "./custom-integrations/mento/mento-utils";
 export type { ContractFacade } from "./facade/ContractFacade";
 export { EvmContractFacade } from "./facade/EvmContractFacade";
 export type { RedstoneEvmContract } from "./facade/EvmContractFacade";
