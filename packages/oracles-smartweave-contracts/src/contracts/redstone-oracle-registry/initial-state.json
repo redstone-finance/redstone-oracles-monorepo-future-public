@@ -8,7 +8,8 @@
       "dataServiceId": "redstone-main-demo",
       "evmAddress": "0x0C39486f770B26F5527BBBf942726537986Cd7eb",
       "description": "Main RedStone Provider with all available tokens.",
-      "ecdsaPublicKey": "0x04009dd87eb41d96ce8ad94aa22ea8b0ba4ac20c45e42f71726d6b180f93c3f298e333ae7591fe1c9d88234575639be9e81e35ba2fe5ad2c2260f07db49ccb9d0d"
+      "ecdsaPublicKey": "0x04009dd87eb41d96ce8ad94aa22ea8b0ba4ac20c45e42f71726d6b180f93c3f298e333ae7591fe1c9d88234575639be9e81e35ba2fe5ad2c2260f07db49ccb9d0d",
+      "dateAdded": "2024-01-01"
     },
     "Yba8IVc_01bFxutKNJAZ7CmTD5AVi2GcWXf1NajPAsc": {
       "url": "https://redstone.finance",
@@ -18,7 +19,8 @@
       "dataServiceId": "redstone-stocks-demo",
       "evmAddress": "0x926E370fD53c23f8B71ad2B3217b227E41A92b12",
       "description": "Stocks, ETFs, Livestocks, Metals, Energies...",
-      "ecdsaPublicKey": "0x04a628e8c2ef7d3b768b75404a48adcd667d0d59ae457bf19552ff670d2c95630480752e90b0c9fe8127feeb9e8f9e694919c730327bd368c985f1a5b26c2d60ba"
+      "ecdsaPublicKey": "0x04a628e8c2ef7d3b768b75404a48adcd667d0d59ae457bf19552ff670d2c95630480752e90b0c9fe8127feeb9e8f9e694919c730327bd368c985f1a5b26c2d60ba",
+      "dateAdded": "2024-01-01"
     },
     "zYqPZuALSPa_f5Agvf8g2JHv94cqMn9aBtnH7GFHbuA": {
       "url": "https://redstone.finance",
@@ -28,7 +30,8 @@
       "dataServiceId": "redstone-rapid-demo",
       "evmAddress": "0xf786a909D559F5Dee2dc6706d8e5A81728a39aE9",
       "description": "Most popular tokens with frequent updates",
-      "ecdsaPublicKey": "0x041d45589c5055c867e857d8437e7d5745027d0a455801bc78cc856840510e76d8ffe578296a11a03e744d7a953e0f1e36c3a93f74268859e480203ab4d2f5718e"
+      "ecdsaPublicKey": "0x041d45589c5055c867e857d8437e7d5745027d0a455801bc78cc856840510e76d8ffe578296a11a03e744d7a953e0f1e36c3a93f74268859e480203ab4d2f5718e",
+      "dateAdded": "2024-01-01"
     },
     "f1Ipos2fVPbxPVO65GBygkMyW0tkAhp2hdprRPPBBN8": {
       "url": "https://redstone.finance",
@@ -38,7 +41,8 @@
       "dataServiceId": "redstone-avalanche-demo",
       "evmAddress": "0x3a7d971De367FE15D164CDD952F64205F2D9f10c",
       "description": "Most popular tokens from the Avalanche ecosystem - demo node 1",
-      "ecdsaPublicKey": "0x0455e7c699a153e02de0e6d3c3dcdb34d1e57a9456205b0e124e2cac29b58be83c4faa2081d39b38aa3c41fa3350f50dcf87d40ab695c9c86709040d39d5ba9be3"
+      "ecdsaPublicKey": "0x0455e7c699a153e02de0e6d3c3dcdb34d1e57a9456205b0e124e2cac29b58be83c4faa2081d39b38aa3c41fa3350f50dcf87d40ab695c9c86709040d39d5ba9be3",
+      "dateAdded": "2024-01-01"
     },
     "6bZ3yxPYy0LHPqo7MNqw0PHTeIM2PR-RmfTPYLltsfw": {
       "url": "https://redstone.finance",
@@ -48,7 +52,8 @@
       "dataServiceId": "redstone-avalanche-demo",
       "evmAddress": "0x41ed5321B76C045f5439eCf9e73F96c6c25B1D75",
       "description": "Most popular tokens from the Avalanche ecosystem - demo node 2",
-      "ecdsaPublicKey": "0x0428082ee0046157d0fba27aa9391f5651c41b9dc8b12011ed72622c05e55d56ae503039f912de7345dab28ae68d80b055082f74286b82ffc2c09c07d8b2e22378"
+      "ecdsaPublicKey": "0x0428082ee0046157d0fba27aa9391f5651c41b9dc8b12011ed72622c05e55d56ae503039f912de7345dab28ae68d80b055082f74286b82ffc2c09c07d8b2e22378",
+      "dateAdded": "2024-01-01"
     },
     "OxQ-vLXcwTZdcdlCziC95duFylo8Aj9xBJ4XsC3xlGk": {
       "name": "redstone-arbitrum-dev-node-1",
@@ -58,7 +63,8 @@
       "evmAddress": "0x16883583647260AB2e2BA63c4c38D9807Fd7296e",
       "ipAddress": "0.0.0.0",
       "url": "https://redstone.finance/",
-      "ecdsaPublicKey": "0x041aea25f013dee918d88063daca2d0113fa41a95b66440d8d8edf09a3d397045f5b9d391c1e50e6998d3b2f95918899e382f444714e64d9fd689c92d4a2535ea1"
+      "ecdsaPublicKey": "0x041aea25f013dee918d88063daca2d0113fa41a95b66440d8d8edf09a3d397045f5b9d391c1e50e6998d3b2f95918899e382f444714e64d9fd689c92d4a2535ea1",
+      "dateAdded": "2024-01-01"
     },
     "LtVolyIqpjhCr8fw_ue_-Y9xaH5IURpKZclyJbsu4SE": {
       "name": "redstone-arbitrum-dev-node-2",
@@ -68,7 +74,8 @@
       "evmAddress": "0x1053d519Cc8C8cd7e53FecbFb13B6F0ffbD4c8C5",
       "ipAddress": "0.0.0.0",
       "url": "https://redstone.finance/",
-      "ecdsaPublicKey": "0x04d0f2bb463dfe89778fc6fe68ed6945bbf13f1391369942d78607cc4eac906aa63d082caf6c81c3c191daf4bbb7cfabbf5fca1ca762e02529cf700a15ac0cd828"
+      "ecdsaPublicKey": "0x04d0f2bb463dfe89778fc6fe68ed6945bbf13f1391369942d78607cc4eac906aa63d082caf6c81c3c191daf4bbb7cfabbf5fca1ca762e02529cf700a15ac0cd828",
+      "dateAdded": "2024-01-01"
     },
     "tTTthGBknPG4MWH5y-zDKO2dEF3Fxo0gPbzV6PLNlNQ": {
       "name": "redstone-avalanche-prod-node-1",
@@ -78,7 +85,8 @@
       "evmAddress": "0x1eA62d73EdF8AC05DfceA1A34b9796E937a29EfF",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04ea48ca25db5d352ec62c4f92e8c115068e92a327f3536479a0185ec6e0f8d26db4409bffdc8c6ea898743f908861a47fdb4a52e44d129a56418a1c08008fd425"
+      "ecdsaPublicKey": "0x04ea48ca25db5d352ec62c4f92e8c115068e92a327f3536479a0185ec6e0f8d26db4409bffdc8c6ea898743f908861a47fdb4a52e44d129a56418a1c08008fd425",
+      "dateAdded": "2024-01-01"
     },
     "azkge6PQ_40JzMdcgkpj21jxhl0JaQg1o6yPSCekJ4Q": {
       "name": "redstone-avalanche-prod-node-2",
@@ -88,7 +96,8 @@
       "evmAddress": "0x2c59617248994D12816EE1Fa77CE0a64eEB456BF",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04f5f035588502146774d0ccfd62ee5bf1d7f1dbb96aae33a79765c636b8ec75a36f5121931b5cc37215a7d4280c5700ca92daaaf93c32b06ca9f98b1f4ece624e"
+      "ecdsaPublicKey": "0x04f5f035588502146774d0ccfd62ee5bf1d7f1dbb96aae33a79765c636b8ec75a36f5121931b5cc37215a7d4280c5700ca92daaaf93c32b06ca9f98b1f4ece624e",
+      "dateAdded": "2024-01-01"
     },
     "WMUjPDhwoYvDqw5BNAaCt6-iLs8fhzwC0L_rT4lTxFg": {
       "name": "redstone-avalanche-prod-node-3",
@@ -98,7 +107,8 @@
       "evmAddress": "0x12470f7aBA85c8b81D63137DD5925D6EE114952b",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04626f2ad2cfb0b41a24276d78de8959bcf45fc5e80804416e660aab2089d15e98206526e639ee19d17c8f9ae0ce3a6ff1a8ea4ab773d0fb4214e08aad7ba978c8"
+      "ecdsaPublicKey": "0x04626f2ad2cfb0b41a24276d78de8959bcf45fc5e80804416e660aab2089d15e98206526e639ee19d17c8f9ae0ce3a6ff1a8ea4ab773d0fb4214e08aad7ba978c8",
+      "dateAdded": "2024-01-01"
     },
     "POU2msUaCzhDq32_hSsKrCH37hHlUvbqfK0-Wjuz3Is": {
       "name": "redstone-avalanche-prod-node-4",
@@ -108,7 +118,8 @@
       "evmAddress": "0x109B4a318A4F5ddcbCA6349B45f881B4137deaFB",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x047cea60b650ac5e72ca9991cd3c365c17db58cc6c0f385af0b05056a2d6068480093b603efcb47410e8092d60c5b85d27a3e43dc6ddc4077994e6eabd9a8ab9cb"
+      "ecdsaPublicKey": "0x047cea60b650ac5e72ca9991cd3c365c17db58cc6c0f385af0b05056a2d6068480093b603efcb47410e8092d60c5b85d27a3e43dc6ddc4077994e6eabd9a8ab9cb",
+      "dateAdded": "2024-01-01"
     },
     "9QvwJVg8PapGD6VaGPffcYajExbnJWG3HH5hG76-5xM": {
       "name": "redstone-avalanche-prod-node-5",
@@ -118,7 +129,8 @@
       "evmAddress": "0x83cbA8c619fb629b81A65C2e67fE15cf3E3C9747",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04a66e3eb25f4110aa9f9cae8864b39b249568c094123737541e897d924253c84279bfd0f500e85f75a0943c41ca03c95fe0c3c7339e0499b5d6993a3f580aef85"
+      "ecdsaPublicKey": "0x04a66e3eb25f4110aa9f9cae8864b39b249568c094123737541e897d924253c84279bfd0f500e85f75a0943c41ca03c95fe0c3c7339e0499b5d6993a3f580aef85",
+      "dateAdded": "2024-01-01"
     },
     "HebMpM4xI07ev3jbEWamFNmRxu2ojflQfh0b2lpjFoM": {
       "name": "redstone-primary-demo-node-1",
@@ -128,7 +140,8 @@
       "evmAddress": "0xdE13FdEE7a9B483129a81794d02FCB4021069f0C",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x041c320fdaca2d381101d85f2e0fcf9c6d6ebb88f2a3b71a20ecf229c1cd0e81b541d6960b58666fce5abba84a460590c72f4e871d87b451f0b7823f98d0c41970"
+      "ecdsaPublicKey": "0x041c320fdaca2d381101d85f2e0fcf9c6d6ebb88f2a3b71a20ecf229c1cd0e81b541d6960b58666fce5abba84a460590c72f4e871d87b451f0b7823f98d0c41970",
+      "dateAdded": "2024-01-01"
     },
     "-qrcZLkqrgS9cNhLvy0c7gzpkGlAgwbZ6C3_hk2vvJQ": {
       "name": "redstone-primary-demo-node-2",
@@ -138,7 +151,8 @@
       "evmAddress": "0xad05Ce43E0bCD11345f08a28995951DEc30D5226",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04440a1d2f497db99d7282bf6ccaf133995ed05f992c177c1eaf7b861a9e64261d1da123bcefa6bed232755197fc5082d42696e72aaf42b45771eba336d693b9b3"
+      "ecdsaPublicKey": "0x04440a1d2f497db99d7282bf6ccaf133995ed05f992c177c1eaf7b861a9e64261d1da123bcefa6bed232755197fc5082d42696e72aaf42b45771eba336d693b9b3",
+      "dateAdded": "2024-01-01"
     },
     "R4ih95AvybIzz3uKuEmpBee17J73CGkSk4bvzU_IZ_I": {
       "name": "redstone-primary-prod-node-1",
@@ -148,7 +162,8 @@
       "evmAddress": "0x8BB8F32Df04c8b654987DAaeD53D6B6091e3B774",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x049a0e6cada7938a0fc616578aff2b11337d90ec4e99e9fee95e57e9d8371562b31698225fb73c666ba586842b913e67ad289f374f7a46fc873342f805a8683d4e"
+      "ecdsaPublicKey": "0x049a0e6cada7938a0fc616578aff2b11337d90ec4e99e9fee95e57e9d8371562b31698225fb73c666ba586842b913e67ad289f374f7a46fc873342f805a8683d4e",
+      "dateAdded": "2024-01-01"
     },
     "WM9CHZ6CKf95z47krdOFFKX6kuOusBlyIVSJmcjdrEQ": {
       "name": "redstone-primary-prod-node-2",
@@ -158,7 +173,8 @@
       "evmAddress": "0xdEB22f54738d54976C4c0fe5ce6d408E40d88499",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04683f7100d67fbaccae68db4d146f7bc3090c5cbcb1351e333efd58d42f609ceeada12b0af28a6e789d6edfe25fe784dd1e86798240d4cee9f60e56848cb55965"
+      "ecdsaPublicKey": "0x04683f7100d67fbaccae68db4d146f7bc3090c5cbcb1351e333efd58d42f609ceeada12b0af28a6e789d6edfe25fe784dd1e86798240d4cee9f60e56848cb55965",
+      "dateAdded": "2024-01-01"
     },
     "9syjTFZp0__CsqnMjKEo6sjl6_yRWYm7TQjcD0hFEN8": {
       "name": "redstone-primary-prod-node-3",
@@ -168,7 +184,8 @@
       "evmAddress": "0x51Ce04Be4b3E32572C4Ec9135221d0691Ba7d202",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04490f08821dea02d23683f170459aa6317dd65b544aac1df514f2e657f87ac00b81757edce3e78785e00dcd92e2dc8ddd9a680dc929a0c91062d87ae000a217ce"
+      "ecdsaPublicKey": "0x04490f08821dea02d23683f170459aa6317dd65b544aac1df514f2e657f87ac00b81757edce3e78785e00dcd92e2dc8ddd9a680dc929a0c91062d87ae000a217ce",
+      "dateAdded": "2024-01-01"
     },
     "4dRTLZeJPaDMhGE2jUndt-3KIOQxO6Y_BCV-3KIiPhI": {
       "name": "redstone-primary-prod-node-4",
@@ -178,7 +195,8 @@
       "evmAddress": "0xDD682daEC5A90dD295d14DA4b0bec9281017b5bE",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04a221496ff2436da121796c11f888cc4e2155da7e36bd1148c9466fb54627f15e42d4cfed06b1570b7ebe0c589acf91fd314cfd95303c9894c0be43432aba619f"
+      "ecdsaPublicKey": "0x04a221496ff2436da121796c11f888cc4e2155da7e36bd1148c9466fb54627f15e42d4cfed06b1570b7ebe0c589acf91fd314cfd95303c9894c0be43432aba619f",
+      "dateAdded": "2024-01-01"
     },
     "wZv_gFZgozLm2xjUaMZPzvgr6E4VcUlRZMXZOILfBXw": {
       "name": "redstone-primary-prod-node-5",
@@ -188,7 +206,8 @@
       "evmAddress": "0x9c5AE89C4Af6aA32cE58588DBaF90d18a855B6de",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04f23aa199aeda6e55628e0ec88194c47713ba260898aae4483fb2f166c7e29b1664f817922059736358de71bdf374b3354db58d15f928a6fac9d1f61e284019b7"
+      "ecdsaPublicKey": "0x04f23aa199aeda6e55628e0ec88194c47713ba260898aae4483fb2f166c7e29b1664f817922059736358de71bdf374b3354db58d15f928a6fac9d1f61e284019b7",
+      "dateAdded": "2024-01-01"
     },
     "ckah_Yc4ZhzQbx27Lgo1Ad1yePneQdkusER_c49KVK0": {
       "name": "redstone-arbitrum-prod-node-1",
@@ -198,7 +217,8 @@
       "evmAddress": "0x345Efd26098e173F811e3B9Af1B0e0a11872B38b",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x0437026448b1a69e4be9bcee0789199c50e93446c75eb697efbeb732fa3b51d130f92d6597de811106511ba39f712f8cf025b82e0003a611b9f78804e66caf46d8"
+      "ecdsaPublicKey": "0x0437026448b1a69e4be9bcee0789199c50e93446c75eb697efbeb732fa3b51d130f92d6597de811106511ba39f712f8cf025b82e0003a611b9f78804e66caf46d8",
+      "dateAdded": "2024-01-01"
     },
     "3HHevuTyFGYJJ-nBPonvDaB5oGIZbCbZtF0CAeFB13s": {
       "name": "redstone-arbitrum-prod-node-2",
@@ -208,7 +228,8 @@
       "evmAddress": "0xbD0c5ccd85D5831B10E3e49527B8Cd67e2EFAf39",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x046ecbc2bcca15fb4a44b88e85e1433b22ad09b7960370c9dba379e09f37ebea0cbc3fb9a60f39df2c4b7cd8b885717ca1dafeac35e9edc5b550d0b61c4a7e581f"
+      "ecdsaPublicKey": "0x046ecbc2bcca15fb4a44b88e85e1433b22ad09b7960370c9dba379e09f37ebea0cbc3fb9a60f39df2c4b7cd8b885717ca1dafeac35e9edc5b550d0b61c4a7e581f",
+      "dateAdded": "2024-01-01"
     },
     "AkT1al4MbVqV8w9LXIvdsE-2xm_moP1ARaImUlqgDZA": {
       "name": "redstone-arbitrum-prod-node-3",
@@ -218,7 +239,8 @@
       "evmAddress": "0x2F3E8EC88C01593d10ca9461c807660fF2D8DB28",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x047f0ac528b5b5f306b6488965bcd86cce263487320caaab7703171c8cf461eb692cd35837ff91d243d2972fc4c4598d08d8e1f5795ecbb1cb974087970a5783d8"
+      "ecdsaPublicKey": "0x047f0ac528b5b5f306b6488965bcd86cce263487320caaab7703171c8cf461eb692cd35837ff91d243d2972fc4c4598d08d8e1f5795ecbb1cb974087970a5783d8",
+      "dateAdded": "2024-01-01"
     },
     "k9ke_oPBAy4bt-Vu0_kwRcSx4HwcQl3Jd8h7dmomfrc": {
       "name": "redstone-arbitrum-prod-node-4",
@@ -228,7 +250,8 @@
       "evmAddress": "0xb7f154bB5491565D215F4EB1c3fe3e84960627aF",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04e051f36116b6bc953f2a94825a4931f6fe6e3a3f218e1dab2712a2a31fff450d1e8f82dcb3cba9dce6dd382d6b0e259d2a896f8a10947a234c08e6f424d272c9"
+      "ecdsaPublicKey": "0x04e051f36116b6bc953f2a94825a4931f6fe6e3a3f218e1dab2712a2a31fff450d1e8f82dcb3cba9dce6dd382d6b0e259d2a896f8a10947a234c08e6f424d272c9",
+      "dateAdded": "2024-01-01"
     },
     "7zqOor2CATpcOq_DduEAsJ_8us4FJ0BTZbMjLAH4MsU": {
       "name": "redstone-arbitrum-prod-node-5",
@@ -238,7 +261,8 @@
       "evmAddress": "0xE6b0De8F4B31F137d3c59b5a0A71e66e7D504Ef9",
       "url": "https://redstone.finance",
       "ipAddress": "0.0.0.0",
-      "ecdsaPublicKey": "0x04b41ed2eaf2b8b15232ab7d25458d1b2cc1ef02200ab50f912307cf832f619aadf89800ac17b1c3e40c4bebc7b4305bbec558ca5e60acb034dbb6c09273e29fbe"
+      "ecdsaPublicKey": "0x04b41ed2eaf2b8b15232ab7d25458d1b2cc1ef02200ab50f912307cf832f619aadf89800ac17b1c3e40c4bebc7b4305bbec558ca5e60acb034dbb6c09273e29fbe",
+      "dateAdded": "2024-01-01"
     },
     "00HZS36ZwzP43q25-T_UV7pYlNXe9ChwDpNiM7A708c": {
       "url": "https://redstone.finance",
@@ -248,7 +272,8 @@
       "dataServiceId": "redstone-fast-demo",
       "description": "Very frequent updates from the fastest sources",
       "evmAddress": "0x69f70Aa9828Ed876d49e83Ee006b9d333BB406d8",
-      "ecdsaPublicKey": "0x04d048bea3bcf01b82162703a7f59cf51d91a95a8fd3921b5a858a8ff1c1b858dd337918cb7969c695711f590779ffb9a1028d0205074f11d9fd40e905f6670d0a"
+      "ecdsaPublicKey": "0x04d048bea3bcf01b82162703a7f59cf51d91a95a8fd3921b5a858a8ff1c1b858dd337918cb7969c695711f590779ffb9a1028d0205074f11d9fd40e905f6670d0a",
+      "dateAdded": "2024-01-01"
     },
     "WPrl0TkGtc2zEfa-SmpDd4sh0AkyMHMGZ9rxATyDTN0": {
       "url": "https://redstone.finance",
@@ -258,7 +283,8 @@
       "dataServiceId": "redstone-external-demo-1",
       "description": "Data feeds from external providers, staging node",
       "evmAddress": "0x8e959CBA422cC14AAE2b1d36970293E955a05fA8",
-      "ecdsaPublicKey": "0x04910c377ce317764b79b05769d5a911caa2e513485f64b261a38f7e6107d5368d41c346c8e3d6fd9ea0158e91e6df622721413820f760e7031dab4aef544f2de5"
+      "ecdsaPublicKey": "0x04910c377ce317764b79b05769d5a911caa2e513485f64b261a38f7e6107d5368d41c346c8e3d6fd9ea0158e91e6df622721413820f760e7031dab4aef544f2de5",
+      "dateAdded": "2025-01-01"
     },
     "HJTZ-0JAX-FrM1Lh6v-jNUWJQu6BSN8jFffI4ipqefI": {
       "url": "https://redstone.finance",
@@ -268,7 +294,8 @@
       "dataServiceId": "redstone-external-demo-2",
       "description": "Data feeds from external providers, staging node",
       "evmAddress": "0x1f9D87e3aE042B2A3311D72eC6f44A89B24CEed8",
-      "ecdsaPublicKey": "0x0494635bf9e9841d5d4fb5fe62c7da5786d519b4e63cbbde9092b3d4555f480547abbf0ba4bc5dcfd97d22b5b154ae969110b662bbfb700447d7e6f9ee8f86cd69"
+      "ecdsaPublicKey": "0x0494635bf9e9841d5d4fb5fe62c7da5786d519b4e63cbbde9092b3d4555f480547abbf0ba4bc5dcfd97d22b5b154ae969110b662bbfb700447d7e6f9ee8f86cd69",
+      "dateAdded": "2025-01-01"
     },
     "DKWS99CPmosyDcejUMVs-QlhuOV4i8bL1D9A6TeZipQ": {
       "url": "https://bwarelabs.com/",
@@ -278,7 +305,8 @@
       "dataServiceId": "bwarelabs-demo-1",
       "description": "Data feeds provided by Bware Labs",
       "evmAddress": "0x4564a9FdB414c320C74C908f60c204e486eC1e2a",
-      "ecdsaPublicKey": "0x040da4fe87038cf59484ec5a183c8da8e04d4ab31a3a73f4a72c1ce3b0ff9048a4e53dc954cff85d986881b8c8066e0281661eae1b8393cfc342c241233fa11616"
+      "ecdsaPublicKey": "0x040da4fe87038cf59484ec5a183c8da8e04d4ab31a3a73f4a72c1ce3b0ff9048a4e53dc954cff85d986881b8c8066e0281661eae1b8393cfc342c241233fa11616",
+      "dateAdded": "2024-01-01"
     },
     "iNSySDPdkm7c-yf6VBZTf-g0LRmh53H6Y0KrfwBcncI": {
       "url": "https://kaiko.com/",
@@ -288,7 +316,8 @@
       "dataServiceId": "kaiko-demo-1",
       "description": "Data feeds provided by Kaiko",
       "evmAddress": "0xC92Fb6e9383BCC90f8299AfA519ac6bf7606A9F0",
-      "ecdsaPublicKey": "0x04a4e9489e8e36206427cda107c566702de435055b83235dd787601af4a35f7fcd1b0347dba277a111c3ab756cfd87202f1986797472a1603581dc5c15a954dfe4"
+      "ecdsaPublicKey": "0x04a4e9489e8e36206427cda107c566702de435055b83235dd787601af4a35f7fcd1b0347dba277a111c3ab756cfd87202f1986797472a1603581dc5c15a954dfe4",
+      "dateAdded": "2024-01-01"
     },
     "0x6318eE5BC5070150b7ab2688fc2C9c1Bf958B72c": {
       "url": "https://kudasai.co.jp",
@@ -298,7 +327,8 @@
       "dataServiceId": "kudasaijp-demo-1",
       "description": "Data feeds provided by KudasaiJP",
       "evmAddress": "0x6318eE5BC5070150b7ab2688fc2C9c1Bf958B72c",
-      "ecdsaPublicKey": "0x04923b515ca55308a9a6f5cac7ccf6cafbc1fda73700a081b1d1114e20e3c0a89c9fe388b6e62fade1243bd30895ac0473a9642756be38e3619aad5c9b890e0cc3"
+      "ecdsaPublicKey": "0x04923b515ca55308a9a6f5cac7ccf6cafbc1fda73700a081b1d1114e20e3c0a89c9fe388b6e62fade1243bd30895ac0473a9642756be38e3619aad5c9b890e0cc3",
+      "dateAdded": "2024-01-01"
     },
     "0x01922465ccaa8b14A1CDF84BeC16fFA0A7CD2b9d": {
       "url": "https://x.com/tebplace",
@@ -308,7 +338,8 @@
       "dataServiceId": "teb-demo-1",
       "description": "Data feeds provided by TEB",
       "evmAddress": "0x01922465ccaa8b14A1CDF84BeC16fFA0A7CD2b9d",
-      "ecdsaPublicKey": "0x0446b99cd91967222a16d5220ed10a5d743d517655a80f4eda8b52a817f77de7d237f0c474ef28859f347cc001b910dc74de03181880408d40aa37ae5329dda384"
+      "ecdsaPublicKey": "0x0446b99cd91967222a16d5220ed10a5d743d517655a80f4eda8b52a817f77de7d237f0c474ef28859f347cc001b910dc74de03181880408d40aa37ae5329dda384",
+      "dateAdded": "2024-01-01"
     },
     "0xA73880D5550f712f1820fF3e157BD64ea7Bc7040": {
       "url": "https://auros.global",
@@ -318,7 +349,8 @@
       "dataServiceId": "auros-demo-1",
       "description": "Data feeds provided by Auros",
       "evmAddress": "0xCA5C81a36C21583b8488a3327F4023EaE6B5e02b",
-      "ecdsaPublicKey": "0x04bdc7d5c223b8dbe77aab4c3fc7a84b90ec1848b50d9cc52ca762c42eebd3215b0d62bcd86adecc834d093104028edad060f446cbcfeef8b0131dbeee8a6ed42f"
+      "ecdsaPublicKey": "0x04bdc7d5c223b8dbe77aab4c3fc7a84b90ec1848b50d9cc52ca762c42eebd3215b0d62bcd86adecc834d093104028edad060f446cbcfeef8b0131dbeee8a6ed42f",
+      "dateAdded": "2025-01-05"
     }
   },
   "evolve": null,

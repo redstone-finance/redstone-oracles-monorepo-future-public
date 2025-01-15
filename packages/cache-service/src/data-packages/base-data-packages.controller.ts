@@ -1,6 +1,5 @@
 import {
   Body,
-  Controller,
   Get,
   Header,
   HttpException,
@@ -21,12 +20,13 @@ import {
 } from "./data-packages.interface";
 import { DataPackagesService } from "./data-packages.service";
 
-@Controller("data-packages")
 @UsePipes(new ValidationPipe({ transform: true }))
-export class DataPackagesController {
-  constructor(private readonly dataPackagesService: DataPackagesService) {}
+export abstract class BaseDataPackagesController {
+  constructor(protected readonly dataPackagesService: DataPackagesService) {}
 
-  private static async validateDataServiceId(dataServiceId: string) {
+  protected abstract readonly allowExternalSigners: boolean;
+
+  protected static async validateDataServiceId(dataServiceId: string) {
     const isDataServiceIdValid =
       await DataPackagesService.isDataServiceIdValid(dataServiceId);
     if (!isDataServiceIdValid) {
@@ -45,9 +45,11 @@ export class DataPackagesController {
   async getAllLatest(
     @Param("DATA_SERVICE_ID") dataServiceId: string
   ): Promise<DataPackagesResponse> {
-    await DataPackagesController.validateDataServiceId(dataServiceId);
+    await BaseDataPackagesController.validateDataServiceId(dataServiceId);
     return await this.dataPackagesService.getLatestDataPackagesWithSameTimestampWithCache(
-      dataServiceId
+      dataServiceId,
+      false,
+      this.allowExternalSigners
     );
   }
 
@@ -56,15 +58,16 @@ export class DataPackagesController {
   async getMostRecent(
     @Param("DATA_SERVICE_ID") dataServiceId: string
   ): Promise<DataPackagesResponse> {
-    await DataPackagesController.validateDataServiceId(dataServiceId);
+    await BaseDataPackagesController.validateDataServiceId(dataServiceId);
     return await this.dataPackagesService.getLatestDataPackagesWithCache(
-      dataServiceId
+      dataServiceId,
+      false,
+      this.allowExternalSigners
     );
   }
 
   @Get("historical/:DATA_SERVICE_ID/:TIMESTAMP")
   @Header("Cache-Control", "max-age=5")
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getDataPackagesByTimestamp(
     @Param("DATA_SERVICE_ID") dataServiceId: string,
     @Param("TIMESTAMP") timestamp: string
@@ -74,11 +77,13 @@ export class DataPackagesController {
         `historical/* routes are not enabled in this cache-service configuration`
       );
     }
-    await DataPackagesController.validateDataServiceId(dataServiceId);
+    await BaseDataPackagesController.validateDataServiceId(dataServiceId);
 
     return await DataPackagesService.getDataPackagesByTimestamp(
       dataServiceId,
-      Number(timestamp)
+      Number(timestamp),
+      false,
+      this.allowExternalSigners
     );
   }
 

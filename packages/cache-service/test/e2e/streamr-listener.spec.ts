@@ -11,7 +11,6 @@ import {
   MOCK_DATA_SERVICE_ID,
   MOCK_SIGNER_ADDRESS,
   getMockDataPackages,
-  mockOracleRegistryState,
 } from "../common/mock-values";
 import "../common/set-test-envs";
 import { createTestDB, dropTestDatabase } from "../common/test-db";
@@ -21,7 +20,14 @@ import { sleep } from "../common/test-utils";
 jest.mock("@redstone-finance/sdk", () => ({
   __esModule: true,
   ...jest.requireActual("@redstone-finance/sdk"),
-  getOracleRegistryState: jest.fn(() => mockOracleRegistryState),
+  getOracleRegistryState: jest.fn(() => ({
+    nodes: {
+      node1: {
+        evmAddress: MOCK_SIGNER_ADDRESS,
+        dataServiceId: MOCK_DATA_SERVICE_ID,
+      },
+    },
+  })),
 }));
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-return

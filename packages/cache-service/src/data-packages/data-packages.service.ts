@@ -3,6 +3,7 @@ import {
   HttpException,
   Injectable,
   Logger,
+  OnModuleInit,
   Optional,
 } from "@nestjs/common";
 import { filterOutliers } from "@redstone-finance/internal-utils";
@@ -10,7 +11,10 @@ import {
   UniversalSigner,
   recoverDeserializedSignerAddress,
 } from "@redstone-finance/protocol";
-import { getDataServiceIdForSigner } from "@redstone-finance/sdk";
+import {
+  EXTERNAL_SIGNERS_CUTOFF_DATE,
+  getDataServiceIdForSigner,
+} from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import { DataPackagesBroadcaster } from "../broadcasters/data-packages-broadcaster";
 import { MongoBroadcaster } from "../broadcasters/mongo-broadcaster";
@@ -37,9 +41,10 @@ export interface StatsRequestParams {
 }
 
 @Injectable()
-export class DataPackagesService {
+export class DataPackagesService implements OnModuleInit {
   private readonly logger = new Logger(DataPackagesService.name);
   private readonly broadcasters: DataPackagesBroadcaster[] = [];
+  private static allowedSigners: string[] | null = null;
 
   constructor(
     @Optional() mongoBroadcaster?: MongoBroadcaster,
@@ -57,6 +62,29 @@ export class DataPackagesService {
         .map((broadcaster) => broadcaster.constructor.name)
         .join(",")}`
     );
+  }
+
+  async onModuleInit() {
+    await this.initializeAllowedSigners();
+  }
+
+  private async initializeAllowedSigners() {
+    const oracleRegistryState = await getOracleState();
+    DataPackagesService.allowedSigners = Object.values(
+      oracleRegistryState.nodes
+    )
+      .filter(
+        (node) =>
+          new Date(node.dateAdded).getTime() < EXTERNAL_SIGNERS_CUTOFF_DATE
+      )
+      .map((node) => node.evmAddress);
+  }
+
+  private static getAllowedSigners(): string[] {
+    if (DataPackagesService.allowedSigners === null) {
+      throw new Error("AllowedSigners not initialized");
+    }
+    return DataPackagesService.allowedSigners;
   }
 
   /**  Save dataPackages to DB and streamr (optionally) */
@@ -86,26 +114,45 @@ export class DataPackagesService {
   }
 
   getLatestDataPackagesWithSameTimestampWithCache = RedstoneCommon.memoize({
-    functionToMemoize: (dataServiceId: string) =>
-      this.getLatestDataPackagesFromDbWithSameTimestamp(dataServiceId),
+    functionToMemoize: async (
+      dataServiceId: string,
+      hideMetadata?: boolean,
+      allowExternalSigners?: boolean
+    ) =>
+      await this.getLatestDataPackagesFromDbWithSameTimestamp(
+        dataServiceId,
+        hideMetadata,
+        allowExternalSigners
+      ),
     ttl: config.dataPackagesTTL,
   });
 
   getLatestDataPackagesWithCache = RedstoneCommon.memoize({
-    functionToMemoize: (dataServiceId: string) =>
-      DataPackagesService.getDataPackagesFromDbByTimestampOrLatest(
-        dataServiceId
+    functionToMemoize: async (
+      dataServiceId: string,
+      hideMetadata?: boolean,
+      allowExternalSigners?: boolean
+    ) =>
+      await DataPackagesService.getDataPackagesFromDbByTimestampOrLatest(
+        dataServiceId,
+        undefined,
+        hideMetadata,
+        allowExternalSigners
       ),
     ttl: config.dataPackagesTTL,
   });
 
   static async getDataPackagesByTimestamp(
     dataServiceId: string,
-    timestamp: number
+    timestamp: number,
+    hideMetadata?: boolean,
+    allowExternalSigners?: boolean
   ): Promise<DataPackagesResponse> {
     return await DataPackagesService.getDataPackagesFromDbByTimestampOrLatest(
       dataServiceId,
-      timestamp
+      timestamp,
+      hideMetadata,
+      allowExternalSigners
     );
   }
 
@@ -119,9 +166,11 @@ export class DataPackagesService {
    * */
   static async getDataPackagesFromDbByTimestampOrLatest(
     dataServiceId: string,
-    timestamp?: number
+    timestamp?: number,
+    hideMetadata: boolean = false,
+    allowExternalSigners: boolean = false
   ): Promise<DataPackagesResponse> {
-    const fetchedPackagesPerDataFeed: DataPackagesResponse = {};
+    let fetchedPackagesPerDataFeed: DataPackagesResponse = {};
 
     const groupedDataPackages =
       await DataPackage.aggregate<DataPackageDocumentMostRecentAggregated>([
@@ -182,17 +231,37 @@ export class DataPackagesService {
       ).dataFeedId = dataPackageId;
     }
 
-    return filterOutliers(fetchedPackagesPerDataFeed);
+    fetchedPackagesPerDataFeed = DataPackagesService.filterOutExternalSigners(
+      fetchedPackagesPerDataFeed,
+      allowExternalSigners
+    );
+
+    if (Object.keys(fetchedPackagesPerDataFeed).length === 0) {
+      throw new HttpException(
+        "Data packages response is empty",
+        EMPTY_DATA_PACKAGE_RESPONSE_ERROR_CODE
+      );
+    }
+
+    let fetchedPackages = fetchedPackagesPerDataFeed;
+    if (hideMetadata) {
+      fetchedPackages = DataPackagesService.filterMetadataFromDataPackages(
+        fetchedPackagesPerDataFeed
+      );
+    }
+
+    return filterOutliers(fetchedPackages);
   }
 
   /**
    * All packages will share common timestamp
    *  */
-  // eslint-disable-next-line @typescript-eslint/class-methods-use-this
   async getLatestDataPackagesFromDbWithSameTimestamp(
-    dataServiceId: string
+    dataServiceId: string,
+    hideMetadata: boolean = false,
+    allowExternalSigners: boolean = false
   ): Promise<DataPackagesResponse> {
-    const fetchedPackagesPerDataFeed: DataPackagesResponse = {};
+    let fetchedPackagesPerDataFeed: DataPackagesResponse = {};
 
     const groupedDataPackages =
       await DataPackage.aggregate<DataPackageDocumentAggregated>([
@@ -275,7 +344,26 @@ export class DataPackagesService {
       fetchedPackagesPerDataFeed[dataPackageId].push(candidatePackage);
     }
 
-    return filterOutliers(fetchedPackagesPerDataFeed);
+    fetchedPackagesPerDataFeed = DataPackagesService.filterOutExternalSigners(
+      fetchedPackagesPerDataFeed,
+      allowExternalSigners
+    );
+
+    if (Object.keys(fetchedPackagesPerDataFeed).length === 0) {
+      throw new HttpException(
+        "Data packages response is empty",
+        EMPTY_DATA_PACKAGE_RESPONSE_ERROR_CODE
+      );
+    }
+
+    let fetchedPackages = fetchedPackagesPerDataFeed;
+    if (hideMetadata) {
+      fetchedPackages = DataPackagesService.filterMetadataFromDataPackages(
+        fetchedPackagesPerDataFeed
+      );
+    }
+
+    return filterOutliers(fetchedPackages);
   }
 
   static updateMediumPackageInResponseIfBetter(
@@ -439,5 +527,53 @@ export class DataPackagesService {
     } catch {
       return false;
     }
+  }
+
+  private static filterMetadataFromDataPackages(
+    response: DataPackagesResponse
+  ): DataPackagesResponse {
+    const filtered: DataPackagesResponse = {};
+
+    for (const [key, packages] of Object.entries(response)) {
+      if (!packages) continue;
+
+      filtered[key] = packages.map((pkg) => ({
+        ...pkg,
+        dataPoints: pkg.dataPoints.map((point) => ({
+          ...point,
+          metadata: undefined,
+        })),
+      }));
+    }
+
+    return filtered;
+  }
+
+  private static filterOutExternalSigners(
+    dataPackages: DataPackagesResponse,
+    allowExternalSigners: boolean
+  ): DataPackagesResponse {
+    if (allowExternalSigners) {
+      return dataPackages;
+    }
+
+    const allowedSigners = this.getAllowedSigners();
+    const filtered: DataPackagesResponse = {};
+
+    for (const [key, packages] of Object.entries(dataPackages)) {
+      if (!packages) continue;
+
+      const filteredPackages = packages.filter((pkg) => {
+        return allowedSigners
+          .map((x) => x.toLowerCase())
+          .includes(pkg.signerAddress.toLowerCase());
+      });
+
+      if (filteredPackages.length > 0) {
+        filtered[key] = filteredPackages;
+      }
+    }
+
+    return filtered;
   }
 }

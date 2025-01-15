@@ -21,6 +21,7 @@ interface Node {
   ipAddress: string;
   ecdsaPublicKey: string;
   url?: string;
+  dateAdded: string;
 }
 
 interface DataService {

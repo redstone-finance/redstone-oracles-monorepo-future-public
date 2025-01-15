@@ -3,6 +3,8 @@ import {
   RedstoneOraclesState,
 } from "@redstone-finance/oracles-smartweave-contracts";
 
+export const EXTERNAL_SIGNERS_CUTOFF_DATE = new Date("2024-01-02").getTime();
+
 export const getOracleRegistryState =
   async (): Promise<RedstoneOraclesState> => {
     return await Promise.resolve(redstoneOraclesInitialState);
