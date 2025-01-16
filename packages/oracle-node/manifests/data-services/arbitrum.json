@@ -374,7 +374,7 @@
         "coingecko",
         "coinmarketcap",
         "curve-arbitrumone-weth",
-        "gate-btc",
+        "gate-usdt",
         "kraken-btc",
         "kraken-usd",
         "kucoin-btc",
@@ -958,9 +958,9 @@
     "FDUSD": {
       "source": [
         "binance-bnb-reversed",
-        "binance-btc",
-        "binance-eth",
-        "binance-xrp",
+        "binance-btc-reversed",
+        "binance-eth-reversed",
+        "binance-xrp-reversed",
         "bingx-usdt",
         "coingecko",
         "coinmarketcap",

@@ -149,7 +149,11 @@
       ]
     },
     "COP": {
-      "source": ["alphavantage-usd", "financialmodelingprep-usd", "twelve-data"]
+      "source": [
+        "alphavantage-usd-reversed",
+        "financialmodelingprep-usd",
+        "twelve-data"
+      ]
     },
     "BBBY": {
       "source": ["twelve-data"]

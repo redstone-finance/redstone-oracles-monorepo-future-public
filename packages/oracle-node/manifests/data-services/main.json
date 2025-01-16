@@ -332,7 +332,7 @@
         "bybit-btc",
         "coingecko",
         "curve-arbitrumone-weth",
-        "gate-btc",
+        "gate-usdt",
         "kraken-btc",
         "kraken-usd",
         "kucoin-btc",
@@ -2301,7 +2301,7 @@
     },
     "COP": {
       "source": [
-        "alphavantage-usd",
+        "alphavantage-usd-reversed",
         "financialmodelingprep-usd",
         "twelve-data"
       ],
@@ -2928,9 +2928,9 @@
     "FDUSD": {
       "source": [
         "binance-bnb-reversed",
-        "binance-btc",
-        "binance-eth",
-        "binance-xrp",
+        "binance-btc-reversed",
+        "binance-eth-reversed",
+        "binance-xrp-reversed",
         "bingx-usdt",
         "coingecko",
         "pancake-swap-bnb-usdt-100",

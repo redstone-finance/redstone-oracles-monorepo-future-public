@@ -1168,7 +1168,11 @@
       ]
     },
     "COP": {
-      "source": ["alphavantage-usd", "twelve-data", "financialmodelingprep-usd"]
+      "source": [
+        "alphavantage-usd-reversed",
+        "twelve-data",
+        "financialmodelingprep-usd"
+      ]
     },
     "INR": {
       "source": [
