@@ -25,6 +25,12 @@
     },
     "stS_FUNDAMENTAL": {
       "priceFeedAddress": "0x65d0F14f7809CdC4f90c3978c753C4671b6B815b"
+    },
+    "scUSD_FUNDAMENTAL": {
+      "priceFeedAddress": "0xb81131B6368b3F0a83af09dB4E39Ac23DA96C2Db"
+    },
+    "scETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0x24c8964338Deb5204B096039147B8e8C3AEa42Cc"
     }
   }
 }
