@@ -22,7 +22,6 @@ export const relayerNameToManualKeyArn: Record<string, string> = {
   merlinMerl:
     "/prod/on-chain-relayer/merlin/multi-price-feed/manual/private-key",
   modeLayerBank: "/prod/on-chain-relayer/mode/mainnet/manual/private_key",
-  staderEthx: "/prod/on-chain-relayer/ethereum/stader/ethx/manual/private-key",
   swell: "/prod/on-chain-relayer/ethereum/swell/manual/private_key",
   arbitrumOneMultiFeed:
     "/prod/on-chain-relayer/arbitrum/multi-feed/manual/private-key",
