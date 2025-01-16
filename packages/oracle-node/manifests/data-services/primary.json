@@ -531,7 +531,7 @@
     "eBTC/WBTC": {
       "source": ["ethereum-evm-fetcher-etherfi-rate-provider"],
       "denomination": "WBTC",
-      "rateFeed": false
+      "rateFeed": true
     },
     "ARB": {
       "source": [
