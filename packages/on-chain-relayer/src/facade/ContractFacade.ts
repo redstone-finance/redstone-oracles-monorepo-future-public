@@ -5,12 +5,15 @@ import {
   IContractConnector,
   IExtendedPricesContractAdapter,
 } from "@redstone-finance/sdk";
+import { loggerFactory, RedstoneCommon } from "@redstone-finance/utils";
 import { RelayerConfig } from "../config/RelayerConfig";
 import { IRedstoneContractAdapter } from "../core/contract-interactions/IRedstoneContractAdapter";
 import { makeDataPackagesRequestParams } from "../core/make-data-packages-request-params";
 import { ContractData, ShouldUpdateContext, UpdatePricesArgs } from "../types";
 
 export abstract class ContractFacade {
+  private readonly logger = loggerFactory("contract-facade");
+
   constructor(
     protected readonly connector: IContractConnector<
       IExtendedPricesContractAdapter | IRedstoneContractAdapter
@@ -76,12 +79,22 @@ export abstract class ContractFacade {
   async updatePrices(args: UpdatePricesArgs): Promise<void> {
     const adapter = await this.connector.getAdapter();
 
-    await adapter.writePricesFromPayloadToContract(
+    const result = await adapter.writePricesFromPayloadToContract(
       this.getContractParamsProvider(
         args.updateRequestParams,
         args.dataFeedsToUpdate
       )
     );
+
+    if (typeof result === "string") {
+      // TODO: split it to wait and describe, also for evm connector
+      this.connector
+        .waitForTransaction(result)
+        .then((_) => {})
+        .catch((error) =>
+          this.logger.error(RedstoneCommon.stringifyError(error))
+        );
+    }
   }
 
   getContractParamsProvider(

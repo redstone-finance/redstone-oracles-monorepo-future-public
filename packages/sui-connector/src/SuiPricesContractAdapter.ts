@@ -12,23 +12,22 @@ import {
 } from "@redstone-finance/sdk";
 import { BigNumberish, utils } from "ethers";
 import _ from "lodash";
-import type { SuiConfig } from "./config";
+import { version } from "../package.json";
+import { SuiConfig } from "./config";
+import { SuiContractAdapter } from "./SuiContractAdapter";
 import { PriceAdapterDataContent, PriceDataContent } from "./types";
 import { makeFeedIdBytes, uint8ArrayToBcs } from "./util";
 
-const DEFAULT_GAS_BUDGET = 10000000n;
-
 export class SuiPricesContractAdapter
+  extends SuiContractAdapter
   implements IMultiFeedPricesContractAdapter
 {
-  private readonly client: SuiClient;
-  private readonly keypair: Keypair;
-  readonly config: SuiConfig;
-
-  constructor(client: SuiClient, config: SuiConfig, keypair: Keypair) {
-    this.client = client;
-    this.config = config;
-    this.keypair = keypair;
+  constructor(
+    client: SuiClient,
+    private readonly config: SuiConfig,
+    keypair?: Keypair
+  ) {
+    super(client, keypair);
   }
 
   async getUniqueSignerThreshold(): Promise<number> {
@@ -51,15 +50,11 @@ export class SuiPricesContractAdapter
   }
 
   async readLatestUpdateBlockTimestamp(feedId: string): Promise<number> {
-    const contractData = await this.readContractData([feedId]);
-
-    return Object.values(contractData)[0].lastBlockTimestampMS;
+    return (await this.readAnyRoundDetails(feedId)).lastBlockTimestampMS;
   }
 
   async readTimestampFromContract(feedId: string): Promise<number> {
-    const contractData = await this.readContractData([feedId]);
-
-    return Object.values(contractData)[0].lastDataPackageTimestampMS;
+    return (await this.readAnyRoundDetails(feedId)).lastDataPackageTimestampMS;
   }
 
   async readContractData(feedIds: string[]): Promise<ContractData> {
@@ -80,11 +75,13 @@ export class SuiPricesContractAdapter
   async writePricesFromPayloadToContract(
     paramsProvider: ContractParamsProvider
   ): Promise<string> {
+    const tx = this.prepareTransaction(this.config.writePricesTxGasBudget);
+
     const dataPackagesResponse: DataPackagesResponse =
       await paramsProvider.requestDataPackages();
 
-    const tx = new Transaction();
-    tx.setGasBudget(this.config.writePricesTxGasBudget ?? DEFAULT_GAS_BUDGET);
+    const metadataTimestamp = Date.now();
+    const unsignedMetadata = this.getUnsignedMetadata(metadataTimestamp);
 
     paramsProvider.getDataFeedIds().forEach((feedId) => {
       const dataPackages = extractSignedDataPackagesForFeedId(
@@ -93,18 +90,13 @@ export class SuiPricesContractAdapter
       );
       const payload = convertDataPackagesResponse(
         { [feedId]: dataPackages },
-        "string"
+        "string",
+        unsignedMetadata
       );
 
       this.writePrice(tx, feedId, payload);
     });
-
-    const result = await this.client.signAndExecuteTransaction({
-      transaction: tx,
-      signer: this.keypair,
-    });
-
-    return result.digest;
+    return await this.sendTransaction(tx);
   }
 
   private writePrice(tx: Transaction, feedId: string, payload: string) {
@@ -124,6 +116,10 @@ export class SuiPricesContractAdapter
     _paramsProvider: ContractParamsProvider
   ): Promise<BigNumberish[]> {
     throw new Error("Pull model not supported");
+  }
+
+  private async readAnyRoundDetails(feedId: string) {
+    return Object.values(await this.readContractData([feedId]))[0];
   }
 
   private async getPriceAdapterObjectDataContent() {
@@ -166,5 +162,9 @@ export class SuiPricesContractAdapter
     ]);
 
     return Object.fromEntries(contractData) as ContractData;
+  }
+
+  private getUnsignedMetadata(metadataTimestamp: number): string {
+    return `${metadataTimestamp}#${version}#data-packages-wrapper`;
   }
 }
