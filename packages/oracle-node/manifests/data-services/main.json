@@ -3182,6 +3182,22 @@
       "denomination": "USD",
       "rateFeed": true
     },
+    "TRUMP": {
+      "source": [
+        "binance-usdc",
+        "binance-usdt",
+        "bitget-usdt",
+        "bybit-usdt",
+        "coingecko",
+        "gate-usdt",
+        "kraken-eur",
+        "kraken-usd",
+        "kucoin-usdt",
+        "okx-usdt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
     "BAT": {
       "denomination": "USD",
       "rateFeed": false
