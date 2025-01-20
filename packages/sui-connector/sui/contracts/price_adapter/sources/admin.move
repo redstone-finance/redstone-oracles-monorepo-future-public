@@ -6,7 +6,7 @@ module redstone_price_adapter::admin;
 
 public struct ADMIN has drop {}
 
-public struct AdminCap has key {
+public struct AdminCap has key, store {
     id: UID,
 }
 

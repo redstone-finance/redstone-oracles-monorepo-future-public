@@ -3,7 +3,7 @@ import type { Keypair } from "@mysten/sui/cryptography";
 import { Transaction } from "@mysten/sui/transactions";
 import { loggerFactory } from "@redstone-finance/utils";
 
-const DEFAULT_GAS_BUDGET = 10000000n;
+export const DEFAULT_GAS_BUDGET = 10000000n;
 
 export class SuiContractAdapter {
   protected readonly logger = loggerFactory("sui-contract-adapter");

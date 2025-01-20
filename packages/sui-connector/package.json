@@ -12,11 +12,12 @@
     "lint": "yarn global:eslint .",
     "lint:fix": "yarn global:eslint --fix .",
     "test": "yarn global:jest:cov",
-    "deploy": "yarn global:ts-node scripts/deploy-sui-program.ts",
-    "sample-run": "yarn global:ts-node scripts/sample-run.ts"
-  },
-  "peerDependencies": {
-    "typescript": "^5.5.4"
+    "deploy": "yarn global:ts-node scripts/deploy-price-adapter.ts",
+    "sample-run": "yarn global:ts-node scripts/sample-run.ts",
+    "ledger-utils": "yarn global:ts-node scripts/ledger/ledger-utils.ts",
+    "multi-sig": "yarn global:ts-node scripts/ledger/get-multi-sig-address.ts",
+    "combine-signatures": "yarn global:ts-node scripts/ledger/combine-signatures.ts",
+    "update-config": "yarn global:ts-node scripts/ledger/update-config.ts"
   },
   "dependencies": {
     "@mysten/bcs": "^1.2.1",
@@ -27,15 +28,20 @@
     "lodash": "^4.17.21",
     "zod": "^3.22.4"
   },
-  "publishConfig": {
-    "access": "public"
+  "devDependencies": {
+    "@ledgerhq/hw-transport-node-hid": "6.29.5",
+    "@mysten/ledgerjs-hw-app-sui": "^0.4.2",
+    "@redstone-finance/oracles-smartweave-contracts": "0.7.3",
+    "@types/chai": "^4.3.4",
+    "chai": "^4.3.10"
+  },
+  "peerDependencies": {
+    "typescript": "^5.5.4"
   },
   "files": [
     "dist/src/**/*"
   ],
-  "devDependencies": {
-    "@redstone-finance/oracles-smartweave-contracts": "0.7.3",
-    "@types/chai": "^4.3.4",
-    "chai": "^4.3.10"
+  "publishConfig": {
+    "access": "public"
   }
 }

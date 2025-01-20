@@ -4840,7 +4840,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ledgerhq/hw-transport@npm:^6.31.4":
+"@ledgerhq/hw-transport@npm:^6.31.0, @ledgerhq/hw-transport@npm:^6.31.4":
   version: 6.31.4
   resolution: "@ledgerhq/hw-transport@npm:6.31.4"
   dependencies:
@@ -5404,6 +5404,16 @@ __metadata:
   dependencies:
     bs58: "npm:^6.0.0"
   checksum: 10c0/f517091c3f0fddee389e3791058ac990a89524c2bfc7e563fb13518b32a464e998d64ee9871770c5d35984195eea1ed2be4f13df65425c61bc749116aa1d06e7
+  languageName: node
+  linkType: hard
+
+"@mysten/ledgerjs-hw-app-sui@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@mysten/ledgerjs-hw-app-sui@npm:0.4.2"
+  dependencies:
+    "@ledgerhq/hw-transport": "npm:^6.31.0"
+    fast-sha256: "npm:^1.3.0"
+  checksum: 10c0/34a87ce3528414f8888b5ad518e1bd6abeb2b6240c0d7508c45d6071d6e48ace184488854132493ea262cae845e824102b703ad941d9656b277e071cd6fe5722
   languageName: node
   linkType: hard
 
@@ -8592,7 +8602,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@redstone-finance/sui-connector@workspace:packages/sui-connector"
   dependencies:
+    "@ledgerhq/hw-transport-node-hid": "npm:6.29.5"
     "@mysten/bcs": "npm:^1.2.1"
+    "@mysten/ledgerjs-hw-app-sui": "npm:^0.4.2"
     "@mysten/sui": "npm:^1.19.0"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.7.3"
     "@redstone-finance/sdk": "npm:0.7.3"
@@ -19211,6 +19223,13 @@ __metadata:
   version: 2.1.1
   resolution: "fast-safe-stringify@npm:2.1.1"
   checksum: 10c0/d90ec1c963394919828872f21edaa3ad6f1dddd288d2bd4e977027afff09f5db40f94e39536d4646f7e01761d704d72d51dce5af1b93717f3489ef808f5f4e4d
+  languageName: node
+  linkType: hard
+
+"fast-sha256@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "fast-sha256@npm:1.3.0"
+  checksum: 10c0/87f9e4baa7639576cf60a2b6235c9f436e1a1c52323abbd8a705b5bea8355500acf176f2aed0c14f2ecd6d6007e26151461bab2f27b8953bcca8d9d6b76a86e4
   languageName: node
   linkType: hard
 

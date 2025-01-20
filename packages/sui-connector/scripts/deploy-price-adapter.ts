@@ -1,4 +1,3 @@
-import { bcs } from "@mysten/bcs";
 import { SuiClient, SuiTransactionBlockResponse } from "@mysten/sui/client";
 import { Transaction } from "@mysten/sui/transactions";
 import { RedstoneCommon } from "@redstone-finance/utils";
@@ -7,13 +6,12 @@ import "dotenv/config";
 import { z } from "zod";
 import {
   makeSuiClient,
+  makeSuiDeployConfig,
   makeSuiKeypair,
   saveIds,
-  serializeSigners,
-  SuiNetworkName,
   SuiNetworkSchema,
+  SuiPricesContractAdapter,
 } from "../src";
-import { makeSuiDeployConfig } from "./DeployConfig";
 
 interface ObjectChanges {
   objectChanges?: Array<{
@@ -89,34 +87,17 @@ async function executeSuiPublish(network: string): Promise<ObjectChanges> {
 async function initialize(
   client: SuiClient,
   packageId: string,
-  adminCap: string,
-  network: SuiNetworkName
+  adminCap: string
 ): Promise<TransactionResult> {
   const tx = new Transaction();
-  const config = makeSuiDeployConfig(network);
+  const config = makeSuiDeployConfig();
   const keypair = makeSuiKeypair();
+  SuiPricesContractAdapter.initialize(tx, config, packageId, adminCap);
 
-  tx.setGasBudget(config.initializeTxGasBudget);
-
-  tx.moveCall({
-    target: `${packageId}::main::initialize_price_adapter`,
-    arguments: [
-      tx.object(adminCap),
-      tx.pure(serializeSigners(config.signers)),
-      tx.pure(bcs.u8().serialize(config.signerCountThreshold)),
-      tx.pure(bcs.u64().serialize(config.maxTimestampDelayMs)),
-      tx.pure(bcs.u64().serialize(config.maxTimestampAheadMs)),
-      tx.pure(serializeSigners(config.trustedUpdaters)),
-      tx.pure(bcs.u64().serialize(config.minIntervalBetweenUpdatesMs)),
-    ],
-  });
-
-  const result = await client.signAndExecuteTransaction({
+  return await client.signAndExecuteTransaction({
     transaction: tx,
     signer: keypair,
   });
-
-  return result;
 }
 
 function getAdminCap(packageId: string, changes: ObjectChanges) {
@@ -170,7 +151,7 @@ async function main() {
     throw new Error("Admin cap not found");
   }
 
-  const res = await initialize(client, packageId, adminCap, network);
+  const res = await initialize(client, packageId, adminCap);
   await client.waitForTransaction({ digest: res.digest });
   console.log("PriceAdapter initialized:", res);
 

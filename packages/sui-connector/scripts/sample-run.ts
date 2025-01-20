@@ -2,6 +2,7 @@ import { ContractParamsProvider, sampleRun } from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import dotenv from "dotenv";
 import {
+  DEFAULT_GAS_BUDGET,
   makeSuiClient,
   makeSuiKeypair,
   readSuiConfig,
@@ -15,12 +16,15 @@ async function main() {
 
   const paramsProvider = new ContractParamsProvider({
     dataServiceId: "redstone-primary-prod",
-    uniqueSignersCount: 3,
+    uniqueSignersCount: 2,
     dataPackagesIds: ["LBTC", "BTC", "ETH"],
   });
   const suiContractConnector = new SuiPricesContractConnector(
     makeSuiClient(network),
-    readSuiConfig(network),
+    {
+      ...readSuiConfig(network),
+      writePricesTxGasBudget: 10n * DEFAULT_GAS_BUDGET,
+    },
     makeSuiKeypair()
   );
 

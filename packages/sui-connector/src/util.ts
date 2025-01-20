@@ -1,4 +1,4 @@
-import { bcs } from "@mysten/bcs";
+import { bcs, BcsType } from "@mysten/bcs";
 import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
 import type { Keypair } from "@mysten/sui/cryptography";
 import { Secp256k1Keypair } from "@mysten/sui/keypairs/secp256k1";
@@ -18,7 +18,7 @@ function getIdsFilePath(network: string) {
   return path.join(__dirname, `../object_ids.${network}.json`);
 }
 
-function readIds(network: SuiNetworkName): Ids {
+export function readIds(network: SuiNetworkName): Ids {
   return JSON.parse(fs.readFileSync(getIdsFilePath(network), "utf8")) as Ids;
 }
 
@@ -68,10 +68,20 @@ export function hexToBytes(data: string): Uint8Array {
   );
 }
 
-export function serializeSigners(signers: string[]) {
-  return bcs
-    .vector(bcs.vector(bcs.u8()))
-    .serialize(signers.map((s) => hexToBytes(s)));
+export function serialize<T, U>(
+  type: BcsType<T, U>,
+  value: U,
+  asOptional = false
+) {
+  return (asOptional ? bcs.option(type) : type).serialize(value);
+}
+
+export function serializeSigners(signers: string[], asOptional = false) {
+  return serialize(
+    bcs.vector(bcs.vector(bcs.u8())),
+    signers.map(hexToBytes),
+    asOptional
+  );
 }
 
 export function makeFeedIdBytes(feedId: string): Uint8Array {
