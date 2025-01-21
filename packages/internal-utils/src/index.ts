@@ -8,6 +8,7 @@ export * from "./config-checks";
 export * from "./fetch-rpc-urls-from-ssm";
 export * from "./influx/influxdb-config";
 export * from "./influx/InfluxService";
+export * from "./manifests";
 export * from "./monorepo-fetcher";
 export * from "./outlier-detection";
 export * from "./resolve-manifest-with-expiration-updates";
