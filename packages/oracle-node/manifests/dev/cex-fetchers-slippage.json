@@ -626,26 +626,6 @@
         "bingx-usdt"
       ]
     },
-    "FTM": {
-      "source": [
-        "binance-usdt",
-        "bitget-usdt",
-        "kucoin-usdt",
-        "mexc-usdt",
-        "okx-usdt",
-        "gate-usdt",
-        "binanceusdm-usdt",
-        "bitmart-usdt",
-        "kraken-usd",
-        "lbank-usdt",
-        "bitrue-usdt",
-        "bitfinex2-usd",
-        "bitstamp-usd",
-        "binancecoinm-usd",
-        "coingecko",
-        "bingx-usdt"
-      ]
-    },
     "EOS": {
       "source": [
         "binance-usdt",

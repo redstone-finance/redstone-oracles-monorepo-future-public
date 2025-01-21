@@ -505,17 +505,6 @@
       "denomination": "USD",
       "rateFeed": false
     },
-    "FTM": {
-      "source": [
-        "binance-usdt",
-        "bitfinex2-usd",
-        "coingecko",
-        "kucoin-usdt",
-        "okx-usdt"
-      ],
-      "denomination": "USD",
-      "rateFeed": false
-    },
     "EOS": {
       "source": [
         "binance-usdt",
@@ -3199,6 +3188,26 @@
         "kucoin-usdt",
         "okx-usdt",
         "xt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
+    "S": {
+      "source": [
+        "binance-usdt",
+        "bybit-usdt",
+        "binance-usdc",
+        "gate-usdt",
+        "xt",
+        "bitget-usdt",
+        "binance-fdusd",
+        "binance-btc",
+        "binance-bnb",
+        "binance-eur",
+        "coingecko",
+        "coinmarketcap",
+        "lbank-usdt",
+        "bitrue-usdt"
       ],
       "denomination": "USD",
       "rateFeed": false
