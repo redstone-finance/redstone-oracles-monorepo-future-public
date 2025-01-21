@@ -2036,6 +2036,11 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "deUSD_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-elixir"],
+      "denomination": "USD",
+      "rateFeed": true
+    },
     "SolvBTC": {
       "source": [
         "curve-ethereum-wbtc",
