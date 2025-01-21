@@ -2,7 +2,7 @@
 name = "redstone_price_adapter"
 edition = "2024.beta"
 license = "GPL"
-authors = ["redstone", "piotrostr"]
+authors = ["redstone"]
 version = "1.0.0"
 
 [dependencies]
