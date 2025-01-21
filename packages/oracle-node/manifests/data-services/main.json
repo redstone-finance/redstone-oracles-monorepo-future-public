@@ -3086,6 +3086,7 @@
       "source": [
         "bingx-usdt",
         "bitget-usdt",
+        "bitmart-usdt",
         "coingecko",
         "gate-usdt",
         "kucoin-usdt",
@@ -3185,14 +3186,19 @@
       "source": [
         "binance-usdc",
         "binance-usdt",
+        "bingx-usdt",
         "bitget-usdt",
+        "bitmart-usdt",
         "bybit-usdt",
         "coingecko",
         "gate-usdt",
         "kraken-eur",
         "kraken-usd",
+        "kraken-usdc",
+        "kraken-usdt",
         "kucoin-usdt",
-        "okx-usdt"
+        "okx-usdt",
+        "xt"
       ],
       "denomination": "USD",
       "rateFeed": false

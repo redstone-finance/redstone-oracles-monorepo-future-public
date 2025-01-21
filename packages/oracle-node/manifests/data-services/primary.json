@@ -2112,6 +2112,43 @@
       "source": ["zksync-evm-fetcher-dinero-branded-eth"],
       "denomination": "USD",
       "rateFeed": true
+    },
+    "FARTCOIN": {
+      "source": [
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "coingecko",
+        "coinmarketcap",
+        "gate-usdt",
+        "kucoin-usdt",
+        "lbank-usdt",
+        "xt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
+    },
+    "TRUMP": {
+      "source": [
+        "binance-usdc",
+        "binance-usdt",
+        "bitget-usdt",
+        "bingx-usdt",
+        "bitmart-usdt",
+        "bybit-usdt",
+        "coingecko",
+        "coinmarketcap",
+        "gate-usdt",
+        "kraken-eur",
+        "kraken-usd",
+        "kraken-usdc",
+        "kraken-usdt",
+        "kucoin-usdt",
+        "okx-usdt",
+        "xt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
     }
   },
   "multiPointPackages": {
