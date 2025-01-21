@@ -112,7 +112,6 @@
     },
     "GBP": {
       "source": [
-        "alphavantage-usd",
         "bitstamp-usd",
         "financialmodelingprep-usd",
         "kraken-usd",
@@ -137,9 +136,9 @@
     "BRL": {
       "source": [
         "binance-usdt-reversed",
-        "bitso-api",
+        "bitso-usdt-reversed",
         "binance-btc-reversed",
-        "mercado-api",
+        "mercado-btc-reversed",
         "bitget-usdt-reversed",
         "okx-usdt-reversed",
         "bitget-btc-reversed",

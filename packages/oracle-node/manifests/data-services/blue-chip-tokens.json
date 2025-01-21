@@ -113,7 +113,6 @@
     },
     "GBP": {
       "source": [
-        "alphavantage-usd",
         "bitstamp-usd",
         "financialmodelingprep-usd",
         "kraken-usd",

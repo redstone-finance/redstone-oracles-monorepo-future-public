@@ -133,7 +133,6 @@
     },
     "GBP": {
       "source": [
-        "alphavantage-usd",
         "bitstamp-usd",
         "financialmodelingprep-usd",
         "kraken-usd",
@@ -373,7 +372,6 @@
         "coingecko",
         "coinmarketcap",
         "curve-arbitrumone-weth",
-        "gate-usdt",
         "kraken-btc",
         "kraken-usd",
         "kucoin-btc",

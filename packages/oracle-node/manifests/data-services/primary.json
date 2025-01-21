@@ -595,9 +595,9 @@
     "BRL": {
       "source": [
         "binance-usdt-reversed",
-        "bitso-api",
+        "bitso-usdt-reversed",
         "binance-btc-reversed",
-        "mercado-api",
+        "mercado-btc-reversed",
         "bitget-usdt-reversed",
         "okx-usdt-reversed",
         "bitget-btc-reversed",
@@ -813,7 +813,6 @@
         "coingecko",
         "coinmarketcap",
         "curve-arbitrumone-weth",
-        "gate-usdt",
         "kraken-btc",
         "kraken-usd",
         "kucoin-btc",
@@ -1137,7 +1136,6 @@
     },
     "GBP": {
       "source": [
-        "alphavantage-usd",
         "bitstamp-usd",
         "financialmodelingprep-usd",
         "kraken-usd",
@@ -1449,7 +1447,13 @@
       "rateFeed": false
     },
     "INR": {
-      "source": ["alphavantage-usd", "ecb", "financialmodelingprep-usd"],
+      "source": [
+        "b2z-eth-reversed",
+        "b2z-btc-reversed",
+        "koinpark-eth-reversed",
+        "koinpark-btc-reversed",
+        "financialmodelingprep-usd"
+      ],
       "denomination": "USD",
       "rateFeed": false
     },
