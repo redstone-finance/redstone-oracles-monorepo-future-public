@@ -1,0 +1,14 @@
+{
+  "chain": {
+    "name": "fraxtal",
+    "id": 252
+  },
+  "adapterContract": "0x5C4c8d6f6Bf79B718F3e8399AaBdFEd01cB7e48f",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.5,
+    "timeSinceLastUpdateInMilliseconds": 21600000
+  },
+  "priceFeeds": {}
+}
