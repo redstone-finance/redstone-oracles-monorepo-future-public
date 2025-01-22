@@ -164,6 +164,13 @@
     },
     "BTC": {
       "priceFeedAddress": "0xAB7f623fb2F6fea6601D4350FA0E2290663C28Fc"
+    },
+    "BIO": {
+      "priceFeedAddress": "0xeC7C6AdcC867E1C22713D14797339750E36538E4",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 1,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
     }
   }
 }
