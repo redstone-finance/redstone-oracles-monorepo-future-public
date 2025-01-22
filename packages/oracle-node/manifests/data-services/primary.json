@@ -2178,6 +2178,11 @@
       ],
       "denomination": "USD",
       "rateFeed": false
+    },
+    "weETH/ETH_AVS": {
+      "source": ["alias"],
+      "denomination": "ETH",
+      "rateFeed": false
     }
   },
   "multiPointPackages": {
