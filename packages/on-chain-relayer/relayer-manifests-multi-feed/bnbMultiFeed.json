@@ -69,6 +69,13 @@
         "deviationPercentage": 0.2,
         "timeSinceLastUpdateInMilliseconds": 600000
       }
+    },
+    "THE": {
+      "priceFeedAddress": "0xFB1267A29C0aa19daae4a483ea895862A69e4AA5",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.3,
+        "timeSinceLastUpdateInMilliseconds": 900000
+      }
     }
   }
 }
