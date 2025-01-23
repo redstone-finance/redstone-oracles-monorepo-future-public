@@ -305,6 +305,10 @@ export const chainTokenMap: ChainTokenMap = {
       address: "0xcb1592591996765Ec0eFc1f92599A19767ee5ffA",
       decimals: 18,
     },
+    "scrvUSD_FUNDAMENTAL/USD": {
+      address: "0x0655977FEb2f289A4aB78af67BAB0d17aAb84367",
+      decimals: 18,
+    },
   },
   blast: {
     ETH: {

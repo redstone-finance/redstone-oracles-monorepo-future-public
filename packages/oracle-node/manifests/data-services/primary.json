@@ -1643,6 +1643,7 @@
       "source": [
         "curve-ethereum-sdai",
         "curve-ethereum-susde",
+        "curve-ethereum-scrvusd_fundamental/usd",
         "curve-ethereum-usdm"
       ],
       "deviationCheck": {
@@ -2183,6 +2184,11 @@
       "source": ["alias"],
       "denomination": "ETH",
       "rateFeed": false
+    },
+    "scrvUSD_FUNDAMENTAL/USD": {
+      "source": ["ethereum-evm-fetcher-curve-savings"],
+      "denomination": "USD",
+      "rateFeed": true
     }
   },
   "multiPointPackages": {

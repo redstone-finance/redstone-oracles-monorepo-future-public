@@ -2020,6 +2020,7 @@
       "source": [
         "curve-ethereum-sdai",
         "curve-ethereum-susde",
+        "curve-ethereum-scrvusd_fundamental/usd",
         "curve-ethereum-usdm"
       ],
       "denomination": "USD",
