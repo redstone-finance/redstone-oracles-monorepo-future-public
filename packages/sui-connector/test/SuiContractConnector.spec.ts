@@ -1,5 +1,5 @@
 import { RedstoneCommon } from "@redstone-finance/utils";
-import dotenv from "dotenv";
+import "dotenv/config";
 import {
   makeSuiClient,
   makeSuiKeypair,
@@ -13,7 +13,6 @@ describe("SuiContractConnector", () => {
   let connector: SuiPricesContractConnector;
 
   beforeAll(() => {
-    dotenv.config();
     const network = RedstoneCommon.getFromEnv("NETWORK", SuiNetworkSchema);
 
     connector = new SuiPricesContractConnector(

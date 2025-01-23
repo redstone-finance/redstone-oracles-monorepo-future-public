@@ -45,7 +45,7 @@ export class SuiPricesContractConnector
 
     this.logger.log(
       `Transaction ${txId} finished, status: ${status.toUpperCase()}${success ? "" : ` (${response.effects!.status.error})`}, cost: ${cost} SUI, timestamp: ${response.timestampMs}`,
-      response.errors
+      { errors: response.errors, gasUsed: response.effects!.gasUsed }
     );
 
     return success;

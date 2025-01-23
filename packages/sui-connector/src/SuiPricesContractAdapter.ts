@@ -25,6 +25,8 @@ import {
   uint8ArrayToBcs,
 } from "./util";
 
+const GAS_UNITS_PER_FEED_WRITE = 1200n;
+
 export class SuiPricesContractAdapter
   extends SuiContractAdapter
   implements IMultiFeedPricesContractAdapter
@@ -128,7 +130,9 @@ export class SuiPricesContractAdapter
   async writePricesFromPayloadToContract(
     paramsProvider: ContractParamsProvider
   ): Promise<string> {
-    const tx = this.prepareTransaction(this.config.writePricesTxGasBudget);
+    const tx = await this.prepareWritePricesTransaction(
+      paramsProvider.getDataFeedIds().length
+    );
 
     const dataPackagesResponse: DataPackagesResponse =
       await paramsProvider.requestDataPackages();
@@ -150,6 +154,24 @@ export class SuiPricesContractAdapter
       this.writePrice(tx, feedId, payload);
     });
     return await this.sendTransaction(tx);
+  }
+
+  private async prepareWritePricesTransaction(feedIdCount: number) {
+    const estimatedGasBudget = await this.computeGasBudget(
+      GAS_UNITS_PER_FEED_WRITE * BigInt(feedIdCount)
+    );
+    if (
+      this.config.writePricesTxGasBudget &&
+      this.config.writePricesTxGasBudget < estimatedGasBudget
+    ) {
+      this.logger.warn(
+        `Estimated gas budget ${estimatedGasBudget} is higher than maximum gas budget ${this.config.writePricesTxGasBudget}`
+      );
+    }
+
+    return this.prepareTransaction(
+      this.config.writePricesTxGasBudget ?? estimatedGasBudget
+    );
   }
 
   private writePrice(tx: Transaction, feedId: string, payload: string) {

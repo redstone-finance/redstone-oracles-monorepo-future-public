@@ -13,6 +13,16 @@ export class SuiContractAdapter {
     protected readonly keypair?: Keypair
   ) {}
 
+  protected async computeGasBudget(units: bigint) {
+    const date = Date.now();
+    const gasPrice = await this.client.getReferenceGasPrice();
+    this.logger.info(
+      `Reference gas price: ${gasPrice} MIST fetched in ${Date.now() - date} [ms]`
+    );
+
+    return gasPrice * units;
+  }
+
   protected prepareTransaction(gasBudget?: bigint) {
     if (!this.keypair) {
       throw new Error("A keypair is needed to write prices to contract");
@@ -30,16 +40,15 @@ export class SuiContractAdapter {
       throw new Error("A keypair is needed to send transaction");
     }
 
-    this.logger.log(
-      `Transaction ${await tx.getDigest({ client: this.client })} prepared...`
-    );
-
+    const date = Date.now();
     const result = await this.client.signAndExecuteTransaction({
       transaction: tx,
       signer: this.keypair,
     });
 
-    this.logger.log(`Transaction ${result.digest} sent...`);
+    this.logger.log(
+      `Transaction ${result.digest} sent in ${Date.now() - date} [ms]`
+    );
 
     return result.digest;
   }

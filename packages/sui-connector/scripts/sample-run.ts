@@ -1,6 +1,6 @@
 import { ContractParamsProvider, sampleRun } from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
-import dotenv from "dotenv";
+import "dotenv/config";
 import {
   DEFAULT_GAS_BUDGET,
   makeSuiClient,
@@ -11,7 +11,6 @@ import {
 } from "../src";
 
 async function main() {
-  dotenv.config();
   const network = RedstoneCommon.getFromEnv("NETWORK", SuiNetworkSchema);
 
   const paramsProvider = new ContractParamsProvider({
@@ -19,6 +18,7 @@ async function main() {
     uniqueSignersCount: 2,
     dataPackagesIds: ["LBTC", "BTC", "ETH"],
   });
+
   const suiContractConnector = new SuiPricesContractConnector(
     makeSuiClient(network),
     {

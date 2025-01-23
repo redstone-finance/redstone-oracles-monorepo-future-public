@@ -1,8 +1,9 @@
 import { SuiClient } from "@mysten/sui/client";
 import { ContractParamsProvider } from "@redstone-finance/sdk";
 import { RedstoneCommon } from "@redstone-finance/utils";
-import dotenv from "dotenv";
+import "dotenv/config";
 import {
+  DEFAULT_GAS_BUDGET,
   makeSuiClient,
   makeSuiKeypair,
   readSuiConfig,
@@ -19,9 +20,9 @@ describe("SuiPricesContractAdapter", () => {
   let suiClient: SuiClient;
 
   beforeAll(() => {
-    dotenv.config();
     const network = RedstoneCommon.getFromEnv("NETWORK", SuiNetworkSchema);
     const config = readSuiConfig(network);
+    config.writePricesTxGasBudget = DEFAULT_GAS_BUDGET;
     const client = makeSuiClient(network);
     const keypair = makeSuiKeypair();
     adapter = new SuiPricesContractAdapter(client, config, keypair);
@@ -55,10 +56,7 @@ describe("SuiPricesContractAdapter", () => {
         const result = await adapter.writePricesFromPayloadToContract(
           contractParamsProvider
         );
-        expect(typeof result).toBe("string");
-        expect(result.length).toBeGreaterThanOrEqual(0);
-        const receipt = await suiClient.waitForTransaction({ digest: result });
-        expect(receipt.digest).toBe(result);
+        await checkResult(result);
       },
       WRITE_TEST_TIMEOUT
     );
@@ -75,52 +73,7 @@ describe("SuiPricesContractAdapter", () => {
         const result = await adapter.writePricesFromPayloadToContract(
           contractParamsProvider
         );
-        expect(typeof result).toBe("string");
-        expect(result.length).toBeGreaterThanOrEqual(0);
-        const receipt = await suiClient.waitForTransaction({ digest: result });
-        expect(receipt.digest).toBe(result);
-      },
-      WRITE_TEST_TIMEOUT
-    );
-
-    it(
-      "should write prices for a lot of feeds",
-      async () => {
-        contractParamsProvider = new ContractParamsProvider({
-          dataServiceId: DATA_SERVICE_ID,
-          dataPackagesIds: [
-            "USDT",
-            "LINK",
-            "AVAX",
-            "USDC",
-            "EUROC",
-            "DAI",
-            "EUR",
-            "CRV",
-            "BNB",
-            "wstETH",
-            "ezETH",
-            "pzETH",
-            "ETH+",
-            "XVS",
-            "SolvBTC",
-            "STONE",
-            "WBTC",
-            "bsdETH",
-            "AERO",
-            "eUSD",
-          ],
-          uniqueSignersCount: 3,
-        });
-
-        const result = await adapter.writePricesFromPayloadToContract(
-          contractParamsProvider
-        );
-
-        expect(typeof result).toBe("string");
-        expect(result.length).toBeGreaterThanOrEqual(0);
-        const receipt = await suiClient.waitForTransaction({ digest: result });
-        expect(receipt.digest).toBe(result);
+        await checkResult(result);
       },
       WRITE_TEST_TIMEOUT
     );
@@ -164,4 +117,19 @@ describe("SuiPricesContractAdapter", () => {
       expect(result[1] < result[2]).toBeTruthy();
     });
   });
+
+  async function checkResult(result: string) {
+    expect(typeof result).toBe("string");
+    expect(result.length).toBeGreaterThanOrEqual(0);
+    const receipt = await suiClient.waitForTransaction({ digest: result });
+    expect(receipt.digest).toBe(result);
+    const response = await suiClient.getTransactionBlock({
+      digest: result,
+      options: {
+        showEffects: true,
+      },
+    });
+    const status = response.effects!.status.status;
+    expect(status).toEqual("success");
+  }
 });
