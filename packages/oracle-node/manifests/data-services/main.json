@@ -3199,20 +3199,19 @@
     },
     "S": {
       "source": [
-        "binance-usdt",
-        "bybit-usdt",
-        "binance-usdc",
-        "gate-usdt",
-        "xt",
-        "bitget-usdt",
-        "binance-fdusd",
-        "binance-btc",
         "binance-bnb",
+        "binance-btc",
         "binance-eur",
+        "binance-fdusd",
+        "binance-usdc",
+        "binance-usdt",
+        "bitget-usdt",
+        "bitrue-usdt",
+        "bybit-usdt",
         "coingecko",
-        "coinmarketcap",
+        "gate-usdt",
         "lbank-usdt",
-        "bitrue-usdt"
+        "xt"
       ],
       "denomination": "USD",
       "rateFeed": false

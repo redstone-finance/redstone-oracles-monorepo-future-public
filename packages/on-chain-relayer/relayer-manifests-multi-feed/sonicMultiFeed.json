@@ -31,6 +31,12 @@
     },
     "scETH_FUNDAMENTAL": {
       "priceFeedAddress": "0x24c8964338Deb5204B096039147B8e8C3AEa42Cc"
+    },
+    "S": {
+      "priceFeedAddress": "0xa8a94Da411425634e3Ed6C331a32ab4fd774aa43"
+    },
+    "USDC": {
+      "priceFeedAddress": "0x3587a73AA02519335A8a6053a97657BECe0bC2Cc"
     }
   }
 }
