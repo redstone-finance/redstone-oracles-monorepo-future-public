@@ -1103,6 +1103,24 @@
       ],
       "denomination": "USD",
       "rateFeed": false
+    },
+    "AERO": {
+      "source": [
+        "aerodrome-base-usdc",
+        "aerodrome-base-weth",
+        "aerodrome-cl-base-weth-6000",
+        "bingx-usdt",
+        "bitget-usdt",
+        "bitmart-usdt",
+        "coingecko",
+        "coinmarketcap",
+        "gate-usdt",
+        "kucoin-usdt",
+        "uniswap-v3-base-weth-3000",
+        "xt"
+      ],
+      "denomination": "USD",
+      "rateFeed": false
     }
   },
   "multiPointPackages": {
@@ -1193,7 +1211,8 @@
       "EIGEN",
       "STX",
       "ORDI",
-      "SATS"
+      "SATS",
+      "AERO"
     ]
   }
 }
