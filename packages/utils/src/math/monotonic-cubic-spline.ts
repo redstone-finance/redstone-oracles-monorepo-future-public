@@ -72,6 +72,15 @@ export class CubicInterpolation {
       throw new Error(`X was not found for Y = ${y.toString()}`);
     }
   }
+
+  // Return immutable copies of the raw values
+  public getXs(): ReadonlyArray<number> {
+    return Object.freeze([...this.xs]);
+  }
+
+  public getYs(): ReadonlyArray<number> {
+    return Object.freeze([...this.ys]);
+  }
 }
 
 /**
