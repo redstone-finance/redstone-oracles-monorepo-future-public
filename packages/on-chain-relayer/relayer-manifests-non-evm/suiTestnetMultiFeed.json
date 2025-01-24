@@ -2,7 +2,7 @@
   "adapterContractType": "sui-multi-feed",
   "chain": {
     "name": "testnet",
-    "id": 103
+    "id": 1282977196
   },
   "updateTriggers": {
     "deviationPercentage": 1,

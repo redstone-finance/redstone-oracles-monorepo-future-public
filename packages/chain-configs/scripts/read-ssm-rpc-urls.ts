@@ -1,8 +1,7 @@
-import { fetchRpcUrlsFromSsm } from "@redstone-finance/internal-utils";
 import { RedstoneCommon } from "@redstone-finance/utils";
 import chalk from "chalk";
 import { z } from "zod";
-import { getLocalChainConfigs } from "../src";
+import { fetchRpcUrlsFromSsm, getLocalChainConfigs } from "../src";
 
 export type RpcUrlsPerChain = {
   [name: string]: {

@@ -7756,7 +7756,6 @@ __metadata:
   dependencies:
     "@knowyourrpc/sdk": "npm:0.3.7"
     "@redstone-finance/chain-configs": "npm:0.7.3"
-    "@redstone-finance/internal-utils": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"
     dotenv: "npm:^16.0.3"
     zod: "npm:^3.22.4"
@@ -8246,6 +8245,7 @@ __metadata:
     "@redstone-finance/internal-utils": "npm:0.7.3"
     "@redstone-finance/monitoring-manifests": "npm:0.7.3"
     "@redstone-finance/on-chain-relayer-common": "npm:0.7.3"
+    "@redstone-finance/redstone-monitoring": "npm:0.7.3"
     "@redstone-finance/rpc-providers": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"
     ethers: "npm:^5.7.2"

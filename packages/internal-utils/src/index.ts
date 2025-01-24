@@ -5,7 +5,6 @@ export * from "./aws/error-logger";
 export * from "./aws/params";
 export * from "./aws/s3";
 export * from "./config-checks";
-export * from "./fetch-rpc-urls-from-ssm";
 export * from "./influx/influxdb-config";
 export * from "./influx/InfluxService";
 export * from "./manifests";

@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   AdapterType,
   AnyOnChainRelayerManifest,
+  MULTI_FEED,
   MultiFeedAdapterTypesEnum,
   MultiFeedOnChainRelayerManifest,
   NonEvmAdapterType,
@@ -30,4 +31,8 @@ export function isNonEvmConfig(config: {
   adapterContractType: AdapterType;
 }): config is { adapterContractType: NonEvmAdapterType } {
   return isNonEvmAdapterType(config.adapterContractType);
+}
+
+export function getNonEvmNetworkName(adapterType: NonEvmAdapterType) {
+  return adapterType.replace(`-${MULTI_FEED}`, "");
 }

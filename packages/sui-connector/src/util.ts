@@ -7,6 +7,7 @@ import { arrayify, isHexString } from "ethers/lib/utils";
 import fs from "fs";
 import path from "path";
 import { SuiConfig, SuiNetworkName } from "./config";
+import { getSuiNetworkName } from "./network-ids";
 
 interface Ids {
   packageId: string;
@@ -27,12 +28,7 @@ export function saveIds(ids: Ids, network: SuiNetworkName): void {
 }
 
 export function readSuiConfig(network: SuiNetworkName): SuiConfig {
-  const ids = readIds(network);
-
-  return {
-    ...ids,
-    network,
-  };
+  return readIds(network);
 }
 
 export function makeSuiKeypair(privateKey?: string): Keypair {
@@ -47,11 +43,18 @@ export function makeSuiKeypair(privateKey?: string): Keypair {
 }
 
 export function makeSuiClient(
-  network: SuiNetworkName,
+  network: SuiNetworkName | number,
   url?: string
 ): SuiClient {
+  let networkName;
+  if (typeof network === "number") {
+    networkName = getSuiNetworkName(network);
+  } else {
+    networkName = network;
+  }
+
   return new SuiClient({
-    url: url ?? getFullnodeUrl(network),
+    url: url ?? getFullnodeUrl(networkName),
   });
 }
 

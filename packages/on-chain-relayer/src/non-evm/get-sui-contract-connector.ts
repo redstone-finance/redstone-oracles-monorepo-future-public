@@ -1,7 +1,6 @@
 import {
   makeSuiClient,
   makeSuiKeypair,
-  SuiNetworkName,
   SuiPricesContractConnector,
 } from "@redstone-finance/sui-connector";
 import { RelayerConfig } from "../config/RelayerConfig";
@@ -11,12 +10,10 @@ export const getSuiContractConnector = (relayerConfig: RelayerConfig) => {
     privateKey,
     rpcUrls,
     adapterContractAddress,
-    chainName,
+    chainId,
     gasLimit,
     adapterContractPackageId,
   } = relayerConfig;
-  const network = chainName as SuiNetworkName;
-
   if (rpcUrls.length !== 1) {
     throw new Error("Only single rpc url is supported");
   }
@@ -26,9 +23,8 @@ export const getSuiContractConnector = (relayerConfig: RelayerConfig) => {
   }
 
   return new SuiPricesContractConnector(
-    makeSuiClient(network, rpcUrls[0]),
+    makeSuiClient(chainId, rpcUrls[0]),
     {
-      network,
       packageId: adapterContractPackageId,
       priceAdapterObjectId: adapterContractAddress,
       writePricesTxGasBudget: gasLimit ? BigInt(gasLimit) : undefined,
