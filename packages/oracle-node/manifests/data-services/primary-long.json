@@ -21,7 +21,7 @@
       },
       "valueCapConfig": {
         "upper": {
-          "value": 1.005
+          "value": 1
         },
         "lower": {
           "value": 0.995
