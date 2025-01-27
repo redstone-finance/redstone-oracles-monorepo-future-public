@@ -21,13 +21,11 @@ export class SolanaPricesContractAdapter
     readonly connection: Connection,
     readonly keypair: Keypair
   ) {
-    this.contract = new PriceAdapterContract(connection);
+    this.contract = new PriceAdapterContract(connection, keypair);
   }
 
   async getUniqueSignerThreshold(): Promise<number> {
-    const config = await this.contract.getConfig();
-
-    return config.signerCountThreshold;
+    return await this.contract.getUniqueSignerThreshold();
   }
 
   async readLatestUpdateBlockTimestamp(

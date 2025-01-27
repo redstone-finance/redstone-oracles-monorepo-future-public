@@ -1,17 +1,14 @@
-use crate::current_time_as_millis;
+use crate::config::SOLANA_CONFIG;
 use crate::{
     state::PriceData,
-    util::{debug_msg, make_price_seed},
-    ConfigAccount, FeedIdBs,
+    util::{current_time_as_millis, debug_msg, make_price_seed},
+    FeedIdBs,
 };
 use anchor_lang::prelude::*;
 use redstone::{
-    contract::verification::UpdateTimestampVerifier,
-    core::{config::Config, processor::process_payload},
+    contract::verification::UpdateTimestampVerifier, core::processor::process_payload,
     network::as_str::AsHexStr,
-    solana::SolanaRedStoneConfig,
 };
-
 #[derive(Accounts)]
 #[instruction(feed_id: FeedIdBs)]
 pub struct WritePrice<'info> {
@@ -30,42 +27,29 @@ pub struct WritePrice<'info> {
         constraint = price_account.to_account_info().owner == __program_id
     )]
     pub price_account: Account<'info, PriceData>,
-    pub config_account: Account<'info, ConfigAccount>,
     pub system_program: Program<'info, System>,
 }
 
 pub fn write_price(ctx: Context<WritePrice>, feed_id: FeedIdBs, payload: Vec<u8>) -> Result<()> {
     let feed_id = feed_id.into();
-    let signers = ctx.accounts.config_account.redstone_signers();
     // block_timestamp as milis
     let block_timestamp = current_time_as_millis()?;
-    let config: SolanaRedStoneConfig = Config::try_new(
-        ctx.accounts.config_account.signer_count_threshold,
-        signers,
-        vec![feed_id],
-        block_timestamp,
-    )?
-    .into();
+
+    let config = SOLANA_CONFIG.redstone_config(feed_id, block_timestamp)?;
 
     let processed_payload = process_payload(&config, payload)?;
 
     let price = processed_payload.values[0];
     let price_account = &mut ctx.accounts.price_account;
 
-    UpdateTimestampVerifier::verifier(
-        &ctx.accounts.user.key(),
-        &ctx.accounts.config_account.trusted_updaters,
-    )
-    .verify_timestamp(
-        block_timestamp,
-        price_account.write_timestamp.map(Into::into),
-        ctx.accounts
-            .config_account
-            .min_interval_between_updates_ms
-            .into(),
-        price_account.timestamp.into(),
-        processed_payload.min_timestamp.into(),
-    )?;
+    UpdateTimestampVerifier::verifier(&ctx.accounts.user.key(), &SOLANA_CONFIG.trusted_updaters)
+        .verify_timestamp(
+            block_timestamp,
+            price_account.write_timestamp.map(Into::into),
+            SOLANA_CONFIG.min_interval_between_updates_ms.into(),
+            price_account.timestamp.into(),
+            processed_payload.min_timestamp.into(),
+        )?;
 
     price_account.value = price.0;
     price_account.timestamp = processed_payload.min_timestamp.as_millis();

@@ -12,9 +12,9 @@ async function main() {
   const secret = RedstoneCommon.getFromEnv("PRIVATE_KEY");
 
   const paramsProvider = new ContractParamsProvider({
-    dataPackagesIds: ["ETH", "BTC", "XRD"],
+    dataPackagesIds: ["ETH"],
     dataServiceId: "redstone-primary-prod",
-    uniqueSignersCount: 1,
+    uniqueSignersCount: 3,
   });
   const connection = connectionTo(url);
   const keypair = Keypair.fromSecretKey(hexToU8Array(secret));

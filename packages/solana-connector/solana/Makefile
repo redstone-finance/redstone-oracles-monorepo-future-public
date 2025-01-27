@@ -13,6 +13,9 @@ fmt-check: prepare
 
 lint: clippy fmt-check
 
+build-verifiable:
+	anchor build --verifiable
+
 build:
 	anchor build
 
