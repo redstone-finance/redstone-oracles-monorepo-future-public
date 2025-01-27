@@ -7617,7 +7617,6 @@ __metadata:
     ethers: "npm:^5.7.2"
     jest: "npm:^29.7.0"
     jest-mock-extended: "npm:^3.0.4"
-    jsonpathly: "npm:^2.0.2"
     lodash: "npm:^4.17.21"
     luxon: "npm:^3.3.0"
     open: "npm:^8.0.4"
@@ -12906,13 +12905,6 @@ __metadata:
   version: 0.3.2
   resolution: "ansicolors@npm:0.3.2"
   checksum: 10c0/e202182895e959c5357db6c60791b2abaade99fcc02221da11a581b26a7f83dc084392bc74e4d3875c22f37b3c9ef48842e896e3bfed394ec278194b8003e0ac
-  languageName: node
-  linkType: hard
-
-"antlr4@npm:^4.13.1":
-  version: 4.13.2
-  resolution: "antlr4@npm:4.13.2"
-  checksum: 10c0/dfe7dcb24fe99ce103e1eac3ce30558a3df713cf5deeacd7e30686f5cca8206864e49b254af3bd5eff5904d31e5cd7902a7468c13dcb619da10caf3f703d03b4
   languageName: node
   linkType: hard
 
@@ -23761,16 +23753,6 @@ __metadata:
   version: 1.3.1
   resolution: "jsonparse@npm:1.3.1"
   checksum: 10c0/89bc68080cd0a0e276d4b5ab1b79cacd68f562467008d176dc23e16e97d4efec9e21741d92ba5087a8433526a45a7e6a9d5ef25408696c402ca1cfbc01a90bf0
-  languageName: node
-  linkType: hard
-
-"jsonpathly@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "jsonpathly@npm:2.0.2"
-  dependencies:
-    antlr4: "npm:^4.13.1"
-    fast-deep-equal: "npm:^3.1.3"
-  checksum: 10c0/207fb10e2fd1bf443cddca55551c4ef9a9ed64393fb755cf50663f2de620bca6251c9dd60d378e7f0dfe1eb2b2a21f8c403b1bea3818600cd1ed6f37e27d576a
   languageName: node
   linkType: hard
 
