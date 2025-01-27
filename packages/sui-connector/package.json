@@ -17,7 +17,9 @@
     "ledger-utils": "yarn global:ts-node scripts/ledger/ledger-utils.ts",
     "multi-sig": "yarn global:ts-node scripts/ledger/get-multi-sig-address.ts",
     "combine-signatures": "yarn global:ts-node scripts/ledger/combine-signatures.ts",
-    "update-config": "yarn global:ts-node scripts/ledger/update-config.ts"
+    "update-config": "yarn global:ts-node scripts/ledger/update-config.ts",
+    "convert-public-keys": "yarn global:ts-node scripts/convert-public-keys.ts",
+    "convert-evm-private-key": "yarn global:ts-node scripts/convert-evm-private-key.ts"
   },
   "dependencies": {
     "@mysten/bcs": "^1.2.1",
@@ -33,7 +35,8 @@
     "@mysten/ledgerjs-hw-app-sui": "^0.4.2",
     "@redstone-finance/oracles-smartweave-contracts": "0.7.3",
     "@types/chai": "^4.3.4",
-    "chai": "^4.3.10"
+    "chai": "^4.3.10",
+    "secp256k1": "^5.0.1"
   },
   "peerDependencies": {
     "typescript": "^5.5.4"

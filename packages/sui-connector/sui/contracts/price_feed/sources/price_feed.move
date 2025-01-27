@@ -24,6 +24,11 @@ public fun description(): String {
     string::utf8(DESCRIPTION)
 }
 
+/// Returns number of decimals
+public fun decimals(): u8 {
+    8
+}
+
 /// Returns latest ETH (price, timestamp) tuple from price_adapter
 public fun price_and_timestamp(price_adapter: &PriceAdapter): (u256, u64) {
     read_price_data(price_adapter).price_and_timestamp()

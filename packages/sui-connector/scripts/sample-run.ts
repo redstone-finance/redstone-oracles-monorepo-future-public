@@ -15,12 +15,13 @@ async function main() {
 
   const paramsProvider = new ContractParamsProvider({
     dataServiceId: "redstone-primary-prod",
-    uniqueSignersCount: 2,
-    dataPackagesIds: ["LBTC", "BTC", "ETH"],
+    uniqueSignersCount: 3,
+    dataPackagesIds: ["BTC"],
   });
 
+  const suiClient = makeSuiClient(network);
   const suiContractConnector = new SuiPricesContractConnector(
-    makeSuiClient(network),
+    suiClient,
     {
       ...readSuiConfig(network),
       writePricesTxGasBudget: 10n * DEFAULT_GAS_BUDGET,

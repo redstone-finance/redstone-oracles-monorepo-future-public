@@ -5,6 +5,7 @@ import { spawn } from "child_process";
 import "dotenv/config";
 import { z } from "zod";
 import {
+  getDeployDir,
   makeSuiClient,
   makeSuiDeployConfig,
   makeSuiKeypair,
@@ -70,7 +71,13 @@ async function executeSuiPublish(network: string): Promise<ObjectChanges> {
     if (network === "testnet") {
       cmd.push("--skip-dependency-verification");
     }
-    process.chdir("sui/contracts/price_adapter");
+    const deployDir = getDeployDir();
+
+    console.log("===========================================================");
+    console.log(`Deploying to ${network} from ${deployDir}`);
+    console.log("===========================================================");
+    process.chdir(deployDir);
+
     const output = await executeCommand("sui", cmd);
 
     console.log("Output:", output);
@@ -100,17 +107,23 @@ async function initialize(
   });
 }
 
-function getAdminCap(packageId: string, changes: ObjectChanges) {
+function findObject(changes: ObjectChanges, objectType: string) {
   const created = changes.objectChanges?.filter((obj) => obj.type == "created");
 
-  return created?.find(
-    (obj) => obj.objectType == `${packageId}::admin::AdminCap`
-  )?.objectId;
+  return created?.find((obj) => obj.objectType == objectType)?.objectId;
+}
+
+function getAdminCap(changes: ObjectChanges, packageId: string) {
+  return findObject(changes, `${packageId}::admin::AdminCap`);
+}
+
+function getUpgradeCap(changes: ObjectChanges) {
+  return findObject(changes, `0x2::package::UpgradeCap`);
 }
 
 function getPriceAdapter(
-  packageId: string,
-  response: SuiTransactionBlockResponse
+  response: SuiTransactionBlockResponse,
+  packageId: string
 ) {
   const created = response.objectChanges?.filter(
     (obj) => obj.type == "created"
@@ -146,9 +159,14 @@ async function main() {
     throw new Error("Package ID not found");
   }
   console.log("Publish result:", publishResult);
-  const adminCap = getAdminCap(packageId, publishResult);
+  const adminCap = getAdminCap(publishResult, packageId);
   if (!adminCap) {
     throw new Error("Admin cap not found");
+  }
+
+  const upgradeCap = getUpgradeCap(publishResult);
+  if (!upgradeCap) {
+    throw new Error("Upgrade cap not found");
   }
 
   const res = await initialize(client, packageId, adminCap);
@@ -159,22 +177,24 @@ async function main() {
     digest: res.digest,
     options: { showObjectChanges: true },
   });
-  const priceAdapterObjectId = getPriceAdapter(packageId, details);
+  const priceAdapterObjectId = getPriceAdapter(details, packageId);
 
   if (!priceAdapterObjectId) {
-    throw new Error("Admin cap not found");
+    throw new Error("priceAdapterObjectId not found");
   }
 
   const ids = {
     packageId,
     priceAdapterObjectId,
     adminCapId: adminCap,
+    upgradeCapId: upgradeCap,
   };
   saveIds(ids, network);
 
   console.log(`PACKAGE_ID=${packageId}`);
   console.log(`ADAPTER_OBJECT_ID=${priceAdapterObjectId}`);
   console.log(`ADMINCAP_OBJECT_ID=${adminCap}`);
+  console.log(`UPGRADECAP_OBJECT_ID=${upgradeCap}`);
 }
 
 void main();

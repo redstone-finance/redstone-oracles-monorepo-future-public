@@ -2,7 +2,7 @@
 
 [move]
 version = 3
-manifest_digest = "839D8A1AEF5261BFA64283465732B32F4750F97C3E28C430FE7E91BC3B1397A3"
+manifest_digest = "4C90904EB2FA5E04CA7A1B4CCD777E2134011DD40B4CC0C95C76DF76B1D05115"
 deps_digest = "F8BBB0CCB2491CA29A3DF03D6F92277A4F3574266507ACD77214D37ECA3F3082"
 dependencies = [
   { id = "Sui", name = "Sui" },
@@ -10,11 +10,11 @@ dependencies = [
 
 [[move.package]]
 id = "MoveStdlib"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "framework/testnet", subdir = "crates/sui-framework/packages/move-stdlib" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "framework/mainnet", subdir = "crates/sui-framework/packages/move-stdlib" }
 
 [[move.package]]
 id = "Sui"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "framework/testnet", subdir = "crates/sui-framework/packages/sui-framework" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "framework/mainnet", subdir = "crates/sui-framework/packages/sui-framework" }
 
 dependencies = [
   { id = "MoveStdlib", name = "MoveStdlib" },
@@ -29,8 +29,8 @@ flavor = "sui"
 
 [env.testnet]
 chain-id = "4c78adac"
-original-published-id = "0xf863c9178b58a7efdb335273ac9e4164505d799794933b5ad570e1bc39b941ab"
-latest-published-id = "0xf863c9178b58a7efdb335273ac9e4164505d799794933b5ad570e1bc39b941ab"
+original-published-id = "0x9edd19a7b81635f91bbde0c10d8c296e68864271a5fd760608e8825c08e7fb0b"
+latest-published-id = "0x9edd19a7b81635f91bbde0c10d8c296e68864271a5fd760608e8825c08e7fb0b"
 published-version = "1"
 
 [env.locale]
@@ -41,8 +41,8 @@ published-version = "1"
 
 [env.mainnet]
 chain-id = "35834a8a"
-original-published-id = "0x5f106c32bb5089e06afd8840d1f7c6b0202ee1746ab9a4d619c913fcfb9120b6"
-latest-published-id = "0x5f106c32bb5089e06afd8840d1f7c6b0202ee1746ab9a4d619c913fcfb9120b6"
+original-published-id = "0xde35908646c6d500db4d4511f566b7ed9b8c56fdb9280fdc12ae36e75c58d365"
+latest-published-id = "0xde35908646c6d500db4d4511f566b7ed9b8c56fdb9280fdc12ae36e75c58d365"
 published-version = "1"
 
 [env.local]

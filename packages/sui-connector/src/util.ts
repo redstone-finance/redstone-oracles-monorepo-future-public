@@ -6,6 +6,7 @@ import { RedstoneCommon } from "@redstone-finance/utils";
 import { arrayify, isHexString } from "ethers/lib/utils";
 import fs from "fs";
 import path from "path";
+import { z } from "zod";
 import { SuiConfig, SuiNetworkName } from "./config";
 import { getSuiNetworkName } from "./network-ids";
 
@@ -13,10 +14,23 @@ interface Ids {
   packageId: string;
   priceAdapterObjectId: string;
   adminCapId: string;
+  upgradeCapId: string;
+}
+
+export function getDeployDir() {
+  return RedstoneCommon.getFromEnv(
+    "DEPLOY_DIR",
+    z.string().optional().default("sui/contracts/price_adapter")
+  );
 }
 
 function getIdsFilePath(network: string) {
-  return path.join(__dirname, `../object_ids.${network}.json`);
+  return path.join(
+    __dirname,
+    `..`,
+    getDeployDir(),
+    `/object_ids.${network}.json`
+  );
 }
 
 export function readIds(network: SuiNetworkName): Ids {
@@ -24,7 +38,7 @@ export function readIds(network: SuiNetworkName): Ids {
 }
 
 export function saveIds(ids: Ids, network: SuiNetworkName): void {
-  fs.writeFileSync(getIdsFilePath(network), JSON.stringify(ids, null, "\n"));
+  fs.writeFileSync(getIdsFilePath(network), JSON.stringify(ids, null, 4));
 }
 
 export function readSuiConfig(network: SuiNetworkName): SuiConfig {
@@ -83,6 +97,14 @@ export function serializeSigners(signers: string[], asOptional = false) {
   return serialize(
     bcs.vector(bcs.vector(bcs.u8())),
     signers.map(hexToBytes),
+    asOptional
+  );
+}
+
+export function serializeAddresses(addresses: string[], asOptional = false) {
+  return serialize(
+    bcs.vector(bcs.bytes(32)),
+    addresses.map(hexToBytes),
     asOptional
   );
 }

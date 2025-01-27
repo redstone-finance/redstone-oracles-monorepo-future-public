@@ -3,9 +3,6 @@ build
 
 *.env
 
-# ids of the sui objects created during deployment 
-object_ids.*.json
-
 # Logs
 
 logs

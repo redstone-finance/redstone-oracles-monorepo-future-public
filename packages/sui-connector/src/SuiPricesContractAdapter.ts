@@ -21,6 +21,7 @@ import { PriceAdapterDataContent, PriceDataContent } from "./types";
 import {
   makeFeedIdBytes,
   serialize,
+  serializeAddresses,
   serializeSigners,
   uint8ArrayToBcs,
 } from "./util";
@@ -80,7 +81,7 @@ export class SuiPricesContractAdapter
       serialize(bcs.u8(), config.signerCountThreshold, asOptional),
       serialize(bcs.u64(), config.maxTimestampDelayMs, asOptional),
       serialize(bcs.u64(), config.maxTimestampAheadMs, asOptional),
-      serializeSigners(config.trustedUpdaters, asOptional),
+      serializeAddresses(config.trustedUpdaters, asOptional),
       serialize(bcs.u64(), config.minIntervalBetweenUpdatesMs, asOptional),
     ];
   }
