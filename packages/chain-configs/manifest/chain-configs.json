@@ -867,6 +867,40 @@
       "isAuctionModel": true,
       "twoDimensionalFees": true,
       "isMainnet": false
+    },
+    "holesky": {
+      "name": "Holesky",
+      "chainId": 17000,
+      "currencySymbol": "ETH",
+      "publicRpcUrls": [
+        "https://rpc.ankr.com/eth_holesky",
+        "https://rpc.holesky.ethpandaops.io"
+      ],
+      "avgBlockTimeMs": 14000,
+      "multicall3": {
+        "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
+        "type": "Multicall3"
+      },
+      "isAuctionModel": false,
+      "twoDimensionalFees": false,
+      "isMainnet": false
+    },
+    "amoy": {
+      "name": "Polygon Amoy",
+      "chainId": 80002,
+      "currencySymbol": "POL",
+      "publicRpcUrls": [
+        "https://rpc.ankr.com/polygon_amoy",
+        "https://rpc-amoy.polygon.technology"
+      ],
+      "avgBlockTimeMs": 20000,
+      "multicall3": {
+        "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
+        "type": "Multicall3"
+      },
+      "isAuctionModel": false,
+      "twoDimensionalFees": false,
+      "isMainnet": false
     }
   },
   "temporaryConfigUpdates": {
