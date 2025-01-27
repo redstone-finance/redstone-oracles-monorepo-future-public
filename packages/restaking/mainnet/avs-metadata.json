@@ -1,0 +1,7 @@
+{
+  "name": "RedStone AVS",
+  "website": "https://docs.redstone.finance/docs/category/-avs/",
+  "description": "RedStone is a decentralized oracle delivering fast, secure, and scalable data feeds for the DeFi industry, ensuring your dApp is powered by reliable, real-time information. As part of its ecosystem, RedStone introduces AVS, an innovative solution that leverages the concept of restaking to create a decentralized process for delivering price data to the blockchain.",
+  "logo": "https://raw.githubusercontent.com/redstone-finance/redstone-oracles-monorepo/main/packages/restaking/mainnet/redstone-logo.png",
+  "twitter": "https://twitter.com/redstone_defi"
+}
