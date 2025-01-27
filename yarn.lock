@@ -7152,6 +7152,7 @@ __metadata:
     "@nomiclabs/hardhat-etherscan": "npm:^3.1.7"
     "@openzeppelin/contracts": "npm:^4.8.1"
     "@openzeppelin/hardhat-upgrades": "npm:^1.26.0"
+    "@redstone-finance/rpc-providers": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"
     "@typechain/ethers-v5": "npm:^10.2.0"
     "@typechain/hardhat": "npm:^6.1.2"
