@@ -1671,6 +1671,19 @@
       "denomination": "USD",
       "rateFeed": false
     },
+    "deUSD_FUNDAMENTAL": {
+      "source": ["ethereum-evm-fetcher-elixir"],
+      "denomination": "USD",
+      "rateFeed": true,
+      "valueCapConfig": {
+        "upper": {
+          "value": 1.03
+        },
+        "lower": {
+          "value": 0.98
+        }
+      }
+    },
     "BBUSD": {
       "source": ["bouncebit-evm-fetcher-bouncebit"],
       "denomination": "USD",
