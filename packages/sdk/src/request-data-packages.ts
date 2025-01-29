@@ -246,7 +246,7 @@ const prepareDataPackagePromises = (
   }
 
   return urls.map(async (url) => {
-    const response = await sendRequestToGateway(url, pathComponents, reqParams);
+    const response = await sendRequestToGateway(url, pathComponents);
 
     return parseAndValidateDataPackagesResponse(
       response.data,
@@ -337,22 +337,13 @@ const getUrlsForDataServiceId = (
   return reqParams.urls ?? resolveDataServiceUrls(reqParams.dataServiceId);
 };
 
-function sendRequestToGateway(
-  url: string,
-  pathComponents: string[],
-  reqParams: DataPackagesRequestParams
-) {
+function sendRequestToGateway(url: string, pathComponents: string[]) {
   const sanitizedUrl = [url.replace(/\/+$/, "")]
     .concat(pathComponents)
     .join("/");
 
   return axios.get<Record<string, SignedDataPackagePlainObj[]>>(sanitizedUrl, {
     timeout: GET_REQUEST_TIMEOUT,
-    params: {
-      dataPackagesIds: reqParams.dataPackagesIds,
-      minimalSignersCount: reqParams.uniqueSignersCount,
-    },
-    paramsSerializer: { indexes: null },
   });
 }
 
