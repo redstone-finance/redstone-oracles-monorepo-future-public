@@ -5508,9 +5508,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mysten/sui@npm:^1.19.0":
-  version: 1.19.0
-  resolution: "@mysten/sui@npm:1.19.0"
+"@mysten/sui@npm:^1.20.0":
+  version: 1.20.0
+  resolution: "@mysten/sui@npm:1.20.0"
   dependencies:
     "@graphql-typed-document-node/core": "npm:^3.2.0"
     "@mysten/bcs": "npm:1.2.1"
@@ -5526,7 +5526,7 @@ __metadata:
     jose: "npm:^5.6.3"
     poseidon-lite: "npm:^0.2.0"
     valibot: "npm:^0.36.0"
-  checksum: 10c0/5b4068b9f1c101a240cf904e886a4479a92b02de0ced4f8d728acdeebc76449fd336b2da6cd90b2034b2b31888fa6885f2c15d761ee942c9a7451323a7e6b57f
+  checksum: 10c0/a2240513610fb2b10cf3a3701ab121ca31bb9f29a27cdb44cd1b6d49d0cbe0c7b40ad993441fdd957a79ec2cff0dd0e18e77e8f88be1889c91bd45eb2e6a38db
   languageName: node
   linkType: hard
 
@@ -8725,7 +8725,7 @@ __metadata:
     "@ledgerhq/hw-transport-node-hid": "npm:6.29.5"
     "@mysten/bcs": "npm:^1.2.1"
     "@mysten/ledgerjs-hw-app-sui": "npm:^0.4.2"
-    "@mysten/sui": "npm:^1.19.0"
+    "@mysten/sui": "npm:^1.20.0"
     "@redstone-finance/oracles-smartweave-contracts": "npm:0.7.3"
     "@redstone-finance/sdk": "npm:0.7.3"
     "@redstone-finance/utils": "npm:0.7.3"

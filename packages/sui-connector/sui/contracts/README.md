@@ -33,7 +33,7 @@ We also would like to be able to change write logic in the future. For example, 
 or would like to change the protocol. Given that restriction, our approach to this problem is
 to keep both `PriceAdapter` object and `price_adapter` package versioned.
 Then we need to ensure:
-* reading object `PriceAdapter` always work on every package version
+* reading `PriceData` object from `PriceAdapter` always work on every package version
 * writes work only on the latest version.
   How?
 * In the code there are already asserts for all writes that the `PriceAdapter` object version matches the latest one.
@@ -42,10 +42,9 @@ Then we need to ensure:
 Manual steps to take:
 * Before upgrading the package, bump version constant in the code by 1.
   * located in file `sui/contracts/price_adapter/sources/price_adapter.move`, const named `VERSION`.
-* Add function `migrate_to_version_n(_: &AdminCap, price_adapter: &mut PriceAdapter, ...: OtherFields)` to file `sources/migrations.move`
+* Add function `migrate_to_version_n(admin_cap: &AdminCap, price_adapter: &mut PriceAdapter, ...: OtherFields)` to file `sources/price_adapter.move`
   * where `n` in the function name is equal to new version `VERSION`
   * `OtherFields` are additional external information the migration process may need.
-  * during first upgrade we will need to create `sources/migrations.move` file of course.
   * In the function set the version of the `price_adapter` to the `VERSION`.
   * IMPORTANT: remember this function we will be able to call later on. Add guards so we can only call it once and from the version `VERSION - 1`.
 * After the upgrade, call the newly created function with the `PriceAdapter` object.
@@ -55,7 +54,7 @@ Example of migrate function:
 
 ```rust
 /// Migrates to `price_adapter` object version 10
-public(package) fun migrate_to_version_10(admin_cap: &AdminCap, price_adapter: &mut PriceAdapter) {
+public fun migrate_to_version_10(admin_cap: &AdminCap, price_adapter: &mut PriceAdapter) {
   // check if we should bump the `price_adapter` version.
   assert!(price_adapter.version == 9, E_CANT_BUMP_VERSION);
 
@@ -63,6 +62,6 @@ public(package) fun migrate_to_version_10(admin_cap: &AdminCap, price_adapter: &
   assert!(VERSION == 10, E_VERSION_CONSTANT_INCORRECT);
 
   // set version to 10
-  admin_cap.set_version(price_adapter, VERSION);
+  price_adapter.set_version(admin_cap, VERSION);
 }
 ```
