@@ -13,5 +13,8 @@
   },
   "dependencies": {
     "@aptos-labs/ts-sdk": "^1.33.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
