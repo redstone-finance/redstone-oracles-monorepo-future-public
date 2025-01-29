@@ -1,0 +1,17 @@
+{
+  "name": "movement",
+  "packageManager": "yarn@4.5.0",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "yarn global:tsc --build tsconfig.build.json",
+    "build-dev": "yarn global:tsc --build tsconfig.json",
+    "preversion": "yarn build",
+    "pack-package": "yarn build && npm pack",
+    "lint": "yarn global:eslint .",
+    "lint:fix": "yarn global:eslint --fix .",
+    "price-adapter-address": "ts-node ./movement/scripts/object-address.ts"
+  },
+  "dependencies": {
+    "@aptos-labs/ts-sdk": "^1.33.2"
+  }
+}
