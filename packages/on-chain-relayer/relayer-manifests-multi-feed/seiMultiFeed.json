@@ -28,6 +28,9 @@
     },
     "ssETH_FUNDAMENTAL": {
       "priceFeedAddress": "0xFB1267A29C0aa19daae4a483ea895862A69e4AA5"
+    },
+    "wstETH/stETH": {
+      "priceFeedAddress": "0x2D4f3199a80b848F3d094745F3Bbd4224892654e"
     }
   }
 }
