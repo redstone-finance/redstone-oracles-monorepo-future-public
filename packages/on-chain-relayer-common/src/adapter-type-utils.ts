@@ -36,3 +36,14 @@ export function isNonEvmConfig(config: {
 export function getNonEvmNetworkName(adapterType: NonEvmAdapterType) {
   return adapterType.replace(`-${MULTI_FEED}`, "");
 }
+
+export function getRpcUrlsPathComponent(
+  chainId: number,
+  adapterType?: AdapterType
+) {
+  let pathComponent = `${chainId}`;
+  if (adapterType && isNonEvmAdapterType(adapterType)) {
+    pathComponent = `${getNonEvmNetworkName(adapterType)}/${pathComponent}`;
+  }
+  return pathComponent;
+}

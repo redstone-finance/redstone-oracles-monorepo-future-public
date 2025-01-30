@@ -15,18 +15,15 @@
     "deploy": "yarn global:ts-node scripts/deploy-price-adapter.ts",
     "sample-run": "yarn global:ts-node scripts/sample-run.ts",
     "ledger-utils": "yarn global:ts-node scripts/ledger/ledger-utils.ts",
-    "get-multi-sig-address": "yarn global:ts-node scripts/ledger/get-multi-sig-address.ts",
+    "multi-sig": "yarn global:ts-node scripts/ledger/get-multi-sig-address.ts",
     "combine-signatures": "yarn global:ts-node scripts/ledger/combine-signatures.ts",
     "update-config": "yarn global:ts-node scripts/ledger/update-config.ts",
     "convert-public-keys": "yarn global:ts-node scripts/convert-public-keys.ts",
-    "convert-evm-private-key": "yarn global:ts-node scripts/convert-evm-private-key.ts",
-    "send-tx": "yarn global:ts-node scripts/send-tx.ts",
-    "upgrade-package": "yarn global:ts-node scripts/ledger/upgrade-package.ts",
-    "migrate-object-version": "yarn global:ts-node scripts/ledger/migrate-object-version.ts"
+    "convert-evm-private-key": "yarn global:ts-node scripts/convert-evm-private-key.ts"
   },
   "dependencies": {
     "@mysten/bcs": "^1.2.1",
-    "@mysten/sui": "^1.20.0",
+    "@mysten/sui": "^1.21.0",
     "@redstone-finance/sdk": "0.7.3",
     "@redstone-finance/utils": "0.7.3",
     "dotenv": "^16.0.3",
