@@ -213,10 +213,8 @@
         "balancer-ethereum-aave",
         "balancer-ethereum-weth",
         "balancer-ethereum-weth-2",
-        "balancer-ethereum-weth-3",
         "camelot-v3-arbitrumone-weth",
         "curve-ethereum-wbtc",
-        "pancake-swap-ethereum-weth-100",
         "uniswap-v3-arbitrumone-weth-100",
         "uniswap-v3-ethereum-weth-100",
         "uniswap-v3-optimism-weth-100",
@@ -285,7 +283,6 @@
         "balancer-arbitrumone-usdt",
         "balancer-ethereum-usdc",
         "balancer-ethereum-usdt",
-        "balancer-ethereum-wsteth",
         "coingecko",
         "coinmarketcap",
         "curve-ethereum-crvusd",
@@ -491,8 +488,7 @@
       "source": [
         "balancer-arbitrumone-weth",
         "balancer-ethereum-weth",
-        "curve-ethereum-reth",
-        "uniswap-v3-ethereum-usdc-500"
+        "curve-ethereum-reth"
       ],
       "denomination": "USD",
       "rateFeed": false
@@ -1309,8 +1305,7 @@
         "curve-ethereum-weth",
         "curve-ethereum-wsteth",
         "curve-ethereum-wsteth-2",
-        "uniswap-v3-ethereum-weth-3000",
-        "uniswap-v3-ethereum-weth-500"
+        "uniswap-v3-ethereum-weth-3000"
       ],
       "denomination": "USD",
       "rateFeed": false
