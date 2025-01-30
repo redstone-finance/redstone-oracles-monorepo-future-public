@@ -112,6 +112,9 @@ public fun test_config(): Config {
         vector[
             x"1ea62d73edF8ac05dfcea1a34b9796e937a29eFF",
             x"109b4a318a4f5ddcbca6349b45f881b4137deafb",
+            x"83cba8c619fb629b81a65c2e67fe15cf3e3c9747",
+            x"2c59617248994d12816ee1fa77ce0a64eeb456bf",
+            x"12470f7aba85c8b81d63137dd5925d6ee114952b",
         ],
         15 * 60 * 1000,
         3 * 60 * 1000,

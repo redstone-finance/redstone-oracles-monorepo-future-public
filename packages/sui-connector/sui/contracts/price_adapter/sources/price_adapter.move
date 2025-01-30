@@ -14,7 +14,7 @@ use sui::table::{Self, Table};
 // === Errors ===
 
 const E_INVALID_VERSION: u64 = 0;
-const E_TIMESTAMP_STALE: u64 = 1;
+const E_TIMESTAMP_TOO_OLD: u64 = 1;
 const E_INVALID_FEED_ID: u64 = 2;
 
 // === Constants ===
@@ -219,7 +219,7 @@ fun overwrite_price(
 ) {
     let price_data = get_or_create_default(assert_version, price_adapter, feed_id);
 
-    assert!(timestamp > price_data.timestamp(), E_TIMESTAMP_STALE);
+    assert!(timestamp > price_data.timestamp(), E_TIMESTAMP_TOO_OLD);
     price_data.update(feed_id, aggregated_value, timestamp, write_timestamp);
 
     event::emit(PriceWrite {
