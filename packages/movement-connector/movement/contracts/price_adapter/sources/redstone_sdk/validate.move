@@ -23,6 +23,7 @@ module redstone_price_adapter::redstone_sdk_validate {
     const E_INSUFFICIENT_SIGNER_COUNT: u64 = 3;
     const E_TIMESTAMP_MISMATCH: u64 = 4;
     const E_EMPTY_DATA_PACKAGES: u64 = 5;
+    const E_SIGNER_UNKNOWN_OR_DUPLICATED: u64 = 6;
 
     // === Constants ===
 
@@ -32,9 +33,7 @@ module redstone_price_adapter::redstone_sdk_validate {
     // === Public Functions ===
 
     public fun verify_data_packages(
-        data_packages: &vector<DataPackage>,
-        config: &Config,
-        current_timestamp: u64
+        data_packages: &vector<DataPackage>, config: &Config, current_timestamp: u64
     ) {
         verify_timestamps_are_the_same(data_packages);
 
@@ -58,8 +57,10 @@ module redstone_price_adapter::redstone_sdk_validate {
 
         for (i in 0..REDSTONE_MARKER_LEN) {
             assert!(
-                vector::pop_back(bytes) == *vector::borrow(&REDSTONE_MARKER, REDSTONE_MARKER_LEN - 1 - i),
-                E_INVALID_REDSTONE_MARKER);
+                vector::pop_back(bytes)
+                    == *vector::borrow(&REDSTONE_MARKER, REDSTONE_MARKER_LEN - 1 - i),
+                E_INVALID_REDSTONE_MARKER
+            );
         };
     }
 
@@ -93,9 +94,7 @@ module redstone_price_adapter::redstone_sdk_validate {
     }
 
     fun verify_signer_count(
-        data_packages: &vector<DataPackage>,
-        threshold: u8,
-        signers: &vector<vector<u8>>
+        data_packages: &vector<DataPackage>, threshold: u8, signers: &vector<vector<u8>>
     ) {
         let count = 0;
         let signers_len = vector::length(signers);
@@ -110,17 +109,17 @@ module redstone_price_adapter::redstone_sdk_validate {
             let address = signer_address(package);
 
             let (found, idx) = vector::index_of(&signers_cp, address);
-            
-            if (found) {
-                count = count + 1;
-                let signers_temp = vector::empty();
-                for (j in 0..(vector::length(&signers_cp) as u64)) {
-                      if (j != idx) { vector::push_back(&mut signers_temp, *vector::borrow(&signers_cp, j)) };  
-                };
-                signers_cp = signers_temp;
-            };
 
-            if (count >= threshold) { return };
+            assert!(found, E_SIGNER_UNKNOWN_OR_DUPLICATED);
+
+            count = count + 1;
+            let signers_temp = vector::empty();
+            for (j in 0..(vector::length(&signers_cp) as u64)) {
+                if (j != idx) {
+                    vector::push_back(&mut signers_temp, *vector::borrow(&signers_cp, j))
+                };
+            };
+            signers_cp = signers_temp;
         };
 
         assert!(count >= threshold, E_INSUFFICIENT_SIGNER_COUNT);
@@ -223,9 +222,9 @@ module redstone_price_adapter::redstone_sdk_validate {
             new_data_package(x"04", 10, vector[])
         ];
 
-        let signers = vector[x"00", x"01", x"02", x"03"];
+        let signers = vector[x"00", x"01", x"02", x"03", x"04"];
 
-        for (i in 0..5) {
+        for (i in 0..6) {
             verify_signer_count(&data_packages, (i as u8), &signers);
         };
     }
@@ -234,10 +233,7 @@ module redstone_price_adapter::redstone_sdk_validate {
     fun test_verify_signer_count_success() {
         let data_packages = vector[
             new_data_package(x"00", 10, vector[]),
-            new_data_package(x"01", 10, vector[]),
-            new_data_package(x"02", 10, vector[]),
-            new_data_package(x"03", 10, vector[]),
-            new_data_package(x"04", 10, vector[])
+            new_data_package(x"01", 10, vector[])
         ];
 
         let signers = vector[x"00", x"01"];
@@ -257,14 +253,14 @@ module redstone_price_adapter::redstone_sdk_validate {
             new_data_package(x"04", 10, vector[])
         ];
 
-        let signers = vector[x"00", x"01", x"02", x"03"];
+        let signers = vector[x"00", x"01", x"02", x"03", x"04", x"05"];
 
-        verify_signer_count(&data_packages, 5, &signers)
+        verify_signer_count(&data_packages, 6, &signers)
     }
 
     #[test]
-    #[expected_failure(abort_code = E_INSUFFICIENT_SIGNER_COUNT)]
-    fun test_verify_signer_count_unknow_signers() {
+    #[expected_failure(abort_code = E_SIGNER_UNKNOWN_OR_DUPLICATED)]
+    fun test_verify_signer_count_unknown_signers() {
         let data_packages = vector[
             new_data_package(x"00", 10, vector[]),
             new_data_package(x"01", 10, vector[]),
@@ -307,7 +303,8 @@ module redstone_price_adapter::redstone_sdk_validate {
     }
 
     #[test]
-    fun test_verify_data_packages() {
+    #[expected_failure(abort_code = E_SIGNER_UNKNOWN_OR_DUPLICATED)]
+    fun test_verify_data_packages_fail_on_duplicated_packages() {
         let config = test_config();
         let timestamp = 1000;
 
@@ -324,6 +321,54 @@ module redstone_price_adapter::redstone_sdk_validate {
             ),
             new_data_package(
                 *vector::borrow(&signers(&config), 1),
+                timestamp,
+                vector[]
+            ),
+            new_data_package(
+                *vector::borrow(&signers(&config), 1),
+                timestamp,
+                vector[]
+            ),
+            new_data_package(
+                *vector::borrow(&signers(&config), 1),
+                timestamp,
+                vector[]
+            )
+        ];
+
+        verify_data_packages(&data_packages, &config, 1000)
+    }
+
+    #[test]
+    fun test_verify_data_packages() {
+        let config = test_config();
+        let timestamp = 1000;
+
+        let data_packages = vector[
+            new_data_package(
+                *vector::borrow(&signers(&config), 0),
+                timestamp,
+                vector[]
+            ),
+            new_data_package(
+                *vector::borrow(&signers(&config), 1),
+                timestamp,
+                vector[]
+            )
+        ];
+
+        verify_data_packages(&data_packages, &config, 1000)
+    }
+
+    #[test]
+    #[expected_failure(abort_code = E_SIGNER_UNKNOWN_OR_DUPLICATED)]
+    fun test_verify_data_packages_fail_on_duplicated_packages_after_threshold_met() {
+        let config = test_config();
+        let timestamp = 1000;
+
+        let data_packages = vector[
+            new_data_package(
+                *vector::borrow(&signers(&config), 0),
                 timestamp,
                 vector[]
             ),

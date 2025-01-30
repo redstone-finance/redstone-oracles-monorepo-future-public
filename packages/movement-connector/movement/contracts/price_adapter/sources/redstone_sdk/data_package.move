@@ -16,9 +16,7 @@ module redstone_price_adapter::redstone_sdk_data_package {
     // === Public Functions ===
 
     public fun new_data_package(
-        signer_address: vector<u8>,
-        timestamp: u64,
-        data_points: vector<DataPoint>
+        signer_address: vector<u8>, timestamp: u64, data_points: vector<DataPoint>
     ): DataPackage {
         DataPackage { signer_address, timestamp, data_points }
     }

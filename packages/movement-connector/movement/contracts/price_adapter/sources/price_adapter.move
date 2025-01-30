@@ -30,7 +30,7 @@ module redstone_price_adapter::price_adapter {
     const TRUSTED_UPDATERS: vector<address> = vector[];
     const SIGNER_COUNT_THRESHOLD: u8 = 1;
     const ALLOWED_SIGNERS: vector<vector<u8>> = vector[
-         x"8BB8F32Df04c8b654987DAaeD53D6B6091e3B774",
+        x"8BB8F32Df04c8b654987DAaeD53D6B6091e3B774",
         x"dEB22f54738d54976C4c0fe5ce6d408E40d88499",
         x"51Ce04Be4b3E32572C4Ec9135221d0691Ba7d202",
         x"DD682daEC5A90dD295d14DA4b0bec9281017b5bE",
@@ -45,7 +45,7 @@ module redstone_price_adapter::price_adapter {
     // === Errors ===
 
     const E_INVALID_VERSION: u64 = 0;
-    const E_TIMESTAMP_STALE: u64 = 1;
+    const E_TIMESTAMP_TOO_OLD: u64 = 1;
     const E_INVALID_FEED_ID: u64 = 2;
     const E_CALLER_NOT_A_PACKAGE_OWNER: u64 = 3;
 
@@ -67,17 +67,13 @@ module redstone_price_adapter::price_adapter {
     // === Public-Mutative Functions ===
 
     public entry fun write_price(
-        price_adapter_address: address,
-        feed_id: vector<u8>,
-        payload: vector<u8>
+        price_adapter_address: address, feed_id: vector<u8>, payload: vector<u8>
     ) acquires PriceAdapter {
         write_new_price(price_adapter_address, feed_id, payload);
     }
 
     public fun write_new_price(
-        price_adapter_address: address,
-        feed_id: vector<u8>,
-        payload: vector<u8>,
+        price_adapter_address: address, feed_id: vector<u8>, payload: vector<u8>
     ): u256 acquires PriceAdapter {
         let price_adapter = borrow_global_mut<PriceAdapter>(price_adapter_address);
         let timestamp_now_ms = timestamp::now_microseconds() / 1000;
@@ -222,7 +218,7 @@ module redstone_price_adapter::price_adapter {
     ) {
         let price_data = get_or_create_default(price_adapter, feed_id);
 
-        assert!(timestamp > price_data_timestamp(price_data), E_TIMESTAMP_STALE);
+        assert!(timestamp > price_data_timestamp(price_data), E_TIMESTAMP_TOO_OLD);
         update(
             price_data,
             feed_id,
