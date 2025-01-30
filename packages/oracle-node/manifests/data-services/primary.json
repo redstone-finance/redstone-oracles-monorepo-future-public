@@ -1608,9 +1608,7 @@
         "dragonswap-sei-wsei",
         "dragonswap-v2-sei-wsei-3000",
         "dragonswap-v2-sei-wsei-500",
-        "jellyverse-sei-wsei",
-        "xei-sei-wsei-100",
-        "xei-sei-wsei-500"
+        "jellyverse-sei-wsei"
       ],
       "denomination": "USD",
       "rateFeed": false
