@@ -1,6 +1,6 @@
 {
   "name": "movement",
-  "packageManager": "yarn@4.5.0",
+  "private": true,
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn global:tsc --build tsconfig.build.json",
@@ -13,8 +13,5 @@
   },
   "dependencies": {
     "@aptos-labs/ts-sdk": "^1.33.2"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }
