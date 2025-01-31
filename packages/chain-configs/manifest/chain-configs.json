@@ -901,6 +901,20 @@
       "isAuctionModel": false,
       "twoDimensionalFees": false,
       "isMainnet": false
+    },
+    "monadTestnet": {
+      "name": "Monad Testnet",
+      "chainId": 10143,
+      "currencySymbol": "MON",
+      "publicRpcUrls": ["https://monad-testnet.drpc.org"],
+      "avgBlockTimeMs": 1000,
+      "multicall3": {
+        "address": "0xcA11bde05977b3631167028862bE2a173976CA11",
+        "type": "Multicall3"
+      },
+      "isAuctionModel": true,
+      "twoDimensionalFees": false,
+      "isMainnet": false
     }
   },
   "temporaryConfigUpdates": {
