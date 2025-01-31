@@ -48,11 +48,11 @@ pub fn write_price(ctx: Context<WritePrice>, feed_id: FeedIdBs, payload: Vec<u8>
             price_account.write_timestamp.map(Into::into),
             SOLANA_CONFIG.min_interval_between_updates_ms.into(),
             price_account.timestamp.into(),
-            processed_payload.min_timestamp.into(),
+            processed_payload.timestamp.into(),
         )?;
 
     price_account.value = price.0;
-    price_account.timestamp = processed_payload.min_timestamp.as_millis();
+    price_account.timestamp = processed_payload.timestamp.as_millis();
     price_account.feed_id = feed_id.into();
     price_account.write_timestamp = Some(block_timestamp.as_millis());
 

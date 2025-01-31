@@ -1349,7 +1349,7 @@ dependencies = [
 [[package]]
 name = "redstone"
 version = "2.0.0-pre"
-source = "git+https://github.com/redstone-finance/rust-sdk?branch=main#92c78403f17f12bd46b2c4736d5f9f655a3b0e1d"
+source = "git+https://github.com/redstone-finance/rust-sdk?tag=2.0.0#35a303985376b82523f86dcfa31fc1c6df64f3d8"
 dependencies = [
  "anchor-lang",
  "derive-getters",
