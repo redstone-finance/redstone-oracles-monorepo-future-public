@@ -1,0 +1,88 @@
+{
+  "chain": {
+    "name": "berachain",
+    "id": 80094
+  },
+  "adapterContract": "0x24c8964338Deb5204B096039147B8e8C3AEa42Cc",
+  "adapterContractType": "multi-feed",
+  "dataServiceId": "redstone-primary-prod",
+  "updateTriggers": {
+    "deviationPercentage": 0.25,
+    "timeSinceLastUpdateInMilliseconds": 86400000
+  },
+  "priceFeeds": {
+    "BTC": {
+      "priceFeedAddress": "0xa8a94Da411425634e3Ed6C331a32ab4fd774aa43",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "ETH": {
+      "priceFeedAddress": "0x3587a73AA02519335A8a6053a97657BECe0bC2Cc",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "USDC": {
+      "priceFeedAddress": "0x4BAD96DD1C7D541270a0C92e1D4e5f12EEEA7a57",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.1,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "USDT": {
+      "priceFeedAddress": "0x3fd49f2146FE0e10c4AE7E3fE04b3d5126385Ac4",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.1,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "sUSDe_FUNDAMENTAL": {
+      "priceFeedAddress": "0x197225B3B017eb9b72Ac356D6B3c267d0c04c57c"
+    },
+    "USDe": {
+      "priceFeedAddress": "0xbbF121624c3b85C929Ac83872bf6c86b0976A55e"
+    },
+    "eBTC/WBTC": {
+      "priceFeedAddress": "0x09639692CE6ff12A06CA3AE9A24b3Aae4CD80DC8"
+    },
+    "pumpBTC/BTC": {
+      "priceFeedAddress": "0x83c6f7F61A55Fc7A1337AbD45733AD9c1c68076D"
+    },
+    "SolvBTC/BTC": {
+      "priceFeedAddress": "0x3401DAF2b1f150Ef0c709Cc0283b5F2e55c3DF29",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "STONE": {
+      "priceFeedAddress": "0x6A1c87d11dDe3D1d52c24f8EC59B91019f14170D",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "LBTC_FUNDAMENTAL": {
+      "priceFeedAddress": "0x84AD474c33c9cCefB1a2D8b77Bdd88bDc592f96b"
+    },
+    "rsETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0xe7f71d6a24EBc391f5ee57B867ED429EB7Bd74f4",
+      "updateTriggersOverrides": {
+        "deviationPercentage": 0.5,
+        "timeSinceLastUpdateInMilliseconds": 86400000
+      }
+    },
+    "weETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0x65eD6a4ac085620eE943c0B15525C4428D23e4Db"
+    },
+    "SolvBTC.BBN_FUNDAMENTAL": {
+      "priceFeedAddress": "0x24eDD61cdA334bFf871A80DEB135073a7d7a9187"
+    },
+    "rswETH_FUNDAMENTAL": {
+      "priceFeedAddress": "0xddE3b77040cee3387C0cA661d1b619C3acA203b0"
+    }
+  }
+}

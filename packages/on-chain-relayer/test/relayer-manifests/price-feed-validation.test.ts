@@ -15,6 +15,7 @@ import {
 const INTEGRATIONS_NOT_FOR_TESTING = [
   "hemiMultiFeed", // remove once we get a publicRpc
   "inkMultiFeed", // remove once we get a publicRpc
+  "berachainMultiFeed", // remove once we get a publicRpc
 ];
 
 const ABI = ["function getDataFeedId() public view returns (bytes32)"];
