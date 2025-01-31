@@ -1,6 +1,7 @@
 {
   "name": "movement",
   "private": true,
+  "version": "0.7.3",
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn global:tsc --build tsconfig.build.json",
