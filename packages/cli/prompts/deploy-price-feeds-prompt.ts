@@ -69,7 +69,9 @@ export const deployPriceFeedsPrompt = async () => {
 
   hardhatProcess.on("close", (code) => {
     if (code !== 0) {
-      console.error(`Deploying adapter contract failed with code ${code}.`);
+      console.error(
+        `Deploying price feeds contracts failed with code ${code}.`
+      );
     }
   });
 };

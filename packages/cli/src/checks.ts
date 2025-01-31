@@ -1,9 +1,14 @@
 import axios from "axios";
-import { version } from "../package.json";
+import { readFileSync } from "fs";
+import { resolve } from "path";
 
 const NPM_REGISTRY_URL = `https://registry.npmjs.org/@redstone-finance/cli/latest`;
 
 interface NpmRegistryResponse {
+  version: string;
+}
+
+interface PackageJson {
   version: string;
 }
 
@@ -20,9 +25,17 @@ const fetchLatestNpmPackageVersion = async () => {
   }
 };
 
+const getPackageJsonVersion = () => {
+  const packageJson = JSON.parse(
+    readFileSync(resolve(__dirname, "../", "package.json"), "utf-8")
+  ) as PackageJson;
+  return packageJson.version;
+};
+
 export const checkIfNewestVersionIsUsed = async () => {
   const latestVersion = await fetchLatestNpmPackageVersion();
-  if (version !== latestVersion) {
+  const versionFromPackageJson = getPackageJsonVersion();
+  if (versionFromPackageJson !== latestVersion) {
     console.error(
       "Obsolete npm package version used, please update RedStone CLI by running npm update @redstone-finance/cli --save or yarn up @redstone-finance/cli"
     );

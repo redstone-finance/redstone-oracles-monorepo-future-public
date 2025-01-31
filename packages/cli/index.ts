@@ -1,13 +1,12 @@
 import prompts, { PromptObject } from "prompts";
 import { init } from "./init";
-import { deployMultiFeedAdapterPrompt } from "./prompts/deploy-adapter-prompt";
-import { deployPriceFeedsPrompt } from "./prompts/deploy-price-feeds-prompt";
+import { deployAdapterAndFeedsPrompt } from "./prompts/deploy-adapter-and-feeds";
 import { runRelayerPrompt } from "./prompts/run-relayer-prompt";
 import { checkIfNewestVersionIsUsed } from "./src/checks";
 import { checkIfInit, displayRedStoneLogo, onCancel } from "./src/utils";
 
 interface PromptResponse {
-  whatToDo: "deploy-multi-feed-adapter" | "deploy-price-feeds" | "run-relayer";
+  whatToDo: "deploy-contracts" | "run-relayer";
 }
 
 void (async () => {
@@ -25,10 +24,9 @@ void (async () => {
       message: "What do you want to do?",
       choices: [
         {
-          title: "Deploy multi-feed adapter",
-          value: "deploy-multi-feed-adapter",
+          title: "Deploy contracts",
+          value: "deploy-contracts",
         },
-        { title: "Deploy price feeds", value: "deploy-price-feeds" },
         { title: "Run relayer", value: "run-relayer" },
       ],
     },
@@ -38,10 +36,8 @@ void (async () => {
     onCancel,
   })) as PromptResponse;
 
-  if (whatToDo === "deploy-multi-feed-adapter") {
-    await deployMultiFeedAdapterPrompt();
-  } else if (whatToDo === "deploy-price-feeds") {
-    await deployPriceFeedsPrompt();
+  if (whatToDo === "deploy-contracts") {
+    await deployAdapterAndFeedsPrompt();
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   } else if (whatToDo === "run-relayer") {
     await runRelayerPrompt();
